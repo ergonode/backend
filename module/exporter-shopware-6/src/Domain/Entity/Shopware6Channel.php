@@ -51,6 +51,13 @@ class Shopware6Channel extends AbstractChannel
     private Language $defaultLanguage;
 
     /**
+     * @var Language[]
+     *
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
+     */
+    private array $languages;
+
+    /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
@@ -120,6 +127,7 @@ class Shopware6Channel extends AbstractChannel
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
+     * @param Language[]          $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -137,6 +145,7 @@ class Shopware6Channel extends AbstractChannel
         string $clientId,
         string $clientKey,
         Language $defaultLanguage,
+        array $languages,
         AttributeId $productName,
         AttributeId $productActive,
         AttributeId $productStock,
@@ -153,6 +162,7 @@ class Shopware6Channel extends AbstractChannel
         $this->clientId = $clientId;
         $this->clientKey = $clientKey;
         $this->defaultLanguage = $defaultLanguage;
+        $this->languages = $languages;
         $this->productName = $productName;
         $this->productActive = $productActive;
         $this->productStock = $productStock;
@@ -202,6 +212,14 @@ class Shopware6Channel extends AbstractChannel
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
+    }
+
+    /**
+     * @return array|Language[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
     }
 
     /**
@@ -306,6 +324,14 @@ class Shopware6Channel extends AbstractChannel
     public function setDefaultLanguage(Language $defaultLanguage): void
     {
         $this->defaultLanguage = $defaultLanguage;
+    }
+
+    /**
+     * @param Language[] $languages
+     */
+    public function setLanguages(array $languages): void
+    {
+        $this->languages = $languages;
     }
 
     /**

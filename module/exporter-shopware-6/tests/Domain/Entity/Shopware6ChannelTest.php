@@ -50,6 +50,11 @@ class Shopware6ChannelTest extends TestCase
     private Language $defaultLanguage;
 
     /**
+     * @var array|MockObject
+     */
+    private array $languages;
+
+    /**
      * @var AttributeId|MockObject
      */
     private AttributeId $productName;
@@ -94,6 +99,7 @@ class Shopware6ChannelTest extends TestCase
         $this->clientId = 'Any Client ID';
         $this->clientKey = 'Any Client KEY';
         $this->defaultLanguage = $this->createMock(Language::class);
+        $this->languages = [$this->createMock(Language::class)];
         $this->productName = $this->createMock(AttributeId::class);
         $this->productActive = $this->createMock(AttributeId::class);
         $this->productStock = $this->createMock(AttributeId::class);
@@ -114,6 +120,7 @@ class Shopware6ChannelTest extends TestCase
             $this->clientId,
             $this->clientKey,
             $this->defaultLanguage,
+            $this->languages,
             $this->productName,
             $this->productActive,
             $this->productStock,
@@ -132,6 +139,7 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($this->clientId, $entity->getClientId());
         self::assertEquals($this->clientKey, $entity->getClientKey());
         self::assertEquals($this->defaultLanguage, $entity->getDefaultLanguage());
+        self::assertEquals($this->languages, $entity->getLanguages());
         self::assertEquals($this->productName, $entity->getProductName());
         self::assertEquals($this->productActive, $entity->getProductActive());
         self::assertEquals($this->productStock, $entity->getProductStock());
@@ -155,6 +163,7 @@ class Shopware6ChannelTest extends TestCase
             $this->clientId,
             $this->clientKey,
             $this->defaultLanguage,
+            $this->languages,
             $this->productName,
             $this->productActive,
             $this->productStock,
@@ -172,6 +181,7 @@ class Shopware6ChannelTest extends TestCase
         $clientId = 'New Client ID';
         $clientKey = 'New Client KEY';
         $defaultLanguage = $this->createMock(Language::class);
+        $languages = [$this->createMock(Language::class)];
         $productName = $this->createMock(AttributeId::class);
         $productActive = $this->createMock(AttributeId::class);
         $productStock = $this->createMock(AttributeId::class);
@@ -186,6 +196,7 @@ class Shopware6ChannelTest extends TestCase
         $entity->setClientId($clientId);
         $entity->setClientKey($clientKey);
         $entity->setDefaultLanguage($defaultLanguage);
+        $entity->setLanguages($languages);
         $entity->setProductName($productName);
         $entity->setProductActive($productActive);
         $entity->setProductStock($productStock);
@@ -203,6 +214,7 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($clientId, $entity->getClientId());
         self::assertEquals($clientKey, $entity->getClientKey());
         self::assertEquals($defaultLanguage, $entity->getDefaultLanguage());
+        self::assertEquals($languages, $entity->getLanguages());
         self::assertEquals($productName, $entity->getProductName());
         self::assertEquals($productActive, $entity->getProductActive());
         self::assertEquals($productStock, $entity->getProductStock());
