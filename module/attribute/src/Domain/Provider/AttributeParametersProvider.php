@@ -20,11 +20,9 @@ class AttributeParametersProvider
     /**
      * @var UnitRepositoryInterface
      */
-    private $unitRepository;
+    private UnitRepositoryInterface $unitRepository;
 
     /**
-     * AttributeParametersProvider constructor.
-     *
      * @param UnitRepositoryInterface $unitRepository
      */
     public function __construct(UnitRepositoryInterface $unitRepository)
