@@ -17,24 +17,25 @@ interface Shopware6LanguageRepositoryInterface
 {
     /**
      * @param ChannelId $channelId
-     * @param string    $name
+     * @param string    $shopwareId
      *
      * @return string|null
      */
-    public function load(ChannelId $channelId, string $name): ?string;
+    public function load(ChannelId $channelId, string $shopwareId): ?string;
 
     /**
      * @param ChannelId $channelId
-     * @param string    $name
      * @param string    $shopwareId
+     * @param string    $name
+     * @param string    $localeId
      */
-    public function save(ChannelId $channelId, string $name, string $shopwareId): void;
+    public function save(ChannelId $channelId, string $shopwareId, string $name, string $localeId): void;
 
     /**
      * @param ChannelId $channelId
-     * @param string    $name
+     * @param string    $shopwareId
      *
      * @return bool
      */
-    public function exists(ChannelId $channelId, string $name): bool;
+    public function exists(ChannelId $channelId, string $shopwareId): bool;
 }

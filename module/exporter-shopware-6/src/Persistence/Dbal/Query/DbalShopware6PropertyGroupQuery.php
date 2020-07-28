@@ -67,7 +67,7 @@ class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInte
      * @param ChannelId          $channelId
      * @param \DateTimeImmutable $dateTime
      */
-    public function clearBefore(ChannelId $channelId, \DateTimeImmutable $dateTime): void
+    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete(self::TABLE, 'cf')

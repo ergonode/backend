@@ -69,11 +69,13 @@ class LanguageSynchronizer implements SynchronizerInterface
         foreach ($shopwareLanguageList as $shopwareLanguage) {
             $this->languageShopwareRepository->save(
                 $channel->getId(),
+                $shopwareLanguage['id'],
                 $shopwareLanguage['name'],
-                $shopwareLanguage['id']
+                $shopwareLanguage['locale_id'],
+
             );
         }
-        $this->languageShopwareQuery->clearBefore($channel->getId(), $start);
+        $this->languageShopwareQuery->cleanData($channel->getId(), $start);
     }
 
     /**

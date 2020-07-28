@@ -140,6 +140,6 @@ class CustomFieldSynchronizer implements SynchronizerInterface
                 $this->customFieldRepository->save($channel->getId(), $attributeId, $customField->getId());
             }
         }
-        $this->customFieldQuery->clearBefore($channel->getId(), $start);
+        $this->customFieldQuery->cleanData($channel->getId(), $start);
     }
 }

@@ -27,5 +27,5 @@ interface Shopware6CategoryQueryInterface
      * @param ChannelId          $channel
      * @param \DateTimeImmutable $dateTime
      */
-    public function clearBefore(ChannelId $channel, \DateTimeImmutable $dateTime): void;
+    public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime): void;
 }

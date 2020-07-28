@@ -71,6 +71,7 @@ class GetLanguageList extends AbstractAction implements ActionInterface, HeaderP
             $result[$row['id']] = [
                 'id' => $row['id'],
                 'name' => $row['attributes']['name'],
+                'locale_id' => $row['attributes']['localeId'],
             ];
         }
 

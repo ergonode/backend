@@ -75,8 +75,9 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     channel_id uuid NOT null,
 	                name varchar(36) NOT null,
 	                shopware6_id varchar(36) NOT null,
+	                locale_id varchar(36) NOT null,
 	                update_at timestamp NOT null,
-	                PRIMARY KEY(channel_id, name)
+	                PRIMARY KEY(channel_id, shopware6_id)
 	            )'
         );
     }

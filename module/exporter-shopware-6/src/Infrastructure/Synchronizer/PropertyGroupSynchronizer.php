@@ -134,6 +134,6 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
                 $this->propertyGroupRepository->save($channel->getId(), $attributeId, $property->getId());
             }
         }
-        $this->propertyGroupQuery->clearBefore($channel->getId(), $start);
+        $this->propertyGroupQuery->cleanData($channel->getId(), $start);
     }
 }
