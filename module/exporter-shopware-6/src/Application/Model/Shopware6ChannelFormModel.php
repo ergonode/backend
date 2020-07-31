@@ -100,7 +100,14 @@ class Shopware6ChannelFormModel
      *
      * @Assert\NotNull()
      */
-    public ?AttributeId $attributeProductPrice = null;
+    public ?AttributeId $attributeProductPriceGross = null;
+
+    /**
+     * @var AttributeId|null
+     *
+     * @Assert\NotNull()
+     */
+    public ?AttributeId $attributeProductPriceNet = null;
 
     /**
      * @var AttributeId|null
@@ -148,7 +155,8 @@ class Shopware6ChannelFormModel
             $this->attributeProductName = $channel->getProductName();
             $this->attributeProductActive = $channel->getProductActive();
             $this->attributeProductStock = $channel->getProductStock();
-            $this->attributeProductPrice = $channel->getProductPrice();
+            $this->attributeProductPriceGross = $channel->getProductPriceGross();
+            $this->attributeProductPriceNet = $channel->getProductPriceNet();
             $this->attributeProductTax = $channel->getProductTax();
             $this->attributeProductDescription = $channel->getProductDescription();
             $this->categoryTree = $channel->getCategoryTree()->getValue();

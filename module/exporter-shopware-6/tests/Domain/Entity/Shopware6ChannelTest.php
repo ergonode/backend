@@ -72,7 +72,12 @@ class Shopware6ChannelTest extends TestCase
     /**
      * @var AttributeId|MockObject
      */
-    private AttributeId $productPrice;
+    private AttributeId $productPriceGross;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productPriceNet;
 
     /**
      * @var AttributeId|MockObject
@@ -103,7 +108,8 @@ class Shopware6ChannelTest extends TestCase
         $this->productName = $this->createMock(AttributeId::class);
         $this->productActive = $this->createMock(AttributeId::class);
         $this->productStock = $this->createMock(AttributeId::class);
-        $this->productPrice = $this->createMock(AttributeId::class);
+        $this->productPriceGross = $this->createMock(AttributeId::class);
+        $this->productPriceNet = $this->createMock(AttributeId::class);
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
@@ -124,7 +130,8 @@ class Shopware6ChannelTest extends TestCase
             $this->productName,
             $this->productActive,
             $this->productStock,
-            $this->productPrice,
+            $this->productPriceGross,
+            $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
             $this->categoryTreeId,
@@ -143,7 +150,8 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($this->productName, $entity->getProductName());
         self::assertEquals($this->productActive, $entity->getProductActive());
         self::assertEquals($this->productStock, $entity->getProductStock());
-        self::assertEquals($this->productPrice, $entity->getProductPrice());
+        self::assertEquals($this->productPriceGross, $entity->getProductPriceGross());
+        self::assertEquals($this->productPriceNet, $entity->getProductPriceNet());
         self::assertEquals($this->productTax, $entity->getProductTax());
         self::assertEquals($this->productDescription, $entity->getProductDescription());
         self::assertEquals($this->categoryTreeId, $entity->getCategoryTree());
@@ -167,7 +175,8 @@ class Shopware6ChannelTest extends TestCase
             $this->productName,
             $this->productActive,
             $this->productStock,
-            $this->productPrice,
+            $this->productPriceGross,
+            $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
             $this->categoryTreeId,
@@ -185,7 +194,8 @@ class Shopware6ChannelTest extends TestCase
         $productName = $this->createMock(AttributeId::class);
         $productActive = $this->createMock(AttributeId::class);
         $productStock = $this->createMock(AttributeId::class);
-        $productPrice = $this->createMock(AttributeId::class);
+        $productPriceGross = $this->createMock(AttributeId::class);
+        $productPriceNet = $this->createMock(AttributeId::class);
         $productTax = $this->createMock(AttributeId::class);
         $productDescription = $this->createMock(AttributeId::class);
         $categoryTreeId = $this->createMock(CategoryTreeId::class);
@@ -200,7 +210,8 @@ class Shopware6ChannelTest extends TestCase
         $entity->setProductName($productName);
         $entity->setProductActive($productActive);
         $entity->setProductStock($productStock);
-        $entity->setProductPrice($productPrice);
+        $entity->setProductPriceGross($productPriceGross);
+        $entity->setProductPriceNet($productPriceNet);
         $entity->setProductTax($productTax);
         $entity->setProductDescription($productDescription);
         $entity->setCategoryTree($categoryTreeId);
@@ -218,7 +229,8 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($productName, $entity->getProductName());
         self::assertEquals($productActive, $entity->getProductActive());
         self::assertEquals($productStock, $entity->getProductStock());
-        self::assertEquals($productPrice, $entity->getProductPrice());
+        self::assertEquals($productPriceGross, $entity->getProductPriceGross());
+        self::assertEquals($productPriceNet, $entity->getProductPriceNet());
         self::assertEquals($productTax, $entity->getProductTax());
         self::assertEquals($productDescription, $entity->getProductDescription());
         self::assertEquals($categoryTreeId, $entity->getCategoryTree());

@@ -83,7 +83,14 @@ class Shopware6Channel extends AbstractChannel
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productPrice;
+    private AttributeId $productPriceGross;
+
+    /**
+     * @var AttributeId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private AttributeId $productPriceNet;
 
     /**
      * @var AttributeId
@@ -131,7 +138,8 @@ class Shopware6Channel extends AbstractChannel
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
-     * @param AttributeId         $productPrice
+     * @param AttributeId         $productPriceGross
+     * @param AttributeId         $productPriceNet
      * @param AttributeId         $productTax
      * @param AttributeId|null    $productDescription
      * @param CategoryTreeId|null $categoryTree
@@ -149,7 +157,8 @@ class Shopware6Channel extends AbstractChannel
         AttributeId $productName,
         AttributeId $productActive,
         AttributeId $productStock,
-        AttributeId $productPrice,
+        AttributeId $productPriceGross,
+        AttributeId $productPriceNet,
         AttributeId $productTax,
         ?AttributeId $productDescription,
         ?CategoryTreeId $categoryTree,
@@ -166,7 +175,8 @@ class Shopware6Channel extends AbstractChannel
         $this->productName = $productName;
         $this->productActive = $productActive;
         $this->productStock = $productStock;
-        $this->productPrice = $productPrice;
+        $this->productPriceGross = $productPriceGross;
+        $this->productPriceNet = $productPriceNet;
         $this->productTax = $productTax;
         $this->productDescription = $productDescription;
         $this->categoryTree = $categoryTree;
@@ -249,9 +259,17 @@ class Shopware6Channel extends AbstractChannel
     /**
      * @return AttributeId
      */
-    public function getProductPrice(): AttributeId
+    public function getProductPriceGross(): AttributeId
     {
-        return $this->productPrice;
+        return $this->productPriceGross;
+    }
+
+    /**
+     * @return AttributeId
+     */
+    public function getProductPriceNet(): AttributeId
+    {
+        return $this->productPriceNet;
     }
 
     /**
@@ -359,11 +377,19 @@ class Shopware6Channel extends AbstractChannel
     }
 
     /**
-     * @param AttributeId $productPrice
+     * @param AttributeId $productPriceGross
      */
-    public function setProductPrice(AttributeId $productPrice): void
+    public function setProductPriceGross(AttributeId $productPriceGross): void
     {
-        $this->productPrice = $productPrice;
+        $this->productPriceGross = $productPriceGross;
+    }
+
+    /**
+     * @param AttributeId $productPriceNet
+     */
+    public function setProductPriceNet(AttributeId $productPriceNet): void
+    {
+        $this->productPriceNet = $productPriceNet;
     }
 
     /**
