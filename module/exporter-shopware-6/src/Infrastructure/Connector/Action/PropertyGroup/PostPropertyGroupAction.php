@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
  */
 class PostPropertyGroupAction extends AbstractAction implements ActionInterface, HeaderProviderInterface
 {
-    private const URI = '/api/v1/property-group';
+    private const URI = '/api/v1/property-group?%s';
 
     /**
      * @var Shopware6PropertyGroup
@@ -28,11 +28,18 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface,
     private Shopware6PropertyGroup $propertyGroup;
 
     /**
-     * @param Shopware6PropertyGroup $propertyGroup
+     * @var bool
      */
-    public function __construct(Shopware6PropertyGroup $propertyGroup)
+    private bool $response;
+
+    /**
+     * @param Shopware6PropertyGroup $propertyGroup
+     * @param bool                   $response
+     */
+    public function __construct(Shopware6PropertyGroup $propertyGroup, bool $response = false)
     {
         $this->propertyGroup = $propertyGroup;
+        $this->response = $response;
     }
 
     /**
@@ -55,7 +62,17 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface,
      */
     public function parseContent(?string $content)
     {
-        return null;
+        $result = [];
+        $data = json_decode($content, true);
+
+            $result = new Shopware6PropertyGroup(
+                $data['data']['id'],
+                $data['data']['attributes']['name'],
+                $data['data']['attributes']['displayType'],
+                $data['data']['attributes']['sortingType']
+            );
+
+        return $result;
     }
 
     /**
@@ -73,6 +90,11 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface,
      */
     private function getUri(): string
     {
-        return self::URI;
+        $query = [];
+        if ($this->response) {
+            $query['_response'] = 'true';
+        }
+
+        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
     }
 }
