@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Channel\Domain\Command\ExportChannelCommand as ExportChannelDomainCommand;
 
 /**
  */
@@ -71,7 +72,7 @@ class ExportChannelCommand extends Command
 
         $output->writeln(sprintf('Processing products witch channel <comment>%s</comment>', $channel->getName()));
 
-        $command = new \Ergonode\Channel\Domain\Command\ExportChannelCommand(ExportId::generate(), $channelId);
+        $command = new ExportChannelDomainCommand(ExportId::generate(), $channelId);
 
         $this->commandBus->dispatch($command);
     }
