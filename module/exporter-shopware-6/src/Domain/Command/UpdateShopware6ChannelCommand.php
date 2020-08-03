@@ -59,6 +59,14 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $defaultLanguage;
+
+    /**
+     * @var Language[]
+     *
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
+     */
+    private array $languages;
+
     /**
      * @var AttributeId
      *
@@ -85,7 +93,14 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productPrice;
+    private AttributeId $productPriceGross;
+
+    /**
+     * @var AttributeId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private AttributeId $productPriceNet;
 
     /**
      * @var AttributeId
@@ -129,10 +144,12 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
+     * @param Language[]          $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
-     * @param AttributeId         $productPrice
+     * @param AttributeId         $productPriceGross
+     * @param AttributeId         $productPriceNet
      * @param AttributeId         $productTax
      * @param AttributeId|null    $productDescription
      * @param CategoryTreeId|null $categoryTree
@@ -146,10 +163,12 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
         string $clientId,
         string $clientKey,
         Language $defaultLanguage,
+        array $languages,
         AttributeId $productName,
         AttributeId $productActive,
         AttributeId $productStock,
-        AttributeId $productPrice,
+        AttributeId $productPriceGross,
+        AttributeId $productPriceNet,
         AttributeId $productTax,
         ?AttributeId $productDescription,
         ?CategoryTreeId $categoryTree,
@@ -162,10 +181,12 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
         $this->clientId = $clientId;
         $this->clientKey = $clientKey;
         $this->defaultLanguage = $defaultLanguage;
+        $this->languages = $languages;
         $this->productName = $productName;
         $this->productActive = $productActive;
         $this->productStock = $productStock;
-        $this->productPrice = $productPrice;
+        $this->productPriceGross = $productPriceGross;
+        $this->productPriceNet = $productPriceNet;
         $this->productTax = $productTax;
         $this->productDescription = $productDescription;
         $this->categoryTree = $categoryTree;
@@ -222,6 +243,14 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
     }
 
     /**
+     * @return Language[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
+    }
+
+    /**
      * @return AttributeId
      */
     public function getProductName(): AttributeId
@@ -248,9 +277,17 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
     /**
      * @return AttributeId
      */
-    public function getProductPrice(): AttributeId
+    public function getProductPriceGross(): AttributeId
     {
-        return $this->productPrice;
+        return $this->productPriceGross;
+    }
+
+    /**
+     * @return AttributeId
+     */
+    public function getProductPriceNet(): AttributeId
+    {
+        return $this->productPriceNet;
     }
 
     /**

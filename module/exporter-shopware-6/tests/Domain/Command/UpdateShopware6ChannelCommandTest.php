@@ -50,6 +50,11 @@ class UpdateShopware6ChannelCommandTest extends TestCase
     private Language $defaultLanguage;
 
     /**
+     * @var array|MockObject
+     */
+    private array $languages;
+
+    /**
      * @var AttributeId|MockObject
      */
     private AttributeId $productName;
@@ -67,7 +72,12 @@ class UpdateShopware6ChannelCommandTest extends TestCase
     /**
      * @var AttributeId|MockObject
      */
-    private AttributeId $productPrice;
+    private AttributeId $productPriceGross;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productPriceNet;
 
     /**
      * @var AttributeId|MockObject
@@ -94,10 +104,12 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         $this->clientId = 'Any Client ID';
         $this->clientKey = 'Any Client KEY';
         $this->defaultLanguage = $this->createMock(Language::class);
+        $this->languages = [$this->createMock(Language::class)];
         $this->productName = $this->createMock(AttributeId::class);
         $this->productActive = $this->createMock(AttributeId::class);
         $this->productStock = $this->createMock(AttributeId::class);
-        $this->productPrice = $this->createMock(AttributeId::class);
+        $this->productPriceGross = $this->createMock(AttributeId::class);
+        $this->productPriceNet = $this->createMock(AttributeId::class);
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
@@ -114,10 +126,12 @@ class UpdateShopware6ChannelCommandTest extends TestCase
             $this->clientId,
             $this->clientKey,
             $this->defaultLanguage,
+            $this->languages,
             $this->productName,
             $this->productActive,
             $this->productStock,
-            $this->productPrice,
+            $this->productPriceGross,
+            $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
             $this->categoryTreeId,
@@ -131,10 +145,12 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->clientId, $command->getClientId());
         self::assertEquals($this->clientKey, $command->getClientKey());
         self::assertEquals($this->defaultLanguage, $command->getDefaultLanguage());
+        self::assertEquals($this->languages, $command->getLanguages());
         self::assertEquals($this->productName, $command->getProductName());
         self::assertEquals($this->productActive, $command->getProductActive());
         self::assertEquals($this->productStock, $command->getProductStock());
-        self::assertEquals($this->productPrice, $command->getProductPrice());
+        self::assertEquals($this->productPriceGross, $command->getProductPriceGross());
+        self::assertEquals($this->productPriceNet, $command->getProductPriceNet());
         self::assertEquals($this->productTax, $command->getProductTax());
         self::assertEquals($this->productDescription, $command->getProductDescription());
         self::assertEquals($this->categoryTreeId, $command->getCategoryTree());

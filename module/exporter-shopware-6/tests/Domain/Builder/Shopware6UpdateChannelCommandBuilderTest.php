@@ -41,12 +41,15 @@ class Shopware6UpdateChannelCommandBuilderTest extends TestCase
         $model->host = 'host';
         $model->clientId = 'client_id';
         $model->clientKey = 'client_key';
-        $model->defaultLanguage = $this->createMock(Language::class);
+        $model->defaultLanguage = 'en';
+        $model->languages = ['en'];
         $model->attributeProductName = $this->createMock(AttributeId::class);
         $model->attributeProductActive = $this->createMock(AttributeId::class);
         $model->attributeProductStock = $this->createMock(AttributeId::class);
-        $model->attributeProductPrice = $this->createMock(AttributeId::class);
+        $model->attributeProductPriceGross = $this->createMock(AttributeId::class);
+        $model->attributeProductPriceNet = $this->createMock(AttributeId::class);
         $model->attributeProductTax = $this->createMock(AttributeId::class);
+        $model->categoryTree = '0b0df351-dc46-4051-b0d2-166215e8283c';
 
 
         $form = $this->createMock(FormInterface::class);
@@ -62,10 +65,12 @@ class Shopware6UpdateChannelCommandBuilderTest extends TestCase
         self::assertEquals($model->clientId, $result->getClientId());
         self::assertEquals($model->clientKey, $result->getClientKey());
         self::assertEquals($model->defaultLanguage, $result->getDefaultLanguage());
+        self::assertEquals($model->languages, $result->getLanguages());
         self::assertEquals($model->attributeProductName, $result->getProductName());
         self::assertEquals($model->attributeProductActive, $result->getProductActive());
         self::assertEquals($model->attributeProductStock, $result->getProductStock());
-        self::assertEquals($model->attributeProductPrice, $result->getProductPrice());
+        self::assertEquals($model->attributeProductPriceGross, $result->getProductPriceGross());
+        self::assertEquals($model->attributeProductPriceNet, $result->getProductPriceNet());
         self::assertEquals($model->attributeProductTax, $result->getProductTax());
     }
 }

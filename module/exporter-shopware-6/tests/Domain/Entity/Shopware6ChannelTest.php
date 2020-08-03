@@ -50,6 +50,11 @@ class Shopware6ChannelTest extends TestCase
     private Language $defaultLanguage;
 
     /**
+     * @var array|MockObject
+     */
+    private array $languages;
+
+    /**
      * @var AttributeId|MockObject
      */
     private AttributeId $productName;
@@ -67,7 +72,12 @@ class Shopware6ChannelTest extends TestCase
     /**
      * @var AttributeId|MockObject
      */
-    private AttributeId $productPrice;
+    private AttributeId $productPriceGross;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productPriceNet;
 
     /**
      * @var AttributeId|MockObject
@@ -94,10 +104,12 @@ class Shopware6ChannelTest extends TestCase
         $this->clientId = 'Any Client ID';
         $this->clientKey = 'Any Client KEY';
         $this->defaultLanguage = $this->createMock(Language::class);
+        $this->languages = [$this->createMock(Language::class)];
         $this->productName = $this->createMock(AttributeId::class);
         $this->productActive = $this->createMock(AttributeId::class);
         $this->productStock = $this->createMock(AttributeId::class);
-        $this->productPrice = $this->createMock(AttributeId::class);
+        $this->productPriceGross = $this->createMock(AttributeId::class);
+        $this->productPriceNet = $this->createMock(AttributeId::class);
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
@@ -114,10 +126,12 @@ class Shopware6ChannelTest extends TestCase
             $this->clientId,
             $this->clientKey,
             $this->defaultLanguage,
+            $this->languages,
             $this->productName,
             $this->productActive,
             $this->productStock,
-            $this->productPrice,
+            $this->productPriceGross,
+            $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
             $this->categoryTreeId,
@@ -132,10 +146,12 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($this->clientId, $entity->getClientId());
         self::assertEquals($this->clientKey, $entity->getClientKey());
         self::assertEquals($this->defaultLanguage, $entity->getDefaultLanguage());
+        self::assertEquals($this->languages, $entity->getLanguages());
         self::assertEquals($this->productName, $entity->getProductName());
         self::assertEquals($this->productActive, $entity->getProductActive());
         self::assertEquals($this->productStock, $entity->getProductStock());
-        self::assertEquals($this->productPrice, $entity->getProductPrice());
+        self::assertEquals($this->productPriceGross, $entity->getProductPriceGross());
+        self::assertEquals($this->productPriceNet, $entity->getProductPriceNet());
         self::assertEquals($this->productTax, $entity->getProductTax());
         self::assertEquals($this->productDescription, $entity->getProductDescription());
         self::assertEquals($this->categoryTreeId, $entity->getCategoryTree());
@@ -155,10 +171,12 @@ class Shopware6ChannelTest extends TestCase
             $this->clientId,
             $this->clientKey,
             $this->defaultLanguage,
+            $this->languages,
             $this->productName,
             $this->productActive,
             $this->productStock,
-            $this->productPrice,
+            $this->productPriceGross,
+            $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
             $this->categoryTreeId,
@@ -172,10 +190,12 @@ class Shopware6ChannelTest extends TestCase
         $clientId = 'New Client ID';
         $clientKey = 'New Client KEY';
         $defaultLanguage = $this->createMock(Language::class);
+        $languages = [$this->createMock(Language::class)];
         $productName = $this->createMock(AttributeId::class);
         $productActive = $this->createMock(AttributeId::class);
         $productStock = $this->createMock(AttributeId::class);
-        $productPrice = $this->createMock(AttributeId::class);
+        $productPriceGross = $this->createMock(AttributeId::class);
+        $productPriceNet = $this->createMock(AttributeId::class);
         $productTax = $this->createMock(AttributeId::class);
         $productDescription = $this->createMock(AttributeId::class);
         $categoryTreeId = $this->createMock(CategoryTreeId::class);
@@ -186,10 +206,12 @@ class Shopware6ChannelTest extends TestCase
         $entity->setClientId($clientId);
         $entity->setClientKey($clientKey);
         $entity->setDefaultLanguage($defaultLanguage);
+        $entity->setLanguages($languages);
         $entity->setProductName($productName);
         $entity->setProductActive($productActive);
         $entity->setProductStock($productStock);
-        $entity->setProductPrice($productPrice);
+        $entity->setProductPriceGross($productPriceGross);
+        $entity->setProductPriceNet($productPriceNet);
         $entity->setProductTax($productTax);
         $entity->setProductDescription($productDescription);
         $entity->setCategoryTree($categoryTreeId);
@@ -203,10 +225,12 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($clientId, $entity->getClientId());
         self::assertEquals($clientKey, $entity->getClientKey());
         self::assertEquals($defaultLanguage, $entity->getDefaultLanguage());
+        self::assertEquals($languages, $entity->getLanguages());
         self::assertEquals($productName, $entity->getProductName());
         self::assertEquals($productActive, $entity->getProductActive());
         self::assertEquals($productStock, $entity->getProductStock());
-        self::assertEquals($productPrice, $entity->getProductPrice());
+        self::assertEquals($productPriceGross, $entity->getProductPriceGross());
+        self::assertEquals($productPriceNet, $entity->getProductPriceNet());
         self::assertEquals($productTax, $entity->getProductTax());
         self::assertEquals($productDescription, $entity->getProductDescription());
         self::assertEquals($categoryTreeId, $entity->getCategoryTree());

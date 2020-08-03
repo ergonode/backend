@@ -9,8 +9,9 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -42,7 +43,9 @@ class Shopware6ChannelForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $dictionary = $this->attributeQuery->getDictionary();
+        $attributeDictionary = $this->attributeQuery->getDictionary();
+        $priceAttributeDictionary = $this->attributeQuery->getDictionary([PriceAttribute::TYPE]);
+        $textAttributeDictionary = $this->attributeQuery->getDictionary([TextAttribute::TYPE]);
         $builder
             ->add(
                 'name',
@@ -74,9 +77,20 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'default_language',
-                LanguageType::class,
+                TextType::class,
                 [
                     'property_path' => 'defaultLanguage',
+                ]
+            )
+            ->add(
+                'languages',
+                CollectionType::class,
+                [
+                    'label' => 'List of languages',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
+                    'property_path' => 'languages',
                 ]
             )
             ->add(
@@ -84,7 +98,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Name',
-                    'choices' => array_flip($dictionary),
+                    'choices' => array_flip($textAttributeDictionary),
                     'property_path' => 'attributeProductName',
                 ]
             )
@@ -93,7 +107,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Active',
-                    'choices' => array_flip($dictionary),
+                    'choices' => array_flip($attributeDictionary),
                     'property_path' => 'attributeProductActive',
                 ]
             )
@@ -102,17 +116,26 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Stock',
-                    'choices' => array_flip($dictionary),
+                    'choices' => array_flip($attributeDictionary),
                     'property_path' => 'attributeProductStock',
                 ]
             )
             ->add(
-                'attribute_product_price',
+                'attribute_product_price_gross',
                 AttributeIdType::class,
                 [
-                    'label' => 'Attribute Product Price',
-                    'choices' => array_flip($dictionary),
-                    'property_path' => 'attributeProductPrice',
+                    'label' => 'Attribute Product Price Gross',
+                    'choices' => array_flip($priceAttributeDictionary),
+                    'property_path' => 'attributeProductPriceGross',
+                ]
+            )
+            ->add(
+                'attribute_product_price_net',
+                AttributeIdType::class,
+                [
+                    'label' => 'Attribute Product Price Net',
+                    'choices' => array_flip($priceAttributeDictionary),
+                    'property_path' => 'attributeProductPriceNet',
                 ]
             )
             ->add(
@@ -120,7 +143,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Tax',
-                    'choices' => array_flip($dictionary),
+                    'choices' => array_flip($attributeDictionary),
                     'property_path' => 'attributeProductTax',
                 ]
             )
@@ -129,7 +152,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Description',
-                    'choices' => array_flip($dictionary),
+                    'choices' => array_flip($attributeDictionary),
                     'property_path' => 'attributeProductDescription',
                 ]
             )
@@ -157,7 +180,13 @@ class Shopware6ChannelForm extends AbstractType
                     'required' => false,
                 ]
             )
-        ;
+            ->add(
+                'category_tree',
+                TextType::class,
+                [
+                    'property_path' => 'categoryTree',
+                ]
+            );
     }
 
     /**

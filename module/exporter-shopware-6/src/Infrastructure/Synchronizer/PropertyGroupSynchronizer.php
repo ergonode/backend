@@ -112,9 +112,8 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
             $name
         );
 
-        $this->client->insert($channel, $propertyGroup);
+        $new = $this->client->createPropertyGroupResource($channel, $propertyGroup);
 
-        $new = $this->client->findByName($channel, $name);
         $this->propertyGroupRepository->save($channel->getId(), $attributeId, $new->getId());
     }
 
@@ -134,6 +133,6 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
                 $this->propertyGroupRepository->save($channel->getId(), $attributeId, $property->getId());
             }
         }
-        $this->propertyGroupQuery->clearBefore($channel->getId(), $start);
+        $this->propertyGroupQuery->cleanData($channel->getId(), $start);
     }
 }
