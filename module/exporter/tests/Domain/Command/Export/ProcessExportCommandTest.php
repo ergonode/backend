@@ -22,10 +22,8 @@ class ProcessExportCommandTest extends TestCase
     public function testCommandCreation(): void
     {
         $exportId = $this->createMock(ExportId::class);
-        $productId = $this->createMock(ProductId::class);
 
-        $command = new ProcessExportCommand($exportId, $productId);
+        $command = new ProcessExportCommand($exportId);
         $this->assertSame($exportId, $command->getExportId());
-        $this->assertSame($productId, $command->getProductId());
     }
 }

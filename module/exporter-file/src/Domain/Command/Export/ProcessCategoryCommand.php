@@ -6,15 +6,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Command\Export;
+namespace Ergonode\ExporterFile\Domain\Command\Export;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
-class EndExportCommand implements DomainCommandInterface
+class ProcessCategoryCommand implements DomainCommandInterface
 {
     /**
      * @var ExportId
@@ -24,11 +25,20 @@ class EndExportCommand implements DomainCommandInterface
     private ExportId $exportId;
 
     /**
-     * @param ExportId $exportId
+     * @var CategoryId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    public function __construct(ExportId $exportId)
+    private CategoryId $categoryId;
+
+    /**
+     * @param ExportId   $exportId
+     * @param CategoryId $categoryId
+     */
+    public function __construct(ExportId $exportId, CategoryId $categoryId)
     {
         $this->exportId = $exportId;
+        $this->categoryId = $categoryId;
     }
 
     /**
@@ -37,5 +47,13 @@ class EndExportCommand implements DomainCommandInterface
     public function getExportId(): ExportId
     {
         return $this->exportId;
+    }
+
+    /**
+     * @return CategoryId
+     */
+    public function getCategoryId(): CategoryId
+    {
+        return $this->categoryId;
     }
 }

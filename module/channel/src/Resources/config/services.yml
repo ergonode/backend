@@ -24,7 +24,6 @@ services:
 
     Ergonode\Channel\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Specification}'
 
     Ergonode\Channel\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'

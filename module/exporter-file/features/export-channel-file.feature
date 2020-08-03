@@ -21,25 +21,22 @@ Feature: Export Profile module
       """
         {
           "type": "file",
-          "format": "xml",
-          "name": "File export"
+          "format": "csv",
+          "name": "File export",
+          "languages" : ["pl"]
         }
       """
     Then the response status code should be 201
     And store response param "id" as "channel_id"
 
-  Scenario: Get export profile
+  Scenario: Get channel
     When I send a GET request to "/api/v1/en/channels/@channel_id@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | name   | File export  |
-      | id     | @channel_id@ |
-      | format | xml          |
-
-  Scenario: Run export for xml
-    When I send a POST request to "/api/v1/en/channels/@channel_id@/exports"
-    Then the response status code should be 201
-    And store response param "id" as "export_1_id"
+      | name         | File export  |
+      | id           | @channel_id@ |
+      | format       | csv          |
+      | languages[0] | pl           |
 
   Scenario: Update File Channel
     When I send a PUT request to "/api/v1/en/channels/@channel_id@" with body:
@@ -47,7 +44,8 @@ Feature: Export Profile module
         {
           "type": "file",
           "format": "csv",
-          "name": "File export"
+          "name": "File export",
+          "languages" : ["pl"]
         }
       """
     Then the response status code should be 204
@@ -55,38 +53,28 @@ Feature: Export Profile module
   Scenario: Run export for csv
     When I send a POST request to "/api/v1/en/channels/@channel_id@/exports"
     Then the response status code should be 201
-    And store response param "id" as "export_2_id"
+    And store response param "id" as "export_id"
 
   Scenario: Get export grid for given channel
     When I send a GET request to "/api/v1/en/channels/@channel_id@/exports"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | collection[0].status | ENDED         |
-      | collection[0].id     | @export_1_id@ |
-      | collection[1].status | ENDED         |
-      | collection[1].id     | @export_2_id@ |
-      | info.count           | 2             |
+      | collection[0].status | ENDED       |
+      | collection[0].id     | @export_id@ |
+      | info.count           | 1           |
 
-  Scenario: Get first export information
-    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_1_id@"
-    Then the response status code should be 200
-    And the JSON nodes should contain:
-      | id         | @export_1_id@ |
-      | channel_id | @channel_id@  |
-      | status     | ENDED         |
+#  Scenario: Get export information
+#    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_id@"
+#    Then the response status code should be 200
+#    And the JSON nodes should contain:
+#      | id         | @export_id@  |
+#      | channel_id | @channel_id@ |
+#      | status     | ENDED        |
 
-  Scenario: Get first error export error list
-    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_1_id@/errors"
+  Scenario: Get error list for export
+    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_id@/errors"
     Then the response status code should be 200
 
-  Scenario: Get second export information
-    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_2_id@"
-    Then the response status code should be 200
-    And the JSON nodes should contain:
-      | id         | @export_2_id@ |
-      | channel_id | @channel_id@  |
-      | status     | ENDED         |
-
-  Scenario: Get second error export error list
-    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_2_id@/errors"
+  Scenario: Get download file for export
+    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_id@/download"
     Then the response status code should be 200

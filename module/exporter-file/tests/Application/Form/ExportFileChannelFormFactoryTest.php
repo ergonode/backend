@@ -13,22 +13,30 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Ergonode\ExporterFile\Application\Form\ExporterFileConfigurationForm;
 use Symfony\Component\Form\PreloadedExtension;
 use Ergonode\ExporterFile\Infrastructure\Dictionary\WriterTypeDictionary;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  */
 class ExportFileChannelFormFactoryTest extends TypeTestCase
 {
     /**
-     * @var WriterTypeDictionary
+     * @var WriterTypeDictionary|MockObject
      */
     private WriterTypeDictionary $dictionary;
 
+    /**
+     * @var LanguageQueryInterface|MockObject
+     */
+    private LanguageQueryInterface $query;
     /**
      */
     public function setUp(): void
     {
         $this->dictionary = $this->createMock(WriterTypeDictionary::class);
         $this->dictionary->method('dictionary')->willReturn(['Any format']);
+        $this->query = $this->createMock(LanguageQueryInterface::class);
+        $this->query->method('getDictionaryActive')->willReturn(['language']);
 
         parent::setUp();
     }
@@ -67,7 +75,7 @@ class ExportFileChannelFormFactoryTest extends TypeTestCase
      */
     protected function getExtensions(): array
     {
-        $types[] = new ExporterFileConfigurationForm($this->dictionary);
+        $types[] = new ExporterFileConfigurationForm($this->dictionary, $this->query);
 
         return [
             new PreloadedExtension($types, []),

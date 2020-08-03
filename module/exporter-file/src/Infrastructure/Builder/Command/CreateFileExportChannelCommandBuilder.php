@@ -15,6 +15,7 @@ use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
 use Ergonode\Channel\Application\Provider\CreateChannelCommandBuilderInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -45,10 +46,16 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
         $name = $data->name;
         $format = $data->format;
 
+        $languages = [];
+        foreach ($data->languages as $language) {
+            $languages[] = new Language($language);
+        }
+
         return new CreateFileExportChannelCommand(
             ChannelId::generate(),
             $name,
             $format,
+            $languages,
         );
     }
 }
