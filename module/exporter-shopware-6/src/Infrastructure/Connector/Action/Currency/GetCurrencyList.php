@@ -10,27 +10,24 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class GetCurrencyList extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class GetCurrencyList extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/currency?%s';
+    private const URI = '/api/v2/currency?%s';
+
+    private SwagQLBuilder $query;
 
     /**
-     * @var int
+     * @param SwagQLBuilder $query
      */
-    private int $limit;
-
-    /**
-     * @param int $limit
-     */
-    public function __construct(int $limit = 500)
+    public function __construct(SwagQLBuilder $query)
     {
-        $this->limit = $limit;
+        $this->query = $query;
     }
 
     /**
@@ -70,10 +67,6 @@ class GetCurrencyList extends AbstractAction implements ActionInterface, HeaderP
      */
     private function getUri(): string
     {
-        $query = [
-            'limit' => $this->limit,
-        ];
-
-        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
+        return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');
     }
 }

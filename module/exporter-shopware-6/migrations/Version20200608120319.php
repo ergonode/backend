@@ -33,7 +33,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
         $this->addSql(
             'CREATE TABLE exporter.shopware6_tax(
                     channel_id uuid NOT NULL,
-                    tax  DECIMAL (5, 2) NOT NULL,
+                    tax  DECIMAL (10, 2) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
                     PRIMARY KEY (channel_id, tax)
@@ -64,6 +64,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.shopware6_custom_field(
                     channel_id uuid NOT NULL,
                     attribute_id uuid NOT NULL,
+                    type varchar(36) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
                     PRIMARY KEY (channel_id, attribute_id)
@@ -71,13 +72,23 @@ final class Version20200608120319 extends AbstractErgonodeMigration
         );
 
         $this->addSql(
-            'CREATE TABLE exporter . shopware6_language(
+            'CREATE TABLE exporter.shopware6_language(
                     channel_id uuid NOT null,
 	                name varchar(36) NOT null,
 	                shopware6_id varchar(36) NOT null,
 	                locale_id varchar(36) NOT null,
-	                update_at timestamp NOT null,
+	                update_at timestamp without time zone NOT NULL,
 	                PRIMARY KEY(channel_id, shopware6_id)
+	            )'
+        );
+
+        $this->addSql(
+            'CREATE TABLE exporter.shopware6_multimedia(
+                    channel_id uuid NOT null,
+	                multimedia_id  uuid NOT null,
+	                shopware6_id varchar(36) NOT null,
+	                update_at timestamp without time zone NOT NULL,
+	                PRIMARY KEY(channel_id, multimedia_id)
 	            )'
         );
     }

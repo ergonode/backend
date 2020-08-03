@@ -24,6 +24,7 @@ class Shopware6PropertyGroupOptionClient
      * @var Shopware6Connector
      */
     private Shopware6Connector $connector;
+
     /**
      * @var Shopware6PropertyGroupRepositoryInterface
      */

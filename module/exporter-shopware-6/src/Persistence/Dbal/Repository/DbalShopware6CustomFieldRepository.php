@@ -67,15 +67,16 @@ class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldReposito
      * @param ChannelId   $channel
      * @param AttributeId $attributeId
      * @param string      $shopwareId
+     * @param string      $type
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function save(ChannelId $channel, AttributeId $attributeId, string $shopwareId): void
+    public function save(ChannelId $channel, AttributeId $attributeId, string $shopwareId, string $type): void
     {
         if ($this->exists($channel, $attributeId)) {
             $this->update($channel, $attributeId, $shopwareId);
         } else {
-            $this->insert($channel, $attributeId, $shopwareId);
+            $this->insert($channel, $attributeId, $shopwareId, $type);
         }
     }
 
@@ -130,16 +131,18 @@ class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldReposito
      * @param ChannelId   $channel
      * @param AttributeId $attributeId
      * @param string      $shopwareId
+     * @param string      $type
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function insert(ChannelId $channel, AttributeId $attributeId, string $shopwareId): void
+    private function insert(ChannelId $channel, AttributeId $attributeId, string $shopwareId, string $type): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
                 'attribute_id' => $attributeId->getValue(),
+                'type' => $type,
                 'channel_id' => $channel->getValue(),
                 'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]

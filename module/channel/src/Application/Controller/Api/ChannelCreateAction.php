@@ -71,9 +71,9 @@ class ChannelCreateAction
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Add attribute",
+     *     description="Add channel",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/attribute")
+     *     @SWG\Schema(ref="#/definitions/channel")
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -85,7 +85,7 @@ class ChannelCreateAction
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns attribute ID",
+     *     description="Returns channel ID",
      * )
      * @SWG\Response(
      *     response=400,

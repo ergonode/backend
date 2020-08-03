@@ -64,8 +64,6 @@ class Shopware6ChannelFormModel
     /**
      * @var array|null
      *
-     * @Assert\NotBlank(),
-
      * @Assert\All({
      *
      *     @CoreAssert\LanguageCodeExists(),

@@ -10,27 +10,26 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostProductAction extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PostProductAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/product';
+    private const URI = '/api/v2/product';
 
     /**
-     * @var CreateShopware6Product
+     * @var Shopware6Product
      */
-    private CreateShopware6Product $product;
+    private Shopware6Product $product;
 
     /**
-     * @param CreateShopware6Product $product
+     * @param Shopware6Product $product
      */
-    public function __construct(CreateShopware6Product $product)
+    public function __construct(Shopware6Product $product)
     {
         $this->product = $product;
     }

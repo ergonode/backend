@@ -26,6 +26,7 @@ interface Shopware6CustomFieldQueryInterface
     /**
      * @param ChannelId          $channel
      * @param \DateTimeImmutable $dateTime
+     * @param string             $type
      */
-    public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime): void;
+    public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime, string  $type): void;
 }

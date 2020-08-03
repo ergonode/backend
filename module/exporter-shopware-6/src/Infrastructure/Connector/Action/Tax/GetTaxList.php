@@ -11,27 +11,28 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class GetTaxList extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class GetTaxList extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/tax?%s';
+    private const URI = '/api/v2/tax?%s';
 
     /**
-     * @var int
+     * @var SwagQLBuilder
      */
-    private int $limit;
+    private SwagQLBuilder $query;
 
     /**
-     * @param int $limit
+     * @param SwagQLBuilder $query
      */
-    public function __construct(int $limit = 500)
+    public function __construct(SwagQLBuilder $query)
     {
-        $this->limit = $limit;
+        $this->query = $query;
     }
 
     /**
@@ -72,10 +73,6 @@ class GetTaxList extends AbstractAction implements ActionInterface, HeaderProvid
      */
     private function getUri(): string
     {
-        $query = [
-            'limit' => $this->limit,
-        ];
-
-        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
+        return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');
     }
 }

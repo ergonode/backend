@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Tax;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\GetTaxList;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +23,7 @@ class GetTaxListTest extends TestCase
      */
     public function testAction(): void
     {
-        $action = new GetTaxList();
+        $action = new GetTaxList(new SwagQLBuilder());
         $request = $action->getRequest();
 
         self::assertInstanceOf(Request::class, $request);

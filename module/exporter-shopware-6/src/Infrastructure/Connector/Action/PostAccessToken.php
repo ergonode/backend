@@ -50,13 +50,11 @@ class PostAccessToken extends AbstractAction implements ActionInterface, HeaderP
     /**
      * @param $content
      *
-     * @return string
+     * @return array
      */
-    public function parseContent($content): string
+    public function parseContent($content): array
     {
-        $data = json_decode($content, true);
-
-        return $data['access_token'];
+        return json_decode($content, true);
     }
 
     /**

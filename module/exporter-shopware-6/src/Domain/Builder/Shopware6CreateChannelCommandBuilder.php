@@ -90,7 +90,7 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $attributeProductPriceNet,
             $attributeProductTax,
             $attributeProductDescription,
-            new CategoryTreeId($categoryTree),
+            $categoryTree ? new CategoryTreeId($categoryTree) : null,
             $propertyGroup,
             $customField
         );

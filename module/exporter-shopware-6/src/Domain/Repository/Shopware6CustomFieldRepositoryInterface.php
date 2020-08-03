@@ -27,8 +27,9 @@ interface Shopware6CustomFieldRepositoryInterface
      * @param ChannelId   $channel
      * @param AttributeId $attributeId
      * @param string      $shopwareId
+     * @param string      $type
      */
-    public function save(ChannelId $channel, AttributeId $attributeId, string $shopwareId): void;
+    public function save(ChannelId $channel, AttributeId $attributeId, string $shopwareId, string $type): void;
 
     /**
      * @param ChannelId   $channel

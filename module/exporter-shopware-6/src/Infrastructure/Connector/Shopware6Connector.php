@@ -30,6 +30,11 @@ class Shopware6Connector
     private ?string $token;
 
     /**
+     * @var \DateTimeInterface
+     */
+    private $expiresAt;
+
+    /**
      * @param Configurator $configurator
      */
     public function __construct(Configurator $configurator)
@@ -37,6 +42,7 @@ class Shopware6Connector
         $this->configurator = $configurator;
 
         $this->token = null;
+        $this->expiresAt = new \DateTimeImmutable();
     }
 
     /**
@@ -49,7 +55,7 @@ class Shopware6Connector
      */
     public function execute(Shopware6Channel $channel, ActionInterface $action)
     {
-        if ($this->token === null) {
+        if ($this->token === null || $this->expiresAt <= (new \DateTime())) {
             $this->requestToken($channel);
         }
 
@@ -96,8 +102,21 @@ class Shopware6Connector
     private function requestToken(Shopware6Channel $channel): void
     {
         $post = new PostAccessToken($channel);
-        $token = $this->request($channel, $post);
-        $this->token = $token;
+        $data = $this->request($channel, $post);
+        $this->token = $data['access_token'];
+        $this->expiresAt = $this->calculateExpiryTime((int) $data['expires_in']);
+    }
+
+    /**
+     * @param int $expiresIn
+     *
+     * @return \DateTimeInterface
+     */
+    private function calculateExpiryTime(int $expiresIn): \DateTimeInterface
+    {
+        $expiryTimestamp = (new \DateTime())->getTimestamp() + $expiresIn;
+
+        return (new \DateTimeImmutable())->setTimestamp($expiryTimestamp);
     }
 
     /**
