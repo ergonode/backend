@@ -40,6 +40,6 @@ class ImportProcessorProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\' processor fot type "%s"', $type));
+        throw new \RuntimeException(sprintf('Can\'t find processor type "%s"', $type));
     }
 }

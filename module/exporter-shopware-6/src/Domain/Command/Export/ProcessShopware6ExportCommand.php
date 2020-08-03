@@ -6,16 +6,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Domain\Command;
+namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
-class StartChannelExportCommand implements DomainCommandInterface
+class ProcessShopware6ExportCommand implements DomainCommandInterface
 {
     /**
      * @var ExportId
@@ -25,20 +24,20 @@ class StartChannelExportCommand implements DomainCommandInterface
     private ExportId $exportId;
 
     /**
-     * @var ChannelId
+     * @var ProductId
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private ChannelId $channelId;
+    private ProductId $productId;
 
     /**
      * @param ExportId  $exportId
-     * @param ChannelId $channelId
+     * @param ProductId $productId
      */
-    public function __construct(ExportId $exportId, ChannelId $channelId)
+    public function __construct(ExportId $exportId, ProductId $productId)
     {
         $this->exportId = $exportId;
-        $this->channelId = $channelId;
+        $this->productId = $productId;
     }
 
     /**
@@ -50,10 +49,10 @@ class StartChannelExportCommand implements DomainCommandInterface
     }
 
     /**
-     * @return ChannelId
+     * @return ProductId
      */
-    public function getChannelId(): ChannelId
+    public function getProductId(): ProductId
     {
-        return $this->channelId;
+        return $this->productId;
     }
 }

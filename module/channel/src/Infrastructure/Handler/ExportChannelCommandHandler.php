@@ -8,26 +8,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Infrastructure\Handler;
 
-use Ergonode\Channel\Domain\Command\StartChannelExportCommand;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Command\Export\StartExportCommand;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Exporter\Domain\Command\Export\EndExportCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 
 /**
  */
-class StartExportChannelCommandHandler
+class ExportChannelCommandHandler
 {
     /**
      * @var ChannelRepositoryInterface
      */
-    private ChannelRepositoryInterface $chanelRepository;
+    private ChannelRepositoryInterface $channelRepository;
 
     /**
      * @var ExportRepositoryInterface
@@ -45,29 +42,29 @@ class StartExportChannelCommandHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ChannelRepositoryInterface $chanelRepository
+     * @param ChannelRepositoryInterface $channelRepository
      * @param ExportRepositoryInterface  $exportRepository
      * @param ProductQueryInterface      $productQuery
      * @param CommandBusInterface        $commandBus
      */
     public function __construct(
-        ChannelRepositoryInterface $chanelRepository,
+        ChannelRepositoryInterface $channelRepository,
         ExportRepositoryInterface $exportRepository,
         ProductQueryInterface $productQuery,
         CommandBusInterface $commandBus
     ) {
-        $this->chanelRepository = $chanelRepository;
+        $this->channelRepository = $channelRepository;
         $this->exportRepository = $exportRepository;
         $this->productQuery = $productQuery;
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @param StartChannelExportCommand $command
+     * @param ExportChannelCommand $command
      */
-    public function __invoke(StartChannelExportCommand $command)
+    public function __invoke(ExportChannelCommand $command)
     {
-        $channel = $this->chanelRepository->exists($command->getChannelId());
+        $channel = $this->channelRepository->exists($command->getChannelId());
         Assert::true($channel);
 
         $ids = $this->productQuery->getAllIds();
@@ -80,12 +77,6 @@ class StartExportChannelCommandHandler
 
         $this->exportRepository->save($export);
 
-        $this->commandBus->dispatch(new StartExportCommand($export->getId()));
-
-        foreach ($ids as $id) {
-            $this->commandBus->dispatch(new ProcessExportCommand($export->getId(), new ProductId($id)), true);
-        }
-
-        $this->commandBus->dispatch(new EndExportCommand($export->getId()));
+        $this->commandBus->dispatch(new ProcessExportCommand($export->getId()), true);
     }
 }

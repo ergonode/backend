@@ -15,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\ExporterFile\Infrastructure\Dictionary\WriterTypeDictionary;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
@@ -26,11 +28,18 @@ class ExporterFileConfigurationForm extends AbstractType
     private WriterTypeDictionary $dictionary;
 
     /**
-     * @param WriterTypeDictionary $dictionary
+     * @var LanguageQueryInterface
      */
-    public function __construct(WriterTypeDictionary $dictionary)
+    private LanguageQueryInterface $query;
+
+    /**
+     * @param WriterTypeDictionary   $dictionary
+     * @param LanguageQueryInterface $query
+     */
+    public function __construct(WriterTypeDictionary $dictionary, LanguageQueryInterface $query)
     {
         $this->dictionary = $dictionary;
+        $this->query = $query;
     }
 
     /**
@@ -40,15 +49,27 @@ class ExporterFileConfigurationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $types = $this->dictionary->dictionary();
+        $languages = $this->query->getDictionaryActive();
 
         $builder
             ->add(
                 'name',
                 TextType::class
-            )->add(
+            )
+            ->add(
+                'languages',
+                ChoiceType::class,
+                [
+                    'label' => 'Languages',
+                    'choices' => $languages,
+                    'multiple' => true,
+                ]
+            )
+            ->add(
                 'format',
                 ChoiceType::class,
                 [
+                    'label' => 'Format',
                     'choices' => $types,
                 ]
             );

@@ -39,7 +39,8 @@ class CreateFileExportChannelCommandHandler
         $exportChannel = new FileExportChannel(
             $command->getId(),
             $command->getName(),
-            $command->getFormat()
+            $command->getFormat(),
+            $command->getLanguages()
         );
 
         $this->repository->save($exportChannel);

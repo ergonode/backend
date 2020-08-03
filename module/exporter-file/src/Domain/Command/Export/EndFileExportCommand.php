@@ -6,15 +6,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Command\Export;
+namespace Ergonode\ExporterFile\Domain\Command\Export;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class StartExportCommand implements DomainCommandInterface
+class EndFileExportCommand implements DomainCommandInterface
 {
     /**
      * @var ExportId

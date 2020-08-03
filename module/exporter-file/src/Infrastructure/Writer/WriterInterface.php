@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Writer;
 
-use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 
 /**
  */
@@ -27,25 +27,23 @@ interface WriterInterface
     public function getType(): string;
 
     /**
-     * @param array $attributes
+     * @param array $header
      *
      * @return string[]
      */
-    public function start(array $attributes): array;
+    public function header(array $header): array;
 
     /**
-     * @param array $attributes
+     * @param ExportData $line
      *
      * @return string[]
      */
-    public function end(array $attributes): array;
+    public function add(ExportData $line): array;
 
     /**
-     * @param AbstractProduct $product
-     * @param array           $languages
-     * @param array           $attributes
+     * @param array $line
      *
      * @return string[]
      */
-    public function write(AbstractProduct $product, array $languages, array $attributes): array;
+    public function footer(array $line): array;
 }

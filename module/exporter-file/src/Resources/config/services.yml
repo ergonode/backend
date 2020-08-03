@@ -13,7 +13,10 @@ services:
 
     Ergonode\ExporterFile\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Generator}'
+
+    Ergonode\ExporterFile\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
 
 #    Ergonode\ExporterFile\Persistence\:
 #        resource: '../../Persistence/*'
@@ -26,6 +29,10 @@ services:
 #        resource: '../../Persistence/Dbal/Projector/*'
 #        tags: ['messenger.message_handler']
 
-    Ergonode\ExporterFile\Infrastructure\Handler\:
-        resource: '../../Infrastructure/Handler/*'
+    Ergonode\ExporterFile\Infrastructure\Handler\ProcessExportCommandHandler:
         tags: ['messenger.message_handler']
+        arguments:
+            $steps:
+                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\AttributeExportProcessorStep'
+                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\CategoryExportProcessorStep'
+                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\ProductExportProcessStep'

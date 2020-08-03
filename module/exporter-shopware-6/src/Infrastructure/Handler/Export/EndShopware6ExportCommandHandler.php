@@ -6,17 +6,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Infrastructure\Handler\Export;
+namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
-use Ergonode\Exporter\Domain\Command\Export\StartExportCommand;
+use Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
 use Webmozart\Assert\Assert;
+use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\EndShopware6ExportProcess;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand;
 
 /**
  */
-class StartExportCommandHandler
+class EndShopware6ExportCommandHandler
 {
     /**
      * @var ExportRepositoryInterface
@@ -29,39 +32,37 @@ class StartExportCommandHandler
     private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var ExportProcessorProvider
+     * @var EndShopware6ExportProcess
      */
-    private ExportProcessorProvider $provider;
+    private EndShopware6ExportProcess $process;
 
     /**
      * @param ExportRepositoryInterface  $exportRepository
      * @param ChannelRepositoryInterface $channelRepository
-     * @param ExportProcessorProvider    $provider
+     * @param EndShopware6ExportProcess  $process
      */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
-        ExportProcessorProvider $provider
+        EndShopware6ExportProcess $process
     ) {
         $this->exportRepository = $exportRepository;
         $this->channelRepository = $channelRepository;
-        $this->provider = $provider;
+        $this->process = $process;
     }
 
     /**
-     * @param StartExportCommand $command
+     * @param EndShopware6ExportCommand $command
      */
-    public function __invoke(StartExportCommand $command)
+    public function __invoke(EndShopware6ExportCommand $command)
     {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::notNull($export);
+        $export  = $this->exportRepository->load($command->getExportId());
+        Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
-        Assert::notNull($channel);
+        Assert::isInstanceOf($channel, Shopware6Channel::class);
 
-        $export->start();
+        $this->process->process($export->getId(), $channel);
+        $export->end();
         $this->exportRepository->save($export);
-
-        $processor = $this->provider->provide($channel->getType());
-        $processor->start($command->getExportId(), $channel);
     }
 }

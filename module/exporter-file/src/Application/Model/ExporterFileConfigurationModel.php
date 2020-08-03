@@ -23,6 +23,8 @@ class ExporterFileConfigurationModel
      */
     public ?string $name = null;
 
+    public array $languages = [];
+
     public ?string $format = null;
 
     /**

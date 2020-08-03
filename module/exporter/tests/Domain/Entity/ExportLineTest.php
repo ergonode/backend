@@ -42,12 +42,12 @@ class ExportLineTest extends TestCase
     public function testEntityCreation(): void
     {
         $entity = new ExportLine($this->exportId, $this->objectId);
-        $this->assertSame($this->exportId, $entity->getExportId());
-        $this->assertSame($this->objectId, $entity->getObjectId());
-        $this->assertFalse($entity->isProcessed());
-        $this->assertNull($entity->getProcessedAt());
-        $this->assertFalse($entity->hasError());
-        $this->assertNull($entity->getError());
+        self::assertSame($this->exportId, $entity->getExportId());
+        self::assertSame($this->objectId, $entity->getObjectId());
+        self::assertFalse($entity->isProcessed());
+        self::assertNull($entity->getProcessedAt());
+        self::assertFalse($entity->hasError());
+        self::assertNull($entity->getError());
     }
 
     /**
@@ -57,10 +57,10 @@ class ExportLineTest extends TestCase
     {
         $entity = new ExportLine($this->exportId, $this->objectId);
         $entity->process();
-        $this->assertTrue($entity->isProcessed());
-        $this->assertNotNull($entity->getProcessedAt());
-        $this->assertFalse($entity->hasError());
-        $this->assertNull($entity->getError());
+        self::assertTrue($entity->isProcessed());
+        self::assertNotNull($entity->getProcessedAt());
+        self::assertFalse($entity->hasError());
+        self::assertNull($entity->getError());
     }
 
     /**
@@ -71,9 +71,9 @@ class ExportLineTest extends TestCase
         $message = 'any message';
         $entity = new ExportLine($this->exportId, $this->objectId);
         $entity->addError($message);
-        $this->assertTrue($entity->hasError());
-        $this->assertsame($message, $entity->getError());
-        $this->assertFalse($entity->isProcessed());
-        $this->assertNull($entity->getProcessedAt());
+        self::assertTrue($entity->hasError());
+        self::assertsame($message, $entity->getError());
+        self::assertFalse($entity->isProcessed());
+        self::assertNull($entity->getProcessedAt());
     }
 }

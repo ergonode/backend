@@ -40,6 +40,7 @@ class UpdateFileExportChannelCommandHandler
         $channel = $this->repository->load($command->getId());
         $channel->setFormat($command->getFormat());
         $channel->setName($command->getName());
+        $channel->setLanguages($command->getLanguages());
 
         $this->repository->save($channel);
     }

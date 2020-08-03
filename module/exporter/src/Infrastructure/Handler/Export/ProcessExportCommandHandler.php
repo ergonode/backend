@@ -72,31 +72,30 @@ class ProcessExportCommandHandler
     /**
      * @param ProcessExportCommand $command
      *
-     * @throws \ReflectionException
      * @throws DBALException
      */
     public function __invoke(ProcessExportCommand $command)
     {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::notNull($export);
-        $channel = $this->channelRepository->load($export->getChannelId());
-        Assert::notNull($channel);
-        $product = $this->productRepository->load($command->getProductId());
-        Assert::notNull($product);
-
-        $line = new ExportLine($export->getId(), $product->getId());
-        try {
-            $processor = $this->provider->provide($channel->getType());
-            $processor->process($command->getExportId(), $channel, $product);
-            $line->process();
-        } catch (ExportException $exception) {
-            $message = $exception->getMessage();
-            if ($exception->getPrevious()) {
-                sprintf('%s - (%s)', $message, $exception->getPrevious()->getMessage());
-            }
-            $line->addError($message);
-        }
-
-        $this->lineRepository->save($line);
+//        $export = $this->exportRepository->load($command->getExportId());
+//        Assert::notNull($export);
+//        $channel = $this->channelRepository->load($export->getChannelId());
+//        Assert::notNull($channel);
+//        $product = $this->productRepository->load($command->getProductId());
+//        Assert::notNull($product);
+//
+//        $line = new ExportLine($export->getId(), $product->getId());
+//        try {
+//            $processor = $this->provider->provide($channel->getType());
+//            $processor->process($command->getExportId(), $channel, $product);
+//            $line->process();
+//        } catch (ExportException $exception) {
+//            $message = $exception->getMessage();
+//            if ($exception->getPrevious()) {
+//                sprintf('%s - (%s)', $message, $exception->getPrevious()->getMessage());
+//            }
+//            $line->addError($message);
+//        }
+//
+//        $this->lineRepository->save($line);
     }
 }

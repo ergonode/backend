@@ -75,54 +75,22 @@ class ChannelExportErrorGridAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="limit",
-     *     in="query",
-     *     type="integer",
+     *     name="channel",
+     *     in="path",
+     *     type="string",
      *     required=true,
-     *     default="50",
-     *     description="Number of returned lines",
+     *     description="Channel id",
      * )
      * @SWG\Parameter(
-     *     name="offset",
-     *     in="query",
-     *     type="integer",
+     *     name="export",
+     *     in="path",
+     *     type="string",
      *     required=true,
-     *     default="0",
-     *     description="Number of start line",
-     * )
-     * @SWG\Parameter(
-     *     name="field",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Order field",
-     * )
-     * @SWG\Parameter(
-     *     name="order",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"ASC","DESC"},
-     *     description="Order",
-     * )
-     * @SWG\Parameter(
-     *     name="filter",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Filter"
-     * )
-     * @SWG\Parameter(
-     *     name="view",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"grid","list"},
-     *     description="Specify respons format"
+     *     description="Export id",
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns export collection",
+     *     description="Returns export errors",
      * )
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
