@@ -11,7 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\Exporter\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\TreeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\GetCategoryList;

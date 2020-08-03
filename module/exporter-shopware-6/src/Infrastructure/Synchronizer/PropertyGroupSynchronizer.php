@@ -112,9 +112,8 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
             $name
         );
 
-        $this->client->insert($channel, $propertyGroup);
+        $new = $this->client->createPropertyGroupResource($channel, $propertyGroup);
 
-        $new = $this->client->findByName($channel, $name);
         $this->propertyGroupRepository->save($channel->getId(), $attributeId, $new->getId());
     }
 

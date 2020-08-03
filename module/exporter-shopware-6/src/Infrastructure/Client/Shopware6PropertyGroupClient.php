@@ -79,11 +79,15 @@ class Shopware6PropertyGroupClient
     /**
      * @param Shopware6Channel       $channel
      * @param Shopware6PropertyGroup $propertyGroup
+     *
+     * @return Shopware6PropertyGroup|null
      */
-    public function insert(Shopware6Channel $channel, Shopware6PropertyGroup $propertyGroup): void
-    {
-        $action = new PostPropertyGroupAction($propertyGroup);
+    public function createPropertyGroupResource(
+        Shopware6Channel $channel,
+        Shopware6PropertyGroup $propertyGroup
+    ): ?Shopware6PropertyGroup {
+        $action = new PostPropertyGroupAction($propertyGroup, true);
 
-        $this->connector->execute($channel, $action);
+        return $this->connector->execute($channel, $action);
     }
 }
