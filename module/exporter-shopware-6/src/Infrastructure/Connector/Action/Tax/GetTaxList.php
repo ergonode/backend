@@ -10,8 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
@@ -23,14 +22,14 @@ class GetTaxList extends AbstractAction implements ActionInterface
     private const URI = '/api/v2/tax?%s';
 
     /**
-     * @var SwagQLBuilder
+     * @var Shopware6QueryBuilder
      */
-    private SwagQLBuilder $query;
+    private Shopware6QueryBuilder $query;
 
     /**
-     * @param SwagQLBuilder $query
+     * @param Shopware6QueryBuilder $query
      */
-    public function __construct(SwagQLBuilder $query)
+    public function __construct(Shopware6QueryBuilder $query)
     {
         $this->query = $query;
     }

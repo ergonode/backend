@@ -17,7 +17,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\GetCateg
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\PatchCategoryUpdate;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\PostCategoryCreate;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ramsey\Uuid\Uuid;
@@ -196,7 +196,7 @@ class CategorySynchronizer implements SynchronizerInterface
      */
     private function getShopwareCategory(Shopware6Channel $channel, string $name): ?array
     {
-        $query = new SwagQLBuilder();
+        $query = new Shopware6QueryBuilder();
         $query->equals('name', $name);
 
         $action = new GetCategoryList($query);
@@ -217,7 +217,7 @@ class CategorySynchronizer implements SynchronizerInterface
      */
     private function getShopwareCategoryList(Shopware6Channel $channel): array
     {
-        $query = new SwagQLBuilder();
+        $query = new Shopware6QueryBuilder();
         $query->limit(500);
         $action = new GetCategoryList($query);
 

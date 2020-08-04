@@ -15,7 +15,7 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInte
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\GetCurrencyList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\PostCurrencyCreate;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
@@ -80,7 +80,7 @@ class CurrencySynchronizer implements SynchronizerInterface
      */
     private function getShopwareCurrency(Shopware6Channel $channel): array
     {
-        $query = new SwagQLBuilder();
+        $query = new Shopware6QueryBuilder();
         $query->limit(500);
         $action = new GetCurrencyList($query);
 

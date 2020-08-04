@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
 /**
  */
-class SwagQLBuilder
+class Shopware6QueryBuilder
 {
     public const EQUALS = 'equals';
 
@@ -32,9 +32,9 @@ class SwagQLBuilder
     /**
      * @param int $limit
      *
-     * @return SwagQLBuilder
+     * @return Shopware6QueryBuilder
      */
-    public function limit(int $limit): SwagQLBuilder
+    public function limit(int $limit): Shopware6QueryBuilder
     {
         $this->limit = $limit;
 
@@ -44,9 +44,9 @@ class SwagQLBuilder
     /**
      * @param int $page
      *
-     * @return SwagQLBuilder
+     * @return Shopware6QueryBuilder
      */
-    public function setPage(int $page): SwagQLBuilder
+    public function setPage(int $page): Shopware6QueryBuilder
     {
         $this->page = $page;
 
@@ -60,7 +60,7 @@ class SwagQLBuilder
      *
      * @return $this
      */
-    public function add(string $type, string $field, string $value): SwagQLBuilder
+    public function add(string $type, string $field, string $value): Shopware6QueryBuilder
     {
         $this->parts[] = [
             'query' => [
@@ -77,9 +77,9 @@ class SwagQLBuilder
      * @param string $field
      * @param string $value
      *
-     * @return SwagQLBuilder
+     * @return Shopware6QueryBuilder
      */
-    public function equals(string $field, string $value): SwagQLBuilder
+    public function equals(string $field, string $value): Shopware6QueryBuilder
     {
         return $this->add(self::EQUALS, $field, $value);
     }
@@ -90,7 +90,7 @@ class SwagQLBuilder
      *
      * @return $this
      */
-    public function sort(string $field, string $value): SwagQLBuilder
+    public function sort(string $field, string $value): Shopware6QueryBuilder
     {
         $this->parts[0]['sort'] =
             [

@@ -14,7 +14,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\GetMediaDef
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\PostCreateMediaAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\PostUploadFile;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Media;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6MediaDefaultFolder;
@@ -116,7 +116,7 @@ class Shopware6ProductMediaClient
      */
     private function getProductFolderId(Shopware6Channel $channel): ?Shopware6MediaDefaultFolder
     {
-        $query = new SwagQLBuilder();
+        $query = new Shopware6QueryBuilder();
         $query->equals('entity', 'product');
 
         $action = new GetMediaDefaultFolderList($query);

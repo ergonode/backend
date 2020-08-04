@@ -14,7 +14,7 @@ use Ergonode\ExporterShopware6\Domain\Query\Shopware6LanguageQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Language\GetLanguageList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
@@ -85,7 +85,7 @@ class LanguageSynchronizer implements SynchronizerInterface
      */
     private function getShopwareLanguageList(Shopware6Channel $channel): array
     {
-        $query = new SwagQLBuilder();
+        $query = new Shopware6QueryBuilder();
         $query->limit(500);
 
         $action = new GetLanguageList($query);

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Currency;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\GetCurrencyList;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +23,7 @@ class GetCurrencyListTest extends TestCase
      */
     public function testAction()
     {
-        $action = new GetCurrencyList(new SwagQLBuilder());
+        $action = new GetCurrencyList(new Shopware6QueryBuilder());
         $request = $action->getRequest();
 
         self::assertInstanceOf(Request::class, $request);

@@ -12,7 +12,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProduc
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PatchProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\SwagQLBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -43,7 +43,7 @@ class Shopware6ProductClient
     public function findBySKU(Shopware6Channel $channel, Sku $sku): ?Shopware6Product
     {
         try {
-            $query = new SwagQLBuilder();
+            $query = new Shopware6QueryBuilder();
             $query
                 ->equals('productNumber', $sku->getValue())
                 ->limit(1);
