@@ -17,6 +17,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Channel\Domain\Query\ExportQueryInterface;
+use League\Flysystem\FilesystemInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route(
@@ -31,6 +35,36 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelExportAction
 {
+    /**
+     * @var ExportQueryInterface
+     */
+    private ExportQueryInterface  $query;
+
+    /**
+     * @var FilesystemInterface
+     */
+    private FilesystemInterface $exportStorage;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private UrlGeneratorInterface $urlGenerator;
+
+    /**
+     * @param ExportQueryInterface  $query
+     * @param FilesystemInterface   $exportStorage
+     * @param UrlGeneratorInterface $urlGenerator
+     */
+    public function __construct(
+        ExportQueryInterface $query,
+        FilesystemInterface $exportStorage,
+        UrlGeneratorInterface $urlGenerator
+    ) {
+        $this->query = $query;
+        $this->exportStorage = $exportStorage;
+        $this->urlGenerator = $urlGenerator;
+    }
+
     /**
      * @IsGranted("CHANNEL_READ")
      *
@@ -73,6 +107,25 @@ class ChannelExportAction
      */
     public function __invoke(Language $language, AbstractChannel $channel, Export $export): Response
     {
-        return new SuccessResponse($export);
+        $file = sprintf('%s.zip', $export->getId()->getValue());
+
+        $result = $this->query->getInformation($export->getId());
+
+        if ($this->exportStorage->has($file)) {
+            $result['_links']['attachment'] = [
+                'href' => $this->urlGenerator->generate(
+                    'ergonode_channel_export_download',
+                    [
+                        'language' => $language->getCode(),
+                        'channel' => $channel->getId()->getValue(),
+                        'export' => $export->getId()->getValue(),
+                    ],
+                    UrlGeneratorInterface::NETWORK_PATH
+                ),
+                'method' => Request::METHOD_GET,
+            ];
+        }
+
+        return new SuccessResponse($result);
     }
 }

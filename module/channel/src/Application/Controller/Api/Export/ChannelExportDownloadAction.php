@@ -19,10 +19,11 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use League\Flysystem\FileNotFoundException;
 
 /**
  * @Route(
- *     name="ergonode_channel_export",
+ *     name="ergonode_channel_export_download",
  *     path="/channels/{channel}/exports/{export}/download",
  *     methods={"GET"},
  *     requirements={
@@ -85,6 +86,8 @@ class ChannelExportDownloadAction
      * @param Export          $export
      *
      * @return Response
+     *
+     * @throws FileNotFoundException
      */
     public function __invoke(Language $language, AbstractChannel $channel, Export $export): Response
     {
@@ -93,7 +96,6 @@ class ChannelExportDownloadAction
         if (!$this->exportStorage->has($file)) {
             throw new NotFoundHttpException();
         }
-
 
         $content = $this->exportStorage->read($file);
         $size = $this->exportStorage->getSize($file);
@@ -105,6 +107,6 @@ class ChannelExportDownloadAction
             'Content-length' => $size,
         ];
 
-        return new SuccessResponse($export, $headers);
+        return new SuccessResponse($content, $headers);
     }
 }

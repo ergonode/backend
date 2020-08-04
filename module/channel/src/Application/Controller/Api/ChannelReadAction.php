@@ -32,7 +32,7 @@ class ChannelReadAction
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="channel",
      *     in="path",
      *     type="string",
      *     description="Channel id",
