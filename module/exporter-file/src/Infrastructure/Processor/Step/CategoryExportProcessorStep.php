@@ -44,7 +44,7 @@ class CategoryExportProcessorStep implements ExportStepProcessInterface
      */
     public function export(ExportId $exportId): void
     {
-        $categories = $this->categoryQuery->getAll(new Language('en'));
+        $categories = $this->categoryQuery->getAll(new Language('en_GB'));
         foreach ($categories as $category) {
             $command = new ProcessCategoryCommand($exportId, new CategoryId($category['id']));
             $this->commandBus->dispatch($command, true);

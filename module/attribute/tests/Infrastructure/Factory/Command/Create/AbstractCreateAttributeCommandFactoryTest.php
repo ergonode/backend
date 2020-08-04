@@ -28,9 +28,9 @@ abstract class AbstractCreateAttributeCommandFactoryTest extends TestCase
     protected function getAttributeFormModel(string $class): AttributeFormModel
     {
         $code = 'code';
-        $label = ['en' => 'label', 'pl_PL' => 'etykieta'];
-        $hint = ['en' => 'hint', 'pl_PL' => 'podpowiedź'];
-        $placeholder = ['en' => 'placeholder', 'pl_PL' => 'placeholder'];
+        $label = ['en_GB' => 'label', 'pl_PL' => 'etykieta'];
+        $hint = ['en_GB' => 'hint', 'pl_PL' => 'podpowiedź'];
+        $placeholder = ['en_GB' => 'placeholder', 'pl_PL' => 'placeholder'];
         $scope = 'local';
         $group = Uuid::uuid4()->toString();
 
@@ -58,11 +58,11 @@ abstract class AbstractCreateAttributeCommandFactoryTest extends TestCase
             $groups[] = new AttributeGroupId($group);
         }
 
-        $this->assertSame($command->getCode()->getValue(), $model->code);
-        $this->assertSame($command->getLabel()->getTranslations(), $model->label);
-        $this->assertSame($command->getHint()->getTranslations(), $model->hint);
-        $this->assertSame($command->getPlaceholder()->getTranslations(), $model->placeholder);
-        $this->assertSame($command->getScope()->getValue(), $model->scope);
-        $this->assertEquals($command->getGroups(), $groups);
+        self::assertSame($command->getCode()->getValue(), $model->code);
+        self::assertSame($command->getLabel()->getTranslations(), $model->label);
+        self::assertSame($command->getHint()->getTranslations(), $model->hint);
+        self::assertSame($command->getPlaceholder()->getTranslations(), $model->placeholder);
+        self::assertSame($command->getScope()->getValue(), $model->scope);
+        self::assertEquals($command->getGroups(), $groups);
     }
 }

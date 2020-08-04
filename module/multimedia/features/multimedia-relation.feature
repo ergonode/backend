@@ -16,7 +16,7 @@ Feature: Multimedia relations
     And store response param "id" as "multimedia_id"
 
   Scenario: Create template
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -28,7 +28,7 @@ Feature: Multimedia relations
     And store response param "id" as "template_id"
 
   Scenario: Create image attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "MULTIMEDIA_RELATION_@@random_code@@",
@@ -41,7 +41,7 @@ Feature: Multimedia relations
     And store response param "id" as "attribute_id"
 
   Scenario: Create product
-    When I send a POST request to "/api/v1/en/products" with body:
+    When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -53,8 +53,8 @@ Feature: Multimedia relations
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product image value in "en" language
-    When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
+  Scenario: Edit product image value in "en_GB" language
+    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
         "value": "@multimedia_id@"
@@ -63,11 +63,11 @@ Feature: Multimedia relations
     Then the response status code should be 200
 
   Scenario: Apply product draft
-    When I send a PUT request to "api/v1/en/products/@product_id@/draft/persist"
+    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/persist"
     Then the response status code should be 204
 
   Scenario: Get multimedia relation
-    When I send a GET request to "/api/v1/en/multimedia/@multimedia_id@/relation"
+    When I send a GET request to "/api/v1/en_GB/multimedia/@multimedia_id@/relation"
     Then the response status code should be 200
     And the JSON node "[0].name" should exist
     And the JSON node "[0].type" should exist

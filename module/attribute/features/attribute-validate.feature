@@ -6,7 +6,7 @@ Feature: Attribute validation
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create NONE TYPE attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "@@random_code@@",
@@ -21,7 +21,7 @@ Feature: Attribute validation
     Then the response status code should be 400
 
   Scenario: Create NOT TYPE attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "@@random_code@@",

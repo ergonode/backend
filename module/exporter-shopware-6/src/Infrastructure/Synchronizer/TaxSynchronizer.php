@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use binErgonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;

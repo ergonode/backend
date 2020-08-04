@@ -6,7 +6,7 @@ Feature: Product edit feature
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create template
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@"
@@ -16,7 +16,7 @@ Feature: Product edit feature
     And store response param "id" as "product_template"
 
   Scenario: Create product
-    When I send a POST request to "/api/v1/en/products" with body:
+    When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -29,31 +29,31 @@ Feature: Product edit feature
     And store response param "id" as "product"
 
   Scenario: Create category
-    When I send a POST request to "/api/v1/en/categories" with body:
+    When I send a POST request to "/api/v1/en_GB/categories" with body:
       """
       {
         "code": "CATEGORY_TEST_AND_DELETE",
         "type": "DEFAULT",
-        "name": {"en": "Test Category 1"}
+        "name": {"en_GB": "Test Category 1"}
       }
       """
     Then the response status code should be 201
     And store response param "id" as "category1"
 
   Scenario: Create category
-    When I send a POST request to "/api/v1/en/categories" with body:
+    When I send a POST request to "/api/v1/en_GB/categories" with body:
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
         "type": "DEFAULT",
-        "name": {"en": "Test Category 2"}
+        "name": {"en_GB": "Test Category 2"}
       }
       """
     Then the response status code should be 201
     And store response param "id" as "category2"
 
   Scenario: Add Category1 to product
-    When I send a POST request to "/api/v1/en/products/@product@/category" with body:
+    When I send a POST request to "/api/v1/en_GB/products/@product@/category" with body:
       """
       {
         "category": "@category1@"
@@ -62,7 +62,7 @@ Feature: Product edit feature
     Then the response status code should be 204
 
   Scenario: Add Category2 to product
-    When I send a POST request to "/api/v1/en/products/@product@/category" with body:
+    When I send a POST request to "/api/v1/en_GB/products/@product@/category" with body:
       """
       {
         "category": "@category2@"
@@ -71,11 +71,11 @@ Feature: Product edit feature
     Then the response status code should be 204
 
   Scenario: Get product category grid
-    When I send a GET request to "/api/v1/en/products/@product@/category"
+    When I send a GET request to "/api/v1/en_GB/products/@product@/category"
     Then the response status code should be 200
 
   Scenario: Remove Category2 from product
-    When I send a DELETE request to "/api/v1/en/products/@product@/category" with body:
+    When I send a DELETE request to "/api/v1/en_GB/products/@product@/category" with body:
       """
       {
         "category": "@category2@"
@@ -84,7 +84,7 @@ Feature: Product edit feature
     Then the response status code should be 204
 
   Scenario: Get product category grid
-    When I send a GET request to "/api/v1/en/products/@product@/category"
+    When I send a GET request to "/api/v1/en_GB/products/@product@/category"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | collection[0].id   | @category1@              |
@@ -92,7 +92,7 @@ Feature: Product edit feature
       | collection[0].name | Test Category 1          |
 
   Scenario: Remove Category1 from product
-    When I send a DELETE request to "/api/v1/en/products/@product@/category" with body:
+    When I send a DELETE request to "/api/v1/en_GB/products/@product@/category" with body:
       """
       {
         "category": "@category1@"
@@ -101,5 +101,5 @@ Feature: Product edit feature
     Then the response status code should be 204
 
   Scenario: Delete category
-    When I send a DELETE request to "/api/v1/en/categories/@category1@"
+    When I send a DELETE request to "/api/v1/en_GB/categories/@category1@"
     Then the response status code should be 204

@@ -17,10 +17,10 @@ use Faker\Provider\Base as BaseProvider;
 class LanguageFaker extends BaseProvider
 {
     private const ISO = [
-        'en',
-        'pl',
-        'de',
-        'es',
+        'en_GB',
+        'pl_PL',
+        'de_DE',
+        'es_ES',
     ];
 
     /**

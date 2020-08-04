@@ -28,7 +28,7 @@ class LanguageFakerTest extends TestCase
         $faker = new LanguageFaker($generator);
         $result = $faker->language();
 
-        $this->assertInstanceOf(Language::class, $result);
+        self::assertInstanceOf(Language::class, $result);
     }
 
     /**
@@ -38,8 +38,8 @@ class LanguageFakerTest extends TestCase
         /** @var Generator|MockObject $generator */
         $generator = $this->createMock(Generator::class);
         $faker = new LanguageFaker($generator);
-        $result = $faker->language('pl');
+        $result = $faker->language('pl_PL');
 
-        $this->assertEquals($result->getCode(), 'pl');
+        self::assertEquals($result->getCode(), 'pl_PL');
     }
 }

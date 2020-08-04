@@ -39,8 +39,8 @@ class Shopware6CreateChannelCommandBuilderTest extends TestCase
         $model->host = 'host';
         $model->clientId = 'client_id';
         $model->clientKey = 'client_key';
-        $model->defaultLanguage = 'en';
-        $model->languages = ['en'];
+        $model->defaultLanguage = 'en_GB';
+        $model->languages = ['en_GB'];
         $model->attributeProductName = $this->createMock(AttributeId::class);
         $model->attributeProductActive = $this->createMock(AttributeId::class);
         $model->attributeProductStock = $this->createMock(AttributeId::class);

@@ -22,16 +22,16 @@ class TranslatableStringValueTest extends TestCase
      */
     public function testValueCreation(): void
     {
-        $array = ['en' => 'english', 'pl_PL' => 'polish'];
+        $array = ['en_GB' => 'english', 'pl_PL' => 'polish'];
         $value = new TranslatableString($array);
 
         $valueObject1 = new TranslatableStringValue($value);
         $valueObject2 = new TranslatableStringValue($value);
 
-        $this->assertSame($array, $valueObject1->getValue());
-        $this->assertSame(TranslatableStringValue::TYPE, $valueObject1->getType());
-        $this->assertSame('polish', $valueObject1->getTranslation(new Language('pl_PL')));
-        $this->assertSame("english,polish", (string) $valueObject1);
-        $this->assertTrue($valueObject1->isEqual($valueObject2));
+        self::assertSame($array, $valueObject1->getValue());
+        self::assertSame(TranslatableStringValue::TYPE, $valueObject1->getType());
+        self::assertSame('polish', $valueObject1->getTranslation(new Language('pl_PL')));
+        self::assertSame("english,polish", (string) $valueObject1);
+        self::assertTrue($valueObject1->isEqual($valueObject2));
     }
 }
