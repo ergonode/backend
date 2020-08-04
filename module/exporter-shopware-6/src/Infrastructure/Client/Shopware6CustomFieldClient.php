@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\GetCustomFieldSetList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\PostCustomFieldSetAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
@@ -39,7 +40,10 @@ class Shopware6CustomFieldClient
      */
     public function load(Shopware6Channel $channel): ?array
     {
-        $action = new GetCustomFieldSetList();
+        $query = new Shopware6QueryBuilder();
+        $query->limit(500);
+
+        $action = new GetCustomFieldSetList($query);
 
         return $this->connector->execute($channel, $action);
     }
@@ -61,23 +65,14 @@ class Shopware6CustomFieldClient
      *
      * @return Shopware6CustomField|null
      */
-    public function findByCode(Shopware6Channel $channel, string $code):?Shopware6CustomField
+    public function findByCode(Shopware6Channel $channel, string $code): ?Shopware6CustomField
     {
-        $query = [
-            [
-                'query' => [
-                    'type' => 'equals',
-                    'field' => 'name',
-                    'value' => $code,
-                ],
-                'sort' => [
-                    'field' => 'createdAt',
-                    'order' => 'DESC',
-                ],
-            ],
-        ];
-        $action = new GetCustomFieldSetList($query, 1);
+        $query = new Shopware6QueryBuilder();
+        $query->equals('name', $code)
+            ->sort('createdAt', 'DESC')
+            ->limit(1);
 
+        $action = new GetCustomFieldSetList($query);
         $customFieldList = $this->connector->execute($channel, $action);
         if (is_array($customFieldList) && count($customFieldList) > 0) {
             return $customFieldList[0];

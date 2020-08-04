@@ -16,6 +16,7 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\GetTaxList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\PostTaxCreate;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -100,7 +101,9 @@ class TaxSynchronizer implements SynchronizerInterface
      */
     private function getShopwareTax(Shopware6Channel $channel): array
     {
-        $action = new GetTaxList();
+        $query = new Shopware6QueryBuilder();
+        $query->limit(500);
+        $action = new GetTaxList($query);
 
         return $this->connector->execute($channel, $action);
     }

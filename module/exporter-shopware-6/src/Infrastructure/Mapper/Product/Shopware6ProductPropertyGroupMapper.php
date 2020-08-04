@@ -9,6 +9,10 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractDateAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractUnitAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
@@ -23,6 +27,13 @@ use Webmozart\Assert\Assert;
  */
 class Shopware6ProductPropertyGroupMapper implements Shopware6ProductMapperInterface
 {
+    private const SUPPORTED_TYPE = [
+        AbstractTextAttribute::TYPE,
+        AbstractDateAttribute::TYPE,
+        AbstractNumericAttribute::TYPE,
+        AbstractUnitAttribute::TYPE,
+    ];
+
     /**
      * @var AttributeRepositoryInterface
      */
@@ -89,14 +100,16 @@ class Shopware6ProductPropertyGroupMapper implements Shopware6ProductMapperInter
     ): Shopware6Product {
         $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);
-        if (false === $product->hasAttribute($attribute->getCode())) {
-            return $shopware6Product;
-        }
+        if (in_array($attribute->getType(), self::SUPPORTED_TYPE, true)) {
+            if (false === $product->hasAttribute($attribute->getCode())) {
+                return $shopware6Product;
+            }
 
-        $value = $product->getAttribute($attribute->getCode());
-        $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
-        if ($calculateValue) {
-            $shopware6Product->addProperty($this->loadPropertyOptionId($channel, $attribute, $calculateValue));
+            $value = $product->getAttribute($attribute->getCode());
+            $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
+            if ($calculateValue) {
+                $shopware6Product->addProperty($this->loadPropertyOptionId($channel, $attribute, $calculateValue));
+            }
         }
 
         return $shopware6Product;
@@ -105,7 +118,7 @@ class Shopware6ProductPropertyGroupMapper implements Shopware6ProductMapperInter
     /**
      * @param Shopware6Channel  $channel
      * @param AbstractAttribute $attribute
-     * @param                           $value
+     * @param                   $value
      *
      * @return string
      */

@@ -12,6 +12,7 @@ services:
 
     Ergonode\ExporterShopware6\Infrastructure\:
         resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Model}'
 
     Ergonode\ExporterShopware6\Persistence\:
         resource: '../../Persistence/*'
@@ -39,7 +40,13 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\TaxSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CategorySynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroupSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomFieldSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextAreaSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldNumberSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldDateTimeSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldSelectSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMultiSelectSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMediaSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\LanguageSynchronizer'
 
     # Mappers
@@ -53,3 +60,12 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductStockMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductDescriptionMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductPropertyGroupMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductPropertyGroupSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductImageMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetTextMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetTextAreaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetNumericMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetDateTimeMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultiSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultimediaMapper'

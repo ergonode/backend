@@ -89,7 +89,7 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
             $attributeProductPriceNet,
             $attributeProductTax,
             $attributeProductDescription,
-            new CategoryTreeId($categoryTree),
+            $categoryTree ? new CategoryTreeId($categoryTree) : null,
             $propertyGroup,
             $customField
         );

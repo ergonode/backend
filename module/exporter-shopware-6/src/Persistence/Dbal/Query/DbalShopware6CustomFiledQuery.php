@@ -66,8 +66,9 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
     /**
      * @param ChannelId          $channel
      * @param \DateTimeImmutable $dateTime
+     * @param string             $type
      */
-    public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime): void
+    public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime, string $type): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete(self::TABLE, 'pg')
@@ -75,6 +76,8 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
             ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->lt('pg.update_at', ':updateAt'))
             ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
+            ->andWhere($query->expr()->eq('pg.type', ':type'))
+            ->setParameter(':type', $type)
             ->execute();
     }
 }

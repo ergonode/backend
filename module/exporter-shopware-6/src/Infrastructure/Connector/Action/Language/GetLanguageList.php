@@ -11,38 +11,27 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Language;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class GetLanguageList extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class GetLanguageList extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/language?%s';
+    private const URI = '/api/v2/language?%s';
 
     /**
-     * @var array|array[]
+     * @var Shopware6QueryBuilder
      */
-    private array $query;
-
+    private Shopware6QueryBuilder $query;
 
     /**
-     * @param array    $query
-     * @param int|null $limit
-     * @param int|null $page
+     * @param Shopware6QueryBuilder $query
      */
-    public function __construct(array $query = [], int $limit = 500, int $page = null)
+    public function __construct(Shopware6QueryBuilder $query)
     {
-        $this->query = [
-            'query' => $query ? $query : [],
-        ];
-        if ($limit > 0) {
-            $this->query['limit'] = $limit;
-        }
-        if ($page > 0) {
-            $this->query['page'] = $page;
-        }
+        $this->query = $query;
     }
 
     /**
@@ -83,6 +72,6 @@ class GetLanguageList extends AbstractAction implements ActionInterface, HeaderP
      */
     private function getUri(): string
     {
-        return rtrim(sprintf(self::URI, http_build_query($this->query)), '?');
+        return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');
     }
 }

@@ -38,6 +38,14 @@ class Shopware6CustomField
     protected ?array $relations;
 
     /**
+     * @var array
+     *
+     * @JMS\Type("array")
+     * @JMS\SerializedName("customFields")
+     */
+    protected ?array $customFields;
+
+    /**
      * @var bool
      *
      * @JMS\Exclude()
@@ -48,12 +56,18 @@ class Shopware6CustomField
      * @param string|null $id
      * @param string|null $name
      * @param array|null  $relations
+     * @param array|null  $customFields
      */
-    public function __construct(?string $id = null, ?string $name = null, ?array $relations = null)
-    {
+    public function __construct(
+        ?string $id = null,
+        ?string $name = null,
+        ?array $relations = null,
+        ?array $customFields = null
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->relations = $relations;
+        $this->customFields = $customFields;
     }
 
 
@@ -98,6 +112,22 @@ class Shopware6CustomField
     public function addRelation(array $relations): void
     {
         $this->relations[] = $relations;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCustomFields(): array
+    {
+        return $this->customFields;
+    }
+
+    /**
+     * @param array $customField
+     */
+    public function addCustomField(array $customField): void
+    {
+        $this->customFields[] = $customField;
     }
 
     /**

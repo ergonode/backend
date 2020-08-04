@@ -12,7 +12,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
@@ -44,9 +43,9 @@ class Shopware6ProductActiveMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6Product|CreateShopware6Product $shopware6Product
-     * @param AbstractProduct                         $product
-     * @param Shopware6Channel                        $channel
+     * @param Shopware6Product $shopware6Product
+     * @param AbstractProduct  $product
+     * @param Shopware6Channel $channel
      *
      * @return Shopware6Product
      */
@@ -55,7 +54,7 @@ class Shopware6ProductActiveMapper implements Shopware6ProductMapperInterface
         AbstractProduct $product,
         Shopware6Channel $channel
     ): Shopware6Product {
-        if ($shopware6Product instanceof CreateShopware6Product) {
+        if ($shopware6Product->isNew()) {
             $attribute = $this->repository->load($channel->getProductActive());
             Assert::notNull($attribute);
             if (false === $product->hasAttribute($attribute->getCode())) {

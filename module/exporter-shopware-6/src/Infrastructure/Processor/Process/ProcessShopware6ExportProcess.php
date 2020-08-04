@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductClient;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -54,7 +54,7 @@ class ProcessShopware6ExportProcess
                 $this->productClient->update($channel, $shopwareProduct);
             }
         } else {
-            $shopwareProduct = new CreateShopware6Product();
+            $shopwareProduct = new Shopware6Product();
             $this->builder->build($shopwareProduct, $product, $channel);
             $this->productClient->insert($channel, $shopwareProduct);
         }

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface;
@@ -21,7 +22,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class CustomFieldSynchronizer implements SynchronizerInterface
+abstract class AbstractCustomFieldSynchronizer implements SynchronizerInterface
 {
     /**
      * @var Shopware6CustomFieldClient
@@ -44,30 +45,27 @@ class CustomFieldSynchronizer implements SynchronizerInterface
     private AttributeRepositoryInterface $attributeRepository;
 
     /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
-    private AttributeTranslationInheritanceCalculator $calculator;
-
-    /**
-     * @param Shopware6CustomFieldClient                $client
-     * @param Shopware6CustomFieldQueryInterface        $customFieldQuery
-     * @param Shopware6CustomFieldRepositoryInterface   $customFieldRepository
-     * @param AttributeRepositoryInterface              $attributeRepository
-     * @param AttributeTranslationInheritanceCalculator $calculator
+     * @param Shopware6CustomFieldClient              $client
+     * @param Shopware6CustomFieldQueryInterface      $customFieldQuery
+     * @param Shopware6CustomFieldRepositoryInterface $customFieldRepository
+     * @param AttributeRepositoryInterface            $attributeRepository
      */
     public function __construct(
         Shopware6CustomFieldClient $client,
         Shopware6CustomFieldQueryInterface $customFieldQuery,
         Shopware6CustomFieldRepositoryInterface $customFieldRepository,
-        AttributeRepositoryInterface $attributeRepository,
-        AttributeTranslationInheritanceCalculator $calculator
+        AttributeRepositoryInterface $attributeRepository
     ) {
         $this->client = $client;
         $this->customFieldQuery = $customFieldQuery;
         $this->customFieldRepository = $customFieldRepository;
         $this->attributeRepository = $attributeRepository;
-        $this->calculator = $calculator;
     }
+
+    /**
+     * @return string
+     */
+    abstract public function getType(): string;
 
     /**
      * @param ExportId         $id
@@ -78,6 +76,24 @@ class CustomFieldSynchronizer implements SynchronizerInterface
         $this->synchronizeShopware($channel);
         $this->synchronizeCustomField($channel);
     }
+
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    protected function isSupported(string $type): bool
+    {
+        return $this->getType() === $type;
+    }
+
+    /**
+     * @param Shopware6Channel  $channel
+     * @param AbstractAttribute $attribute
+     *
+     * @return array
+     */
+    abstract protected function getMapping(Shopware6Channel $channel, AbstractAttribute $attribute): array;
 
     /**
      * @param Shopware6Channel $channel
@@ -98,29 +114,34 @@ class CustomFieldSynchronizer implements SynchronizerInterface
     {
         $attribute = $this->attributeRepository->load($attributeId);
         Assert::notNull($attribute);
+        if ($this->isSupported($attribute->getType())) {
+            $isset = $this->customFieldRepository->exists($channel->getId(), $attribute->getId());
+            if ($isset) {
+                return;
+            }
 
-        $isset = $this->customFieldRepository->exists($channel->getId(), $attribute->getId());
-        if ($isset) {
-            return;
-        }
+            $code = $attribute->getCode()->getValue();
 
-        $code = $attribute->getCode()->getValue();
-
-        $customField = new Shopware6CustomField(
-            null,
-            $code,
-            [
+            $customField = new Shopware6CustomField(
+                null,
+                $code,
                 [
-                    'entityName' => 'product',
-                ],
-            ]
-        );
+                    [
+                        'entityName' => 'product',
+                    ],
+                ]
+            );
 
-        $this->client->insert($channel, $customField);
+            $customField->addCustomField(
+                $this->getMapping($channel, $attribute)
+            );
 
-        $new = $this->client->findByCode($channel, $code);
+            $this->client->insert($channel, $customField);
 
-        $this->customFieldRepository->save($channel->getId(), $attributeId, $new->getId());
+            $new = $this->client->findByCode($channel, $code);
+
+            $this->customFieldRepository->save($channel->getId(), $attributeId, $new->getId(), $attribute->getType());
+        }
     }
 
     /**
@@ -137,9 +158,16 @@ class CustomFieldSynchronizer implements SynchronizerInterface
                 $customField->getId()
             );
             if ($attributeId) {
-                $this->customFieldRepository->save($channel->getId(), $attributeId, $customField->getId());
+                $attribute = $this->attributeRepository->load($attributeId);
+                Assert::notNull($attribute);
+                $this->customFieldRepository->save(
+                    $channel->getId(),
+                    $attributeId,
+                    $customField->getId(),
+                    $attribute->getType()
+                );
             }
         }
-        $this->customFieldQuery->cleanData($channel->getId(), $start);
+        $this->customFieldQuery->cleanData($channel->getId(), $start, $this->getType());
     }
 }

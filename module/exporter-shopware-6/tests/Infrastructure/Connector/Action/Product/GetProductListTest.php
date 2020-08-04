@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProductList;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +23,7 @@ class GetProductListTest extends TestCase
      */
     public function testAction()
     {
-        $action = new GetProductList();
+        $action = new GetProductList(new Shopware6QueryBuilder());
         $request = $action->getRequest();
 
         self::assertInstanceOf(Request::class, $request);

@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\GetPropertyGroupList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\PostPropertyGroupAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
@@ -38,7 +39,9 @@ class Shopware6PropertyGroupClient
      */
     public function load(Shopware6Channel $channel): ?array
     {
-        $action = new GetPropertyGroupList();
+        $query = new Shopware6QueryBuilder();
+        $query->limit(500);
+        $action = new GetPropertyGroupList($query);
 
         return $this->connector->execute($channel, $action);
     }
@@ -51,21 +54,12 @@ class Shopware6PropertyGroupClient
      */
     public function findByName(Shopware6Channel $channel, string $name): ?Shopware6PropertyGroup
     {
-        $query = [
-            [
-                'query' => [
-                    'type' => 'equals',
-                    'field' => 'name',
-                    'value' => $name,
-                ],
-                'sort' => [
-                    'field' => 'createdAt',
-                    'order' => 'DESC',
-                ],
-            ],
-        ];
+        $query = new Shopware6QueryBuilder();
+        $query->equals('name', $name)
+            ->sort('createdAt', 'DESC')
+            ->limit(1);
 
-        $action = new GetPropertyGroupList($query, 1);
+        $action = new GetPropertyGroupList($query);
 
         $propertyList = $this->connector->execute($channel, $action);
 

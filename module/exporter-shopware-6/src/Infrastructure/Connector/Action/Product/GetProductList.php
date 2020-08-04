@@ -10,38 +10,28 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class GetProductList extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class GetProductList extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/product?%s';
+    private const URI = '/api/v2/product?%s';
 
     /**
-     * @var array|array[]
+     * @var Shopware6QueryBuilder
      */
-    private array $query;
+    private Shopware6QueryBuilder $query;
 
     /**
-     * @param array    $query
-     * @param int|null $limit
-     * @param int|null $page
+     * @param Shopware6QueryBuilder $query
      */
-    public function __construct(array $query = [], int $limit = null, int $page = null)
+    public function __construct(Shopware6QueryBuilder $query)
     {
-        $this->query = [
-            'query' => $query ? $query : [],
-        ];
-        if ($limit > 0) {
-            $this->query['limit'] = $limit;
-        }
-        if ($page > 0) {
-            $this->query['page'] = $page;
-        }
+        $this->query = $query;
     }
 
     /**
@@ -60,16 +50,22 @@ class GetProductList extends AbstractAction implements ActionInterface, HeaderPr
      * @param string|null $content
      *
      * @return array
+     *
+     * @throws \JsonException
      */
     public function parseContent(?string $content): array
     {
         $result = [];
-        $data = json_decode($content, true);
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         if (count($data['data']) > 0) {
             foreach ($data['data'] as $row) {
-                $category = [];
-                $properties = [];
+                $category = null;
+                $properties = null;
+                $customFields = null;
+                $options = null;
+                $price = null;
+
                 if ($row['attributes']['categoryTree']) {
                     foreach ($row['attributes']['categoryTree'] as $attributeCategory) {
                         $category[] = [
@@ -85,13 +81,28 @@ class GetProductList extends AbstractAction implements ActionInterface, HeaderPr
                     }
                 }
 
+                if ($row['attributes']['optionIds']) {
+                    foreach ($row['attributes']['optionIds'] as $optionId) {
+                        $options[] = [
+                            'id' => $optionId,
+                        ];
+                    }
+                }
+
                 $result[] = new Shopware6Product(
                     $row['id'],
                     $row['attributes']['productNumber'],
                     $row['attributes']['name'],
                     $row['attributes']['description'],
                     $category,
-                    $properties
+                    $properties,
+                    $customFields,
+                    $row['attributes']['parentId'],
+                    $options,
+                    $row['attributes']['active'],
+                    $row['attributes']['stock'],
+                    $row['attributes']['taxId'],
+                    $price
                 );
             }
         }
@@ -104,6 +115,6 @@ class GetProductList extends AbstractAction implements ActionInterface, HeaderPr
      */
     private function getUri(): string
     {
-        return rtrim(sprintf(self::URI, http_build_query($this->query)), '?');
+        return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');
     }
 }

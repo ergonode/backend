@@ -12,7 +12,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProduc
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PatchProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -43,18 +43,15 @@ class Shopware6ProductClient
     public function findBySKU(Shopware6Channel $channel, Sku $sku): ?Shopware6Product
     {
         try {
-            $query = [
-                [
-                    'query' => [
-                        'type' => 'equals',
-                        'field' => 'productNumber',
-                        'value' => $sku->getValue(),
-                    ],
-                ],
-            ];
-            $action = new GetProductList($query, 1);
+            $query = new Shopware6QueryBuilder();
+            $query
+                ->equals('productNumber', $sku->getValue())
+                ->limit(1);
+
+            $action = new GetProductList($query);
 
             $productList = $this->connector->execute($channel, $action);
+
             if (is_array($productList) && count($productList) > 0) {
                 return $productList[0];
             }
@@ -67,12 +64,12 @@ class Shopware6ProductClient
     }
 
     /**
-     * @param Shopware6Channel       $channel
-     * @param CreateShopware6Product $product
+     * @param Shopware6Channel $channel
+     * @param Shopware6Product $product
      *
      * @return array|object|string|null
      */
-    public function insert(Shopware6Channel $channel, CreateShopware6Product $product)
+    public function insert(Shopware6Channel $channel, Shopware6Product $product)
     {
         $action = new PostProductAction($product);
 

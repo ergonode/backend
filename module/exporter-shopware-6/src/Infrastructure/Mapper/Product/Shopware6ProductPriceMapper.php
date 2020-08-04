@@ -17,7 +17,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -69,9 +68,9 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
 
 
     /**
-     * @param Shopware6Product|CreateShopware6Product $shopware6Product
-     * @param AbstractProduct                         $product
-     * @param Shopware6Channel                        $channel
+     * @param Shopware6Product $shopware6Product
+     * @param AbstractProduct  $product
+     * @param Shopware6Channel $channel
      *
      * @return Shopware6Product
      *
@@ -83,7 +82,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         Shopware6Channel $channel
     ): Shopware6Product {
 
-        if ($shopware6Product instanceof CreateShopware6Product) {
+        if ($shopware6Product->isNew()) {
             $tax = $this->tax($channel, $product);
 
             $shopware6Product->addPrice($this->getPrice($channel, $product));
