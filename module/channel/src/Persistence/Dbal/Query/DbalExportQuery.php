@@ -102,6 +102,26 @@ class DbalExportQuery implements ExportQueryInterface
     }
 
     /**
+     * @param ExportId $exportId
+     *
+     * @return array
+     */
+    public function getInformation(ExportId $exportId): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL) as processed')
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->where($query->expr()->eq('id', ':exportId'))
+            ->setParameter(':exportId', $exportId->getValue())
+            ->execute()
+            ->fetch();
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder

@@ -67,7 +67,7 @@ class ChannelDeleteAction
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="channel",
      *     in="path",
      *     type="string",
      *     description="Channel id"
@@ -82,7 +82,7 @@ class ChannelDeleteAction
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Successful removing attribute"
+     *     description="Successful removing channel"
      * )
      * @SWG\Response(
      *     response=404,

@@ -47,7 +47,7 @@ class ChannelTypeConfigurationAction
     /**
      * @IsGranted("EXPORT_PROFILE_READ")
      *
-     * @SWG\Tag(name="Export Profile")
+     * @SWG\Tag(name="Channel")
      *
      * @SWG\Parameter(
      *     name="language",
@@ -59,7 +59,7 @@ class ChannelTypeConfigurationAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns Config Export Profile",
+     *     description="Returns JSON Schema configuration for given type channel form",
      * )
      * @SWG\Response(
      *     response=400,

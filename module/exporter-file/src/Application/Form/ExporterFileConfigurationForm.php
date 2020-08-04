@@ -54,7 +54,10 @@ class ExporterFileConfigurationForm extends AbstractType
         $builder
             ->add(
                 'name',
-                TextType::class
+                TextType::class,
+                [
+                    'label' => 'Name',
+                ]
             )
             ->add(
                 'languages',
