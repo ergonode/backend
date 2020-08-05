@@ -26,8 +26,8 @@ class TranslatableStringValueUpdateStrategyTest extends TestCase
         $valid = $this->createMock(TranslatableStringValue::class);
         $invalid = $this->createMock(StringValue::class);
 
-        $this->assertTrue($strategy->isSupported($valid));
-        $this->assertFalse($strategy->isSupported($invalid));
+        self::assertTrue($strategy->isSupported($valid));
+        self::assertFalse($strategy->isSupported($invalid));
     }
 
     /**
@@ -36,13 +36,13 @@ class TranslatableStringValueUpdateStrategyTest extends TestCase
     {
         $strategy = new TranslatableStringValueUpdateStrategy();
         $newValue = $this->createMock(TranslatableStringValue::class);
-        $newValue->method('getValue')->willReturn(['en' => 'test1']);
+        $newValue->method('getValue')->willReturn(['en_GB' => 'test1']);
         $oldValue = $this->createMock(TranslatableStringValue::class);
-        $oldValue->method('getValue')->willReturn(['en' => 'test2']);
+        $oldValue->method('getValue')->willReturn(['en_GB' => 'test2']);
 
         $calculated = $strategy->calculate($oldValue, $newValue);
 
-        $this->assertEquals($calculated->getValue(), ['en' => 'test1']);
+        self::assertEquals($calculated->getValue(), ['en_GB' => 'test1']);
     }
 
     /**

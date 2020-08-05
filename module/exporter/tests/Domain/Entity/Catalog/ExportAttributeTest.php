@@ -37,7 +37,7 @@ class ExportAttributeTest extends TestCase
     {
         $this->code = 'CODE';
         $this->id = Uuid::uuid4();
-        $this->name = new TranslatableString(['en' => 'english', 'pl_PL' => 'polish']);
+        $this->name = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
     }
 
     /**
@@ -47,13 +47,13 @@ class ExportAttributeTest extends TestCase
         $type = 'TYPE';
         $attribute = $this->getExportAttribute($type);
 
-        $this->assertEquals($this->id, $attribute->getId());
-        $this->assertEquals($this->code, $attribute->getCode());
-        $this->assertEquals($this->name, $attribute->getName());
-        $this->assertEquals($type, $attribute->getType());
-        $this->assertTrue($attribute->isMultilingual());
-        $this->assertIsArray($attribute->getParameters());
-        $this->assertFalse($attribute->isSystem());
+        self::assertEquals($this->id, $attribute->getId());
+        self::assertEquals($this->code, $attribute->getCode());
+        self::assertEquals($this->name, $attribute->getName());
+        self::assertEquals($type, $attribute->getType());
+        self::assertTrue($attribute->isMultilingual());
+        self::assertIsArray($attribute->getParameters());
+        self::assertFalse($attribute->isSystem());
     }
 
     /**
@@ -70,9 +70,9 @@ class ExportAttributeTest extends TestCase
             'v2'
         );
 
-        $this->assertIsArray($attribute->getParameters());
-        $this->assertArrayHasKey('options', $attribute->getParameters());
-        $this->assertCount(2, $attribute->getParameters()['options']);
+        self::assertIsArray($attribute->getParameters());
+        self::assertArrayHasKey('options', $attribute->getParameters());
+        self::assertCount(2, $attribute->getParameters()['options']);
     }
 
     /**

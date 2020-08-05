@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Tests\Core\Application\Form\DataTransformer;
+namespace Ergonode\Core\Tests\Application\Form\DataTransformer;
 
 use Ergonode\Core\Application\Form\DataTransformer\LanguageDataTransformer;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -38,7 +38,7 @@ class LanguageDataTransformerTest extends TestCase
      */
     public function testTransform(?Language $languageValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($languageValueObject));
+        self::assertSame($string, $this->transformer->transform($languageValueObject));
     }
 
     /**
@@ -60,7 +60,7 @@ class LanguageDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?Language $languageValueObject, ?string $string): void
     {
-        $this->assertEquals($languageValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($languageValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**
@@ -80,8 +80,8 @@ class LanguageDataTransformerTest extends TestCase
     {
         return [
             [
-                'languageValueObject' => new Language('en'),
-                'string' => 'en',
+                'languageValueObject' => new Language('en_GB'),
+                'string' => 'en_GB',
             ],
             [
                 'languageValueObject' => null,

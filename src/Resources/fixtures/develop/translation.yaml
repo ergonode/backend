@@ -1,68 +1,68 @@
 Ergonode\Core\Domain\ValueObject\TranslatableString:
     label_{1..50}:
         __construct:
-            -   'pl': 'Polish_label_<current()>'
-                'en': 'English_label_<current()>'
+            -   'pl_PL': 'Polish_label_<current()>'
+                'en_GB': 'English_label_<current()>'
     hint_{1..50}:
         __construct:
-            -   'pl': 'Polish_hint_<current()>'
-                'en': 'English_hint_<current()>'
+            -   'pl_PL': 'Polish_hint_<current()>'
+                'en_GB': 'English_hint_<current()>'
     placeholder_{1..50}:
         __construct:
-            -   'pl': 'Polish_placeholder_<current()>'
-                'en': 'English_placeholder_<current()>'
+            -   'pl_PL': 'Polish_placeholder_<current()>'
+                'en_GB': 'English_placeholder_<current()>'
     name_{1..50}:
         __construct:
-            -   'pl': 'Polish_name_<current()>'
-                'en': 'English_name_<current()>'
+            -   'pl_PL': 'Polish_name_<current()>'
+                'en_GB': 'English_name_<current()>'
     description_{1..50}:
         __construct:
-            -   'pl': 'Polish_description_<current()>'
-                'en': 'English_description_<current()>'
+            -   'pl_PL': 'Polish_description_<current()>'
+                'en_GB': 'English_description_<current()>'
     empty:
         __construct:
             - []
     label_esa_status:
         __construct:
-            -   'pl': 'Status'
-                'en': 'Status'
+            -   'pl_PL': 'Status'
+                'en_GB': 'Status'
     label_esa_created_at:
         __construct:
-            -   'pl': 'Czas utworzenia'
-                'en': 'Created at'
+            -   'pl_PL': 'Czas utworzenia'
+                'en_GB': 'Created at'
     label_esa_edited_at:
         __construct:
-            -   'pl': 'Czas edycji'
-                'en': 'Edited at'
+            -   'pl_PL': 'Czas edycji'
+                'en_GB': 'Edited at'
     label_esa_created_by:
         __construct:
-            -   'pl': 'Utworzone przez'
-                'en': 'Created by'
+            -   'pl_PL': 'Utworzone przez'
+                'en_GB': 'Created by'
     label_esa_edited_by:
         __construct:
-            -   'pl': 'Edytowane przez'
-                'en': 'Edited by'
+            -   'pl_PL': 'Edytowane przez'
+                'en_GB': 'Edited by'
     label_esa_template:
         __construct:
-            -   'pl': 'Szablon'
-                'en': 'Template'
+            -   'pl_PL': 'Szablon'
+                'en_GB': 'Template'
     label_esa_categories:
         __construct:
-            -   'pl': 'Kategorie'
-                'en': 'Categories'
+            -   'pl_PL': 'Kategorie'
+                'en_GB': 'Categories'
     label_esa_product_collection:
         __construct:
-            -   'pl': 'Kolekcje produktów'
-                'en': 'Product collections'
+            -   'pl_PL': 'Kolekcje produktów'
+                'en_GB': 'Product collections'
     label_esa_default_image:
         __construct:
-            -   'pl': 'Domyślne zdjęcie'
-                'en': 'Default image'
+            -   'pl_PL': 'Domyślne zdjęcie'
+                'en_GB': 'Default image'
     label_esa_default_label:
         __construct:
-            -   'pl': 'Domyślna etykieta'
-                'en': 'Default label'
+            -   'pl_PL': 'Domyślna etykieta'
+                'en_GB': 'Default label'
     label_esa_product_type:
         __construct:
-            -   'pl': 'Typ produktu'
-                'en': 'Product type'
+            -   'pl_PL': 'Typ produktu'
+                'en_GB': 'Product type'

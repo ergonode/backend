@@ -68,7 +68,7 @@ class Shopware6ProductNameMapperTest extends TestCase
         $this->channel->method('getProductName')
             ->willReturn(AttributeId::fromKey(self::CODE));
         $this->channel->method('getDefaultLanguage')
-            ->willReturn(new Language('en'));
+            ->willReturn(new Language('en_GB'));
 
         $this->calculator = $this->createMock(AttributeTranslationInheritanceCalculator::class);
         $this->calculator->method('calculate')

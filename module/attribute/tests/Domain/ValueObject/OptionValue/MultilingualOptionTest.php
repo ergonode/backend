@@ -21,39 +21,39 @@ class MultilingualOptionTest extends TestCase
      */
     public function testValueCreation(): void
     {
-        $value = new TranslatableString(['en' => 'english', 'pl_PL' => 'polish']);
+        $value = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
 
         $valueObject = new MultilingualOption($value);
 
-        $this->assertSame($value, $valueObject->getValue());
-        $this->assertSame(MultilingualOption::TYPE, $valueObject->getType());
-        $this->assertSame('english,polish', (string) $valueObject);
-        $this->assertTrue($valueObject->isMultilingual());
+        self::assertSame($value, $valueObject->getValue());
+        self::assertSame(MultilingualOption::TYPE, $valueObject->getType());
+        self::assertSame('english,polish', (string) $valueObject);
+        self::assertTrue($valueObject->isMultilingual());
     }
 
     /**
      */
     public function testEqualValue(): void
     {
-        $value1 = new TranslatableString(['en' => 'english', 'pl_PL' => 'polish']);
-        $value2 = new TranslatableString(['en' => 'english', 'pl_PL' => 'polish']);
+        $value1 = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
+        $value2 = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
 
         $valueObject1 = new MultilingualOption($value1);
         $valueObject2 = new MultilingualOption($value2);
 
-        $this->assertTrue($valueObject1->equal($valueObject2));
+        self::assertTrue($valueObject1->equal($valueObject2));
     }
 
     /**
      */
     public function testNotEqualValue(): void
     {
-        $value1 = new TranslatableString(['en' => 'english', 'fr' => 'franch']);
-        $value2 = new TranslatableString(['en' => 'english', 'pl_PL' => 'polish']);
+        $value1 = new TranslatableString(['en_GB' => 'english', 'fr_FR' => 'franch']);
+        $value2 = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
 
         $valueObject1 = new MultilingualOption($value1);
         $valueObject2 = new MultilingualOption($value2);
 
-        $this->assertFalse($valueObject1->equal($valueObject2));
+        self::assertFalse($valueObject1->equal($valueObject2));
     }
 }

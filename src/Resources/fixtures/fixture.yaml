@@ -1,64 +1,64 @@
 parameters:
   status_new_translation:
-    'pl': 'Nowy'
-    'en': 'New'
+    'pl_PL': 'Nowy'
+    'en_GB': 'New'
   status_draft_translation:
-    'pl': 'Szkic'
-    'en': 'Draft'
+    'pl_PL': 'Szkic'
+    'en_GB': 'Draft'
   status_to_approve_translation:
-    'pl': 'Do akceptacji'
-    'en': 'To approve'
+    'pl_PL': 'Do akceptacji'
+    'en_GB': 'To approve'
   status_ready_to_publish_translation:
-    'pl': 'Gotowy do publikacji'
-    'en': 'Ready to publish'
+    'pl_PL': 'Gotowy do publikacji'
+    'en_GB': 'Ready to publish'
   status_to_correct_translation:
-    'pl': 'Do poprawy'
-    'en': 'To correct'
+    'pl_PL': 'Do poprawy'
+    'en_GB': 'To correct'
   status_published_translation:
-    'pl': 'Opublikowany'
-    'en': 'Published'
+    'pl_PL': 'Opublikowany'
+    'en_GB': 'Published'
   category_tree_name:
-    'pl': 'Polish_name'
-    'en': 'English_name'
+    'pl_PL': 'Polish_name'
+    'en_GB': 'English_name'
   label_esa_status:
-    'pl': 'Status'
-    'en': 'Status'
+    'pl_PL': 'Status'
+    'en_GB': 'Status'
   label_esa_created_at:
-    'pl': 'Czas utworzenia'
-    'en': 'Created at'
+    'pl_PL': 'Czas utworzenia'
+    'en_GB': 'Created at'
   label_esa_edited_at:
-    'pl': 'Czas edycji'
-    'en': 'Edited at'
+    'pl_PL': 'Czas edycji'
+    'en_GB': 'Edited at'
   label_esa_created_by:
-    'pl': 'Utworzone przez'
-    'en': 'Created by'
+    'pl_PL': 'Utworzone przez'
+    'en_GB': 'Created by'
   label_esa_edited_by:
-    'pl': 'Edytowane przez'
-    'en': 'Edited by'
+    'pl_PL': 'Edytowane przez'
+    'en_GB': 'Edited by'
   label_esa_template:
-    'pl': 'Szablon'
-    'en': 'Template'
+    'pl_PL': 'Szablon'
+    'en_GB': 'Template'
   label_esa_categories:
-    'pl': 'Kategorie'
-    'en': 'Categories'
+    'pl_PL': 'Kategorie'
+    'en_GB': 'Categories'
   label_esa_product_collection:
-    'pl': 'Kolekcje produktów'
-    'en': 'Product collections'
+    'pl_PL': 'Kolekcje produktów'
+    'en_GB': 'Product collections'
   label_esa_default_label:
-    'pl': 'Domyślna etykieta'
-    'en': 'Default label'
+    'pl_PL': 'Domyślna etykieta'
+    'en_GB': 'Default label'
   label_esa_default_image:
-    'pl': 'Domyślne zdjęcie'
-    'en': 'Default image'
+    'pl_PL': 'Domyślne zdjęcie'
+    'en_GB': 'Default image'
   label_esa_product_type:
-    'pl': 'Typ produktu'
-    'en': 'Product type'
+    'pl_PL': 'Typ produktu'
+    'en_GB': 'Product type'
   name_product_collection_type_up-sell:
-    'pl': 'Up-sell'
-    'en': 'Up-sell'
+    'pl_PL': 'Up-sell'
+    'en_GB': 'Up-sell'
   name_product_collection_type_cross-sell:
-    'pl': 'Cross-sell'
-    'en': 'Cross-sell'
+    'pl_PL': 'Cross-sell'
+    'en_GB': 'Cross-sell'
   empty: []
 
 Ergonode\Category\Domain\Command\Tree\CreateTreeCommand:
@@ -303,7 +303,7 @@ Ergonode\Account\Domain\Entity\User:
       - 'Johnny'
       - 'Bravo'
       - '<userEmail(test@ergonode.com)>'
-      - '<language(en)>'
+      - '<language(en_GB)>'
       - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
       - '<roleId("Superadmin")>'
       - '<languagePrivilegesCollection(true)>'
@@ -428,14 +428,14 @@ Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
       - '<translation(<{label_esa_product_type}>)>'
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
-      
+
 Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
   attribute_esa_default_label:
     __construct:
       - '<translation(<{label_esa_default_label}>)>'
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
-      
+
 Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
   attribute_esa_default_image:
     __construct:

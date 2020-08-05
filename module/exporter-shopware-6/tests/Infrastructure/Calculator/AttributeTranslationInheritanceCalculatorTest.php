@@ -16,7 +16,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -35,19 +34,19 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
     {
         $this->languageQuery = $this->createMock(LanguageQueryInterface::class);
         $this->languageQuery->method('getRootLanguage')
-            ->willReturn(new Language('en'));
+            ->willReturn(new Language('en_GB'));
     }
 
     /**
      */
-    public function testCalculate()
+    public function testCalculate(): void
     {
         $calculator = new AttributeTranslationInheritanceCalculator($this->languageQuery);
 
         $attribute = $this->createMock(AbstractAttribute::class);
-        $value = new TranslatableStringValue(new TranslatableString(['en' => 'TEST en', 'pl' => 'TEST pl']));
+        $value = new TranslatableStringValue(new TranslatableString(['en_GB' => 'TEST en', 'pl_PL' => 'TEST pl']));
 
-        $language = new Language('pl');
+        $language = new Language('pl_PL');
 
         $newValue = $calculator->calculate($attribute, $value, $language);
         self::assertIsString($newValue);
@@ -55,15 +54,15 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
 
     /**
      */
-    public function testCalculateGlobal()
+    public function testCalculateGlobal(): void
     {
         $calculator = new AttributeTranslationInheritanceCalculator($this->languageQuery);
 
         $attribute = $this->createMock(AbstractAttribute::class);
         $attribute->method('getScope')->willReturn(new AttributeScope(AttributeScope::GLOBAL));
-        $value = new TranslatableStringValue(new TranslatableString(['en' => 'TEST en', 'pl' => 'TEST pl']));
+        $value = new TranslatableStringValue(new TranslatableString(['en_GB' => 'TEST en', 'pl_PL' => 'TEST pl']));
 
-        $language = new Language('pl');
+        $language = new Language('pl_PL');
 
         $newValue = $calculator->calculate($attribute, $value, $language);
         self::assertIsString($newValue);
@@ -71,14 +70,14 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
 
     /**
      */
-    public function testCalculateNoTranslate()
+    public function testCalculateNoTranslate(): void
     {
         $calculator = new AttributeTranslationInheritanceCalculator($this->languageQuery);
 
         $attribute = $this->createMock(AbstractAttribute::class);
         $value = new StringValue('TEST VALUE');
 
-        $language = new Language('pl');
+        $language = new Language('pl_PL');
 
         $newValue = $calculator->calculate($attribute, $value, $language);
         self::assertIsString($newValue);

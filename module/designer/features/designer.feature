@@ -4,12 +4,12 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"pl_PL": "Atrybut tekstowy", "pl_PL": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "en_GB": "Text attribute"},
           "scope": "local",
           "groups": [],
           "parameters": []
@@ -22,13 +22,13 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "IMAGE_@@random_code@@",
           "type": "IMAGE",
           "scope": "local",
-          "label": {"pl_PL": "Atrybut zdjeciowy", "pl_PL": "Image attribute"},
+          "label": {"pl_PL": "Atrybut zdjeciowy", "en_GB": "Image attribute"},
           "groups": [],
           "parameters": []
       }
@@ -51,7 +51,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -80,7 +80,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -106,7 +106,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -129,14 +129,14 @@ Feature: Designer module
     Then the response status code should be 400
 
   Scenario: Create template (not authorized)
-    When I send a POST request to "/api/v1/en/templates"
+    When I send a POST request to "/api/v1/en_GB/templates"
     Then the response status code should be 401
 
   Scenario: Create template (wrong image)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -161,7 +161,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -186,7 +186,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -211,7 +211,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -236,7 +236,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -261,7 +261,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/templates/@template@" with body:
+    When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -283,21 +283,21 @@ Feature: Designer module
     Then the response status code should be 204
 
   Scenario: Update template (not authorized)
-    When I send a PUT request to "/api/v1/en/templates/@template@"
+    When I send a PUT request to "/api/v1/en_GB/templates/@template@"
     Then the response status code should be 401
 
   Scenario: Update template (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/templates/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en_GB/templates/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update template (wrong image)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/templates/@template@" with body:
+    When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -322,7 +322,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/templates/@template@" with body:
+    When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -347,7 +347,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/templates/@template@" with body:
+    When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -372,7 +372,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/templates/@template@" with body:
+    When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -397,7 +397,7 @@ Feature: Designer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/templates/@template@" with body:
+    When I send a PUT request to "/api/v1/en_GB/templates/@template@" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -419,315 +419,315 @@ Feature: Designer module
     Then the response status code should be 400
 
   Scenario: Delete template (not authorized)
-    When I send a DELETE request to "/api/v1/en/templates/@template@"
+    When I send a DELETE request to "/api/v1/en_GB/templates/@template@"
     Then the response status code should be 401
 
   Scenario: Delete template (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/templates/@@static_uuid@@"
+    When I send a DELETE request to "/api/v1/en_GB/templates/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Get template
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/@template@"
+    When I send a GET request to "/api/v1/en_GB/templates/@template@"
     Then the response status code should be 200
 
   Scenario: Get template (not authorized)
-    When I send a GET request to "/api/v1/en/templates/@template@"
+    When I send a GET request to "/api/v1/en_GB/templates/@template@"
     Then the response status code should be 401
 
   Scenario: Get template (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en_GB/templates/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Get templates
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates"
+    When I send a GET request to "/api/v1/en_GB/templates"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (not authorized)
-    When I send a GET request to "/api/v1/en/templates"
+    When I send a GET request to "/api/v1/en_GB/templates"
     Then the response status code should be 401
 
   Scenario: Get templates (order by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?field=id"
+    When I send a GET request to "/api/v1/en_GB/templates?field=id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (order by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?field=name"
+    When I send a GET request to "/api/v1/en_GB/templates?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (order by image_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?field=image_id"
+    When I send a GET request to "/api/v1/en_GB/templates?field=image_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (order by group_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?field=group_id"
+    When I send a GET request to "/api/v1/en_GB/templates?field=group_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?field=name&order=ASC"
+    When I send a GET request to "/api/v1/en_GB/templates?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?field=name&order=DESC"
+    When I send a GET request to "/api/v1/en_GB/templates?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (filter by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?limit=25&offset=0&filter=id%3D1"
+    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=id%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?limit=25&offset=0&filter=name%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=name%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (filter by image_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?limit=25&offset=0&filter=image_id%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=image_id%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (filter by group_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?limit=25&offset=0&filter=group_id%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
+    When I send a GET request to "/api/v1/en_GB/templates?limit=25&offset=0&filter=group_id%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get template groups
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups"
+    When I send a GET request to "/api/v1/en_GB/templates/groups"
     Then the response status code should be 200
 
   Scenario: Get template groups (not authorized)
-    When I send a GET request to "/api/v1/en/templates/groups"
+    When I send a GET request to "/api/v1/en_GB/templates/groups"
     Then the response status code should be 401
 
   Scenario: Get templates groups (order by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?field=id"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?field=id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (order by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?field=name"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (order by custom)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?field=custom"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?field=custom"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?field=name&order=ASC"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?field=name&order=DESC"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (filter by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?limit=25&offset=0&filter=id%3D1"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?limit=25&offset=0&filter=id%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?limit=25&offset=0&filter=name%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?limit=25&offset=0&filter=name%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (filter by custom)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?limit=25&offset=0&filter=custom%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/templates/groups?limit=25&offset=0&filter=custom%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get template types
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types"
+    When I send a GET request to "/api/v1/en_GB/templates/types"
     Then the response status code should be 200
 
   Scenario: Get template types (not authorized)
-    When I send a GET request to "/api/v1/en/templates/types"
+    When I send a GET request to "/api/v1/en_GB/templates/types"
     Then the response status code should be 401
 
   Scenario: Get templates types (order by type)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=type"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=type"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order by variant)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=variant"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=variant"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order by label)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=label"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=label"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order by min_width)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=min_width"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=min_width"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order by min_height)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=min_height"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=min_height"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order by max_width)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=max_width"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=max_width"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order by max_height)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=max_height"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=max_height"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=type&order=ASC"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=type&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=type&order=DESC"
+    When I send a GET request to "/api/v1/en_GB/templates/types?field=type&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=id%3D1"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=id%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by type)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=type%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=type%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by variant)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=variant%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=variant%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by label)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=label%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=label%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by min_width)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=min_width%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=min_width%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by max_width)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=max_width%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=max_width%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by max_height)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=max_height%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=max_height%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by min_height)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?limit=25&offset=0&filter=min_height%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
+    When I send a GET request to "/api/v1/en_GB/templates/types?limit=25&offset=0&filter=min_height%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Delete template
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/templates/@template@"
+    When I send a DELETE request to "/api/v1/en_GB/templates/@template@"
     Then the response status code should be 204

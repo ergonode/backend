@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Tests\Core\Application\Form\DataTransformer;
+namespace Ergonode\Core\Tests\Application\Form\DataTransformer;
 
 use Ergonode\Core\Application\Form\DataTransformer\ColorDataTransformer;
 use Ergonode\Core\Domain\ValueObject\Color;
@@ -38,7 +38,7 @@ class ColorDataTransformerTest extends TestCase
      */
     public function testTransform(?Color $colorValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($colorValueObject));
+        self::assertSame($string, $this->transformer->transform($colorValueObject));
     }
 
     /**
@@ -60,7 +60,7 @@ class ColorDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?Color $colorValueObject, ?string $string): void
     {
-        $this->assertEquals($colorValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($colorValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**

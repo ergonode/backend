@@ -24,7 +24,7 @@ class LanguageTest extends TestCase
     public function testValidLanguageCreation(string $code): void
     {
         $language = new Language($code);
-        $this->assertSame($code, $language->getCode());
+        self::assertSame($code, $language->getCode());
     }
 
     /**
@@ -44,26 +44,26 @@ class LanguageTest extends TestCase
      */
     public function testLanguageEquality(): void
     {
-        $language1 = new Language('en');
-        $language2 = new Language('en');
-        $language3 = new Language('ru');
+        $language1 = new Language('en_GB');
+        $language2 = new Language('en_GB');
+        $language3 = new Language('ru_RU');
 
-        $this->assertTrue($language1->isEqual($language2));
-        $this->assertTrue($language2->isEqual($language1));
-        $this->assertFalse($language1->isEqual($language3));
-        $this->assertFalse($language2->isEqual($language3));
-        $this->assertFalse($language3->isEqual($language1));
-        $this->assertFalse($language3->isEqual($language2));
+        self::assertTrue($language1->isEqual($language2));
+        self::assertTrue($language2->isEqual($language1));
+        self::assertFalse($language1->isEqual($language3));
+        self::assertFalse($language2->isEqual($language3));
+        self::assertFalse($language3->isEqual($language1));
+        self::assertFalse($language3->isEqual($language2));
     }
 
     /**
      */
     public function testString(): void
     {
-        $code = 'en';
+        $code = 'en_GB';
         $language = Language::fromString($code);
 
-        $this->assertEquals($language->__toString(), $code);
+        self::assertEquals($language->__toString(), $code);
     }
 
     /**
@@ -72,9 +72,7 @@ class LanguageTest extends TestCase
     public function validLanguage(): array
     {
         return [
-            ['af'],
             ['af_ZA'],
-            ['ar'],
             ['ar_AE'],
             ['ar_BH'],
             ['ar_DZ'],
@@ -91,33 +89,22 @@ class LanguageTest extends TestCase
             ['ar_SY'],
             ['ar_TN'],
             ['ar_YE'],
-            ['az'],
             ['az_AZ'],
             ['az_AZ'],
-            ['be'],
             ['be_BY'],
-            ['bg'],
             ['bg_BG'],
             ['bs_BA'],
-            ['ca'],
             ['ca_ES'],
-            ['cs'],
             ['cs_CZ'],
-            ['cy'],
             ['cy_GB'],
-            ['da'],
             ['da_DK'],
-            ['de'],
             ['de_AT'],
             ['de_CH'],
             ['de_DE'],
             ['de_LI'],
             ['de_LU'],
-            ['dv'],
             ['dv_MV'],
-            ['el'],
             ['el_GR'],
-            ['en'],
             ['en_AU'],
             ['en_BZ'],
             ['en_CA'],
@@ -131,8 +118,6 @@ class LanguageTest extends TestCase
             ['en_US'],
             ['en_ZA'],
             ['en_ZW'],
-            ['eo'],
-            ['es'],
             ['es_AR'],
             ['es_BO'],
             ['es_CL'],
@@ -153,155 +138,93 @@ class LanguageTest extends TestCase
             ['es_SV'],
             ['es_UY'],
             ['es_VE'],
-            ['et'],
             ['et_EE'],
-            ['eu'],
             ['eu_ES'],
-            ['fa'],
             ['fa_IR'],
-            ['fi'],
             ['fi_FI'],
-            ['fo'],
             ['fo_FO'],
-            ['fr'],
             ['fr_BE'],
             ['fr_CA'],
             ['fr_CH'],
             ['fr_FR'],
             ['fr_LU'],
             ['fr_MC'],
-            ['gl'],
             ['gl_ES'],
-            ['gu'],
             ['gu_IN'],
-            ['he'],
             ['he_IL'],
-            ['hi'],
             ['hi_IN'],
-            ['hr'],
             ['hr_BA'],
             ['hr_HR'],
-            ['hu'],
             ['hu_HU'],
-            ['hy'],
             ['hy_AM'],
-            ['id'],
             ['id_ID'],
-            ['is'],
             ['is_IS'],
-            ['it'],
             ['it_CH'],
             ['it_IT'],
-            ['ja'],
             ['ja_JP'],
-            ['ka'],
             ['ka_GE'],
-            ['kk'],
             ['kk_KZ'],
-            ['kn'],
             ['kn_IN'],
-            ['ko'],
             ['ko_KR'],
-            ['ky'],
             ['ky_KG'],
-            ['lt'],
             ['lt_LT'],
-            ['lv'],
             ['lv_LV'],
-            ['mi'],
             ['mi_NZ'],
-            ['mk'],
             ['mk_MK'],
-            ['mn'],
             ['mn_MN'],
-            ['mr'],
             ['mr_IN'],
-            ['ms'],
             ['ms_BN'],
             ['ms_MY'],
-            ['mt'],
             ['mt_MT'],
-            ['nb'],
             ['nb_NO'],
-            ['nl'],
             ['nl_BE'],
             ['nl_NL'],
             ['nn_NO'],
-            ['ns'],
             ['ns_ZA'],
-            ['pa'],
             ['pa_IN'],
-            ['pl'],
             ['pl_PL'],
-            ['ps'],
             ['ps_AR'],
-            ['pt'],
             ['pt_BR'],
             ['pt_PT'],
-            ['qu'],
             ['qu_BO'],
             ['qu_EC'],
             ['qu_PE'],
-            ['ro'],
             ['ro_RO'],
-            ['ru'],
             ['ru_RU'],
-            ['sa'],
             ['sa_IN'],
-            ['se'],
             ['se_FI'],
             ['se_NO'],
             ['se_SE'],
             ['se_SE'],
             ['se_SE'],
-            ['sk'],
             ['sk_SK'],
-            ['sl'],
             ['sl_SI'],
-            ['sq'],
             ['sq_AL'],
             ['sr_BA'],
             ['sr_BA'],
             ['sr_SP'],
             ['sr_SP'],
-            ['sv'],
             ['sv_FI'],
             ['sv_SE'],
-            ['sw'],
             ['sw_KE'],
-            ['ta'],
             ['ta_IN'],
-            ['te'],
             ['te_IN'],
-            ['th'],
             ['th_TH'],
-            ['tl'],
             ['tl_PH'],
-            ['tn'],
             ['tn_ZA'],
-            ['tr'],
             ['tr_TR'],
-            ['tt'],
             ['tt_RU'],
-            ['ts'],
-            ['uk'],
             ['uk_UA'],
-            ['ur'],
             ['ur_PK'],
-            ['uz'],
             ['uz_UZ'],
             ['uz_UZ'],
-            ['vi'],
             ['vi_VN'],
-            ['xh'],
             ['xh_ZA'],
-            ['zh'],
             ['zh_CN'],
             ['zh_HK'],
             ['zh_MO'],
             ['zh_SG'],
             ['zh_TW'],
-            ['zu'],
             ['zu_ZA'],
         ];
     }

@@ -4,7 +4,7 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/units" with body:
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
         "name": "New Unit 1",
@@ -15,14 +15,14 @@ Feature: Core module - unit
     And store response param "id" as "unit_id_1"
 
   Scenario: Create unit (not authorized)
-    When I send a POST request to "/api/v1/en/units"
+    When I send a POST request to "/api/v1/en_GB/units"
     Then the response status code should be 401
 
   Scenario: Create unit (no Name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/units" with body:
+    When I send a POST request to "/api/v1/en_GB/units" with body:
       """
       {
          "symbol": "nu1"
@@ -34,7 +34,7 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/units" with body:
+    When I send a POST request to "/api/v1/en_GB/units" with body:
       """
       {
          "name": "New Unit 1"
@@ -46,7 +46,7 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/units" with body:
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
         "name": "",
@@ -59,7 +59,7 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/units" with body:
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
         "name": "New Unit 1",
@@ -72,7 +72,7 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/units" with body:
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
         "name": "uCqYeiPvC5K4LzhG9NWm46kdHedyS8ws9lyfba2FRjums6h9BDe53fAwmmWa2UWwRTWRY79fSGfeJQgYr4OmunZKGjengx1kTEhDnVrQnGw8rv8uKOBkbiSSLILIWkezNxgs3cIJA88NVyTy6BEanYgb5OFVm2F8dRMCxUTAFmHhosDZrhVxcVZNORO9jzRtnTYwSmBmcgRKWmgXMry3ma0u3B8j49TUycDaBiyq4IW9PgBQjtEgpn3zD2Btxely",
@@ -85,7 +85,7 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/units" with body:
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
         "name": "New Unit 1",
@@ -98,7 +98,7 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/units/@unit_id_1@" with body:
+    When I send a PUT request to "/api/v1/en_GB/units/@unit_id_1@" with body:
       """
       {
         "name": "Name changed",
@@ -108,94 +108,94 @@ Feature: Core module - unit
     Then the response status code should be 204
 
   Scenario: Update unit (not authorized)
-    When I send a PUT request to "/api/v1/en/units/@unit_id_1@"
+    When I send a PUT request to "/api/v1/en_GB/units/@unit_id_1@"
     Then the response status code should be 401
 
   Scenario: Update unit (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/units/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en_GB/units/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Get unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units/@unit_id_1@"
+    When I send a GET request to "/api/v1/en_GB/units/@unit_id_1@"
     Then the response status code should be 200
 
   Scenario: Get unit (not authorized)
-    When I send a GET request to "/api/v1/en/units/@unit_id_1@"
+    When I send a GET request to "/api/v1/en_GB/units/@unit_id_1@"
     Then the response status code should be 401
 
   Scenario: Get unit (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/unites/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en_GB/unites/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete unit (not authorized)
-    When I send a DELETE request to "/api/v1/en/units/@unit_id_1@"
+    When I send a DELETE request to "/api/v1/en_GB/units/@unit_id_1@"
     Then the response status code should be 401
 
   Scenario: Delete unit (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/units/@@static_uuid@@"
+    When I send a DELETE request to "/api/v1/en_GB/units/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/units/@unit_id_1@"
+    When I send a DELETE request to "/api/v1/en_GB/units/@unit_id_1@"
     Then the response status code should be 204
 
   Scenario: Get units (order by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units?field=name"
+    When I send a GET request to "/api/v1/en_GB/units?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get units (order by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units?field=symbol"
+    When I send a GET request to "/api/v1/en_GB/units?field=symbol"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get units (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units?field=name&order=ASC"
+    When I send a GET request to "/api/v1/en_GB/units?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get units (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units?field=name&order=DESC"
+    When I send a GET request to "/api/v1/en_GB/units?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get units (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units?limit=25&offset=0&filter=name%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/units?limit=25&offset=0&filter=name%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get units (filter by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units?limit=25&offset=0&filter=symbol%3DCAT"
+    When I send a GET request to "/api/v1/en_GB/units?limit=25&offset=0&filter=symbol%3DCAT"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get units (not authorized)
-    When I send a GET request to "/api/v1/en/units"
+    When I send a GET request to "/api/v1/en_GB/units"
     Then the response status code should be 401
