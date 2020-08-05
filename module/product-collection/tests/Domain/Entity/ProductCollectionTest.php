@@ -85,7 +85,10 @@ class ProductCollectionTest extends TestCase
         $entity->addElement($this->productId, true);
         self::assertTrue($entity->hasElement($this->productId));
         self::assertSame($this->productId, $entity->getElement($this->productId)->getProductId());
-        self::assertSame($this->productId, $entity->getElements()[array_key_first($entity->getElements())]->getProductId());
+        self::assertSame(
+            $this->productId,
+            $entity->getElements()[array_key_first($entity->getElements())]->getProductId()
+        );
         $newName = new TranslatableString(['en_GB' => 'english']);
         $entity->changeName($newName);
         self::assertEquals($newName, $entity->getName());
