@@ -45,9 +45,9 @@ class LanguageTreeMapperTest extends TestCase
     {
         $id = Uuid::uuid4()->toString();
         $treeLanguages = [
-            'en' => [
+            'en_GB' => [
                 'id' => $id,
-                'code' => 'en',
+                'code' => 'en_GB',
                 'parent_id' => null,
                 'level' => 0,
             ],
@@ -55,7 +55,7 @@ class LanguageTreeMapperTest extends TestCase
 
         $privileges =
             [
-                'en' => new LanguagePrivileges(true, false),
+                'en_GB' => new LanguagePrivileges(true, false),
             ];
 
         $mapper = new LanguageTreeMapper($this->translator);
@@ -65,15 +65,15 @@ class LanguageTreeMapperTest extends TestCase
             $privileges
         );
 
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('en', $result);
-        $this->assertArrayHasKey('id', $result['en']);
-        $this->assertArrayHasKey('code', $result['en']);
-        $this->assertArrayHasKey('level', $result['en']);
-        $this->assertArrayHasKey('name', $result['en']);
-        $this->assertArrayHasKey('parent_id', $result['en']);
-        $this->assertArrayHasKey('privileges', $result['en']);
-        $this->assertEquals($id, $result['en']['id']);
-        $this->assertEquals('en', $result['en']['code']);
+        self::assertIsArray($result);
+        self::assertArrayHasKey('en_GB', $result);
+        self::assertArrayHasKey('id', $result['en_GB']);
+        self::assertArrayHasKey('code', $result['en_GB']);
+        self::assertArrayHasKey('level', $result['en_GB']);
+        self::assertArrayHasKey('name', $result['en_GB']);
+        self::assertArrayHasKey('parent_id', $result['en_GB']);
+        self::assertArrayHasKey('privileges', $result['en_GB']);
+        self::assertEquals($id, $result['en_GB']['id']);
+        self::assertEquals('en_GB', $result['en_GB']['code']);
     }
 }

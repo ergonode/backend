@@ -24,11 +24,10 @@ class NestedSetTreeTest extends TestCase
         $tree = new NestedSetTree();
 
         $id = AggregateId::generate();
-        $tree->addRoot($id, 'en');
-
-        $this->assertEquals('en', $tree->getData()[0]->getCode());
-        $this->assertEquals('1', $tree->getData()[0]->getLeft());
-        $this->assertEquals('2', $tree->getData()[0]->getRight());
+        $tree->addRoot($id, 'en_GB');
+        self::assertEquals('en_GB', $tree->getData()[0]->getCode());
+        self::assertEquals('1', $tree->getData()[0]->getLeft());
+        self::assertEquals('2', $tree->getData()[0]->getRight());
     }
 
     /**
@@ -43,20 +42,20 @@ class NestedSetTreeTest extends TestCase
         $idDe = AggregateId::generate();
 
 
-        $tree->addRoot($idEn, 'en');
-        $tree->addNode($idPl, 'pl', $idEn);
-        $tree->addNode($idDe, 'de', $idEn);
+        $tree->addRoot($idEn, 'en_GB');
+        $tree->addNode($idPl, 'pl_PL', $idEn);
+        $tree->addNode($idDe, 'de_DE', $idEn);
 
-        $this->assertEquals('en', $tree->getData()[0]->getCode());
-        $this->assertEquals('1', $tree->getData()[0]->getLeft());
-        $this->assertEquals('6', $tree->getData()[0]->getRight());
+        self::assertEquals('en_GB', $tree->getData()[0]->getCode());
+        self::assertEquals('1', $tree->getData()[0]->getLeft());
+        self::assertEquals('6', $tree->getData()[0]->getRight());
 
-        $this->assertEquals('pl', $tree->getData()[1]->getCode());
-        $this->assertEquals('2', $tree->getData()[1]->getLeft());
-        $this->assertEquals('3', $tree->getData()[1]->getRight());
+        self::assertEquals('pl_PL', $tree->getData()[1]->getCode());
+        self::assertEquals('2', $tree->getData()[1]->getLeft());
+        self::assertEquals('3', $tree->getData()[1]->getRight());
 
-        $this->assertEquals('de', $tree->getData()[2]->getCode());
-        $this->assertEquals('4', $tree->getData()[2]->getLeft());
-        $this->assertEquals('5', $tree->getData()[2]->getRight());
+        self::assertEquals('de_DE', $tree->getData()[2]->getCode());
+        self::assertEquals('4', $tree->getData()[2]->getLeft());
+        self::assertEquals('5', $tree->getData()[2]->getRight());
     }
 }

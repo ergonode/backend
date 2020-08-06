@@ -60,8 +60,8 @@ class LanguageCodeActiveValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectValueValidation(): void
     {
-        $this->query->method('getDictionaryActive')->willReturn(['en']);
-        $this->validator->validate('en', new LanguageCodeActive());
+        $this->query->method('getDictionaryActive')->willReturn(['en_GB']);
+        $this->validator->validate('en_GB', new LanguageCodeActive());
 
         $this->assertNoViolation();
     }
@@ -72,7 +72,7 @@ class LanguageCodeActiveValidatorTest extends ConstraintValidatorTestCase
     {
         $constraint = new LanguageCodeActive();
         $value = 'JL';
-        $this->query->method('getDictionaryActive')->willReturn(['en']);
+        $this->query->method('getDictionaryActive')->willReturn(['en_GB']);
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value);

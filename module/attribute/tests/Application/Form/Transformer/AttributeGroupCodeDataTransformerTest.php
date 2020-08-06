@@ -36,7 +36,7 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
      */
     public function testTransform(?AttributeGroupCode $code, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($code));
+        self::assertSame($string, $this->transformer->transform($code));
     }
 
     /**
@@ -56,7 +56,7 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?AttributeGroupCode $code, ?string $string): void
     {
-        $this->assertEquals($code, $this->transformer->reverseTransform($string));
+        self::assertEquals($code, $this->transformer->reverseTransform($string));
     }
 
     /**
@@ -66,8 +66,8 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
     {
         return [
             [
-                'attributeTypeValueObject' => new AttributeGroupCode('en'),
-                'string' => 'en',
+                'attributeTypeValueObject' => new AttributeGroupCode('group_code'),
+                'string' => 'group_code',
             ],
             [
                 'attributeTypeValueObject' => null,
