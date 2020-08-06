@@ -50,10 +50,10 @@ class ValueInterfaceHandlerTest extends TestCase
     {
         $configurations = ValueInterfaceHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -66,37 +66,37 @@ class ValueInterfaceHandlerTest extends TestCase
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, ValueInterface::class, 'json');
 
-        $this->assertInstanceOf(StringValue::class, $result);
-        $this->assertEquals(StringValue::TYPE, $result->getType());
-        $this->assertEquals([null => 'test_value'], $result->getValue());
+        self::assertInstanceOf(StringValue::class, $result);
+        self::assertEquals(StringValue::TYPE, $result->getType());
+        self::assertEquals([null => 'test_value'], $result->getValue());
     }
 
     /**
      */
     public function testDeserializeTranslatableStringValue(): void
     {
-        $testValue = '{"type":"translation","value":{"translations":{"pl_PL":"test","en":"test"}}}';
+        $testValue = '{"type":"translation","value":{"translations":{"pl_PL":"test","en_GB":"test"}}}';
 
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, ValueInterface::class, 'json');
 
-        $this->assertInstanceOf(TranslatableStringValue::class, $result);
-        $this->assertEquals(TranslatableStringValue::TYPE, $result->getType());
-        $this->assertEquals(['pl_PL' => 'test', 'en' => 'test'], $result->getValue());
+        self::assertInstanceOf(TranslatableStringValue::class, $result);
+        self::assertEquals(TranslatableStringValue::TYPE, $result->getType());
+        self::assertEquals(['pl_PL' => 'test', 'en_GB' => 'test'], $result->getValue());
     }
 
     /**
      */
     public function testDeserializeCollectionValue(): void
     {
-        $testValue = '{"type":"collection","value":{"pl":"test","en":"test"}}';
+        $testValue = '{"type":"collection","value":{"pl_PL":"test","en_GB":"test"}}';
 
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, ValueInterface::class, 'json');
 
-        $this->assertInstanceOf(StringCollectionValue::class, $result);
-        $this->assertEquals(StringCollectionValue::TYPE, $result->getType());
-        $this->assertIsArray($result->getValue());
-        $this->assertEquals(['pl' => 'test', 'en' => 'test'], $result->getValue());
+        self::assertInstanceOf(StringCollectionValue::class, $result);
+        self::assertEquals(StringCollectionValue::TYPE, $result->getType());
+        self::assertIsArray($result->getValue());
+        self::assertEquals(['pl_PL' => 'test', 'en_GB' => 'test'], $result->getValue());
     }
 }

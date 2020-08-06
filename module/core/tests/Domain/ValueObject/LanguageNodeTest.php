@@ -35,7 +35,7 @@ class LanguageNodeTest extends TestCase
     public function testCreateNode(): void
     {
         $node = new LanguageNode($this->languageId);
-        $this->assertEquals($this->languageId, $node->getLanguageId());
+        self::assertEquals($this->languageId, $node->getLanguageId());
     }
 
     /**
@@ -46,36 +46,36 @@ class LanguageNodeTest extends TestCase
         $parent = $this->createMock(LanguageNode::class);
         $node = new LanguageNode($this->languageId);
         $node->setParent($parent);
-        $this->assertEquals($parent, $node->getParent());
+        self::assertEquals($parent, $node->getParent());
     }
 
     /**
      */
     public function testAddChildren(): void
     {
-        $language = LanguageId::generateIdentifier(self::NAMESPACE, 'en');
+        $language = LanguageId::generateIdentifier(self::NAMESPACE, 'en_GB');
 
         /** @var LanguageNode|MockObject $children */
         $children = new LanguageNode($language);
         $node = new LanguageNode($this->languageId);
-        $this->assertFalse($node->hasChild($language));
+        self::assertFalse($node->hasChild($language));
         $node->addChild($children);
-        $this->assertEquals($children, $node->getChildren()[0]);
-        $this->assertTrue($node->hasChild($language));
-        $this->assertTrue($node->hasChildren());
+        self::assertEquals($children, $node->getChildren()[0]);
+        self::assertTrue($node->hasChild($language));
+        self::assertTrue($node->hasChildren());
     }
 
     /**
      */
     public function testHasSuccessor(): void
     {
-        $languagePl = LanguageId::generateIdentifier(self::NAMESPACE, 'pl');
-        $languageEn = LanguageId::generateIdentifier(self::NAMESPACE, 'en');
+        $languagePl = LanguageId::generateIdentifier(self::NAMESPACE, 'pl_PL');
         $languageEnGb = LanguageId::generateIdentifier(self::NAMESPACE, 'en_GB');
+        $languageEnNz = LanguageId::generateIdentifier(self::NAMESPACE, 'en_NZ');
         $languageEnUs = LanguageId::generateIdentifier(self::NAMESPACE, 'en_US');
 
-        $child1 = new LanguageNode($languageEn);
-        $child2 = new LanguageNode($languageEnGb);
+        $child1 = new LanguageNode($languageEnGb);
+        $child2 = new LanguageNode($languageEnNz);
         $child3 = new LanguageNode($languageEnUs);
 
         $child1->addChild($child2);
@@ -84,8 +84,8 @@ class LanguageNodeTest extends TestCase
         $node = new LanguageNode($languagePl);
         $node->addChild($child1);
 
-        $this->assertTrue($node->hasSuccessor($languageEn));
-        $this->assertTrue($node->hasSuccessor($languageEnGb));
-        $this->assertTrue($node->hasSuccessor($languageEnUs));
+        self::assertTrue($node->hasSuccessor($languageEnGb));
+        self::assertTrue($node->hasSuccessor($languageEnNz));
+        self::assertTrue($node->hasSuccessor($languageEnUs));
     }
 }

@@ -17,6 +17,20 @@ Feature: Magento 1 CSV module
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create Magento 1 CSV Source with default attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/sources" with body:
+      """
+      {
+        "type": "magento-1-csv",
+        "name": "default attribute"
+      }
+      """
+    Then the response status code should be 201
+
+
   Scenario: Create Magento 1 CSV Source
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
