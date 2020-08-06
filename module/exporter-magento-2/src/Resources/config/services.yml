@@ -9,7 +9,6 @@ services:
 
     Ergonode\ExporterMagento2\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity}'
 
     Ergonode\ExporterMagento2\Infrastructure\:
         resource: '../../Infrastructure/*'
