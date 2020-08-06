@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Tests\Attribute\Application\Form\Transformer;
+namespace Ergonode\Attribute\Tests\Application\Form\Transformer;
 
 use Ergonode\Attribute\Application\Form\Transformer\OptionKeyDataTransformer;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
@@ -38,7 +38,7 @@ class OptionKeyDataTransformerTest extends TestCase
      */
     public function testTransform(?OptionKey $optionKeyValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($optionKeyValueObject));
+        self::assertSame($string, $this->transformer->transform($optionKeyValueObject));
     }
 
     /**
@@ -60,7 +60,7 @@ class OptionKeyDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?OptionKey $optionKeyValueObject, ?string $string): void
     {
-        $this->assertEquals($optionKeyValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($optionKeyValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**
@@ -83,8 +83,8 @@ class OptionKeyDataTransformerTest extends TestCase
     {
         return [
             [
-                'optionKeyValueObject' => new OptionKey('en'),
-                'string' => 'en',
+                'optionKeyValueObject' => new OptionKey('option_key'),
+                'string' => 'option_key',
             ],
             [
                 'optionKeyValueObject' => null,
