@@ -55,7 +55,7 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
             ChannelId::generate(),
             $name,
             $format,
-            $languages,
+            $languages
         );
     }
 }

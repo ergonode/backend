@@ -51,6 +51,9 @@ abstract class AbstractChannel implements ChannelInterface
     }
 
     /**
+     * @JMS\VirtualProperty()
+     * @JMS\SerializedName("type")
+     *
      * @return string
      */
     abstract public function getType(): string;

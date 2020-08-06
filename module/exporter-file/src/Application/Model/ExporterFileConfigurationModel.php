@@ -23,8 +23,18 @@ class ExporterFileConfigurationModel
      */
     public ?string $name = null;
 
+    /**
+     * @var array
+     *
+     * @Assert\NotBlank()
+     */
     public array $languages = [];
 
+    /**
+     * @var string|null
+     *
+     * @Assert\NotBlank()
+     */
     public ?string $format = null;
 
     /**
@@ -35,6 +45,7 @@ class ExporterFileConfigurationModel
         if ($channel) {
             $this->name = $channel->getName();
             $this->format = $channel->getFormat();
+            $this->languages = $channel->getLanguages();
         }
     }
 }

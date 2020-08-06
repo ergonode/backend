@@ -48,6 +48,7 @@ class DbalExportQuery implements ExportQueryInterface
     public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface
     {
         $query = $this->getQuery();
+        $query->addSelect('e.channel_id');
         $query->andWhere($query->expr()->eq('channel_id', ':channelId'));
 
         $result = $this->connection->createQueryBuilder();
