@@ -37,3 +37,7 @@ services:
     Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Persistence\Dbal\Query\DbalMultimediaQuery'
     Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\Multimedia\Persistence\Dbal\Repository\DbalMultimediaRepository'
     Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface: '@Ergonode\Multimedia\Infrastructure\Service\SHACalculationService'
+
+    Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerationStrategyProvider:
+        arguments:
+            - '@Ergonode\Multimedia\Infrastructure\Service\Thumbnail\Strategy\DefaultThumbnailGenerationStrategy'
