@@ -8,10 +8,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Infrastructure\Grid;
 
+use Ergonode\Channel\Application\Provider\ChannelTypeDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\LinkColumn;
+use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,17 +25,38 @@ use Symfony\Component\HttpFoundation\Request;
 class ChannelGrid extends AbstractGrid
 {
     /**
+     * @var ChannelTypeDictionaryProvider
+     */
+    private ChannelTypeDictionaryProvider $channelTypeProvider;
+
+    /**
+     * @param ChannelTypeDictionaryProvider $channelTypeProvider
+     */
+    public function __construct(ChannelTypeDictionaryProvider $channelTypeProvider)
+    {
+        $this->channelTypeProvider = $channelTypeProvider;
+    }
+
+    /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
+        $types = [];
+        foreach ($this->channelTypeProvider->provide($language) as $key => $value) {
+            $types[] = new LabelFilterOption($key, $value);
+        }
+
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
         $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);
+
+        $column = new SelectColumn('type', 'Type', new MultiSelectFilter($types));
+        $this->addColumn('type', $column);
 
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [

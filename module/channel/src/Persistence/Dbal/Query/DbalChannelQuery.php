@@ -51,7 +51,7 @@ class DbalChannelQuery implements ChannelQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('ch.id, ch.name')
+            ->select('ch.id, ch.name, ch.type')
             ->from(self::TABLE_VALUE, 'ch');
     }
 }
