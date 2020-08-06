@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
+
+use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Ergonode\Multimedia\Domain\Entity\Multimedia;
+use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use League\Flysystem\FilesystemInterface;
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+/**
+ * @Route(
+ *     name="ergonode_multimedia_download_thumbnail",
+ *     path="/multimedia/{multimedia}/download/{thumbnail}",
+ *     methods={"GET"},
+ *     requirements={
+ *        "multimedia" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+ *     }
+ * )
+ */
+class DownloadThumbnailMultimediaAction
+{
+    /**
+     * @var ThumbnailGenerator
+     */
+    private ThumbnailGenerator $generator;
+
+    /**
+     * @var FilesystemInterface
+     */
+    private FilesystemInterface $thumbnailStorage;
+
+    /**
+     * @param ThumbnailGenerator  $generator
+     * @param FilesystemInterface $thumbnailStorage
+     */
+    public function __construct(ThumbnailGenerator $generator, FilesystemInterface $thumbnailStorage)
+    {
+        $this->generator = $generator;
+        $this->thumbnailStorage = $thumbnailStorage;
+    }
+
+    /**
+     * @IsGranted("MULTIMEDIA_READ")
+     *
+     * @SWG\Tag(name="Multimedia")
+     * @SWG\Parameter(
+     *     name="multimedia",
+     *     in="path",
+     *     type="string",
+     *     description="Multimedia id",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns multimedia file",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @param Multimedia $multimedia
+     *
+     * @param string     $thumbnail
+     *
+     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
+     *
+     * @return Response
+     *
+     */
+    public function __invoke(Multimedia $multimedia, string $thumbnail): Response
+    {
+        try {
+            $filename = sprintf('%s/%s.png', $thumbnail, $multimedia->getId()->getValue());
+            if (!$this->thumbnailStorage->has($filename)) {
+                $this->generator->generate($multimedia, $thumbnail);
+            }
+
+            $content = $this->thumbnailStorage->read($filename);
+            $size = $this->thumbnailStorage->getSize($filename);
+
+            $headers = [
+                'Cache-Control' => 'private',
+                'Content-type' => 'image/png',
+                'Content-Disposition' => 'attachment; filename="'.basename($filename).'";',
+                'Content-length' => $size,
+            ];
+
+            return new SuccessResponse($content, $headers);
+        } catch (\Exception $exception) {
+            throw new NotFoundHttpException(null, $exception);
+        }
+    }
+}

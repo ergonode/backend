@@ -25,6 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  *     methods={"GET"},
  *     requirements={"multimedia" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
+ * @Route(
+ *     name="ergonode_multimedia_download",
+ *     path="/multimedia/{multimedia}/download",
+ *     methods={"GET"},
+ *     requirements={"multimedia" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ * )
  */
 class GetMultimediaAction
 {

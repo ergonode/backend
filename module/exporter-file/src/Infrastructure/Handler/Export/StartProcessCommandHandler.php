@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
-use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
+use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
@@ -25,9 +25,9 @@ class StartProcessCommandHandler
     private ExportRepositoryInterface $repository;
 
     /**
-     * @var FileStorage
+     * @var TempFileStorage
      */
-    private FileStorage $storage;
+    private TempFileStorage $storage;
 
     /**
      * @var AttributeQueryInterface
@@ -36,12 +36,12 @@ class StartProcessCommandHandler
 
     /**
      * @param ExportRepositoryInterface $repository
-     * @param FileStorage               $storage
+     * @param TempFileStorage           $storage
      * @param AttributeQueryInterface   $attributeQuery
      */
     public function __construct(
         ExportRepositoryInterface $repository,
-        FileStorage $storage,
+        TempFileStorage $storage,
         AttributeQueryInterface $attributeQuery
     ) {
         $this->repository = $repository;
