@@ -14,7 +14,7 @@ use Ergonode\ExporterFile\Infrastructure\Processor\AttributeProcessor;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
+use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
@@ -46,9 +46,9 @@ class ProcessAttributeCommandHandler
     private AttributeProcessor $processor;
 
     /**
-     * @var FileStorage
+     * @var TempFileStorage
      */
-    private FileStorage $storage;
+    private TempFileStorage $storage;
 
     /**
      * @var WriterProvider
@@ -60,7 +60,7 @@ class ProcessAttributeCommandHandler
      * @param ExportRepositoryInterface    $exportRepository
      * @param ChannelRepositoryInterface   $channelRepository
      * @param AttributeProcessor           $processor
-     * @param FileStorage                  $storage
+     * @param TempFileStorage              $storage
      * @param WriterProvider               $provider
      */
     public function __construct(
@@ -68,7 +68,7 @@ class ProcessAttributeCommandHandler
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
         AttributeProcessor $processor,
-        FileStorage $storage,
+        TempFileStorage $storage,
         WriterProvider $provider
     ) {
         $this->attributeRepository = $attributeRepository;

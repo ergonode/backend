@@ -8,9 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
-use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Entity\Export;

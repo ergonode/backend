@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
-use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
+use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\Exporter\Infrastructure\Service\DirectoryCompressorInterface;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\FileExistsException;
@@ -31,9 +31,9 @@ class EndProcessCommandHandler
     private DirectoryCompressorInterface $compressor;
 
     /**
-     * @var FileStorage
+     * @var TempFileStorage
      */
-    private FileStorage $storage;
+    private TempFileStorage $storage;
 
     /**
      * @var FilesystemInterface;
@@ -43,13 +43,13 @@ class EndProcessCommandHandler
     /**
      * @param ExportRepositoryInterface    $repository
      * @param DirectoryCompressorInterface $compressor
-     * @param FileStorage                  $storage
+     * @param TempFileStorage              $storage
      * @param FilesystemInterface          $exportStorage
      */
     public function __construct(
         ExportRepositoryInterface $repository,
         DirectoryCompressorInterface $compressor,
-        FileStorage $storage,
+        TempFileStorage $storage,
         FilesystemInterface $exportStorage
     ) {
         $this->repository = $repository;

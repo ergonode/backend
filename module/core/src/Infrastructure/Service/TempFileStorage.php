@@ -6,13 +6,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterFile\Infrastructure\Storage;
+namespace Ergonode\Core\Infrastructure\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  */
-class FileStorage
+class TempFileStorage
 {
     /**
      * @var string $directory
@@ -29,7 +29,7 @@ class FileStorage
      */
     public function __construct(KernelInterface $kernel)
     {
-        $this->directory = sprintf('%s/var/tmp/export', $kernel->getProjectDir());
+        $this->directory = sprintf('%s/var/tmp', $kernel->getProjectDir());
     }
 
     /**
@@ -59,7 +59,6 @@ class FileStorage
     {
         $file = sprintf('%s/%s', $this->directory, $filename);
 
-
         $fileName = basename($file);
         $folders = explode('/', str_replace('/'.$fileName, '', $file));
 
@@ -85,7 +84,7 @@ class FileStorage
     {
         $this->file = \fopen(sprintf('%s/%s', $this->directory, $filename), 'ab');
         if (false === $this->file) {
-            throw new \RuntimeException(sprintf('cant\' create "%s" file', $filename));
+            throw new \RuntimeException(sprintf('can\'t create "%s" file', $filename));
         }
     }
 

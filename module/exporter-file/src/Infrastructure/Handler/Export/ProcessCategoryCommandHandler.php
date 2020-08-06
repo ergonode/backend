@@ -13,7 +13,7 @@ use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Infrastructure\Processor\CategoryProcessor;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
-use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
+use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
@@ -46,9 +46,9 @@ class ProcessCategoryCommandHandler
     private CategoryProcessor $processor;
 
     /**
-     * @var FileStorage
+     * @var TempFileStorage
      */
-    private FileStorage $storage;
+    private TempFileStorage $storage;
 
     /**
      * @var WriterProvider
@@ -60,7 +60,7 @@ class ProcessCategoryCommandHandler
      * @param ExportRepositoryInterface   $exportRepository
      * @param ChannelRepositoryInterface  $channelRepository
      * @param CategoryProcessor           $processor
-     * @param FileStorage                 $storage
+     * @param TempFileStorage             $storage
      * @param WriterProvider              $provider
      */
     public function __construct(
@@ -68,7 +68,7 @@ class ProcessCategoryCommandHandler
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
         CategoryProcessor $processor,
-        FileStorage $storage,
+        TempFileStorage $storage,
         WriterProvider $provider
     ) {
         $this->categoryRepository = $categoryRepository;

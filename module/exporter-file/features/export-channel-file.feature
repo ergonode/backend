@@ -15,6 +15,7 @@ Feature: Export Profile module
     Then the response status code should be 200
     And the JSON node "properties.name" should exist
     And the JSON node "properties.format" should exist
+    And the JSON node "properties.languages" should exist
 
   Scenario: Create File Channel
     When I send a POST request to "/api/v1/en_GB/channels" with body:
@@ -63,13 +64,18 @@ Feature: Export Profile module
       | collection[0].id     | @export_id@ |
       | info.count           | 1           |
 
-#  Scenario: Get export information
-#    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@/exports/@export_id@"
-#    Then the response status code should be 200
-#    And the JSON nodes should contain:
-#      | id         | @export_id@  |
-#      | channel_id | @channel_id@ |
-#      | status     | ENDED        |
+  Scenario: Get export information
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@/exports/@export_id@"
+    Then the response status code should be 200
+    And the JSON node "_links.attachment.href" should exist
+    And the JSON node "started_at" should exist
+    And the JSON node "ended_at" should exist
+    And the JSON node "processed" should exist
+    And the JSON nodes should contain:
+      | id                       | @export_id@ |
+      | status                   | ENDED       |
+      | _links.attachment.method | GET         |
+      | errors                   | 0           |
 
   Scenario: Get error list for export
     When I send a GET request to "/api/v1/en_GB/channels/@channel_id@/exports/@export_id@/errors"

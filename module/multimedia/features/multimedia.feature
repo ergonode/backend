@@ -38,8 +38,16 @@ Feature: Multimedia
       | upload | @multimedia-test-empty-image.png |
     Then the response status code should be 400
 
-  Scenario: Download uploaded multimedia file
+  Scenario: Get uploaded multimedia
     And I send a GET request to "api/v1/multimedia/@multimedia_id@"
+    Then the response status code should be 200
+
+  Scenario: Download uploaded multimedia file
+    And I send a GET request to "api/v1/multimedia/@multimedia_id@/download"
+    Then the response status code should be 200
+
+  Scenario: Download uploaded multimedia file thumbnail default
+    And I send a GET request to "api/v1/multimedia/@multimedia_id@/download/default"
     Then the response status code should be 200
 
   Scenario: Download uploaded multimedia file with invalid uuid
