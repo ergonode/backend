@@ -6,11 +6,11 @@ Feature: Export Profile Shopware 6 API
     And I add "Accept" header equal to "application/json"
 
   Scenario: Get configuration with Shopware 6 API
-    When I send a GET request to "/api/v1/en/channels/shopware-6-api/configuration"
+    When I send a GET request to "/api/v1/en_GB/channels/shopware-6-api/configuration"
     Then the response status code should be 200
 
   Scenario: Create numeric attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "shopware_6_NUMERIC_@@random_code@@",
@@ -23,7 +23,7 @@ Feature: Export Profile Shopware 6 API
     And store response param "id" as "attribute_numeric_id"
 
   Scenario: Create gross price attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "shopware_6_PRICE_gross_@@random_code@@",
@@ -40,7 +40,7 @@ Feature: Export Profile Shopware 6 API
     And store response param "id" as "attribute_price_gross_id"
 
   Scenario: Create net price attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "shopware_6_PRICE_net_@@random_code@@",
@@ -57,7 +57,7 @@ Feature: Export Profile Shopware 6 API
     And store response param "id" as "attribute_price_net_id"
 
   Scenario: Create text attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "shopware_6_TEXT_@@random_code@@",
@@ -70,13 +70,13 @@ Feature: Export Profile Shopware 6 API
     And store response param "id" as "attribute_text_id"
 
   Scenario: Create category tree
-    When I send a POST request to "/api/v1/en/trees" with body:
+    When I send a POST request to "/api/v1/en_GB/trees" with body:
       """
       {
         "code": "TREE_@@random_code@@",
         "name": {
-          "de": "Test tree1 de",
-          "en": "Test tree1 en",
+          "de_DE": "Test tree1 de",
+          "en_GB": "Test tree1 en",
           "pl_PL": "Test tree1 PL"
         }
       }
@@ -85,7 +85,7 @@ Feature: Export Profile Shopware 6 API
     And store response param "id" as "category_tree"
 
   Scenario: Post Create Channel to Shopware 6 API
-    When I send a POST request to "/api/v1/en/channels" with body:
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
       """
         {
           "type": "shopware-6-api",
@@ -93,8 +93,8 @@ Feature: Export Profile Shopware 6 API
           "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
-          "default_language": "en",
-          "languages": ["pl", "en"],
+          "default_language": "en_GB",
+          "languages": ["pl_PL", "en_GB"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
@@ -108,7 +108,7 @@ Feature: Export Profile Shopware 6 API
     And store response param "id" as "channel_id"
 
   Scenario: Post Create Channel to Shopware 6 API (wrong languages not active)
-    When I send a POST request to "/api/v1/en/channels" with body:
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
       """
         {
           "type": "shopware-6-api",
@@ -116,8 +116,8 @@ Feature: Export Profile Shopware 6 API
           "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
-          "default_language": "en",
-          "languages": ["es", "en"],
+          "default_language": "en_GB",
+          "languages": ["es_ES", "en_GB"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
@@ -129,10 +129,10 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.languages.element-0[0] | Language code es is not active |
+      | errors.languages.element-0[0] | Language code es_ES is not active |
 
   Scenario: Post Create Channel to Shopware 6 API (wrong languages invalid)
-    When I send a POST request to "/api/v1/en/channels" with body:
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
       """
         {
           "type": "shopware-6-api",
@@ -140,8 +140,8 @@ Feature: Export Profile Shopware 6 API
           "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
-          "default_language": "en",
-          "languages": ["ps", "en"],
+          "default_language": "en_GB",
+          "languages": ["ps_AR", "en_GB"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
@@ -153,11 +153,11 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.languages.element-0[0] | Language code ps is not active |
+      | errors.languages.element-0[0] | Language code ps_AR is not active |
 
 
   Scenario: Post Create Channel to Shopware 6 API (wrong default language not active)
-    When I send a POST request to "/api/v1/en/channels" with body:
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
       """
         {
           "type": "shopware-6-api",
@@ -165,8 +165,8 @@ Feature: Export Profile Shopware 6 API
           "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
-          "default_language": "es",
-          "languages": ["pl", "en"],
+          "default_language": "es_ES",
+          "languages": ["pl_PL", "en_GB"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
@@ -178,10 +178,10 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.default_language[0] | Language code es is not active |
+      | errors.default_language[0] | Language code es_ES is not active |
 
   Scenario: Post Create Channel to Shopware 6 API (wrong  default language invalid)
-    When I send a POST request to "/api/v1/en/channels" with body:
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
       """
         {
           "type": "shopware-6-api",
@@ -189,8 +189,8 @@ Feature: Export Profile Shopware 6 API
           "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
-          "default_language": "ps",
-          "languages": ["pl", "en"],
+          "default_language": "ps_AR",
+          "languages": ["pl_PL", "en_GB"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
@@ -202,10 +202,10 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.default_language[0] | Language code ps is not active |
+      | errors.default_language[0] | Language code ps_AR is not active |
 
   Scenario: Update shopware 6 channel
-    When I send a PUT request to "/api/v1/en/channels/@channel_id@" with body:
+    When I send a PUT request to "/api/v1/en_GB/channels/@channel_id@" with body:
       """
         {
           "type": "shopware-6-api",
@@ -213,8 +213,8 @@ Feature: Export Profile Shopware 6 API
           "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
-          "default_language": "en",
-          "languages": ["en"],
+          "default_language": "en_GB",
+          "languages": ["en_GB"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",

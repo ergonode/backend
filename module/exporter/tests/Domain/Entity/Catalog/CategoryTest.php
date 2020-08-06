@@ -37,12 +37,12 @@ class CategoryTest extends TestCase
     {
         $this->code = 'CODE';
         $this->id = Uuid::uuid4();
-        $this->name = new TranslatableString(['en' => 'english', 'pl_PL' => 'polish']);
+        $this->name = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
     }
 
     /**
      */
-    public function testConstructor():void
+    public function testConstructor(): void
     {
         $category = new ExportCategory(
             $this->id,
@@ -50,8 +50,8 @@ class CategoryTest extends TestCase
             $this->name
         );
 
-        $this->assertEquals($this->id, $category->getId());
-        $this->assertEquals($this->code, $category->getCode());
-        $this->assertEquals($this->name, $category->getName());
+        self::assertEquals($this->id, $category->getId());
+        self::assertEquals($this->code, $category->getCode());
+        self::assertEquals($this->name, $category->getName());
     }
 }

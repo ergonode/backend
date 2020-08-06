@@ -4,7 +4,7 @@ Feature: Authentication module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Default role for user (@@random_uuid@@)",
@@ -21,13 +21,13 @@ Feature: Authentication module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@inactive_username@",
           "firstName": "Not",
           "lastName": "Active",
-          "language": "en",
+          "language": "en_GB",
           "password": "@inactive_password@",
           "passwordRepeat": "@inactive_password@",
           "roleId": "@inactive_user_role@"

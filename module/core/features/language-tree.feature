@@ -4,14 +4,14 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "GET" request to "/api/v1/en/language/tree"
+    And I send a "GET" request to "/api/v1/en_GB/language/tree"
     Then the response status code should be 200
 
   Scenario: Get language en
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/languages/en"
+    When I send a GET request to "/api/v1/en_GB/languages/en_GB"
     Then the response status code should be 200
     And store response param "id" as "language_id_en"
 
@@ -19,7 +19,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/languages/pl"
+    When I send a GET request to "/api/v1/en_GB/languages/pl_PL"
     Then the response status code should be 200
     And store response param "id" as "language_id_pl"
 
@@ -27,7 +27,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/languages/fr"
+    When I send a GET request to "/api/v1/en_GB/languages/fr_FR"
     Then the response status code should be 200
     And store response param "id" as "language_id_fr"
 
@@ -35,7 +35,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/languages/de"
+    When I send a GET request to "/api/v1/en_GB/languages/de_DE"
     Then the response status code should be 200
     And store response param "id" as "language_id_de"
 
@@ -43,7 +43,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/languages/uk"
+    When I send a GET request to "/api/v1/en_GB/languages/uk_UA"
     Then the response status code should be 200
     And store response param "id" as "language_id_uk"
 
@@ -52,7 +52,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/language/tree" with body:
+    When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
       """
         {
             "languages":
@@ -87,7 +87,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/language/tree" with body:
+    When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
       """
         {
 
@@ -99,7 +99,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/language/tree" with body:
+    When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
       """
         {
             "languages":
@@ -112,7 +112,7 @@ Feature: Core module - language tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/language/tree" with body:
+    When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
       """
         {
             "languages":

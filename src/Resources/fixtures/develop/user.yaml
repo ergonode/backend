@@ -5,7 +5,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Johnny'
             - 'Bravo'
             - '<userEmail(test@ergonode.com)>'
-            - '<language(en)>'
+            - '<language(en_GB)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Superadmin")>'
             - '<LanguagePrivilegesCollection(true)>'
@@ -15,7 +15,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Dave'
             - 'Admin'
             - '<userEmail(admin@ergonode.com)>'
-            - '<language(en)>'
+            - '<language(en_GB)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Admin")>'
             - '<LanguagePrivilegesCollection()>'
@@ -25,7 +25,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Paul'
             - 'Data Inputer'
             - '<userEmail(data_inputer@ergonode.com)>'
-            - '<language(en)>'
+            - '<language(en_GB)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Data inputer")>'
             - '<LanguagePrivilegesCollection()>'
@@ -35,7 +35,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Karen'
             - 'Category Manager'
             - '<userEmail(category_manager@ergonode.com)>'
-            - '<language(en)>'
+            - '<language(en_GB)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Category manager")>'
             - '<LanguagePrivilegesCollection()>'

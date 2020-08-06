@@ -59,5 +59,5 @@ Feature: Multimedia
     Then the response status code should be 404
 
   Scenario: Get multimedia grid
-    And I send a GET request to "api/v1/en/multimedia"
+    And I send a GET request to "api/v1/en_GB/multimedia"
     Then the response status code should be 200
