@@ -20,12 +20,13 @@ class ExportData
     private array $languages = [];
 
     /**
-     * @param Language     $language
-     * @param LanguageData $data
+     * @param LanguageData  $data
+     * @param Language|null $language
      */
-    public function set(Language $language, LanguageData $data): void
+    public function set(LanguageData $data, ?Language $language = null): void
     {
-        $this->languages[$language->getCode()] = $data;
+        $code = $language ? $language->getCode() : null;
+        $this->languages[$code] = $data;
     }
 
     /**

@@ -73,7 +73,7 @@ class ProductProcessor
             asort($attributes);
 
             foreach ($channel->getLanguages() as $language) {
-                $data->set($language, $this->getLanguage($product, $language, $attributes));
+                $data->set($this->getLanguage($product, $language, $attributes), $language);
             }
 
             return $data;

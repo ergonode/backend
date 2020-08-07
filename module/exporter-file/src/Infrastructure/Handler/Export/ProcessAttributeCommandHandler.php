@@ -41,7 +41,7 @@ class ProcessAttributeCommandHandler
     private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var AttributeProcessor;
+     * @var AttributeProcessor
      */
     private AttributeProcessor $processor;
 
@@ -86,6 +86,7 @@ class ProcessAttributeCommandHandler
      */
     public function __invoke(ProcessAttributeCommand $command)
     {
+        /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
@@ -93,9 +94,9 @@ class ProcessAttributeCommandHandler
         $attribute = $this->attributeRepository->load($command->getAttributeId());
         Assert::isInstanceOf($attribute, AbstractAttribute::class);
 
-        $filename = sprintf('%s/attributes.csv', $command->getExportId()->getValue());
+        $filename = sprintf('%s/attributes.%s', $command->getExportId()->getValue(), $channel->getFormat());
         $data = $this->processor->process($channel, $attribute);
-        $writer = $this->provider->provide('csv');
+        $writer = $this->provider->provide($channel->getFormat());
         $lines = $writer->add($data);
 
         $this->storage->open($filename);

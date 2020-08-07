@@ -26,11 +26,11 @@ interface OptionQueryInterface
     public function getList(AttributeId $attributeId, Language $language): array;
 
     /**
-     * @param AttributeId $attributeId
+     * @param AttributeId|null $attributeId
      *
      * @return array
      */
-    public function getAll(AttributeId $attributeId): array;
+    public function getAll(?AttributeId $attributeId = null): array;
 
     /**
      * @param AttributeId $attributeId

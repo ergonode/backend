@@ -8,27 +8,27 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
-use Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand;
 use Webmozart\Assert\Assert;
-use Ergonode\ExporterFile\Infrastructure\Processor\CategoryProcessor;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
-use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand;
+use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
+use Ergonode\ExporterFile\Infrastructure\Processor\MultimediaProcessor;
 
 /**
  */
-class ProcessCategoryCommandHandler
+class ProcessMultimediaCommandHandler
 {
     /**
-     * @var CategoryRepositoryInterface
+     * @var MultimediaRepositoryInterface
      */
-    private CategoryRepositoryInterface $categoryRepository;
+    private MultimediaRepositoryInterface $multimediaRepository;
 
     /**
      * @var ExportRepositoryInterface
@@ -41,9 +41,9 @@ class ProcessCategoryCommandHandler
     private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var CategoryProcessor
+     * @var MultimediaProcessor
      */
-    private CategoryProcessor $processor;
+    private MultimediaProcessor $processor;
 
     /**
      * @var TempFileStorage
@@ -56,22 +56,22 @@ class ProcessCategoryCommandHandler
     private WriterProvider $provider;
 
     /**
-     * @param CategoryRepositoryInterface $categoryRepository
-     * @param ExportRepositoryInterface   $exportRepository
-     * @param ChannelRepositoryInterface  $channelRepository
-     * @param CategoryProcessor           $processor
-     * @param TempFileStorage             $storage
-     * @param WriterProvider              $provider
+     * @param MultimediaRepositoryInterface $multimediaRepository
+     * @param ExportRepositoryInterface     $exportRepository
+     * @param ChannelRepositoryInterface    $channelRepository
+     * @param MultimediaProcessor           $processor
+     * @param TempFileStorage               $storage
+     * @param WriterProvider                $provider
      */
     public function __construct(
-        CategoryRepositoryInterface $categoryRepository,
+        MultimediaRepositoryInterface $multimediaRepository,
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
-        CategoryProcessor $processor,
+        MultimediaProcessor $processor,
         TempFileStorage $storage,
         WriterProvider $provider
     ) {
-        $this->categoryRepository = $categoryRepository;
+        $this->multimediaRepository = $multimediaRepository;
         $this->exportRepository = $exportRepository;
         $this->channelRepository = $channelRepository;
         $this->processor = $processor;
@@ -80,22 +80,22 @@ class ProcessCategoryCommandHandler
     }
 
     /**
-     * @param ProcessCategoryCommand $command
+     * @param ProcessMultimediaCommand $command
      *
      * @throws ExportException
      */
-    public function __invoke(ProcessCategoryCommand $command)
+    public function __invoke(ProcessMultimediaCommand $command)
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, FileExportChannel::class);
-        $category = $this->categoryRepository->load($command->getCategoryId());
-        Assert::isInstanceOf($category, AbstractCategory::class);
+        $multimedia = $this->multimediaRepository->load($command->getMultimediaId());
+        Assert::isInstanceOf($multimedia, AbstractMultimedia::class);
 
-        $filename = sprintf('%s/categories.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $category);
+        $filename = sprintf('%s/multimedia.%s', $command->getExportId()->getValue(), $channel->getFormat());
+        $data = $this->processor->process($channel, $multimedia);
         $writer = $this->provider->provide($channel->getFormat());
         $lines = $writer->add($data);
 

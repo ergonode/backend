@@ -81,6 +81,17 @@ class DbalTemplateQuery implements TemplateQueryInterface
     }
 
     /**
+     * @return array
+     */
+    public function getAll(): array
+    {
+        return $this->getQuery()
+            ->select('id')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function findTemplateIdByAttributeId(AttributeId $attributeId): array
