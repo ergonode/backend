@@ -40,6 +40,6 @@ class WriterProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find writer type %s', $type));
+        throw new \RuntimeException(sprintf('Can\'t find writer type "%s"', $type));
     }
 }

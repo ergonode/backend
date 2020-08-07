@@ -9,58 +9,59 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 
 /**
  */
-class AttributeProcessor
+class MultimediaProcessor
 {
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractAttribute $attribute
+     * @param FileExportChannel  $channel
+     * @param AbstractMultimedia $multimedia
      *
      * @return ExportData
      *
      * @throws ExportException
      */
-    public function process(FileExportChannel $channel, AbstractAttribute $attribute): ExportData
+    public function process(FileExportChannel $channel, AbstractMultimedia $multimedia): ExportData
     {
         try {
             $data = new ExportData();
 
             foreach ($channel->getLanguages() as $language) {
-                $data->set($this->getLanguage($attribute, $language), $language);
+                $data->set($this->getLanguage($multimedia, $language), $language);
             }
 
             return $data;
         } catch (\Exception $exception) {
             throw new ExportException(
-                sprintf('Can\'t process export for %s', $attribute->getCode()->getValue()),
+                sprintf('Can\'t process export for %s', $multimedia->getId()->getValue()),
                 $exception
             );
         }
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
+     * @param AbstractMultimedia $multimedia
+     * @param Language           $language
      *
      * @return LanguageData
      */
-    private function getLanguage(AbstractAttribute $attribute, Language $language): LanguageData
+    private function getLanguage(AbstractMultimedia $multimedia, Language $language): LanguageData
     {
         $result = new LanguageData();
-        $result->set('_id', $attribute->getId()->getValue());
-        $result->set('_code', $attribute->getCode()->getValue());
-        $result->set('_type', $attribute->getType());
+        $result->set('_id', $multimedia->getId()->getValue());
         $result->set('_language', $language->getCode());
-        $result->set('_name', $attribute->getLabel()->get($language));
-        $result->set('_hint', $attribute->getHint()->get($language));
-        $result->set('_placeholder', $attribute->getPlaceholder()->get($language));
+        $result->set('_name', $multimedia->getName());
+        $result->set('_filename', $multimedia->getFileName());
+        $result->set('_extension', $multimedia->getExtension());
+        $result->set('_mime', $multimedia->getMime());
+        $result->set('_alt', $multimedia->getAlt()->get($language));
+        $result->set('_size', (string) $multimedia->getSize());
 
         return $result;
     }

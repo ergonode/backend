@@ -34,5 +34,8 @@ services:
         arguments:
             $steps:
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\AttributeExportProcessorStep'
+                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\OptionExportProcessorStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\CategoryExportProcessorStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\ProductExportProcessStep'
+                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\MultimediaExportProcessorStep'
+                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\TemplateExportProcessorStep'

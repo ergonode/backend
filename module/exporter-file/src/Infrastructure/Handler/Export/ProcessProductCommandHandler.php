@@ -86,6 +86,7 @@ class ProcessProductCommandHandler
      */
     public function __invoke(ProcessProductCommand $command)
     {
+        /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
@@ -93,9 +94,9 @@ class ProcessProductCommandHandler
         $product = $this->productRepository->load($command->getProductId());
         Assert::isInstanceOf($product, AbstractProduct::class);
 
-        $filename = sprintf('%s/products.csv', $command->getExportId()->getValue());
+        $filename = sprintf('%s/products.%s', $command->getExportId()->getValue(), $channel->getFormat());
         $data = $this->processor->process($channel, $product);
-        $writer = $this->provider->provide('csv');
+        $writer = $this->provider->provide($channel->getFormat());
         $lines = $writer->add($data);
 
         $this->storage->open($filename);

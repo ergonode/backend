@@ -8,27 +8,27 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
-use Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand;
 use Webmozart\Assert\Assert;
-use Ergonode\ExporterFile\Infrastructure\Processor\CategoryProcessor;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
-use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand;
+use Ergonode\ExporterFile\Infrastructure\Processor\TemplateProcessor;
+use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Ergonode\Designer\Domain\Entity\Template;
 
 /**
  */
-class ProcessCategoryCommandHandler
+class ProcessTemplateCommandHandler
 {
     /**
-     * @var CategoryRepositoryInterface
+     * @var TemplateRepositoryInterface
      */
-    private CategoryRepositoryInterface $categoryRepository;
+    private TemplateRepositoryInterface $templateRepository;
 
     /**
      * @var ExportRepositoryInterface
@@ -41,9 +41,9 @@ class ProcessCategoryCommandHandler
     private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var CategoryProcessor
+     * @var TemplateProcessor
      */
-    private CategoryProcessor $processor;
+    private TemplateProcessor $processor;
 
     /**
      * @var TempFileStorage
@@ -56,22 +56,22 @@ class ProcessCategoryCommandHandler
     private WriterProvider $provider;
 
     /**
-     * @param CategoryRepositoryInterface $categoryRepository
+     * @param TemplateRepositoryInterface $templateRepository
      * @param ExportRepositoryInterface   $exportRepository
      * @param ChannelRepositoryInterface  $channelRepository
-     * @param CategoryProcessor           $processor
+     * @param TemplateProcessor           $processor
      * @param TempFileStorage             $storage
      * @param WriterProvider              $provider
      */
     public function __construct(
-        CategoryRepositoryInterface $categoryRepository,
+        TemplateRepositoryInterface $templateRepository,
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
-        CategoryProcessor $processor,
+        TemplateProcessor $processor,
         TempFileStorage $storage,
         WriterProvider $provider
     ) {
-        $this->categoryRepository = $categoryRepository;
+        $this->templateRepository = $templateRepository;
         $this->exportRepository = $exportRepository;
         $this->channelRepository = $channelRepository;
         $this->processor = $processor;
@@ -79,23 +79,24 @@ class ProcessCategoryCommandHandler
         $this->provider = $provider;
     }
 
+
     /**
-     * @param ProcessCategoryCommand $command
+     * @param ProcessTemplateCommand $command
      *
      * @throws ExportException
      */
-    public function __invoke(ProcessCategoryCommand $command)
+    public function __invoke(ProcessTemplateCommand $command)
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, FileExportChannel::class);
-        $category = $this->categoryRepository->load($command->getCategoryId());
-        Assert::isInstanceOf($category, AbstractCategory::class);
+        $template = $this->templateRepository->load($command->getTemplateId());
+        Assert::isInstanceOf($template, Template::class);
 
-        $filename = sprintf('%s/categories.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $category);
+        $filename = sprintf('%s/templates.%s', $command->getExportId()->getValue(), $channel->getFormat());
+        $data = $this->processor->process($channel, $template);
         $writer = $this->provider->provide($channel->getFormat());
         $lines = $writer->add($data);
 

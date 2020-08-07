@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Symfony\Component\Validator\Constraint;
@@ -48,7 +47,7 @@ class FileAttributeValueConstraintStrategy implements AttributeValueConstraintSt
      */
     public function get(AbstractAttribute $attribute): Constraint
     {
-        $multimedia = $this->query->getMultimedia();
+        $multimedia = $this->query->getAll();
 
         return new Collection([
             'value' => [

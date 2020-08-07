@@ -33,7 +33,7 @@ class CategoryProcessor
             $data = new ExportData();
 
             foreach ($channel->getLanguages() as $language) {
-                $data->set($language, $this->getLanguage($category, $language));
+                $data->set($this->getLanguage($category, $language), $language);
             }
 
             return $data;

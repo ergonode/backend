@@ -8,27 +8,27 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
-use Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand;
 use Webmozart\Assert\Assert;
-use Ergonode\ExporterFile\Infrastructure\Processor\CategoryProcessor;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
-use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
+use Ergonode\Attribute\Domain\Entity\AbstractOption;
+use Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand;
+use Ergonode\ExporterFile\Infrastructure\Processor\OptionProcessor;
 
 /**
  */
-class ProcessCategoryCommandHandler
+class ProcessOptionCommandHandler
 {
     /**
-     * @var CategoryRepositoryInterface
+     * @var OptionRepositoryInterface
      */
-    private CategoryRepositoryInterface $categoryRepository;
+    private OptionRepositoryInterface $optionRepository;
 
     /**
      * @var ExportRepositoryInterface
@@ -41,9 +41,9 @@ class ProcessCategoryCommandHandler
     private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var CategoryProcessor
+     * @var OptionProcessor
      */
-    private CategoryProcessor $processor;
+    private OptionProcessor $processor;
 
     /**
      * @var TempFileStorage
@@ -56,22 +56,22 @@ class ProcessCategoryCommandHandler
     private WriterProvider $provider;
 
     /**
-     * @param CategoryRepositoryInterface $categoryRepository
-     * @param ExportRepositoryInterface   $exportRepository
-     * @param ChannelRepositoryInterface  $channelRepository
-     * @param CategoryProcessor           $processor
-     * @param TempFileStorage             $storage
-     * @param WriterProvider              $provider
+     * @param OptionRepositoryInterface  $optionRepository
+     * @param ExportRepositoryInterface  $exportRepository
+     * @param ChannelRepositoryInterface $channelRepository
+     * @param OptionProcessor            $processor
+     * @param TempFileStorage            $storage
+     * @param WriterProvider             $provider
      */
     public function __construct(
-        CategoryRepositoryInterface $categoryRepository,
+        OptionRepositoryInterface $optionRepository,
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
-        CategoryProcessor $processor,
+        OptionProcessor $processor,
         TempFileStorage $storage,
         WriterProvider $provider
     ) {
-        $this->categoryRepository = $categoryRepository;
+        $this->optionRepository = $optionRepository;
         $this->exportRepository = $exportRepository;
         $this->channelRepository = $channelRepository;
         $this->processor = $processor;
@@ -80,22 +80,22 @@ class ProcessCategoryCommandHandler
     }
 
     /**
-     * @param ProcessCategoryCommand $command
+     * @param ProcessOptionCommand $command
      *
      * @throws ExportException
      */
-    public function __invoke(ProcessCategoryCommand $command)
+    public function __invoke(ProcessOptionCommand $command)
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, FileExportChannel::class);
-        $category = $this->categoryRepository->load($command->getCategoryId());
-        Assert::isInstanceOf($category, AbstractCategory::class);
+        $option = $this->optionRepository->load($command->getOptionId());
+        Assert::isInstanceOf($option, AbstractOption::class);
 
-        $filename = sprintf('%s/categories.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $category);
+        $filename = sprintf('%s/options.%s', $command->getExportId()->getValue(), $channel->getFormat());
+        $data = $this->processor->process($channel, $option);
         $writer = $this->provider->provide($channel->getFormat());
         $lines = $writer->add($data);
 

@@ -64,6 +64,9 @@ class StartProcessCommandHandler
         $attribute = ['_id', '_code', '_type', '_language', '_name', '_hint', '_placeholder'];
         $categories = ['_id', '_code', '_name', '_language'];
         $products = ['_id', '_sku', '_type', '_language', '_template'] + $availableAttributes;
+        $options = ['_id', '_code', '_attribute', '_language', '_label'];
+        $multimedia = ['_id', '_language', '_name', '_filename', '_extension', '_mime', '_alt', '_size'];
+        $templates = ['_id', '_name', '_type', '_x', '_y', '_width', '_height'];
         $this->storage->create(sprintf('%s/attributes.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $attribute).PHP_EOL]);
         $this->storage->close();
@@ -72,6 +75,15 @@ class StartProcessCommandHandler
         $this->storage->close();
         $this->storage->create(sprintf('%s/products.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $products).PHP_EOL]);
+        $this->storage->close();
+        $this->storage->create(sprintf('%s/options.csv', $command->getExportId()->getValue()));
+        $this->storage->append([implode(',', $options).PHP_EOL]);
+        $this->storage->close();
+        $this->storage->create(sprintf('%s/multimedia.csv', $command->getExportId()->getValue()));
+        $this->storage->append([implode(',', $multimedia).PHP_EOL]);
+        $this->storage->close();
+        $this->storage->create(sprintf('%s/templates.csv', $command->getExportId()->getValue()));
+        $this->storage->append([implode(',', $templates).PHP_EOL]);
         $this->storage->close();
     }
 }

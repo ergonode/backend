@@ -75,7 +75,7 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     /**
      * @return array
      */
-    public function getMultimedia(): array
+    public function getAll(): array
     {
         $qb = $this->connection->createQueryBuilder();
 
