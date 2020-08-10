@@ -21,6 +21,7 @@ use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\NumericFilter;
+use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 
 /**
  */
@@ -32,12 +33,20 @@ class MultimediaGrid extends AbstractGrid
     private MultimediaExtensionProvider $provider;
 
     /**
-     * @param MultimediaExtensionProvider $provider
+     * @var MultimediaQueryInterface
      */
-    public function __construct(MultimediaExtensionProvider $provider)
+    private MultimediaQueryInterface $query;
+
+    /**
+     * @param MultimediaExtensionProvider $provider
+     * @param MultimediaQueryInterface    $query
+     */
+    public function __construct(MultimediaExtensionProvider $provider, MultimediaQueryInterface $query)
     {
         $this->provider = $provider;
+        $this->query = $query;
     }
+
 
     /**
      * @param GridConfigurationInterface $configuration
@@ -50,6 +59,11 @@ class MultimediaGrid extends AbstractGrid
             $extensions[] = new LabelFilterOption($extension, $extension);
         }
 
+        $types = [];
+        foreach ($this->query->getTypes() as $type) {
+            $types[] = new LabelFilterOption($type, $type);
+        }
+
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
@@ -57,6 +71,7 @@ class MultimediaGrid extends AbstractGrid
         $this->addColumn('image', new ImageColumn('image', 'Preview'));
         $this->addColumn('name', new TextColumn('name', 'File name', new TextFilter()));
         $this->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)));
+        $this->addColumn('type', new SelectColumn('type', 'Extension', new MultiSelectFilter($types)));
         $column = new NumericColumn('size', 'Size', new NumericFilter());
         $column->setSuffix('MB');
         $this->addColumn('size', $column);
