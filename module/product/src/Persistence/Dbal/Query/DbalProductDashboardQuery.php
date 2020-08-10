@@ -61,7 +61,7 @@ class DbalProductDashboardQuery implements ProductDashboardQueryInterface
             $result[$type] = [
                 'label' => $this->translator->trans($type, [], 'product', $language->getCode()),
                 'count' => 0,
-                'type' => $type
+                'type' => $type,
             ];
         }
 
