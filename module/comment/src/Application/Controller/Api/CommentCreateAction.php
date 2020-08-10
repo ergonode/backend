@@ -68,7 +68,7 @@ class CommentCreateAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_EN",
      *     description="Language Code",
      * )
      * @SWG\Parameter(

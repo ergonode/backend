@@ -59,7 +59,7 @@ class AttributeGroupCreateAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="en"
+     *     default="en_EN"
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -73,7 +73,7 @@ class AttributeGroupCreateAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_EN",
      *     description="Language Code",
      * )
      * @SWG\Response(

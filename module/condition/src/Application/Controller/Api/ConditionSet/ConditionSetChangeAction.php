@@ -78,7 +78,7 @@ class ConditionSetChangeAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="en"
+     *     default="en_EN"
      * )
      * @SWG\Parameter(
      *     name="conditionSet",
