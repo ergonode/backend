@@ -92,13 +92,30 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     {
         $qb = $this->getQuery();
         $qb->select('m.*')
-            ->addSelect('(m.size / 1024)::NUMERIC(10,2) AS size')
+            ->addSelect('(left(m.mime, strpos(m.mime, \'/\')-1)) AS type')
+            ->addSelect('(m.size / 1024.00)::NUMERIC(10,2) AS size')
             ->addSelect('m.id AS image')
             ->addSelect('(SELECT count(*) FROM product_value pv 
                                 JOIN Value_translation vt ON vt.value_id = pv.value_id 
                                 WHERE vt.value = m.id::TEXT) AS relations');
 
         return new DbalDataSet($qb);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTypes(): array
+    {
+        return $this
+            ->connection
+            ->createQueryBuilder()
+            ->distinct()
+            ->select('(left(mime, strpos(mime, \'/\')-1)) AS type')
+            ->groupBy('mime')
+            ->from(self::TABLE)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**

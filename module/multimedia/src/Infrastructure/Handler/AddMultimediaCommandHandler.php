@@ -65,7 +65,7 @@ class AddMultimediaCommandHandler
         $hash = $this->hashService->calculateHash($file);
         $originalName = $file->getClientOriginalName();
 
-        $extension = $file->getExtension();
+        $extension = $file->getClientOriginalExtension();
         if (empty($extension) || '.' === $extension) {
             $extension = $file->guessExtension();
         }
