@@ -40,4 +40,9 @@ interface MultimediaQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(): DataSetInterface;
+
+    /**
+     * @return string[]
+     */
+    public function getTypes(): array;
 }
