@@ -43,7 +43,7 @@ class RoleReadAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en_EN",
+     *     default="en_GB",
      *     description="Language code"
      * )
      * @SWG\Response(

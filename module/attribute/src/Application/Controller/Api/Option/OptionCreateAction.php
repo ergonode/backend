@@ -69,7 +69,7 @@ class OptionCreateAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="en_EN"
+     *     default="en_GB"
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -83,7 +83,7 @@ class OptionCreateAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en_EN",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Response(

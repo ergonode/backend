@@ -108,7 +108,7 @@ class AttributeGroupGridReadAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en_EN",
+     *     default="en_GB",
      *     description="Language Code"
      * )
      * @SWG\Response(
