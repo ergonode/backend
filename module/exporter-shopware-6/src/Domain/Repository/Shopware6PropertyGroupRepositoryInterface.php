@@ -27,8 +27,9 @@ interface Shopware6PropertyGroupRepositoryInterface
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
      * @param string      $shopwareId
+     * @param string      $type
      */
-    public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void;
+    public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void;
 
     /**
      * @param ChannelId   $channelId

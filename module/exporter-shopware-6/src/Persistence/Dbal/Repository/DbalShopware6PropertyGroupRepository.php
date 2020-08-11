@@ -68,15 +68,16 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
      * @param string      $shopwareId
+     * @param string      $type
      *
      * @throws DBALException
      */
-    public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void
+    public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void
     {
         if ($this->exists($channelId, $attributeId)) {
             $this->update($channelId, $attributeId, $shopwareId);
         } else {
-            $this->insert($channelId, $attributeId, $shopwareId);
+            $this->insert($channelId, $attributeId, $shopwareId, $type);
         }
     }
 
@@ -131,16 +132,18 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
      * @param string      $shopwareId
+     * @param string      $type
      *
      * @throws DBALException
      */
-    private function insert(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void
+    private function insert(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
                 'attribute_id' => $attributeId->getValue(),
+                'type' => $type,
                 'channel_id' => $channelId->getValue(),
                 'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]

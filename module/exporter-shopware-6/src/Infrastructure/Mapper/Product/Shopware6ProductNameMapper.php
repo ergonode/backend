@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
@@ -44,18 +45,15 @@ class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
+     * {@inheritDoc}
      *
      * @throws Shopware6ExporterMapperException
      */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel
+        Shopware6Channel $channel,
+        ?Language $language = null
     ): Shopware6Product {
 
         $attribute = $this->repository->load($channel->getProductName());
@@ -68,7 +66,8 @@ class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
         }
 
         $value = $product->getAttribute($attribute->getCode());
-        $shopware6Product->setName($this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage()));
+        $name = $this->calculator->calculate($attribute, $value, $language ?: $channel->getDefaultLanguage());
+        $shopware6Product->setName($name);
 
         return $shopware6Product;
     }

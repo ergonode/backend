@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
+use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\GetPropertyGroupOptionsList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\PostPropertyGroupOptionsAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
@@ -31,92 +31,76 @@ class Shopware6PropertyGroupOptionClient
     private Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository;
 
     /**
-     * @param Shopware6Connector                        $connector
-     * @param Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository
+     * @var Shopware6PropertyGroupOptionsRepositoryInterface
+     */
+    private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
+
+    /**
+     * @param Shopware6Connector                               $connector
+     * @param Shopware6PropertyGroupRepositoryInterface        $propertyGroupRepository
+     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
      */
     public function __construct(
         Shopware6Connector $connector,
-        Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository
+        Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
+        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
     ) {
         $this->connector = $connector;
         $this->propertyGroupRepository = $propertyGroupRepository;
+        $this->propertyGroupOptionsRepository = $propertyGroupOptionsRepository;
     }
 
-
     /**
-     * @param Shopware6Channel $channel
-     * @param string           $propertyGroupId
-     * @param string           $name
+     * @param Shopware6Channel             $channel
+     * @param AttributeId                  $attributeId
+     * @param Shopware6PropertyGroupOption $propertyGroupOption
      *
-     * @return Shopware6PropertyGroupOption|null
-     */
-    public function findByName(
-        Shopware6Channel $channel,
-        string $propertyGroupId,
-        string $name
-    ): ?Shopware6PropertyGroupOption {
-        $query = [
-            [
-                'query' => [
-                    'type' => 'equals',
-                    'field' => 'name',
-                    'value' => $name,
-                ],
-                'sort' => [
-                    'field' => 'createdAt',
-                    'order' => 'DESC',
-                ],
-            ],
-        ];
-
-        $action = new GetPropertyGroupOptionsList($propertyGroupId, $query, 1);
-
-        $propertyList = $this->connector->execute($channel, $action);
-
-        if (is_array($propertyList) && count($propertyList) > 0) {
-            return $propertyList[0];
-        }
-
-        return null;
-    }
-
-
-    /**
-     * @param Shopware6Channel $channel
-     * @param string           $propertyGroupId
-     * @param string           $name
-     */
-    public function insert(Shopware6Channel $channel, string $propertyGroupId, string $name): void
-    {
-        $action = new PostPropertyGroupOptionsAction($propertyGroupId, $name);
-
-        $this->connector->execute($channel, $action);
-    }
-
-    /**
-     * @param Shopware6Channel $channel
-     * @param AttributeId      $attributeId
-     * @param string           $name
-     *
-     * @return Shopware6PropertyGroupOption
+     * @return string
      */
     public function findByNameOrCreate(
         Shopware6Channel $channel,
         AttributeId $attributeId,
-        string $name
-    ): Shopware6PropertyGroupOption {
-        $propertyGroupId = $this->propertyGroupRepository->load($channel->getId(), $attributeId);
-//        if(!n)
-
-        $propertyGroupOption = $this->findByName($channel, $propertyGroupId, $name);
-        if ($propertyGroupOption) {
-            return $propertyGroupOption;
+        Shopware6PropertyGroupOption $propertyGroupOption
+    ): string {
+        if ($this->propertyGroupOptionsRepository->exists(
+            $channel->getId(),
+            $attributeId,
+            $propertyGroupOption->getName()
+        )) {
+            return $this->propertyGroupOptionsRepository->load(
+                $channel->getId(),
+                $attributeId,
+                $propertyGroupOption->getName()
+            );
         }
 
-        $this->insert($channel, $propertyGroupId, $name);
+        return $this->createPropertyGroupOptions($channel, $attributeId, $propertyGroupOption);
+    }
 
-        $propertyGroupOption = $this->findByName($channel, $propertyGroupId, $name);
+    /**
+     * @param Shopware6Channel             $channel
+     * @param AttributeId                  $attributeId
+     * @param Shopware6PropertyGroupOption $propertyGroupOption
+     *
+     * @return string
+     */
+    private function createPropertyGroupOptions(
+        Shopware6Channel $channel,
+        AttributeId $attributeId,
+        Shopware6PropertyGroupOption $propertyGroupOption
+    ): string {
+        $propertyGroupId = $this->propertyGroupRepository->load($channel->getId(), $attributeId);
 
-        return $propertyGroupOption;
+        $action = new PostPropertyGroupOptionsAction($propertyGroupId, $propertyGroupOption, true);
+
+        $option = $this->connector->execute($channel, $action);
+        $this->propertyGroupOptionsRepository->save(
+            $channel->getId(),
+            $attributeId,
+            $option->getName(),
+            $option->getId()
+        );
+
+        return $option->getId();
     }
 }

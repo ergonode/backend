@@ -13,6 +13,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PatchProd
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -35,13 +36,19 @@ class Shopware6ProductClient
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param Sku              $sku
+     * @param Shopware6Channel       $channel
+     * @param Sku                    $sku
+     * @param Shopware6Language|null $shopware6Language
      *
      * @return Shopware6Product|null
+     *
+     * @throws \Exception
      */
-    public function findBySKU(Shopware6Channel $channel, Sku $sku): ?Shopware6Product
-    {
+    public function findBySKU(
+        Shopware6Channel $channel,
+        Sku $sku,
+        ?Shopware6Language $shopware6Language = null
+    ): ?Shopware6Product {
         try {
             $query = new Shopware6QueryBuilder();
             $query
@@ -50,6 +57,9 @@ class Shopware6ProductClient
 
             $action = new GetProductList($query);
 
+            if ($shopware6Language) {
+                $action->addHeader('sw-language-id', $shopware6Language->getId());
+            }
             $productList = $this->connector->execute($channel, $action);
 
             if (is_array($productList) && count($productList) > 0) {
@@ -66,26 +76,28 @@ class Shopware6ProductClient
     /**
      * @param Shopware6Channel $channel
      * @param Shopware6Product $product
-     *
-     * @return array|object|string|null
      */
-    public function insert(Shopware6Channel $channel, Shopware6Product $product)
+    public function insert(Shopware6Channel $channel, Shopware6Product $product):void
     {
         $action = new PostProductAction($product);
 
-        return $this->connector->execute($channel, $action);
+        $this->connector->execute($channel, $action);
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param Shopware6Product $product
-     *
-     * @return array|object|string|null
+     * @param Shopware6Channel       $channel
+     * @param Shopware6Product       $product
+     * @param Shopware6Language|null $shopware6Language
      */
-    public function update(Shopware6Channel $channel, Shopware6Product $product)
-    {
+    public function update(
+        Shopware6Channel $channel,
+        Shopware6Product $product,
+        ?Shopware6Language $shopware6Language = null
+    ): void {
         $action = new PatchProductAction($product);
-
-        return $this->connector->execute($channel, $action);
+        if ($shopware6Language) {
+            $action->addHeader('sw-language-id', $shopware6Language->getId());
+        }
+        $this->connector->execute($channel, $action);
     }
 }

@@ -124,7 +124,7 @@ abstract class AbstractCustomFieldSynchronizer implements SynchronizerInterface
 
             $customField = new Shopware6CustomField(
                 null,
-                $code,
+                $code.'_set',
                 [
                     [
                         'entityName' => 'product',
@@ -138,7 +138,7 @@ abstract class AbstractCustomFieldSynchronizer implements SynchronizerInterface
 
             $this->client->insert($channel, $customField);
 
-            $new = $this->client->findByCode($channel, $code);
+            $new = $this->client->findByCode($channel, $code.'_set');//todo change
 
             $this->customFieldRepository->save($channel->getId(), $attributeId, $new->getId(), $attribute->getType());
         }

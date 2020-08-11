@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
  */
 class PatchProductAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/product/';
+    private const URI = '/api/v2/product/';
 
     /**
      * @var Shopware6Product

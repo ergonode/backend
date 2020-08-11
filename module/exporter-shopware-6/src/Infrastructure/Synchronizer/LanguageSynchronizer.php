@@ -12,9 +12,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6LanguageQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Language\GetLanguageList;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6LanguageClient;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
@@ -22,9 +20,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 class LanguageSynchronizer implements SynchronizerInterface
 {
     /**
-     * @var Shopware6Connector
+     * @var Shopware6LanguageClient
      */
-    private Shopware6Connector $connector;
+    private Shopware6LanguageClient  $languageClient;
 
     /**
      * @var Shopware6LanguageRepositoryInterface
@@ -37,16 +35,16 @@ class LanguageSynchronizer implements SynchronizerInterface
     private Shopware6LanguageQueryInterface $languageShopwareQuery;
 
     /**
-     * @param Shopware6Connector                   $connector
+     * @param Shopware6LanguageClient              $languageClient
      * @param Shopware6LanguageRepositoryInterface $languageShopwareRepository
      * @param Shopware6LanguageQueryInterface      $languageShopwareQuery
      */
     public function __construct(
-        Shopware6Connector $connector,
+        Shopware6LanguageClient $languageClient,
         Shopware6LanguageRepositoryInterface $languageShopwareRepository,
         Shopware6LanguageQueryInterface $languageShopwareQuery
     ) {
-        $this->connector = $connector;
+        $this->languageClient = $languageClient;
         $this->languageShopwareRepository = $languageShopwareRepository;
         $this->languageShopwareQuery = $languageShopwareQuery;
     }
@@ -66,30 +64,14 @@ class LanguageSynchronizer implements SynchronizerInterface
     private function synchronizeShopware(Shopware6Channel $channel): void
     {
         $start = new \DateTimeImmutable();
-        $shopwareLanguageList = $this->getShopwareLanguageList($channel);
+        $shopwareLanguageList = $this->languageClient->getLanguageList($channel);
+
         foreach ($shopwareLanguageList as $shopwareLanguage) {
             $this->languageShopwareRepository->save(
                 $channel->getId(),
-                $shopwareLanguage['id'],
-                $shopwareLanguage['name'],
-                $shopwareLanguage['locale_id'],
+                $shopwareLanguage
             );
         }
         $this->languageShopwareQuery->cleanData($channel->getId(), $start);
-    }
-
-    /**
-     * @param Shopware6Channel $channel
-     *
-     * @return array
-     */
-    private function getShopwareLanguageList(Shopware6Channel $channel): array
-    {
-        $query = new Shopware6QueryBuilder();
-        $query->limit(500);
-
-        $action = new GetLanguageList($query);
-
-        return $this->connector->execute($channel, $action);
     }
 }

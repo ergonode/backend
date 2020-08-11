@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -8,20 +8,20 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Webmozart\Assert\Assert;
 
 /**
  */
-class PropertyGroupSynchronizer implements SynchronizerInterface
+abstract class AbstractPropertyGroupSynchronizer implements SynchronizerInterface
 {
     /**
      * @var Shopware6PropertyGroupClient
@@ -44,30 +44,27 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
     private AttributeRepositoryInterface $attributeRepository;
 
     /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
-    private AttributeTranslationInheritanceCalculator $calculator;
-
-    /**
      * @param Shopware6PropertyGroupClient              $client
      * @param Shopware6PropertyGroupQueryInterface      $propertyGroupQuery
      * @param Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository
      * @param AttributeRepositoryInterface              $attributeRepository
-     * @param AttributeTranslationInheritanceCalculator $calculator
      */
     public function __construct(
         Shopware6PropertyGroupClient $client,
         Shopware6PropertyGroupQueryInterface $propertyGroupQuery,
         Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
-        AttributeRepositoryInterface $attributeRepository,
-        AttributeTranslationInheritanceCalculator $calculator
+        AttributeRepositoryInterface $attributeRepository
     ) {
         $this->client = $client;
         $this->propertyGroupQuery = $propertyGroupQuery;
         $this->propertyGroupRepository = $propertyGroupRepository;
         $this->attributeRepository = $attributeRepository;
-        $this->calculator = $calculator;
     }
+
+    /**
+     * @return string
+     */
+    abstract public function getType(): string;
 
     /**
      * @param ExportId         $id
@@ -77,6 +74,16 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
     {
         $this->synchronizeShopware($channel);
         $this->synchronizeProperty($channel);
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    protected function isSupported(string $type): bool
+    {
+        return $this->getType() === $type;
     }
 
     /**
@@ -97,24 +104,44 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
     private function checkExistOrCreate(Shopware6Channel $channel, AttributeId $attributeId): void
     {
         $attribute = $this->attributeRepository->load($attributeId);
-
-        $isset = $this->propertyGroupRepository->exists($channel->getId(), $attribute->getId());
-        if ($isset) {
-            //todo mayby update
-            return;
+        Assert::notNull($attribute);
+        if ($this->isSupported($attribute->getType())) {
+            $isset = $this->propertyGroupRepository->exists($channel->getId(), $attribute->getId());
+            if ($isset) {
+                return;
+            }
+            $this->createShopwarePropertyGroup($channel, $attribute);
         }
+    }
 
+    /**
+     * @param Shopware6Channel  $channel
+     * @param AbstractAttribute $attribute
+     */
+    private function createShopwarePropertyGroup(Shopware6Channel $channel, AbstractAttribute $attribute): void
+    {
         $name = $attribute->getLabel()->get($channel->getDefaultLanguage());
-        $name = $name ? $name : $attribute->getCode()->getValue();
 
         $propertyGroup = new Shopware6PropertyGroup(
             null,
-            $name
+            $name ?: $attribute->getCode()->getValue()
         );
+
+        foreach ($channel->getLanguages() as $language) {
+            if ($attribute->getLabel()->has($language)) {
+                $label = $attribute->getLabel()->get($language);
+                $propertyGroup->addTranslations($language, 'name', $label);
+            }
+        }
 
         $new = $this->client->createPropertyGroupResource($channel, $propertyGroup);
 
-        $this->propertyGroupRepository->save($channel->getId(), $attributeId, $new->getId());
+        $this->propertyGroupRepository->save(
+            $channel->getId(),
+            $attribute->getId(),
+            $new->getId(),
+            $attribute->getType()
+        );
     }
 
     /**
@@ -130,9 +157,16 @@ class PropertyGroupSynchronizer implements SynchronizerInterface
                 $property->getId()
             );
             if ($attributeId) {
-                $this->propertyGroupRepository->save($channel->getId(), $attributeId, $property->getId());
+                $attribute = $this->attributeRepository->load($attributeId);
+                Assert::notNull($attribute);
+                $this->propertyGroupRepository->save(
+                    $channel->getId(),
+                    $attributeId,
+                    $property->getId(),
+                    $attribute->getType()
+                );
             }
         }
-        $this->propertyGroupQuery->cleanData($channel->getId(), $start);
+        $this->propertyGroupQuery->cleanData($channel->getId(), $start, $this->getType());
     }
 }

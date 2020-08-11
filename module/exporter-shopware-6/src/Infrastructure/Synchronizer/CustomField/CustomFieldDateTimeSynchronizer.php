@@ -34,7 +34,7 @@ class CustomFieldDateTimeSynchronizer extends AbstractCustomFieldSynchronizer
 
         return
             [
-                'name' => $code.'_set',
+                'name' => $code,
                 'type' => 'datetime',
                 'config' => [
                     'type' => 'date',

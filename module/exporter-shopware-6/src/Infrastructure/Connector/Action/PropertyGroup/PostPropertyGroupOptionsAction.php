@@ -10,15 +10,16 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGro
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 use GuzzleHttp\Psr7\Request;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/property-group/%s/options';
+    private const URI = '/api/v2/property-group/%s/options?%s';
 
     /**
      * @var string
@@ -26,19 +27,30 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
     private string $propertyGroupId;
 
     /**
-     * @var string
+     * @var Shopware6PropertyGroupOption
      */
-    private string $optionName;
+    private Shopware6PropertyGroupOption $propertyGroupOption;
 
     /**
-     * @param string $propertyGroupId
-     * @param string $optionName
+     * @var bool
      */
-    public function __construct(string $propertyGroupId, string $optionName)
-    {
+    private bool $response;
+
+    /**
+     * @param string                       $propertyGroupId
+     * @param Shopware6PropertyGroupOption $propertyGroupOption
+     * @param bool                         $response
+     */
+    public function __construct(
+        string $propertyGroupId,
+        Shopware6PropertyGroupOption $propertyGroupOption,
+        bool $response
+    ) {
         $this->propertyGroupId = $propertyGroupId;
-        $this->optionName = $optionName;
+        $this->propertyGroupOption = $propertyGroupOption;
+        $this->response = $response;
     }
+
 
     /**
      * @return Request
@@ -56,11 +68,24 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
     /**
      * @param string|null $content
      *
-     * @return array|object|string|null
+     * @return Shopware6PropertyGroupOption|null
+     *
+     * @throws \JsonException
      */
-    public function parseContent(?string $content)
+    public function parseContent(?string $content): ?Shopware6PropertyGroupOption
     {
-        return null;
+        if (null === $content) {
+            return null;
+        }
+
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+
+        return new Shopware6PropertyGroupOption(
+            $data['data']['id'],
+            $data['data']['attributes']['name'],
+            $data['data']['attributes']['mediaId'],
+            $data['data']['attributes']['position']
+        );
     }
 
     /**
@@ -68,11 +93,9 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
      */
     private function buildBody(): string
     {
-        $body = [
-            'name' => $this->optionName,
-        ];
+        $serializer = SerializerBuilder::create()->build();
 
-        return json_encode($body);
+        return $serializer->serialize($this->propertyGroupOption, 'json');
     }
 
     /**
@@ -80,6 +103,11 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
      */
     private function getUri(): string
     {
-        return sprintf(self::URI, $this->propertyGroupId);
+        $query = [];
+        if ($this->response) {
+            $query['_response'] = 'true';
+        }
+
+        return rtrim(sprintf(self::URI, $this->propertyGroupId, http_build_query($query)), '?');
     }
 }

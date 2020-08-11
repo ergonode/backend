@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -49,6 +50,14 @@ class Shopware6PropertyGroup
     protected ?string $sortingType;
 
     /**
+     * @var array
+     *
+     * @JMS\Type("array")
+     * @JMS\SerializedName("translations")
+     */
+    protected ?array $translations;
+
+    /**
      * @var bool
      *
      * @JMS\Exclude()
@@ -60,17 +69,20 @@ class Shopware6PropertyGroup
      * @param string|null $name
      * @param string|null $displayType
      * @param string|null $sortingType
+     * @param array|null  $translations
      */
     public function __construct(
         ?string $id,
         ?string $name,
         ?string $displayType = 'text',
-        ?string $sortingType = 'alphanumeric'
+        ?string $sortingType = 'alphanumeric',
+        ?array $translations = null
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->displayType = $displayType;
         $this->sortingType = $sortingType;
+        $this->translations = $translations;
     }
 
     /**
@@ -144,6 +156,26 @@ class Shopware6PropertyGroup
             $this->sortingType = $sortingType;
             $this->modified = true;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getTranslations(): array
+    {
+        return $this->translations;
+    }
+
+    /**
+     * @param Language $language
+     * @param string   $field
+     * @param string   $value
+     */
+    public function addTranslations(Language $language, string $field, string $value): void
+    {
+        $code = str_replace('_', '-', $language->getCode());
+
+        $this->translations[$code][$field] = $value;
     }
 
     /**

@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
@@ -21,8 +22,9 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     private const FIELDS = [
         'channel_id',
         'shopware6_id',
-        'name',
         'locale_id',
+        'translation_code_id',
+        'iso',
     ];
 
     /**
@@ -40,55 +42,66 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
 
     /**
      * @param ChannelId $channelId
-     * @param string    $shopwareId
+     * @param string    $iso
      *
-     * @return string|null
+     * @return Shopware6Language|null
      */
-    public function load(ChannelId $channelId, string $shopwareId): ?string
+    public function load(ChannelId $channelId, string $iso): ?Shopware6Language
     {
         $query = $this->connection->createQueryBuilder();
-
-        return $query
+        $record = $query
             ->select(self::FIELDS)
             ->from(self::TABLE, 'c')
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->andWhere($query->expr()->eq('c.shopware6_id', ':shopwareId'))
-            ->setParameter(':shopwareId', $shopwareId)
+            ->andWhere($query->expr()->eq('c.iso', ':iso'))
+            ->setParameter(':iso', $iso)
             ->execute()
             ->fetch();
+
+        if ($record) {
+            return new Shopware6Language(
+                $record['shopware6_id'],
+                '',
+                $record['locale_id'],
+                $record['translation_code_id'],
+                $record['iso']
+            );
+        }
+
+        return null;
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param string    $shopwareId
-     * @param string    $name
-     * @param string    $localeId
+     * @param ChannelId         $channelId
+     * @param Shopware6Language $shopware6Language
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function save(ChannelId $channelId, string $shopwareId, string $name, string $localeId): void
+    public function save(ChannelId $channelId, Shopware6Language $shopware6Language): void
     {
-        if ($this->exists($channelId, $shopwareId)) {
-            $this->update($channelId, $shopwareId, $name, $localeId);
+        if ($this->exists($channelId, $shopware6Language->getIso())) {
+            $this->update($channelId, $shopware6Language);
         } else {
-            $this->insert($channelId, $shopwareId, $name, $localeId);
+            $this->insert($channelId, $shopware6Language);
         }
     }
 
     /**
      * @param ChannelId $channelId
-     * @param string    $shopwareId
+     * @param string    $iso
      *
      * @return bool
      */
-    public function exists(ChannelId $channelId, string $shopwareId): bool
+    public function exists(ChannelId $channelId, string $iso): bool
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
             ->from(self::TABLE)
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->andWhere($query->expr()->eq('shopware6_id', ':shopwareId'))
-            ->setParameter(':shopwareId', $shopwareId)
+            ->andWhere($query->expr()->eq('iso', ':iso'))
+            ->setParameter(':iso', $iso)
             ->execute()
             ->rowCount();
 
@@ -100,45 +113,44 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param string    $shopwareId
-     * @param string    $name
-     * @param string    $localeId
+     * @param ChannelId         $channelId
+     * @param Shopware6Language $shopware6Language
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function update(ChannelId $channelId, string $shopwareId, string $name, string $localeId): void
+    private function update(ChannelId $channelId, Shopware6Language $shopware6Language): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'shopware6_id' => $shopwareId,
+                'shopware6_id' => $shopware6Language->getId(),
                 'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-                'name' => $name,
-                'locale_id' => $localeId,
+                'locale_id' => $shopware6Language->getLocaleId(),
+                'translation_code_id' => $shopware6Language->getTranslationCodeId(),
             ],
             [
-                'shopware6_id' => $shopwareId,
+                'iso' => $shopware6Language->getIso(),
                 'channel_id' => $channelId->getValue(),
             ]
         );
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param string    $shopwareId
-     * @param string    $name
-     * @param string    $localeId
+     * @param ChannelId         $channelId
+     * @param Shopware6Language $shopware6Language
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    private function insert(ChannelId $channelId, string $shopwareId, string $name, string $localeId): void
+    private function insert(ChannelId $channelId, Shopware6Language $shopware6Language): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'channel_id' => $channelId->getValue(),
-                'shopware6_id' => $shopwareId,
-                'name' => $name,
-                'locale_id' => $localeId,
+                'shopware6_id' => $shopware6Language->getId(),
+                'iso' => $shopware6Language->getIso(),
+                'locale_id' => $shopware6Language->getLocaleId(),
+                'translation_code_id' => $shopware6Language->getTranslationCodeId(),
                 'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]
         );

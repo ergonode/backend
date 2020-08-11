@@ -38,7 +38,7 @@ class AttributeTranslationInheritanceCalculator
      * @param ValueInterface    $value
      * @param Language          $language
      *
-     * @return array|mixed|string
+     * @return array|mixed|string|null
      */
     public function calculate(AbstractAttribute $attribute, ValueInterface $value, Language $language)
     {
@@ -50,7 +50,7 @@ class AttributeTranslationInheritanceCalculator
                 return $translations[$inheritance->getCode()];
             }
 
-            return $translations[$language->getCode()];
+            return $translations[$language->getCode()] ?? null;
         }
         if ($value instanceof StringValue) {
             $array = $value->getValue();

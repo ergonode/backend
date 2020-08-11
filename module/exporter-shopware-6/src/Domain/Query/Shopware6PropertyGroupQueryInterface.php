@@ -26,6 +26,7 @@ interface Shopware6PropertyGroupQueryInterface
     /**
      * @param ChannelId          $channelId
      * @param \DateTimeImmutable $dateTime
+     * @param string             $type
      */
-    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime): void;
+    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime, string  $type): void;
 }
