@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
@@ -71,16 +72,13 @@ class Shopware6ProductPropertyGroupSelectMapper implements Shopware6ProductMappe
     }
 
     /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
+     * {@inheritDoc}
      */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel
+        Shopware6Channel $channel,
+        ?Language $language = null
     ): Shopware6Product {
 
         foreach ($channel->getPropertyGroup() as $attributeId) {
@@ -121,7 +119,7 @@ class Shopware6ProductPropertyGroupSelectMapper implements Shopware6ProductMappe
                     $option = $this->optionRepository->load($optionId);
                     if ($option) {
                         $name = $option->getLabel()->get($channel->getDefaultLanguage());
-                        $name = $name ? $name : $option->getCode()->getValue();
+                        $name = $name ?: $option->getCode()->getValue();
                         $shopware6Product->addProperty($this->loadPropertyOptionId($channel, $attribute, $name));
                     }
                 }
@@ -143,12 +141,14 @@ class Shopware6ProductPropertyGroupSelectMapper implements Shopware6ProductMappe
         AbstractAttribute $attribute,
         $value
     ): string {
-        $propertyGroupOption = $this->propertyGroupOptionClient->findByNameOrCreate(
-            $channel,
-            $attribute->getId(),
-            $value
-        );
 
-        return $propertyGroupOption->getId();
+        return 'xxxx';
+//        return $this->propertyGroupOptionClient->findByNameOrCreate(
+//            $channel,
+//            $attribute->getId(),
+//            $value
+//        );
+
+//        return $propertyGroupOption->getId();
     }
 }

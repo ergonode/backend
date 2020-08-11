@@ -68,18 +68,15 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
 
 
     /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
+     * {@inheritDoc}
      *
      * @throws Shopware6ExporterMapperException
      */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel
+        Shopware6Channel $channel,
+        ?Language $language = null
     ): Shopware6Product {
 
         if ($shopware6Product->isNew()) {

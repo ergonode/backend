@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +23,7 @@ class Shopware6PropertyGroupOption
     protected ?string $id;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
@@ -30,7 +31,7 @@ class Shopware6PropertyGroupOption
     protected ?string $name;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("mediaId")
@@ -38,12 +39,20 @@ class Shopware6PropertyGroupOption
     protected ?string $mediaId;
 
     /**
-     * @var int
+     * @var int|null
      *
      * @JMS\Type("int")
      * @JMS\SerializedName("position")
      */
     protected ?int $position;
+
+    /**
+     * @var array|null
+     *
+     * @JMS\Type("array")
+     * @JMS\SerializedName("translations")
+     */
+    protected ?array $translations;
 
     /**
      * @var bool
@@ -57,17 +66,20 @@ class Shopware6PropertyGroupOption
      * @param string|null $name
      * @param string|null $mediaId
      * @param int|null    $position
+     * @param array|null  $translations
      */
     public function __construct(
         ?string $id = null,
         ?string $name = null,
         ?string $mediaId = null,
-        ?int $position = null
+        ?int $position = null,
+        ?array $translations = null
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->mediaId = $mediaId;
         $this->position = $position;
+        $this->translations = $translations;
     }
 
     /**
@@ -133,6 +145,26 @@ class Shopware6PropertyGroupOption
             $this->position = $position;
             $this->modified = true;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getTranslations(): array
+    {
+        return $this->translations;
+    }
+
+    /**
+     * @param Language $language
+     * @param string   $field
+     * @param string   $value
+     */
+    public function addTranslations(Language $language, string $field, string $value): void
+    {
+        $code = str_replace('_', '-', $language->getCode());
+
+        $this->translations[$code][$field] = $value;
     }
 
     /**

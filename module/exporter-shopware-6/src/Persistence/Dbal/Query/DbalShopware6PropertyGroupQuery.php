@@ -48,7 +48,7 @@ class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInte
         $query = $this->connection->createQueryBuilder();
         $record = $query
             ->select(self::FIELDS)
-            ->from(self::TABLE, 'cf')
+            ->from(self::TABLE, 'pg')
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
             ->andWhere($query->expr()->eq('shopware6_id', ':shopware6Id'))
@@ -66,15 +66,18 @@ class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInte
     /**
      * @param ChannelId          $channelId
      * @param \DateTimeImmutable $dateTime
+     * @param string             $type
      */
-    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime): void
+    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime, string $type): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query->delete(self::TABLE, 'cf')
+        $query->delete(self::TABLE, 'pg')
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->andWhere($query->expr()->lt('cf.update_at', ':updateAt'))
+            ->andWhere($query->expr()->lt('pg.update_at', ':updateAt'))
             ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
+            ->andWhere($query->expr()->eq('pg.type', ':type'))
+            ->setParameter(':type', $type)
             ->execute();
     }
 }

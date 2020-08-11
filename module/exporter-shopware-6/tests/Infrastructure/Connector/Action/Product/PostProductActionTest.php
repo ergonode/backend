@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
@@ -21,9 +21,9 @@ class PostProductActionTest extends TestCase
 {
     /**
      */
-    public function testAction()
+    public function testAction():void
     {
-        $product = new CreateShopware6Product('SKU');
+        $product = new Shopware6Product('SKU');
         $action = new PostProductAction($product);
         $request = $action->getRequest();
 

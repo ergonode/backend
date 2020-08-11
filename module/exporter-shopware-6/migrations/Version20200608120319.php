@@ -54,9 +54,21 @@ final class Version20200608120319 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.shopware6_property_group(
                     channel_id uuid NOT NULL,
                     attribute_id uuid NOT NULL,
+                    type varchar(36) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
                     PRIMARY KEY (channel_id, attribute_id)
+                )'
+        );
+
+        $this->addSql(
+            'CREATE TABLE exporter.shopware6_property_group_options(
+                    channel_id uuid NOT NULL,
+                    attribute_id uuid NOT NULL,
+                    shopware6_id varchar(36) NOT NULL,
+                    value varchar(255) NOT NULL,
+                    update_at timestamp without time zone NOT NULL,
+                    PRIMARY KEY (channel_id, attribute_id, value)
                 )'
         );
 
@@ -74,11 +86,12 @@ final class Version20200608120319 extends AbstractErgonodeMigration
         $this->addSql(
             'CREATE TABLE exporter.shopware6_language(
                     channel_id uuid NOT null,
-	                name varchar(36) NOT null,
-	                shopware6_id varchar(36) NOT null,
-	                locale_id varchar(36) NOT null,
+	                shopware6_id varchar(36) NOT NULL,
+	                locale_id varchar(36) NOT NULL,
+	                translation_code_id varchar(36) NOT NULL,
+	                iso varchar(5) NOT NULL,
 	                update_at timestamp without time zone NOT NULL,
-	                PRIMARY KEY(channel_id, shopware6_id)
+	                PRIMARY KEY(channel_id, iso)
 	            )'
         );
 

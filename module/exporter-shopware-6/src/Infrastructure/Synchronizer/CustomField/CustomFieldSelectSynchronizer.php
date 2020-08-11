@@ -34,7 +34,7 @@ class CustomFieldSelectSynchronizer extends AbstractCustomFieldOptionSynchronize
 
         return
             [
-                'name' => $code.'_set',
+                'name' => $code,
                 'type' => 'select',
                 'config' => [
                     'customFieldType' => 'select',

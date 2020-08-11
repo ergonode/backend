@@ -62,7 +62,6 @@ class GetProductList extends AbstractAction implements ActionInterface
             foreach ($data['data'] as $row) {
                 $category = null;
                 $properties = null;
-                $customFields = null;
                 $options = null;
                 $price = null;
 
@@ -88,6 +87,7 @@ class GetProductList extends AbstractAction implements ActionInterface
                         ];
                     }
                 }
+                $customFields = $row['attributes']['customFields'] ?: null;
 
                 $result[] = new Shopware6Product(
                     $row['id'],
