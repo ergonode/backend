@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Completeness\Domain\Calculator\Strategy;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Webmozart\Assert\Assert;
+use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
 /**
  */
@@ -59,13 +59,11 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
         ProductDraft $draft,
         Language $language,
         TemplateElementPropertyInterface $properties
-    ): ?CompletenessElementReadModel {
+    ): ?CompletenessCalculatorLine {
         Assert::isInstanceOf($properties, AttributeTemplateElementProperty::class);
 
         $attribute = $this->repository->load($properties->getAttributeId());
         Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $properties->getAttributeId()->getValue()));
-        $label = $attribute->getLabel();
-        $name = $label->has($language) ? $label->get($language) : $attribute->getCode()->getValue();
         $value = $draft->hasAttribute($attribute->getCode()) ? $draft->getAttribute($attribute->getCode()) : null;
 
         $filled = false;
@@ -78,6 +76,6 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
             }
         }
 
-        return new CompletenessElementReadModel($attribute->getId(), $name, $properties->isRequired(), $filled);
+        return new CompletenessCalculatorLine($attribute->getId(), $properties->isRequired(), $filled);
     }
 }

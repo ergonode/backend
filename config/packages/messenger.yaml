@@ -23,6 +23,7 @@ framework:
             core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
             event: "%env(MESSENGER_TRANSPORT_DOMAIN_DSN)%"
             segment: "%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%"
+            completeness: "%env(MESSENGER_TRANSPORT_COMPLETENESS_DSN)%"
         routing:
             'Ergonode\Importer\Domain\Command\Import\StartImportCommand' : import
             'Ergonode\Importer\Domain\Command\Import\StopImportCommand' : import
@@ -32,6 +33,7 @@ framework:
             'Ergonode\Segment\Domain\Command\CalculateProductCommand': segment
             'Ergonode\Segment\Domain\Command\CalculateSegmentCommand': segment
             'Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand': segment
+            'Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand': completeness
 #            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
 #            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
             'Ergonode\Category\Domain\Command\CreateCategoryCommand': core

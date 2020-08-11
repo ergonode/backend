@@ -11,9 +11,16 @@ services:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject}'
 
+    Ergonode\Completeness\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Completeness\Application\Controller\:
         resource: '../../Application/Controller/*'
         tags: ['controller.service_arguments']
+
+    Ergonode\Completeness\Persistence\:
+        resource: '../../Persistence/*'
 
     Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider:
         - '@Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy'

@@ -78,8 +78,8 @@ class Template extends AbstractAggregateRoot
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param AttributeId       $defaultLabel
-     * @param AttributeId       $defaultImage
+     * @param AttributeId|null  $defaultLabel
+     * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      *
      * @throws \Exception

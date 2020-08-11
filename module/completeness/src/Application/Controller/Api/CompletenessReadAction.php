@@ -10,20 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Completeness\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Webmozart\Assert\Assert;
+use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
 
 /**
  * @Route(
@@ -35,33 +29,16 @@ use Webmozart\Assert\Assert;
 class CompletenessReadAction
 {
     /**
-     * @var CompletenessCalculator
+     * @var CompletenessQueryInterface
      */
-    private CompletenessCalculator $calculator;
+    private CompletenessQueryInterface $query;
 
     /**
-     * @var TemplateRepositoryInterface
+     * @param CompletenessQueryInterface $query
      */
-    private TemplateRepositoryInterface $repository;
-
-    /**
-     * @var DraftProvider
-     */
-    private DraftProvider $provider;
-
-    /**
-     * @param CompletenessCalculator      $calculator
-     * @param TemplateRepositoryInterface $repository
-     * @param DraftProvider               $provider
-     */
-    public function __construct(
-        CompletenessCalculator $calculator,
-        TemplateRepositoryInterface $repository,
-        DraftProvider $provider
-    ) {
-        $this->calculator = $calculator;
-        $this->repository = $repository;
-        $this->provider = $provider;
+    public function __construct(CompletenessQueryInterface $query)
+    {
+        $this->query = $query;
     }
 
     /**
@@ -98,13 +75,7 @@ class CompletenessReadAction
      */
     public function __invoke(AbstractProduct $product, Language $language): Response
     {
-        $draft = $this->provider->provide($product);
-
-        $templateId = $product->getTemplateId();
-        $template = $this->repository->load($templateId);
-        Assert::notNull($template, sprintf('Can\'t find template %s', $templateId->getValue()));
-
-        $result = $this->calculator->calculate($draft, $template, $language);
+        $result = $this->query->getCompleteness($product->getId(), $language);
 
         return new SuccessResponse($result);
     }
