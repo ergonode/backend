@@ -58,7 +58,7 @@ class UpdateMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_READ")
+     * @IsGranted("MULTIMEDIA_UPDATE")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

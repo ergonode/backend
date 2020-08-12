@@ -83,15 +83,18 @@ class MultimediaGrid extends AbstractGrid
         $links = [
             'get' => [
                 'route' => 'ergonode_multimedia_read',
+                'privilege' => 'MULTIMEDIA_READ',
                 'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
             ],
             'edit' => [
                 'route' => 'ergonode_multimedia_edit',
+                'privilege' => 'MULTIMEDIA_UPDATE',
                 'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'download' => [
                 'route' => 'ergonode_multimedia_download',
+                'privilege' => 'MULTIMEDIA_READ',
                 'parameters' => ['multimedia' => '{id}'],
                 'method' => Request::METHOD_GET,
             ],
