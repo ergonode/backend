@@ -38,15 +38,51 @@ Feature: Multimedia
       | upload | @multimedia-test-empty-image.png |
     Then the response status code should be 400
 
-  Scenario: Get uploaded multimedia
-    And I send a GET request to "api/v1/multimedia/@multimedia_id@"
+  Scenario: Get multimedia
+    And I send a GET request to "api/v1/en_EN/multimedia/@multimedia_id@"
     Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | id        | @multimedia_id@           |
+      | extension | png                       |
+      | mime      | image/png                 |
 
-  Scenario: Download uploaded multimedia file
+  Scenario: Update multimedia information
+    And I send a PUT request to "api/v1/en_EN/multimedia/@multimedia_id@" with body:
+       """
+      {
+        "name": "new-name.png",
+        "alt": {
+          "pl_PL": "pl alt"
+        }
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Get multimedia
+    And I send a GET request to "api/v1/en_EN/multimedia/@multimedia_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | id        | @multimedia_id@ |
+      | extension | png             |
+      | mime      | image/png       |
+
+  Scenario: Update multimedia information
+    And I send a PUT request to "api/v1/en_EN/multimedia/@multimedia_id@" with body:
+       """
+      {
+        "name": "multimedia-test-image.png",
+        "alt": {
+          "pl_PL": "pl alt"
+        }
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Download multimedia file
     And I send a GET request to "api/v1/multimedia/@multimedia_id@/download"
     Then the response status code should be 200
 
-  Scenario: Download uploaded multimedia file thumbnail default
+  Scenario: Download multimedia file thumbnail default
     And I send a GET request to "api/v1/multimedia/@multimedia_id@/download/default"
     Then the response status code should be 200
 

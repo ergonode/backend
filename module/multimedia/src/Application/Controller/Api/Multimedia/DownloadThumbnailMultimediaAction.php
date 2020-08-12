@@ -12,7 +12,6 @@ namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -53,8 +52,6 @@ class DownloadThumbnailMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_READ")
-     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="multimedia",

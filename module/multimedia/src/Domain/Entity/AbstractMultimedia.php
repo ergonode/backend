@@ -15,6 +15,7 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
+use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 
 /**
  */
@@ -108,6 +109,18 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     }
 
     /**
+     * @param string $name
+     *
+     * @throws \Exception
+     */
+    public function changeName(string $name): void
+    {
+        if ($name !== $this->getName()) {
+            $this->apply(new MultimediaNameChangedEvent($this->id, $name));
+        }
+    }
+
+    /**
      * @return MultimediaId
      */
     public function getId(): MultimediaId
@@ -183,5 +196,13 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     protected function applyMultimediaAltChangedEvent(MultimediaAltChangedEvent $event): void
     {
         $this->alt = $event->getAlt();
+    }
+
+    /**
+     * @param MultimediaNameChangedEvent $event
+     */
+    protected function applyMultimediaNameChangedEvent(MultimediaNameChangedEvent $event): void
+    {
+        $this->name = $event->getName();
     }
 }

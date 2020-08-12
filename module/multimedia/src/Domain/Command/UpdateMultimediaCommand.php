@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,48 +7,57 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Domain\Event;
+namespace Ergonode\Multimedia\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\SharedKernel\Domain\AggregateId;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class MultimediaAltChangedEvent implements DomainEventInterface
+class UpdateMultimediaCommand implements DomainCommandInterface
 {
     /**
      * @var MultimediaId
-     *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private MultimediaId $id;
 
     /**
+     * @var string
+     */
+    private string $name;
+
+    /**
      * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $alt;
 
     /**
      * @param MultimediaId       $id
+     * @param string             $name
      * @param TranslatableString $alt
      */
-    public function __construct(MultimediaId $id, TranslatableString $alt)
+    public function __construct(MultimediaId $id, string $name, TranslatableString $alt)
     {
         $this->id = $id;
+        $this->name = $name;
         $this->alt = $alt;
     }
 
     /**
-     * @return AggregateId
+     * @return MultimediaId
      */
-    public function getAggregateId(): AggregateId
+    public function getId(): MultimediaId
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

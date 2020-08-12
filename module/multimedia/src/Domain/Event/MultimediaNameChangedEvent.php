@@ -10,13 +10,12 @@ namespace Ergonode\Multimedia\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class MultimediaAltChangedEvent implements DomainEventInterface
+class MultimediaNameChangedEvent implements DomainEventInterface
 {
     /**
      * @var MultimediaId
@@ -26,20 +25,20 @@ class MultimediaAltChangedEvent implements DomainEventInterface
     private MultimediaId $id;
 
     /**
-     * @var TranslatableString
+     * @var string
      *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     * @JMS\Type("string")
      */
-    private TranslatableString $alt;
+    private string $name;
 
     /**
-     * @param MultimediaId       $id
-     * @param TranslatableString $alt
+     * @param MultimediaId $id
+     * @param string       $name
      */
-    public function __construct(MultimediaId $id, TranslatableString $alt)
+    public function __construct(MultimediaId $id, string $name)
     {
         $this->id = $id;
-        $this->alt = $alt;
+        $this->name = $name;
     }
 
     /**
@@ -51,10 +50,10 @@ class MultimediaAltChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return TranslatableString
+     * @return string
      */
-    public function getAlt(): TranslatableString
+    public function getName(): string
     {
-        return $this->alt;
+        return $this->name;
     }
 }
