@@ -22,6 +22,8 @@ use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\NumericFilter;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Column\LinkColumn;
 
 /**
  */
@@ -78,22 +80,22 @@ class MultimediaGrid extends AbstractGrid
         $this->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()));
         $this->addColumn('created_at', new TextColumn('created_at', 'Creation date', new TextFilter()));
 
-//        $links = [
-//            'get' => [
-//                'route' => 'ergonode_multimedia_read',
-//                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
-//            ],
-//            'edit' => [
-//                'route' => 'ergonode_multimedia_change',
-//                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
-//                'method' => Request::METHOD_PUT,
-//            ],
-//            'delete' => [
-//                'route' => 'ergonode_multimedia_delete',
-//                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
-//                'method' => Request::METHOD_DELETE,
-//            ],
-//        ];
-//        $this->addColumn('_links', new LinkColumn('hal', $links));
+        $links = [
+            'get' => [
+                'route' => 'ergonode_multimedia_read',
+                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_multimedia_edit',
+                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'download' => [
+                'route' => 'ergonode_multimedia_download',
+                'parameters' => ['multimedia' => '{id}'],
+                'method' => Request::METHOD_GET,
+            ],
+        ];
+        $this->addColumn('_links', new LinkColumn('hal', $links));
     }
 }

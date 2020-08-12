@@ -12,6 +12,8 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
+use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -50,6 +52,8 @@ final class Version20180807065948 extends AbstractErgonodeMigration
 
         $this->createEventStoreEvents([
             MultimediaCreatedEvent::class => 'Multimedia added',
+            MultimediaAltChangedEvent::class => 'Multimedia alt changed',
+            MultimediaNameChangedEvent::class => 'Multimedia name changed',
         ]);
     }
 
