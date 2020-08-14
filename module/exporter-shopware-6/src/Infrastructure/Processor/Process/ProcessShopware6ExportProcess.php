@@ -62,14 +62,14 @@ class ProcessShopware6ExportProcess
      */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractProduct $product): void
     {
-        $shopwareProduct = $this->productClient->findBySKU($channel, $product->getSku());
+        $shopwareProduct = $this->productClient->find($channel, $product);
 
         if ($shopwareProduct) {
             $this->updateProduct($channel, $shopwareProduct, $product);
         } else {
             $shopwareProduct = new Shopware6Product();
             $this->builder->build($shopwareProduct, $product, $channel);
-            $this->productClient->insert($channel, $shopwareProduct);
+            $this->productClient->insert($channel, $shopwareProduct, $product->getId());
         }
 
         foreach ($channel->getLanguages() as $language) {
@@ -114,7 +114,7 @@ class ProcessShopware6ExportProcess
         $shopwareLanguage = $this->languageRepository->load($channel->getId(), $language->getCode());
         Assert::notNull($shopwareLanguage);
 
-        $shopwareProduct = $this->productClient->findBySKU($channel, $product->getSku(), $shopwareLanguage);
+        $shopwareProduct = $this->productClient->find($channel, $product, $shopwareLanguage);
         Assert::notNull($shopwareProduct);
 
         $this->updateProduct($channel, $shopwareProduct, $product, $language, $shopwareLanguage);

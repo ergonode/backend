@@ -341,6 +341,22 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByType(string $type): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb
+            ->select('id')
+            ->from(self::PRODUCT_TABLE)
+            ->where($qb->expr()->eq('type', ':type'))
+            ->setParameter(':type', $type)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder

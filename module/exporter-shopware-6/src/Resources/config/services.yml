@@ -21,6 +21,12 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
+    Ergonode\ExporterShopware6\Infrastructure\Handler\ProcessExportCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            $steps:
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'
     # Repository
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6CategoryRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6CurrencyRepository'
@@ -53,6 +59,7 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMultiSelectSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMediaSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\LanguageSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\VariantOptionSynchronizer'
 
     # Mappers
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder:
@@ -78,3 +85,5 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetSelectMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultiSelectMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultimediaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantChildMapper'

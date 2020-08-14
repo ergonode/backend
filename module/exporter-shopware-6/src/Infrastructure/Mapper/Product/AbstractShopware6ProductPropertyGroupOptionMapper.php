@@ -91,7 +91,7 @@ abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends Abstrac
         Shopware6Channel $channel,
         AbstractOption $option
     ): Shopware6PropertyGroupOption {
-        $name = $name = $option->getLabel()->get($channel->getDefaultLanguage());
+        $name = $option->getLabel()->get($channel->getDefaultLanguage());
 
         $propertyGroupOption = new Shopware6PropertyGroupOption(null, $name ?: $option->getCode()->getValue());
 
