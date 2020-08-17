@@ -9,13 +9,19 @@ services:
 
     Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface:  '@Ergonode\EventSourcing\Infrastructure\Store\DbalDomainEventStore'
     Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface:  '@Ergonode\EventSourcing\Infrastructure\Storage\DbalDomainEventStorage'
-    Ergonode\EventSourcing\Infrastructure\Storage\CacheDomainEventStorage:
-      decorates: Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface
-      arguments:
-        - '@Ergonode\EventSourcing\Infrastructure\Storage\CacheDomainEventStorage.inner'
+#    Ergonode\EventSourcing\Infrastructure\Storage\CacheDomainEventStorage:
+#      decorates: Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface
+#      arguments:
+#        - '@Ergonode\EventSourcing\Infrastructure\Storage\CacheDomainEventStorage.inner'
     Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface: '@Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProvider'
     Ergonode\EventSourcing\Infrastructure\Bus\SymfonyCommandBus:
         arguments:
            $syncBus: '@messenger.bus.sync'
            $asyncBus: '@messenger.bus.async'
            $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'
+
+    Ergonode\EventSourcing\Infrastructure\Manager\AggregateBuilderInterface:  '@Ergonode\EventSourcing\Infrastructure\Manager\AggregateBuilder'
+    Ergonode\EventSourcing\Infrastructure\Manager\SnapshotBuilderDecorator:
+      decorates: Ergonode\EventSourcing\Infrastructure\Manager\AggregateBuilderInterface
+      arguments:
+         $builder: '@Ergonode\EventSourcing\Infrastructure\Manager\SnapshotBuilderDecorator.inner'

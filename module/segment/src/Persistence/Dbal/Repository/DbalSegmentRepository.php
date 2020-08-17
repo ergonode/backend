@@ -9,35 +9,28 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Persistence\Dbal\Repository;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalSegmentRepository implements SegmentRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var ESManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private ESManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param ESManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(ESManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -47,35 +40,18 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
      */
     public function load(SegmentId $id): ?Segment
     {
-        $eventStream = $this->eventStore->load($id);
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, Segment::class);
 
-        if (\count($eventStream) > 0) {
-            $class = new \ReflectionClass(Segment::class);
-            /** @var Segment $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof Segment) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
-            }
-
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function save(Segment $aggregateRoot): void
+    public function save(Segment $segment): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($segment);
     }
 
     /**
@@ -83,9 +59,7 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
      */
     public function exists(SegmentId $id): bool
     {
-        $eventStream = $this->eventStore->load($id);
-
-        return \count($eventStream) > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -98,6 +72,6 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
         $segment->apply(new SegmentDeletedEvent($segment->getId()));
         $this->save($segment);
 
-        $this->eventStore->delete($segment->getId());
+        $this->manager->delete($segment);
     }
 }

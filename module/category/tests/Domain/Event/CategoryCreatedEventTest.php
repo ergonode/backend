@@ -26,14 +26,12 @@ class CategoryCreatedEventTest extends TestCase
         $id = $this->createMock(CategoryId::class);
         $code = $this->createMock(CategoryCode::class);
         $type = 'DEFAULT';
-        $class = 'class';
         $name = $this->createMock(TranslatableString::class);
 
-        $event = new CategoryCreatedEvent($id, $code, $type, $class, $name);
+        $event = new CategoryCreatedEvent($id, $code, $type, $name);
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getCode());
         $this->assertEquals($name, $event->getName());
-        $this->assertEquals($class, $event->getClass());
         $this->assertEquals($type, $event->getType());
     }
 }

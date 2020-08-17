@@ -24,7 +24,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @JMS\ExclusionPolicy("all")
  */
 class Segment extends AbstractAggregateRoot
 {
@@ -32,7 +31,6 @@ class Segment extends AbstractAggregateRoot
      * @var SegmentId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
-     * @JMS\Expose()
      */
     private SegmentId $id;
 
@@ -40,7 +38,6 @@ class Segment extends AbstractAggregateRoot
      * @var SegmentStatus
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
-     * @JMS\Expose()
      */
     private SegmentStatus $status;
 
@@ -48,7 +45,6 @@ class Segment extends AbstractAggregateRoot
      * @var SegmentCode
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
-     * @JMS\Expose()
      */
     private SegmentCode $code;
 
@@ -56,7 +52,6 @@ class Segment extends AbstractAggregateRoot
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     * @JMS\Expose()
      */
     private TranslatableString $name;
 
@@ -64,7 +59,6 @@ class Segment extends AbstractAggregateRoot
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     * @JMS\Expose()
      */
     private TranslatableString $description;
 
@@ -72,7 +66,6 @@ class Segment extends AbstractAggregateRoot
      * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     * @JMS\Expose()
      */
     private ?ConditionSetId $conditionSetId;
 

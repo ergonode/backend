@@ -18,8 +18,7 @@ class Category extends AbstractCategory implements CategoryInterface
     public const TYPE = 'DEFAULT';
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
+     * @JMS\Type("string");
      *
      * @return string
      */

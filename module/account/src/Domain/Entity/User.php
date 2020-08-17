@@ -28,6 +28,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -35,66 +36,87 @@ class User extends AbstractAggregateRoot implements UserInterface
 {
     /**
      * @var UserId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $firstName;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $lastName;
 
     /**
      * @var Email
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\ValueObject\Email")
      */
     private Email $email;
 
     /**
      * @var Password
+     *
+     * @JMS\Type("Ergonode\Account\Domain\ValueObject\Password")
      */
     private Password $password;
 
     /**
      * @var Language
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $language;
 
     /**
      * @var MultimediaId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private ?MultimediaId $avatarId;
 
     /**
      * @var RoleId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $roleId;
 
     /**
      * @var LanguagePrivileges[]
+     *
+     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
      */
     private array $languagePrivilegesCollection;
 
     /**
      * @var bool
+     *
+     * @JMS\Type("boolean")
      */
     private bool $isActive;
 
     /**
-     * @param UserId               $id
-     * @param string               $firstName
-     * @param string               $lastName
-     * @param Email                $email
-     * @param Language             $language
-     * @param Password             $password
-     * @param RoleId               $roleId
-     * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param MultimediaId|null    $avatarId
-     * @param bool                 $isActive
+     * @param UserId            $id
+     * @param string            $firstName
+     * @param string            $lastName
+     * @param Email             $email
+     * @param Language          $language
+     * @param Password          $password
+     * @param RoleId            $roleId
+     * @param array             $languagePrivilegesCollection
+     * @param MultimediaId|null $avatarId
+     * @param bool              $isActive
      *
+     * @throws \Exception
      */
     public function __construct(
         UserId $id,
