@@ -16,7 +16,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -57,9 +56,6 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
     }
 
     /**
-     * @JMS\VirtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     public function getType(): string
