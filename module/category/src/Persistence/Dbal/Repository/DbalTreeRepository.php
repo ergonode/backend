@@ -14,7 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 
 /**
@@ -22,14 +22,14 @@ use Webmozart\Assert\Assert;
 class DbalTreeRepository implements TreeRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

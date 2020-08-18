@@ -13,7 +13,7 @@ use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 
 /**
@@ -21,14 +21,14 @@ use Webmozart\Assert\Assert;
 class DbalSegmentRepository implements SegmentRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

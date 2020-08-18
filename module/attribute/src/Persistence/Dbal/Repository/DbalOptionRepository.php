@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 use Doctrine\DBAL\DBALException;
 
@@ -22,14 +22,14 @@ use Doctrine\DBAL\DBALException;
 class DbalOptionRepository implements OptionRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

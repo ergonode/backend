@@ -19,7 +19,7 @@ use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 
 /**
  */
-class ESManager
+class EventStoreManager
 {
 
     /**

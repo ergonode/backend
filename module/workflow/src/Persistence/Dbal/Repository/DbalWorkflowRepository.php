@@ -14,7 +14,7 @@ use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 
 /**
@@ -22,14 +22,14 @@ use Webmozart\Assert\Assert;
 class DbalWorkflowRepository implements WorkflowRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

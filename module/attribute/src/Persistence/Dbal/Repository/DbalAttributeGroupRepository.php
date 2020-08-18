@@ -14,7 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 use Doctrine\DBAL\DBALException;
 
@@ -23,14 +23,14 @@ use Doctrine\DBAL\DBALException;
 class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

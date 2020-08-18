@@ -12,7 +12,7 @@ namespace Ergonode\Editor\Persistence\Repository;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 use Doctrine\DBAL\DBALException;
 
@@ -21,14 +21,14 @@ use Doctrine\DBAL\DBALException;
 class DbalProductDraftRepository implements ProductDraftRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

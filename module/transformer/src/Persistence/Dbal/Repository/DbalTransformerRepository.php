@@ -14,7 +14,7 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 
 /**
@@ -22,14 +22,14 @@ use Webmozart\Assert\Assert;
 class DbalTransformerRepository implements TransformerRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

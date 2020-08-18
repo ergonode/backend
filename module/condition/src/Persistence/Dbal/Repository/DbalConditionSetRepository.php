@@ -13,7 +13,7 @@ use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 
@@ -22,14 +22,14 @@ use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 class DbalConditionSetRepository implements ConditionSetRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

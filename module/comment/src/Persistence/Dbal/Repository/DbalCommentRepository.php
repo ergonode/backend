@@ -14,7 +14,7 @@ use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
-use Ergonode\EventSourcing\Infrastructure\Manager\ESManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 use Doctrine\DBAL\DBALException;
 
@@ -23,14 +23,14 @@ use Doctrine\DBAL\DBALException;
 class DbalCommentRepository implements CommentRepositoryInterface
 {
     /**
-     * @var ESManager
+     * @var EventStoreManager
      */
-    private ESManager $manager;
+    private EventStoreManager $manager;
 
     /**
-     * @param ESManager $manager
+     * @param EventStoreManager $manager
      */
-    public function __construct(ESManager $manager)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }

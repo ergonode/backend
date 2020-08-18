@@ -105,16 +105,16 @@ class User extends AbstractAggregateRoot implements UserInterface
     private bool $isActive;
 
     /**
-     * @param UserId            $id
-     * @param string            $firstName
-     * @param string            $lastName
-     * @param Email             $email
-     * @param Language          $language
-     * @param Password          $password
-     * @param RoleId            $roleId
-     * @param array             $languagePrivilegesCollection
-     * @param MultimediaId|null $avatarId
-     * @param bool              $isActive
+     * @param UserId               $id
+     * @param string               $firstName
+     * @param string               $lastName
+     * @param Email                $email
+     * @param Language             $language
+     * @param Password             $password
+     * @param RoleId               $roleId
+     * @param LanguagePrivileges[] $languagePrivilegesCollection
+     * @param MultimediaId|null    $avatarId
+     * @param bool                 $isActive
      *
      * @throws \Exception
      */
