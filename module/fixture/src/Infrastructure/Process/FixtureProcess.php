@@ -53,7 +53,7 @@ class FixtureProcess
      * @param FixtureLoader       $loader
      * @param Generator           $generator
      * @param CommandBusInterface $commandBus
-     * @param EventStoreManager           $manager
+     * @param EventStoreManager   $manager
      * @param Connection          $connection
      */
     public function __construct(
