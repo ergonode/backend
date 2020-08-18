@@ -86,8 +86,7 @@ class DbalImportQuery implements ImportQueryInterface
         $query->select('il.import_id AS id, il.line, il.processed_at, il.message')
             ->from('importer.import_line', 'il')
             ->where($query->expr()->eq('il.import_id', ':importId'))
-            ->andWhere($query->expr()->isNotNull('il.message'))
-        ;
+            ->andWhere($query->expr()->isNotNull('il.message'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
@@ -105,7 +104,13 @@ class DbalImportQuery implements ImportQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select('id, status, source_id, created_at, updated_at, started_at, ended_at')
-            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) AS lines')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) AS records')
+            ->addSelect(
+                '(SELECT count(*)
+                        FROM importer.import_line il
+                        WHERE il.import_id = i.id
+                        AND il.message IS NOT NULL) AS errors'
+            )
             ->from('importer.import', 'i');
     }
 }
