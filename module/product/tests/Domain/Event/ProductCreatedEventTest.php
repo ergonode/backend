@@ -29,17 +29,15 @@ class ProductCreatedEventTest extends TestCase
         /** @var Sku|MockObject $sku */
         $sku = $this->createMock(Sku::class);
         $type = 'simple';
-        $class = 'class';
         $categories = ['example1', 'example2'];
         $attributes = ['example1', 'example2'];
         $templateId = $this->createMock(TemplateId::class);
-        $event = new ProductCreatedEvent($id, $sku, $type, $class, $templateId, $categories, $attributes);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($sku, $event->getSku());
-        $this->assertEquals($type, $event->getType());
-        $this->assertEquals($class, $event->getClass());
-        $this->assertEquals($templateId, $event->getTemplateId());
-        $this->assertEquals($categories, $event->getCategories());
-        $this->assertEquals($attributes, $event->getAttributes());
+        $event = new ProductCreatedEvent($id, $sku, $type, $templateId, $categories, $attributes);
+        $this::assertEquals($id, $event->getAggregateId());
+        $this::assertEquals($sku, $event->getSku());
+        $this::assertEquals($type, $event->getType());
+        $this::assertEquals($templateId, $event->getTemplateId());
+        $this::assertEquals($categories, $event->getCategories());
+        $this::assertEquals($attributes, $event->getAttributes());
     }
 }

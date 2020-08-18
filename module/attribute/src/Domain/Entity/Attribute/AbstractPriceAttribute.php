@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\Annotation as JMS;
 use Money\Currency;
 
 /**
@@ -57,9 +56,6 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
     }
 
     /**
-     * @JMS\VirtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     public function getType(): string

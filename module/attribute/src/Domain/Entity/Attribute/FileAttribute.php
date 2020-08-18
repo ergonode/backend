@@ -18,9 +18,6 @@ class FileAttribute extends AbstractCollectionAttribute
     public const TYPE = 'FILE';
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     public function getType(): string

@@ -42,9 +42,9 @@ Feature: Multimedia
     And I send a GET request to "api/v1/en_EN/multimedia/@multimedia_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | id        | @multimedia_id@           |
-      | extension | png                       |
-      | mime      | image/png                 |
+      | id        | @multimedia_id@ |
+      | extension | png             |
+      | mime      | image/png       |
 
   Scenario: Update multimedia information
     And I send a PUT request to "api/v1/en_EN/multimedia/@multimedia_id@" with body:

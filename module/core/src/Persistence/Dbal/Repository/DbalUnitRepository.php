@@ -13,32 +13,27 @@ use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Event\UnitDeletedEvent;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 
 /**
  */
 class DbalUnitRepository implements UnitRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -46,7 +41,7 @@ class DbalUnitRepository implements UnitRepositoryInterface
      */
     public function exists(UnitId $id): bool
     {
-        return $this->eventStore->load($id)->count() > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -58,46 +53,33 @@ class DbalUnitRepository implements UnitRepositoryInterface
      */
     public function load(UnitId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id);
-        if (count($eventStream) > 0) {
-            $class = new \ReflectionClass(Unit::class);
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', Unit::class));
-            }
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, Unit::class);
 
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractAggregateRoot $aggregateRoot
+     *
+     * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractAggregateRoot $aggregateRoot
      *
-     * @throws \Exception
+     * @throws DBALException
+     * @throws InvalidArgumentException
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
         $aggregateRoot->apply(new UnitDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }

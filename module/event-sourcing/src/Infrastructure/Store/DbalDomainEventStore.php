@@ -33,13 +33,14 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
     /**
      * @param AggregateId $id
+     * @param int         $sequence
      * @param string|null $name
      *
      * @return DomainEventStream
      */
-    public function load(AggregateId $id, string $name = null): DomainEventStream
+    public function load(AggregateId $id, int $sequence = 0, string $name = null): DomainEventStream
     {
-        return new DomainEventStream($this->storage->load($id, 0, $name));
+        return new DomainEventStream($this->storage->load($id, $sequence, $name));
     }
 
     /**
