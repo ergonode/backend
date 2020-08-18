@@ -12,32 +12,25 @@ namespace Ergonode\Designer\Persistence\Dbal\Repository;
 use Ergonode\Designer\Domain\Entity\TemplateGroup;
 use Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalTemplateGroupRepository implements TemplateGroupRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -49,21 +42,11 @@ class DbalTemplateGroupRepository implements TemplateGroupRepositoryInterface
      */
     public function load(TemplateGroupId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id);
-        if ($eventStream->count() > 0) {
-            $class = new \ReflectionClass(TemplateGroup::class);
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', TemplateGroup::class));
-            }
+        /** @var TemplateGroup $result */
+        $result = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($result, TemplateGroup::class);
 
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $result;
     }
 
     /**
@@ -71,11 +54,6 @@ class DbalTemplateGroupRepository implements TemplateGroupRepositoryInterface
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 }

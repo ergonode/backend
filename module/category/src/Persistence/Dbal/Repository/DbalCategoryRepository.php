@@ -10,37 +10,27 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Persistence\Dbal\Repository;
 
 use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalCategoryRepository implements CategoryRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -48,7 +38,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
      */
     public function exists(CategoryId $id) : bool
     {
-        return $this->eventStore->load($id)->count() > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -58,26 +48,11 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
      */
     public function load(CategoryId $id): ?AbstractCategory
     {
-        $eventStream = $this->eventStore->load($id);
+        /** @var AbstractCategory $result */
+        $result = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($result, AbstractCategory::class);
 
-        if ($eventStream->count() > 0) {
-            /** @var DomainEventEnvelope $envelope */
-            $envelope = $eventStream->getIterator()->current();
-            /** @var CategoryCreatedEvent $event */
-            $event = $envelope->getEvent();
-
-            $class = new \ReflectionClass($event->getClass());
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractCategory) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
-            }
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $result;
     }
 
     /**
@@ -85,12 +60,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
      */
     public function save(AbstractCategory $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -103,6 +73,6 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
         $category->apply(new CategoryDeletedEvent($category->getId()));
         $this->save($category);
 
-        $this->eventStore->delete($category->getId());
+        $this->manager->delete($category);
     }
 }

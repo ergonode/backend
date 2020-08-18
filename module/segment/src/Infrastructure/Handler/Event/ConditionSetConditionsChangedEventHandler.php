@@ -11,7 +11,6 @@ namespace Ergonode\Segment\Infrastructure\Handler\Event;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 

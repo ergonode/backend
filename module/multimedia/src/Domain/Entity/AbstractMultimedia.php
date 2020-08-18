@@ -16,6 +16,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
 use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -23,21 +24,29 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
 {
     /**
      * @var MultimediaId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private MultimediaId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $name;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $extension;
 
     /**
      * @var string|null
+     *
+     * @JMS\Type("string")
      */
     private ?string $mime;
 
@@ -45,16 +54,22 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
      * The file size in bytes.
      *
      * @var int
+     *
+     * @JMS\Type("int")
      */
     private int $size;
 
     /**
      * @var Hash
+     *
+     * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
      */
     private Hash $hash;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $alt;
 

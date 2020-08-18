@@ -9,39 +9,29 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Persistence\Dbal\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
-use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\SimpleProduct;
-use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
 class DbalProductRepository implements ProductRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -51,41 +41,21 @@ class DbalProductRepository implements ProductRepositoryInterface
      */
     public function load(ProductId $id): ?AbstractProduct
     {
-        $eventStream = $this->eventStore->load($id);
-
-        $result = null;
-        if (0 !== count($eventStream)) {
-            /** @var DomainEventEnvelope $envelope */
-            $envelope = $eventStream->getIterator()->current();
-            /** @var ProductCreatedEvent $event */
-            $event = $envelope->getEvent();
-
-            $class = new \ReflectionClass($event->getClass());
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractProduct) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', SimpleProduct::class));
-            }
-
-            $aggregate->initialize($eventStream);
-
-            $result = $aggregate;
-        }
+        /** @var AbstractProduct $result */
+        $result = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($result, AbstractProduct::class);
 
         return $result;
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractProduct $aggregateRoot
+     *
+     * @throws DBALException
      */
     public function save(AbstractProduct $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -95,7 +65,7 @@ class DbalProductRepository implements ProductRepositoryInterface
      */
     public function exists(ProductId $id): bool
     {
-        return $this->eventStore->load($id)->count() > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -108,6 +78,6 @@ class DbalProductRepository implements ProductRepositoryInterface
         $aggregateRoot->apply(new ProductDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }

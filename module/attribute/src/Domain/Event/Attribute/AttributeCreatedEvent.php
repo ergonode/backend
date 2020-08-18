@@ -42,13 +42,6 @@ class AttributeCreatedEvent implements DomainEventInterface
     private string $type;
 
     /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private string $class;
-
-    /**
      * @var TranslatableString;
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
@@ -98,7 +91,6 @@ class AttributeCreatedEvent implements DomainEventInterface
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
      * @param string             $type
-     * @param string             $class
      * @param array              $parameters
      * @param bool               $system
      */
@@ -110,14 +102,12 @@ class AttributeCreatedEvent implements DomainEventInterface
         TranslatableString $placeholder,
         AttributeScope $scope,
         string $type,
-        string $class,
         array $parameters = [],
         bool $system = false
     ) {
         $this->id = $id;
         $this->code = $code;
         $this->type = $type;
-        $this->class = $class;
         $this->label = $label;
         $this->hint = $hint;
         $this->scope = $scope;
@@ -148,14 +138,6 @@ class AttributeCreatedEvent implements DomainEventInterface
     public function getCode(): AttributeCode
     {
         return $this->code;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClass(): string
-    {
-        return $this->class;
     }
 
     /**

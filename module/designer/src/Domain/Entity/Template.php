@@ -39,38 +39,50 @@ class Template extends AbstractAggregateRoot
 {
     /**
      * @var TemplateId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $name;
 
     /**
      * @var MultimediaId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private ?MultimediaId $imageId;
 
     /**
      * @var TemplateGroupId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $groupId;
 
     /**
      * @var AttributeId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultLabel;
 
     /**
      * @var AttributeId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultImage;
 
     /**
      * @var TemplateElement[]
      *
-     * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElement>")
+     * @JMS\Type("array<string, Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
     private array $elements;
 
@@ -78,8 +90,8 @@ class Template extends AbstractAggregateRoot
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param AttributeId       $defaultLabel
-     * @param AttributeId       $defaultImage
+     * @param AttributeId|null  $defaultLabel
+     * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      *
      * @throws \Exception
@@ -479,18 +491,16 @@ class Template extends AbstractAggregateRoot
     /**
      * @param TemplateDefaultLabelChangedEvent $event
      */
-    protected function applyTemplateDefaultLabelChangedEvent(
-        TemplateDefaultLabelChangedEvent $event
-    ): void {
+    protected function applyTemplateDefaultLabelChangedEvent(TemplateDefaultLabelChangedEvent $event): void
+    {
         $this->defaultLabel = $event->getTo();
     }
 
     /**
      * @param TemplateDefaultImageChangedEvent $event
      */
-    protected function applyTemplateDefaultImageChangedEvent(
-        TemplateDefaultImageChangedEvent $event
-    ): void {
+    protected function applyTemplateDefaultImageChangedEvent(TemplateDefaultImageChangedEvent $event): void
+    {
         $this->defaultImage = $event->getTo();
     }
 }

@@ -17,13 +17,6 @@ use JMS\Serializer\Annotation as JMS;
 class Node
 {
     /**
-     * @var null|Node
-     *
-     * @JMS\Exclude()
-     */
-    private ?Node $parent;
-
-    /**
      * @var CategoryId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
@@ -52,23 +45,6 @@ class Node
     public function addChild(Node $child): void
     {
         $this->children[] = $child;
-        $child->setParent($this);
-    }
-
-    /**
-     * @param Node|null $parent
-     */
-    public function setParent(?Node $parent = null): void
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * @return Node|null
-     */
-    public function getParent(): ?Node
-    {
-        return $this->parent;
     }
 
     /**
