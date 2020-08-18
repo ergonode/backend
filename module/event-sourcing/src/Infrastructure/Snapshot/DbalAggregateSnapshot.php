@@ -21,7 +21,7 @@ use Ergonode\EventSourcing\Domain\AbstractEntity;
 class DbalAggregateSnapshot implements AggregateSnapshotInterface
 {
     private const TABLE = 'event_store_snapshot';
-    private const SNAPSHOT_EVENTS = 1;
+    private const SNAPSHOT_EVENTS = 10;
 
     /**
      * @var Connection
@@ -34,13 +34,23 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     private SerializerInterface $serializer;
 
     /**
+     * @var int
+     */
+    private int $snapshotEvents;
+
+    /**
      * @param Connection          $connection
      * @param SerializerInterface $serializer
+     * @param int                 $snapshotEvents
      */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
-    {
+    public function __construct(
+        Connection $connection,
+        SerializerInterface $serializer,
+        int $snapshotEvents = self::SNAPSHOT_EVENTS
+    ) {
         $this->connection = $connection;
         $this->serializer = $serializer;
+        $this->snapshotEvents = $snapshotEvents;
     }
 
     /**
@@ -93,7 +103,7 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
      */
     public function save(AbstractAggregateRoot $aggregate): void
     {
-        if (0 === ($aggregate->getSequence() % self::SNAPSHOT_EVENTS)) {
+        if (0 === ($aggregate->getSequence() % $this->snapshotEvents)) {
             $payload = $this->serializer->serialize($aggregate, 'json');
 
             $this->connection->insert(
