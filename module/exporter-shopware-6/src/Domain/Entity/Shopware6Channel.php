@@ -53,7 +53,7 @@ class Shopware6Channel extends AbstractChannel
     /**
      * @var Language[]
      *
-     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
+     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
@@ -62,49 +62,49 @@ class Shopware6Channel extends AbstractChannel
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productName;
+    private AttributeId $attributeProductName;
 
     /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productActive;
+    private AttributeId $attributeProductActive;
 
     /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productStock;
+    private AttributeId $attributeProductStock;
 
     /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productPriceGross;
+    private AttributeId $attributeProductPriceGross;
 
     /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productPriceNet;
+    private AttributeId $attributeProductPriceNet;
 
     /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $productTax;
+    private AttributeId $attributeProductTax;
 
     /**
      * @var AttributeId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private ?AttributeId $productDescription;
+    private ?AttributeId $attributeProductDescription;
 
     /**
      * @var CategoryTreeId|null
@@ -135,13 +135,13 @@ class Shopware6Channel extends AbstractChannel
      * @param string              $clientKey
      * @param Language            $defaultLanguage
      * @param Language[]          $languages
-     * @param AttributeId         $productName
-     * @param AttributeId         $productActive
-     * @param AttributeId         $productStock
-     * @param AttributeId         $productPriceGross
-     * @param AttributeId         $productPriceNet
-     * @param AttributeId         $productTax
-     * @param AttributeId|null    $productDescription
+     * @param AttributeId         $attributeProductName
+     * @param AttributeId         $attributeProductActive
+     * @param AttributeId         $attributeProductStock
+     * @param AttributeId         $attributeProductPriceGross
+     * @param AttributeId         $attributeProductPriceNet
+     * @param AttributeId         $attributeProductTax
+     * @param AttributeId|null    $attributeProductDescription
      * @param CategoryTreeId|null $categoryTree
      * @param array|AttributeId[] $propertyGroup
      * @param array|AttributeId[] $customField
@@ -154,13 +154,13 @@ class Shopware6Channel extends AbstractChannel
         string $clientKey,
         Language $defaultLanguage,
         array $languages,
-        AttributeId $productName,
-        AttributeId $productActive,
-        AttributeId $productStock,
-        AttributeId $productPriceGross,
-        AttributeId $productPriceNet,
-        AttributeId $productTax,
-        ?AttributeId $productDescription,
+        AttributeId $attributeProductName,
+        AttributeId $attributeProductActive,
+        AttributeId $attributeProductStock,
+        AttributeId $attributeProductPriceGross,
+        AttributeId $attributeProductPriceNet,
+        AttributeId $attributeProductTax,
+        ?AttributeId $attributeProductDescription,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
         array $customField
@@ -172,13 +172,13 @@ class Shopware6Channel extends AbstractChannel
         $this->clientKey = $clientKey;
         $this->defaultLanguage = $defaultLanguage;
         $this->languages = $languages;
-        $this->productName = $productName;
-        $this->productActive = $productActive;
-        $this->productStock = $productStock;
-        $this->productPriceGross = $productPriceGross;
-        $this->productPriceNet = $productPriceNet;
-        $this->productTax = $productTax;
-        $this->productDescription = $productDescription;
+        $this->attributeProductName = $attributeProductName;
+        $this->attributeProductActive = $attributeProductActive;
+        $this->attributeProductStock = $attributeProductStock;
+        $this->attributeProductPriceGross = $attributeProductPriceGross;
+        $this->attributeProductPriceNet = $attributeProductPriceNet;
+        $this->attributeProductTax = $attributeProductTax;
+        $this->attributeProductDescription = $attributeProductDescription;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
@@ -235,57 +235,57 @@ class Shopware6Channel extends AbstractChannel
     /**
      * @return AttributeId
      */
-    public function getProductName(): AttributeId
+    public function getAttributeProductName(): AttributeId
     {
-        return $this->productName;
+        return $this->attributeProductName;
     }
 
     /**
      * @return AttributeId
      */
-    public function getProductActive(): AttributeId
+    public function getAttributeProductActive(): AttributeId
     {
-        return $this->productActive;
+        return $this->attributeProductActive;
     }
 
     /**
      * @return AttributeId
      */
-    public function getProductStock(): AttributeId
+    public function getAttributeProductStock(): AttributeId
     {
-        return $this->productStock;
+        return $this->attributeProductStock;
     }
 
     /**
      * @return AttributeId
      */
-    public function getProductPriceGross(): AttributeId
+    public function getAttributeProductPriceGross(): AttributeId
     {
-        return $this->productPriceGross;
+        return $this->attributeProductPriceGross;
     }
 
     /**
      * @return AttributeId
      */
-    public function getProductPriceNet(): AttributeId
+    public function getAttributeProductPriceNet(): AttributeId
     {
-        return $this->productPriceNet;
+        return $this->attributeProductPriceNet;
     }
 
     /**
      * @return AttributeId
      */
-    public function getProductTax(): AttributeId
+    public function getAttributeProductTax(): AttributeId
     {
-        return $this->productTax;
+        return $this->attributeProductTax;
     }
 
     /**
      * @return AttributeId|null
      */
-    public function getProductDescription(): ?AttributeId
+    public function getAttributeProductDescription(): ?AttributeId
     {
-        return $this->productDescription;
+        return $this->attributeProductDescription;
     }
 
     /**
@@ -353,59 +353,59 @@ class Shopware6Channel extends AbstractChannel
     }
 
     /**
-     * @param AttributeId $productName
+     * @param AttributeId $attributeProductName
      */
-    public function setProductName(AttributeId $productName): void
+    public function setAttributeProductName(AttributeId $attributeProductName): void
     {
-        $this->productName = $productName;
+        $this->attributeProductName = $attributeProductName;
     }
 
     /**
-     * @param AttributeId $productActive
+     * @param AttributeId $attributeProductActive
      */
-    public function setProductActive(AttributeId $productActive): void
+    public function setAttributeProductActive(AttributeId $attributeProductActive): void
     {
-        $this->productActive = $productActive;
+        $this->attributeProductActive = $attributeProductActive;
     }
 
     /**
-     * @param AttributeId $productStock
+     * @param AttributeId $attributeProductStock
      */
-    public function setProductStock(AttributeId $productStock): void
+    public function setAttributeProductStock(AttributeId $attributeProductStock): void
     {
-        $this->productStock = $productStock;
+        $this->attributeProductStock = $attributeProductStock;
     }
 
     /**
-     * @param AttributeId $productPriceGross
+     * @param AttributeId $attributeProductPriceGross
      */
-    public function setProductPriceGross(AttributeId $productPriceGross): void
+    public function setAttributeProductPriceGross(AttributeId $attributeProductPriceGross): void
     {
-        $this->productPriceGross = $productPriceGross;
+        $this->attributeProductPriceGross = $attributeProductPriceGross;
     }
 
     /**
-     * @param AttributeId $productPriceNet
+     * @param AttributeId $attributeProductPriceNet
      */
-    public function setProductPriceNet(AttributeId $productPriceNet): void
+    public function setAttributeProductPriceNet(AttributeId $attributeProductPriceNet): void
     {
-        $this->productPriceNet = $productPriceNet;
+        $this->attributeProductPriceNet = $attributeProductPriceNet;
     }
 
     /**
-     * @param AttributeId $productTax
+     * @param AttributeId $attributeProductTax
      */
-    public function setProductTax(AttributeId $productTax): void
+    public function setAttributeProductTax(AttributeId $attributeProductTax): void
     {
-        $this->productTax = $productTax;
+        $this->attributeProductTax = $attributeProductTax;
     }
 
     /**
-     * @param AttributeId|null $productDescription
+     * @param AttributeId|null $attributeProductDescription
      */
-    public function setProductDescription(?AttributeId $productDescription): void
+    public function setAttributeProductDescription(?AttributeId $attributeProductDescription): void
     {
-        $this->productDescription = $productDescription;
+        $this->attributeProductDescription = $attributeProductDescription;
     }
 
     /**

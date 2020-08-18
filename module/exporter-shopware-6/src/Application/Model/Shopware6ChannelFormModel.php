@@ -150,14 +150,14 @@ class Shopware6ChannelFormModel
             $this->clientKey = $channel->getClientKey();
             $this->defaultLanguage = $channel->getDefaultLanguage()->getCode();
             $this->languages = $channel->getLanguages();
-            $this->attributeProductName = $channel->getProductName();
-            $this->attributeProductActive = $channel->getProductActive();
-            $this->attributeProductStock = $channel->getProductStock();
-            $this->attributeProductPriceGross = $channel->getProductPriceGross();
-            $this->attributeProductPriceNet = $channel->getProductPriceNet();
-            $this->attributeProductTax = $channel->getProductTax();
-            $this->attributeProductDescription = $channel->getProductDescription();
-            $this->categoryTree = $channel->getCategoryTree()->getValue();
+            $this->attributeProductName = $channel->getAttributeProductName();
+            $this->attributeProductActive = $channel->getAttributeProductActive();
+            $this->attributeProductStock = $channel->getAttributeProductStock();
+            $this->attributeProductPriceGross = $channel->getAttributeProductPriceGross();
+            $this->attributeProductPriceNet = $channel->getAttributeProductPriceNet();
+            $this->attributeProductTax = $channel->getAttributeProductTax();
+            $this->attributeProductDescription = $channel->getAttributeProductDescription();
+            $this->categoryTree = $channel->getCategoryTree()?$channel->getCategoryTree()->getValue():null;
 
             foreach ($channel->getPropertyGroup() as $attributeId) {
                 $this->propertyGroup[] = new AttributeModel($attributeId->getValue());
