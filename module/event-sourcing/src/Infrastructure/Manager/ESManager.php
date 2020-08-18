@@ -12,10 +12,10 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshot;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 
 /**
  */
@@ -38,9 +38,9 @@ class ESManager
     private EventBusInterface $eventBus;
 
     /**
-     * @var AggregateSnapshot
+     * @var AggregateSnapshotInterface
      */
-    private AggregateSnapshot $snapshot;
+    private AggregateSnapshotInterface $snapshot;
 
     /**
      * @var Connection
@@ -48,17 +48,17 @@ class ESManager
     private Connection $connection;
 
     /**
-     * @param AggregateBuilderInterface $builder
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     * @param AggregateSnapshot         $snapshot
-     * @param Connection                $connection
+     * @param AggregateBuilderInterface  $builder
+     * @param DomainEventStoreInterface  $eventStore
+     * @param EventBusInterface          $eventBus
+     * @param AggregateSnapshotInterface $snapshot
+     * @param Connection                 $connection
      */
     public function __construct(
         AggregateBuilderInterface $builder,
         DomainEventStoreInterface $eventStore,
         EventBusInterface $eventBus,
-        AggregateSnapshot $snapshot,
+        AggregateSnapshotInterface $snapshot,
         Connection $connection
     ) {
         $this->builder = $builder;

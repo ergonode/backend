@@ -10,7 +10,7 @@ namespace Ergonode\EventSourcing\Infrastructure\Manager;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshot;
+use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 
 /**
  */
@@ -22,17 +22,17 @@ class SnapshotBuilderDecorator implements AggregateBuilderInterface
     private AggregateBuilder $builder;
 
     /**
-     * @var AggregateSnapshot
+     * @var AggregateSnapshotInterface
      */
-    private AggregateSnapshot $snapshot;
+    private AggregateSnapshotInterface $snapshot;
 
     /**
-     * @param AggregateBuilder  $builder
-     * @param AggregateSnapshot $snapshot
+     * @param AggregateBuilder           $builder
+     * @param AggregateSnapshotInterface $snapshot
      */
     public function __construct(
         AggregateBuilder $builder,
-        AggregateSnapshot $snapshot
+        AggregateSnapshotInterface $snapshot
     ) {
         $this->builder = $builder;
         $this->snapshot = $snapshot;

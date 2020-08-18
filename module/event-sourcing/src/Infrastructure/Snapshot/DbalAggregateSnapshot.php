@@ -18,7 +18,7 @@ use Ergonode\EventSourcing\Domain\AbstractEntity;
 
 /**
  */
-class AggregateSnapshot
+class DbalAggregateSnapshot implements AggregateSnapshotInterface
 {
     private const TABLE = 'event_store_snapshot';
     private const SNAPSHOT_EVENTS = 1;
