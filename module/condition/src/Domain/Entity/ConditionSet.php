@@ -12,14 +12,12 @@ namespace Ergonode\Condition\Domain\Entity;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
-
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
- * @JMS\ExclusionPolicy("all")
  */
 class ConditionSet extends AbstractAggregateRoot
 {
@@ -27,7 +25,6 @@ class ConditionSet extends AbstractAggregateRoot
      * @var ConditionSetId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
-     * @JMS\Expose()
      */
     private ConditionSetId $id;
 
@@ -35,7 +32,6 @@ class ConditionSet extends AbstractAggregateRoot
      * @var ConditionInterface[]
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
-     * @JMS\Expose()
      */
     private array $conditions;
 

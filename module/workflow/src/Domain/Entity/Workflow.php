@@ -61,6 +61,8 @@ class Workflow extends AbstractAggregateRoot
 
     /**
      * @var StatusCode|null
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private ?StatusCode $defaultStatus;
 

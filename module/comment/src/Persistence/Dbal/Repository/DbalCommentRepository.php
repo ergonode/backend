@@ -10,37 +10,29 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
 class DbalCommentRepository implements CommentRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $store;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $store
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(
-        DomainEventStoreInterface $store,
-        EventBusInterface $eventBus
-    ) {
-        $this->store = $store;
-        $this->eventBus = $eventBus;
+    public function __construct(EventStoreManager $manager)
+    {
+        $this->manager = $manager;
     }
 
 
@@ -53,31 +45,20 @@ class DbalCommentRepository implements CommentRepositoryInterface
      */
     public function load(CommentId $id): ?AbstractAggregateRoot
     {
-        $stream = $this->store->load($id);
-        if ($stream->count() > 0) {
-            $class = new \ReflectionClass(Comment::class);
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', Comment::class));
-            }
-            $aggregate->initialize($stream);
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, Comment::class);
 
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
      * @param Comment $object
+     *
+     * @throws DBALException
      */
     public function save(Comment $object): void
     {
-        $events = $object->popEvents();
-        $this->store->append($object->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($object);
     }
 
     /**
@@ -87,7 +68,7 @@ class DbalCommentRepository implements CommentRepositoryInterface
      */
     public function exists(CommentId $id): bool
     {
-        return $this->store->load($id)->count() > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -100,6 +81,6 @@ class DbalCommentRepository implements CommentRepositoryInterface
         $object->apply(new CommentDeletedEvent($object->getId()));
         $this->save($object);
 
-        $this->store->delete($object->getId());
+        $this->manager->delete($object);
     }
 }

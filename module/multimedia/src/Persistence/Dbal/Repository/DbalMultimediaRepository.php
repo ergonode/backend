@@ -10,37 +10,29 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
+use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 
 /**
  */
 class DbalMultimediaRepository implements MultimediaRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(
-        DomainEventStoreInterface $eventStore,
-        EventBusInterface $eventBus
-    ) {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+    public function __construct(EventStoreManager $manager)
+    {
+        $this->manager = $manager;
     }
 
     /**
@@ -52,22 +44,10 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
      */
     public function load(MultimediaId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id);
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, AbstractMultimedia::class);
 
-        if (count($eventStream) > 0) {
-            $class = new \ReflectionClass(Multimedia::class);
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
-            }
-
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
@@ -75,12 +55,7 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
      */
     public function save(Multimedia $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -90,9 +65,7 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
      */
     public function exists(MultimediaId $id): bool
     {
-        $eventStream = $this->eventStore->load($id);
-
-        return count($eventStream) > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -105,6 +78,6 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
         $multimedia->apply(new MultimediaDeletedEvent($multimedia->getId()));
         $this->save($multimedia);
 
-        $this->eventStore->delete($multimedia->getId());
+        $this->manager->delete($multimedia);
     }
 }

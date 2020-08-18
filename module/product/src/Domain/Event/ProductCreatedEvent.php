@@ -43,13 +43,6 @@ class ProductCreatedEvent implements DomainEventInterface
     private string $type;
 
     /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private string $class;
-
-    /**
      * @var TemplateId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
@@ -74,7 +67,6 @@ class ProductCreatedEvent implements DomainEventInterface
      * @param ProductId  $id
      * @param Sku        $sku
      * @param string     $type
-     * @param string     $class
      * @param TemplateId $templateId
      * @param array      $categories
      * @param array      $attributes
@@ -83,7 +75,6 @@ class ProductCreatedEvent implements DomainEventInterface
         ProductId $id,
         Sku $sku,
         string $type,
-        string $class,
         TemplateId $templateId,
         array $categories = [],
         array $attributes = []
@@ -91,7 +82,6 @@ class ProductCreatedEvent implements DomainEventInterface
         $this->id = $id;
         $this->sku = $sku;
         $this->type = $type;
-        $this->class = $class;
         $this->templateId = $templateId;
         $this->categories = $categories;
         $this->attributes = $attributes;
@@ -111,14 +101,6 @@ class ProductCreatedEvent implements DomainEventInterface
     public function getSku(): Sku
     {
         return $this->sku;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClass(): string
-    {
-        return $this->class;
     }
 
     /**

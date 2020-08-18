@@ -11,31 +11,24 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalUserRepository implements UserRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -47,22 +40,10 @@ class DbalUserRepository implements UserRepositoryInterface
      */
     public function load(UserId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id);
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, User::class);
 
-        if (count($eventStream) > 0) {
-            $class = new \ReflectionClass(User::class);
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
-            }
-
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
@@ -70,11 +51,6 @@ class DbalUserRepository implements UserRepositoryInterface
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 }

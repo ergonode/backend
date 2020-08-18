@@ -14,31 +14,24 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalTreeRepository implements TreeRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -48,22 +41,11 @@ class DbalTreeRepository implements TreeRepositoryInterface
      */
     public function load(CategoryTreeId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id);
+        /** @var CategoryTree $result */
+        $result = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($result, CategoryTree::class);
 
-        if ($eventStream->count() > 0) {
-            $class = new \ReflectionClass(CategoryTree::class);
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', CategoryTree::class));
-            }
-
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $result;
     }
 
     /**
@@ -71,9 +53,7 @@ class DbalTreeRepository implements TreeRepositoryInterface
      */
     public function exists(CategoryTreeId $id) : bool
     {
-        $eventStream = $this->eventStore->load($id);
-
-        return $eventStream->count() > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -81,12 +61,7 @@ class DbalTreeRepository implements TreeRepositoryInterface
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -99,6 +74,6 @@ class DbalTreeRepository implements TreeRepositoryInterface
         $aggregateRoot->apply(new CategoryTreeDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }
