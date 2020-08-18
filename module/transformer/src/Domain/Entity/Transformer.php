@@ -46,7 +46,7 @@ class Transformer extends AbstractAggregateRoot
     /**
      * @var ConverterInterface[]
      *
-     * @JMS\Type("array<Ergonode\Transformer\Infrastructure\Converter\ConverterInterface>")
+     * @JMS\Type("array<string, Ergonode\Transformer\Infrastructure\Converter\ConverterInterface>")
      */
     private array $fields;
 
