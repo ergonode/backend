@@ -6,7 +6,7 @@ Feature: Account module - avatar
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create role
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
 """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -18,7 +18,7 @@ Feature: Account module - avatar
     And store response param "id" as "role"
 
   Scenario: Create user
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
 """
       {
           "email": "@@random_uuid@@@ergonode.com",
@@ -34,46 +34,46 @@ Feature: Account module - avatar
     And store response param "id" as "user"
 
   Scenario: Upload avatar image
-    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en_GB/accounts/@user@/avatar" with params:
       | key    | value                  |
       | upload | @avatar-test-image.jpg |
     Then the response status code should be 204
 
   Scenario: Upload new avatar image with unsupported extension
-    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en_GB/accounts/@user@/avatar" with params:
       | key    | value                  |
       | upload | @avatar-test-image.ico |
     Then the response status code should be 400
 
   Scenario: Upload new avatar image without uploaded file
-    When I send a POST request to "/api/v1/en/accounts/@user@/avatar"
+    When I send a POST request to "/api/v1/en_GB/accounts/@user@/avatar"
     Then the response status code should be 400
 
   Scenario: Upload new avatar with empty file
-    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en_GB/accounts/@user@/avatar" with params:
       | key    | value                        |
       | upload | @avatar-test-empty-image.png |
     Then the response status code should be 400
 
   Scenario: Download uploaded avatar image
-    When I send a GET request to "/api/v1/en/accounts/@user@/avatar"
+    When I send a GET request to "/api/v1/en_GB/accounts/@user@/avatar"
     Then the response status code should be 200
     And the header "content-type" should be equal to "image/png"
     And the header "content-length" should be equal to 2278
 
   Scenario: Update avatar image
-    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en_GB/accounts/@user@/avatar" with params:
       | key    | value                  |
       | upload | @avatar-test-image.png |
     Then the response status code should be 204
 
   Scenario: Download updated uploaded avatar image
-    When I send a GET request to "/api/v1/en/accounts/@user@/avatar"
+    When I send a GET request to "/api/v1/en_GB/accounts/@user@/avatar"
     Then the response status code should be 200
     And the header "content-length" should be equal to 607
 
   Scenario: Download uploaded avatar image with invalid uuid
-    When I send a GET request to "/api/v1/en/accounts/aaa-aa-aaa/avatar"
+    When I send a GET request to "/api/v1/en_GB/accounts/aaa-aa-aaa/avatar"
     Then the response status code should be 404
 
   Scenario: Download uploaded avatar image with with not existing uuid
@@ -81,5 +81,5 @@ Feature: Account module - avatar
     Then the response status code should be 404
 
   Scenario: Delete avatar image
-    When I send a DELETE request to "/api/v1/en/accounts/@user@/avatar"
+    When I send a DELETE request to "/api/v1/en_GB/accounts/@user@/avatar"
     Then the response status code should be 204
