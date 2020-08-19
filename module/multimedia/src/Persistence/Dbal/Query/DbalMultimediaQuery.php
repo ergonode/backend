@@ -91,7 +91,7 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->select('m.*')
+        $qb->select('m.id, m."name", m."extension", m.mime, m.hash, m.created_at, m.updated_at')
             ->addSelect('(left(m.mime, strpos(m.mime, \'/\')-1)) AS type')
             ->addSelect('(m.size / 1024.00)::NUMERIC(10,2) AS size')
             ->addSelect('m.id AS image')
@@ -99,7 +99,11 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
                                 JOIN Value_translation vt ON vt.value_id = pv.value_id 
                                 WHERE vt.value = m.id::TEXT) AS relations');
 
-        return new DbalDataSet($qb);
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**
