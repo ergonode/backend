@@ -11,7 +11,7 @@ Feature: Account module
     And the JSON node last_name should exist
     And the JSON node email should exist
     And the JSON node language should exist
-    And the JSON node avatar_id should exist
+    And the JSON node avatar_filename should exist
     And the JSON node role should exist
     And the JSON node privileges should exist
     And the JSON node language_privileges should exist
@@ -1417,5 +1417,3 @@ Feature: Account module
   Scenario: Get accounts (not authorized)
     When I send a GET request to "/api/v1/en_GB/accounts"
     Then the response status code should be 401
-
-  # TODO Check user avatar change action with correct and incorrect file

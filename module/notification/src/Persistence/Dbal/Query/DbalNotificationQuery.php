@@ -29,7 +29,7 @@ class DbalNotificationQuery implements NotificationQueryInterface
     private const FIELDS = [
         'n.*',
         'un.read_at',
-        'u.avatar_id',
+        'u.id AS user_id',
         'COALESCE(u.first_name || \' \' || u.last_name, \'Deleted\') AS author',
     ];
 

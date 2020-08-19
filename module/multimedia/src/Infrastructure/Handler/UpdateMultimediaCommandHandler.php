@@ -12,41 +12,25 @@ namespace Ergonode\Multimedia\Infrastructure\Handler;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 use Ergonode\Multimedia\Domain\Command\UpdateMultimediaCommand;
+use League\Flysystem\FilesystemInterface;
 
 /**
  */
 class UpdateMultimediaCommandHandler
 {
     /**
-     * @var HashCalculationServiceInterface
-     */
-    private HashCalculationServiceInterface $hashService;
-
-    /**
      * @var MultimediaRepositoryInterface
      */
     private MultimediaRepositoryInterface $repository;
 
     /**
-     * @var MultimediaStorageInterface
-     */
-    private MultimediaStorageInterface $storage;
-
-    /**
-     * @param HashCalculationServiceInterface $hashService
-     * @param MultimediaRepositoryInterface   $repository
-     * @param MultimediaStorageInterface      $storage
+     * @param MultimediaRepositoryInterface $repository
      */
     public function __construct(
-        HashCalculationServiceInterface $hashService,
-        MultimediaRepositoryInterface $repository,
-        MultimediaStorageInterface $storage
+        MultimediaRepositoryInterface $repository
     ) {
-        $this->hashService = $hashService;
         $this->repository = $repository;
-        $this->storage = $storage;
     }
 
     /**

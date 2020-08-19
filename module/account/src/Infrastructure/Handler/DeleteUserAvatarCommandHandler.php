@@ -9,14 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Handler;
 
-use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
+use Ergonode\Account\Domain\Command\User\DeleteUserAvatarCommand;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class ChangeUserAvatarCommandHandler
+class DeleteUserAvatarCommandHandler
 {
     /**
      * @var UserRepositoryInterface
@@ -40,32 +41,25 @@ class ChangeUserAvatarCommandHandler
         $this->avatarStorage = $avatarStorage;
     }
 
-
     /**
-     * @param ChangeUserAvatarCommand $command
+     * @param DeleteUserAvatarCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(ChangeUserAvatarCommand $command)
+    public function __invoke(DeleteUserAvatarCommand $command): void
     {
         $user = $this->repository->load($command->getId());
-        Assert::notNull($user);
-
-        $file = $command->getFile();
-        $content = file_get_contents($file->getRealPath());
-        imagepng(imagecreatefromstring($content), $file->getRealPath());
-        imagedestroy(imagecreatefromstring($content));
-        $contentPng = file_get_contents($file->getRealPath());
+        Assert::isInstanceOf(
+            $user,
+            User::class,
+            sprintf('Can\'t find user with id "%s"', $command->getId())
+        );
 
         $filename = sprintf('%s.%s', $user->getId()->getValue(), 'png');
 
-        if ($this->avatarStorage->has($filename)) {
-            $this->avatarStorage->update($filename, $contentPng);
-        } else {
-            $this->avatarStorage->write($filename, $contentPng);
-        }
+        $this->avatarStorage->delete($filename);
 
-        $user->changeAvatar($filename);
+        $user->removeAvatar();
         $this->repository->save($user);
     }
 }

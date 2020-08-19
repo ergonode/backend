@@ -13,6 +13,10 @@ flysystem:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/public/multimedia'
+        avatar.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/avatar'
         thumbnail.storage:
             adapter: 'local'
             options:

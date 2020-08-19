@@ -11,11 +11,11 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserAvatarDeletedEvent;
 
 /**
  */
-class UserAvatarChangedEventProjector
+class UserAvatarDeletedEventProjector
 {
     private const TABLE = 'users';
 
@@ -33,16 +33,16 @@ class UserAvatarChangedEventProjector
     }
 
     /**
-     * @param UserAvatarChangedEvent $event
+     * @param UserAvatarDeletedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UserAvatarChangedEvent $event): void
+    public function __invoke(UserAvatarDeletedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'avatar_filename' => $event->getAvatarFilename(),
+                'avatar_filename' => null,
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
