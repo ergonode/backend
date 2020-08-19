@@ -12,7 +12,7 @@ namespace Ergonode\Account\Infrastructure\Handler;
 use Ergonode\Account\Domain\Command\User\DeleteUserAvatarCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Account\Infrastructure\Storage\FilesystemAvatarStorage;
+use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -25,20 +25,20 @@ class DeleteUserAvatarCommandHandler
     private UserRepositoryInterface $repository;
 
     /**
-     * @var FilesystemAvatarStorage
+     * @var FilesystemInterface
      */
-    private FilesystemAvatarStorage $storage;
+    private FilesystemInterface $avatarStorage;
 
     /**
      * @param UserRepositoryInterface $repository
-     * @param FilesystemAvatarStorage $storage
+     * @param FilesystemInterface     $avatarStorage
      */
     public function __construct(
         UserRepositoryInterface $repository,
-        FilesystemAvatarStorage $storage
+        FilesystemInterface $avatarStorage
     ) {
         $this->repository = $repository;
-        $this->storage = $storage;
+        $this->avatarStorage = $avatarStorage;
     }
 
     /**
@@ -57,7 +57,7 @@ class DeleteUserAvatarCommandHandler
 
         $filename = sprintf('%s.%s', $user->getId()->getValue(), 'png');
 
-        $this->storage->delete($filename);
+        $this->avatarStorage->delete($filename);
 
         $user->removeAvatar();
         $this->repository->save($user);

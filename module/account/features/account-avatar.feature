@@ -24,7 +24,7 @@ Feature: Account module - avatar
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"

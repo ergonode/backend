@@ -19,7 +19,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperE
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Media;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6MediaDefaultFolder;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -32,9 +32,9 @@ class Shopware6ProductMediaClient
     private Shopware6Connector $connector;
 
     /**
-     * @var MultimediaStorageInterface
+     * @var FilesystemInterface
      */
-    private MultimediaStorageInterface $storage;
+    private FilesystemInterface $multimediaStorage;
 
     /**
      * @var Shopware6MultimediaRepositoryInterface
@@ -43,16 +43,16 @@ class Shopware6ProductMediaClient
 
     /**
      * @param Shopware6Connector                     $connector
-     * @param MultimediaStorageInterface             $storage
+     * @param FilesystemInterface                    $multimediaStorage
      * @param Shopware6MultimediaRepositoryInterface $multimediaRepository
      */
     public function __construct(
         Shopware6Connector $connector,
-        MultimediaStorageInterface $storage,
+        FilesystemInterface $multimediaStorage,
         Shopware6MultimediaRepositoryInterface $multimediaRepository
     ) {
         $this->connector = $connector;
-        $this->storage = $storage;
+        $this->multimediaStorage = $multimediaStorage;
         $this->multimediaRepository = $multimediaRepository;
     }
 
@@ -88,7 +88,7 @@ class Shopware6ProductMediaClient
      */
     private function upload(Shopware6Channel $channel, Shopware6Media $media, Multimedia $multimedia): void
     {
-        $content = $this->storage->read($multimedia->getFileName());
+        $content = $this->multimediaStorage->read($multimedia->getFileName());
 
         $action = new PostUploadFile($media->getId(), $content, $multimedia);
         $this->connector->execute($channel, $action);

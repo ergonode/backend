@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Infrastructure\Storage\FilesystemAvatarStorage;
 use Ergonode\Api\Application\Response\FileContentResponse;
+use League\Flysystem\FilesystemInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,14 +30,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class AvatarReadAction
 {
     /**
-     * @var FilesystemAvatarStorage
+     * @var FilesystemInterface
      */
-    private FilesystemAvatarStorage $avatarStorage;
+    private FilesystemInterface $avatarStorage;
 
     /**
-     * @param FilesystemAvatarStorage $avatarStorage
+     * @param FilesystemInterface $avatarStorage
      */
-    public function __construct(FilesystemAvatarStorage $avatarStorage)
+    public function __construct(FilesystemInterface $avatarStorage)
     {
         $this->avatarStorage = $avatarStorage;
     }

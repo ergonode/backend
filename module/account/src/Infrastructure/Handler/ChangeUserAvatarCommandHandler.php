@@ -11,9 +11,7 @@ namespace Ergonode\Account\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Account\Infrastructure\Storage\FilesystemAvatarStorage;
-use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use Symfony\Component\HttpFoundation\File\File;
+use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -26,20 +24,20 @@ class ChangeUserAvatarCommandHandler
     private UserRepositoryInterface $repository;
 
     /**
-     * @var FilesystemAvatarStorage
+     * @var FilesystemInterface
      */
-    private FilesystemAvatarStorage $storage;
+    private FilesystemInterface $avatarStorage;
 
     /**
      * @param UserRepositoryInterface $repository
-     * @param FilesystemAvatarStorage $storage
+     * @param FilesystemInterface     $avatarStorage
      */
     public function __construct(
         UserRepositoryInterface $repository,
-        FilesystemAvatarStorage $storage
+        FilesystemInterface $avatarStorage
     ) {
         $this->repository = $repository;
-        $this->storage = $storage;
+        $this->avatarStorage = $avatarStorage;
     }
 
 
@@ -61,10 +59,10 @@ class ChangeUserAvatarCommandHandler
 
         $filename = sprintf('%s.%s', $user->getId()->getValue(), 'png');
 
-        if ($this->storage->has($filename)) {
-            $this->storage->update($filename, $contentPng);
+        if ($this->avatarStorage->has($filename)) {
+            $this->avatarStorage->update($filename, $contentPng);
         } else {
-            $this->storage->write($filename, $contentPng);
+            $this->avatarStorage->write($filename, $contentPng);
         }
 
         $user->changeAvatar($filename);
