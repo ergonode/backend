@@ -16,6 +16,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Option\OptionCodeChangedEvent;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  *
@@ -24,21 +25,29 @@ abstract class AbstractOption extends AbstractAggregateRoot
 {
     /**
      * @var AggregateId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
     private AggregateId $id;
 
     /**
      * @var AttributeId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $attributeId;
 
     /**
      * @var OptionKey
+     *
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionKey")
      */
     private OptionKey $code;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $label;
 

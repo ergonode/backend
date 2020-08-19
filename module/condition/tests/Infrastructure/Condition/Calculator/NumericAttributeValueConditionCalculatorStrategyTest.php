@@ -48,8 +48,8 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->strategy->supports('NUMERIC_ATTRIBUTE_VALUE_CONDITION'));
-        $this->assertFalse($this->strategy->supports('test'));
+        self::assertTrue($this->strategy->supports('NUMERIC_ATTRIBUTE_VALUE_CONDITION'));
+        self::assertFalse($this->strategy->supports('test'));
     }
 
     /**
@@ -65,19 +65,19 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
         $object = $this->createMock(AbstractProduct::class);
         $configuration = $this->createMock(NumericAttributeValueCondition::class);
         $configuration
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAttribute')
             ->willReturn($this->createMock(AttributeId::class));
         $this
             ->repository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('load')
             ->willReturn($this->createMock(AbstractAttribute::class));
-        $configuration->expects($this->once())->method('getOption')->willReturn($option);
-        $configuration->expects($this->once())->method('getValue')->willReturn($expected);
-        $object->expects($this->once())->method('hasAttribute')->willReturn(true);
-        $object->expects($this->once())->method('getAttribute')->willReturn($value);
-        $this->assertSame($result, $this->strategy->calculate($object, $configuration));
+        $configuration->expects(self::once())->method('getOption')->willReturn($option);
+        $configuration->expects(self::once())->method('getValue')->willReturn($expected);
+        $object->expects(self::once())->method('hasAttribute')->willReturn(true);
+        $object->expects(self::once())->method('getAttribute')->willReturn($value);
+        self::assertSame($result, $this->strategy->calculate($object, $configuration));
     }
 
     /**
@@ -89,7 +89,7 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
             [
                 'option' => '=',
                 'expected' => 1.0,
-                'value' => new TranslatableStringValue(new TranslatableString(['pl' => '2'])),
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '2'])),
                 'result' => false,
             ],
             [
@@ -101,37 +101,37 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
             [
                 'option' => '<>',
                 'expected' => 1.0,
-                'value' => new TranslatableStringValue(new TranslatableString(['pl' => '1'])),
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '1'])),
                 'result' => false,
             ],
             [
                 'option' => '>',
                 'expected' => 2.0,
-                'value' => new TranslatableStringValue(new TranslatableString(['pl' => '1'])),
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '1'])),
                 'result' => false,
             ],
             [
                 'option' => '>=',
                 'expected' => 2.0,
-                'value' => new TranslatableStringValue(new TranslatableString(['pl' => '1'])),
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '1'])),
                 'result' => false,
             ],
             [
                 'option' => '<',
                 'expected' => 1.0,
-                'value' => new TranslatableStringValue(new TranslatableString(['pl' => '2'])),
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '2'])),
                 'result' => false,
             ],
             [
                 'option' => '<=',
                 'expected' => 1.0,
-                'value' => new TranslatableStringValue(new TranslatableString(['pl' => '2'])),
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '2'])),
                 'result' => false,
             ],
             [
                 'option' => '<>',
                 'expected' => 2.0,
-                'value' => new TranslatableStringValue(new TranslatableString(['pl' => '1'])),
+                'value' => new TranslatableStringValue(new TranslatableString(['pl_PL' => '1'])),
                 'result' => true,
             ],
         ];

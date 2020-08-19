@@ -11,7 +11,6 @@ namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
-use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -21,6 +20,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  * @Route(
@@ -67,7 +67,7 @@ class ChannelDeleteAction
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="channel",
      *     in="path",
      *     type="string",
      *     description="Channel id"
@@ -77,12 +77,12 @@ class ChannelDeleteAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Successful removing attribute"
+     *     description="Successful removing channel"
      * )
      * @SWG\Response(
      *     response=404,
@@ -93,15 +93,15 @@ class ChannelDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @param Channel $channel
+     * @param AbstractChannel $channel
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Channel $channel): Response
+    public function __invoke(AbstractChannel $channel): Response
     {
         $relationships = $this->relationshipsResolver->resolve($channel->getId());
         if (!$relationships->isEmpty()) {

@@ -38,6 +38,6 @@ class WriterTypeProviderTest extends TestCase
 
         $provider = new WriterTypeProvider(...[$this->interface]);
         $result = $provider->provide();
-        $this->assertSame([$type], $result);
+        self::assertSame([$type], $result);
     }
 }

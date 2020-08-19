@@ -13,7 +13,7 @@ use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionCal
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConfiguratorCompilerPass;
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConstraintCompilerPass;
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionInterfaceHandlerCompilerPass;
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**

@@ -12,31 +12,25 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
 class DbalRoleRepository implements RoleRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -48,35 +42,20 @@ class DbalRoleRepository implements RoleRepositoryInterface
      */
     public function load(RoleId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id);
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, Role::class);
 
-        if (count($eventStream) > 0) {
-            $class = new \ReflectionClass(Role::class);
-            /** @var AbstractAggregateRoot|Role $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
-            }
-
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
      * @param AbstractAggregateRoot $aggregateRoot
+     *
+     * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -89,6 +68,6 @@ class DbalRoleRepository implements RoleRepositoryInterface
         $aggregateRoot->apply(new RoleDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }

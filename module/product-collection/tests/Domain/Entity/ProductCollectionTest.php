@@ -69,12 +69,12 @@ class ProductCollectionTest extends TestCase
     public function testCreateEntity(): void
     {
         $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
-        $this->assertEquals($this->id, $entity->getId());
-        $this->assertEquals($this->name, $entity->getName());
-        $this->assertEquals($this->description, $entity->getDescription());
-        $this->assertEquals($this->code, $entity->getCode());
-        $this->assertEquals($this->typeId, $entity->getTypeId());
-        $this->assertNotNull($entity->getCreatedAt());
+        self::assertEquals($this->id, $entity->getId());
+        self::assertEquals($this->name, $entity->getName());
+        self::assertEquals($this->description, $entity->getDescription());
+        self::assertEquals($this->code, $entity->getCode());
+        self::assertEquals($this->typeId, $entity->getTypeId());
+        self::assertNotNull($entity->getCreatedAt());
     }
 
     /**
@@ -83,20 +83,22 @@ class ProductCollectionTest extends TestCase
     {
         $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->addElement($this->productId, true);
-        $this->assertTrue($entity->hasElement($this->productId));
-        $this->assertSame($this->productId, $entity->getElement($this->productId)->getProductId());
-        $this->assertSame($this->productId, $entity->getElements()[array_key_first($entity->getElements())]
-        ->getProductId());
-        $newName = new TranslatableString(['en' => 'english']);
+        self::assertTrue($entity->hasElement($this->productId));
+        self::assertSame($this->productId, $entity->getElement($this->productId)->getProductId());
+        self::assertSame(
+            $this->productId,
+            $entity->getElements()[array_key_first($entity->getElements())]->getProductId()
+        );
+        $newName = new TranslatableString(['en_GB' => 'english']);
         $entity->changeName($newName);
-        $this->assertEquals($newName, $entity->getName());
-        $newDescription = new TranslatableString(['en' => 'english']);
+        self::assertEquals($newName, $entity->getName());
+        $newDescription = new TranslatableString(['en_GB' => 'english']);
         $entity->changeDescription($newDescription);
-        $this->assertEquals($newDescription, $entity->getDescription());
+        self::assertEquals($newDescription, $entity->getDescription());
         $newTypeId = ProductCollectionTypeId::generate();
         $entity->changeType($newTypeId);
-        $this->assertEquals($newTypeId, $entity->getTypeId());
-        $this->assertNotNull($entity->getEditedAt());
+        self::assertEquals($newTypeId, $entity->getTypeId());
+        self::assertNotNull($entity->getEditedAt());
     }
 
     /**

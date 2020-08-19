@@ -33,16 +33,18 @@ class ImportGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $status = new TextColumn('status', 'Status', new TextFilter());
-        $this->addColumn('status', $status);
-        $index = new IntegerColumn('lines', 'Lines', new TextFilter());
-        $this->addColumn('lines', $index);
         $createdAt = new DateColumn('created_at', 'Created at', new DateFilter());
         $this->addColumn('created_at', $createdAt);
         $startedAt = new DateColumn('started_at', 'Started at', new DateFilter());
         $this->addColumn('started_at', $startedAt);
         $endedAt = new DateColumn('ended_at', 'Ended at', new DateFilter());
         $this->addColumn('ended_at', $endedAt);
+        $records = new IntegerColumn('records', 'Records', new TextFilter());
+        $this->addColumn('records', $records);
+        $status = new TextColumn('status', 'Status', new TextFilter());
+        $this->addColumn('status', $status);
+        $errors = new IntegerColumn('errors', 'Errors', new TextFilter());
+        $this->addColumn('errors', $errors);
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'privilege' => 'IMPORT_READ',

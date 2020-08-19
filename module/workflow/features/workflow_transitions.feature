@@ -4,7 +4,7 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -19,18 +19,18 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/status" with body:
+    When I send a POST request to "/api/v1/en_GB/status" with body:
       """
       {
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
           "pl_PL": "pl_PL",
-          "en": "en"
+          "en_GB": "en_GB"
         },
         "description": {
           "pl_PL": "pl_PL",
-          "en": "en"
+          "en_GB": "en_GB"
         }
       }
       """
@@ -41,18 +41,18 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/status" with body:
+    When I send a POST request to "/api/v1/en_GB/status" with body:
       """
       {
         "color": "#ff0000",
         "code": "DESTINATION @@random_md5@@",
         "name": {
           "pl_PL": "pl_PL",
-          "en": "en"
+          "en_GB": "en_GB"
         },
         "description": {
           "pl_PL": "pl_PL",
-          "en": "en"
+          "en_GB": "en_GB"
         }
       }
       """
@@ -63,7 +63,7 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/status/@workflow_source_status@"
+    When I send a GET request to "/api/v1/en_GB/status/@workflow_source_status@"
     Then the response status code should be 200
     And store response param "code" as "workflow_source_status_code"
 
@@ -71,7 +71,7 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/status/@workflow_destination_status@"
+    When I send a GET request to "/api/v1/en_GB/status/@workflow_destination_status@"
     Then the response status code should be 200
     And store response param "code" as "workflow_destination_status_code"
 
@@ -79,18 +79,18 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/workflow/default/transitions" with body:
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
       """
       {
         "source": "@workflow_source_status_code@",
         "destination": "@workflow_destination_status_code@",
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         },
         "roles": [
            "@role_id@"
@@ -103,24 +103,24 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
     Then the response status code should be 200
     And the JSON node "role_ids[0]" should not be null
 
   Scenario: Create transition to workflow (duplicated)
     Given I am Authenticated as "test@ergonode.com"
-    When I send a POST request to "/api/v1/en/workflow/default/transitions"
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions"
       """
       {
         "source": "@workflow_source_status_code@",
         "destination": "@workflow_destination_status_code@",
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
@@ -130,17 +130,17 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/workflow/default/transitions" with body:
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
       """
       {
         "destination": "@workflow_destination_status_code@",
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
@@ -150,17 +150,17 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/workflow/default/transitions" with body:
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
       """
       {
         "source": "@workflow_source_status_code@",
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
@@ -170,18 +170,18 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/workflow/default/transitions" with body:
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
       """
       {
         "source": "@@random_uuid@@",
         "destination": "@workflow_destination_status_code@",
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
@@ -191,36 +191,36 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/workflow/default/transitions" with body:
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
       """
       {
         "source": "@workflow_source_status_code@",
         "destination": "@@random_uuid@@",
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
     Then the response status code should be 400
 
   Scenario: Create transition to workflow (not authorized)
-    When I send a POST request to "/api/v1/en/workflow/default/transitions" with body:
+    When I send a POST request to "/api/v1/en_GB/workflow/default/transitions" with body:
       """
       {
         "source": "@workflow_source_status_code@",
         "destination": "@workflow_destination_status_code@",
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
@@ -230,16 +230,16 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" with body:
+    When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" with body:
       """
       {
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         },
         "roles": []
       }
@@ -250,22 +250,22 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
     Then the response status code should be 200
     And the JSON node "role_ids[0]" should not be null
 
   Scenario: Update transition to workflow (source not found)
     Given I am Authenticated as "test@ergonode.com"
-    When I send a PUT request to "/api/v1/en/workflow/default/transitions/@@random_code@@/@workflow_destination_status_code@"
+    When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@@random_code@@/@workflow_destination_status_code@"
       """
       {
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
@@ -275,32 +275,32 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@@random_code@@" with body:
+    When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@@random_code@@" with body:
       """
       {
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
     Then the response status code should be 404
 
   Scenario: Update transition to workflow (not authorized)
-    When I send a PUT request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" with body:
+    When I send a PUT request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" with body:
       """
       {
         "name": {
           "pl_PL": "Translated name PL",
-          "en": "Translated name en"
+          "en_GB": "Translated name en"
         },
         "description": {
           "pl_PL": "Translated description PL",
-          "en": "Translated description en"
+          "en_GB": "Translated description en"
         }
       }
       """
@@ -310,94 +310,94 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
     Then the response status code should be 200
 
   Scenario: Get transition in default workflow (not authorized)
-    When I send a GET request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
     Then the response status code should be 401
 
   Scenario: Get transition in default workflow (source not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions/@@random_uuid@@/@workflow_destination_status_code@"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@@random_uuid@@/@workflow_destination_status_code@"
     Then the response status code should be 404
 
   Scenario: Get transition in default workflow (destination not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@@random_uuid@@"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@@random_uuid@@"
     Then the response status code should be 404
 
   Scenario: Get transitions (order by source)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions?field=source"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=source"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get transitions (order by destination)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions?field=destination"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=destination"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get transitions (order by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions?field=name"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get transitions (order by description)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/workflow/default/transitions?field=description"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=description"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get transitions (not authorized)
-    When I send a GET request to "/api/v1/en/workflow/default/transitions?field=source"
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=source"
     Then the response status code should be 401
 
   Scenario: Delete transition in default workflow (not authorized)
-    When I send a DELETE request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
     Then the response status code should be 401
 
   Scenario: Delete transition in default workflow (source not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/workflow/default/transitions/@@random_uuid@@/@workflow_destination_status_code@"
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@@random_uuid@@/@workflow_destination_status_code@"
     Then the response status code should be 404
 
   Scenario: Delete transition in default workflow (destination not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@@random_uuid@@"
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@@random_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete transition in default workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
     Then the response status code should be 204
 
   Scenario: Delete source status
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/status/@workflow_source_status_code@"
+    When I send a DELETE request to "/api/v1/en_GB/status/@workflow_source_status_code@"
     Then the response status code should be 204
 
   Scenario: Delete destination status
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/status/@workflow_destination_status_code@"
+    When I send a DELETE request to "/api/v1/en_GB/status/@workflow_destination_status_code@"
     Then the response status code should be 204

@@ -11,7 +11,7 @@ namespace Ergonode\Category\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Category\Domain\Command\DeleteCategoryCommand;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -86,13 +86,13 @@ class CategoryDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      *
-     * @param Category $category
+     * @param AbstractCategory $category
      *
      * @return Response
      */
-    public function __invoke(Category $category): Response
+    public function __invoke(AbstractCategory $category): Response
     {
         $relations = $this->relationshipsResolver->resolve($category->getId());
         if (!$relations->isEmpty()) {

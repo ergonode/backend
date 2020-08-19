@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
-use Ergonode\Channel\Domain\Entity\Channel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -21,6 +20,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  * @Route(
@@ -71,66 +71,34 @@ class ChannelExportErrorGridAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="limit",
-     *     in="query",
-     *     type="integer",
+     *     name="channel",
+     *     in="path",
+     *     type="string",
      *     required=true,
-     *     default="50",
-     *     description="Number of returned lines",
+     *     description="Channel id",
      * )
      * @SWG\Parameter(
-     *     name="offset",
-     *     in="query",
-     *     type="integer",
+     *     name="export",
+     *     in="path",
+     *     type="string",
      *     required=true,
-     *     default="0",
-     *     description="Number of start line",
-     * )
-     * @SWG\Parameter(
-     *     name="field",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Order field",
-     * )
-     * @SWG\Parameter(
-     *     name="order",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"ASC","DESC"},
-     *     description="Order",
-     * )
-     * @SWG\Parameter(
-     *     name="filter",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Filter"
-     * )
-     * @SWG\Parameter(
-     *     name="view",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"grid","list"},
-     *     description="Specify respons format"
+     *     description="Export id",
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns export collection",
+     *     description="Returns export errors",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param Language                 $language
-     * @param Channel                  $channel
+     * @param AbstractChannel          $channel
      * @param Export                   $export
      * @param RequestGridConfiguration $configuration
      *
@@ -138,7 +106,7 @@ class ChannelExportErrorGridAction
      */
     public function __invoke(
         Language $language,
-        Channel $channel,
+        AbstractChannel $channel,
         Export $export,
         RequestGridConfiguration $configuration
     ): Response {

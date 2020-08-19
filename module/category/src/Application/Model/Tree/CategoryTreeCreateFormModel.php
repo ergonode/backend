@@ -43,7 +43,6 @@ class CategoryTreeCreateFormModel
     public array $name;
 
     /**
-     * CategoryCreateFormModel constructor.
      */
     public function __construct()
     {

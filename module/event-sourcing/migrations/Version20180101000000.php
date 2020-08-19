@@ -32,8 +32,33 @@ final class Version20180101000000 extends AbstractErgonodeMigration
                 CONSTRAINT event_store_pkey PRIMARY KEY (id)
             )
         ');
+
+        $this->addSql('
+            CREATE TABLE event_store_class (
+                aggregate_id uuid NOT NULL, 
+                class VARCHAR(255) NOT NULL,                 
+                CONSTRAINT event_store_class_pkey PRIMARY KEY (aggregate_id)
+            )
+        ');
         $this->addSql(
             'CREATE UNIQUE INDEX event_store_unique_key ON event_store USING btree (aggregate_id, sequence)'
+        );
+
+        $this->addSql('
+            CREATE TABLE event_store_snapshot (
+                id BIGSERIAL NOT NULL, 
+                aggregate_id uuid NOT NULL, 
+                sequence int NOT NULL, 
+                payload jsonb NOT NULL, 
+                recorded_by uuid default NULL, 
+                recorded_at timestamp without time zone NOT NULL, 
+                CONSTRAINT event_store_snapshot_pkey PRIMARY KEY (id)
+            )
+        ');
+
+        $this->addSql(
+            'CREATE UNIQUE INDEX event_store_snapshot_unique_key ON 
+                 event_store_snapshot USING btree (aggregate_id, sequence)'
         );
 
         $this->addSql('

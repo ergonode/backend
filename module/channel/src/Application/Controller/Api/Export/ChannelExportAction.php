@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
-use Ergonode\Channel\Domain\Entity\Channel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -17,6 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Channel\Domain\Query\ExportQueryInterface;
+use League\Flysystem\FilesystemInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route(
@@ -32,6 +36,36 @@ use Ergonode\Exporter\Domain\Entity\Export;
 class ChannelExportAction
 {
     /**
+     * @var ExportQueryInterface
+     */
+    private ExportQueryInterface  $query;
+
+    /**
+     * @var FilesystemInterface
+     */
+    private FilesystemInterface $exportStorage;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private UrlGeneratorInterface $urlGenerator;
+
+    /**
+     * @param ExportQueryInterface  $query
+     * @param FilesystemInterface   $exportStorage
+     * @param UrlGeneratorInterface $urlGenerator
+     */
+    public function __construct(
+        ExportQueryInterface $query,
+        FilesystemInterface $exportStorage,
+        UrlGeneratorInterface $urlGenerator
+    ) {
+        $this->query = $query;
+        $this->exportStorage = $exportStorage;
+        $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
      * @IsGranted("CHANNEL_READ")
      *
      * @SWG\Tag(name="Channel")
@@ -40,71 +74,58 @@ class ChannelExportAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="limit",
-     *     in="query",
-     *     type="integer",
+     *     name="channel",
+     *     in="path",
+     *     type="string",
      *     required=true,
-     *     default="50",
-     *     description="Number of returned lines",
+     *     description="Channel id",
      * )
      * @SWG\Parameter(
-     *     name="offset",
-     *     in="query",
-     *     type="integer",
+     *     name="export",
+     *     in="path",
+     *     type="string",
      *     required=true,
-     *     default="0",
-     *     description="Number of start line",
-     * )
-     * @SWG\Parameter(
-     *     name="field",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Order field",
-     * )
-     * @SWG\Parameter(
-     *     name="order",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"ASC","DESC"},
-     *     description="Order",
-     * )
-     * @SWG\Parameter(
-     *     name="filter",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Filter"
-     * )
-     * @SWG\Parameter(
-     *     name="view",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"grid","list"},
-     *     description="Specify respons format"
+     *     description="Export id",
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns export collection",
+     *     description="Returns export information",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
      *
-     * @param Language $language
-     * @param Channel  $channel
-     * @param Export   $export
+     * @param Language        $language
+     * @param AbstractChannel $channel
+     * @param Export          $export
      *
      * @return Response
      */
-    public function __invoke(Language $language, Channel $channel, Export $export): Response
+    public function __invoke(Language $language, AbstractChannel $channel, Export $export): Response
     {
-        return new SuccessResponse($export);
+        $file = sprintf('%s.zip', $export->getId()->getValue());
+
+        $result = $this->query->getInformation($export->getId());
+
+        if ($this->exportStorage->has($file)) {
+            $result['_links']['attachment'] = [
+                'href' => $this->urlGenerator->generate(
+                    'ergonode_channel_export_download',
+                    [
+                        'language' => $language->getCode(),
+                        'channel' => $channel->getId()->getValue(),
+                        'export' => $export->getId()->getValue(),
+                    ],
+                    UrlGeneratorInterface::NETWORK_PATH
+                ),
+                'method' => Request::METHOD_GET,
+            ];
+        }
+
+        return new SuccessResponse($result);
     }
 }

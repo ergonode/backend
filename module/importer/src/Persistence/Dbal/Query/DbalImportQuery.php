@@ -11,8 +11,10 @@ namespace Ergonode\Importer\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
@@ -72,13 +74,43 @@ class DbalImportQuery implements ImportQueryInterface
     }
 
     /**
+     * @param ImportId $id
+     * @param Language $language
+     *
+     * @return DataSetInterface
+     */
+    public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('il.import_id AS id, il.line, il.processed_at, il.message')
+            ->from('importer.import_line', 'il')
+            ->where($query->expr()->eq('il.import_id', ':importId'))
+            ->andWhere($query->expr()->isNotNull('il.message'));
+
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $query->getSQL()), 't')
+            ->setParameter(':importId', $id->getValue());
+
+        return new DbalDataSet($result);
+    }
+
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
             ->select('id, status, source_id, created_at, updated_at, started_at, ended_at')
-            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) AS lines')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) AS records')
+            ->addSelect(
+                '(SELECT count(*)
+                        FROM importer.import_line il
+                        WHERE il.import_id = i.id
+                        AND il.message IS NOT NULL) AS errors'
+            )
             ->from('importer.import', 'i');
     }
 }

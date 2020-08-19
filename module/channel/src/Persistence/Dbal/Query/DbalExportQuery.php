@@ -48,6 +48,7 @@ class DbalExportQuery implements ExportQueryInterface
     public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface
     {
         $query = $this->getQuery();
+        $query->addSelect('e.channel_id');
         $query->andWhere($query->expr()->eq('channel_id', ':channelId'));
 
         $result = $this->connection->createQueryBuilder();
@@ -99,6 +100,26 @@ class DbalExportQuery implements ExportQueryInterface
             ->setMaxResults(10)
             ->execute()
             ->fetchAll();
+    }
+
+    /**
+     * @param ExportId $exportId
+     *
+     * @return array
+     */
+    public function getInformation(ExportId $exportId): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL) as processed')
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->where($query->expr()->eq('id', ':exportId'))
+            ->setParameter(':exportId', $exportId->getValue())
+            ->execute()
+            ->fetch();
     }
 
     /**

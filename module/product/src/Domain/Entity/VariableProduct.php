@@ -13,6 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -28,8 +29,7 @@ class VariableProduct extends AbstractAssociatedProduct
     private array $bindings = [];
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
+     * @JMS\Type("string");
      *
      * @return string
      */

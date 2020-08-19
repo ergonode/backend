@@ -12,3 +12,13 @@ ergonode_product_binding_api:
     resource: '../../Application/Controller/Api/Bindings/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
+
+ergonode_product_category_api:
+    resource: '../../Application/Controller/Api/Category/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
+
+ergonode_product_dashboard_api:
+    resource: '../../Application/Controller/Api/Dashboard/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'

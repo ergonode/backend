@@ -1,10 +1,10 @@
 parameters:
     name_product_collection_type_up-sell:
-        'pl': 'Up-sell'
-        'en': 'Up-sell'
+        'pl_PL': 'Up-sell'
+        'en_GB': 'Up-sell'
     name_product_collection_type_cross-sell:
-        'pl': 'Cross-sell'
-        'en': 'Cross-sell'
+        'pl_PL': 'Cross-sell'
+        'en_GB': 'Cross-sell'
 
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
     product_collection_type_up-sell:

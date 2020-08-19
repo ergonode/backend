@@ -30,6 +30,11 @@ interface TemplateQueryInterface
     public function getDictionary(Language $language): array;
 
     /**
+     * @return array
+     */
+    public function getAll(): array;
+
+    /**
      * @param AttributeId $attributeId
      *
      * @return array

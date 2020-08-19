@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Value;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 
 /**
  */

@@ -2,37 +2,42 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
   translation_image_{1..10}:
     __construct:
       -
-        pl: '@product_image_*->id'
-        en: '@product_image_*->id'
+        pl_PL: '@product_image_*->id'
+        en_GB: '@product_image_*->id'
   translation_sentence_{1..10}:
     __construct:
       -
-        pl: <pl_PL:sentence(5)>
-        en: <en_EN:sentence(5)>
+        pl_PL: <pl_PL:sentence(5)>
+        en_GB: <en_EN:sentence(5)>
   translation_paragraph_{1..10}:
     __construct:
       -
-        pl: <pl_PL:paragraph(20)>
-        en: <en_EN:paragraph(20)>
+        pl_PL: <pl_PL:paragraph(20)>
+        en_GB: <en_EN:paragraph(20)>
   translation_float_{1..10}:
     __construct:
       -
-        pl: <pl_PL:randomFloat()>
-        en: <en_EN:randomFloat()>
+        pl_PL: <pl_PL:randomFloat()>
+        en_GB: <en_EN:randomFloat()>
+  translation_tax_number_{1..10}:
+    __construct:
+      -
+        pl_PL: <pl_PL:randomElement([4,5,7,8,19,23])>
+        en_GB: <en_EN:randomElement([4,5,7,8,19,23])>
   translation_date_{1..10}:
     __construct:
       -
-        pl: '<pl_PL:date(Y-m-d)>'
-        en: '<en_EN:date(Y-m-d)>'
+        pl_PL: '<pl_PL:date(Y-m-d)>'
+        en_GB: '<en_EN:date(Y-m-d)>'
   translation_select_option_{1..5}:
     __construct:
       -
-        pl: '@select_option_*->id'
-        en: '@select_option_*->id'
+        pl_PL: '@select_option_*->id'
+        en_GB: '@select_option_*->id'
   translation_multiselect_option_{1..5}:
     __construct:
-      -   pl: '@multiselect_option_*->id'
-          en: '@multiselect_option_*->id'
+      -   pl_PL: '@multiselect_option_*->id'
+          en_GB: '@multiselect_option_*->id'
 
 Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
   product_{1..1000}:
@@ -40,12 +45,13 @@ Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
       - '<productId(SKU_<current()>)>'
       - '<sku(SKU_<current()>)>'
       - '@template->id'
-      - []
+      - ['<categoryId(code_4)>']
       -
         'image_attribute': '<translatableStringValue(@translation_image_*)>'
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'
         'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
         'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_22':  '<translatableStringValue(@translation_tax_number*)>'
         'code_26':  '<translatableStringValue(@translation_date_*)>'
         'code_31':  '<translatableStringValue(@translation_float_*)>'
         'code_37':  '<translatableStringValue(@translation_float_*)>'
@@ -64,6 +70,7 @@ Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand:
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'
         'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
         'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_22':  '<translatableStringValue(@translation_tax_number*)>'
         'code_26':  '<translatableStringValue(@translation_date_*)>'
         'code_31':  '<translatableStringValue(@translation_float_*)>'
         'code_37':  '<translatableStringValue(@translation_float_*)>'
@@ -83,6 +90,7 @@ Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'
         'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
         'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_22':  '<translatableStringValue(@translation_tax_number*)>'
         'code_26':  '<translatableStringValue(@translation_date_*)>'
         'code_31':  '<translatableStringValue(@translation_float_*)>'
         'code_37':  '<translatableStringValue(@translation_float_*)>'

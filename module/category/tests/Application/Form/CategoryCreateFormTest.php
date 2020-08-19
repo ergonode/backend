@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Tests\Application\Form;
 
-use Ergonode\Category\Application\Form\CategoryCreateForm;
-use Ergonode\Category\Application\Model\CategoryCreateFormModel;
+use Ergonode\Category\Application\Form\CategoryForm;
+use Ergonode\Category\Application\Model\CategoryFormModel;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Symfony\Component\Form\Test\TypeTestCase;
 
@@ -26,12 +26,12 @@ class CategoryCreateFormTest extends TypeTestCase
             'code' => 'any_code',
         ];
 
-        $object = new CategoryCreateFormModel();
+        $object = new CategoryFormModel();
         $object->name = ['pl_PL' =>  'Any Name'];
         $object->code = new CategoryCode('any_code');
 
-        $objectToCompare = new CategoryCreateFormModel();
-        $form = $this->factory->create(CategoryCreateForm::class, $objectToCompare);
+        $objectToCompare = new CategoryFormModel();
+        $form = $this->factory->create(CategoryForm::class, $objectToCompare);
         $form->submit($formData);
 
         $this->assertTrue($form->isSynchronized());

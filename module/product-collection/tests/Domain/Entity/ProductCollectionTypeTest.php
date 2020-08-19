@@ -49,9 +49,9 @@ class ProductCollectionTypeTest extends TestCase
     public function testCreationEntity(): void
     {
         $entity = new ProductCollectionType($this->id, $this->code, $this->name);
-        $this->assertEquals($this->id, $entity->getId());
-        $this->assertEquals($this->code, $entity->getCode());
-        $this->assertEquals($this->name, $entity->getName());
+        self::assertEquals($this->id, $entity->getId());
+        self::assertEquals($this->code, $entity->getCode());
+        self::assertEquals($this->name, $entity->getName());
     }
 
     /**
@@ -59,8 +59,8 @@ class ProductCollectionTypeTest extends TestCase
     public function testTypeManipulation(): void
     {
         $entity = new ProductCollectionType($this->id, $this->code, $this->name);
-        $newName = new TranslatableString(['en' => 'english']);
+        $newName = new TranslatableString(['en_GB' => 'english']);
         $entity->changeName($newName);
-        $this->assertEquals($newName, $entity->getName());
+        self::assertEquals($newName, $entity->getName());
     }
 }

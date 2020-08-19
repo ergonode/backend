@@ -97,13 +97,13 @@ class UserTest extends TestCase
             $this->roleId,
             $this->languagePrivilegesCollection,
         );
-        $this->assertEquals($this->userId, $user->getId());
-        $this->assertEquals($this->firstName, $user->getFirstName());
-        $this->assertEquals($this->lastName, $user->getLastName());
-        $this->assertEquals($this->email, $user->getEmail());
-        $this->assertEquals($this->language, $user->getLanguage());
-        $this->assertEquals($this->roleId, $user->getRoleId());
-        $this->assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
+        self::assertEquals($this->userId, $user->getId());
+        self::assertEquals($this->firstName, $user->getFirstName());
+        self::assertEquals($this->lastName, $user->getLastName());
+        self::assertEquals($this->email, $user->getEmail());
+        self::assertEquals($this->language, $user->getLanguage());
+        self::assertEquals($this->roleId, $user->getRoleId());
+        self::assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
 
     /**
@@ -123,7 +123,7 @@ class UserTest extends TestCase
         $languagePrivileges = $this->createMock(LanguagePrivileges::class);
         $languagePrivileges->method('isReadable')->willReturn(true);
         $languagePrivileges->method('isEditable')->willReturn(false);
-        $languagePrivilegesCollection = ['en' => $languagePrivileges];
+        $languagePrivilegesCollection = ['en_GB' => $languagePrivileges];
 
         $user = new User(
             $this->userId,
@@ -142,12 +142,12 @@ class UserTest extends TestCase
         $user->changePassword($password);
         $user->changeRole($roleId);
         $user->changeLanguagePrivilegesCollection($languagePrivilegesCollection);
-        $this->assertEquals($firstName, $user->getFirstName());
-        $this->assertEquals($lastName, $user->getLastName());
-        $this->assertEquals($language, $user->getLanguage());
-        $this->assertEquals($roleId, $user->getRoleId());
-        $this->assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
-        $this->assertTrue($user->hasReadLanguagePrivilege(new Language('en')));
-        $this->assertFalse($user->hasEditLanguagePrivilege(new Language('en')));
+        self::assertEquals($firstName, $user->getFirstName());
+        self::assertEquals($lastName, $user->getLastName());
+        self::assertEquals($language, $user->getLanguage());
+        self::assertEquals($roleId, $user->getRoleId());
+        self::assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
+        self::assertTrue($user->hasReadLanguagePrivilege(new Language('en_GB')));
+        self::assertFalse($user->hasEditLanguagePrivilege(new Language('en_GB')));
     }
 }

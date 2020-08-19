@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Tests\Infrastructure\Handler;
 
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Handler\UpdateCategoryCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -41,7 +41,7 @@ class UpdateCategoryCommandHandlerTest extends TestCase
      */
     public function testHandlingExistsCategory(): void
     {
-        $category = $this->createMock(Category::class);
+        $category = $this->createMock(AbstractCategory::class);
         $category->expects($this->once())->method('changeName');
         $this->repository->expects($this->once())->method('load')->willReturn($category);
         $this->repository->expects($this->once())->method('save');

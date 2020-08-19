@@ -9,29 +9,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Command;
 
-use Ergonode\Channel\Domain\Command\ExportProductChannelCommand as ExportProductChannelDomainCommand;
-use Ergonode\Exporter\Domain\Query\ExportProductQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\StreamOutput;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Channel\Domain\Command\ExportChannelCommand as ExportChannelDomainCommand;
 
 /**
  */
 class ExportChannelCommand extends Command
 {
-    private const NAME = 'channel:export:all';
-
-    /**
-     * @var ExportProductQueryInterface
-     */
-    private ExportProductQueryInterface $query;
+    private const NAME = 'channel:export';
 
     /**
      * @var ChannelRepositoryInterface
@@ -44,18 +36,15 @@ class ExportChannelCommand extends Command
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ExportProductQueryInterface $query
-     * @param ChannelRepositoryInterface  $channelRepository
-     * @param CommandBusInterface         $commandBus
+     * @param ChannelRepositoryInterface $channelRepository
+     * @param CommandBusInterface        $commandBus
      */
     public function __construct(
-        ExportProductQueryInterface $query,
         ChannelRepositoryInterface $channelRepository,
         CommandBusInterface $commandBus
     ) {
         parent::__construct(static::NAME);
 
-        $this->query = $query;
         $this->channelRepository = $channelRepository;
         $this->commandBus = $commandBus;
     }
@@ -75,12 +64,7 @@ class ExportChannelCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
-        $stdout = $output instanceof StreamOutput ? new StreamOutput($output->getStream()) : $output;
-
         $channelId = new ChannelId($input->getArgument('channel'));
-        $ids = $this->query->getAllIds();
-        $progressBar = new ProgressBar($stdout, \count($ids));
-        $progressBar->setFormat('debug');
 
         if (!$channel = $this->channelRepository->load($channelId)) {
             $output->writeln('Channel not exists');
@@ -88,14 +72,8 @@ class ExportChannelCommand extends Command
 
         $output->writeln(sprintf('Processing products witch channel <comment>%s</comment>', $channel->getName()));
 
-        foreach ($ids as $id) {
-            $progressBar->advance();
-            $progressBar->setMessage($id);
-            $productId = new ProductId($id);
-            $command = new ExportProductChannelDomainCommand($channelId, $productId);
-            $this->commandBus->dispatch($command);
-        }
+        $command = new ExportChannelDomainCommand(ExportId::generate(), $channelId);
 
-        $progressBar->finish();
+        $this->commandBus->dispatch($command);
     }
 }

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeColumnStrategyStrategyCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataSetQueryBuilderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

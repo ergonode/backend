@@ -36,6 +36,13 @@ class CategoryCreatedEvent implements DomainEventInterface
     private CategoryCode $code;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    private string $type;
+
+    /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
@@ -52,14 +59,21 @@ class CategoryCreatedEvent implements DomainEventInterface
     /**
      * @param CategoryId         $id
      * @param CategoryCode       $code
+     * @param string             $type
      * @param TranslatableString $name
      * @param ValueInterface[]   $attributes
      */
-    public function __construct(CategoryId $id, CategoryCode $code, TranslatableString $name, array $attributes = [])
-    {
+    public function __construct(
+        CategoryId $id,
+        CategoryCode $code,
+        string $type,
+        TranslatableString $name,
+        array $attributes = []
+    ) {
         $this->id = $id;
-        $this->name = $name;
         $this->code = $code;
+        $this->type = $type;
+        $this->name = $name;
         $this->attributes = $attributes;
     }
 
@@ -77,6 +91,14 @@ class CategoryCreatedEvent implements DomainEventInterface
     public function getCode(): CategoryCode
     {
         return $this->code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     /**

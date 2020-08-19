@@ -1,0 +1,89 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\ExporterShopware6\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\ExporterShopware6\Domain\:
+        resource: '../../Domain/*'
+
+    Ergonode\ExporterShopware6\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Model}'
+
+    Ergonode\ExporterShopware6\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\ExporterShopware6\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\ExporterShopware6\Infrastructure\Handler\ProcessExportCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            $steps:
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'
+    # Repository
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6CategoryRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6CurrencyRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6TaxRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6PropertyGroupRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6CustomFieldRepository'
+
+    # Query
+    Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Query\DbalShopware6CategoryQuery'
+    Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Query\DbalShopware6PropertyGroupQuery'
+    Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Query\DbalShopware6CustomFiledQuery'
+
+    # Synchronizer
+    Ergonode\ExporterShopware6\Infrastructure\Processor\Process\StartShopware6ExportProcess:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CurrencySynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\TaxSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CategorySynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupTextSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupTextAreaSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupNumberSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupDateTimeSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupSelectSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupMultiSelectSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextAreaSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldNumberSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldDateTimeSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldSelectSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMultiSelectSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMediaSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\LanguageSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\VariantOptionSynchronizer'
+
+    # Mappers
+    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductSkuMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductPriceMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCategoryMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductActiveMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductStockMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductDescriptionMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupTextMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupTextAreaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupNumericMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupDateTimeMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupMultiSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductImageMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetTextMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetTextAreaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetNumericMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetDateTimeMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultiSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultimediaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantChildMapper'

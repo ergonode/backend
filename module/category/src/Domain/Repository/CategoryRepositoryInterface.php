@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Repository;
 
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
@@ -26,17 +26,17 @@ interface CategoryRepositoryInterface
     /**
      * @param CategoryId $id
      *
-     * @return Category|Category
+     * @return AbstractCategory
      */
-    public function load(CategoryId $id): ?Category;
+    public function load(CategoryId $id): ?AbstractCategory;
 
     /**
-     * @param Category $category
+     * @param AbstractCategory $category
      */
-    public function save(Category $category): void;
+    public function save(AbstractCategory $category): void;
 
     /**
-     * @param Category $category
+     * @param AbstractCategory $category
      */
-    public function delete(Category $category): void;
+    public function delete(AbstractCategory $category): void;
 }

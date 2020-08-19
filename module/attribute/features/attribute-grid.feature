@@ -6,7 +6,7 @@ Feature: Attribute grid
     And I add "Accept" header equal to "application/json"
 
   Scenario Outline: Get attributes (order by <field>)
-    And I send a "GET" request to "/api/v1/en/attributes?field=<field>&order=<order>"
+    And I send a "GET" request to "/api/v1/en_GB/attributes?field=<field>&order=<order>"
     Then the response status code should be 200
     Examples:
       | field        | order |
@@ -24,7 +24,7 @@ Feature: Attribute grid
       | multilingual | DESC  |
 
   Scenario Outline: Get attributes (filter by <field>)
-    And I send a "GET" request to "/api/v1/en/attributes?limit=25&offset=0&filter=<field>=<value>"
+    And I send a "GET" request to "/api/v1/en_GB/attributes?limit=25&offset=0&filter=<field>=<value>"
     Then the response status code should be 200
     Examples:
       | field  | value |

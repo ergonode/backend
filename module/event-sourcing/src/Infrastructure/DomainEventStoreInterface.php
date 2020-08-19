@@ -18,16 +18,17 @@ interface DomainEventStoreInterface
 {
     /**
      * @param AggregateId $id
-     * @param string      $table
+     * @param int         $sequence
+     * @param string|null $table
      *
      * @return DomainEventStream
      */
-    public function load(AggregateId $id, ?string $table = null): DomainEventStream;
+    public function load(AggregateId $id, int $sequence = 0, ?string $table = null): DomainEventStream;
 
     /**
      * @param AggregateId       $id
      * @param DomainEventStream $stream
-     * @param string            $table
+     * @param string|null       $table
      */
     public function append(AggregateId $id, DomainEventStream $stream, ?string $table = null): void;
 

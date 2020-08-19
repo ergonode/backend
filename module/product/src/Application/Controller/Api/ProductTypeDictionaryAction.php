@@ -58,7 +58,7 @@ class ProductTypeDictionaryAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="en"
+     *     default="en_GB"
      * )
      * @SWG\Response(
      *     response=200,

@@ -22,7 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/channels", methods={"GET"})
+ * @Route(
+ *     name="ergonode_channel_grid",
+ *     path="/channels",
+ *     methods={"GET"}
+ * )
  */
 class ChannelGridReadAction
 {
@@ -62,7 +66,7 @@ class ChannelGridReadAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Parameter(

@@ -10,37 +10,28 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalStatusRepository implements StatusRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * DbalStatusRepository constructor.
-     *
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -52,21 +43,10 @@ class DbalStatusRepository implements StatusRepositoryInterface
      */
     public function load(StatusId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id);
-        if (count($eventStream) > 0) {
-            $class = new \ReflectionClass(Status::class);
-            /** @var Status $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', Status::class));
-            }
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, Status::class);
 
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
@@ -76,7 +56,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
      */
     public function exists(StatusId $id) : bool
     {
-        return $this->eventStore->load($id)->count() > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -84,12 +64,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -102,6 +77,6 @@ class DbalStatusRepository implements StatusRepositoryInterface
         $aggregateRoot->apply(new StatusDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }

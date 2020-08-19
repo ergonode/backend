@@ -37,7 +37,7 @@ class CategoryType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $language = new Language('en');
+        $language = new Language('en_GB');
         $ids = array_keys($this->query->getDictionary($language));
         $choices = array_combine($ids, $ids);
 

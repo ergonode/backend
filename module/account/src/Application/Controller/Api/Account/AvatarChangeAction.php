@@ -76,12 +76,12 @@ class AvatarChangeAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
-     *     description="Language Code",
+     *     default="en_GB",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Success",
+     *     description="Success"
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")

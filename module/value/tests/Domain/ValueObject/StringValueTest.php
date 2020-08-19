@@ -22,10 +22,13 @@ class StringValueTest extends TestCase
     {
         $value = 'string';
 
-        $valueObject = new StringValue($value);
+        $valueObject1 = new StringValue($value);
+        $valueObject2 = new StringValue($value);
 
-        $this->assertSame($value, $valueObject->getValue()[null]);
-        $this->assertSame(StringValue::TYPE, $valueObject->getType());
+        $this->assertSame($value, $valueObject1->getValue()[null]);
+        $this->assertSame(StringValue::TYPE, $valueObject1->getType());
+        $this->assertSame($value, (string) $valueObject1);
+        $this->assertTrue($valueObject1->isEqual($valueObject2));
     }
 
     /**

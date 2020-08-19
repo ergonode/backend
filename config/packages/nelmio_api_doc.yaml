@@ -299,6 +299,11 @@ nelmio_api_doc:
                         description: Category code (use only when create)
                         required: true
                         example: category_code_1
+                    type:
+                        type: string
+                        required: true
+                        description: category type
+                        example: CATEGORY
                     name:
                         type: object
                         description: category name
@@ -446,6 +451,11 @@ nelmio_api_doc:
                         required: true
                         description: product SKU
                         example: sku_123
+                    type:
+                        type: string
+                        required: true
+                        description: product type
+                        example: SIMPLE-PRODUCT
                     templateId:
                         type: string
                         required: true
@@ -485,6 +495,14 @@ nelmio_api_doc:
                         type: string
                         required: true
                         description: Multiselect attribute id
+                        example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
+            product_category:
+                type: object
+                properties:
+                    category:
+                        type: string
+                        required: true
+                        description: Category Id
                         example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
             template:
                 type: object

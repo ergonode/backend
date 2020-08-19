@@ -1,7 +1,7 @@
 parameters:
     channel_name:
-        'pl': 'Polish channel name'
-        'en': 'English channel name'
+        'pl_PL': 'Polish channel name'
+        'en_GB': 'English channel name'
     channel_description:
-        'pl': 'Polish channel description'
-        'en': 'English channel description'
+        'pl_PL': 'Polish channel description'
+        'en_GB': 'English channel description'

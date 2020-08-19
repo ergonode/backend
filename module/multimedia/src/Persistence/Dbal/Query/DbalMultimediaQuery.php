@@ -75,7 +75,7 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     /**
      * @return array
      */
-    public function getMultimedia(): array
+    public function getAll(): array
     {
         $qb = $this->connection->createQueryBuilder();
 
@@ -91,13 +91,35 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->select('*')
-            ->addSelect('(size / 1024)::NUMERIC(10,2) as size')
-            ->addSelect('id AS image')
-            ->addSelect('0 AS relations')
-            ->addSelect('\'2000-01-01 00:00:00\' as created_at');
+        $qb->select('m.id, m."name", m."extension", m.mime, m.hash, m.created_at, m.updated_at')
+            ->addSelect('(left(m.mime, strpos(m.mime, \'/\')-1)) AS type')
+            ->addSelect('(m.size / 1024.00)::NUMERIC(10,2) AS size')
+            ->addSelect('m.id AS image')
+            ->addSelect('(SELECT count(*) FROM product_value pv 
+                                JOIN Value_translation vt ON vt.value_id = pv.value_id 
+                                WHERE vt.value = m.id::TEXT) AS relations');
 
-        return new DbalDataSet($qb);
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
+
+        return new DbalDataSet($result);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTypes(): array
+    {
+        return $this
+            ->connection
+            ->createQueryBuilder()
+            ->distinct()
+            ->select('(left(mime, strpos(mime, \'/\')-1)) AS type')
+            ->groupBy('mime')
+            ->from(self::TABLE)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**
@@ -108,6 +130,6 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         return $this
             ->connection
             ->createQueryBuilder()
-            ->from(self::TABLE);
+            ->from(self::TABLE, 'm');
     }
 }

@@ -12,7 +12,6 @@ namespace Ergonode\Segment\Infrastructure\Handler\Command;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
 use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
@@ -37,8 +36,6 @@ class CalculateSegmentCommandHandler
     private SegmentProductService $service;
 
     /**
-     * CalculateSegmentCommandHandler constructor.
-     *
      * @param ProductQueryInterface $query
      * @param CommandBusInterface   $commandBus
      * @param SegmentProductService $service
