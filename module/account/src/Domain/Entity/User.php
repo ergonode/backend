@@ -11,6 +11,7 @@ namespace Ergonode\Account\Domain\Entity;
 
 use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserAvatarDeletedEvent;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
@@ -26,6 +27,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use phpDocumentor\Reflection\Types\Void_;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -290,6 +292,14 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changePassword(Password $password): void
     {
         $this->apply(new UserPasswordChangedEvent($this->id, $password));
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function removeAvatar(): void
+    {
+        $this->apply(new UserAvatarDeletedEvent($this->id));
     }
 
     /**

@@ -99,6 +99,7 @@ final class Version20180401062601 extends AbstractErgonodeMigration
 
         $this->createEventStoreEvents([
             'Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent' => 'User avatar changed',
+            'Ergonode\Account\Domain\Event\User\UserAvatarDeletedEvent' => 'User avatar deleted',
             'Ergonode\Account\Domain\Event\User\UserCreatedEvent' => 'User created',
             'Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent' => 'User first name changed',
             'Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent' => 'User language changed',

@@ -104,4 +104,16 @@ class FilesystemAvatarStorage implements ResourceStorageInterface
     {
         return $this->storage->update($path, $contents);
     }
+
+    /**
+     * @param string $path
+     *
+     * @return bool
+     *
+     * @throws FileNotFoundException
+     */
+    public function delete(string $path): bool
+    {
+        return $this->storage->delete($path);
+    }
 }

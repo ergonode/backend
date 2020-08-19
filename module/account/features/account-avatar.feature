@@ -34,23 +34,23 @@ Feature: Account module - avatar
     And store response param "id" as "user"
 
   Scenario: Upload avatar image
-    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
       | key    | value                  |
       | upload | @avatar-test-image.jpg |
     Then the response status code should be 204
 
   Scenario: Upload new avatar image with unsupported extension
-    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
       | key    | value                  |
       | upload | @avatar-test-image.ico |
     Then the response status code should be 400
 
   Scenario: Upload new avatar image without uploaded file
-    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar"
+    When I send a POST request to "/api/v1/en/accounts/@user@/avatar"
     Then the response status code should be 400
 
   Scenario: Upload new avatar with empty file
-    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
       | key    | value                        |
       | upload | @avatar-test-empty-image.png |
     Then the response status code should be 400
@@ -62,7 +62,7 @@ Feature: Account module - avatar
     And the header "content-length" should be equal to 2278
 
   Scenario: Update avatar image
-    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar" with params:
+    When I send a POST request to "/api/v1/en/accounts/@user@/avatar" with params:
       | key    | value                  |
       | upload | @avatar-test-image.png |
     Then the response status code should be 204
@@ -79,3 +79,7 @@ Feature: Account module - avatar
   Scenario: Download uploaded avatar image with with not existing uuid
     And I send a GET request to "api/v1/accounts/01730e8d-fb8d-5afe-aaaa-b621bacbbaaa/avatar"
     Then the response status code should be 404
+
+  Scenario: Delete avatar image
+    When I send a DELETE request to "/api/v1/en/accounts/@user@/avatar"
+    Then the response status code should be 204

@@ -29,9 +29,13 @@ class NotificationGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $this->addColumn('id', $id);
+        $notificationIdColumn = new TextColumn('id', 'Id', new TextFilter());
+        $notificationIdColumn->setVisible(false);
+        $this->addColumn('id', $notificationIdColumn);
+
+        $userIdColumn = new TextColumn('user_id', 'User Id', new TextFilter());
+        $userIdColumn->setVisible(false);
+        $this->addColumn('user_id', $userIdColumn);
 
         $column = new TranslatableColumn('message', 'Message', 'parameters', 'notification');
         $this->addColumn('message', $column);
