@@ -94,4 +94,11 @@ interface ProductQueryInterface
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array;
+
+    /**
+     * @param string $type
+     *
+     * @return array
+     */
+    public function findProductIdByType(string $type): array;
 }

@@ -114,7 +114,7 @@ class TaxSynchronizer implements SynchronizerInterface
     private function checkExistOrCreate(Shopware6Channel $channel): void
     {
         $value = [];
-        $attribute = $this->attributeRepository->load($channel->getProductTax());
+        $attribute = $this->attributeRepository->load($channel->getAttributeProductTax());
         if ($attribute instanceof SelectAttribute || $attribute instanceof MultiSelectAttribute) {
             $data = $this->optionQuery->getAll($attribute->getId());
             foreach ($data as $row) {

@@ -56,7 +56,7 @@ class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
         ?Language $language = null
     ): Shopware6Product {
 
-        $attribute = $this->repository->load($channel->getProductName());
+        $attribute = $this->repository->load($channel->getAttributeProductName());
         Assert::notNull($attribute);
 
         if (false === $product->hasAttribute($attribute->getCode())) {

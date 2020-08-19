@@ -129,7 +129,7 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.languages.element-0[0] | Language code es_ES is not active |
+      | errors.languages[0] | This value is not valid |
 
   Scenario: Post Create Channel to Shopware 6 API (wrong languages invalid)
     When I send a POST request to "/api/v1/en_GB/channels" with body:
@@ -153,7 +153,7 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.languages.element-0[0] | Language code ps_AR is not active |
+      | errors.languages[0] | This value is not valid |
 
 
   Scenario: Post Create Channel to Shopware 6 API (wrong default language not active)
@@ -178,7 +178,7 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.default_language[0] | Language code es_ES is not active |
+      | errors.default_language[0] | This value is not valid |
 
   Scenario: Post Create Channel to Shopware 6 API (wrong  default language invalid)
     When I send a POST request to "/api/v1/en_GB/channels" with body:
@@ -202,7 +202,7 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.default_language[0] | Language code ps_AR is not active |
+      | errors.default_language[0] | This value is not valid |
 
   Scenario: Update shopware 6 channel
     When I send a PUT request to "/api/v1/en_GB/channels/@channel_id@" with body:

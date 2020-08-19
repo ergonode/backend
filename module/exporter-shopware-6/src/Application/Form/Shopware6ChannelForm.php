@@ -12,8 +12,10 @@ use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,11 +32,18 @@ class Shopware6ChannelForm extends AbstractType
     private AttributeQueryInterface $attributeQuery;
 
     /**
-     * @param AttributeQueryInterface $attributeQuery
+     * @var LanguageQueryInterface
      */
-    public function __construct(AttributeQueryInterface $attributeQuery)
+    private LanguageQueryInterface $languageQuery;
+
+    /**
+     * @param AttributeQueryInterface $attributeQuery
+     * @param LanguageQueryInterface  $languageQuery
+     */
+    public function __construct(AttributeQueryInterface $attributeQuery, LanguageQueryInterface $languageQuery)
     {
         $this->attributeQuery = $attributeQuery;
+        $this->languageQuery = $languageQuery;
     }
 
     /**
@@ -46,6 +55,8 @@ class Shopware6ChannelForm extends AbstractType
         $attributeDictionary = $this->attributeQuery->getDictionary();
         $priceAttributeDictionary = $this->attributeQuery->getDictionary([PriceAttribute::TYPE]);
         $textAttributeDictionary = $this->attributeQuery->getDictionary([TextAttribute::TYPE]);
+        $languages = $this->languageQuery->getDictionaryActive();
+
         $builder
             ->add(
                 'name',
@@ -77,20 +88,22 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'default_language',
-                TextType::class,
+                ChoiceType::class,
                 [
+                    'label' => 'Default Language',
                     'property_path' => 'defaultLanguage',
+                    'choices' => $languages,
                 ]
             )
             ->add(
                 'languages',
-                CollectionType::class,
+                ChoiceType::class,
                 [
                     'label' => 'List of languages',
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => TextType::class,
+                    'choices' => $languages,
+                    'multiple' => true,
                     'property_path' => 'languages',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -157,6 +170,15 @@ class Shopware6ChannelForm extends AbstractType
                 ]
             )
             ->add(
+                'category_tree',
+                TextType::class,
+                [
+                    'label' => 'Category tree',
+                    'property_path' => 'categoryTree',
+                    'required' => false,
+                ]
+            )
+            ->add(
                 'property_group',
                 CollectionType::class,
                 [
@@ -178,13 +200,6 @@ class Shopware6ChannelForm extends AbstractType
                     'allow_delete' => true,
                     'entry_type' => AttributeMapType::class,
                     'required' => false,
-                ]
-            )
-            ->add(
-                'category_tree',
-                TextType::class,
-                [
-                    'property_path' => 'categoryTree',
                 ]
             );
     }

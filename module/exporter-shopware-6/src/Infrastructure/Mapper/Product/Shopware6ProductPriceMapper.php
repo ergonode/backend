@@ -103,9 +103,17 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     ): array {
 
         /** @var PriceAttribute $attribute */
-        $attribute = $this->repository->load($channel->getProductPriceGross());
-        $priceGross = $this->getPriceValue($channel->getProductPriceGross(), $channel->getDefaultLanguage(), $product);
-        $priceNet = $this->getPriceValue($channel->getProductPriceNet(), $channel->getDefaultLanguage(), $product);
+        $attribute = $this->repository->load($channel->getAttributeProductPriceGross());
+        $priceGross = $this->getPriceValue(
+            $channel->getAttributeProductPriceGross(),
+            $channel->getDefaultLanguage(),
+            $product
+        );
+        $priceNet = $this->getPriceValue(
+            $channel->getAttributeProductPriceNet(),
+            $channel->getDefaultLanguage(),
+            $product
+        );
 
         return [
             'currencyId' => $this->loadCurrencyId($channel, $attribute),
@@ -125,7 +133,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
      */
     public function tax(Shopware6Channel $channel, AbstractProduct $product): float
     {
-        $attribute = $this->repository->load($channel->getProductTax());
+        $attribute = $this->repository->load($channel->getAttributeProductTax());
 
         Assert::notNull($attribute);
 

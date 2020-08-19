@@ -159,4 +159,12 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     {
         return $this->query->getMultimediaRelation($id);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByType(string $type): array
+    {
+        return $this->query->findProductIdByType($type);
+    }
 }

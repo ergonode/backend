@@ -65,7 +65,7 @@ class Shopware6ProductNameMapperTest extends TestCase
             ->willReturn($textAttribute);
 
         $this->channel = $this->createMock(Shopware6Channel::class);
-        $this->channel->method('getProductName')
+        $this->channel->method('getAttributeProductName')
             ->willReturn(AttributeId::fromKey(self::CODE));
         $this->channel->method('getDefaultLanguage')
             ->willReturn(new Language('en_GB'));
