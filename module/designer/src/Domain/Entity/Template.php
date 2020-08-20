@@ -410,7 +410,13 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementChangedEvent(TemplateElementChangedEvent $event): void
     {
-        $this->elements[] = $event->getElement();
+        $element = $event->getElement();
+        $position = $element->getPosition();
+        foreach ($this->elements as $key => $element) {
+            if ($position->isEqual($element->getPosition())) {
+                $this->elements[$key] = $event->getElement();
+            }
+        }
     }
 
     /**
