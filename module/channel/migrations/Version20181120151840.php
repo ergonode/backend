@@ -32,6 +32,17 @@ final class Version20181120151840 extends AbstractErgonodeMigration
                  )'
         );
 
+        $this->addSql(
+            'CREATE TABLE exporter.scheduler(
+                    id uuid NOT NULL,
+                    active boolean NOT NULL,
+                    start timestamp without time zone DEFAULT NULL,
+                    hour integer DEFAULT NULL, 
+                    minute integer DEFAULT NULL,                    
+                    PRIMARY KEY (id)
+                 )'
+        );
+
         $this->createPrivileges([
             'CHANNEL_CREATE' => 'Channel',
             'CHANNEL_READ' => 'Channel',
