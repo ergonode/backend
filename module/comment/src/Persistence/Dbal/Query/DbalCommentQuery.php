@@ -61,6 +61,7 @@ class DbalCommentQuery implements CommentQueryInterface
             ->addSelect('n.*')
             ->addSelect('coalesce(u.first_name || \' \' || u.last_name, null) AS author')
             ->addSelect('u.id AS user_id')
+            ->addSelect('u.avatar_filename')
             ->from(self::COMMENT_TABLE, 'n')
             ->leftJoin('n', self::USER_TABLE, 'u', 'n.author_id = u.id');
     }
