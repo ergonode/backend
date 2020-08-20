@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Service\Thumbnail;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\FileExistsException;
@@ -19,9 +18,9 @@ use League\Flysystem\FileExistsException;
 class ThumbnailGenerator
 {
     /**
-     * @var MultimediaStorageInterface
+     * @var FilesystemInterface
      */
-    private MultimediaStorageInterface $storage;
+    private FilesystemInterface $multimediaStorage;
 
     /**
      * @var FilesystemInterface
@@ -39,18 +38,18 @@ class ThumbnailGenerator
     private ThumbnailGenerationStrategyProvider $provider;
 
     /**
-     * @param MultimediaStorageInterface          $storage
+     * @param FilesystemInterface                 $multimediaStorage
      * @param FilesystemInterface                 $thumbnailStorage
      * @param TempFileStorage                     $temp
      * @param ThumbnailGenerationStrategyProvider $provider
      */
     public function __construct(
-        MultimediaStorageInterface $storage,
+        FilesystemInterface $multimediaStorage,
         FilesystemInterface $thumbnailStorage,
         TempFileStorage $temp,
         ThumbnailGenerationStrategyProvider $provider
     ) {
-        $this->storage = $storage;
+        $this->multimediaStorage = $multimediaStorage;
         $this->thumbnailStorage = $thumbnailStorage;
         $this->temp = $temp;
         $this->provider = $provider;
@@ -66,7 +65,7 @@ class ThumbnailGenerator
     public function generate(Multimedia $multimedia, string $type): void
     {
         $strategy = $this->provider->provide($type);
-        $content = $this->storage->read($multimedia->getFileName());
+        $content = $this->multimediaStorage->read($multimedia->getFileName());
         $this->temp->create($multimedia->getFileName());
         $this->temp->append([$content]);
         $this->temp->close();

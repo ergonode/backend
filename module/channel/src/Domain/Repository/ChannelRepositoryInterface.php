@@ -24,7 +24,9 @@ interface ChannelRepositoryInterface
     public function load(ChannelId $id): ?AbstractChannel;
 
     /**
-     * {@inheritDoc}
+     * @param ChannelId $id
+     *
+     * @return bool
      */
     public function exists(ChannelId $id) : bool;
 
