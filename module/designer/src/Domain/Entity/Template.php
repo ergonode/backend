@@ -82,7 +82,7 @@ class Template extends AbstractAggregateRoot
     /**
      * @var TemplateElement[]
      *
-     * @JMS\Type("array<string, Ergonode\Designer\Domain\Entity\TemplateElement>")
+     * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
     private array $elements;
 
@@ -232,7 +232,13 @@ class Template extends AbstractAggregateRoot
      */
     public function hasElement(Position $position): bool
     {
-        return isset($this->elements[(string) $position]);
+        foreach ($this->elements as $element) {
+            if ($position->isEqual($element->getPosition())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -246,8 +252,11 @@ class Template extends AbstractAggregateRoot
             $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
             throw new \InvalidArgumentException($message);
         }
-
-        return $this->elements[(string) $position];
+        foreach ($this->elements as $element) {
+            if ($position->isEqual($element->getPosition())) {
+                return $element;
+            }
+        }
     }
 
     /**
@@ -393,9 +402,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementAddedEvent(TemplateElementAddedEvent $event): void
     {
-        $element = $event->getElement();
-        $position = $element->getPosition();
-        $this->elements[(string) $position] = $event->getElement();
+        $this->elements[] = $event->getElement();
     }
 
     /**
@@ -405,7 +412,11 @@ class Template extends AbstractAggregateRoot
     {
         $element = $event->getElement();
         $position = $element->getPosition();
-        $this->elements[(string) $position] = $event->getElement();
+        foreach ($this->elements as $key => $element) {
+            if ($position->isEqual($element->getPosition())) {
+                $this->elements[$key] = $event->getElement();
+            }
+        }
     }
 
     /**
@@ -413,8 +424,11 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementRemovedEvent(TemplateElementRemovedEvent $event): void
     {
-        $position = (string) $event->getPosition();
-        unset($this->elements[$position]);
+        foreach ($this->elements as $key => $element) {
+            if ($event->getPosition()->isEqual($element->getPosition())) {
+                unset($this->elements[$key]);
+            }
+        }
     }
 
     /**
