@@ -11,7 +11,6 @@ namespace Ergonode\Exporter\Domain\Command\Export;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
