@@ -31,6 +31,16 @@ final class Version20200608120319 extends AbstractErgonodeMigration
         );
 
         $this->addSql(
+            'CREATE TABLE exporter.shopware6_product(
+                    channel_id uuid NOT NULL,
+                    product_id uuid NOT NULL,
+                    shopware6_id varchar(36) NOT NULL,
+                    update_at timestamp without time zone NOT NULL,
+                    PRIMARY KEY (channel_id, product_id)
+                )'
+        );
+
+        $this->addSql(
             'CREATE TABLE exporter.shopware6_tax(
                     channel_id uuid NOT NULL,
                     tax  DECIMAL (10, 2) NOT NULL,
@@ -71,6 +81,13 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     PRIMARY KEY (channel_id, attribute_id, value)
                 )'
         );
+
+        $this->addSql(
+            'ALTER TABLE exporter.shopware6_property_group_options 
+                    ADD CONSTRAINT shopware6_property_group_options_fk FOREIGN KEY (channel_id,attribute_id) 
+                    REFERENCES exporter.shopware6_property_group(channel_id,attribute_id) ON DELETE CASCADE'
+        );
+
 
         $this->addSql(
             'CREATE TABLE exporter.shopware6_custom_field(

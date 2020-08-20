@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
  */
 class PostProductAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v2/product';
+    private const URI = '/api/v2/product?%s';
 
     /**
      * @var Shopware6Product
@@ -27,11 +27,18 @@ class PostProductAction extends AbstractAction implements ActionInterface
     private Shopware6Product $product;
 
     /**
-     * @param Shopware6Product $product
+     * @var bool
      */
-    public function __construct(Shopware6Product $product)
+    private bool $response;
+
+    /**
+     * @param Shopware6Product $product
+     * @param bool             $response
+     */
+    public function __construct(Shopware6Product $product, bool $response = false)
     {
         $this->product = $product;
+        $this->response = $response;
     }
 
     /**
@@ -50,11 +57,19 @@ class PostProductAction extends AbstractAction implements ActionInterface
     /**
      * @param string|null $content
      *
-     * @return null
+     * @return array|mixed|object|string|null
+     *
+     * @throws \JsonException
      */
-    public function parseContent(?string $content)
+    public function parseContent(?string $content): ?string
     {
-        return null;
+        if (null === $content) {
+            return null;
+        }
+
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+
+        return $data['data']['id'];
     }
 
     /**
@@ -72,6 +87,11 @@ class PostProductAction extends AbstractAction implements ActionInterface
      */
     private function getUri(): string
     {
-        return self::URI;
+        $query = [];
+        if ($this->response) {
+            $query['_response'] = 'true';
+        }
+
+        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
     }
 }

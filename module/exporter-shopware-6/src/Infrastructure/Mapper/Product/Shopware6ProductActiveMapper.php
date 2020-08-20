@@ -53,7 +53,7 @@ class Shopware6ProductActiveMapper implements Shopware6ProductMapperInterface
         ?Language $language = null
     ): Shopware6Product {
         if ($shopware6Product->isNew()) {
-            $attribute = $this->repository->load($channel->getProductActive());
+            $attribute = $this->repository->load($channel->getAttributeProductActive());
             Assert::notNull($attribute);
             if (false === $product->hasAttribute($attribute->getCode())) {
                 return $shopware6Product;

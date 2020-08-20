@@ -10,12 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route(
@@ -27,6 +29,26 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelReadAction
 {
+    /**
+     * @var ChannelFormFactoryProvider
+     */
+    private ChannelFormFactoryProvider $provider;
+
+    /**
+     * @var SerializerInterface
+     */
+    private SerializerInterface $serializer;
+
+    /**
+     * @param ChannelFormFactoryProvider $provider
+     * @param SerializerInterface        $serializer
+     */
+    public function __construct(ChannelFormFactoryProvider $provider, SerializerInterface $serializer)
+    {
+        $this->provider = $provider;
+        $this->serializer = $serializer;
+    }
+
     /**
      * @IsGranted("CHANNEL_READ")
      *
@@ -62,6 +84,11 @@ class ChannelReadAction
      */
     public function __invoke(AbstractChannel $channel): Response
     {
-        return new SuccessResponse($channel);
+        $form = $this->provider->provide($channel->getType())->create($channel);
+        $result = $this->serializer->normalize($form);
+        $result['type'] = $channel->getType();
+        $result['id'] = $channel->getId();
+
+        return new SuccessResponse($result);
     }
 }

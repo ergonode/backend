@@ -28,12 +28,12 @@ class UpdateShopware6ChannelCommandHandlerTest extends TestCase
         $channel->expects(self::once())->method('setClientKey');
         $channel->expects(self::once())->method('setDefaultLanguage');
         $channel->expects(self::once())->method('setLanguages');
-        $channel->expects(self::once())->method('setProductName');
-        $channel->expects(self::once())->method('setProductActive');
-        $channel->expects(self::once())->method('setProductStock');
-        $channel->expects(self::once())->method('setProductPriceGross');
-        $channel->expects(self::once())->method('setProductPriceNet');
-        $channel->expects(self::once())->method('setProductTax');
+        $channel->expects(self::once())->method('setAttributeProductName');
+        $channel->expects(self::once())->method('setAttributeProductActive');
+        $channel->expects(self::once())->method('setAttributeProductStock');
+        $channel->expects(self::once())->method('setAttributeProductPriceGross');
+        $channel->expects(self::once())->method('setAttributeProductPriceNet');
+        $channel->expects(self::once())->method('setAttributeProductTax');
         $channel->expects(self::once())->method('setPropertyGroup');
         $channel->expects(self::once())->method('setCustomField');
 

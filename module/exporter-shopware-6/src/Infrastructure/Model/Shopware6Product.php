@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -23,7 +22,7 @@ class Shopware6Product
     protected ?string $id;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("productNumber")
@@ -31,7 +30,7 @@ class Shopware6Product
     protected ?string $sku;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
@@ -39,7 +38,7 @@ class Shopware6Product
     protected ?string $name;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("description")
@@ -125,6 +124,14 @@ class Shopware6Product
      * @JMS\SerializedName("media")
      */
     protected ?array $media;
+
+    /**
+     * @var Shopware6ProductConfiguratorSettings[]|null
+     *
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductConfiguratorSettings>")
+     * @JMS\SerializedName("configuratorSettings")
+     */
+    protected ?array $configuratorSettings = null;
 
     /**
      * @var bool
@@ -217,9 +224,9 @@ class Shopware6Product
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         if ($name !== $this->name) {
             $this->name = $name;
@@ -236,9 +243,9 @@ class Shopware6Product
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         if ($description !== $this->description) {
             $this->description = $description;
@@ -447,6 +454,67 @@ class Shopware6Product
     }
 
     /**
+     * @return string|null
+     */
+    public function getParentId(): ?string
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * @param string|null $parentId
+     */
+    public function setParentId(?string $parentId): void
+    {
+        if ($parentId !== $this->parentId) {
+            $this->parentId = $parentId;
+            $this->modified = true;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        if ($this->options) {
+            return $this->options;
+        }
+
+        return [];
+    }
+
+    /**
+     * @param string $option
+     */
+    public function addOptions(string $option): void
+    {
+        if (!$this->hasOption($option)) {
+            $this->options[] = [
+                'id' => $option,
+            ];
+            $this->modified = true;
+        }
+    }
+
+    /**
+     * @param string $optionId
+     *
+     * @return bool
+     */
+    public function hasOption(string $optionId): bool
+    {
+        foreach ($this->getOptions() as $option) {
+            if ($option['id'] === $optionId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
      * @return array
      */
     public function getMedia(): array
@@ -480,6 +548,53 @@ class Shopware6Product
     {
         foreach ($this->getMedia() as $media) {
             if ($media['mediaId'] === $mediaId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Shopware6ProductConfiguratorSettings[]|null $configuratorSettings
+     */
+    public function setConfiguratorSettings(?array $configuratorSettings): void
+    {
+        $this->configuratorSettings = $configuratorSettings;
+    }
+
+    /**
+     * @return Shopware6ProductConfiguratorSettings[]
+     */
+    public function getConfiguratorSettings(): array
+    {
+        if ($this->configuratorSettings) {
+            return $this->configuratorSettings;
+        }
+
+        return [];
+    }
+
+    /**
+     * @param Shopware6ProductConfiguratorSettings $configuratorSetting
+     */
+    public function addConfiguratorSettings(Shopware6ProductConfiguratorSettings $configuratorSetting): void
+    {
+        if (!$this->hasConfiguratorSettings($configuratorSetting)) {
+            $this->configuratorSettings[] = $configuratorSetting;
+            $this->modified = true;
+        }
+    }
+
+    /**
+     * @param Shopware6ProductConfiguratorSettings $value
+     *
+     * @return bool
+     */
+    public function hasConfiguratorSettings(Shopware6ProductConfiguratorSettings $value): bool
+    {
+        foreach ($this->getConfiguratorSettings() as $configuratorSetting) {
+            if ($configuratorSetting->getOptionId() === $value->getOptionId()) {
                 return true;
             }
         }

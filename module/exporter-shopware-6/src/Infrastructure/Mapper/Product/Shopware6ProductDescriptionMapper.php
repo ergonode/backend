@@ -53,10 +53,10 @@ class Shopware6ProductDescriptionMapper implements Shopware6ProductMapperInterfa
         ?Language $language = null
     ): Shopware6Product {
 
-        if (null === $channel->getProductDescription()) {
+        if (null === $channel->getAttributeProductDescription()) {
             return $shopware6Product;
         }
-        $attribute = $this->repository->load($channel->getProductDescription());
+        $attribute = $this->repository->load($channel->getAttributeProductDescription());
 
         Assert::notNull($attribute);
 

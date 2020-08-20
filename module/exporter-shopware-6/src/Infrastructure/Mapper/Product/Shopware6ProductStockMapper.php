@@ -52,7 +52,7 @@ class Shopware6ProductStockMapper implements Shopware6ProductMapperInterface
         ?Language $language = null
     ): Shopware6Product {
         if ($shopware6Product->isNew()) {
-            $attribute = $this->repository->load($channel->getProductStock());
+            $attribute = $this->repository->load($channel->getAttributeProductStock());
             if (false === $product->hasAttribute($attribute->getCode())) {
                 return $shopware6Product;
             }

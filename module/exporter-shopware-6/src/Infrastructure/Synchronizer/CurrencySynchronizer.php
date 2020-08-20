@@ -93,7 +93,7 @@ class CurrencySynchronizer implements SynchronizerInterface
     private function checkExistOrCreate(Shopware6Channel $channel): void
     {
         /** @var PriceAttribute $attribute */
-        $attribute = $this->attributeRepository->load($channel->getProductPriceGross());
+        $attribute = $this->attributeRepository->load($channel->getAttributeProductPriceGross());
         $iso = $attribute->getCurrency()->getCode();
 
         $isset = $this->currencyRepository->exists($channel->getId(), $iso);
