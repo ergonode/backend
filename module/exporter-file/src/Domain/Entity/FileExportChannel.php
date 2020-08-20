@@ -30,7 +30,7 @@ class FileExportChannel extends AbstractChannel
     protected string $format;
 
     /**
-     * @var Languages[];
+     * @var Languages[]
      *
      * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
