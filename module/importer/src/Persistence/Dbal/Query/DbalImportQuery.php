@@ -96,6 +96,22 @@ class DbalImportQuery implements ImportQueryInterface
         return new DbalDataSet($result);
     }
 
+    /**
+     * @param ImportId $id
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getInformation(ImportId $id, Language $language): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->where($query->expr()->eq('id', ':importId'))
+            ->setParameter(':importId', $id->getValue())
+            ->execute()
+            ->fetch();
+    }
 
     /**
      * @return QueryBuilder

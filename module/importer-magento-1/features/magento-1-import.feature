@@ -199,12 +199,19 @@ Feature: Magento 1 CSV module
     When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports"
     Then the response status code should be 200
 
-  Scenario: Get source import grid
+  Scenario: Get source import
     When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports/@import_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | id        | @import_id@ |
       | source_id | @source_id@ |
+      | status    | PRECESSED   |
+    And the JSON node "errors" should not be null
+    And the JSON node "records" should not be null
+    And the JSON node "created_at" should not be null
+    And the JSON node "updated_at" should not be null
+    And the JSON node "started_at" should not be null
+    And the JSON node "ended_at" should exist
 
   Scenario: Get error import grid
     When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports/@import_id@/errors"
