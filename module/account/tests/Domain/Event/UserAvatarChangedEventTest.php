@@ -11,7 +11,6 @@ namespace Ergonode\Account\Tests\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -25,11 +24,11 @@ class UserAvatarChangedEventTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        $multimediaId = $this->createMock(MultimediaId::class);
+        $avatarFilename = 'filename.jpg';
 
-        $event = new UserAvatarChangedEvent($id, $multimediaId);
+        $event = new UserAvatarChangedEvent($id, $avatarFilename);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($multimediaId, $event->getAvatarId());
+        $this->assertEquals($avatarFilename, $event->getAvatarFilename());
     }
 }

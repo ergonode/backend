@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -66,11 +65,11 @@ class UserCreatedEvent implements DomainEventInterface
     private Language $language;
 
     /**
-     * @var MultimediaId|null
+     * @var string|null
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
+     * @JMS\Type("string")
      */
-    private ?MultimediaId $avatarId;
+    private ?string $avatarFilename;
 
     /**
      * @var RoleId
@@ -103,7 +102,7 @@ class UserCreatedEvent implements DomainEventInterface
      * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
      * @param bool                 $isActive
-     * @param MultimediaId|null    $avatarId
+     * @param string|null          $avatarFilename
      */
     public function __construct(
         UserId $id,
@@ -115,7 +114,7 @@ class UserCreatedEvent implements DomainEventInterface
         RoleId $roleId,
         array $languagePrivilegesCollection,
         bool $isActive = true,
-        ?MultimediaId $avatarId = null
+        ?string $avatarFilename = null
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -125,7 +124,7 @@ class UserCreatedEvent implements DomainEventInterface
         $this->language = $language;
         $this->roleId = $roleId;
         $this->languagePrivilegesCollection = $languagePrivilegesCollection;
-        $this->avatarId = $avatarId;
+        $this->avatarFilename = $avatarFilename;
         $this->isActive = $isActive;
     }
 
@@ -178,11 +177,11 @@ class UserCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return MultimediaId|null
+     * @return string|null
      */
-    public function getAvatarId(): ?MultimediaId
+    public function getAvatarFilename(): ?string
     {
-        return $this->avatarId;
+        return $this->avatarFilename;
     }
 
     /**
