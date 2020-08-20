@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserAvatarChangedEvent implements DomainEventInterface
+class UserAvatarDeletedEvent implements DomainEventInterface
 {
     /**
      * @var UserId
@@ -25,20 +25,11 @@ class UserAvatarChangedEvent implements DomainEventInterface
     private UserId $id;
 
     /**
-     * @var string|null
-     *
-     * @JMS\Type("string")
+     * @param UserId $id
      */
-    private ?string $avatarFilename;
-
-    /**
-     * @param UserId      $id
-     * @param string|null $avatarFilename
-     */
-    public function __construct(UserId $id, string $avatarFilename = null)
+    public function __construct(UserId $id)
     {
         $this->id = $id;
-        $this->avatarFilename = $avatarFilename;
     }
 
     /**
@@ -47,13 +38,5 @@ class UserAvatarChangedEvent implements DomainEventInterface
     public function getAggregateId(): UserId
     {
         return $this->id;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAvatarFilename(): ?string
-    {
-        return $this->avatarFilename;
     }
 }

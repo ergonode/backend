@@ -60,7 +60,7 @@ class UserCreatedEventProjector
                 'language' => $event->getLanguage()->getCode(),
                 'password' => $event->getPassword()->getValue(),
                 'is_active' => $event->isActive(),
-                'avatar_id' => $event->getAvatarId() ? $event->getAvatarId()->getValue() : null,
+                'avatar_filename' => $event->getAvatarFilename(),
             ],
             [
                 'is_active' => \PDO::PARAM_BOOL,

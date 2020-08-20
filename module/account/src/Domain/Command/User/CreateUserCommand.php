@@ -27,11 +27,6 @@ class CreateUserCommand implements DomainCommandInterface
     private UserId $id;
 
     /**
-     * @var MultimediaId|null
-     */
-    private ?MultimediaId $avatarId;
-
-    /**
      * @var string
      */
     private string $firstName;
@@ -67,14 +62,13 @@ class CreateUserCommand implements DomainCommandInterface
     private bool $isActive;
 
     /**
-     * @param string            $firstName
-     * @param string            $lastName
-     * @param Email             $email
-     * @param Language          $language
-     * @param Password          $password
-     * @param RoleId            $roleId
-     * @param bool              $isActive
-     * @param MultimediaId|null $avatarId
+     * @param string   $firstName
+     * @param string   $lastName
+     * @param Email    $email
+     * @param Language $language
+     * @param Password $password
+     * @param RoleId   $roleId
+     * @param bool     $isActive
      */
     public function __construct(
         string $firstName,
@@ -83,11 +77,9 @@ class CreateUserCommand implements DomainCommandInterface
         Language $language,
         Password $password,
         RoleId $roleId,
-        bool $isActive = true,
-        ?MultimediaId $avatarId = null
+        bool $isActive = true
     ) {
         $this->id = UserId::generate();
-        $this->avatarId = $avatarId;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
@@ -103,14 +95,6 @@ class CreateUserCommand implements DomainCommandInterface
     public function getId(): UserId
     {
         return $this->id;
-    }
-
-    /**
-     * @return MultimediaId|null
-     */
-    public function getAvatarId(): ?MultimediaId
-    {
-        return $this->avatarId;
     }
 
     /**

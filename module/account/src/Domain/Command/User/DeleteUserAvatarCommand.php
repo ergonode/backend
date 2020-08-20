@@ -9,32 +9,27 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Symfony\Component\HttpFoundation\File\File;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ChangeUserAvatarCommand implements DomainCommandInterface
+class DeleteUserAvatarCommand implements DomainCommandInterface
 {
     /**
      * @var UserId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
     /**
-     * @var File
-     */
-    private File $file;
-
-    /**
      * @param UserId $id
-     * @param File   $file
      */
-    public function __construct(UserId $id, File $file)
+    public function __construct(UserId $id)
     {
         $this->id = $id;
-        $this->file = $file;
     }
 
     /**
@@ -43,13 +38,5 @@ class ChangeUserAvatarCommand implements DomainCommandInterface
     public function getId(): UserId
     {
         return $this->id;
-    }
-
-    /**
-     * @return File
-     */
-    public function getFile(): File
-    {
-        return $this->file;
     }
 }

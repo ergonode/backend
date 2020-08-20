@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Application\Response;
 
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
+use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -18,17 +18,19 @@ class FileContentResponse extends AbstractResponse
 {
 
     /**
-     * @param            $content
-     * @param Multimedia $multimedia
+     * @param string              $filename
+     * @param FilesystemInterface $storage
+     *
+     * @throws \League\Flysystem\FileNotFoundException
      */
-    public function __construct($content, Multimedia $multimedia)
+    public function __construct(string $filename, FilesystemInterface $storage)
     {
         $headers = [
             'Cache-Control' => 'private',
-            'Content-type' => $multimedia->getMime(),
-            'Content-Disposition' => 'attachment; filename="'.basename($multimedia->getFileName()).'";',
-            'Content-length' => $multimedia->getSize(),
+            'Content-type' => $storage->getMimetype($filename),
+            'Content-Disposition' => 'attachment; filename="'.basename($filename).'";',
+            'Content-length' => $storage->getSize($filename),
         ];
-        parent::__construct($content, Response::HTTP_OK, $headers);
+        parent::__construct($storage->read($filename), Response::HTTP_OK, $headers);
     }
 }
