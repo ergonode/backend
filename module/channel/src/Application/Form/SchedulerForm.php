@@ -40,7 +40,7 @@ class SchedulerForm extends AbstractType
                 'hour',
                 ChoiceType::class,
                 [
-                    'choices' => range(0, 24, 1),
+                    'choices' => range(0, 23, 1),
                 ]
             )
             ->add(
