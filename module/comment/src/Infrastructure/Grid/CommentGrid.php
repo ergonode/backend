@@ -57,6 +57,7 @@ class CommentGrid extends AbstractGrid
         $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
         $this->addColumn('created_at', new DateColumn('created_at', 'Avatar', new DateFilter()));
         $this->addColumn('edited_at', new DateColumn('edited_at', 'Avatar', new DateFilter()));
+        $this->addColumn('avatar_filename', new ImageColumn('avatar_filename'));
 
         $links = [
             'get' => [
