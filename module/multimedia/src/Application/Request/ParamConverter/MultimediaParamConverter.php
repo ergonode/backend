@@ -12,13 +12,13 @@ namespace Ergonode\Multimedia\Application\Request\ParamConverter;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use League\Flysystem\FilesystemInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 
 /**
  */
@@ -28,22 +28,22 @@ class MultimediaParamConverter implements ParamConverterInterface
      * @var MultimediaRepositoryInterface
      */
     private MultimediaRepositoryInterface $repository;
-    
+
     /**
-     * @var MultimediaStorageInterface
+     * @var FilesystemInterface
      */
-    private MultimediaStorageInterface $storage;
+    private FilesystemInterface $multimediaStorage;
 
     /**
      * @param MultimediaRepositoryInterface $repository
-     * @param MultimediaStorageInterface    $storage
+     * @param FilesystemInterface           $multimediaStorage
      */
     public function __construct(
         MultimediaRepositoryInterface $repository,
-        MultimediaStorageInterface $storage
+        FilesystemInterface $multimediaStorage
     ) {
         $this->repository = $repository;
-        $this->storage = $storage;
+        $this->multimediaStorage = $multimediaStorage;
     }
 
     /**
@@ -67,7 +67,7 @@ class MultimediaParamConverter implements ParamConverterInterface
             throw new NotFoundHttpException(sprintf('Multimedia by ID "%s" not found', $parameter));
         }
 
-        if (!$this->storage->has($entity->getFileName())) {
+        if (!$this->multimediaStorage->has($entity->getFileName())) {
             throw new ConflictHttpException('The file does not exist.');
         }
 

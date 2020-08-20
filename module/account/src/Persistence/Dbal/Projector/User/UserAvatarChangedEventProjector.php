@@ -42,7 +42,7 @@ class UserAvatarChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'avatar_id' => $event->getAvatarId() ? $event->getAvatarId()->getValue() : null,
+                'avatar_filename' => $event->getAvatarFilename(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

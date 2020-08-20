@@ -12,7 +12,7 @@ namespace Ergonode\Multimedia\Tests\Application\Request\ParamConverter;
 use Ergonode\Multimedia\Application\Request\ParamConverter\MultimediaParamConverter;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use League\Flysystem\FilesystemInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -40,7 +40,7 @@ class MultimediaParamConverterTest extends TestCase
     private $repository;
 
     /**
-     * @var MultimediaStorageInterface|MockObject
+     * @var FilesystemInterface|MockObject
      */
     private $storage;
 
@@ -51,7 +51,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
         $this->repository = $this->createMock(MultimediaRepositoryInterface::class);
-        $this->storage = $this->createMock(MultimediaStorageInterface::class);
+        $this->storage = $this->createMock(FilesystemInterface::class);
     }
 
     /**
