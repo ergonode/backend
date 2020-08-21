@@ -53,7 +53,7 @@ class Transition extends AbstractEntity
     /**
      * @var RoleId[]
      *
-     * @JMS\Type("array<string>")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\RoleId>")
      */
     private array $roleIds;
 
@@ -61,7 +61,7 @@ class Transition extends AbstractEntity
      * @param TransitionId        $id
      * @param StatusCode          $from
      * @param StatusCode          $to
-     * @param array               $roleIds
+     * @param RoleId[]            $roleIds
      * @param ConditionSetId|null $conditionSetId
      */
     public function __construct(
