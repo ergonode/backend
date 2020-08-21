@@ -48,13 +48,21 @@ class CreateRoleCommand implements DomainCommandInterface
     private array $privileges;
 
     /**
+     * @var bool
+     *
+     * @JMS\Type("bool")
+     */
+    private bool $hidden;
+
+    /**
      * @param string      $name
      * @param string      $description
      * @param Privilege[] $privileges
+     * @param bool        $hidden
      *
      * @throws \Exception
      */
-    public function __construct(string $name, string $description, array $privileges = [])
+    public function __construct(string $name, string $description, array $privileges = [], bool $hidden = false)
     {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
@@ -62,6 +70,7 @@ class CreateRoleCommand implements DomainCommandInterface
         $this->name = $name;
         $this->description = $description;
         $this->privileges = $privileges;
+        $this->hidden = $hidden;
     }
 
     /**
@@ -94,5 +103,13 @@ class CreateRoleCommand implements DomainCommandInterface
     public function getPrivileges(): array
     {
         return $this->privileges;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden(): bool
+    {
+        return $this->hidden;
     }
 }
