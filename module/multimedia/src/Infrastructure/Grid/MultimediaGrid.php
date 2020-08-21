@@ -78,7 +78,7 @@ class MultimediaGrid extends AbstractGrid
         $column->setSuffix('MB');
         $this->addColumn('size', $column);
         $this->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()));
-        $this->addColumn('created_at', new TextColumn('created_at', 'Creation date', new TextFilter()));
+        $this->addColumn('created_at', new TextColumn('created_at', 'Created at', new TextFilter()));
 
         $links = [
             'get' => [
