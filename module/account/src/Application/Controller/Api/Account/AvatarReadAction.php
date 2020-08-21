@@ -11,10 +11,12 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Response\FileContentResponse;
+use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -80,7 +82,10 @@ class AvatarReadAction
     public function __invoke(User $user, Request $request): Response
     {
         $filename = sprintf('%s.%s', $user->getId()->getValue(), 'png');
-
-        return new FileContentResponse($filename, $this->avatarStorage);
+        try {
+            return new FileContentResponse($filename, $this->avatarStorage);
+        } catch (FileNotFoundException $exception) {
+            throw new NotFoundHttpException(null, $exception);
+        }
     }
 }
