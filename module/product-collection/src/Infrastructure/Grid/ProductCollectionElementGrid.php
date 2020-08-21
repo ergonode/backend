@@ -39,7 +39,7 @@ class ProductCollectionElementGrid extends AbstractGrid
         $productId = new TextColumn('id', 'Id', new TextFilter());
         $productId->setVisible(false);
         $this->addColumn('id', $productId);
-        $this->addColumn('created_at', new DateColumn('created_at', 'Date added', new DateFilter()));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Added at', new DateFilter()));
         $visible = new BoolColumn('visible', 'Collection visibility');
         $visible->setEditable(true);
         $this->addColumn('visible', $visible);

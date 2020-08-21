@@ -35,7 +35,7 @@ class ImportGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $createdAt = new DateColumn('created_at', 'Created at', new DateFilter());
         $this->addColumn('created_at', $createdAt);
-        $startedAt = new DateColumn('started_at', 'Started at', new DateFilter());
+        $startedAt = new DateColumn('started_at', 'Started on', new DateFilter());
         $this->addColumn('started_at', $startedAt);
         $endedAt = new DateColumn('ended_at', 'Ended at', new DateFilter());
         $this->addColumn('ended_at', $endedAt);
