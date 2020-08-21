@@ -84,16 +84,6 @@ final class Version20200122064958 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('
-            CREATE TABLE exporter.channel_configuration (
-                id uuid NOT NULL,
-                "type" VARCHAR(255) NOT NULL,
-                "configuration" json NOT NULL,
-                created_at timestamp NOT NULL,
-                updated_at timestamp NOT NULL,
-                PRIMARY KEY (id)
-                )
-        ');
     }
 
     /**
