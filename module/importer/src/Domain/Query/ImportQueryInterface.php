@@ -40,4 +40,12 @@ interface ImportQueryInterface
      * @return DataSetInterface
      */
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface;
+
+    /**
+     * @param ImportId $id
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getInformation(ImportId $id, Language $language): array;
 }
