@@ -83,7 +83,6 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 PRIMARY KEY (export_id, object_id)
             )
         ');
-
     }
 
     /**
