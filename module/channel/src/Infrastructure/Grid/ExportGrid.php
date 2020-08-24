@@ -30,7 +30,7 @@ class ExportGrid extends AbstractGrid
         $this->addColumn('id', $id);
 
         $this->addColumn('status', new TextColumn('status', 'Status', new TextFilter()));
-        $this->addColumn('started_at', new TextColumn('started_at', 'Started at', new TextFilter()));
+        $this->addColumn('started_at', new TextColumn('started_at', 'Started on', new TextFilter()));
         $this->addColumn('ended_at', new TextColumn('ended_at', 'Ended at', new TextFilter()));
 
         $this->addColumn('_links', new LinkColumn('hal', [

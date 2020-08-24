@@ -7,7 +7,7 @@ Feature: Account module - avatar
 
   Scenario: Create role
     When I send a POST request to "/api/v1/en_GB/roles" with body:
-"""
+      """
       {
          "name": "Test role (@@random_uuid@@)",
          "description": "Test role",
@@ -19,7 +19,7 @@ Feature: Account module - avatar
 
   Scenario: Create user
     When I send a POST request to "/api/v1/en_GB/accounts" with body:
-"""
+      """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
@@ -83,3 +83,24 @@ Feature: Account module - avatar
   Scenario: Delete avatar image
     When I send a DELETE request to "/api/v1/en_GB/accounts/@user@/avatar"
     Then the response status code should be 204
+
+
+  Scenario: Create user avatar free
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "en_GB",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "user_avatar_free"
+
+  Scenario: Download updated uploaded avatar image
+    When I send a GET request to "/api/v1/en_GB/accounts/@user_avatar_free@/avatar"
+    Then the response status code should be 404

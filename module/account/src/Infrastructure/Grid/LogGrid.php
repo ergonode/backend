@@ -34,7 +34,7 @@ class LogGrid extends AbstractGrid
         $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('recorded_at', new DateColumn('recorded_at', 'Time', new DateFilter()));
+        $this->addColumn('recorded_at', new DateColumn('recorded_at', 'Recorded at', new DateFilter()));
         $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
         $column = new LogColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);
