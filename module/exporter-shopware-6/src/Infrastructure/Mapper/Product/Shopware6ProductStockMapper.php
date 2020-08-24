@@ -51,18 +51,17 @@ class Shopware6ProductStockMapper implements Shopware6ProductMapperInterface
         Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
-        if ($shopware6Product->isNew()) {
-            $attribute = $this->repository->load($channel->getAttributeProductStock());
-            if (false === $product->hasAttribute($attribute->getCode())) {
-                return $shopware6Product;
-            }
-
-            $value = $product->getAttribute($attribute->getCode());
-            $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
-            if (is_numeric($calculateValue)) {
-                $shopware6Product->setStock((int) $calculateValue);
-            }
+        $attribute = $this->repository->load($channel->getAttributeProductStock());
+        if (false === $product->hasAttribute($attribute->getCode())) {
+            return $shopware6Product;
         }
+
+        $value = $product->getAttribute($attribute->getCode());
+        $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
+        if (is_numeric($calculateValue)) {
+            $shopware6Product->setStock((int) $calculateValue);
+        }
+
 
         return $shopware6Product;
     }
