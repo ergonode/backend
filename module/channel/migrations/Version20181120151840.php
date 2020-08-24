@@ -37,6 +37,7 @@ final class Version20181120151840 extends AbstractErgonodeMigration
                     id uuid NOT NULL,
                     active boolean NOT NULL,
                     start timestamp without time zone DEFAULT NULL,
+                    last timestamp without time zone DEFAULT NULL,
                     hour integer DEFAULT NULL, 
                     minute integer DEFAULT NULL,                    
                     PRIMARY KEY (id)
