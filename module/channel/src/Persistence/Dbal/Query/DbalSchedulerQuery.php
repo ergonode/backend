@@ -49,7 +49,7 @@ class DbalSchedulerQuery implements SchedulerQueryInterface
             ->select('*')
             ->from(sprintf('(%s)', $sub->getSQL()), 't')
             ->andWhere($qb->expr()->lte('start', 'actual'))
-            ->andWhere($qb->expr()->eq('active',':active'))
+            ->andWhere($qb->expr()->eq('active', ':active'))
             ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->andWhere(
                 $qb->expr()->orX(
@@ -86,6 +86,4 @@ class DbalSchedulerQuery implements SchedulerQueryInterface
             ]
         );
     }
-
-
 }

@@ -27,11 +27,10 @@ class ChannelExportScheduleConsoleCommand extends Command
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface        $commandBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(
-        CommandBusInterface $commandBus
-    ) {
+    public function __construct(CommandBusInterface $commandBus)
+    {
         parent::__construct(static::NAME);
 
         $this->commandBus = $commandBus;
