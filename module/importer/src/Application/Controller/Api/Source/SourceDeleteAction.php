@@ -9,13 +9,19 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Exception\NotImplementedException;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Importer\Domain\Command\DeleteSourceCommand;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
@@ -28,15 +34,33 @@ use Ergonode\Core\Application\Exception\NotImplementedException;
 class SourceDeleteAction
 {
     /**
+     * @var RelationshipsResolverInterface
+     */
+    private RelationshipsResolverInterface $relationshipsResolver;
+
+    /**
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
+
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $commandBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+     * @param CommandBusInterface                         $commandBus
      */
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
+        CommandBusInterface $commandBus
+    ) {
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
         $this->commandBus = $commandBus;
     }
 
@@ -68,14 +92,24 @@ class SourceDeleteAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
+     *
+     * @param AbstractSource $source
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(AbstractSource $source): Response
     {
-        throw new NotImplementedException();
+        $relationships = $this->relationshipsResolver->resolve($source->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
+        }
+
+        $command = new DeleteSourceCommand($source->getId());
+        $this->commandBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

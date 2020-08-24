@@ -34,4 +34,9 @@ interface SourceRepositoryInterface
      * @return bool
      */
     public function exists(SourceId $id): bool;
+
+    /**
+     * @param AbstractSource $import
+     */
+    public function delete(AbstractSource $import): void;
 }
