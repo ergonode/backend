@@ -78,13 +78,10 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
+        $tax = $this->tax($channel, $product);
 
-        if ($shopware6Product->isNew()) {
-            $tax = $this->tax($channel, $product);
-
-            $shopware6Product->addPrice($this->getPrice($channel, $product));
-            $shopware6Product->setTaxId($this->loadTaxId($channel, $tax));
-        }
+        $shopware6Product->addPrice($this->getPrice($channel, $product));
+        $shopware6Product->setTaxId($this->loadTaxId($channel, $tax));
 
         return $shopware6Product;
     }
