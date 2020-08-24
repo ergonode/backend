@@ -239,6 +239,7 @@ class ProductDraftController extends AbstractController
     ): Response {
         $draft = $this->draftProvider->provide($product);
         $value = $request->request->get('value');
+        $value = $value !== '' ? $value : null;
 
         $constraint = $this->provider->provide($attribute);
         if ($attribute->getScope()->isGlobal()) {
