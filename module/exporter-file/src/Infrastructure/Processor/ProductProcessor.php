@@ -98,6 +98,7 @@ class ProductProcessor
         $result->set('_id', $product->getId()->getValue());
         $result->set('_sku', $product->getSku()->getValue());
         $result->set('_type', $product->getType());
+        $result->set('_language', $language->getCode());
         $result->set('_template', $product->getTemplateId()->getValue());
         foreach ($attributes as $attributeId => $code) {
             $code = new AttributeCode($code);

@@ -13,6 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -39,9 +40,10 @@ class MultimediaExportProcessorStep implements ExportStepProcessInterface
     }
 
     /**
-     * @param ExportId $exportId
+     * @param ExportId          $exportId
+     * @param FileExportChannel $channel
      */
-    public function export(ExportId $exportId): void
+    public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $multimedia = $this->query->getAll();
         foreach ($multimedia as $id) {

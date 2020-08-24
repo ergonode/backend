@@ -45,6 +45,7 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
 
         $name = $data->name;
         $format = $data->format;
+        $exportType = $data->exportType;
 
         $languages = [];
         foreach ($data->languages as $language) {
@@ -55,6 +56,7 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
             ChannelId::generate(),
             $name,
             $format,
+            $exportType,
             $languages
         );
     }

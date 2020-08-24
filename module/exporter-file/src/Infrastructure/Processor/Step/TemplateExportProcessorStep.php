@@ -13,6 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -39,9 +40,10 @@ class TemplateExportProcessorStep implements ExportStepProcessInterface
     }
 
     /**
-     * @param ExportId $exportId
+     * @param ExportId          $exportId
+     * @param FileExportChannel $channel
      */
-    public function export(ExportId $exportId): void
+    public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $templates = $this->query->getAll();
         foreach ($templates as $template) {

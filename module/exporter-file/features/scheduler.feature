@@ -11,6 +11,7 @@ Feature: channel module
         {
           "type": "file",
           "format": "csv",
+          "export_type": "full",
           "name": "File export",
           "languages" : ["pl_PL"]
         }

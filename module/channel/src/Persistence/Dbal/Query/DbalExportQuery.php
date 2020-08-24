@@ -17,6 +17,7 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 
 /**
  */
@@ -120,6 +121,33 @@ class DbalExportQuery implements ExportQueryInterface
             ->setParameter(':exportId', $exportId->getValue())
             ->execute()
             ->fetch();
+    }
+
+    /**
+     * @param ChannelId $channelId
+     *
+     * @return \DateTime|null
+     *
+     * @throws \Exception
+     */
+    public function findLastExport(ChannelId $channelId): ?\DateTime
+    {
+        $qb = $this->getQuery();
+        $result = $qb
+            ->andWhere($qb->expr()->eq('e.channel_id', ':channelId'))
+            ->andWhere($qb->expr()->eq('e.status', ':status'))
+            ->setParameter(':status', ExportStatus::ENDED)
+            ->setParameter(':channelId', $channelId->getValue())
+            ->orderBy('e.ended_at', 'DESC')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return new \DateTime($result['ended_at']);
+        }
+
+        return null;
     }
 
     /**
