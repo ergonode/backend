@@ -9,20 +9,27 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
+use Ergonode\ExporterShopware6\Application\Form\Type\CustomFieldAttributeMapType;
+use Ergonode\ExporterShopware6\Application\Form\Type\PropertyGroupAttributeMapType;
+use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
+use Ergonode\Grid\Column\NumericColumn;
+use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\TextAreaAttributeColumnStrategy;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
 
 /**
  */
@@ -67,6 +74,8 @@ class Shopware6ChannelForm extends AbstractType
         $attributeDictionary = $this->attributeQuery->getDictionary();
         $priceAttributeDictionary = $this->attributeQuery->getDictionary([PriceAttribute::TYPE]);
         $textAttributeDictionary = $this->attributeQuery->getDictionary([TextAttribute::TYPE]);
+        $textareaAttributeDictionary = $this->attributeQuery->getDictionary([TextareaAttribute::TYPE]);
+        $numericAttributeDictionary = $this->attributeQuery->getDictionary([NumericAttribute::TYPE]);
         $languages = $this->languageQuery->getDictionaryActive();
         $categoryTrees = $this->categoryTreeQuery->getDictionary(new Language('en_GB'));
 
@@ -136,7 +145,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Active',
-                    'choices' => array_flip($attributeDictionary),
+                    'choices' => array_flip($numericAttributeDictionary),
                     'property_path' => 'attributeProductActive',
                 ]
             )
@@ -145,7 +154,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Stock',
-                    'choices' => array_flip($attributeDictionary),
+                    'choices' => array_flip($numericAttributeDictionary),
                     'property_path' => 'attributeProductStock',
                 ]
             )
@@ -172,7 +181,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Tax',
-                    'choices' => array_flip($attributeDictionary),
+                    'choices' => array_flip($numericAttributeDictionary),
                     'property_path' => 'attributeProductTax',
                 ]
             )
@@ -181,8 +190,9 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Description',
-                    'choices' => array_flip($attributeDictionary),
+                    'choices' => array_flip($textareaAttributeDictionary),
                     'property_path' => 'attributeProductDescription',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -203,7 +213,7 @@ class Shopware6ChannelForm extends AbstractType
                     'label' => 'List Property Group to Export',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => AttributeMapType::class,
+                    'entry_type' => PropertyGroupAttributeMapType::class,
                     'required' => false,
                 ]
             )
@@ -215,7 +225,7 @@ class Shopware6ChannelForm extends AbstractType
                     'label' => 'List custom field to export',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => AttributeMapType::class,
+                    'entry_type' => CustomFieldAttributeMapType::class,
                     'required' => false,
                 ]
             );
