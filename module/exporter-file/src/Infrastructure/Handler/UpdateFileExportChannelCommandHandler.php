@@ -41,6 +41,7 @@ class UpdateFileExportChannelCommandHandler
         $channel->setFormat($command->getFormat());
         $channel->setName($command->getName());
         $channel->setLanguages($command->getLanguages());
+        $channel->setExportType($command->getExportType());
 
         $this->repository->save($channel);
     }

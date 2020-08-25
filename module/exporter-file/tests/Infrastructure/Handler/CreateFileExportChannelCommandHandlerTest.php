@@ -12,6 +12,7 @@ use Ergonode\ExporterFile\Infrastructure\Handler\CreateFileExportChannelCommandH
 use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -22,6 +23,7 @@ class CreateFileExportChannelCommandHandlerTest extends TestCase
     public function testHandling():void
     {
         $command = $this->createMock(CreateFileExportChannelCommand::class);
+        $command->method('getExportType')->willReturn(FileExportChannel::EXPORT_INCREMENTAL);
         $repository = $this->createMock(ChannelRepositoryInterface::class);
         $repository->expects(self::once())->method('save');
 

@@ -35,6 +35,7 @@ class CreateFileExportChannelCommandBuilderTest extends TestCase
         $model = new ExporterFileConfigurationModel();
         $model->name = 'name';
         $model->format = 'format';
+        $model->exportType = FileExportChannel::EXPORT_FULL;
         $form = $this->createMock(FormInterface::class);
         $form->method('getData')->willReturn($model);
 
@@ -43,6 +44,7 @@ class CreateFileExportChannelCommandBuilderTest extends TestCase
         $result = $builder->build($form);
         self::assertInstanceOf(CreateFileExportChannelCommand::class, $result);
         self::assertEquals($model->name, $result->getName());
+        self::assertEquals($model->exportType, $result->getExportType());
         self::assertEquals($model->format, $result->getFormat());
     }
 }

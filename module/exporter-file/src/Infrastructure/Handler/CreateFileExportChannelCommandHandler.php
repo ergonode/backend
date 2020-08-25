@@ -40,6 +40,7 @@ class CreateFileExportChannelCommandHandler
             $command->getId(),
             $command->getName(),
             $command->getFormat(),
+            $command->getExportType(),
             $command->getLanguages()
         );
 

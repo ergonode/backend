@@ -35,6 +35,13 @@ class ExporterFileConfigurationModel
      *
      * @Assert\NotBlank()
      */
+    public ?string $exportType = null;
+
+    /**
+     * @var string|null
+     *
+     * @Assert\NotBlank()
+     */
     public ?string $format = null;
 
     /**
@@ -45,6 +52,7 @@ class ExporterFileConfigurationModel
         if ($channel) {
             $this->name = $channel->getName();
             $this->format = $channel->getFormat();
+            $this->exportType = $channel->getExportType();
             $this->languages = $channel->getLanguages();
         }
     }

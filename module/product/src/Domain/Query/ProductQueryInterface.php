@@ -43,6 +43,13 @@ interface ProductQueryInterface
     public function getAllIds(): array;
 
     /**
+     * @param \DateTime|null $dateTime
+     *
+     * @return array
+     */
+    public function getAllEditedIds(?\DateTime $dateTime = null): array;
+
+    /**
      * @return array
      */
     public function getAllSkus(): array;

@@ -79,6 +79,16 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
+     * @param \DateTime|null $dateTime
+     *
+     * @return array
+     */
+    public function getAllEditedIds(?\DateTime $dateTime = null): array
+    {
+        return $this->query->getAllEditedIds($dateTime);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function findProductIdByCategoryId(CategoryId $categoryId): array
