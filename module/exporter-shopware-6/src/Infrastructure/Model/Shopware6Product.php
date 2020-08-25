@@ -94,9 +94,9 @@ class Shopware6Product
     protected ?string $taxId;
 
     /**
-     * @var array|null
+     * @var Shopware6ProductPrice[]|null
      *
-     * @JMS\Type("array")
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductPrice>")
      * @JMS\SerializedName("price")
      */
     protected ?array $price;
@@ -446,11 +446,31 @@ class Shopware6Product
     }
 
     /**
-     * @param array $price
+     * @param Shopware6ProductPrice $price
      */
-    public function addPrice(array $price): void
+    public function addPrice(Shopware6ProductPrice $price): void
     {
-        $this->price[] = $price;
+        if (!$this->hasPrice($price)) {
+            $this->price[] = $price;
+            $this->modified = true;
+        }
+        $this->changePrice($price);
+    }
+
+    /**
+     * @param Shopware6ProductPrice $price
+     *
+     * @return bool
+     */
+    public function hasPrice(Shopware6ProductPrice $price): bool
+    {
+        foreach ($this->getPrice() as $item) {
+            if ($item->getCurrencyId() === $price->getCurrencyId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -616,5 +636,19 @@ class Shopware6Product
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    /**
+     * @param Shopware6ProductPrice $price
+     */
+    private function changePrice(Shopware6ProductPrice $price): void
+    {
+        foreach ($this->getPrice() as $item) {
+            if (!$item->isEqual($price) && $item->getCurrencyId() === $price->getCurrencyId()) {
+                $item->setNet($price->getNet());
+                $item->setGross($price->getGross());
+                $this->modified = true;
+            }
+        }
     }
 }

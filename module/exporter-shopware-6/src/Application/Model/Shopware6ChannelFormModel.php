@@ -8,11 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Application\Model;
 
+use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
+use Ergonode\ExporterShopware6\Application\Model\Type\CustomFieldAttributeModel;
+use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Application\Model\Type\AttributeModel;
 
 /**
  */
@@ -125,14 +126,14 @@ class Shopware6ChannelFormModel
     public ?string $categoryTree = null;
 
     /**
-     * @var AttributeModel[]
+     * @var PropertyGroupAttributeModel[]
      *
      * @Assert\Valid()
      */
     public array $propertyGroup = [];
 
     /**
-     * @var AttributeModel[]
+     * @var PropertyGroupAttributeModel[]
      *
      * @Assert\Valid()
      */
@@ -160,11 +161,11 @@ class Shopware6ChannelFormModel
             $this->categoryTree = $channel->getCategoryTree()?$channel->getCategoryTree()->getValue():null;
 
             foreach ($channel->getPropertyGroup() as $attributeId) {
-                $this->propertyGroup[] = new AttributeModel($attributeId->getValue());
+                $this->propertyGroup[] = new PropertyGroupAttributeModel($attributeId->getValue());
             }
 
             foreach ($channel->getCustomField() as $attributeId) {
-                $this->customField[] = new AttributeModel($attributeId->getValue());
+                $this->customField[] = new CustomFieldAttributeModel($attributeId->getValue());
             }
         }
     }

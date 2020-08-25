@@ -52,18 +52,24 @@ class Shopware6ProductActiveMapper implements Shopware6ProductMapperInterface
         Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
+        $active = false;
 
         $attribute = $this->repository->load($channel->getAttributeProductActive());
         Assert::notNull($attribute);
+
         if (false === $product->hasAttribute($attribute->getCode())) {
+            $shopware6Product->setActive($active);
+
             return $shopware6Product;
         }
 
         $value = $product->getAttribute($attribute->getCode());
         $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
+
         if ($calculateValue > 0) {
-            $shopware6Product->setActive(true);
+            $active = true;
         }
+        $shopware6Product->setActive($active);
 
 
         return $shopware6Product;

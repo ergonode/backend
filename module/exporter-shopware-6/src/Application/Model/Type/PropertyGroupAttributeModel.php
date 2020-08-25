@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
-class AttributeModel
+class PropertyGroupAttributeModel
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank()
      */
