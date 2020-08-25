@@ -12,7 +12,9 @@ use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -37,13 +39,23 @@ class Shopware6ChannelForm extends AbstractType
     private LanguageQueryInterface $languageQuery;
 
     /**
+     * @var TreeQueryInterface
+     */
+    private TreeQueryInterface $categoryTreeQuery;
+
+    /**
      * @param AttributeQueryInterface $attributeQuery
      * @param LanguageQueryInterface  $languageQuery
+     * @param TreeQueryInterface      $categoryTreeQuery
      */
-    public function __construct(AttributeQueryInterface $attributeQuery, LanguageQueryInterface $languageQuery)
-    {
+    public function __construct(
+        AttributeQueryInterface $attributeQuery,
+        LanguageQueryInterface $languageQuery,
+        TreeQueryInterface $categoryTreeQuery
+    ) {
         $this->attributeQuery = $attributeQuery;
         $this->languageQuery = $languageQuery;
+        $this->categoryTreeQuery = $categoryTreeQuery;
     }
 
     /**
@@ -56,11 +68,15 @@ class Shopware6ChannelForm extends AbstractType
         $priceAttributeDictionary = $this->attributeQuery->getDictionary([PriceAttribute::TYPE]);
         $textAttributeDictionary = $this->attributeQuery->getDictionary([TextAttribute::TYPE]);
         $languages = $this->languageQuery->getDictionaryActive();
+        $categoryTrees = $this->categoryTreeQuery->getDictionary(new Language('en_GB'));
 
         $builder
             ->add(
                 'name',
-                TextType::class
+                TextType::class,
+                [
+                    'label' => 'Name',
+                ]
             )
             ->add(
                 'host',
@@ -171,10 +187,11 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'category_tree',
-                TextType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Category tree',
                     'property_path' => 'categoryTree',
+                    'choices' => array_flip($categoryTrees),
                     'required' => false,
                 ]
             )

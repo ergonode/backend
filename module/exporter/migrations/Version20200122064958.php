@@ -73,6 +73,11 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 PRIMARY KEY (id)
             )
         ');
+        $this->addSql(
+            'ALTER TABLE exporter.export 
+                    ADD CONSTRAINT export_channel_id_fk FOREIGN KEY (channel_id) 
+                    REFERENCES exporter.channel ON UPDATE CASCADE ON DELETE CASCADE'
+        );
 
         $this->addSql('
             CREATE TABLE exporter.export_line(
@@ -83,6 +88,12 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 PRIMARY KEY (export_id, object_id)
             )
         ');
+
+        $this->addSql(
+            'ALTER TABLE exporter.export_line 
+                    ADD CONSTRAINT export_line_export_id_fk FOREIGN KEY (export_id) 
+                    REFERENCES exporter.export ON UPDATE CASCADE ON DELETE CASCADE'
+        );
     }
 
     /**
