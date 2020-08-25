@@ -8,11 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Application\Model;
 
+use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
+use Ergonode\ExporterShopware6\Application\Model\Type\CustomFieldAttributeModel;
+use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
 
 /**
  */
@@ -164,7 +165,7 @@ class Shopware6ChannelFormModel
             }
 
             foreach ($channel->getCustomField() as $attributeId) {
-                $this->customField[] = new PropertyGroupAttributeModel($attributeId->getValue());
+                $this->customField[] = new CustomFieldAttributeModel($attributeId->getValue());
             }
         }
     }

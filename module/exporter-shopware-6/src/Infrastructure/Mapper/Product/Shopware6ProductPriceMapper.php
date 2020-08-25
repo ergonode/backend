@@ -18,6 +18,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInh
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductPrice;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
@@ -90,14 +91,14 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
      * @param Shopware6Channel $channel
      * @param AbstractProduct  $product
      *
-     * @return array
+     * @return Shopware6ProductPrice
      *
      * @throws Shopware6ExporterMapperException
      */
     public function getPrice(
         Shopware6Channel $channel,
         AbstractProduct $product
-    ): array {
+    ): Shopware6ProductPrice {
 
         /** @var PriceAttribute $attribute */
         $attribute = $this->repository->load($channel->getAttributeProductPriceGross());
@@ -112,12 +113,11 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
             $product
         );
 
-        return [
-            'currencyId' => $this->loadCurrencyId($channel, $attribute),
-            'net' => round($priceNet, self::PRECISION),
-            'linked' => false,
-            'gross' => round($priceGross, self::PRECISION),
-        ];
+        return new Shopware6ProductPrice(
+            $this->loadCurrencyId($channel, $attribute),
+            round($priceNet, self::PRECISION),
+            round($priceGross, self::PRECISION)
+        );
     }
 
     /**
