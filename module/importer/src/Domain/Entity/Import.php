@@ -19,7 +19,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 class Import
 {
     /**
-     * @var ImportId;
+     * @var ImportId
      */
     protected ImportId $id;
 

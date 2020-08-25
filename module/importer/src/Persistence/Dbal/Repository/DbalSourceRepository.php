@@ -122,7 +122,7 @@ class DbalSourceRepository implements SourceRepositoryInterface
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function remove(AbstractSource $source): void
+    public function delete(AbstractSource $source): void
     {
         $this->connection->delete(
             self::TABLE,
