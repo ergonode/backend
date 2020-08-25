@@ -48,7 +48,6 @@ class ImportGrid extends AbstractGrid
     {
         $status = [];
         foreach ($this->dictionary->getDictionary($language) as $key => $value) {
-
             $status[] = new LabelFilterOption($key, $value);
         }
 
