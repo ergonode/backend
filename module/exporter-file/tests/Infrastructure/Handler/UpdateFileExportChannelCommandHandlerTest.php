@@ -26,6 +26,7 @@ class UpdateFileExportChannelCommandHandlerTest extends TestCase
         $channel->expects(self::once())->method('setName');
         $channel->expects(self::once())->method('setFormat');
         $command = $this->createMock(UpdateFileExportChannelCommand::class);
+        $command->method('getExportType')->willReturn(FileExportChannel::EXPORT_INCREMENTAL);
         $repository = $this->createMock(ChannelRepositoryInterface::class);
         $repository->expects(self::once())->method('load')->willReturn($channel);
         $repository->expects(self::once())->method('save');

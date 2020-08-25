@@ -45,4 +45,11 @@ interface ExportQueryInterface
      * @return array
      */
     public function getInformation(ExportId $exportId): array;
+
+    /**
+     * @param ChannelId $channelId
+     *
+     * @return \DateTime|null
+     */
+    public function findLastExport(ChannelId $channelId): ?\DateTime;
 }

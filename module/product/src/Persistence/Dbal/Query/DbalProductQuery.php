@@ -121,6 +121,34 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
+     * @param \DateTime|null $dateTime
+     *
+     * @return array
+     */
+    public function getAllEditedIds(?\DateTime $dateTime = null): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $qb
+            ->select('id')
+            ->from(self::PRODUCT_TABLE);
+        if ($dateTime) {
+            $qb
+                ->where($qb->expr()->gte('updated_at', ':updatedAt'))
+                ->setParameter(':updatedAt', $dateTime->format('Y-m-d H:i:s'));
+        }
+
+        $result = $qb
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false !== $result) {
+            return $result;
+        }
+
+        return [];
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getAllSkus(): array

@@ -34,4 +34,9 @@ interface ImportRepositoryInterface
      * @return bool
      */
     public function exists(ImportId $id): bool;
+
+    /**
+     * @param Import $import
+     */
+    public function delete(Import $import): void;
 }

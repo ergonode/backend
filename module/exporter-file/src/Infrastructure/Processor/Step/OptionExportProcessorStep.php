@@ -13,6 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -39,9 +40,10 @@ class OptionExportProcessorStep implements ExportStepProcessInterface
     }
 
     /**
-     * @param ExportId $exportId
+     * @param ExportId          $exportId
+     * @param FileExportChannel $channel
      */
-    public function export(ExportId $exportId): void
+    public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $options = $this->query->getAll();
         foreach ($options as $option) {

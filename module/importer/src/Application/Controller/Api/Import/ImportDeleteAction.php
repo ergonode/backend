@@ -1,20 +1,19 @@
 <?php
-
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Application\Controller\Api\Source;
+namespace Ergonode\Importer\Application\Controller\Api\Import;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Exception\NotImplementedException;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\DeleteSourceCommand;
+use Ergonode\Importer\Domain\Command\Import\DeleteImportCommand;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -25,13 +24,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_source_delete",
- *     path="/sources/{source}",
+ *     name="ergonode_import_delete",
+ *     path="/sources/{source}/imports/{import}",
  *     methods={"DELETE"},
- *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={
+ *          "source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *          "import" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+ *     }
  * )
  */
-class SourceDeleteAction
+class ImportDeleteAction
 {
     /**
      * @var RelationshipsResolverInterface
@@ -81,13 +83,19 @@ class SourceDeleteAction
      *     type="string",
      *     description="Source id",
      * )
+     * @SWG\Parameter(
+     *     name="import",
+     *     in="path",
+     *     type="string",
+     *     description="Import id",
+     * )
      * @SWG\Response(
      *     response=204,
-     *     description="Successful removing source"
+     *     description="Successful removing import"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Source not exists"
+     *     description="Import not exists"
      * )
      * @SWG\Response(
      *     response=409,
@@ -95,21 +103,25 @@ class SourceDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
      *
      * @param AbstractSource $source
+     * @param Import         $import
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractSource $source): Response
-    {
-        $relationships = $this->relationshipsResolver->resolve($source->getId());
+    public function __invoke(
+        AbstractSource $source,
+        Import $import
+    ): Response {
+
+        $relationships = $this->relationshipsResolver->resolve($import->getId());
         if (!$relationships->isEmpty()) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
-
-        $command = new DeleteSourceCommand($source->getId());
+        $command = new DeleteImportCommand($import->getId());
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

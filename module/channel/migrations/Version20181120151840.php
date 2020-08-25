@@ -43,6 +43,11 @@ final class Version20181120151840 extends AbstractErgonodeMigration
                     PRIMARY KEY (id)
                  )'
         );
+        $this->addSql(
+            'ALTER TABLE exporter.scheduler 
+                    ADD CONSTRAINT scheduler_channel_fk FOREIGN KEY (id) 
+                    REFERENCES exporter.channel ON UPDATE CASCADE ON DELETE CASCADE'
+        );
 
         $this->createPrivileges([
             'CHANNEL_CREATE' => 'Channel',
