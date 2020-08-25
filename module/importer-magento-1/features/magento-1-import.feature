@@ -205,7 +205,7 @@ Feature: Magento 1 CSV module
     And the JSON nodes should be equal to:
       | id        | @import_id@ |
       | source_id | @source_id@ |
-      | status    | PRECESSED   |
+      | status    | Processing   |
     And the JSON node "errors" should not be null
     And the JSON node "records" should not be null
     And the JSON node "created_at" should not be null
