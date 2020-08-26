@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
-use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 /**

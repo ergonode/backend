@@ -54,7 +54,7 @@ class TextAttributeValueConditionConditionConfigurationStrategy implements Condi
      */
     public function getConfiguration(Language $language): array
     {
-        $codes = $this->query->getDictionary([TextAttribute::TYPE, TextareaAttribute::TYPE]);
+        $codes = $this->query->getDictionary([TextAttribute::TYPE]);
         asort($codes);
 
         return [
