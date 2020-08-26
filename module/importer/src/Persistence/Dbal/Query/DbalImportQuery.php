@@ -18,6 +18,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -29,11 +30,18 @@ class DbalImportQuery implements ImportQueryInterface
     private Connection $connection;
 
     /**
-     * @param Connection $connection
+     * @var TranslatorInterface
      */
-    public function __construct(Connection $connection)
+    private TranslatorInterface $translator;
+
+    /**
+     * @param Connection          $connection
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(Connection $connection, TranslatorInterface $translator)
     {
         $this->connection = $connection;
+        $this->translator = $translator;
     }
 
     /**
@@ -106,11 +114,15 @@ class DbalImportQuery implements ImportQueryInterface
     {
         $query = $this->getQuery();
 
-        return $query
+        $result = $query
             ->where($query->expr()->eq('id', ':importId'))
             ->setParameter(':importId', $id->getValue())
             ->execute()
             ->fetch();
+
+        $result['status'] = $this->translator->trans($result['status'], [], 'import', $language->getCode());
+
+        return $result;
     }
 
     /**

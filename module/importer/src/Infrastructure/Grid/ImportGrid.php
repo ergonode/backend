@@ -18,18 +18,39 @@ use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Column\LinkColumn;
-use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Column\SelectColumn;
+use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
+use Ergonode\Importer\Infrastructure\Dictionary\ImportStatusDictionary;
 
 /**
  */
 class ImportGrid extends AbstractGrid
 {
     /**
+     * @var ImportStatusDictionary
+     */
+    private ImportStatusDictionary $dictionary;
+
+    /**
+     * @param ImportStatusDictionary $dictionary
+     */
+    public function __construct(ImportStatusDictionary $dictionary)
+    {
+        $this->dictionary = $dictionary;
+    }
+
+    /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
+        $status = [];
+        foreach ($this->dictionary->getDictionary($language) as $key => $value) {
+            $status[] = new LabelFilterOption($key, $value);
+        }
+
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
@@ -41,7 +62,7 @@ class ImportGrid extends AbstractGrid
         $this->addColumn('ended_at', $endedAt);
         $records = new IntegerColumn('records', 'Records', new TextFilter());
         $this->addColumn('records', $records);
-        $status = new TextColumn('status', 'Status', new TextFilter());
+        $status = new SelectColumn('status', 'Status', new MultiSelectFilter($status));
         $this->addColumn('status', $status);
         $errors = new IntegerColumn('errors', 'Errors', new TextFilter());
         $this->addColumn('errors', $errors);

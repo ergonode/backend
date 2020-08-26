@@ -21,6 +21,7 @@ use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Column\SelectColumn;
 
 /**
  */
@@ -66,8 +67,8 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('email', new TextColumn('email', 'Email', new TextFilter()));
         $this->addColumn('first_name', new TextColumn('first_name', 'First Name', new TextFilter()));
         $this->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter()));
-        $this->addColumn('language', new TextColumn('language', 'Language', new MultiSelectFilter($languages)));
-        $this->addColumn('role_id', new TextColumn('role_id', 'Roles', new MultiSelectFilter($roles)));
+        $this->addColumn('language', new SelectColumn('language', 'Language', new MultiSelectFilter($languages)));
+        $this->addColumn('role_id', new SelectColumn('role_id', 'Roles', new MultiSelectFilter($roles)));
         $this->addColumn('is_active', new BoolColumn('is_active', 'Activity'));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [

@@ -44,6 +44,7 @@ class UpdateFileExportChannelCommandBuilder implements UpdateChannelCommandBuild
 
         $name = $data->name;
         $format = $data->format;
+        $exportType = $data->exportType;
 
         $languages = [];
         foreach ($data->languages as $language) {
@@ -54,6 +55,7 @@ class UpdateFileExportChannelCommandBuilder implements UpdateChannelCommandBuild
             $channelId,
             $name,
             $format,
+            $exportType,
             $languages,
         );
     }

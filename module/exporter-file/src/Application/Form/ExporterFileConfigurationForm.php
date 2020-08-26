@@ -15,8 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\ExporterFile\Infrastructure\Dictionary\WriterTypeDictionary;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -50,6 +50,7 @@ class ExporterFileConfigurationForm extends AbstractType
     {
         $types = $this->dictionary->dictionary();
         $languages = $this->query->getDictionaryActive();
+        $exportType = array_combine(FileExportChannel::EXPORT_TYPES, FileExportChannel::EXPORT_TYPES);
 
         $builder
             ->add(
@@ -66,6 +67,15 @@ class ExporterFileConfigurationForm extends AbstractType
                     'label' => 'Languages',
                     'choices' => $languages,
                     'multiple' => true,
+                ]
+            )
+            ->add(
+                'export_type',
+                ChoiceType::class,
+                [
+                    'label' => 'Export type',
+                    'choices' => $exportType,
+                    'property_path' => 'exportType',
                 ]
             )
             ->add(

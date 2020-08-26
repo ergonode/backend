@@ -8,16 +8,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Application\Form\Type;
 
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\ExporterShopware6\Application\Model\Type\AttributeModel;
+use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
 
 /**
  */
-class AttributeMapType extends AbstractType
+class PropertyGroupAttributeMapType extends AbstractType
 {
     /**
      * @var AttributeQueryInterface
@@ -37,7 +39,7 @@ class AttributeMapType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $dictionary = $this->query->getDictionary();
+        $dictionary = $this->query->getDictionary([SelectAttribute::TYPE, MultiSelectAttribute::TYPE]);
 
         $builder
             ->add(
@@ -57,7 +59,7 @@ class AttributeMapType extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'exporter',
-            'data_class' => AttributeModel::class,
+            'data_class' => PropertyGroupAttributeModel::class,
         ]);
     }
 }
