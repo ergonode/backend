@@ -19,7 +19,7 @@ class CategoryTreeCreateFormModel
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Category tree code is required")
+     * @Assert\NotBlank(message="Category tree system name is required")
      * @Assert\Length(max=64)
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$/i",
