@@ -10,9 +10,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\ProcessShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
@@ -23,7 +25,12 @@ class Shopware6SimpleProductStep implements Shopware6ExportStepProcessInterface
     /**
      * @var ProductQueryInterface
      */
-    private ProductQueryInterface $query;
+    private ProductQueryInterface $productQuery;
+
+    /**
+     * @var SegmentProductsQueryInterface
+     */
+    private SegmentProductsQueryInterface  $segmentProductsQuery;
 
     /**
      * @var CommandBusInterface
@@ -31,25 +38,47 @@ class Shopware6SimpleProductStep implements Shopware6ExportStepProcessInterface
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ProductQueryInterface $query
-     * @param CommandBusInterface   $commandBus
+     * @param ProductQueryInterface         $productQuery
+     * @param SegmentProductsQueryInterface $segmentProductsQuery
+     * @param CommandBusInterface           $commandBus
      */
-    public function __construct(ProductQueryInterface $query, CommandBusInterface $commandBus)
-    {
-        $this->query = $query;
+    public function __construct(
+        ProductQueryInterface $productQuery,
+        SegmentProductsQueryInterface $segmentProductsQuery,
+        CommandBusInterface $commandBus
+    ) {
+        $this->productQuery = $productQuery;
+        $this->segmentProductsQuery = $segmentProductsQuery;
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @param ExportId $exportId
+     * @param ExportId         $exportId
+     * @param Shopware6Channel $channel
      */
-    public function export(ExportId $exportId): void
+    public function export(ExportId $exportId, Shopware6Channel $channel): void
     {
-        foreach ($this->query->findProductIdByType(SimpleProduct::TYPE) as $product) {
+        $productList = $this->getProduct($channel);
+        foreach ($productList as $product) {
             $productId = new ProductId($product);
 
             $processCommand = new ProcessShopware6ExportCommand($exportId, $productId);
             $this->commandBus->dispatch($processCommand, true);
         }
+    }
+
+
+    /**
+     * @param Shopware6Channel $channel
+     *
+     * @return array
+     */
+    private function getProduct(Shopware6Channel $channel): array
+    {
+        if ($channel->getSegment()) {
+            return $this->segmentProductsQuery->getProductsByType($channel->getSegment(), SimpleProduct::TYPE);
+        }
+
+        return $this->productQuery->findProductIdByType(SimpleProduct::TYPE);
     }
 }

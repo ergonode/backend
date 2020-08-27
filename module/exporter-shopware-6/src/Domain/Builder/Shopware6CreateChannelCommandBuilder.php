@@ -12,6 +12,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Channel\Application\Provider\CreateChannelCommandBuilderInterface;
@@ -49,6 +50,7 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
         $host = $data->host;
         $clientId = $data->clientId;
         $clientKey = $data->clientKey;
+        $segment = $data->segment;
         $defaultLanguage = $data->defaultLanguage;
         $languages = $data->languages;
         $attributeProductName = $data->attributeProductName;
@@ -81,6 +83,7 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $host,
             $clientId,
             $clientKey,
+            $segment ? new SegmentId($segment) : null,
             new Language($defaultLanguage),
             $languageObjects,
             $attributeProductName,

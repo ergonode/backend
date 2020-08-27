@@ -12,6 +12,7 @@ namespace Ergonode\ExporterShopware6\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
@@ -42,6 +43,13 @@ class Shopware6Channel extends AbstractChannel
      * @JMS\Type("string")
      */
     private string $clientKey;
+
+    /**
+     * @var SegmentId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
+     */
+    private ?SegmentId $segment;
 
     /**
      * @var Language
@@ -133,6 +141,7 @@ class Shopware6Channel extends AbstractChannel
      * @param string              $host
      * @param string              $clientId
      * @param string              $clientKey
+     * @param SegmentId|null      $segment
      * @param Language            $defaultLanguage
      * @param Language[]          $languages
      * @param AttributeId         $attributeProductName
@@ -152,6 +161,7 @@ class Shopware6Channel extends AbstractChannel
         string $host,
         string $clientId,
         string $clientKey,
+        ?SegmentId $segment,
         Language $defaultLanguage,
         array $languages,
         AttributeId $attributeProductName,
@@ -170,6 +180,7 @@ class Shopware6Channel extends AbstractChannel
         $this->host = $host;
         $this->clientId = $clientId;
         $this->clientKey = $clientKey;
+        $this->segment = $segment;
         $this->defaultLanguage = $defaultLanguage;
         $this->languages = $languages;
         $this->attributeProductName = $attributeProductName;
@@ -214,6 +225,14 @@ class Shopware6Channel extends AbstractChannel
     public function getClientKey(): string
     {
         return $this->clientKey;
+    }
+
+    /**
+     * @return SegmentId|null
+     */
+    public function getSegment(): ?SegmentId
+    {
+        return $this->segment;
     }
 
     /**
@@ -334,6 +353,14 @@ class Shopware6Channel extends AbstractChannel
     public function setClientKey(string $clientKey): void
     {
         $this->clientKey = $clientKey;
+    }
+
+    /**
+     * @param SegmentId|null $segment
+     */
+    public function setSegment(?SegmentId $segment): void
+    {
+        $this->segment = $segment;
     }
 
     /**

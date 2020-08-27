@@ -75,7 +75,7 @@ class ProcessExportCommandHandler
         if ($channel instanceof Shopware6Channel) {
             $this->commandBus->dispatch(new StartShopware6ExportCommand($export->getId()), true);
             foreach ($this->steps as $step) {
-                $step->export($export->getId());
+                $step->export($export->getId(), $channel);
             }
             $this->commandBus->dispatch(new EndShopware6ExportCommand($export->getId()), true);
         }
