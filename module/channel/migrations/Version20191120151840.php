@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-final class Version20181120151840 extends AbstractErgonodeMigration
+final class Version20191120151840 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
@@ -55,6 +55,8 @@ final class Version20181120151840 extends AbstractErgonodeMigration
             'CHANNEL_UPDATE' => 'Channel',
             'CHANNEL_DELETE' => 'Channel',
         ]);
+
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Channel']);
 
         $this->createEventStoreEvents([
             'Ergonode\Channel\Domain\Event\ChannelCreatedEvent' => 'Channel created',

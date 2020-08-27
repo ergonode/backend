@@ -26,7 +26,7 @@ class ExporterFileConfigurationModel
     /**
      * @var array
      *
-     * @Assert\NotBlank()
+     * @Assert\Count(min=1, minMessage="At least one language must be selected")
      */
     public array $languages = [];
 
