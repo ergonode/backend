@@ -13,8 +13,8 @@ use Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Ergonode\Core\Infrastructure\Validator\Constraint\LanguageCodeActive;
 
 /**
  */
@@ -44,7 +44,7 @@ class LanguageCompletenessConditionValidatorStrategy implements ConditionValidat
                 ],
                 'language' => [
                     new NotBlank(),
-                    new Length(2),
+                    new LanguageCodeActive(),
                 ],
             ]
         );
