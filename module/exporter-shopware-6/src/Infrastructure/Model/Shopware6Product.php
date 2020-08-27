@@ -134,6 +134,13 @@ class Shopware6Product
     protected ?array $configuratorSettings = null;
 
     /**
+     * @var array
+     *
+     * @JMS\Exclude()
+     */
+    private array $propertyToRemove = [];
+
+    /**
      * @var bool
      *
      * @JMS\Exclude()
@@ -186,6 +193,7 @@ class Shopware6Product
         $this->taxId = $taxId;
         $this->price = $price;
         $this->media = $media;
+        $this->setPropertyToRemove($properties);
     }
 
     /**
@@ -318,6 +326,7 @@ class Shopware6Product
             ];
             $this->modified = true;
         }
+        unset($this->propertyToRemove[$propertyId]);
     }
 
     /**
@@ -334,6 +343,14 @@ class Shopware6Product
         }
 
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPropertyToRemove(): array
+    {
+        return $this->propertyToRemove;
     }
 
     /**
@@ -635,8 +652,21 @@ class Shopware6Product
      */
     public function isModified(): bool
     {
-        return $this->modified;
+        return $this->modified || count($this->propertyToRemove) > 0;
     }
+
+    /**
+     * @param array|null $property
+     */
+    private function setPropertyToRemove(?array $property): void
+    {
+        if ($property) {
+            foreach ($property as $item) {
+                $this->propertyToRemove[$item['id']] = $item['id'];
+            }
+        }
+    }
+
 
     /**
      * @param Shopware6ProductPrice $price

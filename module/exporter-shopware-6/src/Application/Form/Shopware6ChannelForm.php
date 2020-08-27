@@ -122,7 +122,7 @@ class Shopware6ChannelForm extends AbstractType
                 [
                     'label' => 'Segment',
                     'property_path' => 'segment',
-                    'choices' => array_merge(['' => null], array_flip($segmentDictionary)),
+                    'choices' => array_flip($segmentDictionary),
                 ]
             )
             ->add(
@@ -215,7 +215,7 @@ class Shopware6ChannelForm extends AbstractType
                 [
                     'label' => 'Category tree',
                     'property_path' => 'categoryTree',
-                    'choices' => array_merge(['' => null], array_flip($categoryTrees)),
+                    'choices' => array_flip($categoryTrees),
                     'required' => false,
                 ]
             )
