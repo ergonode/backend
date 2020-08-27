@@ -13,6 +13,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Configura
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProductList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PatchProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Properties\DeleteProperties;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductConfiguratorSettings;
@@ -110,6 +111,20 @@ class Shopware6ProductClient
             $action->addHeader('sw-language-id', $shopware6Language->getId());
         }
         $this->connector->execute($channel, $action);
+
+        $this->removeProperty($channel, $product);
+    }
+
+    /**
+     * @param Shopware6Channel $channel
+     * @param Shopware6Product $product
+     */
+    private function removeProperty(Shopware6Channel $channel, Shopware6Product $product): void
+    {
+        foreach ($product->getPropertyToRemove() as $propertyId) {
+            $action = new DeleteProperties($product->getId(), $propertyId);
+            $this->connector->execute($channel, $action);
+        }
     }
 
     /**

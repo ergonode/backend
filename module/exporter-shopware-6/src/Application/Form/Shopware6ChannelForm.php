@@ -9,10 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
@@ -22,8 +20,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Application\Form\Type\CustomFieldAttributeMapType;
 use Ergonode\ExporterShopware6\Application\Form\Type\PropertyGroupAttributeMapType;
 use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
-use Ergonode\Grid\Column\NumericColumn;
-use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\TextAreaAttributeColumnStrategy;
+use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -51,18 +48,26 @@ class Shopware6ChannelForm extends AbstractType
     private TreeQueryInterface $categoryTreeQuery;
 
     /**
+     * @var SegmentQueryInterface
+     */
+    private SegmentQueryInterface $segmentQuery;
+
+    /**
      * @param AttributeQueryInterface $attributeQuery
      * @param LanguageQueryInterface  $languageQuery
      * @param TreeQueryInterface      $categoryTreeQuery
+     * @param SegmentQueryInterface   $segmentQuery
      */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         LanguageQueryInterface $languageQuery,
-        TreeQueryInterface $categoryTreeQuery
+        TreeQueryInterface $categoryTreeQuery,
+        SegmentQueryInterface $segmentQuery
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->languageQuery = $languageQuery;
         $this->categoryTreeQuery = $categoryTreeQuery;
+        $this->segmentQuery = $segmentQuery;
     }
 
     /**
@@ -71,13 +76,13 @@ class Shopware6ChannelForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $attributeDictionary = $this->attributeQuery->getDictionary();
         $priceAttributeDictionary = $this->attributeQuery->getDictionary([PriceAttribute::TYPE]);
         $textAttributeDictionary = $this->attributeQuery->getDictionary([TextAttribute::TYPE]);
         $textareaAttributeDictionary = $this->attributeQuery->getDictionary([TextareaAttribute::TYPE]);
         $numericAttributeDictionary = $this->attributeQuery->getDictionary([NumericAttribute::TYPE]);
         $languages = $this->languageQuery->getDictionaryActive();
         $categoryTrees = $this->categoryTreeQuery->getDictionary(new Language('en_GB'));
+        $segmentDictionary = $this->segmentQuery->getDictionary();
 
         $builder
             ->add(
@@ -109,6 +114,15 @@ class Shopware6ChannelForm extends AbstractType
                 [
                     'label' => 'Secret access key',
                     'property_path' => 'clientKey',
+                ]
+            )
+            ->add(
+                'segment',
+                ChoiceType::class,
+                [
+                    'label' => 'Segment',
+                    'property_path' => 'segment',
+                    'choices' => array_flip($segmentDictionary),
                 ]
             )
             ->add(

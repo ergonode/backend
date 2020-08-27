@@ -34,7 +34,7 @@ class Shopware6ProductConfiguratorSettings
      * @param string|null $id
      * @param string|null $optionId
      */
-    public function __construct(?string $id, ?string $optionId)
+    public function __construct(?string $id = null, ?string $optionId = null)
     {
         $this->id = $id;
         $this->optionId = $optionId;

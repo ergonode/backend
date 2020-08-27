@@ -42,6 +42,7 @@ class UpdateShopware6ChannelCommandHandler
         $channel->setHost($command->getHost());
         $channel->setClientId($command->getClientId());
         $channel->setClientKey($command->getClientKey());
+        $channel->setSegment($command->getSegment());
         $channel->setDefaultLanguage($command->getDefaultLanguage());
         $channel->setLanguages($command->getLanguages());
         $channel->setAttributeProductName($command->getProductName());
