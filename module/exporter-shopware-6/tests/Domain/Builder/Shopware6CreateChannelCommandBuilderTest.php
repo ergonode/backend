@@ -8,14 +8,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Builder;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
 use Ergonode\ExporterShopware6\Domain\Builder\Shopware6CreateChannelCommandBuilder;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Command\CreateShopware6ChannelCommand;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormInterface;
 
 /**
  */
@@ -41,6 +41,7 @@ class Shopware6CreateChannelCommandBuilderTest extends TestCase
         $model->clientKey = 'client_key';
         $model->defaultLanguage = 'en_GB';
         $model->languages = ['en_GB'];
+        $model->segment = SegmentId::generate()->getValue();
         $model->attributeProductName = $this->createMock(AttributeId::class);
         $model->attributeProductActive = $this->createMock(AttributeId::class);
         $model->attributeProductStock = $this->createMock(AttributeId::class);
@@ -61,6 +62,7 @@ class Shopware6CreateChannelCommandBuilderTest extends TestCase
 
         self::assertEquals($model->clientId, $result->getClientId());
         self::assertEquals($model->clientKey, $result->getClientKey());
+        self::assertEquals($model->segment, $result->getSegment()->getValue());
         self::assertEquals($model->defaultLanguage, $result->getDefaultLanguage());
         self::assertEquals($model->languages, $result->getLanguages());
         self::assertEquals($model->attributeProductName, $result->getProductName());

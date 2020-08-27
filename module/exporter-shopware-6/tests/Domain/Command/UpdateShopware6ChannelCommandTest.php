@@ -13,6 +13,7 @@ use Ergonode\ExporterShopware6\Domain\Command\UpdateShopware6ChannelCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +44,11 @@ class UpdateShopware6ChannelCommandTest extends TestCase
      * @var string
      */
     private string $clientKey;
+
+    /**
+     * @var SegmentId|MockObject
+     */
+    private SegmentId $segment;
 
     /**
      * @var Language|MockObject
@@ -103,6 +109,7 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         $this->host = 'http://example';
         $this->clientId = 'Any Client ID';
         $this->clientKey = 'Any Client KEY';
+        $this->segment = $this->createMock(SegmentId::class);
         $this->defaultLanguage = $this->createMock(Language::class);
         $this->languages = [$this->createMock(Language::class)];
         $this->productName = $this->createMock(AttributeId::class);
@@ -125,6 +132,7 @@ class UpdateShopware6ChannelCommandTest extends TestCase
             $this->host,
             $this->clientId,
             $this->clientKey,
+            $this->segment,
             $this->defaultLanguage,
             $this->languages,
             $this->productName,
@@ -144,6 +152,7 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->host, $command->getHost());
         self::assertEquals($this->clientId, $command->getClientId());
         self::assertEquals($this->clientKey, $command->getClientKey());
+        self::assertEquals($this->segment, $command->getSegment());
         self::assertEquals($this->defaultLanguage, $command->getDefaultLanguage());
         self::assertEquals($this->languages, $command->getLanguages());
         self::assertEquals($this->productName, $command->getProductName());

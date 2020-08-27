@@ -29,4 +29,12 @@ interface SegmentProductsQueryInterface
      * @return string[]
      */
     public function getProducts(SegmentId $segmentId): array;
+
+    /**
+     * @param SegmentId $segmentId
+     * @param string    $type
+     *
+     * @return array
+     */
+    public function getProductsByType(SegmentId $segmentId, string $type): array;
 }
