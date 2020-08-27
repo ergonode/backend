@@ -32,6 +32,7 @@ class StoreViewType extends AbstractType
                 [
                     'property_path' => 'defaultLanguage',
                     'empty_data' => 'en_GB',
+                    'label' => 'Default language',
                 ]
             )
             ->add(
