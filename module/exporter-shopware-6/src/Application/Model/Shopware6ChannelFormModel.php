@@ -154,7 +154,7 @@ class Shopware6ChannelFormModel
             $this->host = $channel->getHost();
             $this->clientId = $channel->getClientId();
             $this->clientKey = $channel->getClientKey();
-            $this->segment = $channel->getSegment();
+            $this->segment = $channel->getSegment() ? $channel->getSegment()->getValue() : null;
             $this->defaultLanguage = $channel->getDefaultLanguage()->getCode();
             $this->languages = $channel->getLanguages();
             $this->attributeProductName = $channel->getAttributeProductName();
