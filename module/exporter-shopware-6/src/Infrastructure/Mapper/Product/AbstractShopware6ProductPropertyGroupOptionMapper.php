@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
@@ -26,24 +27,24 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends AbstractShopware6ProductPropertyGroupMapper
 {
     /**
-     * @var OptionRepositoryInterface
+     * @var Shopware6PropertyGroupOptionsRepositoryInterface
      */
-    private OptionRepositoryInterface $optionRepository;
+    private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
     /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param Shopware6PropertyGroupOptionClient        $propertyGroupOptionClient
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     * @param OptionRepositoryInterface                 $optionRepository
+     * @param AttributeRepositoryInterface                     $repository
+     * @param Shopware6PropertyGroupOptionClient               $propertyGroupOptionClient
+     * @param AttributeTranslationInheritanceCalculator        $calculator
+     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
      */
     public function __construct(
         AttributeRepositoryInterface $repository,
         Shopware6PropertyGroupOptionClient $propertyGroupOptionClient,
         AttributeTranslationInheritanceCalculator $calculator,
-        OptionRepositoryInterface $optionRepository
+        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
     ) {
         parent::__construct($repository, $propertyGroupOptionClient, $calculator);
-        $this->optionRepository = $optionRepository;
+        $this->propertyGroupOptionsRepository = $propertyGroupOptionsRepository;
     }
 
     /**
@@ -63,45 +64,18 @@ abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends Abstrac
             $options = explode(',', $calculateValue);
             foreach ($options as $optionValue) {
                 $optionId = new AggregateId($optionValue);
-                $option = $this->optionRepository->load($optionId);
-                if ($option) {
-                    $propertyGroupOptions = $this->createPropertyGroupOptionsFromOptions($channel, $option);
-                    $propertyId = $this->propertyGroupOptionClient->findByNameOrCreate(
-                        $channel,
-                        $attribute->getId(),
-                        $propertyGroupOptions
-                    );
-                    if ($propertyId) {
-                        $shopware6Product->addProperty($propertyId);
-                    }
+
+                $propertyId = $this->propertyGroupOptionsRepository->load(
+                    $channel->getId(),
+                    $attribute->getId(),
+                    $optionId
+                );
+                if ($propertyId) {
+                    $shopware6Product->addProperty($propertyId);
                 }
             }
         }
 
         return $shopware6Product;
-    }
-
-    /**
-     * @param Shopware6Channel $channel
-     * @param AbstractOption   $option
-     *
-     * @return Shopware6PropertyGroupOption
-     */
-    private function createPropertyGroupOptionsFromOptions(
-        Shopware6Channel $channel,
-        AbstractOption $option
-    ): Shopware6PropertyGroupOption {
-        $name = $option->getLabel()->get($channel->getDefaultLanguage());
-
-        $propertyGroupOption = new Shopware6PropertyGroupOption(null, $name ?: $option->getCode()->getValue());
-
-        foreach ($channel->getLanguages() as $language) {
-            $calculateValue = $option->getLabel()->get($language);
-            if ($calculateValue) {
-                $propertyGroupOption->addTranslations($language, 'name', $calculateValue);
-            }
-        }
-
-        return $propertyGroupOption;
     }
 }

@@ -38,5 +38,7 @@ class StartShopware6ExportProcess
         foreach ($this->synchronizerCollection as $synchronizer) {
             $synchronizer->synchronize($id, $channel);
         }
+
+//        dump(__CLASS__);die;
     }
 }

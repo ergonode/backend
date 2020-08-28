@@ -75,9 +75,9 @@ class VariantOptionSynchronizer extends AbstractPropertyOptionSynchronizer
     {
         foreach ($this->productQuery->findProductIdByType(VariableProduct::TYPE) as $product) {
             $productId = new ProductId($product);
-            $product = $this->productRepository->load($productId);
-            if ($product instanceof VariableProduct) {
-                $this->synchronizeProductOptions($product, $channel);
+            $domainProduct = $this->productRepository->load($productId);
+            if ($domainProduct instanceof VariableProduct) {
+                $this->synchronizeProductOptions($domainProduct, $channel);
             }
         }
     }

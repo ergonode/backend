@@ -94,13 +94,10 @@ abstract class AbstractShopware6VariantOptionMapper implements Shopware6ProductM
      */
     protected function optionMap(Shopware6Channel $channel, AttributeId $bindingId, AggregateId $optionId): ?string
     {
-        $option = $this->optionRepository->load($optionId);
-        Assert::notNull($option);
-
         return $this->propertyGroupOptionsRepository->load(
             $channel->getId(),
             $bindingId,
-            $option->getLabel()->get($channel->getDefaultLanguage())
+            $optionId
         );
     }
 }

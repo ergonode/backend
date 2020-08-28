@@ -89,6 +89,7 @@ abstract class AbstractPropertyOptionSynchronizer implements SynchronizerInterfa
     {
         $isset = $this->propertyGroupRepository->exists($channel->getId(), $attribute->getId());
         if ($isset) {
+
             return;
         }
         $this->createShopwarePropertyGroup($channel, $attribute);

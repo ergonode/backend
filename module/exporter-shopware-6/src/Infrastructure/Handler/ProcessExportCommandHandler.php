@@ -18,9 +18,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProcessShopware6ExportCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */

@@ -75,10 +75,10 @@ final class Version20200608120319 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.shopware6_property_group_options(
                     channel_id uuid NOT NULL,
                     attribute_id uuid NOT NULL,
+                    option_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    value varchar(255) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
-                    PRIMARY KEY (channel_id, attribute_id, value)
+                    PRIMARY KEY (channel_id, attribute_id, option_id)
                 )'
         );
 

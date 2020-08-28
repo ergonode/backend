@@ -14,7 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
-class ProcessShopware6ExportCommand implements DomainCommandInterface
+class ProductShopware6ExportCommand implements DomainCommandInterface
 {
     /**
      * @var ExportId

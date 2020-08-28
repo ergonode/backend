@@ -17,6 +17,7 @@ use Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupClient;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Webmozart\Assert\Assert;
 
@@ -120,6 +121,8 @@ abstract class AbstractPropertyGroupSynchronizer extends AbstractPropertyOptionS
             if ($attributeId) {
                 $attribute = $this->attributeRepository->load($attributeId);
                 Assert::notNull($attribute);
+//                dump($property);
+//                dump($attribute);die;
                 $this->propertyGroupRepository->save(
                     $channel->getId(),
                     $attributeId,
@@ -128,6 +131,14 @@ abstract class AbstractPropertyGroupSynchronizer extends AbstractPropertyOptionS
                 );
             }
         }
+//        die;
         $this->propertyGroupQuery->cleanData($channel->getId(), $start, $this->getType());
+    }
+
+    private function update(Shopware6PropertyGroup $property)
+    {
+
+
+
     }
 }
