@@ -73,7 +73,7 @@ class Shopware6PropertyGroup
      */
     public function __construct(
         ?string $id = null,
-        ?string $name= null,
+        ?string $name = null,
         ?string $displayType = 'text',
         ?string $sortingType = 'alphanumeric',
         ?array $translations = null

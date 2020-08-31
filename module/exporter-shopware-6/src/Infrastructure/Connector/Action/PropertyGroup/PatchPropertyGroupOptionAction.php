@@ -82,4 +82,3 @@ class PatchPropertyGroupOptionAction extends AbstractAction implements ActionInt
         return sprintf(self::URI, $this->propertyGroupId, $this->propertyGroupOption->getId());
     }
 }
-

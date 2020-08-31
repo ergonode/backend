@@ -64,7 +64,7 @@ class PropertyGroupShopware6ExportCommandHandler
      */
     public function __invoke(PropertyGroupShopware6ExportCommand $command)
     {
-        $export  = $this->exportRepository->load($command->getExportId());
+        $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, Shopware6Channel::class);
@@ -73,5 +73,4 @@ class PropertyGroupShopware6ExportCommandHandler
 
         $this->process->process($export->getId(), $channel, $attribute);
     }
-
 }

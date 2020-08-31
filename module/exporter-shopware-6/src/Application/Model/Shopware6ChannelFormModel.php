@@ -126,6 +126,11 @@ class Shopware6ChannelFormModel
     public ?AttributeId $attributeProductDescription = null;
 
     /**
+     * @var AttributeId|null
+     */
+    public ?AttributeId $attributeProductGallery = null;
+
+    /**
      * @var string |null
      */
     public ?string $categoryTree = null;
@@ -164,6 +169,7 @@ class Shopware6ChannelFormModel
             $this->attributeProductPriceNet = $channel->getAttributeProductPriceNet();
             $this->attributeProductTax = $channel->getAttributeProductTax();
             $this->attributeProductDescription = $channel->getAttributeProductDescription();
+            $this->attributeProductGallery = $channel->getAttributeProductGallery();
             $this->categoryTree = $channel->getCategoryTree() ? $channel->getCategoryTree()->getValue() : null;
 
             foreach ($channel->getPropertyGroup() as $attributeId) {

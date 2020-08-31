@@ -6,9 +6,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
+namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model\Product;
 
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductConfiguratorSettings;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
 use PHPUnit\Framework\TestCase;
 
 /**

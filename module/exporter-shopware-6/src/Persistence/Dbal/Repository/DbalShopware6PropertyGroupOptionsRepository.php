@@ -46,7 +46,7 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
      *
      * @return string|null
      */
-    public function load(ChannelId $channelId, AttributeId $attributeId,  AggregateId $optionId): ?string
+    public function load(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): ?string
     {
         $query = $this->connection->createQueryBuilder();
         $record = $query
@@ -76,8 +76,12 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
      *
      * @throws DBALException
      */
-    public function save(ChannelId $channelId, AttributeId $attributeId,  AggregateId $optionId , string $shopwareId): void
-    {
+    public function save(
+        ChannelId $channelId,
+        AttributeId $attributeId,
+        AggregateId $optionId,
+        string $shopwareId
+    ): void {
         if ($this->exists($channelId, $attributeId, $optionId)) {
             $this->update($channelId, $attributeId, $optionId, $shopwareId);
         } else {
@@ -92,7 +96,7 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
      *
      * @return bool
      */
-    public function exists(ChannelId $channelId, AttributeId $attributeId,  AggregateId $optionId): bool
+    public function exists(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): bool
     {
 
         $query = $this->connection->createQueryBuilder();
@@ -122,8 +126,12 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
      *
      * @throws DBALException
      */
-    private function update(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId, string $shopwareId): void
-    {
+    private function update(
+        ChannelId $channelId,
+        AttributeId $attributeId,
+        AggregateId $optionId,
+        string $shopwareId
+    ): void {
         $this->connection->update(
             self::TABLE,
             [
@@ -146,8 +154,12 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
      *
      * @throws DBALException
      */
-    private function insert(ChannelId $channelId, AttributeId $attributeId,  AggregateId $optionId, string $shopwareId): void
-    {
+    private function insert(
+        ChannelId $channelId,
+        AttributeId $attributeId,
+        AggregateId $optionId,
+        string $shopwareId
+    ): void {
         $this->connection->insert(
             self::TABLE,
             [

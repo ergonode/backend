@@ -68,13 +68,13 @@ class PropertyGroupOptionsShopware6ExportProcess
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
     /**
-     * @param Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository
-     * @param OptionQueryInterface $optionQuery
+     * @param Shopware6PropertyGroupRepositoryInterface        $propertyGroupRepository
+     * @param OptionQueryInterface                             $optionQuery
      * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
-     * @param Shopware6PropertyGroupOptionClient $propertyGroupOptionClient
-     * @param Shopware6PropertyGroupOptionBuilder $builder
-     * @param OptionRepositoryInterface $optionRepository
-     * @param Shopware6LanguageRepositoryInterface $languageRepository
+     * @param Shopware6PropertyGroupOptionClient               $propertyGroupOptionClient
+     * @param Shopware6PropertyGroupOptionBuilder              $builder
+     * @param OptionRepositoryInterface                        $optionRepository
+     * @param Shopware6LanguageRepositoryInterface             $languageRepository
      */
     public function __construct(
         Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
@@ -141,7 +141,7 @@ class PropertyGroupOptionsShopware6ExportProcess
         }
         foreach ($channel->getLanguages() as $language) {
             if ($this->languageRepository->exists($channel->getId(), $language->getCode())) {
-                $this->updatePropertyGroupOptionWithLanguage($channel, $language, $propertyGroupId,$option);
+                $this->updatePropertyGroupOptionWithLanguage($channel, $language, $propertyGroupId, $option);
             }
         }
     }
@@ -197,7 +197,14 @@ class PropertyGroupOptionsShopware6ExportProcess
         );
         Assert::notNull($shopwarePropertyGroupOption);
 
-        $this->updatePropertyGroupOption($channel, $shopwarePropertyGroupOption, $propertyGroupId,$option, $language, $shopwareLanguage);
+        $this->updatePropertyGroupOption(
+            $channel,
+            $shopwarePropertyGroupOption,
+            $propertyGroupId,
+            $option,
+            $language,
+            $shopwareLanguage
+        );
     }
 
     /**

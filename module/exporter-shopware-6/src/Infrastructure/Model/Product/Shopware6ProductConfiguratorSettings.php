@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Infrastructure\Model;
+namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
 use JMS\Serializer\Annotation as JMS;
 

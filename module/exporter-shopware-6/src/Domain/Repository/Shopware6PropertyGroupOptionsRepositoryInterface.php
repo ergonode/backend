@@ -31,7 +31,12 @@ interface Shopware6PropertyGroupOptionsRepositoryInterface
      * @param AggregateId $optionId
      * @param string      $shopwareId
      */
-    public function save(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId, string $shopwareId): void;
+    public function save(
+        ChannelId $channelId,
+        AttributeId $attributeId,
+        AggregateId $optionId,
+        string $shopwareId
+    ): void;
 
     /**
      * @param ChannelId   $channelId

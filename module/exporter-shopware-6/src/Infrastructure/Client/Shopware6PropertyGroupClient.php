@@ -147,6 +147,7 @@ class Shopware6PropertyGroupClient
      * @param Shopware6PropertyGroup $propertyGroup
      *
      * @return Shopware6PropertyGroup|null
+     *
      * @deprecated
      */
     public function createPropertyGroupResource(

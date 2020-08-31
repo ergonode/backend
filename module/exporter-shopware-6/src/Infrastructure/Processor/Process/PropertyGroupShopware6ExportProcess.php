@@ -156,6 +156,4 @@ class PropertyGroupShopware6ExportProcess
 
         return null;
     }
-
-
 }

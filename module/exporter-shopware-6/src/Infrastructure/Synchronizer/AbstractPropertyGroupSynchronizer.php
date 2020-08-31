@@ -121,8 +121,6 @@ abstract class AbstractPropertyGroupSynchronizer extends AbstractPropertyOptionS
             if ($attributeId) {
                 $attribute = $this->attributeRepository->load($attributeId);
                 Assert::notNull($attribute);
-//                dump($property);
-//                dump($attribute);die;
                 $this->propertyGroupRepository->save(
                     $channel->getId(),
                     $attributeId,
@@ -131,14 +129,6 @@ abstract class AbstractPropertyGroupSynchronizer extends AbstractPropertyOptionS
                 );
             }
         }
-//        die;
         $this->propertyGroupQuery->cleanData($channel->getId(), $start, $this->getType());
-    }
-
-    private function update(Shopware6PropertyGroup $property)
-    {
-
-
-
     }
 }

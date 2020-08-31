@@ -115,6 +115,13 @@ class Shopware6Channel extends AbstractChannel
     private ?AttributeId $attributeProductDescription;
 
     /**
+     * @var AttributeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $attributeProductGallery;
+
+    /**
      * @var CategoryTreeId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
@@ -151,6 +158,7 @@ class Shopware6Channel extends AbstractChannel
      * @param AttributeId         $attributeProductPriceNet
      * @param AttributeId         $attributeProductTax
      * @param AttributeId|null    $attributeProductDescription
+     * @param AttributeId|null    $attributeProductGallery
      * @param CategoryTreeId|null $categoryTree
      * @param array|AttributeId[] $propertyGroup
      * @param array|AttributeId[] $customField
@@ -171,6 +179,7 @@ class Shopware6Channel extends AbstractChannel
         AttributeId $attributeProductPriceNet,
         AttributeId $attributeProductTax,
         ?AttributeId $attributeProductDescription,
+        ?AttributeId $attributeProductGallery,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
         array $customField
@@ -190,6 +199,7 @@ class Shopware6Channel extends AbstractChannel
         $this->attributeProductPriceNet = $attributeProductPriceNet;
         $this->attributeProductTax = $attributeProductTax;
         $this->attributeProductDescription = $attributeProductDescription;
+        $this->attributeProductGallery = $attributeProductGallery;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
@@ -305,6 +315,14 @@ class Shopware6Channel extends AbstractChannel
     public function getAttributeProductDescription(): ?AttributeId
     {
         return $this->attributeProductDescription;
+    }
+
+    /**
+     * @return AttributeId|null
+     */
+    public function getAttributeProductGallery(): ?AttributeId
+    {
+        return $this->attributeProductGallery;
     }
 
     /**
@@ -433,6 +451,14 @@ class Shopware6Channel extends AbstractChannel
     public function setAttributeProductDescription(?AttributeId $attributeProductDescription): void
     {
         $this->attributeProductDescription = $attributeProductDescription;
+    }
+
+    /**
+     * @param AttributeId|null $attributeProductGallery
+     */
+    public function setAttributeProductGallery(?AttributeId $attributeProductGallery): void
+    {
+        $this->attributeProductGallery = $attributeProductGallery;
     }
 
     /**
