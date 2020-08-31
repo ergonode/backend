@@ -48,7 +48,8 @@ class DbalSourceQuery implements SourceQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('id, name, type')
-            ->from('importer.source', 'i');
+            ->select('s.id, s.name, s.type')
+            ->addSelect('(SELECT count(*) FROM importer.import WHERE source_id = s.id) AS imports')
+            ->from('importer.source', 's');
     }
 }

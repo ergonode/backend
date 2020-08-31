@@ -66,5 +66,6 @@ class StartImportCommandHandler
 
         $processor = $this->provider->provide($source->getType());
         $processor->start($import);
+        $this->importRepository->save($import);
     }
 }

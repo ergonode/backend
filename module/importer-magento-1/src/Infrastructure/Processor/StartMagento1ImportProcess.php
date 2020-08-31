@@ -52,7 +52,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
         Magento1CsvReader $reader,
-        $steps
+        array $steps
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
@@ -83,14 +83,17 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         $transformer = $this->transformerRepository->load($import->getTransformerId());
         Assert::notNull($transformer);
 
-        $products = $this->reader->read($source, $import, $transformer);
-
         $result = [];
-        foreach ($products as $sku => $product) {
-            $result[$sku] = new ProductModel();
-            foreach ($product as $code => $version) {
-                $result[$sku]->set($code, $version);
+        try {
+            $products = $this->reader->read($source, $import, $transformer);
+            foreach ($products as $sku => $product) {
+                $result[$sku] = new ProductModel();
+                foreach ($product as $code => $version) {
+                    $result[$sku]->set($code, $version);
+                }
             }
+        } catch (\Exception $exception) {
+            $import->stop();
         }
 
         $count = count($this->steps);
@@ -98,7 +101,8 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         foreach ($this->steps as $step) {
             $i++;
             $steps = new Progress($i, $count);
-            $step->process($import, $result, $transformer, $source, $steps);
+            $records = $step->process($import, $result, $transformer, $source, $steps);
+            $import->addRecords($records);
         }
     }
 }

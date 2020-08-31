@@ -49,6 +49,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 started_at TIMESTAMP WITHOUT TIME ZONE,
                 ended_at TIMESTAMP WITHOUT TIME ZONE,
+                records int NOT NULL DEFAULT 0,
                 PRIMARY KEY(id)
             )
         ');

@@ -13,9 +13,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Doctrine\DBAL\DBALException;
 use Webmozart\Assert\Assert;
 use Ergonode\Importer\Infrastructure\Provider\ImportActionProvider;
+use Ergonode\Importer\Domain\Entity\ImportLine;
 
 /**
  */
@@ -53,8 +53,6 @@ class ProcessImportCommandHandler
 
     /**
      * @param ProcessImportCommand $command
-     *
-     * @throws DBALException
      */
     public function __invoke(ProcessImportCommand $command)
     {
@@ -66,27 +64,22 @@ class ProcessImportCommandHandler
         $action = $command->getAction();
         $record = $command->getRecord();
 
-        $line = $this->repository->load($command->getImportId(), $step, $number);
+        try {
+            $action = $this->importActionProvider->provide($command->getAction());
+            Assert::notNull($action, sprintf('Can\'t find action %s', $command->getAction()));
 
-        Assert::notNull($line, sprintf('Can\'t import line %s, step %s, import %s', $step, $number, $action));
+            $action->action($command->getImportId(), $record);
 
-        if (!$line->isProcessed()) {
-            try {
-                $action = $this->importActionProvider->provide($command->getAction());
-                Assert::notNull($action, sprintf('Can\'t find action %s', $command->getAction()));
-
-                $action->action($command->getImportId(), $record);
-                $line->process();
-
-                if ($step === $steps && $number === $numbers) {
-                    $this->commandBus->dispatch(new EndImportCommand($importId), true);
-                }
-            } catch (\Throwable $exception) {
-                $line->addError($exception->getMessage());
-                throw $exception;
+            if ($step === $steps && $number === $numbers) {
+                $this->commandBus->dispatch(new EndImportCommand($importId), true);
             }
-
+        } catch (\Throwable $exception) {
+            $line = new ImportLine($importId, $step, $number);
+            $line->addError($exception->getMessage());
             $this->repository->save($line);
+
+            throw $exception;
         }
+
     }
 }

@@ -19,10 +19,12 @@ interface Magento1ProcessorStepInterface
 {
     /**
      * @param Import            $import
-     * @param string[]          $rows
+     * @param array             $rows
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      * @param Progress          $progress
+     *
+     * @return int
      */
     public function process(
         Import $import,
@@ -30,5 +32,5 @@ interface Magento1ProcessorStepInterface
         Transformer $transformer,
         Magento1CsvSource $source,
         Progress $progress
-    ): void;
+    ): int;
 }
