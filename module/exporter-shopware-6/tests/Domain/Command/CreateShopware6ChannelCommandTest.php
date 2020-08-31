@@ -96,6 +96,11 @@ class CreateShopware6ChannelCommandTest extends TestCase
     private AttributeId $productDescription;
 
     /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productGallery;
+
+    /**
      * @var CategoryTreeId|MockObject
      */
     private CategoryTreeId $categoryTreeId;
@@ -119,6 +124,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
         $this->productPriceNet = $this->createMock(AttributeId::class);
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
+        $this->productGallery = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
     }
 
@@ -142,6 +148,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
             $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
+            $this->productGallery,
             $this->categoryTreeId,
             [],
             []
@@ -162,6 +169,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->productPriceGross, $command->getProductPriceNet());
         self::assertEquals($this->productTax, $command->getProductTax());
         self::assertEquals($this->productDescription, $command->getProductDescription());
+        self::assertEquals($this->productGallery, $command->getProductGallery());
         self::assertEquals($this->categoryTreeId, $command->getCategoryTree());
         self::assertIsArray($command->getPropertyGroup());
         self::assertIsArray($command->getCustomField());

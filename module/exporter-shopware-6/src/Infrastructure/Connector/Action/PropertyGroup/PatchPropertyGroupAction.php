@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -17,9 +17,9 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostPropertyGroupAction extends AbstractAction implements ActionInterface
+class PatchPropertyGroupAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v2/property-group?%s';
+    private const URI = '/api/v2/property-group/';
 
     /**
      * @var Shopware6PropertyGroup
@@ -27,54 +27,32 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
     private Shopware6PropertyGroup $propertyGroup;
 
     /**
-     * @var bool
-     */
-    private bool $response;
-
-    /**
      * @param Shopware6PropertyGroup $propertyGroup
-     * @param bool                   $response
      */
-    public function __construct(Shopware6PropertyGroup $propertyGroup, bool $response = false)
+    public function __construct(Shopware6PropertyGroup $propertyGroup)
     {
         $this->propertyGroup = $propertyGroup;
-        $this->response = $response;
     }
-
     /**
      * @return Request
      */
     public function getRequest(): Request
     {
         return new Request(
-            HttpRequest::METHOD_POST,
+            HttpRequest::METHOD_PATCH,
             $this->getUri(),
             $this->buildHeaders(),
             $this->buildBody()
         );
     }
-
     /**
      * @param string|null $content
      *
-     * @return Shopware6PropertyGroup|null
-     *
-     * @throws \JsonException
+     * @return null
      */
-    public function parseContent(?string $content): ?Shopware6PropertyGroup
+    public function parseContent(?string $content)
     {
-        if (null === $content) {
-            return null;
-        }
-
-        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-
-        return new Shopware6PropertyGroup(
-            $data['data']['id'],
-            $data['data']['attributes']['name'],
-            $data['data']['attributes']['displayType'],
-            $data['data']['attributes']['sortingType']
-        );
+        return null;
     }
 
     /**
@@ -92,11 +70,6 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
      */
     private function getUri(): string
     {
-        $query = [];
-        if ($this->response) {
-            $query['_response'] = 'true';
-        }
-
-        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
+        return self::URI.$this->propertyGroup->getId();
     }
 }

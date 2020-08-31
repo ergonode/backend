@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -8,6 +8,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -19,7 +22,7 @@ class Shopware6Product
      *
      * @JMS\Exclude()
      */
-    protected ?string $id;
+    private ?string $id;
 
     /**
      * @var string|null
@@ -27,7 +30,7 @@ class Shopware6Product
      * @JMS\Type("string")
      * @JMS\SerializedName("productNumber")
      */
-    protected ?string $sku;
+    private ?string $sku;
 
     /**
      * @var string|null
@@ -35,7 +38,7 @@ class Shopware6Product
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
-    protected ?string $name;
+    private ?string $name;
 
     /**
      * @var string|null
@@ -43,7 +46,7 @@ class Shopware6Product
      * @JMS\Type("string")
      * @JMS\SerializedName("description")
      */
-    protected ?string $description;
+    private ?string $description;
 
     /**
      * @var array|null
@@ -51,7 +54,7 @@ class Shopware6Product
      * @JMS\Type("array")
      * @JMS\SerializedName("categories")
      */
-    protected ?array $categories;
+    private ?array $categories;
 
     /**
      * @var array|null
@@ -59,7 +62,7 @@ class Shopware6Product
      * @JMS\Type("array")
      * @JMS\SerializedName("properties")
      */
-    protected ?array $properties;
+    private ?array $properties;
 
     /**
      * @var array|null
@@ -67,7 +70,7 @@ class Shopware6Product
      * @JMS\Type("array")
      * @JMS\SerializedName("customFields")
      */
-    protected ?array $customFields;
+    private ?array $customFields;
 
     /**
      * @var bool
@@ -75,7 +78,7 @@ class Shopware6Product
      * @JMS\Type("bool")
      * @JMS\SerializedName("active")
      */
-    protected bool $active;
+    private bool $active;
 
     /**
      * @var int|null
@@ -83,7 +86,7 @@ class Shopware6Product
      * @JMS\Type("int")
      * @JMS\SerializedName("stock")
      */
-    protected ?int $stock;
+    private ?int $stock;
 
     /**
      * @var string|null
@@ -91,15 +94,15 @@ class Shopware6Product
      * @JMS\Type("string")
      * @JMS\SerializedName("taxId")
      */
-    protected ?string $taxId;
+    private ?string $taxId;
 
     /**
      * @var Shopware6ProductPrice[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductPrice>")
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice>")
      * @JMS\SerializedName("price")
      */
-    protected ?array $price;
+    private ?array $price;
 
     /**
      * @var string|null
@@ -107,7 +110,7 @@ class Shopware6Product
      * @JMS\Type("string")
      * @JMS\SerializedName("parentId")
      */
-    protected ?string $parentId;
+    private ?string $parentId;
 
     /**
      * @var array|null
@@ -115,23 +118,23 @@ class Shopware6Product
      * @JMS\Type("array")
      * @JMS\SerializedName("options")
      */
-    protected ?array $options;
+    private ?array $options;
 
     /**
-     * @var array|null
+     * @var Shopware6ProductMedia[]|null
      *
-     * @JMS\Type("array")
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia>")
      * @JMS\SerializedName("media")
      */
-    protected ?array $media;
+    private ?array $media = null;
 
     /**
      * @var Shopware6ProductConfiguratorSettings[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductConfiguratorSettings>")
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings>")
      * @JMS\SerializedName("configuratorSettings")
      */
-    protected ?array $configuratorSettings = null;
+    private ?array $configuratorSettings = null;
 
     /**
      * @var array
@@ -145,7 +148,7 @@ class Shopware6Product
      *
      * @JMS\Exclude()
      */
-    protected bool $modified = false;
+    private bool $modified = false;
 
     /**
      * @param string|null $id
@@ -161,7 +164,6 @@ class Shopware6Product
      * @param int|null    $stock
      * @param string|null $taxId
      * @param array|null  $price
-     * @param array|null  $media
      */
     public function __construct(
         ?string $id = null,
@@ -176,8 +178,7 @@ class Shopware6Product
         bool $active = true,
         ?int $stock = null,
         ?string $taxId = null,
-        ?array $price = null,
-        ?array $media = null
+        ?array $price = null
     ) {
         $this->id = $id;
         $this->sku = $sku;
@@ -192,7 +193,6 @@ class Shopware6Product
         $this->stock = $stock;
         $this->taxId = $taxId;
         $this->price = $price;
-        $this->media = $media;
         $this->setPropertyToRemove($properties);
     }
 
@@ -550,9 +550,16 @@ class Shopware6Product
         return false;
     }
 
+    /**
+     * @param Shopware6ProductMedia[]|null $media
+     */
+    public function setMedia(?array $media): void
+    {
+        $this->media = $media;
+    }
 
     /**
-     * @return array
+     * @return Shopware6ProductMedia[]
      */
     public function getMedia(): array
     {
@@ -564,27 +571,25 @@ class Shopware6Product
     }
 
     /**
-     * @param string $mediaId
+     * @param Shopware6ProductMedia $media
      */
-    public function addMedia(string $mediaId): void
+    public function addMedia(Shopware6ProductMedia $media): void
     {
-        if (!$this->hasMedia($mediaId)) {
-            $this->media[] = [
-                'mediaId' => $mediaId,
-            ];
+        if (!$this->hasMedia($media)) {
+            $this->media[] = $media;
             $this->modified = true;
         }
     }
 
     /**
-     * @param string $mediaId
+     * @param Shopware6ProductMedia $media
      *
      * @return bool
      */
-    public function hasMedia(string $mediaId): bool
+    public function hasMedia(Shopware6ProductMedia $media): bool
     {
-        foreach ($this->getMedia() as $media) {
-            if ($media['mediaId'] === $mediaId) {
+        foreach ($this->getMedia() as $productMedia) {
+            if ($media->getMediaId() === $productMedia->getMediaId()) {
                 return true;
             }
         }

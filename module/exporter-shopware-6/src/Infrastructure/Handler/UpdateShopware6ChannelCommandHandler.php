@@ -52,6 +52,7 @@ class UpdateShopware6ChannelCommandHandler
         $channel->setAttributeProductPriceNet($command->getProductPriceNet());
         $channel->setAttributeProductTax($command->getProductTax());
         $channel->setAttributeProductDescription($command->getProductDescription());
+        $channel->setAttributeProductGallery($command->getProductGallery());
         $channel->setCategoryTree($command->getCategoryTree());
         $channel->setPropertyGroup($command->getPropertyGroup());
         $channel->setCustomField($command->getCustomField());

@@ -110,7 +110,6 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      */
     private AttributeId $productPriceNet;
 
-
     /**
      * @var AttributeId
      *
@@ -124,6 +123,13 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $productDescription;
+
+    /**
+     * @var AttributeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productGallery;
 
     /**
      * @var CategoryTreeId|null
@@ -162,6 +168,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      * @param AttributeId         $productPriceNet
      * @param AttributeId         $productTax
      * @param AttributeId|null    $productDescription
+     * @param AttributeId|null    $productGallery
      * @param CategoryTreeId|null $categoryTree
      * @param array|AttributeId[] $propertyGroup
      * @param array|AttributeId[] $customField
@@ -182,6 +189,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         AttributeId $productPriceNet,
         AttributeId $productTax,
         ?AttributeId $productDescription,
+        ?AttributeId $productGallery,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
         array $customField
@@ -201,6 +209,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         $this->productPriceNet = $productPriceNet;
         $this->productTax = $productTax;
         $this->productDescription = $productDescription;
+        $this->productGallery = $productGallery;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
@@ -324,6 +333,14 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
     public function getProductDescription(): ?AttributeId
     {
         return $this->productDescription;
+    }
+
+    /**
+     * @return AttributeId|null
+     */
+    public function getProductGallery(): ?AttributeId
+    {
+        return $this->productGallery;
     }
 
     /**

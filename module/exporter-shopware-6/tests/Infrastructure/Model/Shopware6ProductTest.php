@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductPrice;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use PHPUnit\Framework\TestCase;
 
 /**

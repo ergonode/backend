@@ -50,6 +50,7 @@ class CreateShopware6ChannelCommandHandler
             $command->getProductPriceNet(),
             $command->getProductTax(),
             $command->getProductDescription(),
+            $command->getProductGallery(),
             $command->getCategoryTree(),
             $command->getPropertyGroup(),
             $command->getCustomField()

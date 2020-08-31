@@ -11,12 +11,14 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\ConfiguratorSettings\GetConfiguratorSettings;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProductList;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Media\GetProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PatchProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Properties\DeleteProperties;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductConfiguratorSettings;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -140,6 +142,7 @@ class Shopware6ProductClient
             /** @var Shopware6Product $product */
             foreach ($productList as $product) {
                 $product->setConfiguratorSettings($this->loadConfiguratorSettings($channel, $product->getId()));
+                $product->setMedia($this->loadMedia($channel, $product->getId()));
             }
 
             return $productList;
@@ -157,6 +160,19 @@ class Shopware6ProductClient
     private function loadConfiguratorSettings(Shopware6Channel $channel, string $shopwareId): ?array
     {
         $action = new GetConfiguratorSettings($shopwareId);
+
+        return $this->connector->execute($channel, $action);
+    }
+
+    /**
+     * @param Shopware6Channel $channel
+     * @param string           $shopwareId
+     *
+     * @return Shopware6ProductMedia[]|null
+     */
+    private function loadMedia(Shopware6Channel $channel, string $shopwareId): ?array
+    {
+        $action = new GetProductMedia($shopwareId);
 
         return $this->connector->execute($channel, $action);
     }

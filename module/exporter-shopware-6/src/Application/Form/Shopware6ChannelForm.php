@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
+use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
@@ -80,6 +81,7 @@ class Shopware6ChannelForm extends AbstractType
         $textAttributeDictionary = $this->attributeQuery->getDictionary([TextAttribute::TYPE]);
         $textareaAttributeDictionary = $this->attributeQuery->getDictionary([TextareaAttribute::TYPE]);
         $numericAttributeDictionary = $this->attributeQuery->getDictionary([NumericAttribute::TYPE]);
+        $galleryAttributeDictionary = $this->attributeQuery->getDictionary([GalleryAttribute::TYPE]);
         $languages = $this->languageQuery->getDictionaryActive();
         $categoryTrees = $this->categoryTreeQuery->getDictionary(new Language('en_GB'));
         $segmentDictionary = $this->segmentQuery->getDictionary();
@@ -206,6 +208,16 @@ class Shopware6ChannelForm extends AbstractType
                     'label' => 'Attribute Product Description',
                     'choices' => array_flip($textareaAttributeDictionary),
                     'property_path' => 'attributeProductDescription',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'attribute_product_gallery',
+                AttributeIdType::class,
+                [
+                    'label' => 'Attribute Product Gallery',
+                    'choices' => array_flip($galleryAttributeDictionary),
+                    'property_path' => 'attributeProductGallery',
                     'required' => false,
                 ]
             )

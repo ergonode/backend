@@ -72,8 +72,8 @@ class Shopware6PropertyGroup
      * @param array|null  $translations
      */
     public function __construct(
-        ?string $id,
-        ?string $name,
+        ?string $id = null,
+        ?string $name = null,
         ?string $displayType = 'text',
         ?string $sortingType = 'alphanumeric',
         ?array $translations = null

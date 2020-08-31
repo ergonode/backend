@@ -8,27 +8,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractImageAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductMediaClient;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class Shopware6ProductImageMapper implements Shopware6ProductMapperInterface
+class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
 {
-    private const SUPPORTED_TYPE = [
-        AbstractImageAttribute::TYPE,
-    ];
     /**
      * @var AttributeRepositoryInterface
      */
@@ -76,43 +72,26 @@ class Shopware6ProductImageMapper implements Shopware6ProductMapperInterface
         Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
-
-        foreach ($channel->getPropertyGroup() as $attributeId) {
-            $this->attributeMap($shopware6Product, $attributeId, $product, $channel);
+        if (null === $channel->getAttributeProductGallery()) {
+            return $shopware6Product;
         }
+        $attribute = $this->repository->load($channel->getAttributeProductGallery());
 
-        return $shopware6Product;
-    }
-
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AttributeId      $attributeId
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
-     */
-    private function attributeMap(
-        Shopware6Product $shopware6Product,
-        AttributeId $attributeId,
-        AbstractProduct $product,
-        Shopware6Channel $channel
-    ): Shopware6Product {
-        $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);
 
-        if (in_array($attribute->getType(), self::SUPPORTED_TYPE, true)) {
-            if (false === $product->hasAttribute($attribute->getCode())) {
-                return $shopware6Product;
-            }
-            $value = $product->getAttribute($attribute->getCode());
-            $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
-            if ($calculateValue) {
-                $multimediaId = new MultimediaId($calculateValue);
+        if (false === $product->hasAttribute($attribute->getCode())) {
+            return $shopware6Product;
+        }
+
+        $value = $product->getAttribute($attribute->getCode());
+        $calculateValue = $this->calculator->calculate($attribute, $value, $language ?: $channel->getDefaultLanguage());
+        if ($calculateValue) {
+            $gallery = explode(',', $calculateValue);
+            foreach ($gallery as $galleryValue) {
+                $multimediaId = new MultimediaId($galleryValue);
                 $this->getShopware6MultimediaId($multimediaId, $shopware6Product, $channel);
             }
         }
-
 
         return $shopware6Product;
     }
@@ -133,7 +112,7 @@ class Shopware6ProductImageMapper implements Shopware6ProductMapperInterface
         if ($multimedia) {
             $shopwareId = $this->mediaClient->findOrCreateMedia($channel, $multimedia);
             if ($shopwareId) {
-                $shopware6Product->addMedia($shopwareId);
+                $shopware6Product->addMedia(new Shopware6ProductMedia(null, $shopwareId));
             }
         }
 
