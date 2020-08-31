@@ -141,21 +141,4 @@ class Shopware6PropertyGroupClient
 
         return null;
     }
-
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6PropertyGroup $propertyGroup
-     *
-     * @return Shopware6PropertyGroup|null
-     *
-     * @deprecated
-     */
-    public function createPropertyGroupResource(
-        Shopware6Channel $channel,
-        Shopware6PropertyGroup $propertyGroup
-    ): ?Shopware6PropertyGroup {
-        $action = new PostPropertyGroupAction($propertyGroup, true);
-
-        return $this->connector->execute($channel, $action);
-    }
 }

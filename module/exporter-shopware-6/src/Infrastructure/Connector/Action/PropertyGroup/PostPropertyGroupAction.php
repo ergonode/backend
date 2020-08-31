@@ -58,10 +58,16 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
      * @param string|null $content
      *
      * @return Shopware6PropertyGroup|null
+     *
+     * @throws \JsonException
      */
-    public function parseContent(?string $content):?Shopware6PropertyGroup
+    public function parseContent(?string $content): ?Shopware6PropertyGroup
     {
-        $data = json_decode($content, true);
+        if (null === $content) {
+            return null;
+        }
+
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         return new Shopware6PropertyGroup(
             $data['data']['id'],

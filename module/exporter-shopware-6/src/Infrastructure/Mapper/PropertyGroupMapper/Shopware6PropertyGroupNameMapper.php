@@ -28,7 +28,13 @@ class Shopware6PropertyGroupNameMapper implements Shopware6PropertyGroupMapperIn
         ?Language $language = null
     ): Shopware6PropertyGroup {
         $name = $attribute->getLabel()->get($language ?: $channel->getDefaultLanguage());
-        $shopware6PropertyGroup->setName($name);
+        if ($name) {
+            $shopware6PropertyGroup->setName($name);
+        }
+
+        if (null === $language && null === $name) {
+            $shopware6PropertyGroup->setName($attribute->getCode()->getValue());
+        }
 
         return $shopware6PropertyGroup;
     }

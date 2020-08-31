@@ -28,7 +28,14 @@ class Shopware6PropertyGroupOptionNameMapper implements Shopware6PropertyGroupOp
         ?Language $language = null
     ): Shopware6PropertyGroupOption {
         $name = $option->getLabel()->get($language ?: $channel->getDefaultLanguage());
-        $propertyGroupOption->setName($name);
+        if ($name) {
+            $propertyGroupOption->setName($name);
+        }
+
+        if (null === $language && null === $name) {
+            $propertyGroupOption->setName($option->getCode()->getValue());
+        }
+
 
         return $propertyGroupOption;
     }

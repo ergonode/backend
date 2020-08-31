@@ -96,7 +96,6 @@ class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
         return $shopware6Product;
     }
 
-
     /**
      * @param MultimediaId     $multimediaId
      * @param Shopware6Product $shopware6Product
