@@ -47,4 +47,5 @@ framework:
             'Ergonode\ExporterFile\Domain\Command\Export\ProcessProductCommand': export
             'Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand': export
             'Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand': export
-
+            'Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand': export
+            'Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand': export
