@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor;
 
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
@@ -15,7 +16,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 interface Shopware6ExportStepProcessInterface
 {
     /**
-     * @param ExportId $exportId
+     * @param ExportId         $exportId
+     * @param Shopware6Channel $channel
      */
-    public function export(ExportId $exportId): void;
+    public function export(ExportId $exportId, Shopware6Channel $channel): void;
 }

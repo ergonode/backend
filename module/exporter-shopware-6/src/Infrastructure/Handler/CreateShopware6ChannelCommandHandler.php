@@ -40,6 +40,7 @@ class CreateShopware6ChannelCommandHandler
             $command->getHost(),
             $command->getClientId(),
             $command->getClientKey(),
+            $command->getSegment(),
             $command->getDefaultLanguage(),
             $command->getLanguages(),
             $command->getProductName(),
@@ -49,6 +50,7 @@ class CreateShopware6ChannelCommandHandler
             $command->getProductPriceNet(),
             $command->getProductTax(),
             $command->getProductDescription(),
+            $command->getProductGallery(),
             $command->getCategoryTree(),
             $command->getPropertyGroup(),
             $command->getCustomField()

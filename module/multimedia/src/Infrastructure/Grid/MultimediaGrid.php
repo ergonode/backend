@@ -75,7 +75,7 @@ class MultimediaGrid extends AbstractGrid
         $this->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)));
         $this->addColumn('type', new SelectColumn('type', 'Extension', new MultiSelectFilter($types)));
         $column = new NumericColumn('size', 'Size', new NumericFilter());
-        $column->setSuffix('MB');
+        $column->setSuffix('KB');
         $this->addColumn('size', $column);
         $this->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()));
         $this->addColumn('created_at', new TextColumn('created_at', 'Created at', new TextFilter()));

@@ -18,7 +18,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInh
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductPrice;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
@@ -91,7 +91,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
      * @param Shopware6Channel $channel
      * @param AbstractProduct  $product
      *
-     * @return Shopware6ProductPrice
+     * @return \Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice
      *
      * @throws Shopware6ExporterMapperException
      */

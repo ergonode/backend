@@ -18,9 +18,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProcessShopware6ExportCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -75,7 +72,7 @@ class ProcessExportCommandHandler
         if ($channel instanceof Shopware6Channel) {
             $this->commandBus->dispatch(new StartShopware6ExportCommand($export->getId()), true);
             foreach ($this->steps as $step) {
-                $step->export($export->getId());
+                $step->export($export->getId(), $channel);
             }
             $this->commandBus->dispatch(new EndShopware6ExportCommand($export->getId()), true);
         }

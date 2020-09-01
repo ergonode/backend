@@ -75,6 +75,28 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
     }
 
     /**
+     * @param SegmentId $segmentId
+     * @param string    $type
+     *
+     * @return string[]
+     */
+    public function getProductsByType(SegmentId $segmentId, string $type): array
+    {
+        $qb = $this->getQuery();
+
+        return $qb->select('sp.product_id')
+            ->join('sp', self::PRODUCT_TABLE, 'p', 'p.id = sp.product_id')
+            ->where($qb->expr()->eq('sp.segment_id', ':segmentId'))
+            ->andWhere($qb->expr()->eq('sp.available', ':available'))
+            ->andWhere($qb->expr()->eq('p.type', ':type'))
+            ->setParameter(':available', true)
+            ->setParameter(':segmentId', $segmentId->getValue())
+            ->setParameter(':type', $type)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder

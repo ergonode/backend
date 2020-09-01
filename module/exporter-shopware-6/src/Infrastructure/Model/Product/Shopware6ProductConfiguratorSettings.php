@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Infrastructure\Model;
+namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
 use JMS\Serializer\Annotation as JMS;
 
@@ -34,7 +34,7 @@ class Shopware6ProductConfiguratorSettings
      * @param string|null $id
      * @param string|null $optionId
      */
-    public function __construct(?string $id, ?string $optionId)
+    public function __construct(?string $id = null, ?string $optionId = null)
     {
         $this->id = $id;
         $this->optionId = $optionId;

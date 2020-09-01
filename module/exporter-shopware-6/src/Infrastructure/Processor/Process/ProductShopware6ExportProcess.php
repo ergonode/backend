@@ -21,7 +21,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class ProcessShopware6ExportProcess
+class ProductShopware6ExportProcess
 {
     /**
      * @var Shopware6ProductBuilder

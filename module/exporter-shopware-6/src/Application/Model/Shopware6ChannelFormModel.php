@@ -52,6 +52,11 @@ class Shopware6ChannelFormModel
     public ?string $clientKey = null;
 
     /**
+     * @var string |null
+     */
+    public $segment = null;
+
+    /**
      * @var string|null
      *
      * @Assert\NotBlank(),
@@ -121,6 +126,11 @@ class Shopware6ChannelFormModel
     public ?AttributeId $attributeProductDescription = null;
 
     /**
+     * @var AttributeId|null
+     */
+    public ?AttributeId $attributeProductGallery = null;
+
+    /**
      * @var string |null
      */
     public ?string $categoryTree = null;
@@ -149,6 +159,7 @@ class Shopware6ChannelFormModel
             $this->host = $channel->getHost();
             $this->clientId = $channel->getClientId();
             $this->clientKey = $channel->getClientKey();
+            $this->segment = $channel->getSegment() ? $channel->getSegment()->getValue() : null;
             $this->defaultLanguage = $channel->getDefaultLanguage()->getCode();
             $this->languages = $channel->getLanguages();
             $this->attributeProductName = $channel->getAttributeProductName();
@@ -158,7 +169,8 @@ class Shopware6ChannelFormModel
             $this->attributeProductPriceNet = $channel->getAttributeProductPriceNet();
             $this->attributeProductTax = $channel->getAttributeProductTax();
             $this->attributeProductDescription = $channel->getAttributeProductDescription();
-            $this->categoryTree = $channel->getCategoryTree()?$channel->getCategoryTree()->getValue():null;
+            $this->attributeProductGallery = $channel->getAttributeProductGallery();
+            $this->categoryTree = $channel->getCategoryTree() ? $channel->getCategoryTree()->getValue() : null;
 
             foreach ($channel->getPropertyGroup() as $attributeId) {
                 $this->propertyGroup[] = new PropertyGroupAttributeModel($attributeId->getValue());

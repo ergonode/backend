@@ -17,7 +17,7 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRe
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6ProductConfiguratorSettings;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;

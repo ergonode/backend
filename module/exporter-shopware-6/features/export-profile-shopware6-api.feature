@@ -86,6 +86,19 @@ Feature: Export Profile Shopware 6 API
     Then the response status code should be 201
     And store response param "id" as "attribute_text_area_id"
 
+  Scenario: Create gallery attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "shopware_6_GALLERY_@@random_code@@",
+          "type": "GALLERY",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_gallery_id"
+
   Scenario: Create category tree
     When I send a POST request to "/api/v1/en_GB/trees" with body:
       """
@@ -159,6 +172,7 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_price_gross" : "@attribute_price_gross_id@",
           "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
+          "attribute_product_gallery" : "@attribute_gallery_id@",
           "category_tree" : "@category_tree@"
         }
       """

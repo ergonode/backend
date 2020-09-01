@@ -25,6 +25,7 @@ services:
         tags: ['messenger.message_handler']
         arguments:
             $steps:
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6PropertyGroupStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'
     # Repository
@@ -45,12 +46,6 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CurrencySynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\TaxSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CategorySynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupTextSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupTextAreaSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupNumberSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupDateTimeSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupSelectSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroup\PropertyGroupMultiSelectSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextAreaSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldNumberSynchronizer'
@@ -59,9 +54,16 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMultiSelectSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMediaSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\LanguageSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\VariantOptionSynchronizer'
 
     # Mappers
+    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupBuilder:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupMapper\Shopware6PropertyGroupNameMapper'
+
+    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupOptionBuilder:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupOption\Shopware6PropertyGroupOptionNameMapper'
+
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder:
         arguments:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductSkuMapper'
@@ -71,13 +73,9 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductActiveMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductStockMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductDescriptionMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupTextMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupTextAreaMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupNumericMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupDateTimeMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductGalleryMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupSelectMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupMultiSelectMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductImageMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetTextMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetTextAreaMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetNumericMapper'

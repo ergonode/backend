@@ -13,6 +13,7 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
@@ -23,7 +24,7 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
         'channel_id',
         'attribute_id',
         'shopware6_id',
-        'value',
+        'option_id',
     ];
     /**
      * @var Connection
@@ -41,11 +42,11 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
     /**
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
-     * @param string      $value
+     * @param AggregateId $optionId
      *
      * @return string|null
      */
-    public function load(ChannelId $channelId, AttributeId $attributeId, string $value): ?string
+    public function load(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): ?string
     {
         $query = $this->connection->createQueryBuilder();
         $record = $query
@@ -55,8 +56,8 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
             ->setParameter(':channelId', $channelId->getValue())
             ->andWhere($query->expr()->eq('pgo.attribute_id', ':attributeId'))
             ->setParameter(':attributeId', $attributeId->getValue())
-            ->andWhere($query->expr()->eq('pgo.value', ':value'))
-            ->setParameter(':value', $value)
+            ->andWhere($query->expr()->eq('pgo.option_id', ':optionId'))
+            ->setParameter(':optionId', $optionId->getValue())
             ->execute()
             ->fetch();
 
@@ -70,28 +71,32 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
     /**
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
-     * @param string      $value
+     * @param AggregateId $optionId
      * @param string      $shopwareId
      *
      * @throws DBALException
      */
-    public function save(ChannelId $channelId, AttributeId $attributeId, string $value, string $shopwareId): void
-    {
-        if ($this->exists($channelId, $attributeId, $value)) {
-            $this->update($channelId, $attributeId, $value, $shopwareId);
+    public function save(
+        ChannelId $channelId,
+        AttributeId $attributeId,
+        AggregateId $optionId,
+        string $shopwareId
+    ): void {
+        if ($this->exists($channelId, $attributeId, $optionId)) {
+            $this->update($channelId, $attributeId, $optionId, $shopwareId);
         } else {
-            $this->insert($channelId, $attributeId, $value, $shopwareId);
+            $this->insert($channelId, $attributeId, $optionId, $shopwareId);
         }
     }
 
     /**
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
-     * @param string      $value
+     * @param AggregateId $optionId
      *
      * @return bool
      */
-    public function exists(ChannelId $channelId, AttributeId $attributeId, string $value): bool
+    public function exists(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): bool
     {
 
         $query = $this->connection->createQueryBuilder();
@@ -101,8 +106,8 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
             ->setParameter(':channelId', $channelId->getValue())
             ->andWhere($query->expr()->eq('pgo.attribute_id', ':attributeId'))
             ->setParameter(':attributeId', $attributeId->getValue())
-            ->andWhere($query->expr()->eq('pgo.value', ':value'))
-            ->setParameter(':value', $value)
+            ->andWhere($query->expr()->eq('pgo.option_id', ':optionId'))
+            ->setParameter(':optionId', $optionId->getValue())
             ->execute()
             ->rowCount();
 
@@ -116,13 +121,17 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
     /**
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
-     * @param string      $value
+     * @param AggregateId $optionId
      * @param string      $shopwareId
      *
      * @throws DBALException
      */
-    private function update(ChannelId $channelId, AttributeId $attributeId, string $value, string $shopwareId): void
-    {
+    private function update(
+        ChannelId $channelId,
+        AttributeId $attributeId,
+        AggregateId $optionId,
+        string $shopwareId
+    ): void {
         $this->connection->update(
             self::TABLE,
             [
@@ -132,7 +141,7 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
             [
                 'attribute_id' => $attributeId->getValue(),
                 'channel_id' => $channelId->getValue(),
-                'value' => $value,
+                'option_id' => $optionId->getValue(),
             ]
         );
     }
@@ -140,19 +149,23 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
     /**
      * @param ChannelId   $channelId
      * @param AttributeId $attributeId
-     * @param string      $value
+     * @param AggregateId $optionId
      * @param string      $shopwareId
      *
      * @throws DBALException
      */
-    private function insert(ChannelId $channelId, AttributeId $attributeId, string $value, string $shopwareId): void
-    {
+    private function insert(
+        ChannelId $channelId,
+        AttributeId $attributeId,
+        AggregateId $optionId,
+        string $shopwareId
+    ): void {
         $this->connection->insert(
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
                 'attribute_id' => $attributeId->getValue(),
-                'value' => $value,
+                'option_id' => $optionId->getValue(),
                 'channel_id' => $channelId->getValue(),
                 'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]
