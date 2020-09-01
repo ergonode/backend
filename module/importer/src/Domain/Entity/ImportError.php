@@ -13,7 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
-class ImportLine
+class ImportError
 {
     /**
      * @var int
@@ -31,27 +31,28 @@ class ImportLine
     private ImportId $importId;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private ?string $error;
+    private string $message;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      */
-    private ?\DateTime $processedAt;
+    private \DateTime $createdAt;
 
     /**
      * @param ImportId $importId
      * @param int      $step
      * @param int      $line
+     * @param string   $message
      */
-    public function __construct(ImportId $importId, int $step, int $line)
+    public function __construct(ImportId $importId, int $step, int $line, string $message)
     {
         $this->importId = $importId;
         $this->step = $step;
         $this->line = $line;
-        $this->error = null;
-        $this->processedAt = null;
+        $this->message = $message;
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -71,43 +72,19 @@ class ImportLine
     }
 
     /**
-     * @throws \Exception
+     * @return \DateTime
      */
-    public function process(): void
+    public function getCreatedAt(): \DateTime
     {
-        $this->processedAt = new \DateTime();
+        return $this->createdAt;
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function isProcessed(): bool
+    public function getMessage(): string
     {
-        return null !== $this->processedAt;
-    }
-
-    /**
-     * @param string $error
-     */
-    public function addError(string $error): void
-    {
-        $this->error = $error;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getError(): ?string
-    {
-        return $this->error;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasError(): bool
-    {
-        return null !== $this->error;
+        return $this->message;
     }
 
     /**
@@ -116,13 +93,5 @@ class ImportLine
     public function getStep(): int
     {
         return $this->step;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getProcessedAt(): ?\DateTime
-    {
-        return $this->processedAt;
     }
 }

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
 use Ergonode\Importer\Domain\Command\Import\ErrorImportCommand;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Doctrine\DBAL\DBALException;
 
@@ -19,14 +19,14 @@ use Doctrine\DBAL\DBALException;
 class ErrorImportCommandHandler
 {
     /**
-     * @var ImportLineRepositoryInterface
+     * @var ImportErrorRepositoryInterface
      */
-    private ImportLineRepositoryInterface $repository;
+    private ImportErrorRepositoryInterface $repository;
 
     /**
-     * @param ImportLineRepositoryInterface $repository
+     * @param ImportErrorRepositoryInterface $repository
      */
-    public function __construct(ImportLineRepositoryInterface $repository)
+    public function __construct(ImportErrorRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

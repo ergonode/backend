@@ -9,31 +9,31 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Persistence\Dbal\Repository\Mapper;
 
-use Ergonode\Importer\Domain\Entity\ImportLine;
+use Ergonode\Importer\Domain\Entity\ImportError;
 
 /**
  */
-class ImportLineMapper
+class ImportErrorMapper
 {
     /**
-     * @param ImportLine $importLine
+     * @param ImportError $importLine
      *
      * @return array
      */
-    public function map(ImportLine $importLine): array
+    public function map(ImportError $importLine): array
     {
         $importId = $importLine->getImportId()->getValue();
-        $processedAt = $importLine->getProcessedAt();
+        $createdAt = $importLine->getCreatedAt();
         $line = $importLine->getLine();
         $step = $importLine->getStep();
-        $error = $importLine->getError();
+        $message = $importLine->getMessage();
 
         return [
             'import_id' => $importId,
             'line' => $line,
             'step' => $step,
-            'processed_at' => $processedAt ? $processedAt->format('Y-m-d H:i:s') : null,
-            'message' => $error,
+            'created_at' => $createdAt->format('Y-m-d H:i:s'),
+            'message' => $message,
         ];
     }
 }

@@ -17,6 +17,10 @@ use Webmozart\Assert\Assert;
 use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
+use Ergonode\Importer\Domain\Entity\ImportError;
+use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Reader\Infrastructure\Exception\ReaderException;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -33,6 +37,11 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     private TransformerRepositoryInterface $transformerRepository;
 
     /**
+     * @var ImportErrorRepositoryInterface
+     */
+    private ImportErrorRepositoryInterface $impotrLineRepository;
+
+    /**
      * @var Magento1CsvReader
      */
     private Magento1CsvReader $reader;
@@ -43,19 +52,22 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     private array $steps;
 
     /**
-     * @param SourceRepositoryInterface              $sourceRepository
-     * @param TransformerRepositoryInterface         $transformerRepository
-     * @param Magento1CsvReader                      $reader
-     * @param array|Magento1ProcessorStepInterface[] $steps
+     * @param SourceRepositoryInterface        $sourceRepository
+     * @param TransformerRepositoryInterface   $transformerRepository
+     * @param ImportErrorRepositoryInterface    $impotrLineRepository
+     * @param Magento1CsvReader                $reader
+     * @param Magento1ProcessorStepInterface[] $steps
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
+        ImportErrorRepositoryInterface $impotrLineRepository,
         Magento1CsvReader $reader,
         array $steps
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
+        $this->impotrLineRepository = $impotrLineRepository;
         $this->reader = $reader;
         $this->steps = $steps;
     }
@@ -73,7 +85,8 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     /**
      * @param Import $import
      *
-     * @throws \Throwable
+     * @throws DBALException
+     * @throws \ReflectionException
      */
     public function start(Import $import): void
     {
@@ -84,6 +97,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         Assert::notNull($transformer);
 
         $result = [];
+        $message = null;
         try {
             $products = $this->reader->read($source, $import, $transformer);
             foreach ($products as $sku => $product) {
@@ -92,8 +106,18 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
                     $result[$sku]->set($code, $version);
                 }
             }
+        } catch (ReaderException $exception) {
+            $message = $exception->getMessage();
         } catch (\Exception $exception) {
+            $message = 'Import processing error';
+        }
+
+        if ($message) {
+            $line = new ImportError($import->getId(), 0, 0, $message);
             $import->stop();
+            $this->impotrLineRepository->save($line);
+
+            return;
         }
 
         $count = count($this->steps);

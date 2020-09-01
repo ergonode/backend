@@ -10,23 +10,23 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Importer\Domain\Entity\ImportLine;
+use Ergonode\Importer\Domain\Entity\ImportError;
 
 /**
  */
-class ImportLineFactory
+class ImportErrorFactory
 {
     /**
      * @param array $record
      *
-     * @return ImportLine
+     * @return ImportError
      *
      * @throws \ReflectionException
      */
-    public function create(array $record): ImportLine
+    public function create(array $record): ImportError
     {
-        $reflector = new \ReflectionClass(ImportLine::class);
-        /** @var ImportLine $object */
+        $reflector = new \ReflectionClass(ImportError::class);
+        /** @var ImportError $object */
         $object = $reflector->newInstanceWithoutConstructor();
 
         foreach ($this->getMap($record) as $key => $value) {
@@ -51,8 +51,8 @@ class ImportLineFactory
             'importId' => new ImportId($record['import_id']),
             'line' => $record['line'],
             'step' => $record['step'],
-            'error' => $record['message'],
-            'processedAt' => $record['processed_at'] ? new \DateTime($record['processed_at']) : null,
+            'message' => $record['message'],
+            'createdAt' =>  new \DateTime($record['created_at']),
         ];
     }
 }

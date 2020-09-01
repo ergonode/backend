@@ -13,6 +13,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class ImportLineId extends AggregateId
+class ImportErrorId extends AggregateId
 {
 }
