@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\SharedKernel\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportErrorId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -18,7 +18,7 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
 /**
  */
-class ImportLineIdHandler implements SubscribingHandlerInterface
+class ImportErrorIdHandler implements SubscribingHandlerInterface
 {
     /**
      * @return array
@@ -31,14 +31,14 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
         foreach ($formats as $format) {
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
-                'type' => ImportLineId::class,
+                'type' => ImportErrorId::class,
                 'format' => $format,
                 'method' => 'serialize',
             ];
 
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
-                'type' => ImportLineId::class,
+                'type' => ImportErrorId::class,
                 'format' => $format,
                 'method' => 'deserialize',
             ];
@@ -49,7 +49,7 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param ImportLineId                  $id
+     * @param ImportErrorId                 $id
      * @param array                         $type
      * @param Context                       $context
      *
@@ -57,7 +57,7 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
-        ImportLineId $id,
+        ImportErrorId $id,
         array $type,
         Context $context
     ): string {
@@ -70,14 +70,14 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
      * @param array                           $type
      * @param Context                         $context
      *
-     * @return ImportLineId
+     * @return ImportErrorId
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,
         $data,
         array $type,
         Context $context
-    ): ImportLineId {
-        return new ImportLineId($data);
+    ): ImportErrorId {
+        return new ImportErrorId($data);
     }
 }

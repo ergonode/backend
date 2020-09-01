@@ -54,6 +54,11 @@ class Import
     private string $file;
 
     /**
+     * @var int
+     */
+    private int $records;
+
+    /**
      * @param ImportId      $id
      * @param SourceId      $sourceId
      * @param TransformerId $transformerId
@@ -68,6 +73,7 @@ class Import
         $this->file = $file;
         $this->startedAt = null;
         $this->endedAt = null;
+        $this->records = 0;
     }
 
     /**
@@ -151,6 +157,22 @@ class Import
         }
 
         $this->status = new ImportStatus(ImportStatus::STOPPED);
+    }
+
+    /**
+     * @param int $records
+     */
+    public function addRecords(int $records): void
+    {
+        $this->records += $records;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRecords(): int
+    {
+        return $this->records;
     }
 
     /**

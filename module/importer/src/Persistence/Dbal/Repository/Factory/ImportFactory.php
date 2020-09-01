@@ -56,6 +56,7 @@ class ImportFactory
             'sourceId' => new SourceId($record['source_id']),
             'transformerId' => new TransformerId($record['transformer_id']),
             'file' => $record['file'],
+            'records' => $record['records'],
             'startedAt' => $record['started_at'] ? new \DateTime($record['started_at']) : null,
             'endedAt' => $record['ended_at'] ? new \DateTime($record['ended_at']) : null,
         ];

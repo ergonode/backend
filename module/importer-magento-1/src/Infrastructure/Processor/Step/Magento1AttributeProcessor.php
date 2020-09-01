@@ -18,9 +18,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInte
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Importer\Domain\Entity\ImportLine;
-use Doctrine\DBAL\DBALException;
 use Ergonode\Importer\Infrastructure\Action\AttributeImportAction;
 
 /**
@@ -28,33 +25,26 @@ use Ergonode\Importer\Infrastructure\Action\AttributeImportAction;
 class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
 {
     /**
-     * @var ImportLineRepositoryInterface
-     */
-    private ImportLineRepositoryInterface $repository;
-
-    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImportLineRepositoryInterface $repository
-     * @param CommandBusInterface           $commandBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(ImportLineRepositoryInterface $repository, CommandBusInterface $commandBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
 
     /**
      * @param Import            $import
-     * @param ProductModel[]    $products
+     * @param array             $products
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      * @param Progress          $steps
      *
-     * @throws DBALException
+     * @return int
      */
     public function process(
         Import $import,
@@ -62,7 +52,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         Transformer $transformer,
         Magento1CsvSource $source,
         Progress $steps
-    ): void {
+    ): int {
         $result = [];
         foreach ($transformer->getAttributes() as $field => $converter) {
             $attributeCode = new AttributeCode($field);
@@ -89,9 +79,9 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
                 $attribute,
                 AttributeImportAction::TYPE
             );
-            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
-            $this->repository->save($line);
             $this->commandBus->dispatch($command, true);
         }
+
+        return $count;
     }
 }

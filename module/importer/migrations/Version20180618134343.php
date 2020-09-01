@@ -49,6 +49,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 started_at TIMESTAMP WITHOUT TIME ZONE,
                 ended_at TIMESTAMP WITHOUT TIME ZONE,
+                records int NOT NULL DEFAULT 0,
                 PRIMARY KEY(id)
             )
         ');
@@ -59,20 +60,18 @@ final class Version20180618134343 extends AbstractErgonodeMigration
         );
 
         $this->addSql('
-            CREATE TABLE importer.import_line (
+            CREATE TABLE importer.import_error (
                 import_id UUID NOT NULL,
-                step INT NOT NULL ,
-                line INT NOT NULL ,
+                step INT NOT NULL,
+                line INT NOT NULL,
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                processed_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
                 message TEXT DEFAULT NULL,                    
                 PRIMARY KEY(import_id, step, line)
             )
         ');
-        $this->addSql('CREATE INDEX import_line_import_id_idx ON importer.import_line USING btree (import_id)');
+        $this->addSql('CREATE INDEX import_error_import_id_idx ON importer.import_error USING btree (import_id)');
         $this->addSql(
-            'ALTER TABLE importer.import_line ADD CONSTRAINT import_line_import_id_fk FOREIGN KEY (import_id) '.
+            'ALTER TABLE importer.import_error ADD CONSTRAINT import_error_import_id_fk FOREIGN KEY (import_id) '.
             'REFERENCES importer.import ON UPDATE CASCADE ON DELETE CASCADE'
         );
 

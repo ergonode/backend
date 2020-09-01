@@ -37,7 +37,7 @@ services:
         tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Importer\Domain\Repository\ImportRepositoryInterface: '@Ergonode\Importer\Persistence\Dbal\Repository\DbalImportRepository'
-    Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface: '@Ergonode\Importer\Persistence\Dbal\Repository\DbalImportLineRepository'
+    Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface: '@Ergonode\Importer\Persistence\Dbal\Repository\DbalImportErrorRepository'
     Ergonode\Importer\Domain\Query\ImportQueryInterface: '@Ergonode\Importer\Persistence\Dbal\Query\DbalImportQuery'
 
     Ergonode\Importer\Application\Service\Upload\UploadService:

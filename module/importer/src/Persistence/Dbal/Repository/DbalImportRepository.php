@@ -32,6 +32,7 @@ class DbalImportRepository implements ImportRepositoryInterface
         'file',
         'started_at',
         'ended_at',
+        'records',
     ];
 
     /**

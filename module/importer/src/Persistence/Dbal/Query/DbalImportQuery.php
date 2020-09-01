@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportErrorId;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -45,16 +45,16 @@ class DbalImportQuery implements ImportQueryInterface
     }
 
     /**
-     * @param ImportLineId $id
+     * @param ImportErrorId $id
      *
      * @return array
      */
-    public function getLineContent(ImportLineId $id): array
+    public function getLineContent(ImportErrorId $id): array
     {
         $qb = $this->connection->createQueryBuilder();
         $record = $qb
             ->select('line')
-            ->from('importer.import_line')
+            ->from('importer.import_error')
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter(':id', $id->getValue())
             ->execute()
@@ -91,8 +91,8 @@ class DbalImportQuery implements ImportQueryInterface
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->select('il.import_id AS id, il.line, il.processed_at, il.message')
-            ->from('importer.import_line', 'il')
+        $query->select('il.import_id AS id, il.line, il.created_at, il.message')
+            ->from('importer.import_error', 'il')
             ->where($query->expr()->eq('il.import_id', ':importId'))
             ->andWhere($query->expr()->isNotNull('il.message'));
 
@@ -131,11 +131,10 @@ class DbalImportQuery implements ImportQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('id, status, source_id, created_at, updated_at, started_at, ended_at')
-            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) AS records')
+            ->select('id, status, records, source_id, created_at, updated_at, started_at, ended_at')
             ->addSelect(
                 '(SELECT count(*)
-                        FROM importer.import_line il
+                        FROM importer.import_error il
                         WHERE il.import_id = i.id
                         AND il.message IS NOT NULL) AS errors'
             )

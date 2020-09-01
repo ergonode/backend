@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
-use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
@@ -16,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\Entity\ImportLine;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
@@ -47,35 +44,26 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
      * @var ProductQueryInterface
      */
     private ProductQueryInterface $productQuery;
-
-    /**
-     * @var ImportLineRepositoryInterface
-     */
-    private ImportLineRepositoryInterface $repository;
-
     /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param OptionQueryInterface          $optionQuery
-     * @param AttributeQueryInterface       $attributeQuery
-     * @param ProductQueryInterface         $productQuery
-     * @param ImportLineRepositoryInterface $repository
-     * @param CommandBusInterface           $commandBus
+     * @param OptionQueryInterface    $optionQuery
+     * @param AttributeQueryInterface $attributeQuery
+     * @param ProductQueryInterface   $productQuery
+     * @param CommandBusInterface     $commandBus
      */
     public function __construct(
         OptionQueryInterface $optionQuery,
         AttributeQueryInterface $attributeQuery,
         ProductQueryInterface $productQuery,
-        ImportLineRepositoryInterface $repository,
         CommandBusInterface $commandBus
     ) {
         parent::__construct($optionQuery);
         $this->attributeQuery = $attributeQuery;
         $this->productQuery = $productQuery;
-        $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
 
@@ -86,7 +74,7 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
      * @param Magento1CsvSource $source
      * @param Progress          $steps
      *
-     * @throws DBALException
+     * @return int
      */
     public function process(
         Import $import,
@@ -94,7 +82,7 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
         Transformer $transformer,
         Magento1CsvSource $source,
         Progress $steps
-    ): void {
+    ): int {
         $i = 0;
         $products = $this->getProducts($products, 'configurable');
         $count = count($products);
@@ -110,10 +98,10 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
                 $record,
                 VariableProductImportAction::TYPE
             );
-            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
-            $this->repository->save($line);
             $this->commandBus->dispatch($command, true);
         }
+
+        return $count;
     }
 
     /**

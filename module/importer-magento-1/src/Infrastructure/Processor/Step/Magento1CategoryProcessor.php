@@ -19,9 +19,6 @@ use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Formatter\SlugFormatter;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Importer\Domain\Entity\ImportLine;
-use Doctrine\DBAL\DBALException;
 use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 
 /**
@@ -31,33 +28,26 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
     private const UUID = '5bfd053c-e39b-45f9-87a7-6ca1cc9d9830';
 
     /**
-     * @var ImportLineRepositoryInterface
-     */
-    private ImportLineRepositoryInterface $repository;
-
-    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImportLineRepositoryInterface $repository
-     * @param CommandBusInterface           $commandBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(ImportLineRepositoryInterface $repository, CommandBusInterface $commandBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
 
     /**
      * @param Import            $import
-     * @param ProductModel[]    $products
+     * @param array             $products
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      * @param Progress          $steps
      *
-     * @throws DBALException
+     * @return int
      */
     public function process(
         Import $import,
@@ -65,7 +55,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         Transformer $transformer,
         Magento1CsvSource $source,
         Progress $steps
-    ): void {
+    ): int {
         $result = [];
         foreach ($products as $sku => $product) {
             $default = $product->get('default');
@@ -107,9 +97,9 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                 $category,
                 CategoryImportAction::TYPE
             );
-            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
-            $this->repository->save($line);
             $this->commandBus->dispatch($command, true);
         }
+
+        return $count;
     }
 }

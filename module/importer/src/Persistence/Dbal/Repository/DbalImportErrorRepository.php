@@ -13,22 +13,22 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Importer\Domain\Entity\ImportLine;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Importer\Persistence\Dbal\Repository\Factory\ImportLineFactory;
-use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\ImportLineMapper;
+use Ergonode\Importer\Domain\Entity\ImportError;
+use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Importer\Persistence\Dbal\Repository\Factory\ImportErrorFactory;
+use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\ImportErrorMapper;
 
 /**
  */
-class DbalImportLineRepository implements ImportLineRepositoryInterface
+class DbalImportErrorRepository implements ImportErrorRepositoryInterface
 {
-    private const TABLE = 'importer.import_line';
+    private const TABLE = 'importer.import_error';
     private const FIELDS = [
         'import_id',
         'line',
         'step',
         'message',
-        'processed_at',
+        'created_at',
     ];
 
     /**
@@ -37,21 +37,21 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     private Connection $connection;
 
     /**
-     * @var ImportLineFactory
+     * @var ImportErrorFactory
      */
-    private ImportLineFactory $factory;
+    private ImportErrorFactory $factory;
 
     /**
-     * @var ImportLineMapper
+     * @var ImportErrorMapper
      */
-    private ImportLineMapper $mapper;
+    private ImportErrorMapper $mapper;
 
     /**
-     * @param Connection        $connection
-     * @param ImportLineFactory $factory
-     * @param ImportLineMapper  $mapper
+     * @param Connection         $connection
+     * @param ImportErrorFactory $factory
+     * @param ImportErrorMapper  $mapper
      */
-    public function __construct(Connection $connection, ImportLineFactory $factory, ImportLineMapper $mapper)
+    public function __construct(Connection $connection, ImportErrorFactory $factory, ImportErrorMapper $mapper)
     {
         $this->connection = $connection;
         $this->factory = $factory;
@@ -63,11 +63,11 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
      * @param int      $step
      * @param int      $line
      *
-     * @return ImportLine|null
+     * @return ImportError|null
      *
      * @throws \ReflectionException
      */
-    public function load(ImportId $importId, int $step, int $line): ?ImportLine
+    public function load(ImportId $importId, int $step, int $line): ?ImportError
     {
         $qb = $this->getQuery();
         $record = $qb
@@ -89,17 +89,13 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     }
 
     /**
-     * @param ImportLine $importLine
+     * @param ImportError $importLine
      *
      * @throws DBALException
      */
-    public function save(ImportLine $importLine): void
+    public function save(ImportError $importLine): void
     {
-        if ($this->exists($importLine->getImportId(), $importLine->getStep(), $importLine->getLine())) {
-            $this->update($importLine);
-        } else {
-            $this->insert($importLine);
-        }
+        $this->insert($importLine);
     }
 
     /**
@@ -148,36 +144,13 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     }
 
     /**
-     * @param ImportLine $importLine
+     * @param ImportError $importLine
      *
      * @throws DBALException
      */
-    public function update(ImportLine $importLine): void
+    public function insert(ImportError $importLine): void
     {
         $importLineArray = $this->mapper->map($importLine);
-        $importLineArray['updated_at'] = date('Y-m-d H:i:s');
-
-        $this->connection->update(
-            self::TABLE,
-            $importLineArray,
-            [
-                'import_id' => $importLine->getImportId()->getValue(),
-                'step' => $importLine->getStep(),
-                'line' => $importLine->getLine(),
-            ]
-        );
-    }
-
-    /**
-     * @param ImportLine $importLine
-     *
-     * @throws DBALException
-     */
-    public function insert(ImportLine $importLine): void
-    {
-        $importLineArray = $this->mapper->map($importLine);
-        $importLineArray['created_at'] = date('Y-m-d H:i:s');
-        $importLineArray['updated_at'] = date('Y-m-d H:i:s');
 
         $this->connection->insert(
             self::TABLE,
