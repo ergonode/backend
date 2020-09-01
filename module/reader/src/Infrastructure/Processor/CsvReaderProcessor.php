@@ -96,7 +96,7 @@ class CsvReaderProcessor implements ReaderProcessorInterface
                 }
                 $row[$key] = trim($field);
             }
-            if(count($this->headers) !== count($row)) {
+            if (count($this->headers) !== count($row)) {
                 $message = 'The number of fields is different from the number of headers';
 
                 throw new ReaderException($message);

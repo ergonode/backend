@@ -37,9 +37,9 @@ class ProcessImportCommandHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImportActionProvider          $importActionProvider
+     * @param ImportActionProvider           $importActionProvider
      * @param ImportErrorRepositoryInterface $repository
-     * @param CommandBusInterface           $commandBus
+     * @param CommandBusInterface            $commandBus
      */
     public function __construct(
         ImportActionProvider $importActionProvider,
@@ -78,6 +78,5 @@ class ProcessImportCommandHandler
 
             throw $exception;
         }
-
     }
 }

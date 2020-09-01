@@ -50,10 +50,10 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     private CommandBusInterface $commandBus;
 
     /**
-     * @param OptionQueryInterface          $optionQuery
-     * @param AttributeQueryInterface       $attributeQuery
-     * @param ProductQueryInterface         $productQuery
-     * @param CommandBusInterface           $commandBus
+     * @param OptionQueryInterface    $optionQuery
+     * @param AttributeQueryInterface $attributeQuery
+     * @param ProductQueryInterface   $productQuery
+     * @param CommandBusInterface     $commandBus
      */
     public function __construct(
         OptionQueryInterface $optionQuery,

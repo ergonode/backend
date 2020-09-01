@@ -44,9 +44,9 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
     private CommandBusInterface $commandBus;
 
     /**
-     * @param OptionQueryInterface          $optionQuery
-     * @param AttributeQueryInterface       $attributeQuery
-     * @param CommandBusInterface           $commandBus
+     * @param OptionQueryInterface    $optionQuery
+     * @param AttributeQueryInterface $attributeQuery
+     * @param CommandBusInterface     $commandBus
      */
     public function __construct(
         OptionQueryInterface $optionQuery,

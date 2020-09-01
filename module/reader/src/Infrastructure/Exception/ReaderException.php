@@ -15,11 +15,11 @@ use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 class ReaderException extends ExportException
 {
     /**
-     * @param string         $message
+     * @param string          $message
      * @param \Throwable|null $previous
      */
     public function __construct(string $message, \Throwable $previous = null)
     {
-        parent::__construct($message,  $previous);
+        parent::__construct($message, $previous);
     }
 }

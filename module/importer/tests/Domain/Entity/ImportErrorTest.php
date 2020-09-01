@@ -30,6 +30,5 @@ class ImportErrorTest extends TestCase
         self::assertEquals($line, $entity->getLine());
         self::assertEquals($step, $entity->getStep());
         self::assertEquals($message, $entity->getMessage());
-
     }
 }

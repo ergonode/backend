@@ -49,7 +49,7 @@ class ImportErrorIdHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param ImportErrorId                  $id
+     * @param ImportErrorId                 $id
      * @param array                         $type
      * @param Context                       $context
      *

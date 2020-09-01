@@ -29,7 +29,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface           $commandBus
+     * @param CommandBusInterface $commandBus
      */
     public function __construct(CommandBusInterface $commandBus)
     {

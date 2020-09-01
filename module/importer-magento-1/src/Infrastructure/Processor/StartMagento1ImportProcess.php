@@ -54,7 +54,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     /**
      * @param SourceRepositoryInterface        $sourceRepository
      * @param TransformerRepositoryInterface   $transformerRepository
-     * @param ImportErrorRepositoryInterface    $impotrLineRepository
+     * @param ImportErrorRepositoryInterface   $impotrLineRepository
      * @param Magento1CsvReader                $reader
      * @param Magento1ProcessorStepInterface[] $steps
      */
