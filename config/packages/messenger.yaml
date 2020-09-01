@@ -13,6 +13,7 @@ framework:
             messenger.bus.async:
                 default_middleware: false
                 middleware:
+                    - 'doctrine_ping_connection'
                     - 'send_message'
                     - 'handle_message'
         default_bus: messenger.bus.sync
