@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Entity\Catalog;
 use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategory;
 
 /**
+ * @deprecated
  */
 class Shopware6Category
 {
@@ -27,6 +28,8 @@ class Shopware6Category
     /**
      * @param string         $id
      * @param ExportCategory $category
+     *
+     * @deprecated
      */
     public function __construct(string $id, ExportCategory $category)
     {
