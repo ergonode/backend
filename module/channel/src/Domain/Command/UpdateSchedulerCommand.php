@@ -12,6 +12,7 @@ namespace Ergonode\Channel\Domain\Command;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -32,39 +33,42 @@ class UpdateSchedulerCommand implements DomainCommandInterface
     private bool $active;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @JMS\Type("DateTime")
      */
-    private \DateTime $start;
+    private ?\DateTime $start;
 
     /**
-     * @var int
+     * @var int|null
      *
      * @JMS\Type("integer")
      */
-    private int $hour;
+    private ?int $hour;
 
     /**
-     * @var int
+     * @var int|null
      *
      * @JMS\Type("integer")
      */
-    private int $minute;
+    private ?int $minute;
 
     /**
-     * @param AggregateId $id
-     * @param bool        $active
-     * @param \DateTime   $start
-     * @param int         $hour
-     * @param int         $minute
+     * @param AggregateId    $id
+     * @param bool           $active
+     * @param \DateTime|null $start
+     * @param int | null     $hour
+     * @param int | null     $minute
      */
-    public function __construct(AggregateId $id, bool $active, \DateTime $start, int $hour, int $minute)
+    public function __construct(AggregateId $id, bool $active, ?\DateTime $start, ?int $hour, ?int $minute)
     {
-        Assert::greaterThanEq($hour, 0);
-        Assert::greaterThanEq($minute, 0);
-        Assert::lessThanEq($hour, 23);
-        Assert::lessThanEq($minute, 59);
+        if ($active) {
+            Assert::notNull($start);
+            Assert::greaterThanEq($hour, 0);
+            Assert::greaterThanEq($minute, 0);
+            Assert::lessThanEq($hour, 23);
+            Assert::lessThanEq($minute, 59);
+        }
 
         $this->id = $id;
         $this->active = $active;

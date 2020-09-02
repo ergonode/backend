@@ -15,7 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SchedulerModel
 {
     /**
-     * @Assert\NotBlank(message="Object id is required")
+     * @Assert\NotNull(message="Activity is required")
+     * @Assert\Type("bool")
      */
     public bool $active = false;
 
