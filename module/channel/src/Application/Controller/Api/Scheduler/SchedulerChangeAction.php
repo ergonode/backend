@@ -121,7 +121,7 @@ class SchedulerChangeAction
                     new UpdateSchedulerCommand(
                         new AggregateId($channel->getId()->getValue()),
                         $data->active,
-                        new \DateTime($data->start),
+                        $data->start ? new \DateTime($data->start) : null,
                         $data->hour,
                         $data->minute,
                     );
