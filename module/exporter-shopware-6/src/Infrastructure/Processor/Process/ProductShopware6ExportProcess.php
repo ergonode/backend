@@ -94,7 +94,8 @@ class ProductShopware6ExportProcess
         ?Shopware6Language $shopwareLanguage = null
     ): void {
         $this->builder->build($shopwareProduct, $product, $channel, $language);
-        if ($shopwareProduct->isModified()) {
+
+        if ($shopwareProduct->isModified() || $shopwareProduct->hasItemToRemoved()) {
             $this->productClient->update($channel, $shopwareProduct, $shopwareLanguage);
         }
     }

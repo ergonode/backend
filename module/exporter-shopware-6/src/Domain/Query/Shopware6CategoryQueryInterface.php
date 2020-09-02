@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Domain\Query;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Catalog\Shopware6Category;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
@@ -19,9 +20,9 @@ interface Shopware6CategoryQueryInterface
      * @param ChannelId $channel
      * @param string    $shopwareId
      *
-     * @return Shopware6Category|null
+     * @return CategoryId|null
      */
-    public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?Shopware6Category;
+    public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?CategoryId;
 
     /**
      * @param ChannelId          $channel

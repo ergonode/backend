@@ -144,6 +144,20 @@ class Shopware6Product
     private array $propertyToRemove = [];
 
     /**
+     * @var array
+     *
+     * @JMS\Exclude()
+     */
+    private array $categoryToRemove = [];
+
+    /**
+     * @var array
+     *
+     * @JMS\Exclude()
+     */
+    private array $mediaToRemove = [];
+
+    /**
      * @var bool
      *
      * @JMS\Exclude()
@@ -194,6 +208,7 @@ class Shopware6Product
         $this->taxId = $taxId;
         $this->price = $price;
         $this->setPropertyToRemove($properties);
+        $this->setCategoryToRemove($categories);
     }
 
     /**
@@ -285,6 +300,7 @@ class Shopware6Product
             ];
             $this->modified = true;
         }
+        unset($this->categoryToRemove[$categoryId]);
     }
 
     /**
@@ -301,6 +317,14 @@ class Shopware6Product
         }
 
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategoryToRemove(): array
+    {
+        return $this->categoryToRemove;
     }
 
     /**
@@ -556,6 +580,7 @@ class Shopware6Product
     public function setMedia(?array $media): void
     {
         $this->media = $media;
+        $this->setMediaToRemove($media);
     }
 
     /**
@@ -579,6 +604,7 @@ class Shopware6Product
             $this->media[] = $media;
             $this->modified = true;
         }
+        unset($this->mediaToRemove[$media->getMediaId()]);
     }
 
     /**
@@ -595,6 +621,14 @@ class Shopware6Product
         }
 
         return false;
+    }
+
+    /**
+     * @return Shopware6ProductMedia[]
+     */
+    public function getMediaToRemove(): array
+    {
+        return $this->mediaToRemove;
     }
 
     /**
@@ -657,7 +691,17 @@ class Shopware6Product
      */
     public function isModified(): bool
     {
-        return $this->modified || count($this->propertyToRemove) > 0;
+        return $this->modified;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasItemToRemoved(): bool
+    {
+        return count($this->propertyToRemove) > 0
+            || count($this->categoryToRemove) > 0
+            || count($this->mediaToRemove) > 0;
     }
 
     /**
@@ -672,6 +716,29 @@ class Shopware6Product
         }
     }
 
+    /**
+     * @param array|null $category
+     */
+    private function setCategoryToRemove(?array $category): void
+    {
+        if ($category) {
+            foreach ($category as $item) {
+                $this->categoryToRemove[$item['id']] = $item['id'];
+            }
+        }
+    }
+
+    /**
+     * @param array|null $media
+     */
+    private function setMediaToRemove(?array $media): void
+    {
+        if ($media) {
+            foreach ($media as $item) {
+                $this->mediaToRemove[$item->getMediaId()] = $item;
+            }
+        }
+    }
 
     /**
      * @param Shopware6ProductPrice $price

@@ -164,7 +164,7 @@ class Shopware6ProductTest extends TestCase
         self::assertEquals($this->media, $model->getMedia());
 
         self::assertFalse($model->isNew());
-        self::assertTrue($model->isModified());
+        self::assertFalse($model->isModified());
     }
 
     /**
