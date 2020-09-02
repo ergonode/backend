@@ -37,4 +37,10 @@ interface Shopware6CategoryRepositoryInterface
      * @return bool
      */
     public function exists(ChannelId $channelId, CategoryId $categoryId): bool;
+
+    /**
+     * @param ChannelId  $channelId
+     * @param CategoryId $categoryId
+     */
+    public function delete(ChannelId $channelId, CategoryId $categoryId): void;
 }

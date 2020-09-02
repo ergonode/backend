@@ -11,12 +11,15 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\DeleteCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\GetCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\PatchCategoryAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\PostCategoryAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  */
@@ -98,5 +101,20 @@ class Shopware6CategoryClient
             $action->addHeader('sw-language-id', $shopware6Language->getId());
         }
         $this->connector->execute($channel, $action);
+    }
+
+    /**
+     * @param Shopware6Channel $channel
+     * @param string           $shopwareId
+     * @param CategoryId       $categoryId
+     */
+    public function delete(Shopware6Channel $channel, string $shopwareId, CategoryId $categoryId): void
+    {
+        try {
+            $action = new DeleteCategory($shopwareId);
+            $this->connector->execute($channel, $action);
+        } catch (ClientException $exception) {
+        }
+        $this->repository->delete($channel->getId(), $categoryId);
     }
 }

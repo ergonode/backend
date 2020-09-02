@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Query;
 
-use Ergonode\ExporterShopware6\Domain\Entity\Catalog\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
@@ -29,4 +28,12 @@ interface Shopware6CategoryQueryInterface
      * @param \DateTimeImmutable $dateTime
      */
     public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime): void;
+
+    /**
+     * @param ChannelId $channelId
+     * @param array     $categoryIds
+     *
+     * @return array
+     */
+    public function getCategoryToDelete(ChannelId $channelId, array $categoryIds):array;
 }

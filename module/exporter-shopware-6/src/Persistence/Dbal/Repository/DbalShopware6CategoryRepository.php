@@ -110,6 +110,24 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
     /**
      * @param ChannelId  $channelId
      * @param CategoryId $categoryId
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     */
+    public function delete(ChannelId $channelId, CategoryId $categoryId): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'category_id' => $categoryId->getValue(),
+                'channel_id' => $channelId->getValue(),
+            ]
+        );
+    }
+
+    /**
+     * @param ChannelId  $channelId
+     * @param CategoryId $categoryId
      * @param string     $shopwareId
      *
      * @throws \Doctrine\DBAL\DBALException

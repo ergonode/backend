@@ -77,4 +77,25 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
             ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
             ->execute();
     }
+
+    /**
+     * @param ChannelId $channelId
+     * @param array     $categoryIds
+     *
+     * @return array
+     */
+    public function getCategoryToDelete(ChannelId $channelId, array $categoryIds): array
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        return $query
+            ->select('cs.category_id')
+            ->from(self::TABLE, 'cs')
+            ->where($query->expr()->eq('cs.channel_id', ':channelId'))
+            ->setParameter(':channelId', $channelId->getValue())
+            ->andWhere($query->expr()->notIn('cs.category_id', ':categoryIds'))
+            ->setParameter(':categoryIds', $categoryIds, Connection::PARAM_STR_ARRAY)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
 }
