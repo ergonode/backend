@@ -52,8 +52,7 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
     public function supports($attribute, $subject): bool
     {
         $privileges = $this->query->getPrivileges();
-
-        return in_array($attribute, $privileges, true);
+        return in_array($attribute, array_column($privileges, "code"), true);
     }
 
     /**
