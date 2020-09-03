@@ -27,7 +27,7 @@ services:
             $steps:
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6PropertyGroupStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryStep'
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6Varimodule/exporter-shopware-6/src/Infrastructure/Client/Shopware6CategoryClient.phpableProductStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryRemoveStep'
     # Repository
