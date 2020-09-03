@@ -9,13 +9,13 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class PropertyGroupShopware6ExportCommand implements DomainCommandInterface
+class CategoryRemoveShopware6ExportCommand implements DomainCommandInterface
 {
     /**
      * @var ExportId
@@ -25,20 +25,20 @@ class PropertyGroupShopware6ExportCommand implements DomainCommandInterface
     private ExportId $exportId;
 
     /**
-     * @var AttributeId
+     * @var CategoryId
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    private AttributeId $attributeId;
+    private CategoryId $categoryId;
 
     /**
-     * @param ExportId    $exportId
-     * @param AttributeId $attributeId
+     * @param ExportId   $exportId
+     * @param CategoryId $categoryId
      */
-    public function __construct(ExportId $exportId, AttributeId $attributeId)
+    public function __construct(ExportId $exportId, CategoryId $categoryId)
     {
         $this->exportId = $exportId;
-        $this->attributeId = $attributeId;
+        $this->categoryId = $categoryId;
     }
 
     /**
@@ -50,10 +50,10 @@ class PropertyGroupShopware6ExportCommand implements DomainCommandInterface
     }
 
     /**
-     * @return AttributeId
+     * @return CategoryId
      */
-    public function getAttributeId(): AttributeId
+    public function getCategoryId(): CategoryId
     {
-        return $this->attributeId;
+        return $this->categoryId;
     }
 }

@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

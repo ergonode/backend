@@ -43,9 +43,9 @@ class Shopware6ProductCategoryMapper implements Shopware6ProductMapperInterface
     ): Shopware6Product {
         $categoryList = $product->getCategories();
         foreach ($categoryList as $categoryId) {
-            $shopwareCategory = $this->categoryRepository->load($channel->getId(), $categoryId);
-            if ($shopwareCategory) {
-                $shopware6Product->addCategoryId($shopwareCategory->getId());
+            $shopwareCategoryId = $this->categoryRepository->load($channel->getId(), $categoryId);
+            if ($shopwareCategoryId) {
+                $shopware6Product->addCategoryId($shopwareCategoryId);
             }
         }
 
