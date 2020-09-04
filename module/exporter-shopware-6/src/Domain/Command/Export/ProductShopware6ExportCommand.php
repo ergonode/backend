@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

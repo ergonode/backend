@@ -9,8 +9,10 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Category\DeleteProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\ConfiguratorSettings\GetConfiguratorSettings;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProductList;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Media\DeleteProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Media\GetProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PatchProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
@@ -108,13 +110,18 @@ class Shopware6ProductClient
         Shopware6Product $product,
         ?Shopware6Language $shopware6Language = null
     ): void {
-        $action = new PatchProductAction($product);
-        if ($shopware6Language) {
-            $action->addHeader('sw-language-id', $shopware6Language->getId());
+        if ($product->isModified()) {
+            $action = new PatchProductAction($product);
+            if ($shopware6Language) {
+                $action->addHeader('sw-language-id', $shopware6Language->getId());
+            }
+            $this->connector->execute($channel, $action);
         }
-        $this->connector->execute($channel, $action);
-
-        $this->removeProperty($channel, $product);
+        if ($product->hasItemToRemoved()) {
+            $this->removeProperty($channel, $product);
+            $this->removeCategory($channel, $product);
+            $this->removeMedia($channel, $product);
+        }
     }
 
     /**
@@ -125,6 +132,30 @@ class Shopware6ProductClient
     {
         foreach ($product->getPropertyToRemove() as $propertyId) {
             $action = new DeleteProperties($product->getId(), $propertyId);
+            $this->connector->execute($channel, $action);
+        }
+    }
+
+    /**
+     * @param Shopware6Channel $channel
+     * @param Shopware6Product $product
+     */
+    private function removeCategory(Shopware6Channel $channel, Shopware6Product $product): void
+    {
+        foreach ($product->getCategoryToRemove() as $categoryId) {
+            $action = new DeleteProductCategory($product->getId(), $categoryId);
+            $this->connector->execute($channel, $action);
+        }
+    }
+
+    /**
+     * @param Shopware6Channel $channel
+     * @param Shopware6Product $product
+     */
+    private function removeMedia(Shopware6Channel $channel, Shopware6Product $product): void
+    {
+        foreach ($product->getMediaToRemove() as $media) {
+            $action = new DeleteProductMedia($product->getId(), $media->getId());
             $this->connector->execute($channel, $action);
         }
     }

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -10,30 +10,28 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class GetCategoryList extends AbstractAction implements ActionInterface
+class GetCategory extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v2/category?%s';
+    private const URI = '/api/v2/category/%s';
 
     /**
-     * @var Shopware6QueryBuilder
+     * @var string
      */
-    private Shopware6QueryBuilder $query;
+    private string $categoryId;
 
     /**
-     * @param Shopware6QueryBuilder $query
+     * @param string $categoryId
      */
-    public function __construct(Shopware6QueryBuilder $query)
+    public function __construct(string $categoryId)
     {
-        $this->query = $query;
+        $this->categoryId = $categoryId;
     }
-
     /**
      * @return Request
      */
@@ -49,26 +47,21 @@ class GetCategoryList extends AbstractAction implements ActionInterface
     /**
      * @param string|null $content
      *
-     * @return Shopware6Category[]
+     * @return Shopware6Category
      *
      * @throws \JsonException
      */
-    public function parseContent(?string $content): array
+    public function parseContent(?string $content):Shopware6Category
     {
-        $result = [];
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        foreach ($data['data'] as $row) {
-            $result[] = new Shopware6Category(
-                $row['id'],
-                $row['attributes']['name'],
-                $row['attributes']['parentId'],
-                $row['attributes']['active'],
-                $row['attributes']['visible']
-            );
-        }
-
-        return $result;
+        return new Shopware6Category(
+            $data['data']['id'],
+            $data['data']['attributes']['name'],
+            $data['data']['attributes']['parentId'],
+            $data['data']['attributes']['active'],
+            $data['data']['attributes']['visible']
+        );
     }
 
     /**
@@ -76,6 +69,6 @@ class GetCategoryList extends AbstractAction implements ActionInterface
      */
     private function getUri(): string
     {
-        return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');
+        return sprintf(self::URI, $this->categoryId);
     }
 }
