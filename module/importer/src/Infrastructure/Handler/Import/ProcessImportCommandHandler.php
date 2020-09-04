@@ -79,9 +79,7 @@ class ProcessImportCommandHandler
         } catch (\Throwable $exception) {
             $line = new ImportError($importId, $step, $number, $exception->getMessage());
             $this->repository->save($line);
-            var_dump($exception->getMessage());
-            dump($exception->getTraceAsString());
-            die('ERROR');
+
             throw $exception;
         }
     }
