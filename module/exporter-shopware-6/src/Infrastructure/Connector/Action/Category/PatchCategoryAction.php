@@ -10,34 +10,28 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use GuzzleHttp\Psr7\Request;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostCategoryCreate extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PatchCategoryAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/category';
+    private const URI = '/api/v2/category/';
 
     /**
-     * @var string
+     * @var Shopware6Category
      */
-    private string $name;
+    private Shopware6Category $category;
 
     /**
-     * @var string|null
+     * @param Shopware6Category $category
      */
-    private ?string $parent;
-
-    /**
-     * @param string      $name
-     * @param string|null $parent
-     */
-    public function __construct(string $name, ?string $parent = null)
+    public function __construct(Shopware6Category $category)
     {
-        $this->name = $name;
-        $this->parent = $parent;
+        $this->category = $category;
     }
 
     /**
@@ -46,7 +40,7 @@ class PostCategoryCreate extends AbstractAction implements ActionInterface, Head
     public function getRequest(): Request
     {
         return new Request(
-            HttpRequest::METHOD_POST,
+            HttpRequest::METHOD_PATCH,
             $this->getUri(),
             $this->buildHeaders(),
             $this->buildBody()
@@ -68,17 +62,9 @@ class PostCategoryCreate extends AbstractAction implements ActionInterface, Head
      */
     private function buildBody(): string
     {
-        $body = [
-            'visible' => true,
-            'active' => true,
-            'name' => $this->name,
-            '_uniqueIdentifier' => $this->name,
-        ];
-        if ($this->parent) {
-            $body['parentId'] = $this->parent;
-        }
+        $serializer = SerializerBuilder::create()->build();
 
-        return json_encode($body);
+        return $serializer->serialize($this->category, 'json');
     }
 
     /**
@@ -86,6 +72,6 @@ class PostCategoryCreate extends AbstractAction implements ActionInterface, Head
      */
     private function getUri(): string
     {
-        return self::URI;
+        return self::URI.$this->category->getId();
     }
 }

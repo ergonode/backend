@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupOption;
+namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupOption;
 
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Core\Domain\ValueObject\Language;

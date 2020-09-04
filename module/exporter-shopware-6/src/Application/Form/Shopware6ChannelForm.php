@@ -125,6 +125,7 @@ class Shopware6ChannelForm extends AbstractType
                     'label' => 'Segment',
                     'property_path' => 'segment',
                     'choices' => array_flip($segmentDictionary),
+                    'required' => false,
                 ]
             )
             ->add(

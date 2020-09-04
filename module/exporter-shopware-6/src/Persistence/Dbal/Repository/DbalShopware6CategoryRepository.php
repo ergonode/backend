@@ -9,23 +9,19 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategory;
-use Ergonode\ExporterShopware6\Domain\Entity\Catalog\Shopware6Category;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use JMS\Serializer\SerializerInterface;
 
 /**
  */
 class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_category';
-    private const TABLE_CATEGORY = 'exporter.category';
     private const FIELDS = [
         'channel_id',
-        'c.category_id',
-        'cs.shopware6_id',
+        'category_id',
+        'shopware6_id',
     ];
 
     /**
@@ -34,45 +30,34 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
     private Connection $connection;
 
     /**
-     * @var SerializerInterface
+     * @param Connection $connection
      */
-    private SerializerInterface $serializer;
-
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->serializer = $serializer;
     }
 
     /**
      * @param ChannelId  $channelId
      * @param CategoryId $categoryId
      *
-     * @return Shopware6Category|null
+     * @return string|null
      */
-    public function load(ChannelId $channelId, CategoryId $categoryId): ?Shopware6Category
+    public function load(ChannelId $channelId, CategoryId $categoryId): ?string
     {
         $query = $this->connection->createQueryBuilder();
         $record = $query
-            ->select('*')
+            ->select(self::FIELDS)
             ->from(self::TABLE, 'cs')
-            ->leftJoin('cs', self::TABLE_CATEGORY, 'c', 'c.id = cs.category_id')
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->andWhere($query->expr()->eq('c.id', ':categoryId'))
+            ->andWhere($query->expr()->eq('cs.category_id', ':categoryId'))
             ->setParameter(':categoryId', $categoryId->getValue())
             ->execute()
             ->fetch();
 
         if ($record) {
-            return new Shopware6Category(
-                $record['shopware6_id'],
-                $this->serializer->deserialize($record['data'], ExportCategory::class, 'json')
-            );
+            return ($record['shopware6_id']);
         }
 
         return null;
@@ -120,6 +105,24 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
         }
 
         return false;
+    }
+
+    /**
+     * @param ChannelId  $channelId
+     * @param CategoryId $categoryId
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     */
+    public function delete(ChannelId $channelId, CategoryId $categoryId): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'category_id' => $categoryId->getValue(),
+                'channel_id' => $channelId->getValue(),
+            ]
+        );
     }
 
     /**

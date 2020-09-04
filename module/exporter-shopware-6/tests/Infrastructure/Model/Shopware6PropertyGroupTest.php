@@ -47,20 +47,20 @@ class Shopware6PropertyGroupTest extends TestCase
 
     /**
      */
-    public function testCreateModel()
+    public function testCreateModel(): void
     {
         $model = new Shopware6PropertyGroup($this->id, $this->name, $this->displayType, $this->sortingType);
 
-        $this->assertEquals($this->id, $model->getId());
-        $this->assertEquals($this->name, $model->getName());
-        $this->assertEquals($this->displayType, $model->getDisplayType());
-        $this->assertEquals($this->sortingType, $model->getSortingType());
-        $this->assertNotTrue($model->isModified());
+        self::assertEquals($this->id, $model->getId());
+        self::assertEquals($this->name, $model->getName());
+        self::assertEquals($this->displayType, $model->getDisplayType());
+        self::assertEquals($this->sortingType, $model->getSortingType());
+        self::assertNotTrue($model->isModified());
     }
 
     /**
      */
-    public function testSetModel()
+    public function testSetModel(): void
     {
         $model = new Shopware6PropertyGroup(null, null);
 
@@ -68,9 +68,9 @@ class Shopware6PropertyGroupTest extends TestCase
         $model->setDisplayType($this->displayType);
         $model->setSortingType($this->sortingType);
 
-        $this->assertEquals($this->name, $model->getName());
-        $this->assertEquals($this->displayType, $model->getDisplayType());
-        $this->assertEquals($this->sortingType, $model->getSortingType());
-        $this->assertTrue($model->isModified());
+        self::assertEquals($this->name, $model->getName());
+        self::assertEquals($this->displayType, $model->getDisplayType());
+        self::assertEquals($this->sortingType, $model->getSortingType());
+        self::assertTrue($model->isModified());
     }
 }

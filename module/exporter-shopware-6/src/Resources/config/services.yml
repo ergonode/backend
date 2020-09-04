@@ -26,8 +26,10 @@ services:
         arguments:
             $steps:
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6PropertyGroupStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryRemoveStep'
     # Repository
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6CategoryRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopware6CurrencyRepository'
@@ -45,7 +47,6 @@ services:
         arguments:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CurrencySynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\TaxSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CategorySynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextAreaSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldNumberSynchronizer'
@@ -58,11 +59,16 @@ services:
     # Mappers
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupBuilder:
         arguments:
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupMapper\Shopware6PropertyGroupNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroup\Shopware6PropertyGroupNameMapper'
 
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupOptionBuilder:
         arguments:
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupOption\Shopware6PropertyGroupOptionNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupOption\Shopware6PropertyGroupOptionNameMapper'
+
+    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CategoryBuilder:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\Shopware6CategoryNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\Shopware6CategoryParentMapper'
 
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder:
         arguments:
