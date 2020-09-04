@@ -39,8 +39,6 @@ class LanguageTreeReadAction
 
 
     /**
-     * @IsGranted("SETTINGS_READ")
-     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",
