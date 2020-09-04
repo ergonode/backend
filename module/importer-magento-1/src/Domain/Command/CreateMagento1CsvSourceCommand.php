@@ -82,7 +82,7 @@ class CreateMagento1CsvSourceCommand implements DomainCommandInterface
         SourceId $id,
         string $name,
         Language $defaultLanguage,
-        ?string $host,
+        ?string $host = null,
         array $languages = [],
         array $attributes = [],
         array $import = []

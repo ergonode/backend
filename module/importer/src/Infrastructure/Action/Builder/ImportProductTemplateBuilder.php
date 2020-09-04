@@ -10,7 +10,6 @@ namespace Ergonode\Importer\Infrastructure\Action\Builder;
 
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 
 /**

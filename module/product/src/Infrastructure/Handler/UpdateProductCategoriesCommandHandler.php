@@ -26,7 +26,7 @@ class UpdateProductCategoriesCommandHandler extends AbstractUpdateProductHandler
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);
 
-        $product = $this->updateCategories($product, $command->getCategories());
+        $product->changeCategories($command->getCategories());
         $product = $this->updateAudit($product);
 
         $this->productRepository->save($product);

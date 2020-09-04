@@ -51,35 +51,24 @@ class UpdateVariableProductCommand implements DomainCommandInterface
     private array $bindings;
 
     /**
-     * @var ValueInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
-     */
-    private array $attributes;
-
-    /**
      * @param ProductId  $productId
      * @param TemplateId $templateId
      * @param array      $categories
      * @param array      $bindings
-     * @param array      $attributes
      */
     public function __construct(
         ProductId $productId,
         TemplateId $templateId,
         array $categories = [],
-        array $bindings = [],
-        array $attributes = []
+        array $bindings = []
     ) {
         Assert::allIsInstanceOf($bindings, AttributeId::class);
         Assert::allIsInstanceOf($categories, CategoryId::class);
-        Assert::allIsInstanceOf($attributes, ValueInterface::class);
 
         $this->id = $productId;
         $this->templateId = $templateId;
         $this->bindings = $bindings;
         $this->categories = $categories;
-        $this->attributes = $attributes;
     }
 
     /**
@@ -112,13 +101,5 @@ class UpdateVariableProductCommand implements DomainCommandInterface
     public function getBindings(): array
     {
         return $this->bindings;
-    }
-
-    /**
-     * @return ValueInterface[]
-     */
-    public function getAttributes(): array
-    {
-        return $this->attributes;
     }
 }
