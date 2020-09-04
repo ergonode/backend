@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Handler;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
-use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
@@ -51,31 +50,6 @@ abstract class AbstractUpdateProductHandler
         $this->productRepository = $productRepository;
         $this->attributeRepository = $attributeRepository;
         $this->tokenStorage = $tokenStorage;
-    }
-
-    /**
-     * @param AbstractProduct $product
-     * @param array           $categories
-     *
-     * @return AbstractProduct
-     *
-     * @throws \Exception
-     */
-    public function updateCategories(AbstractProduct $product, array $categories): AbstractProduct
-    {
-        foreach ($categories as $categoryId) {
-            if (!$product->belongToCategory($categoryId)) {
-                $product->addToCategory($categoryId);
-            }
-        }
-
-        foreach ($product->getCategories() as $categoryId) {
-            if (!in_array($categoryId->getValue(), $categories, false)) {
-                $product->removeFromCategory($categoryId);
-            }
-        }
-
-        return $product;
     }
 
     /**

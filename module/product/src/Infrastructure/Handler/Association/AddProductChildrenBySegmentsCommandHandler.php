@@ -50,7 +50,6 @@ class AddProductChildrenBySegmentsCommandHandler
      */
     public function __invoke(AddProductChildrenBySegmentsCommand $command): void
     {
-        $children = [];
         /** @var AbstractAssociatedProduct $product */
         $product = $this->repository->load($command->getId());
 

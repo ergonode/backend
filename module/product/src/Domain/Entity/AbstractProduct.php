@@ -203,6 +203,28 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
+     * @param CategoryId[] $categories
+     *
+     * @throws \Exception
+     */
+    public function changeCategories(array $categories): void
+    {
+        Assert::allIsInstanceOf($categories, CategoryId::class);
+
+        foreach ($categories as $categoryId) {
+            if (!$this->belongToCategory($categoryId)) {
+                $this->addToCategory($categoryId);
+            }
+        }
+
+        foreach ($this->categories as $categoryId) {
+            if (!in_array($categoryId, $categories, false)) {
+                $this->removeFromCategory($categoryId);
+            }
+        }
+    }
+
+    /**
      * @return CategoryId[]
      */
     public function getCategories(): array
@@ -247,6 +269,33 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
 
         $this->apply(new ProductValueAddedEvent($this->id, $attributeCode, $value));
+    }
+
+    /**
+     * @param ValueInterface[] $attributes
+     *
+     * @throws \Exception
+     */
+    public function changeAttributes(array $attributes): void
+    {
+        Assert::allString(array_keys($attributes));
+        Assert::allIsInstanceOf($attributes, ValueInterface::class);
+
+        foreach ($attributes as $code => $attribute) {
+            $attributeCode = new AttributeCode($code);
+            if ($this->hasAttribute($attributeCode)) {
+                $this->changeAttribute($attributeCode, $attribute);
+            } else {
+                $this->addAttribute($attributeCode, $attribute);
+            }
+        }
+
+        foreach ($this->attributes as $code => $value) {
+            $attributeCode = new AttributeCode($code);
+            if (!array_key_exists($code, $attributes)) {
+                $this->removeAttribute($attributeCode);
+            }
+        }
     }
 
     /**
