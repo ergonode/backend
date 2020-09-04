@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Snapshot;
 
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Doctrine\DBAL\Connection;
@@ -117,5 +118,21 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
                 ]
             );
         }
+    }
+
+    /**
+     * @param AggregateId $id
+     *
+     * @throws DBALException
+     * @throws InvalidArgumentException
+     */
+    public function delete(AggregateId $id): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'aggregate_id' => $id->getValue(),
+            ]
+        );
     }
 }

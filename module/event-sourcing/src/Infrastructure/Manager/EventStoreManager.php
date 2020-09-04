@@ -133,6 +133,7 @@ class EventStoreManager
     {
         $this->eventStore->delete($aggregateRoot->getId());
         $this->deleteClass($aggregateRoot);
+        $this->snapshot->delete($aggregateRoot->getId());
     }
 
     /**

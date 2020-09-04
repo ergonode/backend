@@ -32,4 +32,9 @@ interface AggregateSnapshotInterface
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregate): void;
+
+    /**
+     * @param AggregateId $id
+     */
+    public function delete(AggregateId $id): void;
 }
