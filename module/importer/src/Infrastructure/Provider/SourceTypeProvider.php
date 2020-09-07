@@ -14,21 +14,18 @@ namespace Ergonode\Importer\Infrastructure\Provider;
 class SourceTypeProvider
 {
     /**
-     * @var string[]
+     * @var array[]
      */
-    private array $types;
+    private array $services;
 
     /**
-     * @param string ...$classes
-     *
-     * @throws \ReflectionException
+     * @param ImportSourceInterface ...$services
      */
-    public function __construct(string ...$classes)
+    public function __construct(ImportSourceInterface ...$services)
     {
-        $this->types = [];
-        foreach ($classes as $class) {
-            $type = (new \ReflectionClass($class))->getConstant('TYPE');
-            $this->types[$type] = $class;
+        $this->services = [];
+        foreach ($services as $service) {
+            $this->services[] = $service->getType();
         }
     }
 
@@ -37,6 +34,6 @@ class SourceTypeProvider
      */
     public function provide(): array
     {
-        return array_keys($this->types);
+        return $this->services;
     }
 }

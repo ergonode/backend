@@ -12,6 +12,7 @@ namespace Ergonode\Importer\Application\DependencyInjection\CompilerPass;
 use Ergonode\Importer\Infrastructure\Provider\SourceTypeProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  *
@@ -35,13 +36,12 @@ class SourceTypeCompilerPass implements CompilerPassInterface
      */
     private function processServices(ContainerBuilder $container): void
     {
+        $arguments = [];
         $definition = $container->findDefinition(SourceTypeProvider::class);
         $services = $container->findTaggedServiceIds(self::TAG);
 
-        $arguments = [];
         foreach ($services as $id => $service) {
-            $arguments[] = $id;
-            $container->removeDefinition($id);
+            $arguments[] = new Reference($id);
         }
 
         $definition->setArguments($arguments);
