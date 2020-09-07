@@ -36,14 +36,14 @@ class SourceTypeCompilerPass implements CompilerPassInterface
      */
     private function processServices(ContainerBuilder $container): void
     {
-        $arguments = [];
         $definition = $container->findDefinition(SourceTypeProvider::class);
         $services = $container->findTaggedServiceIds(self::TAG);
+        $types = [];
 
         foreach ($services as $id => $service) {
-            $arguments[] = new Reference($id);
+            $types[] = $container->getDefinition($id)->getClass()::getType();
         }
 
-        $definition->setArguments($arguments);
+        $definition->setArguments($types);
     }
 }

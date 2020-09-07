@@ -16,17 +16,14 @@ class SourceTypeProvider
     /**
      * @var array[]
      */
-    private array $services;
+    private array $types;
 
     /**
-     * @param ImportSourceInterface ...$services
+     * @param string ...$types
      */
-    public function __construct(ImportSourceInterface ...$services)
+    public function __construct(string ...$types)
     {
-        $this->services = [];
-        foreach ($services as $service) {
-            $this->services[] = $service->getType();
-        }
+        $this->types = $types;
     }
 
     /**
@@ -34,6 +31,6 @@ class SourceTypeProvider
      */
     public function provide(): array
     {
-        return $this->services;
+        return $this->types;
     }
 }
