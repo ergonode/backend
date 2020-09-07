@@ -41,6 +41,8 @@ class TemplateFormModel
     /**
      * @var AttributeId | null
      *
+     * @Assert\NotBlank(message="Default label attribute is required")
+     *
      * @AttributeExists()
      *
      * @AttributeTypeValid(type="TEXT")
