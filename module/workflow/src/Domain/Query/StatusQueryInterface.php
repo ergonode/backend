@@ -41,4 +41,6 @@ interface StatusQueryInterface
      * @return array
      */
     public function getAllCodes(): array;
+
+    public function getStatusCount(Language $language): array;
 }
