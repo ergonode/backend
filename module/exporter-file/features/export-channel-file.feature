@@ -31,6 +31,14 @@ Feature: Export Profile module
     Then the response status code should be 201
     And store response param "id" as "channel_id"
 
+  Scenario: Create File Channel with empty body
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
+      """
+        {
+        }
+      """
+    Then the response status code should be 400
+
   Scenario: Get channel
     When I send a GET request to "/api/v1/en_GB/channels/@channel_id@"
     Then the response status code should be 200

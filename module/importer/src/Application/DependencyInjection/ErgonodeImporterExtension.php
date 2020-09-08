@@ -14,7 +14,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompilerPass;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceTypeCompilerPass;
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompilerPass;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
@@ -48,7 +48,7 @@ class ErgonodeImporterExtension extends Extension
 
         $container
             ->registerForAutoconfiguration(ImportSourceInterface::class)
-            ->addTag(SourceCompilerPass::TAG)
+            ->addTag(SourceTypeCompilerPass::TAG)
             ->addTag(ServiceCompilerPass::TAG);
 
         $container

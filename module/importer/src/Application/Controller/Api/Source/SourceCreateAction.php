@@ -12,9 +12,11 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Importer\Application\Form\SourceTypeForm;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -32,6 +34,11 @@ use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderProvider;
 class SourceCreateAction
 {
     /**
+     * @var FormFactoryInterface
+     */
+    private FormFactoryInterface $formFactory;
+
+    /**
      * @var SourceFormFactoryProvider
      */
     private SourceFormFactoryProvider $provider;
@@ -47,15 +54,18 @@ class SourceCreateAction
     private CommandBusInterface $commandBus;
 
     /**
+     * @param FormFactoryInterface               $formFactory
      * @param SourceFormFactoryProvider          $provider
      * @param CreateSourceCommandBuilderProvider $commandProvider
      * @param CommandBusInterface                $commandBus
      */
     public function __construct(
+        FormFactoryInterface $formFactory,
         SourceFormFactoryProvider $provider,
         CreateSourceCommandBuilderProvider $commandProvider,
         CommandBusInterface $commandBus
     ) {
+        $this->formFactory = $formFactory;
         $this->provider = $provider;
         $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
@@ -98,22 +108,27 @@ class SourceCreateAction
     public function __invoke(Request $request): Response
     {
         $type = $request->get('type');
+        $typeForm = $this->formFactory->create(SourceTypeForm::class);
+        $typeForm->submit(['type' => $type]);
 
-        try {
-            $form = $this->provider->provide($type)->create();
-            $form->handleRequest($request);
+        if ($typeForm->isSubmitted() && $typeForm->isValid()) {
+            try {
+                $form = $this->provider->provide($type)->create();
+                $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $command = $this->commandProvider->provide($type)->build($form);
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $command = $this->commandProvider->provide($type)->build($form);
 
-                $this->commandBus->dispatch($command);
+                    $this->commandBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                    return new CreatedResponse($command->getId());
+                }
+            } catch (InvalidPropertyPathException $exception) {
+                throw new BadRequestHttpException('Invalid JSON format');
             }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
-        }
 
-        throw new FormValidationHttpException($form);
+            throw new FormValidationHttpException($form);
+        }
+        throw new FormValidationHttpException($typeForm);
     }
 }
