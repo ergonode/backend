@@ -15,5 +15,5 @@ interface ChannelInterface
     /**
      * @return string
      */
-    public function getType():string;
+    public static function getType():string;
 }
