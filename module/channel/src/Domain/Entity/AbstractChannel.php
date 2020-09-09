@@ -56,7 +56,7 @@ abstract class AbstractChannel implements ChannelInterface
      *
      * @return string
      */
-    abstract public function getType(): string;
+    abstract public static function getType(): string;
 
     /**
      * @param string $name
