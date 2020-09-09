@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
 /**
@@ -103,6 +104,41 @@ class DbalStatusQuery implements StatusQueryInterface
             ->from(self::STATUS_TABLE, 'a')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStatusCount(Language $language): array
+    {
+        $sql = "SELECT id, code, name->>:language AS label FROM status;";
+        $stmt = $this->connection->executeQuery($sql, ['language' => (string) $language]);
+        $statuses = $stmt->fetchAll();
+
+        $sql = 'SELECT vt.value, count(pv.product_id)
+            FROM attribute a
+            JOIN product_value pv ON a.id = pv.attribute_id
+            JOIN value_translation vt ON pv.value_id = vt.value_id
+            WHERE code = :code
+            GROUP BY vt.value
+        ';
+        $stmt = $this->connection->executeQuery($sql, ['code' => StatusSystemAttribute::CODE]);
+        $products = $stmt->fetchAll();
+
+        $result = [];
+        foreach ($statuses as $status) {
+            $result[$status['code']] = [
+                'status_id' => $status['id'],
+                'label' => $status['label'],
+                'code' => $status['code'],
+                'value' => 0,
+            ];
+        }
+        foreach ($products as $product) {
+            $result[$product['value']]['value'] = $product['count'];
+        }
+
+        return array_values($result);
     }
 
     /**
