@@ -53,7 +53,7 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
     {
         $privileges = $this->query->getPrivileges();
 
-        return in_array($attribute, $privileges, true);
+        return in_array($attribute, array_column($privileges, 'code'), true);
     }
 
     /**

@@ -59,7 +59,7 @@ class UserRoleVoterTest extends TestCase
     public function testSupports(string $privilege, bool $expectedResult): void
     {
         if ($expectedResult) {
-            $this->query->method('getPrivileges')->willReturn([$privilege]);
+            $this->query->method('getPrivileges')->willReturn([['code' => $privilege]]);
         }
         $voter = new UserRoleVoter($this->repository, $this->query);
 

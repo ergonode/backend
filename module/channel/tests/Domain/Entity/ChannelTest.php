@@ -72,7 +72,7 @@ class ChannelTest extends TestCase
             /**
              * @return string
              */
-            public function getType(): string
+            public static function getType(): string
             {
                 return 'TYPE';
             }

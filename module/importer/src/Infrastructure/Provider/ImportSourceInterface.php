@@ -16,7 +16,7 @@ interface ImportSourceInterface
     /**
      * @return string
      */
-    public function getType(): string;
+    public static function getType(): string;
 
     /**
      * @param string $type

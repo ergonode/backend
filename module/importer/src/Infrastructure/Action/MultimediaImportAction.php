@@ -9,16 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
+use Ergonode\Multimedia\Domain\Entity\Multimedia;
+use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
+use League\Flysystem\FilesystemInterface;
 
 /**
  */
@@ -42,31 +42,31 @@ class MultimediaImportAction implements ImportActionInterface
     private DownloaderInterface $downloader;
 
     /**
-     * @var KernelInterface
+     * @var HashCalculationServiceInterface
      */
-    private KernelInterface $kernel;
+    private HashCalculationServiceInterface $hashService;
 
     /**
-     * @var CommandBusInterface
+     * @var FilesystemInterface
      */
-    private CommandBusInterface $commandBus;
+    private FilesystemInterface $multimediaStorage;
 
     /**
-     * @param MultimediaRepositoryInterface $repository
-     * @param DownloaderInterface           $downloader
-     * @param KernelInterface               $kernel
-     * @param CommandBusInterface           $commandBus
+     * @param MultimediaRepositoryInterface   $repository
+     * @param DownloaderInterface             $downloader
+     * @param HashCalculationServiceInterface $hashService
+     * @param FilesystemInterface             $multimediaStorage
      */
     public function __construct(
         MultimediaRepositoryInterface $repository,
         DownloaderInterface $downloader,
-        KernelInterface $kernel,
-        CommandBusInterface $commandBus
+        HashCalculationServiceInterface $hashService,
+        FilesystemInterface $multimediaStorage
     ) {
         $this->repository = $repository;
         $this->downloader = $downloader;
-        $this->kernel = $kernel;
-        $this->commandBus = $commandBus;
+        $this->hashService = $hashService;
+        $this->multimediaStorage = $multimediaStorage;
     }
 
     /**
@@ -91,40 +91,40 @@ class MultimediaImportAction implements ImportActionInterface
         Assert::notNull($id, 'Multimedia import required "id" field not exists');
         Assert::notNull($name, 'Multimedia import required "name" field not exists');
         Assert::notNull($url, 'Multimedia import required "url" field not exists');
-        $cacheDir = sprintf('%s/import-%s', $this->kernel->getCacheDir(), $importId->getValue());
 
         $multimedia = $this->repository->load($id);
 
         if (!$multimedia) {
             try {
+                $tmpFile = tempnam(sys_get_temp_dir(), $id->getValue());
+                $extension = pathinfo($name, PATHINFO_EXTENSION);
+                $originalFilename = pathinfo($name, PATHINFO_FILENAME);
+
                 $content = $this->downloader->download($url);
-                $filePath = sprintf('%s/%s', $cacheDir, $name);
-                $this->saveFile($filePath, $content);
-                $file = new File($filePath);
-                $multimediaId = new MultimediaId($id->getValue());
-                $command = new AddMultimediaCommand($multimediaId, $file);
-                $this->commandBus->dispatch($command, true);
+                file_put_contents($tmpFile, $content);
+
+                $file = new File($tmpFile);
+
+                $hash = $this->hashService->calculateHash($file);
+                $filename = sprintf('%s.%s', $hash->getValue(), $extension);
+                if (!$this->multimediaStorage->has($hash)) {
+                    $this->multimediaStorage->write($hash, $content);
+                }
+
+                $multimedia = new Multimedia(
+                    $id,
+                    $originalFilename,
+                    $extension,
+                    $this->multimediaStorage->getSize($filename),
+                    $hash,
+                    $this->multimediaStorage->getMimetype($filename)
+                );
+
+                $this->repository->save($multimedia);
+                unlink($tmpFile);
             } catch (\Exception $exception) {
                 throw $exception;
             }
         }
-    }
-
-    /**
-     * @param string $dir
-     * @param string $contents
-     */
-    public function saveFile(string $dir, string $contents): void
-    {
-        $parts = explode('/', $dir);
-        $file = array_pop($parts);
-        $dir = '';
-        foreach ($parts as $part) {
-            if (!is_dir($dir .= "/$part")) {
-                mkdir($dir);
-            }
-        }
-
-        file_put_contents("$dir/$file", $contents);
     }
 }

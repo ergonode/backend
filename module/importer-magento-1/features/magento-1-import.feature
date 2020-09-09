@@ -95,6 +95,14 @@ Feature: Magento 1 CSV module
       """
     Then the response status code should be 400
 
+  Scenario: Create Magento 1 CSV Source with empty body
+    When I send a POST request to "/api/v1/en_GB/sources" with body:
+     """
+      {
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Get Magento 1 CSV Source
     When I send a GET request to "/api/v1/en_GB/sources/@source_id@"
     Then the response status code should be 200

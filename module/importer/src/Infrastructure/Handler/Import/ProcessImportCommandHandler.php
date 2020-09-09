@@ -16,6 +16,7 @@ use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Importer\Infrastructure\Provider\ImportActionProvider;
 use Ergonode\Importer\Domain\Entity\ImportError;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -53,6 +54,9 @@ class ProcessImportCommandHandler
 
     /**
      * @param ProcessImportCommand $command
+     *
+     * @throws DBALException
+     * @throws \Throwable
      */
     public function __invoke(ProcessImportCommand $command)
     {

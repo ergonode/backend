@@ -16,11 +16,10 @@ use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Importer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
-use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 
 /**
  */
@@ -34,9 +33,9 @@ class SimpleProductImportAction implements ImportActionInterface
     private ProductQueryInterface $productQuery;
 
     /**
-     * @var CommandBusInterface
+     * @var ProductRepositoryInterface
      */
-    private CommandBusInterface $commandBus;
+    private ProductRepositoryInterface $repository;
 
     /**
      * @var ProductImportBuilderInterface[] $builders
@@ -45,16 +44,16 @@ class SimpleProductImportAction implements ImportActionInterface
 
     /**
      * @param ProductQueryInterface           $productQuery
-     * @param CommandBusInterface             $commandBus
+     * @param ProductRepositoryInterface      $repository
      * @param ProductImportBuilderInterface[] $builders
      */
     public function __construct(
         ProductQueryInterface $productQuery,
-        CommandBusInterface $commandBus,
-        $builders
+        ProductRepositoryInterface $repository,
+        array $builders
     ) {
         $this->productQuery = $productQuery;
-        $this->commandBus = $commandBus;
+        $this->repository = $repository;
         $this->builders = $builders;
     }
 
@@ -80,7 +79,7 @@ class SimpleProductImportAction implements ImportActionInterface
         $templateId = new TemplateId($importedProduct->template);
 
         if (!$productId) {
-            $command = new CreateSimpleProductCommand(
+            $product = new SimpleProduct(
                 ProductId::generate(),
                 $sku,
                 $templateId,
@@ -88,15 +87,15 @@ class SimpleProductImportAction implements ImportActionInterface
                 $importedProduct->attributes,
             );
         } else {
-            $command = new UpdateSimpleProductCommand(
-                $productId,
-                $templateId,
-                $importedProduct->categories,
-                $importedProduct->attributes,
-            );
+            $product = $this->repository->load($productId);
+            Assert::isInstanceOf($product, SimpleProduct::class);
         }
 
-        $this->commandBus->dispatch($command, true);
+        $product->changeTemplate($templateId);
+        $product->changeCategories($importedProduct->categories);
+        $product->changeAttributes($importedProduct->attributes);
+
+        $this->repository->save($product);
     }
 
     /**
