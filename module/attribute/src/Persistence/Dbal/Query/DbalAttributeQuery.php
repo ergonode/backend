@@ -339,16 +339,15 @@ class DbalAttributeQuery implements AttributeQueryInterface
     ): array {
         $query = $this->connection->createQueryBuilder()
             ->select('a.id, a.code')
-            ->from(self::TABLE, 'a');
-
-        $query->addSelect(sprintf(
-            '(
+            ->from(self::TABLE, 'a')
+            ->addSelect(
+                '(
                 SELECT vt.value FROM value_translation vt 
                 WHERE a.label = vt.value_id
-                AND vt.language = \'%s\' 
+                AND vt.language = :language 
                 ) AS label',
-            $language->getCode()
-        ));
+            )
+            ->setParameter(':language', $language->getCode());
 
         if ($search) {
             $query->orWhere(\sprintf('code ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));

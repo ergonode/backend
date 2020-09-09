@@ -86,7 +86,6 @@ class LanguageAutocompleteAction
      */
     public function __invoke(Request $request): Response
     {
-
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');

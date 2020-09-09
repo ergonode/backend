@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 
 /**
@@ -79,8 +78,6 @@ class AttributeAutocompleteAction
      *     response=200,
      *     description="Returns attributes",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param Language $language
      * @param Request  $request
