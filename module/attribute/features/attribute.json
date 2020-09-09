@@ -1,0 +1,63 @@
+{
+  "$schema": "attribute.json",
+  "examples": [
+    [
+      {
+        "id": "050db042-b79e-58f6-9286-17235f0f9344",
+        "code": "esa_created_at",
+        "label": "Czas utworzenia"
+      },
+      {
+        "id": "057fe04e-1a4a-509a-8faa-4dea1770b844",
+        "code": "code_16",
+        "label": "Polish_label_16"
+      }
+    ]
+  ],
+  "additionalItems": true,
+  "items": {
+    "$id": "#/items",
+    "anyOf": [
+      {
+        "$id": "#/items/anyOf/0",
+        "type": "object",
+        "examples": [
+          {
+            "id": "050db042-b79e-58f6-9286-17235f0f9344",
+            "code": "esa_created_at",
+            "label": "Czas utworzenia"
+          }
+        ],
+        "required": [
+          "id",
+          "code",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "$id": "#/items/anyOf/0/properties/id",
+            "type": "string",
+            "examples": [
+              "050db042-b79e-58f6-9286-17235f0f9344"
+            ]
+          },
+          "code": {
+            "$id": "#/items/anyOf/0/properties/code",
+            "type": "string",
+            "examples": [
+              "esa_created_at"
+            ]
+          },
+          "label": {
+            "$id": "#/items/anyOf/0/properties/label",
+            "type": "string",
+            "examples": [
+              "Czas utworzenia"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    ]
+  }
+}

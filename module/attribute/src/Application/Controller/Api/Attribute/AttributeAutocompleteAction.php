@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,36 +7,37 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Controller\Api\Language;
+namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Swagger\Annotations as SWG;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 
 /**
- * @Route("language/autocomplete", methods={"GET"})
+ * @Route("attribute/autocomplete", methods={"GET"})
  */
-class LanguageAutocompleteAction
+class AttributeAutocompleteAction
 {
     /**
-     * @var LanguageQueryInterface
+     * @var AttributeQueryInterface
      */
-    private LanguageQueryInterface $query;
+    private AttributeQueryInterface $attributeQuery;
 
     /**
-     * @param LanguageQueryInterface $query
+     * @param AttributeQueryInterface $attributeQuery
      */
-    public function __construct(LanguageQueryInterface $query)
+    public function __construct(AttributeQueryInterface $attributeQuery)
     {
-        $this->query = $query;
+        $this->attributeQuery = $attributeQuery;
     }
 
     /**
-     * @SWG\Tag(name="Language")
+     * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -75,24 +77,24 @@ class LanguageAutocompleteAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns language",
+     *     description="Returns attributes",
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param Request $request
+     * @param Language $language
+     * @param Request  $request
      *
      * @return Response
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Language $language, Request $request): Response
     {
-
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->query->autocomplete($search, $limit, $field, $order);
+        $data = $this->attributeQuery->autocomplete($language, $search, $limit, $field, $order);
 
         return new SuccessResponse($data);
     }
