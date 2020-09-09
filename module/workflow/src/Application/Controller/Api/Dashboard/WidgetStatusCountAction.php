@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Application\Controller\Api\Dashboard;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,16 +25,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class WidgetStatusCountAction
 {
+    /**
+     * @var StatusQueryInterface
+     */
     private StatusQueryInterface $query;
 
+    /**
+     * @param StatusQueryInterface $query
+     */
     public function __construct(StatusQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
-     *
      * @SWG\Tag(name="Dashboard")
      * @SWG\Parameter(
      *     name="language",
@@ -48,6 +51,10 @@ class WidgetStatusCountAction
      *     response=200,
      *     description="widget status count information",
      * )
+     *
+     * @param Language $language
+     *
+     * @return Response
      *
      */
     public function __invoke(Language $language): Response

@@ -16,6 +16,8 @@ use Ergonode\Workflow\Persistence\Dbal\Query\DbalStatusQuery;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class DbalStatusQueryTest extends TestCase
 {
     /**
@@ -23,8 +25,13 @@ class DbalStatusQueryTest extends TestCase
      */
     private $mockConnection;
 
+    /**
+     * @var DbalStatusQuery
+     */
     private DbalStatusQuery $query;
 
+    /**
+     */
     protected function setUp(): void
     {
         $this->mockConnection = $this->createMock(Connection::class);
@@ -34,6 +41,8 @@ class DbalStatusQueryTest extends TestCase
         );
     }
 
+    /**
+     */
     public function testShouldGetStatusCount(): void
     {
         $statusStmt = $this->createMock(ResultStatement::class);

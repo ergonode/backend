@@ -106,6 +106,9 @@ class DbalStatusQuery implements StatusQueryInterface
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getStatusCount(Language $language): array
     {
         $sql = "SELECT id, code, name->>:language AS label FROM status;";
