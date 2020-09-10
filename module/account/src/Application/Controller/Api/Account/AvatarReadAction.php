@@ -45,8 +45,6 @@ class AvatarReadAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
-     *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
      *     name="user",

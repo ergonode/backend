@@ -50,8 +50,6 @@ class ProductTypeDictionaryAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
-     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",
