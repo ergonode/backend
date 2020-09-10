@@ -322,6 +322,51 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
+     * @param Language    $language
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        $query = $this->connection->createQueryBuilder()
+            ->select('a.id, a.code')
+            ->from(self::TABLE, 'a')
+            ->addSelect(
+                '(
+                SELECT vt.value FROM value_translation vt 
+                WHERE a.label = vt.value_id
+                AND vt.language = :language 
+                ) AS label',
+            )
+            ->setParameter(':language', $language->getCode());
+
+        if ($search) {
+            $query->orWhere('code ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
+    }
+
+    /**
      * @param AttributeId $attributeId
      *
      * @return array
