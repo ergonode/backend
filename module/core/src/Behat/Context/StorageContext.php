@@ -7,6 +7,8 @@
 
 declare(strict_types = 1);
 
+namespace Ergonode\Core\Behat\Context;
+
 use Behat\Behat\Context\Context;
 use Ramsey\Uuid\Uuid;
 
@@ -19,15 +21,15 @@ class StorageContext implements Context
     /**
      * @var array
      */
-    private static $storage = [];
+    private static array $storage = [];
 
     /**
      * @var array
      */
-    private static $tags = [];
+    private static array $tags = [];
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct()
     {

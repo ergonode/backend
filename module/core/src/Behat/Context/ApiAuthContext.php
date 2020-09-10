@@ -1,6 +1,13 @@
 <?php
 
-namespace App\Tests\Behat\Context;
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Core\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
@@ -14,12 +21,12 @@ class ApiAuthContext implements Context
     /**
      * @var JWTTokenManagerInterface
      */
-    private $JWTTokenManager;
+    private JWTTokenManagerInterface $JWTTokenManager;
 
     /**
      * @var Request
      */
-    private $request;
+    private Request $request;
 
     /**
      * @param JWTTokenManagerInterface $JWTTokenManager

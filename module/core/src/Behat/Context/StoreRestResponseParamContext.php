@@ -1,9 +1,15 @@
 <?php
 
-namespace App\Tests\Behat\Context;
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Core\Behat\Context;
 
 use Behat\MinkExtension\Context\RawMinkContext;
-use StorageContext;
 use Behatch\Json\JsonInspector;
 use Behatch\Json\Json;
 

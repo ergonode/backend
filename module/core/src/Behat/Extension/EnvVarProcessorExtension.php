@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Behat\Extension;
+namespace Ergonode\Core\Behat\Extension;
 
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
