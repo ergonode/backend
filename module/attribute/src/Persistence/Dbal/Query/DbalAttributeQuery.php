@@ -350,7 +350,8 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->setParameter(':language', $language->getCode());
 
         if ($search) {
-            $query->orWhere(\sprintf('code ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
+            $query->orWhere('code ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
         }
         if ($field) {
             $query->orderBy($field, $order);
