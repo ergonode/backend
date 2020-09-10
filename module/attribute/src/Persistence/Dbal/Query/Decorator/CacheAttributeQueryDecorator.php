@@ -15,6 +15,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
@@ -164,5 +165,24 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function getMultimediaRelation(MultimediaId $id): array
     {
         return $this->attributeQuery->getMultimediaRelation($id);
+    }
+
+    /**
+     * @param Language    $language
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        return $this->attributeQuery->autocomplete($language, $search, $limit, $field, $order);
     }
 }
