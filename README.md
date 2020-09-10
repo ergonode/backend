@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-0.9.0-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-0.10.0-4c9aff.svg" alt="Version">
   </a>
   <a href="https://ergonode.com" target="_blank">
     <img src="https://img.shields.io/badge/version%20code-Vegas-00bc87.svg" alt="Code Version">
@@ -118,8 +118,7 @@ No! At the moment we have only one testing implementation to production environm
 ## Roadmap
 
 If you would like to find the current and future milestones for our project go to our [Roadmap][roadmap] page.
-
-At the moment we finalize development of Milestone 1 of the project. 
+ 
 
 ## Build Ergonode with us!
 
@@ -133,7 +132,6 @@ Ergonode is open-source, and it can be brought to you only by great community an
 
 Ergonode source code is released under the [OSL 3.0 License][license].
 
-[discord]: https://discord.gg/NntXFa4
 [slack]: https://ergonode.slack.com/join/shared_invite/enQtOTA2ODY0ODMxNTI0LThlZGE2YWE0YzY4NzU1ODk3NWRmNTJiMGI2NmM5ZTgxYTk0MWRhMjM1Y2M4MjdjZjAxY2FkOWE1M2FhZmJkMDY
 [contribut]: http://docs.ergonode.com/#/community/contribution
 [license]: ./LICENSE.txt

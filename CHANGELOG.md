@@ -1,3 +1,26 @@
+
+## CHANGELOG FOR 0.10.0
+- feature [#688](https://github.com/ergonode/backend/issues/688) Cyclical launch of exports per channel(rprzedzik)
+- feature [#681](https://github.com/ergonode/backend/issues/681) EventStore snapshot support (rprzedzik)
+- feature [#654](https://github.com/ergonode/backend/issues/654) Export product with variants to Shopware 6 (wfajczyk)
+- feature [#664](https://github.com/ergonode/backend/issues/664) Change Language Code Standard (wfajczyk)
+- feature [#657](https://github.com/ergonode/backend/issues/657) Add image thumbnail generation (rprzedzik)
+- feature [#656](https://github.com/ergonode/backend/issues/656) Add file type/group information (rprzedzik)
+- feature [#650](https://github.com/ergonode/backend/issues/650) Csv system exporter (rprzedzik)
+- feature [#636](https://github.com/ergonode/backend/issues/636) Category management in the Product(wfajczyk)
+- feature [#633](https://github.com/ergonode/backend/issues/633) Adding type to Category (wiewiurdp)
+- feature [#625](https://github.com/ergonode/backend/issues/625) Gallery and File attribute (rprzedzik)
+- feature [#612](https://github.com/ergonode/backend/issues/612) Avatar resource separation (wiewiurdp)
+- improvement [#679](https://github.com/ergonode/backend/issues/679) Import error list (wfajczyk)
+- improvement [#674](https://github.com/ergonode/backend/issues/674) Adding language translation to Shopware6 export (wfajczyk)
+- improvement [#669](https://github.com/ergonode/backend/issues/669) Extend csv export with option, template and multimedia (rprzedzik)
+- improvement [#652](https://github.com/ergonode/backend/issues/652) Adding product net price to Shopware 6 Export (wiewiurdp)
+- improvement [#651](https://github.com/ergonode/backend/issues/651) Adding language synchronization for export (wiewiurdp)
+- improvement [#644](https://github.com/ergonode/backend/issues/644) Adding possibility choosing many languages to shopware6 export (wiewiurdp)
+- improvement [#528](https://github.com/ergonode/backend/issues/528) Shopware6 Export Module (wfajczyk)
+- refactor [#631](https://github.com/ergonode/backend/issues/631) Abstract Module refactor (wiewiurdp)
+- refactor [#627](https://github.com/ergonode/backend/issues/627) Event store cache separation (wiewiurdp)
+
 ## CHANGELOG FOR 0.9.0
 - feature [#607](https://github.com/ergonode/backend/issues/607) Rich Text Editor (wiewiurdp)
 - feature [#566](https://github.com/ergonode/backend/issues/566) Adding Tile view for grids  (wiewiurdp)
