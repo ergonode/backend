@@ -208,7 +208,7 @@ class Shopware6Channel extends AbstractChannel
     /**
      * @return string
      */
-    public function getType(): string
+    public static function getType(): string
     {
         return self::TYPE;
     }
