@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
+namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,21 +18,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
 /**
- * @Route("attributes/autocomplete", methods={"GET"})
+ * @Route("attributes/groups/autocomplete", methods={"GET"})
  */
-class AttributeAutocompleteAction
+class AttributeGroupAutocompleteAction
 {
     /**
-     * @var AttributeQueryInterface
+     * @var AttributeGroupQueryInterface
      */
-    private AttributeQueryInterface $attributeQuery;
+    private AttributeGroupQueryInterface $attributeGroupQuery;
 
     /**
-     * @param AttributeQueryInterface $attributeQuery
+     * @param AttributeGroupQueryInterface $attributeGroupQuery
      */
-    public function __construct(AttributeQueryInterface $attributeQuery)
+    public function __construct(AttributeGroupQueryInterface $attributeGroupQuery)
     {
-        $this->attributeQuery = $attributeQuery;
+        $this->attributeGroupQuery = $attributeGroupQuery;
     }
 
     /**
@@ -76,7 +76,7 @@ class AttributeAutocompleteAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns attributes",
+     *     description="Return attribute groups",
      * )
      *
      * @param Language $language
@@ -91,7 +91,7 @@ class AttributeAutocompleteAction
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->attributeQuery->autocomplete($language, $search, $limit, $field, $order);
+        $data = $this->attributeGroupQuery->autocomplete($language, $search, $limit, $field, $order);
 
         return new SuccessResponse($data);
     }
