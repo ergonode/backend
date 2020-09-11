@@ -31,7 +31,12 @@
         "symfony/translation": "^4.4"
     },
     "require-dev": {
+        "behat/behat": "^3.6",
+        "behatch/contexts": "^3.3",
         "phpunit/phpunit": "^9"
+    },
+    "suggest": {
+        "behatch/contexts": "For using providing behat contexts"
     },
     "autoload": {
         "psr-4": {
