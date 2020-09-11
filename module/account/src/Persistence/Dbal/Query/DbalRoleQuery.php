@@ -112,6 +112,42 @@ class DbalRoleQuery implements RoleQueryInterface
     }
 
     /**
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, name')
+            ->from(self::TABLE);
+
+        if ($search) {
+            $query->orWhere('name ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
+        }
+
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder
