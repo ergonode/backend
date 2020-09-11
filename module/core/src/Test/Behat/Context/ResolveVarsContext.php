@@ -1,6 +1,13 @@
 <?php
 
-namespace App\Tests\Behat\Context;
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeStepScope;
@@ -9,7 +16,6 @@ use Behat\Gherkin\Node\StepNode;
 use Behat\Gherkin\Node\TableNode;
 use ReflectionClass;
 use ReflectionException;
-use StorageContext;
 
 /**
  */
@@ -18,7 +24,7 @@ class ResolveVarsContext implements Context
     /**
      * @var StorageContext
      */
-    private $storageContext;
+    private StorageContext $storageContext;
 
     /**
      * @param StorageContext $storageContext
@@ -37,7 +43,6 @@ class ResolveVarsContext implements Context
      */
     public function resolveVarsContext(BeforeStepScope $event): void
     {
-
         $step = $event->getStep();
         $args = $step->getArguments();
 

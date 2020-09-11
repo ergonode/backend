@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
 
-namespace App\Tests\Behat\Context;
+declare(strict_types = 1);
+
+namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Ergonode\Account\Domain\Entity\User;
