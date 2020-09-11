@@ -22,7 +22,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
  */
 class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterface
 {
-    private const PRODUCT_COLLECTION_TYPE_TABLE = 'collection_type';
+    private const PRODUCT_COLLECTION_TYPE_TABLE = 'product_collection_type';
     /**
      * @var Connection
      */

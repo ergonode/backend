@@ -76,7 +76,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
         $this->addSql(
             'ALTER TABLE exporter.export 
                     ADD CONSTRAINT export_channel_id_fk FOREIGN KEY (channel_id) 
-                    REFERENCES exporter.channel ON UPDATE CASCADE ON DELETE CASCADE'
+                    REFERENCES exporter.channel(id) ON UPDATE CASCADE ON DELETE RESTRICT'
         );
 
         $this->addSql('
@@ -92,23 +92,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
         $this->addSql(
             'ALTER TABLE exporter.export_line 
                     ADD CONSTRAINT export_line_export_id_fk FOREIGN KEY (export_id) 
-                    REFERENCES exporter.export ON UPDATE CASCADE ON DELETE CASCADE'
+                    REFERENCES exporter.export(id) ON UPDATE CASCADE ON DELETE CASCADE'
         );
-    }
-
-    /**
-     * @param array $collection
-     *
-     * @throws \Exception
-     */
-    private function createPrivileges(array $collection): void
-    {
-        foreach ($collection as $code => $area) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => $area,
-            ]);
-        }
     }
 }

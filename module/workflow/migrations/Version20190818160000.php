@@ -43,6 +43,11 @@ final class Version20190818160000 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+        $this->addSql(
+            'ALTER TABLE workflow
+                    ADD CONSTRAINT workflow_status_fk FOREIGN KEY (default_status) 
+                    REFERENCES status(id) ON DELETE RESTRICT ON UPDATE CASCADE'
+        );
 
         $this->addSql('
             CREATE TABLE IF NOT EXISTS workflow_transition (
@@ -54,22 +59,30 @@ final class Version20190818160000 extends AbstractErgonodeMigration
                 PRIMARY KEY(workflow_id, source_id, destination_id)
             )
         ');
+        $this->addSql(
+            'ALTER TABLE workflow_transition
+                    ADD CONSTRAINT workflow_transition_workflow_fk FOREIGN KEY (workflow_id) 
+                    REFERENCES workflow(id) ON DELETE CASCADE ON UPDATE CASCADE'
+        );
+        $this->addSql(
+            'ALTER TABLE workflow_transition
+                    ADD CONSTRAINT status_workflow_transition_source_fk FOREIGN KEY (source_id) 
+                    REFERENCES status(id) ON DELETE CASCADE ON UPDATE CASCADE'
+        );
+        $this->addSql(
+            'ALTER TABLE workflow_transition
+                    ADD CONSTRAINT status_workflow_transition_destination_fk FOREIGN KEY (destination_id) 
+                    REFERENCES status(id) ON DELETE CASCADE ON UPDATE CASCADE'
+        );
 
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'WORKFLOW_CREATE', 'Workflow']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'WORKFLOW_READ', 'Workflow']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'WORKFLOW_UPDATE', 'Workflow']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'WORKFLOW_DELETE', 'Workflow']
+        $this->connection->insert('privileges_group', ['area' => 'Workflow']);
+        $this->createWorkflowPrivileges(
+            [
+                'WORKFLOW_CREATE',
+                'WORKFLOW_READ',
+                'WORKFLOW_UPDATE',
+                'WORKFLOW_DELETE',
+            ]
         );
 
         $this->createEventStoreEvents([
@@ -107,6 +120,22 @@ final class Version20190818160000 extends AbstractErgonodeMigration
                 'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createWorkflowPrivileges(array $collection): void
+    {
+        foreach ($collection as $code) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => 'Workflow',
             ]);
         }
     }

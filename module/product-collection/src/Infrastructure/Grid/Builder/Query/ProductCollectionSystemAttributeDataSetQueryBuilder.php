@@ -40,7 +40,7 @@ class ProductCollectionSystemAttributeDataSetQueryBuilder implements AttributeDa
             sprintf(
                 '(
                     SELECT jsonb_agg(product_collection_id) 
-                    FROM collection_element ce 
+                    FROM product_collection_element ce 
                     WHERE ce.product_id = p.id LIMIT 1
                 ) AS "%s"',
                 $key

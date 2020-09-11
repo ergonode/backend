@@ -23,8 +23,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
  */
 class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 {
-    private const PRODUCT_COLLECTION_TABLE = 'public.collection';
-    private const PRODUCT_COLLECTION_TYPE_TABLE = 'public.collection_type';
+    private const PRODUCT_COLLECTION_TABLE = 'public.product_collection';
 
     /**
      * @var Connection
@@ -152,7 +151,7 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
             ->leftJoin(
                 'c',
                 '(SELECT count(*) as elements_count, ec.product_collection_id FROM '.
-                'collection_element ec GROUP BY ec.product_collection_id)',
+                'product_collection_element ec GROUP BY ec.product_collection_id)',
                 't',
                 't.product_collection_id = c.id'
             );

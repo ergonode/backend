@@ -32,8 +32,8 @@ class DbalProductQuery implements ProductQueryInterface
     private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
     private const VALUE_TABLE = 'public.product_value';
     private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
-    private const PRODUCT_COLLECTION_TABLE = 'public.collection';
-    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.collection_element';
+    private const PRODUCT_COLLECTION_TABLE = 'public.product_collection';
+    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.product_collection_element';
 
     /**
      * @var Connection
@@ -61,13 +61,13 @@ class DbalProductQuery implements ProductQueryInterface
             ->from(self::PRODUCT_COLLECTION_TABLE, 'c')
             ->leftJoin(
                 'c',
-                'collection_element',
+                'product_collection_element',
                 'ce',
                 'ce.product_collection_id = c.id'
             );
         $qb->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
         $qb->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
-        $qb->addSelect('(SELECT count(*) FROM collection_element'.
+        $qb->addSelect('(SELECT count(*) FROM product_collection_element'.
         ' WHERE product_collection_id = c.id) as elements_count');
         $qb->where($qb->expr()->eq('product_id', ':product_id'));
         $qb->andWhere('visible=true');
@@ -175,7 +175,7 @@ class DbalProductQuery implements ProductQueryInterface
         $queryBuilder
             ->select('p.id')
             ->from('public.product', 'p')
-            ->join('p', 'public.product_category_product', 'pcp', 'p.id = pcp.product_id')
+            ->join('p', 'public.product_category', 'pcp', 'p.id = pcp.product_id')
             ->where($queryBuilder->expr()->in('pcp.category_id', ':category'))
             ->setParameter(':category', $categoryId->getValue());
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
