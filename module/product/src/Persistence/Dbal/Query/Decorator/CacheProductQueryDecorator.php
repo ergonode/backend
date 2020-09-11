@@ -177,4 +177,21 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     {
         return $this->query->findProductIdByType($type);
     }
+
+    /**
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        return $this->query->autocomplete($search, $limit, $field, $order);
+    }
 }
