@@ -28,7 +28,7 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 index SERIAL,
                 sku VARCHAR(128) NOT NULL,
-                type VARCHAR(128) NOT NULL,
+                type VARCHAR(16) NOT NULL,
                 template_id UUID NOT NULL,
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
@@ -96,42 +96,29 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                         FOREIGN KEY (attribute_id) REFERENCES public.attribute on update cascade on delete cascade');
 
         $this->addSql('
-                CREATE TABLE product_category_product
+                CREATE TABLE product_category
                     (
                         category_id UUID NOT NULL,
                         product_id UUID NOT NULL,
                         PRIMARY KEY(category_id, product_id)
                     )');
         $this->addSql('
-            ALTER TABLE product_category_product
-                ADD CONSTRAINT product_category_product_product_id_fk
+            ALTER TABLE product_category
+                ADD CONSTRAINT product_category_product_id_fk
                     FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade');
         $this->addSql('
-            ALTER TABLE product_category_product
-                ADD CONSTRAINT product_category_product_category_id_fk
+            ALTER TABLE product_category
+                ADD CONSTRAINT product_category_category_id_fk
                     FOREIGN KEY (category_id) REFERENCES public.category on update cascade on delete cascade');
 
-        $this->addSql('CREATE TABLE product_status (code VARCHAR(32), name VARCHAR(64), PRIMARY KEY(code))');
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['DRAFT', 'Draft']);
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['ACCEPTED', 'Accepted']);
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_ACCEPTED', 'To accept']);
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_CORRECT', 'To correct']);
-
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_CREATE', 'Product']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_READ', 'Product']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_UPDATE', 'Product']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_DELETE', 'Product']
+        $this->connection->insert('privileges_group', ['area' => 'Product']);
+        $this->createProductPrivileges(
+            [
+                'PRODUCT_CREATE',
+                'PRODUCT_READ',
+                'PRODUCT_UPDATE',
+                'PRODUCT_DELETE',
+            ]
         );
 
         $this->createEventStoreEvents([
@@ -161,6 +148,22 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createProductPrivileges(array $collection): void
+    {
+        foreach ($collection as $code) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => 'Product',
             ]);
         }
     }

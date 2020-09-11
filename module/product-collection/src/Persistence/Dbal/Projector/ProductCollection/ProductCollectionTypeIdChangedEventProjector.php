@@ -17,7 +17,7 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
  */
 class ProductCollectionTypeIdChangedEventProjector
 {
-    private const TABLE = 'collection';
+    private const TABLE = 'product_collection';
 
     /**
      * @var Connection

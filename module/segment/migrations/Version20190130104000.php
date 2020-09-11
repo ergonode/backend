@@ -56,21 +56,14 @@ final class Version20190130104000 extends AbstractErgonodeMigration
                 ADD CONSTRAINT segment_product_product_id_fk
                     FOREIGN KEY (product_id) REFERENCES public.product on delete cascade');
 
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'SEGMENT_CREATE', 'Segment']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'SEGMENT_READ', 'Segment']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'SEGMENT_UPDATE', 'Segment']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'SEGMENT_DELETE', 'Segment']
+        $this->connection->insert('privileges_group', ['area' => 'Segment']);
+        $this->createSegmentPrivileges(
+            [
+                'SEGMENT_CREATE',
+                'SEGMENT_READ',
+                'SEGMENT_UPDATE',
+                'SEGMENT_DELETE',
+            ]
         );
 
         $this->createEventStoreEvents([
@@ -95,6 +88,22 @@ final class Version20190130104000 extends AbstractErgonodeMigration
                 'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createSegmentPrivileges(array $collection): void
+    {
+        foreach ($collection as $code) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => 'Segment',
             ]);
         }
     }

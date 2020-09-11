@@ -23,7 +23,7 @@ final class Version20191120151840 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.channel(
                     id uuid NOT NULL,
                     name VARCHAR(255) NOT NULL,
-                    type VARCHAR(255) NOT NULL,
+                    type VARCHAR(64) NOT NULL,
                     class VARCHAR(255) NOT NULL, 
                     configuration JSONB not null,
                     created_at timestamp without time zone NOT NULL,
@@ -49,14 +49,13 @@ final class Version20191120151840 extends AbstractErgonodeMigration
                     REFERENCES exporter.channel ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
+        $this->connection->insert('privileges_group', ['area' => 'Channel']);
         $this->createPrivileges([
             'CHANNEL_CREATE' => 'Channel',
             'CHANNEL_READ' => 'Channel',
             'CHANNEL_UPDATE' => 'Channel',
             'CHANNEL_DELETE' => 'Channel',
         ]);
-
-        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Channel']);
 
         $this->createEventStoreEvents([
             'Ergonode\Channel\Domain\Event\ChannelCreatedEvent' => 'Channel created',

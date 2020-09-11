@@ -24,7 +24,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE SCHEMA designer');
+        $this->addSql('CREATE SCHEMA IF NOT EXISTS designer');
 
         $this->addSql('
             CREATE TABLE designer.template_group (
@@ -109,21 +109,14 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addGroup('418c48d3-d2c3-4c30-b627-93850c38d59c', 'Suggested');
         $this->addGroup('641c614f-0732-461f-892f-b6df97939599', 'My templates', true);
 
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_CREATE', 'Template designer']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_READ', 'Template designer']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_UPDATE', 'Template designer']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_DELETE', 'Template designer']
+        $this->connection->insert('privileges_group', ['area' => 'Template designer']);
+        $this->createTemplateDesignerPrivileges(
+            [
+                'TEMPLATE_DESIGNER_CREATE',
+                'TEMPLATE_DESIGNER_READ',
+                'TEMPLATE_DESIGNER_UPDATE',
+                'TEMPLATE_DESIGNER_DELETE',
+            ]
         );
 
         $this->createEventStoreEvents([
@@ -211,6 +204,22 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createTemplateDesignerPrivileges(array $collection): void
+    {
+        foreach ($collection as $code) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => 'Template designer',
             ]);
         }
     }
