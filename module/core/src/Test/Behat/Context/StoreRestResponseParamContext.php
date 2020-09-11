@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Behat\Context;
+namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behatch\Json\JsonInspector;

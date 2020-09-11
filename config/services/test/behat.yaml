@@ -5,14 +5,14 @@ services:
     public: false
 
   #Behat
-  Ergonode\Core\Behat\Context\ResolveVarsContext:
+  Ergonode\Core\Test\Behat\Context\ResolveVarsContext:
     public: true
 
-  Ergonode\Core\Behat\Context\StoreRestResponseParamContext:
+  Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext:
     public: true
 
-  Ergonode\Core\Behat\Context\UserContext:
+  Ergonode\Core\Test\Behat\Context\UserContext:
     public: true
 
-  Ergonode\Core\Behat\Context\StorageContext:
+  Ergonode\Core\Test\Behat\Context\StorageContext:
     public: true

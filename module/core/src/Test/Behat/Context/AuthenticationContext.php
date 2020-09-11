@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Behat\Context;
+namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
@@ -50,7 +50,7 @@ class AuthenticationContext implements Context
     {
         $environment = $scope->getEnvironment();
 
-        $this->storageContext = $environment->getContext('Ergonode\Core\Behat\Context\StorageContext');
+        $this->storageContext = $environment->getContext('Ergonode\Core\Test\Behat\Context\StorageContext');
 
         $this->storageContext->addDefinition('default_user_username', $this->username);
         $this->storageContext->addDefinition('default_user_password', $this->password);
