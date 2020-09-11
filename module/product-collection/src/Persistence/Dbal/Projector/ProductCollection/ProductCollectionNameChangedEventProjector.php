@@ -18,7 +18,7 @@ use JMS\Serializer\SerializerInterface;
  */
 class ProductCollectionNameChangedEventProjector
 {
-    private const TABLE = 'collection';
+    private const TABLE = 'product_collection';
 
     /**
      * @var Connection

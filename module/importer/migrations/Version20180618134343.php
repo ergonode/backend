@@ -56,7 +56,13 @@ final class Version20180618134343 extends AbstractErgonodeMigration
         $this->addSql(
             'ALTER TABLE importer.import
              ADD CONSTRAINT import_source_fk FOREIGN KEY (source_id) 
-             REFERENCES importer.source  ON UPDATE CASCADE ON DELETE CASCADE'
+             REFERENCES importer.source(id)  ON UPDATE CASCADE ON DELETE RESTRICT'
+        );
+
+        $this->addSql(
+            'ALTER TABLE importer.import
+             ADD CONSTRAINT import_transformer_fk FOREIGN KEY (transformer_id) 
+             REFERENCES importer.transformer(id)  ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
         $this->addSql('
@@ -75,52 +81,30 @@ final class Version20180618134343 extends AbstractErgonodeMigration
             'REFERENCES importer.import ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
-        $this->addSql('
-            CREATE TABLE importer.event_store (
-                id BIGSERIAL NOT NULL, 
-                aggregate_id uuid NOT NULL, 
-                sequence int, 
-                event_id UUID NOT NULL, 
-                payload jsonb NOT NULL, 
-                recorded_by uuid default NULL, 
-                recorded_at timestamp without time zone NOT NULL, 
-                CONSTRAINT event_store_pkey PRIMARY KEY (id)
-            )
-        ');
+        $this->connection->insert('privileges_group', ['area' => 'Import']);
+        $this->createImportPrivileges(
+            [
+                'IMPORT_CREATE',
+                'IMPORT_READ',
+                'IMPORT_UPDATE',
+                'IMPORT_DELETE',
+            ]
+        );
+    }
 
-        $this->addSql('
-            CREATE TABLE importer.event_store_history (
-                id BIGSERIAL NOT NULL, 
-                aggregate_id uuid NOT NULL, 
-                sequence int NOT NULL,
-                variant int NOT NULL DEFAULT 1,
-                event_id UUID NOT NULL, 
-                payload jsonb NOT NULL, 
-                recorded_by uuid default NULL, 
-                recorded_at timestamp without time zone NOT NULL, 
-                CONSTRAINT event_store_history_pkey PRIMARY KEY (id)
-            )
-        ');
-        $this->addSql(
-            'CREATE UNIQUE INDEX importer_event_store_history_unique_key ON importer.event_store_history '.
-            ' USING btree (aggregate_id, sequence, variant)'
-        );
-
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'IMPORT_CREATE', 'Import']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'IMPORT_READ', 'Import']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'IMPORT_UPDATE', 'Import']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'IMPORT_DELETE', 'Import']
-        );
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createImportPrivileges(array $collection): void
+    {
+        foreach ($collection as $code) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => 'Import',
+            ]);
+        }
     }
 }

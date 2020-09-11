@@ -21,7 +21,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
  */
 class DbalTreeQuery implements TreeQueryInterface
 {
-    private const TREE_TABLE = 'tree';
+    private const TREE_TABLE = 'category_tree';
 
 
     /**

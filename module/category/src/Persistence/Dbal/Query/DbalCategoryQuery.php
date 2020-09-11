@@ -184,7 +184,7 @@ class DbalCategoryQuery implements CategoryQueryInterface
             ->leftJoin(
                 'c',
                 '(SELECT count(*) as elements_count, pcp.category_id FROM '.
-                'product_category_product pcp GROUP BY pcp.category_id)',
+                'product_category pcp GROUP BY pcp.category_id)',
                 't',
                 't.category_id = c.id'
             );

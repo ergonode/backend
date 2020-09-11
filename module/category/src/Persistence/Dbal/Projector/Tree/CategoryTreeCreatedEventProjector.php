@@ -17,7 +17,7 @@ use JMS\Serializer\SerializerInterface;
  */
 class CategoryTreeCreatedEventProjector
 {
-    protected const TABLE = 'tree';
+    protected const TABLE = 'category_tree';
 
     /**
      * @var Connection

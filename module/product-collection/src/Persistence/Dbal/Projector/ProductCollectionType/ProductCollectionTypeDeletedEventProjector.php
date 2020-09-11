@@ -17,7 +17,7 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeDeletedEvent;
  */
 class ProductCollectionTypeDeletedEventProjector
 {
-    private const TABLE = 'collection_type';
+    private const TABLE = 'product_collection_type';
 
     /**
      * @var Connection

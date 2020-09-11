@@ -16,7 +16,7 @@ use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
  */
 class CategoryTreeDeletedEventProjector
 {
-    private const TABLE = 'tree';
+    private const TABLE = 'category_tree';
 
     /**
      * @var Connection
