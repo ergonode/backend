@@ -29,7 +29,7 @@
     <!-- Tests -->
     <target
             name="test"
-            depends="test:unit, test:behat"
+            depends="test:unit, test:mutation, test:behat"
             description="Execute tests with database recreation."
     >
     </target>
@@ -50,6 +50,17 @@
         <echo msg="Running unit tests..."/>
         <exec command="bin/phpunit -c phpunit.xml.dist"
               checkreturn="true"
+              logoutput="true"
+              passthru="true"
+        >
+        </exec>
+    </target>
+
+    <!-- Infection -->
+    <target name="test:mutation" description="Executes infection mutation tests.">
+        <echo msg="Running mutation tests..."/>
+        <exec command="bin/infection --show-mutations"
+              checkreturn="false"
               logoutput="true"
               passthru="true"
         >
