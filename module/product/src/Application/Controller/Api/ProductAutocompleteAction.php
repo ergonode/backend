@@ -7,36 +7,35 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
+namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
 /**
- * @Route("attributes/autocomplete", methods={"GET"})
+ * @Route("products/autocomplete", methods={"GET"})
  */
-class AttributeAutocompleteAction
+class ProductAutocompleteAction
 {
     /**
-     * @var AttributeQueryInterface
+     * @var ProductQueryInterface
      */
-    private AttributeQueryInterface $attributeQuery;
+    private ProductQueryInterface $productQuery;
 
     /**
-     * @param AttributeQueryInterface $attributeQuery
+     * @param ProductQueryInterface $attributeQuery
      */
-    public function __construct(AttributeQueryInterface $attributeQuery)
+    public function __construct(ProductQueryInterface $attributeQuery)
     {
-        $this->attributeQuery = $attributeQuery;
+        $this->productQuery = $attributeQuery;
     }
 
     /**
-     * @SWG\Tag(name="Attribute")
+     * @SWG\Tag(name="Product")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -76,22 +75,21 @@ class AttributeAutocompleteAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns attributes",
+     *     description="Return products",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @param Request $request
      *
      * @return Response
      */
-    public function __invoke(Language $language, Request $request): Response
+    public function __invoke(Request $request): Response
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->attributeQuery->autocomplete($language, $search, $limit, $field, $order);
+        $data = $this->productQuery->autocomplete($search, $limit, $field, $order);
 
         return new SuccessResponse($data);
     }
