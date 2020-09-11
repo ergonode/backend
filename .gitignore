@@ -25,3 +25,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> infection/infection ###
+infection.log
+###< infection/infection ###
