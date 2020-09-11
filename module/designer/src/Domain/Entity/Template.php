@@ -248,15 +248,14 @@ class Template extends AbstractAggregateRoot
      */
     public function getElement(Position $position): TemplateElement
     {
-        if (!$this->hasElement($position)) {
-            $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
-            throw new \InvalidArgumentException($message);
-        }
         foreach ($this->elements as $element) {
             if ($position->isEqual($element->getPosition())) {
                 return $element;
             }
         }
+
+        $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
+        throw new \InvalidArgumentException($message);
     }
 
     /**
