@@ -25,7 +25,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
  */
 class DbalProductCollectionElementQuery implements ProductCollectionElementQueryInterface
 {
-    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'collection_element';
+    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'product_collection_element';
     private const PUBLIC_PRODUCT_TABLE = 'public.product';
 
     /**

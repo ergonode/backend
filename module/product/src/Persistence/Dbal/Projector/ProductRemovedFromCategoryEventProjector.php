@@ -18,7 +18,7 @@ use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
  */
 class ProductRemovedFromCategoryEventProjector
 {
-    private const TABLE_PRODUCT_CATEGORY = 'product_category_product';
+    private const TABLE_PRODUCT_CATEGORY = 'product_category';
 
     /**
      * @var Connection

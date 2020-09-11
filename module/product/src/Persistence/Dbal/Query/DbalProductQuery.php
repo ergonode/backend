@@ -175,7 +175,7 @@ class DbalProductQuery implements ProductQueryInterface
         $queryBuilder
             ->select('p.id')
             ->from('public.product', 'p')
-            ->join('p', 'public.product_category_product', 'pcp', 'p.id = pcp.product_id')
+            ->join('p', 'public.product_category', 'pcp', 'p.id = pcp.product_id')
             ->where($queryBuilder->expr()->in('pcp.category_id', ':category'))
             ->setParameter(':category', $categoryId->getValue());
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);

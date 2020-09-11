@@ -39,7 +39,7 @@ class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
             sprintf(
                 '(
                     SELECT jsonb_agg(category_id) 
-                    FROM product_category_product pcp 
+                    FROM product_category pcp 
                     WHERE pcp.product_id = p.id LIMIT 1
                 ) AS "%s"',
                 $key
