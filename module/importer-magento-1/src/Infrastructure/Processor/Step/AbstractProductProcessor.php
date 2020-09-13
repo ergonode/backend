@@ -52,7 +52,7 @@ abstract class AbstractProductProcessor
     {
         $result = [];
         foreach ($products as $product) {
-            if ($type === $product->get('default')['esa_type']) {
+            if ($type === $product->getType()) {
                 $result[] = $product;
             }
         }

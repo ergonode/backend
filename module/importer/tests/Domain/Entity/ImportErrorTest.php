@@ -21,14 +21,10 @@ class ImportErrorTest extends TestCase
     public function testCreation(): void
     {
         $importId = $this->createMock(ImportId::class);
-        $line = 1;
-        $step = 2;
         $message = 'Any message';
 
-        $entity = new ImportError($importId, $step, $line, $message);
+        $entity = new ImportError($importId, $message);
         self::assertEquals($importId, $entity->getImportId());
-        self::assertEquals($line, $entity->getLine());
-        self::assertEquals($step, $entity->getStep());
         self::assertEquals($message, $entity->getMessage());
     }
 }

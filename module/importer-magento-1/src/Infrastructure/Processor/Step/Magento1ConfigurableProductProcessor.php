@@ -30,6 +30,7 @@ use Ergonode\Importer\Infrastructure\Action\VariableProductImportAction;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 
 /**
  */
@@ -117,6 +118,8 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
         $default = $product->get('default');
 
         $record = new Record();
+        $record->set('sku', $product->getSku());
+        $record->set('esa_template', $product->getTemplate());
 
         foreach ($default as $field => $value) {
             $translation = [];
@@ -151,7 +154,7 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
                 }
             }
 
-            $bindings = $this->getBindings($default);
+            $bindings = $this->getBindings($product, $default);
 
             if ($bindings) {
                 $record->set('bindings', $bindings);
@@ -178,24 +181,26 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     }
 
     /**
-     * @param array $default
+     * @param ProductModel $productModel
+     * @param array        $default
      *
      * @return null|string
      */
-    private function getBindings(array $default): ?string
+    private function getBindings(ProductModel $productModel, array $default): ?string
     {
         $result = [];
+        $bindings = [];
 
-        if (array_key_exists('bindings', $default)) {
+        if (array_key_exists('bindings', $default) && $default['bindings'] !== null) {
             $bindings = explode(',', $default['bindings']);
             $bindings = array_unique($bindings);
+        }
 
-            foreach ($bindings as $binding) {
-                $code = new AttributeCode($binding);
-                $model = $this->attributeQuery->findAttributeByCode($code);
-                Assert::notNull($model, sprintf('Can\'t find attribute %s for binding', $code));
-                $result[] = $model->getId()->getValue();
-            }
+        foreach ($bindings as $binding) {
+            $code = new AttributeCode($binding);
+            $model = $this->attributeQuery->findAttributeByCode($code);
+            Assert::notNull($model, sprintf('Can\'t find attribute %s for binding', $code));
+            $result[] = $model->getId()->getValue();
         }
 
         if (!empty($result)) {
@@ -214,7 +219,7 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     {
         $result = [];
 
-        if (array_key_exists('variants', $default)) {
+        if (array_key_exists('variants', $default) && null !== $default['variants']) {
             $variants = explode(',', $default['variants']);
             $variants = array_unique($variants);
 

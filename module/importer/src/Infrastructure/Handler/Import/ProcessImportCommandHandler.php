@@ -77,8 +77,8 @@ class ProcessImportCommandHandler
                 $this->commandBus->dispatch(new EndImportCommand($importId), true);
             }
         } catch (\Throwable $exception) {
-            $line = new ImportError($importId, $step, $number, $exception->getMessage());
-            $this->repository->save($line);
+            $line = new ImportError($importId, $exception->getMessage());
+            $this->repository->add($line);
 
             throw $exception;
         }

@@ -13,15 +13,59 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Model;
 class ProductModel
 {
     /**
+     * @var string
+     */
+    private string $sku;
+
+    /**
+     * @var string
+     */
+    private string $type;
+
+    /**
+     * @var string
+     */
+    private string $template;
+
+    /**
      * @var array
      */
     private array $versions;
 
     /**
+     * @param string $sku
+     * @param string $type
+     * @param string $template
      */
-    public function __construct()
+    public function __construct(string $sku, string $type, string $template)
     {
-        $this->versions = [];
+        $this->sku = $sku;
+        $this->type = $type;
+        $this->template = $template;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate(): string
+    {
+        return $this->template;
     }
 
     /**

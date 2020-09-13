@@ -13,11 +13,11 @@ use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
-use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Infrastructure\Action\TemplateImportAction;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 
 /**
  */
@@ -38,7 +38,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
 
     /**
      * @param Import            $import
-     * @param array             $products
+     * @param ProductModel[]    $products
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      * @param Progress          $steps
@@ -54,13 +54,10 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
     ): int {
         $templates = [];
         foreach ($products as $sku => $product) {
-            $default = $product->get('default');
-            if (array_key_exists('esa_template', $default)) {
-                $type = $default['esa_template'];
-                if (!array_key_exists($type, $templates)) {
-                    $templates[$type] = new Record();
-                    $templates[$type]->set('code', $type);
-                }
+            $template = $product->getTemplate();
+            if (!array_key_exists($template, $templates)) {
+                $templates[$template] = new Record();
+                $templates[$template]->set('code', $template);
             }
         }
 

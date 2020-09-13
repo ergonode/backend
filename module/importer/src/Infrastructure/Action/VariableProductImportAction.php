@@ -24,6 +24,7 @@ use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 
 /**
  */
@@ -78,13 +79,19 @@ class VariableProductImportAction implements ImportActionInterface
     public function action(ImportId $importId, Record $record): void
     {
         $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
+        Assert::notNull($sku, 'product import required "sku" field not exists');
         $bindings = [];
-        if ($record->has('bindings')) {
-            foreach (explode(',', $record->get('bindings')) as $binding) {
-                $binding = $this->attributeRepository->load(new AttributeId($binding));
-                Assert::isInstanceOf($binding, SelectAttribute::class);
-                $bindings[] = $binding;
-            }
+        if (!$record->has('bindings')) {
+            throw new ImportException(
+                'Can\'t import {sku} without binding attributes',
+                ['{sku}' => $sku->getValue()]
+            );
+        }
+
+        foreach (explode(',', $record->get('bindings')) as $binding) {
+            $binding = $this->attributeRepository->load(new AttributeId($binding));
+            Assert::isInstanceOf($binding, SelectAttribute::class);
+            $bindings[] = $binding;
         }
 
         $children = [];

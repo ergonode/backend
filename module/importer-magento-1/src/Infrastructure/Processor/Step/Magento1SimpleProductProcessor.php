@@ -109,6 +109,8 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
         $default = $product->get('default');
 
         $record = new Record();
+        $record->set('sku', $product->getSku());
+        $record->set('esa_template', $product->getTemplate());
 
         foreach ($default as $field => $value) {
             $translation = [];

@@ -118,6 +118,8 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
         $default = $product->get('default');
 
         $record = new Record();
+        $record->set('sku', $product->getSku());
+        $record->set('esa_template', $product->getTemplate());
 
         foreach ($default as $field => $value) {
             $translation = [];
