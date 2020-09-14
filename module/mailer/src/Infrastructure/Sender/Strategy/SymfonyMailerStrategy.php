@@ -89,9 +89,8 @@ class SymfonyMailerStrategy implements MailerStrategyInterface
             }
 
             $this->mailer->send($email);
-        } catch (\Throwable $exception) {
+        } finally {
             $this->translator->setLocale($previousLocale);
-            throw $exception;
         }
     }
 }
