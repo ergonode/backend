@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Command;
 
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -82,8 +81,6 @@ class CreateUserCommand extends Command
 
         $roleId = array_search($role, $this->query->getDictionary(), true);
 
-        $languagePrivilegesCollection = [$language->getCode() => new LanguagePrivileges(true, true)];
-
         if ($roleId) {
             $command = new \Ergonode\Account\Domain\Command\User\CreateUserCommand(
                 $firstName,
@@ -91,8 +88,7 @@ class CreateUserCommand extends Command
                 $email,
                 $language,
                 $password,
-                new RoleId($roleId),
-                $languagePrivilegesCollection
+                new RoleId($roleId)
             );
             $this->commandBus->dispatch($command);
 

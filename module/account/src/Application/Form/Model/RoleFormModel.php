@@ -11,6 +11,7 @@ namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
 use Ergonode\Account\Domain\ValueObject\Privilege;
+use Ergonode\Account\Infrastructure\Validator\RoleNameUnique;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -25,6 +26,8 @@ class RoleFormModel
      *     max="100",
      *     maxMessage="Role name is too long, should have at least {{ limit }} characters"
      * )
+     *
+     * @RoleNameUnique()
      */
     public ?string $name;
 

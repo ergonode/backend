@@ -55,4 +55,11 @@ interface RoleQueryInterface
         string $field = null,
         ?string $order = 'ASC'
     ): array;
+
+    /**
+     * @param string $name
+     *
+     * @return RoleId | null
+     */
+    public function findIdByRoleName(string $name): ?RoleId;
 }

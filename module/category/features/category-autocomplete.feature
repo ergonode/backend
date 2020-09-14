@@ -20,11 +20,11 @@ Feature: Category autocomplete
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/category/features/category.json"
 
-  Scenario: Get category autocomplete (order by code)
+  Scenario: Get category autocomplete (order by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/categories/autocomplete?field=code"
+    When I send a GET request to "/api/v1/en_GB/categories/autocomplete?field=name"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/category/features/category.json"
 

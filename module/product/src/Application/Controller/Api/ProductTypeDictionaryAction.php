@@ -9,11 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Application\Provider\ProductTypeProvider;
@@ -50,8 +46,6 @@ class ProductTypeDictionaryAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
-     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",

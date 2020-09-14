@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route(
@@ -45,8 +44,6 @@ class AvatarReadAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
-     *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
      *     name="user",
