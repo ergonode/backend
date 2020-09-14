@@ -19,7 +19,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
  */
 class DbalProductCategoryQuery implements ProductCategoryQueryInterface
 {
-    private const PRODUCT_CATEGORY_TABLE = 'public.product_category_product';
+    private const PRODUCT_CATEGORY_TABLE = 'public.product_category';
     /**
      * @var Connection
      */

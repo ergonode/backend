@@ -26,12 +26,10 @@ final class Version20190910151314 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE condition_set (
                 id UUID NOT NULL,
-                code VARCHAR(100) NOT NULL,
                 conditions JSONB NOT NULL,
                 PRIMARY KEY(id)
             )
         ');
-        $this->addSql('CREATE UNIQUE index condition_set_code_uindex ON condition_set (code)');
 
         $this->createEventStoreEvents([
             'Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent' => 'Condition set created',

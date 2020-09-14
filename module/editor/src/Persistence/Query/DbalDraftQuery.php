@@ -136,7 +136,7 @@ class DbalDraftQuery implements DraftQueryInterface
         $qb = $this->connection->createQueryBuilder();
 
         return $qb->select('category_id')
-            ->from('product_category_product', 'pcp')
+            ->from('product_category', 'pcp')
             ->join('pcp', 'designer.draft', 'd', 'd.product_id = pcp.product_id')
             ->where($qb->expr()->eq('d.id', ':id'))
             ->setParameter(':id', $draftId->getValue())

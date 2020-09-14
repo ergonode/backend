@@ -33,6 +33,12 @@ final class Version20191104140000 extends AbstractErgonodeMigration
             )
         ');
 
+        $this->addSql(
+            'ALTER TABLE comment
+                    ADD CONSTRAINT comment_users_fk FOREIGN KEY (author_id) 
+                    REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE'
+        );
+
         $this->createEventStoreEvents([
             'Ergonode\Comment\Domain\Event\CommentCreatedEvent' => 'Comment created',
             'Ergonode\Comment\Domain\Event\CommentContentChangedEvent' => 'Comment content changed',

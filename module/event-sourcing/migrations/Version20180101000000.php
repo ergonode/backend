@@ -90,5 +90,11 @@ final class Version20180101000000 extends AbstractErgonodeMigration
         $this->addSql(
             'CREATE UNIQUE INDEX event_store_event_unique_key ON event_store_event USING btree (event_class)'
         );
+
+        $this->addSql(
+            'ALTER TABLE event_store
+                    ADD CONSTRAINT event_store_event_store_event_fk FOREIGN KEY (event_id) 
+                    REFERENCES event_store_event(id) ON DELETE RESTRICT ON UPDATE CASCADE'
+        );
     }
 }

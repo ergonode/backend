@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace App\Tests\Behat\Context;
+namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\TableNode;
 use Behatch\Context\BaseContext;
 use Behatch\HttpCall\Request;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use UnexpectedValueException;
 use InvalidArgumentException;
 use RuntimeException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use UnexpectedValueException;
 use function GuzzleHttp\Psr7\mimetype_from_filename;
 
 /**

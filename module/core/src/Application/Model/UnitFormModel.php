@@ -32,7 +32,7 @@ class UnitFormModel
      *
      * @Assert\NotBlank(message="Unit symbol is required"),
      * @Assert\Length(
-     *     max=255,
+     *     max=16,
      *     maxMessage="Unit symbol is to long, It should have {{ limit }} character or less."
      * )
      * })

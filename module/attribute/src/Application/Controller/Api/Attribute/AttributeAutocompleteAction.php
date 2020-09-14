@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
 /**
- * @Route("attribute/autocomplete", methods={"GET"})
+ * @Route("attributes/autocomplete", methods={"GET"})
  */
 class AttributeAutocompleteAction
 {

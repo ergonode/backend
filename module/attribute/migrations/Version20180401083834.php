@@ -28,7 +28,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 id UUID NOT NULL,    
                 index SERIAL,                
                 type VARCHAR(32) NOT NULL,
-                code VARCHAR(255) NOT NULL,     
+                code VARCHAR(128) NOT NULL,     
                 label UUID NOT NULL,
                 placeholder UUID NOT NULL,
                 hint UUID NOT NULL,       
@@ -74,7 +74,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE attribute_group (
                 id UUID NOT NULL,
-                code VARCHAR(255) NOT NULL,
+                code VARCHAR(128) NOT NULL,
                 name JSONB NOT NULL,                    
                 PRIMARY KEY(id)
             )
@@ -117,7 +117,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE attribute_parameter (               
                 attribute_id UUID NOT NULL, 
-                type VARCHAR(32) NOT NULL,
+                type VARCHAR(16) NOT NULL,
                 value JSONB NOT NULL,                                                   
                 PRIMARY KEY(attribute_id, type)
             )
@@ -142,6 +142,9 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             ALTER TABLE attribute_group_attribute 
                 ADD CONSTRAINT attribute_group_attribute_group_id_fk 
                     FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE RESTRICT ON DELETE RESTRICT');
+
+        $this->connection->insert('privileges_group', ['area' => 'Attribute']);
+        $this->connection->insert('privileges_group', ['area' => 'Attribute group']);
 
         $this->createPrivileges([
             'ATTRIBUTE_CREATE' => 'Attribute',

@@ -41,6 +41,7 @@ final class Version20180807065948 extends AbstractErgonodeMigration
             )
         ');
 
+        $this->connection->insert('privileges_group', ['area' => 'Multimedia']);
         $this->createMultimediaPrivileges(
             [
                 'MULTIMEDIA_CREATE',
