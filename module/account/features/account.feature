@@ -26,16 +26,31 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
+    And remember param "role_nane" with value "Test role (@@random_uuid@@)"
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "Test role (@@random_uuid@@)",
+         "name": "@role_nane@",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
     Then the response status code should be 201
     And store response param "id" as "role"
+
+  Scenario: Create role (with the same name)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
+      """
+      {
+         "name": "@role_nane@",
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    Then the response status code should be 400
 
   Scenario: Create role (not authorized)
     Given I send a POST request to "/api/v1/en_GB/roles"
