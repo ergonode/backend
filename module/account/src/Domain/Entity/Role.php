@@ -147,7 +147,7 @@ class Role extends AbstractAggregateRoot
      */
     public function changeDescription(string $description): void
     {
-        if ($description !== $this->name) {
+        if ($description !== $this->description) {
             $this->apply(new RoleDescriptionChangedEvent($this->id, $this->description, $description));
         }
     }

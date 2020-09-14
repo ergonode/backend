@@ -13,7 +13,9 @@
   },
   "require": {
     "php": "^7.4",
-    "ergonode/exporter": "^0.9.0"
+    "ergonode/channel": "^0.10.0",
+    "ergonode/exporter": "^0.10.0",
+    "guzzlehttp/guzzle": "^6.3"
   },
   "require-dev": {
     "phpunit/phpunit": "^9"
