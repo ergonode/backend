@@ -1,12 +1,16 @@
-# Ergonode - API
+# Ergonode - Mailer
 
 ## Documentation
 
 * Follow link to  [**Ergonode Documentation**](https://docs.ergonode.com),
 
-## TODO
+### How to test DSN configuration?
 
-- Support messages with attachments
+U can easly check DSN configuration by sending test e-mail with command:
+
+```
+bin/console ergonode:mailer:test team@ergonode.com -l en_US
+```
 
 ## Community
 

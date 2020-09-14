@@ -47,6 +47,21 @@ class Language
         return $this->getCode();
     }
 
+    /**
+     * @return string
+     */
+    public function getLanguage(): string
+    {
+        return explode('_', $this->code)[0];
+    }
+
+    /**
+     * @return string
+     */
+    public function getTerritory(): string
+    {
+        return explode('_', $this->code)[1];
+    }
 
     /**
      * @param string $code

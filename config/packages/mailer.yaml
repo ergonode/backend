@@ -1,0 +1,10 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: '%env(MAILER_SENDER)%'
+
+ergonode_mailer:
+    default:
+        replyTo: '%env(MAILER_SENDER)%'
+        from: '%env(MAILER_SENDER)%'
