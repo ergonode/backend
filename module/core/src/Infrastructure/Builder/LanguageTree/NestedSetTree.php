@@ -100,8 +100,8 @@ class NestedSetTree
     }
 
     /**
-     * @param $left
-     * @param $right
+     * @param int $left
+     * @param int $right
      */
     private function updateLeftRight(int $left, int $right): void
     {

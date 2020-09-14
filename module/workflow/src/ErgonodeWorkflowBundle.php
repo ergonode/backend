@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow;
 
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ProvideConditionDictionaryCompilerPass;
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Workflow\Application\DependencyInjection\ErgonodeWorkflowExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

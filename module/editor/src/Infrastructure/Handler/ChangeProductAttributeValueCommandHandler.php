@@ -12,7 +12,6 @@ namespace Ergonode\Editor\Infrastructure\Handler;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Value\Domain\Service\ValueManipulationService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -68,7 +67,6 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
      */
     public function __invoke(ChangeProductAttributeValueCommand $command)
     {
-        /** @var ProductDraft $draft */
         $language = $command->getLanguage();
         $draft = $this->repository->load($command->getId());
         $attributeId = $command->getAttributeId();

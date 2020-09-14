@@ -13,6 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Event\Relation\ChildAddedToProductEvent;
 use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -32,7 +33,7 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
      */
     public function addChild(AbstractProduct $child): void
     {
-        if (!$this->hasChild($child->getId())) {
+        if (!$this->hasChild($child->getId()) && !$child->getId()->isEqual($this->id)) {
             $this->apply(new ChildAddedToProductEvent($this->id, $child->getId()));
         }
     }
@@ -63,6 +64,28 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
         }
 
         return false;
+    }
+
+    /**
+     * @param AbstractProduct[] $children
+     *
+     * @throws \Exception
+     */
+    public function changeChildren(array $children): void
+    {
+        Assert::allIsInstanceOf($children, AbstractProduct::class);
+
+        foreach ($children as $child) {
+            if (!$this->hasChild($child->getId()) && !$child->getId()->isEqual($this->id)) {
+                $this->addChild($child);
+            }
+        }
+
+        foreach ($this->children as $child) {
+            if (!in_array($child, $children, false)) {
+                $this->removeChild($child);
+            }
+        }
     }
 
     /**

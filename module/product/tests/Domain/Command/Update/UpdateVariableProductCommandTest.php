@@ -25,7 +25,6 @@ class UpdateVariableProductCommandTest extends TestCase
      * @param TemplateId $templateId
      * @param array      $categories
      * @param array      $bindings
-     * @param array      $attributes
      *
      * @dataProvider dataProvider
      */
@@ -33,16 +32,14 @@ class UpdateVariableProductCommandTest extends TestCase
         ProductId $id,
         TemplateId $templateId,
         array $categories,
-        array $bindings,
-        array $attributes
+        array $bindings
     ): void {
-        $command = new UpdateVariableProductCommand($id, $templateId, $categories, $bindings, $attributes);
+        $command = new UpdateVariableProductCommand($id, $templateId, $categories, $bindings);
 
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($templateId, $command->getTemplateId());
-        $this->assertSame($categories, $command->getCategories());
-        $this->assertSame($bindings, $command->getBindings());
-        $this->assertSame($attributes, $command->getAttributes());
+        self::assertSame($id, $command->getId());
+        self::assertSame($templateId, $command->getTemplateId());
+        self::assertSame($categories, $command->getCategories());
+        self::assertSame($bindings, $command->getBindings());
     }
 
     /**
@@ -62,10 +59,6 @@ class UpdateVariableProductCommandTest extends TestCase
                 ],
                 [
                     $this->createMock(AttributeId::class),
-                ],
-                [
-                    'code1' => $this->createMock(ValueInterface::class),
-                    'code2' => $this->createMock(ValueInterface::class),
                 ],
             ],
         ];

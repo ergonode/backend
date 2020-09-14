@@ -18,7 +18,7 @@ class SourceFormFactoryProvider
     private array $factories;
 
     /**
-     * @param array|SourceFormFactoryInterface ...$factories
+     * @param SourceFormFactoryInterface ...$factories
      */
     public function __construct(SourceFormFactoryInterface ...$factories)
     {

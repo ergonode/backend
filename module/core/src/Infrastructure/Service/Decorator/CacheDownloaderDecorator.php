@@ -57,10 +57,10 @@ class CacheDownloaderDecorator implements DownloaderInterface
     }
 
     /**
-     * @param $filename
-     * @param $contents
+     * @param string $filename
+     * @param string $contents
      */
-    public function saveFile($filename, $contents): void
+    public function saveFile(string $filename, string $contents): void
     {
         $parts = explode('/', $filename);
         $file = array_pop($parts);

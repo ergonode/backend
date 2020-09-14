@@ -86,7 +86,7 @@ class TemplateChangeAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code"
      * )
      * @SWG\Response(
@@ -113,7 +113,6 @@ class TemplateChangeAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var TemplateFormModel $data */
             $command = $this->commandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
             $this->commandBus->dispatch($command);
 

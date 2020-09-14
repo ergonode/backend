@@ -15,7 +15,7 @@ use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 class ExportProcessorProvider
 {
     /**
-     * @var ExportProcessorInterface ...$processors
+     * @var ExportProcessorInterface[] $processors
      */
     private array $processors;
 
@@ -40,6 +40,6 @@ class ExportProcessorProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\' processor fot type "%s"', $type));
+        throw new \RuntimeException(sprintf('Can\'t find processor type "%s"', $type));
     }
 }

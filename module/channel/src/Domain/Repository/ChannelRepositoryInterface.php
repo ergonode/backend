@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Repository;
 
-use Ergonode\Channel\Domain\Entity\Channel;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */
@@ -20,22 +19,24 @@ interface ChannelRepositoryInterface
     /**
      * @param ChannelId $id
      *
-     * @return AbstractAggregateRoot|Channel
+     * @return AbstractChannel
      */
-    public function load(ChannelId $id): ?AbstractAggregateRoot;
+    public function load(ChannelId $id): ?AbstractChannel;
 
     /**
-     * {@inheritDoc}
+     * @param ChannelId $id
+     *
+     * @return bool
      */
     public function exists(ChannelId $id) : bool;
 
     /**
-     * @param Channel $aggregateRoot
+     * @param AbstractChannel $aggregateRoot
      */
-    public function save(Channel $aggregateRoot): void;
+    public function save(AbstractChannel $aggregateRoot): void;
 
     /**
-     * @param Channel $aggregateRoot
+     * @param AbstractChannel $aggregateRoot
      */
-    public function delete(Channel $aggregateRoot): void;
+    public function delete(AbstractChannel $aggregateRoot): void;
 }

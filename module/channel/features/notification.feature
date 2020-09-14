@@ -6,5 +6,5 @@ Feature: channel module profile notification
     And I add "Accept" header equal to "application/json"
 
   Scenario: Get export info
-    When I send a GET request to "/api/v1/en/profile/exports"
+    When I send a GET request to "/api/v1/en_GB/profile/exports"
     Then the response status code should be 200

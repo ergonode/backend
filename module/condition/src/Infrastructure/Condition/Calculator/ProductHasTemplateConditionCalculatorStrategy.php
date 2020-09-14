@@ -58,5 +58,7 @@ class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculat
             case ProductHasTemplateCondition::NOT_HAS:
                 return !$productTemplateId->isEqual($searchedTemplateId);
         }
+
+        throw new \RuntimeException(sprintf('Operator %s is not supported', $configuration->getOperator()));
     }
 }

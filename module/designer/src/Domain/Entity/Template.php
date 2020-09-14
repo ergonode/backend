@@ -39,31 +39,43 @@ class Template extends AbstractAggregateRoot
 {
     /**
      * @var TemplateId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $name;
 
     /**
      * @var MultimediaId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private ?MultimediaId $imageId;
 
     /**
      * @var TemplateGroupId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $groupId;
 
     /**
      * @var AttributeId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultLabel;
 
     /**
      * @var AttributeId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultImage;
 
@@ -78,8 +90,8 @@ class Template extends AbstractAggregateRoot
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param AttributeId       $defaultLabel
-     * @param AttributeId       $defaultImage
+     * @param AttributeId|null  $defaultLabel
+     * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      *
      * @throws \Exception
@@ -220,7 +232,13 @@ class Template extends AbstractAggregateRoot
      */
     public function hasElement(Position $position): bool
     {
-        return isset($this->elements[(string) $position]);
+        foreach ($this->elements as $element) {
+            if ($position->isEqual($element->getPosition())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -234,8 +252,11 @@ class Template extends AbstractAggregateRoot
             $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
             throw new \InvalidArgumentException($message);
         }
-
-        return $this->elements[(string) $position];
+        foreach ($this->elements as $element) {
+            if ($position->isEqual($element->getPosition())) {
+                return $element;
+            }
+        }
     }
 
     /**
@@ -381,9 +402,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementAddedEvent(TemplateElementAddedEvent $event): void
     {
-        $element = $event->getElement();
-        $position = $element->getPosition();
-        $this->elements[(string) $position] = $event->getElement();
+        $this->elements[] = $event->getElement();
     }
 
     /**
@@ -393,7 +412,11 @@ class Template extends AbstractAggregateRoot
     {
         $element = $event->getElement();
         $position = $element->getPosition();
-        $this->elements[(string) $position] = $event->getElement();
+        foreach ($this->elements as $key => $element) {
+            if ($position->isEqual($element->getPosition())) {
+                $this->elements[$key] = $event->getElement();
+            }
+        }
     }
 
     /**
@@ -401,8 +424,11 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementRemovedEvent(TemplateElementRemovedEvent $event): void
     {
-        $position = (string) $event->getPosition();
-        unset($this->elements[$position]);
+        foreach ($this->elements as $key => $element) {
+            if ($event->getPosition()->isEqual($element->getPosition())) {
+                unset($this->elements[$key]);
+            }
+        }
     }
 
     /**
@@ -479,18 +505,16 @@ class Template extends AbstractAggregateRoot
     /**
      * @param TemplateDefaultLabelChangedEvent $event
      */
-    protected function applyTemplateDefaultLabelChangedEvent(
-        TemplateDefaultLabelChangedEvent $event
-    ): void {
+    protected function applyTemplateDefaultLabelChangedEvent(TemplateDefaultLabelChangedEvent $event): void
+    {
         $this->defaultLabel = $event->getTo();
     }
 
     /**
      * @param TemplateDefaultImageChangedEvent $event
      */
-    protected function applyTemplateDefaultImageChangedEvent(
-        TemplateDefaultImageChangedEvent $event
-    ): void {
+    protected function applyTemplateDefaultImageChangedEvent(TemplateDefaultImageChangedEvent $event): void
+    {
         $this->defaultImage = $event->getTo();
     }
 }

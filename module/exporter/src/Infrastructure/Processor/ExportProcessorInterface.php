@@ -9,9 +9,9 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Infrastructure\Processor;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  */
@@ -25,25 +25,23 @@ interface ExportProcessorInterface
     public function supported(string $type): bool;
 
     /**
-     * @param ExportId              $id
-     * @param AbstractExportProfile $profile
+     * @param ExportId        $id
+     * @param AbstractChannel $channel
      */
-    public function start(ExportId $id, AbstractExportProfile $profile): void;
+    public function start(ExportId $id, AbstractChannel $channel): void;
 
     /**
-     * @param ExportId              $id
-     * @param AbstractExportProfile $profile
-     * @param AbstractProduct       $product
-     *
-     * @return mixed
+     * @param ExportId        $id
+     * @param AbstractChannel $channel
+     * @param AbstractProduct $product
      *
      * @throws ExportException
      */
-    public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void;
+    public function process(ExportId $id, AbstractChannel $channel, AbstractProduct $product): void;
 
     /**
-     * @param ExportId              $id
-     * @param AbstractExportProfile $profile
+     * @param ExportId        $id
+     * @param AbstractChannel $channel
      */
-    public function end(ExportId $id, AbstractExportProfile $profile): void;
+    public function end(ExportId $id, AbstractChannel $channel): void;
 }

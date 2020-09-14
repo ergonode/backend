@@ -50,9 +50,9 @@ class CategoryTreeTest extends TestCase
     public function testCreateCategoryTree(): void
     {
         $tree = new CategoryTree($this->id, $this->code, $this->name);
-        $this->assertEquals($this->id, $tree->getId());
-        $this->assertEquals($this->code, $tree->getCode());
-        $this->assertEquals($this->name, $tree->getName());
+        self::assertEquals($this->id, $tree->getId());
+        self::assertEquals($this->code, $tree->getCode());
+        self::assertEquals($this->name, $tree->getName());
     }
 
     /**
@@ -60,13 +60,16 @@ class CategoryTreeTest extends TestCase
     public function testAddingCategory(): void
     {
         $root = CategoryId::generate();
-        $category = CategoryId::generate();
+        $category1 = CategoryId::generate();
+        $category2 = CategoryId::generate();
 
         $tree = new CategoryTree($this->id, $this->code, $this->name);
         $tree->addCategory($root);
-        $this->assertTrue($tree->hasCategory($root));
-        $tree->addCategory($category, $root);
-        $this->assertTrue($tree->hasCategory($category));
+        self::assertTrue($tree->hasCategory($root));
+        $tree->addCategory($category1, $root);
+        self::assertTrue($tree->hasCategory($category1));
+        $tree->addCategory($category2, $category1);
+        self::assertTrue($tree->hasCategory($category2));
     }
 
     /**
@@ -88,9 +91,9 @@ class CategoryTreeTest extends TestCase
     {
         $tree = new CategoryTree($this->id, $this->code, $this->name);
 
-        $name2 = new TranslatableString(['en' => 'english']);
+        $name2 = new TranslatableString(['en_GB' => 'english']);
         $tree->changeName($name2);
-        $this->assertEquals($name2, $tree->getName());
+        self::assertEquals($name2, $tree->getName());
     }
 
     /**
@@ -105,6 +108,6 @@ class CategoryTreeTest extends TestCase
 
         $tree->updateCategories($categories);
 
-        $this->assertTrue($tree->hasCategory($categoryId));
+        self::assertTrue($tree->hasCategory($categoryId));
     }
 }

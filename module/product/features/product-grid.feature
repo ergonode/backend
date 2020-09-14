@@ -5,8 +5,15 @@ Feature: Product edit feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
+  Scenario: Multimedia upload image
+    When I send a POST request to "/api/v1/multimedia/upload" with params:
+      | key    | value           |
+      | upload | @image/test.jpg |
+    Then the response status code should be 201
+    And store response param "id" as "multimedia_id"
+
   Scenario Outline: Create <type> attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "<name>_@@random_code@@",
@@ -27,9 +34,11 @@ Feature: Product edit feature
       | NUMERIC                                                                               | numeric_attribute      | NUMERIC      | null                    |
       | PRICE                                                                                 | price_attribute        | PRICE        | {"currency": "PLN"}     |
       | IMAGE                                                                                 | image_attribute        | IMAGE        | null                    |
+      | GALLERY                                                                               | gallery_attribute      | GALLERY      | null                    |
+      | FILE                                                                                  | file_attribute         | GALLERY      | null                    |
 
   Scenario Outline: Create option <name> for select <code>
-    When I send a "POST" request to "/api/v1/en/attributes/@<code>_id@/options" with body:
+    When I send a "POST" request to "/api/v1/en_GB/attributes/@<code>_id@/options" with body:
       """
       {
         "code": "<value>",
@@ -45,9 +54,8 @@ Feature: Product edit feature
       | multi_select_option_1 | multi_select_attribute | key_1  |
       | multi_select_option_2 | multi_select_attribute | key_12 |
 
-
   Scenario Outline: Get attribute <code> code
-    When I send a GET request to "/api/v1/en/attributes/@<code>_id@"
+    When I send a GET request to "/api/v1/en_GB/attributes/@<code>_id@"
     Then the response status code should be 200
     And store response param "code" as "<code>_code"
     Examples:
@@ -59,9 +67,11 @@ Feature: Product edit feature
       | numeric_attribute      |
       | price_attribute        |
       | image_attribute        |
+      | gallery_attribute      |
+      | file_attribute         |
 
   Scenario: Create template
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -72,7 +82,7 @@ Feature: Product edit feature
     And store response param "id" as "template_id"
 
   Scenario Outline: Create <product> product
-    When I send a POST request to "/api/v1/en/products" with body:
+    When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -87,8 +97,17 @@ Feature: Product edit feature
       | product_1_id |
       | product_2_id |
 
+  Scenario Outline: Get <product> product sku
+    When I send a GET request to "/api/v1/en_GB/products/<id>"
+    Then the response status code should be 200
+    And store response param "sku" as "<sku>"
+    Examples:
+      | id             | sku           |
+      | @product_1_id@ | product_1_sku |
+      | @product_2_id@ | product_2_sku |
+
   Scenario Outline: Add product <code> value
-    When I send a PUT request to "api/v1/en/products/@product_1_id@/draft/@<code>_id@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@product_1_id@/draft/@<code>_id@/value" with body:
       """
       {
        "value": <value>
@@ -103,9 +122,12 @@ Feature: Product edit feature
       | multi_select_attribute | ["@multi_select_option_1@"]           |
       | numeric_attribute      | 10.99                                 |
       | price_attribute        | 12.66                                 |
+      | image_attribute        | "@multimedia_id@"                     |
+      | gallery_attribute      | ["@multimedia_id@"]                   |
+      | file_attribute         | ["@multimedia_id@"]                   |
 
   Scenario Outline: Apply edit <product>> draft
-    When I send a PUT request to "api/v1/en/products/<product>/draft/persist"
+    When I send a PUT request to "api/v1/en_GB/products/<product>/draft/persist"
     Then the response status code should be 204
     Examples:
       | product        |
@@ -113,7 +135,7 @@ Feature: Product edit feature
       | @product_2_id@ |
 
   Scenario Outline: Request product grid filtered by <code> attribute
-    When I send a GET request to "api/v1/en/products?columns=<code>&filter=<code>=<filter>"
+    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>=<filter>"
     Then the response status code should be 200
     And the JSON nodes should contain:
       | columns[0].id         | <code>         |
@@ -133,8 +155,19 @@ Feature: Product edit feature
       | NUMERIC      | @numeric_attribute_code@         | @numeric_attribute_code@      | 10.99                               | 10.99                               |
       | NUMERIC      | @price_attribute_code@           | @price_attribute_code@        | 12.66                               | 12.66                               |
 
+  Scenario Outline: Request product grid filtered by @product_1_sku@ attribute
+    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=sku=@product_1_sku@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | collection[0].<field> | @multimedia_id@ |
+    Examples:
+      | code                     | field                     |
+      | @image_attribute_code@   | @image_attribute_code@    |
+      | @gallery_attribute_code@ | @gallery_attribute_code@[0] |
+      | @file_attribute_code@    | @file_attribute_code@[0]  |
+
   Scenario Outline: Request product grid filtered by <code> attribute with extended flag
-    When I send a GET request to "api/v1/en/products?extended&columns=<code>&filter=<code>=<filter>"
+    When I send a GET request to "api/v1/en_GB/products?extended&columns=<code>&filter=<code>=<filter>"
     Then the response status code should be 200
     And the JSON nodes should contain:
       | columns[0].id          | <code>         |
@@ -155,7 +188,7 @@ Feature: Product edit feature
       | NUMERIC      | @price_attribute_code@.value           | @price_attribute_code@        | 12.66                               | 12.66                               |
 
   Scenario Outline: Request product grid filtered by <code> attribute for null values
-    When I send a GET request to "api/v1/en/products?columns=<code>&filter=<code>="
+    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>="
     Then the response status code should be 200
     And the JSON nodes should contain:
       | columns[0].id        | <code> |
@@ -166,14 +199,14 @@ Feature: Product edit feature
       | collection[0].<code> |        |
     Examples:
       | type    | code                       |
-#      | TEXT    | @text_attribute_code@      |
-#      | TEXT    | @text_attribute_long_code@ |
+      | TEXT    | @text_attribute_code@      |
+      | TEXT    | @text_attribute_long_code@ |
       | SELECT  | @select_attribute_code@    |
       | NUMERIC | @numeric_attribute_code@   |
       | NUMERIC | @price_attribute_code@     |
 
   Scenario Outline: Request product grid filtered by <code> attribute for not null values
-    When I send a GET request to "api/v1/en/products?columns=<code>&filter=<code>!="
+    When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>!="
     Then the response status code should be 200
     And the JSON nodes should contain:
       | columns[0].id         | <code>   |
@@ -184,39 +217,39 @@ Feature: Product edit feature
       | collection[0].<code>  |          |
       | collection[0].<field> | <result> |
     Examples:
-      | type         | field                            | code                          | result                              |
-      | TEXT         | @text_attribute_code@            | @text_attribute_code@         | text attribute value                |
-      | TEXT         | @text_attribute_long_code@       | @text_attribute_long_code@    | text with long code attribute value |
-      | SELECT       | @select_attribute_code@          | @select_attribute_code@       | @select_option_1@                   |
-      | NUMERIC      | @numeric_attribute_code@         | @numeric_attribute_code@      | 10.99                               |
-      | NUMERIC      | @price_attribute_code@           | @price_attribute_code@        | 12.66                               |
+      | type    | field                      | code                       | result                              |
+      | TEXT    | @text_attribute_code@      | @text_attribute_code@      | text attribute value                |
+      | TEXT    | @text_attribute_long_code@ | @text_attribute_long_code@ | text with long code attribute value |
+      | SELECT  | @select_attribute_code@    | @select_attribute_code@    | @select_option_1@                   |
+      | NUMERIC | @numeric_attribute_code@   | @numeric_attribute_code@   | 10.99                               |
+      | NUMERIC | @price_attribute_code@     | @price_attribute_code@     | 12.66                               |
 
   Scenario: Request product grid filtered by text attribute null
-    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&filter=@text_attribute_id@="
+    When I send a GET request to "api/v1/en_GB/products?columns=@text_attribute_id@&filter=@text_attribute_id@="
     Then the response status code should be 200
 
   Scenario: Request product date range
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_date_attribute_code@&filter=esa_created_aten%3E%3D2020-01-06%3Besa_created_aten%3C%3D2020-01-08"
+    When I send a GET request to "api/v1/en_GB/products?columns=@product_edit_date_attribute_code@&filter=esa_created_aten%3E%3D2020-01-06%3Besa_created_aten%3C%3D2020-01-08"
     Then the response status code should be 200
 
   Scenario: Request product numeric range
-    When I send a GET request to "api/v1/en/products?columns=@numeric_attribute_id@&filter=@numeric_attribute_id@%3E%3D1%3B@numeric_attribute_id@%3C%3D3"
+    When I send a GET request to "api/v1/en_GB/products?columns=@numeric_attribute_id@&filter=@numeric_attribute_id@%3E%3D1%3B@numeric_attribute_id@%3C%3D3"
     Then the response status code should be 200
 
   Scenario: Request product order by index
-    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&,index&field=index&order=DESC"
+    When I send a GET request to "api/v1/en_GB/products?columns=@text_attribute_id@&,index&field=index&order=DESC"
     Then the response status code should be 200
 
   Scenario: Request product order by attribute
-    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&,index&field=@text_attribute_id@&order=DESC"
+    When I send a GET request to "api/v1/en_GB/products?columns=@text_attribute_id@&,index&field=@text_attribute_id@&order=DESC"
     Then the response status code should be 200
 
   Scenario: Request product order by not exists attribute
-    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&,index&field=xxxxxxx@&order=DESC"
+    When I send a GET request to "api/v1/en_GB/products?columns=@text_attribute_id@&,index&field=xxxxxxx@&order=DESC"
     Then the response status code should be 200
 
   Scenario Outline: Delete products
-    When I send a DELETE request to "/api/v1/en/products/<product>"
+    When I send a DELETE request to "/api/v1/en_GB/products/<product>"
     Then the response status code should be 204
     Examples:
       | product        |
@@ -224,7 +257,7 @@ Feature: Product edit feature
       | @product_2_id@ |
 
   Scenario Outline: Delete attributes
-    When I send a DELETE request to "/api/v1/en/attributes/<attribute>"
+    When I send a DELETE request to "/api/v1/en_GB/attributes/<attribute>"
     Then the response status code should be 204
     Examples:
       | attribute                   |
@@ -235,9 +268,10 @@ Feature: Product edit feature
       | @numeric_attribute_id@      |
       | @price_attribute_id@        |
       | @image_attribute_id@        |
+      | @gallery_attribute_id@      |
 
   Scenario Outline: Delete templates
-    When I send a DELETE request to "/api/v1/en/templates/<template>"
+    When I send a DELETE request to "/api/v1/en_GB/templates/<template>"
     Then the response status code should be 204
     Examples:
       | template      |

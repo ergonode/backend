@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Tests\Application\Request\ParamConverter;
 
 use Ergonode\Channel\Application\Request\ParamConverter\ChannelParamConverter;
-use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -17,6 +16,9 @@ use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
@@ -51,10 +53,10 @@ class ChannelParamConverterTest extends TestCase
     public function testSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
-        $this->configuration->method('getClass')->willReturn(Channel::class);
+        $this->configuration->method('getClass')->willReturn(AbstractChannel::class);
 
         $paramConverter = new ChannelParamConverter($this->repository);
-        $this->assertTrue($paramConverter->supports($this->configuration));
+        self::assertTrue($paramConverter->supports($this->configuration));
     }
 
     /**
@@ -65,14 +67,14 @@ class ChannelParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn('Any other class namespace');
 
         $paramConverter = new ChannelParamConverter($this->repository);
-        $this->assertFalse($paramConverter->supports($this->configuration));
+        self::assertFalse($paramConverter->supports($this->configuration));
     }
 
     /**
      */
     public function testEmptyParameter(): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
+        $this->expectException(BadRequestHttpException::class);
         $this->request->method('get')->willReturn(null);
 
         $paramConverter = new ChannelParamConverter($this->repository);
@@ -83,7 +85,7 @@ class ChannelParamConverterTest extends TestCase
      */
     public function testInvalidParameter(): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
+        $this->expectException(BadRequestHttpException::class);
         $this->request->method('get')->willReturn('incorrect uuid');
 
         $paramConverter = new ChannelParamConverter($this->repository);
@@ -94,7 +96,7 @@ class ChannelParamConverterTest extends TestCase
      */
     public function testEntityNotExists(): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
+        $this->expectException(NotFoundHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
 
         $paramConverter = new ChannelParamConverter($this->repository);
@@ -106,9 +108,9 @@ class ChannelParamConverterTest extends TestCase
     public function testEntityExists(): void
     {
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
-        $this->repository->method('load')->willReturn($this->createMock(Channel::class));
+        $this->repository->method('load')->willReturn($this->createMock(AbstractChannel::class));
         $this->request->attributes = $this->createMock(ParameterBag::class);
-        $this->request->attributes->expects($this->once())->method('set');
+        $this->request->attributes->expects(self::once())->method('set');
 
         $paramConverter = new ChannelParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);

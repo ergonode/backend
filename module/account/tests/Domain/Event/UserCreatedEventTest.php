@@ -12,7 +12,6 @@ namespace Ergonode\Account\Tests\Domain\Event;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -35,8 +34,7 @@ class UserCreatedEventTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        /** @var MultimediaId|MockObject $multimediaId */
-        $multimediaId = $this->createMock(MultimediaId::class);
+        $avatarFilename = 'filename.jpg';
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
@@ -53,14 +51,14 @@ class UserCreatedEventTest extends TestCase
             $roleId,
             $languagePrivilegesCollection,
             true,
-            $multimediaId
+            $avatarFilename
         );
 
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($firstName, $event->getFirstName());
         $this->assertEquals($lastName, $event->getLastName());
         $this->assertEquals($language, $event->getLanguage());
-        $this->assertEquals($multimediaId, $event->getAvatarId());
+        $this->assertEquals($avatarFilename, $event->getAvatarFilename());
         $this->assertEquals($roleId, $event->getRoleId());
         $this->assertEquals($languagePrivilegesCollection, $event->getLanguagePrivilegesCollection());
         $this->assertEquals($email, $event->getEmail());

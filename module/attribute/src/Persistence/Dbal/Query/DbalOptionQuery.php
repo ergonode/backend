@@ -82,19 +82,22 @@ class DbalOptionQuery implements OptionQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
+     * @param AttributeId|null $attributeId
      *
      * @return array
      */
-    public function getAll(AttributeId $attributeId): array
+    public function getAll(?AttributeId $attributeId = null): array
     {
         $qb = $this->getQuery();
 
+        $qb->select('o.id, o.key as code, value_id');
+        if ($attributeId) {
+            $qb
+                ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
+                ->setParameter(':id', $attributeId->getValue());
+        }
         $records = $qb
-            ->select('o.id, o.key as code, value_id')
-            ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
-            ->setParameter(':id', $attributeId->getValue())
-            ->orderBy('o.key')
+            ->orderBy('o.attribute_id, o.key')
             ->execute()
             ->fetchAll();
 

@@ -11,6 +11,7 @@ namespace Ergonode\Reader\Infrastructure\Processor;
 
 use Ergonode\Reader\Infrastructure\FormatterInterface;
 use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
+use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 
 /**
  */
@@ -94,6 +95,11 @@ class CsvReaderProcessor implements ReaderProcessorInterface
                     $field = $formatter->format($field);
                 }
                 $row[$key] = trim($field);
+            }
+            if (count($this->headers) !== count($row)) {
+                $message = 'The number of fields is different from the number of headers';
+
+                throw new ReaderException($message);
             }
             yield array_combine($this->headers, $row);
         }

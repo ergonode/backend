@@ -12,32 +12,26 @@ namespace Ergonode\Designer\Persistence\Dbal\Repository;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
 class DbalTemplateRepository implements TemplateRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -49,34 +43,21 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
      */
     public function load(TemplateId $id): ?Template
     {
-        $eventStream = $this->eventStore->load($id);
-        if ($eventStream->count() > 0) {
-            $class = new \ReflectionClass(Template::class);
-            /** @var Template $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof Template) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', Template::class));
-            }
+        /** @var Template $result */
+        $result = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($result, Template::class);
 
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $result;
     }
 
     /**
-     * {@inheritDoc}
+     * @param Template $template
+     *
+     * @throws DBALException
      */
     public function save(Template $template): void
     {
-        $events = $template->popEvents();
-
-        $this->eventStore->append($template->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($template);
     }
 
     /**
@@ -89,6 +70,6 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
         $template->apply(new TemplateRemovedEvent($template->getId()));
         $this->save($template);
 
-        $this->eventStore->delete($template->getId());
+        $this->manager->delete($template);
     }
 }

@@ -40,7 +40,7 @@ class ProductSkuExistsConditionCalculatorStrategy implements ConditionCalculator
             case ProductSkuExistsCondition::IS_EQUAL:
                 return $value === $sku;
             case ProductSkuExistsCondition::IS_NOT_EQUAL:
-                return $value != $sku;
+                return $value !== $sku;
             case ProductSkuExistsCondition::HAS:
                 return strpos($sku, $pattern) !== false;
             case ProductSkuExistsCondition::WILDCARD:
@@ -48,5 +48,7 @@ class ProductSkuExistsConditionCalculatorStrategy implements ConditionCalculator
             case ProductSkuExistsCondition::REGEXP:
                 return preg_match($configuration->getValue(), $object->getSku()->getValue()) >= 1;
         }
+
+        throw new \RuntimeException(sprintf('Operator %s is not supported', $configuration->getOperator()));
     }
 }

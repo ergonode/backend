@@ -60,6 +60,7 @@ class CategoryCreatedEventProjector
                     'id' => $event->getAggregateId()->getValue(),
                     'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
                     'code' => $event->getCode()->getValue(),
+                    'type' => $event->getType(),
                 ]
             );
 

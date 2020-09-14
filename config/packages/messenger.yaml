@@ -38,4 +38,14 @@ framework:
             'Ergonode\Category\Domain\Command\UpdateCategoryCommand': core
             'Ergonode\Designer\Domain\Command\CreateTemplateCommand': core
             'Ergonode\Designer\Domain\Command\UpdateTemplateCommand': core
-
+            'Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessProductCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand': export
+            'Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand': export
+            'Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand': export
+            'Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand': export

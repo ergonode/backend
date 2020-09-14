@@ -73,7 +73,7 @@ class ProductAddChildFromSegmentsAction extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Response(

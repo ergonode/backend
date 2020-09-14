@@ -17,6 +17,7 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 
 /**
  */
@@ -48,6 +49,7 @@ class DbalExportQuery implements ExportQueryInterface
     public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface
     {
         $query = $this->getQuery();
+        $query->addSelect('e.channel_id');
         $query->andWhere($query->expr()->eq('channel_id', ':channelId'));
 
         $result = $this->connection->createQueryBuilder();
@@ -99,6 +101,53 @@ class DbalExportQuery implements ExportQueryInterface
             ->setMaxResults(10)
             ->execute()
             ->fetchAll();
+    }
+
+    /**
+     * @param ExportId $exportId
+     *
+     * @return array
+     */
+    public function getInformation(ExportId $exportId): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL) as processed')
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->where($query->expr()->eq('id', ':exportId'))
+            ->setParameter(':exportId', $exportId->getValue())
+            ->execute()
+            ->fetch();
+    }
+
+    /**
+     * @param ChannelId $channelId
+     *
+     * @return \DateTime|null
+     *
+     * @throws \Exception
+     */
+    public function findLastExport(ChannelId $channelId): ?\DateTime
+    {
+        $qb = $this->getQuery();
+        $result = $qb
+            ->andWhere($qb->expr()->eq('e.channel_id', ':channelId'))
+            ->andWhere($qb->expr()->eq('e.status', ':status'))
+            ->setParameter(':status', ExportStatus::ENDED)
+            ->setParameter(':channelId', $channelId->getValue())
+            ->orderBy('e.ended_at', 'DESC')
+            ->setMaxResults(1)
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return new \DateTime($result['ended_at']);
+        }
+
+        return null;
     }
 
     /**

@@ -32,6 +32,7 @@ class DbalImportRepository implements ImportRepositoryInterface
         'file',
         'started_at',
         'ended_at',
+        'records',
     ];
 
     /**
@@ -125,7 +126,7 @@ class DbalImportRepository implements ImportRepositoryInterface
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function remove(Import $import): void
+    public function delete(Import $import): void
     {
         $this->connection->delete(
             self::TABLE,

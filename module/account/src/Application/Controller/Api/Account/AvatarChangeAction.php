@@ -9,20 +9,28 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
+use Ergonode\Account\Application\Form\AvatarUploadForm;
+use Ergonode\Account\Application\Form\Model\AvatarUploadModel;
 use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
- * @Route("/accounts/{user}/avatar", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+ * @Route(
+ *     name="ergonode_avatar_change",
+ *     path="/accounts/{user}/avatar",
+ *     methods={"POST"},
+ *     requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
+ *     )
  */
 class AvatarChangeAction
 {
@@ -32,11 +40,18 @@ class AvatarChangeAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $commandBus
+     * @var FormFactoryInterface
      */
-    public function __construct(CommandBusInterface $commandBus)
+    private FormFactoryInterface $formFactory;
+
+    /**
+     * @param CommandBusInterface  $commandBus
+     * @param FormFactoryInterface $formFactory
+     */
+    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -48,20 +63,20 @@ class AvatarChangeAction
      *     in="path",
      *     required=true,
      *     type="string",
-     *     description="User ID"
+     *     description="User ID",
      * )
      * @SWG\Parameter(
-     *     name="multimedia",
+     *     name="upload",
      *     in="formData",
-     *     type="string",
-     *     description="Multimedia ID"
+     *     type="file",
+     *     description="The field used to upload avatar",
      * )
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code"
      * )
      * @SWG\Response(
@@ -78,10 +93,17 @@ class AvatarChangeAction
      */
     public function __invoke(User $user, Request $request): Response
     {
-        $multimediaId = $request->request->get('multimedia');
-        $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
-        $command = new ChangeUserAvatarCommand($user->getId(), $multimediaId);
-        $this->commandBus->dispatch($command);
+        $uploadModel = new AvatarUploadModel();
+
+        $form = $this->formFactory->create(AvatarUploadForm::class, $uploadModel, ['method' => Request::METHOD_POST]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $command = new ChangeUserAvatarCommand($user->getId(), $uploadModel->upload);
+            $this->commandBus->dispatch($command);
+        } else {
+            throw new FormValidationHttpException($form);
+        }
 
         return new EmptyResponse();
     }

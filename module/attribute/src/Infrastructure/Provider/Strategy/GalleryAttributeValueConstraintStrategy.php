@@ -47,7 +47,7 @@ class GalleryAttributeValueConstraintStrategy implements AttributeValueConstrain
      */
     public function get(AbstractAttribute $attribute): Constraint
     {
-        $multimedia = $this->query->getMultimedia();
+        $multimedia = $this->query->getAll();
 
         return new Collection([
             'value' => [

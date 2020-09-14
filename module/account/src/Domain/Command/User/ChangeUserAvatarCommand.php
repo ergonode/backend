@@ -11,7 +11,7 @@ namespace Ergonode\Account\Domain\Command\User;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  */
@@ -23,18 +23,18 @@ class ChangeUserAvatarCommand implements DomainCommandInterface
     private UserId $id;
 
     /**
-     * @var MultimediaId
+     * @var File
      */
-    private ?MultimediaId $avatarId;
+    private File $file;
 
     /**
-     * @param UserId            $id
-     * @param MultimediaId|null $avatarId
+     * @param UserId $id
+     * @param File   $file
      */
-    public function __construct(UserId $id, ?MultimediaId $avatarId = null)
+    public function __construct(UserId $id, File $file)
     {
         $this->id = $id;
-        $this->avatarId = $avatarId;
+        $this->file = $file;
     }
 
     /**
@@ -46,10 +46,10 @@ class ChangeUserAvatarCommand implements DomainCommandInterface
     }
 
     /**
-     * @return MultimediaId|null
+     * @return File
      */
-    public function getAvatarId(): ?MultimediaId
+    public function getFile(): File
     {
-        return $this->avatarId;
+        return $this->file;
     }
 }

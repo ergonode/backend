@@ -1,10 +1,12 @@
 Feature: Magento 1 CSV module
 
-  Scenario: Create text attribute
+  Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+
+  Scenario: Create text attribute
+    When I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "IMPORT_M1_TEST_@@random_code@@",
@@ -17,11 +19,19 @@ Feature: Magento 1 CSV module
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create Magento 1 CSV Source with default attribute
+    When I send a POST request to "/api/v1/en_GB/sources" with body:
+      """
+      {
+        "type": "magento-1-csv",
+        "name": "default attribute"
+      }
+      """
+    Then the response status code should be 201
+
+
   Scenario: Create Magento 1 CSV Source
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/sources" with body:
+    When I send a POST request to "/api/v1/en_GB/sources" with body:
       """
       {
         "type": "magento-1-csv",
@@ -34,11 +44,11 @@ Feature: Magento 1 CSV module
            "products"
         ],
         "mapping": {
-          "default_language": "en",
+          "default_language": "en_GB",
           "languages": [
               {
                  "store":"test",
-                 "language":"en"
+                 "language":"en_GB"
               }
           ]
         },
@@ -54,10 +64,7 @@ Feature: Magento 1 CSV module
     And store response param "id" as "source_id"
 
   Scenario: Create Magento 1 CSV Source with not exists attribute id value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/sources" with body:
+    When I send a POST request to "/api/v1/en_GB/sources" with body:
      """
       {
         "type": "magento-1-csv",
@@ -70,11 +77,11 @@ Feature: Magento 1 CSV module
            "products"
         ],
         "mapping": {
-          "default_language": "en",
+          "default_language": "en_GB",
           "languages": [
             {
                "store":"test",
-               "language":"en"
+               "language":"en_GB"
             }
           ]
         },
@@ -88,24 +95,26 @@ Feature: Magento 1 CSV module
       """
     Then the response status code should be 400
 
+  Scenario: Create Magento 1 CSV Source with empty body
+    When I send a POST request to "/api/v1/en_GB/sources" with body:
+     """
+      {
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Get Magento 1 CSV Source
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/sources/@source_id@"
+    When I send a GET request to "/api/v1/en_GB/sources/@source_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                     | magento-1-csv    |
       | name                     | name             |
       | host                     | http://test.host |
-      | mapping.default_language | en               |
+      | mapping.default_language | en_GB            |
 
 
   Scenario: Update Magento 1 CSV Source
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/sources/@source_id@" with body:
+    When I send a PUT request to "/api/v1/en_GB/sources/@source_id@" with body:
       """
       {
         "name": "name2",
@@ -117,7 +126,7 @@ Feature: Magento 1 CSV module
            "products"
         ],
         "mapping": {
-          "default_language": "en",
+          "default_language": "en_GB",
           "languages": []
         }
       }
@@ -126,10 +135,7 @@ Feature: Magento 1 CSV module
     And store response param "id" as "source_id"
 
   Scenario: Update Magento 1 CSV Source with null attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/sources/@source_id@" with body:
+    When I send a PUT request to "/api/v1/en_GB/sources/@source_id@" with body:
       """
       {
         "name": "name2",
@@ -141,7 +147,7 @@ Feature: Magento 1 CSV module
            "products"
         ],
         "mapping": {
-          "default_language": "en",
+          "default_language": "en_GB",
           "languages": []
         },
         "attributes": [
@@ -155,10 +161,7 @@ Feature: Magento 1 CSV module
     Then the response status code should be 400
 
   Scenario: Update Magento 1 CSV Source with note exists attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/sources/@source_id@" with body:
+    When I send a PUT request to "/api/v1/en_GB/sources/@source_id@" with body:
       """
       {
         "name": "name2",
@@ -170,7 +173,7 @@ Feature: Magento 1 CSV module
            "products"
         ],
         "mapping": {
-          "default_language": "en",
+          "default_language": "en_GB",
           "languages": []
         },
         "attributes": [
@@ -184,41 +187,62 @@ Feature: Magento 1 CSV module
     Then the response status code should be 400
 
   Scenario: Get Magento 1 CSV Source after update
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/sources/@source_id@"
+    When I send a GET request to "/api/v1/en_GB/sources/@source_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                     | magento-1-csv    |
       | name                     | name2            |
       | host                     | http://test.host |
-      | mapping.default_language | en               |
+      | mapping.default_language | en_GB            |
 
   Scenario: Upload magento 1 test import file
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "multipart/form-data"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/sources/@source_id@/upload" with params:
-      | key    | value               |
+    When I send a POST request to "/api/v1/en_GB/sources/@source_id@/upload" with params:
+      | key    | value                 |
       | upload | @magento-1-import.csv |
     Then the response status code should be 201
     And the JSON node "id" should exist
     And store response param "id" as "import_id"
 
+  Scenario: Upload magento 1 test import file with corupted csv file
+    When I send a POST request to "/api/v1/en_GB/sources/@source_id@/upload" with params:
+      | key    | value                 |
+      | upload | @magento-1-import-error.csv |
+    Then the response status code should be 201
+    And the JSON node "id" should exist
+    And store response param "id" as "error_import_id"
+
   Scenario: Get source imports grid
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "multipart/form-data"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/sources/@source_id@/imports"
+    When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports"
     Then the response status code should be 200
 
-  Scenario: Get source import grid
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "multipart/form-data"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/sources/@source_id@/imports/@import_id@"
+  Scenario: Get source import
+    When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports/@import_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | id        | @import_id@ |
       | source_id | @source_id@ |
+      | status    | Processing  |
+    And the JSON node "errors" should not be null
+    And the JSON node "records" should not be null
+    And the JSON node "created_at" should not be null
+    And the JSON node "updated_at" should not be null
+    And the JSON node "started_at" should not be null
+    And the JSON node "ended_at" should exist
+
+  Scenario: Get source error import
+    When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports/@error_import_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | id        | @error_import_id@ |
+      | source_id | @source_id@ |
+      | status    | Stopped      |
+    And the JSON node "errors" should not be null
+    And the JSON node "records" should not be null
+    And the JSON node "created_at" should not be null
+    And the JSON node "updated_at" should not be null
+    And the JSON node "started_at" should not be null
+    And the JSON node "ended_at" should exist
+
+  Scenario: Get error import grid
+    When I send a GET request to "/api/v1/en_GB/sources/@source_id@/imports/@import_id@/errors"
+    Then the response status code should be 200

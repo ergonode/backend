@@ -16,14 +16,10 @@ use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Importer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Product\Domain\Command\Relations\AddProductChildrenCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
-use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
-use Ergonode\Product\Domain\Command\Update\UpdateGroupingProductCommand;
+use Ergonode\Product\Domain\Entity\GroupingProduct;
 
 /**
  */
@@ -37,36 +33,28 @@ class GroupedProductImportAction implements ImportActionInterface
     private ProductQueryInterface $productQuery;
 
     /**
-     * @var CommandBusInterface
+     * @var ProductRepositoryInterface
      */
-    private CommandBusInterface $commandBus;
+    private ProductRepositoryInterface $repository;
 
     /**
-     * @var ProductImportBuilderInterface ...$builders
+     * @var ProductImportBuilderInterface[] $builders
      */
     private array $builders;
 
     /**
-     * @var ProductRepositoryInterface
-     */
-    private ProductRepositoryInterface $productRepository;
-
-    /**
-     * @param ProductQueryInterface                 $productQuery
-     * @param CommandBusInterface                   $commandBus
-     * @param array|ProductImportBuilderInterface[] $builders
-     * @param ProductRepositoryInterface            $productRepository
+     * @param ProductQueryInterface           $productQuery
+     * @param ProductRepositoryInterface      $repository
+     * @param ProductImportBuilderInterface[] $builders
      */
     public function __construct(
         ProductQueryInterface $productQuery,
-        CommandBusInterface $commandBus,
-        $builders,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $repository,
+        array $builders
     ) {
         $this->productQuery = $productQuery;
-        $this->commandBus = $commandBus;
+        $this->repository = $repository;
         $this->builders = $builders;
-        $this->productRepository = $productRepository;
     }
 
     /**
@@ -79,13 +67,6 @@ class GroupedProductImportAction implements ImportActionInterface
     {
         $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
 
-        $children = [];
-        if ($record->has('children')) {
-            foreach (explode(',', $record->get('children')) as $child) {
-                $children[] = new ProductId($child);
-            }
-        }
-
         Assert::notNull($sku, 'product import required "sku" field not exists');
 
         $importedProduct = new ImportedProduct($sku->getValue());
@@ -94,12 +75,21 @@ class GroupedProductImportAction implements ImportActionInterface
             $importedProduct = $builder->build($importedProduct, $record);
         }
 
+        $children = [];
+        if ($record->has('children')) {
+            foreach (explode(',', $record->get('children')) as $child) {
+                $child = $this->repository->load(new ProductId($child));
+                Assert::notInstanceOf($child, GroupingProduct::class);
+                $children[] = $child;
+            }
+        }
+
         $productId = $this->productQuery->findProductIdBySku($sku);
         $templateId = new TemplateId($importedProduct->template);
 
         if (!$productId) {
             $productId = ProductId::generate();
-            $command = new CreateGroupingProductCommand(
+            $product = new GroupingProduct(
                 $productId,
                 $sku,
                 $templateId,
@@ -107,22 +97,16 @@ class GroupedProductImportAction implements ImportActionInterface
                 $importedProduct->attributes,
             );
         } else {
-            $command = new UpdateGroupingProductCommand(
-                $productId,
-                $templateId,
-                $importedProduct->categories,
-                $importedProduct->attributes,
-            );
+            $product = $this->repository->load($productId);
+            Assert::isInstanceOf($product, GroupingProduct::class);
         }
 
-        $this->commandBus->dispatch($command, true);
+        $product->changeTemplate($templateId);
+        $product->changeCategories($importedProduct->categories);
+        $product->changeAttributes($importedProduct->attributes);
+        $product->changeChildren($children);
 
-        if (!empty($children)) {
-            /** @var AbstractAssociatedProduct $product */
-            $product = $this->productRepository->load($productId);
-            $command = new AddProductChildrenCommand($product, $children);
-            $this->commandBus->dispatch($command, true);
-        }
+        $this->repository->save($product);
     }
 
     /**

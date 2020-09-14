@@ -138,7 +138,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     {
         Assert::allIsInstanceOf($columns, ColumnInterface::class);
 
-        $userLanguage = new Language('en');
+        $userLanguage = new Language('en_GB');
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
             $attribute = $column->getAttribute();

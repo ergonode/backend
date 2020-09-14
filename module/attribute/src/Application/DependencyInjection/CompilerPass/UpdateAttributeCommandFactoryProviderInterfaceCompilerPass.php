@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Application\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Ergonode\Attribute\Infrastructure\Provider\CreateAttributeCommandFactoryProvider;
 use Ergonode\Attribute\Infrastructure\Provider\UpdateAttributeCommandFactoryProvider;
 
 /**

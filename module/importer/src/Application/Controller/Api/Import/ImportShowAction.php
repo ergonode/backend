@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Importer\Domain\Query\ImportQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  * @Route(
@@ -31,6 +33,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImportShowAction
 {
     /**
+     * @var ImportQueryInterface
+     */
+    private ImportQueryInterface $query;
+
+    /**
+     * @param ImportQueryInterface $query
+     */
+    public function __construct(ImportQueryInterface $query)
+    {
+        $this->query = $query;
+    }
+
+    /**
      * @IsGranted("IMPORT_READ")
      *
      * @SWG\Tag(name="Import")
@@ -39,7 +54,7 @@ class ImportShowAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Parameter(
@@ -63,14 +78,17 @@ class ImportShowAction
      *     description="Not found",
      * )
      *
-     * @param Import $import
-     *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
+     * @param Language $language
+     * @param Import   $import
      *
      * @return Response
+     *
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
      */
-    public function __invoke(Import $import): Response
+    public function __invoke(Language $language, Import $import): Response
     {
-        return new SuccessResponse($import);
+        $result = $this->query->getInformation($import->getId(), $language);
+
+        return new SuccessResponse($result);
     }
 }

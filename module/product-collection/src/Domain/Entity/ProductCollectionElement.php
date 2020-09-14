@@ -48,8 +48,6 @@ class ProductCollectionElement extends AbstractEntity
     private \DateTime $createdAt;
 
     /**
-     * ProductCollectionElement constructor.
-     *
      * @param ProductCollectionElementId $id
      * @param ProductId                  $productId
      * @param bool                       $visible

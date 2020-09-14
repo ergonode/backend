@@ -11,9 +11,9 @@ namespace Ergonode\Account\Tests\Domain\Command\User;
 
 use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  */
@@ -25,11 +25,11 @@ class ChangeUserAvatarCommandTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        /** @var MultimediaId|MockObject $multimediaId */
-        $multimediaId = $this->createMock(MultimediaId::class);
-        $command = new ChangeUserAvatarCommand($id, $multimediaId);
+        /** @var File|MockObject $file */
+        $file = $this->createMock(File::class);
+        $command = new ChangeUserAvatarCommand($id, $file);
 
         $this->assertEquals($id, $command->getId());
-        $this->assertEquals($multimediaId, $command->getAvatarId());
+        $this->assertEquals($file, $command->getFile());
     }
 }

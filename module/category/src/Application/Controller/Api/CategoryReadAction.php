@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,7 +36,7 @@ class CategoryReadAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Parameter(
@@ -55,13 +55,13 @@ class CategoryReadAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      *
-     * @param Category $category
+     * @param AbstractCategory $category
      *
      * @return Response
      */
-    public function __invoke(Category $category): Response
+    public function __invoke(AbstractCategory $category): Response
     {
         return new SuccessResponse($category);
     }

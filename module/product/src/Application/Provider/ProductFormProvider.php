@@ -20,7 +20,7 @@ class ProductFormProvider
     private array $forms;
 
     /**
-     * @param array|ProductFormInterface ...$forms
+     * @param ProductFormInterface ...$forms
      */
     public function __construct(ProductFormInterface ...$forms)
     {

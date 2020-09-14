@@ -39,7 +39,7 @@ abstract class AbstractImageAttribute extends AbstractAttribute
         TranslatableString $placeholder,
         AttributeScope $scope
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, $scope, []);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
     /**

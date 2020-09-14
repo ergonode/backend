@@ -11,11 +11,11 @@ Feature: Account module
     And the JSON node last_name should exist
     And the JSON node email should exist
     And the JSON node language should exist
-    And the JSON node avatar_id should exist
+    And the JSON node avatar_filename should exist
     And the JSON node role should exist
     And the JSON node privileges should exist
     And the JSON node language_privileges should exist
-    And the JSON node language_privileges.en should exist
+    And the JSON node language_privileges.en_GB should exist
 
   Scenario: Get profile (not authorized)
     When I send a GET request to "/api/v1/profile"
@@ -26,7 +26,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -38,14 +38,14 @@ Feature: Account module
     And store response param "id" as "role"
 
   Scenario: Create role (not authorized)
-    Given I send a POST request to "/api/v1/en/roles"
+    Given I send a POST request to "/api/v1/en_GB/roles"
     Then the response status code should be 401
 
   Scenario: Create role (without name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "description": "Test role",
@@ -58,7 +58,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test",
@@ -73,7 +73,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test",
@@ -88,7 +88,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -101,7 +101,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -114,7 +114,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "test": "Test role (@@random_uuid@@)",
@@ -128,7 +128,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "",
@@ -142,7 +142,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -156,7 +156,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -170,7 +170,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -184,7 +184,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/roles" with body:
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
          "name": "Test role to delete (@@random_uuid@@)",
@@ -196,14 +196,14 @@ Feature: Account module
     And store response param "id" as "role_to_delete"
 
   Scenario: Delete role for delete (not authorized)
-    When I send a DELETE request to "/api/v1/en/roles/@role_to_delete@"
+    When I send a DELETE request to "/api/v1/en_GB/roles/@role_to_delete@"
     Then the response status code should be 401
 
   Scenario: Delete role for delete
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/roles/@role_to_delete@"
+    When I send a DELETE request to "/api/v1/en_GB/roles/@role_to_delete@"
     Then the response status code should be 204
     And delete remembered "role_to_delete"
 
@@ -211,14 +211,14 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/roles/@@static_uuid@@"
+    When I send a DELETE request to "/api/v1/en_GB/roles/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update role
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "name": "Test role 2 (@@random_uuid@@)",
@@ -229,21 +229,21 @@ Feature: Account module
     Then the response status code should be 204
 
   Scenario: Update role (not authorized)
-    When I send a PUT request to "/api/v1/en/roles/@role@"
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@"
     Then the response status code should be 401
 
   Scenario: Update role (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en_GB/roles/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update role (without name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "description": "Test role",
@@ -256,7 +256,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -269,7 +269,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -282,7 +282,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "test": "Test role (@@random_uuid@@)",
@@ -296,7 +296,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "name": "",
@@ -310,7 +310,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -324,7 +324,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -338,7 +338,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -352,76 +352,76 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles/@role@"
+    When I send a GET request to "/api/v1/en_GB/roles/@role@"
     Then the response status code should be 200
     And the JSON node "id" should exist
 
   Scenario: Get role (not authorized)
-    When I send a GET request to "/api/v1/en/roles/@role@"
+    When I send a GET request to "/api/v1/en_GB/roles/@role@"
     Then the response status code should be 401
 
   Scenario: Get role (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en_GB/roles/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Get roles
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles"
+    When I send a GET request to "/api/v1/en_GB/roles"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get roles (not authorized)
-    When I send a GET request to "/api/v1/en/roles"
+    When I send a GET request to "/api/v1/en_GB/roles"
     Then the response status code should be 401
 
   Scenario: Get roles (order by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles?field=name"
+    When I send a GET request to "/api/v1/en_GB/roles?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get roles (order by description)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles?field=description"
+    When I send a GET request to "/api/v1/en_GB/roles?field=description"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get roles (order by users_count)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles?field=users_count"
+    When I send a GET request to "/api/v1/en_GB/roles?field=users_count"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get roles (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles?limit=25&offset=0&filter=name%3Dsuper"
+    When I send a GET request to "/api/v1/en_GB/roles?limit=25&offset=0&filter=name%3Dsuper"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get roles (filter by description)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles?limit=25&offset=0&filter=description%3DManage"
+    When I send a GET request to "/api/v1/en_GB/roles?limit=25&offset=0&filter=description%3DManage"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get roles (filter by user_count)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/roles?limit=25&offset=0&filter=users_count%3D1"
+    When I send a GET request to "/api/v1/en_GB/roles?limit=25&offset=0&filter=users_count%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get roles (not authorized)
-    When I send a GET request to "/api/v1/en/roles"
+    When I send a GET request to "/api/v1/en_GB/roles"
     Then the response status code should be 401
 
   @changePassword
@@ -429,13 +429,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -445,19 +445,19 @@ Feature: Account module
     And store response param "id" as "user"
 
   Scenario: Create user (not authorized)
-    Given I send a POST request to "/api/v1/en/accounts"
+    Given I send a POST request to "/api/v1/en_GB/accounts"
     Then the response status code should be 401
 
   Scenario: Create user (no email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -469,13 +469,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -487,13 +487,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "noemail",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -505,12 +505,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -522,13 +522,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -540,12 +540,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -557,13 +557,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -575,7 +575,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
@@ -592,7 +592,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
@@ -610,13 +610,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "passwordRepeat": 12345678,
           "roleId": "@role@"
       }
@@ -627,13 +627,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": "",
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -645,13 +645,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "roleId": "@role@"
       }
@@ -662,13 +662,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": "",
           "roleId": "@role@"
@@ -680,13 +680,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678
       }
@@ -697,13 +697,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": ""
@@ -715,13 +715,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "test"
@@ -733,13 +733,13 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/accounts" with body:
+    When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
           "email": "@@random_uuid@@@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@@random_uuid@@"
@@ -752,7 +752,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en/roles/@role@"
+    When I send a DELETE request to "/api/v1/en_GB/roles/@role@"
     Then the response status code should be 409
     And the JSON node "code" should exist
     And the JSON node "message" should exist
@@ -761,17 +761,17 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test (changed)",
           "lastName": "Test (changed)",
-          "language": "en",
+          "language": "en_GB",
           "password": 123456789,
           "passwordRepeat": 123456789,
           "roleId": "@role@",
           "languagePrivilegesCollection": {
-             "en": {
+             "en_GB": {
                "read": true,
                "edit": true
              }
@@ -781,25 +781,25 @@ Feature: Account module
     Then the response status code should be 204
 
   Scenario: Update user (not authorized)
-    When I send a PUT request to "/api/v1/en/accounts/@user@"
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@"
     Then the response status code should be 401
 
   Scenario: Update user (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en_GB/accounts/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update user (no firsName)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -811,12 +811,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -828,11 +828,11 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -844,12 +844,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -861,7 +861,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
@@ -877,7 +877,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
@@ -894,12 +894,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "passwordRepeat": 12345678,
           "roleId": "@role@"
       }
@@ -910,12 +910,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": "",
           "passwordRepeat": 12345678,
           "roleId": "@role@"
@@ -927,12 +927,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "roleId": "@role@"
       }
@@ -943,12 +943,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": "",
           "roleId": "@role@"
@@ -960,12 +960,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678
       }
@@ -976,12 +976,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": ""
@@ -993,12 +993,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "test"
@@ -1010,12 +1010,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@@random_uuid@@"
@@ -1027,12 +1027,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@",
@@ -1050,17 +1050,17 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@",
           "languagePrivilegesCollection": {
-             "en": {
+             "en_GB": {
                "read": true
              }
            }
@@ -1072,17 +1072,17 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@" with body:
       """
       {
           "firstName": "Test",
           "lastName": "Test",
-          "language": "en",
+          "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
           "roleId": "@role@",
           "languagePrivilegesCollection": {
-             "en": {
+             "en_GB": {
              }
            }
       }
@@ -1093,110 +1093,110 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts/@user@"
+    When I send a GET request to "/api/v1/en_GB/accounts/@user@"
     Then the response status code should be 200
     And the JSON node "id" should exist
 
   Scenario: Get user (not authorized)
-    When I send a GET request to "/api/v1/en/accounts/@user@"
+    When I send a GET request to "/api/v1/en_GB/accounts/@user@"
     Then the response status code should be 401
 
   Scenario: Get user (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en_GB/accounts/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Get users
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts"
+    When I send a GET request to "/api/v1/en_GB/accounts"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (order by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=email"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=email"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (order by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=first_name"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=first_name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (order by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=last_name"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=last_name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (order by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=language"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=language"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (order by role_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=role_id"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=role_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (order by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=is_active"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=is_active"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (filter by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=email%3Dtest"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=email%3Dtest"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (filter by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=first_name%3DJohn"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=first_name%3DJohn"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (filter by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=last_name%3DBravo"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=last_name%3DBravo"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (filter by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=language%3DAR"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=language%3DAR"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (filter by role_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=role_id%3D11b3145f-88e0-43b7-8f5c-a474c925622b"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=role_id%3D11b3145f-88e0-43b7-8f5c-a474c925622b"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get users (filter by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=is_active%3Dtrue"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=is_active%3Dtrue"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   @changePassword
@@ -1204,7 +1204,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@/password" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@/password" with body:
       """
       {
           "password": 12345678,
@@ -1218,7 +1218,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@/password" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@/password" with body:
       """
       {
           "password": "@@default_user_password@@",
@@ -1229,7 +1229,7 @@ Feature: Account module
 
   @changePassword
   Scenario: Change password (not authorized)
-    When I send a PUT request to "/api/v1/en/accounts/@user@/password"
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@/password"
     Then the response status code should be 401
 
   @changePassword
@@ -1237,7 +1237,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@@static_uuid@@/password"
+    When I send a PUT request to "/api/v1/en_GB/accounts/@@static_uuid@@/password"
     Then the response status code should be 404
 
   @changePassword
@@ -1245,7 +1245,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@/password"
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@/password"
     Then the response status code should be 400
 
   @changePassword
@@ -1253,7 +1253,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@/password" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@/password" with body:
       """
       {
           "password": 123,
@@ -1267,7 +1267,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@/password" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@/password" with body:
       """
       {
           "password": 12345678,
@@ -1281,7 +1281,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/accounts/@user@/password" with body:
+    When I send a PUT request to "/api/v1/en_GB/accounts/@user@/password" with body:
       """
       {
           "password": 12345678,
@@ -1294,109 +1294,109 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/dictionary/privileges"
+    When I send a GET request to "/api/v1/en_GB/dictionary/privileges"
     Then the response status code should be 200
 
   Scenario: Get privilege dictionary (not authorized)
-    When I send a GET request to "/api/v1/en/dictionary/privileges"
+    When I send a GET request to "/api/v1/en_GB/dictionary/privileges"
     Then the response status code should be 401
 
   Scenario: Get accounts (order by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=id"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=email"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=email"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=first_name"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=first_name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=last_name"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=last_name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=language"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=language"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by role_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=role_id"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=role_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=is_active"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=is_active"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=email&order=ASC"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=email&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=email&order=DESC"
+    When I send a GET request to "/api/v1/en_GB/accounts?field=email&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=id%3D1"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=id%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=email%3Dasd"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=email%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=first_name%3DCAT"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=first_name%3DCAT"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=last_name%3D1"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=last_name%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=language%3D1"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=language%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
 #  TODO invalid input syntax for type uuid: "asd1"
@@ -1404,18 +1404,16 @@ Feature: Account module
 #    Given I am Authenticated as "test@ergonode.com"
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
-#    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=role_id%3Dasd1"
+#    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=role_id%3Dasd1"
 #    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?limit=25&offset=0&filter=last_name%3Dasd1"
+    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=last_name%3Dasd1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (not authorized)
-    When I send a GET request to "/api/v1/en/accounts"
+    When I send a GET request to "/api/v1/en_GB/accounts"
     Then the response status code should be 401
-
-  # TODO Check user avatar change action with correct and incorrect file

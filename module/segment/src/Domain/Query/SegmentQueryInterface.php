@@ -43,4 +43,9 @@ interface SegmentQueryInterface
      * @return array
      */
     public function getAllSegmentIds(): array;
+
+    /**
+     * @return array
+     */
+    public function getDictionary(): array;
 }

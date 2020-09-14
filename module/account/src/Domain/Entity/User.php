@@ -11,6 +11,7 @@ namespace Ergonode\Account\Domain\Entity;
 
 use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserAvatarDeletedEvent;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
@@ -23,11 +24,11 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -35,51 +36,64 @@ class User extends AbstractAggregateRoot implements UserInterface
 {
     /**
      * @var UserId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $firstName;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $lastName;
 
     /**
      * @var Email
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\ValueObject\Email")
      */
     private Email $email;
 
     /**
      * @var Password
+     *
+     * @JMS\Type("Ergonode\Account\Domain\ValueObject\Password")
      */
     private Password $password;
 
     /**
      * @var Language
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $language;
 
     /**
-     * @var MultimediaId|null
-     */
-    private ?MultimediaId $avatarId;
-
-    /**
      * @var RoleId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $roleId;
 
     /**
      * @var LanguagePrivileges[]
+     *
+     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
      */
     private array $languagePrivilegesCollection;
 
     /**
      * @var bool
+     *
+     * @JMS\Type("boolean")
      */
     private bool $isActive;
 
@@ -92,9 +106,9 @@ class User extends AbstractAggregateRoot implements UserInterface
      * @param Password             $password
      * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param MultimediaId|null    $avatarId
      * @param bool                 $isActive
      *
+     * @throws \Exception
      */
     public function __construct(
         UserId $id,
@@ -105,7 +119,6 @@ class User extends AbstractAggregateRoot implements UserInterface
         Password $password,
         RoleId $roleId,
         array $languagePrivilegesCollection,
-        ?MultimediaId $avatarId = null,
         bool $isActive = true
     ) {
         $this->apply(
@@ -119,7 +132,6 @@ class User extends AbstractAggregateRoot implements UserInterface
                 $roleId,
                 $languagePrivilegesCollection,
                 $isActive,
-                $avatarId
             )
         );
     }
@@ -194,14 +206,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function getLanguagePrivilegesCollection(): array
     {
         return $this->languagePrivilegesCollection;
-    }
-
-    /**
-     * @return MultimediaId|null
-     */
-    public function getAvatarId(): ?MultimediaId
-    {
-        return $this->avatarId;
     }
 
     /**
@@ -290,13 +294,13 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param MultimediaId|null $avatarId
+     * @param string|null $avatarFilename
      *
      * @throws \Exception
      */
-    public function changeAvatar(MultimediaId $avatarId = null): void
+    public function changeAvatar(string $avatarFilename = null): void
     {
-        $this->apply(new UserAvatarChangedEvent($this->id, $avatarId));
+        $this->apply(new UserAvatarChangedEvent($this->id, $avatarFilename));
     }
 
     /**
@@ -307,6 +311,14 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changePassword(Password $password): void
     {
         $this->apply(new UserPasswordChangedEvent($this->id, $password));
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function removeAvatar(): void
+    {
+        $this->apply(new UserAvatarDeletedEvent($this->id));
     }
 
     /**
@@ -394,18 +406,9 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->email = $event->getEmail();
         $this->language = $event->getLanguage();
         $this->password = $event->getPassword();
-        $this->avatarId = $event->getAvatarId();
         $this->roleId = $event->getRoleId();
         $this->languagePrivilegesCollection = $event->getLanguagePrivilegesCollection();
         $this->isActive = $event->isActive();
-    }
-
-    /**
-     * @param UserAvatarChangedEvent $event
-     */
-    protected function applyUserAvatarChangedEvent(UserAvatarChangedEvent $event): void
-    {
-        $this->avatarId = $event->getAvatarId();
     }
 
     /**

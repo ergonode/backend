@@ -12,10 +12,11 @@ namespace Ergonode\Importer\Infrastructure\Handler\Import;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Doctrine\DBAL\DBALException;
+use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Importer\Infrastructure\Provider\ImportActionProvider;
+use Ergonode\Importer\Domain\Entity\ImportError;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -27,9 +28,9 @@ class ProcessImportCommandHandler
     private ImportActionProvider $importActionProvider;
 
     /**
-     * @var ImportLineRepositoryInterface
+     * @var ImportErrorRepositoryInterface
      */
-    private ImportLineRepositoryInterface $repository;
+    private ImportErrorRepositoryInterface $repository;
 
     /**
      * @var CommandBusInterface
@@ -37,13 +38,13 @@ class ProcessImportCommandHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImportActionProvider          $importActionProvider
-     * @param ImportLineRepositoryInterface $repository
-     * @param CommandBusInterface           $commandBus
+     * @param ImportActionProvider           $importActionProvider
+     * @param ImportErrorRepositoryInterface $repository
+     * @param CommandBusInterface            $commandBus
      */
     public function __construct(
         ImportActionProvider $importActionProvider,
-        ImportLineRepositoryInterface $repository,
+        ImportErrorRepositoryInterface $repository,
         CommandBusInterface $commandBus
     ) {
         $this->importActionProvider = $importActionProvider;
@@ -55,6 +56,7 @@ class ProcessImportCommandHandler
      * @param ProcessImportCommand $command
      *
      * @throws DBALException
+     * @throws \Throwable
      */
     public function __invoke(ProcessImportCommand $command)
     {
@@ -63,30 +65,22 @@ class ProcessImportCommandHandler
         $steps = $command->getSteps()->getCount();
         $number = $command->getRecords()->getPosition();
         $numbers = $command->getRecords()->getCount();
-        $action = $command->getAction();
         $record = $command->getRecord();
 
-        $line = $this->repository->load($command->getImportId(), $step, $number);
+        try {
+            $action = $this->importActionProvider->provide($command->getAction());
+            Assert::notNull($action, sprintf('Can\'t find action %s', $command->getAction()));
 
-        Assert::notNull($line, sprintf('Can\'t import line %s, step %s, import %s', $step, $number, $action));
+            $action->action($command->getImportId(), $record);
 
-        if (!$line->isProcessed()) {
-            try {
-                $action = $this->importActionProvider->provide($command->getAction());
-                Assert::notNull($action, sprintf('Can\'t find action %s', $command->getAction()));
-
-                $action->action($command->getImportId(), $record);
-                $line->process();
-
-                if ($step === $steps && $number === $numbers) {
-                    $this->commandBus->dispatch(new EndImportCommand($importId), true);
-                }
-            } catch (\Throwable $exception) {
-                $line->addError($exception->getMessage());
-                throw $exception;
+            if ($step === $steps && $number === $numbers) {
+                $this->commandBus->dispatch(new EndImportCommand($importId), true);
             }
-
+        } catch (\Throwable $exception) {
+            $line = new ImportError($importId, $step, $number, $exception->getMessage());
             $this->repository->save($line);
+
+            throw $exception;
         }
     }
 }

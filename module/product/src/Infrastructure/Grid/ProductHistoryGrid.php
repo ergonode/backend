@@ -33,7 +33,7 @@ class ProductHistoryGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
-        $this->addColumn('recorded_at', new DateColumn('recorded_at', 'Time', new DateFilter()));
+        $this->addColumn('recorded_at', new DateColumn('recorded_at', 'Recorded at', new DateFilter()));
         $column = new HistoryColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);
         $this->orderBy('recorded_at', 'DESC');

@@ -82,13 +82,14 @@ class UpdateMagento1CsvSourceCommand implements DomainCommandInterface
         SourceId $id,
         string $name,
         Language $defaultLanguage,
-        ?string $host,
-        $languages,
-        $attributes,
-        array $import
+        ?string $host = null,
+        array $languages = [],
+        array $attributes = [],
+        array $import = []
     ) {
         Assert::allIsInstanceOf($languages, Language::class);
         Assert::allIsInstanceOf($attributes, AttributeId::class);
+
         $this->id = $id;
         $this->name = $name;
         $this->defaultLanguage = $defaultLanguage;

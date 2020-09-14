@@ -38,4 +38,18 @@ interface ExportQueryInterface
      * @return array
      */
     public function getProfileInfo(Language $language): array;
+
+    /**
+     * @param ExportId $exportId
+     *
+     * @return array
+     */
+    public function getInformation(ExportId $exportId): array;
+
+    /**
+     * @param ChannelId $channelId
+     *
+     * @return \DateTime|null
+     */
+    public function findLastExport(ChannelId $channelId): ?\DateTime;
 }

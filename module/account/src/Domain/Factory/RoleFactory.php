@@ -23,13 +23,21 @@ class RoleFactory
      * @param string      $name
      * @param string      $description
      * @param Privilege[] $privileges
+     * @param bool        $hidden
      *
      * @return Role
+     *
+     * @throws \Exception
      */
-    public function create(RoleId $id, string $name, string $description, array $privileges = []): Role
-    {
+    public function create(
+        RoleId $id,
+        string $name,
+        string $description,
+        array $privileges = [],
+        bool $hidden = false
+    ): Role {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
-        return new Role($id, $name, $description, $privileges);
+        return new Role($id, $name, $description, $privileges, $hidden);
     }
 }

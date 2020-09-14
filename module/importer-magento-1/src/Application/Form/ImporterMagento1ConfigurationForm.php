@@ -31,7 +31,10 @@ class ImporterMagento1ConfigurationForm extends AbstractType
         $builder
             ->add(
                 'name',
-                TextType::class
+                TextType::class,
+                [
+                    'label' => 'name',
+                ]
             )
             ->add(
                 'import',

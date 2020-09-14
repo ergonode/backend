@@ -56,10 +56,10 @@ class LanguageHandlerTest extends TestCase
     {
         $configurations = LanguageHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -71,16 +71,16 @@ class LanguageHandlerTest extends TestCase
         $code = new Language($testValue);
         $result = $this->handler->serialize($this->serializationVisitor, $code, [], $this->context);
 
-        $this->assertEquals($testValue, $result);
+        self::assertEquals($testValue, $result);
     }
 
     /**
      */
     public function testDeserialize(): void
     {
-        $testValue = 'en';
+        $testValue = 'en_GB';
         $result = $this->handler->deserialize($this->deserializationVisitor, $testValue, [], $this->context);
 
-        $this->assertEquals($testValue, $result->getCode());
+        self::assertEquals($testValue, $result->getCode());
     }
 }

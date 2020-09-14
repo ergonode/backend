@@ -13,7 +13,8 @@ use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use League\Flysystem\FilesystemInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  */
@@ -30,23 +31,23 @@ class AddMultimediaCommandHandler
     private MultimediaRepositoryInterface $repository;
 
     /**
-     * @var MultimediaStorageInterface
+     * @var FilesystemInterface
      */
-    private MultimediaStorageInterface $storage;
+    private FilesystemInterface $multimediaStorage;
 
     /**
      * @param HashCalculationServiceInterface $hashService
      * @param MultimediaRepositoryInterface   $repository
-     * @param MultimediaStorageInterface      $storage
+     * @param FilesystemInterface             $multimediaStorage
      */
     public function __construct(
         HashCalculationServiceInterface $hashService,
         MultimediaRepositoryInterface $repository,
-        MultimediaStorageInterface $storage
+        FilesystemInterface $multimediaStorage
     ) {
         $this->hashService = $hashService;
         $this->repository = $repository;
-        $this->storage = $storage;
+        $this->multimediaStorage = $multimediaStorage;
     }
 
     /**
@@ -59,31 +60,30 @@ class AddMultimediaCommandHandler
     public function __invoke(AddMultimediaCommand $command): void
     {
         $id = $command->getId();
+        /** @var UploadedFile $file */
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
-        $originalName = $file->getFilename();
+        $originalName = $file->getClientOriginalName();
 
-        $extension = $file->getExtension();
+        $extension = $file->getClientOriginalExtension();
         if (empty($extension) || '.' === $extension) {
             $extension = $file->guessExtension();
         }
 
         $filename = sprintf('%s.%s', $hash->getValue(), $extension);
 
-        if (!$this->storage->has($filename)) {
+        if (!$this->multimediaStorage->has($filename)) {
             $content = file_get_contents($file->getRealPath());
-            $this->storage->write($filename, $content);
+            $this->multimediaStorage->write($filename, $content);
         }
-
-        $info = $this->storage->info($filename);
 
         $multimedia = new Multimedia(
             $id,
             $originalName,
             $extension,
-            $info['size'],
+            $this->multimediaStorage->getSize($filename),
             $hash,
-            $info['mime']
+            $this->multimediaStorage->getMimetype($filename)
         );
 
         $this->repository->save($multimedia);

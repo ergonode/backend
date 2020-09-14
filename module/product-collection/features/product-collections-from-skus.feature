@@ -6,7 +6,7 @@ Feature: Product collection adding elements by skus
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create template
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@"
@@ -17,7 +17,7 @@ Feature: Product collection adding elements by skus
 
   Scenario: Create product
     Given remember param "product_sku" with value "SKU_@@random_code@@"
-    When I send a POST request to "/api/v1/en/products" with body:
+    When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
         "sku": "@product_sku@",
@@ -30,12 +30,12 @@ Feature: Product collection adding elements by skus
     And store response param "id" as "product_id"
 
   Scenario: Get product up-sell collection type
-    When I send a GET request to "/api/v1/en/collections/type?field=code&filter=code=up-sell"
+    When I send a GET request to "/api/v1/en_GB/collections/type?field=code&filter=code=up-sell"
     Then the response status code should be 200
     And store response param "collection[0].id" as "product_collection_type_id"
 
   Scenario: Create product collection
-    When I send a POST request to "/api/v1/en/collections" with body:
+    When I send a POST request to "/api/v1/en_GB/collections" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
@@ -46,7 +46,7 @@ Feature: Product collection adding elements by skus
     And store response param "id" as "product_collection_id"
 
   Scenario: Add product collection element by segments
-    When I send a POST request to "/api/v1/en/collections/@product_collection_id@/elements/add-from-skus" with body:
+    When I send a POST request to "/api/v1/en_GB/collections/@product_collection_id@/elements/add-from-skus" with body:
       """
       {
         "skus": ["@product_sku@"]
@@ -55,7 +55,7 @@ Feature: Product collection adding elements by skus
     Then the response status code should be 201
 
   Scenario: Get product collection element (checking multiple add)
-    When I send a GET request to "/api/v1/en/collections/@product_collection_id@/elements"
+    When I send a GET request to "/api/v1/en_GB/collections/@product_collection_id@/elements"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | collection[0].sku     | @product_sku@ |
@@ -63,7 +63,7 @@ Feature: Product collection adding elements by skus
       | collection[0].visible | true          |
 
   Scenario: Add multiple product collection element (both empty fields)
-    When I send a POST request to "/api/v1/en/collections/@product_collection_id@/elements/add-from-skus" with body:
+    When I send a POST request to "/api/v1/en_GB/collections/@product_collection_id@/elements/add-from-skus" with body:
       """
       {
       }
@@ -71,7 +71,7 @@ Feature: Product collection adding elements by skus
     Then the response status code should be 400
 
   Scenario: Add multiple product collection element not valid sku
-    When I send a POST request to "/api/v1/en/collections/@product_collection_id@/elements/add-from-skus" with body:
+    When I send a POST request to "/api/v1/en_GB/collections/@product_collection_id@/elements/add-from-skus" with body:
       """
       {
         "skus": ["abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"]
@@ -82,7 +82,7 @@ Feature: Product collection adding elements by skus
       | errors.skus.element-0[0] | Sku is not valid. |
 
   Scenario: Add multiple product collection element not exist sku
-    When I send a POST request to "/api/v1/en/collections/@product_collection_id@/elements/add-from-skus" with body:
+    When I send a POST request to "/api/v1/en_GB/collections/@product_collection_id@/elements/add-from-skus" with body:
       """
       {
         "skus": ["@@random_code@@"]

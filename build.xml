@@ -112,14 +112,14 @@
 
     <!-- Mess detector -->
     <target name="check:md" description="Check PHP Mess Detector">
-        <phpmd>
+        <phpmd >
             <fileset dir="${dir.src}">
                 <include name="**/*.php" />
             </fileset>
             <fileset dir="${dir.module}">
-                <include name="**/*.php"/>
+                <include name="**/*.php" />
             </fileset>
-<!--            <formatter type="xml" outfile="${dir.reports}/pmd.xml"/>-->
+            <formatter type="html" outfile="${dir.reports}/pmd.html"/>
         </phpmd>
     </target>
 

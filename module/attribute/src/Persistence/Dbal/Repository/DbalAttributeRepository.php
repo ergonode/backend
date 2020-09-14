@@ -10,81 +10,50 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Persistence\Dbal\Repository;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
-use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalAttributeRepository implements AttributeRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @return AbstractAggregateRoot
+     * @return AbstractAttribute
      *
      * @throws \ReflectionException
      */
-    public function load(AttributeId $id): ?AbstractAggregateRoot
+    public function load(AttributeId $id): ?AbstractAttribute
     {
-        $eventStream = $this->eventStore->load($id);
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, AbstractAttribute::class);
 
-        if (\count($eventStream) > 0) {
-            /** @var DomainEventEnvelope $envelope */
-            $envelope = $eventStream->getIterator()->current();
-            /** @var AttributeCreatedEvent $event */
-            $event = $envelope->getEvent();
-
-            $class = new \ReflectionClass($event->getClass());
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
-            }
-
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(AbstractAttribute $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -92,11 +61,11 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(AbstractAttribute $aggregateRoot): void
     {
         $aggregateRoot->apply(new AttributeDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }

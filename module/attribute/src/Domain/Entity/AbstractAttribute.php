@@ -28,45 +28,61 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-abstract class AbstractAttribute extends AbstractAggregateRoot
+abstract class AbstractAttribute extends AbstractAggregateRoot implements AttributeInterface
 {
     /**
      * @var AttributeId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     protected AttributeId $id;
 
     /**
      * @var AttributeCode
+     *
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
     protected AttributeCode $code;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     protected TranslatableString $label;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     protected TranslatableString $hint;
 
     /**
      * @var AttributeScope $scope
+     *
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
     protected AttributeScope $scope;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     protected TranslatableString $placeholder;
 
     /**
-     * @var array
+     * @var AttributeGroupId[]
+     *
+     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId>")
      */
     protected array $groups;
 
     /**
      * @var array
+     *
+     * @JMS\Type("array<string, string>")
      */
     protected array $parameters;
 
@@ -99,7 +115,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
                 $placeholder,
                 $scope,
                 $this->getType(),
-                \get_class($this),
                 $parameters,
                 $this->isSystem()
             )
@@ -107,7 +122,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @JMS\VirtualProperty();
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("type")
      *
      * @return string

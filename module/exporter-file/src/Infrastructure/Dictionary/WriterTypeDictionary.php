@@ -22,7 +22,7 @@ class WriterTypeDictionary
     private WriterTypeProvider $provider;
 
     /**
-     * @var /TranslatorInterface
+     * @var TranslatorInterface
      */
     private TranslatorInterface $translator;
 

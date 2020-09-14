@@ -18,8 +18,7 @@ class SimpleProduct extends AbstractProduct
     public const TYPE = 'SIMPLE-PRODUCT';
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
+     * @JMS\Type("string");
      *
      * @return string
      */

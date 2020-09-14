@@ -30,6 +30,7 @@ class ImportMapper
             'file' => $import->getFile(),
             'started_at' => $import->getStartedAt() ? $import->getStartedAt()->format('Y-m-d H:i:s') : null,
             'ended_at' => $import->getEndedAt() ? $import->getEndedAt()->format('Y-m-d H:i:s') : null,
+            'records' => $import->getRecords(),
         ];
     }
 }

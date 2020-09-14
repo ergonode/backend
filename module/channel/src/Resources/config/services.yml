@@ -17,23 +17,19 @@ services:
 
     Ergonode\Channel\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject}'
+        exclude: '../../Domain/{ValueObject}'
 
     Ergonode\Channel\Persistence\:
         resource: '../../Persistence/*'
 
     Ergonode\Channel\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Specification}'
 
     Ergonode\Channel\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Channel\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
-        tags: ['messenger.message_handler']
-
+    Ergonode\Channel\Domain\Repository\SchedulerRepositoryInterface: '@Ergonode\Channel\Persistence\Dbal\Repository\DbalSchedulerRepository'
     Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface: '@Ergonode\Channel\Persistence\Dbal\Repository\DbalChannelRepository'
     Ergonode\Channel\Domain\Query\ChannelQueryInterface: '@Ergonode\Channel\Persistence\Dbal\Query\DbalChannelQuery'
     Ergonode\Channel\Domain\Query\ExportQueryInterface: '@Ergonode\Channel\Persistence\Dbal\Query\DbalExportQuery'

@@ -61,32 +61,10 @@ final class Version20200122064958 extends AbstractErgonodeMigration
         );
 
         $this->addSql('
-            CREATE TABLE exporter.export_profile (
-                id UUID NOT NULL,              
-                type VARCHAR(255) NOT NULL,
-                class VARCHAR(255) NOT NULL,                    
-                name VARCHAR(255) NOT NULL,                
-                configuration JSON NOT NULL,                
-                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,               
-                PRIMARY KEY(id)
-            )
-        ');
-
-        $this->createPrivileges([
-            'EXPORT_PROFILE_CREATE' => 'Export Profile',
-            'EXPORT_PROFILE_READ' => 'Export Profile',
-            'EXPORT_PROFILE_UPDATE' => 'Export Profile',
-            'EXPORT_PROFILE_DELETE' => 'Export Profile',
-        ]);
-        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Export Profile']);
-
-        $this->addSql('
             CREATE TABLE exporter.export(
                 id uuid NOT NULL,
                 status VARCHAR(16) NOT NULL,
                 channel_id uuid NOT NULL,
-                export_profile_id uuid NOT NULL,
                 items int NOT NULL,
                 created_at timestamp NOT NULL,
                 updated_at timestamp NOT NULL,
@@ -95,6 +73,11 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 PRIMARY KEY (id)
             )
         ');
+        $this->addSql(
+            'ALTER TABLE exporter.export 
+                    ADD CONSTRAINT export_channel_id_fk FOREIGN KEY (channel_id) 
+                    REFERENCES exporter.channel ON UPDATE CASCADE ON DELETE CASCADE'
+        );
 
         $this->addSql('
             CREATE TABLE exporter.export_line(
@@ -106,16 +89,11 @@ final class Version20200122064958 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('
-            CREATE TABLE exporter.channel_configuration (
-                id uuid NOT NULL,
-                "type" VARCHAR(255) NOT NULL,
-                "configuration" json NOT NULL,
-                created_at timestamp NOT NULL,
-                updated_at timestamp NOT NULL,
-                PRIMARY KEY (id)
-                )
-        ');
+        $this->addSql(
+            'ALTER TABLE exporter.export_line 
+                    ADD CONSTRAINT export_line_export_id_fk FOREIGN KEY (export_id) 
+                    REFERENCES exporter.export ON UPDATE CASCADE ON DELETE CASCADE'
+        );
     }
 
     /**

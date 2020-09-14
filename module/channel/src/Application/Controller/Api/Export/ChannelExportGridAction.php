@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
-use Ergonode\Channel\Domain\Entity\Channel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -20,6 +19,7 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Infrastructure\Grid\ExportGrid;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  * @Route(
@@ -67,7 +67,7 @@ class ChannelExportGridAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Parameter(
@@ -121,17 +121,20 @@ class ChannelExportGridAction
      *     description="Returns export collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param Language                 $language
-     * @param Channel                  $channel
+     * @param AbstractChannel          $channel
      * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function __invoke(Language $language, Channel $channel, RequestGridConfiguration $configuration): Response
-    {
+    public function __invoke(
+        Language $language,
+        AbstractChannel $channel,
+        RequestGridConfiguration $configuration
+    ): Response {
         $dataSet = $this->query->getDataSet($channel->getId(), $language);
 
         $data = $this->gridRenderer->render(

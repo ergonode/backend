@@ -16,6 +16,7 @@ use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Domain\Event\TransformerFieldAddedEvent;
 use Ergonode\Transformer\Domain\Event\TransformerAttributeAddedEvent;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -23,36 +24,50 @@ class Transformer extends AbstractAggregateRoot
 {
     /**
      * @var TransformerId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $key;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $name;
 
     /**
      * @var ConverterInterface[]
+     *
+     * @JMS\Type("array<string, Ergonode\Transformer\Infrastructure\Converter\ConverterInterface>")
      */
     private array $fields;
 
     /**
      * @var ConverterInterface[]
+     *
+     * @JMS\Type("array<string, Ergonode\Transformer\Infrastructure\Converter\ConverterInterface>")
      */
     private array $attributes;
 
     /**
      * @var string[]
+     *
+     * @JMS\Type("array<string, string>")
      */
     private array $attributeType;
 
     /**
      * @var bool[]
+     *
+     * @JMS\Type("array<string, boolean>")
      */
     private array $multilingual;
 

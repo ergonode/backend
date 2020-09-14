@@ -7,7 +7,7 @@
 namespace Ergonode\Editor\Domain\Repository;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Editor\Domain\Entity\ProductDraft;
 
 /**
  */
@@ -18,12 +18,12 @@ interface ProductDraftRepositoryInterface
      *
      * @param bool           $draft
      *
-     * @return AbstractAggregateRoot
+     * @return ProductDraft
      */
-    public function load(ProductDraftId $id, bool $draft = false): AbstractAggregateRoot;
+    public function load(ProductDraftId $id, bool $draft = false): ProductDraft;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param ProductDraft $aggregateRoot
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(ProductDraft $aggregateRoot): void;
 }

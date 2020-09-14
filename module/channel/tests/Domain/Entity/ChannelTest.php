@@ -8,11 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Tests\Domain\Entity;
 
-use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  */
@@ -29,17 +28,11 @@ class ChannelTest extends TestCase
     private string $name;
 
     /**
-     * @var ExportProfileId|MockObject
-     */
-    private ExportProfileId $exportProfileId;
-
-    /**
      */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
         $this->name = 'Any Channel Name';
-        $this->exportProfileId = $this->createMock(ExportProfileId::class);
     }
 
     /**
@@ -47,33 +40,42 @@ class ChannelTest extends TestCase
      */
     public function testCreateEntity(): void
     {
-        $entity = new Channel(
-            $this->id,
-            $this->name,
-            $this->exportProfileId
-        );
+        $entity = $this->getClass();
 
-        $this->assertSame($this->id, $entity->getId());
-        $this->assertSame($this->name, $entity->getName());
-        $this->assertSame($this->exportProfileId, $entity->getExportProfileId());
+        self::assertSame($this->id, $entity->getId());
+        self::assertSame($this->name, $entity->getName());
     }
 
     /**
      * @throws \Exception
      */
-    public function testChangeName():void
+    public function testChangeName(): void
     {
-        $entity = new Channel(
-            $this->id,
-            $this->name,
-            $this->exportProfileId
-        );
+        $entity = $this->getClass();
 
         $name = 'New Channel Name';
-        $entity->changeName($name);
+        $entity->setName($name);
 
-        $this->assertSame($this->id, $entity->getId());
-        $this->assertSame($name, $entity->getName());
-        $this->assertSame($this->exportProfileId, $entity->getExportProfileId());
+        self::assertSame($this->id, $entity->getId());
+        self::assertSame($name, $entity->getName());
+    }
+
+    /**
+     * @return AbstractChannel
+     */
+    private function getClass(): AbstractChannel
+    {
+        return new class(
+            $this->id,
+            $this->name,
+        ) extends AbstractChannel {
+            /**
+             * @return string
+             */
+            public static function getType(): string
+            {
+                return 'TYPE';
+            }
+        };
     }
 }

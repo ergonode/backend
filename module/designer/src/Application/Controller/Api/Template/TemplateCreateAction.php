@@ -73,7 +73,7 @@ class TemplateCreateAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code"
      * )
      * @SWG\Response(
@@ -99,7 +99,6 @@ class TemplateCreateAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var TemplateFormModel $data */
             $command = $this->commandFactory->getCreateTemplateCommand($form->getData());
             $this->commandBus->dispatch($command);
 

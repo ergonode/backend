@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -19,9 +18,6 @@ abstract class AbstractTextAttribute extends AbstractAttribute
     public const TYPE = 'TEXT';
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     public function getType(): string

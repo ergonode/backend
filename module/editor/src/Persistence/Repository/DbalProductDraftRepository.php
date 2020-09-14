@@ -11,84 +11,52 @@ namespace Ergonode\Editor\Persistence\Repository;
 
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
-use Ergonode\Editor\Domain\Event\ProductDraftApplied;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
-use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
 class DbalProductDraftRepository implements ProductDraftRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
      * @param ProductDraftId $id
      * @param bool           $draft
      *
-     * @return AbstractAggregateRoot
+     * @return ProductDraft
      *
      * @throws \ReflectionException
      */
-    public function load(ProductDraftId $id, bool $draft = false): AbstractAggregateRoot
+    public function load(ProductDraftId $id, bool $draft = false): ProductDraft
     {
-        $eventStream = $this->eventStore->load($id);
+        /** @var ProductDraft $result */
+        $result = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($result, ProductDraft::class);
 
-        $class = new \ReflectionClass(ProductDraft::class);
-        /** @var AbstractAggregateRoot $aggregate */
-        $aggregate = $class->newInstanceWithoutConstructor();
-        if (!$aggregate instanceof AbstractAggregateRoot) {
-            throw new \LogicException(sprintf('Impossible to initialize "%s"', ProductDraft::class));
-        }
-
-        $aggregate->initialize($eventStream);
-
-        return $aggregate;
+        return $result;
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param ProductDraft $aggregateRoot
+     *
+     * @throws DBALException
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(ProductDraft $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
-    }
-
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
-    public function remove(AbstractAggregateRoot $aggregateRoot)
-    {
-        $events = new DomainEventStream([new ProductDraftApplied($aggregateRoot->getId())]);
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 }

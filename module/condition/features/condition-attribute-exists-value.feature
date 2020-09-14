@@ -6,7 +6,7 @@ Feature: Condition Product sku exists
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create numeric attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "CONDITION_NUMERIC_@@random_code@@",
@@ -19,7 +19,7 @@ Feature: Condition Product sku exists
     And store response param "id" as "second_attribute_id"
 
   Scenario: Create second numeric attribute
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
       """
       {
           "code": "CONDITION_NUMERIC_@@random_code@@",
@@ -32,7 +32,7 @@ Feature: Condition Product sku exists
     And store response param "id" as "attribute_id"
 
   Scenario: Get product sku exists condition configuration
-    When I send a GET request to "/api/v1/en/conditions/ATTRIBUTE_EXISTS_CONDITION"
+    When I send a GET request to "/api/v1/en_GB/conditions/ATTRIBUTE_EXISTS_CONDITION"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type               | ATTRIBUTE_EXISTS_CONDITION |
@@ -40,7 +40,7 @@ Feature: Condition Product sku exists
       | parameters[0].type | SELECT                     |
 
   Scenario: create ATTRIBUTE_EXISTS_CONDITION condition set
-    When I send a POST request to "/api/v1/en/conditionsets" with body:
+    When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
           "conditions": [
@@ -55,7 +55,7 @@ Feature: Condition Product sku exists
     And store response param "id" as "condition_set_id"
 
   Scenario: create condition set with incorrect attribute uuid
-    When I send a POST request to "/api/v1/en/conditionsets" with body:
+    When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
           "conditions": [
@@ -69,7 +69,7 @@ Feature: Condition Product sku exists
     Then the response status code should be 400
 
   Scenario: create condition set without attribute
-    When I send a POST request to "/api/v1/en/conditionsets" with body:
+    When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
       """
         {
           "conditions": [
@@ -82,7 +82,7 @@ Feature: Condition Product sku exists
     Then the response status code should be 400
 
   Scenario: Get created condition set
-    Given I send a GET request to "/api/v1/en/conditionsets/@condition_set_id@"
+    Given I send a GET request to "/api/v1/en_GB/conditionsets/@condition_set_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | id                      | @condition_set_id@         |
@@ -90,7 +90,7 @@ Feature: Condition Product sku exists
       | conditions[0].attribute | @attribute_id@             |
 
   Scenario: Update condition set (numeric attribute)
-    Given I send a PUT request to "/api/v1/en/conditionsets/@condition_set_id@" with body:
+    Given I send a PUT request to "/api/v1/en_GB/conditionsets/@condition_set_id@" with body:
       """
       {
          "conditions": [
@@ -104,7 +104,7 @@ Feature: Condition Product sku exists
     Then the response status code should be 204
 
   Scenario: Get created condition set (numeric attribute)
-    Given I send a GET request to "/api/v1/en/conditionsets/@condition_set_id@"
+    Given I send a GET request to "/api/v1/en_GB/conditionsets/@condition_set_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | id                      | @condition_set_id@         |
@@ -112,7 +112,7 @@ Feature: Condition Product sku exists
       | conditions[0].attribute | @attribute_id@             |
 
   Scenario: Update condition set with not uuid attribute
-    Given I send a PUT request to "/api/v1/en/conditionsets/@condition_set_id@" with body:
+    Given I send a PUT request to "/api/v1/en_GB/conditionsets/@condition_set_id@" with body:
       """
       {
          "conditions": [
@@ -126,7 +126,7 @@ Feature: Condition Product sku exists
     Then the response status code should be 400
 
   Scenario: Update condition set without attribute
-    Given I send a PUT request to "/api/v1/en/conditionsets/@condition_set_id@" with body:
+    Given I send a PUT request to "/api/v1/en_GB/conditionsets/@condition_set_id@" with body:
       """
       {
          "conditions": [
@@ -139,7 +139,7 @@ Feature: Condition Product sku exists
     Then the response status code should be 400
 
   Scenario: Update condition set (numeric attribute with not existing attribute)
-    Given I send a PUT request to "/api/v1/en/conditionsets/@condition_set_id@" with body:
+    Given I send a PUT request to "/api/v1/en_GB/conditionsets/@condition_set_id@" with body:
       """
       {
          "conditions": [
@@ -153,13 +153,13 @@ Feature: Condition Product sku exists
     Then the response status code should be 400
 
   Scenario: Delete numeric attribute binded to condition_set
-    And I send a "DELETE" request to "/api/v1/en/attributes/@attribute_id@"
+    And I send a "DELETE" request to "/api/v1/en_GB/attributes/@attribute_id@"
     Then the response status code should be 409
 
   Scenario: Delete ATTRIBUTE_EXISTS_CONDITION condition set
-    When I send a DELETE request to "/api/v1/en/conditionsets/@condition_set_id@"
+    When I send a DELETE request to "/api/v1/en_GB/conditionsets/@condition_set_id@"
     Then the response status code should be 204
 
   Scenario: Delete numeric attribute
-    And I send a "DELETE" request to "/api/v1/en/attributes/@attribute_id@"
+    And I send a "DELETE" request to "/api/v1/en_GB/attributes/@attribute_id@"
     Then the response status code should be 204

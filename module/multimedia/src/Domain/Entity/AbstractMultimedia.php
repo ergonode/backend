@@ -15,6 +15,8 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
+use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -22,21 +24,29 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
 {
     /**
      * @var MultimediaId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private MultimediaId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $name;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $extension;
 
     /**
      * @var string|null
+     *
+     * @JMS\Type("string")
      */
     private ?string $mime;
 
@@ -44,16 +54,22 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
      * The file size in bytes.
      *
      * @var int
+     *
+     * @JMS\Type("int")
      */
     private int $size;
 
     /**
      * @var Hash
+     *
+     * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
      */
     private Hash $hash;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $alt;
 
@@ -104,6 +120,18 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     {
         if (!$alt->isEqual($this->alt)) {
             $this->apply(new MultimediaAltChangedEvent($this->id, $alt));
+        }
+    }
+
+    /**
+     * @param string $name
+     *
+     * @throws \Exception
+     */
+    public function changeName(string $name): void
+    {
+        if ($name !== $this->getName()) {
+            $this->apply(new MultimediaNameChangedEvent($this->id, $name));
         }
     }
 
@@ -183,5 +211,13 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     protected function applyMultimediaAltChangedEvent(MultimediaAltChangedEvent $event): void
     {
         $this->alt = $event->getAlt();
+    }
+
+    /**
+     * @param MultimediaNameChangedEvent $event
+     */
+    protected function applyMultimediaNameChangedEvent(MultimediaNameChangedEvent $event): void
+    {
+        $this->name = $event->getName();
     }
 }
