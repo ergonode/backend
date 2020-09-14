@@ -11,6 +11,8 @@ namespace Ergonode\Mailer\Infrastructure\Sender;
 
 use Ergonode\Mailer\Domain\MailMessageInterface;
 
+/**
+ */
 interface MailerStrategyInterface
 {
     /**

@@ -12,6 +12,8 @@ namespace Ergonode\Mailer\Domain\Command;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Mailer\Domain\MailMessageInterface;
 
+/**
+ */
 class SendMailCommand implements DomainCommandInterface
 {
     /**

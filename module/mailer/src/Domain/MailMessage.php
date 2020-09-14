@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -15,7 +16,7 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
 /**
  * Abstract class for mail message
  */
-abstract class MailMessage implements MailMessageInterface
+abstract class AbstractMailMessage implements MailMessageInterface
 {
     /**
      * @var Email

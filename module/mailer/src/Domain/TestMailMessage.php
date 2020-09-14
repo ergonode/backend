@@ -16,7 +16,7 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
 /**
  * Test mail message
  */
-class TestMailMessage extends MailMessage
+class TestMailMessage extends AbstractMailMessage
 {
     private const TEMPLATE = '@ErgonodeMailer/message/test.html.twig';
 
