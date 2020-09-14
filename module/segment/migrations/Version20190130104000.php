@@ -27,7 +27,7 @@ final class Version20190130104000 extends AbstractErgonodeMigration
             CREATE TABLE segment (
                 id UUID NOT NULL,
                 code VARCHAR(100) NOT NULL,
-                name JSON NOT NULL,
+                name JSONB NOT NULL,
                 description JSON NOT NULL,
                 status VARCHAR(32) NOT NULL,
                 condition_set_id UUID DEFAULT NULL,

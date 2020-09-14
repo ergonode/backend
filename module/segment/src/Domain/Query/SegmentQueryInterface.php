@@ -48,4 +48,21 @@ interface SegmentQueryInterface
      * @return array
      */
     public function getDictionary(): array;
+
+    /**
+     * @param Language    $language
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }
