@@ -4,10 +4,6 @@
 
 * Follow link to  [**Ergonode Documentation**](https://docs.ergonode.com),
 
-## TODO
-
-- Support messages with attachments
-
 ## Community
 
 * Get Ergonode support on **Stack Overflow**, [**Slack**](https://ergonode.slack.com) and [**email**](team@ergonode.com).
