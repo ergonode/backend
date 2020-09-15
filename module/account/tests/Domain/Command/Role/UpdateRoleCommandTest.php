@@ -25,20 +25,17 @@ class UpdateRoleCommandTest extends TestCase
     {
         /** @var RoleId|MockObject $id */
         $id = $this->createMock(RoleId::class);
-        $name = 'Any name';
         $description = 'any description';
         /** @var Privilege[] $privileges */
         $privileges = [$this->createMock(Privilege::class)];
         $command = new UpdateRoleCommand(
             $id,
-            $name,
             $description,
             $privileges
         );
 
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($name, $command->getName());
-        $this->assertEquals($description, $command->getDescription());
-        $this->assertEquals($privileges, $command->getPrivileges());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($description, $command->getDescription());
+        self::assertEquals($privileges, $command->getPrivileges());
     }
 }
