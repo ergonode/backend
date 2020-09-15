@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Mailer\Infrastructure\Sender;
 
 use Ergonode\Mailer\Domain\MailMessageInterface;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -18,13 +19,14 @@ class MailerSender
     /**
      * @var MailerStrategyInterface[]
      */
-    private array $strategies;
+    private iterable $strategies;
 
     /**
-     * @param MailerStrategyInterface ...$strategies
+     * @param iterable $strategies
      */
-    public function __construct(MailerStrategyInterface...$strategies)
+    public function __construct(iterable $strategies)
     {
+        Assert::allIsInstanceOf($strategies, MailerStrategyInterface::class);
         $this->strategies = $strategies;
     }
 

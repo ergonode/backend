@@ -7,17 +7,17 @@ services:
     Ergonode\Mailer\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Mailer\Application\Command\:
-        resource: '../../Application/Command/*'
-        tags: [ 'console.command' ]
-
     Ergonode\Mailer\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
 
     Ergonode\Mailer\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
-        tags: [ 'messenger.message_handler' ]
+        tags: ['messenger.message_handler']
+
+    Ergonode\Mailer\Infrastructure\Sender\MailerSender:
+        arguments:
+            $strategies: !tagged_iterator 'component.notification.mailer_strategy_interface'
 
     Ergonode\Mailer\Infrastructure\Sender\Strategy\SymfonyMailerStrategy:
         arguments:

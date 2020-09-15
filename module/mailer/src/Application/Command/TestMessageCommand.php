@@ -65,6 +65,6 @@ class TestMessageCommand extends Command
         $command = new SendMailCommand($message);
         $this->commandBus->dispatch($command);
 
-        return 1;
+        return 0;
     }
 }

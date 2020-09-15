@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Mailer\Application\DependencyInjection;
 
 use Ergonode\Mailer\Application\Config\Definition\ErgonodeMailerConfiguration;
-use Ergonode\Mailer\Application\DependencyInjection\CompilerPass\MailerStrategyInterfaceCompilerPass;
 use Ergonode\Mailer\Infrastructure\Sender\MailerStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -37,21 +36,10 @@ class ErgonodeMailerExtension extends Extension
 
         $container
             ->registerForAutoconfiguration(MailerStrategyInterface::class)
-            ->addTag(MailerStrategyInterfaceCompilerPass::TAG);
+            ->addTag('component.notification.mailer_strategy_interface');
 
         $configuration = $this->processConfiguration(new ErgonodeMailerConfiguration(), $configs);
-
-        $from = null;
-        if (!empty($configuration['default']['from'])) {
-            $from = $configuration['default']['from'];
-        }
-
-        $replyTo = null;
-        if (!empty($configuration['default']['replyTo'])) {
-            $replyTo = $configuration['default']['replyTo'];
-        }
-
-        $container->setParameter('ergonode_mailer.from', $from);
-        $container->setParameter('ergonode_mailer.replyTo', $replyTo);
+        $container->setParameter('ergonode_mailer.from', $configuration['default']['from'] ?? null);
+        $container->setParameter('ergonode_mailer.replyTo', $configuration['default']['replyTo'] ?? null);
     }
 }
