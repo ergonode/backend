@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Mailer\Infrastructure\Sender;
 
-use Ergonode\Mailer\Domain\MailMessageInterface;
+use Ergonode\Mailer\Domain\MailInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -31,9 +31,9 @@ class MailerSender
     }
 
     /**
-     * @param MailMessageInterface $message
+     * @param MailInterface $message
      */
-    public function send(MailMessageInterface $message): void
+    public function send(MailInterface $message): void
     {
         foreach ($this->strategies as $strategy) {
             $strategy->send($message);

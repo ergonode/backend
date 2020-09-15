@@ -10,30 +10,30 @@ declare(strict_types=1);
 namespace Ergonode\Mailer\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Mailer\Domain\MailMessageInterface;
+use Ergonode\Mailer\Domain\MailInterface;
 
 /**
  */
 class SendMailCommand implements DomainCommandInterface
 {
     /**
-     * @var MailMessageInterface
+     * @var MailInterface
      */
-    private MailMessageInterface $message;
+    private MailInterface $mail;
 
     /**
-     * @param MailMessageInterface $message
+     * @param MailInterface $mail
      */
-    public function __construct(MailMessageInterface $message)
+    public function __construct(MailInterface $mail)
     {
-        $this->message = $message;
+        $this->mail = $mail;
     }
 
     /**
-     * @return MailMessageInterface
+     * @return MailInterface
      */
-    public function getMessage(): MailMessageInterface
+    public function getMail(): MailInterface
     {
-        return $this->message;
+        return $this->mail;
     }
 }

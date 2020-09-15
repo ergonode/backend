@@ -36,6 +36,6 @@ class SendMailCommandHandler
      */
     public function __invoke(SendMailCommand $command)
     {
-        $this->mailerSender->send($command->getMessage());
+        $this->mailerSender->send($command->getMail());
     }
 }

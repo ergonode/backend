@@ -11,35 +11,30 @@ namespace Ergonode\Mailer\Domain;
 
 use DateTime;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Collection\EmailCollection;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
 /**
  * Test mail message
  */
-class TestMailMessage extends AbstractMailMessage
+class TestMail extends Mail
 {
-    private const TEMPLATE = '@ErgonodeMailer/message/test.html.twig';
-
     /**
      * @param Email    $to
      * @param Language $language
      */
     public function __construct(Email $to, Language $language)
     {
-        $this->to = $to;
-        $this->language = $language;
-        $this->subject = 'Ergonode test message';
         $this->createdAt = new DateTime();
-        $this->parameters = [
-            'date' => $this->createdAt,
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getTemplate(): string
-    {
-        return self::TEMPLATE;
+        $this->recipient = new Recipient(new EmailCollection([$to]));
+        $this->sender = new Sender();
+        $this->template = new Template(
+            '@ErgonodeMailer/message/test.html.twig',
+            $language,
+            [
+                'date' => $this->createdAt,
+            ]
+        );
+        $this->subject = 'Ergonode test message';
     }
 }

@@ -9,14 +9,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Mailer\Infrastructure\Sender;
 
-use Ergonode\Mailer\Domain\MailMessageInterface;
+use Ergonode\Mailer\Domain\MailInterface;
 
 /**
  */
 interface MailerStrategyInterface
 {
     /**
-     * @param MailMessageInterface $message
+     * @param MailInterface $mail
      */
-    public function send(MailMessageInterface $message): void;
+    public function send(MailInterface $mail): void;
 }

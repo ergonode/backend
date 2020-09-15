@@ -12,7 +12,7 @@ namespace Ergonode\Mailer\Application\Command;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Mailer\Domain\Command\SendMailCommand;
-use Ergonode\Mailer\Domain\TestMailMessage;
+use Ergonode\Mailer\Domain\TestMail;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -61,8 +61,8 @@ class TestMessageCommand extends Command
     {
         $to = new Email($input->getArgument('to'));
         $language = new Language($input->getOption('language'));
-        $message = new TestMailMessage($to, $language);
-        $command = new SendMailCommand($message);
+        $mail = new TestMail($to, $language);
+        $command = new SendMailCommand($mail);
         $this->commandBus->dispatch($command);
 
         return 0;

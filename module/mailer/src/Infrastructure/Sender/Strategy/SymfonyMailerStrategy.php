@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Mailer\Infrastructure\Sender\Strategy;
 
-use Ergonode\Mailer\Domain\MailMessageInterface;
+use Ergonode\Mailer\Domain\MailInterface;
 use Ergonode\Mailer\Infrastructure\Sender\MailerStrategyInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
@@ -60,32 +60,40 @@ class SymfonyMailerStrategy implements MailerStrategyInterface
     /**
      * @see We need to wait until Symfony resolve https://github.com/symfony/symfony/issues/35925
      *
-     * @param MailMessageInterface $message
+     * @param MailInterface $mail
      *
      * @throws \Throwable
      */
-    public function send(MailMessageInterface $message): void
+    public function send(MailInterface $mail): void
     {
         $previousLocale = $this->translator->getLocale();
-        $this->translator->setLocale($message->getLanguage()->getLanguage());
+        $this->translator->setLocale($mail->getTemplate()->getLanguage()->getLanguageCode());
 
         try {
             $email = (new TemplatedEmail())
-                ->to($message->getTo()->getValue())
-                ->subject($message->getSubject())
-                ->htmlTemplate($message->getTemplate())
-                ->context($message->getParameters());
+                ->addTo(...$mail->getRecipient()->getTo()->asStringArray())
+                ->subject($mail->getSubject())
+                ->htmlTemplate($mail->getTemplate()->getPath())
+                ->context($mail->getTemplate()->getParameters());
 
-            if ($message->hasFrom()) {
-                $email->from($message->getFrom()->getValue());
+            if ($mail->getSender()->hasFrom()) {
+                $email->addFrom(...$mail->getSender()->getFrom()->asStringArray());
             } else if (!empty($this->defaultFrom)) {
                 $email->from($this->defaultFrom);
             }
 
-            if ($message->hasReplyTo()) {
-                $email->replyTo($message->getReplyTo()->getValue());
+            if ($mail->getSender()->hasReplyTo()) {
+                $email->addReplyTo(...$mail->getSender()->getReplyTo()->asStringArray());
             } else if (!empty($this->defaultReplyTo)) {
                 $email->replyTo($this->defaultReplyTo);
+            }
+
+            if ($mail->getRecipient()->hasBcc()) {
+                $email->addBcc(...$mail->getRecipient()->getBcc()->asStringArray());
+            }
+
+            if ($mail->getRecipient()->hasCc()) {
+                $email->addCc(...$mail->getRecipient()->getCc()->asStringArray());
             }
 
             $this->mailer->send($email);

@@ -50,7 +50,7 @@ class Language
     /**
      * @return string
      */
-    public function getLanguage(): string
+    public function getLanguageCode(): string
     {
         return explode('_', $this->code)[0];
     }
@@ -58,7 +58,7 @@ class Language
     /**
      * @return string
      */
-    public function getTerritory(): string
+    public function getTerritoryCode(): string
     {
         return explode('_', $this->code)[1];
     }
