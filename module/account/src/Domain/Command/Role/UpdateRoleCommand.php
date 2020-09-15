@@ -30,13 +30,6 @@ class UpdateRoleCommand implements DomainCommandInterface
      *
      * @JMS\Type("string")
      */
-    private string $name;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
     private string $description;
 
     /**
@@ -48,14 +41,12 @@ class UpdateRoleCommand implements DomainCommandInterface
 
     /**
      * @param RoleId      $id
-     * @param string      $name
      * @param string      $description
      * @param Privilege[] $privileges
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [])
+    public function __construct(RoleId $id, string $description, array $privileges = [])
     {
         $this->id = $id;
-        $this->name = $name;
         $this->description = $description;
         $this->privileges = $privileges;
     }
@@ -66,14 +57,6 @@ class UpdateRoleCommand implements DomainCommandInterface
     public function getId(): RoleId
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**

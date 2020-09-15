@@ -113,7 +113,6 @@ class RoleChangeAction
 
                 $command = new UpdateRoleCommand(
                     $role->getId(),
-                    $data->name,
                     $data->description,
                     $data->privileges
                 );

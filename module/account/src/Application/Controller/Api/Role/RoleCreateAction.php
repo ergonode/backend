@@ -88,7 +88,11 @@ class RoleCreateAction
     {
         try {
             $model = new RoleFormModel();
-            $form = $this->formFactory->create(RoleForm::class, $model);
+            $form = $this->formFactory->create(
+                RoleForm::class,
+                $model,
+                ['validation_groups' => ['Default', 'Create']]
+            );
 
             $form->handleRequest($request);
 

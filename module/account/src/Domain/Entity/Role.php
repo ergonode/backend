@@ -123,16 +123,6 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
-     * @param string $name
-     */
-    public function changeName(string $name): void
-    {
-        if ($name !== $this->name) {
-            $this->apply(new RoleNameChangedEvent($this->id, $this->name, $name));
-        }
-    }
-
-    /**
      * @param array $privileges
      */
     public function changesPrivileges(array $privileges): void

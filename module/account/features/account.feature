@@ -26,11 +26,11 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And remember param "role_nane" with value "Test role (@@random_uuid@@)"
+    And remember param "role_name" with value "Test role (@@random_uuid@@)"
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "@role_nane@",
+         "name": "@role_name@",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
@@ -45,7 +45,7 @@ Feature: Account module
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "@role_nane@",
+         "name": "@role_name@",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
@@ -236,7 +236,6 @@ Feature: Account module
     When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
-         "name": "Test role 2 (@@random_uuid@@)",
          "description": "Test role 2",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
@@ -254,19 +253,6 @@ Feature: Account module
     When I send a PUT request to "/api/v1/en_GB/roles/@@static_uuid@@"
     Then the response status code should be 404
 
-  Scenario: Update role (without name)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
-      """
-      {
-         "description": "Test role",
-         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
-      }
-      """
-    Then the response status code should be 400
-
   Scenario: Update role (without description)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -274,7 +260,6 @@ Feature: Account module
     When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
-         "name": "Test role (@@random_uuid@@)",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
@@ -287,39 +272,10 @@ Feature: Account module
     When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
-         "name": "Test role (@@random_uuid@@)",
          "description": "Test role"
       }
       """
     Then the response status code should be 204
-
-  Scenario: Update role (wrong parameter - name)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
-      """
-      {
-         "test": "Test role (@@random_uuid@@)",
-         "description": "Test role",
-         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
-      }
-      """
-    Then the response status code should be 400
-
-  Scenario: Update role (empty name)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
-      """
-      {
-         "name": "",
-         "description": "Test role",
-         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
-      }
-      """
-    Then the response status code should be 400
 
   Scenario: Update role (empty description)
     Given I am Authenticated as "test@ergonode.com"
@@ -328,7 +284,6 @@ Feature: Account module
     When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
-         "name": "Test role (@@random_uuid@@)",
          "description": "",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
@@ -342,7 +297,6 @@ Feature: Account module
     When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
-         "name": "Test role (@@random_uuid@@)",
          "description": "Test role",
          "privileges": []
       }
@@ -356,7 +310,6 @@ Feature: Account module
     When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
       """
       {
-         "name": "Test role (@@random_uuid@@)",
          "description": "Test role",
          "privileges": ["test", "test2"]
       }

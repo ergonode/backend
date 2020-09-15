@@ -21,13 +21,17 @@ class RoleFormModel
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Role name is required")
+     * @Assert\NotBlank(
+     *     message="Role name is required",
+     *     groups={"Create"}
+     * )
      * @Assert\Length(
      *     max="100",
-     *     maxMessage="Role name is too long, should have at least {{ limit }} characters"
+     *     maxMessage="Role name is too long, should have at least {{ limit }} characters",
+     *     groups={"Create"}
      * )
      *
-     * @RoleNameUnique()
+     * @RoleNameUnique(groups={"Create"})
      */
     public ?string $name;
 
