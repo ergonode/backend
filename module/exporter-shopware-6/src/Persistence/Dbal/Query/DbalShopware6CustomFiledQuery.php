@@ -76,7 +76,7 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->lt('cf.update_at', ':updateAt'))
-            ->setParameter(':updateAt', $dateTime, Types::DATETIMETZ_MUTABLE,)
+            ->setParameter(':updateAt', $dateTime, Types::DATETIMETZ_MUTABLE)
             ->andWhere($query->expr()->eq('cf.type', ':type'))
             ->setParameter(':type', $type)
             ->execute();
