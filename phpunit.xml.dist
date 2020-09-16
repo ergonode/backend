@@ -6,6 +6,7 @@
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
+         verbose="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -38,9 +39,4 @@
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
-    <logging>
-        <log type="coverage-clover" target="build/reports/phpunit-clover.xml"/>
-        <log type="coverage-html" target="build/reports/coverage"/>
-        <log type="junit" target="build/reports/phpunit-junit.xml"/>
-    </logging>
 </phpunit>
