@@ -15,5 +15,5 @@ Ergonode is a Open Source. Join us as a contributor.
 
 ## About Us
 
-Ergonode development is sponsored by [Strix](https://www.strix.net/), lead by **Eronode Core Team** and supported by Ergonode contributors. 
+Ergonode development is sponsored by [Strix](https://www.strix.net/), lead by **Ergonode Core Team** and supported by Ergonode contributors. 
 
