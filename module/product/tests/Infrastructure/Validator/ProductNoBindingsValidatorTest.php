@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Product\Tests\Infrastructure\Validator;
+
+use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
+use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
+use Ergonode\Product\Infrastructure\Validator\ProductNoBindings;
+use Ergonode\Product\Infrastructure\Validator\ProductNoBindingsValidator;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use PHPUnit\Framework\MockObject\MockObject;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+
+/**
+ */
+class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
+{
+    /**
+     * @var ProductBindingQueryInterface|MockObject
+     */
+    private ProductBindingQueryInterface $query;
+
+
+    /**
+     */
+    protected function setUp(): void
+    {
+        $this->query = $this->createMock(ProductBindingQueryInterface::class);
+        parent::setUp();
+    }
+
+    /**
+     */
+    public function testWrongValueProvided(): void
+    {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
+        $this->validator->validate(new \stdClass(), new ProductNoBindings());
+    }
+
+    /**
+     */
+    public function testWrongConstraintProvided(): void
+    {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
+        $this->validator->validate('Value', $this->createMock(Constraint::class));
+    }
+
+    /**
+     */
+    public function testCorrectEmptyValidation(): void
+    {
+        $model = $this->createMock(ProductChildFormModel::class);
+        $this->validator->validate($model, new ProductNoBindings());
+
+        $this->assertNoViolation();
+    }
+
+    /**
+     */
+    public function testCorrectValueValidation(): void
+    {
+        $this->query->method('getBindings')->willReturn([Uuid::uuid4()->toString()]);
+        $uuid = Uuid::uuid4()->toString();
+        $model = $this->createMock(ProductChildFormModel::class);
+        $model->method('getParentId')->willReturn(new productId($uuid));
+        $model->childId = Uuid::uuid4()->toString();
+        $constraint = new ProductNoBindings();
+        $this->validator->validate($model, $constraint);
+
+        $this->assertNoViolation();
+    }
+
+    /**
+     */
+    public function testInCorrectValueValidation(): void
+    {
+        $this->query->method('getBindings')->willReturn(array());
+        $uuid = Uuid::uuid4()->toString();
+        $model = $this->createMock(ProductChildFormModel::class);
+        $model->method('getParentId')->willReturn(new productId($uuid));
+        $model->childId = Uuid::uuid4()->toString();
+        $constraint = new ProductNoBindings();
+        $this->validator->validate($model, $constraint);
+
+        $assertion = $this->buildViolation($constraint->message);
+        $assertion->assertRaised();
+    }
+
+
+    /**
+     * @return ProductNoBindingsValidator
+     */
+    protected function createValidator(): ProductNoBindingsValidator
+    {
+        return new ProductNoBindingsValidator($this->query);
+    }
+}

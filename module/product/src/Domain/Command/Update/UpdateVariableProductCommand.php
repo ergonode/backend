@@ -44,30 +44,19 @@ class UpdateVariableProductCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @var AttributeId[]
-     *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
-     */
-    private array $bindings;
-
-    /**
      * @param ProductId  $productId
      * @param TemplateId $templateId
      * @param array      $categories
-     * @param array      $bindings
      */
     public function __construct(
         ProductId $productId,
         TemplateId $templateId,
-        array $categories = [],
-        array $bindings = []
+        array $categories = []
     ) {
-        Assert::allIsInstanceOf($bindings, AttributeId::class);
         Assert::allIsInstanceOf($categories, CategoryId::class);
 
         $this->id = $productId;
         $this->templateId = $templateId;
-        $this->bindings = $bindings;
         $this->categories = $categories;
     }
 
@@ -93,13 +82,5 @@ class UpdateVariableProductCommand implements DomainCommandInterface
     public function getCategories(): array
     {
         return $this->categories;
-    }
-
-    /**
-     * @return AttributeId[]
-     */
-    public function getBindings(): array
-    {
-        return $this->bindings;
     }
 }

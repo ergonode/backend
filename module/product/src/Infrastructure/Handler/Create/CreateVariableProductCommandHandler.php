@@ -90,13 +90,6 @@ class CreateVariableProductCommandHandler
             $command->getCategories(),
             $attributes,
         );
-
-        foreach ($command->getBindings() as $attributeId) {
-            $attribute = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($attribute, SelectAttribute::class);
-            $product->addBind($attribute);
-        }
-
         $this->productRepository->save($product);
     }
 }

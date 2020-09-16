@@ -51,10 +51,7 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "VARIABLE-PRODUCT",
-        "templateId": "@product_template_id@",
-        "bindings": [
-          "@attribute_id@"
-        ]
+        "templateId": "@product_template_id@"
       }
       """
     Then the response status code should be 201
@@ -66,20 +63,11 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "VARIABLE-PRODUCT",
-        "templateId": "@product_template_id@",
-        "bindings": [
-          "@attribute_id@"
-        ]
+        "templateId": "@product_template_id@"
       }
       """
     Then the response status code should be 201
     And store response param "id" as "second_product_id"
-
-  Scenario: Get binded attributes
-    When I send a GET request to "/api/v1/en_GB/products/@product_id@/bindings"
-    Then the response status code should be 200
-    And the JSON nodes should contain:
-      | [0] | @attribute_id@ |
 
   Scenario: Create variable product without template
     When I send a POST request to "/api/v1/en_GB/products" with body:
@@ -97,19 +85,10 @@ Feature: Variable product
       """
       {
         "sku": "SKU_@@random_code@@",
-        "templateId": "@product_template_id@",
-         "bindings": [
-            "@attribute_id@"
-        ]
+        "templateId": "@product_template_id@"
       }
       """
     Then the response status code should be 204
-
-  Scenario: Get binded attributes
-    When I send a GET request to "/api/v1/en_GB/products/@product_id@/bindings"
-    Then the response status code should be 200
-    And the JSON nodes should contain:
-      | [0] | @attribute_id@ |
 
   Scenario: Update variable product without template
     When I send a PUT request to "/api/v1/en_GB/products/@product_id@" with body:
@@ -138,6 +117,48 @@ Feature: Variable product
       }
       """
     Then the response status code should be 400
+
+  Scenario: Add children product
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/children" with body:
+      """
+      {
+        "child_id": "@simple_product_id@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Add bind attribute with invalid uuid
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "abcd"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Add bind attribute with not exists uuid
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "@@random_uuid@@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Add bind attribute
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "@attribute_id@"
+      }
+      """
+    Then the response status code should be 201
+
+  Scenario: Get binded attributes
+    When I send a GET request to "/api/v1/en_GB/products/@product_id@/bindings"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | [0] | @attribute_id@ |
 
   Scenario: Add children product
     When I send a POST request to "/api/v1/en_GB/products/@product_id@/children" with body:
@@ -205,33 +226,6 @@ Feature: Variable product
     And the JSON node "type" should be equal to "VARIABLE-PRODUCT"
     And the JSON node "id" should be equal to "@product_id@"
 
-  Scenario: Add bind attribute with invalid uuid
-    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
-      """
-      {
-        "bind_id": "abcd"
-      }
-      """
-    Then the response status code should be 400
-
-  Scenario: Add bind attribute with not exists uuid
-    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
-      """
-      {
-        "bind_id": "@@random_uuid@@"
-      }
-      """
-    Then the response status code should be 400
-
-  Scenario: Add bind attribute
-    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
-      """
-      {
-        "bind_id": "@attribute_id@"
-      }
-      """
-    Then the response status code should be 201
-
   Scenario: Remove bind attribute
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/binding/@attribute_id@"
     Then the response status code should be 204
@@ -239,3 +233,8 @@ Feature: Variable product
   Scenario: Remove bind attribute with not exist uuid
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/binding/@@random_uuid@@"
     Then the response status code should be 404
+
+  Scenario: Get binded attributes
+    When I send a GET request to "/api/v1/en_GB/products/@product_id@/bindings"
+    Then the response status code should be 200
+    And the response should contain "[]"

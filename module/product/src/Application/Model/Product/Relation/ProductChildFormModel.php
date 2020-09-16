@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Model\Product\Relation;
 
+use Ergonode\Product\Infrastructure\Validator\ProductNoBindings;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Product\Infrastructure\Validator\ProductExists;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -17,6 +18,8 @@ use Ergonode\Product\Infrastructure\Validator\ProductType;
 
 /**
  * @ProductChild
+ *
+ * @ProductNoBindings()
  */
 class ProductChildFormModel
 {
