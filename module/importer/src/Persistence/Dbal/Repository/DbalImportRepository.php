@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
@@ -144,14 +145,19 @@ class DbalImportRepository implements ImportRepositoryInterface
     private function update(Import $import): void
     {
         $importArray = $this->mapper->map($import);
-        $importArray['updated_at'] = date('Y-m-d H:i:s');
+        $importArray['updated_at'] = new \DateTime();
 
         $this->connection->update(
             self::TABLE,
             $importArray,
             [
                 'id' => $import->getId()->getValue(),
-            ]
+            ],
+            [
+                'started_at' => Types::DATETIMETZ_MUTABLE,
+                'ended_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -163,12 +169,17 @@ class DbalImportRepository implements ImportRepositoryInterface
     private function insert(Import $import): void
     {
         $importArray = $this->mapper->map($import);
-        $importArray['created_at'] = date('Y-m-d H:i:s');
-        $importArray['updated_at'] = date('Y-m-d H:i:s');
+        $importArray['created_at'] = $importArray['updated_at'] = new \DateTime();
 
         $this->connection->insert(
             self::TABLE,
-            $importArray
+            $importArray,
+            [
+                'started_at' => Types::DATETIMETZ_MUTABLE,
+                'ended_at' => Types::DATETIMETZ_MUTABLE,
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 

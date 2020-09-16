@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Doctrine\DBAL\DBALException;
@@ -120,12 +121,15 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'update_at' => new \DateTimeImmutable(),
             ],
             [
                 'tax' => $tax,
                 'channel_id' => $channelId->getValue(),
-            ]
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -144,8 +148,11 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
                 'shopware6_id' => $shopwareId,
                 'tax' => $tax,
                 'channel_id' => $channelId->getValue(),
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]
+                'update_at' => new \DateTimeImmutable(),
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

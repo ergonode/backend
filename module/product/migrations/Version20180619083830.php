@@ -30,8 +30,8 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 sku VARCHAR(128) NOT NULL,
                 type VARCHAR(16) NOT NULL,
                 template_id UUID NOT NULL,
-                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL, 
+                created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
                 PRIMARY KEY(id)
             )
         ');

@@ -11,6 +11,7 @@ namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectio
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
@@ -55,8 +56,11 @@ class ProductCollectionCreatedEventProjector
                 'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
                 'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
                 'type_id' => $event->getTypeId(),
-                'created_at' => $event->getCreatedAt()->format('Y-m-d H:i:s'),
-            ]
+                'created_at' => $event->getCreatedAt(),
+            ],
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

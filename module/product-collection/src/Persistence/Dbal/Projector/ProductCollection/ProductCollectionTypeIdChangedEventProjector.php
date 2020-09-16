@@ -11,6 +11,7 @@ namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectio
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 
 /**
@@ -45,11 +46,14 @@ class ProductCollectionTypeIdChangedEventProjector
             self::TABLE,
             [
                 'type_id' => $event->getNewTypeId()->getValue(),
-                'edited_at' => $event->getEditedAt()->format('Y-m-d H:i:s'),
+                'edited_at' => $event->getEditedAt(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
-            ]
+            ],
+            [
+                 'edited_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

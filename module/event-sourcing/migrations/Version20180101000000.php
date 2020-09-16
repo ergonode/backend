@@ -28,7 +28,7 @@ final class Version20180101000000 extends AbstractErgonodeMigration
                 event_id UUID NOT NULL,
                 payload jsonb NOT NULL, 
                 recorded_by uuid default NULL, 
-                recorded_at timestamp without time zone NOT NULL, 
+                recorded_at timestamp with time zone NOT NULL, 
                 CONSTRAINT event_store_pkey PRIMARY KEY (id)
             )
         ');
@@ -51,7 +51,7 @@ final class Version20180101000000 extends AbstractErgonodeMigration
                 sequence int NOT NULL, 
                 payload jsonb NOT NULL, 
                 recorded_by uuid default NULL, 
-                recorded_at timestamp without time zone NOT NULL, 
+                recorded_at timestamp with time zone NOT NULL, 
                 CONSTRAINT event_store_snapshot_pkey PRIMARY KEY (id)
             )
         ');
@@ -70,7 +70,7 @@ final class Version20180101000000 extends AbstractErgonodeMigration
                 event_id UUID NOT NULL, 
                 payload jsonb NOT NULL, 
                 recorded_by uuid default NULL, 
-                recorded_at timestamp without time zone NOT NULL, 
+                recorded_at timestamp with time zone NOT NULL, 
                 CONSTRAINT event_store_history_pkey PRIMARY KEY (id)
             )
         ');

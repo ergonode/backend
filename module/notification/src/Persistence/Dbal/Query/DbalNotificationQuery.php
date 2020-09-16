@@ -10,6 +10,7 @@ namespace Ergonode\Notification\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
@@ -99,12 +100,15 @@ class DbalNotificationQuery implements NotificationQueryInterface
         $this->connection->update(
             'users_notification',
             [
-                'read_at' => $readAt->format('Y-m-d'),
+                'read_at' => $readAt,
             ],
             [
                 'recipient_id' => $userId->getValue(),
                 'notification_id' => $id->toString(),
-            ]
+            ],
+            [
+                'read_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 

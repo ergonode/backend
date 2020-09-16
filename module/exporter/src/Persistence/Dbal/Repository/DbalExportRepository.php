@@ -10,6 +10,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Exporter\Persistence\Dbal\Repository\Factory\ExportFactory;
@@ -123,14 +124,19 @@ class DbalExportRepository implements ExportRepositoryInterface
     private function update(Export $export): void
     {
         $exportArray = $this->mapper->map($export);
-        $exportArray['updated_at'] = date('Y-m-d H:i:s');
+        $exportArray['updated_at'] = new \DateTime();
 
         $this->connection->update(
             self::TABLE,
             $exportArray,
             [
                 'id' => $export->getId()->getValue(),
-            ]
+            ],
+            [
+                'started_at' => Types::DATETIMETZ_MUTABLE,
+                'ended_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -142,12 +148,17 @@ class DbalExportRepository implements ExportRepositoryInterface
     private function insert(Export $export): void
     {
         $exportArray = $this->mapper->map($export);
-        $exportArray['created_at'] = date('Y-m-d H:i:s');
-        $exportArray['updated_at'] = date('Y-m-d H:i:s');
+        $exportArray['created_at'] = $exportArray['updated_at'] = new \DateTime();
 
         $this->connection->insert(
             self::TABLE,
-            $exportArray
+            $exportArray,
+            [
+                'started_at' => Types::DATETIMETZ_MUTABLE,
+                'ended_at' => Types::DATETIMETZ_MUTABLE,
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
