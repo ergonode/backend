@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
-use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
 use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -42,14 +42,19 @@ class ProductNoBindingsValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ProductNoBindings::class);
         }
 
-        if (!$value instanceof ProductChildFormModel) {
-            throw new UnexpectedTypeException($value, ProductChildFormModel::class);
-        }
-
-        if (null === $value->childId) {
+        if (null === $value || '' === $value) {
             return;
         }
-        $bindings = $this->query->getBindings($value->getParentId());
+
+        if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
+            throw new UnexpectedTypeException($value, 'string');
+        }
+
+        $value = (string) $value;
+
+        if (ProductId::isValid($value)) {
+            $bindings = $this->query->getBindings(new ProductId($value));
+        }
 
         if (empty($bindings)) {
             $this->context->buildViolation($constraint->message)

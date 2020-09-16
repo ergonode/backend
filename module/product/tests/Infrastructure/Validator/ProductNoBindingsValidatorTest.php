@@ -9,11 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Tests\Infrastructure\Validator;
 
-use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
 use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
 use Ergonode\Product\Infrastructure\Validator\ProductNoBindings;
 use Ergonode\Product\Infrastructure\Validator\ProductNoBindingsValidator;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
@@ -57,8 +55,7 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectEmptyValidation(): void
     {
-        $model = $this->createMock(ProductChildFormModel::class);
-        $this->validator->validate($model, new ProductNoBindings());
+        $this->validator->validate('', new ProductNoBindings());
 
         $this->assertNoViolation();
     }
@@ -69,11 +66,8 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->query->method('getBindings')->willReturn([Uuid::uuid4()->toString()]);
         $uuid = Uuid::uuid4()->toString();
-        $model = $this->createMock(ProductChildFormModel::class);
-        $model->method('getParentId')->willReturn(new productId($uuid));
-        $model->childId = Uuid::uuid4()->toString();
         $constraint = new ProductNoBindings();
-        $this->validator->validate($model, $constraint);
+        $this->validator->validate($uuid, $constraint);
 
         $this->assertNoViolation();
     }
@@ -84,11 +78,8 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->query->method('getBindings')->willReturn(array());
         $uuid = Uuid::uuid4()->toString();
-        $model = $this->createMock(ProductChildFormModel::class);
-        $model->method('getParentId')->willReturn(new productId($uuid));
-        $model->childId = Uuid::uuid4()->toString();
         $constraint = new ProductNoBindings();
-        $this->validator->validate($model, $constraint);
+        $this->validator->validate($uuid, $constraint);
 
         $assertion = $this->buildViolation($constraint->message);
         $assertion->assertRaised();

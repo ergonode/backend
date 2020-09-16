@@ -22,7 +22,7 @@ class ProductType extends Constraint
     public string $message = 'Incorrect product type.';
 
     /**
-     * @var string|null
+     * @var array|null
      */
-    public ?string $type = null;
+    public ?array $type = [];
 }

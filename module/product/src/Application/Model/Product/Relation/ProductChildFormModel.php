@@ -18,13 +18,15 @@ use Ergonode\Product\Infrastructure\Validator\ProductType;
 
 /**
  * @ProductChild
- *
- * @ProductNoBindings()
  */
 class ProductChildFormModel
 {
     /**
      * @var ProductId $parentId
+     *
+     * @ProductType(type={"VARIABLE-PRODUCT", "GROUPING-PRODUCT"})
+     *
+     * @ProductNoBindings(groups={"VARIABLE-PRODUCT"})
      */
     private ProductId $parentId;
 
@@ -36,7 +38,7 @@ class ProductChildFormModel
      *
      * @ProductExists()
      *
-     * @ProductType(type="SIMPLE-PRODUCT")
+     * @ProductType(type={"SIMPLE-PRODUCT"})
      */
     public ?string $childId = null;
 

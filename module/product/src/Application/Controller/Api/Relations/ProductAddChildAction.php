@@ -101,7 +101,11 @@ class ProductAddChildAction extends AbstractController
     {
         try {
             $model = new ProductChildFormModel($product->getId());
-            $form = $this->formFactory->create(ProductChildForm::class, $model);
+            $form = $this->formFactory->create(
+                ProductChildForm::class,
+                $model,
+                ['validation_groups' => ['Default', $product->getType()]]
+            );
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

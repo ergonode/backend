@@ -20,12 +20,4 @@ class ProductNoBindings extends Constraint
      * @var string
      */
     public string $message = 'Can\'t add child, parent product doesn\'t have binding attributes.';
-
-    /**
-     * @return array|string
-     */
-    public function getTargets()
-    {
-        return self::CLASS_CONSTRAINT;
-    }
 }
