@@ -37,7 +37,7 @@
     <!-- PHP Unit -->
     <target name="test:unit" description="Executes unit tests.">
         <echo msg="Running unit tests..."/>
-        <exec command="bin/phpunit -c phpunit.xml.dist"
+        <exec command="bin/phpunit"
               checkreturn="true"
               logoutput="true"
               passthru="true"
@@ -48,7 +48,7 @@
     <!-- PHP Unit coverage report-->
     <target name="test:unit:coverage" description="Executes unit tests.">
         <echo msg="Running unit tests..."/>
-        <exec command="bin/phpunit -c phpunit.xml.dist"
+        <exec command="bin/phpunit --coverage-clover=build/reports/phpunit-clover.xml --coverage-html=build/reports/coverage --log-junit=build/reports/phpunit-junit.xml"
               checkreturn="true"
               logoutput="true"
               passthru="true"
