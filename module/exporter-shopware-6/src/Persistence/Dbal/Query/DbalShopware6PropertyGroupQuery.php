@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
@@ -75,7 +76,7 @@ class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInte
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
             ->andWhere($query->expr()->lt('pg.update_at', ':updateAt'))
-            ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
+            ->setParameter(':updateAt', $dateTime, Types::DATETIMETZ_MUTABLE)
             ->andWhere($query->expr()->eq('pg.type', ':type'))
             ->setParameter(':type', $type)
             ->execute();

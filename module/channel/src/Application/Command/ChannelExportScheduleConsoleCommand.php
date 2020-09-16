@@ -46,7 +46,7 @@ class ChannelExportScheduleConsoleCommand extends Command
     {
         $time = new \DateTime();
 
-        $output->writeln(sprintf('Run schedule for %s', $time->format('Y-m-d H:i:s')));
+        $output->writeln(sprintf('Run schedule for %s', $time->format('Y-m-d H:i:sO')));
 
         $command = new ScheduleCommand($time);
         $this->commandBus->dispatch($command, true);

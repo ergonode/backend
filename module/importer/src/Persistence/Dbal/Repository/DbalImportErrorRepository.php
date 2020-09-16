@@ -12,6 +12,7 @@ namespace Ergonode\Importer\Persistence\Dbal\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
@@ -154,7 +155,10 @@ class DbalImportErrorRepository implements ImportErrorRepositoryInterface
 
         $this->connection->insert(
             self::TABLE,
-            $importLineArray
+            $importLineArray,
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 

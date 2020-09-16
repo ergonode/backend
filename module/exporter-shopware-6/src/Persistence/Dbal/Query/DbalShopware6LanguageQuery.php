@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6LanguageQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
@@ -43,7 +44,7 @@ class DbalShopware6LanguageQuery implements Shopware6LanguageQueryInterface
             ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
             ->andWhere($query->expr()->lt('cf.update_at', ':updateAt'))
-            ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
+            ->setParameter(':updateAt', $dateTime, Types::DATETIMETZ_MUTABLE)
             ->execute();
     }
 }

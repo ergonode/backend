@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -119,12 +120,15 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'update_at' => new \DateTimeImmutable(),
             ],
             [
                 'product_id' => $productId->getValue(),
                 'channel_id' => $channelId->getValue(),
-            ]
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -143,8 +147,11 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
                 'shopware6_id' => $shopwareId,
                 'product_id' => $productId->getValue(),
                 'channel_id' => $channelId->getValue(),
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]
+                'update_at' => new \DateTimeImmutable(),
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

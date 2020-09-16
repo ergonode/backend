@@ -24,7 +24,7 @@ class ExportLineMapper
         return [
             'export_id' => $line->getExportId()->getValue(),
             'object_id' => $line->getObjectId()->getValue(),
-            'processed_at' => $line->getProcessedAt() ? $line->getProcessedAt()->format('Y-m-d H:i:s') : null,
+            'processed_at' => $line->getProcessedAt(),
             'message' => $line->getError(),
         ];
     }

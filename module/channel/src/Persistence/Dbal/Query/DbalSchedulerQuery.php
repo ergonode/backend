@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Channel\Domain\Query\SchedulerQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Doctrine\DBAL\DBALException;
@@ -79,11 +80,14 @@ class DbalSchedulerQuery implements SchedulerQueryInterface
         $this->connection->update(
             self::TABLE,
             [
-                'last' => $time->format('Y-m-d H:i:s'),
+                'last' => $time,
             ],
             [
                 'id' => $id->getValue(),
-            ]
+            ],
+            [
+                'last' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

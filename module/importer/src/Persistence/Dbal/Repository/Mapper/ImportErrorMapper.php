@@ -32,7 +32,7 @@ class ImportErrorMapper
             'import_id' => $importId,
             'line' => $line,
             'step' => $step,
-            'created_at' => $createdAt->format('Y-m-d H:i:s'),
+            'created_at' => $createdAt,
             'message' => $message,
         ];
     }

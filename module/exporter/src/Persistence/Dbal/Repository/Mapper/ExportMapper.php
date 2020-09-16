@@ -26,8 +26,8 @@ class ExportMapper
             'status' => $export->getStatus(),
             'channel_id' => $export->getChannelId()->getValue(),
             'items' => $export->getItems(),
-            'started_at' => $export->getStartedAt() ? $export->getStartedAt()->format('Y-m-d H:i:s') : null,
-            'ended_at' => $export->getEndedAt() ? $export->getEndedAt()->format('Y-m-d H:i:s') : null,
+            'started_at' => $export->getStartedAt(),
+            'ended_at' => $export->getEndedAt(),
         ];
     }
 }

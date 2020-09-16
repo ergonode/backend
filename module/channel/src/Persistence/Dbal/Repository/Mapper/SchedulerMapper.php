@@ -24,7 +24,7 @@ class SchedulerMapper
         return [
             'id' => $scheduler->getId()->getValue(),
             'active' => $scheduler->isActive(),
-            'start' => $scheduler->getStart() ? $scheduler->getStart()->format('Y-m-d H:i:s') : null,
+            'start' => $scheduler->getStart(),
             'hour' => $scheduler->getHour(),
             'minute' => $scheduler->getMinute(),
         ];
