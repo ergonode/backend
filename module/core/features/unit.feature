@@ -18,6 +18,32 @@ Feature: Core module - unit
     When I send a POST request to "/api/v1/en_GB/units"
     Then the response status code should be 401
 
+  Scenario: Create unit (name duplicated)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
+      """
+      {
+        "name": "New Unit 1",
+        "symbol": "nu2"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create unit (symbol duplicated)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
+      """
+      {
+        "name": "New Unit 2",
+        "symbol": "nu1"
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Create unit (no Name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
