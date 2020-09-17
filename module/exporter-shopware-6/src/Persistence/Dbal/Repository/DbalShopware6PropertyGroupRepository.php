@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
@@ -119,12 +120,15 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'update_at' => new \DateTimeImmutable(),
             ],
             [
                 'attribute_id' => $attributeId->getValue(),
                 'channel_id' => $channelId->getValue(),
-            ]
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -145,8 +149,11 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
                 'attribute_id' => $attributeId->getValue(),
                 'type' => $type,
                 'channel_id' => $channelId->getValue(),
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]
+                'update_at' => new \DateTimeImmutable(),
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

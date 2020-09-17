@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Notification\Infrastructure\Sender\Strategy;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
@@ -56,11 +57,14 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
                 'notification',
                 [
                     'id' => $notificationId,
-                    'created_at' => $notification->getCreatedAt()->format('Y-m-d H:i:s'),
+                    'created_at' => $notification->getCreatedAt(),
                     'message' => $notification->getMessage(),
                     'parameters' => $this->serializer->serialize($notification->getParameters(), 'json'),
                     'author_id' => $notification->getAuthorId() ? $notification->getAuthorId()->getValue() : null,
-                ]
+                ],
+                [
+                    'created_at' => Types::DATETIMETZ_MUTABLE,
+                ],
             );
 
             foreach ($recipients as $recipient) {

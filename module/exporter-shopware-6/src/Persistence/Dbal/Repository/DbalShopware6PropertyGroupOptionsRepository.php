@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
@@ -136,13 +137,16 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'update_at' => new \DateTimeImmutable(),
             ],
             [
                 'attribute_id' => $attributeId->getValue(),
                 'channel_id' => $channelId->getValue(),
                 'option_id' => $optionId->getValue(),
-            ]
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -167,8 +171,11 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
                 'attribute_id' => $attributeId->getValue(),
                 'option_id' => $optionId->getValue(),
                 'channel_id' => $channelId->getValue(),
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]
+                'update_at' => new \DateTimeImmutable(),
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

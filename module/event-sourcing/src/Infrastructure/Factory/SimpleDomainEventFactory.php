@@ -57,7 +57,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
             $id,
             $record['sequence'],
             $this->getEvent($record['event'], $record['payload']),
-            \DateTime::createFromFormat('Y-m-d H:i:s', $record['recorded_at'])
+            new \DateTime($record['recorded_at']),
         );
     }
 

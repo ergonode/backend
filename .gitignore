@@ -13,7 +13,6 @@
 .idea
 .vscode
 /build
-/.phpcs-cache
 /.deptrac.cache
 /.*.pid
 
@@ -29,3 +28,12 @@
 ###> infection/infection ###
 infection.log
 ###< infection/infection ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+phpcs.xml
+###< squizlabs/php_codesniffer ###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
