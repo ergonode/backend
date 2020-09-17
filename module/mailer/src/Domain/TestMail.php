@@ -25,16 +25,15 @@ class TestMail extends Mail
      */
     public function __construct(Email $to, Language $language)
     {
-        $this->createdAt = new DateTime();
-        $this->recipient = new Recipient(new EmailCollection([$to]));
-        $this->sender = new Sender();
-        $this->template = new Template(
+        $recipient = new Recipient(new EmailCollection([$to]));
+        $template = new Template(
             '@ErgonodeMailer/message/test.html.twig',
             $language,
             [
-                'date' => $this->createdAt,
+                'date' => new DateTime(),
             ]
         );
-        $this->subject = 'Ergonode test message';
+
+        parent::__construct($recipient, new Sender(), $template, 'Ergonode test message');
     }
 }

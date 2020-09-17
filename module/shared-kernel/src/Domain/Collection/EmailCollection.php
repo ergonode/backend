@@ -10,39 +10,18 @@ declare(strict_types=1);
 namespace Ergonode\SharedKernel\Domain\Collection;
 
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ramsey\Collection\AbstractCollection;
 
 /**
- * @todo Waiting for decision about collection library
  */
-class EmailCollection
+class EmailCollection extends AbstractCollection
 {
     /**
-     * @var array
+     * @return string
      */
-    private array $data;
-
-    /**
-     * @param array $data
-     */
-    public function __construct(array $data = [])
+    public function getType(): string
     {
-        $this->data = $data;
-    }
-
-    /**
-     * @param Email $item
-     */
-    public function add(Email $item): void
-    {
-        $this->data[] = $item;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEmpty(): bool
-    {
-        return empty($this->data);
+        return Email::class;
     }
 
     /**
@@ -50,11 +29,6 @@ class EmailCollection
      */
     public function asStringArray(): array
     {
-        $array = $this->data;
-        array_walk($array, function (&$item) {
-            $item = (string) $item;
-        });
-
-        return $array;
+        return array_map(fn($item) => (string) $item, $this->data);
     }
 }

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Mailer;
 
-use Ergonode\Mailer\Application\DependencyInjection\CompilerPass\MailerStrategyInterfaceCompilerPass;
 use Ergonode\SharedKernel\Application\AbstractModule;
 
 /**
