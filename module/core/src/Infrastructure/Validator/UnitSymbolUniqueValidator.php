@@ -52,7 +52,7 @@ class UnitSymbolUniqueValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        $value = (string)$value;
+        $value = (string) $value;
 
         $unitId = $this->query->findIdByCode($value);
 
