@@ -56,15 +56,6 @@ class VariableProductForm extends AbstractType implements ProductFormInterface
                 [
                     'property_path' => 'categories',
                 ]
-            )
-            ->add(
-                'bindings',
-                CollectionType::class,
-                [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => TextType::class,
-                ]
             );
     }
 

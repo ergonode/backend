@@ -31,18 +31,8 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
         $product = $this->productRepository->load($command->getId());
         Assert::isInstanceOf($product, VariableProduct::class);
 
-        $bindings = [];
-        foreach ($command->getBindings() as $attributeId) {
-            $binding = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($binding, SelectAttribute::class);
-            $this->attributeRepository->load($attributeId);
-            $bindings[] = $binding;
-        }
-
         $product->changeCategories($command->getCategories());
-        $product->changeBindings($bindings);
         $product = $this->updateAudit($product);
-
 
         $this->productRepository->save($product);
     }
