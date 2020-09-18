@@ -54,7 +54,6 @@ class UnitNameUniqueValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-
         $unitId = $this->query->findIdByName($value);
 
         if ($unitId) {
