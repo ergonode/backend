@@ -34,7 +34,6 @@ class RoleFormModel
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Role description is required")
      * @Assert\Length(
      *     min="3",
      *     max="500",

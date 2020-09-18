@@ -26,11 +26,11 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And remember param "role_nane" with value "Test role (@@random_uuid@@)"
+    And remember param "role_name" with value "Test role (@@random_uuid@@)"
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "@role_nane@",
+         "name": "@role_name@",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
@@ -45,8 +45,7 @@ Feature: Account module
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "@role_nane@",
-         "description": "Test role",
+         "name": "@role_name@",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
@@ -110,7 +109,7 @@ Feature: Account module
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 201
 
   Scenario: Create role (without privileges)
     Given I am Authenticated as "test@ergonode.com"
@@ -165,7 +164,7 @@ Feature: Account module
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 201
 
   Scenario: Create role (empty privileges)
     Given I am Authenticated as "test@ergonode.com"
@@ -278,7 +277,7 @@ Feature: Account module
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 204
 
   Scenario: Update role (without privileges)
     Given I am Authenticated as "test@ergonode.com"
@@ -333,7 +332,7 @@ Feature: Account module
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 204
 
   Scenario: Update role (empty privileges)
     Given I am Authenticated as "test@ergonode.com"
