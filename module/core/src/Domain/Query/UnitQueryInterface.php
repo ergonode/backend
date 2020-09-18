@@ -32,4 +32,11 @@ interface UnitQueryInterface
      * @return UnitId|null
      */
     public function findIdByCode(string $code): ?UnitId;
+
+    /**
+     * @param string $name
+     *
+     * @return UnitId|null
+     */
+    public function findIdByName(string $name): ?UnitId;
 }
