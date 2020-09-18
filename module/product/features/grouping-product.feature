@@ -32,18 +32,6 @@ Feature: Grouping product
     Then the response status code should be 201
     And store response param "id" as "simple_product_id_1"
 
-  Scenario: Create simple product 2
-    When I send a POST request to "/api/v1/en_GB/products" with body:
-      """
-      {
-        "sku": "SKU_@@random_code@@",
-        "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_id@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "simple_product_id_2"
-
   Scenario: Create grouping product
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
@@ -114,14 +102,7 @@ Feature: Grouping product
       """
     Then the response status code should be 204
 
-  Scenario: Add children product to simple product
-    When I send a POST request to "/api/v1/en_GB/products/@simple_product_id_2@/children" with body:
-      """
-      {
-        "child_id": "@simple_product_id_1@"
-      }
-      """
-    Then the response status code should be 400
+
 
   Scenario: Request child grid filtered for given product
     When I send a GET request to "api/v1/en_GB/products/@product_id@/children"
