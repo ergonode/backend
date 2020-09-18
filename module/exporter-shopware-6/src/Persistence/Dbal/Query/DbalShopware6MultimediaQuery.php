@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6MultimediaQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -73,7 +74,7 @@ class DbalShopware6MultimediaQuery implements Shopware6MultimediaQueryInterface
             ->where($query->expr()->eq('m.channel_id', ':channelId'))
             ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->lt('m.update_at', ':updateAt'))
-            ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
+            ->setParameter(':updateAt', $dateTime, Types::DATETIMETZ_MUTABLE)
             ->execute();
     }
 }

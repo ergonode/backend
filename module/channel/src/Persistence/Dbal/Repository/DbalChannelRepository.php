@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Persistence\Dbal\Repository;
 
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
@@ -140,14 +141,17 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     private function update(AbstractChannel $channel): void
     {
         $data = $this->mapper->map($channel);
-        $data['updated_at'] = date('Y-m-d H:i:s');
+        $data['updated_at'] = new \DateTime();
 
         $this->connection->update(
             self::TABLE,
             $data,
             [
                 'id' => $channel->getId()->getValue(),
-            ]
+            ],
+            [
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -158,14 +162,16 @@ class DbalChannelRepository implements ChannelRepositoryInterface
      */
     private function insert(AbstractChannel $channel): void
     {
-        $date = date('Y-m-d H:i:s');
         $data = $this->mapper->map($channel);
-        $data['created_at'] = $date;
-        $data['updated_at'] = $date;
+        $data['created_at'] = $data['updated_at'] = new \DateTime();
 
         $this->connection->insert(
             self::TABLE,
-            $data
+            $data,
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 

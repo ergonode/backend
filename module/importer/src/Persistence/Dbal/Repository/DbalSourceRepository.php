@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
@@ -140,14 +141,17 @@ class DbalSourceRepository implements SourceRepositoryInterface
     private function update(AbstractSource $source): void
     {
         $sourceArray = $this->mapper->map($source);
-        $sourceArray['updated_at'] = date('Y-m-d H:i:s');
+        $sourceArray['updated_at'] = new \DateTime();
 
         $this->connection->update(
             self::TABLE,
             $sourceArray,
             [
                 'id' => $source->getId()->getValue(),
-            ]
+            ],
+            [
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -159,12 +163,15 @@ class DbalSourceRepository implements SourceRepositoryInterface
     private function insert(AbstractSource $source): void
     {
         $sourceArray = $this->mapper->map($source);
-        $sourceArray['created_at'] = date('Y-m-d H:i:s');
-        $sourceArray['updated_at'] = date('Y-m-d H:i:s');
+        $sourceArray['created_at'] = $sourceArray['updated_at'] = new \DateTime();
 
         $this->connection->insert(
             self::TABLE,
-            $sourceArray
+            $sourceArray,
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 

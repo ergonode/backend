@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
@@ -124,14 +125,17 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
             self::TABLE,
             [
                 'shopware6_id' => $shopware6Language->getId(),
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'update_at' => new \DateTimeImmutable(),
                 'locale_id' => $shopware6Language->getLocaleId(),
                 'translation_code_id' => $shopware6Language->getTranslationCodeId(),
             ],
             [
                 'iso' => $shopware6Language->getIso(),
                 'channel_id' => $channelId->getValue(),
-            ]
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -151,8 +155,11 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
                 'iso' => $shopware6Language->getIso(),
                 'locale_id' => $shopware6Language->getLocaleId(),
                 'translation_code_id' => $shopware6Language->getTranslationCodeId(),
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]
+                'update_at' => new \DateTimeImmutable(),
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

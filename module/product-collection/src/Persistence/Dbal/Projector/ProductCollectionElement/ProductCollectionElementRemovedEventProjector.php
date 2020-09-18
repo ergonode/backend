@@ -12,6 +12,7 @@ namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectio
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementRemovedEvent;
 
 /**
@@ -45,11 +46,14 @@ class ProductCollectionElementRemovedEventProjector
         $this->connection->update(
             self::TABLE_COLLECTION,
             [
-                'edited_at' => $event->getCollectionEditedAt()->format('Y-m-d H:i:s'),
+                'edited_at' => $event->getCollectionEditedAt(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
-            ]
+            ],
+            [
+                'edited_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
         $this->connection->delete(
             self::TABLE_ELEMENT,

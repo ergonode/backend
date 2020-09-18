@@ -11,6 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
@@ -134,7 +135,7 @@ class DbalProductQuery implements ProductQueryInterface
         if ($dateTime) {
             $qb
                 ->where($qb->expr()->gte('updated_at', ':updatedAt'))
-                ->setParameter(':updatedAt', $dateTime->format('Y-m-d H:i:s'));
+                ->setParameter(':updatedAt', $dateTime, Types::DATETIMETZ_MUTABLE);
         }
 
         $result = $qb

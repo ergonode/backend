@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Persistence\Dbal\Repository;
 
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Channel\Domain\Entity\Scheduler;
 
 use Doctrine\DBAL\Connection;
@@ -150,6 +151,7 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
             ],
             [
                 'active' => \PDO::PARAM_BOOL,
+                'start' => Types::DATETIMETZ_MUTABLE,
             ]
         );
     }
@@ -168,6 +170,7 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
             $data,
             [
                 'active' => \PDO::PARAM_BOOL,
+                'start' => Types::DATETIMETZ_MUTABLE,
             ]
         );
     }
