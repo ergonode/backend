@@ -23,6 +23,14 @@ class UnitNameUnique extends Constraint
     public string $uniqueMessage = 'The unit name should be unique.';
 
     /**
+     * @return array|string
+     */
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
+
+    /**
      * @return string
      */
     public function validatedBy(): string

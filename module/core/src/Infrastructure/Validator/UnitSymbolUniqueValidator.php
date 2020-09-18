@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Validator;
 
+use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
 use Ergonode\Core\Infrastructure\Validator\Constraint\UnitSymbolUnique;
 use Symfony\Component\Validator\Constraint;
@@ -44,19 +45,17 @@ class UnitSymbolUniqueValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, UnitSymbolUnique::class);
         }
 
-        if (null === $value || '' === $value) {
+        if (!$value instanceof UnitFormModel) {
+            throw new UnexpectedTypeException($value, UnitFormModel::class);
+        }
+
+        if (null === $value->symbol) {
             return;
         }
 
-        if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
-            throw new UnexpectedTypeException($value, 'string');
-        }
+        $unitId = $this->query->findIdByCode($value->symbol);
 
-        $value = (string) $value;
-
-        $unitId = $this->query->findIdByCode($value);
-
-        if ($unitId) {
+        if (null !== $unitId && $unitId != $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueMessage)
                 ->addViolation();
         }
