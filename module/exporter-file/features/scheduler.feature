@@ -46,7 +46,7 @@ Feature: channel module
       """
         {
           "active": "true",
-          "start": "2020-01-01",
+          "start": "2020-01-01T10:00:00Z",
           "hour": 10,
           "minute" : 10
         }
