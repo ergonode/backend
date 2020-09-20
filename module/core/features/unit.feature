@@ -4,11 +4,13 @@ Feature: Core module - unit
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
+    And remember param "unit_name_1" with value "@@random_md5@@"
+    And remember param "symbol_name_1" with value "@@random_symbol@@"
     And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
-        "name": "New Unit 1",
-        "symbol": "nu1"
+        "name": "@unit_name_1@",
+        "symbol": "@symbol_name_1@"
       }
       """
     Then the response status code should be 201
@@ -17,6 +19,32 @@ Feature: Core module - unit
   Scenario: Create unit (not authorized)
     When I send a POST request to "/api/v1/en_GB/units"
     Then the response status code should be 401
+
+  Scenario: Create unit (name duplicated)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
+      """
+      {
+        "name": "@unit_name_1@",
+        "symbol": "@@random_symbol@@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create unit (symbol duplicated)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
+      """
+      {
+        "name": "@@random_md5@@",
+        "symbol": "@symbol_name_1@"
+      }
+      """
+    Then the response status code should be 400
 
   Scenario: Create unit (no Name)
     Given I am Authenticated as "test@ergonode.com"
