@@ -17,6 +17,8 @@ use PHPStan\Testing\TestCase;
  */
 final class TemplateTest extends TestCase
 {
+    /**
+     */
     public function testConstructor(): void
     {
         $path = 'ergonode';

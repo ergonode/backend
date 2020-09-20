@@ -18,6 +18,8 @@ use PHPUnit\Framework\TestCase;
  */
 final class RecipientTest extends TestCase
 {
+    /**
+     */
     public function testConstructor(): void
     {
         $email = new Email('test@ergonode.com');
@@ -34,6 +36,8 @@ final class RecipientTest extends TestCase
         $this->assertCount(0, $recipient->getCc());
     }
 
+    /**
+     */
     public function testAdd(): void
     {
         $email = new Email('test@ergonode.com');

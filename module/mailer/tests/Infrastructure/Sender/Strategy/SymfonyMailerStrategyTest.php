@@ -16,7 +16,6 @@ use Ergonode\Mailer\Domain\Sender;
 use Ergonode\Mailer\Domain\Template;
 use Ergonode\Mailer\Infrastructure\Sender\Strategy\SymfonyMailerStrategy;
 use Ergonode\SharedKernel\Domain\Collection\EmailCollection;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPStan\Testing\TestCase;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Translation\Translator;
@@ -25,6 +24,8 @@ use Symfony\Component\Translation\Translator;
  */
 final class SymfonyMailerStrategyTest extends TestCase
 {
+    /**
+     */
     public function testHandling(): void
     {
         $mailer = $this->createMock(MailerInterface::class);

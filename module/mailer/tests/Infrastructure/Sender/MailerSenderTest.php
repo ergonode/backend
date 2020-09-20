@@ -18,6 +18,8 @@ use PHPUnit\Framework\TestCase;
  */
 final class MailerSenderTest extends TestCase
 {
+    /**
+     */
     public function testHandling(): void
     {
         $strategy = $this->createMock(MailerStrategyInterface::class);
