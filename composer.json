@@ -1,6 +1,8 @@
 {
+    "name": "ergonode/backend",
+    "description": "Ergonode - development backend package",
     "type": "project",
-    "license": "OSL-3",
+    "license": "OSL-3.0",
     "require": {
         "php": "^7.4",
         "ext-ctype": "*",
