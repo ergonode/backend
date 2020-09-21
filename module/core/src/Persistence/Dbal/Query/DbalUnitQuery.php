@@ -81,6 +81,28 @@ class DbalUnitQuery implements UnitQueryInterface
         $qb = $this->getQuery();
         $result = $qb->select('id')
             ->where($qb->expr()->eq('symbol', ':symbol'))
+            ->setParameter(':symbol', $code)
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new UnitId($result);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return UnitId|null
+     */
+    public function findIdByName(string $name): ?UnitId
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('id')
+            ->where($qb->expr()->eq('name', ':name'))
+            ->setParameter(':name', $name)
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);
 
