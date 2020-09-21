@@ -30,6 +30,7 @@ env:
     - APP_ENV=test
     - DATABASE_URL="pgsql://ergonode:123@localhost:5432/ergonode_test?serverVersion=10&charset=utf8"
 script:
+  - composer validate
   - php bin/phing check:style
   - php bin/phing test:unit
   - export DATABASE_URL="pgsql://ergonode:123@localhost:5432/ergonode_test?serverVersion=10&charset=utf8"
