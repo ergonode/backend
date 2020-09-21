@@ -89,7 +89,7 @@ abstract class AbstractValueCommandHandler
         $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
         $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
         $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
-        $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:s'));
+        $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:sO'));
         $this->attributeUpdate($draft, $editedByCode, $editedByValue);
         $this->attributeUpdate($draft, $editedAtCode, $editedAtValue);
     }

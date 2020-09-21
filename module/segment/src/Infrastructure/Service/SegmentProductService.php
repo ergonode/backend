@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Infrastructure\Service;
 
+use Doctrine\DBAL\Types\Types;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Doctrine\DBAL\Connection;
@@ -74,7 +75,7 @@ class SegmentProductService
             self::TABLE,
             [
                 'available' => true,
-                'calculated_at' => (new \DateTime())->format('Y-m-d H:i:s'),
+                'calculated_at' => new \DateTime(),
             ],
             [
                 'segment_id' => $segmentId->getValue(),
@@ -82,6 +83,7 @@ class SegmentProductService
             ],
             [
                 'available' => \PDO::PARAM_BOOL,
+                'calculated_at' => Types::DATETIMETZ_MUTABLE,
             ]
         );
     }
@@ -98,7 +100,7 @@ class SegmentProductService
             self::TABLE,
             [
                 'available' => false,
-                'calculated_at' => (new \DateTime())->format('Y-m-d H:i:s'),
+                'calculated_at' => new \DateTime(),
             ],
             [
                 'segment_id' => $segmentId->getValue(),
@@ -106,6 +108,7 @@ class SegmentProductService
             ],
             [
                 'available' => \PDO::PARAM_BOOL,
+                'calculated_at' => Types::DATETIMETZ_MUTABLE,
             ]
         );
     }

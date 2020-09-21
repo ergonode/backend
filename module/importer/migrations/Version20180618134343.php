@@ -32,8 +32,8 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 type VARCHAR(255) NOT NULL,
                 class VARCHAR(255) NOT NULL,                       
                 configuration JSON NOT NULL,                
-                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,               
+                created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITH TIME ZONE NOT NULL,               
                 PRIMARY KEY(id)
             )
         ');
@@ -45,10 +45,10 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 source_id UUID NOT NULL,
                 transformer_id UUID NOT NULL,
                 file VARCHAR(255) NOT NULL,
-                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                started_at TIMESTAMP WITHOUT TIME ZONE,
-                ended_at TIMESTAMP WITHOUT TIME ZONE,
+                created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                started_at TIMESTAMP WITH TIME ZONE,
+                ended_at TIMESTAMP WITH TIME ZONE,
                 records int NOT NULL DEFAULT 0,
                 PRIMARY KEY(id)
             )
@@ -70,7 +70,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 import_id UUID NOT NULL,
                 step INT NOT NULL,
                 line INT NOT NULL,
-                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                created_at TIMESTAMP WITH TIME ZONE NOT NULL,
                 message TEXT DEFAULT NULL,                    
                 PRIMARY KEY(import_id, step, line)
             )

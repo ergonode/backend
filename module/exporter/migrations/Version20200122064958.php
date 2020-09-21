@@ -66,10 +66,10 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 status VARCHAR(16) NOT NULL,
                 channel_id uuid NOT NULL,
                 items int NOT NULL,
-                created_at timestamp NOT NULL,
-                updated_at timestamp NOT NULL,
-                started_at timestamp NULL,
-                ended_at timestamp NULL,
+                created_at timestamptz NOT NULL,
+                updated_at timestamptz NOT NULL,
+                started_at timestamptz NULL,
+                ended_at timestamptz NULL,
                 PRIMARY KEY (id)
             )
         ');
@@ -83,7 +83,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
             CREATE TABLE exporter.export_line(
                 export_id uuid NOT NULL,
                 object_id uuid NOT NULL,
-                processed_at timestamp NOT NULL,        
+                processed_at timestamptz NOT NULL,        
                 message TEXT DEFAULT NULL,  
                 PRIMARY KEY (export_id, object_id)
             )

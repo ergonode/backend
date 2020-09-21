@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Infrastructure\Snapshot;
 
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Doctrine\DBAL\Connection;
@@ -114,8 +115,11 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
                     'sequence' => $aggregate->getSequence(),
                     'payload' => $payload,
                     'recorded_by' => Uuid::uuid4()->toString(),
-                    'recorded_at' => (new \DateTime())->format('Y-m-d H:i:s'),
-                ]
+                    'recorded_at' => new \DateTime(),
+                ],
+                [
+                    'recorded_at' => Types::DATETIMETZ_MUTABLE,
+                ],
             );
         }
     }

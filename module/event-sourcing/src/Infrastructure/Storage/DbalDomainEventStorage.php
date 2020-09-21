@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Infrastructure\Storage;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface;
 use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
@@ -117,9 +118,12 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                         'sequence' => $envelope->getSequence(),
                         'event_id' => $this->domainEventProvider->provideEventId($envelope->getType()),
                         'payload' => $payload,
-                        'recorded_at' => $envelope->getRecordedAt()->format('Y-m-d H:i:s'),
+                        'recorded_at' => $envelope->getRecordedAt(),
                         'recorded_by' => $userId,
-                    ]
+                    ],
+                    [
+                        'recorded_at' => Types::DATETIMETZ_MUTABLE,
+                    ],
                 );
             }
         });

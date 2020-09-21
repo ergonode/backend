@@ -26,8 +26,8 @@ final class Version20191120151840 extends AbstractErgonodeMigration
                     type VARCHAR(64) NOT NULL,
                     class VARCHAR(255) NOT NULL, 
                     configuration JSONB not null,
-                    created_at timestamp without time zone NOT NULL,
-                    updated_at timestamp without time zone DEFAULT NULL,
+                    created_at timestamp with time zone NOT NULL,
+                    updated_at timestamp with time zone DEFAULT NULL,
                     PRIMARY KEY (id)
                  )'
         );
@@ -36,8 +36,8 @@ final class Version20191120151840 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.scheduler(
                     id uuid NOT NULL,
                     active boolean NOT NULL,
-                    start timestamp without time zone DEFAULT NULL,
-                    last timestamp without time zone DEFAULT NULL,
+                    start timestamp with time zone DEFAULT NULL,
+                    last timestamp with time zone DEFAULT NULL,
                     hour integer DEFAULT NULL, 
                     minute integer DEFAULT NULL,                    
                     PRIMARY KEY (id)

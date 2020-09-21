@@ -37,6 +37,7 @@ class StorageContext implements Context
         $this->addDefinition('random_code', str_replace('-', '_', Uuid::uuid4()));
         $this->addDefinition('random_md5', md5(Uuid::uuid4()->toString()));
         $this->addDefinition('static_uuid', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa');
+        $this->addDefinition('random_symbol', base64_encode(random_bytes(8)));
     }
 
     /**
