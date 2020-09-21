@@ -80,7 +80,7 @@ class RoleChangeAction
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/role")
+     *     @SWG\Schema(ref="#/definitions/role_update")
      * )
      * @SWG\Response(
      *     response=204,

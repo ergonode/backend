@@ -772,7 +772,7 @@ nelmio_api_doc:
                         required: true
                         description: password
                         example: abcd1234
-            role:
+            role_create:
                 type: object
                 properties:
                     name:
@@ -793,6 +793,22 @@ nelmio_api_doc:
                         description: List of role privileges
                         example:
                             [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
+            role_update:
+                type: object
+                properties:
+                    description:
+                        type: string
+                        required: true
+                        description: Role description
+                        example: Role Description
+                    privileges:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: List of role privileges
+                        example:
+                                [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE ]
             conditionset:
                 type: 'object'
                 properties:

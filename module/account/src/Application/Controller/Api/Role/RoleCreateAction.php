@@ -66,7 +66,7 @@ class RoleCreateAction
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/role")
+     *     @SWG\Schema(ref="#/definitions/role_create")
      * )
      * @SWG\Response(
      *     response=200,
