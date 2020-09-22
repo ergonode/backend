@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,14 +8,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Persistence\Dbal\Repository\Factory;
+namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Factory;
 
-use JMS\Serializer\SerializerInterface;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ChannelFactory
+class DbalChannelFactory
 {
     /**
      * @var SerializerInterface

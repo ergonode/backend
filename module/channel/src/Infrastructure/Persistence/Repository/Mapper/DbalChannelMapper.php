@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Persistence\Dbal\Repository\Mapper;
+namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper;
 
-use JMS\Serializer\SerializerInterface;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ChannelMapper
+class DbalChannelMapper
 {
     /**
      * @var SerializerInterface

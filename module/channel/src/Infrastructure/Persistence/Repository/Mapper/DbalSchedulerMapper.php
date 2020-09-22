@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Persistence\Dbal\Repository\Mapper;
+namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Channel\Domain\Entity\Scheduler;
 
 /**
  */
-class SchedulerMapper
+class DbalSchedulerMapper
 {
     /**
      * @param Scheduler $scheduler

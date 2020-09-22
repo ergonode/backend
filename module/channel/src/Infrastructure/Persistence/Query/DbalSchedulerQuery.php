@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Persistence\Dbal\Query;
+namespace Ergonode\Channel\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Channel\Domain\Query\SchedulerQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Doctrine\DBAL\DBALException;
 
 /**
  */
