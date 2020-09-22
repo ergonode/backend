@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 
 /**
@@ -42,12 +43,15 @@ class CommentContentChangedEventProjector
             $this->connection->update(
                 self::TABLE,
                 [
-                    'edited_at' => $event->getEditedAt()->format('Y-m-d H:i:s'),
+                    'edited_at' => $event->getEditedAt(),
                     'content' => $event->getTo(),
                 ],
                 [
                     'id' => $event->getAggregateId()->getValue(),
-                ]
+                ],
+                [
+                    'edited_at' => Types::DATETIMETZ_MUTABLE,
+                ],
             );
         });
     }

@@ -12,6 +12,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\Exporter\Persistence\Dbal\Repository\Factory\ExportLineFactory;
 use Ergonode\Exporter\Persistence\Dbal\Repository\Mapper\ExportLineMapper;
@@ -138,7 +139,10 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
             [
                 'export_id' => $line->getExportId()->getValue(),
                 'object_id' => $line->getObjectId()->getValue(),
-            ]
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
@@ -153,7 +157,10 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
 
         $this->connection->insert(
             self::TABLE,
-            $lineArray
+            $lineArray,
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 

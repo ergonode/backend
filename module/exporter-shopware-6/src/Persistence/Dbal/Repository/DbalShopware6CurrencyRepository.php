@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Doctrine\DBAL\DBALException;
@@ -121,11 +122,14 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'update_at' => new \DateTimeImmutable(),
             ],
             [
                 'iso' => $iso,
                 'channel_id' => $channel->getValue(),
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_IMMUTABLE,
             ]
         );
     }
@@ -145,8 +149,11 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
                 'shopware6_id' => $shopwareId,
                 'iso' => $iso,
                 'channel_id' => $channel->getValue(),
-                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]
+                'update_at' => new \DateTimeImmutable(),
+            ],
+            [
+                'update_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

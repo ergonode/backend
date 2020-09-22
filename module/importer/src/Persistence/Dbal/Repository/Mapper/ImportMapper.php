@@ -28,8 +28,8 @@ class ImportMapper
             'source_id' => $import->getSourceId()->getValue(),
             'transformer_id' => $import->getTransformerId()->getValue(),
             'file' => $import->getFile(),
-            'started_at' => $import->getStartedAt() ? $import->getStartedAt()->format('Y-m-d H:i:s') : null,
-            'ended_at' => $import->getEndedAt() ? $import->getEndedAt()->format('Y-m-d H:i:s') : null,
+            'started_at' => $import->getStartedAt(),
+            'ended_at' => $import->getEndedAt(),
             'records' => $import->getRecords(),
         ];
     }

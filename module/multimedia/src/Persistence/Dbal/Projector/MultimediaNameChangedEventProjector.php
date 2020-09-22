@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 
@@ -47,11 +48,14 @@ class MultimediaNameChangedEventProjector
             self::TABLE,
             [
                 'name' => $event->getName(),
-                'updated_at' => (new \DateTime())->format('Y-m-d H:i:s'),
+                'updated_at' => new \DateTime(),
             ],
             [
                 'id' => $event->getAggregateId(),
-            ]
+            ],
+            [
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

@@ -25,7 +25,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     channel_id uuid NOT NULL,
                     category_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp without time zone NOT NULL,
+                    update_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, category_id)
                 )'
         );
@@ -35,7 +35,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     channel_id uuid NOT NULL,
                     product_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp without time zone NOT NULL,
+                    update_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, product_id)
                 )'
         );
@@ -45,7 +45,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     channel_id uuid NOT NULL,
                     tax  DECIMAL (10, 2) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp without time zone NOT NULL,
+                    update_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, tax)
                 )'
         );
@@ -55,7 +55,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     channel_id uuid NOT NULL,
                     iso varchar(255) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp without time zone NOT NULL,
+                    update_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, iso)
                 )'
         );
@@ -66,7 +66,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     attribute_id uuid NOT NULL,
                     type varchar(36) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp without time zone NOT NULL,
+                    update_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, attribute_id)
                 )'
         );
@@ -77,7 +77,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     attribute_id uuid NOT NULL,
                     option_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp without time zone NOT NULL,
+                    update_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, attribute_id, option_id)
                 )'
         );
@@ -95,7 +95,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     attribute_id uuid NOT NULL,
                     type varchar(36) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp without time zone NOT NULL,
+                    update_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, attribute_id)
                 )'
         );
@@ -107,7 +107,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
 	                locale_id varchar(36) NOT NULL,
 	                translation_code_id varchar(36) NOT NULL,
 	                iso varchar(5) NOT NULL,
-	                update_at timestamp without time zone NOT NULL,
+	                update_at timestamp with time zone NOT NULL,
 	                PRIMARY KEY(channel_id, iso)
 	            )'
         );
@@ -117,7 +117,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     channel_id uuid NOT null,
 	                multimedia_id  uuid NOT null,
 	                shopware6_id varchar(36) NOT null,
-	                update_at timestamp without time zone NOT NULL,
+	                update_at timestamp with time zone NOT NULL,
 	                PRIMARY KEY(channel_id, multimedia_id)
 	            )'
         );

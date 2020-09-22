@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 
 /**
@@ -51,8 +52,11 @@ class MultimediaCreatedEventProjector
                 'size' => $event->getSize(),
                 'mime' => $event->getMime(),
                 'hash' => $event->getHash(),
-                'created_at' => (new \DateTime())->format('Y-m-d H:i:s'),
-            ]
+                'created_at' => new \DateTime(),
+            ],
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

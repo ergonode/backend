@@ -11,6 +11,7 @@ namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectio
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementAddedEvent;
 
 /**
@@ -46,20 +47,24 @@ class ProductCollectionElementAddedEventProjector
                 'product_collection_id' => $event->getAggregateId(),
                 'product_id' => $event->getElement()->getProductId(),
                 'visible' => $event->getElement()->isVisible(),
-                'created_at' => $event->getCurrentDateTime()->format('Y-m-d H:i:s'),
+                'created_at' => $event->getCurrentDateTime(),
             ],
             [
                 'visible' => \PDO::PARAM_BOOL,
+                'created_at' => Types::DATETIMETZ_MUTABLE,
             ]
         );
         $this->connection->update(
             self::TABLE_COLLECTION,
             [
-                'edited_at' => $event->getCurrentDateTime()->format('Y-m-d H:i:s'),
+                'edited_at' => $event->getCurrentDateTime(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
-            ]
+            ],
+            [
+                'edited_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

@@ -148,6 +148,28 @@ class DbalRoleQuery implements RoleQueryInterface
     }
 
     /**
+     * @param string $name
+     *
+     * @return RoleId
+     */
+    public function findIdByRoleName(string $name): ?RoleId
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('id')
+            ->from(self::TABLE)
+            ->where($qb->expr()->eq('name', ':name'))
+            ->setParameter(':name', $name)
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new RoleId($result);
+        }
+
+        return null;
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder

@@ -35,8 +35,8 @@ final class Version20180807065948 extends AbstractErgonodeMigration
                 mime VARCHAR(255) NOT NULL,
                 size INTEGER NOT NULL,
                 hash VARCHAR(128) NOT NULL,
-                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL, 
+                created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITH TIME ZONE DEFAULT NULL, 
                 PRIMARY KEY(id)
             )
         ');

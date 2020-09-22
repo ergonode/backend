@@ -35,8 +35,8 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                     name JSONB NOT NULL, 
                     description JSONB NOT NULL, 
                     type_id uuid NOT NULL,
-                    created_at timestamp without time zone NOT NULL,
-                    edited_at timestamp without time zone DEFAULT NULL,
+                    created_at timestamp with time zone DEFAULT NULL,
+                    edited_at timestamp with time zone DEFAULT NULL,
                     PRIMARY KEY (id)
                  )'
         );
@@ -51,7 +51,7 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                     product_collection_id uuid NOT NULL,
                     product_id uuid NOT NULL,
                     visible BOOLEAN NOT NULL,
-                    created_at timestamp without time zone NOT NULL,
+                    created_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (product_collection_id, product_id)
                  )'
         );

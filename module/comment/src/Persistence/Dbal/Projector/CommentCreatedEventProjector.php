@@ -11,6 +11,7 @@ namespace Ergonode\Comment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
 
 /**
@@ -45,9 +46,12 @@ class CommentCreatedEventProjector
                 'id' => $event->getAggregateId()->getValue(),
                 'author_id' => $event->getAuthorId()->getValue(),
                 'object_id' => $event->getObjectId()->toString(),
-                'created_at' => $event->getCreatedAt()->format('Y-m-d H:i:s'),
+                'created_at' => $event->getCreatedAt(),
                 'content' => $event->getContent(),
-            ]
+            ],
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

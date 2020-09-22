@@ -9,8 +9,8 @@ Feature: Unit attribute manipulation
     And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
-        "name": "New Unit 1",
-        "symbol": "nu1"
+        "name": "@@random_md5@@",
+        "symbol": "@@random_symbol@@"
       }
       """
     Then the response status code should be 201
@@ -20,8 +20,8 @@ Feature: Unit attribute manipulation
     And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
-        "name": "New Unit 2",
-        "symbol": "nu2"
+        "name": "@@random_md5@@",
+        "symbol": "@@random_symbol@@"
       }
       """
     Then the response status code should be 201

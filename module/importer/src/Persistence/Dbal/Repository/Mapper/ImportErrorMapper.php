@@ -28,7 +28,7 @@ class ImportErrorMapper
 
         return [
             'import_id' => $importId,
-            'created_at' => $createdAt->format('Y-m-d H:i:s'),
+            'created_at' => $createdAt,
             'message' => $message,
         ];
     }
