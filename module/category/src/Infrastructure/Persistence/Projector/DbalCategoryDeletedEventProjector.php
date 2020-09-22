@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Persistence\Dbal\Projector;
+namespace Ergonode\Category\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
 
 /**
  */
-class CategoryDeletedEventProjector
+class DbalCategoryDeletedEventProjector
 {
     private const TABLE = 'category';
 

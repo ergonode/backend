@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Persistence\Dbal\Projector\Tree;
+namespace Ergonode\Category\Infrastructure\Persistence\Projector\Tree;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeNameChangedEvent;
@@ -15,7 +15,7 @@ use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class CategoryTreeNameChangedEventProjector
+class DbalCategoryTreeNameChangedEventProjector
 {
     private const TABLE = 'category_tree';
 

@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Persistence\Dbal\Repository;
+namespace Ergonode\Category\Infrastructure\Persistence\Repository;
 
 use Ergonode\Category\Domain\Entity\CategoryTree;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
 
 /**
