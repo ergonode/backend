@@ -7,16 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Comment\Persistence\Dbal\Projector;
+namespace Ergonode\Comment\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Types\Types;
-use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
+use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 
 /**
  */
-class CommentCreatedEventProjector
+class CommentDeletedEventProjector
 {
     private const TABLE = 'comment';
 
@@ -34,24 +33,17 @@ class CommentCreatedEventProjector
     }
 
     /**
-     * @param CommentCreatedEvent $event
+     * @param CommentDeletedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(CommentCreatedEvent $event): void
+    public function __invoke(CommentDeletedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->delete(
             self::TABLE,
             [
                 'id' => $event->getAggregateId()->getValue(),
-                'author_id' => $event->getAuthorId()->getValue(),
-                'object_id' => $event->getObjectId()->toString(),
-                'created_at' => $event->getCreatedAt(),
-                'content' => $event->getContent(),
-            ],
-            [
-                'created_at' => Types::DATETIMETZ_MUTABLE,
-            ],
+            ]
         );
     }
 }

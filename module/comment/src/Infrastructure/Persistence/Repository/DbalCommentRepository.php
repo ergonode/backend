@@ -7,16 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Comment\Persistence\Dbal\Repository;
+namespace Ergonode\Comment\Infrastructure\Persistence\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Webmozart\Assert\Assert;
-use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -34,7 +34,6 @@ class DbalCommentRepository implements CommentRepositoryInterface
     {
         $this->manager = $manager;
     }
-
 
     /**
      * @param CommentId $id

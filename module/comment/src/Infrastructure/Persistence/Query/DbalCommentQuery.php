@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Comment\Persistence\Dbal\Query;
+namespace Ergonode\Comment\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Comment\Domain\Query\CommentQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\Comment\Domain\Query\CommentQueryInterface;
 
 /**
  */
