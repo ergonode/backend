@@ -49,7 +49,7 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     private DbalChannelMapper $mapper;
 
     /**
-     * @param Connection     $connection
+     * @param Connection         $connection
      * @param DbalChannelFactory $factory
      * @param DbalChannelMapper  $mapper
      */

@@ -49,7 +49,7 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
     private DbalSchedulerMapper $mapper;
 
     /**
-     * @param Connection       $connection
+     * @param Connection           $connection
      * @param DbalSchedulerFactory $factory
      * @param DbalSchedulerMapper  $mapper
      */
