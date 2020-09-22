@@ -41,6 +41,7 @@ class ProductModel
     {
         $this->sku = $sku;
         $this->type = $type;
+        $this->versions = [];
         $this->template = $template;
     }
 

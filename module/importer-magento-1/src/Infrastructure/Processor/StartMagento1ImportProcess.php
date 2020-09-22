@@ -104,9 +104,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
                 $result[] = $product;
                 $product = $this->reader->read($transformer);
             }
-        } catch (ImportException $exception) {
-            $message = $exception->getMessage();
-        } catch (ReaderException $exception) {
+        } catch (ImportException|ReaderException $exception) {
             $message = $exception->getMessage();
         } catch (\Throwable $exception) {
             $message = 'Import processing error';
