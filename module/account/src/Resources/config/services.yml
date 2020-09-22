@@ -4,9 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Ergonode\Account\Infrastructure\Persistence\:
-        resource: '../../Infrastructure/Persistence/*'
-
     Ergonode\Account\Application\:
         resource: '../../Application/*'
 
