@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Persistence\Dbal\Repository;
+namespace Ergonode\Condition\Infrastructure\Persistence\Repository;
 
 use Ergonode\Condition\Domain\Entity\ConditionSet;
-use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Webmozart\Assert\Assert;
-use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 
 /**
  */

@@ -7,16 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Persistence\Dbal\Projector;
+namespace Ergonode\Condition\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
+use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ConditionSetConditionsChangedEventProjector
+class DbalConditionSetCreatedEventProjector
 {
     private const TABLE = 'condition_set';
 
@@ -41,19 +41,17 @@ class ConditionSetConditionsChangedEventProjector
     }
 
     /**
-     * @param ConditionSetConditionsChangedEvent $event
+     * @param ConditionSetCreatedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ConditionSetConditionsChangedEvent $event): void
+    public function __invoke(ConditionSetCreatedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->insert(
             self::TABLE,
             [
-                'conditions' => $this->serializer->serialize($event->getTo(), 'json'),
-            ],
-            [
                 'id' => $event->getAggregateId()->getValue(),
+                'conditions' => $this->serializer->serialize($event->getConditions(), 'json'),
             ]
         );
     }
