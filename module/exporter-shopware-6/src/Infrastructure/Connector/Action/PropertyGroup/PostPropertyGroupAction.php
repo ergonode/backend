@@ -84,7 +84,6 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
     {
         $serializer = SerializerBuilder::create()->build();
 
-        // TODO
         return $serializer->serialize($this->propertyGroup, 'json');
     }
 
