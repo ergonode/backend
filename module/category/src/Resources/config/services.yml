@@ -4,9 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Ergonode\Category\Infrastructure\Persistence\:
-        resource: '../../Infrastructure/Persistence/*'
-
     Ergonode\Category\Application\:
         resource: '../../Application/*'
         exclude: '../../Domain/{Model}'
