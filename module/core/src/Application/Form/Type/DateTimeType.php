@@ -14,6 +14,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ */
 class DateTimeType extends AbstractType
 {
     /**
@@ -23,8 +25,9 @@ class DateTimeType extends AbstractType
     {
         $builder->addModelTransformer(new DateTimeTransformer());
     }
+
     /**
-     * @param OptionsResolver $resolver
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Form;
 
 use Symfony\Component\Form\AbstractType;
-//use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Ergonode\Core\Application\Form\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,15 +35,6 @@ class SchedulerForm extends AbstractType
             ->add(
                 'start',
                 DateTimeType::class,
-//                $builder->create(
-//                    'start',
-//                    DateTimeType::class,
-////                    [
-////                        'widget' => 'single_text',
-////                    ],
-//                )
-//                ->resetViewTransformers()
-//                ->addModelTransformer(new \Ergonode\Core\Application\Form\DataTransformer\DateTimeTransformer()),
             )
             ->add(
                 'hour',
