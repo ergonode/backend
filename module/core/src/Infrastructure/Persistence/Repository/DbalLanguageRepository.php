@@ -7,12 +7,11 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Repository;
+namespace Ergonode\Core\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery;
 
 /**
  */
@@ -24,19 +23,13 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
      * @var Connection
      */
     private Connection $connection;
-    /**
-     * @var DbalLanguageQuery
-     */
-    private DbalLanguageQuery $query;
 
     /**
-     * @param Connection        $connection
-     * @param DbalLanguageQuery $query
+     * @param Connection $connection
      */
-    public function __construct(Connection $connection, DbalLanguageQuery $query)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->query = $query;
     }
 
     /**

@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Repository;
+namespace Ergonode\Core\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Ergonode\Core\Infrastructure\Builder\LanguageTree\LanguageTreeBuilder;
-use Ergonode\Core\Persistence\Dbal\Repository\Factory\LanguageTreeFactory;
+use Ergonode\Core\Infrastructure\Persistence\Repository\Factory\DbalLanguageTreeFactory;
 
 /**
  */
@@ -32,16 +32,16 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
     private LanguageTreeBuilder $builder;
 
     /**
-     * @var LanguageTreeFactory
+     * @var DbalLanguageTreeFactory
      */
-    private LanguageTreeFactory $factory;
+    private DbalLanguageTreeFactory $factory;
 
     /**
-     * @param Connection          $connection
-     * @param LanguageTreeBuilder $builder
-     * @param LanguageTreeFactory $factory
+     * @param Connection              $connection
+     * @param LanguageTreeBuilder     $builder
+     * @param DbalLanguageTreeFactory $factory
      */
-    public function __construct(Connection $connection, LanguageTreeBuilder $builder, LanguageTreeFactory $factory)
+    public function __construct(Connection $connection, LanguageTreeBuilder $builder, DbalLanguageTreeFactory $factory)
     {
         $this->connection = $connection;
         $this->builder = $builder;

@@ -7,15 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Projector\Unit;
+namespace Ergonode\Core\Infrastructure\Persistence\Projector\Unit;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Core\Domain\Event\UnitNameChangedEvent;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Ergonode\Core\Domain\Event\UnitDeletedEvent;
 
 /**
  */
-class UnitNameChangedEventProjector
+class DbalUnitDeletedEventProjector
 {
     private const TABLE = 'unit';
 
@@ -33,17 +34,15 @@ class UnitNameChangedEventProjector
     }
 
     /**
-     * @param UnitNameChangedEvent $event
+     * @param UnitDeletedEvent $event
      *
      * @throws DBALException
+     * @throws InvalidArgumentException
      */
-    public function __invoke(UnitNameChangedEvent $event): void
+    public function __invoke(UnitDeletedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->delete(
             self::TABLE,
-            [
-                'name' => $event->getTo(),
-            ],
             [
                 'id' => $event->getAggregateId()->getValue(),
             ]

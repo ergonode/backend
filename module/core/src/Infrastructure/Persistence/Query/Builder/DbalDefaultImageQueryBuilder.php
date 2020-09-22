@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Query\Builder;
+namespace Ergonode\Core\Infrastructure\Persistence\Query\Builder;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface;
@@ -16,7 +16,6 @@ use Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface;
  */
 class DbalDefaultImageQueryBuilder implements DefaultImageQueryBuilderInterface
 {
-
     /**
      * @param QueryBuilder $query
      * @param int          $lft
