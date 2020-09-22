@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\Role;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\Role\RoleDescriptionChangedEvent;
+use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 
 /**
  */
-class RoleDescriptionChangedEventProjector
+class DbalRoleDeletedEventProjector
 {
     private const TABLE = 'roles';
 
@@ -33,17 +33,14 @@ class RoleDescriptionChangedEventProjector
     }
 
     /**
-     * @param RoleDescriptionChangedEvent $event
+     * @param RoleDeletedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(RoleDescriptionChangedEvent $event): void
+    public function __invoke(RoleDeletedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->delete(
             self::TABLE,
-            [
-                'description' => $event->getTo(),
-            ],
             [
                 'id' => $event->getAggregateId()->getValue(),
             ]

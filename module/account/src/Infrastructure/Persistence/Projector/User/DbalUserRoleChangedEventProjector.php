@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 
 /**
  */
-class RoleNameChangedEventProjector
+class DbalUserRoleChangedEventProjector
 {
-    private const TABLE = 'roles';
+    private const TABLE = 'users';
 
     /**
      * @var Connection
@@ -33,16 +33,16 @@ class RoleNameChangedEventProjector
     }
 
     /**
-     * @param RoleNameChangedEvent $event
+     * @param UserRoleChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(RoleNameChangedEvent $event): void
+    public function __invoke(UserRoleChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'name' => $event->getTo(),
+                'role_id' => $event->getTo()->getValue(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

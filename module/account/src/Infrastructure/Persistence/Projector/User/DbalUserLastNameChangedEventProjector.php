@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\User;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,7 +15,7 @@ use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 
 /**
  */
-class UserLastNameChangedEventProjector
+class DbalUserLastNameChangedEventProjector
 {
     private const TABLE = 'users';
 
