@@ -15,7 +15,7 @@ use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 
 /**
  */
-class CommentContentChangedEventProjector
+class DbalCommentContentChangedEventProjector
 {
     private const TABLE = 'comment';
 
