@@ -7,12 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Editor\Persistence\Projector;
+namespace Ergonode\Editor\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -21,7 +21,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductDraftValueChangedEventProjector
+class DbalProductDraftValueAddedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
@@ -39,18 +39,16 @@ class ProductDraftValueChangedEventProjector
     }
 
     /**
-     * @param ProductDraftValueChanged $event
+     * @param ProductDraftValueAdded $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductDraftValueChanged $event): void
+    public function __invoke(ProductDraftValueAdded $event): void
     {
         $draftId = $event->getAggregateId()->getValue();
         $elementId = AttributeId::fromKey($event->getAttributeCode()->getValue())->getValue();
-
         $value = $event->getTo();
 
-        $this->delete($draftId, $elementId);
         $this->insertValue($draftId, $elementId, $value);
     }
 
@@ -76,26 +74,8 @@ class ProductDraftValueChangedEventProjector
                 $this->insert($draftId, $elementId, $phrase, $language);
             }
         } else {
-            throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue()))));
+            throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value))));
         }
-    }
-
-    /**
-     * @param string $draftId
-     * @param string $elementId
-     *
-     * @throws DBALException
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
-     */
-    private function delete(string $draftId, string $elementId): void
-    {
-        $this->connection->delete(
-            self::DRAFT_VALUE_TABLE,
-            [
-                'draft_id' => $draftId,
-                'element_id' => $elementId,
-            ]
-        );
     }
 
     /**

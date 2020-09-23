@@ -7,12 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Editor\Persistence\Query;
+namespace Ergonode\Editor\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
-use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
