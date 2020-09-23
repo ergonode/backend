@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
+namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Doctrine\DBAL\DBALException;
 
 /**
  */

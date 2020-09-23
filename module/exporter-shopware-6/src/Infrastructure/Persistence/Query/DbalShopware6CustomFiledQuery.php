@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Persistence\Dbal\Query;
+namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
