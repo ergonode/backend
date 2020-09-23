@@ -7,12 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Query;
+namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */

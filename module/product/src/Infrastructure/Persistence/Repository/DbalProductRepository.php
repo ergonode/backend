@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Repository;
+namespace Ergonode\Product\Infrastructure\Persistence\Repository;
 
+use Doctrine\DBAL\DBALException;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
-use Doctrine\DBAL\DBALException;
 
 /**
  */

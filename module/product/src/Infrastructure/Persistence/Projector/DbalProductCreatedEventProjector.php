@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector;
+namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -22,7 +22,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductCreatedEventProjector
+class DbalProductCreatedEventProjector
 {
     private const NAMESPACE = 'cb2600df-94fb-4755-9e6a-a15591a8e510';
     private const TABLE_PRODUCT = 'product';

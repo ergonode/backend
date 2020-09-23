@@ -7,16 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector;
+namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class ProductValueRemovedEventProjector
+class DbalProductValueRemovedEventProjector
 {
     private const TABLE_PRODUCT_VALUE = 'product_value';
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Query;
+namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -20,6 +21,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 class DbalProductCategoryQuery implements ProductCategoryQueryInterface
 {
     private const PRODUCT_CATEGORY_TABLE = 'public.product_category';
+
     /**
      * @var Connection
      */
