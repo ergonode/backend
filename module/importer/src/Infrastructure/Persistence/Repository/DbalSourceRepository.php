@@ -48,7 +48,7 @@ class DbalSourceRepository implements SourceRepositoryInterface
     private DbalSourceMapper $mapper;
 
     /**
-     * @param Connection    $connection
+     * @param Connection        $connection
      * @param DbalSourceFactory $factory
      * @param DbalSourceMapper  $mapper
      */

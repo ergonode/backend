@@ -48,7 +48,7 @@ class DbalImportErrorRepository implements ImportErrorRepositoryInterface
     private DbalImportErrorMapper $mapper;
 
     /**
-     * @param Connection         $connection
+     * @param Connection             $connection
      * @param DbalImportErrorFactory $factory
      * @param DbalImportErrorMapper  $mapper
      */

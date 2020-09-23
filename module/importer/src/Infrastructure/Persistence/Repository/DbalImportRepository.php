@@ -52,7 +52,7 @@ class DbalImportRepository implements ImportRepositoryInterface
     private DbalImportMapper $mapper;
 
     /**
-     * @param Connection    $connection
+     * @param Connection        $connection
      * @param DbalImportFactory $factory
      * @param DbalImportMapper  $mapper
      */
