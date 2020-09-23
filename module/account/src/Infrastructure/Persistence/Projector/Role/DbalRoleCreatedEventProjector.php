@@ -7,18 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\User;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\Role;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEvent;
+use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class UserLanguagePrivilegesCollectionChangedEventProjector
+class DbalRoleCreatedEventProjector
 {
-    private const TABLE = 'users';
+    private const TABLE = 'roles';
 
     /**
      * @var Connection
@@ -41,19 +40,23 @@ class UserLanguagePrivilegesCollectionChangedEventProjector
     }
 
     /**
-     * @param UserLanguagePrivilegesCollectionChangedEvent $event
+     * @param RoleCreatedEvent $event
      *
-     * @throws DBALException
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function __invoke(UserLanguagePrivilegesCollectionChangedEvent $event): void
+    public function __invoke(RoleCreatedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->insert(
             self::TABLE,
             [
-                'language_privileges_collection' => $this->serializer->serialize($event->getTo(), 'json'),
+                'id' => $event->getAggregateId()->getValue(),
+                'name' => $event->getName(),
+                'description' => $event->getDescription(),
+                'privileges' => $this->serializer->serialize($event->getPrivileges(), 'json'),
+                'hidden' => $event->isHidden(),
             ],
             [
-                'id' => $event->getAggregateId()->getValue(),
+                'hidden' => \PDO::PARAM_BOOL,
             ]
         );
     }

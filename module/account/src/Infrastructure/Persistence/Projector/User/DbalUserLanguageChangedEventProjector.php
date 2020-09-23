@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\User;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserAvatarDeletedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 
 /**
  */
-class UserAvatarDeletedEventProjector
+class DbalUserLanguageChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -33,16 +33,16 @@ class UserAvatarDeletedEventProjector
     }
 
     /**
-     * @param UserAvatarDeletedEvent $event
+     * @param UserLanguageChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UserAvatarDeletedEvent $event): void
+    public function __invoke(UserLanguageChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'avatar_filename' => null,
+                'language' => $event->getTo()->getCode(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

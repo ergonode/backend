@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
+use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
 
 /**
  */
-class RoleDeletedEventProjector
+class DbalUserAvatarChangedEventProjector
 {
-    private const TABLE = 'roles';
+    private const TABLE = 'users';
 
     /**
      * @var Connection
@@ -33,14 +33,17 @@ class RoleDeletedEventProjector
     }
 
     /**
-     * @param RoleDeletedEvent $event
+     * @param UserAvatarChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(RoleDeletedEvent $event): void
+    public function __invoke(UserAvatarChangedEvent $event): void
     {
-        $this->connection->delete(
+        $this->connection->update(
             self::TABLE,
+            [
+                'avatar_filename' => $event->getAvatarFilename(),
+            ],
             [
                 'id' => $event->getAggregateId()->getValue(),
             ]
