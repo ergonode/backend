@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\User;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 
 /**
  */
-class UserFirstNameChangedEventProjector
+class DbalUserDeactivatedEventProjector
 {
     private const TABLE = 'users';
 
@@ -33,19 +33,22 @@ class UserFirstNameChangedEventProjector
     }
 
     /**
-     * @param UserFirstNameChangedEvent $event
+     * @param UserDeactivatedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UserFirstNameChangedEvent $event): void
+    public function __invoke(UserDeactivatedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'first_name' => $event->getTo(),
+                'is_active' => false,
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
+            ],
+            [
+                'is_active' => \PDO::PARAM_BOOL,
             ]
         );
     }

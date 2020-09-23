@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\User;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 
 /**
  */
-class UserPasswordChangedEventProjector
+class DbalUserFirstNameChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -33,16 +33,16 @@ class UserPasswordChangedEventProjector
     }
 
     /**
-     * @param UserPasswordChangedEvent $event
+     * @param UserFirstNameChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UserPasswordChangedEvent $event): void
+    public function __invoke(UserFirstNameChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'password' => $event->getPassword(),
+                'first_name' => $event->getTo(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

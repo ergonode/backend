@@ -7,15 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\Role;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
+use Doctrine\DBAL\DBALException;
+use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class RoleCreatedEventProjector
+class DbalRolePrivilegesChangedEventProjector
 {
     private const TABLE = 'roles';
 
@@ -40,23 +41,19 @@ class RoleCreatedEventProjector
     }
 
     /**
-     * @param RoleCreatedEvent $event
+     * @param RolePrivilegesChangedEvent $event
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
-    public function __invoke(RoleCreatedEvent $event): void
+    public function __invoke(RolePrivilegesChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
-                'id' => $event->getAggregateId()->getValue(),
-                'name' => $event->getName(),
-                'description' => $event->getDescription(),
-                'privileges' => $this->serializer->serialize($event->getPrivileges(), 'json'),
-                'hidden' => $event->isHidden(),
+                'privileges' => $this->serializer->serialize($event->getTo(), 'json'),
             ],
             [
-                'hidden' => \PDO::PARAM_BOOL,
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

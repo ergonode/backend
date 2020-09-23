@@ -5,13 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-namespace Ergonode\Account\Persistence\Dbal\Repository;
+namespace Ergonode\Account\Infrastructure\Persistence\Repository;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Webmozart\Assert\Assert;
 
 /**

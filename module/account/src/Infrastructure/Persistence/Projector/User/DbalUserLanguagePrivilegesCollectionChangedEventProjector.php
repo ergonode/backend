@@ -7,18 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class RolePrivilegesChangedEventProjector
+class DbalUserLanguagePrivilegesCollectionChangedEventProjector
 {
-    private const TABLE = 'roles';
+    private const TABLE = 'users';
 
     /**
      * @var Connection
@@ -41,16 +41,16 @@ class RolePrivilegesChangedEventProjector
     }
 
     /**
-     * @param RolePrivilegesChangedEvent $event
+     * @param UserLanguagePrivilegesCollectionChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(RolePrivilegesChangedEvent $event): void
+    public function __invoke(UserLanguagePrivilegesCollectionChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'privileges' => $this->serializer->serialize($event->getTo(), 'json'),
+                'language_privileges_collection' => $this->serializer->serialize($event->getTo(), 'json'),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

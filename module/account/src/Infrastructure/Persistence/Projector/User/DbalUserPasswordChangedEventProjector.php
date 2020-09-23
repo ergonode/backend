@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\User;
+namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 
 /**
  */
-class UserAvatarChangedEventProjector
+class DbalUserPasswordChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -33,16 +33,16 @@ class UserAvatarChangedEventProjector
     }
 
     /**
-     * @param UserAvatarChangedEvent $event
+     * @param UserPasswordChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UserAvatarChangedEvent $event): void
+    public function __invoke(UserPasswordChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'avatar_filename' => $event->getAvatarFilename(),
+                'password' => $event->getPassword(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

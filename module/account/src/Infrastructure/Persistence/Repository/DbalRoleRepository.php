@@ -5,16 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-namespace Ergonode\Account\Persistence\Dbal\Repository;
+namespace Ergonode\Account\Infrastructure\Persistence\Repository;
 
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Webmozart\Assert\Assert;
-use Doctrine\DBAL\DBALException;
 
 /**
  */
