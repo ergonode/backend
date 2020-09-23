@@ -7,24 +7,22 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Projector\Unit;
+namespace Ergonode\Core\Infrastructure\Persistence\Projector\Unit;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Exception\InvalidArgumentException;
-use Ergonode\Core\Domain\Event\UnitDeletedEvent;
+use Ergonode\Core\Domain\Event\UnitCreatedEvent;
 
 /**
  */
-class UnitDeletedEventProjector
+class DbalUnitCreatedEventProjector
 {
-    private const TABLE = 'unit';
+    private const TABLE = 'public.unit';
 
     /**
      * @var Connection
      */
     private Connection $connection;
-
 
     /**
      * @param Connection $connection
@@ -35,17 +33,18 @@ class UnitDeletedEventProjector
     }
 
     /**
-     * @param UnitDeletedEvent $event
+     * @param UnitCreatedEvent $event
      *
      * @throws DBALException
-     * @throws InvalidArgumentException
      */
-    public function __invoke(UnitDeletedEvent $event): void
+    public function __invoke(UnitCreatedEvent $event): void
     {
-        $this->connection->delete(
+        $this->connection->insert(
             self::TABLE,
             [
-                'id' => $event->getAggregateId()->getValue(),
+                'id' => $event->getAggregateId(),
+                'name' => $event->getName(),
+                'symbol' => $event->getSymbol(),
             ]
         );
     }

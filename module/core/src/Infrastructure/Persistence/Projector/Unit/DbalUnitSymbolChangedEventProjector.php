@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Projector\Unit;
+namespace Ergonode\Core\Infrastructure\Persistence\Projector\Unit;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\Event\UnitSymbolChangedEvent;
 
 /**
  */
-class UnitSymbolChangedEventProjector
+class DbalUnitSymbolChangedEventProjector
 {
     private const TABLE = 'unit';
 

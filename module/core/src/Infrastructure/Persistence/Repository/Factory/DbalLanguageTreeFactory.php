@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Repository\Factory;
+namespace Ergonode\Core\Infrastructure\Persistence\Repository\Factory;
 
 use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
@@ -14,7 +15,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
 /**
  */
-class LanguageTreeFactory
+class DbalLanguageTreeFactory
 {
     /**
      * @param array $data
@@ -31,6 +32,7 @@ class LanguageTreeFactory
                 $root = $row['id'];
             }
         }
+
         foreach ($data as $row) {
             if ($row['parent_id']) {
                 $node[$row['parent_id']]->addChild($node[$row['id']]);

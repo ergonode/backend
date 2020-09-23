@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Projector\Unit;
+namespace Ergonode\Core\Infrastructure\Persistence\Projector\Unit;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Core\Domain\Event\UnitCreatedEvent;
+use Ergonode\Core\Domain\Event\UnitNameChangedEvent;
 
 /**
  */
-class UnitCreatedEventProjector
+class DbalUnitNameChangedEventProjector
 {
-    private const TABLE = 'public.unit';
+    private const TABLE = 'unit';
 
     /**
      * @var Connection
@@ -33,18 +33,19 @@ class UnitCreatedEventProjector
     }
 
     /**
-     * @param UnitCreatedEvent $event
+     * @param UnitNameChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UnitCreatedEvent $event): void
+    public function __invoke(UnitNameChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
-                'id' => $event->getAggregateId(),
-                'name' => $event->getName(),
-                'symbol' => $event->getSymbol(),
+                'name' => $event->getTo(),
+            ],
+            [
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

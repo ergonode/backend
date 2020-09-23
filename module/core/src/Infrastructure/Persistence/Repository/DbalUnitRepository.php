@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Repository;
+namespace Ergonode\Core\Infrastructure\Persistence\Repository;
 
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Event\UnitDeletedEvent;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Webmozart\Assert\Assert;
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Exception\InvalidArgumentException;
 
 /**
  */
