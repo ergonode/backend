@@ -102,7 +102,7 @@ class RoleChangeAction
     public function __invoke(Role $role, Request $request): Response
     {
         try {
-            $model = new RoleFormModel();
+            $model = new RoleFormModel($role->getId());
             $form = $this->formFactory->create(RoleForm::class, $model, ['method' => Request::METHOD_PUT]);
 
             $form->handleRequest($request);

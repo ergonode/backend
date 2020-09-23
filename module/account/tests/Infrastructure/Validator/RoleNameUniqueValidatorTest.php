@@ -9,11 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Infrastructure\Validator;
 
+use Ergonode\Account\Application\Form\Model\RoleFormModel;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Account\Infrastructure\Validator\RoleNameUnique;
 use Ergonode\Account\Infrastructure\Validator\RoleNameUniqueValidator;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use PHPUnit\Framework\MockObject\MockObject;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
@@ -56,8 +58,11 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectEmptyValidation(): void
     {
-        $this->validator->validate('', new RoleNameUnique());
+        $model = $this->createMock(RoleFormModel::class);
+        $model->name = 'name';
+        $this->query->method('findIdByRoleName')->willReturn(null);
 
+        $this->validator->validate($model, new RoleNameUnique());
         $this->assertNoViolation();
     }
 
@@ -65,10 +70,14 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     public function testRoleNameExistsValidation(): void
     {
+        $uuid = Uuid::uuid4()->toString();
+        $model = $this->createMock(RoleFormModel::class);
+        $model->name = 'name';
+        $model->method('getRoleId')->willReturn(new RoleId($uuid));
         $this->query->method('findIdByRoleName')->willReturn($this->createMock(RoleId::class));
         $constraint = new RoleNameUnique();
-        $value = 'value';
-        $this->validator->validate($value, $constraint);
+
+        $this->validator->validate($model, $constraint);
 
         $assertion = $this->buildViolation($constraint->uniqueMessage);
         $assertion->assertRaised();
