@@ -7,23 +7,22 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Persistence\Dbal\Projector;
+namespace Ergonode\Category\Infrastructure\Persistence\Projector\Tree;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
+use Ergonode\Category\Domain\Event\Tree\CategoryTreeCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class CategoryNameChangedEventProjector
+class DbalCategoryTreeCreatedEventProjector
 {
-    private const TABLE = 'category';
+    protected const TABLE = 'category_tree';
 
     /**
      * @var Connection
      */
-    private Connection $connection;
+    protected Connection $connection;
 
     /**
      * @var SerializerInterface
@@ -41,19 +40,16 @@ class CategoryNameChangedEventProjector
     }
 
     /**
-     * @param CategoryNameChangedEvent $event
-     *
-     * @throws DBALException
+     * {@inheritDoc}
      */
-    public function __invoke(CategoryNameChangedEvent $event): void
+    public function __invoke(CategoryTreeCreatedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->insert(
             self::TABLE,
             [
-                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
-            ],
-            [
                 'id' => $event->getAggregateId()->getValue(),
+                'code' => $event->getCode(),
+                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
             ]
         );
     }
