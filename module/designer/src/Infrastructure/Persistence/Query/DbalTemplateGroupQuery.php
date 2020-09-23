@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Query;
+namespace Ergonode\Designer\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -33,8 +33,6 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
     private Connection $connection;
 
     /**
-     * DesignerGroupQueryInterface constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)

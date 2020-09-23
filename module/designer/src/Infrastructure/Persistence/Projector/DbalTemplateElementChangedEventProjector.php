@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Projector;
+namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
+use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class TemplateElementAddedEventProjector
+class DbalTemplateElementChangedEventProjector
 {
     private const ELEMENT_TABLE = 'designer.template_element';
 
@@ -42,18 +42,20 @@ class TemplateElementAddedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateElementAddedEvent $event): void
+    public function __invoke(TemplateElementChangedEvent $event): void
     {
         $element = $event->getElement();
-        $this->connection->insert(
+        $this->connection->update(
             self::ELEMENT_TABLE,
+            [
+                'width' => $element->getSize()->getWidth(),
+                'height' => $element->getSize()->getHeight(),
+                'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
+            ],
             [
                 'template_id' => $event->getAggregateId()->getValue(),
                 'x' => $element->getPosition()->getX(),
                 'y' => $element->getPosition()->getY(),
-                'width' => $element->getSize()->getWidth(),
-                'height' => $element->getSize()->getHeight(),
-                'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
             ]
         );
     }

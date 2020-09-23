@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Projector;
+namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateGroupChangedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultImageRemovedEvent;
 
 /**
  */
-class TemplateGroupChangedEventProjector
+class DbalTemplateDefaultImageRemovedEventProjector
 {
     private const TABLE = 'designer.template';
 
@@ -34,12 +34,12 @@ class TemplateGroupChangedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateGroupChangedEvent $event): void
+    public function __invoke(TemplateDefaultImageRemovedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'template_group_id' => $event->getNew()->getValue(),
+                'default_image' => null,
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

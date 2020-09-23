@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Projector;
+namespace Ergonode\Designer\Infrastructure\Persistence\Projector\Group;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
+use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
 
 /**
  */
-class TemplateCreatedEventProjector
+class DbalTemplateGroupCreatedEventProjector
 {
     private const TABLE = 'designer.template';
 
@@ -34,17 +34,13 @@ class TemplateCreatedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateCreatedEvent $event): void
+    public function __invoke(TemplateGroupCreatedEvent $event): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'name' => $event->getName(),
-                'default_label' => $event->getDefaultLabel() ? $event->getDefaultLabel()->getValue() : null,
-                'default_image' => $event->getDefaultImage() ? $event->getDefaultImage()->getValue() : null,
-                'image_id' => $event->getImageId() ? $event->getImageId()->getValue() : null,
-                'template_group_id' => $event->getGroupId()->getValue(),
             ]
         );
     }

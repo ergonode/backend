@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Projector;
+namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateDefaultLabelRemovedEvent;
 
 /**
  */
-class TemplateDefaultLabelRemovedEventProjector
+class DbalTemplateDefaultLabelRemovedEventProjector
 {
     private const TABLE = 'designer.template';
 
