@@ -7,18 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Persistence\Dbal\Repository;
+namespace Ergonode\Channel\Infrastructure\Persistence\Repository;
 
-use Doctrine\DBAL\Types\Types;
-use Ergonode\Channel\Domain\Entity\AbstractChannel;
-use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Doctrine\DBAL\Connection;
-use Ergonode\Channel\Persistence\Dbal\Repository\Factory\ChannelFactory;
-use Ergonode\Channel\Persistence\Dbal\Repository\Mapper\ChannelMapper;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalChannelFactory;
+use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalChannelMapper;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
@@ -39,21 +39,21 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     private Connection $connection;
 
     /**
-     * @var ChannelFactory
+     * @var DbalChannelFactory
      */
-    private ChannelFactory $factory;
+    private DbalChannelFactory $factory;
 
     /**
-     * @var ChannelMapper
+     * @var DbalChannelMapper
      */
-    private ChannelMapper $mapper;
+    private DbalChannelMapper $mapper;
 
     /**
-     * @param Connection     $connection
-     * @param ChannelFactory $factory
-     * @param ChannelMapper  $mapper
+     * @param Connection         $connection
+     * @param DbalChannelFactory $factory
+     * @param DbalChannelMapper  $mapper
      */
-    public function __construct(Connection $connection, ChannelFactory $factory, ChannelMapper $mapper)
+    public function __construct(Connection $connection, DbalChannelFactory $factory, DbalChannelMapper $mapper)
     {
         $this->connection = $connection;
         $this->factory = $factory;

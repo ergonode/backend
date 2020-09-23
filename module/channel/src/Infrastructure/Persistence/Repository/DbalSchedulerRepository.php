@@ -7,19 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Persistence\Dbal\Repository;
-
-use Doctrine\DBAL\Types\Types;
-use Ergonode\Channel\Domain\Entity\Scheduler;
+namespace Ergonode\Channel\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
-use Ergonode\Channel\Persistence\Dbal\Repository\Factory\SchedulerFactory;
-use Ergonode\Channel\Persistence\Dbal\Repository\Mapper\SchedulerMapper;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Types\Types;
+use Ergonode\Channel\Domain\Entity\Scheduler;
 use Ergonode\Channel\Domain\Repository\SchedulerRepositoryInterface;
+use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalSchedulerFactory;
+use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalSchedulerMapper;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
@@ -40,21 +39,21 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
     private Connection $connection;
 
     /**
-     * @var SchedulerFactory
+     * @var DbalSchedulerFactory
      */
-    private SchedulerFactory $factory;
+    private DbalSchedulerFactory $factory;
 
     /**
-     * @var SchedulerMapper
+     * @var DbalSchedulerMapper
      */
-    private SchedulerMapper $mapper;
+    private DbalSchedulerMapper $mapper;
 
     /**
-     * @param Connection       $connection
-     * @param SchedulerFactory $factory
-     * @param SchedulerMapper  $mapper
+     * @param Connection           $connection
+     * @param DbalSchedulerFactory $factory
+     * @param DbalSchedulerMapper  $mapper
      */
-    public function __construct(Connection $connection, SchedulerFactory $factory, SchedulerMapper $mapper)
+    public function __construct(Connection $connection, DbalSchedulerFactory $factory, DbalSchedulerMapper $mapper)
     {
         $this->connection = $connection;
         $this->factory = $factory;
