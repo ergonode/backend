@@ -7,29 +7,33 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Persistence\Dbal\Repository;
+namespace Ergonode\Importer\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\Importer\Persistence\Dbal\Repository\Factory\SourceFactory;
-use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\SourceMapper;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalImportFactory;
+use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportMapper;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
-class DbalSourceRepository implements SourceRepositoryInterface
+class DbalImportRepository implements ImportRepositoryInterface
 {
-    private const TABLE = 'importer.source';
+    private const TABLE = 'importer.import';
     private const FIELDS = [
         'id',
-        'type',
-        'class',
-        'configuration',
+        'status',
+        'source_id',
+        'transformer_id',
+        'file',
+        'started_at',
+        'ended_at',
+        'records',
     ];
 
     /**
@@ -38,21 +42,21 @@ class DbalSourceRepository implements SourceRepositoryInterface
     private Connection $connection;
 
     /**
-     * @var SourceFactory
+     * @var DbalImportFactory
      */
-    private SourceFactory $factory;
+    private DbalImportFactory $factory;
 
     /**
-     * @var SourceMapper
+     * @var DbalImportMapper
      */
-    private SourceMapper $mapper;
+    private DbalImportMapper $mapper;
 
     /**
      * @param Connection    $connection
-     * @param SourceFactory $factory
-     * @param SourceMapper  $mapper
+     * @param DbalImportFactory $factory
+     * @param DbalImportMapper  $mapper
      */
-    public function __construct(Connection $connection, SourceFactory $factory, SourceMapper $mapper)
+    public function __construct(Connection $connection, DbalImportFactory $factory, DbalImportMapper $mapper)
     {
         $this->connection = $connection;
         $this->factory = $factory;
@@ -60,13 +64,13 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param SourceId $id
+     * @param ImportId $id
      *
-     * @return AbstractSource|null
+     * @return Import|null
      *
      * @throws \ReflectionException
      */
-    public function load(SourceId $id): ?AbstractSource
+    public function load(ImportId $id): ?Import
     {
         $qb = $this->getQuery();
         $record = $qb->where($qb->expr()->eq('id', ':id'))
@@ -82,25 +86,25 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $source
+     * @param Import $import
      *
      * @throws DBALException
      */
-    public function save(AbstractSource $source): void
+    public function save(Import $import): void
     {
-        if ($this->exists($source->getId())) {
-            $this->update($source);
+        if ($this->exists($import->getId())) {
+            $this->update($import);
         } else {
-            $this->insert($source);
+            $this->insert($import);
         }
     }
 
     /**
-     * @param SourceId $id
+     * @param ImportId $id
      *
      * @return bool
      */
-    public function exists(SourceId $id): bool
+    public function exists(ImportId $id): bool
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
@@ -118,57 +122,61 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $source
+     * @param Import $import
      *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function delete(AbstractSource $source): void
+    public function delete(Import $import): void
     {
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $source->getId()->getValue(),
+                'id' => $import->getId()->getValue(),
             ]
         );
     }
 
     /**
-     * @param AbstractSource $source
+     * @param Import $import
      *
      * @throws DBALException
      */
-    private function update(AbstractSource $source): void
+    private function update(Import $import): void
     {
-        $sourceArray = $this->mapper->map($source);
-        $sourceArray['updated_at'] = new \DateTime();
+        $importArray = $this->mapper->map($import);
+        $importArray['updated_at'] = new \DateTime();
 
         $this->connection->update(
             self::TABLE,
-            $sourceArray,
+            $importArray,
             [
-                'id' => $source->getId()->getValue(),
+                'id' => $import->getId()->getValue(),
             ],
             [
+                'started_at' => Types::DATETIMETZ_MUTABLE,
+                'ended_at' => Types::DATETIMETZ_MUTABLE,
                 'updated_at' => Types::DATETIMETZ_MUTABLE,
             ],
         );
     }
 
     /**
-     * @param AbstractSource $source
+     * @param Import $import
      *
      * @throws DBALException
      */
-    private function insert(AbstractSource $source): void
+    private function insert(Import $import): void
     {
-        $sourceArray = $this->mapper->map($source);
-        $sourceArray['created_at'] = $sourceArray['updated_at'] = new \DateTime();
+        $importArray = $this->mapper->map($import);
+        $importArray['created_at'] = $importArray['updated_at'] = new \DateTime();
 
         $this->connection->insert(
             self::TABLE,
-            $sourceArray,
+            $importArray,
             [
+                'started_at' => Types::DATETIMETZ_MUTABLE,
+                'ended_at' => Types::DATETIMETZ_MUTABLE,
                 'created_at' => Types::DATETIMETZ_MUTABLE,
                 'updated_at' => Types::DATETIMETZ_MUTABLE,
             ],
