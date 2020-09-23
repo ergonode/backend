@@ -44,12 +44,15 @@ class DbalProductRepository implements ProductRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * @param Connection           $connection
+     * @param Connection               $connection
      * @param DbalExportProductFactory $factory
-     * @param SerializerInterface  $serializer
+     * @param SerializerInterface      $serializer
      */
-    public function __construct(Connection $connection, DbalExportProductFactory $factory, SerializerInterface $serializer)
-    {
+    public function __construct(
+        Connection $connection,
+        DbalExportProductFactory $factory,
+        SerializerInterface $serializer
+    ) {
         $this->connection = $connection;
         $this->factory = $factory;
         $this->serializer = $serializer;

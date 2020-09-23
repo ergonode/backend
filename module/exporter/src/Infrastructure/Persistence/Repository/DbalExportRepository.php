@@ -48,7 +48,7 @@ class DbalExportRepository implements ExportRepositoryInterface
     private DbalExportMapper $mapper;
 
     /**
-     * @param Connection    $connection
+     * @param Connection        $connection
      * @param DbalExportFactory $factory
      * @param DbalExportMapper  $mapper
      */
