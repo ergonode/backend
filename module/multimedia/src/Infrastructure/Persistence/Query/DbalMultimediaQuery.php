@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Persistence\Dbal\Query;
+namespace Ergonode\Multimedia\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\DbalDataSet;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
 
 /**
  */
@@ -25,7 +26,6 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     /**
      * @var Connection
      */
-
     private Connection $connection;
 
     /**

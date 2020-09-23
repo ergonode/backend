@@ -7,16 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Persistence\Dbal\Repository;
+namespace Ergonode\Multimedia\Infrastructure\Persistence\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
-use Webmozart\Assert\Assert;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
+use Ergonode\Multimedia\Domain\Entity\Multimedia;
+use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
+use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Webmozart\Assert\Assert;
 
 /**
  */
