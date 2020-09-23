@@ -199,6 +199,8 @@ class WorkflowTest extends TestCase
         $workflow->addTransition($source, $destination);
     }
 
+    /**
+     */
     public function testShouldSortTransitionStatuses(): void
     {
         $workflow = new Workflow(

@@ -36,7 +36,7 @@ class DbalStatusQuery implements StatusQueryInterface
     private WorkflowProvider $workflowProvider;
 
     /**
-     * @param Connection $connection
+     * @param Connection       $connection
      * @param WorkflowProvider $workflowProvider
      */
     public function __construct(Connection $connection, WorkflowProvider $workflowProvider)
@@ -166,6 +166,11 @@ class DbalStatusQuery implements StatusQueryInterface
             ->from(self::STATUS_TABLE, 'a');
     }
 
+    /**
+     * @param mixed[][] $statuses
+     *
+     * @return mixed[][]
+     */
     private function sortStatusesByWorkflowTransitions(array $statuses): array
     {
         $workflowSorted = $this->workflowProvider->provide()->getSortedTransitionStatuses();
