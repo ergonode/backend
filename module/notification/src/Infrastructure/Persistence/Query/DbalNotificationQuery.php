@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,23 +7,22 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Notification\Persistence\Dbal\Query;
+namespace Ergonode\Notification\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
 class DbalNotificationQuery implements NotificationQueryInterface
 {
-
     private const NOTIFICATION_TABLE = 'notification';
     private const USER_NOTIFICATION_TABLE = 'users_notification';
     private const USER_TABLE = 'users';
