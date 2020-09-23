@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Comment\Persistence\Dbal\Projector;
+namespace Ergonode\Comment\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
@@ -15,7 +15,7 @@ use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 
 /**
  */
-class CommentContentChangedEventProjector
+class DbalCommentContentChangedEventProjector
 {
     private const TABLE = 'comment';
 
