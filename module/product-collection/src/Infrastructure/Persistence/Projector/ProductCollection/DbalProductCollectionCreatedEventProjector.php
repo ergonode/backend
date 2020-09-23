@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollection;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ProductCollectionNameChangedEventProjector
+class DbalProductCollectionCreatedEventProjector
 {
     private const TABLE = 'product_collection';
 
@@ -32,8 +32,6 @@ class ProductCollectionNameChangedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * ProductCollectionNameChangedEventProjector constructor.
-     *
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -44,23 +42,24 @@ class ProductCollectionNameChangedEventProjector
     }
 
     /**
-     * @param ProductCollectionNameChangedEvent $event
+     * @param ProductCollectionCreatedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductCollectionNameChangedEvent $event): void
+    public function __invoke(ProductCollectionCreatedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->insert(
             self::TABLE,
             [
-                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
-                'edited_at' => $event->getEditedAt(),
+                'id' => $event->getAggregateId(),
+                'code' => $event->getCode(),
+                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
+                'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
+                'type_id' => $event->getTypeId(),
+                'created_at' => $event->getCreatedAt(),
             ],
             [
-                'id' => $event->getAggregateId()->getValue(),
-            ],
-            [
-                'edited_at' => Types::DATETIMETZ_MUTABLE,
+                'created_at' => Types::DATETIMETZ_MUTABLE,
             ],
         );
     }

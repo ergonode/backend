@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollection;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ProductCollectionCreatedEventProjector
+class DbalProductCollectionNameChangedEventProjector
 {
     private const TABLE = 'product_collection';
 
@@ -42,24 +42,23 @@ class ProductCollectionCreatedEventProjector
     }
 
     /**
-     * @param ProductCollectionCreatedEvent $event
+     * @param ProductCollectionNameChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductCollectionCreatedEvent $event): void
+    public function __invoke(ProductCollectionNameChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
-                'id' => $event->getAggregateId(),
-                'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
-                'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
-                'type_id' => $event->getTypeId(),
-                'created_at' => $event->getCreatedAt(),
+                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+                'edited_at' => $event->getEditedAt(),
             ],
             [
-                'created_at' => Types::DATETIMETZ_MUTABLE,
+                'id' => $event->getAggregateId()->getValue(),
+            ],
+            [
+                'edited_at' => Types::DATETIMETZ_MUTABLE,
             ],
         );
     }

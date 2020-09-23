@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectionType;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollectionType;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,7 +15,7 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeDeletedEvent;
 
 /**
  */
-class ProductCollectionTypeDeletedEventProjector
+class DbalProductCollectionTypeDeletedEventProjector
 {
     private const TABLE = 'product_collection_type';
 
@@ -23,7 +23,6 @@ class ProductCollectionTypeDeletedEventProjector
      * @var Connection
      */
     private Connection $connection;
-
 
     /**
      * @param Connection $connection

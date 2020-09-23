@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectionElement;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollectionElement;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -16,7 +16,7 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementAddedEvent;
 
 /**
  */
-class ProductCollectionElementAddedEventProjector
+class DbalProductCollectionElementAddedEventProjector
 {
     private const TABLE_ELEMENT = 'product_collection_element';
     private const TABLE_COLLECTION = 'product_collection';

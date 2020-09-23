@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Query;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -17,7 +17,6 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
@@ -47,7 +46,6 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
      * @var DefaultImageQueryBuilderInterface
      */
     protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
-
 
     /**
      * @param Connection                        $connection
