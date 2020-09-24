@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Persistence\Dbal\Projector\Segment;
+namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -16,7 +16,7 @@ use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class SegmentDescriptionChangedEventProjector
+class DbalSegmentDescriptionChangedEventProjector
 {
     private const TABLE = 'segment';
 
