@@ -58,7 +58,7 @@ class AbstractProductParamConverter implements ParamConverterInterface
 
         $class = $configuration->getClass();
         if (!$entity instanceof $class) {
-            throw new BadRequestHttpException("Wrong type of product given");
+            throw new BadRequestHttpException("Wrong url argument");
         }
 
         if (null === $entity) {
