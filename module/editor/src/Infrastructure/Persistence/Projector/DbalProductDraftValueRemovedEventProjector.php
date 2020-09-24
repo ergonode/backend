@@ -7,16 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Editor\Persistence\Projector;
+namespace Ergonode\Editor\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class ProductDraftValueRemovedEventProjector
+class DbalProductDraftValueRemovedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
