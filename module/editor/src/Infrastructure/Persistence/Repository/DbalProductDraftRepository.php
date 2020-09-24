@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Editor\Persistence\Repository;
+namespace Ergonode\Editor\Infrastructure\Persistence\Repository;
 
+use Doctrine\DBAL\DBALException;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Webmozart\Assert\Assert;
-use Doctrine\DBAL\DBALException;
 
 /**
  */

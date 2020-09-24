@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Editor\Persistence\Projector;
+namespace Ergonode\Editor\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,7 +15,7 @@ use Ergonode\Editor\Domain\Event\ProductDraftCreated;
 
 /**
  */
-class ProductDraftCreatedEventProjector
+class DbalProductDraftCreatedEventProjector
 {
     private const DRAFT_TABLE = 'designer.draft';
 
