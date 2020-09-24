@@ -7,18 +7,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectionType;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent;
+use Doctrine\DBAL\Types\Types;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionDescriptionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ProductCollectionTypeNameChangedEventProjector
+class DbalProductCollectionDescriptionChangedEventProjector
 {
-    private const TABLE = 'product_collection_type';
+    private const TABLE = 'product_collection';
 
     /**
      * @var Connection
@@ -31,8 +32,6 @@ class ProductCollectionTypeNameChangedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * ProductCollectionNameChangedEventProjector constructor.
-     *
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -43,20 +42,24 @@ class ProductCollectionTypeNameChangedEventProjector
     }
 
     /**
-     * @param ProductCollectionTypeNameChangedEvent $event
+     * @param ProductCollectionDescriptionChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductCollectionTypeNameChangedEvent $event): void
+    public function __invoke(ProductCollectionDescriptionChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+                'description' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+                'edited_at' => $event->getEditedAt(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
-            ]
+            ],
+            [
+                'edited_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 }

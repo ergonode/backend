@@ -14,10 +14,7 @@ services:
     
     Ergonode\ProductCollection\Infrastructure\:
         resource: '../../Infrastructure/*'
-    
-    Ergonode\ProductCollection\Persistence\:
-        resource: '../../Persistence/*'
-    
+
     Ergonode\ProductCollection\Application\Controller\:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
@@ -26,16 +23,16 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
     
-    Ergonode\ProductCollection\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\ProductCollection\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
     
     Ergonode\ProductCollection\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
     
-    Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface: '@Ergonode\ProductCollection\Persistence\Dbal\Repository\DbalProductCollectionRepository'
-    Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface: '@Ergonode\ProductCollection\Persistence\Dbal\Repository\DbalProductCollectionTypeRepository'
-    Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface: '@Ergonode\ProductCollection\Persistence\Dbal\Query\DbalProductCollectionQuery'
-    Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface: '@Ergonode\ProductCollection\Persistence\Dbal\Query\DbalProductCollectionElementQuery'
-    Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface: '@Ergonode\ProductCollection\Persistence\Dbal\Query\DbalProductCollectionTypeQuery'
+    Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\DbalProductCollectionRepository'
+    Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\DbalProductCollectionTypeRepository'
+    Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionQuery'
+    Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionElementQuery'
+    Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionTypeQuery'

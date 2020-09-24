@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollection;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -16,7 +16,7 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 
 /**
  */
-class ProductCollectionTypeIdChangedEventProjector
+class DbalProductCollectionTypeIdChangedEventProjector
 {
     private const TABLE = 'product_collection';
 
@@ -26,8 +26,6 @@ class ProductCollectionTypeIdChangedEventProjector
     private Connection $connection;
 
     /**
-     * ProductCollectionTypeIdChangedEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)

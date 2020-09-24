@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Persistence\Dbal\Query;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -23,6 +23,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterface
 {
     private const PRODUCT_COLLECTION_TYPE_TABLE = 'product_collection_type';
+
     /**
      * @var Connection
      */
