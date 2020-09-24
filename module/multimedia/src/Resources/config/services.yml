@@ -1,14 +1,11 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\Multimedia\Application\:
         resource: '../../Application/*'
-
-    Ergonode\Multimedia\Persistence\:
-        resource: '../../Persistence/*'
 
     Ergonode\Multimedia\Infrastructure\:
         resource: '../../Infrastructure/*'
@@ -26,16 +23,16 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Multimedia\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Multimedia\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Multimedia\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Persistence\Dbal\Query\DbalMultimediaQuery'
-    Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\Multimedia\Persistence\Dbal\Repository\DbalMultimediaRepository'
+    Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaQuery'
+    Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Repository\DbalMultimediaRepository'
     Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface: '@Ergonode\Multimedia\Infrastructure\Service\SHACalculationService'
 
     Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerationStrategyProvider:
