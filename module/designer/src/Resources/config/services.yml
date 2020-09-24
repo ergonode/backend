@@ -7,9 +7,6 @@ services:
     Ergonode\Designer\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Designer\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Designer\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
@@ -26,14 +23,13 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Designer\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Designer\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
-
 
     Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateElementPropertyInterfaceHandler:
         arguments:
@@ -42,15 +38,15 @@ services:
             - ['set', ['Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty']]
             - ['set', ['Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty']]
 
-    Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface: '@Ergonode\Designer\Persistence\Dbal\Repository\DbalTemplateRepository'
-    Ergonode\Designer\Persistence\Dbal\Repository\Decorator\CacheTemplateRepositoryDecorator:
+    Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Repository\DbalTemplateRepository'
+    Ergonode\Designer\Infrastructure\Persistence\Repository\Decorator\CacheTemplateRepositoryDecorator:
         decorates: Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface
         arguments:
-            - '@Ergonode\Designer\Persistence\Dbal\Repository\Decorator\CacheTemplateRepositoryDecorator.inner'
-    Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface: '@Ergonode\Designer\Persistence\Dbal\Repository\DbalTemplateGroupRepository'
-    Ergonode\Designer\Domain\Query\TemplateElementQueryInterface: '@Ergonode\Designer\Persistence\Dbal\Query\DbalTemplateElementQuery'
-    Ergonode\Designer\Domain\Query\TemplateQueryInterface: '@Ergonode\Designer\Persistence\Dbal\Query\DbalTemplateQuery'
-    Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface: '@Ergonode\Designer\Persistence\Dbal\Query\DbalTemplateGroupQuery'
+            - '@Ergonode\Designer\Infrastructure\Persistence\Repository\Decorator\CacheTemplateRepositoryDecorator.inner'
+    Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Repository\DbalTemplateGroupRepository'
+    Ergonode\Designer\Domain\Query\TemplateElementQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateElementQuery'
+    Ergonode\Designer\Domain\Query\TemplateQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateQuery'
+    Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateGroupQuery'
 
     Ergonode\Designer\Infrastructure\Query\Decorator\TemplateGetProductQueryDecorator:
         decorates: Ergonode\Product\Domain\Query\GetProductQueryInterface
