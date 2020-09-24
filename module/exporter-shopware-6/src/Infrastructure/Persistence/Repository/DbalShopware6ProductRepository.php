@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,22 +7,23 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
+namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Types\Types;
+use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
-class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
+class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterface
 {
-    private const TABLE = 'exporter.shopware6_tax';
+    private const TABLE = 'exporter.shopware6_product';
     private const FIELDS = [
         'channel_id',
-        'tax',
+        'product_id',
         'shopware6_id',
     ];
 
@@ -40,20 +42,20 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
 
     /**
      * @param ChannelId $channelId
-     * @param float     $tax
+     * @param ProductId $productId
      *
      * @return string|null
      */
-    public function load(ChannelId $channelId, float $tax): ?string
+    public function load(ChannelId $channelId, ProductId $productId): ?string
     {
         $query = $this->connection->createQueryBuilder();
         $record = $query
             ->select(self::FIELDS)
-            ->from(self::TABLE, 't')
-            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->from(self::TABLE, 'p')
+            ->where($query->expr()->eq('p.channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->andWhere($query->expr()->eq('t.tax', ':tax'))
-            ->setParameter(':tax', $tax)
+            ->andWhere($query->expr()->eq('p.product_id', ':productId'))
+            ->setParameter(':productId', $productId->getValue())
             ->execute()
             ->fetch();
 
@@ -66,37 +68,35 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
 
     /**
      * @param ChannelId $channelId
-     * @param float     $tax
+     * @param ProductId $productId
      * @param string    $shopwareId
      *
      * @throws DBALException
      */
-    public function save(ChannelId $channelId, float $tax, string $shopwareId): void
+    public function save(ChannelId $channelId, ProductId $productId, string $shopwareId): void
     {
-        if ($this->exists($channelId, $tax)) {
-            $this->update($channelId, $tax, $shopwareId);
+        if ($this->exists($channelId, $productId)) {
+            $this->update($channelId, $productId, $shopwareId);
         } else {
-            $this->insert($channelId, $tax, $shopwareId);
+            $this->insert($channelId, $productId, $shopwareId);
         }
     }
 
     /**
      * @param ChannelId $channelId
-     * @param float     $tax
+     * @param ProductId $productId
      *
      * @return bool
      */
-    public function exists(
-        ChannelId $channelId,
-        float $tax
-    ): bool {
+    public function exists(ChannelId $channelId, ProductId $productId): bool
+    {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
-            ->from(self::TABLE)
-            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->from(self::TABLE, 'p')
+            ->where($query->expr()->eq('p.channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->andWhere($query->expr()->eq('tax', ':tax'))
-            ->setParameter(':tax', $tax)
+            ->andWhere($query->expr()->eq('p.product_id', ':productId'))
+            ->setParameter(':productId', $productId->getValue())
             ->execute()
             ->rowCount();
 
@@ -110,12 +110,12 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
 
     /**
      * @param ChannelId $channelId
-     * @param float     $tax
+     * @param ProductId $productId
      * @param string    $shopwareId
      *
      * @throws DBALException
      */
-    private function update(ChannelId $channelId, float $tax, string $shopwareId): void
+    private function update(ChannelId $channelId, ProductId $productId, string $shopwareId): void
     {
         $this->connection->update(
             self::TABLE,
@@ -124,7 +124,7 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
                 'update_at' => new \DateTimeImmutable(),
             ],
             [
-                'tax' => $tax,
+                'product_id' => $productId->getValue(),
                 'channel_id' => $channelId->getValue(),
             ],
             [
@@ -135,18 +135,18 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
 
     /**
      * @param ChannelId $channelId
-     * @param float     $tax
+     * @param ProductId $productId
      * @param string    $shopwareId
      *
      * @throws DBALException
      */
-    private function insert(ChannelId $channelId, float $tax, string $shopwareId): void
+    private function insert(ChannelId $channelId, ProductId $productId, string $shopwareId): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
-                'tax' => $tax,
+                'product_id' => $productId->getValue(),
                 'channel_id' => $channelId->getValue(),
                 'update_at' => new \DateTimeImmutable(),
             ],
