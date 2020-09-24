@@ -9,13 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Importer\Domain\ValueObject\ImportStatus;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
  */
