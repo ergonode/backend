@@ -61,7 +61,7 @@ Feature: Account module
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "@role_nane@",
+         "name": "@role_nane_1@",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
