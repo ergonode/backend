@@ -7,16 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector;
+namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 
 /**
  */
-class ProductAddedToCategoryEventProjector
+class DbalProductAddedToCategoryEventProjector
 {
     private const TABLE_PRODUCT_CATEGORY = 'product_category';
 

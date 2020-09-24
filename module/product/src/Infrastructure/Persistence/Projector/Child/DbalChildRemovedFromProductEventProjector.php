@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector\Binding;
+namespace Ergonode\Product\Infrastructure\Persistence\Projector\Child;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
+use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
 
 /**
  */
-class BindRemovedFromProductEventProjector
+class DbalChildRemovedFromProductEventProjector
 {
-    private const TABLE = 'product_binding';
+    private const TABLE = 'product_children';
 
     /**
      * @var Connection
@@ -33,17 +33,17 @@ class BindRemovedFromProductEventProjector
     }
 
     /**
-     * @param BindRemovedFromProductEvent $event
+     * @param ChildRemovedFromProductEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(BindRemovedFromProductEvent $event): void
+    public function __invoke(ChildRemovedFromProductEvent $event): void
     {
         $this->connection->delete(
             self::TABLE,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
-                'attribute_id' => $event->getAttributeId()->getValue(),
+                'child_id' => $event->getChildId()->getValue(),
             ]
         );
     }

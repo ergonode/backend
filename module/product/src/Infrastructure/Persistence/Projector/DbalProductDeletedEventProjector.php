@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector;
+namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,7 +15,7 @@ use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 
 /**
  */
-class ProductDeletedEventProjector
+class DbalProductDeletedEventProjector
 {
     private const TABLE = 'product';
 

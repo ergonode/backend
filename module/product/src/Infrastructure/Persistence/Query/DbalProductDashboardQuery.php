@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Query;
+namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Product\Domain\Query\ProductDashboardQueryInterface;
-use Ergonode\Product\Application\Provider\ProductTypeProvider;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Product\Application\Provider\ProductTypeProvider;
+use Ergonode\Product\Domain\Query\ProductDashboardQueryInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */

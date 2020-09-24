@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector\Child;
+namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\Relation\ChildAddedToProductEvent;
+use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
 /**
  */
-class ChildAddedToProductEventProjector
+class DbalProductTemplateChangedEventProjector
 {
-    private const TABLE = 'product_children';
+    private const TABLE_PRODUCT = 'product';
 
     /**
      * @var Connection
@@ -33,17 +33,19 @@ class ChildAddedToProductEventProjector
     }
 
     /**
-     * @param ChildAddedToProductEvent $event
+     * @param ProductTemplateChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ChildAddedToProductEvent $event): void
+    public function __invoke(ProductTemplateChangedEvent $event): void
     {
-        $this->connection->insert(
-            self::TABLE,
+        $this->connection->update(
+            self::TABLE_PRODUCT,
             [
-                'product_id' => $event->getAggregateId()->getValue(),
-                'child_id' => $event->getChildId()->getValue(),
+                'template_id' => $event->getTemplateId()->getValue(),
+            ],
+            [
+                'id' => $event->getAggregateId(),
             ]
         );
     }
