@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
+namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 /**
  */
-class ImportFactory
+class DbalImportFactory
 {
     /**
      * @param array $record

@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
+namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class SourceFactory
+class DbalSourceFactory
 {
     /**
      * @var SerializerInterface

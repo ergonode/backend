@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Persistence\Dbal\Repository\Mapper;
+namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Importer\Domain\Entity\ImportError;
 
 /**
  */
-class ImportErrorMapper
+class DbalImportErrorMapper
 {
     /**
      * @param ImportError $importLine

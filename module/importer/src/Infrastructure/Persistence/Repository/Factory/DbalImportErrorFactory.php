@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
+namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Factory;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportError;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
-class ImportErrorFactory
+class DbalImportErrorFactory
 {
     /**
      * @param array $record

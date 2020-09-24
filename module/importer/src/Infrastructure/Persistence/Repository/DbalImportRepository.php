@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Persistence\Dbal\Repository;
+namespace Ergonode\Importer\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,10 +15,10 @@ use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\Importer\Persistence\Dbal\Repository\Factory\ImportFactory;
-use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\ImportMapper;
+use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalImportFactory;
+use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportMapper;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
@@ -42,21 +42,21 @@ class DbalImportRepository implements ImportRepositoryInterface
     private Connection $connection;
 
     /**
-     * @var ImportFactory
+     * @var DbalImportFactory
      */
-    private ImportFactory $factory;
+    private DbalImportFactory $factory;
 
     /**
-     * @var ImportMapper
+     * @var DbalImportMapper
      */
-    private ImportMapper $mapper;
+    private DbalImportMapper $mapper;
 
     /**
-     * @param Connection    $connection
-     * @param ImportFactory $factory
-     * @param ImportMapper  $mapper
+     * @param Connection        $connection
+     * @param DbalImportFactory $factory
+     * @param DbalImportMapper  $mapper
      */
-    public function __construct(Connection $connection, ImportFactory $factory, ImportMapper $mapper)
+    public function __construct(Connection $connection, DbalImportFactory $factory, DbalImportMapper $mapper)
     {
         $this->connection = $connection;
         $this->factory = $factory;

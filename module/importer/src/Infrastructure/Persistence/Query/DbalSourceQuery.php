@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Persistence\Dbal\Query;
+namespace Ergonode\Importer\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
