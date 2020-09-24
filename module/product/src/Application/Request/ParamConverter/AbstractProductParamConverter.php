@@ -56,6 +56,11 @@ class AbstractProductParamConverter implements ParamConverterInterface
 
         $entity = $this->productRepository->load(new ProductId($parameter));
 
+        $class = $configuration->getClass();
+        if (!$entity instanceof $class) {
+            throw new BadRequestHttpException("Wrong url argument");
+        }
+
         if (null === $entity) {
             throw new NotFoundHttpException(sprintf('Product by ID "%s" not found', $parameter));
         }
@@ -68,6 +73,7 @@ class AbstractProductParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return AbstractProduct::class === $configuration->getClass();
+        return is_subclass_of($configuration->getClass(), AbstractProduct::class) ||
+            $configuration->getClass() === AbstractProduct::class;
     }
 }

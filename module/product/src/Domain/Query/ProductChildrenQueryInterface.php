@@ -11,6 +11,8 @@ namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
+use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
@@ -24,6 +26,17 @@ interface ProductChildrenQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(ProductId $productId, Language $language): DataSetInterface;
+
+    /**
+     * @param VariableProduct $product
+     * @param Language        $language
+     *
+     * @return DataSetInterface
+     */
+    public function getChildrenAndAvailableProductsDataSet(
+        VariableProduct $product,
+        Language $language
+    ): DataSetInterface;
 
     /**
      * @param ProductId $id
