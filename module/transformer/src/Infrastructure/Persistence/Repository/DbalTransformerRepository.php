@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Persistence\Dbal\Repository;
+namespace Ergonode\Transformer\Infrastructure\Persistence\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Transformer\Domain\Entity\Transformer;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
+use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 
 /**
