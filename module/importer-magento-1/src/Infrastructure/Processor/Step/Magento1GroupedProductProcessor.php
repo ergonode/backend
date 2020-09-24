@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
@@ -70,39 +69,25 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
 
     /**
      * @param Import            $import
-     * @param array             $products
+     * @param ProductModel      $product
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
-     * @param Progress          $steps
-     *
-     * @return int
      */
     public function process(
         Import $import,
-        array $products,
+        ProductModel $product,
         Transformer $transformer,
-        Magento1CsvSource $source,
-        Progress $steps
-    ): int {
-        $i = 0;
-        $products = $this->getProducts($products, 'grouped');
-        $count = count($products);
-        /** @var ProductModel $product */
-        foreach ($products as $product) {
+        Magento1CsvSource $source
+    ): void {
+        if ($product->getType() === 'grouped') {
             $record = $this->getRecord($product, $transformer, $source);
-            $i++;
-            $records = new Progress($i, $count);
             $command = new ProcessImportCommand(
                 $import->getId(),
-                $steps,
-                $records,
                 $record,
                 GroupedProductImportAction::TYPE
             );
             $this->commandBus->dispatch($command, true);
         }
-
-        return $count;
     }
 
     /**

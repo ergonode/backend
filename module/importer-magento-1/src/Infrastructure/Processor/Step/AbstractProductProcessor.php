@@ -42,25 +42,6 @@ abstract class AbstractProductProcessor
     }
 
     /**
-     * @param ProductModel[] $products
-     *
-     * @param string         $type
-     *
-     * @return array
-     */
-    protected function getProducts(array $products, string $type): array
-    {
-        $result = [];
-        foreach ($products as $product) {
-            if ($type === $product->getType()) {
-                $result[] = $product;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
      * @param AttributeId       $attributeId
      * @param string            $field
      * @param string            $value

@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
@@ -30,7 +29,7 @@ use Ergonode\Importer\Infrastructure\Action\VariableProductImportAction;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Product\Domain\Entity\VariableProduct;
 
 /**
  */
@@ -70,39 +69,25 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
 
     /**
      * @param Import            $import
-     * @param array             $products
+     * @param ProductModel      $product
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
-     * @param Progress          $steps
-     *
-     * @return int
      */
     public function process(
         Import $import,
-        array $products,
+        ProductModel $product,
         Transformer $transformer,
-        Magento1CsvSource $source,
-        Progress $steps
-    ): int {
-        $i = 0;
-        $products = $this->getProducts($products, 'configurable');
-        $count = count($products);
-        /** @var ProductModel $product */
-        foreach ($products as $product) {
+        Magento1CsvSource $source
+    ): void {
+        if ($product->getType() === 'configurable') {
             $record = $this->getRecord($product, $transformer, $source);
-            $i++;
-            $records = new Progress($i, $count);
             $command = new ProcessImportCommand(
                 $import->getId(),
-                $steps,
-                $records,
                 $record,
                 VariableProductImportAction::TYPE
             );
             $this->commandBus->dispatch($command, true);
         }
-
-        return $count;
     }
 
     /**

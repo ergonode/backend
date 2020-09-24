@@ -11,7 +11,6 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
@@ -29,53 +28,42 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
     private CommandBusInterface $commandBus;
 
     /**
+     * @var string[]
+     */
+    private array $templates;
+
+    /**
      * @param CommandBusInterface $commandBus
      */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
+        $this->templates = [];
     }
 
     /**
      * @param Import            $import
-     * @param ProductModel[]    $products
+     * @param ProductModel      $product
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
-     * @param Progress          $steps
-     *
-     * @return int
      */
     public function process(
         Import $import,
-        array $products,
+        ProductModel $product,
         Transformer $transformer,
-        Magento1CsvSource $source,
-        Progress $steps
-    ): int {
-        $templates = [];
-        foreach ($products as $sku => $product) {
-            $template = $product->getTemplate();
-            if (!array_key_exists($template, $templates)) {
-                $templates[$template] = new Record();
-                $templates[$template]->set('code', $template);
-            }
-        }
-
-        $i = 0;
-        $count = count($templates);
-        foreach ($templates as $template) {
-            $i++;
-            $records = new Progress($i, $count);
+        Magento1CsvSource $source
+    ): void {
+        $template = $product->getTemplate();
+        if (!array_key_exists($template, $this->templates)) {
+            $record = new Record();
+            $record->set('code', $template);
+            $this->templates[$template] = $template;
             $command = new ProcessImportCommand(
                 $import->getId(),
-                $steps,
-                $records,
-                $template,
+                $record,
                 TemplateImportAction::TYPE
             );
             $this->commandBus->dispatch($command, true);
         }
-
-        return $count;
     }
 }
