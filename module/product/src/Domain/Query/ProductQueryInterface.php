@@ -43,6 +43,13 @@ interface ProductQueryInterface
     public function getAllIds(): array;
 
     /**
+     * @param \DateTime|null $dateTime
+     *
+     * @return array
+     */
+    public function getAllEditedIds(?\DateTime $dateTime = null): array;
+
+    /**
      * @return array
      */
     public function getAllSkus(): array;
@@ -94,4 +101,26 @@ interface ProductQueryInterface
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array;
+
+    /**
+     * @param string $type
+     *
+     * @return array
+     */
+    public function findProductIdByType(string $type): array;
+
+    /**
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }

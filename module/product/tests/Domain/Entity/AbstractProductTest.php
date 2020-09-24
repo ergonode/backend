@@ -77,12 +77,12 @@ class AbstractProductTest extends TestCase
             [$this->category],
             [$this->code->getValue() => $this->attribute]
         );
-        $this->assertEquals($this->id, $product->getId());
-        $this->assertEquals($this->sku, $product->getSku());
-        $this->assertEquals([$this->category], $product->getCategories());
-        $this->assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
-        $this->assertEquals('TYPE', $product->getType());
-        $this->assertEquals($this->templateId, $product->getTemplateId());
+        $this::assertEquals($this->id, $product->getId());
+        $this::assertEquals($this->sku, $product->getSku());
+        $this::assertEquals([$this->category], $product->getCategories());
+        $this::assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
+        $this::assertEquals('TYPE', $product->getType());
+        $this::assertEquals($this->templateId, $product->getTemplateId());
     }
 
     /**
@@ -98,12 +98,13 @@ class AbstractProductTest extends TestCase
      */
     public function testCategoryManipulation(): void
     {
+        $this->category->method('isEqual')->willReturn(true);
         $product = $this->getClass($this->id, $this->sku, $this->templateId, [$this->category], []);
-        $this->assertTrue($product->belongToCategory($this->category));
+        $this::assertTrue($product->belongToCategory($this->category));
         $product->removeFromCategory($this->category);
-        $this->assertFalse($product->belongToCategory($this->category));
+        $this::assertFalse($product->belongToCategory($this->category));
         $product->addToCategory($this->category);
-        $this->assertEquals([$this->category], $product->getCategories());
+        $this::assertEquals([$this->category], $product->getCategories());
     }
 
     /**
@@ -118,15 +119,15 @@ class AbstractProductTest extends TestCase
             [$this->category],
             [$this->code->getValue() => $this->attribute]
         );
-        $this->assertTrue($product->hasAttribute($this->code));
-        $this->assertEquals($this->attribute, $product->getAttribute($this->code));
+        $this::assertTrue($product->hasAttribute($this->code));
+        $this::assertEquals($this->attribute, $product->getAttribute($this->code));
         $product->changeAttribute($this->code, $newValue);
-        $this->assertEquals($newValue, $product->getAttribute($this->code));
+        $this::assertEquals($newValue, $product->getAttribute($this->code));
         $product->removeAttribute($this->code);
-        $this->assertFalse($product->hasAttribute($this->code));
+        $this::assertFalse($product->hasAttribute($this->code));
         $product->addAttribute($this->code, $this->attribute);
-        $this->assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
-        $this->assertEquals($this->attribute, $product->getAttribute($this->code));
+        $this::assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
+        $this::assertEquals($this->attribute, $product->getAttribute($this->code));
     }
 
     /**
@@ -198,7 +199,7 @@ class AbstractProductTest extends TestCase
             $this->templateId,
         );
         $product->changeTemplate($templateId);
-        $this->assertSame($templateId, $product->getTemplateId());
+        $this::assertSame($templateId, $product->getTemplateId());
     }
 
     /**

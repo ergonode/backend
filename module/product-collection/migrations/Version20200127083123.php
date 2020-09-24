@@ -17,43 +17,56 @@ final class Version20200127083123 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
-
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-        $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
-        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Product Collections']);
 
         $this->addSql(
-            'CREATE TABLE collection(
+            'CREATE TABLE product_collection_type(
+                    id uuid NOT NULL,
+                    code VARCHAR(255) DEFAULT NULL, 
+                    name JSONB NOT NULL, 
+                    PRIMARY KEY (id)
+                 )'
+        );
+
+        $this->addSql(
+            'CREATE TABLE product_collection(
                     id uuid NOT NULL,
                     code VARCHAR(255) DEFAULT NULL, 
                     name JSONB NOT NULL, 
                     description JSONB NOT NULL, 
                     type_id uuid NOT NULL,
-                    created_at timestamp without time zone NOT NULL,
-                    edited_at timestamp without time zone DEFAULT NULL,
+                    created_at timestamp with time zone DEFAULT NULL,
+                    edited_at timestamp with time zone DEFAULT NULL,
                     PRIMARY KEY (id)
                  )'
         );
+        $this->addSql(
+            'ALTER TABLE product_collection
+                    ADD CONSTRAINT product_collection_product_collection_type_fk FOREIGN KEY (type_id) 
+                    REFERENCES product_collection_type(id) ON DELETE RESTRICT ON UPDATE CASCADE'
+        );
 
         $this->addSql(
-            'CREATE TABLE collection_element(
+            'CREATE TABLE product_collection_element(
                     product_collection_id uuid NOT NULL,
                     product_id uuid NOT NULL,
                     visible BOOLEAN NOT NULL,
-                    created_at timestamp without time zone NOT NULL,
+                    created_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (product_collection_id, product_id)
                  )'
         );
-
         $this->addSql(
-            'CREATE TABLE collection_type(
-                    id uuid NOT NULL,
-                    code VARCHAR(255) DEFAULT NULL, 
-                    name JSONB NOT NULL, 
-                    PRIMARY KEY (id)
-                 )'
+            'ALTER TABLE product_collection_element
+                    ADD CONSTRAINT product_collection_element_product_collection_fk FOREIGN KEY (product_collection_id) 
+                    REFERENCES product_collection(id) ON DELETE CASCADE ON UPDATE CASCADE'
+        );
+        $this->addSql(
+            'ALTER TABLE product_collection_element
+                    ADD CONSTRAINT product_collection_element_product_fk FOREIGN KEY (product_id) 
+                    REFERENCES product(id) ON DELETE CASCADE ON UPDATE CASCADE'
         );
 
+        $this->connection->insert('privileges_group', ['area' => 'Product Collections']);
         $this->createPrivileges([
             'PRODUCT_COLLECTION_CREATE' => 'Product Collections',
             'PRODUCT_COLLECTION_READ' => 'Product Collections',

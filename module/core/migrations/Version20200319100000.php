@@ -24,15 +24,16 @@ final class Version20200319100000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-        $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
-        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Settings']);
 
         $this->addSql(
-            'CREATE TABLE unit (id UUID NOT NULL, name VARCHAR(255) NOT NULL,
-                  symbol VARCHAR(255) NOT NULL,
-                  PRIMARY KEY(id))'
+            'CREATE TABLE unit (
+                    id UUID NOT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    symbol VARCHAR(16) NOT NULL,
+                    PRIMARY KEY(id))'
         );
 
+        $this->connection->insert('privileges_group', ['area' => 'Settings']);
         $this->createPrivileges([
             'SETTINGS_CREATE' => 'Settings',
             'SETTINGS_READ' => 'Settings',
@@ -67,7 +68,6 @@ final class Version20200319100000 extends AbstractErgonodeMigration
             ]);
         }
     }
-
 
     /**
      * @param array $collection

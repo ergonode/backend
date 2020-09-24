@@ -14,6 +14,7 @@ use Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -29,8 +30,7 @@ class VariableProduct extends AbstractAssociatedProduct
     private array $bindings = [];
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
+     * @JMS\Type("string");
      *
      * @return string
      */
@@ -77,6 +77,28 @@ class VariableProduct extends AbstractAssociatedProduct
         }
 
         return false;
+    }
+
+    /**
+     * @param SelectAttribute[] $bindings
+     *
+     * @throws \Exception
+     */
+    public function changeBindings(array $bindings): void
+    {
+        Assert::allIsInstanceOf($bindings, SelectAttribute::class);
+
+        foreach ($bindings as $binding) {
+            if (!$this->hasBind($binding->getId())) {
+                $this->addBind($binding);
+            }
+        }
+
+        foreach ($this->bindings as $binding) {
+            if (!in_array($binding, $this->bindings, false)) {
+                $this->removeBind($binding);
+            }
+        }
     }
 
     /**

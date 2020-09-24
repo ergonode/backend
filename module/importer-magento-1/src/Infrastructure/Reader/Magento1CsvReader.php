@@ -124,6 +124,7 @@ class Magento1CsvReader
             }
         }
 
+
         return $products;
     }
 

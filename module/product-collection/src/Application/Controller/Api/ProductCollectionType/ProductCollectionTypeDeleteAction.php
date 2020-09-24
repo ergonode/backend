@@ -74,7 +74,7 @@ class ProductCollectionTypeDeleteAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="en"
+     *     default="en_GB"
      * )
      * @SWG\Parameter(
      *     name="type",

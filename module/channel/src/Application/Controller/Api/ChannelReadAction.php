@@ -10,12 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Channel\Domain\Entity\Channel;
+use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route(
@@ -28,11 +30,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChannelReadAction
 {
     /**
+     * @var ChannelFormFactoryProvider
+     */
+    private ChannelFormFactoryProvider $provider;
+
+    /**
+     * @var SerializerInterface
+     */
+    private SerializerInterface $serializer;
+
+    /**
+     * @param ChannelFormFactoryProvider $provider
+     * @param SerializerInterface        $serializer
+     */
+    public function __construct(ChannelFormFactoryProvider $provider, SerializerInterface $serializer)
+    {
+        $this->provider = $provider;
+        $this->serializer = $serializer;
+    }
+
+    /**
      * @IsGranted("CHANNEL_READ")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="channel",
      *     in="path",
      *     type="string",
      *     description="Channel id",
@@ -42,7 +64,7 @@ class ChannelReadAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Response(
@@ -54,14 +76,19 @@ class ChannelReadAction
      *     description="Not found",
      * )
      *
-     * @param Channel $channel
+     * @param AbstractChannel $channel
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
      * @return Response
      */
-    public function __invoke(Channel $channel): Response
+    public function __invoke(AbstractChannel $channel): Response
     {
-        return new SuccessResponse($channel);
+        $form = $this->provider->provide($channel->getType())->create($channel);
+        $result = $this->serializer->normalize($form);
+        $result['type'] = $channel->getType();
+        $result['id'] = $channel->getId();
+
+        return new SuccessResponse($result);
     }
 }

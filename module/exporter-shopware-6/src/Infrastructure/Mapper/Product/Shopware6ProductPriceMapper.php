@@ -10,15 +10,18 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -66,87 +69,71 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
 
 
     /**
-     * @param Shopware6Product|CreateShopware6Product $shopware6Product
-     * @param AbstractProduct                         $product
-     * @param Shopware6ExportApiProfile               $profile
-     *
-     * @return Shopware6Product
+     * {@inheritDoc}
      *
      * @throws Shopware6ExporterMapperException
      */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6ExportApiProfile $profile
+        Shopware6Channel $channel,
+        ?Language $language = null
     ): Shopware6Product {
+        $tax = $this->tax($channel, $product);
 
-        if ($shopware6Product instanceof CreateShopware6Product) {
-            $tax = $this->tax($profile, $product);
-
-            $shopware6Product->addPrice($this->price($profile, $product, $tax));
-            $shopware6Product->setTaxId($this->loadTaxId($profile, $tax));
-        }
+        $shopware6Product->addPrice($this->getPrice($channel, $product));
+        $shopware6Product->setTaxId($this->loadTaxId($channel, $tax));
 
         return $shopware6Product;
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param AbstractProduct           $product
-     * @param float                     $tax
+     * @param Shopware6Channel $channel
+     * @param AbstractProduct  $product
      *
-     * @return array
+     * @return \Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice
      *
      * @throws Shopware6ExporterMapperException
      */
-    public function price(
-        Shopware6ExportApiProfile $profile,
-        AbstractProduct $product,
-        float $tax
-    ): array {
+    public function getPrice(
+        Shopware6Channel $channel,
+        AbstractProduct $product
+    ): Shopware6ProductPrice {
+
         /** @var PriceAttribute $attribute */
-        $attribute = $this->repository->load($profile->getProductPrice());
-
-        if (false === $product->hasAttribute($attribute->getCode())) {
-            throw new Shopware6ExporterMapperException(
-                sprintf('Attribute %s price not found ', $attribute->getCode()->getValue())
-            );
-        }
-
-        $value = $product->getAttribute($attribute->getCode());
-        $price = str_replace(
-            ',',
-            '.',
-            $this->calculator->calculate($attribute, $value, $profile->getDefaultLanguage())
+        $attribute = $this->repository->load($channel->getAttributeProductPriceGross());
+        $priceGross = $this->getPriceValue(
+            $channel->getAttributeProductPriceGross(),
+            $channel->getDefaultLanguage(),
+            $product
+        );
+        $priceNet = $this->getPriceValue(
+            $channel->getAttributeProductPriceNet(),
+            $channel->getDefaultLanguage(),
+            $product
         );
 
-        if (!is_numeric($price)) {
-            throw new Shopware6ExporterMapperException(
-                sprintf('Attribute %s value "%s" is not valid price', $attribute->getCode()->getValue(), $price)
-            );
-        }
-        $priceGross = (float) $price;
-        $priceNet = $priceGross / ($tax / 100 + 1);
-
-        return [
-            'currencyId' => $this->loadCurrencyId($profile, $attribute),
-            'net' => round($priceNet, self::PRECISION),
-            'linked' => false,
-            'gross' => round($priceGross, self::PRECISION),
-        ];
+        return new Shopware6ProductPrice(
+            $this->loadCurrencyId($channel, $attribute),
+            round($priceNet, self::PRECISION),
+            round($priceGross, self::PRECISION)
+        );
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param AbstractProduct           $product
+     * @param Shopware6Channel $channel
+     * @param AbstractProduct  $product
      *
      * @return float
      *
      * @throws Shopware6ExporterMapperException
      */
-    public function tax(Shopware6ExportApiProfile $profile, AbstractProduct $product): float
+    public function tax(Shopware6Channel $channel, AbstractProduct $product): float
     {
-        $attribute = $this->repository->load($profile->getProductTax());
+        $attribute = $this->repository->load($channel->getAttributeProductTax());
+
+        Assert::notNull($attribute);
+
         if (false === $product->hasAttribute($attribute->getCode())) {
             throw new Shopware6ExporterMapperException(
                 sprintf('Attribute %s tax value not found %s ', $attribute->getCode()->getValue(), $product->getSku())
@@ -154,20 +141,20 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         }
         $value = $product->getAttribute($attribute->getCode());
 
-        return floatval($this->calculator->calculate($attribute, $value, $profile->getDefaultLanguage()));
+        return (float) $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param PriceAttribute            $attribute
+     * @param Shopware6Channel $channel
+     * @param PriceAttribute   $attribute
      *
      * @return string
      *
      * @throws Shopware6ExporterMapperException
      */
-    private function loadCurrencyId(Shopware6ExportApiProfile $profile, PriceAttribute $attribute): string
+    private function loadCurrencyId(Shopware6Channel $channel, PriceAttribute $attribute): string
     {
-        $shopwareId = $this->currencyRepository->load($profile->getId(), $attribute->getCurrency()->getCode());
+        $shopwareId = $this->currencyRepository->load($channel->getId(), $attribute->getCurrency()->getCode());
 
         if (is_null($shopwareId)) {
             throw new Shopware6ExporterMapperException(
@@ -179,16 +166,16 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param float                     $tax
+     * @param Shopware6Channel $channel
+     * @param float            $tax
      *
      * @return string
      *
      * @throws Shopware6ExporterMapperException
      */
-    private function loadTaxId(Shopware6ExportApiProfile $profile, float $tax): string
+    private function loadTaxId(Shopware6Channel $channel, float $tax): string
     {
-        $shopwareId = $this->taxRepository->load($profile->getId(), $tax);
+        $shopwareId = $this->taxRepository->load($channel->getId(), $tax);
 
         if (is_null($shopwareId)) {
             throw new Shopware6ExporterMapperException(
@@ -197,5 +184,41 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         }
 
         return $shopwareId;
+    }
+
+    /**
+     * @param AttributeId $productPrice
+     * @param Language    $defaultLanguage
+     * @param             $product
+     *
+     * @return float
+     *
+     * @throws Shopware6ExporterMapperException
+     */
+    private function getPriceValue(AttributeId $productPrice, Language $defaultLanguage, $product): float
+    {
+        /** @var PriceAttribute $attribute */
+        $attribute = $this->repository->load($productPrice);
+
+        if (false === $product->hasAttribute($attribute->getCode())) {
+            throw new Shopware6ExporterMapperException(
+                sprintf('Attribute %s price not found ', $attribute->getCode()->getValue())
+            );
+        }
+
+        $value = $product->getAttribute($attribute->getCode());
+        $price = str_replace(
+            ',',
+            '.',
+            $this->calculator->calculate($attribute, $value, $defaultLanguage)
+        );
+
+        if (!is_numeric($price)) {
+            throw new Shopware6ExporterMapperException(
+                sprintf('Attribute %s value "%s" is not valid price', $attribute->getCode()->getValue(), $price)
+            );
+        }
+
+        return (float) $price;
     }
 }

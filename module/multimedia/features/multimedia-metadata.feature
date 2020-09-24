@@ -16,7 +16,7 @@ Feature: Multimedia
     And store response param "id" as "multimedia_id"
 
   Scenario: Get uploaded multimedia metadata
-    And I send a GET request to "api/v1/en/multimedia/@multimedia_id@/metadata"
+    And I send a GET request to "api/v1/en_GB/multimedia/@multimedia_id@/metadata"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | width      | 16            |

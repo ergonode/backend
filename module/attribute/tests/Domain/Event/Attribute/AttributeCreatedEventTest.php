@@ -41,7 +41,6 @@ class AttributeCreatedEventTest extends TestCase
         /** @var TranslatableString | MockObject $placeholder */
         $placeholder = $this->createMock(TranslatableString::class);
         $type = 'string';
-        $class = 'class';
         $parameters = [];
 
         $event = new AttributeCreatedEvent(
@@ -52,20 +51,18 @@ class AttributeCreatedEventTest extends TestCase
             $placeholder,
             $scope,
             $type,
-            $class,
             $parameters,
             $system
         );
 
-        $this->assertSame($type, $event->getType());
-        $this->assertSame($attributeCode, $event->getCode());
-        $this->assertSame($class, $event->getClass());
-        $this->assertSame($label, $event->getLabel());
-        $this->assertSame($hint, $event->getHint());
-        $this->assertSame($placeholder, $event->getPlaceholder());
-        $this->assertSame($scope, $event->getScope());
-        $this->assertSame($parameters, $event->getParameters());
-        $this->assertSame($system, $event->isSystem());
+        $this::assertSame($type, $event->getType());
+        $this::assertSame($attributeCode, $event->getCode());
+        $this::assertSame($label, $event->getLabel());
+        $this::assertSame($hint, $event->getHint());
+        $this::assertSame($placeholder, $event->getPlaceholder());
+        $this::assertSame($scope, $event->getScope());
+        $this::assertSame($parameters, $event->getParameters());
+        $this::assertSame($system, $event->isSystem());
     }
 
     /**

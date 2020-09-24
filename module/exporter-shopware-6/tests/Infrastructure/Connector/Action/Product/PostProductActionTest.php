@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
@@ -21,18 +21,18 @@ class PostProductActionTest extends TestCase
 {
     /**
      */
-    public function testAction()
+    public function testAction():void
     {
-        $product = new CreateShopware6Product('SKU');
+        $product = new Shopware6Product('SKU');
         $action = new PostProductAction($product);
         $request = $action->getRequest();
 
-        $this->assertInstanceOf(Request::class, $request);
-        $this->assertSame('', $request->getHeaderLine('Accept'));
-        $this->assertSame('', $request->getHeaderLine('Cache-Control'));
-        $this->assertSame('', $request->getHeaderLine('Content-Type'));
-        $this->assertSame(HttpRequest::METHOD_POST, $request->getMethod());
-        $this->assertInstanceOf(Uri::class, $request->getUri());
-        $this->assertNull($action->parseContent(null));
+        self::assertInstanceOf(Request::class, $request);
+        self::assertSame('', $request->getHeaderLine('Accept'));
+        self::assertSame('', $request->getHeaderLine('Cache-Control'));
+        self::assertSame('', $request->getHeaderLine('Content-Type'));
+        self::assertSame(HttpRequest::METHOD_POST, $request->getMethod());
+        self::assertInstanceOf(Uri::class, $request->getUri());
+        self::assertNull($action->parseContent(null));
     }
 }

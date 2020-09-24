@@ -16,9 +16,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Fixture\Exception\FixtureException;
 use Ergonode\Fixture\Infrastructure\Loader\FixtureLoader;
-use Ergonode\Fixture\Infrastructure\Manager\FixtureManager;
 use Faker\Generator;
 use Nelmio\Alice\Loader\NativeLoader;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 
 /**
  */
@@ -40,9 +40,9 @@ class FixtureProcess
     private CommandBusInterface $commandBus;
 
     /**
-     * @var FixtureManager
+     * @var EventStoreManager
      */
-    private FixtureManager $manager;
+    private EventStoreManager $manager;
 
     /**
      * @var Connection
@@ -53,14 +53,14 @@ class FixtureProcess
      * @param FixtureLoader       $loader
      * @param Generator           $generator
      * @param CommandBusInterface $commandBus
-     * @param FixtureManager      $manager
+     * @param EventStoreManager   $manager
      * @param Connection          $connection
      */
     public function __construct(
         FixtureLoader $loader,
         Generator $generator,
         CommandBusInterface $commandBus,
-        FixtureManager $manager,
+        EventStoreManager $manager,
         Connection $connection
     ) {
         $this->loader = $loader;
@@ -90,7 +90,7 @@ class FixtureProcess
                     $this->commandBus->dispatch($object);
                 }
                 if ($object instanceof AbstractAggregateRoot) {
-                    $this->manager->persist($object);
+                    $this->manager->save($object);
                 }
             }
             $this->connection->commit();

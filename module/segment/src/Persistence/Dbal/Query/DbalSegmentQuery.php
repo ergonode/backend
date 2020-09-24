@@ -50,17 +50,21 @@ class DbalSegmentQuery implements SegmentQueryInterface
         $query = $this->getQuery();
         $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
         $query->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
-        $query->addSelect('(SELECT count(*) FROM segment_product 
+        $query->addSelect(
+            '(SELECT count(*) FROM segment_product 
             WHERE segment_id = t.id 
             AND available = true) 
-            AS products_count');
-        $query->addSelect('(SELECT 
+            AS products_count'
+        );
+        $query->addSelect(
+            '(SELECT 
             CASE
                 WHEN count(*) = 0 THEN \'new\'
                 WHEN round(count(calculated_at)::NUMERIC/count(*)::NUMERIC*100, 2) = 100  THEN \'calculated\' 
                 ELSE \'processed\' 
             END 
-            FROM segment_product WHERE segment_id = t.id) as status');
+            FROM segment_product WHERE segment_id = t.id) as status'
+        );
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
@@ -124,6 +128,55 @@ class DbalSegmentQuery implements SegmentQueryInterface
         }
 
         return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getDictionary(): array
+    {
+        return $this->getQuery()
+            ->select('id, code')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * @param Language    $language
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, code, COALESCE(name->>:language, null) as label')
+            ->from(self::TABLE, 's')
+            ->setParameter(':language', $language->getCode());
+
+        if ($search) {
+            $query->orWhere('code ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
     }
 
     /**

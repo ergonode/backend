@@ -9,19 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AttributeInterface;
-use JMS\Serializer\Annotation as JMS;
-
 /**
  */
-class MultiSelectAttribute extends AbstractOptionAttribute implements AttributeInterface
+class MultiSelectAttribute extends AbstractOptionAttribute
 {
     public const TYPE = 'MULTI_SELECT';
 
     /**
-     * @JMS\VirtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     public function getType(): string

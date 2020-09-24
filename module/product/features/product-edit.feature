@@ -6,7 +6,7 @@ Feature: Product edit feature
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create text attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "TEXT_@@random_code@@",
@@ -19,7 +19,7 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_text_attribute"
 
   Scenario: Create textarea attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "TEXT_AREA_@@random_code@@",
@@ -36,7 +36,7 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_textarea_attribute"
 
   Scenario: Create select attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "SELECT_@@random_code@@",
@@ -49,7 +49,7 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_select_attribute"
 
   Scenario: Create option 1 for select attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
         "code": "key_a",
@@ -60,7 +60,7 @@ Feature: Product edit feature
     And store response param "id" as "select_option_1"
 
   Scenario: Create option 2 for select attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
         "code": "key_b",
@@ -71,7 +71,7 @@ Feature: Product edit feature
     And store response param "id" as "select_option_2"
 
   Scenario: Create option 3 for select attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
         "code": "key_c",
@@ -82,7 +82,7 @@ Feature: Product edit feature
     And store response param "id" as "select_option_c"
 
   Scenario: Create option 4 for select attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
         "code": "key_d",
@@ -93,7 +93,7 @@ Feature: Product edit feature
     And store response param "id" as "select_option_4"
 
   Scenario: Create multi select attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "MULTI_SELECT_@@random_code@@",
@@ -106,18 +106,18 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_multi_select_attribute"
 
   Scenario: Create unit object 1
-    And I send a "POST" request to "/api/v1/en/units" with body:
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
-        "name": "New Unit 1",
-        "symbol": "nu1"
+        "name": "@@random_md5@@",
+        "symbol": "@@random_symbol@@"
       }
       """
     Then the response status code should be 201
     And store response param "id" as "unit_id"
 
   Scenario: Create option 1 for multiselect attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
         "code": "key_aa",
@@ -128,7 +128,7 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_1"
 
   Scenario: Create option 2 for multiselect attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
         "code": "key_bb",
@@ -139,7 +139,7 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_2"
 
   Scenario: Create option 3 for multiselect attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
         "code": "key_cc",
@@ -150,7 +150,7 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_3"
 
   Scenario: Create option 4 for multiselect attribute
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
         "code": "key_dd",
@@ -161,7 +161,7 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_4"
 
   Scenario: Create unit attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "UNIT_@@random_code@@",
@@ -177,7 +177,7 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_unit_attribute"
 
   Scenario: Create price attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "PRICE_@@random_code@@",
@@ -193,7 +193,7 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_price_attribute"
 
   Scenario: Create date attribute
-    When I send a POST request to "/api/v1/en/attributes" with body:
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "DATE_@@random_code@@",
@@ -209,7 +209,7 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_date_attribute"
 
   Scenario: Create template
-    When I send a POST request to "/api/v1/en/templates" with body:
+    When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -220,7 +220,7 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_template"
 
   Scenario: Create product
-    When I send a POST request to "/api/v1/en/products" with body:
+    When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -233,7 +233,7 @@ Feature: Product edit feature
     And store response param "id" as "edit_product"
 
   Scenario: Edit product text value
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_text_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_text_attribute@/value" with body:
       """
       {
         "value": "text attribute value"
@@ -242,7 +242,7 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product textarea value
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_textarea_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_textarea_attribute@/value" with body:
       """
       {
         "value": "textarea attribute value"
@@ -251,7 +251,7 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product select value
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_select_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_select_attribute@/value" with body:
       """
       {
         "value": "@select_option_1@"
@@ -260,7 +260,7 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product multi select value
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
       """
       {
         "value": ["@multi_select_option_1@", "@multi_select_option_4@"]
@@ -269,7 +269,7 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product unit value
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_unit_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_unit_attribute@/value" with body:
       """
       {
         "value": "102030"
@@ -278,7 +278,7 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product price value
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_price_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_price_attribute@/value" with body:
       """
       {
         "value": "9999.99"
@@ -287,7 +287,7 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product date value
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_date_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_date_attribute@/value" with body:
       """
       {
         "value": "2019-12-30"
@@ -296,15 +296,15 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Apply product draft
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/persist"
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/persist"
     Then the response status code should be 204
 
   Scenario: Delete option (used in product)
-    And I send a "DELETE" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options/@select_option_1@"
+    And I send a "DELETE" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options/@select_option_1@"
     Then the response status code should be 409
 
   Scenario: Request product
-    When I send a GET request to "api/v1/en/products/@edit_product@"
+    When I send a GET request to "api/v1/en_GB/products/@edit_product@"
     Then the response status code should be 200
 #    And print last JSON response
 #    And the JSON nodes should be equal to:

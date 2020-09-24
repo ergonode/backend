@@ -11,7 +11,6 @@ namespace Ergonode\Core\Application\Controller\Api\LanguageTree;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,15 +38,13 @@ class LanguageTreeReadAction
 
 
     /**
-     * @IsGranted("SETTINGS_READ")
-     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Response(

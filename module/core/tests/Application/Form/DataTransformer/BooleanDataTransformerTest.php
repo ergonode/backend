@@ -26,7 +26,7 @@ class BooleanDataTransformerTest extends TestCase
     public function testTransform($value, $expected): void
     {
         $transformer = new BooleanDataTransformer();
-        $this->assertEquals($expected, $transformer->transform($value));
+        self::assertEquals($expected, $transformer->transform($value));
     }
 
     /**
@@ -38,7 +38,7 @@ class BooleanDataTransformerTest extends TestCase
     public function testReverseTransform($value, string $expected): void
     {
         $transformer = new BooleanDataTransformer();
-        $this->assertEquals($expected, $transformer->reverseTransform($value));
+        self::assertEquals($expected, $transformer->reverseTransform($value));
     }
 
     /**
@@ -47,7 +47,7 @@ class BooleanDataTransformerTest extends TestCase
     {
         $transformer = new BooleanDataTransformer();
         $this->expectExceptionMessage('Expect boolean');
-        $this->assertEquals('false', $transformer->reverseTransform('fadwwalse'));
+        self::assertEquals('false', $transformer->reverseTransform('fadwwalse'));
     }
 
 

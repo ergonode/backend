@@ -16,7 +16,6 @@ use Ergonode\Account\Domain\Event\Role\RoleDescriptionChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -57,6 +56,8 @@ class Role extends AbstractAggregateRoot
 
     /**
      * @var bool
+     *
+     * @JMS\Type("bool")
      */
     private bool $hidden;
 
@@ -146,7 +147,7 @@ class Role extends AbstractAggregateRoot
      */
     public function changeDescription(string $description): void
     {
-        if ($description !== $this->name) {
+        if ($description !== $this->description) {
             $this->apply(new RoleDescriptionChangedEvent($this->id, $this->description, $description));
         }
     }

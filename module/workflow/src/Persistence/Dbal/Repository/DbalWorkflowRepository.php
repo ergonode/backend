@@ -10,11 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
@@ -25,23 +28,16 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 class DbalWorkflowRepository implements WorkflowRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface
+     * @var EventStoreManager
      */
-    private DomainEventStoreInterface $eventStore;
+    private EventStoreManager $manager;
 
     /**
-     * @var EventBusInterface
+     * @param EventStoreManager $manager
      */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -51,6 +47,8 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
      */
     public function load(WorkflowId $id): ?AbstractAggregateRoot
     {
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, Workflow::class);
         $eventStream = $this->eventStore->load($id);
 
         if (\count($eventStream) > 0) {
@@ -68,10 +66,7 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
 
             $aggregate->initialize($eventStream);
 
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
@@ -79,12 +74,7 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -97,6 +87,6 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
         $aggregateRoot->apply(new WorkflowDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }

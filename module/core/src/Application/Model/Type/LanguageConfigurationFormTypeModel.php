@@ -18,10 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LanguageConfigurationFormTypeModel
 {
     /**
-     * @var Language
+     * @var Language|null
      *
      * @Assert\NotBlank(message="Lanugage code is required")
-     * @Assert\Length(max=2)
      *
      * @CoreAssert\LanguageCodeConstraint();
      */

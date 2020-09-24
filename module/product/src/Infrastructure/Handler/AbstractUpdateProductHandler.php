@@ -54,31 +54,6 @@ abstract class AbstractUpdateProductHandler
 
     /**
      * @param AbstractProduct $product
-     * @param array           $categories
-     *
-     * @return AbstractProduct
-     *
-     * @throws \Exception
-     */
-    public function updateCategories(AbstractProduct $product, array $categories): AbstractProduct
-    {
-        foreach ($categories as $categoryId) {
-            if (!$product->belongToCategory($categoryId)) {
-                $product->addToCategory($categoryId);
-            }
-        }
-
-        foreach ($product->getCategories() as $categoryId) {
-            if (!in_array($categoryId->getValue(), $categories, false)) {
-                $product->removeFromCategory($categoryId);
-            }
-        }
-
-        return $product;
-    }
-
-    /**
-     * @param AbstractProduct $product
      *
      * @return AbstractProduct
      *

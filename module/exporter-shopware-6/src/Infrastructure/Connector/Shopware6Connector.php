@@ -8,12 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PostAccessToken;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 /**
  */
@@ -30,6 +30,11 @@ class Shopware6Connector
     private ?string $token;
 
     /**
+     * @var \DateTimeInterface
+     */
+    private $expiresAt;
+
+    /**
      * @param Configurator $configurator
      */
     public function __construct(Configurator $configurator)
@@ -37,38 +42,39 @@ class Shopware6Connector
         $this->configurator = $configurator;
 
         $this->token = null;
+        $this->expiresAt = new \DateTimeImmutable();
     }
 
     /**
-     * @param Shopware6ExportApiProfile $exportProfile
-     * @param ActionInterface           $action
+     * @param Shopware6Channel $channel
+     * @param ActionInterface  $action
      *
      * @return object|string|null
      *
      * @throws /Exception
      */
-    public function execute(Shopware6ExportApiProfile $exportProfile, ActionInterface $action)
+    public function execute(Shopware6Channel $channel, ActionInterface $action)
     {
-        if ($this->token === null) {
-            $this->requestToken($exportProfile);
+        if ($this->token === null || $this->expiresAt <= (new \DateTime())) {
+            $this->requestToken($channel);
         }
 
-        return $this->request($exportProfile, $action);
+        return $this->request($channel, $action);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $exportProfile
-     * @param ActionInterface           $action
+     * @param Shopware6Channel $channel
+     * @param ActionInterface  $action
      *
      * @return array|object|string|null
      *
      * @throws GuzzleException
      */
-    private function request(Shopware6ExportApiProfile $exportProfile, ActionInterface $action)
+    private function request(Shopware6Channel $channel, ActionInterface $action)
     {
         try {
             $config = [
-                'base_uri' => $exportProfile->getHost(),
+                'base_uri' => $channel->getHost(),
             ];
 
             $this->configurator->configure($action, $this->token);
@@ -89,15 +95,28 @@ class Shopware6Connector
     }
 
     /**
-     * @param Shopware6ExportApiProfile $exportProfile
+     * @param Shopware6Channel $channel
      *
      * @throws GuzzleException
      */
-    private function requestToken(Shopware6ExportApiProfile $exportProfile): void
+    private function requestToken(Shopware6Channel $channel): void
     {
-        $post = new PostAccessToken($exportProfile);
-        $token = $this->request($exportProfile, $post);
-        $this->token = $token;
+        $post = new PostAccessToken($channel);
+        $data = $this->request($channel, $post);
+        $this->token = $data['access_token'];
+        $this->expiresAt = $this->calculateExpiryTime((int) $data['expires_in']);
+    }
+
+    /**
+     * @param int $expiresIn
+     *
+     * @return \DateTimeInterface
+     */
+    private function calculateExpiryTime(int $expiresIn): \DateTimeInterface
+    {
+        $expiryTimestamp = (new \DateTime())->getTimestamp() + $expiresIn;
+
+        return (new \DateTimeImmutable())->setTimestamp($expiryTimestamp);
     }
 
     /**

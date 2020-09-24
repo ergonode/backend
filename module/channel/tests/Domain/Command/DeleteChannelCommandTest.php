@@ -35,6 +35,6 @@ class DeleteChannelCommandTest extends TestCase
     public function testCreateCommand(): void
     {
         $command = new DeleteChannelCommand($this->id);
-        $this->assertEquals($this->id, $command->getId());
+        self::assertEquals($this->id, $command->getId());
     }
 }

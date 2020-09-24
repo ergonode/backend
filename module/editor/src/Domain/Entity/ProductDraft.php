@@ -20,6 +20,7 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -27,21 +28,29 @@ class ProductDraft extends AbstractAggregateRoot
 {
     /**
      * @var ProductDraftId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
     private ProductDraftId $id;
 
     /**
      * @var ProductId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $productId;
 
     /**
      * @var bool
+     *
+     * @JMS\Type("bool")
      */
     private bool $applied;
 
     /**
      * @var ValueInterface[]
+     *
+     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private array $attributes;
 

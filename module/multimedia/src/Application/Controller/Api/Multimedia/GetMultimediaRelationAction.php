@@ -15,7 +15,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationProvider;
@@ -59,7 +58,7 @@ class GetMultimediaRelationAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Response(
@@ -77,7 +76,6 @@ class GetMultimediaRelationAction
      * @return Response
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
-     *
      */
     public function __invoke(Language $language, Multimedia $multimedia): Response
     {

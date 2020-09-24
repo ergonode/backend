@@ -46,16 +46,18 @@ class CommentGrid extends AbstractGrid
     {
         $userId = $this->userProvider->provide()->getId();
 
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $this->addColumn('id', $id);
-
+        $commentIdColumn = new TextColumn('id', 'Id');
+        $commentIdColumn->setVisible(false);
+        $this->addColumn('id', $commentIdColumn);
+        $userIdColumn = new TextColumn('user_id', 'User Id', new TextFilter());
+        $userIdColumn->setVisible(false);
+        $this->addColumn('user_id', $userIdColumn);
         $this->addColumn('content', new TextColumn('content', 'Content', new TextFilter()));
         $this->addColumn('object_id', new TextColumn('object_id', 'Object', new TextFilter()));
         $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
-        $this->addColumn('avatar_id', new ImageColumn('avatar_id'));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Avatar', new DateFilter()));
-        $this->addColumn('edited_at', new DateColumn('edited_at', 'Avatar', new DateFilter()));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Crated at', new DateFilter()));
+        $this->addColumn('edited_at', new DateColumn('edited_at', 'Edited at', new DateFilter()));
+        $this->addColumn('avatar_filename', new ImageColumn('avatar_filename'));
 
         $links = [
             'get' => [

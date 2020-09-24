@@ -9,9 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Channel\Domain\Command\StartChannelExportCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -19,6 +17,8 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 
 /**
  * @Route(
@@ -48,17 +48,17 @@ class ChannelExportCreateAction
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="channel",
      *     in="path",
      *     type="string",
      *     description="Channel id",
      * )
-     *    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Response(
@@ -69,21 +69,20 @@ class ChannelExportCreateAction
      *     response=404,
      *     description="Not found",
      * )
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
-     * @param Channel $channel
-     * @param Request $request
+     * @param AbstractChannel $channel
+     * @param Request         $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Channel $channel, Request $request): Response
+    public function __invoke(AbstractChannel $channel, Request $request): Response
     {
-        $command = new StartChannelExportCommand(
+        $command = new ExportChannelCommand(
             ExportId::generate(),
             $channel->getId(),
-            $channel->getExportProfileId()
         );
 
         $this->commandBus->dispatch($command);

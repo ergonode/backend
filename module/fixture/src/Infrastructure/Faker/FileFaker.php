@@ -12,6 +12,7 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Faker\Generator;
 use Faker\Provider\Base as BaseProvider;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -55,6 +56,6 @@ class FileFaker extends BaseProvider
 
         copy($path, $tmp);
 
-        return new File($tmp);
+        return new UploadedFile($tmp, basename($file));
     }
 }

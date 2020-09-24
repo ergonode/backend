@@ -33,7 +33,11 @@ class AttributeGroupGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Elements Count', new TextFilter()));
+        $this->
+        addColumn(
+            'elements_count',
+            new IntegerColumn('elements_count', 'Number of attributes', new TextFilter())
+        );
 
         $links = [
             'get' => [

@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Tests\Attribute\Application\Form\Transformer;
+namespace Ergonode\Attribute\Tests\Application\Form\Transformer;
 
 use Ergonode\Attribute\Application\Form\Transformer\AttributeTypeDataTransformer;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
@@ -37,7 +37,7 @@ class AttributeTypeDataTransformerTest extends TestCase
      */
     public function testTransform(?AttributeType $attributeTypeValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($attributeTypeValueObject));
+        self::assertSame($string, $this->transformer->transform($attributeTypeValueObject));
     }
 
     /**
@@ -59,7 +59,7 @@ class AttributeTypeDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?AttributeType $attributeTypeValueObject, ?string $string): void
     {
-        $this->assertEquals($attributeTypeValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($attributeTypeValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**
@@ -78,8 +78,8 @@ class AttributeTypeDataTransformerTest extends TestCase
     {
         return [
             [
-                'attributeTypeValueObject' => new AttributeType('en'),
-                'string' => 'en',
+                'attributeTypeValueObject' => new AttributeType('en_GB'),
+                'string' => 'en_GB',
             ],
             [
                 'attributeTypeValueObject' => null,

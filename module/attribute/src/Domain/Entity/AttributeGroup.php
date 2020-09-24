@@ -15,6 +15,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -22,16 +23,22 @@ class AttributeGroup extends AbstractAggregateRoot
 {
     /**
      * @var AttributeGroupId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
     private AttributeGroupId $id;
 
     /**
      * @var AttributeGroupCode
+     *
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode")
      */
     private AttributeGroupCode $code;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 

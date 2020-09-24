@@ -42,7 +42,7 @@ class LanguageMapperTest extends TestCase
     public function testMapper(): void
     {
         $languages = [
-            new Language('en'),
+            new Language('en_GB'),
         ];
         $mapper = new LanguageMapper($this->translator);
         $result = $mapper->map(
@@ -50,7 +50,7 @@ class LanguageMapperTest extends TestCase
             $languages
         );
 
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('en', $result);
+        self::assertIsArray($result);
+        self::assertArrayHasKey('en_GB', $result);
     }
 }

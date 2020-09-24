@@ -4,9 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Ergonode\Comment\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Comment\Application\:
         resource: '../../Application/*'
         exclude: '../../Domain/{Model}'
@@ -27,9 +24,9 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Comment\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Comment\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Persistence\Dbal\Repository\DbalCommentRepository'
-    Ergonode\Comment\Domain\Query\CommentQueryInterface: '@Ergonode\Comment\Persistence\Dbal\Query\DbalCommentQuery'
+    Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Repository\DbalCommentRepository'
+    Ergonode\Comment\Domain\Query\CommentQueryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Query\DbalCommentQuery'

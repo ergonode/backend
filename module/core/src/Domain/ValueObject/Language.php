@@ -13,7 +13,7 @@ namespace Ergonode\Core\Domain\ValueObject;
  */
 class Language
 {
-    private const PATTERN = '/^[a-z]{2}(?:_[A-Z]{2}){0,2}$/';
+    private const PATTERN = '/^[a-z]{2}_[A-Z]{2}$/';
 
     /**
      * @var string
@@ -73,7 +73,7 @@ class Language
      *
      * @return bool
      */
-    public static function isValid(?string $code): bool
+    public static function isValid(string $code): bool
     {
         return preg_match(self::PATTERN, $code) === 1;
     }

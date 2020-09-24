@@ -11,7 +11,6 @@ namespace Ergonode\Exporter\Domain\Command\Export;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -25,20 +24,11 @@ class ProcessExportCommand implements DomainCommandInterface
     private ExportId $exportId;
 
     /**
-     * @var ProductId
-     *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
+     * @param ExportId $exportId
      */
-    private ProductId $productId;
-
-    /**
-     * @param ExportId  $exportId
-     * @param ProductId $productId
-     */
-    public function __construct(ExportId $exportId, ProductId $productId)
+    public function __construct(ExportId $exportId)
     {
         $this->exportId = $exportId;
-        $this->productId = $productId;
     }
 
     /**
@@ -47,13 +37,5 @@ class ProcessExportCommand implements DomainCommandInterface
     public function getExportId(): ExportId
     {
         return $this->exportId;
-    }
-
-    /**
-     * @return ProductId
-     */
-    public function getProductId(): ProductId
-    {
-        return $this->productId;
     }
 }

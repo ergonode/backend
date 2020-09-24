@@ -10,37 +10,28 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class DbalTransformerRepository implements TransformerRepositoryInterface
 {
-    private const TABLE = 'importer.event_store';
+    /**
+     * @var EventStoreManager
+     */
+    private EventStoreManager $manager;
 
     /**
-     * @var DomainEventStoreInterface
+     * @param EventStoreManager $manager
      */
-    private DomainEventStoreInterface $eventStore;
-
-    /**
-     * @var EventBusInterface
-     */
-    private EventBusInterface $eventBus;
-
-    /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
-     */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    public function __construct(EventStoreManager $manager)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->manager = $manager;
     }
 
     /**
@@ -50,21 +41,10 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
      */
     public function load(TransformerId $id): ?AbstractAggregateRoot
     {
-        $eventStream = $this->eventStore->load($id, self::TABLE);
-        if ($eventStream->count() > 0) {
-            $class = new \ReflectionClass(Transformer::class);
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', Transformer::class));
-            }
+        $aggregate = $this->manager->load($id);
+        Assert::nullOrIsInstanceOf($aggregate, Transformer::class);
 
-            $aggregate->initialize($eventStream);
-
-            return $aggregate;
-        }
-
-        return null;
+        return $aggregate;
     }
 
     /**
@@ -72,9 +52,7 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
      */
     public function exists(TransformerId $id): bool
     {
-        $eventStream = $this->eventStore->load($id, self::TABLE);
-
-        return $eventStream->count() > 0;
+        return $this->manager->exists($id);
     }
 
     /**
@@ -82,12 +60,7 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events, self::TABLE);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
+        $this->manager->save($aggregateRoot);
     }
 
     /**
@@ -100,6 +73,6 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
         $aggregateRoot->apply(new TransformerDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->manager->delete($aggregateRoot);
     }
 }

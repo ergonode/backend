@@ -19,7 +19,7 @@ class Magento1ImportSourceService implements ImportSourceInterface
     /**
      * @return string
      */
-    public function getType(): string
+    public static function getType(): string
     {
         return self::TYPE;
     }

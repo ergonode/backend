@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
+use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 
 /**
  */
@@ -26,10 +27,12 @@ class MultimediaGridTest extends TestCase
         $language = $this->createMock(Language::class);
         $provider = $this->createMock(MultimediaExtensionProvider::class);
         $provider->method('dictionary')->willReturn([]);
+        $query = $this->createMock(MultimediaQueryInterface::class);
+        $query->method('getTypes')->willReturn([]);
 
-        $grid = new MultimediaGrid($provider);
+        $grid = new MultimediaGrid($provider, $query);
         $grid->init($configuration, $language);
 
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

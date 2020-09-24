@@ -23,6 +23,7 @@ use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractCollectionAttribute;
 
 /**
  */
@@ -37,13 +38,18 @@ abstract class AbstractValueCommandHandler
      */
     protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ValueInterface
     {
-        if ($attribute instanceof MultiSelectAttribute || $attribute instanceof GalleryAttribute) {
+        if ($attribute instanceof MultiSelectAttribute || $attribute instanceof AbstractCollectionAttribute) {
+            if (null === $value) {
+                $value = [];
+            }
+
             return new StringCollectionValue([$language->getCode() => implode(',', $value)]);
         }
 
         if ($attribute instanceof SelectAttribute) {
             return new TranslatableStringValue(new TranslatableString([$language->getCode() => (string) $value]));
         }
+
         if ($attribute->isMultilingual()) {
             return new TranslatableStringValue(
                 new TranslatableString(
@@ -83,7 +89,7 @@ abstract class AbstractValueCommandHandler
         $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
         $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
         $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
-        $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:s'));
+        $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:sO'));
         $this->attributeUpdate($draft, $editedByCode, $editedByValue);
         $this->attributeUpdate($draft, $editedAtCode, $editedAtValue);
     }

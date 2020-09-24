@@ -10,29 +10,35 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostProductAction extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PostProductAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/product';
+    private const URI = '/api/v2/product?%s';
 
     /**
-     * @var CreateShopware6Product
+     * @var Shopware6Product
      */
-    private CreateShopware6Product $product;
+    private Shopware6Product $product;
 
     /**
-     * @param CreateShopware6Product $product
+     * @var bool
      */
-    public function __construct(CreateShopware6Product $product)
+    private bool $response;
+
+    /**
+     * @param Shopware6Product $product
+     * @param bool             $response
+     */
+    public function __construct(Shopware6Product $product, bool $response = false)
     {
         $this->product = $product;
+        $this->response = $response;
     }
 
     /**
@@ -51,11 +57,19 @@ class PostProductAction extends AbstractAction implements ActionInterface, Heade
     /**
      * @param string|null $content
      *
-     * @return null
+     * @return array|mixed|object|string|null
+     *
+     * @throws \JsonException
      */
-    public function parseContent(?string $content)
+    public function parseContent(?string $content): ?string
     {
-        return null;
+        if (null === $content) {
+            return null;
+        }
+
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+
+        return $data['data']['id'];
     }
 
     /**
@@ -73,6 +87,11 @@ class PostProductAction extends AbstractAction implements ActionInterface, Heade
      */
     private function getUri(): string
     {
-        return self::URI;
+        $query = [];
+        if ($this->response) {
+            $query['_response'] = 'true';
+        }
+
+        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
     }
 }

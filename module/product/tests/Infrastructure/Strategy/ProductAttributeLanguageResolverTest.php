@@ -35,7 +35,7 @@ class ProductAttributeLanguageResolverTest extends TestCase
     protected function setUp(): void
     {
         $this->query = $this->createMock(LanguageQueryInterface::class);
-        $this->rootLanguage = new Language('en');
+        $this->rootLanguage = new Language('en_GB');
         $this->query->method('getLanguageNodeInfo')->willReturn(['lft' => 1, 'rgt' => 10]);
         $this->query->method('getRootLanguage')->willReturn($this->rootLanguage);
     }
@@ -45,13 +45,13 @@ class ProductAttributeLanguageResolverTest extends TestCase
     public function testResolveLocal(): void
     {
         $resolver = new ProductAttributeLanguageResolver($this->query);
-        $language = new Language('pl');
+        $language = new Language('pl_PL');
         $attribute = $this->createMock(AbstractAttribute::class);
         $attribute->method('getScope')->willReturn(new AttributeScope(AttributeScope::LOCAL));
 
         $result = $resolver->resolve($attribute, $language);
 
-        $this->assertEquals($language, $result);
+        self::assertEquals($language, $result);
     }
 
     /**
@@ -59,13 +59,13 @@ class ProductAttributeLanguageResolverTest extends TestCase
     public function testResolveGlobal(): void
     {
         $resolver = new ProductAttributeLanguageResolver($this->query);
-        $language = new Language('pl');
+        $language = new Language('pl_PL');
         $attribute = $this->createMock(AbstractAttribute::class);
         $attribute->method('getScope')->willReturn(new AttributeScope(AttributeScope::GLOBAL));
 
         $result = $resolver->resolve($attribute, $language);
 
-        $this->assertNotEquals($language, $result);
-        $this->assertEquals($this->rootLanguage, $result);
+        self::assertNotEquals($language, $result);
+        self::assertEquals($this->rootLanguage, $result);
     }
 }

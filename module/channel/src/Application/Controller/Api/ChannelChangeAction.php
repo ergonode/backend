@@ -11,20 +11,18 @@ namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Channel\Application\Form\ChannelUpdateForm;
-use Ergonode\Channel\Application\Model\ChannelUpdateFormModel;
-use Ergonode\Channel\Domain\Command\UpdateChannelCommand;
-use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
+use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderProvider;
 
 /**
  * @Route(
@@ -37,9 +35,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChannelChangeAction
 {
     /**
-     * @var FormFactoryInterface
+     * @var ChannelFormFactoryProvider
      */
-    private FormFactoryInterface $formFactory;
+    private ChannelFormFactoryProvider $provider;
+
+    /**
+     * @var UpdateChannelCommandBuilderProvider
+     */
+    private UpdateChannelCommandBuilderProvider $commandProvider;
 
     /**
      * @var CommandBusInterface
@@ -47,12 +50,17 @@ class ChannelChangeAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
+     * @param ChannelFormFactoryProvider          $provider
+     * @param UpdateChannelCommandBuilderProvider $commandProvider
+     * @param CommandBusInterface                 $commandBus
      */
-    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
-    {
-        $this->formFactory = $formFactory;
+    public function __construct(
+        ChannelFormFactoryProvider $provider,
+        UpdateChannelCommandBuilderProvider $commandProvider,
+        CommandBusInterface $commandBus
+    ) {
+        $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -61,7 +69,7 @@ class ChannelChangeAction
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="channel",
      *     in="path",
      *     type="string",
      *     description="Channel id",
@@ -78,7 +86,7 @@ class ChannelChangeAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="en",
+     *     default="en_GB",
      *     description="Language Code",
      * )
      * @SWG\Response(
@@ -95,37 +103,32 @@ class ChannelChangeAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
-     * @param Channel $channel
-     * @param Request $request
+     * @param AbstractChannel $channel
+     * @param Request         $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Channel $channel, Request $request): Response
+    public function __invoke(AbstractChannel $channel, Request $request): Response
     {
+        $type = $channel->getType();
+
         try {
-            $model = new ChannelUpdateFormModel();
-            $form = $this->formFactory->create(ChannelUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this->provider->provide($type)->create($channel);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ChannelUpdateFormModel $data */
-                $data = $form->getData();
-                $command = new UpdateChannelCommand(
-                    $channel->getId(),
-                    $data->name
-                );
+                $command = $this->commandProvider->provide($type)->build($channel->getId(), $form);
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse($command->getId());
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
         }
-
         throw new FormValidationHttpException($form);
     }
 }

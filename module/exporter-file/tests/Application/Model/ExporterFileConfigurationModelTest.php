@@ -10,7 +10,7 @@ namespace Ergonode\ExporterFile\Tests\Application\Model;
 
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
 use PHPUnit\Framework\TestCase;
-use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -21,8 +21,8 @@ class ExporterFileConfigurationModelTest extends TestCase
     public function testCreateWithoutProfile(): void
     {
         $model = new ExporterFileConfigurationModel();
-        $this->assertNull($model->name);
-        $this->assertNull($model->format);
+        self::assertNull($model->name);
+        self::assertNull($model->format);
     }
 
     /**
@@ -31,12 +31,12 @@ class ExporterFileConfigurationModelTest extends TestCase
     {
         $name = 'Name';
         $format = 'Format';
-        $profile = $this->createMock(FileExportProfile::class);
-        $profile->method('getName')->willReturn($name);
-        $profile->method('getFormat')->willReturn($format);
+        $channel = $this->createMock(FileExportChannel::class);
+        $channel->method('getName')->willReturn($name);
+        $channel->method('getFormat')->willReturn($format);
 
-        $model = new ExporterFileConfigurationModel($profile);
-        $this->assertSame($name, $model->name);
-        $this->assertSame($format, $model->format);
+        $model = new ExporterFileConfigurationModel($channel);
+        self::assertSame($name, $model->name);
+        self::assertSame($format, $model->format);
     }
 }

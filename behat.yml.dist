@@ -39,19 +39,19 @@ default:
                 - module/workflow/features
 
             contexts:
-                - App\Tests\Behat\Context\StoreRestResponseParamContext
-                - App\Tests\Behat\Context\UserContext
-                - App\Tests\Behat\Context\ResolveVarsContext
-                - App\Tests\Behat\Context\ApiAuthContext:
+                - Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext
+                - Ergonode\Core\Test\Behat\Context\UserContext
+                - Ergonode\Core\Test\Behat\Context\ResolveVarsContext
+                - Ergonode\Core\Test\Behat\Context\ApiAuthContext:
                     JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
                     request: '@Behatch\HttpCall\Request'
-                - App\Tests\Behat\Context\UploadFileContext
+                - Ergonode\Core\Test\Behat\Context\UploadFileContext
                 - behatch:context:rest
                 - behatch:context:json
                 - behatch:context:debug
                 - Behat\MinkExtension\Context\MinkContext
-                - StorageContext:
-                - AuthenticationContext:
+                - Ergonode\Core\Test\Behat\Context\StorageContext:
+                - Ergonode\Core\Test\Behat\Context\AuthenticationContext:
                     username: 'test@ergonode.com'
                     password: 'abcd1234'
 
@@ -64,7 +64,7 @@ default:
             sessions:
                 default:
                     symfony2: ~
-        App\Tests\Behat\Extension\EnvVarProcessorExtension: ~
+        Ergonode\Core\Test\Behat\Extension\EnvVarProcessorExtension: ~
         Behat\Symfony2Extension:
             kernel:
                 bootstrap: 'features/bootstrap/bootstrap.php'

@@ -35,18 +35,7 @@ class NodeTest extends TestCase
     public function testCreateNode(): void
     {
         $node = new Node($this->categoryId);
-        $this->assertEquals($this->categoryId, $node->getCategoryId());
-    }
-
-    /**
-     */
-    public function testSettingParent(): void
-    {
-        /** @var Node|MockObject $parent */
-        $parent = $this->createMock(Node::class);
-        $node = new Node($this->categoryId);
-        $node->setParent($parent);
-        $this->assertEquals($parent, $node->getParent());
+        $this::assertEquals($this->categoryId, $node->getCategoryId());
     }
 
     /**
@@ -84,8 +73,8 @@ class NodeTest extends TestCase
         $node = new Node($this->categoryId);
         $node ->addChild($child1);
 
-        $this->assertTrue($node->hasSuccessor($categoryId1));
-        $this->assertTrue($node->hasSuccessor($categoryId2));
-        $this->assertTrue($node->hasSuccessor($categoryId3));
+        $this::assertTrue($node->hasSuccessor($categoryId1));
+        $this::assertTrue($node->hasSuccessor($categoryId2));
+        $this::assertTrue($node->hasSuccessor($categoryId3));
     }
 }

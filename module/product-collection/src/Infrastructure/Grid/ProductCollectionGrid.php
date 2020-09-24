@@ -62,8 +62,8 @@ class ProductCollectionGrid extends AbstractGrid
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
         $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter()));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Creation date', new DateFilter()));
-        $this->addColumn('edited_at', new DateColumn('edited_at', 'Last edit date', new DateFilter()));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
+        $this->addColumn('edited_at', new DateColumn('edited_at', 'Edited at', new DateFilter()));
 
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [

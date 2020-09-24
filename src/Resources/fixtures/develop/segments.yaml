@@ -1,10 +1,10 @@
 parameters:
   segment_name:
-    'pl': 'Polish_segment_name'
-    'en': 'English_segment_name'
+    'pl_PL': 'Polish_segment_name'
+    'en_GB': 'English_segment_name'
   segment_description:
-    'pl': 'Polish_segment_name'
-    'en': 'English_segment_name'
+    'pl_PL': 'Polish_segment_name'
+    'en_GB': 'English_segment_name'
 
 Ergonode\Segment\Domain\Command\CreateSegmentCommand:
   test_segment:

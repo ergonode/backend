@@ -14,6 +14,9 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
+use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
 /**
@@ -28,11 +31,18 @@ class DbalStatusQuery implements StatusQueryInterface
     private Connection $connection;
 
     /**
-     * @param Connection $connection
+     * @var WorkflowProvider
      */
-    public function __construct(Connection $connection)
+    private WorkflowProvider $workflowProvider;
+
+    /**
+     * @param Connection       $connection
+     * @param WorkflowProvider $workflowProvider
+     */
+    public function __construct(Connection $connection, WorkflowProvider $workflowProvider)
     {
         $this->connection = $connection;
+        $this->workflowProvider = $workflowProvider;
     }
 
     /**
@@ -106,6 +116,41 @@ class DbalStatusQuery implements StatusQueryInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getStatusCount(Language $language): array
+    {
+        $sql = "SELECT id, code, name->>:language AS label FROM status;";
+        $stmt = $this->connection->executeQuery($sql, ['language' => (string) $language]);
+        $statuses = $stmt->fetchAll();
+
+        $sql = 'SELECT vt.value, count(pv.product_id)
+            FROM attribute a
+            JOIN product_value pv ON a.id = pv.attribute_id
+            JOIN value_translation vt ON pv.value_id = vt.value_id
+            WHERE code = :code
+            GROUP BY vt.value
+        ';
+        $stmt = $this->connection->executeQuery($sql, ['code' => StatusSystemAttribute::CODE]);
+        $products = $stmt->fetchAll();
+
+        $result = [];
+        foreach ($statuses as $status) {
+            $result[$status['code']] = [
+                'status_id' => $status['id'],
+                'label' => $status['label'],
+                'code' => $status['code'],
+                'value' => 0,
+            ];
+        }
+        foreach ($products as $product) {
+            $result[$product['value']]['value'] = $product['count'];
+        }
+
+        return $this->sortStatusesByWorkflowTransitions($result);
+    }
+
+    /**
      * @param Language $language
      *
      * @return QueryBuilder
@@ -119,5 +164,23 @@ class DbalStatusQuery implements StatusQueryInterface
                 $language->getCode()
             ))
             ->from(self::STATUS_TABLE, 'a');
+    }
+
+    /**
+     * @param mixed[][] $statuses
+     *
+     * @return mixed[][]
+     */
+    private function sortStatusesByWorkflowTransitions(array $statuses): array
+    {
+        $workflowSorted = $this->workflowProvider->provide()->getSortedTransitionStatuses();
+        $sorted = [];
+        foreach ($workflowSorted as $item) {
+            $sorted[] = $statuses[$item->getValue()];
+            unset($statuses[$item->getValue()]);
+        }
+        ksort($statuses);
+
+        return array_merge($sorted, array_values($statuses));
     }
 }

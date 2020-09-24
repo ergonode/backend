@@ -18,8 +18,7 @@ class GroupingProduct extends AbstractAssociatedProduct
     public const TYPE = 'GROUPING-PRODUCT';
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
+     * @JMS\Type("string");
      *
      * @return string
      */

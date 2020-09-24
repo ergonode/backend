@@ -10,12 +10,9 @@ namespace Ergonode\ExporterMagento2\Application\Form;
 
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\ExporterMagento2\Application\Form\Model\ExporterMagento2CsvConfigurationModel;
-use Ergonode\ExporterMagento2\Domain\Entity\Magento2ExportCsvProfile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -26,7 +23,7 @@ class ExporterMagento2ConfigurationForm extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(

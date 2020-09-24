@@ -73,29 +73,29 @@ class AbstractCategoryTest extends TestCase
         /** @var ValueInterface|MockObject $attributeValue2 */
         $attributeValue2 = new StringValue('test2');
         /** @var TranslatableString|MockObject $name */
-        $name = new TranslatableString(['en' => 'test']);
+        $name = new TranslatableString(['en_GB' => 'test']);
 
         $entity = $this->getClass();
 
-        $this->assertEquals($this->id, $entity->getId());
-        $this->assertEquals($this->name, $entity->getName());
-        $this->assertEquals($this->code, $entity->getCode());
-        $this->assertEquals($this->attributes, $entity->getAttributes());
+        self::assertEquals($this->id, $entity->getId());
+        self::assertEquals($this->name, $entity->getName());
+        self::assertEquals($this->code, $entity->getCode());
+        self::assertEquals($this->attributes, $entity->getAttributes());
 
-        $this->assertTrue($entity->hasAttribute($this->attributeCode));
-        $this->assertEquals(reset($this->attributes), $entity->getAttribute($this->attributeCode));
+        self::assertTrue($entity->hasAttribute($this->attributeCode));
+        self::assertEquals(reset($this->attributes), $entity->getAttribute($this->attributeCode));
         $entity->addAttribute($attributeCode, $attributeValue1);
-        $this->assertTrue($entity->hasAttribute($attributeCode));
-        $this->assertEquals($entity->getAttribute($attributeCode), $attributeValue1);
+        self::assertTrue($entity->hasAttribute($attributeCode));
+        self::assertEquals($entity->getAttribute($attributeCode), $attributeValue1);
         $entity->changeAttribute($attributeCode, $attributeValue2);
-        $this->assertEquals($entity->getAttribute($attributeCode), $attributeValue2);
-        $this->assertArrayHasKey('aaa', ($entity->getAttributes()));
-        $this->assertArrayHasKey('bbb', ($entity->getAttributes()));
+        self::assertEquals($entity->getAttribute($attributeCode), $attributeValue2);
+        self::assertArrayHasKey('aaa', ($entity->getAttributes()));
+        self::assertArrayHasKey('bbb', ($entity->getAttributes()));
         $entity->removeAttribute($attributeCode);
-        $this->assertFalse($entity->hasAttribute($attributeCode));
+        self::assertFalse($entity->hasAttribute($attributeCode));
 
         $entity->changeName($name);
-        $this->assertEquals($name, $entity->getName());
+        self::assertEquals($name, $entity->getName());
     }
 
     /**

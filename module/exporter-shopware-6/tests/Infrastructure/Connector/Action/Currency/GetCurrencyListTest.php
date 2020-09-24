@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Currency;
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\GetCurrencyList;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
@@ -22,14 +23,14 @@ class GetCurrencyListTest extends TestCase
      */
     public function testAction()
     {
-        $action = new GetCurrencyList();
+        $action = new GetCurrencyList(new Shopware6QueryBuilder());
         $request = $action->getRequest();
 
-        $this->assertInstanceOf(Request::class, $request);
-        $this->assertSame('', $request->getHeaderLine('Accept'));
-        $this->assertSame('', $request->getHeaderLine('Cache-Control'));
-        $this->assertSame('', $request->getHeaderLine('Content-Type'));
-        $this->assertSame(HttpRequest::METHOD_GET, $request->getMethod());
-        $this->assertInstanceOf(Uri::class, $request->getUri());
+        self::assertInstanceOf(Request::class, $request);
+        self::assertSame('', $request->getHeaderLine('Accept'));
+        self::assertSame('', $request->getHeaderLine('Cache-Control'));
+        self::assertSame('', $request->getHeaderLine('Content-Type'));
+        self::assertSame(HttpRequest::METHOD_GET, $request->getMethod());
+        self::assertInstanceOf(Uri::class, $request->getUri());
     }
 }

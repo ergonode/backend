@@ -8,32 +8,32 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Repository;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
 interface Shopware6CurrencyRepositoryInterface
 {
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
+     * @param ChannelId $channel
+     * @param string    $iso
      *
      * @return string|null
      */
-    public function load(ExportProfileId $exportProfileId, string $iso): ?string;
+    public function load(ChannelId $channel, string $iso): ?string;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
-     * @param string          $shopwareId
+     * @param ChannelId $channel
+     * @param string    $iso
+     * @param string    $shopwareId
      */
-    public function save(ExportProfileId $exportProfileId, string $iso, string $shopwareId): void;
+    public function save(ChannelId $channel, string $iso, string $shopwareId): void;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
+     * @param ChannelId $channel
+     * @param string    $iso
      *
      * @return bool
      */
-    public function exists(ExportProfileId $exportProfileId, string $iso): bool;
+    public function exists(ChannelId $channel, string $iso): bool;
 }

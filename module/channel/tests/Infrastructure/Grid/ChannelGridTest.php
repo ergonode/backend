@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Tests\Infrastructure\Grid;
 
+use Ergonode\Channel\Application\Provider\ChannelTypeDictionaryProvider;
 use Ergonode\Channel\Infrastructure\Grid\ChannelGrid;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -25,8 +26,11 @@ class ChannelGridTest extends TestCase
         $configuration = $this->createMock(GridConfigurationInterface::class);
         /** @var Language $language */
         $language = $this->createMock(Language::class);
-        $grid = new ChannelGrid();
+        /** @var ChannelTypeDictionaryProvider $provider */
+        $provider = $this->createMock(ChannelTypeDictionaryProvider::class);
+
+        $grid = new ChannelGrid($provider);
         $grid->init($configuration, $language);
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }
