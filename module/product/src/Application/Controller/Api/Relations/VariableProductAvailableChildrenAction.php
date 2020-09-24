@@ -20,6 +20,7 @@ use Ergonode\Product\Infrastructure\Grid\VariableProductAvailableChildrenGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 use Webmozart\Assert\Assert;
@@ -141,25 +142,24 @@ class VariableProductAvailableChildrenAction
      *     description="Returns products",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\VariableProduct")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param AbstractProduct          $product
+     * @param VariableProduct          $product
      * @param Language                 $language
      * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
     public function __invoke(
-        AbstractProduct $product,
+        VariableProduct $product,
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
-        Assert::isInstanceOf($product, VariableProduct::class);
         $data = $this->gridRenderer->render(
             $this->grid,
             $configuration,
-            $this->query->getChildrenAndAvailableProductsDataSet($product->getId(), $product->getBindings(), $language),
+            $this->query->getChildrenAndAvailableProductsDataSet($product, $language),
             $language
         );
 

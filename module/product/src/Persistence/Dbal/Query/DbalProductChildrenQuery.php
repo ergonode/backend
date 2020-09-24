@@ -17,6 +17,8 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
@@ -92,20 +94,18 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     }
 
     /**
-     * @param ProductId     $productId
-     * @param AttributeId[] $bindings
-     * @param Language      $language
+     * @param VariableProduct $product
+     * @param Language        $language
      *
      * @return DataSetInterface
      */
     public function getChildrenAndAvailableProductsDataSet(
-        ProductId $productId,
-        array $bindings,
+        VariableProduct $product,
         Language $language
     ): DataSetInterface {
         $info = $this->query->getLanguageNodeInfo($language);
         $bindingValues = [];
-        foreach ($bindings as $binding) {
+        foreach ($product->getBindings() as $binding) {
             $bindingValues[] = $binding->getValue();
         }
 
@@ -115,7 +115,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
             ->join('p', self::PRODUCT_VALUE_TABLE, 'pv', 'p.id = pv.product_id')
             ->join('p', self::TEMPLATE_TABLE, 'dt', 'p.template_id = dt.id')
             ->where($qb->expr()->in('pv.attribute_id', ':bindings'))
-            ->andWhere('p.type = \'SIMPLE-PRODUCT\'')
+            ->andWhere('p.type = :type')
             ->groupBy('p.id, p.sku, dt.name')
             ->having($qb->expr()->gt('count(*)', ':count'));
 
@@ -134,7 +134,8 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         $result->select('*');
         $result->setParameter(':bindings', $bindingValues, Connection::PARAM_INT_ARRAY);
         $result->setParameter(':count', (count($bindingValues) - 1));
-        $result->setParameter(':id', $productId->getValue());
+        $result->setParameter(':id', $product->getId()->getValue());
+        $result->setParameter(':type', SimpleProduct::TYPE);
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
         return new DbalDataSet($result);

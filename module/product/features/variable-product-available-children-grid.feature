@@ -187,3 +187,7 @@ Feature: Variable product available children grid feature
       | template      | abc   |
       | default_label | abc   |
       | attach_flag   | abc   |
+
+  Scenario: Get simple product children and available products
+    When I send a GET request to "/api/v1/en_GB/products/@product_1_id@/variable/children-and-available-products?field=sku&order=ASC"
+    Then the response status code should be 400
