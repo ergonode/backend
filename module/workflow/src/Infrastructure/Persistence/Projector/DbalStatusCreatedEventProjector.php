@@ -2,20 +2,20 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Persistence\Dbal\Projector;
+namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class StatusNameChangedEventProjector
+class DbalStatusCreatedEventProjector
 {
     private const TABLE = 'status';
 
@@ -42,15 +42,16 @@ class StatusNameChangedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(StatusNameChangedEvent $event): void
+    public function __invoke(StatusCreatedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->insert(
             self::TABLE,
             [
-                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
-            ],
-            [
                 'id' => $event->getAggregateId()->getValue(),
+                'code' => $event->getCode(),
+                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
+                'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
+                'color' => $event->getColor()->getValue(),
             ]
         );
     }
