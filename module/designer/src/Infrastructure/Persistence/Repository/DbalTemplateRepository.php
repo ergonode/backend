@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Repository;
+namespace Ergonode\Designer\Infrastructure\Persistence\Repository;
 
+use Doctrine\DBAL\DBALException;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
-use Doctrine\DBAL\DBALException;
 
 /**
  */

@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Repository;
+namespace Ergonode\Designer\Infrastructure\Persistence\Repository;
 
 use Ergonode\Designer\Domain\Entity\TemplateGroup;
 use Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Webmozart\Assert\Assert;
 
 /**

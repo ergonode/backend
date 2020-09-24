@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Projector;
+namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultImageChangedEvent;
 
 /**
  */
-class TemplateNameChangedEventProjector
+class DbalTemplateDefaultImageChangedEventProjector
 {
     private const TABLE = 'designer.template';
 
@@ -34,12 +34,12 @@ class TemplateNameChangedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateNameChangedEvent $event): void
+    public function __invoke(TemplateDefaultImageChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'name' => $event->getTo(),
+                'default_image' => $event->getTo()->getValue(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
