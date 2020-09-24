@@ -186,8 +186,6 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     *
-     *
      * @throws \Exception
      */
     public function testAddingNoDestinationException(): void
@@ -199,5 +197,42 @@ class WorkflowTest extends TestCase
         $destination = new StatusCode('B');
         $workflow = new Workflow($this->id, $this->code, [$source]);
         $workflow->addTransition($source, $destination);
+    }
+
+    /**
+     */
+    public function testShouldSortTransitionStatuses(): void
+    {
+        $workflow = new Workflow(
+            $this->id,
+            '1',
+            [
+                new StatusCode('1'),
+                new StatusCode('2'),
+                new StatusCode('3'),
+                new StatusCode('4'),
+                new StatusCode('5'),
+                new StatusCode('6'),
+                new StatusCode('7'),
+                new StatusCode('8'),
+            ],
+        );
+        $workflow->addTransition(new StatusCode('1'), new StatusCode('2'));
+        $workflow->addTransition(new StatusCode('7'), new StatusCode('8'));
+        $workflow->addTransition(new StatusCode('4'), new StatusCode('1'));
+        $workflow->addTransition(new StatusCode('3'), new StatusCode('4'));
+        $workflow->addTransition(new StatusCode('2'), new StatusCode('3'));
+
+        $sorted = $workflow->getSortedTransitionStatuses();
+
+        $this->assertEquals(
+            [
+                new StatusCode('1'),
+                new StatusCode('2'),
+                new StatusCode('3'),
+                new StatusCode('4'),
+            ],
+            $sorted,
+        );
     }
 }

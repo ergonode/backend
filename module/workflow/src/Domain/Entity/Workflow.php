@@ -313,6 +313,32 @@ class Workflow extends AbstractAggregateRoot
     }
 
     /**
+     * @return StatusCode[]
+     */
+    public function getSortedTransitionStatuses(): array
+    {
+        $transitions = $this->transitions;
+        $code = new StatusCode($this->code);
+        $sorted = [$code];
+        $transitions = new \ArrayIterator($transitions);
+        foreach ($transitions as $id => $transition) {
+            if ($code->getValue() !== $transition->getFrom()->getValue()) {
+                continue;
+            }
+            // avoids infinite loop
+            if ($this->code === $transition->getTo()->getValue()) {
+                break;
+            }
+            $code = $sorted[] = $transition->getTo();
+
+            $transitions->offsetUnset($id);
+            $transitions->rewind();
+        }
+
+        return $sorted;
+    }
+
+    /**
      * @param StatusCode $id
      *
      * @throws \Exception

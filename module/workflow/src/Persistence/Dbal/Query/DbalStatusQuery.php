@@ -15,6 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
+use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
 /**
@@ -29,11 +31,18 @@ class DbalStatusQuery implements StatusQueryInterface
     private Connection $connection;
 
     /**
-     * @param Connection $connection
+     * @var WorkflowProvider
      */
-    public function __construct(Connection $connection)
+    private WorkflowProvider $workflowProvider;
+
+    /**
+     * @param Connection       $connection
+     * @param WorkflowProvider $workflowProvider
+     */
+    public function __construct(Connection $connection, WorkflowProvider $workflowProvider)
     {
         $this->connection = $connection;
+        $this->workflowProvider = $workflowProvider;
     }
 
     /**
@@ -138,7 +147,7 @@ class DbalStatusQuery implements StatusQueryInterface
             $result[$product['value']]['value'] = $product['count'];
         }
 
-        return array_values($result);
+        return $this->sortStatusesByWorkflowTransitions($result);
     }
 
     /**
@@ -155,5 +164,23 @@ class DbalStatusQuery implements StatusQueryInterface
                 $language->getCode()
             ))
             ->from(self::STATUS_TABLE, 'a');
+    }
+
+    /**
+     * @param mixed[][] $statuses
+     *
+     * @return mixed[][]
+     */
+    private function sortStatusesByWorkflowTransitions(array $statuses): array
+    {
+        $workflowSorted = $this->workflowProvider->provide()->getSortedTransitionStatuses();
+        $sorted = [];
+        foreach ($workflowSorted as $item) {
+            $sorted[] = $statuses[$item->getValue()];
+            unset($statuses[$item->getValue()]);
+        }
+        ksort($statuses);
+
+        return array_merge($sorted, array_values($statuses));
     }
 }
