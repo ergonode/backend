@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Persistence\Dbal\Repository;
+namespace Ergonode\Workflow\Infrastructure\Persistence\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Webmozart\Assert\Assert;
 
 /**

@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Value\Persistence\Dbal\Projector;
+namespace Ergonode\Value\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -17,7 +17,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ValueRemovedEventProjector
+class DbalValueRemovedEventProjector
 {
     private const NAMESPACE = '0cc20207-d1b7-460b-8ef6-6898d00de4c0';
     private const RELATION_TABLE = 'entity_attribute_value';
