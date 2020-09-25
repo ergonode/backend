@@ -7,17 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Persistence\Dbal\Projector\Segment;
+namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
-use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
+use Ergonode\Segment\Domain\Event\SegmentNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class SegmentCreatedEventProjector
+class DbalSegmentNameChangedEventProjector
 {
     private const TABLE = 'segment';
 
@@ -42,21 +41,19 @@ class SegmentCreatedEventProjector
     }
 
     /**
-     * @param SegmentCreatedEvent $event
+     * @param SegmentNameChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(SegmentCreatedEvent $event): void
+    public function __invoke(SegmentNameChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
+                'name' => $this->serializer->serialize($event->getTo(), 'json'),
+            ],
+            [
                 'id' => $event->getAggregateId()->getValue(),
-                'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName(), 'json'),
-                'description' => $this->serializer->serialize($event->getDescription(), 'json'),
-                'status' => SegmentStatus::NEW,
-                'condition_set_id' => $event->getConditionSetId() ? $event->getConditionSetId()->getValue() : null,
             ]
         );
     }

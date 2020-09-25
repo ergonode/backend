@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Persistence\Dbal\Projector\Segment;
+namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
+use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 
 /**
  */
-class SegmentStatusChangedEventProjector
+class DbalSegmentConditionSetChangedEventProjector
 {
     private const TABLE = 'segment';
 
@@ -33,16 +33,16 @@ class SegmentStatusChangedEventProjector
     }
 
     /**
-     * @param SegmentStatusChangedEvent $event
+     * @param SegmentConditionSetChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(SegmentStatusChangedEvent $event): void
+    public function __invoke(SegmentConditionSetChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'status' => (string) $event->getTo(),
+                'condition_set_id' => $event->getTo() ? $event->getTo()->getValue() : null,
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

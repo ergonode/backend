@@ -7,16 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Persistence\Dbal\Query;
+namespace Ergonode\Segment\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 /**
  */

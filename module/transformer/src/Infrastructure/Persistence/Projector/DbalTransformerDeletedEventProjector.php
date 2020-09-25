@@ -7,18 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Persistence\Dbal\Projector\Product;
+namespace Ergonode\Transformer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\ProductDeletedEvent;
+use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
 
 /**
  */
-class ProductDeletedEventProjector
+class DbalTransformerDeletedEventProjector
 {
-    private const TABLE_PRODUCT = 'segment_product';
-
     /**
      * @var Connection
      */
@@ -33,16 +30,14 @@ class ProductDeletedEventProjector
     }
 
     /**
-     * @param ProductDeletedEvent $event
-     *
-     * @throws DBALException
+     * {@inheritDoc}
      */
-    public function __invoke(ProductDeletedEvent $event): void
+    public function __invoke(TransformerDeletedEvent $event): void
     {
         $this->connection->delete(
-            self::TABLE_PRODUCT,
+            'importer.transformer',
             [
-                'product_id' => $event->getAggregateId()->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

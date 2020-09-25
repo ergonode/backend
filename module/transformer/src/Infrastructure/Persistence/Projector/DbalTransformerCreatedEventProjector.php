@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Persistence\Dbal\Projector;
+namespace Ergonode\Transformer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
+use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 
 /**
  */
-class TransformerDeletedEventProjector
+class DbalTransformerCreatedEventProjector
 {
     /**
      * @var Connection
@@ -32,12 +32,14 @@ class TransformerDeletedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TransformerDeletedEvent $event): void
+    public function __invoke(TransformerCreatedEvent $event): void
     {
-        $this->connection->delete(
+        $this->connection->insert(
             'importer.transformer',
             [
                 'id' => $event->getAggregateId()->getValue(),
+                'name' => $event->getName(),
+                'key' => $event->getKey(),
             ]
         );
     }
