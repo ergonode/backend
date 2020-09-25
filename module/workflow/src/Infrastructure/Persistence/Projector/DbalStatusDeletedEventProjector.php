@@ -2,19 +2,19 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Persistence\Dbal\Projector;
+namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 
 /**
  */
-class StatusColorChangedEventProjector
+class DbalStatusDeletedEventProjector
 {
     private const TABLE = 'status';
 
@@ -34,13 +34,10 @@ class StatusColorChangedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(StatusColorChangedEvent $event): void
+    public function __invoke(StatusDeletedEvent $event): void
     {
-        $this->connection->update(
+        $this->connection->delete(
             self::TABLE,
-            [
-                'color' => $event->getTo()->getValue(),
-            ],
             [
                 'id' => $event->getAggregateId()->getValue(),
             ]
