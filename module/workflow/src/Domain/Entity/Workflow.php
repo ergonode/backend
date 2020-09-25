@@ -318,7 +318,7 @@ class Workflow extends AbstractAggregateRoot
     public function getSortedTransitionStatuses(): array
     {
         $transitions = $this->transitions;
-        $code = new StatusCode($this->code);
+        $code = $this->getDefaultStatus();
         $sorted = [$code];
         $transitions = new \ArrayIterator($transitions);
         foreach ($transitions as $id => $transition) {
@@ -326,7 +326,7 @@ class Workflow extends AbstractAggregateRoot
                 continue;
             }
             // avoids infinite loop
-            if ($this->code === $transition->getTo()->getValue()) {
+            if ($this->getDefaultStatus()->getValue() === $transition->getTo()->getValue()) {
                 break;
             }
             $code = $sorted[] = $transition->getTo();

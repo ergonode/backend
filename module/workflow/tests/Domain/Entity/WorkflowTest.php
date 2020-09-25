@@ -205,7 +205,7 @@ class WorkflowTest extends TestCase
     {
         $workflow = new Workflow(
             $this->id,
-            '1',
+            '0',
             [
                 new StatusCode('1'),
                 new StatusCode('2'),
@@ -217,6 +217,7 @@ class WorkflowTest extends TestCase
                 new StatusCode('8'),
             ],
         );
+        $workflow->setDefaultStatus(new StatusCode('1'));
         $workflow->addTransition(new StatusCode('1'), new StatusCode('2'));
         $workflow->addTransition(new StatusCode('7'), new StatusCode('8'));
         $workflow->addTransition(new StatusCode('4'), new StatusCode('1'));
