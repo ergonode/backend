@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Value\Persistence\Dbal\Projector;
+namespace Ergonode\Value\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Value\Domain\Event\ValueAddedEvent;
+use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ValueAddedEventProjector
+class DbalValueChangedEventProjector
 {
     private const NAMESPACE = '0cc20207-d1b7-460b-8ef6-6898d00de4c0';
     private const VALUE_TABLE = 'attribute_value';
@@ -44,24 +44,26 @@ class ValueAddedEventProjector
     }
 
     /**
-     * @param ValueAddedEvent $event
+     * @param ValueChangedEvent $event
      *
      * @throws \Throwable
      */
-    public function __invoke(ValueAddedEvent $event): void
+    public function __invoke(ValueChangedEvent $event): void
     {
         $this->connection->transactional(function () use ($event) {
             $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
-            $type = get_class($event->getValue());
-            $value = $this->serializer->serialize($event->getValue(), 'json');
+            $type = get_class($event->getTo());
+            $newValue = $this->serializer->serialize($event->getTo(), 'json');
+            $oldValue = $this->serializer->serialize($event->getTo(), 'json');
 
-            $valueId = Uuid::uuid5(self::NAMESPACE, $value);
+            $newValueId = Uuid::uuid5(self::NAMESPACE, $newValue);
+            $oldValueId = Uuid::uuid5(self::NAMESPACE, $oldValue);
 
             $qb = $this->connection->createQueryBuilder();
             $result = $qb->select('*')
                 ->from(self::VALUE_TABLE)
                 ->where($qb->expr()->eq('id', ':id'))
-                ->setParameter(':id', $valueId->toString())
+                ->setParameter(':id', $newValueId->toString())
                 ->execute()
                 ->fetch();
 
@@ -71,7 +73,7 @@ class ValueAddedEventProjector
                         'INSERT INTO %s (id, type, value) VALUES (?, ?, ?) ON CONFLICT DO NOTHING',
                         self::VALUE_TABLE
                     ),
-                    [$valueId->toString(), $type, $value]
+                    [$newValueId->toString(), $type, $newValueId]
                 );
             }
 
@@ -80,7 +82,16 @@ class ValueAddedEventProjector
                 [
                     'entity_id' => $event->getAggregateId()->getValue(),
                     'attribute_id' => $attributeId->getValue(),
-                    'value_id' => $valueId->toString(),
+                    'value_id' => $newValueId->toString(),
+                ]
+            );
+
+            $this->connection->delete(
+                self::RELATION_TABLE,
+                [
+                    'entity_id' => $event->getAggregateId()->getValue(),
+                    'attribute_id' => $attributeId->getValue(),
+                    'value_id' => $oldValueId->toString(),
                 ]
             );
         });

@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
+namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -16,7 +16,7 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 
 /**
  */
-class WorkflowDefaultStatusSetEventProjector
+class DbalWorkflowDefaultStatusSetEventProjector
 {
     private const TABLE = 'workflow';
 

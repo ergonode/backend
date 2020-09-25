@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Persistence\Dbal\Projector;
+namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class StatusCreatedEventProjector
+class DbalStatusDescriptionChangedEventProjector
 {
     private const TABLE = 'status';
 
@@ -42,16 +42,15 @@ class StatusCreatedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(StatusCreatedEvent $event): void
+    public function __invoke(StatusDescriptionChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
+                'description' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+            ],
+            [
                 'id' => $event->getAggregateId()->getValue(),
-                'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
-                'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
-                'color' => $event->getColor()->getValue(),
             ]
         );
     }
