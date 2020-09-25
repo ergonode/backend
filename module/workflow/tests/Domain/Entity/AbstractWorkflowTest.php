@@ -15,6 +15,7 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -156,7 +157,6 @@ class AbstractWorkflowTest extends TestCase
         $source = StatusId::generate();
         $destination = StatusId::generate();
 
-
         $workflow = $this->getClass($this->id, $this->code, [$source, $destination]);
         $workflow->addTransition($source, $destination);
         $workflow->addTransition($source, $destination);
@@ -189,6 +189,52 @@ class AbstractWorkflowTest extends TestCase
         $destination = StatusId::generate();
         $workflow = $this->getClass($this->id, $this->code, [$source]);
         $workflow->addTransition($source, $destination);
+    }
+
+    /**
+     */
+    public function testShouldSortTransitionStatuses(): void
+    {
+        $status1 = new StatusId(Uuid::uuid4()->toString());
+        $status2 = new StatusId(Uuid::uuid4()->toString());
+        $status3 = new StatusId(Uuid::uuid4()->toString());
+        $status4 = new StatusId(Uuid::uuid4()->toString());
+        $status5 = new StatusId(Uuid::uuid4()->toString());
+        $status6 = new StatusId(Uuid::uuid4()->toString());
+        $status7 = new StatusId(Uuid::uuid4()->toString());
+        $status8 = new StatusId(Uuid::uuid4()->toString());
+
+        $workflow = $this->getClass(
+            $this->id,
+            '1',
+            [
+                $status1,
+                $status2,
+                $status3,
+                $status4,
+                $status5,
+                $status6,
+                $status7,
+                $status8,
+            ],
+        );
+        $workflow->addTransition($status1, $status2);
+        $workflow->addTransition($status7, $status8);
+        $workflow->addTransition($status4, $status1);
+        $workflow->addTransition($status3, $status4);
+        $workflow->addTransition($status2, $status3);
+
+        $sorted = $workflow->getSortedTransitionStatuses();
+
+        $this::assertEquals(
+            [
+                $status1,
+                $status2,
+                $status3,
+                $status4,
+            ],
+            $sorted,
+        );
     }
 
     /**

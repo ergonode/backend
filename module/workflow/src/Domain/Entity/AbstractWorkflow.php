@@ -21,6 +21,7 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
@@ -61,6 +62,8 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     /**
      * @var StatusId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private ?StatusId $defaultId;
 
@@ -336,6 +339,32 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     public function getStatuses(): array
     {
         return array_values($this->statuses);
+    }
+
+    /**
+     * @return StatusCode[]
+     */
+    public function getSortedTransitionStatuses(): array
+    {
+        $transitions = $this->transitions;
+        $code = $this->getDefaultStatus();
+        $sorted = [$code];
+        $transitions = new \ArrayIterator($transitions);
+        foreach ($transitions as $id => $transition) {
+            if ($code->getValue() !== $transition->getFrom()->getValue()) {
+                continue;
+            }
+            // avoids infinite loop
+            if ($this->getDefaultStatus()->getValue() === $transition->getTo()->getValue()) {
+                break;
+            }
+            $code = $sorted[] = $transition->getTo();
+
+            $transitions->offsetUnset($id);
+            $transitions->rewind();
+        }
+
+        return $sorted;
     }
 
     /**

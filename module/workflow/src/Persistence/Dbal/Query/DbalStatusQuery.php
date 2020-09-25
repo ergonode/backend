@@ -136,7 +136,7 @@ class DbalStatusQuery implements StatusQueryInterface
 
         $result = [];
         foreach ($statuses as $status) {
-            $result[$status['code']] = [
+            $result[$status['id']] = [
                 'status_id' => $status['id'],
                 'label' => $status['label'],
                 'code' => $status['code'],

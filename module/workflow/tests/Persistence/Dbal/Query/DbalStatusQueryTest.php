@@ -5,19 +5,21 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\ResultStatement;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Persistence\Dbal\Query\DbalStatusQuery;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -55,6 +57,10 @@ class DbalStatusQueryTest extends TestCase
      */
     public function testShouldGetStatusCount(): void
     {
+        $statusId1 = Uuid::uuid4()->toString();
+        $statusId2 = Uuid::uuid4()->toString();
+        $statusId3 = Uuid::uuid4()->toString();
+        $statusId4 = Uuid::uuid4()->toString();
         $statusStmt = $this->createMock(ResultStatement::class);
         $productStmt = $this->createMock(ResultStatement::class);
         $this->mockConnection
@@ -67,22 +73,22 @@ class DbalStatusQueryTest extends TestCase
             ->method('fetchAll')
             ->willReturn([
                 [
-                    'id' => '4',
+                    'id' => $statusId1,
                     'code' => 'cd4',
                     'label' => 'label4',
                 ],
                 [
-                    'id' => '1',
+                    'id' => $statusId2,
                     'code' => 'cd1',
                     'label' => 'label1',
                 ],
                 [
-                    'id' => '2',
+                    'id' => $statusId3,
                     'code' => 'cd2',
                     'label' => 'label2',
                 ],
                 [
-                    'id' => '3',
+                    'id' => $statusId4,
                     'code' => 'cd3',
                     'label' => 'label3',
                 ],
@@ -102,8 +108,8 @@ class DbalStatusQueryTest extends TestCase
         $workflow
             ->method('getSortedTransitionStatuses')
             ->willReturn([
-                new StatusCode('cd3'),
-                new StatusCode('cd1'),
+                new StatusId($statusId3),
+                new StatusId($statusId1),
             ]);
 
         $result = $this->query->getStatusCount(Language::fromString('en_EN'));
@@ -111,25 +117,25 @@ class DbalStatusQueryTest extends TestCase
         $this->assertEquals(
             [
                 [
-                    'status_id' => '3',
+                    'status_id' => $statusId3,
                     'code' => 'cd3',
                     'label' => 'label3',
                     'value' => 0,
                 ],
                 [
-                    'status_id' => '1',
+                    'status_id' => $statusId1,
                     'code' => 'cd1',
                     'label' => 'label1',
                     'value' => 0,
                 ],
                 [
-                    'status_id' => '2',
+                    'status_id' => $statusId2,
                     'code' => 'cd2',
                     'label' => 'label2',
                     'value' => 3,
                 ],
                 [
-                    'status_id' => '4',
+                    'status_id' => $statusId4,
                     'code' => 'cd4',
                     'label' => 'label4',
                     'value' => 0,

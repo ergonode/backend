@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-
 /**
  */
 class Workflow extends AbstractWorkflow

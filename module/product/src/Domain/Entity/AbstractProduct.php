@@ -88,8 +88,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
             $id,
             $sku,
             $this->getType(),
-            \get_class($this),
-            $templateId
+            $templateId,
         ));
 
         foreach ($categories as $categoryId) {

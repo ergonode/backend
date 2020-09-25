@@ -18,9 +18,6 @@ use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 class DbalProductCreatedEventProjector
 {
     private const TABLE_PRODUCT = 'product';
-    private const TABLE_PRODUCT_CATEGORY = 'product_category';
-    private const TABLE_PRODUCT_VALUE = 'product_value';
-    private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
     /**
      * @var Connection
