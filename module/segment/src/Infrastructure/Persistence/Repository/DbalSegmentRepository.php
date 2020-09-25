@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Persistence\Dbal\Repository;
+namespace Ergonode\Segment\Infrastructure\Persistence\Repository;
 
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
 
 /**
