@@ -57,13 +57,13 @@ class ProductWorkflowQuery
     /**
      * @param AbstractProduct $product
      * @param Language        $language
+     * @param Language        $productLanguage
      *
      * @return array
      *
      * @throws \ReflectionException
-     * @throws \Exception
      */
-    public function getQuery(AbstractProduct $product, Language $language): array
+    public function getQuery(AbstractProduct $product, Language $language, Language $productLanguage): array
     {
         $code = new AttributeCode(StatusSystemAttribute::CODE);
         $result = [];
@@ -71,8 +71,7 @@ class ProductWorkflowQuery
             $workflow = $this->workflowProvider->provide();
             /** @var StringValue $value */
             $value = $product->getAttribute($code)->getValue();
-            $value = reset($value);
-            $statusId = new StatusId($value);
+            $statusId = new StatusId($value[$productLanguage->getCode()]);
             $status = $this->statusRepository->load($statusId);
             Assert::notNull($status, sprintf('status %s not exists', $statusId->getValue()));
             $result['status'] = [

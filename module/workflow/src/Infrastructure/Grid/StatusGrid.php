@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Grid;
 
+use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\BoolColumn;
@@ -16,10 +17,10 @@ use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Ergonode\Workflow\Infrastructure\Grid\Filter\Option\StatusOption;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -51,7 +52,7 @@ class StatusGrid extends AbstractGrid
 
         $codes = [];
         foreach ($statuses as $code => $status) {
-            $codes[] = new FilterOption($code, $code, $status['name']);
+            $codes[] = new StatusOption($code, $code, new Color($status['color']), $status['name']);
         }
 
         $id = new TextColumn('id', 'Id', new TextFilter());

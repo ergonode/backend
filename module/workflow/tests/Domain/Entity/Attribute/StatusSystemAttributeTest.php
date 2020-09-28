@@ -27,7 +27,7 @@ class StatusSystemAttributeTest extends TestCase
         $placeholder = $this->createMock(TranslatableString::class);
 
         $attribute = new StatusSystemAttribute($label, $hint, $placeholder);
-        $scope = new AttributeScope(AttributeScope::GLOBAL);
+        $scope = new AttributeScope(AttributeScope::LOCAL);
 
         self::assertSame($label, $attribute->getLabel());
         self::assertSame($placeholder, $attribute->getPlaceholder());
