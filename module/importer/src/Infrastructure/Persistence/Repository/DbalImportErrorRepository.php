@@ -15,6 +15,7 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportErrorMapper;
+
 /**
  */
 class DbalImportErrorRepository implements ImportErrorRepositoryInterface
@@ -32,7 +33,7 @@ class DbalImportErrorRepository implements ImportErrorRepositoryInterface
     private DbalImportErrorMapper $mapper;
 
     /**
-     * @param Connection        $connection
+     * @param Connection            $connection
      * @param DbalImportErrorMapper $mapper
      */
     public function __construct(Connection $connection, DbalImportErrorMapper $mapper)

@@ -15,7 +15,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInte
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ramsey\Uuid\Uuid;
 use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 
@@ -23,8 +22,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
  */
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
-    private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
-
     /**
      * @var CommandBusInterface
      */
@@ -64,25 +61,45 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         if (array_key_exists('image', $default) && $default['image'] !== null) {
             $images = explode(',', $default['image']);
             foreach ($images as $image) {
-                $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $image);
-                if (strpos($url, 'no_selection') === false) {
-                    $uuid = Uuid::uuid5(self::NAMESPACE, $url);
-                    if(!array_key_exists($uuid->toString(), $this->media)) {
-                        $record = new Record();
-                        $record->set('name', $image);
-                        $record->set('id', $uuid->toString());
-                        $record->set('url', $url);
-                        $this->media[$uuid->toString()] = $url;
+                $this->processImage($source, $import, $image);
+            }
+        }
 
-                        $command = new ProcessImportCommand(
-                            $import->getId(),
-                            $record,
-                            MultimediaImportAction::TYPE
-                        );
-                        $this->commandBus->dispatch($command, true);
+        foreach ($source->getLanguages() as $key => $language) {
+            if ($product->has($key)) {
+                $version = $product->get($key);
+                if (array_key_exists('image', $version) && $version['image'] !== null) {
+                    $images = explode(',', $version['image']);
+                    foreach ($images as $image) {
+                        $this->processImage($source, $import, $image);
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * @param Magento1CsvSource $source
+     * @param Import            $import
+     * @param string            $image
+     */
+    private function processImage(Magento1CsvSource $source, Import $import, string $image): void
+    {
+        $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $image);
+        $filename = pathinfo($image, PATHINFO_BASENAME);
+
+        if (!array_key_exists($url, $this->media) && (strpos($url, 'no_selection') === false)) {
+            $record = new Record();
+            $record->set('name', $filename);
+            $record->set('url', $url);
+            $this->media[$url] = $url;
+
+            $command = new ProcessImportCommand(
+                $import->getId(),
+                $record,
+                MultimediaImportAction::TYPE
+            );
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

@@ -9,15 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
-use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
+use Ergonode\Designer\Domain\Entity\Template;
+use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -33,28 +32,28 @@ class TemplateImportAction implements ImportActionInterface
     private TemplateQueryInterface $query;
 
     /**
+     * @var TemplateGroupQueryInterface
+     */
+    private TemplateGroupQueryInterface $templateGroupQuery;
+
+    /**
      * @var TemplateRepositoryInterface
      */
     private TemplateRepositoryInterface $templateRepository;
 
     /**
-     * @var CommandBusInterface
-     */
-    private CommandBusInterface $commandBus;
-
-    /**
      * @param TemplateQueryInterface      $query
+     * @param TemplateGroupQueryInterface $templateGroupQuery
      * @param TemplateRepositoryInterface $templateRepository
-     * @param CommandBusInterface         $commandBus
      */
     public function __construct(
         TemplateQueryInterface $query,
-        TemplateRepositoryInterface $templateRepository,
-        CommandBusInterface $commandBus
+        TemplateGroupQueryInterface $templateGroupQuery,
+        TemplateRepositoryInterface $templateRepository
     ) {
         $this->query = $query;
+        $this->templateGroupQuery = $templateGroupQuery;
         $this->templateRepository = $templateRepository;
-        $this->commandBus = $commandBus;
     }
 
     /**
@@ -77,12 +76,17 @@ class TemplateImportAction implements ImportActionInterface
         }
 
         if (!$template) {
-            $command = new CreateTemplateCommand($code, new ArrayCollection());
+            $groupId = $this->templateGroupQuery->getDefaultId();
+            $template = new Template(
+                TemplateId::generate(),
+                $groupId,
+                $code,
+            );
         } else {
-            $command = new UpdateTemplateCommand($templateId, $code, new ArrayCollection());
+            $template->changeName($code);
         }
 
-        $this->commandBus->dispatch($command, true);
+        $this->templateRepository->save($template);
     }
 
     /**

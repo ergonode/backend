@@ -59,6 +59,9 @@ class ProcessImportCommandHandler
             Assert::notNull($action, sprintf('Can\'t find action %s', $command->getAction()));
             $action->action($command->getImportId(), $record);
         } catch (\Throwable $exception) {
+            echo print_r($exception->getMessage(), true);
+            echo print_r($exception->getTraceAsString(), true);
+            die('ERROR');
             $line = new ImportError($importId, $exception->getMessage());
             $this->repository->add($line);
 

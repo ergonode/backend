@@ -32,6 +32,13 @@ interface MultimediaQueryInterface
     public function findIdByHash(Hash $hash): ?MultimediaId;
 
     /**
+     * @param string $filename
+     *
+     * @return MultimediaId|null
+     */
+    public function findIdByFilename(string $filename): ?MultimediaId;
+
+    /**
      * @return array
      */
     public function getAll(): array;

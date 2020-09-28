@@ -11,7 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Action;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
@@ -73,19 +72,11 @@ class OptionImportAction implements ImportActionInterface
         Assert::notNull($attributeCode, 'Option import required code field not exists');
         Assert::notNull($optionCode, 'Option import required option field not exists');
 
-
         $attributeModel = $this->attributeQuery->findAttributeByCode($attributeCode);
         Assert::notNull($attributeModel);
         $attributeId = $attributeModel->getId();
         $optionId = $this->optionQuery->findIdByAttributeIdAndCode($attributeId, $optionCode);
-
-        $options = [];
-        foreach ($record->getValues() as $key => $value) {
-            $value = $value->getValue();
-            $options[$key] = reset($value);
-        }
-
-        $label = new TranslatableString($options);
+        $label = $record->getTranslation('option_label');
 
         if (!$optionId) {
             $command = new CreateOptionCommand(

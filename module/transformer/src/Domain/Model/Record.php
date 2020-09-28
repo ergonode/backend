@@ -26,18 +26,18 @@ class Record
     private array $elements;
 
     /**
-     * @var ValueInterface[]
+     * @var string[]
      *
-     * @JMS\Type(array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>)
+     * @JMS\Type(array<string, string>)
      */
-    private array $values;
+    private array $value;
 
     /**
      */
     public function __construct()
     {
         $this->elements = [];
-        $this->values = [];
+        $this->value = [];
     }
 
     /**
@@ -113,9 +113,9 @@ class Record
      *
      * @return bool
      */
-    public function hasValue(string $name): bool
+    public function hasAttribute(string $name): bool
     {
-        if (array_key_exists($name, $this->values)) {
+        if (array_key_exists($name, $this->value)) {
             return true;
         }
 
@@ -123,33 +123,35 @@ class Record
     }
 
     /**
-     * @param string $name
+     * @param string $code
      *
-     * @return ValueInterface|null
+     * @return string|null
      */
-    public function getValue(string $name): ?ValueInterface
+    public function getAttribute(string $code): ?string
     {
-        if (array_key_exists($name, $this->values)) {
-            return $this->values[$name];
+        if (array_key_exists($code, $this->value)) {
+            return $this->value[$code];
         }
 
-        throw new \InvalidArgumentException(\sprintf('Record haven\'t value %s', $name));
+        throw new \InvalidArgumentException(\sprintf('Record haven\'t value %s', $code));
     }
 
     /**
-     * @param string              $code
-     * @param ValueInterface|null $value
+     * @param string        $code
+     * @param string|null   $value
+     * @param Language|null $language
      */
-    public function setValue(string $code, ?ValueInterface $value): void
+    public function setAttribute(string $code, ?string $value, Language $language = null): void
     {
-        $this->values[$code] = $value;
+        $key = $language ? $language->getCode() : null;
+        $this->value[$code][$key] = $value;
     }
 
     /**
-     * @return ValueInterface[]
+     * @return string[][]
      */
-    public function getValues(): array
+    public function getAttributes(): array
     {
-        return $this->values;
+        return $this->value;
     }
 }

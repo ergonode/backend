@@ -48,7 +48,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 
     /**
      * @param Import            $import
-     * @param ProductModel    $product
+     * @param ProductModel      $product
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      */

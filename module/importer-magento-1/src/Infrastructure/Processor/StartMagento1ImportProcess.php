@@ -18,6 +18,7 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
 
 /**
  */
@@ -39,9 +40,9 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     private ImportErrorRepositoryInterface $importErrorRepository;
 
     /**
-     * @var Magento1ProductsProvider
+     * @var Magento1CsvReader
      */
-    private Magento1ProductsProvider $provider;
+    private Magento1CsvReader $reader;
 
     /**
      * @var Magento1ProcessorStepInterface[]
@@ -52,20 +53,20 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
      * @param SourceRepositoryInterface        $sourceRepository
      * @param TransformerRepositoryInterface   $transformerRepository
      * @param ImportErrorRepositoryInterface   $importErrorRepository
-     * @param Magento1ProductsProvider         $provider
+     * @param Magento1CsvReader                $reader
      * @param Magento1ProcessorStepInterface[] $steps
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
         ImportErrorRepositoryInterface $importErrorRepository,
-        Magento1ProductsProvider $provider,
+        Magento1CsvReader $reader,
         array $steps
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
         $this->importErrorRepository = $importErrorRepository;
-        $this->provider = $provider;
+        $this->reader = $reader;
         $this->steps = $steps;
     }
 
@@ -95,17 +96,13 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         $message = null;
 
         try {
-            $products = $this->provider->getProducts($import, $transformer);
-
-            foreach ($products as $product) {
+            $this->reader->open($import);
+            while ($product = $this->reader->read($transformer)) {
                 foreach ($this->steps as $step) {
                     $step->process($import, $product, $transformer, $source);
                 }
             }
-//            foreach ($this->steps as $step) {
-//                $records = $step->process($import, $products, $transformer, $source);
-//                $import->addRecords($records);
-//            }
+            $this->reader->close();
         } catch (ImportException|ReaderException $exception) {
             $message = $exception->getMessage();
         } catch (\Throwable $exception) {
@@ -113,10 +110,6 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         }
 
         if ($message) {
-            echo print_r($exception->getMessage(), true);
-            echo print_r($exception->getTraceAsString(), true);
-
-            die('end');
             $error = new ImportError($import->getId(), $message);
             $import->stop();
             $this->importErrorRepository->add($error);

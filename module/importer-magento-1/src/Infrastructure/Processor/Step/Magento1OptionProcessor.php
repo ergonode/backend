@@ -19,7 +19,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ramsey\Uuid\Uuid;
 
@@ -95,7 +94,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                         $record = new Record();
                         $record->set('attribute_code', $attributeCode->getValue());
                         $record->set('option_code', $key);
-                        $record->setValue($source->getDefaultLanguage()->getCode(), $option);
+                        $record->set('option_label', $option, $source->getDefaultLanguage());
                         $command = new ProcessImportCommand(
                             $import->getId(),
                             $record,
@@ -121,7 +120,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
         $unique = array_unique($column);
         foreach ($unique as $element) {
             if ('' !== $element && null !== $element) {
-                $result[$element] = new StringValue($element);
+                $result[$element] = $element;
             }
         }
 
