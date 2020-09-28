@@ -6,9 +6,13 @@ security:
     providers:
         domain_user_provider:
             id: 'Ergonode\Authentication\Application\Security\Provider\DomainUserProvider'
+        email_user_provider:
+            id: 'Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
 
     encoders:
         Ergonode\Account\Domain\Entity\User:
+            algorithm: 'sha1'
+        Ergonode\Authentication\Application\Security\User\User:
             algorithm: 'sha1'
 
     firewalls:
@@ -23,7 +27,7 @@ security:
             stateless: true
             user_checker: 'Ergonode\Account\Application\Security\Checker\UserActivityChecker'
             guard:
-                provider: 'domain_user_provider'
+                provider: 'email_user_provider'
                 authenticators:
                     - 'Ergonode\Authentication\Application\Security\Authenticator\FormAuthenticator'
         api:
