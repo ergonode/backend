@@ -218,10 +218,10 @@ class WorkflowTest extends TestCase
             ],
         );
         $workflow->setDefaultStatus(new StatusCode('1'));
+        $workflow->addTransition(new StatusCode('3'), new StatusCode('4'));
         $workflow->addTransition(new StatusCode('1'), new StatusCode('2'));
         $workflow->addTransition(new StatusCode('7'), new StatusCode('8'));
         $workflow->addTransition(new StatusCode('4'), new StatusCode('1'));
-        $workflow->addTransition(new StatusCode('3'), new StatusCode('4'));
         $workflow->addTransition(new StatusCode('2'), new StatusCode('3'));
 
         $sorted = $workflow->getSortedTransitionStatuses();
