@@ -56,11 +56,6 @@ class ImportSimpleProductCommandHandler
             $message = $exception->getMessage();
             $error = new ImportError($command->getImportId(), $message);
             $this->repository->add($error);
-        } catch (\Exception $exception) {
-            echo print_r($exception->getMessage(), true);
-            echo print_r($exception->getTraceAsString(), true);
-
-            die('end');
         }
     }
 }

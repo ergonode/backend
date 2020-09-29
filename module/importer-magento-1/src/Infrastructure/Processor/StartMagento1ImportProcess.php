@@ -109,7 +109,6 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
             echo print_r($exception->getMessage(), true);
             echo print_r($exception->getTraceAsString(), true);
             $message = 'Import processing error';
-            die('DUPA');
         }
 
         if ($message) {
