@@ -9,14 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Importer\Infrastructure\Provider\ImportActionProvider;
 use Ergonode\Importer\Domain\Entity\ImportError;
-use Doctrine\DBAL\DBALException;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 
 /**
  */
@@ -53,19 +52,21 @@ class ProcessImportCommandHandler
     {
         $importId = $command->getImportId();
         $record = $command->getRecord();
+        $message = null;
 
         try {
             $action = $this->importActionProvider->provide($command->getAction());
             Assert::notNull($action, sprintf('Can\'t find action %s', $command->getAction()));
             $action->action($command->getImportId(), $record);
+        } catch (ImportException $exception) {
+            $message = $exception->getMessage();
         } catch (\Throwable $exception) {
-            echo print_r($exception->getMessage(), true);
-            echo print_r($exception->getTraceAsString(), true);
-            die('ERROR');
-            $line = new ImportError($importId, $exception->getMessage());
-            $this->repository->add($line);
+            $message = 'Import processing error';
+        }
 
-            throw $exception;
+        if ($message) {
+            $error = new ImportError($importId, $message);
+            $this->repository->add($error);
         }
     }
 }

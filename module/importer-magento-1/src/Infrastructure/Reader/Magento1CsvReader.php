@@ -14,6 +14,7 @@ use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
+use Ergonode\Product\Domain\ValueObject\Sku;
 
 /**
  */
@@ -129,7 +130,7 @@ class Magento1CsvReader
         }
 
         if (!empty($product)) {
-            $result = new ProductModel($sku, $type, $template);
+            $result = new ProductModel(new Sku($sku), $type, $template);
 
             foreach ($product as $store => $version) {
                 $result->set($store, $version);

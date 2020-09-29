@@ -11,26 +11,20 @@ namespace Ergonode\Importer\Infrastructure\Action;
 
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Transformer\Domain\Model\Record;
 use Symfony\Component\HttpFoundation\File\File;
-use Webmozart\Assert\Assert;
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use League\Flysystem\FilesystemInterface;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\FileExistsException;
 
 /**
  */
-class MultimediaImportAction implements ImportActionInterface
+class MultimediaImportAction
 {
-    public const TYPE = 'MULTIMEDIA';
-
-    public const URL_FIELD = 'url';
-    public const NAME_FIELD = 'name';
-
-
     /**
      * @var MultimediaRepositoryInterface
      */
@@ -78,27 +72,15 @@ class MultimediaImportAction implements ImportActionInterface
     }
 
     /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
-    /**
      * @param ImportId $importId
-     * @param Record   $record
+     * @param string   $url
+     * @param string   $filename
      *
-     * @throws \Exception
+     * @throws FileExistsException
+     * @throws FileNotFoundException
      */
-    public function action(ImportId $importId, Record $record): void
+    public function action(ImportId $importId, string $url, string $filename): void
     {
-        $filename = $record->has(self::NAME_FIELD) ? $record->get(self::NAME_FIELD) : null;
-        $url = $record->has(self::URL_FIELD) ? $record->get(self::URL_FIELD) : null;
-
-        Assert::notNull($filename, 'Multimedia import required "name" field not exists');
-        Assert::notNull($url, 'Multimedia import required "url" field not exists');
-
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $name = pathinfo($filename, PATHINFO_FILENAME);
 

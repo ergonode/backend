@@ -10,9 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Action;
 
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Transformer\Domain\Model\Record;
-use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
@@ -20,12 +17,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
-class TemplateImportAction implements ImportActionInterface
+class TemplateImportAction
 {
-    public const TYPE = 'TEMPLATE';
-
-    public const CODE_FIELD = 'code';
-
     /**
      * @var TemplateQueryInterface
      */
@@ -57,17 +50,12 @@ class TemplateImportAction implements ImportActionInterface
     }
 
     /**
-     * @param ImportId $importId
-     * @param Record   $record
+     * @param string $code
      *
      * @throws \Exception
      */
-    public function action(ImportId $importId, Record $record): void
+    public function action(string $code): void
     {
-        $code = $record->has(self::CODE_FIELD) ? $record->get(self::CODE_FIELD) : null;
-
-        Assert::notNull($code, 'Template import required "code" field not exists');
-
         $template = null;
         $templateId = $this->query->findTemplateIdByCode($code);
 
@@ -87,13 +75,5 @@ class TemplateImportAction implements ImportActionInterface
         }
 
         $this->templateRepository->save($template);
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 }

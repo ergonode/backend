@@ -6,10 +6,8 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Infrastructure\Action\Builder;
+namespace Ergonode\Importer\Infrastructure\Action\Process\Product;
 
-use Ergonode\Transformer\Domain\Model\ImportedProduct;
-use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Webmozart\Assert\Assert;
@@ -26,7 +24,7 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 
 /**
  */
-class ImportProductAttributeBuilder implements ProductImportBuilderInterface
+class ImportProductAttributeBuilder
 {
     /**
      * @var AttributeQueryInterface
@@ -59,57 +57,55 @@ class ImportProductAttributeBuilder implements ProductImportBuilderInterface
     }
 
     /**
-     * @param ImportedProduct $product
-     * @param Record          $record
+     * @param TranslatableString[] $attributes
      *
-     * @return ImportedProduct
-     *
-     * @throws \Exception
+     * @return ValueInterface[]
      */
-    public function build(ImportedProduct $product, Record $record): ImportedProduct
+    public function build(array $attributes): array
     {
-        foreach ($record->getAttributes() as $code => $value) {
+        $result = [];
+        foreach ($attributes as $code => $value) {
             $code = new AttributeCode($code);
             $id = $this->attributeQuery->findAttributeIdByCode($code);
             Assert::notNull($id, sprintf('Attribute %s not exists', $code));
             $type = $this->attributeQuery->findAttributeType($id);
             Assert::notNull($id, sprintf('Attribute type %s not exists', $code));
 
-            $product->attributes[$code->getValue()] = null;
+            $result[$code->getValue()] = null;
             if (SelectAttribute::TYPE === $type->getValue()) {
-                $product->attributes[$code->getValue()] = $this->buildSelect($id, $code, $value);
+                $result[$code->getValue()] = $this->buildSelect($id, $code, $value);
             } elseif (MultiSelectAttribute::TYPE === $type->getValue()) {
-                $product->attributes[$code->getValue()] = $this->buildMultiSelect($id, $code, $value);
+                $result[$code->getValue()] = $this->buildMultiSelect($id, $code, $value);
             } elseif (ImageAttribute::TYPE === $type->getValue()) {
-                $product->attributes[$code->getValue()] = $this->buildImage($id, $code, $value);
+                $result[$code->getValue()] = $this->buildImage($id, $code, $value);
             } else {
-                $result = [];
+                $translation = [];
                 foreach ($value as $key => $version) {
                     if ('' !== $version && null !== $version) {
-                        $result[$key] = $version;
+                        $translation[$key] = $version;
                     }
                 }
-                $product->attributes[$code->getValue()] = new TranslatableStringValue(new TranslatableString($result));
+                $result[$code->getValue()] = new TranslatableStringValue(new TranslatableString($translation));
             }
         }
 
-        return $product;
+        return $result;
     }
 
     /**
-     * @param AttributeId   $id
-     * @param AttributeCode $code
-     * @param array         $value
+     * @param AttributeId        $id
+     * @param AttributeCode      $code
+     * @param TranslatableString $value
      *
      * @return ValueInterface
      */
     protected function buildSelect(
         AttributeId $id,
         AttributeCode $code,
-        array $value
+        TranslatableString $value
     ): ValueInterface {
         $result = [];
-        foreach ($value as $language => $version) {
+        foreach ($value->getTranslations() as $language => $version) {
             $key = new OptionKey($version);
             $optionId = $this->optionQuery->findIdByAttributeIdAndCode($id, $key);
 
@@ -125,19 +121,19 @@ class ImportProductAttributeBuilder implements ProductImportBuilderInterface
     }
 
     /**
-     * @param AttributeId   $id
-     * @param AttributeCode $code
-     * @param array         $value
+     * @param AttributeId        $id
+     * @param AttributeCode      $code
+     * @param TranslatableString $value
      *
      * @return ValueInterface
      */
     protected function buildMultiSelect(
         AttributeId $id,
         AttributeCode $code,
-        array $value
+        TranslatableString $value
     ): ValueInterface {
         $result = [];
-        foreach ($value as $language => $version) {
+        foreach ($value->getTranslations() as $language => $version) {
             $options = [];
             foreach (explode(',', $version) as $item) {
                 $key = new OptionKey($item);
@@ -156,19 +152,19 @@ class ImportProductAttributeBuilder implements ProductImportBuilderInterface
     }
 
     /**
-     * @param AttributeId   $id
-     * @param AttributeCode $code
-     * @param array         $value
+     * @param AttributeId        $id
+     * @param AttributeCode      $code
+     * @param TranslatableString $value
      *
      * @return ValueInterface
      */
     protected function buildImage(
         AttributeId $id,
         AttributeCode $code,
-        array $value
+        TranslatableString $value
     ): ValueInterface {
         $result = [];
-        foreach ($value as $language => $version) {
+        foreach ($value->getTranslations() as $language => $version) {
             if ($version) {
                 $multimediaId = $this->multimediaQuery->findIdByFilename($version);
                 Assert::notNull($multimediaId, sprintf('Can\'t find multimedia %s file', $version));

@@ -9,17 +9,16 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Formatter\SlugFormatter;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 /**
  */
@@ -70,14 +69,17 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                     $uuid = Uuid::uuid5(self::UUID, $code)->toString();
                     $slug = SlugFormatter::format(sprintf('%s_%s', $code, $uuid));
                     $codes[] = $slug;
-                    if (!array_key_exists($code, $this->categories)) {
-                        $record = new Record();
-                        $record->set('id', $code);
-                        $record->set('code', $slug);
-                        $record->set('name', end($category), $source->getDefaultLanguage());
-                        $this->categories[$code] = $slug;
+                    $name = new TranslatableString([$source->getDefaultLanguage()->getCode() => end($category)]);
 
-                        $this->send($import->getId(), $record);
+                    if (!array_key_exists($slug, $this->categories)) {
+                        $command = new ImportCategoryCommand(
+                            $import->getId(),
+                            new CategoryCode($slug),
+                            $name
+                        );
+
+                        $this->commandBus->dispatch($command, true);
+                        $this->categories[$slug] = $slug;
                     }
 
                     $default['esa_categories'] = implode(',', $codes);
@@ -85,20 +87,5 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                 }
             }
         }
-    }
-
-    /**
-     * @param ImportId $importId
-     * @param Record   $category
-     */
-    private function send(ImportId $importId, Record $category): void
-    {
-        $command = new ProcessImportCommand(
-            $importId,
-            $category,
-            CategoryImportAction::TYPE
-        );
-
-        $this->commandBus->dispatch($command, true);
     }
 }

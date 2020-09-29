@@ -8,31 +8,50 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
-use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
-use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 /**
  */
 abstract class AbstractProductProcessor
 {
     /**
+     * @param ProductModel $product
+     *
+     * @return CategoryCode[]
+     */
+    protected function getCategories(ProductModel $product): array
+    {
+        $categories = [];
+
+        $default = $product->get('default');
+        if (array_key_exists('esa_categories', $default) && '' !== $default['esa_categories']) {
+            foreach (explode(',', $default['esa_categories']) as $category) {
+                $categories[] = new CategoryCode($category);
+            }
+        }
+
+        return $categories;
+    }
+
+    /**
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      * @param ProductModel      $product
      *
-     * @return Record
+     * @return string[]
      */
-    protected function getRecord(Transformer $transformer, Magento1CsvSource $source, ProductModel $product): Record
-    {
+    protected function getAttributes(
+        Transformer $transformer,
+        Magento1CsvSource $source,
+        ProductModel $product
+    ): array {
+        $result = [];
         $default = $product->get('default');
-
-        $record = new Record();
-        $record->set('sku', $product->getSku());
-        $record->set('esa_template', $product->getTemplate());
 
         foreach ($default as $field => $value) {
             $translation = [];
@@ -53,17 +72,11 @@ abstract class AbstractProductProcessor
                     }
                 }
 
-                foreach ($translation as $language => $version) {
-                    $record->setAttribute($field, $version, new Language($language));
-                }
-            }
-
-            if (null !== $value && '' !== $value && $transformer->hasField($field)) {
-                $record->set($field, $value);
+                $result[$field] = new TranslatableString($translation);
             }
         }
 
-        return $record;
+        return $result;
     }
 
     /**
@@ -72,8 +85,10 @@ abstract class AbstractProductProcessor
      *
      * @return string|null
      */
-    protected function format(string $type, ?string $value): ?string
-    {
+    protected function format(
+        string $type,
+        ?string $value
+    ): ?string {
         if ($value && ImageAttribute::TYPE === $type) {
             $value = pathinfo($value, PATHINFO_FILENAME);
             if ('no_selection' === $value) {

@@ -13,10 +13,8 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
-use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
+use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 
 /**
  */
@@ -89,15 +87,12 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         $filename = pathinfo($image, PATHINFO_BASENAME);
 
         if (!array_key_exists($url, $this->media) && (strpos($url, 'no_selection') === false)) {
-            $record = new Record();
-            $record->set('name', $filename);
-            $record->set('url', $url);
             $this->media[$url] = $url;
 
-            $command = new ProcessImportCommand(
+            $command = new ImportMultimediaFromWebCommand(
                 $import->getId(),
-                $record,
-                MultimediaImportAction::TYPE
+                $url,
+                $filename
             );
             $this->commandBus->dispatch($command, true);
         }

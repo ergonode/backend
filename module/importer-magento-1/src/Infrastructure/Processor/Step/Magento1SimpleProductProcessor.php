@@ -16,6 +16,7 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction;
+use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 
 /**
  */
@@ -47,11 +48,14 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
         Magento1CsvSource $source
     ): void {
         if ($product->getType() === 'simple') {
-            $record = $this->getRecord($transformer, $source, $product);
-            $command = new ProcessImportCommand(
+            $categories = $this->getCategories($product);
+            $attributes = $this->getAttributes($transformer, $source, $product);
+            $command = new ImportSimpleProductCommand(
                 $import->getId(),
-                $record,
-                SimpleProductImportAction::TYPE
+                $product->getSku(),
+                $product->getTemplate(),
+                $categories,
+                $attributes
             );
             $this->commandBus->dispatch($command, true);
         }

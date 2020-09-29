@@ -14,24 +14,20 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductNotFoundException;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductIncorrectTypeException;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 /**
  */
-class VariableProductImportAction
+class GroupingProductImportAction
 {
     /**
      * @var ProductQueryInterface
@@ -42,16 +38,6 @@ class VariableProductImportAction
      * @var ProductRepositoryInterface
      */
     private ProductRepositoryInterface $productRepository;
-
-    /**
-     * @var AttributeQueryInterface
-     */
-    private AttributeQueryInterface $attributeQuery;
-
-    /**
-     * @var AttributeRepositoryInterface
-     */
-    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @var TemplateQueryInterface
@@ -71,8 +57,6 @@ class VariableProductImportAction
     /**
      * @param ProductQueryInterface         $productQuery
      * @param ProductRepositoryInterface    $productRepository
-     * @param AttributeQueryInterface       $attributeQuery
-     * @param AttributeRepositoryInterface  $attributeRepository
      * @param TemplateQueryInterface        $templateQuery
      * @param CategoryQueryInterface        $categoryQuery
      * @param ImportProductAttributeBuilder $builder
@@ -80,16 +64,12 @@ class VariableProductImportAction
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
-        AttributeQueryInterface $attributeQuery,
-        AttributeRepositoryInterface $attributeRepository,
         TemplateQueryInterface $templateQuery,
         CategoryQueryInterface $categoryQuery,
         ImportProductAttributeBuilder $builder
     ) {
         $this->productQuery = $productQuery;
         $this->productRepository = $productRepository;
-        $this->attributeQuery = $attributeQuery;
-        $this->attributeRepository = $attributeRepository;
         $this->templateQuery = $templateQuery;
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
@@ -99,7 +79,6 @@ class VariableProductImportAction
      * @param Sku    $sku
      * @param string $template
      * @param array  $categories
-     * @param array  $bindings
      * @param array  $children
      * @param array  $attributes
      *
@@ -111,7 +90,6 @@ class VariableProductImportAction
         Sku $sku,
         string $template,
         array $categories,
-        array $bindings,
         array $children,
         array $attributes = []
     ): void {
@@ -120,12 +98,11 @@ class VariableProductImportAction
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
         $attributes = $this->builder->build($attributes);
-        $bindings = $this->getBindings($bindings);
         $children = $this->getChildren($sku, $children);
 
         if (!$productId) {
             $productId = ProductId::generate();
-            $product = new VariableProduct(
+            $product = new GroupingProduct(
                 $productId,
                 $sku,
                 $templateId,
@@ -134,13 +111,12 @@ class VariableProductImportAction
             );
         } else {
             $product = $this->productRepository->load($productId);
-            Assert::isInstanceOf($product, VariableProduct::class);
+            Assert::isInstanceOf($product, GroupingProduct::class);
         }
 
         $product->changeTemplate($templateId);
         $product->changeCategories($categories);
         $product->changeAttributes($attributes);
-        $product->changeBindings($bindings);
         $product->changeChildren($children);
 
         $this->productRepository->save($product);
@@ -163,32 +139,11 @@ class VariableProductImportAction
             if (null === $productId) {
                 throw new ImportRelatedProductNotFoundException($sku, $child);
             }
-
             $child = $this->productRepository->load($productId);
             if (!$child instanceof SimpleProduct) {
                 throw new ImportRelatedProductIncorrectTypeException($sku, $child->getType());
             }
-
             $result[] = $child;
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param AttributeCode[] $bindings
-     *
-     * @return SelectAttribute[]
-     */
-    public function getBindings(array $bindings): array
-    {
-        $result = [];
-        foreach ($bindings as $binding) {
-            $attributeId = $this->attributeQuery->findAttributeIdByCode($binding);
-            Assert::notNull($attributeId);
-            $binding = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($binding, SelectAttribute::class);
-            $result[] = $binding;
         }
 
         return $result;

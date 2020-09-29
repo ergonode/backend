@@ -9,18 +9,18 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
 /**
  */
@@ -91,14 +91,13 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                 foreach ($options as $key => $option) {
                     $uuid = Uuid::uuid5(self::NAMESPACE, sprintf('%s/%s', $attributeCode->getValue(), $key));
                     if (!array_key_exists($uuid->toString(), $this->options)) {
-                        $record = new Record();
-                        $record->set('attribute_code', $attributeCode->getValue());
-                        $record->set('option_code', $key);
-                        $record->set('option_label', $option, $source->getDefaultLanguage());
-                        $command = new ProcessImportCommand(
+                        $label = new TranslatableString();
+                        $label = $label->add($source->getDefaultLanguage(), $option);
+                        $command = new ImportOptionCommand(
                             $import->getId(),
-                            $record,
-                            OptionImportAction::TYPE
+                            $attributeCode,
+                            new OptionKey($key),
+                            $label
                         );
                         $this->commandBus->dispatch($command, true);
 

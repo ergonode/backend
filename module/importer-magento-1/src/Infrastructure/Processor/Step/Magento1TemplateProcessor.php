@@ -9,14 +9,13 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Infrastructure\Action\TemplateImportAction;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
+use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 
 /**
  */
@@ -58,10 +57,9 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
             $record = new Record();
             $record->set('code', $template);
             $this->templates[$template] = $template;
-            $command = new ProcessImportCommand(
+            $command = new ImportTemplateCommand(
                 $import->getId(),
-                $record,
-                TemplateImportAction::TYPE
+                $template
             );
             $this->commandBus->dispatch($command, true);
         }
