@@ -341,31 +341,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         return array_values($this->statuses);
     }
 
-    /**
-     * @return StatusCode[]
-     */
-    public function getSortedTransitionStatuses(): array
-    {
-        $transitions = $this->transitions;
-        $code = $this->getDefaultStatus();
-        $sorted = [$code];
-        $transitions = new \ArrayIterator($transitions);
-        foreach ($transitions as $id => $transition) {
-            if ($code->getValue() !== $transition->getFrom()->getValue()) {
-                continue;
-            }
-            // avoids infinite loop
-            if ($this->getDefaultStatus()->getValue() === $transition->getTo()->getValue()) {
-                break;
-            }
-            $code = $sorted[] = $transition->getTo();
 
-            $transitions->offsetUnset($id);
-            $transitions->rewind();
-        }
-
-        return $sorted;
-    }
 
     /**
      * @param WorkflowCreatedEvent $event

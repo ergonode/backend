@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Persistence\Dbal\Projector\Product;
+namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Product;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -16,7 +16,7 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
 /**
  */
-class ProductValueAddedEventProjector
+class DbalProductValueAddedEventProjector
 {
     private const TABLE_WORKFLOW_PRODUCT_STATUS = 'product_workflow_status';
 
