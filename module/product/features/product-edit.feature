@@ -315,6 +315,15 @@ Feature: Product edit feature
       """
     Then the response status code should be 200
 
+  Scenario: Edit status in en_GB
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@esa_status_id@/value" with body:
+      """
+      {
+        "value": "@source_status_id@"
+      }
+      """
+    Then the response status code should be 200
+
   Scenario: Apply product draft
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/persist"
     Then the response status code should be 204
