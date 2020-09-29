@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use Ergonode\Workflow\Persistence\Dbal\Query\DbalStatusQuery;
+use Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
