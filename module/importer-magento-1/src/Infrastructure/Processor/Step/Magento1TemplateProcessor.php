@@ -54,8 +54,6 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
     ): void {
         $template = $product->getTemplate();
         if (!array_key_exists($template, $this->templates)) {
-            $record = new Record();
-            $record->set('code', $template);
             $this->templates[$template] = $template;
             $command = new ImportTemplateCommand(
                 $import->getId(),
