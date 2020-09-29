@@ -232,6 +232,17 @@ Feature: Product edit feature
     Then the response status code should be 201
     And store response param "id" as "edit_product"
 
+  Scenario: Get statuses
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions"
+    Then the response status code should be 200
+    And store response param "collection[0].source" as "source_status_id"
+    And store response param "collection[0].destination" as "destination_status_id"
+
+  Scenario: Get esa_status id
+    When I send a GET request to "/api/v1/en_GB/attributes/system?limit=50&offset=0&filter=code%3Desa_status"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "esa_status_id"
+
   Scenario: Edit product text value
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_text_attribute@/value" with body:
       """
@@ -295,9 +306,25 @@ Feature: Product edit feature
       """
     Then the response status code should be 200
 
+  Scenario: Edit status in pl_PL
+    When I send a PUT request to "api/v1/pl_PL/products/@edit_product@/draft/@esa_status_id@/value" with body:
+      """
+      {
+        "value": "@destination_status_id@"
+      }
+      """
+    Then the response status code should be 200
+
   Scenario: Apply product draft
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/persist"
     Then the response status code should be 204
+
+  Scenario: Get status product status
+    When I send a GET request to "api/v1/en_GB/products/@edit_product@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | attributes.esa_status.en_GB | @source_status_id@      |
+      | attributes.esa_status.pl_PL | @destination_status_id@ |
 
   Scenario: Delete option (used in product)
     And I send a "DELETE" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options/@select_option_1@"

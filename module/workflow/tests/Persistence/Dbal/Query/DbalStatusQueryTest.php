@@ -167,7 +167,7 @@ class DbalStatusQueryTest extends TestCase
 
         $result = $this->query->getStatusCount(Language::fromString('en_EN'));
 
-        $this->assertEquals(
+        $this::assertEquals(
             [
                 [
                     'status_id' => $statusId1,
