@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,7 +107,7 @@ class WorkflowCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        $type = $request->request->get('type');
+        $type = $request->request->get('type', Workflow::DEFAULT);
 
         $class = $this->formProvider->provide($type);
         $request->request->remove('type');

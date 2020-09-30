@@ -52,11 +52,11 @@ class WorkflowTypeDictionaryAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="en"
+     *     default="en_GB"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns collection supported product types"
+     *     description="Returns workflow types"
      * )
      *
      * @return Response

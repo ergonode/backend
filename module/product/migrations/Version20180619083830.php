@@ -120,22 +120,13 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 PRIMARY KEY(product_id, status_id, language)
             )
         ');
-
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_CREATE', 'Product']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_READ', 'Product']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_UPDATE', 'Product']
-        );
-        $this->addSql(
-            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
-            [Uuid::uuid4()->toString(), 'PRODUCT_DELETE', 'Product']
+        $this->createProductPrivileges(
+            [
+                'PRODUCT_CREATE',
+                'PRODUCT_READ',
+                'PRODUCT_UPDATE',
+                'PRODUCT_DELETE',
+            ]
         );
 
         $this->createEventStoreEvents([
