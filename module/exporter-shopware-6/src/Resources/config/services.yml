@@ -45,13 +45,6 @@ services:
         arguments:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CurrencySynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\TaxSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldTextAreaSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldNumberSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldDateTimeSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldSelectSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMultiSelectSynchronizer'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomField\CustomFieldMediaSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\LanguageSynchronizer'
 
     # Mappers
