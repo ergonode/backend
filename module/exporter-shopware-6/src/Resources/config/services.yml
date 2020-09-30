@@ -23,7 +23,7 @@ services:
         arguments:
             $steps:
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6PropertyGroupStep'
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CustomFiledStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CustomFieldStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'

@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CustomFiledShopware6ExportCommand implements DomainCommandInterface
+class CustomFieldShopware6ExportCommand implements DomainCommandInterface
 {
     /**
      * @var ExportId

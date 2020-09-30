@@ -13,14 +13,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\CustomFiledShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CustomFieldShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CustomFiledShopware6ExportProcess;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class CustomFiledShopware6ExportCommandHandler
+class CustomFieldShopware6ExportCommandHandler
 {
     /**
      * @var ExportRepositoryInterface
@@ -61,9 +61,9 @@ class CustomFiledShopware6ExportCommandHandler
     }
 
     /**
-     * @param CustomFiledShopware6ExportCommand $command
+     * @param CustomFieldShopware6ExportCommand $command
      */
-    public function __invoke(CustomFiledShopware6ExportCommand $command)
+    public function __invoke(CustomFieldShopware6ExportCommand $command)
     {
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
