@@ -37,9 +37,10 @@ class StatusAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
         $query->addSelect(sprintf(
             '(
                 SELECT status_id FROM product_workflow_status pws
-                WHERE pws.product_id = p.id                
+                WHERE pws.product_id = p.id AND pws.language = \'%s\'            
                 LIMIT 1           
             ) AS "%s"',
+            $language->getCode(),
             $key
         ));
     }
