@@ -14,8 +14,8 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
-use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldClient;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldSetClient;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Webmozart\Assert\Assert;
@@ -25,9 +25,9 @@ use Webmozart\Assert\Assert;
 abstract class AbstractCustomFieldSynchronizer implements SynchronizerInterface
 {
     /**
-     * @var Shopware6CustomFieldClient
+     * @var Shopware6CustomFieldSetClient
      */
-    private Shopware6CustomFieldClient $client;
+    private Shopware6CustomFieldSetClient $client;
 
     /**
      * @var Shopware6CustomFieldQueryInterface
@@ -45,13 +45,13 @@ abstract class AbstractCustomFieldSynchronizer implements SynchronizerInterface
     private AttributeRepositoryInterface $attributeRepository;
 
     /**
-     * @param Shopware6CustomFieldClient              $client
+     * @param Shopware6CustomFieldSetClient           $client
      * @param Shopware6CustomFieldQueryInterface      $customFieldQuery
      * @param Shopware6CustomFieldRepositoryInterface $customFieldRepository
      * @param AttributeRepositoryInterface            $attributeRepository
      */
     public function __construct(
-        Shopware6CustomFieldClient $client,
+        Shopware6CustomFieldSetClient $client,
         Shopware6CustomFieldQueryInterface $customFieldQuery,
         Shopware6CustomFieldRepositoryInterface $customFieldRepository,
         AttributeRepositoryInterface $attributeRepository
@@ -73,6 +73,7 @@ abstract class AbstractCustomFieldSynchronizer implements SynchronizerInterface
      */
     public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
+        return;
         $this->synchronizeShopware($channel);
         $this->synchronizeCustomField($channel);
     }
@@ -122,7 +123,7 @@ abstract class AbstractCustomFieldSynchronizer implements SynchronizerInterface
 
             $code = $attribute->getCode()->getValue();
 
-            $customField = new Shopware6CustomField(
+            $customField = new Shopware6CustomFieldSet(
                 null,
                 $code.'_set',
                 [

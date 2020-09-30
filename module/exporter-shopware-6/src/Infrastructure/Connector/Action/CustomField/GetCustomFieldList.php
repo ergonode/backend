@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -11,15 +11,15 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class GetCustomFieldSetList extends AbstractAction implements ActionInterface
+class GetCustomFieldList extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v2/custom-field-set?%s';
+    private const URI = '/api/v2/custom-field?%s';
 
     /**
      * @var Shopware6QueryBuilder
@@ -49,7 +49,7 @@ class GetCustomFieldSetList extends AbstractAction implements ActionInterface
     /**
      * @param string|null $content
      *
-     * @return array
+     * @return Shopware6CustomField[]
      *
      * @throws \JsonException
      */
@@ -57,12 +57,17 @@ class GetCustomFieldSetList extends AbstractAction implements ActionInterface
     {
         $result = [];
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-
-        foreach ($data['data'] as $row) {
-            $result[] = new Shopware6CustomFieldSet(
-                $row['id'],
-                $row['attributes']['name']
-            );
+        if (count($data['data']) > 0) {
+            foreach ($data['data'] as $row) {
+                $config = $row['attributes']['config'] ?: null;
+                $result[] = new Shopware6CustomField(
+                    $row['id'],
+                    $row['attributes']['name'],
+                    $row['attributes']['type'],
+                    $config,
+                    $row['attributes']['customFieldSetId']
+                );
+            }
         }
 
         return $result;

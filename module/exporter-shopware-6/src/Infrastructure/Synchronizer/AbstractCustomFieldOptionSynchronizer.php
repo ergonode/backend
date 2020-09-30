@@ -14,7 +14,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldClient;
+use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldSetClient;
 
 /**
  */
@@ -26,14 +26,14 @@ abstract class AbstractCustomFieldOptionSynchronizer extends AbstractCustomField
     private OptionQueryInterface $optionQuery;
 
     /**
-     * @param Shopware6CustomFieldClient              $client
+     * @param Shopware6CustomFieldSetClient           $client
      * @param Shopware6CustomFieldQueryInterface      $customFieldQuery
      * @param Shopware6CustomFieldRepositoryInterface $customFieldRepository
      * @param AttributeRepositoryInterface            $attributeRepository
      * @param OptionQueryInterface                    $optionQuery
      */
     public function __construct(
-        Shopware6CustomFieldClient $client,
+        Shopware6CustomFieldSetClient $client,
         Shopware6CustomFieldQueryInterface $customFieldQuery,
         Shopware6CustomFieldRepositoryInterface $customFieldRepository,
         AttributeRepositoryInterface $attributeRepository,

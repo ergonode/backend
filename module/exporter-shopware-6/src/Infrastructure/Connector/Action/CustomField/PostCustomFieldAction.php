@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -10,21 +10,21 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostCustomFieldSetAction extends AbstractAction implements ActionInterface
+class PostCustomFieldAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v2/custom-field-set?%s';
+    private const URI = '/api/v2/custom-field?%s';
 
     /**
-     * @var Shopware6CustomFieldSet
+     * @var Shopware6CustomField
      */
-    private Shopware6CustomFieldSet $customField;
+    private Shopware6CustomField $customField;
 
     /**
      * @var bool
@@ -32,10 +32,10 @@ class PostCustomFieldSetAction extends AbstractAction implements ActionInterface
     private bool $response;
 
     /**
-     * @param Shopware6CustomFieldSet $customField
-     * @param bool                    $response
+     * @param Shopware6CustomField $customField
+     * @param bool                 $response
      */
-    public function __construct(Shopware6CustomFieldSet $customField, bool $response = false)
+    public function __construct(Shopware6CustomField $customField, bool $response = false)
     {
         $this->customField = $customField;
         $this->response = $response;
@@ -57,11 +57,11 @@ class PostCustomFieldSetAction extends AbstractAction implements ActionInterface
     /**
      * @param string|null $content
      *
-     * @return Shopware6CustomFieldSet|null
+     * @return Shopware6CustomField|null
      *
      * @throws \JsonException
      */
-    public function parseContent(?string $content): ?Shopware6CustomFieldSet
+    public function parseContent(?string $content): ?Shopware6CustomField
     {
         if (null === $content) {
             return null;
@@ -69,9 +69,14 @@ class PostCustomFieldSetAction extends AbstractAction implements ActionInterface
 
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        return new Shopware6CustomFieldSet(
+        $config = $data['data']['attributes']['config'] ?: null;
+
+        return new Shopware6CustomField(
             $data['data']['id'],
-            $data['data']['attributes']['name']
+            $data['data']['attributes']['name'],
+            $data['data']['attributes']['type'],
+            $config,
+            $data['data']['attributes']['customFieldSetId']
         );
     }
 
