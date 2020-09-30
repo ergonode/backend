@@ -56,9 +56,8 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         }
 
         $default = $product->get('default');
-        if (array_key_exists('image', $default) && $default['image'] !== null) {
-            $images = explode(',', $default['image']);
-            foreach ($images as $image) {
+        if ($images = $default['image'] ?? null) {
+            foreach (explode(',', $images) as $image) {
                 $this->processImage($source, $import, $image);
             }
         }
@@ -66,9 +65,8 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         foreach ($source->getLanguages() as $key => $language) {
             if ($product->has($key)) {
                 $version = $product->get($key);
-                if (array_key_exists('image', $version) && $version['image'] !== null) {
-                    $images = explode(',', $version['image']);
-                    foreach ($images as $image) {
+                if ($images = $version['image'] ?? null) {
+                    foreach (explode(',', $images) as $image) {
                         $this->processImage($source, $import, $image);
                     }
                 }

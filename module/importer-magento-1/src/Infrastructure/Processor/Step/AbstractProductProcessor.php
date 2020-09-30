@@ -26,16 +26,16 @@ abstract class AbstractProductProcessor
      */
     protected function getCategories(ProductModel $product): array
     {
-        $categories = [];
+        $result = [];
 
         $default = $product->get('default');
-        if (array_key_exists('esa_categories', $default) && '' !== $default['esa_categories']) {
-            foreach (explode(',', $default['esa_categories']) as $category) {
-                $categories[] = new CategoryCode($category);
+        if ($categories = $default['esa_categories'] ?? null) {
+            foreach (explode(',', $categories) as $category) {
+                $result[] = new CategoryCode($category);
             }
         }
 
-        return $categories;
+        return $result;
     }
 
     /**

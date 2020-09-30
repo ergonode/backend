@@ -38,4 +38,3 @@ class ImportSimpleProductCommandTest extends TestCase
         self::assertSame($attributes, $command->getAttributes());
     }
 }
-

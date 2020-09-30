@@ -28,7 +28,7 @@ class ImportTest extends TestCase
         $transformerId = $this->createMock(TransformerId::class);
         $file = 'any file';
 
-        $entity = new Import($importId, $sourceId,$transformerId, $file);
+        $entity = new Import($importId, $sourceId, $transformerId, $file);
 
         self::assertEquals($importId, $entity->getId());
         self::assertEquals($sourceId, $entity->getSourceId());

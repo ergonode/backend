@@ -76,9 +76,8 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
         $result = [];
 
         $default = $product->get('default');
-        if (array_key_exists('bindings', $default) && $default['bindings'] !== null) {
-            $bindings = explode(',', $default['bindings']);
-            foreach ($bindings as $binding) {
+        if ($bindings = $default['bindings'] ?? null) {
+            foreach (explode(',', $bindings) as $binding) {
                 $result[] = new AttributeCode($binding);
             }
         }
@@ -96,9 +95,8 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
         $result = [];
 
         $default = $product->get('default');
-        if (array_key_exists('variants', $default) && null !== $default['variants']) {
-            $variants = explode(',', $default['variants']);
-            foreach ($variants as $variant) {
+        if ($variants = $default['variants'] ?? null) {
+            foreach (explode(',', $variants) as $variant) {
                 $result[] = new Sku($variant);
             }
         }

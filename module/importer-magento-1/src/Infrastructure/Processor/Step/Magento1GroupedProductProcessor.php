@@ -73,10 +73,9 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
         $result = [];
 
         $default = $product->get('default');
-        if (array_key_exists('relations', $default) && null !== $default['relations']) {
-            $variants = explode(',', $default['relations']);
-            foreach ($variants as $variant) {
-                $result[] = new Sku($variant);
+        if ($relations = $default['relations'] ?? null) {
+            foreach (explode(',', $relations) as $relation) {
+                $result[] = new Sku($relation);
             }
         }
 

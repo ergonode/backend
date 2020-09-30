@@ -47,4 +47,3 @@ class ImportGroupingProductCommandTest extends TestCase
         self::assertSame($children, $command->getChildren());
     }
 }
-
