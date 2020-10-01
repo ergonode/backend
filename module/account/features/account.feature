@@ -22,21 +22,37 @@ Feature: Account module
     Then the response status code should be 401
 
   @changePassword
-  Scenario: Create role
+  Scenario: Create role 1
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And remember param "role_nane" with value "Test role (@@random_uuid@@)"
+    And remember param "role_nane_1" with value "Test role (@@random_uuid@@)"
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "@role_nane@",
+         "name": "@role_nane_1@",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "role"
+    And store response param "id" as "role_1"
+
+  Scenario: Create role 2
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And remember param "role_name_2" with value "Test role (@@random_uuid@@)"
+    When I send a POST request to "/api/v1/en_GB/roles" with body:
+      """
+      {
+         "name": "@role_name_2@",
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "role_2"
 
   Scenario: Create role (with the same name)
     Given I am Authenticated as "test@ergonode.com"
@@ -45,7 +61,7 @@ Feature: Account module
     When I send a POST request to "/api/v1/en_GB/roles" with body:
       """
       {
-         "name": "@role_nane@",
+         "name": "@role_nane_1@",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
@@ -229,22 +245,36 @@ Feature: Account module
     When I send a DELETE request to "/api/v1/en_GB/roles/@@static_uuid@@"
     Then the response status code should be 404
 
-  Scenario: Update role
+  Scenario: Update role (with the same name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
-         "name": "Test role 2 (@@random_uuid@@)",
+         "name": "@role_nane_1@",
          "description": "Test role 2",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
     Then the response status code should be 204
 
+  Scenario: Update role (with existing name)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
+      """
+      {
+         "name": "@role_name_2@",
+         "description": "Test role 2",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Update role (not authorized)
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@"
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@"
     Then the response status code should be 401
 
   Scenario: Update role (not found)
@@ -258,7 +288,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "description": "Test role",
@@ -271,7 +301,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -284,7 +314,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -297,7 +327,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "test": "Test role (@@random_uuid@@)",
@@ -311,7 +341,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "name": "",
@@ -325,7 +355,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -339,7 +369,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -353,7 +383,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en_GB/roles/@role@" with body:
+    When I send a PUT request to "/api/v1/en_GB/roles/@role_1@" with body:
       """
       {
          "name": "Test role (@@random_uuid@@)",
@@ -367,12 +397,12 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/roles/@role@"
+    When I send a GET request to "/api/v1/en_GB/roles/@role_1@"
     Then the response status code should be 200
     And the JSON node "id" should exist
 
   Scenario: Get role (not authorized)
-    When I send a GET request to "/api/v1/en_GB/roles/@role@"
+    When I send a GET request to "/api/v1/en_GB/roles/@role_1@"
     Then the response status code should be 401
 
   Scenario: Get role (not found)
@@ -453,7 +483,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 201
@@ -475,7 +505,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -493,7 +523,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -511,7 +541,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -528,7 +558,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -546,7 +576,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -563,7 +593,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -581,7 +611,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -598,7 +628,7 @@ Feature: Account module
           "lastName": "Test",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -616,7 +646,7 @@ Feature: Account module
           "language": "",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -633,7 +663,7 @@ Feature: Account module
           "lastName": "Test",
           "language": "en_GB",
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -651,7 +681,7 @@ Feature: Account module
           "language": "en_GB",
           "password": "",
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -668,7 +698,7 @@ Feature: Account module
           "lastName": "Test",
           "language": "en_GB",
           "password": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -686,7 +716,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": "",
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -767,7 +797,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/en_GB/roles/@role@"
+    When I send a DELETE request to "/api/v1/en_GB/roles/@role_1@"
     Then the response status code should be 409
     And the JSON node "code" should exist
     And the JSON node "message" should exist
@@ -784,7 +814,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 123456789,
           "passwordRepeat": 123456789,
-          "roleId": "@role@",
+          "roleId": "@role_1@",
           "languagePrivilegesCollection": {
              "en_GB": {
                "read": true,
@@ -817,7 +847,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -834,7 +864,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -850,7 +880,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -867,7 +897,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -883,7 +913,7 @@ Feature: Account module
           "lastName": "Test",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -900,7 +930,7 @@ Feature: Account module
           "language": "",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -916,7 +946,7 @@ Feature: Account module
           "lastName": "Test",
           "language": "en_GB",
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -933,7 +963,7 @@ Feature: Account module
           "language": "en_GB",
           "password": "",
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -949,7 +979,7 @@ Feature: Account module
           "lastName": "Test",
           "language": "en_GB",
           "password": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -966,7 +996,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": "",
-          "roleId": "@role@"
+          "roleId": "@role_1@"
       }
       """
     Then the response status code should be 400
@@ -1050,7 +1080,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@",
+          "roleId": "@role_1@",
           "languagePrivilegesCollection": {
              "test": {
                "read": true,
@@ -1073,7 +1103,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@",
+          "roleId": "@role_1@",
           "languagePrivilegesCollection": {
              "en_GB": {
                "read": true
@@ -1095,7 +1125,7 @@ Feature: Account module
           "language": "en_GB",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@",
+          "roleId": "@role_1@",
           "languagePrivilegesCollection": {
              "en_GB": {
              }
