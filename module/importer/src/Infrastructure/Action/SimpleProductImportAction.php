@@ -12,21 +12,19 @@ namespace Ergonode\Importer\Infrastructure\Action;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Transformer\Domain\Model\ImportedProduct;
-use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Importer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 
 /**
  */
-class SimpleProductImportAction implements ImportActionInterface
+class SimpleProductImportAction
 {
-    public const TYPE = 'SIMPLE-PRODUCT';
-
     /**
      * @var ProductQueryInterface
      */
@@ -38,53 +36,71 @@ class SimpleProductImportAction implements ImportActionInterface
     private ProductRepositoryInterface $repository;
 
     /**
-     * @var ProductImportBuilderInterface[] $builders
+     * @var TemplateQueryInterface
      */
-    private array $builders;
+    private TemplateQueryInterface $templateQuery;
 
     /**
-     * @param ProductQueryInterface           $productQuery
-     * @param ProductRepositoryInterface      $repository
-     * @param ProductImportBuilderInterface[] $builders
+     * @var CategoryQueryInterface
+     */
+    private CategoryQueryInterface $categoryQuery;
+
+    /**
+     * @var ImportProductAttributeBuilder
+     */
+    private ImportProductAttributeBuilder $builder;
+
+    /**
+     * @param ProductQueryInterface         $productQuery
+     * @param ProductRepositoryInterface    $repository
+     * @param TemplateQueryInterface        $templateQuery
+     * @param CategoryQueryInterface        $categoryQuery
+     * @param ImportProductAttributeBuilder $builder
      */
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $repository,
-        array $builders
+        TemplateQueryInterface $templateQuery,
+        CategoryQueryInterface $categoryQuery,
+        ImportProductAttributeBuilder $builder
     ) {
         $this->productQuery = $productQuery;
         $this->repository = $repository;
-        $this->builders = $builders;
+        $this->templateQuery = $templateQuery;
+        $this->categoryQuery = $categoryQuery;
+        $this->builder = $builder;
     }
 
     /**
-     * @param ImportId $importId
-     * @param Record   $record
+     * @param Sku    $sku
+     * @param string $template
+     * @param array  $categories
+     * @param array  $attributes
      *
      * @throws \Exception
      */
-    public function action(ImportId $importId, Record $record): void
-    {
-        $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
-
-        Assert::notNull($sku, 'product import required "sku" field not exists');
-
-        $importedProduct = new ImportedProduct($sku->getValue());
-
-        foreach ($this->builders as $builder) {
-            $importedProduct = $builder->build($importedProduct, $record);
-        }
-
+    public function action(
+        Sku $sku,
+        string $template,
+        array $categories,
+        array $attributes = []
+    ): void {
+        $templateId = $this->templateQuery->findTemplateIdByCode($template);
+        Assert::notNull($templateId);
         $productId = $this->productQuery->findProductIdBySku($sku);
-        $templateId = new TemplateId($importedProduct->template);
+
+        $categories = $this->getCategories($categories);
+
+
+        $attributes = $this->builder->build($attributes);
 
         if (!$productId) {
             $product = new SimpleProduct(
                 ProductId::generate(),
                 $sku,
                 $templateId,
-                $importedProduct->categories,
-                $importedProduct->attributes,
+                $categories,
+                $attributes,
             );
         } else {
             $product = $this->repository->load($productId);
@@ -92,17 +108,26 @@ class SimpleProductImportAction implements ImportActionInterface
         }
 
         $product->changeTemplate($templateId);
-        $product->changeCategories($importedProduct->categories);
-        $product->changeAttributes($importedProduct->attributes);
+        $product->changeCategories($categories);
+        $product->changeAttributes($attributes);
 
         $this->repository->save($product);
     }
 
     /**
-     * @return string
+     * @param CategoryCode[] $categories
+     *
+     * @return CategoryId[]
      */
-    public function getType(): string
+    public function getCategories(array $categories): array
     {
-        return self::TYPE;
+        $result = [];
+        foreach ($categories as $category) {
+            $categoryId = $this->categoryQuery->findIdByCode($category);
+            Assert::notNull($categoryId);
+            $categories[] = $categoryId;
+        }
+
+        return $result;
     }
 }

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -17,7 +16,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class CreatedBySystemAttribute extends AbstractTextAttribute implements AttributeInterface
+class CreatedBySystemAttribute extends AbstractTextAttribute
 {
     public const TYPE = 'TEXT';
     public const CODE = 'esa_created_by';

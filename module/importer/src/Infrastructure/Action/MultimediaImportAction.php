@@ -11,26 +11,20 @@ namespace Ergonode\Importer\Infrastructure\Action;
 
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\Transformer\Domain\Model\Record;
 use Symfony\Component\HttpFoundation\File\File;
-use Webmozart\Assert\Assert;
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use League\Flysystem\FilesystemInterface;
+use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\FileExistsException;
 
 /**
  */
-class MultimediaImportAction implements ImportActionInterface
+class MultimediaImportAction
 {
-    public const TYPE = 'MULTIMEDIA';
-
-    public const ID_FIELD = 'id';
-    public const URL_FIELD = 'url';
-    public const NAME_FIELD = 'name';
-
-
     /**
      * @var MultimediaRepositoryInterface
      */
@@ -52,72 +46,70 @@ class MultimediaImportAction implements ImportActionInterface
     private FilesystemInterface $multimediaStorage;
 
     /**
+     * @var MultimediaQueryInterface
+     */
+    private MultimediaQueryInterface $multimediaQuery;
+
+    /**
      * @param MultimediaRepositoryInterface   $repository
      * @param DownloaderInterface             $downloader
      * @param HashCalculationServiceInterface $hashService
      * @param FilesystemInterface             $multimediaStorage
+     * @param MultimediaQueryInterface        $multimediaQuery
      */
     public function __construct(
         MultimediaRepositoryInterface $repository,
         DownloaderInterface $downloader,
         HashCalculationServiceInterface $hashService,
-        FilesystemInterface $multimediaStorage
+        FilesystemInterface $multimediaStorage,
+        MultimediaQueryInterface $multimediaQuery
     ) {
         $this->repository = $repository;
         $this->downloader = $downloader;
         $this->hashService = $hashService;
         $this->multimediaStorage = $multimediaStorage;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
+        $this->multimediaQuery = $multimediaQuery;
     }
 
     /**
      * @param ImportId $importId
-     * @param Record   $record
+     * @param string   $url
+     * @param string   $filename
      *
-     * @throws \Exception
+     * @throws FileExistsException
+     * @throws FileNotFoundException
      */
-    public function action(ImportId $importId, Record $record): void
+    public function action(ImportId $importId, string $url, string $filename): void
     {
-        $id = $record->has(self::ID_FIELD) ? new MultimediaId($record->get(self::ID_FIELD)) : null;
-        $name = $record->has(self::NAME_FIELD) ? $record->get(self::NAME_FIELD) : null;
-        $url = $record->has(self::URL_FIELD) ? $record->get(self::URL_FIELD) : null;
-        Assert::notNull($id, 'Multimedia import required "id" field not exists');
-        Assert::notNull($name, 'Multimedia import required "name" field not exists');
-        Assert::notNull($url, 'Multimedia import required "url" field not exists');
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $name = pathinfo($filename, PATHINFO_FILENAME);
 
-        $multimedia = $this->repository->load($id);
+        $id = $this->multimediaQuery->findIdByFilename($name);
 
-        if (!$multimedia) {
+        if (!$id) {
             try {
-                $tmpFile = tempnam(sys_get_temp_dir(), $id->getValue());
-                $extension = pathinfo($name, PATHINFO_EXTENSION);
-                $originalFilename = pathinfo($name, PATHINFO_FILENAME);
+                $tmpFile = tempnam(sys_get_temp_dir(), $importId->getValue());
 
                 $content = $this->downloader->download($url);
                 file_put_contents($tmpFile, $content);
-
                 $file = new File($tmpFile);
 
                 $hash = $this->hashService->calculateHash($file);
                 $filename = sprintf('%s.%s', $hash->getValue(), $extension);
-                if (!$this->multimediaStorage->has($hash)) {
-                    $this->multimediaStorage->write($hash, $content);
+                if (!$this->multimediaStorage->has($filename)) {
+                    $this->multimediaStorage->write($filename, $content);
                 }
 
+                $size = $this->multimediaStorage->getSize($filename);
+                $mime = $this->multimediaStorage->getMimetype($filename);
+
                 $multimedia = new Multimedia(
-                    $id,
-                    $originalFilename,
+                    MultimediaId::generate(),
+                    $name,
                     $extension,
-                    $this->multimediaStorage->getSize($filename),
+                    $size,
                     $hash,
-                    $this->multimediaStorage->getMimetype($filename)
+                    $mime,
                 );
 
                 $this->repository->save($multimedia);

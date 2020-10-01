@@ -52,6 +52,58 @@ final class Version20180610093112 extends AbstractErgonodeMigration
         $this->addSql('UPDATE language SET system = true WHERE iso in (\'en_GB\', \'pl_PL\')');
 
         $this->addSql('ALTER TABLE language rename column system to active');
+
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+
+        $this->addSql(
+            'CREATE TABLE unit (
+                    id UUID NOT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    symbol VARCHAR(16) NOT NULL,
+                    PRIMARY KEY(id))'
+        );
+
+        $this->connection->insert('privileges_group', ['area' => 'Settings']);
+        $this->createPrivileges([
+            'SETTINGS_CREATE' => 'Settings',
+            'SETTINGS_READ' => 'Settings',
+            'SETTINGS_UPDATE' => 'Settings',
+            'SETTINGS_DELETE' => 'Settings',
+        ]);
+
+        $this->createEventStoreEvents([
+            'Ergonode\Core\Domain\Event\UnitSymbolChangedEvent'
+            => 'Unit symbol changed',
+            'Ergonode\Core\Domain\Event\UnitNameChangedEvent'
+            => 'Unit name changed',
+            'Ergonode\Core\Domain\Event\UnitDeletedEvent'
+            => 'Unit deleted',
+            'Ergonode\Core\Domain\Event\UnitCreatedEvent'
+            => 'Unit created',
+        ]);
+
+        $this->addSql('
+            CREATE TABLE IF NOT EXISTS language_tree (
+                id UUID NOT NULL,
+                parent_id UUID DEFAULT NULL,
+                lft INT NOT NULL,
+                rgt INT NOT NULL,
+                code VARCHAR(5) NOT NULL,
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql(
+            'INSERT INTO language_tree (id, lft, rgt, code)
+                    SELECT id, 1, 4, iso FROM "language" WHERE iso=\'en_GB\''
+        );
+
+        $this->addSql(
+            'INSERT INTO language_tree (id, lft, rgt, code, parent_id)
+                    SELECT child.id, 2, 3, child.iso, parent.id
+                    FROM "language" child, "language" parent
+                    WHERE child.iso=\'pl_PL\' AND parent.iso=\'en_GB\''
+        );
     }
 
     /**
@@ -216,5 +268,37 @@ final class Version20180610093112 extends AbstractErgonodeMigration
             'zh_TW' => 'zh_TW',
             'zu_ZA' => 'zu_ZA',
         ];
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createEventStoreEvents(array $collection): void
+    {
+        foreach ($collection as $class => $translation) {
+            $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
+                'event_class' => $class,
+                'translation_key' => $translation,
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createPrivileges(array $collection): void
+    {
+        foreach ($collection as $code => $area) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => $area,
+            ]);
+        }
     }
 }
