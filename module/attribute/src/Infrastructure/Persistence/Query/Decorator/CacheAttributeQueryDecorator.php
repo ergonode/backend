@@ -84,6 +84,16 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     }
 
     /**
+     * @param AttributeCode $code
+     *
+     * @return null|AttributeId
+     */
+    public function findAttributeIdByCode(AttributeCode $code): ?AttributeId
+    {
+        return $this->attributeQuery->findAttributeIdByCode($code);
+    }
+
+    /**
      * @param AttributeId $attributeId
      *
      * @return array|null
