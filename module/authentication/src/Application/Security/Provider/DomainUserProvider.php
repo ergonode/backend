@@ -42,6 +42,9 @@ class DomainUserProvider implements UserProviderInterface
         if (empty($username)) {
             throw new UsernameNotFoundException('Empty username');
         }
+        if (!is_string($username)) {
+            throw new UsernameNotFoundException('Username has to be a string');
+        }
 
         try {
             $userId = new UserId($username);

@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\Provider;
 
-use Ergonode\Account\Domain\Exception\InvalidEmailException;
 use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Security\User\User;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\Exception\InvalidEmailException;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,6 +42,9 @@ final class EmailUserProvider implements UserProviderInterface
     {
         if (empty($username)) {
             throw new UsernameNotFoundException('Empty username');
+        }
+        if (!is_string($username)) {
+            throw new UsernameNotFoundException('Username has to be a string');
         }
 
         try {
@@ -77,27 +79,5 @@ final class EmailUserProvider implements UserProviderInterface
     public function supportsClass($class): bool
     {
         return User::class === $class;
-    }
-
-    /**
-     * @param string $username
-     *
-     * @return UserId
-     */
-    protected function getUserId(string $username): UserId
-    {
-        try {
-            $email = new Email($username);
-        } catch (InvalidEmailException $exception) {
-            throw new UsernameNotFoundException('Invalid email format');
-        }
-
-        $userId = $this->query->findIdByEmail($email);
-
-        if (!$userId) {
-            throw new UsernameNotFoundException("Username '$username' not found");
-        }
-
-        return $userId;
     }
 }

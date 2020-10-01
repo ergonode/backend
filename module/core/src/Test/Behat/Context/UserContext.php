@@ -13,6 +13,7 @@ use Behat\Behat\Context\Context;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Authentication\Application\Security\User\User as SecurityUser;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -46,13 +47,13 @@ class UserContext implements Context
     /**
      * @param string $userEmail
      *
-     * @return User|AbstractAggregateRoot
+     * @return SecurityUser
      *
      * @throws Exception
      *
      * @Transform :user
      */
-    public function castUserEmailToUser(string $userEmail): User
+    public function castUserEmailToUser(string $userEmail): SecurityUser
     {
         $userId = $this->query->findIdByEmail(new Email($userEmail));
         if (!$userId instanceof UserId) {
@@ -63,6 +64,10 @@ class UserContext implements Context
             throw new InvalidArgumentException(sprintf('There is no user with email %s', $userEmail));
         }
 
-        return $user;
+        return new SecurityUser(
+            $user->getId()->getValue(),
+            $user->getPassword(),
+            $user->getRoles(),
+        );
     }
 }

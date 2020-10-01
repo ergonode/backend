@@ -11,7 +11,7 @@ namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behatch\HttpCall\Request;
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Authentication\Application\Security\User\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 /**
