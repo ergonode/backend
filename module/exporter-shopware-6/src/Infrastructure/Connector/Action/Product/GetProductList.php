@@ -12,6 +12,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
@@ -62,9 +63,19 @@ class GetProductList extends AbstractAction implements ActionInterface
             foreach ($data['data'] as $row) {
                 $category = null;
                 $properties = null;
-                $customFields = null;
                 $options = null;
                 $price = null;
+
+                if ($row['attributes']['price']) {
+                    foreach ($row['attributes']['price'] as $attributePrice) {
+                        $price[] = new Shopware6ProductPrice(
+                            $attributePrice['currencyId'],
+                            $attributePrice['net'],
+                            $attributePrice['gross'],
+                            $attributePrice['linked']
+                        );
+                    }
+                }
 
                 if ($row['attributes']['categoryTree']) {
                     foreach ($row['attributes']['categoryTree'] as $attributeCategory) {
@@ -88,6 +99,7 @@ class GetProductList extends AbstractAction implements ActionInterface
                         ];
                     }
                 }
+                $customFields = $row['attributes']['customFields'] ?: null;
 
                 $result[] = new Shopware6Product(
                     $row['id'],

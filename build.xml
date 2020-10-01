@@ -37,7 +37,7 @@
     <!-- PHP Unit -->
     <target name="test:unit" description="Executes unit tests.">
         <echo msg="Running unit tests..."/>
-        <exec command="bin/phpunit -c phpunit.xml.dist"
+        <exec command="bin/phpunit"
               checkreturn="true"
               logoutput="true"
               passthru="true"
@@ -48,8 +48,19 @@
     <!-- PHP Unit coverage report-->
     <target name="test:unit:coverage" description="Executes unit tests.">
         <echo msg="Running unit tests..."/>
-        <exec command="bin/phpunit -c phpunit.xml.dist"
+        <exec command="bin/phpunit --coverage-clover=build/reports/phpunit-clover.xml --coverage-html=build/reports/coverage --log-junit=build/reports/phpunit-junit.xml"
               checkreturn="true"
+              logoutput="true"
+              passthru="true"
+        >
+        </exec>
+    </target>
+
+    <!-- Infection -->
+    <target name="test:mutation" description="Executes infection mutation tests.">
+        <echo msg="Running mutation tests..."/>
+        <exec command="bin/infection --show-mutations"
+              checkreturn="false"
               logoutput="true"
               passthru="true"
         >
@@ -59,7 +70,7 @@
     <!-- Behat -->
     <target name="test:behat" depends="override:property:APP_ENV, database:drop, database:create, database:migrate, cache:clear, database:fixture" description="Executes behat tests." >
         <echo msg="Running behat tests..."/>
-        <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 php -d error_reporting='E_ALL &amp; ~E_DEPRECATED' bin/behat --colors --stop-on-failure"
+        <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 php -d error_reporting='E_ALL &amp; ~E_DEPRECATED' bin/behat --colors --stop-on-failure --format=progress"
               checkreturn="true"
               logoutput="true"
               passthru="true"

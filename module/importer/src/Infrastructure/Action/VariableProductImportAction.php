@@ -12,40 +12,31 @@ namespace Ergonode\Importer\Infrastructure\Action;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Transformer\Domain\Model\ImportedProduct;
-use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Importer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
-use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Product\Domain\Command\Relations\AddProductChildrenCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductNotFoundException;
+use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductIncorrectTypeException;
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
+use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 /**
  */
-class VariableProductImportAction implements ImportActionInterface
+class VariableProductImportAction
 {
-    public const TYPE = 'VARIABLE-PRODUCT';
-
     /**
      * @var ProductQueryInterface
      */
     private ProductQueryInterface $productQuery;
-
-    /**
-     * @var CommandBusInterface
-     */
-    private CommandBusInterface $commandBus;
-
-    /**
-     * @var ProductImportBuilderInterface[] $builders
-     */
-    private array $builders;
 
     /**
      * @var ProductRepositoryInterface
@@ -53,92 +44,170 @@ class VariableProductImportAction implements ImportActionInterface
     private ProductRepositoryInterface $productRepository;
 
     /**
-     * @param ProductQueryInterface                 $productQuery
-     * @param CommandBusInterface                   $commandBus
-     * @param array|ProductImportBuilderInterface[] $builders
-     * @param ProductRepositoryInterface            $productRepository
+     * @var AttributeQueryInterface
+     */
+    private AttributeQueryInterface $attributeQuery;
+
+    /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $attributeRepository;
+
+    /**
+     * @var TemplateQueryInterface
+     */
+    private TemplateQueryInterface $templateQuery;
+
+    /**
+     * @var CategoryQueryInterface
+     */
+    private CategoryQueryInterface $categoryQuery;
+
+    /**
+     * @var ImportProductAttributeBuilder
+     */
+    private ImportProductAttributeBuilder $builder;
+
+    /**
+     * @param ProductQueryInterface         $productQuery
+     * @param ProductRepositoryInterface    $productRepository
+     * @param AttributeQueryInterface       $attributeQuery
+     * @param AttributeRepositoryInterface  $attributeRepository
+     * @param TemplateQueryInterface        $templateQuery
+     * @param CategoryQueryInterface        $categoryQuery
+     * @param ImportProductAttributeBuilder $builder
      */
     public function __construct(
         ProductQueryInterface $productQuery,
-        CommandBusInterface $commandBus,
-        $builders,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
+        AttributeQueryInterface $attributeQuery,
+        AttributeRepositoryInterface $attributeRepository,
+        TemplateQueryInterface $templateQuery,
+        CategoryQueryInterface $categoryQuery,
+        ImportProductAttributeBuilder $builder
     ) {
         $this->productQuery = $productQuery;
-        $this->commandBus = $commandBus;
-        $this->builders = $builders;
         $this->productRepository = $productRepository;
+        $this->attributeQuery = $attributeQuery;
+        $this->attributeRepository = $attributeRepository;
+        $this->templateQuery = $templateQuery;
+        $this->categoryQuery = $categoryQuery;
+        $this->builder = $builder;
     }
 
     /**
-     * @param ImportId $importId
-     * @param Record   $record
+     * @param Sku    $sku
+     * @param string $template
+     * @param array  $categories
+     * @param array  $bindings
+     * @param array  $children
+     * @param array  $attributes
      *
+     * @throws ImportRelatedProductIncorrectTypeException
+     * @throws ImportRelatedProductNotFoundException
      * @throws \Exception
      */
-    public function action(ImportId $importId, Record $record): void
-    {
-        $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
-        $bindings = [];
-        if ($record->has('bindings')) {
-            foreach (explode(',', $record->get('bindings')) as $binding) {
-                $bindings[] = new AttributeId($binding);
-            }
-        }
-
-        $variants = [];
-        if ($record->has('variants')) {
-            foreach (explode(',', $record->get('variants')) as $variant) {
-                $variants[] = new ProductId($variant);
-            }
-        }
-
-        Assert::notNull($sku, 'product import required "sku" field not exists');
-
-        $importedProduct = new ImportedProduct($sku->getValue());
-
-        foreach ($this->builders as $builder) {
-            $importedProduct = $builder->build($importedProduct, $record);
-        }
-
+    public function action(
+        Sku $sku,
+        string $template,
+        array $categories,
+        array $bindings,
+        array $children,
+        array $attributes = []
+    ): void {
+        $templateId = $this->templateQuery->findTemplateIdByCode($template);
+        Assert::notNull($templateId);
         $productId = $this->productQuery->findProductIdBySku($sku);
-        $templateId = new TemplateId($importedProduct->template);
+        $categories = $this->getCategories($categories);
+        $attributes = $this->builder->build($attributes);
+        $bindings = $this->getBindings($bindings);
+        $children = $this->getChildren($sku, $children);
 
         if (!$productId) {
             $productId = ProductId::generate();
-            $command = new CreateVariableProductCommand(
+            $product = new VariableProduct(
                 $productId,
                 $sku,
                 $templateId,
-                $importedProduct->categories,
-                $bindings,
-                $importedProduct->attributes,
+                $categories,
+                $attributes,
             );
         } else {
-            $command = new UpdateVariableProductCommand(
-                $productId,
-                $templateId,
-                $importedProduct->categories,
-                $bindings,
-                $importedProduct->attributes,
-            );
-        }
-
-        $this->commandBus->dispatch($command, true);
-
-        if (!empty($variants)) {
-            /** @var AbstractAssociatedProduct $product */
             $product = $this->productRepository->load($productId);
-            $command = new AddProductChildrenCommand($product, $variants);
-            $this->commandBus->dispatch($command, true);
+            Assert::isInstanceOf($product, VariableProduct::class);
         }
+
+        $product->changeTemplate($templateId);
+        $product->changeCategories($categories);
+        $product->changeAttributes($attributes);
+        $product->changeBindings($bindings);
+        $product->changeChildren($children);
+
+        $this->productRepository->save($product);
     }
 
     /**
-     * @return string
+     * @param Sku   $sku
+     * @param Sku[] $children
+     *
+     * @return AbstractProduct[]
+     *
+     * @throws ImportRelatedProductIncorrectTypeException
+     * @throws ImportRelatedProductNotFoundException
      */
-    public function getType(): string
+    public function getChildren(Sku $sku, array $children): array
     {
-        return self::TYPE;
+        $result = [];
+        foreach ($children as $child) {
+            $productId = $this->productQuery->findProductIdBySku($child);
+            if (null === $productId) {
+                throw new ImportRelatedProductNotFoundException($sku, $child);
+            }
+
+            $child = $this->productRepository->load($productId);
+            if (!$child instanceof SimpleProduct) {
+                throw new ImportRelatedProductIncorrectTypeException($sku, $child->getType());
+            }
+
+            $result[] = $child;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param AttributeCode[] $bindings
+     *
+     * @return SelectAttribute[]
+     */
+    public function getBindings(array $bindings): array
+    {
+        $result = [];
+        foreach ($bindings as $binding) {
+            $attributeId = $this->attributeQuery->findAttributeIdByCode($binding);
+            Assert::notNull($attributeId);
+            $binding = $this->attributeRepository->load($attributeId);
+            Assert::isInstanceOf($binding, SelectAttribute::class);
+            $result[] = $binding;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param CategoryCode[] $categories
+     *
+     * @return CategoryId[]
+     */
+    public function getCategories(array $categories): array
+    {
+        $result = [];
+        foreach ($categories as $category) {
+            $categoryId = $this->categoryQuery->findIdByCode($category);
+            Assert::notNull($categoryId);
+            $categories[] = $categoryId;
+        }
+
+        return $result;
     }
 }

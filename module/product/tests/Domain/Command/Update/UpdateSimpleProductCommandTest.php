@@ -23,18 +23,16 @@ class UpdateSimpleProductCommandTest extends TestCase
      * @param ProductId  $id
      * @param TemplateId $templateId
      * @param array      $categories
-     * @param array      $attributes
      *
      * @dataProvider dataProvider
      */
-    public function testCreateCommand(ProductId $id, TemplateId $templateId, array $categories, array $attributes): void
+    public function testCreateCommand(ProductId $id, TemplateId $templateId, array $categories): void
     {
-        $command = new UpdateSimpleProductCommand($id, $templateId, $categories, $attributes);
+        $command = new UpdateSimpleProductCommand($id, $templateId, $categories);
 
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($templateId, $command->getTemplateId());
-        $this->assertSame($categories, $command->getCategories());
-        $this->assertSame($attributes, $command->getAttributes());
+        self::assertSame($id, $command->getId());
+        self::assertSame($templateId, $command->getTemplateId());
+        self::assertSame($categories, $command->getCategories());
     }
 
     /**
@@ -51,10 +49,6 @@ class UpdateSimpleProductCommandTest extends TestCase
                 [
                     $this->createMock(CategoryId::class),
                     $this->createMock(CategoryId::class),
-                ],
-                [
-                    'code1' => $this->createMock(ValueInterface::class),
-                    'code2' => $this->createMock(ValueInterface::class),
                 ],
             ],
         ];

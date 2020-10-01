@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Repository;
 
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
@@ -17,25 +18,23 @@ interface Shopware6LanguageRepositoryInterface
 {
     /**
      * @param ChannelId $channelId
-     * @param string    $shopwareId
+     * @param string    $iso
      *
-     * @return string|null
+     * @return Shopware6Language|null
      */
-    public function load(ChannelId $channelId, string $shopwareId): ?string;
+    public function load(ChannelId $channelId, string $iso): ?Shopware6Language;
+
+    /**
+     * @param ChannelId         $channelId
+     * @param Shopware6Language $shopware6Language
+     */
+    public function save(ChannelId $channelId, Shopware6Language $shopware6Language): void;
 
     /**
      * @param ChannelId $channelId
-     * @param string    $shopwareId
-     * @param string    $name
-     * @param string    $localeId
-     */
-    public function save(ChannelId $channelId, string $shopwareId, string $name, string $localeId): void;
-
-    /**
-     * @param ChannelId $channelId
-     * @param string    $shopwareId
+     * @param string    $iso
      *
      * @return bool
      */
-    public function exists(ChannelId $channelId, string $shopwareId): bool;
+    public function exists(ChannelId $channelId, string $iso): bool;
 }

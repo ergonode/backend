@@ -34,7 +34,7 @@ class CustomFieldNumberSynchronizer extends AbstractCustomFieldSynchronizer
 
         return
             [
-                'name' => $code.'_set',
+                'name' => $code,
                 'type' => 'number',
                 'config' => [
                     'type' => 'number',

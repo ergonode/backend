@@ -33,11 +33,15 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
 {
     /**
      * @var ProductId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     protected ProductId $id;
 
     /**
      * @var Sku
+     *
+     * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
      */
     protected Sku $sku;
 
@@ -49,9 +53,9 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     protected array $attributes;
 
     /**
-     * @var string[]
+     * @var CategoryId[]
      *
-     * @JMS\Type("array<string>")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     protected array $categories;
 
@@ -63,11 +67,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     protected TemplateId $templateId;
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId    $id
+     * @param Sku          $sku
+     * @param TemplateId   $templateId
+     * @param CategoryId[] $categories
+     * @param array        $attributes
      *
      * @throws \Exception
      */
@@ -91,7 +95,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
             $id,
             $sku,
             $this->getType(),
-            \get_class($this),
             $templateId,
             $categories,
             $attributes
@@ -99,7 +102,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
-     * @JMS\VirtualProperty();
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("type")
      *
      * @return string
@@ -166,7 +169,13 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
      */
     public function belongToCategory(CategoryId $categoryId): bool
     {
-        return isset($this->categories[$categoryId->getValue()]);
+        foreach ($this->categories as $category) {
+            if ($categoryId->isEqual($category)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -190,6 +199,28 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     {
         if ($this->belongToCategory($categoryId)) {
             $this->apply(new ProductRemovedFromCategoryEvent($this->id, $categoryId));
+        }
+    }
+
+    /**
+     * @param CategoryId[] $categories
+     *
+     * @throws \Exception
+     */
+    public function changeCategories(array $categories): void
+    {
+        Assert::allIsInstanceOf($categories, CategoryId::class);
+
+        foreach ($categories as $categoryId) {
+            if (!$this->belongToCategory($categoryId)) {
+                $this->addToCategory($categoryId);
+            }
+        }
+
+        foreach ($this->categories as $categoryId) {
+            if (!in_array($categoryId, $categories, false)) {
+                $this->removeFromCategory($categoryId);
+            }
         }
     }
 
@@ -238,6 +269,33 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
 
         $this->apply(new ProductValueAddedEvent($this->id, $attributeCode, $value));
+    }
+
+    /**
+     * @param ValueInterface[] $attributes
+     *
+     * @throws \Exception
+     */
+    public function changeAttributes(array $attributes): void
+    {
+        Assert::allString(array_keys($attributes));
+        Assert::allIsInstanceOf($attributes, ValueInterface::class);
+
+        foreach ($attributes as $code => $attribute) {
+            $attributeCode = new AttributeCode($code);
+            if ($this->hasAttribute($attributeCode)) {
+                $this->changeAttribute($attributeCode, $attribute);
+            } else {
+                $this->addAttribute($attributeCode, $attribute);
+            }
+        }
+
+        foreach ($this->attributes as $code => $value) {
+            $attributeCode = new AttributeCode($code);
+            if (!array_key_exists($code, $attributes)) {
+                $this->removeAttribute($attributeCode);
+            }
+        }
     }
 
     /**
@@ -307,7 +365,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         $this->categories = [];
         $this->templateId = $event->getTemplateId();
         foreach ($event->getCategories() as $category) {
-            $this->categories[$category->getValue()] = $category;
+            $this->categories[] = $category;
         }
         foreach ($event->getAttributes() as $key => $attribute) {
             $this->attributes[$key] = $attribute;
@@ -319,7 +377,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
      */
     protected function applyProductAddedToCategoryEvent(ProductAddedToCategoryEvent $event): void
     {
-        $this->categories[$event->getCategoryId()->getValue()] = $event->getCategoryId();
+        $this->categories[] = $event->getCategoryId();
     }
 
     /**
@@ -327,7 +385,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
      */
     protected function applyProductRemovedFromCategoryEvent(ProductRemovedFromCategoryEvent $event): void
     {
-        unset($this->categories[$event->getCategoryId()->getValue()]);
+        foreach ($this->categories as $key => $category) {
+            if ($category->isEqual($event->getCategoryId())) {
+                unset($this->categories[$key]);
+            }
+        }
     }
 
     /**

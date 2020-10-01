@@ -72,7 +72,7 @@ class ProcessExportCommandHandler
         if ($channel instanceof FileExportChannel) {
             $this->commandBus->dispatch(new StartFileExportCommand($export->getId()), true);
             foreach ($this->steps as $step) {
-                $step->export($export->getId());
+                $step->export($export->getId(), $channel);
             }
             $this->commandBus->dispatch(new EndFileExportCommand($export->getId()), true);
         }

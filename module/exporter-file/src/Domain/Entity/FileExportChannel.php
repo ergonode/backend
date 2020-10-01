@@ -22,6 +22,14 @@ class FileExportChannel extends AbstractChannel
 {
     public const TYPE = 'file';
 
+    public const EXPORT_FULL = 'full';
+    public const EXPORT_INCREMENTAL = 'incremental';
+
+    public const EXPORT_TYPES = [
+        self::EXPORT_FULL,
+        self::EXPORT_INCREMENTAL,
+    ];
+
     /**
      * @var string
      *
@@ -30,33 +38,43 @@ class FileExportChannel extends AbstractChannel
     protected string $format;
 
     /**
-     * @var Languages[];
+     * @var Languages[]
      *
      * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
     protected array $languages;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    protected string $exportType;
+
+    /**
      * @param ChannelId  $id
      * @param string     $name
      * @param string     $format
+     * @param string     $exportType
      * @param Language[] $languages
      *
      * @throws \Exception
      */
-    public function __construct(ChannelId $id, string $name, string $format, array $languages = [])
+    public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
     {
         parent::__construct($id, $name);
         Assert::allIsInstanceOf($languages, Language::class);
+        Assert::oneOf($exportType, self::EXPORT_TYPES);
 
         $this->languages = $languages;
         $this->format = $format;
+        $this->exportType = $exportType;
     }
 
     /**
      * @return string
      */
-    public function getType(): string
+    public static function getType(): string
     {
         return self::TYPE;
     }
@@ -92,5 +110,22 @@ class FileExportChannel extends AbstractChannel
     public function setFormat(string $format): void
     {
         $this->format = $format;
+    }
+
+    /**
+     * @param string $exportType
+     */
+    public function setExportType(string $exportType): void
+    {
+        Assert::oneOf($exportType, self::EXPORT_TYPES);
+        $this->exportType = $exportType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExportType(): string
+    {
+        return $this->exportType;
     }
 }

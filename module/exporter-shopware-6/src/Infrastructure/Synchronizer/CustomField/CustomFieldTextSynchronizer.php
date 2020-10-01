@@ -34,7 +34,7 @@ class CustomFieldTextSynchronizer extends AbstractCustomFieldSynchronizer
 
         return
             [
-                'name' => $code.'_set',
+                'name' => $code,
                 'type' => 'text',
                 'config' => [
                     'type' => 'text',

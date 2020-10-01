@@ -12,6 +12,8 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
+use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -33,12 +35,13 @@ final class Version20180807065948 extends AbstractErgonodeMigration
                 mime VARCHAR(255) NOT NULL,
                 size INTEGER NOT NULL,
                 hash VARCHAR(128) NOT NULL,
-                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL, 
+                created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITH TIME ZONE DEFAULT NULL, 
                 PRIMARY KEY(id)
             )
         ');
 
+        $this->connection->insert('privileges_group', ['area' => 'Multimedia']);
         $this->createMultimediaPrivileges(
             [
                 'MULTIMEDIA_CREATE',
@@ -50,6 +53,8 @@ final class Version20180807065948 extends AbstractErgonodeMigration
 
         $this->createEventStoreEvents([
             MultimediaCreatedEvent::class => 'Multimedia added',
+            MultimediaAltChangedEvent::class => 'Multimedia alt changed',
+            MultimediaNameChangedEvent::class => 'Multimedia name changed',
         ]);
     }
 

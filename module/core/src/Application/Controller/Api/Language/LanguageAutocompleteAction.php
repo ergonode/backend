@@ -10,8 +10,6 @@ namespace Ergonode\Core\Application\Controller\Api\Language;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,12 +80,11 @@ class LanguageAutocompleteAction
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param Language $language
-     * @param Request  $request
+     * @param Request $request
      *
      * @return Response
      */
-    public function __invoke(Language $language, Request $request): Response
+    public function __invoke(Request $request): Response
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);

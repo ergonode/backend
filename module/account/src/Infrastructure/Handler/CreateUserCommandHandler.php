@@ -71,7 +71,6 @@ class CreateUserCommandHandler
             $command->getPassword(),
             $command->getRoleId(),
             $languagePrivilegesCollection,
-            $command->getAvatarId(),
             $command->isActive()
         );
 

@@ -33,12 +33,18 @@ class FileExportChannelTest extends TestCase
     private string $format;
 
     /**
+     * @var string
+     */
+    private string $exportType;
+
+    /**
      */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
         $this->name = 'Name';
         $this->format = 'Format';
+        $this->exportType = FileExportChannel::EXPORT_FULL;
     }
 
     /**
@@ -46,11 +52,12 @@ class FileExportChannelTest extends TestCase
      */
     public function testChannelCreation(): void
     {
-        $entity = new FileExportChannel($this->id, $this->name, $this->format);
+        $entity = new FileExportChannel($this->id, $this->name, $this->format, $this->exportType);
 
         self::assertEquals($this->id, $entity->getId());
         self::assertEquals($this->name, $entity->getName());
         self::assertEquals($this->format, $entity->getFormat());
+        self::assertEquals($this->exportType, $entity->getExportType());
         self::assertEquals(FileExportChannel::TYPE, $entity->getType());
     }
 
@@ -60,10 +67,23 @@ class FileExportChannelTest extends TestCase
     public function testFormatChange(): void
     {
         $format = 'new Format';
-        $entity = new FileExportChannel($this->id, $this->name, $this->format);
+        $entity = new FileExportChannel($this->id, $this->name, $this->format, $this->exportType);
         self::assertEquals($this->format, $entity->getFormat());
         $entity->setFormat($format);
         self::assertNotEquals($this->format, $entity->getFormat());
         self::assertEquals($format, $entity->getFormat());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testExportTypeChange(): void
+    {
+        $exportType = FileExportChannel::EXPORT_INCREMENTAL;
+        $entity = new FileExportChannel($this->id, $this->name, $this->format, $this->exportType);
+        self::assertEquals($this->exportType, $entity->getExportType());
+        $entity->setExportType($exportType);
+        self::assertNotEquals($this->exportType, $entity->getExportType());
+        self::assertEquals($exportType, $entity->getExportType());
     }
 }

@@ -26,12 +26,18 @@ final class Version20191104140000 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 object_id UUID NOT NULL,               
                 author_id UUID NOT NULL,
-                created_at timestamp without time zone NOT NULL,
-                edited_at timestamp without time zone DEFAULT NULL,
+                created_at timestamp with time zone NOT NULL,
+                edited_at timestamp with time zone DEFAULT NULL,
                 content VARCHAR(4000) NOT NULL,
                 PRIMARY KEY(id)
             )
         ');
+
+        $this->addSql(
+            'ALTER TABLE comment
+                    ADD CONSTRAINT comment_users_fk FOREIGN KEY (author_id) 
+                    REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE'
+        );
 
         $this->createEventStoreEvents([
             'Ergonode\Comment\Domain\Event\CommentCreatedEvent' => 'Comment created',

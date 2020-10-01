@@ -12,6 +12,7 @@ namespace Ergonode\Designer\Domain\Entity;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -19,11 +20,15 @@ class TemplateGroup extends AbstractAggregateRoot
 {
     /**
      * @var TemplateGroupId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private string $name;
 

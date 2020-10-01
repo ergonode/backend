@@ -69,6 +69,36 @@ Feature: Export Profile Shopware 6 API
     Then the response status code should be 201
     And store response param "id" as "attribute_text_id"
 
+  Scenario: Create textarea attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+        "code": "shopware_6_TEXT_AREA_@@random_code@@",
+        "type": "TEXT_AREA",
+        "groups": [],
+        "scope": "local",
+        "parameters":
+        {
+        "richEdit": true
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_text_area_id"
+
+  Scenario: Create gallery attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "shopware_6_GALLERY_@@random_code@@",
+          "type": "GALLERY",
+          "scope": "local",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_gallery_id"
+
   Scenario: Create category tree
     When I send a POST request to "/api/v1/en_GB/trees" with body:
       """
@@ -83,6 +113,24 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 201
     And store response param "id" as "category_tree"
+
+  Scenario: Create select attribute
+    When I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+        "code": "SELECT_@@random_code@@",
+        "type": "SELECT",
+        "scope": "local",
+        "groups": [],
+        "label":
+        {
+          "pl_PL": "Typ",
+          "en_GB": "Type"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_select_id"
 
   Scenario: Post Create Channel to Shopware 6 API
     When I send a POST request to "/api/v1/en_GB/channels" with body:
@@ -124,12 +172,13 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_price_gross" : "@attribute_price_gross_id@",
           "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
+          "attribute_product_gallery" : "@attribute_gallery_id@",
           "category_tree" : "@category_tree@"
         }
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.languages.element-0[0] | Language code es_ES is not active |
+      | errors.languages[0] | This value is not valid |
 
   Scenario: Post Create Channel to Shopware 6 API (wrong languages invalid)
     When I send a POST request to "/api/v1/en_GB/channels" with body:
@@ -153,7 +202,7 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.languages.element-0[0] | Language code ps_AR is not active |
+      | errors.languages[0] | This value is not valid |
 
 
   Scenario: Post Create Channel to Shopware 6 API (wrong default language not active)
@@ -178,7 +227,7 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.default_language[0] | Language code es_ES is not active |
+      | errors.default_language[0] | This value is not valid |
 
   Scenario: Post Create Channel to Shopware 6 API (wrong  default language invalid)
     When I send a POST request to "/api/v1/en_GB/channels" with body:
@@ -202,7 +251,7 @@ Feature: Export Profile Shopware 6 API
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.default_language[0] | Language code ps_AR is not active |
+      | errors.default_language[0] | This value is not valid |
 
   Scenario: Update shopware 6 channel
     When I send a PUT request to "/api/v1/en_GB/channels/@channel_id@" with body:
@@ -221,11 +270,11 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_price_gross" : "@attribute_price_gross_id@",
           "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
-          "attribute_product_description" : "@attribute_text_id@",
+          "attribute_product_description" : "@attribute_text_area_id@",
           "category_tree" : "@category_tree@",
           "property_group": [
             {
-              "id": "@attribute_text_id@"
+              "id": "@attribute_select_id@"
             }
           ],
           "custom_field": [

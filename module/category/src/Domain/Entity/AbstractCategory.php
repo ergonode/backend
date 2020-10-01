@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
@@ -72,16 +71,12 @@ abstract class AbstractCategory extends AbstractAggregateRoot
             $id,
             $code,
             $this->getType(),
-            \get_class($this),
             $name,
             $attributes
         ));
     }
 
     /**
-     * @JMS\VirtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     abstract public function getType(): string;

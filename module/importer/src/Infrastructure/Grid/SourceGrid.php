@@ -20,6 +20,8 @@ use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Importer\Infrastructure\Provider\SourceTypeDictionaryProvider;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
+use Ergonode\Grid\Column\NumericColumn;
+use Ergonode\Grid\Filter\NumericFilter;
 
 /**
  */
@@ -54,6 +56,7 @@ class SourceGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)));
+        $this->addColumn('imports', new NumericColumn('imports', 'Imports', new NumericFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'privilege' => 'IMPORT_READ',

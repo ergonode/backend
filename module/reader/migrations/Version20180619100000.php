@@ -34,12 +34,15 @@ final class Version20180619100000 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->createPrivileges([
-            'READER_CREATE' => 'Reader',
-            'READER_READ' => 'Reader',
-            'READER_UPDATE' => 'Reader',
-            'READER_DELETE' => 'Reader',
-        ]);
+        $this->connection->insert('privileges_group', ['area' => 'Reader']);
+        $this->createReaderPrivileges(
+            [
+                'READER_CREATE',
+                'READER_READ',
+                'READER_UPDATE',
+                'READER_DELETE',
+            ]
+        );
 
         $this->createEventStoreEvents([
             'Ergonode\Reader\Domain\Event\ReaderCreatedEvent' => 'Reader created',
@@ -52,13 +55,13 @@ final class Version20180619100000 extends AbstractErgonodeMigration
      *
      * @throws \Exception
      */
-    private function createPrivileges(array $collection): void
+    private function createReaderPrivileges(array $collection): void
     {
-        foreach ($collection as $code => $area) {
+        foreach ($collection as $code) {
             $this->connection->insert('privileges', [
                 'id' => Uuid::uuid4()->toString(),
                 'code' => $code,
-                'area' => $area,
+                'area' => 'Reader',
             ]);
         }
     }

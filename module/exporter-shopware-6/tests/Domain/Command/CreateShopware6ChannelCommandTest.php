@@ -13,6 +13,7 @@ use Ergonode\ExporterShopware6\Domain\Command\CreateShopware6ChannelCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +44,11 @@ class CreateShopware6ChannelCommandTest extends TestCase
      * @var string
      */
     private string $clientKey;
+
+    /**
+     * @var SegmentId|MockObject
+     */
+    private SegmentId $segment;
 
     /**
      * @var Language|MockObject
@@ -90,6 +96,11 @@ class CreateShopware6ChannelCommandTest extends TestCase
     private AttributeId $productDescription;
 
     /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productGallery;
+
+    /**
      * @var CategoryTreeId|MockObject
      */
     private CategoryTreeId $categoryTreeId;
@@ -103,6 +114,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
         $this->host = 'http://example';
         $this->clientId = 'Any Client ID';
         $this->clientKey = 'Any Client KEY';
+        $this->segment = $this->createMock(SegmentId::class);
         $this->defaultLanguage = $this->createMock(Language::class);
         $this->languages = [$this->createMock(Language::class)];
         $this->productName = $this->createMock(AttributeId::class);
@@ -112,6 +124,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
         $this->productPriceNet = $this->createMock(AttributeId::class);
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
+        $this->productGallery = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
     }
 
@@ -125,6 +138,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
             $this->host,
             $this->clientId,
             $this->clientKey,
+            $this->segment,
             $this->defaultLanguage,
             $this->languages,
             $this->productName,
@@ -134,6 +148,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
             $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
+            $this->productGallery,
             $this->categoryTreeId,
             [],
             []
@@ -144,6 +159,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->host, $command->getHost());
         self::assertEquals($this->clientId, $command->getClientId());
         self::assertEquals($this->clientKey, $command->getClientKey());
+        self::assertEquals($this->segment, $command->getSegment());
         self::assertEquals($this->defaultLanguage, $command->getDefaultLanguage());
         self::assertEquals($this->languages, $command->getLanguages());
         self::assertEquals($this->productName, $command->getProductName());
@@ -153,6 +169,7 @@ class CreateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->productPriceGross, $command->getProductPriceNet());
         self::assertEquals($this->productTax, $command->getProductTax());
         self::assertEquals($this->productDescription, $command->getProductDescription());
+        self::assertEquals($this->productGallery, $command->getProductGallery());
         self::assertEquals($this->categoryTreeId, $command->getCategoryTree());
         self::assertIsArray($command->getPropertyGroup());
         self::assertIsArray($command->getCustomField());

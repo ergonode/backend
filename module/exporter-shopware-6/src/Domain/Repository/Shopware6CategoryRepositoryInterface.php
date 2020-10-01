@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Repository;
 
-use Ergonode\ExporterShopware6\Domain\Entity\Catalog\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
@@ -20,9 +19,9 @@ interface Shopware6CategoryRepositoryInterface
      * @param ChannelId  $channelId
      * @param CategoryId $categoryId
      *
-     * @return Shopware6Category|null
+     * @return string|null
      */
-    public function load(ChannelId $channelId, CategoryId $categoryId): ?Shopware6Category;
+    public function load(ChannelId $channelId, CategoryId $categoryId): ?string;
 
     /**
      * @param ChannelId  $channelId
@@ -38,4 +37,10 @@ interface Shopware6CategoryRepositoryInterface
      * @return bool
      */
     public function exists(ChannelId $channelId, CategoryId $categoryId): bool;
+
+    /**
+     * @param ChannelId  $channelId
+     * @param CategoryId $categoryId
+     */
+    public function delete(ChannelId $channelId, CategoryId $categoryId): void;
 }

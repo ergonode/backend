@@ -35,13 +35,12 @@ class ChannelTypeCompilerPass implements CompilerPassInterface
     {
         $definition = $container->findDefinition(ChannelTypeProvider::class);
         $services = $container->findTaggedServiceIds(self::TAG);
+        $types = [];
 
-        $arguments = [];
         foreach ($services as $id => $service) {
-            $arguments[] = $id;
-            $container->removeDefinition($id);
+            $types[] = $container->getDefinition($id)->getClass()::getType();
         }
 
-        $definition->setArguments($arguments);
+        $definition->setArguments($types);
     }
 }

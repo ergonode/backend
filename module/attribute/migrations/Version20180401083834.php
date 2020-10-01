@@ -16,6 +16,19 @@ use Ramsey\Uuid\Uuid;
  */
 final class Version20180401083834 extends AbstractErgonodeMigration
 {
+    private const CURRENCIES = [
+        'GBP' => 'Pound Sterling',
+        'USD' => 'US Dollar',
+        'EUR' => 'Euro',
+        'PLN' => 'Zloty',
+        'RUB' => 'Russian Ruble',
+        'JPY' => 'Japanese yen',
+        'AUD' => 'Australian dollar',
+        'CAD' => 'Canadian dollar',
+        'CHF' => 'Swiss franc',
+        'CNY' => 'Chinese Yuan Renminbi',
+    ];
+
     /**
      * @param Schema $schema
      *
@@ -28,7 +41,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 id UUID NOT NULL,    
                 index SERIAL,                
                 type VARCHAR(32) NOT NULL,
-                code VARCHAR(255) NOT NULL,     
+                code VARCHAR(128) NOT NULL,     
                 label UUID NOT NULL,
                 placeholder UUID NOT NULL,
                 hint UUID NOT NULL,       
@@ -74,7 +87,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE attribute_group (
                 id UUID NOT NULL,
-                code VARCHAR(255) NOT NULL,
+                code VARCHAR(128) NOT NULL,
                 name JSONB NOT NULL,                    
                 PRIMARY KEY(id)
             )
@@ -117,7 +130,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE attribute_parameter (               
                 attribute_id UUID NOT NULL, 
-                type VARCHAR(32) NOT NULL,
+                type VARCHAR(16) NOT NULL,
                 value JSONB NOT NULL,                                                   
                 PRIMARY KEY(attribute_id, type)
             )
@@ -142,6 +155,9 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             ALTER TABLE attribute_group_attribute 
                 ADD CONSTRAINT attribute_group_attribute_group_id_fk 
                     FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE RESTRICT ON DELETE RESTRICT');
+
+        $this->connection->insert('privileges_group', ['area' => 'Attribute']);
+        $this->connection->insert('privileges_group', ['area' => 'Attribute group']);
 
         $this->createPrivileges([
             'ATTRIBUTE_CREATE' => 'Attribute',
@@ -176,6 +192,20 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent' => 'Attribute deleted',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeScopeChangedEvent' => 'Attribute scope changed',
         ]);
+
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
+
+        $this->addSql(
+            'CREATE TABLE currency (id UUID NOT NULL, iso VARCHAR(3) NOT NULL, name VARCHAR(64), PRIMARY KEY(id))'
+        );
+
+        foreach (self::CURRENCIES as $iso => $name) {
+            $this->addSql(
+                'INSERT INTO currency (id, iso, name) VALUES (?, ?, ?)',
+                [Uuid::uuid4()->toString(), $iso, $name]
+            );
+        }
     }
 
     /**

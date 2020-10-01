@@ -1,0 +1,15 @@
+{
+    "source": {
+        "directories": [
+            "module/*/src",
+            "src"
+        ]
+    },
+    "logs": {
+        "text": "infection.log"
+    },
+    "mutators": {
+        "@default": true,
+        "ProtectedVisibility": false
+    }
+}

@@ -25,8 +25,6 @@ class DeleteCommentCommand implements DomainCommandInterface
     private CommentId $id;
 
     /**
-     * DeleteCommentCommand constructor.
-     *
      * @param CommentId $id
      */
     public function __construct(CommentId $id)

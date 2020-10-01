@@ -1,7 +1,6 @@
-Ergonode\Account\Domain\Entity\Role:
+Ergonode\Account\Domain\Command\Role\CreateRoleCommand:
     superadmin_role:
         __construct:
-            - '<roleId("Superadmin")>'
             - 'Superadmin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
@@ -65,10 +64,6 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
                 - '<privilege("PRODUCT_COLLECTION_READ")>'
                 - '<privilege("PRODUCT_COLLECTION_DELETE")>'
-                - '<privilege("EXPORT_PROFILE_CREATE")>'
-                - '<privilege("EXPORT_PROFILE_READ")>'
-                - '<privilege("EXPORT_PROFILE_UPDATE")>'
-                - '<privilege("EXPORT_PROFILE_DELETE")>'
                 - '<privilege("SETTINGS_CREATE")>'
                 - '<privilege("SETTINGS_UPDATE")>'
                 - '<privilege("SETTINGS_READ")>'
@@ -76,7 +71,6 @@ Ergonode\Account\Domain\Entity\Role:
             - true
     admin_role:
         __construct:
-            - '<roleId("Admin")>'
             - 'Admin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
@@ -140,17 +134,12 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
                 - '<privilege("PRODUCT_COLLECTION_READ")>'
                 - '<privilege("PRODUCT_COLLECTION_DELETE")>'
-                - '<privilege("EXPORT_PROFILE_CREATE")>'
-                - '<privilege("EXPORT_PROFILE_READ")>'
-                - '<privilege("EXPORT_PROFILE_UPDATE")>'
-                - '<privilege("EXPORT_PROFILE_DELETE")>'
                 - '<privilege("SETTINGS_CREATE")>'
                 - '<privilege("SETTINGS_UPDATE")>'
                 - '<privilege("SETTINGS_READ")>'
                 - '<privilege("SETTINGS_DELETE")>'
     data_inputer_role:
         __construct:
-            - '<roleId("Data inputer")>'
             - 'Data inputer'
             - 'Enriches product information: manages attributes and updates products data. Has access to product categories and updates them. Is responsible for data enrichment.'
             -
@@ -186,7 +175,6 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("PRODUCT_COLLECTION_DELETE")>'
     category_manager_role:
         __construct:
-            - '<roleId("Category manager")>'
             - 'Category manager'
             - 'Assures product data are correct and ready to publish. Manages product categories, verifies products statuses. Is responsible for product data completness.'
             -

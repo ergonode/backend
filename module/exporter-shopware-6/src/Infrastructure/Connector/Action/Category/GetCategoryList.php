@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
@@ -48,7 +49,7 @@ class GetCategoryList extends AbstractAction implements ActionInterface
     /**
      * @param string|null $content
      *
-     * @return array
+     * @return Shopware6Category[]
      *
      * @throws \JsonException
      */
@@ -58,11 +59,13 @@ class GetCategoryList extends AbstractAction implements ActionInterface
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         foreach ($data['data'] as $row) {
-            $result[$row['id']] = [
-                'id' => $row['id'],
-                'parentId' => $row['attributes']['parentId'],
-                'name' => $row['attributes']['name'],
-            ];
+            $result[] = new Shopware6Category(
+                $row['id'],
+                $row['attributes']['name'],
+                $row['attributes']['parentId'],
+                $row['attributes']['active'],
+                $row['attributes']['visible']
+            );
         }
 
         return $result;

@@ -17,12 +17,14 @@ class ImportStatus
     public const PRECESSED = 'PRECESSED';
     public const ENDED = 'ENDED';
     public const STOPPED = 'STOPPED';
+    public const ERROR = 'ERROR';
 
     public const AVAILABLE = [
         self::CREATED,
         self::PRECESSED,
         self::ENDED,
         self::STOPPED,
+        self::ERROR,
     ];
 
     /**

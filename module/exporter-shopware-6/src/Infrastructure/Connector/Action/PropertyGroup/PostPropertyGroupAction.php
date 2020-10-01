@@ -10,7 +10,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGro
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
@@ -18,9 +17,9 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostPropertyGroupAction extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PostPropertyGroupAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/property-group?%s';
+    private const URI = '/api/v2/property-group?%s';
 
     /**
      * @var Shopware6PropertyGroup
@@ -58,21 +57,24 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface,
     /**
      * @param string|null $content
      *
-     * @return null
+     * @return Shopware6PropertyGroup|null
+     *
+     * @throws \JsonException
      */
-    public function parseContent(?string $content)
+    public function parseContent(?string $content): ?Shopware6PropertyGroup
     {
-        $result = [];
-        $data = json_decode($content, true);
+        if (null === $content) {
+            return null;
+        }
 
-            $result = new Shopware6PropertyGroup(
-                $data['data']['id'],
-                $data['data']['attributes']['name'],
-                $data['data']['attributes']['displayType'],
-                $data['data']['attributes']['sortingType']
-            );
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        return $result;
+        return new Shopware6PropertyGroup(
+            $data['data']['id'],
+            $data['data']['attributes']['name'],
+            $data['data']['attributes']['displayType'],
+            $data['data']['attributes']['sortingType']
+        );
     }
 
     /**

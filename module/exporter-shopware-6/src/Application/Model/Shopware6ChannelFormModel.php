@@ -8,11 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Application\Model;
 
+use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
+use Ergonode\ExporterShopware6\Application\Model\Type\CustomFieldAttributeModel;
+use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Application\Model\Type\AttributeModel;
 
 /**
  */
@@ -49,6 +50,11 @@ class Shopware6ChannelFormModel
      * @Assert\Length(min=2)
      */
     public ?string $clientKey = null;
+
+    /**
+     * @var string |null
+     */
+    public $segment = null;
 
     /**
      * @var string|null
@@ -120,19 +126,24 @@ class Shopware6ChannelFormModel
     public ?AttributeId $attributeProductDescription = null;
 
     /**
+     * @var AttributeId|null
+     */
+    public ?AttributeId $attributeProductGallery = null;
+
+    /**
      * @var string |null
      */
     public ?string $categoryTree = null;
 
     /**
-     * @var AttributeModel[]
+     * @var PropertyGroupAttributeModel[]
      *
      * @Assert\Valid()
      */
     public array $propertyGroup = [];
 
     /**
-     * @var AttributeModel[]
+     * @var PropertyGroupAttributeModel[]
      *
      * @Assert\Valid()
      */
@@ -148,23 +159,25 @@ class Shopware6ChannelFormModel
             $this->host = $channel->getHost();
             $this->clientId = $channel->getClientId();
             $this->clientKey = $channel->getClientKey();
+            $this->segment = $channel->getSegment() ? $channel->getSegment()->getValue() : null;
             $this->defaultLanguage = $channel->getDefaultLanguage()->getCode();
             $this->languages = $channel->getLanguages();
-            $this->attributeProductName = $channel->getProductName();
-            $this->attributeProductActive = $channel->getProductActive();
-            $this->attributeProductStock = $channel->getProductStock();
-            $this->attributeProductPriceGross = $channel->getProductPriceGross();
-            $this->attributeProductPriceNet = $channel->getProductPriceNet();
-            $this->attributeProductTax = $channel->getProductTax();
-            $this->attributeProductDescription = $channel->getProductDescription();
-            $this->categoryTree = $channel->getCategoryTree()->getValue();
+            $this->attributeProductName = $channel->getAttributeProductName();
+            $this->attributeProductActive = $channel->getAttributeProductActive();
+            $this->attributeProductStock = $channel->getAttributeProductStock();
+            $this->attributeProductPriceGross = $channel->getAttributeProductPriceGross();
+            $this->attributeProductPriceNet = $channel->getAttributeProductPriceNet();
+            $this->attributeProductTax = $channel->getAttributeProductTax();
+            $this->attributeProductDescription = $channel->getAttributeProductDescription();
+            $this->attributeProductGallery = $channel->getAttributeProductGallery();
+            $this->categoryTree = $channel->getCategoryTree() ? $channel->getCategoryTree()->getValue() : null;
 
             foreach ($channel->getPropertyGroup() as $attributeId) {
-                $this->propertyGroup[] = new AttributeModel($attributeId->getValue());
+                $this->propertyGroup[] = new PropertyGroupAttributeModel($attributeId->getValue());
             }
 
             foreach ($channel->getCustomField() as $attributeId) {
-                $this->customField[] = new AttributeModel($attributeId->getValue());
+                $this->customField[] = new CustomFieldAttributeModel($attributeId->getValue());
             }
         }
     }

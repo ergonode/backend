@@ -30,7 +30,7 @@ class TreeGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $code = new TextColumn('code', 'Code', new TextFilter());
+        $code = new TextColumn('code', 'System name', new TextFilter());
         $this->addColumn('code', $code);
         $this->orderBy('code', 'ASC');
         $name = new TextColumn('name', 'Name', new TextFilter());

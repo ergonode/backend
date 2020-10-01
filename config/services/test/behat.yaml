@@ -5,12 +5,14 @@ services:
     public: false
 
   #Behat
-  App\Tests\Behat\Context\:
-    resource: '%kernel.project_dir%/tests/Behat/Context/*'
+  Ergonode\Core\Test\Behat\Context\ResolveVarsContext:
     public: true
-    exclude:
-      - '%kernel.project_dir%/tests/Behat/Context/ApiAuthContext.php'
-      - '%kernel.project_dir%/tests/Behat/Context/UploadFileContext.php'
 
-  StorageContext:
-    class: StorageContext
+  Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext:
+    public: true
+
+  Ergonode\Core\Test\Behat\Context\UserContext:
+    public: true
+
+  Ergonode\Core\Test\Behat\Context\StorageContext:
+    public: true

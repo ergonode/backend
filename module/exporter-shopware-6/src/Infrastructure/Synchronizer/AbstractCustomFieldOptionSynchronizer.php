@@ -57,16 +57,38 @@ abstract class AbstractCustomFieldOptionSynchronizer extends AbstractCustomField
         foreach ($options as $option) {
             $result[] = [
                 'value' => $option['code'],
-                'label' =>
-                    array_merge(
-                        [
-                            'en-GB' => $option['code'],
-                        ],
-                        $option['label']
-                    ),
+                'label' => $this->getLabel($channel, $option),
             ];
         }
 
         return $result;
+    }
+
+    /**
+     * @param Shopware6Channel $channel
+     * @param array            $option
+     *
+     * @return array
+     */
+    private function getLabel(Shopware6Channel $channel, array $option): array
+    {
+        $label = ['en-GB' => $option['code']];
+
+        foreach ($channel->getLanguages() as $language) {
+            if (isset($option['label'][$language->getCode()])) {
+                $label[str_replace('_', '-', $language->getCode())] = $option['label'][$language->getCode()];
+            }
+        }
+
+        if (isset($option['label'][$channel->getDefaultLanguage()->getCode()])) {
+            $label[str_replace(
+                '_',
+                '-',
+                $channel->getDefaultLanguage()->getCode()
+            )] = $option['label'][$channel->getDefaultLanguage()->getCode()];
+        }
+
+
+        return $label;
     }
 }

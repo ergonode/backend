@@ -13,6 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -39,9 +40,10 @@ class AttributeExportProcessorStep implements ExportStepProcessInterface
     }
 
     /**
-     * @param ExportId $exportId
+     * @param ExportId          $exportId
+     * @param FileExportChannel $channel
      */
-    public function export(ExportId $exportId): void
+    public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $attributes = $this->query->getDictionary();
         foreach ($attributes as $id => $code) {

@@ -13,6 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -52,6 +53,13 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      * @JMS\Type("string")
      */
     private string $clientKey;
+
+    /**
+     * @var SegmentId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
+     */
+    private ?SegmentId $segment;
 
     /**
      * @var Language
@@ -102,7 +110,6 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      */
     private AttributeId $productPriceNet;
 
-
     /**
      * @var AttributeId
      *
@@ -116,6 +123,13 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $productDescription;
+
+    /**
+     * @var AttributeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productGallery;
 
     /**
      * @var CategoryTreeId|null
@@ -144,6 +158,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      * @param string              $host
      * @param string              $clientId
      * @param string              $clientKey
+     * @param SegmentId|null      $segment
      * @param Language            $defaultLanguage
      * @param Language[]          $languages
      * @param AttributeId         $productName
@@ -153,6 +168,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      * @param AttributeId         $productPriceNet
      * @param AttributeId         $productTax
      * @param AttributeId|null    $productDescription
+     * @param AttributeId|null    $productGallery
      * @param CategoryTreeId|null $categoryTree
      * @param array|AttributeId[] $propertyGroup
      * @param array|AttributeId[] $customField
@@ -163,6 +179,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         string $host,
         string $clientId,
         string $clientKey,
+        ?SegmentId $segment,
         Language $defaultLanguage,
         array $languages,
         AttributeId $productName,
@@ -172,6 +189,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         AttributeId $productPriceNet,
         AttributeId $productTax,
         ?AttributeId $productDescription,
+        ?AttributeId $productGallery,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
         array $customField
@@ -181,6 +199,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         $this->host = $host;
         $this->clientId = $clientId;
         $this->clientKey = $clientKey;
+        $this->segment = $segment;
         $this->defaultLanguage = $defaultLanguage;
         $this->languages = $languages;
         $this->productName = $productName;
@@ -190,6 +209,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         $this->productPriceNet = $productPriceNet;
         $this->productTax = $productTax;
         $this->productDescription = $productDescription;
+        $this->productGallery = $productGallery;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
@@ -233,6 +253,14 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
     public function getClientKey(): string
     {
         return $this->clientKey;
+    }
+
+    /**
+     * @return SegmentId|null
+     */
+    public function getSegment(): ?SegmentId
+    {
+        return $this->segment;
     }
 
     /**
@@ -305,6 +333,14 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
     public function getProductDescription(): ?AttributeId
     {
         return $this->productDescription;
+    }
+
+    /**
+     * @return AttributeId|null
+     */
+    public function getProductGallery(): ?AttributeId
+    {
+        return $this->productGallery;
     }
 
     /**

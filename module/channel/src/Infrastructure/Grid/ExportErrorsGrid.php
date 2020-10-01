@@ -30,6 +30,6 @@ class ExportErrorsGrid extends AbstractGrid
         $this->addColumn('id', $id);
 
         $this->addColumn('message', new TextColumn('message', 'Message', new TextFilter()));
-        $this->addColumn('processed_at', new TextColumn('processed_at', 'Processed', new DateFilter()));
+        $this->addColumn('processed_at', new TextColumn('processed_at', 'Processed at', new DateFilter()));
     }
 }

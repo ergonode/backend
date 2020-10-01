@@ -16,23 +16,23 @@ use Ergonode\Core\Domain\ValueObject\Language;
 class SourceTypeDictionaryProvider
 {
     /**
+     * @var SourceTypeProvider
+     */
+    private SourceTypeProvider $provider;
+
+    /**
      * @var TranslatorInterface
      */
     private TranslatorInterface $translator;
 
     /**
-     * @var ImportSourceInterface[] $sources
+     * @param SourceTypeProvider  $provider
+     * @param TranslatorInterface $translator
      */
-    private array $sources;
-
-    /**
-     * @param TranslatorInterface   $translator
-     * @param ImportSourceInterface ...$sources
-     */
-    public function __construct(TranslatorInterface $translator, ImportSourceInterface ...$sources)
+    public function __construct(SourceTypeProvider $provider, TranslatorInterface $translator)
     {
+        $this->provider = $provider;
         $this->translator = $translator;
-        $this->sources = $sources;
     }
 
     /**
@@ -43,8 +43,7 @@ class SourceTypeDictionaryProvider
     public function provide(Language $language): array
     {
         $result = [];
-        foreach ($this->sources as $source) {
-            $type = $source->getType();
+        foreach ($this->provider->provide() as $type) {
             $result[$type] = $this->translator->trans($type, [], 'source', $language->getCode());
         }
 

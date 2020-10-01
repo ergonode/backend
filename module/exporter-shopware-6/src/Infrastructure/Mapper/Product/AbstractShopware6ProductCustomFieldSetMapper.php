@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
@@ -45,20 +46,17 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
     }
 
     /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
+     * {@inheritDoc}
      */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel
+        Shopware6Channel $channel,
+        ?Language $language = null
     ): Shopware6Product {
 
         foreach ($channel->getCustomField() as $attributeId) {
-            $this->attributeMap($shopware6Product, $attributeId, $product, $channel);
+            $this->attributeMap($shopware6Product, $attributeId, $product, $channel, $language);
         }
 
         return $shopware6Product;
@@ -97,6 +95,7 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
      * @param AttributeId      $attributeId
      * @param AbstractProduct  $product
      * @param Shopware6Channel $channel
+     * @param Language|null    $language
      *
      * @return Shopware6Product
      */
@@ -104,7 +103,8 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
         Shopware6Product $shopware6Product,
         AttributeId $attributeId,
         AbstractProduct $product,
-        Shopware6Channel $channel
+        Shopware6Channel $channel,
+        ?Language $language = null
     ): Shopware6Product {
         $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);
@@ -115,11 +115,15 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
 
         if ($this->isSupported($attribute->getType())) {
             $value = $product->getAttribute($attribute->getCode());
-            $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
+            $calculateValue = $this->calculator->calculate(
+                $attribute,
+                $value,
+                $language ?: $channel->getDefaultLanguage()
+            );
 
             if ($calculateValue) {
                 $shopware6Product->addCustomField(
-                    $attribute->getCode().'_set',
+                    $attribute->getCode()->getValue(),
                     $this->getValue($channel, $attribute, $calculateValue)
                 );
             }

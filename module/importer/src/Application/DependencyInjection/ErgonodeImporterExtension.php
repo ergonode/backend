@@ -14,7 +14,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompilerPass;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceTypeCompilerPass;
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompilerPass;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
@@ -24,10 +24,6 @@ use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
 use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
-use Ergonode\Importer\Infrastructure\Action\Process\AttributeImportProcessorStrategyInterface;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\AttributeActionProcessorCompilerPass;
-use Ergonode\Importer\Infrastructure\Action\ImportActionInterface;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ImportActionCompilerPass;
 
 /**
  */
@@ -48,7 +44,7 @@ class ErgonodeImporterExtension extends Extension
 
         $container
             ->registerForAutoconfiguration(ImportSourceInterface::class)
-            ->addTag(SourceCompilerPass::TAG)
+            ->addTag(SourceTypeCompilerPass::TAG)
             ->addTag(ServiceCompilerPass::TAG);
 
         $container
@@ -66,14 +62,6 @@ class ErgonodeImporterExtension extends Extension
         $container
             ->registerForAutoconfiguration(SourceImportProcessorInterface::class)
             ->addTag(ServiceImportCompilerPass::TAG);
-
-        $container
-            ->registerForAutoconfiguration(AttributeImportProcessorStrategyInterface::class)
-            ->addTag(AttributeActionProcessorCompilerPass::TAG);
-
-        $container
-            ->registerForAutoconfiguration(ImportActionInterface::class)
-            ->addTag(ImportActionCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

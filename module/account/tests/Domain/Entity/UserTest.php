@@ -45,9 +45,9 @@ class UserTest extends TestCase
     private $email;
 
     /**
-     * @var MultimediaId|MockObject
+     * @var string
      */
-    private $multimediaId;
+    private string $filename;
 
     /**
      * @var Language|MockObject
@@ -79,7 +79,6 @@ class UserTest extends TestCase
         $this->email = $this->createMock(Email::class);
         $this->password = $this->createMock(Password::class);
         $this->language = $this->createMock(Language::class);
-        $this->multimediaId = $this->createMock(MultimediaId::class);
         $this->roleId = $this->createMock(RoleId::class);
         $this->languagePrivilegesCollection = [];
     }
@@ -97,14 +96,12 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->multimediaId
         );
         self::assertEquals($this->userId, $user->getId());
         self::assertEquals($this->firstName, $user->getFirstName());
         self::assertEquals($this->lastName, $user->getLastName());
         self::assertEquals($this->email, $user->getEmail());
         self::assertEquals($this->language, $user->getLanguage());
-        self::assertEquals($this->multimediaId, $user->getAvatarId());
         self::assertEquals($this->roleId, $user->getRoleId());
         self::assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
@@ -118,12 +115,11 @@ class UserTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        /** @var MultimediaId|MockObject $multimediaId */
-        $multimediaId = $this->createMock(MultimediaId::class);
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
+        $avatarFilename = 'filename.jpg';
         $languagePrivileges = $this->createMock(LanguagePrivileges::class);
         $languagePrivileges->method('isReadable')->willReturn(true);
         $languagePrivileges->method('isEditable')->willReturn(false);
@@ -138,19 +134,17 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->multimediaId
         );
         $user->changeFirstName($firstName);
         $user->changeLastName($lastName);
         $user->changeLanguage($language);
-        $user->changeAvatar($multimediaId);
+        $user->changeAvatar($avatarFilename);
         $user->changePassword($password);
         $user->changeRole($roleId);
         $user->changeLanguagePrivilegesCollection($languagePrivilegesCollection);
         self::assertEquals($firstName, $user->getFirstName());
         self::assertEquals($lastName, $user->getLastName());
         self::assertEquals($language, $user->getLanguage());
-        self::assertEquals($multimediaId, $user->getAvatarId());
         self::assertEquals($roleId, $user->getRoleId());
         self::assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
         self::assertTrue($user->hasReadLanguagePrivilege(new Language('en_GB')));

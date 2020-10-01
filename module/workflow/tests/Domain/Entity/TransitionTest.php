@@ -71,11 +71,12 @@ class TransitionTest extends TestCase
     public function testTransitionCreation(): void
     {
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $this->assertSame($this->id, $transition->getId());
-        $this->assertSame($this->from, $transition->getFrom());
-        $this->assertSame($this->to, $transition->getTo());
-        $this->assertSame($this->roleIds, $transition->getRoleIds());
-        $this->assertSame($this->conditionSetId, $transition->getConditionSetId());
+        self::assertSame($this->id, $transition->getId());
+        self::assertSame($this->from, $transition->getFrom());
+        self::assertSame($this->to, $transition->getTo());
+        self::assertSame($this->roleIds, $transition->getRoleIds());
+        self::assertContainsOnlyInstancesOf(RoleId::class, $this->roleIds);
+        self::assertSame($this->conditionSetId, $transition->getConditionSetId());
     }
 
     /**

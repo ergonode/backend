@@ -14,6 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -48,17 +49,28 @@ class CreateFileExportChannelCommand implements DomainCommandInterface
     protected array $languages;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    protected string $exportType;
+
+    /**
      * @param ChannelId $id
      * @param string    $name
      * @param string    $format
+     * @param string    $exportType
      * @param array     $languages
      */
-    public function __construct(ChannelId $id, string $name, string $format, array $languages = [])
+    public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
     {
         Assert::allIsInstanceOf($languages, Language::class);
+        Assert::oneOf($exportType, FileExportChannel::EXPORT_TYPES);
+
         $this->id = $id;
         $this->name = $name;
         $this->format = $format;
+        $this->exportType = $exportType;
         $this->languages = $languages;
     }
 
@@ -85,6 +97,14 @@ class CreateFileExportChannelCommand implements DomainCommandInterface
     public function getFormat(): string
     {
         return $this->format;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExportType(): string
+    {
+        return $this->exportType;
     }
 
     /**

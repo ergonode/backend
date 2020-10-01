@@ -48,7 +48,8 @@ class CreateRoleCommandHandler
             $command->getId(),
             $command->getName(),
             $command->getDescription(),
-            $command->getPrivileges()
+            $command->getPrivileges(),
+            $command->isHidden()
         );
 
         $this->repository->save($role);

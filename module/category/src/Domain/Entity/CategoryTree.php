@@ -19,6 +19,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -28,21 +29,29 @@ class CategoryTree extends AbstractAggregateRoot
 
     /**
      * @var CategoryTreeId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId");
      */
     private CategoryTreeId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string");
      */
     private string $code;
 
     /**
      * @var TranslatableString
+     *
+     * @JMS\Type(" Ergonode\Core\Domain\ValueObject\TranslatableString");
      */
     private TranslatableString $name;
 
     /**
      * @var Node[]
+     *
+     * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>");
      */
     private array $categories;
 

@@ -61,15 +61,18 @@ class ChannelGrid extends AbstractGrid
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_channel_read',
+                'privilege' => 'CHANNEL_READ',
                 'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
             ],
             'edit' => [
                 'route' => 'ergonode_channel_change',
+                'privilege' => 'CHANNEL_UPDATE',
                 'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_channel_delete',
+                'privilege' => 'CHANNEL_DELETE',
                 'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
                 'method' => Request::METHOD_DELETE,
             ],

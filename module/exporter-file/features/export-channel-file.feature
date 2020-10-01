@@ -23,12 +23,21 @@ Feature: Export Profile module
         {
           "type": "file",
           "format": "csv",
+          "export_type": "full",
           "name": "File export",
           "languages" : ["pl_PL"]
         }
       """
     Then the response status code should be 201
     And store response param "id" as "channel_id"
+
+  Scenario: Create File Channel with empty body
+    When I send a POST request to "/api/v1/en_GB/channels" with body:
+      """
+        {
+        }
+      """
+    Then the response status code should be 400
 
   Scenario: Get channel
     When I send a GET request to "/api/v1/en_GB/channels/@channel_id@"
@@ -38,6 +47,7 @@ Feature: Export Profile module
       | id           | @channel_id@ |
       | format       | csv          |
       | languages[0] | pl_PL        |
+      | export_type  | full         |
 
   Scenario: Update File Channel
     When I send a PUT request to "/api/v1/en_GB/channels/@channel_id@" with body:
@@ -45,11 +55,22 @@ Feature: Export Profile module
         {
           "type": "file",
           "format": "csv",
+          "export_type": "incremental",
           "name": "File export",
-          "languages" : ["pl_PL"]
+          "languages" : ["en_GB"]
         }
       """
     Then the response status code should be 204
+
+  Scenario: Get channel after update
+    When I send a GET request to "/api/v1/en_GB/channels/@channel_id@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | name         | File export  |
+      | id           | @channel_id@ |
+      | format       | csv          |
+      | languages[0] | en_GB        |
+      | export_type  | incremental  |
 
   Scenario: Run export for csv
     When I send a POST request to "/api/v1/en_GB/channels/@channel_id@/exports"

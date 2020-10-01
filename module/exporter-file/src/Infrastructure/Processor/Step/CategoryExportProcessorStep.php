@@ -14,6 +14,7 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -40,9 +41,10 @@ class CategoryExportProcessorStep implements ExportStepProcessInterface
     }
 
     /**
-     * @param ExportId $exportId
+     * @param ExportId          $exportId
+     * @param FileExportChannel $channel
      */
-    public function export(ExportId $exportId): void
+    public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $categories = $this->categoryQuery->getAll(new Language('en_GB'));
         foreach ($categories as $category) {

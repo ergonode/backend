@@ -61,6 +61,8 @@ class Workflow extends AbstractAggregateRoot
 
     /**
      * @var StatusCode|null
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private ?StatusCode $defaultStatus;
 
@@ -308,6 +310,35 @@ class Workflow extends AbstractAggregateRoot
         }
 
         return $transitions;
+    }
+
+    /**
+     * @return StatusCode[]
+     */
+    public function getSortedTransitionStatuses(): array
+    {
+        $transitions = $this->transitions;
+        $code = $this->getDefaultStatus();
+        $sorted = [$code];
+        $transitions = new \ArrayIterator($transitions);
+        for (; $transitions->valid(); $hit ? $transitions->rewind() : $transitions->next()) {
+            $transition = $transitions->current();
+            $hit = false;
+
+            if ($code->getValue() !== $transition->getFrom()->getValue()) {
+                continue;
+            }
+            // avoids infinite loop
+            if ($this->getDefaultStatus()->getValue() === $transition->getTo()->getValue()) {
+                break;
+            }
+            $code = $sorted[] = $transition->getTo();
+
+            $transitions->offsetUnset($transitions->key());
+            $hit = true;
+        }
+
+        return $sorted;
     }
 
     /**

@@ -10,97 +10,88 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
-use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
-use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Importer\Domain\Entity\ImportLine;
-use Ramsey\Uuid\Uuid;
-use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
+use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 
 /**
  */
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
-    private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
-
-    /**
-     * @var ImportLineRepositoryInterface
-     */
-    private ImportLineRepositoryInterface $repository;
-
     /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImportLineRepositoryInterface $repository
-     * @param CommandBusInterface           $commandBus
+     * @var string[]
      */
-    public function __construct(ImportLineRepositoryInterface $repository, CommandBusInterface $commandBus)
+    private array $media;
+
+    /**
+     * @param CommandBusInterface $commandBus
+     */
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->repository = $repository;
         $this->commandBus = $commandBus;
+        $this->media = [];
     }
 
     /**
      * @param Import            $import
-     * @param ProductModel[]    $products
+     * @param ProductModel      $product
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
-     * @param Progress          $steps
-     *
-     * @throws \Exception
      */
     public function process(
         Import $import,
-        array $products,
+        ProductModel $product,
         Transformer $transformer,
-        Magento1CsvSource $source,
-        Progress $steps
+        Magento1CsvSource $source
     ): void {
         if (!$source->import(Magento1CsvSource::MULTIMEDIA)) {
             return;
         }
 
-        $result = [];
-        foreach ($products as $product) {
-            $default = $product->get('default');
-            if (array_key_exists('image', $default) && $default['image'] !== null) {
-                $images = explode(',', $default['image']);
-                foreach ($images as $image) {
-                    $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $image);
-                    if (strpos($url, 'no_selection') === false) {
-                        $uuid = Uuid::uuid5(self::NAMESPACE, $url);
-                        $record = new Record();
-                        $record->set('name', $image);
-                        $record->set('id', $uuid->toString());
-                        $record->set('url', $url);
-                        $result[] = $record;
+        $default = $product->get('default');
+        if ($images = $default['image'] ?? null) {
+            foreach (explode(',', $images) as $image) {
+                $this->processImage($source, $import, $image);
+            }
+        }
+
+        foreach ($source->getLanguages() as $key => $language) {
+            if ($product->has($key)) {
+                $version = $product->get($key);
+                if ($images = $version['image'] ?? null) {
+                    foreach (explode(',', $images) as $image) {
+                        $this->processImage($source, $import, $image);
                     }
                 }
             }
         }
+    }
 
-        $i = 0;
-        $count = count($result);
-        foreach ($result as $images => $image) {
-            $i++;
-            $records = new Progress($i, $count);
-            $command = new ProcessImportCommand(
+    /**
+     * @param Magento1CsvSource $source
+     * @param Import            $import
+     * @param string            $image
+     */
+    private function processImage(Magento1CsvSource $source, Import $import, string $image): void
+    {
+        $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $image);
+        $filename = pathinfo($image, PATHINFO_BASENAME);
+
+        if (!array_key_exists($url, $this->media) && (strpos($url, 'no_selection') === false)) {
+            $this->media[$url] = $url;
+
+            $command = new ImportMultimediaFromWebCommand(
                 $import->getId(),
-                $steps,
-                $records,
-                $image,
-                MultimediaImportAction::TYPE
+                $url,
+                $filename
             );
-            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
-            $this->repository->save($line);
             $this->commandBus->dispatch($command, true);
         }
     }

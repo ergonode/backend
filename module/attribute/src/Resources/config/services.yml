@@ -4,9 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Ergonode\Attribute\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Attribute\Application\:
         resource: '../../Application/*'
 
@@ -26,8 +23,8 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Attribute\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Attribute\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\:
@@ -39,21 +36,21 @@ services:
             - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption']]
             - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption']]
 
-    Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Persistence\Dbal\Repository\DbalAttributeRepository'
-#    Ergonode\Attribute\Persistence\Dbal\Repository\Decorator\CacheAttributeRepositoryDecorator:
+    Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeRepository'
+#    Ergonode\Attribute\Infrastructure\Persistence\Repository\Decorator\CacheAttributeRepositoryDecorator:
 #        decorates: Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface
 #        arguments:
-#            - '@Ergonode\Attribute\Persistence\Dbal\Repository\Decorator\CacheAttributeRepositoryDecorator.inner'
-    Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Persistence\Dbal\Repository\DbalAttributeGroupRepository'
+#            - '@Ergonode\Attribute\Infrastructure\Persistence\Repository\Decorator\CacheAttributeRepositoryDecorator.inner'
+    Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeGroupRepository'
 
-    Ergonode\Attribute\Domain\Query\AttributeQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeQuery'
-    Ergonode\Attribute\Persistence\Dbal\Query\Decorator\CacheAttributeQueryDecorator:
+    Ergonode\Attribute\Domain\Query\AttributeQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeQuery'
+    Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator\CacheAttributeQueryDecorator:
         decorates: Ergonode\Attribute\Domain\Query\AttributeQueryInterface
         arguments:
-            - '@Ergonode\Attribute\Persistence\Dbal\Query\Decorator\CacheAttributeQueryDecorator.inner'
-    Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGroupQuery'
-    Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGridQuery'
-    Ergonode\Attribute\Domain\Query\CurrencyQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalCurrencyQuery'
+            - '@Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator\CacheAttributeQueryDecorator.inner'
+    Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGroupQuery'
+    Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGridQuery'
+    Ergonode\Attribute\Domain\Query\CurrencyQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalCurrencyQuery'
 
     Ergonode\Attribute\Application\Provider\AttributePropertyFormResolver:
         calls:

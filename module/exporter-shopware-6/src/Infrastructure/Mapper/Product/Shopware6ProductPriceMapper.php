@@ -18,6 +18,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInh
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
@@ -68,26 +69,20 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
 
 
     /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
+     * {@inheritDoc}
      *
      * @throws Shopware6ExporterMapperException
      */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel
+        Shopware6Channel $channel,
+        ?Language $language = null
     ): Shopware6Product {
+        $tax = $this->tax($channel, $product);
 
-        if ($shopware6Product->isNew()) {
-            $tax = $this->tax($channel, $product);
-
-            $shopware6Product->addPrice($this->getPrice($channel, $product));
-            $shopware6Product->setTaxId($this->loadTaxId($channel, $tax));
-        }
+        $shopware6Product->addPrice($this->getPrice($channel, $product));
+        $shopware6Product->setTaxId($this->loadTaxId($channel, $tax));
 
         return $shopware6Product;
     }
@@ -96,26 +91,33 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
      * @param Shopware6Channel $channel
      * @param AbstractProduct  $product
      *
-     * @return array
+     * @return \Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice
      *
      * @throws Shopware6ExporterMapperException
      */
     public function getPrice(
         Shopware6Channel $channel,
         AbstractProduct $product
-    ): array {
+    ): Shopware6ProductPrice {
 
         /** @var PriceAttribute $attribute */
-        $attribute = $this->repository->load($channel->getProductPriceGross());
-        $priceGross = $this->getPriceValue($channel->getProductPriceGross(), $channel->getDefaultLanguage(), $product);
-        $priceNet = $this->getPriceValue($channel->getProductPriceNet(), $channel->getDefaultLanguage(), $product);
+        $attribute = $this->repository->load($channel->getAttributeProductPriceGross());
+        $priceGross = $this->getPriceValue(
+            $channel->getAttributeProductPriceGross(),
+            $channel->getDefaultLanguage(),
+            $product
+        );
+        $priceNet = $this->getPriceValue(
+            $channel->getAttributeProductPriceNet(),
+            $channel->getDefaultLanguage(),
+            $product
+        );
 
-        return [
-            'currencyId' => $this->loadCurrencyId($channel, $attribute),
-            'net' => round($priceNet, self::PRECISION),
-            'linked' => false,
-            'gross' => round($priceGross, self::PRECISION),
-        ];
+        return new Shopware6ProductPrice(
+            $this->loadCurrencyId($channel, $attribute),
+            round($priceNet, self::PRECISION),
+            round($priceGross, self::PRECISION)
+        );
     }
 
     /**
@@ -128,7 +130,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
      */
     public function tax(Shopware6Channel $channel, AbstractProduct $product): float
     {
-        $attribute = $this->repository->load($channel->getProductTax());
+        $attribute = $this->repository->load($channel->getAttributeProductTax());
 
         Assert::notNull($attribute);
 

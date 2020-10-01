@@ -11,15 +11,13 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Handler;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProcessShopware6ExportCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -40,24 +38,27 @@ class ProcessExportCommandHandler
      */
     private CommandBusInterface $commandBus;
 
-    private ProductQueryInterface $query;
+    /**
+     * @var Shopware6ExportStepProcessInterface[]
+     */
+    private array $steps;
 
     /**
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param ExportRepositoryInterface  $exportRepository
-     * @param CommandBusInterface        $commandBus
-     * @param ProductQueryInterface      $query
+     * @param ChannelRepositoryInterface            $channelRepository
+     * @param ExportRepositoryInterface             $exportRepository
+     * @param CommandBusInterface                   $commandBus
+     * @param Shopware6ExportStepProcessInterface[] $steps
      */
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ExportRepositoryInterface $exportRepository,
         CommandBusInterface $commandBus,
-        ProductQueryInterface $query
+        array $steps
     ) {
         $this->channelRepository = $channelRepository;
         $this->exportRepository = $exportRepository;
         $this->commandBus = $commandBus;
-        $this->query = $query;
+        $this->steps = $steps;
     }
 
     /**
@@ -70,10 +71,8 @@ class ProcessExportCommandHandler
         $channel = $this->channelRepository->load($export->getChannelId());
         if ($channel instanceof Shopware6Channel) {
             $this->commandBus->dispatch(new StartShopware6ExportCommand($export->getId()), true);
-            foreach ($this->query->getAllIds() as $product) {
-                $productId = new ProductId($product);
-                $processCommand = new ProcessShopware6ExportCommand($export->getId(), $productId);
-                $this->commandBus->dispatch($processCommand, true);
+            foreach ($this->steps as $step) {
+                $step->export($export->getId(), $channel);
             }
             $this->commandBus->dispatch(new EndShopware6ExportCommand($export->getId()), true);
         }

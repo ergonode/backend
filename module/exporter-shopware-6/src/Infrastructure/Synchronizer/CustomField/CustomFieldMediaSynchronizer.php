@@ -34,7 +34,7 @@ class CustomFieldMediaSynchronizer extends AbstractCustomFieldSynchronizer
 
         return
             [
-                'name' => $code.'_set',
+                'name' => $code,
                 'type' => 'text',
                 'config' => [
                     'customFieldType' => 'media',

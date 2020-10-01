@@ -11,9 +11,6 @@ services:
         resource: '../../Application/Controller/Api/*'
         tags: ['controller.service_arguments']
 
-    Ergonode\Condition\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Condition\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject,Condition}'
@@ -25,13 +22,13 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Condition\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Condition\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
-    Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'
+    Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Infrastructure\Persistence\Query\DbalConditionSetQuery'
+    Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Infrastructure\Persistence\Repository\DbalConditionSetRepository'

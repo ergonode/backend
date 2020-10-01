@@ -9,9 +9,9 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
 
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Domain\Entity\Transformer;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 
 /**
  */
@@ -19,16 +19,14 @@ interface Magento1ProcessorStepInterface
 {
     /**
      * @param Import            $import
-     * @param string[]          $rows
+     * @param ProductModel      $product
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
-     * @param Progress          $progress
      */
     public function process(
         Import $import,
-        array $rows,
+        ProductModel $product,
         Transformer $transformer,
-        Magento1CsvSource $source,
-        Progress $progress
+        Magento1CsvSource $source
     ): void;
 }
