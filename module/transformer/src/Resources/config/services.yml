@@ -1,11 +1,8 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
-
-    Ergonode\Transformer\Persistence\:
-        resource: '../../Persistence/*'
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\Transformer\Application\:
         resource: '../../Application/*'
@@ -26,12 +23,12 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Transformer\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Transformer\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalTransformerRepository'
+    Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Infrastructure\Persistence\Repository\DbalTransformerRepository'

@@ -17,8 +17,6 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompil
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceImportCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\AttributeActionProcessorCompilerPass;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ImportActionCompilerPass;
 
 /**
  */
@@ -37,7 +35,5 @@ class ErgonodeImporterBundle extends AbstractModule
         $container->addCompilerPass(new ServiceImportCompilerPass());
         $container->addCompilerPass(new CreateSourceCommandBuilderCompilerPass());
         $container->addCompilerPass(new UpdateSourceCommandBuilderCompilerPass());
-        $container->addCompilerPass(new AttributeActionProcessorCompilerPass());
-        $container->addCompilerPass(new ImportActionCompilerPass());
     }
 }

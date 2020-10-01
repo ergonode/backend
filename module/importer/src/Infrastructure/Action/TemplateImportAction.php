@@ -9,28 +9,25 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
-use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Transformer\Domain\Model\Record;
-use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
+use Ergonode\Designer\Domain\Entity\Template;
+use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
-class TemplateImportAction implements ImportActionInterface
+class TemplateImportAction
 {
-    public const TYPE = 'TEMPLATE';
-
-    public const CODE_FIELD = 'code';
-
     /**
      * @var TemplateQueryInterface
      */
     private TemplateQueryInterface $query;
+
+    /**
+     * @var TemplateGroupQueryInterface
+     */
+    private TemplateGroupQueryInterface $templateGroupQuery;
 
     /**
      * @var TemplateRepositoryInterface
@@ -38,37 +35,27 @@ class TemplateImportAction implements ImportActionInterface
     private TemplateRepositoryInterface $templateRepository;
 
     /**
-     * @var CommandBusInterface
-     */
-    private CommandBusInterface $commandBus;
-
-    /**
      * @param TemplateQueryInterface      $query
+     * @param TemplateGroupQueryInterface $templateGroupQuery
      * @param TemplateRepositoryInterface $templateRepository
-     * @param CommandBusInterface         $commandBus
      */
     public function __construct(
         TemplateQueryInterface $query,
-        TemplateRepositoryInterface $templateRepository,
-        CommandBusInterface $commandBus
+        TemplateGroupQueryInterface $templateGroupQuery,
+        TemplateRepositoryInterface $templateRepository
     ) {
         $this->query = $query;
+        $this->templateGroupQuery = $templateGroupQuery;
         $this->templateRepository = $templateRepository;
-        $this->commandBus = $commandBus;
     }
 
     /**
-     * @param ImportId $importId
-     * @param Record   $record
+     * @param string $code
      *
      * @throws \Exception
      */
-    public function action(ImportId $importId, Record $record): void
+    public function action(string $code): void
     {
-        $code = $record->has(self::CODE_FIELD) ? $record->get(self::CODE_FIELD) : null;
-
-        Assert::notNull($code, 'Template import required "code" field not exists');
-
         $template = null;
         $templateId = $this->query->findTemplateIdByCode($code);
 
@@ -77,19 +64,16 @@ class TemplateImportAction implements ImportActionInterface
         }
 
         if (!$template) {
-            $command = new CreateTemplateCommand($code, new ArrayCollection());
+            $groupId = $this->templateGroupQuery->getDefaultId();
+            $template = new Template(
+                TemplateId::generate(),
+                $groupId,
+                $code,
+            );
         } else {
-            $command = new UpdateTemplateCommand($templateId, $code, new ArrayCollection());
+            $template->changeName($code);
         }
 
-        $this->commandBus->dispatch($command, true);
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
+        $this->templateRepository->save($template);
     }
 }
