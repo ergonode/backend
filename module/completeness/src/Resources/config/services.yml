@@ -1,27 +1,29 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
 
-    Ergonode\Completeness\Application\:
-        resource: '../../Application/*'
+  Ergonode\Completeness\Application\:
+    resource: '../../Application/*'
 
-    Ergonode\Completeness\Domain\:
-        resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject}'
+  Ergonode\Completeness\Domain\:
+    resource: '../../Domain/*'
+    exclude: '../../Domain/{Entity,ValueObject}'
 
-    Ergonode\Completeness\Infrastructure\Handler\:
-        resource: '../../Infrastructure/Handler/*'
-        tags: ['messenger.message_handler']
+  Ergonode\Completeness\Infrastructure\:
+    resource: '../../Infrastructure/*'
 
-    Ergonode\Completeness\Application\Controller\:
-        resource: '../../Application/Controller/*'
-        tags: ['controller.service_arguments']
+  Ergonode\Completeness\Infrastructure\Handler\:
+    resource: '../../Infrastructure/Handler/*'
+    tags: [ 'messenger.message_handler' ]
 
-    Ergonode\Completeness\Persistence\:
-        resource: '../../Persistence/*'
+  Ergonode\Completeness\Application\Controller\:
+    resource: '../../Application/Controller/*'
+    tags: [ 'controller.service_arguments' ]
 
-    Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider:
-        - '@Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy'
-        - '@Ergonode\Completeness\Domain\Calculator\Strategy\UiTemplateElementCompletenessStrategy'
+  Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider:
+    - '@Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy'
+    - '@Ergonode\Completeness\Domain\Calculator\Strategy\UiTemplateElementCompletenessStrategy'
+
+  Ergonode\Completeness\Domain\Query\CompletenessQueryInterface: '@Ergonode\Completeness\Infrastructure\Persistence\Query\CompletenessQuery'

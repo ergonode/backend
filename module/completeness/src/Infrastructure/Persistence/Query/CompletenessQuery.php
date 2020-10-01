@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Completeness\Persistence\Dbal\Query;
+namespace Ergonode\Completeness\Infrastructure\Persistence\Query;
 
 use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;

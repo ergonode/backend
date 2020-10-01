@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Completeness\Persistence\Dbal\Manager;
+namespace Ergonode\Completeness\Infrastructure\Persistence\Manager;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;

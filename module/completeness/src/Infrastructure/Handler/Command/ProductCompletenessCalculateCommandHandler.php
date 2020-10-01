@@ -14,8 +14,8 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Completeness\Persistence\Dbal\Manager\CompletenessManager;
 use Doctrine\DBAL\DBALException;
+use Ergonode\Completeness\Infrastructure\Persistence\Manager\CompletenessManager;
 
 /**
  */
