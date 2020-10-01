@@ -29,7 +29,7 @@
     <!-- Tests -->
     <target
             name="test"
-            depends="test:unit, test:mutation, test:behat"
+            depends="test:unit, test:behat"
             description="Execute tests with database recreation."
     >
     </target>

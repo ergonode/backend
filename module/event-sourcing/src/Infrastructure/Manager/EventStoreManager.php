@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -8,20 +9,19 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Manager;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
 class EventStoreManager
 {
-
     /**
      * @var AggregateBuilderInterface
      */
