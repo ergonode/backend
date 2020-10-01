@@ -133,7 +133,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     {
         $attributes = $draft->getAttributes();
         foreach ($attributes as $code => $value) {
-            $attributeCode = new AttributeCode((string)$code);
+            $attributeCode = new AttributeCode((string) $code);
             if ($this->hasAttribute($attributeCode)) {
                 $this->changeAttribute($attributeCode, $value);
             } else {
@@ -142,7 +142,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
 
         foreach ($this->getAttributes() as $code => $attributes) {
-            $attributeCode = new AttributeCode((string)$code);
+            $attributeCode = new AttributeCode((string) $code);
             if (!$draft->hasAttribute($attributeCode)) {
                 $this->removeAttribute($attributeCode);
             }
