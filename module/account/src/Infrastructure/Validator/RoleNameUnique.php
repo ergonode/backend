@@ -17,6 +17,14 @@ use Symfony\Component\Validator\Constraint;
 class RoleNameUnique extends Constraint
 {
     /**
+     * @return array|string
+     */
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
+
+    /**
      * @var string
      */
     public string $uniqueMessage = 'The role name should be unique.';
