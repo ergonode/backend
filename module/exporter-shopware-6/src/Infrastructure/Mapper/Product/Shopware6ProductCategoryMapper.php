@@ -12,6 +12,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
@@ -45,7 +46,7 @@ class Shopware6ProductCategoryMapper implements Shopware6ProductMapperInterface
         foreach ($categoryList as $categoryId) {
             $shopwareCategoryId = $this->categoryRepository->load($channel->getId(), $categoryId);
             if ($shopwareCategoryId) {
-                $shopware6Product->addCategoryId($shopwareCategoryId);
+                $shopware6Product->addCategory(new Shopware6ProductCategory($shopwareCategoryId));
             }
         }
 

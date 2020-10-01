@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
@@ -49,12 +50,12 @@ class Shopware6Product
     private ?string $description;
 
     /**
-     * @var array|null
+     * @var Shopware6ProductCategory[]|null
      *
-     * @JMS\Type("array")
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCategory>")
      * @JMS\SerializedName("categories")
      */
-    private ?array $categories;
+    private ?array $categories = null;
 
     /**
      * @var array|null
@@ -177,7 +178,6 @@ class Shopware6Product
      * @param string|null $sku
      * @param string|null $name
      * @param string|null $description
-     * @param array|null  $categories
      * @param array|null  $properties
      * @param array|null  $customFields
      * @param string|null $parentId
@@ -193,7 +193,6 @@ class Shopware6Product
         ?string $sku = null,
         ?string $name = null,
         ?string $description = null,
-        ?array $categories = null,
         ?array $properties = null,
         ?array $customFields = null,
         ?string $parentId = null,
@@ -208,7 +207,6 @@ class Shopware6Product
         $this->sku = $sku;
         $this->name = $name;
         $this->description = $description;
-        $this->categories = $categories;
         $this->properties = $properties;
         $this->customFields = $customFields;
         $this->parentId = $parentId;
@@ -219,7 +217,6 @@ class Shopware6Product
         $this->price = $price;
         $this->coverId = $coverId;
         $this->setPropertyToRemove($properties);
-        $this->setCategoryToRemove($categories);
     }
 
     /**
@@ -287,9 +284,17 @@ class Shopware6Product
         }
     }
 
+    /**
+     * @param Shopware6ProductCategory[]|null $categories
+     */
+    public function setCategories(?array $categories): void
+    {
+        $this->categories = $categories;
+        $this->setCategoryToRemove($categories);
+    }
 
     /**
-     * @return array
+     * @return Shopware6ProductCategory[]|
      */
     public function getCategories(): array
     {
@@ -301,28 +306,26 @@ class Shopware6Product
     }
 
     /**
-     * @param string $categoryId
+     * @param Shopware6ProductCategory $category
      */
-    public function addCategoryId(string $categoryId): void
+    public function addCategory(Shopware6ProductCategory $category): void
     {
-        if (!$this->hasCategory($categoryId)) {
-            $this->categories[] = [
-                'id' => $categoryId,
-            ];
+        if (!$this->hasCategory($category)) {
+            $this->categories[] = $category;
             $this->modified = true;
         }
-        unset($this->categoryToRemove[$categoryId]);
+        unset($this->categoryToRemove[$category->getId()]);
     }
 
     /**
-     * @param string $categoryId
+     * @param Shopware6ProductCategory $category
      *
      * @return bool
      */
-    public function hasCategory(string $categoryId): bool
+    public function hasCategory(Shopware6ProductCategory $category): bool
     {
-        foreach ($this->getCategories() as $category) {
-            if ($category['id'] === $categoryId) {
+        foreach ($this->getCategories() as $productCategory) {
+            if ($productCategory->getId() === $category->getId()) {
                 return true;
             }
         }
@@ -748,13 +751,13 @@ class Shopware6Product
     }
 
     /**
-     * @param array|null $category
+     * @param Shopware6ProductCategory[]|null $category
      */
     private function setCategoryToRemove(?array $category): void
     {
         if ($category) {
             foreach ($category as $item) {
-                $this->categoryToRemove[$item['id']] = $item['id'];
+                $this->categoryToRemove[$item->getId()] = $item->getId();
             }
         }
     }
