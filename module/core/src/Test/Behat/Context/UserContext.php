@@ -14,7 +14,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Security\User\User as SecurityUser;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Exception;
