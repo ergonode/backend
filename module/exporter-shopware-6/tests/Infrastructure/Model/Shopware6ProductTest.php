@@ -86,6 +86,11 @@ class Shopware6ProductTest extends TestCase
      */
     private array $media;
 
+    /**
+     * @var string
+     */
+    private string $coverId;
+
 
     /**
      */
@@ -125,6 +130,8 @@ class Shopware6ProductTest extends TestCase
             ],
         ];
         $this->media = [];
+
+        $this->coverId = 'any_product_media_id';
     }
 
     /**
@@ -145,7 +152,7 @@ class Shopware6ProductTest extends TestCase
             $this->stock,
             $this->taxId,
             $this->price,
-            $this->media
+            $this->coverId,
         );
 
         self::assertEquals($this->id, $model->getId());
@@ -161,6 +168,7 @@ class Shopware6ProductTest extends TestCase
         self::assertEquals($this->stock, $model->getStock());
         self::assertEquals($this->taxId, $model->getTaxId());
         self::assertEquals($this->price, $model->getPrice());
+        self::assertEquals($this->coverId, $model->getCoverId());
         self::assertEquals($this->media, $model->getMedia());
 
         self::assertFalse($model->isNew());
@@ -189,6 +197,7 @@ class Shopware6ProductTest extends TestCase
         $model->setStock($this->stock);
         $model->setTaxId($this->taxId);
         $model->addPrice($this->price[0]);
+        $model->setCoverId($this->coverId);
 
         self::assertEquals($this->sku, $model->getSku());
         self::assertEquals($this->name, $model->getName());
@@ -204,6 +213,7 @@ class Shopware6ProductTest extends TestCase
         self::assertEquals($this->stock, $model->getStock());
         self::assertEquals($this->taxId, $model->getTaxId());
         self::assertEquals($this->price, $model->getPrice());
+        self::assertEquals($this->coverId, $model->getCoverId());
         self::assertEquals($this->media, $model->getMedia());
 
         self::assertTrue($model->isNew());

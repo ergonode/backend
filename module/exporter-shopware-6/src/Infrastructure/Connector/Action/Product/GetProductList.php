@@ -114,7 +114,8 @@ class GetProductList extends AbstractAction implements ActionInterface
                     $row['attributes']['active'],
                     $row['attributes']['stock'],
                     $row['attributes']['taxId'],
-                    $price
+                    $price,
+                    $row['attributes']['coverId'],
                 );
             }
         }

@@ -95,3 +95,4 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultimediaMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantChildMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCoverMapper'

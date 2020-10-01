@@ -137,6 +137,14 @@ class Shopware6Product
     private ?array $configuratorSettings = null;
 
     /**
+     * @var string|null
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("coverId")
+     */
+    private ?string $coverId;
+
+    /**
      * @var array
      *
      * @JMS\Exclude()
@@ -178,6 +186,7 @@ class Shopware6Product
      * @param int|null    $stock
      * @param string|null $taxId
      * @param array|null  $price
+     * @param string|null $coverId
      */
     public function __construct(
         ?string $id = null,
@@ -192,7 +201,8 @@ class Shopware6Product
         bool $active = true,
         ?int $stock = null,
         ?string $taxId = null,
-        ?array $price = null
+        ?array $price = null,
+        ?string $coverId = null
     ) {
         $this->id = $id;
         $this->sku = $sku;
@@ -207,6 +217,7 @@ class Shopware6Product
         $this->stock = $stock;
         $this->taxId = $taxId;
         $this->price = $price;
+        $this->coverId = $coverId;
         $this->setPropertyToRemove($properties);
         $this->setCategoryToRemove($categories);
     }
@@ -677,6 +688,26 @@ class Shopware6Product
 
         return false;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getCoverId(): ?string
+    {
+        return $this->coverId;
+    }
+
+    /**
+     * @param string|null $coverId
+     */
+    public function setCoverId(?string $coverId): void
+    {
+        if ($this->coverId !== $coverId) {
+            $this->coverId = $coverId;
+            $this->modified = true;
+        }
+    }
+
 
     /**
      * @return bool
