@@ -37,6 +37,13 @@ interface AttributeQueryInterface
     public function findAttributeByCode(AttributeCode $code): ?AttributeViewModel;
 
     /**
+     * @param AttributeCode $code
+     *
+     * @return null|AttributeId
+     */
+    public function findAttributeIdByCode(AttributeCode $code): ?AttributeId;
+
+    /**
      * @param AttributeId $id
      *
      * @return AttributeType|null
