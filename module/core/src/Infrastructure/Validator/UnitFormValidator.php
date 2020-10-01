@@ -11,14 +11,14 @@ namespace Ergonode\Core\Infrastructure\Validator;
 
 use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
-use Ergonode\Core\Infrastructure\Validator\Constraint\UnitNameUnique;
+use Ergonode\Core\Infrastructure\Validator\Constraint\UnitForm;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */
-class UnitNameUniqueValidator extends ConstraintValidator
+class UnitFormValidator extends ConstraintValidator
 {
     /**
      * @var UnitQueryInterface
@@ -34,29 +34,35 @@ class UnitNameUniqueValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed                     $value
-     * @param UnitNameUnique|Constraint $constraint
+     * @param mixed               $value
+     * @param UnitForm|Constraint $constraint
      *
      * @throws \Exception
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof UnitNameUnique) {
-            throw new UnexpectedTypeException($constraint, UnitNameUnique::class);
+        if (!$constraint instanceof UnitForm) {
+            throw new UnexpectedTypeException($constraint, UnitForm::class);
         }
 
         if (!$value instanceof UnitFormModel) {
             throw new UnexpectedTypeException($value, UnitFormModel::class);
         }
 
-        if (null === $value->name) {
-            return;
+        if (isset($value->name)) {
+            $unitIdByName = $this->query->findIdByName($value->name);
+            if (null !== $unitIdByName && $unitIdByName != $value->getUnitId()) {
+                $this->context->buildViolation($constraint->uniqueNameMessage)
+                    ->addViolation();
+            }
         }
+        if (isset($value->symbol)) {
+            $unitIdSymbol = $this->query->findIdByCode($value->symbol);
 
-        $unitId = $this->query->findIdByName($value->name);
-        if (null !== $unitId && $unitId != $value->getUnitId()) {
-            $this->context->buildViolation($constraint->uniqueMessage)
-                ->addViolation();
+            if (null !== $unitIdSymbol && $unitIdSymbol != $value->getUnitId()) {
+                $this->context->buildViolation($constraint->uniqueSymbolMessage)
+                    ->addViolation();
+            }
         }
     }
 }

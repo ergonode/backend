@@ -11,8 +11,8 @@ namespace Ergonode\Core\Tests\Infrastructure\Validator;
 
 use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
-use Ergonode\Core\Infrastructure\Validator\Constraint\UnitSymbolUnique;
-use Ergonode\Core\Infrastructure\Validator\UnitSymbolUniqueValidator;
+use Ergonode\Core\Infrastructure\Validator\Constraint\UnitForm;
+use Ergonode\Core\Infrastructure\Validator\UnitFormValidator;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ramsey\Uuid\Uuid;
@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 /**
  */
-class UnitSymbolUniqueValidatorTest extends ConstraintValidatorTestCase
+class UnitFormValidatorTest extends ConstraintValidatorTestCase
 {
     /**
      * @var UnitQueryInterface|MockObject
@@ -41,7 +41,7 @@ class UnitSymbolUniqueValidatorTest extends ConstraintValidatorTestCase
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
-        $this->validator->validate(new \stdClass(), new UnitSymbolUnique());
+        $this->validator->validate(new \stdClass(), new UnitForm());
     }
 
     /**
@@ -56,38 +56,79 @@ class UnitSymbolUniqueValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    public function testCorrectEmptyValidation(): void
+    public function testCorrectEmptyNameValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
-        $model->symbol = 'symbol';
+        $model->name = 'name';
         $this->query->method('findIdByName')->willReturn(null);
 
-        $this->validator->validate($model, new UnitSymbolUnique());
+        $this->validator->validate($model, new UnitForm());
         $this->assertNoViolation();
     }
 
     /**
      */
-    public function testCorrectRaisedValidation(): void
+    public function testCorrectEmptySymbolValidation(): void
+    {
+        $model = $this->createMock(UnitFormModel::class);
+        $model->symbol = 'symbol';
+        $this->query->method('findIdByCode')->willReturn(null);
+
+        $this->validator->validate($model, new UnitForm());
+        $this->assertNoViolation();
+    }
+
+    /**
+     */
+    public function testCorrectNullValidation(): void
+    {
+        $model = $this->createMock(UnitFormModel::class);
+        $model->symbol = null;
+        $model->name = null;
+
+        $this->validator->validate($model, new UnitForm());
+        $this->assertNoViolation();
+    }
+
+    /**
+     */
+    public function testCorrectRaisedNameValidation(): void
+    {
+        $uuid = Uuid::uuid4()->toString();
+        $model = $this->createMock(UnitFormModel::class);
+        $model->name = 'name';
+        $model->method('getUnitId')->willReturn(new UnitId($uuid));
+        $this->query->method('findIdByName')->willReturn($this->createMock(UnitId::class));
+        $constraint = new UnitForm();
+
+        $this->validator->validate($model, $constraint);
+
+        $assertion = $this->buildViolation($constraint->uniqueNameMessage);
+        $assertion->assertRaised();
+    }
+
+    /**
+     */
+    public function testCorrectRaisedSymbolValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
         $model = $this->createMock(UnitFormModel::class);
         $model->symbol = 'AB';
         $model->method('getUnitId')->willReturn(new UnitId($uuid));
         $this->query->method('findIdByCode')->willReturn($this->createMock(UnitId::class));
-        $constraint = new UnitSymbolUnique();
+        $constraint = new UnitForm();
 
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->uniqueMessage);
+        $assertion = $this->buildViolation($constraint->uniqueSymbolMessage);
         $assertion->assertRaised();
     }
 
     /**
-     * @return UnitSymbolUniqueValidator
+     * @return UnitFormValidator
      */
-    protected function createValidator(): UnitSymbolUniqueValidator
+    protected function createValidator(): UnitFormValidator
     {
-        return new UnitSymbolUniqueValidator($this->query);
+        return new UnitFormValidator($this->query);
     }
 }

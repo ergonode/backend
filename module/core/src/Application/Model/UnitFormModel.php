@@ -9,15 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Model;
 
-use Ergonode\Core\Infrastructure\Validator\Constraint\UnitNameUnique;
-use Ergonode\Core\Infrastructure\Validator\Constraint\UnitSymbolUnique;
+use Ergonode\Core\Infrastructure\Validator\Constraint\UnitForm;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @UnitNameUnique()
- *
- * @UnitSymbolUnique()
+ * @UnitForm()
  */
 class UnitFormModel
 {

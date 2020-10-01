@@ -9,18 +9,24 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Validator\Constraint;
 
-use Ergonode\Core\Infrastructure\Validator\UnitNameUniqueValidator;
+use Ergonode\Core\Infrastructure\Validator\UnitFormValidator;
 use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
  */
-class UnitNameUnique extends Constraint
+class UnitForm extends Constraint
 {
     /**
      * @var string
      */
-    public string $uniqueMessage = 'The unit name should be unique.';
+    public string $uniqueNameMessage = 'The unit name should be unique.';
+
+    /**
+     * @var string
+     */
+    public string $uniqueSymbolMessage = 'The unit symbol should be unique.';
+
 
     /**
      * @return array|string
@@ -35,6 +41,6 @@ class UnitNameUnique extends Constraint
      */
     public function validatedBy(): string
     {
-        return UnitNameUniqueValidator::class;
+        return UnitFormValidator::class;
     }
 }
