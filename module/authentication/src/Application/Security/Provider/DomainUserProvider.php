@@ -10,10 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Authentication\Application\Security\Provider;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Exception\InvalidEmailException;
-use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -22,24 +20,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 class DomainUserProvider implements UserProviderInterface
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $repository;
 
     /**
-     * @var UserQueryInterface
-     */
-    private UserQueryInterface $query;
-
-    /**
      * @param UserRepositoryInterface $repository
-     * @param UserQueryInterface      $query
      */
-    public function __construct(UserRepositoryInterface $repository, UserQueryInterface $query)
+    public function __construct(UserRepositoryInterface $repository)
     {
         $this->repository = $repository;
-        $this->query = $query;
     }
 
     /**
@@ -54,19 +42,19 @@ class DomainUserProvider implements UserProviderInterface
         if (empty($username)) {
             throw new UsernameNotFoundException('Empty username');
         }
-
-        try {
-            $email = new Email($username);
-        } catch (InvalidEmailException $exception) {
-            throw new UsernameNotFoundException('Invalid email format');
+        if (!is_string($username)) {
+            throw new UsernameNotFoundException('Username has to be a string');
         }
 
-        $userId = $this->query->findIdByEmail($email);
-        if ($userId) {
-            $user = $this->repository->load($userId);
-            if ($user instanceof User) {
-                return $user;
-            }
+        try {
+            $userId = new UserId($username);
+        } catch (\InvalidArgumentException $exception) {
+            throw new UsernameNotFoundException('Invalid uuid format');
+        }
+
+        $user = $this->repository->load($userId);
+        if ($user instanceof User) {
+            return $user;
         }
 
         throw new UsernameNotFoundException(sprintf(

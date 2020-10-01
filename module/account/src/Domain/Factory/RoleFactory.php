@@ -21,7 +21,7 @@ class RoleFactory
     /**
      * @param RoleId      $id
      * @param string      $name
-     * @param string      $description
+     * @param string|null $description
      * @param Privilege[] $privileges
      * @param bool        $hidden
      *
@@ -32,7 +32,7 @@ class RoleFactory
     public function create(
         RoleId $id,
         string $name,
-        string $description,
+        ?string $description,
         array $privileges = [],
         bool $hidden = false
     ): Role {
