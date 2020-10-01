@@ -68,6 +68,7 @@ class UserContext implements Context
             $user->getId()->getValue(),
             $user->getPassword(),
             $user->getRoles(),
+            $user->isActive(),
         );
     }
 }

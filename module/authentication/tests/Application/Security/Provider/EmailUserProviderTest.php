@@ -56,6 +56,9 @@ class EmailUserProviderTest extends TestCase
         $user
             ->method('getRoles')
             ->willReturn(['roles']);
+        $user
+            ->method('isActive')
+            ->willReturn(true);
         $this->mockUserQuery
             ->method('findIdByEmail')
             ->willReturn(new UserId((string) Uuid::uuid4()));
@@ -70,6 +73,7 @@ class EmailUserProviderTest extends TestCase
                 $userId->getValue(),
                 'password',
                 ['roles'],
+                true,
             ),
             $result,
         );

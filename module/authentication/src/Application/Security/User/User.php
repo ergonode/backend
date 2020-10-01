@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\User;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-
 /**
  */
 class User implements UserInterface
@@ -18,17 +16,24 @@ class User implements UserInterface
     private string $id;
     private string $password;
     private array $roles;
+    private bool $active;
 
     /**
      * @param string $id
      * @param string $password
      * @param array  $roles
+     * @param bool   $active
      */
-    public function __construct(string $id, string $password, array $roles)
-    {
+    public function __construct(
+        string $id,
+        string $password,
+        array $roles,
+        bool $active
+    ) {
         $this->id = $id;
         $this->password = $password;
         $this->roles = $roles;
+        $this->active = $active;
     }
 
     /**
@@ -69,6 +74,14 @@ class User implements UserInterface
     public function getUsername()
     {
         return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
     }
 
     /**
