@@ -16,9 +16,6 @@ services:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
 
-    Ergonode\Workflow\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Workflow\Application\Controller\:
         resource: '../../Application/Controller'
         tags: ['controller.service_arguments']
@@ -27,19 +24,19 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Workflow\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Workflow\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Workflow\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Persistence\Dbal\Repository\DbalStatusRepository'
-    Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Persistence\Dbal\Repository\DbalWorkflowRepository'
-    Ergonode\Workflow\Domain\Query\StatusQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalStatusQuery'
-    Ergonode\Workflow\Domain\Query\TransitionQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalTransitionQuery'
-    Ergonode\Workflow\Domain\Query\WorkflowQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalWorkflowQuery'
+    Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalStatusRepository'
+    Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalWorkflowRepository'
+    Ergonode\Workflow\Domain\Query\StatusQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery'
+    Ergonode\Workflow\Domain\Query\TransitionQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalTransitionQuery'
+    Ergonode\Workflow\Domain\Query\WorkflowQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalWorkflowQuery'
 
     # Product Query Decorator
     Ergonode\Workflow\Infrastructure\Query\Decorator\WorkflowGetProductQueryDecorator:

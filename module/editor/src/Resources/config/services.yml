@@ -1,14 +1,11 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\Editor\Application\:
         resource: '../../Application/*'
-
-    Ergonode\Editor\Persistence\:
-        resource: '../../Persistence/*'
 
     Ergonode\Editor\Domain\:
         resource: '../../Domain/*'
@@ -26,9 +23,9 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Editor\Persistence\Projector\:
-        resource: '../../Persistence/Projector/*'
+    Ergonode\Editor\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface: '@Ergonode\Editor\Persistence\Repository\DbalProductDraftRepository'
-    Ergonode\Editor\Domain\Query\DraftQueryInterface: '@Ergonode\Editor\Persistence\Query\DbalDraftQuery'
+    Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface: '@Ergonode\Editor\Infrastructure\Persistence\Repository\DbalProductDraftRepository'
+    Ergonode\Editor\Domain\Query\DraftQueryInterface: '@Ergonode\Editor\Infrastructure\Persistence\Query\DbalDraftQuery'

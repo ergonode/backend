@@ -4,9 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Ergonode\Category\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Category\Application\:
         resource: '../../Application/*'
         exclude: '../../Domain/{Model}'
@@ -27,8 +24,8 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Category\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Category\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Category\Infrastructure\JMS\Serializer\Handler\:
@@ -38,8 +35,8 @@ services:
     Ergonode\Category\Domain\Entity\Category:
         autowire: true
 
-    Ergonode\Category\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Category\Persistence\Dbal\Repository\DbalCategoryRepository'
-    Ergonode\Category\Domain\Query\CategoryQueryInterface: '@Ergonode\Category\Persistence\Dbal\Query\DbalCategoryQuery'
+    Ergonode\Category\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Category\Infrastructure\Persistence\Repository\DbalCategoryRepository'
+    Ergonode\Category\Domain\Query\CategoryQueryInterface: '@Ergonode\Category\Infrastructure\Persistence\Query\DbalCategoryQuery'
 
-    Ergonode\Category\Domain\Repository\TreeRepositoryInterface: '@Ergonode\Category\Persistence\Dbal\Repository\DbalTreeRepository'
-    Ergonode\Category\Domain\Query\TreeQueryInterface: '@Ergonode\Category\Persistence\Dbal\Query\DbalTreeQuery'
+    Ergonode\Category\Domain\Repository\TreeRepositoryInterface: '@Ergonode\Category\Infrastructure\Persistence\Repository\DbalTreeRepository'
+    Ergonode\Category\Domain\Query\TreeQueryInterface: '@Ergonode\Category\Infrastructure\Persistence\Query\DbalTreeQuery'

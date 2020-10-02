@@ -35,8 +35,8 @@ class Progress
      */
     public function __construct(int $position, int $count)
     {
-        Assert::greaterThanEq($count, 1);
-        Assert::greaterThanEq($position, 1);
+        Assert::greaterThanEq($count, 1, 'Progress requires size greater then one');
+        Assert::greaterThanEq($position, 1, 'Progress position must be greater then one');
         Assert::lessThanEq($position, $count);
 
         $this->position = $position;

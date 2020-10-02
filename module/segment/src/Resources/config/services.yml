@@ -11,9 +11,6 @@ services:
         resource: '../../Application/Controller/Api/*'
         tags: ['controller.service_arguments']
 
-    Ergonode\Segment\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Segment\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject,Type,Condition}'
@@ -26,13 +23,13 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Segment\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
+    Ergonode\Segment\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Segment\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface: '@Ergonode\Segment\Persistence\Dbal\Repository\DbalSegmentRepository'
-    Ergonode\Segment\Domain\Query\SegmentQueryInterface: '@Ergonode\Segment\Persistence\Dbal\Query\DbalSegmentQuery'
+    Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface: '@Ergonode\Segment\Infrastructure\Persistence\Repository\DbalSegmentRepository'
+    Ergonode\Segment\Domain\Query\SegmentQueryInterface: '@Ergonode\Segment\Infrastructure\Persistence\Query\DbalSegmentQuery'

@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Application\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Ergonode\Importer\Infrastructure\Provider\SourceServiceProvider;
 use Ergonode\Importer\Infrastructure\Provider\ImportProcessorProvider;
 
 /**

@@ -1,14 +1,11 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\Notification\Application\:
         resource: '../../Application/*'
-
-    Ergonode\Notification\Persistence\:
-        resource: '../../Persistence/*'
 
     Ergonode\Notification\Infrastructure\:
         resource: '../../Infrastructure/*'
@@ -22,4 +19,4 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Notification\Domain\Query\NotificationQueryInterface: '@Ergonode\Notification\Persistence\Dbal\Query\DbalNotificationQuery'
+    Ergonode\Notification\Domain\Query\NotificationQueryInterface: '@Ergonode\Notification\Infrastructure\Persistence\Query\DbalNotificationQuery'
