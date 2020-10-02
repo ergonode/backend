@@ -100,11 +100,10 @@ abstract class AbstractCreateProductHandler
     {
         /** @var User $user */
         $user = $this->security->getUser();
-        if (!$user) {
-            throw new AuthenticationException();
+        if ($user) {
+            $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
+            $attributes[CreatedBySystemAttribute::CODE] = $value;
         }
-        $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
-        $attributes[CreatedBySystemAttribute::CODE] = $value;
 
         return $attributes;
     }
