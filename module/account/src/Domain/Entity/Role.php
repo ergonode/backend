@@ -41,11 +41,11 @@ class Role extends AbstractAggregateRoot
     private string $name;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $description;
+    private ?string $description;
 
     /**
      * @var Privilege[]
@@ -62,18 +62,18 @@ class Role extends AbstractAggregateRoot
     private bool $hidden;
 
     /**
-     * @param RoleId $id
-     * @param string $name
-     * @param string $description
-     * @param array  $privileges
-     * @param bool   $hidden
+     * @param RoleId      $id
+     * @param string      $name
+     * @param string|null $description
+     * @param array       $privileges
+     * @param bool        $hidden
      *
      * @throws \Exception
      */
     public function __construct(
         RoleId $id,
         string $name,
-        string $description,
+        ?string $description,
         array $privileges = [],
         bool $hidden = false
     ) {
@@ -99,9 +99,9 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -143,9 +143,9 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function changeDescription(string $description): void
+    public function changeDescription(?string $description): void
     {
         if ($description !== $this->description) {
             $this->apply(new RoleDescriptionChangedEvent($this->id, $this->description, $description));

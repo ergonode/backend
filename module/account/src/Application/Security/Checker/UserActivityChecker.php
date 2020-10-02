@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Security\Checker;
 
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Authentication\Application\Security\User\UserInterface as DomainUserInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,7 +23,7 @@ class UserActivityChecker implements UserCheckerInterface
      */
     public function checkPreAuth(UserInterface $user): void
     {
-        if (!$user instanceof User) {
+        if (!$user instanceof DomainUserInterface) {
             return;
         }
 
@@ -37,7 +37,7 @@ class UserActivityChecker implements UserCheckerInterface
      */
     public function checkPostAuth(UserInterface $user): void
     {
-        if (!$user instanceof User) {
+        if (!$user instanceof DomainUserInterface) {
             return;
         }
 
