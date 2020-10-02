@@ -36,13 +36,11 @@ class WorkflowTypeCompilerPass implements CompilerPassInterface
     {
         $definition = $container->findDefinition(WorkflowTypeProvider::class);
         $services = $container->findTaggedServiceIds(self::TAG);
-
-        $arguments = [];
+        $types = [];
         foreach ($services as $id => $service) {
-            $arguments[] = $id;
-            $container->removeDefinition($id);
+            $types[] = $container->getDefinition($id)->getClass()::getType();
         }
 
-        $definition->setArguments($arguments);
+        $definition->setArguments($types);
     }
 }

@@ -100,7 +100,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     /**
      * @return string
      */
-    abstract public function getType(): string;
+    abstract public static function getType(): string;
 
 
     /**
@@ -340,7 +340,6 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
         return array_values($this->statuses);
     }
-
 
 
     /**

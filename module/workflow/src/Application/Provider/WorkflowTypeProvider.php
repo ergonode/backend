@@ -18,21 +18,15 @@ class WorkflowTypeProvider
     private array $types;
 
     /**
-     * @param string ...$classes
-     *
-     * @throws \ReflectionException
+     * @param string ...$types
      */
-    public function __construct(string ...$classes)
+    public function __construct(string ...$types)
     {
-        $this->types = [];
-        foreach ($classes as $class) {
-            $type = (new \ReflectionClass($class))->getConstant('TYPE');
-            $this->types[$type] = $class;
-        }
+        $this->types = $types;
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function provide(): array
     {

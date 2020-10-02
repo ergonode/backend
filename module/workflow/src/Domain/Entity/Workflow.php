@@ -20,7 +20,7 @@ class Workflow extends AbstractWorkflow
     /**
      * @return string
      */
-    public function getType(): string
+    public static function getType(): string
     {
         return self::TYPE;
     }

@@ -31,7 +31,7 @@ class WorkflowFormModel
     public ?string $code = null;
 
     /**
-     * @var array
+     * @var string[]
      *
      * @Assert\All({
      *     @Assert\NotBlank(),

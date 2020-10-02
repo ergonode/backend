@@ -18,8 +18,7 @@ use Ergonode\Workflow\Infrastructure\Provider\CreateWorkflowCommandFactoryProvid
  */
 class CreateWorkflowCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'component.workflow.create_workflow_command_factory_interface';
-
+    public const TAG = 'component.workflow.create_workflow_command_factory';
     /**
      * @param ContainerBuilder $container
      */

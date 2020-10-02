@@ -30,7 +30,7 @@ use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 class ProductWorkflowAction
 {
     /**
-     * @var ProductWorkflowQuery $query ;
+     * @var ProductWorkflowQuery $query
      */
     private ProductWorkflowQuery $query;
 

@@ -15,6 +15,7 @@ use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
@@ -35,15 +36,17 @@ class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
      * @param TokenStorageInterface        $tokenStorage
      * @param WorkflowProvider             $provider
      * @param LanguageQueryInterface       $query
+     * @param Security                     $security
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage,
         WorkflowProvider $provider,
-        LanguageQueryInterface $query
+        LanguageQueryInterface $query,
+        Security $security
     ) {
-        parent::__construct($productRepository, $tokenStorage, $provider, $query);
+        parent::__construct($productRepository, $tokenStorage, $provider, $query, $security);
         $this->attributeRepository = $attributeRepository;
     }
 

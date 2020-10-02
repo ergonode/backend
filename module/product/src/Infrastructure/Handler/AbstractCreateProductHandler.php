@@ -18,6 +18,8 @@ use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Security;
 
 /**
  */
@@ -44,21 +46,29 @@ abstract class AbstractCreateProductHandler
     protected LanguageQueryInterface $query;
 
     /**
+     * @var Security
+     */
+    private Security $security;
+
+    /**
      * @param ProductRepositoryInterface $productRepository
      * @param TokenStorageInterface      $tokenStorage
      * @param WorkflowProvider           $provider
      * @param LanguageQueryInterface     $query
+     * @param Security                   $security
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         TokenStorageInterface $tokenStorage,
         WorkflowProvider $provider,
-        LanguageQueryInterface $query
+        LanguageQueryInterface $query,
+        Security $security
     ) {
         $this->productRepository = $productRepository;
         $this->tokenStorage = $tokenStorage;
         $this->provider = $provider;
         $this->query = $query;
+        $this->security = $security;
     }
 
     /**
@@ -88,13 +98,13 @@ abstract class AbstractCreateProductHandler
      */
     protected function addAudit(array $attributes): array
     {
-        $token = $this->tokenStorage->getToken();
-        if ($token) {
-            /** @var User $user */
-            $user = $token->getUser();
-            $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
-            $attributes[CreatedBySystemAttribute::CODE] = $value;
+        /** @var User $user */
+        $user = $this->security->getUser();
+        if (!$user) {
+            throw new AuthenticationException();
         }
+        $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
+        $attributes[CreatedBySystemAttribute::CODE] = $value;
 
         return $attributes;
     }

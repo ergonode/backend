@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Persistence\Dbal\Projector;
 
+use Doctrine\Common\Collections\Expr\Value;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -45,19 +46,26 @@ abstract class AbstractProductValueProjector
      */
     protected function insertValue(string $productId, string $attributeId, ValueInterface $value): void
     {
-        if ($value instanceof StringValue) {
-            $this->insert($productId, $attributeId, (string) $value);
-        } elseif ($value instanceof StringCollectionValue) {
-            foreach ($value->getValue() as $language => $phrase) {
-                $this->insert($productId, $attributeId, $phrase, $language);
-            }
-        } elseif ($value instanceof TranslatableStringValue) {
-            $translation = $value->getValue();
-            foreach ($translation as $language => $phrase) {
-                $this->insert($productId, $attributeId, $phrase, $language);
-            }
-        } else {
-            throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue()))));
+        $class = get_class($value);
+        switch ($class) {
+            case StringValue::class:
+                $this->insert($productId, $attributeId, (string) $value);
+                break;
+            case StringCollectionValue::class:
+                foreach ($value->getValue() as $language => $phrase) {
+                    $this->insert($productId, $attributeId, $phrase, $language);
+                }
+                break;
+            case TranslatableStringValue::class:
+                $translation = $value->getValue();
+                foreach ($translation as $language => $phrase) {
+                    $this->insert($productId, $attributeId, $phrase, $language);
+                }
+                break;
+            default:
+                throw new \RuntimeException(
+                    sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue())))
+                );
         }
     }
 
