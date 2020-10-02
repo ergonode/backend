@@ -16,6 +16,22 @@ Feature: Core module - unit
     Then the response status code should be 201
     And store response param "id" as "unit_id_1"
 
+  Scenario: Create unit 2
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And remember param "unit_name_2" with value "@@random_md5@@"
+    And remember param "unit_symbol_2" with value "@@random_symbol@@"
+    And I send a "POST" request to "/api/v1/en_GB/units" with body:
+      """
+      {
+        "name": "@unit_name_2@",
+        "symbol": "@unit_symbol_2@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "unit_id_2"
+
   Scenario: Create unit (not authorized)
     When I send a POST request to "/api/v1/en_GB/units"
     Then the response status code should be 401
@@ -122,18 +138,57 @@ Feature: Core module - unit
       """
     Then the response status code should be 400
 
-  Scenario: Update unit
+  Scenario: Update unit (with the same name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a PUT request to "/api/v1/en_GB/units/@unit_id_1@" with body:
       """
       {
-        "name": "Name changed",
-        "symbol": "nc1"
+        "name": "@unit_name_1@",
+        "symbol": "@@random_symbol@@"
       }
       """
     Then the response status code should be 204
+
+  Scenario: Update unit (with existing name)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en_GB/units/@unit_id_1@" with body:
+      """
+      {
+        "name": "@unit_name_2@",
+        "symbol": "@@random_symbol@@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Update unit (with the same symbol)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en_GB/units/@unit_id_1@" with body:
+      """
+      {
+        "name": "@@random_md5@@",
+        "symbol": "@unit_symbol_1@"
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Update unit (with existing symbol)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en_GB/units/@unit_id_1@" with body:
+      """
+      {
+        "name": "@@random_md5@@",
+        "symbol": "@unit_symbol_2@"
+      }
+      """
+    Then the response status code should be 400
 
   Scenario: Update unit (not authorized)
     When I send a PUT request to "/api/v1/en_GB/units/@unit_id_1@"
