@@ -33,11 +33,11 @@ class UpdateRoleCommand implements DomainCommandInterface
     private string $name;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $description;
+    private ?string $description;
 
     /**
      * @var Privilege[]
@@ -49,10 +49,10 @@ class UpdateRoleCommand implements DomainCommandInterface
     /**
      * @param RoleId      $id
      * @param string      $name
-     * @param string      $description
+     * @param string|null $description
      * @param Privilege[] $privileges
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [])
+    public function __construct(RoleId $id, string $name, ?string $description = null, array $privileges = [])
     {
         $this->id = $id;
         $this->name = $name;
@@ -77,9 +77,9 @@ class UpdateRoleCommand implements DomainCommandInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

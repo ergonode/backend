@@ -17,41 +17,41 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractStringBasedChangedEvent implements DomainEventInterface
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $from;
+    private ?string $from;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $to;
+    private ?string $to;
 
     /**
-     * @param string $from
-     * @param string $to
+     * @param ?string $from
+     * @param ?string $to
      */
-    public function __construct(string $from, string $to)
+    public function __construct(?string $from, ?string $to)
     {
         $this->from = $from;
         $this->to = $to;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFrom(): string
+    public function getFrom(): ?string
     {
         return $this->from;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTo(): string
+    public function getTo(): ?string
     {
         return $this->to;
     }

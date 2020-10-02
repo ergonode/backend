@@ -24,14 +24,10 @@ class DbalImportErrorMapper
     {
         $importId = $importLine->getImportId()->getValue();
         $createdAt = $importLine->getCreatedAt();
-        $line = $importLine->getLine();
-        $step = $importLine->getStep();
         $message = $importLine->getMessage();
 
         return [
             'import_id' => $importId,
-            'line' => $line,
-            'step' => $step,
             'created_at' => $createdAt,
             'message' => $message,
         ];

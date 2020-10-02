@@ -26,11 +26,11 @@ class RoleDescriptionChangedEvent extends AbstractStringBasedChangedEvent
     private RoleId $id;
 
     /**
-     * @param RoleId $id
-     * @param string $from
-     * @param string $to
+     * @param RoleId      $id
+     * @param string|null $from
+     * @param string|null $to
      */
-    public function __construct(RoleId $id, string $from, string $to)
+    public function __construct(RoleId $id, ?string $from, ?string $to)
     {
         $this->id = $id;
         parent::__construct($from, $to);

@@ -34,11 +34,11 @@ class CreateRoleCommand implements DomainCommandInterface
     private string $name;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $description;
+    private ?string $description;
 
     /**
      * @var Privilege[]
@@ -56,13 +56,13 @@ class CreateRoleCommand implements DomainCommandInterface
 
     /**
      * @param string      $name
-     * @param string      $description
+     * @param string|null $description
      * @param Privilege[] $privileges
      * @param bool        $hidden
      *
      * @throws \Exception
      */
-    public function __construct(string $name, string $description, array $privileges = [], bool $hidden = false)
+    public function __construct(string $name, ?string $description = null, array $privileges = [], bool $hidden = false)
     {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
@@ -90,9 +90,9 @@ class CreateRoleCommand implements DomainCommandInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
