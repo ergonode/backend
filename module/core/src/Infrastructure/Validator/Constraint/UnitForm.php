@@ -25,7 +25,17 @@ class UnitForm extends Constraint
     /**
      * @var string
      */
+    public string $emptyNameMessage = 'The unit name should not be empty.';
+
+    /**
+     * @var string
+     */
     public string $uniqueSymbolMessage = 'The unit symbol should be unique.';
+
+    /**
+     * @var string
+     */
+    public string $emptySymbolMessage = 'The unit symbol should not be empty.';
 
 
     /**

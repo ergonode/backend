@@ -56,21 +56,11 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    public function testCorrectEmptyNameValidation(): void
+    public function testCorrectValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
         $model->name = 'name';
         $this->query->method('findIdByName')->willReturn(null);
-
-        $this->validator->validate($model, new UnitForm());
-        $this->assertNoViolation();
-    }
-
-    /**
-     */
-    public function testCorrectEmptySymbolValidation(): void
-    {
-        $model = $this->createMock(UnitFormModel::class);
         $model->symbol = 'symbol';
         $this->query->method('findIdByCode')->willReturn(null);
 
@@ -80,25 +70,63 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    public function testCorrectNullValidation(): void
+    public function testCorrectNullNameValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
-        $model->symbol = null;
+        $model->symbol = 'symbol';
+        $this->query->method('findIdByCode')->willReturn(null);
         $model->name = null;
 
-        $this->validator->validate($model, new UnitForm());
-        $this->assertNoViolation();
+        $constraint = new UnitForm();
+        $this->validator->validate($model, $constraint);
+
+        $assertion = $this->buildViolation($constraint->emptyNameMessage);
+        $assertion->assertRaised();
     }
 
     /**
      */
-    public function testCorrectRaisedNameValidation(): void
+    public function testCorrectRaisedEmptyNameValidation(): void
+    {
+        $model = $this->createMock(UnitFormModel::class);
+        $model->symbol = 'symbol';
+        $this->query->method('findIdByCode')->willReturn(null);
+        $model->name = null;
+
+        $constraint = new UnitForm();
+        $this->validator->validate($model, $constraint);
+
+        $assertion = $this->buildViolation($constraint->emptyNameMessage);
+        $assertion->assertRaised();
+    }
+
+    /**
+     */
+    public function testCorrectRaisedEmptySymbolValidation(): void
+    {
+        $model = $this->createMock(UnitFormModel::class);
+        $model->name = 'name';
+        $this->query->method('findIdByName')->willReturn(null);
+        $model->symbol = null;
+
+        $constraint = new UnitForm();
+        $this->validator->validate($model, $constraint);
+
+        $assertion = $this->buildViolation($constraint->emptySymbolMessage);
+        $assertion->assertRaised();
+    }
+
+    /**
+     */
+    public function testCorrectRaisedUniqueNameValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
         $model = $this->createMock(UnitFormModel::class);
         $model->name = 'name';
         $model->method('getUnitId')->willReturn(new UnitId($uuid));
         $this->query->method('findIdByName')->willReturn($this->createMock(UnitId::class));
+        $model->symbol = 'symbol';
+        $this->query->method('findIdByCode')->willReturn(null);
         $constraint = new UnitForm();
 
         $this->validator->validate($model, $constraint);
@@ -109,13 +137,15 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    public function testCorrectRaisedSymbolValidation(): void
+    public function testCorrectRaisedUniqueSymbolValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
         $model = $this->createMock(UnitFormModel::class);
-        $model->symbol = 'AB';
+        $model->name = 'symbol';
         $model->method('getUnitId')->willReturn(new UnitId($uuid));
         $this->query->method('findIdByCode')->willReturn($this->createMock(UnitId::class));
+        $model->symbol = 'name';
+        $this->query->method('findIdByName')->willReturn(null);
         $constraint = new UnitForm();
 
         $this->validator->validate($model, $constraint);

@@ -48,21 +48,45 @@ class UnitFormValidator extends ConstraintValidator
         if (!$value instanceof UnitFormModel) {
             throw new UnexpectedTypeException($value, UnitFormModel::class);
         }
+        $this->validateName($value, $constraint);
+        $this->validateSymbol($value, $constraint);
+    }
 
-        if (isset($value->name)) {
-            $unitIdByName = $this->query->findIdByName($value->name);
-            if (null !== $unitIdByName && $unitIdByName != $value->getUnitId()) {
-                $this->context->buildViolation($constraint->uniqueNameMessage)
-                    ->addViolation();
-            }
+    /**
+     * @param            $value
+     * @param Constraint $constraint
+     */
+    private function validateName($value, Constraint $constraint)
+    {
+        if (!isset($value->name) || null == $value->name) {
+            $this->context->buildViolation($constraint->emptyNameMessage)
+                ->addViolation();
+
+            return;
         }
-        if (isset($value->symbol)) {
-            $unitIdSymbol = $this->query->findIdByCode($value->symbol);
+        $unitIdByName = $this->query->findIdByName($value->name);
+        if (null !== $unitIdByName && $unitIdByName != $value->getUnitId()) {
+            $this->context->buildViolation($constraint->uniqueNameMessage)
+                ->addViolation();
+        }
+    }
 
-            if (null !== $unitIdSymbol && $unitIdSymbol != $value->getUnitId()) {
-                $this->context->buildViolation($constraint->uniqueSymbolMessage)
-                    ->addViolation();
-            }
+    /**
+     * @param            $value
+     * @param Constraint $constraint
+     */
+    private function validateSymbol($value, Constraint $constraint)
+    {
+        if (!isset($value->symbol) || null === $value->symbol) {
+            $this->context->buildViolation($constraint->emptySymbolMessage)
+                ->addViolation();
+
+            return;
+        }
+        $unitIdBySymbol = $this->query->findIdByCode($value->symbol);
+        if (null !== $unitIdBySymbol && $unitIdBySymbol != $value->getUnitId()) {
+            $this->context->buildViolation($constraint->uniqueSymbolMessage)
+                ->addViolation();
         }
     }
 }
