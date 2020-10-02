@@ -99,14 +99,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function findProductIdByTemplateId(TemplateId $templateId): array
-    {
-        return $this->query->findProductIdByTemplateId($templateId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getAllSkus(): array
     {
         return $this->query->getAllSkus();
@@ -126,6 +118,16 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array
     {
         return $this->query->findProductIdByAttributeId($attributeId, $valueId);
+    }
+
+    /**
+     * @param TemplateId $templateId
+     *
+     * @return array
+     */
+    public function findProductIdsByTemplate(TemplateId $templateId): array
+    {
+        return $this->query->findProductIdsByTemplate($templateId);
     }
 
     /**

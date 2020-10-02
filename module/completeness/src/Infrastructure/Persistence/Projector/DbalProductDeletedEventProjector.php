@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Editor\Infrastructure\Persistence\Projector;
+namespace Ergonode\Completeness\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,10 +15,9 @@ use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 
 /**
  */
-class DbalProductDeleteEventProjector
+class DbalProductDeletedEventProjector
 {
-    private const TABLE = 'designer.product';
-    private const DRAFT_TABLE = 'designer.draft';
+    private const TABLE = 'product_completeness';
 
     /**
      * @var Connection
@@ -42,13 +41,6 @@ class DbalProductDeleteEventProjector
     {
         $this->connection->delete(
             self::TABLE,
-            [
-                'product_id' => $event->getAggregateId()->getValue(),
-            ]
-        );
-
-        $this->connection->delete(
-            self::DRAFT_TABLE,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
             ]
