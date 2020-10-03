@@ -20,6 +20,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer": "^3.4",
         "jms/serializer-bundle": "^3.4",
+        "league/csv": "^9.6",
         "league/flysystem-bundle": "^1.5",
         "lexik/jwt-authentication-bundle": "^2.6",
         "limenius/liform-bundle": "^0.15.0",
@@ -111,6 +112,7 @@
             "Ergonode\\Generator\\": "module/generator/src",
             "Ergonode\\Grid\\": "module/grid/src",
             "Ergonode\\Importer\\": "module/importer/src",
+            "Ergonode\\ImporterErgonode\\": "module/importer-ergonode/src",
             "Ergonode\\ImporterMagento1\\": "module/importer-magento-1/src",
             "Ergonode\\ImporterMagento2\\": "module/importer-magento-2/src",
             "Ergonode\\Migration\\": "module/migration/src",
@@ -150,6 +152,7 @@
             "Ergonode\\Generator\\Tests\\": "module/generator/tests",
             "Ergonode\\Grid\\Tests\\": "module/grid/tests",
             "Ergonode\\Importer\\Tests\\": "module/importer/tests",
+            "Ergonode\\ImporterErgonode\\Tests\\": "module/importer-ergonode/tests",
             "Ergonode\\ImporterMagento1\\Tests\\": "module/importer-magento-1/tests",
             "Ergonode\\ImporterMagento2\\Tests\\": "module/importer-magento-2/tests",
             "Ergonode\\Migration\\Tests\\": "module/migration/src",
@@ -185,7 +188,7 @@
             "@auto-scripts"
         ],
         "behat": [
-            "php -d error_reporting='E_ALL & ~E_DEPRECATED'  ./bin/behat --colors --stop-on-failure"
+            "php -d error_reporting='E_ALL & ~E_DEPRECATED' ./bin/behat --colors --stop-on-failure"
         ]
     },
     "conflict": {

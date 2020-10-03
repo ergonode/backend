@@ -23,6 +23,7 @@ return [
     Ergonode\Fixture\ErgonodeFixtureBundle::class => ['dev' => true, 'test' => true],
     Ergonode\Generator\ErgonodeGeneratorBundle::class => ['dev' => true],
     Ergonode\Grid\ErgonodeGridBundle::class => ['all' => true],
+    Ergonode\ImporterErgonode\ErgonodeImporterErgonodeBundle::class => ['all' => true],
     Ergonode\ImporterMagento1\ErgonodeImporterMagento1Bundle::class => ['all' => true],
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
     Ergonode\Migration\MigrationBundle::class => ['all' => true],

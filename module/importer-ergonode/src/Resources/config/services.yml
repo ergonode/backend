@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\ImporterErgonode\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\ImporterErgonode\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity}'
+
+    Ergonode\ImporterErgonode\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Processor}'
+
+    Ergonode\ImporterErgonode\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeCsvReader:
+        arguments:
+            $directory: '%import_directory%'

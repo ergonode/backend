@@ -2,7 +2,7 @@ framework:
     messenger:
         buses:
             event.bus:
-                default_middleware: allow_no_handlers
+                default_middleware: 'allow_no_handlers'
                 middleware:
                     - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
             messenger.bus.sync:
@@ -14,44 +14,44 @@ framework:
                 middleware:
                     - 'send_message'
                     - 'handle_message'
-        default_bus: messenger.bus.sync
+        default_bus: 'messenger.bus.sync'
         transports:
-            import: "%env(MESSENGER_TRANSPORT_IMPORT_DSN)%"
-            channel: "%env(MESSENGER_TRANSPORT_CHANNEL_DSN)%"
-            export: "%env(MESSENGER_TRANSPORT_EXPORT_DSN)%"
-            core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
-            event: "%env(MESSENGER_TRANSPORT_DOMAIN_DSN)%"
-            segment: "%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%"
-            completeness: "%env(MESSENGER_TRANSPORT_COMPLETENESS_DSN)%"
+            import: '%env(MESSENGER_TRANSPORT_IMPORT_DSN)%'
+            channel: '%env(MESSENGER_TRANSPORT_CHANNEL_DSN)%'
+            export: '%env(MESSENGER_TRANSPORT_EXPORT_DSN)%'
+            core: '%env(MESSENGER_TRANSPORT_CORE_DSN)%'
+            event: '%env(MESSENGER_TRANSPORT_DOMAIN_DSN)%'
+            segment: '%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%'
+            completeness: '%env(MESSENGER_TRANSPORT_COMPLETENESS_DSN)%'
         routing:
-            'Ergonode\Importer\Domain\Command\Import\StartImportCommand' : import
-            'Ergonode\Importer\Domain\Command\Import\StopImportCommand' : import
-            'Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand': import
-            'Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand': import
-            'Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand': import
-            'Ergonode\Importer\Domain\Command\Import\ImportOptionCommand': import
-            'Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand': import
-            'Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand': import
-            'Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand': import
-            'Ergonode\Importer\Domain\Command\Import\EndImportCommand' : import
-            'Ergonode\Segment\Domain\Command\CalculateProductCommand': segment
-            'Ergonode\Segment\Domain\Command\CalculateSegmentCommand': segment
-            'Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand': segment
-            'Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand': completeness
-#            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
-#            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
-            'Ergonode\Category\Domain\Command\CreateCategoryCommand': core
-            'Ergonode\Category\Domain\Command\UpdateCategoryCommand': core
-            'Ergonode\Designer\Domain\Command\CreateTemplateCommand': core
-            'Ergonode\Designer\Domain\Command\UpdateTemplateCommand': core
-            'Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\ProcessProductCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand': export
-            'Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand': export
-            'Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand': export
-            'Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand': export
+            'Ergonode\Importer\Domain\Command\Import\StartImportCommand' : 'import'
+            'Ergonode\Importer\Domain\Command\Import\StopImportCommand' : 'import'
+            'Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand': 'import'
+            'Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand': 'import'
+            'Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand': 'import'
+            'Ergonode\Importer\Domain\Command\Import\ImportOptionCommand': 'import'
+            'Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand': 'import'
+            'Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand': 'import'
+            'Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand': 'import'
+            'Ergonode\Importer\Domain\Command\Import\EndImportCommand': 'import'
+            'Ergonode\Segment\Domain\Command\CalculateProductCommand': 'segment'
+            'Ergonode\Segment\Domain\Command\CalculateSegmentCommand': 'segment'
+            'Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand': 'segment'
+            'Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand': 'completeness'
+#            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': 'core'
+#            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': 'core'
+            'Ergonode\Category\Domain\Command\CreateCategoryCommand': 'core'
+            'Ergonode\Category\Domain\Command\UpdateCategoryCommand': 'core'
+            'Ergonode\Designer\Domain\Command\CreateTemplateCommand': 'core'
+            'Ergonode\Designer\Domain\Command\UpdateTemplateCommand': 'core'
+            'Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessProductCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand': 'export'
+            'Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand': 'export'
+            'Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand': 'export'
+            'Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand': 'export'
