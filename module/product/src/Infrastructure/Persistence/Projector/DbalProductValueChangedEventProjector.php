@@ -68,7 +68,9 @@ class DbalProductValueChangedEventProjector
             $this->insert($productId, $attributeId, $phrase);
         } elseif ($value instanceof StringCollectionValue) {
             foreach ($value->getValue() as $language => $phrase) {
-                $this->insert($productId, $attributeId, $phrase, $language);
+                if ($phrase) {
+                    $this->insert($productId, $attributeId, $phrase, $language);
+                }
             }
         } elseif ($value instanceof TranslatableStringValue) {
             $translation = $value->getValue();

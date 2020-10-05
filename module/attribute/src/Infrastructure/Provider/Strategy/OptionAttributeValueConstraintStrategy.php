@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Symfony\Component\Validator\Constraints\Unique;
 
 /**
  */
@@ -55,11 +56,15 @@ class OptionAttributeValueConstraintStrategy implements AttributeValueConstraint
         $multiple = $attribute instanceof MultiSelectAttribute;
 
         $options = $this->query->getOptions($attribute->getId());
-
-        return new Collection([
+        $constrains = [
             'value' => [
                 new Choice(['choices' => $options, 'multiple' => $multiple]),
-            ],
-        ]);
+            ], ];
+
+        if ($multiple) {
+            $constrains['value'][] = new Unique();
+        }
+
+        return new Collection($constrains);
     }
 }
