@@ -161,19 +161,19 @@ Feature: Core module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 
   Scenario: Get language autocomplete (not authorized)
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete"
     Then the response status code should be 401
 
   Scenario: Get language autocomplete (order by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete?field=code"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=code"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 
@@ -181,7 +181,7 @@ Feature: Core module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete?field=label"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=label"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 
@@ -189,7 +189,7 @@ Feature: Core module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete?field=active"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=active"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 
@@ -197,7 +197,7 @@ Feature: Core module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete?field=label&order=ASC"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=label&order=ASC"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 
@@ -205,7 +205,7 @@ Feature: Core module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete?field=label&order=DESC"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=label&order=DESC"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 
@@ -213,5 +213,5 @@ Feature: Core module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/language/autocomplete?search=f&limit=1"
+    When I send a GET request to "/api/v1/en_GB/languages/autocomplete?search=f&limit=1"
     And the JSON should be valid according to the schema "module/core/features/language.json"
