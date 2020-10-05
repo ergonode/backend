@@ -340,19 +340,19 @@ Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
       - '<workflowId()>'
       - 'default'
       -
-        - '<statusCode("new")>'
-        - '<statusCode("draft")>'
-        - '<statusCode("to approve")>'
-        - '<statusCode("ready to publish")>'
-        - '<statusCode("to correct")>'
-        - '<statusCode("published")>'
+        - '@status_new->id'
+        - '@status_draft->id'
+        - '@status_to_approve->id'
+        - '@status_ready_to_publish->id'
+        - '@status_to_correct->id'
+        - '@status_published->id'
 
 Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
   add_status_new:
     __construct:
       - '@default_workflow->id'
-      - '<statusCode("new")>'
-      - '<statusCode("draft")>'
+      - '@status_new->id'
+      - '@status_draft->id'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
   attribute_esa_status:

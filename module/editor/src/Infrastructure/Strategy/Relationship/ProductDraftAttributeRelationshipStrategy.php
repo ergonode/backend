@@ -11,7 +11,6 @@ namespace Ergonode\Editor\Infrastructure\Strategy\Relationship;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 

@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 use Ergonode\Workflow\Infrastructure\Grid\TransitionGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  * @Route(
@@ -111,7 +111,7 @@ class TransitionGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -124,17 +124,17 @@ class TransitionGridReadAction
      *     description="Returns statuses collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Workflow                 $workflow
+     * @param AbstractWorkflow         $workflow
      * @param Language                 $language
      * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function __invoke(Workflow $workflow, Language $language, RequestGridConfiguration $configuration): Response
-    {
+    public function __invoke(
+        AbstractWorkflow $workflow,
+        Language $language,
+        RequestGridConfiguration $configuration
+    ): Response {
         $data = $this->gridRenderer->render(
             $this->grid,
             $configuration,

@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Domain\Calculator\Strategy;
 
-use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
 /**
  */
@@ -34,7 +34,7 @@ class UiTemplateElementCompletenessStrategy implements TemplateElementCompletene
         ProductDraft $draft,
         Language $language,
         TemplateElementPropertyInterface $properties
-    ): ?CompletenessElementReadModel {
+    ): ?CompletenessCalculatorLine {
         return null;
     }
 }

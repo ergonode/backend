@@ -107,7 +107,7 @@ class UnitChangeAction
     public function __invoke(Unit $unit, Request $request): Response
     {
         try {
-            $model = new UnitFormModel();
+            $model = new UnitFormModel($unit->getId());
             $form = $this->formFactory->create(
                 UnitForm::class,
                 $model,

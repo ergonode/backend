@@ -10,58 +10,44 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Handler\Create;
 
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
-class CreateVariableProductCommandHandler
+class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
-    private ProductRepositoryInterface $productRepository;
-
     /**
      * @var AttributeRepositoryInterface
      */
     private AttributeRepositoryInterface $attributeRepository;
 
     /**
-     * @var TokenStorageInterface
-     */
-    private TokenStorageInterface   $tokenStorage;
-
-    /**
-     * @var WorkflowProvider
-     */
-    private WorkflowProvider $provider;
-
-    /**
      * @param ProductRepositoryInterface   $productRepository
      * @param AttributeRepositoryInterface $attributeRepository
      * @param TokenStorageInterface        $tokenStorage
      * @param WorkflowProvider             $provider
+     * @param LanguageQueryInterface       $query
+     * @param Security                     $security
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage,
-        WorkflowProvider $provider
+        WorkflowProvider $provider,
+        LanguageQueryInterface $query,
+        Security $security
     ) {
-        $this->productRepository = $productRepository;
+        parent::__construct($productRepository, $tokenStorage, $provider, $query, $security);
         $this->attributeRepository = $attributeRepository;
-        $this->tokenStorage = $tokenStorage;
-        $this->provider = $provider;
     }
 
     /**
@@ -73,15 +59,8 @@ class CreateVariableProductCommandHandler
     {
         $attributes = $command->getAttributes();
 
-        $token = $this->tokenStorage->getToken();
-        if ($token) {
-            /** @var User $user */
-            $user = $token->getUser();
-            $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
-            $attributes[CreatedBySystemAttribute::CODE] = $value;
-        }
-        $workflow = $this->provider->provide();
-        $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
+        $attributes = $this->addAudit($attributes);
+        $attributes = $this->addStatusAttribute($attributes);
 
         $product = new VariableProduct(
             $command->getId(),
@@ -92,6 +71,7 @@ class CreateVariableProductCommandHandler
         );
 
         foreach ($command->getBindings() as $attributeId) {
+            /** @var SelectAttribute $attribute */
             $attribute = $this->attributeRepository->load($attributeId);
             Assert::isInstanceOf($attribute, SelectAttribute::class);
             $product->addBind($attribute);

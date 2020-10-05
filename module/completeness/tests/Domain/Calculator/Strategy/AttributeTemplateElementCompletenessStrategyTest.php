@@ -67,10 +67,9 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
     public function testGetElementCompleteness(): void
     {
         $attribute = $this->createMock(AbstractAttribute::class);
-        $attribute->expects($this->once())->method('getLabel');
         $this->repository->method('load')->willReturn($attribute);
         $draft = $this->createMock(ProductDraft::class);
-        $draft->expects($this->once())->method('hasAttribute')->willReturn(true);
+        $draft->expects(self::once())->method('hasAttribute')->willReturn(true);
         $language = $this->createMock(Language::class);
         $property = $this->createMock(AttributeTemplateElementProperty::class);
 

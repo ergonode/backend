@@ -32,6 +32,8 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
+    Ergonode\Workflow\Domain\Entity\Workflow:
+
     Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalStatusRepository'
     Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalWorkflowRepository'
     Ergonode\Workflow\Domain\Query\StatusQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery'

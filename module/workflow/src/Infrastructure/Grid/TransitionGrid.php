@@ -9,14 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Grid;
 
+use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Ergonode\Workflow\Infrastructure\Grid\Filter\Option\StatusOption;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -47,13 +48,13 @@ class TransitionGrid extends AbstractGrid
         $statuses = $this->statusQuery->getAllStatuses($language);
         $codes = [];
         foreach ($statuses as $code => $status) {
-            $codes[] = new FilterOption($code, $code, $status['name']);
+            $codes[] = new StatusOption($code, $code, new Color($status['color']), $status['name']);
         }
 
-        $code = new LabelColumn('source', 'From', $statuses, new MultiSelectFilter($codes));
+        $code = new LabelColumn('source', 'From', new MultiSelectFilter($codes));
         $this->addColumn('source', $code);
 
-        $code = new LabelColumn('destination', 'To', $statuses, new MultiSelectFilter($codes));
+        $code = new LabelColumn('destination', 'To', new MultiSelectFilter($codes));
         $this->addColumn('destination', $code);
 
         $this->addColumn('_links', new LinkColumn('hal', [
