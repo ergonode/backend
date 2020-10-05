@@ -18,6 +18,7 @@ use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 class DbalProductDeleteEventProjector
 {
     private const TABLE = 'designer.product';
+    private const DRAFT_TABLE = 'designer.draft';
 
     /**
      * @var Connection
@@ -41,6 +42,13 @@ class DbalProductDeleteEventProjector
     {
         $this->connection->delete(
             self::TABLE,
+            [
+                'product_id' => $event->getAggregateId()->getValue(),
+            ]
+        );
+
+        $this->connection->delete(
+            self::DRAFT_TABLE,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
             ]

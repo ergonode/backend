@@ -21,10 +21,9 @@ class LabelColumnTest extends TestCase
     {
         $field = 'any_id';
         $label = 'Any url';
-        $statuses = [];
         $filter = $this->createMock(FilterInterface::class);
 
-        $column = new LabelColumn($field, $label, $statuses, $filter);
+        $column = new LabelColumn($field, $label, $filter);
         $this->assertSame($field, $column->getField());
         $this->assertSame($label, $column->getLabel());
         $this->assertSame('LABEL', $column->getType());

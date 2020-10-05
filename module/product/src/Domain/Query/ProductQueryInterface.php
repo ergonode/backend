@@ -17,6 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -80,6 +81,13 @@ interface ProductQueryInterface
      * @return array
      */
     public function findProductIdsBySegments(array $segmentIds): array;
+
+    /**
+     * @param TemplateId $templateId
+     *
+     * @return ProductId[]
+     */
+    public function findProductIdsByTemplate(TemplateId $templateId): array;
 
     /**
      * @param ProductId $id

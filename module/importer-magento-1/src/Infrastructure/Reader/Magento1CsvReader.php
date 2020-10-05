@@ -10,11 +10,11 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Reader;
 
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
-use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
-use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
+use Ergonode\Reader\Infrastructure\Exception\ReaderException;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
+use Ergonode\Product\Domain\ValueObject\Sku;
 
 /**
  */
@@ -26,106 +26,171 @@ class Magento1CsvReader
     private ConverterMapperProvider $mapper;
 
     /**
-     * @var ReaderProcessorProvider
-     */
-    private ReaderProcessorProvider $provider;
-
-    /**
      * @var string
      */
     private string $directory;
 
     /**
+     * @var mixed
+     */
+    private $file;
+
+    /**
+     * @var array
+     */
+    private array $headers;
+
+
+    /**
      * @param ConverterMapperProvider $mapper
-     * @param ReaderProcessorProvider $provider
      * @param string                  $directory
      */
-    public function __construct(
-        ConverterMapperProvider $mapper,
-        ReaderProcessorProvider $provider,
-        string $directory
-    ) {
+    public function __construct(ConverterMapperProvider $mapper, string $directory)
+    {
         $this->mapper = $mapper;
-        $this->provider = $provider;
         $this->directory = $directory;
     }
 
     /**
-     * @param Magento1CsvSource $source
-     * @param Import            $import
-     * @param Transformer       $transformer
-     *
-     * @return array
+     * @param Import $import
      */
-    public function read(Magento1CsvSource $source, Import $import, Transformer $transformer): array
+    public function open(Import $import): void
     {
-        $errors = [];
-        $filename = \sprintf('%s%s', $this->directory, $import->getFile());
-        $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        $fileReader = $this->provider->provide($extension);
+        $file = \sprintf('%s%s', $this->directory, $import->getFile());
 
-        $products = [];
+        try {
+            $this->file = \fopen($file, 'rb');
+            if (false === $this->file) {
+                throw new \RuntimeException(sprintf('cant\' open "%s" file', $file));
+            }
+            $this->headers = $this->getCSV();
+            foreach ($this->headers as $key => $header) {
+                $header = trim($header, "\xEF\xBB\xBF"); // remove BOM from headers
+
+                $this->headers[$key] = trim($header);
+            }
+        } catch (\Exception $exception) {
+            throw new \RuntimeException(sprintf('cant\' process "%s" file', $file));
+        }
+    }
+
+    /**
+     */
+    public function close(): void
+    {
+        fclose($this->file);
+    }
+
+    /**
+     * @param Transformer $transformer
+     *
+     * @return ProductModel|null
+     *
+     * @throws ReaderException
+     */
+    public function read(Transformer $transformer): ?ProductModel
+    {
         $sku = null;
         $type = null;
-
-        $configuration = [
-            CsvReaderProcessor::DELIMITER => $source->getDelimiter(),
-            CsvReaderProcessor::ENCLOSURE => $source->getEnclosure(),
-            CsvReaderProcessor::ESCAPE => $source->getEscape(),
-        ];
-
-        $fileReader->open($filename, $configuration);
-        $add = false;
+        $template = null;
         $code = 'default';
+        $product = [];
 
-        foreach ($fileReader->read() as $line => $row) {
-            if (!empty($row['sku']) && !empty($row['_type'])) {
-                $add = true;
-                $sku = $row['sku'];
-                $products[$sku] = [];
-                $code = 'default';
-            } elseif (empty($row['sku']) && !empty($row['_type'])) {
-                $add = false;
-                $errors[] = sprintf('Line %s haven\'t SKU, (ignored) previous SKU "%s"', $line, $sku);
+        $lines = $this->getLines();
+        foreach ($lines as $line) {
+            if (!empty($line['_store']) && $code !== $line['_store']) {
+                $code = $line['_store'];
             }
-            if ($add) {
-                if (!empty($row['_store']) && $code !== $row['_store']) {
-                    $code = $row['_store'];
-                }
-                $row = $this->process($transformer, $row);
-                if (!array_key_exists($code, $products[$sku])) {
-                    $products[$sku][$code] = $row;
-                } else {
-                    foreach ($row as $field => $value) {
-                        if ('' !== $value && null !== $value) {
-                            if ($products[$sku][$code][$field] !== '') {
-                                if ('default' === $code) {
-                                    $products[$sku][$code][$field] = $value;
-                                } else {
-                                    $products[$sku][$code][$field] .= ','.$value;
-                                }
+
+            if (null === $sku) {
+                $sku = $line['sku'];
+                $type = $line['_type'];
+                $template = $line['_attribute_set'];
+            }
+
+            $line = $this->process($transformer, $line);
+
+            if (!array_key_exists($code, $product)) {
+                $product[$code] = $line;
+            } else {
+                foreach ($line as $field => $value) {
+                    if ('' !== $value && null !== $value) {
+                        if ($product[$code][$field] !== '') {
+                            if ('default' === $code) {
+                                $product[$code][$field] = $value;
                             } else {
-                                $products[$sku][$code][$field] = $value;
+                                $product[$code][$field] .= ','.$value;
                             }
+                        } else {
+                            $product[$code][$field] = $value;
                         }
                     }
                 }
             }
         }
 
+        if (!empty($product)) {
+            $result = new ProductModel(new Sku($sku), $type, $template);
 
-        foreach ($products as $sku => $product) {
-            foreach ($product as $code => $version) {
-                foreach ($version as $field => $value) {
-                    if (null === $value) {
-                        unset($products[$sku][$code][$field]);
+            foreach ($product as $store => $version) {
+                $result->set($store, $version);
+            }
+
+            return $result;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return array
+     *
+     * @throws ReaderException
+     */
+    private function getLines(): array
+    {
+        $lines = [];
+        $line = $this->readLine();
+        if ($line) {
+            $lines[] = $line;
+            $offset = ftell($this->file);
+            if (!empty($lines)) {
+                while ($line = $this->readLine()) {
+                    if ($line['sku'] !== '') {
+                        fseek($this->file, $offset);
+                        break;
                     }
+                    $offset = ftell($this->file);
+                    $lines[] = $line;
                 }
             }
         }
 
+        return $lines;
+    }
 
-        return $products;
+    /**
+     * @return array|null
+     *
+     * @throws ReaderException
+     */
+    private function readLine(): ?array
+    {
+        $row = $this->getCSV();
+        if ($row) {
+            foreach ($row as $key => $field) {
+                $row[$key] = trim($field);
+            }
+            if (count($this->headers) !== count($row)) {
+                $message = 'The number of fields is different from the number of headers';
+
+                throw new ReaderException($message);
+            }
+
+            return array_combine($this->headers, $row);
+        }
+
+        return null;
     }
 
     /**
@@ -134,7 +199,7 @@ class Magento1CsvReader
      *
      * @return array
      */
-    public function process(Transformer $transformer, array $record): array
+    private function process(Transformer $transformer, array $record): array
     {
         $result = [];
 
@@ -153,5 +218,13 @@ class Magento1CsvReader
         }
 
         return $result;
+    }
+
+    /**
+     * @return array|false|null
+     */
+    private function getCSV()
+    {
+        return fgetcsv($this->file);
     }
 }
