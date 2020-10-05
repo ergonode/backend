@@ -12,13 +12,13 @@ namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Workflow\Domain\Command\Status\SetDefaultStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  * @Route(
@@ -71,18 +71,17 @@ class WorkflowDefaultStatusSetAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
      *
-     * @param Workflow $workflow
-     * @param Status   $status
+     * @param AbstractWorkflow $workflow
+     * @param Status           $status
      *
      * @return Response
      *
      */
-    public function __invoke(Workflow $workflow, Status $status): Response
+    public function __invoke(AbstractWorkflow $workflow, Status $status): Response
     {
-        $command = new SetDefaultStatusCommand($workflow->getId(), $status->getCode());
+        $command = new SetDefaultStatusCommand($workflow->getId(), $status->getId());
 
         $this->commandBus->dispatch($command);
 

@@ -14,9 +14,9 @@ use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -30,18 +30,18 @@ class Transition extends AbstractEntity
     private TransitionId $id;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private StatusCode $from;
+    private StatusId $from;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private StatusCode $to;
+    private StatusId $to;
 
     /**
      * @var ConditionSetId|null
@@ -59,15 +59,15 @@ class Transition extends AbstractEntity
 
     /**
      * @param TransitionId        $id
-     * @param StatusCode          $from
-     * @param StatusCode          $to
+     * @param StatusId            $from
+     * @param StatusId            $to
      * @param RoleId[]            $roleIds
      * @param ConditionSetId|null $conditionSetId
      */
     public function __construct(
         TransitionId $id,
-        StatusCode $from,
-        StatusCode $to,
+        StatusId $from,
+        StatusId $to,
         array $roleIds = [],
         ?ConditionSetId $conditionSetId = null
     ) {
@@ -87,17 +87,17 @@ class Transition extends AbstractEntity
     }
 
     /**
-     * @return StatusCode
+     * @return StatusId
      */
-    public function getFrom(): StatusCode
+    public function getFrom(): StatusId
     {
         return $this->from;
     }
 
     /**
-     * @return StatusCode
+     * @return StatusId
      */
-    public function getTo(): StatusCode
+    public function getTo(): StatusId
     {
         return $this->to;
     }

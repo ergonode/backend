@@ -41,8 +41,8 @@ class DbalWorkflowTransitionAddedEventProjector
             self::TABLE,
             [
                 'workflow_id' => $event->getAggregateId()->getValue(),
-                'source_id' => StatusId::fromCode($event->getTransition()->getFrom()->getValue())->getValue(),
-                'destination_id' => StatusId::fromCode($event->getTransition()->getTo()->getValue())->getValue(),
+                'source_id' => $event->getTransition()->getFrom()->getValue(),
+                'destination_id' => $event->getTransition()->getTo()->getValue(),
             ]
         );
     }

@@ -9,19 +9,20 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
-use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Infrastructure\Builder\WorkflowValidatorBuilder;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Workflow\Application\Provider\WorkflowFormProvider;
+use Ergonode\Workflow\Infrastructure\Provider\CreateWorkflowCommandFactoryProvider;
 
 /**
  * @Route(
@@ -33,19 +34,19 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 class WorkflowCreateAction
 {
     /**
-     * @var WorkflowValidatorBuilder
+     * @var FormFactoryInterface
      */
-    private WorkflowValidatorBuilder $builder;
+    private FormFactoryInterface $formFactory;
 
     /**
-     * @var ValidatorInterface
+     * @var WorkflowFormProvider
      */
-    private ValidatorInterface $validator;
+    private WorkflowFormProvider $formProvider;
 
     /**
-     * @var SerializerInterface
+     * @var CreateWorkflowCommandFactoryProvider
      */
-    private SerializerInterface $serializer;
+    private CreateWorkflowCommandFactoryProvider $commandProvider;
 
     /**
      * @var CommandBusInterface
@@ -53,20 +54,20 @@ class WorkflowCreateAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param WorkflowValidatorBuilder $builder
-     * @param ValidatorInterface       $validator
-     * @param SerializerInterface      $serializer
-     * @param CommandBusInterface      $commandBus
+     * @param FormFactoryInterface                 $formFactory
+     * @param WorkflowFormProvider                 $formProvider
+     * @param CreateWorkflowCommandFactoryProvider $commandProvider
+     * @param CommandBusInterface                  $commandBus
      */
     public function __construct(
-        WorkflowValidatorBuilder $builder,
-        ValidatorInterface $validator,
-        SerializerInterface $serializer,
+        FormFactoryInterface $formFactory,
+        WorkflowFormProvider $formProvider,
+        CreateWorkflowCommandFactoryProvider $commandProvider,
         CommandBusInterface $commandBus
     ) {
-        $this->builder = $builder;
-        $this->validator = $validator;
-        $this->serializer = $serializer;
+        $this->formFactory = $formFactory;
+        $this->formProvider = $formProvider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -106,24 +107,24 @@ class WorkflowCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        $data = $request->request->all();
+        $type = $request->request->get('type', Workflow::DEFAULT);
 
-        $violations = $this->validator->validate(
-            $data,
-            $this->builder->build($data),
-            ['Default', WorkflowValidatorBuilder::UNIQUE_WORKFLOW]
-        );
+        $class = $this->formProvider->provide($type);
+        $request->request->remove('type');
+        try {
+            $form = $this->formFactory->create($class, null, ['validation_groups' => ['Default', 'Create']]);
+            $form->handleRequest($request);
 
-        if (0 === $violations->count()) {
-            $data['id'] = WorkflowId::generate()->getValue();
-            /** @var CreateWorkflowCommand $command */
-            $command = $this->serializer->fromArray($data, CreateWorkflowCommand::class);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $command = $this->commandProvider->provide($type)->create($form);
+                $this->commandBus->dispatch($command);
 
-            $this->commandBus->dispatch($command);
-
-            return new CreatedResponse($command->getId());
+                return new CreatedResponse($command->getId());
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        throw new ViolationsHttpException($violations);
+        throw new FormValidationHttpException($form);
     }
 }

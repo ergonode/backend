@@ -14,9 +14,13 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
+use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 
 /**
  */
@@ -35,13 +39,23 @@ class DbalStatusQuery implements StatusQueryInterface
     private WorkflowProvider $workflowProvider;
 
     /**
-     * @param Connection       $connection
-     * @param WorkflowProvider $workflowProvider
+     * @var StatusRepositoryInterface
      */
-    public function __construct(Connection $connection, WorkflowProvider $workflowProvider)
-    {
+    private StatusRepositoryInterface $statusRepository;
+
+    /**
+     * @param Connection                $connection
+     * @param WorkflowProvider          $workflowProvider
+     * @param StatusRepositoryInterface $statusRepository
+     */
+    public function __construct(
+        Connection $connection,
+        WorkflowProvider $workflowProvider,
+        StatusRepositoryInterface $statusRepository
+    ) {
         $this->connection = $connection;
         $this->workflowProvider = $workflowProvider;
+        $this->statusRepository = $statusRepository;
     }
 
     /**
@@ -87,15 +101,15 @@ class DbalStatusQuery implements StatusQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        $records = $qb->select(sprintf('code, color, name->>\'%s\' as name', $language->getCode()))
+        $records = $qb->select(sprintf('id, code, color, name->>\'%s\' as name', $language->getCode()))
             ->from(self::STATUS_TABLE, 'a')
             ->execute()
             ->fetchAll();
 
         $result = [];
         foreach ($records as $record) {
-            $result[$record['code']]['color'] = $record['color'];
-            $result[$record['code']]['name'] = $record['name'];
+            $result[$record['id']]['color'] = $record['color'];
+            $result[$record['id']]['name'] = $record['name'];
         }
 
         return $result;
@@ -158,7 +172,7 @@ class DbalStatusQuery implements StatusQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(sprintf(
-                'id, code, code AS status, color, name->>\'%s\' as name, description->>\'%s\' as description',
+                'id, code, id AS status, color, name->>\'%s\' as name, description->>\'%s\' as description',
                 $language->getCode(),
                 $language->getCode()
             ))
@@ -172,14 +186,64 @@ class DbalStatusQuery implements StatusQueryInterface
      */
     private function sortStatusesByWorkflowTransitions(array $statuses): array
     {
-        $workflowSorted = $this->workflowProvider->provide()->getSortedTransitionStatuses();
+        $workflow = $this->workflowProvider->provide();
+        $workflowSorted = $this->sortTransitionStatuses($workflow);
         $sorted = [];
         foreach ($workflowSorted as $item) {
-            $sorted[] = $statuses[$item->getValue()];
-            unset($statuses[$item->getValue()]);
+            $sorted[] = $statuses[$item];
+            unset($statuses[$item]);
         }
         ksort($statuses);
 
         return array_merge($sorted, array_values($statuses));
+    }
+
+    /**
+     * @param AbstractWorkflow $workflow
+     *
+     * @return array
+     */
+    private function sortTransitionStatuses(AbstractWorkflow $workflow): array
+    {
+        $transitions = $workflow->getTransitions();
+
+        $defaultStatusCode = $this->getStatusCodeValueById($workflow->getDefaultStatus());
+        $code = $defaultStatusCode;
+        $sorted = [$code];
+        $transitions = new \ArrayIterator($transitions);
+        for (; $transitions->valid(); $hit ? $transitions->rewind() : $transitions->next()) {
+            $transition = $transitions->current();
+            $hit = false;
+            $transitionFromCode = $this->getStatusCodeValueById($transition->getFrom());
+            $transitionToCode = $this->getStatusCodeValueById($transition->getTo());
+            if ($code !== $transitionFromCode) {
+                continue;
+            }
+            // avoids infinite loop
+            if ($defaultStatusCode === $transitionToCode) {
+                break;
+            }
+            $code = $sorted[] = $transitionToCode;
+
+            $transitions->offsetUnset($transitions->key());
+            $hit = true;
+        }
+
+        return $sorted;
+    }
+
+    /**
+     * @param StatusId $statusId
+     *
+     * @return string|null
+     */
+    private function getStatusCodeValueById(StatusId $statusId)
+    {
+        $status = $this->statusRepository->load($statusId);
+        if ($status) {
+            return $status->getCode()->getValue();
+        }
+
+        return null;
     }
 }

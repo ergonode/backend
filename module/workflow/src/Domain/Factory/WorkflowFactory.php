@@ -9,34 +9,33 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Factory;
 
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
+use Ergonode\Workflow\Domain\Entity\Workflow;
 
 /**
  */
 class WorkflowFactory
 {
     /**
-     * @param WorkflowId   $id
-     * @param string       $code
-     * @param StatusCode[] $statuses
+     * @param WorkflowId $id
+     * @param string     $code
+     * @param StatusId[] $statuses
      *
-     * @return Workflow
+     * @return AbstractWorkflow
      *
      * @throws \Exception
      */
-    public function create(WorkflowId $id, string $code, array $statuses = []): Workflow
+    public function create(WorkflowId $id, string $code, array $statuses = []): AbstractWorkflow
     {
-        Assert::allIsInstanceOf($statuses, StatusCode::class);
+        Assert::allIsInstanceOf($statuses, StatusId::class);
 
-        $workflow = new Workflow(
+        return new Workflow(
             $id,
             $code,
             $statuses
         );
-
-        return $workflow;
     }
 }

@@ -16,7 +16,8 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Ergonode\Grid\Filter\Option\FilterOption;
+use Ergonode\Workflow\Infrastructure\Grid\Filter\Option\StatusOption;
+use Ergonode\Core\Domain\ValueObject\Color;
 
 /**
  */
@@ -57,13 +58,12 @@ class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
 
         $options = [];
         foreach ($statuses as $code => $status) {
-            $options[] = new FilterOption($code, $code, $status['name']);
+            $options[] = new StatusOption($code, $code, new Color($status['color']), $status['name']);
         }
 
         return new LabelColumn(
             StatusSystemAttribute::CODE,
             $attribute->getLabel()->get($language),
-            $statuses,
             new MultiSelectFilter($options)
         );
     }

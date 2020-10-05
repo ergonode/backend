@@ -11,9 +11,9 @@ namespace Ergonode\Workflow\Tests\Domain\Event\Workflow;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -26,11 +26,11 @@ class WorkflowTransitionRemovedEventTest extends TestCase
         /** @var WorkflowId |MockObject $id */
         $id = $this->createMock(WorkflowId::class);
 
-        /** @var StatusCode |MockObject $source */
-        $source = $this->createMock(StatusCode::class);
+        /** @var StatusId |MockObject $source */
+        $source = $this->createMock(StatusId::class);
 
-        /** @var StatusCode | MockObject $destination */
-        $destination = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $destination */
+        $destination = $this->createMock(StatusId::class);
 
         $event = new WorkflowTransitionRemovedEvent($id, $source, $destination);
 
