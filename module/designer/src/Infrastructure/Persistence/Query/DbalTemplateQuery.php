@@ -213,7 +213,7 @@ class DbalTemplateQuery implements TemplateQueryInterface
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
-            ->select('id, name')
+            ->select('id, name as label')
             ->from(self::TEMPLATE_TABLE);
 
         if ($search) {

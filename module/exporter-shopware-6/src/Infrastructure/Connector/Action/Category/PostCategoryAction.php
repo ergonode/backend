@@ -26,7 +26,6 @@ class PostCategoryAction extends AbstractAction implements ActionInterface
      */
     private Shopware6Category $category;
 
-
     /**
      * @var bool
      */
