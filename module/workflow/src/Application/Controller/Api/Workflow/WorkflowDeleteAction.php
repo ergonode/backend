@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -21,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  * @Route(
@@ -93,13 +93,11 @@ class WorkflowDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
-     *
-     * @param Workflow $workflow
+     * @param AbstractWorkflow $workflow
      *
      * @return Response
      */
-    public function __invoke(Workflow $workflow): Response
+    public function __invoke(AbstractWorkflow $workflow): Response
     {
         $relationships = $this->relationshipsResolver->resolve($workflow->getId());
         if (!$relationships->isEmpty()) {

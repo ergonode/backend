@@ -24,6 +24,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -319,6 +320,29 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
+     * @param TemplateId $templateId
+     *
+     * @return ProductId[]
+     */
+    public function findProductIdsByTemplate(TemplateId $templateId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $records = $qb->select('id')
+            ->from(self::PRODUCT_TABLE)
+            ->where($qb->expr()->eq('template_id', ':templateId'))
+            ->setParameter('templateId', $templateId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new ProductId($record);
+        }
+
+        return $result;
+    }
+
+    /**
      * @param AggregateId $id
      *
      * @return array|mixed|mixed[]
@@ -400,7 +424,7 @@ class DbalProductQuery implements ProductQueryInterface
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
-            ->select('id, sku')
+            ->select('id, sku as code')
             ->from(self::PRODUCT_TABLE);
 
         if ($search) {

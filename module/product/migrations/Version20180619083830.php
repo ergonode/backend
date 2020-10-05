@@ -112,6 +112,14 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                     FOREIGN KEY (category_id) REFERENCES public.category on update cascade on delete cascade');
 
         $this->connection->insert('privileges_group', ['area' => 'Product']);
+        $this->addSql('CREATE TABLE product_workflow_status
+            (
+                product_id UUID NOT NULL,
+                status_id UUID NOT NULL,
+                language VARCHAR(5) NOT NULL,
+                PRIMARY KEY(product_id, status_id, language)
+            )
+        ');
         $this->createProductPrivileges(
             [
                 'PRODUCT_CREATE',

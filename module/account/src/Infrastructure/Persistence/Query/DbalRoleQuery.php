@@ -126,7 +126,7 @@ class DbalRoleQuery implements RoleQueryInterface
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
-            ->select('id, name')
+            ->select('id, name as label')
             ->from(self::TABLE);
 
         if ($search) {

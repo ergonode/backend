@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Infrastructure\Query;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -58,13 +57,13 @@ class ProductWorkflowQuery
     /**
      * @param AbstractProduct $product
      * @param Language        $language
+     * @param Language        $productLanguage
      *
      * @return array
      *
      * @throws \ReflectionException
-     * @throws \Exception
      */
-    public function getQuery(AbstractProduct $product, Language $language): array
+    public function getQuery(AbstractProduct $product, Language $language, Language $productLanguage): array
     {
         $code = new AttributeCode(StatusSystemAttribute::CODE);
         $result = [];
@@ -72,28 +71,26 @@ class ProductWorkflowQuery
             $workflow = $this->workflowProvider->provide();
             /** @var StringValue $value */
             $value = $product->getAttribute($code)->getValue();
-            $value = reset($value);
-            $statusCode = new StatusCode($value);
-            $status = $this->statusRepository->load(StatusId::fromCode($statusCode->getValue()));
-            Assert::notNull($status);
+            $statusId = new StatusId($value[$productLanguage->getCode()]);
+            $status = $this->statusRepository->load($statusId);
+            Assert::notNull($status, sprintf('status %s not exists', $statusId->getValue()));
             $result['status'] = [
                 'attribute_id' => AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue()),
+                'id' => $status->getId()->getValue(),
                 'name' => $status->getName()->get($language),
-                'code' => $statusCode,
+                'code' => $status->getCode()->getValue(),
                 'color' => $status->getColor(),
             ];
 
-            $transitions = $workflow->getTransitionsFromStatus($statusCode);
+            $transitions = $workflow->getTransitionsFromStatus($statusId);
             $result['workflow'] = [];
             foreach ($transitions as $transition) {
                 if ($this->service->available($transition, $product)) {
-                    $destinationStatus = $this->statusRepository->load(
-                        StatusId::fromCode($transition->getTo()->getValue())
-                    );
+                    $destinationStatus = $this->statusRepository->load($transition->getTo());
                     Assert::notNull($destinationStatus);
                     $result['workflow'][] = [
+                        'id' => $destinationStatus->getId()->getValue(),
                         'name' => $destinationStatus->getName()->get($language),
-                        'transition' => '',
                         'code' => $destinationStatus->getCode(),
                         'color' => $destinationStatus->getColor(),
                     ];

@@ -45,6 +45,12 @@ final class Version20180731143300 extends AbstractErgonodeMigration
             )
         ');
 
+        $this->addSql(
+            'ALTER TABLE designer.draft_value 
+                    ADD CONSTRAINT product_draft_value_product_draft_id_fk
+                        FOREIGN KEY (draft_id) REFERENCES designer.draft on update cascade on delete cascade'
+        );
+
         $this->createEventStoreEvents([
             'Ergonode\Editor\Domain\Event\ProductDraftApplied' => 'Applied product draft',
             'Ergonode\Editor\Domain\Event\ProductDraftCreated' => 'Product draft created',
