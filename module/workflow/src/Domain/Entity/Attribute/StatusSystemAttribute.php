@@ -44,7 +44,7 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
     ) {
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
-        $scope = new AttributeScope(AttributeScope::GLOBAL);
+        $scope = new AttributeScope(AttributeScope::LOCAL);
 
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
@@ -55,13 +55,5 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
     public function isSystem(): bool
     {
         return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isMultilingual(): bool
-    {
-        return false;
     }
 }

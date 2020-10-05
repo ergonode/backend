@@ -11,9 +11,9 @@ namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -26,11 +26,11 @@ class DeleteWorkflowTransitionCommandTest extends TestCase
         /** @var WorkflowId| MockObject $workflowId */
         $workflowId = $this->createMock(WorkflowId::class);
 
-        /** @var StatusCode | MockObject $source */
-        $source = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $source */
+        $source = $this->createMock(StatusId::class);
 
-        /** @var StatusCode | MockObject $destination */
-        $destination = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $destination */
+        $destination = $this->createMock(StatusId::class);
 
         $command = new DeleteWorkflowTransitionCommand($workflowId, $source, $destination);
 

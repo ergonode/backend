@@ -31,24 +31,16 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
     private ProductRepositoryInterface $productRepository;
 
     /**
-     * @var ProductWorkflowQuery
-     */
-    private ProductWorkflowQuery $workflowQuery;
-
-    /**
      * @param GetProductQueryInterface   $query
      * @param ProductRepositoryInterface $productRepository
-     * @param ProductWorkflowQuery       $workflowQuery
      */
     public function __construct(
         GetProductQueryInterface $query,
-        ProductRepositoryInterface $productRepository,
-        ProductWorkflowQuery $workflowQuery
+        ProductRepositoryInterface $productRepository
     ) {
 
         $this->query = $query;
         $this->productRepository = $productRepository;
-        $this->workflowQuery = $workflowQuery;
     }
 
     /**
@@ -64,8 +56,6 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
         $product = $this->productRepository->load($productId);
         Assert::notNull($product);
 
-        $result = $this->query->query($productId, $language);
-
-        return array_merge($result, $this->workflowQuery->getQuery($product, $language));
+        return $this->query->query($productId, $language);
     }
 }

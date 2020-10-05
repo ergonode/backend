@@ -12,9 +12,9 @@ namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  */
@@ -52,7 +52,7 @@ class DeleteWorkflowCommandHandler
         $workflow = $this->repository->load($command->getId());
         Assert::isInstanceOf(
             $workflow,
-            Workflow::class,
+            AbstractWorkflow::class,
             sprintf('Can\'t find workflow with ID "%s"', $command->getId())
         );
 

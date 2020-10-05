@@ -17,10 +17,10 @@ use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Provider\UserIdsProvider;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -84,8 +84,8 @@ class ProductValueChangedEventHandler
             $workflow = $this->workflowProvider->provide();
             $from = $event->getFrom()->getValue();
             $to = $event->getTo()->getValue();
-            $source = new StatusCode(reset($from));
-            $destination = new StatusCode(reset($to));
+            $source = new StatusId(reset($from));
+            $destination = new StatusId(reset($to));
             if ($workflow->hasTransition($source, $destination)) {
                 $transition = $workflow->getTransition($source, $destination);
                 if (!empty($transition->getRoleIds())) {

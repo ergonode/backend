@@ -22,7 +22,6 @@ class LabelColumn extends AbstractColumn
     /**
      * @param string               $field
      * @param string               $label
-     * @param array                $statuses
      * @param FilterInterface|null $filter
      *
      * @throws \Exception
@@ -30,18 +29,11 @@ class LabelColumn extends AbstractColumn
     public function __construct(
         string $field,
         ?string $label = null,
-        array $statuses = [],
         FilterInterface $filter = null
     ) {
         parent::__construct($field, $label, $filter);
 
-        $colors = [];
-        foreach ($statuses as $code => $status) {
-            $colors[$code] = $status['color'];
-        }
-
         $this->setExtension('element_id', AttributeId::fromKey((new AttributeCode($field))->getValue())->getValue());
-        $this->setExtension('colors', $colors);
     }
 
     /**

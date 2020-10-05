@@ -40,13 +40,13 @@ class WorkflowDefaultStatusSetCommandHandler
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);
 
-        $status = $command->getStatusCode();
+        $statusId = $command->getStatusId();
 
-        if (!$workflow->hasStatus($status)) {
-            $workflow->addStatus($status);
+        if (!$workflow->hasStatus($statusId)) {
+            $workflow->addStatus($statusId);
         }
 
-        $workflow->setDefaultStatus($status);
+        $workflow->setDefaultStatus($statusId);
 
         $this->repository->save($workflow);
     }
