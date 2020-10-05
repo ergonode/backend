@@ -424,7 +424,7 @@ class DbalProductQuery implements ProductQueryInterface
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
-            ->select('id, sku')
+            ->select('id, sku as code')
             ->from(self::PRODUCT_TABLE);
 
         if ($search) {
