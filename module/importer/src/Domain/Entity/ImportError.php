@@ -16,16 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 class ImportError
 {
     /**
-     * @var int
-     */
-    private int $step;
-
-    /**
-     * @var int
-     */
-    private int $line;
-
-    /**
      * @var ImportId
      */
     private ImportId $importId;
@@ -42,28 +32,16 @@ class ImportError
 
     /**
      * @param ImportId $importId
-     * @param int      $step
-     * @param int      $line
      * @param string   $message
      */
-    public function __construct(ImportId $importId, int $step, int $line, string $message)
+    public function __construct(ImportId $importId, string $message)
     {
         $this->importId = $importId;
-        $this->step = $step;
-        $this->line = $line;
         $this->message = $message;
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        return $this->line;
-    }
-
-    /**
+       /**
      * @return ImportId
      */
     public function getImportId(): ImportId
@@ -85,13 +63,5 @@ class ImportError
     public function getMessage(): string
     {
         return $this->message;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStep(): int
-    {
-        return $this->step;
     }
 }

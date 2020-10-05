@@ -31,10 +31,9 @@ class ImportErrorsGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $this->addColumn('line', new NumericColumn('line', 'Record number', new NumericFilter()));
         $this->addColumn('created_at', new TextColumn('created_at', 'Created at', new DateFilter()));
         $this->addColumn('message', new TextColumn('message', 'Error description', new TextFilter()));
 
-        $this->orderBy('line', 'ASC');
+        $this->orderBy('id', 'ASC');
     }
 }

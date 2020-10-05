@@ -9,28 +9,34 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
-use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
-use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
+use Ramsey\Uuid\Uuid;
+use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
 /**
  */
 class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 {
+    private const NAMESPACE = 'fee77612-b07d-4eea-af71-d4e1e6c3ea1a';
+
     /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
+
+    /**
+     * @var array
+     */
+    private array $options;
 
     /**
      * @param CommandBusInterface $commandBus
@@ -38,38 +44,33 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
+        $this->options = [];
     }
 
     /**
      * @param Import            $import
-     * @param array             $products
+     * @param ProductModel      $product
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
-     * @param Progress          $steps
-     *
-     * @return int
      */
     public function process(
         Import $import,
-        array $products,
+        ProductModel $product,
         Transformer $transformer,
-        Magento1CsvSource $source,
-        Progress $steps
-    ): int {
-        $result = [];
+        Magento1CsvSource $source
+    ): void {
         $columns = [];
-        foreach ($products as $product) {
-            foreach ($product->get('default') as $key => $item) {
-                if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
-                    $columns[$key][] = $item;
-                }
+
+        foreach ($product->get('default') as $key => $item) {
+            if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
+                $columns[$key][] = $item;
             }
-            foreach ($source->getLanguages() as $store => $language) {
-                if ($product->has($store)) {
-                    foreach ($product->get($store) as $key => $item) {
-                        if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
-                            $columns[$key][] = $item;
-                        }
+        }
+        foreach ($source->getLanguages() as $store => $language) {
+            if ($product->has($store)) {
+                foreach ($product->get($store) as $key => $item) {
+                    if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
+                        $columns[$key][] = $item;
                     }
                 }
             }
@@ -88,31 +89,23 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                 }
                 $options = $this->getOptions($columns[$field]);
                 foreach ($options as $key => $option) {
-                    $record = new Record();
-                    $record->set('attribute_code', $attributeCode->getValue());
-                    $record->set('option_code', $key);
-                    $record->setValue($source->getDefaultLanguage()->getCode(), $option);
-                    $result[] = $record;
+                    $uuid = Uuid::uuid5(self::NAMESPACE, sprintf('%s/%s', $attributeCode->getValue(), $key));
+                    if (!array_key_exists($uuid->toString(), $this->options)) {
+                        $label = new TranslatableString();
+                        $label = $label->add($source->getDefaultLanguage(), $option);
+                        $command = new ImportOptionCommand(
+                            $import->getId(),
+                            $attributeCode,
+                            new OptionKey($key),
+                            $label
+                        );
+                        $this->commandBus->dispatch($command, true);
+
+                        $this->options[$uuid->toString()] = $uuid;
+                    }
                 }
             }
         }
-
-        $i = 0;
-        $count = count($result);
-        foreach ($result as $option) {
-            $i++;
-            $records = new Progress($i, $count);
-            $command = new ProcessImportCommand(
-                $import->getId(),
-                $steps,
-                $records,
-                $option,
-                OptionImportAction::TYPE
-            );
-            $this->commandBus->dispatch($command, true);
-        }
-
-        return $count;
     }
 
     /**
@@ -126,7 +119,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
         $unique = array_unique($column);
         foreach ($unique as $element) {
             if ('' !== $element && null !== $element) {
-                $result[$element] = new StringValue($element);
+                $result[$element] = $element;
             }
         }
 

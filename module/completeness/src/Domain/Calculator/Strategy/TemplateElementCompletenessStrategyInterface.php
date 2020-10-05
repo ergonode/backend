@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Domain\Calculator\Strategy;
 
-use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
 /**
  */
@@ -31,11 +31,11 @@ interface TemplateElementCompletenessStrategyInterface
      * @param Language                                                          $language
      * @param TemplateElementPropertyInterface|AttributeTemplateElementProperty $properties
      *
-     * @return CompletenessElementReadModel|null
+     * @return CompletenessCalculatorLine|null
      */
     public function getElementCompleteness(
         ProductDraft $draft,
         Language $language,
         TemplateElementPropertyInterface $properties
-    ): ?CompletenessElementReadModel;
+    ): ?CompletenessCalculatorLine;
 }

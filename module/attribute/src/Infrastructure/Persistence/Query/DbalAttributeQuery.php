@@ -153,6 +153,28 @@ class DbalAttributeQuery implements AttributeQueryInterface
     /**
      * @param AttributeCode $code
      *
+     * @return null|AttributeId
+     */
+    public function findAttributeIdByCode(AttributeCode $code): ?AttributeId
+    {
+        $qb = $this->getQuery();
+
+        $result = $qb
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $code->getValue())
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return new AttributeId($result['id']);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param AttributeCode $code
+     *
      * @return AttributeViewModel
      */
     public function findAttributeByCode(AttributeCode $code): ?AttributeViewModel

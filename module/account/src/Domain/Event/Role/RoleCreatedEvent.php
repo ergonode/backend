@@ -34,11 +34,11 @@ class RoleCreatedEvent implements DomainEventInterface
     private string $name;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $description;
+    private ?string $description;
 
     /**
      * @var Privilege[]
@@ -57,14 +57,14 @@ class RoleCreatedEvent implements DomainEventInterface
     /**
      * @param RoleId      $id
      * @param string      $name
-     * @param string      $description
+     * @param string|null $description
      * @param Privilege[] $privileges
      * @param bool        $hidden
      */
     public function __construct(
         RoleId $id,
         string $name,
-        string $description,
+        ?string $description,
         array $privileges = [],
         bool $hidden = false
     ) {
@@ -94,9 +94,9 @@ class RoleCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

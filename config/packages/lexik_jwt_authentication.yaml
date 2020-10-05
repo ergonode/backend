@@ -7,3 +7,4 @@ lexik_jwt_authentication:
         # look for a token as Authorization Header
         authorization_header:
             name: 'JWTAuthorization'
+    user_identity_field: id
