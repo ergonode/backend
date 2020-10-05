@@ -1,15 +1,15 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Product;
+namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\CustomField;
 
-use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\PostCustomFieldSetAction;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
@@ -17,14 +17,28 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostProductActionTest extends TestCase
+class PostCustomFieldSetActionTest extends TestCase
 {
     /**
+     * @var Shopware6CustomFieldSet
      */
-    public function testAction(): void
+    private Shopware6CustomFieldSet $customFieldSet;
+
+    /**
+     */
+    protected function setUp(): void
     {
-        $product = new Shopware6Product('SKU');
-        $action = new PostProductAction($product);
+        $this->customFieldSet = new Shopware6CustomFieldSet(
+            'any_id',
+            'custom_field_name'
+        );
+    }
+
+    /**
+     */
+    public function testAction():void
+    {
+        $action = new PostCustomFieldSetAction($this->customFieldSet);
         $request = $action->getRequest();
 
         self::assertInstanceOf(Request::class, $request);

@@ -10,29 +10,35 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  */
-class PostCustomFieldSetAction extends AbstractAction implements ActionInterface, HeaderProviderInterface
+class PostCustomFieldSetAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/custom-field-set?';
+    private const URI = '/api/v2/custom-field-set?%s';
 
     /**
-     * @var Shopware6CustomField
+     * @var Shopware6CustomFieldSet
      */
-    private Shopware6CustomField $customField;
+    private Shopware6CustomFieldSet $customField;
 
     /**
-     * @param Shopware6CustomField $customField
+     * @var bool
      */
-    public function __construct(Shopware6CustomField $customField)
+    private bool $response;
+
+    /**
+     * @param Shopware6CustomFieldSet $customField
+     * @param bool                    $response
+     */
+    public function __construct(Shopware6CustomFieldSet $customField, bool $response = false)
     {
         $this->customField = $customField;
+        $this->response = $response;
     }
 
     /**
@@ -51,11 +57,22 @@ class PostCustomFieldSetAction extends AbstractAction implements ActionInterface
     /**
      * @param string|null $content
      *
-     * @return null
+     * @return Shopware6CustomFieldSet|null
+     *
+     * @throws \JsonException
      */
-    public function parseContent(?string $content)
+    public function parseContent(?string $content): ?Shopware6CustomFieldSet
     {
-        return null;
+        if (null === $content) {
+            return null;
+        }
+
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+
+        return new Shopware6CustomFieldSet(
+            $data['data']['id'],
+            $data['data']['attributes']['name']
+        );
     }
 
     /**
@@ -73,6 +90,11 @@ class PostCustomFieldSetAction extends AbstractAction implements ActionInterface
      */
     private function getUri(): string
     {
-        return self::URI;
+        $query = [];
+        if ($this->response) {
+            $query['_response'] = 'true';
+        }
+
+        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
     }
 }
