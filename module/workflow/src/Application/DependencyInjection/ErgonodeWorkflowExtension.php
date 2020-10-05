@@ -9,12 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection;
 
-use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ProvideConditionDictionaryCompilerPass;
-use Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ergonode\Workflow\Application\Form\Workflow\WorkflowFormInterface;
+use Ergonode\Workflow\Domain\Entity\WorkflowInterface;
+use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
+use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
 
 /**
  */
@@ -38,6 +40,22 @@ class ErgonodeWorkflowExtension extends Extension
         );
 
         $loader->load('services.yml');
+
+        $container
+            ->registerForAutoconfiguration(WorkflowInterface::class)
+            ->addTag(CompilerPass\WorkflowTypeCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(WorkflowFormInterface::class)
+            ->addTag(CompilerPass\WorkflowFormCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(CreateWorkflowCommandFactoryInterface::class)
+            ->addTag(CompilerPass\CreateWorkflowCommandFactoryProviderInterfaceCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(UpdateWorkflowCommandFactoryInterface::class)
+            ->addTag(CompilerPass\UpdateWorkflowCommandFactoryProviderInterfaceCompilerPass::TAG);
 
         $configuration = new Configuration();
         $processedConfig = $this->processConfiguration($configuration, $configs);

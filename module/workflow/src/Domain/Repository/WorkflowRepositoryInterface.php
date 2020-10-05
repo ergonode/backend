@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Domain\Repository;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  */
@@ -20,7 +21,7 @@ interface WorkflowRepositoryInterface
     /**
      * @param WorkflowId $id
      *
-     * @return null|Workflow
+     * @return null|AbstractWorkflow
      */
     public function load(WorkflowId $id): ?AbstractAggregateRoot;
 

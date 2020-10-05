@@ -1,9 +1,11 @@
 Feature: Product edit feature
 
-  Scenario: Create text attribute
+  Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
+
+  Scenario: Create text attribute
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
@@ -17,9 +19,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_text_attribute"
 
   Scenario: Create textarea attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
@@ -37,9 +36,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_textarea_attribute"
 
   Scenario: Create select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
@@ -53,9 +49,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_select_attribute"
 
   Scenario: Create option 1 for select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
@@ -67,9 +60,6 @@ Feature: Product edit feature
     And store response param "id" as "select_option_1"
 
   Scenario: Create option 2 for select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
@@ -81,9 +71,6 @@ Feature: Product edit feature
     And store response param "id" as "select_option_2"
 
   Scenario: Create option 3 for select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
@@ -95,9 +82,6 @@ Feature: Product edit feature
     And store response param "id" as "select_option_c"
 
   Scenario: Create option 4 for select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
@@ -109,9 +93,6 @@ Feature: Product edit feature
     And store response param "id" as "select_option_4"
 
   Scenario: Create multi select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
@@ -125,9 +106,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_multi_select_attribute"
 
   Scenario: Create unit object 1
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/units" with body:
       """
       {
@@ -139,9 +117,6 @@ Feature: Product edit feature
     And store response param "id" as "unit_id"
 
   Scenario: Create option 1 for multiselect attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
@@ -153,9 +128,6 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_1"
 
   Scenario: Create option 2 for multiselect attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
@@ -167,9 +139,6 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_2"
 
   Scenario: Create option 3 for multiselect attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
@@ -181,9 +150,6 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_3"
 
   Scenario: Create option 4 for multiselect attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "POST" request to "/api/v1/en_GB/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
@@ -195,9 +161,6 @@ Feature: Product edit feature
     And store response param "id" as "multi_select_option_4"
 
   Scenario: Create unit attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
@@ -214,9 +177,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_unit_attribute"
 
   Scenario: Create price attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
@@ -233,9 +193,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_price_attribute"
 
   Scenario: Create date attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
@@ -252,9 +209,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_date_attribute"
 
   Scenario: Create template
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
       {
@@ -266,9 +220,6 @@ Feature: Product edit feature
     And store response param "id" as "product_edit_template"
 
   Scenario: Create product
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
@@ -281,10 +232,18 @@ Feature: Product edit feature
     Then the response status code should be 201
     And store response param "id" as "edit_product"
 
+  Scenario: Get statuses
+    When I send a GET request to "/api/v1/en_GB/workflow/default/transitions"
+    Then the response status code should be 200
+    And store response param "collection[0].source" as "source_status_id"
+    And store response param "collection[0].destination" as "destination_status_id"
+
+  Scenario: Get esa_status id
+    When I send a GET request to "/api/v1/en_GB/attributes/system?limit=50&offset=0&filter=code%3Desa_status"
+    Then the response status code should be 200
+    And store response param "collection[0].id" as "esa_status_id"
+
   Scenario: Edit product text value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_text_attribute@/value" with body:
       """
       {
@@ -294,9 +253,6 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product textarea value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_textarea_attribute@/value" with body:
       """
       {
@@ -306,9 +262,6 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product select value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_select_attribute@/value" with body:
       """
       {
@@ -318,9 +271,6 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product multi select value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
       """
       {
@@ -330,9 +280,6 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product unit value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_unit_attribute@/value" with body:
       """
       {
@@ -342,9 +289,6 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product price value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_price_attribute@/value" with body:
       """
       {
@@ -354,9 +298,6 @@ Feature: Product edit feature
     Then the response status code should be 200
 
   Scenario: Edit product date value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_date_attribute@/value" with body:
       """
       {
@@ -365,24 +306,40 @@ Feature: Product edit feature
       """
     Then the response status code should be 200
 
+  Scenario: Edit status in pl_PL
+    When I send a PUT request to "api/v1/pl_PL/products/@edit_product@/draft/@esa_status_id@/value" with body:
+      """
+      {
+        "value": "@destination_status_id@"
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Edit status in en_GB
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@esa_status_id@/value" with body:
+      """
+      {
+        "value": "@source_status_id@"
+      }
+      """
+    Then the response status code should be 200
+
   Scenario: Apply product draft
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/persist"
     Then the response status code should be 204
 
+  Scenario: Get status product status
+    When I send a GET request to "api/v1/en_GB/products/@edit_product@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | attributes.esa_status.en_GB | @source_status_id@      |
+      | attributes.esa_status.pl_PL | @destination_status_id@ |
+
   Scenario: Delete option (used in product)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     And I send a "DELETE" request to "/api/v1/en_GB/attributes/@product_edit_select_attribute@/options/@select_option_1@"
     Then the response status code should be 409
 
   Scenario: Request product
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a GET request to "api/v1/en_GB/products/@edit_product@"
     Then the response status code should be 200
 #    And print last JSON response

@@ -61,7 +61,6 @@ class TemplateFormModel
      * @var ArrayCollection|TemplateElementTypeModel[]
      *
      * @Assert\Valid()
-     * @Assert\Collection()
      */
     public ArrayCollection $elements;
 

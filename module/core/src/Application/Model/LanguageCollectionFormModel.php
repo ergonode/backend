@@ -20,8 +20,9 @@ class LanguageCollectionFormModel
     /**
      * @var ArrayCollection|LanguageConfigurationFormTypeModel[]
      *
-     * @Assert\Valid()
-     * @Assert\Collection()
+     * @Assert\All({
+     *      @Assert\Regex("/^[a-z]{2}_[A-Z]{2}$/")
+     * })
      */
     public $collection;
 

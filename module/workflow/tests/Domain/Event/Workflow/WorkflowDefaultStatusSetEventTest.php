@@ -11,9 +11,9 @@ namespace Ergonode\Workflow\Tests\Domain\Event\Workflow;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -26,12 +26,12 @@ class WorkflowDefaultStatusSetEventTest extends TestCase
         /** @var WorkflowId | MockObject $id */
         $id = $this->createMock(WorkflowId::class);
 
-        /** @var StatusCode | MockObject $code */
-        $code = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $code */
+        $statusId = $this->createMock(StatusId::class);
 
-        $event = new WorkflowDefaultStatusSetEvent($id, $code);
+        $event = new WorkflowDefaultStatusSetEvent($id, $statusId);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($code, $event->getCode());
+        $this->assertSame($statusId, $event->getStatusId());
     }
 }

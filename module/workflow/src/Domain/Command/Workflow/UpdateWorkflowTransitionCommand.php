@@ -13,8 +13,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -28,18 +28,18 @@ class UpdateWorkflowTransitionCommand implements DomainCommandInterface
     private WorkflowId $workflowId;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private StatusCode $source;
+    private StatusId $source;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private StatusCode $destination;
+    private StatusId $destination;
 
     /**
      * @var RoleId[]
@@ -57,15 +57,15 @@ class UpdateWorkflowTransitionCommand implements DomainCommandInterface
 
     /**
      * @param WorkflowId          $workflowId
-     * @param StatusCode          $source
-     * @param StatusCode          $destination
+     * @param StatusId            $source
+     * @param StatusId            $destination
      * @param RoleId[]            $roleIds
      * @param ConditionSetId|null $conditionSetId
      */
     public function __construct(
         WorkflowId $workflowId,
-        StatusCode $source,
-        StatusCode $destination,
+        StatusId $source,
+        StatusId $destination,
         array $roleIds = [],
         ?ConditionSetId $conditionSetId = null
     ) {
@@ -85,17 +85,17 @@ class UpdateWorkflowTransitionCommand implements DomainCommandInterface
     }
 
     /**
-     * @return StatusCode
+     * @return StatusId
      */
-    public function getSource(): StatusCode
+    public function getSource(): StatusId
     {
         return $this->source;
     }
 
     /**
-     * @return StatusCode
+     * @return StatusId
      */
-    public function getDestination(): StatusCode
+    public function getDestination(): StatusId
     {
         return $this->destination;
     }

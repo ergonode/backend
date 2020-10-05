@@ -20,6 +20,21 @@ Feature: Grouping product
     Then the response status code should be 201
     And store response param "id" as "product_template_id"
 
+  Scenario: Create workflow status
+    And I send a "POST" request to "/api/v1/en_GB/status" with body:
+      """
+      {
+        "color": "#ff0",
+        "code": "ST @@random_md5@@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "workflow_status_1_id"
+
+  Scenario: Set default status
+    When I send a PUT request to "/api/v1/en_GB/workflow/default/status/@workflow_status_1_id@/default"
+    Then the response status code should be 204
+
   Scenario: Create simple product 1
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
@@ -101,8 +116,6 @@ Feature: Grouping product
       }
       """
     Then the response status code should be 204
-
-
 
   Scenario: Request child grid filtered for given product
     When I send a GET request to "api/v1/en_GB/products/@product_id@/children"
