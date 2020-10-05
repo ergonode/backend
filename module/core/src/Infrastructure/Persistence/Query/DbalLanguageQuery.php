@@ -237,7 +237,11 @@ class DbalLanguageQuery implements LanguageQueryInterface
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
-            ->select(self::ALL_FIELDS)
+            ->select([
+                'id',
+                'iso AS code',
+                'iso AS label',
+            ])
             ->from(self::TABLE);
 
         if ($search) {
@@ -256,7 +260,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
             ->fetchAll();
 
         foreach ($records as $key => $record) {
-            $records[$key]['name'] = $this->translator->trans($records[$key]['name'], [], 'language');
+            $records[$key]['label'] = $this->translator->trans($records[$key]['label'], [], 'language');
         }
 
         return $records;
