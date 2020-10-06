@@ -13,14 +13,12 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
-use Ergonode\Product\Infrastructure\Grid\VariableProductAvailableChildrenGrid;
+use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 use Webmozart\Assert\Assert;
@@ -28,12 +26,12 @@ use Webmozart\Assert\Assert;
 /**
  * @Route(
  *      name="ergonode_product_available",
- *     path="products/{product}/variable/children-and-available-products",
+ *     path="products/{product}/children-and-available-products",
  *     methods={"GET"},
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class VariableProductAvailableChildrenAction
+class AssociatedProductAvailableChildrenAction
 {
     /**
      * @var ProductChildrenQueryInterface
@@ -46,19 +44,19 @@ class VariableProductAvailableChildrenAction
     private GridRenderer $gridRenderer;
 
     /**
-     * @var VariableProductAvailableChildrenGrid
+     * @var AssociatedProductAvailableChildrenGrid
      */
-    private VariableProductAvailableChildrenGrid $grid;
+    private AssociatedProductAvailableChildrenGrid $grid;
 
     /**
-     * @param ProductChildrenQueryInterface        $query
-     * @param GridRenderer                         $gridRenderer
-     * @param VariableProductAvailableChildrenGrid $grid
+     * @param ProductChildrenQueryInterface          $query
+     * @param GridRenderer                           $gridRenderer
+     * @param AssociatedProductAvailableChildrenGrid $grid
      */
     public function __construct(
         ProductChildrenQueryInterface $query,
         GridRenderer $gridRenderer,
-        VariableProductAvailableChildrenGrid $grid
+        AssociatedProductAvailableChildrenGrid $grid
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
@@ -96,7 +94,7 @@ class VariableProductAvailableChildrenAction
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"sku","template", "default_label", "attach_flag"},
+     *     enum={"sku","template", "default_label", "attached"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -142,17 +140,17 @@ class VariableProductAvailableChildrenAction
      *     description="Returns products",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\VariableProduct")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractAssociatedProduct")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param VariableProduct          $product
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
+     * @param AbstractAssociatedProduct $product
+     * @param Language                  $language
+     * @param RequestGridConfiguration  $configuration
      *
      * @return Response
      */
     public function __invoke(
-        VariableProduct $product,
+        AbstractAssociatedProduct $product,
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
