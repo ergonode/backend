@@ -59,7 +59,8 @@ class OptionAttributeValueConstraintStrategy implements AttributeValueConstraint
         $constrains = [
             'value' => [
                 new Choice(['choices' => $options, 'multiple' => $multiple]),
-            ], ];
+            ],
+        ];
 
         if ($multiple) {
             $constrains['value'][] = new Unique();

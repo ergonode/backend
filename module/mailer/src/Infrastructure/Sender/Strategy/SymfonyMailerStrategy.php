@@ -78,13 +78,13 @@ class SymfonyMailerStrategy implements MailerStrategyInterface
 
             if ($mail->getSender()->hasFrom()) {
                 $email->addFrom(...$mail->getSender()->getFrom()->asStringArray());
-            } else if (!empty($this->defaultFrom)) {
+            } elseif (!empty($this->defaultFrom)) {
                 $email->from($this->defaultFrom);
             }
 
             if ($mail->getSender()->hasReplyTo()) {
                 $email->addReplyTo(...$mail->getSender()->getReplyTo()->asStringArray());
-            } else if (!empty($this->defaultReplyTo)) {
+            } elseif (!empty($this->defaultReplyTo)) {
                 $email->replyTo($this->defaultReplyTo);
             }
 
