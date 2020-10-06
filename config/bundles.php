@@ -27,6 +27,7 @@ return [
     Ergonode\ImporterMagento1\ErgonodeImporterMagento1Bundle::class => ['all' => true],
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
     Ergonode\Migration\MigrationBundle::class => ['all' => true],
+    Ergonode\Mailer\ErgonodeMailerBundle::class => ['all' => true],
     Ergonode\Multimedia\ErgonodeMultimediaBundle::class => ['all' => true],
     Ergonode\Notification\ErgonodeNotificationBundle::class => ['all' => true],
     Ergonode\ProductCollection\ErgonodeProductCollectionBundle::class => ['all' => true],

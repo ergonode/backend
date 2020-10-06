@@ -51,7 +51,7 @@ class DbalWorkflowCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'code' => $event->getCode(),
-                'default_status' => $status ? StatusId::fromCode($status->getValue())->getValue(): null,
+                'default_status' => $status ? $status->getValue(): null,
             ]
         );
     }

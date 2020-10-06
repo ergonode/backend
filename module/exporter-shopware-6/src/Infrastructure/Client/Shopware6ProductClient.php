@@ -8,8 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
+use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Category\DeleteProductCategory;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Category\GetProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\ConfiguratorSettings\GetConfiguratorSettings;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProductList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Media\DeleteProductMedia;
@@ -19,6 +22,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProdu
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Properties\DeleteProperties;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
@@ -42,13 +46,23 @@ class Shopware6ProductClient
     private Shopware6ProductRepositoryInterface $repository;
 
     /**
+     * @var Shopware6CategoryQueryInterface
+     */
+    private Shopware6CategoryQueryInterface $categoryQuery;
+
+    /**
      * @param Shopware6Connector                  $connector
      * @param Shopware6ProductRepositoryInterface $repository
+     * @param Shopware6CategoryQueryInterface     $categoryQuery
      */
-    public function __construct(Shopware6Connector $connector, Shopware6ProductRepositoryInterface $repository)
-    {
+    public function __construct(
+        Shopware6Connector $connector,
+        Shopware6ProductRepositoryInterface $repository,
+        Shopware6CategoryQueryInterface $categoryQuery
+    ) {
         $this->connector = $connector;
         $this->repository = $repository;
+        $this->categoryQuery = $categoryQuery;
     }
 
     /**
@@ -143,8 +157,10 @@ class Shopware6ProductClient
     private function removeCategory(Shopware6Channel $channel, Shopware6Product $product): void
     {
         foreach ($product->getCategoryToRemove() as $categoryId) {
-            $action = new DeleteProductCategory($product->getId(), $categoryId);
-            $this->connector->execute($channel, $action);
+            if ($this->categoryQuery->loadByShopwareId($channel->getId(), $categoryId)) {
+                $action = new DeleteProductCategory($product->getId(), $categoryId);
+                $this->connector->execute($channel, $action);
+            }
         }
     }
 
@@ -174,6 +190,7 @@ class Shopware6ProductClient
             foreach ($productList as $product) {
                 $product->setConfiguratorSettings($this->loadConfiguratorSettings($channel, $product->getId()));
                 $product->setMedia($this->loadMedia($channel, $product->getId()));
+                $product->setCategories($this->loadCategory($channel, $product->getId()));
             }
 
             return $productList;
@@ -204,6 +221,19 @@ class Shopware6ProductClient
     private function loadMedia(Shopware6Channel $channel, string $shopwareId): ?array
     {
         $action = new GetProductMedia($shopwareId);
+
+        return $this->connector->execute($channel, $action);
+    }
+
+    /**
+     * @param Shopware6Channel $channel
+     * @param string           $shopwareId
+     *
+     * @return Shopware6ProductCategory[] |null
+     */
+    private function loadCategory(Shopware6Channel $channel, string $shopwareId): ?array
+    {
+        $action = new GetProductCategory($shopwareId);
 
         return $this->connector->execute($channel, $action);
     }

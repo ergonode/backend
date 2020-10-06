@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Provider;
 
-use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
@@ -38,7 +38,7 @@ class WorkflowProviderTest extends TestCase
     private $factory;
 
     /**
-     * @var Workflow|MockObject
+     * @var AbstractWorkflow|MockObject
      */
     private $workflow;
 
@@ -54,7 +54,7 @@ class WorkflowProviderTest extends TestCase
     {
         $this->repository = $this->createMock(WorkflowRepositoryInterface::class);
         $this->factory = $this->createMock(WorkflowFactory::class);
-        $this->workflow = $this->createMock(Workflow::class);
+        $this->workflow = $this->createMock(AbstractWorkflow::class);
         $this->query = $this->createMock(WorkflowQueryInterface::class);
         $this->workflowId = $this->createMock(WorkflowId::class);
     }

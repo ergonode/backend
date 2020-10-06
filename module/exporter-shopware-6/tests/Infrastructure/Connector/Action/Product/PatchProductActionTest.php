@@ -21,7 +21,7 @@ class PatchProductActionTest extends TestCase
 {
     /**
      */
-    public function testAction()
+    public function testAction(): void
     {
         $product = new Shopware6Product('SKU');
         $action = new PatchProductAction($product);

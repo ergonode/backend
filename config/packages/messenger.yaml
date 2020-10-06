@@ -23,6 +23,7 @@ framework:
             event: '%env(MESSENGER_TRANSPORT_DOMAIN_DSN)%'
             segment: '%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%'
             completeness: '%env(MESSENGER_TRANSPORT_COMPLETENESS_DSN)%'
+            notification: "%env(MESSENGER_TRANSPORT_NOTIFICATION_DSN)%"
         routing:
             'Ergonode\Importer\Domain\Command\Import\StartImportCommand' : 'import'
             'Ergonode\Importer\Domain\Command\Import\StopImportCommand' : 'import'
@@ -44,6 +45,7 @@ framework:
             'Ergonode\Category\Domain\Command\UpdateCategoryCommand': 'core'
             'Ergonode\Designer\Domain\Command\CreateTemplateCommand': 'core'
             'Ergonode\Designer\Domain\Command\UpdateTemplateCommand': 'core'
+            'Ergonode\Mailer\Domain\Command\SendMailCommand': 'notification'
             'Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand': 'export'
             'Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand': 'export'
             'Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand': 'export'

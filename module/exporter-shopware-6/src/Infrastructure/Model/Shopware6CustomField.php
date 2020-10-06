@@ -22,7 +22,7 @@ class Shopware6CustomField
     protected ?string $id;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
@@ -30,20 +30,27 @@ class Shopware6CustomField
     protected ?string $name;
 
     /**
-     * @var array
+     * @var string|null
      *
-     * @JMS\Type("array")
-     * @JMS\SerializedName("relations")
+     * @JMS\Type("string")
+     * @JMS\SerializedName("type")
      */
-    protected ?array $relations;
+    protected ?string $type;
 
     /**
-     * @var array
+     * @var array|null
      *
      * @JMS\Type("array")
-     * @JMS\SerializedName("customFields")
+     * @JMS\SerializedName("config")
      */
-    protected ?array $customFields;
+    protected ?array $config;
+    /**
+     * @var string|null
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("customFieldSetId")
+     */
+    protected ?string $customFieldSetId;
 
     /**
      * @var bool
@@ -55,21 +62,23 @@ class Shopware6CustomField
     /**
      * @param string|null $id
      * @param string|null $name
-     * @param array|null  $relations
-     * @param array|null  $customFields
+     * @param string|null $type
+     * @param array|null  $config
+     * @param string|null $customFieldSetId
      */
     public function __construct(
         ?string $id = null,
         ?string $name = null,
-        ?array $relations = null,
-        ?array $customFields = null
+        ?string $type = null,
+        ?array $config = null,
+        ?string $customFieldSetId = null
     ) {
         $this->id = $id;
         $this->name = $name;
-        $this->relations = $relations;
-        $this->customFields = $customFields;
+        $this->type = $type;
+        $this->config = $config;
+        $this->customFieldSetId = $customFieldSetId;
     }
-
 
     /**
      * @return string|null
@@ -80,17 +89,17 @@ class Shopware6CustomField
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         if ($name !== $this->name) {
             $this->name = $name;
@@ -99,35 +108,95 @@ class Shopware6CustomField
     }
 
     /**
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        if ($type !== $this->type) {
+            $this->type = $type;
+            $this->modified = true;
+        }
+    }
+
+    /**
      * @return array
      */
-    public function getRelations(): array
+    public function getConfig(): array
     {
-        return $this->relations;
+        if ($this->config) {
+            return $this->config;
+        }
+
+        return [];
     }
 
     /**
-     * @param array $relations
+     * @param string $key
+     * @param        $value
      */
-    public function addRelation(array $relations): void
+    public function addConfig(string $key, $value): void
     {
-        $this->relations[] = $relations;
+        if (isset($this->config[$key]) && $this->config[$key] === $value) {
+            return;
+        }
+        $this->config[$key] = $value;
+        $this->modified = true;
     }
 
     /**
-     * @return array
+     * @return string|null
      */
-    public function getCustomFields(): array
+    public function getCustomFieldSetId(): ?string
     {
-        return $this->customFields;
+        return $this->customFieldSetId;
     }
 
     /**
-     * @param array $customField
+     * @param string|null $customFieldSetId
      */
-    public function addCustomField(array $customField): void
+    public function setCustomFieldSetId(?string $customFieldSetId): void
     {
-        $this->customFields[] = $customField;
+        if ($customFieldSetId !== $this->customFieldSetId) {
+            $this->customFieldSetId = $customFieldSetId;
+            $this->modified = true;
+        }
+    }
+
+    /**
+     * @param array $label
+     */
+    public function setLabel(array $label): void
+    {
+        if (isset($this->config['label'])) {
+            if (!empty(array_diff($this->config['label'], $label))) {
+                $this->config['label'] = $label;
+                $this->modified = true;
+            }
+        } else {
+            $this->config['label'] = $label;
+            $this->modified = true;
+        }
+    }
+
+    /**
+     * @param array $option
+     */
+    public function addOptions(array $option): void
+    {
+        if (isset($this->config['options'])) {
+            $this->changeOrCreateOption($option);
+        } else {
+            $this->config['options'][] = $option;
+            $this->modified = true;
+        }
     }
 
     /**
@@ -136,5 +205,24 @@ class Shopware6CustomField
     public function isModified(): bool
     {
         return $this->modified;
+    }
+
+    /**
+     * @param array $option
+     */
+    private function changeOrCreateOption(array $option): void
+    {
+        foreach ($this->config['options'] as &$currentOption) {
+            if ($currentOption['value'] === $option['value']) {
+                if (!empty(array_diff($currentOption['label'], $option['label']))) {
+                    $currentOption['label'] = $option['label'];
+                    $this->modified = true;
+                }
+
+                return;
+            }
+        }
+        $this->config['options'][] = $option;
+        $this->modified = true;
     }
 }

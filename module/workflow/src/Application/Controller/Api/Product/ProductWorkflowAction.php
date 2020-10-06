@@ -22,7 +22,7 @@ use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 /**
  * @Route(
  *     name="ergonode_product_workflow_read",
- *     path="products/{product}/workflow",
+ *     path="products/{product}/workflow/{productLanguage}",
  *     methods={"Get"},
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
@@ -30,7 +30,7 @@ use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
 class ProductWorkflowAction
 {
     /**
-     * @var ProductWorkflowQuery $query;
+     * @var ProductWorkflowQuery $query
      */
     private ProductWorkflowQuery $query;
 
@@ -61,6 +61,14 @@ class ProductWorkflowAction
      *     default="en_GB",
      *     description="Language Code",
      * )
+     * @SWG\Parameter(
+     *     name="productLanguage",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="en_GB",
+     *     description="Product language Code",
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns product workflow information",
@@ -72,6 +80,7 @@ class ProductWorkflowAction
      *
      * @param AbstractProduct $product
      * @param Language        $language
+     * @param string          $productLanguage
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
@@ -79,9 +88,9 @@ class ProductWorkflowAction
      *
      * @throws \ReflectionException
      */
-    public function __invoke(AbstractProduct $product, Language $language): Response
+    public function __invoke(AbstractProduct $product, Language $language, string $productLanguage): Response
     {
-        $result = $this->query->getQuery($product, $language);
+        $result = $this->query->getQuery($product, $language, new Language($productLanguage));
 
         return new SuccessResponse($result);
     }

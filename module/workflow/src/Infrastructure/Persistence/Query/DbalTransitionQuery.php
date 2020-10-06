@@ -96,8 +96,8 @@ class DbalTransitionQuery implements TransitionQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(sprintf(
-                'ss.code AS source, ss.id as source_id, ds.code AS destination, '.
-                'ds.id as destination_id, t.name->>\'%s\' as name, t.description->>\'%s\' as description',
+                'ss.id as source,'.
+                'ds.id as destination, t.name->>\'%s\' as name, t.description->>\'%s\' as description',
                 $language->getCode(),
                 $language->getCode()
             ))

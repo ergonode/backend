@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Form\Model;
 
 use Ergonode\Account\Infrastructure\Validator\RoleExists;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  */
@@ -25,7 +25,7 @@ class TransitionCreateFormModel
      *
      * @Assert\NotBlank()
      *
-     * @ErgoAssert\StatusNotExists()
+     * @ErgoAssert\StatusIdNotExists()
      */
     public ?string $source;
 
@@ -34,7 +34,7 @@ class TransitionCreateFormModel
      *
      * @Assert\NotBlank()
      *
-     * @ErgoAssert\StatusNotExists()
+     * @ErgoAssert\StatusIdNotExists()
      */
     public ?string $destination;
 
@@ -70,9 +70,9 @@ class TransitionCreateFormModel
     public ?string $conditionSet;
 
     /**
-     * @var Workflow
+     * @var AbstractWorkflow
      */
-    private Workflow $workflow;
+    private AbstractWorkflow $workflow;
 
     /**
      * @var array
@@ -88,10 +88,10 @@ class TransitionCreateFormModel
     public array $roles;
 
     /**
-     * @param Workflow $workflow
+     * @param AbstractWorkflow $workflow
      */
     public function __construct(
-        Workflow $workflow
+        AbstractWorkflow $workflow
     ) {
         $this->source = null;
         $this->destination = null;
@@ -113,13 +113,13 @@ class TransitionCreateFormModel
         /** @var TransitionCreateFormModel $data */
         $data = $context->getValue();
 
-        if (!StatusCode::isValid((string) $data->source)) {
+        if (!StatusId::isValid((string) $data->source)) {
             $context->addViolation('Source not valid');
-        } elseif (!StatusCode::isValid((string) $data->destination)) {
+        } elseif (!StatusId::isValid((string) $data->destination)) {
             $context->addViolation('Destination not valid');
         } else {
-            $source = new StatusCode($data->source);
-            $destination = new StatusCode($data->destination);
+            $source = new StatusId($data->source);
+            $destination = new StatusId($data->destination);
 
             if ($data->workflow->hasTransition($source, $destination)) {
                 $context->addViolation('Transition exists');

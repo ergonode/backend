@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Provider;
 
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  */
@@ -52,11 +52,11 @@ class WorkflowProvider
     /**
      * @param string $code
      *
-     * @return Workflow
+     * @return AbstractWorkflow
      *
      * @throws \Exception
      */
-    public function provide(string $code = Workflow::DEFAULT): Workflow
+    public function provide(string $code = AbstractWorkflow::DEFAULT): AbstractWorkflow
     {
         $workflow = null;
         $id = $this->query->findWorkflowIdByCode($code);
