@@ -41,26 +41,17 @@ class SegmentProductService
      */
     public function add(SegmentId $segmentId, ProductId $productId): void
     {
-        if (!$this->exists($segmentId, $productId)) {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'segment_id' => $segmentId->getValue(),
-                    'product_id' => $productId->getValue(),
-                ]
-            );
-        } else {
-            $this->connection->update(
-                self::TABLE,
-                [
-                    'calculated_at' => null,
-                ],
-                [
-                    'segment_id' => $segmentId->getValue(),
-                    'product_id' => $productId->getValue(),
-                ]
-            );
-        }
+        $sql = 'INSERT INTO '.self::TABLE.' (segment_id, product_id) VALUES (:segmentId, :productId)
+            ON CONFLICT ON CONSTRAINT segment_product_pkey
+                DO UPDATE SET calculated_at = NULL
+        ';
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'segmentId' => $segmentId->getValue(),
+                'productId' => $productId->getValue(),
+            ],
+        );
     }
 
     /**
@@ -71,20 +62,21 @@ class SegmentProductService
      */
     public function mark(SegmentId $segmentId, ProductId $productId): void
     {
-        $this->connection->update(
-            self::TABLE,
+        $sql = 'INSERT INTO '.self::TABLE.' (segment_id, product_id, available, calculated_at)
+            VALUES (:segmentId, :productId, true, :calculatedAt)
+            ON CONFLICT ON CONSTRAINT segment_product_pkey
+                DO UPDATE SET available = true
+        ';
+        $this->connection->executeQuery(
+            $sql,
             [
-                'available' => true,
-                'calculated_at' => new \DateTime(),
+                'segmentId' => $segmentId->getValue(),
+                'productId' => $productId->getValue(),
+                'calculatedAt' => new \DateTime(),
             ],
             [
-                'segment_id' => $segmentId->getValue(),
-                'product_id' => $productId->getValue(),
+                'calculatedAt' => Types::DATETIMETZ_MUTABLE,
             ],
-            [
-                'available' => \PDO::PARAM_BOOL,
-                'calculated_at' => Types::DATETIMETZ_MUTABLE,
-            ]
         );
     }
 
