@@ -63,8 +63,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         LanguageQueryInterface $query,
         DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
         DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
-    )
-    {
+    ) {
         $this->connection = $connection;
         $this->query = $query;
         $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
@@ -103,7 +102,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     public function getChildrenAndAvailableProductsDataSet(
         AbstractAssociatedProduct $product,
         Language $language
-    ): DataSetInterface  {
+    ): DataSetInterface {
         $info = $this->query->getLanguageNodeInfo($language);
         $bindingValues = [];
         $count = 0;

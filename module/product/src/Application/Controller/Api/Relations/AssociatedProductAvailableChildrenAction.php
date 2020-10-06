@@ -57,8 +57,7 @@ class AssociatedProductAvailableChildrenAction
         ProductChildrenQueryInterface $query,
         GridRenderer $gridRenderer,
         AssociatedProductAvailableChildrenGrid $grid
-    )
-    {
+    ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
         $this->grid = $grid;
@@ -154,8 +153,7 @@ class AssociatedProductAvailableChildrenAction
         AbstractAssociatedProduct $product,
         Language $language,
         RequestGridConfiguration $configuration
-    ): Response
-    {
+    ): Response {
         $data = $this->gridRenderer->render(
             $this->grid,
             $configuration,
