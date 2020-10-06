@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ramsey\Uuid\Uuid;
 
 /**
 * Auto-generated Ergonode Migration Class:

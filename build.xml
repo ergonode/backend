@@ -10,11 +10,22 @@
     <property name="dir.console" value="bin/console"/>
     <property name="APP_ENV" value="dev" />
 
-
     <!-- Build -->
     <target name="build" depends="cache:clear, create:directory, database:migrate" description="Standard build plan."/>
-    <target name="rebuild" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, cache:clear, database:fixture" description="Standard build plan with database recreation."/>
-    <target name="rebuild:dev" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, cache:clear, database:fixture:dev" description="Standard build plan with database recreation."/>
+    <target name="rebuild" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, cache:clear, install, install:user" description="Standard build plan with database recreation."/>
+    <target name="rebuild:dev" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, cache:clear, install, install:user, database:fixture:dev" description="Standard build plan with database recreation."/>
+
+    <!-- Install -->
+    <target name="install" description="Migrate migrations">
+        <echo msg="Executing installation process..."/>
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:install --no-interaction" logoutput="true" checkreturn="true" />
+    </target>
+
+    <!-- User -->
+    <target name="install:user" description="Add test user">
+        <echo msg="Add test user"/>
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:user:create test@ergonode.com Johnny Bravo abcd1234 en_GB --no-interaction" logoutput="true" checkreturn="true" />
+    </target>
 
     <!-- Create directories -->
     <target name="create:directory" description="Create build directories.">
@@ -68,7 +79,7 @@
     </target>
 
     <!-- Behat -->
-    <target name="test:behat" depends="override:property:APP_ENV, database:drop, database:create, database:migrate, cache:clear, database:fixture" description="Executes behat tests." >
+    <target name="test:behat" depends="override:property:APP_ENV, database:drop, database:create, database:migrate, cache:clear, install, install:user" description="Executes behat tests." >
         <echo msg="Running behat tests..."/>
         <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 php -d error_reporting='E_ALL &amp; ~E_DEPRECATED' bin/behat --colors --stop-on-failure --format=progress"
               checkreturn="true"
@@ -103,11 +114,7 @@
     </target>
 
     <target name="database:fixture" description="Fill database with basic data">
-        <echo msg="Fill database with fixtures ..."/>
-        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load --no-interaction"
-              checkreturn="true"
-              logoutput="true">
-        </exec>
+        <echo msg="Fill database with basic fixtures ... (deprecated)"/>
     </target>
 
     <target name="database:fixture:dev" description="Fill database with development data">

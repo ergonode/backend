@@ -36,13 +36,10 @@ services:
             - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption']]
             - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption']]
 
-    Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeRepository'
-#    Ergonode\Attribute\Infrastructure\Persistence\Repository\Decorator\CacheAttributeRepositoryDecorator:
-#        decorates: Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface
-#        arguments:
-#            - '@Ergonode\Attribute\Infrastructure\Persistence\Repository\Decorator\CacheAttributeRepositoryDecorator.inner'
+    Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface:
+        alias: Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeRepository
+        public: true
     Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeGroupRepository'
-
     Ergonode\Attribute\Domain\Query\AttributeQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeQuery'
     Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator\CacheAttributeQueryDecorator:
         decorates: Ergonode\Attribute\Domain\Query\AttributeQueryInterface
@@ -51,9 +48,3 @@ services:
     Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGroupQuery'
     Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGridQuery'
     Ergonode\Attribute\Domain\Query\CurrencyQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalCurrencyQuery'
-
-    Ergonode\Attribute\Application\Provider\AttributePropertyFormResolver:
-        calls:
-            - ['set', ['PRICE','Ergonode\Attribute\Application\Form\Attribute\Configuration\PriceAttributeConfigurationForm']]
-            - ['set', ['DATE','Ergonode\Attribute\Application\Form\Attribute\Configuration\DateAttributeConfigurationForm']]
-            - ['set', ['UNIT','Ergonode\Attribute\Application\Form\Attribute\Configuration\UnitAttributeConfigurationForm']]

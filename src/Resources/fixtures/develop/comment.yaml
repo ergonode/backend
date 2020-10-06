@@ -7,5 +7,5 @@ Ergonode\Comment\Domain\Entity\Comment:
         __construct:
             - '<commentId()>'
             - '@object_id_*'
-            - '<userId(data_inputer@ergonode.com)>'
+            - '<userId(test_user@ergonode.com)>'
             - 'Note content'

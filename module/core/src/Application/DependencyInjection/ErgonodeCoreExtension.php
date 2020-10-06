@@ -15,6 +15,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ergonode\Core\Application\Installer\InstallerInterface;
+use Ergonode\Core\Application\DependencyInjection\CompilerPass\InstallerInterfaceCompilerPass;
 
 /**
  */
@@ -36,6 +38,10 @@ class ErgonodeCoreExtension extends Extension
         $container
             ->registerForAutoconfiguration(RelationshipStrategyInterface::class)
             ->addTag(RelationshipStrategyInterfaceCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(InstallerInterface::class)
+            ->addTag(InstallerInterfaceCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

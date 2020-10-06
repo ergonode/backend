@@ -12,6 +12,7 @@ namespace Ergonode\Core;
 use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Core\Application\DependencyInjection\CompilerPass\RelationshipStrategyInterfaceCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Ergonode\Core\Application\DependencyInjection\CompilerPass\InstallerInterfaceCompilerPass;
 
 /**
  */
@@ -25,5 +26,6 @@ class ErgonodeCoreBundle extends AbstractModule
         parent::build($container);
 
         $container->addCompilerPass(new RelationshipStrategyInterfaceCompilerPass());
+        $container->addCompilerPass(new InstallerInterfaceCompilerPass());
     }
 }

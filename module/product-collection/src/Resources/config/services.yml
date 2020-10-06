@@ -36,3 +36,10 @@ services:
     Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionQuery'
     Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionElementQuery'
     Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionTypeQuery'
+
+#    Ergonode\Migration\:
+#        resource: '../../../migrations/*'
+
+    Ergonode\Migration\Version20200127083123:
+        calls:
+            - [ setContainer, [ '@service_container' ] ]

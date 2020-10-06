@@ -97,6 +97,6 @@ class CreateUserCommand extends Command
             $output->writeln(sprintf('<error>Can\'t find role %s</error>', $role));
         }
 
-        return 1;
+        return 0;
     }
 }

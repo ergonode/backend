@@ -108,7 +108,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand:
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - '<AttributeScope(local)>'
-            - '@unit_metre->id'
+            - '@unit_test->id'
     attribute_{39..40}:
         __construct:
             - '<AttributeCode(code_<current()>)>'
@@ -116,7 +116,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand:
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - '<AttributeScope(global)>'
-            - '@unit_metre->id'
+            - '@unit_test->id'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand:
     attribute_{41..43}:
@@ -179,80 +179,3 @@ Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
             - '@attribute_46->id'
             - '<OptionKey(key_2_<current()>)>'
             - '@option_value_2_<current()>'
-
-Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
-    attribute_esa_status:
-        __construct:
-            - '@label_esa_status'
-            - '@empty'
-            - '@empty'
-            -
-Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute:
-    attribute_esa_created_at:
-        __construct:
-            - '@label_esa_created_at'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute:
-    attribute_esa_edited_at:
-        __construct:
-            - '@label_esa_edited_at'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute:
-    attribute_esa_created_by:
-        __construct:
-            - '@label_esa_created_by'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute:
-    attribute_esa_edited_by:
-        __construct:
-            - '@label_esa_edited_by'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute:
-    attribute_esa_template:
-        __construct:
-            - '@label_esa_template'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
-    attribute_esa_categories:
-        __construct:
-            - '@label_esa_categories'
-            - '@empty'
-            - '@empty'
-
-Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute:
-    attribute_esa_product_collection:
-        __construct:
-            - '@label_esa_product_collection'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
-    attribute_esa_product_type:
-        __construct:
-            - '@label_esa_product_type'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
-    attribute_esa_default_label:
-        __construct:
-            - '@label_esa_default_label'
-            - '@empty'
-            - '@empty'
-
-Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
-    attribute_esa_default_image:
-        __construct:
-            - '@label_esa_default_image'
-            - '@empty'
-            - '@empty'
