@@ -20,6 +20,7 @@ class CoreInstaller implements InstallerInterface
      * @var AttributeRepositoryInterface
      */
     private AttributeRepositoryInterface $repository;
+
     /**
      * @var CommandBusInterface
      */

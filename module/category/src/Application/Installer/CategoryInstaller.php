@@ -23,6 +23,7 @@ class CategoryInstaller implements InstallerInterface
      * @var AttributeRepositoryInterface
      */
     private AttributeRepositoryInterface $repository;
+
     /**
      * @var CommandBusInterface
      */
@@ -43,7 +44,6 @@ class CategoryInstaller implements InstallerInterface
      */
     public function install(): void
     {
-
         $this->installCategoryTree();
         $this->installCategorySystemAttribute();
     }
