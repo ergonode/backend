@@ -17,9 +17,9 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 
@@ -63,7 +63,8 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         LanguageQueryInterface $query,
         DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
         DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
-    ) {
+    )
+    {
         $this->connection = $connection;
         $this->query = $query;
         $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
@@ -94,33 +95,37 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     }
 
     /**
-     * @param VariableProduct $product
-     * @param Language        $language
+     * @param AbstractAssociatedProduct $product
+     * @param Language                  $language
      *
      * @return DataSetInterface
      */
     public function getChildrenAndAvailableProductsDataSet(
-        VariableProduct $product,
+        AbstractAssociatedProduct $product,
         Language $language
-    ): DataSetInterface {
+    ): DataSetInterface  {
         $info = $this->query->getLanguageNodeInfo($language);
         $bindingValues = [];
-        foreach ($product->getBindings() as $binding) {
-            $bindingValues[] = $binding->getValue();
-        }
+        $count = 0;
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('p.id, p.sku, dt.name as template')
             ->from(self::PRODUCT_TABLE, 'p')
             ->join('p', self::PRODUCT_VALUE_TABLE, 'pv', 'p.id = pv.product_id')
             ->join('p', self::TEMPLATE_TABLE, 'dt', 'p.template_id = dt.id')
-            ->where($qb->expr()->in('pv.attribute_id', ':bindings'))
-            ->andWhere('p.type = :type')
+            ->where('p.type = :type')
             ->groupBy('p.id, p.sku, dt.name')
             ->having($qb->expr()->gt('count(*)', ':count'));
 
+        if ($product instanceof VariableProduct) {
+            foreach ($product->getBindings() as $binding) {
+                $bindingValues[] = $binding->getValue();
+                $count = (count($bindingValues) - 1);
+            }
+            $qb->andWhere($qb->expr()->in('pv.attribute_id', ':bindings'));
+        }
         $subQb = $this->connection->createQueryBuilder();
-        $subQb->select('pc.child_id as attach_flag')
+        $subQb->select('pc.child_id as attached')
             ->from(self::PRODUCT_CHILDREN_TABLE, 'pc')
             ->where($subQb->expr()->eq('pc.product_id', ':id'))
             ->andWhere($subQb->expr()->eq('pc.child_id', 'p.id'));
@@ -132,10 +137,13 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
-        $result->setParameter(':bindings', $bindingValues, Connection::PARAM_INT_ARRAY);
-        $result->setParameter(':count', (count($bindingValues) - 1));
+        $result->setParameter(':count', $count);
         $result->setParameter(':id', $product->getId()->getValue());
         $result->setParameter(':type', SimpleProduct::TYPE);
+
+        if ($product instanceof VariableProduct) {
+            $result->setParameter(':bindings', $bindingValues, Connection::PARAM_INT_ARRAY);
+        }
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
         return new DbalDataSet($result);
