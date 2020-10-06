@@ -210,8 +210,6 @@ Feature: Variable product available children grid feature
     And the JSON nodes should contain:
       | columns[0].id    | id             |
       | columns[0].type  | TEXT           |
-    And the JSON node "info.filtered" should match "/[^2]/"
-
 
   Scenario: Get simple product children and available products
     When I send a GET request to "/api/v1/en_GB/products/@product_1_id@/children-and-available-products?field=sku&order=ASC"
