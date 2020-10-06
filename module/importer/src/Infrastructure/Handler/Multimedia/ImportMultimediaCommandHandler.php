@@ -1,24 +1,23 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Ergonode\Importer\Infrastructure\Handler;
+namespace Ergonode\Importer\Infrastructure\Handler\Multimedia;
 
-use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
-use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
-use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Importer\Domain\Command\Import\ImportMultimediaCommand;
 use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
-use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 
 /**
  */
-class ImportMultimediaFromUrlCommandHandler
+final class ImportMultimediaCommandHandler
 {
     /**
      * @var MultimediaImportAction
@@ -41,11 +40,11 @@ class ImportMultimediaFromUrlCommandHandler
     }
 
     /**
-     * @param ImportMultimediaFromWebCommand $command
+     * @param ImportMultimediaCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(ImportMultimediaFromWebCommand $command)
+    public function __invoke(ImportMultimediaCommand $command)
     {
         try {
             $this->action->action(

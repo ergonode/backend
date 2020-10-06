@@ -13,15 +13,14 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
 use Ergonode\ImporterErgonode\Application\Form\ImporterErgonodeConfigurationForm;
 use Ergonode\ImporterErgonode\Application\Model\ImporterErgonodeConfigurationModel;
-use Ergonode\ImporterErgonode\Domain\Command\CreateErgonodeCsvSourceCommand;
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeCsvSource;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\ImporterErgonode\Domain\Command\CreateErgonodeZipSourceCommand;
+use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Component\Form\FormInterface;
 
 /**
  */
-class ErgonodeCsvCreateSourceCommandBuilder implements CreateSourceCommandBuilderInterface
+class ErgonodeZipCreateSourceCommandBuilder implements CreateSourceCommandBuilderInterface
 {
     /**
      * @param string $type
@@ -30,7 +29,7 @@ class ErgonodeCsvCreateSourceCommandBuilder implements CreateSourceCommandBuilde
      */
     public function supported(string $type): bool
     {
-        return $type === ErgonodeCsvSource::TYPE;
+        return $type === ErgonodeZipSource::TYPE;
     }
 
     /**
@@ -44,28 +43,9 @@ class ErgonodeCsvCreateSourceCommandBuilder implements CreateSourceCommandBuilde
     {
         /** @var ImporterErgonodeConfigurationModel $data */
         $data = $form->getData();
-        $languages = [];
-        foreach ($data->mapping->languages as $language) {
-            $languages[$language->store] = $language->language;
-        }
-        $language = $data->mapping->defaultLanguage;
         $name = $data->name;
-        $host = $data->host;
-        $attributes = [];
-        foreach ($data->attributes as $attribute) {
-            $attributes[$attribute->code] = new AttributeId($attribute->attribute);
-        }
-
         $import = (array) $data->import;
 
-        return new CreateErgonodeCsvSourceCommand(
-            SourceId::generate(),
-            $name,
-            $language,
-            $host,
-            $languages,
-            $attributes,
-            $import
-        );
+        return new CreateErgonodeZipSourceCommand(SourceId::generate(), $name, $import);
     }
 }

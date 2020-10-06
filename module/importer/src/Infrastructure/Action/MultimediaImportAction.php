@@ -5,25 +5,20 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Symfony\Component\HttpFoundation\File\File;
-use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use League\Flysystem\FilesystemInterface;
-use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\FileExistsException;
+use Throwable;
 
 /**
  */
-class MultimediaImportAction
+final class MultimediaImportAction
 {
     /**
      * @var MultimediaRepositoryInterface
@@ -31,80 +26,26 @@ class MultimediaImportAction
     private MultimediaRepositoryInterface $repository;
 
     /**
-     * @var DownloaderInterface
+     * @param MultimediaRepositoryInterface $repository
      */
-    private DownloaderInterface $downloader;
-
-    /**
-     * @var HashCalculationServiceInterface
-     */
-    private HashCalculationServiceInterface $hashService;
-
-    /**
-     * @var FilesystemInterface
-     */
-    private FilesystemInterface $multimediaStorage;
-
-    /**
-     * @var MultimediaQueryInterface
-     */
-    private MultimediaQueryInterface $multimediaQuery;
-
-    /**
-     * @param MultimediaRepositoryInterface   $repository
-     * @param DownloaderInterface             $downloader
-     * @param HashCalculationServiceInterface $hashService
-     * @param FilesystemInterface             $multimediaStorage
-     * @param MultimediaQueryInterface        $multimediaQuery
-     */
-    public function __construct(
-        MultimediaRepositoryInterface $repository,
-        DownloaderInterface $downloader,
-        HashCalculationServiceInterface $hashService,
-        FilesystemInterface $multimediaStorage,
-        MultimediaQueryInterface $multimediaQuery
-    ) {
+    public function __construct(MultimediaRepositoryInterface $repository)
+    {
         $this->repository = $repository;
-        $this->downloader = $downloader;
-        $this->hashService = $hashService;
-        $this->multimediaStorage = $multimediaStorage;
-        $this->multimediaQuery = $multimediaQuery;
     }
 
-    /**
-     * @param ImportId $importId
-     * @param string   $url
-     * @param string   $filename
-     *
-     * @throws FileExistsException
-     * @throws FileNotFoundException
-     */
-    public function action(ImportId $importId, string $url, string $filename): void
-    {
-        $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        $name = pathinfo($filename, PATHINFO_FILENAME);
+    public function action(
+        ImportId $importId,
+        MultimediaId $id,
+        string $name,
+        string $extension,
+        int $size
+    ): void {
+        $multimedia = $this->repository->load($id);
 
-        $id = $this->multimediaQuery->findIdByFilename($name);
-
-        if (!$id) {
+        if (null === $multimedia) {
             try {
-                $tmpFile = tempnam(sys_get_temp_dir(), $importId->getValue());
-
-                $content = $this->downloader->download($url);
-                file_put_contents($tmpFile, $content);
-                $file = new File($tmpFile);
-
-                $hash = $this->hashService->calculateHash($file);
-                $filename = sprintf('%s.%s', $hash->getValue(), $extension);
-                if (!$this->multimediaStorage->has($filename)) {
-                    $this->multimediaStorage->write($filename, $content);
-                }
-
-                $size = $this->multimediaStorage->getSize($filename);
-                $mime = $this->multimediaStorage->getMimetype($filename);
-
                 $multimedia = new Multimedia(
-                    MultimediaId::generate(),
+                    $id,
                     $name,
                     $extension,
                     $size,
@@ -113,9 +54,8 @@ class MultimediaImportAction
                 );
 
                 $this->repository->save($multimedia);
-                unlink($tmpFile);
-            } catch (\Exception $exception) {
-                throw $exception;
+            } catch (Throwable $exception) {
+                throw new ImportException($exception->getMessage(), [], $exception);
             }
         }
     }

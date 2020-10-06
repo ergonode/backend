@@ -15,7 +15,7 @@ use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
  */
 class ErgonodeImportSourceService implements ImportSourceInterface
 {
-    public const TYPE = 'ergonode-csv';
+    public const TYPE = 'ergonode-zip';
 
     /**
      * @return string

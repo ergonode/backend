@@ -9,12 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterErgonode\Application\Form;
 
-use Ergonode\ImporterErgonode\Application\Form\Type\AttributeMapType;
-use Ergonode\ImporterErgonode\Application\Form\Type\StoreViewType;
 use Ergonode\ImporterErgonode\Application\Model\ImporterErgonodeConfigurationModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,42 +42,11 @@ class ImporterErgonodeConfigurationForm extends AbstractType
                     'choices' => [
                         'Attributes' => 'attributes',
                         'Products' => 'products',
-                        'Products images' => 'multimedia',
+                        'Multimedia' => 'multimedia',
                         'Categories' => 'categories',
                         'Templates (Attribute set)' => 'templates',
                     ],
                     'multiple' => true,
-                ]
-            )
-            ->add(
-                'host',
-                TextType::class,
-                [
-                    'help' => 'Enter the address of the server where the product images are located',
-                    'label' => 'Images host',
-                    'required' => false,
-                ]
-            )
-            ->add(
-                'mapping',
-                StoreViewType::class,
-                [
-                    'label' => 'Store views',
-                ]
-            )
-            ->add(
-                'attributes',
-                CollectionType::class,
-                [
-                    'label' => 'Attribute mapping',
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => AttributeMapType::class,
-                    'liform' => [
-                        'format' => 'table',
-                        'widget' => 'dictionary',
-                    ],
-                    'required' => false,
                 ]
             );
     }

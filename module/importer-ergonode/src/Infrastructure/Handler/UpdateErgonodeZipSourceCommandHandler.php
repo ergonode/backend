@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterErgonode\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\ImporterErgonode\Domain\Command\UpdateErgonodeCsvSourceCommand;
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeCsvSource;
+use Ergonode\ImporterErgonode\Domain\Command\UpdateErgonodeZipSourceCommand;
+use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 
 /**
  */
-final class UpdateErgonodeCsvSourceCommandHandler
+final class UpdateErgonodeZipSourceCommandHandler
 {
     /**
      * @var SourceRepositoryInterface
@@ -31,20 +31,16 @@ final class UpdateErgonodeCsvSourceCommandHandler
     }
 
     /**
-     * @param UpdateErgonodeCsvSourceCommand $command
+     * @param UpdateErgonodeZipSourceCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(UpdateErgonodeCsvSourceCommand $command)
+    public function __invoke(UpdateErgonodeZipSourceCommand $command)
     {
-        /** @var ErgonodeCsvSource $source */
+        /** @var ErgonodeZipSource $source */
         $source = $this->repository->load($command->getId());
         $source->setName($command->getName());
-        $source->setAttributes($command->getAttributes());
-        $source->setHost($command->getHost());
-        $source->setDefaultLanguage($command->getDefaultLanguage());
         $source->setImport($command->getImport());
-        $source->setLanguages($command->getLanguages());
 
         $this->repository->save($source);
     }

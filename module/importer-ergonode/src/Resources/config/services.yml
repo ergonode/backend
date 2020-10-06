@@ -13,12 +13,22 @@ services:
 
     Ergonode\ImporterErgonode\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Processor}'
 
     Ergonode\ImporterErgonode\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeCsvReader:
+    Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeZipExtractor:
         arguments:
-            $directory: '%import_directory%'
+            $sourceDirectory: '%import_directory%'
+            $destinationDirectory: '%import_directory%'
+
+    Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeImportProcess:
+        arguments:
+            $steps:
+                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeCategoriesProcessorStep'
+                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeTemplateProcessorStep'
+#                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeOptionsProcessorStep'
+#                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeAttributesProcessorStep'
+#                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeMultimediaProcessorStep'
+#                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeProductProcessorStep'

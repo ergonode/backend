@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
+
+use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
+
+/**
+ */
+final class ErgonodeProductReader extends AbstractErgonodeReader
+{
+    /**
+     * @return ProductModel|null
+     */
+    public function read(): ?ProductModel
+    {
+        $item = null;
+        $attributes = $this->prepareAttributes();
+
+        while ($this->records->valid()) {
+            $record = $this->records->current();
+
+            if (null === $item) {
+                $item = new ProductModel(
+                    $record['_id'],
+                    $record['_sku'],
+                    $record['_type'],
+                    $record['_template']
+                );
+            } else if ($item->getId() !== $record['_id']) {
+                break;
+            }
+
+            foreach ($attributes as $attribute) {
+                $item->addAttribute($attribute, $record['_language'], $record[$attribute]);
+            }
+
+            $this->records->next();
+        }
+
+        return $item;
+    }
+
+    /**
+     * @return array
+     */
+    private function prepareAttributes(): array
+    {
+        return array_filter($this->headers, static function ($item) {
+            return '_' === $item[0];
+        });
+    }
+}

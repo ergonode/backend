@@ -13,7 +13,7 @@ use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\ImporterErgonode\Application\Form\ImporterErgonodeConfigurationForm;
 use Ergonode\ImporterErgonode\Application\Model\ImporterErgonodeConfigurationModel;
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeCsvSource;
+use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,7 @@ class ImporterErgonodeSourceFormFactory implements SourceFormFactoryInterface
      */
     public function supported(string $type): bool
     {
-        return ErgonodeCsvSource::TYPE === $type;
+        return ErgonodeZipSource::TYPE === $type;
     }
 
     /**
