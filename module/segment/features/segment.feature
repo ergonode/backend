@@ -71,7 +71,7 @@ Feature: Segment module
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "product"
+    And store response param "id" as "product_id_1"
 
   Scenario: Create condition set
     Given I am Authenticated as "test@ergonode.com"
@@ -292,6 +292,22 @@ Feature: Segment module
       """
     Then the response status code should be 204
 
+  Scenario: Create product (matching existing segment)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/products" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
+        "templateId": "@product_template@",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "product_id_2"
+
   Scenario: Get segment (not authorized)
     When I send a GET request to "/api/v1/en_GB/segments/@segment@"
     Then the response status code should be 401
@@ -376,6 +392,8 @@ Feature: Segment module
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].id" should exist
     And the JSON node "collection[0].sku" should exist
+    And the JSON node "collection[1].id" should exist
+    And the JSON node "collection[1].sku" should exist
 
   Scenario: Get products based on segment (order by sku)
     Given I am Authenticated as "test@ergonode.com"
@@ -384,6 +402,8 @@ Feature: Segment module
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].id" should exist
     And the JSON node "collection[0].sku" should exist
+    And the JSON node "collection[1].id" should exist
+    And the JSON node "collection[1].sku" should exist
 
   Scenario: Get products based on segment (filter by sku)
     Given I am Authenticated as "test@ergonode.com"
