@@ -279,6 +279,15 @@ Feature: Product edit feature
       """
     Then the response status code should be 200
 
+  Scenario: Edit product multi select with the duplicated value
+    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
+      """
+      {
+        "value": ["@multi_select_option_1@", "@multi_select_option_1@"]
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Edit product unit value
     When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_unit_attribute@/value" with body:
       """
