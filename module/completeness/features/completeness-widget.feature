@@ -5,6 +5,6 @@ Feature: Designer module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
-  Scenario: Gte completeness widget data
+  Scenario: Get completeness widget data
     When I send a GET request to "/api/v1/en_GB/dashboard/widget/completeness-count"
     Then the response status code should be 200
