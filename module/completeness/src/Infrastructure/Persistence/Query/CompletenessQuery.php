@@ -18,6 +18,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 
 /**
  */
@@ -36,13 +38,23 @@ class CompletenessQuery implements CompletenessQueryInterface
     private AttributeRepositoryInterface $repository;
 
     /**
+     * @var TranslatorInterface
+     */
+    private TranslatorInterface $translator;
+
+    /**
      * @param Connection                   $connection
      * @param AttributeRepositoryInterface $repository
+     * @param TranslatorInterface          $translator
      */
-    public function __construct(Connection $connection, AttributeRepositoryInterface $repository)
-    {
+    public function __construct(
+        Connection $connection,
+        AttributeRepositoryInterface $repository,
+        TranslatorInterface $translator
+    ) {
         $this->connection = $connection;
         $this->repository = $repository;
+        $this->translator = $translator;
     }
 
     /**
@@ -80,6 +92,38 @@ class CompletenessQuery implements CompletenessQueryInterface
             );
 
             $result->addCompletenessElement($element);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $language
+     *
+     * @return CompletenessWidgetModel[]
+     */
+    public function getCompletenessCount(Language $language): array
+    {
+        $sqb = $this->connection->createQueryBuilder();
+        $sqb->select('product_id, language, sum(required::int) as required, sum(filled::int) as filled')
+            ->from(self::TABLE)
+            ->where($sqb->expr()->eq('required::int', 1))
+            ->groupBy('product_id, language');
+
+        $qb = $this->connection->createQueryBuilder();
+        $records = $qb->select('count(*) AS value, language AS code ')
+            ->from(sprintf('(%s)', $sqb->getSQL()), 't')
+            ->where($qb->expr()->lte('required', 'filled'))
+            ->groupBy('language')
+            ->execute()->fetchAll();
+
+        $result = [];
+        foreach ($records as $key => $record) {
+            $result[] = new CompletenessWidgetModel(
+                $record['code'],
+                $this->translator->trans($records[$key]['code'], [], 'language', $language->getCode()),
+                $record['value'],
+            );
         }
 
         return $result;
