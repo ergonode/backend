@@ -1,7 +1,7 @@
 jms_serializer:
     handlers:
         datetime:
-            default_format: 'Y-m-d H:i:s'
+            default_format: !php/const DateTimeInterface::RFC3339
     default_context:
         serialization:
             serialize_null: true
