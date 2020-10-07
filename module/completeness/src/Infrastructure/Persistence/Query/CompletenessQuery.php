@@ -18,6 +18,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -36,13 +37,23 @@ class CompletenessQuery implements CompletenessQueryInterface
     private AttributeRepositoryInterface $repository;
 
     /**
+     * @var TranslatorInterface
+     */
+    private TranslatorInterface $translator;
+
+    /**
      * @param Connection                   $connection
      * @param AttributeRepositoryInterface $repository
+     * @param TranslatorInterface          $translator
      */
-    public function __construct(Connection $connection, AttributeRepositoryInterface $repository)
-    {
+    public function __construct(
+        Connection $connection,
+        AttributeRepositoryInterface $repository,
+        TranslatorInterface $translator
+    ) {
         $this->connection = $connection;
         $this->repository = $repository;
+        $this->translator = $translator;
     }
 
     /**
@@ -83,6 +94,34 @@ class CompletenessQuery implements CompletenessQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param $language
+     *
+     * @return array
+     */
+    public function getCompletenessCount(Language $language): array
+    {
+        $sqb = $this->connection->createQueryBuilder();
+        $sqb->select('product_id, language, sum(required::int) as required, sum(filled::int) as filled')
+            ->from(self::TABLE)
+            ->where($sqb->expr()->eq('required::int', 1))
+            ->groupBy('product_id, language');
+
+        $qb = $this->connection->createQueryBuilder();
+        $records = $qb->select('count(*) AS value, language AS code ')
+            ->from(sprintf('(%s)', $sqb->getSQL()), 't')
+            ->where($qb->expr()->lte('required', 'filled'))
+            ->groupBy('language')
+            ->execute()->fetchAll();
+
+        foreach ($records as $key => $record) {
+            $label = $this->translator->trans($records[$key]['code'], [], 'language', $language->getCode());
+            $records[$key]['label'] = $label;
+        }
+
+        return $records;
     }
 
     /**
