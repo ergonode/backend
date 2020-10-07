@@ -20,7 +20,7 @@ class CreateAttributeGroupFormModel
     /**
      * @var AttributeGroupCode|null
      *
-     * @Assert\NotBlank(message="Attribute code is required")
+     * @Assert\NotBlank(message="System name is required")
      * @Assert\Length(max=128)
      *
      * @AppAssert\AttributeGroupCode()
