@@ -25,7 +25,7 @@ interface CompletenessQueryInterface
     public function getCompleteness(ProductId $productId, Language $language): CompletenessReadModel;
 
     /**
-     * @param $language
+     * @param Language $language
      *
      * @return array
      */
