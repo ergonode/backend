@@ -150,6 +150,15 @@ class CategoryTree extends AbstractAggregateRoot
     }
 
     /**
+     * @return Node[]
+     */
+    public function getCategories(): array
+    {
+        return $this->categories;
+    }
+
+
+    /**
      * @param CategoryTreeCreatedEvent $event
      */
     protected function applyCategoryTreeCreatedEvent(CategoryTreeCreatedEvent $event): void

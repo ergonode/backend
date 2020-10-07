@@ -23,7 +23,7 @@ class SchedulerModel
     /**
      * @Assert\NotBlank(message="Start date is required", groups={"Active"})
      */
-    public ?string $start = null;
+    public ?\DateTime $start = null;
 
     /**
      * @Assert\NotBlank(message="Hour is required", groups={"Active"})
