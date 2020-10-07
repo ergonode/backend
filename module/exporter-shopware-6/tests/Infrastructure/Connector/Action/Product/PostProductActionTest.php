@@ -21,7 +21,7 @@ class PostProductActionTest extends TestCase
 {
     /**
      */
-    public function testAction():void
+    public function testAction(): void
     {
         $product = new Shopware6Product('SKU');
         $action = new PostProductAction($product);

@@ -1,0 +1,25 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Mailer\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Mailer\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Mailer\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Mailer\Infrastructure\Sender\MailerSender:
+        arguments:
+            $strategies: !tagged_iterator 'component.notification.mailer_strategy_interface'
+
+    Ergonode\Mailer\Infrastructure\Sender\Strategy\SymfonyMailerStrategy:
+        arguments:
+            $defaultFrom: '%ergonode_mailer.from%'
+            $defaultReplyTo: '%ergonode_mailer.replyTo%'

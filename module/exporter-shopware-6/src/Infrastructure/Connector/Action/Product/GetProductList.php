@@ -61,7 +61,6 @@ class GetProductList extends AbstractAction implements ActionInterface
 
         if (count($data['data']) > 0) {
             foreach ($data['data'] as $row) {
-                $category = null;
                 $properties = null;
                 $options = null;
                 $price = null;
@@ -77,13 +76,6 @@ class GetProductList extends AbstractAction implements ActionInterface
                     }
                 }
 
-                if ($row['attributes']['categoryTree']) {
-                    foreach ($row['attributes']['categoryTree'] as $attributeCategory) {
-                        $category[] = [
-                            'id' => $attributeCategory,
-                        ];
-                    }
-                }
                 if ($row['attributes']['propertyIds']) {
                     foreach ($row['attributes']['propertyIds'] as $propertyId) {
                         $properties[] = [
@@ -106,7 +98,6 @@ class GetProductList extends AbstractAction implements ActionInterface
                     $row['attributes']['productNumber'],
                     $row['attributes']['name'],
                     $row['attributes']['description'],
-                    $category,
                     $properties,
                     $customFields,
                     $row['attributes']['parentId'],
@@ -114,7 +105,8 @@ class GetProductList extends AbstractAction implements ActionInterface
                     $row['attributes']['active'],
                     $row['attributes']['stock'],
                     $row['attributes']['taxId'],
-                    $price
+                    $price,
+                    $row['attributes']['coverId'],
                 );
             }
         }
