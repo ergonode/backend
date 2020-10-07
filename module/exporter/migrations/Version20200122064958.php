@@ -39,6 +39,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 PRIMARY KEY (id)
             )
         ');
+
         $this->addSql(
             'ALTER TABLE exporter.export 
                     ADD CONSTRAINT export_channel_id_fk FOREIGN KEY (channel_id) 
