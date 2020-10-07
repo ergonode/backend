@@ -20,7 +20,7 @@ class AttributeFormModel
      * @var string
      *
      * @Assert\NotBlank(
-     *     message="Attribute code is required",
+     *     message="System name is required",
      *     groups={"Create"}
      *     )
      * @Assert\Length(
