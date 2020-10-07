@@ -491,7 +491,7 @@ Feature: Segment module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/segments/@segment_3@/products?field=id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should be equal to the number 2
+    And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].id" should exist
     And the JSON node "collection[0].sku" should exist
     And the JSON node "collection[1].id" should exist

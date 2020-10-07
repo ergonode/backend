@@ -44,6 +44,8 @@ class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalcul
 
     /**
      * {@inheritDoc}
+     *
+     * @param OptionAttributeValueCondition $configuration
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
