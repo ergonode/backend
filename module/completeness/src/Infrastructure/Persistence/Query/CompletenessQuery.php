@@ -19,6 +19,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 
 /**
  */
@@ -99,7 +100,7 @@ class CompletenessQuery implements CompletenessQueryInterface
     /**
      * @param $language
      *
-     * @return array
+     * @return CompletenessWidgetModel[]
      */
     public function getCompletenessCount(Language $language): array
     {
@@ -116,12 +117,16 @@ class CompletenessQuery implements CompletenessQueryInterface
             ->groupBy('language')
             ->execute()->fetchAll();
 
+        $result = [];
         foreach ($records as $key => $record) {
-            $label = $this->translator->trans($records[$key]['code'], [], 'language', $language->getCode());
-            $records[$key]['label'] = $label;
+            $result[] = new CompletenessWidgetModel(
+                $record['code'],
+                $this->translator->trans($records[$key]['code'], [], 'language', $language->getCode()),
+                $record['value'],
+            );
         }
 
-        return $records;
+        return $result;
     }
 
     /**

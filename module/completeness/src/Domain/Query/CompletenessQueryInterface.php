@@ -11,6 +11,7 @@ namespace Ergonode\Completeness\Domain\Query;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 
 /**
  */
@@ -27,7 +28,7 @@ interface CompletenessQueryInterface
     /**
      * @param Language $language
      *
-     * @return array
+     * @return CompletenessWidgetModel[]
      */
     public function getCompletenessCount(Language $language): array;
 }
