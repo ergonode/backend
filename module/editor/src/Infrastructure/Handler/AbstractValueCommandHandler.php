@@ -34,12 +34,19 @@ abstract class AbstractValueCommandHandler
      * @param AbstractAttribute $attribute
      * @param mixed             $value
      *
-     * @return ValueInterface
+     * @return ValueInterface|null
      */
-    protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ValueInterface
+    protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ?ValueInterface
     {
-        if ($attribute instanceof MultiSelectAttribute || $attribute instanceof AbstractCollectionAttribute) {
-            if (null === $value) {
+        if ($attribute instanceof MultiSelectAttribute) {
+            if (empty($value)) {
+                return null;
+            }
+
+            return new StringCollectionValue([$language->getCode() => implode(',', $value)]);
+        }
+        if ($attribute instanceof AbstractCollectionAttribute) {
+            if (empty($value)) {
                 $value = [];
             }
 
