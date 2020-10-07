@@ -98,6 +98,12 @@ class MultimediaGrid extends AbstractGrid
                 'parameters' => ['multimedia' => '{id}'],
                 'method' => Request::METHOD_GET,
             ],
+            'delete' => [
+                'route' => 'ergonode_multimedia_delete',
+                'privilege' => 'MULTIMEDIA_DELETE',
+                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
         ];
         $this->addColumn('_links', new LinkColumn('hal', $links));
     }

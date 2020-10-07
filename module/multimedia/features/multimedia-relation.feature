@@ -71,3 +71,7 @@ Feature: Multimedia relations
     Then the response status code should be 200
     And the JSON node "[0].name" should exist
     And the JSON node "[0].type" should exist
+
+  Scenario: Delete multimedia
+    And I send a "DELETE" request to "/api/v1/en_GB/multimedia/@multimedia_id@"
+    Then the response status code should be 409
