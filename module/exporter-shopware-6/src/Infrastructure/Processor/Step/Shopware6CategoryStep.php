@@ -8,15 +8,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
+use Ergonode\Category\Domain\Entity\CategoryTree;
+use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
 /**
@@ -51,9 +51,9 @@ class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
     {
         $categoryTreeId = $channel->getCategoryTree();
         if ($categoryTreeId) {
-            $tree = $this->treeRepository->load(Uuid::fromString($categoryTreeId->getValue()));
+            $tree = $this->treeRepository->load($categoryTreeId);
             Assert::notNull($tree, sprintf('Tree %s not exists', $categoryTreeId));
-
+            /** @var $tree CategoryTree */
             foreach ($tree->getCategories() as $node) {
                 $this->buildStep($exportId, $node);
             }
