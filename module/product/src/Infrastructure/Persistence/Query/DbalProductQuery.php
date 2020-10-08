@@ -382,13 +382,11 @@ class DbalProductQuery implements ProductQueryInterface
 
         return $qb
             ->select('p.id, p.sku')
-            ->from('multimedia', 'm')
-            ->join('m', 'value_translation', 'vt', 'vt.value = m.id::TEXT')
+            ->from('value_translation', 'vt')
             ->join('vt', 'product_value', 'pv', 'pv.value_id = vt.id')
             ->join('pv', 'product', 'p', 'p.id = pv.product_id')
-            ->groupBy('p.id, p.sku')
-            ->where($qb->expr()->eq('m.id', ':multimediaId'))
-            ->setParameter(':multimediaId', $id->getValue())
+            ->andWhere('vt.value ILIKE :search')
+            ->setParameter(':search', '%'.$id->getValue().'%')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }

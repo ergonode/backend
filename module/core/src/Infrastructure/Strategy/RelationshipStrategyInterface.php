@@ -25,7 +25,7 @@ interface RelationshipStrategyInterface
     /**
      * @param AggregateId $id
      *
-     * @return array
+     * @return AggregateId[]
      */
     public function getRelationships(AggregateId $id): array;
 }
