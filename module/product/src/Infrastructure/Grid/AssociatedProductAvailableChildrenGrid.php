@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Grid;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\AbstractGrid;
@@ -17,6 +19,7 @@ use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -31,11 +34,23 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
     private TemplateQueryInterface $templateQuery;
 
     /**
-     * @param TemplateQueryInterface $templateQuery
+     * @var AbstractAttribute[]
      */
-    public function __construct(TemplateQueryInterface $templateQuery)
+    private array $bindingAttributes;
+
+    /**
+     * @var OptionQueryInterface
+     */
+    private OptionQueryInterface $optionQuery;
+
+    /**
+     * @param TemplateQueryInterface $templateQuery
+     * @param OptionQueryInterface   $optionQuery
+     */
+    public function __construct(TemplateQueryInterface $templateQuery, OptionQueryInterface $optionQuery)
     {
         $this->templateQuery = $templateQuery;
+        $this->optionQuery = $optionQuery;
     }
 
     /**
@@ -58,5 +73,38 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
         $attached = new BoolColumn('attached', 'Attached', new TextFilter());
         $attached->setEditable(true);
         $this->addColumn('attached', $attached);
+        if ($this->bindingAttributes) {
+            $this->addBindingColumn($language);
+        }
+    }
+
+    /**
+     * @param AbstractAttribute[] $bindingAttributes
+     */
+    public function addBindingAttributes(array $bindingAttributes): void
+    {
+        $this->bindingAttributes = $bindingAttributes;
+    }
+
+    /**
+     * @param Language $language
+     */
+    private function addBindingColumn(Language $language): void
+    {
+        foreach ($this->bindingAttributes as $bindingAttribute) {
+            $options = $this->optionQuery->getAll($bindingAttribute->getId());
+            $result = [];
+            foreach ($options as $option) {
+                $label = $option['label'][$language->getCode()] ?? null;
+                $result[] = new FilterOption(
+                    $option['id'],
+                    $option['code'],
+                    $label
+                );
+            }
+            $attributeCode = $bindingAttribute->getCode()->getValue();
+            $attributeLabel = $bindingAttribute->getLabel()->get($language);
+            $this->addColumn($attributeCode, new SelectColumn($attributeCode, $attributeLabel, new MultiSelectFilter($result)));
+        }
     }
 }

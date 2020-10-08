@@ -11,6 +11,7 @@ namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
@@ -20,6 +21,7 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 
@@ -31,6 +33,8 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     private const PRODUCT_CHILDREN_TABLE = 'public.product_children';
     private const PRODUCT_VALUE_TABLE = 'public.product_value';
     private const TEMPLATE_TABLE = 'designer.template';
+    private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
+    private const LANGUAGE_TREE_TABLE = 'public.language_tree';
 
     /**
      * @var Connection
@@ -41,6 +45,11 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
      * @var LanguageQueryInterface
      */
     protected LanguageQueryInterface $query;
+
+    /**
+     * @var ProductAttributeLanguageResolver
+     */
+    protected ProductAttributeLanguageResolver $resolver;
 
     /**
      * @var DefaultLabelQueryBuilderInterface
@@ -57,17 +66,21 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
      * @param LanguageQueryInterface            $query
      * @param DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder
      * @param DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
+     * @param ProductAttributeLanguageResolver  $resolver
      */
     public function __construct(
         Connection $connection,
         LanguageQueryInterface $query,
         DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
-        DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
-    ) {
+        DefaultImageQueryBuilderInterface $defaultImageQueryBuilder,
+        ProductAttributeLanguageResolver $resolver
+    )
+    {
         $this->connection = $connection;
         $this->query = $query;
         $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
         $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
+        $this->resolver = $resolver;
     }
 
 
@@ -96,15 +109,17 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     /**
      * @param AbstractAssociatedProduct $product
      * @param Language                  $language
+     * @param AbstractAttribute[]       $bindingAttributes
      *
      * @return DataSetInterface
      */
     public function getChildrenAndAvailableProductsDataSet(
         AbstractAssociatedProduct $product,
-        Language $language
-    ): DataSetInterface {
+        Language $language,
+        array $bindingAttributes
+    ): DataSetInterface
+    {
         $info = $this->query->getLanguageNodeInfo($language);
-        $bindingValues = [];
         $count = 0;
 
         $qb = $this->connection->createQueryBuilder();
@@ -117,19 +132,21 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
             ->having($qb->expr()->gt('count(*)', ':count'));
 
         if ($product instanceof VariableProduct) {
-            foreach ($product->getBindings() as $binding) {
-                $bindingValues[] = $binding->getValue();
-                $count = (count($bindingValues) - 1);
+            $bindingValues = [];
+            foreach ($bindingAttributes as $bindingAttribute) {
+                $bindingValues[] = $bindingAttribute->getId()->getValue();
+                $this->addBinding($qb, $bindingAttribute, $language);
             }
+            $count = (count($bindingValues) - 1);
             $qb->andWhere($qb->expr()->in('pv.attribute_id', ':bindings'));
         }
-        $subQb = $this->connection->createQueryBuilder();
-        $subQb->select('pc.child_id as attached')
+        $subQbAttached = $this->connection->createQueryBuilder();
+        $subQbAttached->select('pc.child_id')
             ->from(self::PRODUCT_CHILDREN_TABLE, 'pc')
-            ->where($subQb->expr()->eq('pc.product_id', ':id'))
-            ->andWhere($subQb->expr()->eq('pc.child_id', 'p.id'));
+            ->where($subQbAttached->expr()->eq('pc.product_id', ':id'))
+            ->andWhere($subQbAttached->expr()->eq('pc.child_id', 'p.id'));
 
-        $qb->addSelect(sprintf('(%s)', $subQb->getSQL()));
+        $qb->addSelect(sprintf('(SELECT EXISTS(%s) as attached)', $subQbAttached->getSQL()));
 
         $this->defaultLabelQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
         $this->defaultImageQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
@@ -184,5 +201,30 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
             ->select('p.id, p.sku')
             ->from(self::PRODUCT_CHILDREN_TABLE, 'pc')
             ->innerJoin('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
+    }
+
+    /**
+     * @param QueryBuilder      $qb
+     * @param AbstractAttribute $bindingAttribute
+     * @param Language          $language
+     */
+    private function addBinding(QueryBuilder $qb, AbstractAttribute $bindingAttribute, Language $language)
+    {
+        $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($bindingAttribute, $language));
+
+        $subQbBinding = $this->connection->createQueryBuilder();
+        $subQbBinding->select(sprintf('vt.value_id as %s', $bindingAttribute->getCode()))
+            ->from(self::VALUE_TRANSLATION_TABLE, 'vt')
+            ->join('vt', self::PRODUCT_VALUE_TABLE, 'pv', 'vt.id = pv.value_id')
+            ->leftJoin('pv', self::LANGUAGE_TREE_TABLE, 'lt', 'lt.code = vt.language')
+            ->where(sprintf(
+                'pv.product_id = p.id AND pv.attribute_id =  \'%s\' AND lt.lft <= %s AND lt.rgt >= %s',
+                $bindingAttribute->getId(),
+                $info['lft'],
+                $info['rgt']
+            ))
+            ->orderBy('lft', 'DESC NULLS LAST')
+            ->setMaxResults(1);
+        $qb->addSelect(sprintf('(%s)', $subQbBinding->getSQL()));
     }
 }
