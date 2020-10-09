@@ -20,7 +20,7 @@ class MultimediaModel
      *
      * @Assert\NotBlank(),
      * @Assert\Length(
-     *   max=64,
+     *   max=128,
      *   maxMessage="Multimedia alt is to long, It should have {{ limit }} character or less."
      * )
      */
@@ -32,7 +32,7 @@ class MultimediaModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *       max=64,
+     *       max=128,
      *       maxMessage="Multimedia alt is to long, It should have {{ limit }} character or less."
      *     )
      * })
