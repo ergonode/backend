@@ -68,134 +68,79 @@ class DbalStatusQueryTest extends TestCase
      */
     public function testShouldGetStatusCount(): void
     {
-        $statusId1 = Uuid::uuid4()->toString();
-        $statusId2 = Uuid::uuid4()->toString();
-        $statusId3 = Uuid::uuid4()->toString();
-        $statusId4 = Uuid::uuid4()->toString();
-        $statusId5 = Uuid::uuid4()->toString();
         $statusStmt = $this->createMock(ResultStatement::class);
-        $productStmt = $this->createMock(ResultStatement::class);
         $this->mockConnection
             ->method('executeQuery')
-            ->willReturnOnConsecutiveCalls(
-                $statusStmt,
-                $productStmt,
-            );
+            ->willReturn($statusStmt);
         $statusStmt
             ->method('fetchAll')
             ->willReturn([
                 [
-                    'id' => $statusId4,
+                    'status_id' => $id4 = (string) Uuid::uuid4(),
                     'code' => 'cd4',
                     'label' => 'label4',
+                    'value' => 0,
                 ],
                 [
-                    'id' => $statusId1,
+                    'status_id' => $id1 = (string) Uuid::uuid4(),
                     'code' => 'cd1',
                     'label' => 'label1',
+                    'value' => 0,
                 ],
                 [
-                    'id' => $statusId2,
+                    'status_id' => $id2 = (string) Uuid::uuid4(),
                     'code' => 'cd2',
                     'label' => 'label2',
+                    'value' => 3,
                 ],
                 [
-                    'id' => $statusId5,
-                    'code' => 'cd5',
-                    'label' => 'label5',
-                ],
-                [
-                    'id' => $statusId3,
+                    'status_id' => $id3 = (string) Uuid::uuid4(),
                     'code' => 'cd3',
                     'label' => 'label3',
+                    'value' => 0,
                 ],
-            ]);
-        $productStmt
-            ->method('fetchAll')
-            ->willReturn([
                 [
-                    'value' => 'cd2',
-                    'count' => 3,
+                    'status_id' => $id2,
+                    'code' => 'cd2',
+                    'label' => 'label2',
+                    'value' => 0,
                 ],
             ]);
         $workflow = $this->createMock(Workflow::class);
         $this->mockWorkflowProvider
             ->method('provide')
             ->willReturn($workflow);
-        $statusCode1 = $this->createMock(StatusCode::class);
-        $statusCode1->method('getValue')->willReturn('cd1');
-        $statusCode2 = $this->createMock(StatusCode::class);
-        $statusCode2->method('getValue')->willReturn('cd2');
-        $statusCode5 = $this->createMock(StatusCode::class);
-        $statusCode5->method('getValue')->willReturn('cd5');
-        $status1 = $this->createMock(Status::class);
-        $status1->method('getCode')->willReturn($statusCode1);
-        $status2 = $this->createMock(Status::class);
-        $status2->method('getCode')->willReturn($statusCode2);
-        $status5 = $this->createMock(Status::class);
-        $status5->method('getCode')->willReturn($statusCode5);
-
-        $this->mockStatusRepository
-            ->method('load')
-            ->willReturnOnConsecutiveCalls(
-                $status1,
-                $status1,
-                $status2,
-                $status2,
-                $status5,
-            );
-        $transitionId1 = Uuid::uuid4()->toString();
-        $transitionId2 = Uuid::uuid4()->toString();
-        $transitions = [
-            $transitionId1 =>
-                new Transition(
-                    new TransitionId($transitionId1),
-                    new StatusId($statusId1),
-                    new StatusId($statusId2)
-                ),
-            $transitionId2 =>
-                new Transition(
-                    new TransitionId($transitionId1),
-                    new StatusId($statusId2),
-                    new StatusId($statusId5)
-                ),
-        ];
-
         $workflow
-            ->method('getTransitions')
-            ->willReturn($transitions);
+            ->method('getSortedTransitionStatuses')
+            ->willReturn([
+                new StatusId($id3),
+                new StatusId($id1),
+            ]);
 
-        $result = $this->query->getStatusCount(Language::fromString('en_EN'));
+        $result = $this->query->getStatusCount(Language::fromString('en_EN'), Language::fromString('pl_PL'));
 
-        $this::assertEquals(
+        $this->assertEquals(
             [
                 [
-                    'status_id' => $statusId1,
+                    'status_id' => $id3,
+                    'code' => 'cd3',
+                    'label' => 'label3',
+                    'value' => 0,
+                ],
+                [
+                    'status_id' => $id1,
                     'code' => 'cd1',
                     'label' => 'label1',
                     'value' => 0,
                 ],
                 [
-                    'status_id' => $statusId2,
+                    'status_id' => $id2,
                     'code' => 'cd2',
                     'label' => 'label2',
                     'value' => 3,
                 ],
                 [
-                    'status_id' => $statusId5,
-                    'code' => 'cd5',
-                    'label' => 'label5',
-                    'value' => 0,
-                ],
-                [
-                    'status_id' => $statusId3,
-                    'code' => 'cd3',
-                    'label' => 'label3',
-                    'value' => 0,
-                ],
-
-                [
-                    'status_id' => $statusId4,
+                    'status_id' => $id4,
                     'code' => 'cd4',
                     'label' => 'label4',
                     'value' => 0,

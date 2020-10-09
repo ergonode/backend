@@ -43,9 +43,10 @@ interface StatusQueryInterface
     public function getAllCodes(): array;
 
     /**
-     * @param Language $language
+     * @param Language $translationLanguage
+     * @param Language $workflowLanguage
      *
      * @return mixed[][]
      */
-    public function getStatusCount(Language $language): array;
+    public function getStatusCount(Language $translationLanguage, Language $workflowLanguage): array;
 }

@@ -46,7 +46,8 @@ class WidgetStatusCountActionTest extends TestCase
             ->willReturn(['status data']);
 
         $response = ($this->controller)(
-            new Language('en_EN')
+            new Language('en_EN'),
+            new Language('pl_PL'),
         );
 
         $this->assertEquals(

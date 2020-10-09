@@ -192,6 +192,44 @@ class AbstractWorkflowTest extends TestCase
     }
 
     /**
+     */
+    public function testShouldSortTransitionStatuses(): void
+    {
+        $workflow = $this->getClass(
+            $this->id,
+            '0',
+            [
+                $id1 = new StatusId((string) Uuid::uuid4()),
+                $id2 = new StatusId((string) Uuid::uuid4()),
+                $id3 = new StatusId((string) Uuid::uuid4()),
+                $id4 = new StatusId((string) Uuid::uuid4()),
+                $id5 = new StatusId((string) Uuid::uuid4()),
+                $id6 = new StatusId((string) Uuid::uuid4()),
+                $id7 = new StatusId((string) Uuid::uuid4()),
+                $id8 = new StatusId((string) Uuid::uuid4()),
+            ],
+        );
+        $workflow->setDefaultStatus($id1);
+        $workflow->addTransition($id3, $id4);
+        $workflow->addTransition($id1, $id2);
+        $workflow->addTransition($id7, $id8);
+        $workflow->addTransition($id4, $id1);
+        $workflow->addTransition($id2, $id3);
+
+        $sorted = $workflow->getSortedTransitionStatuses();
+
+        $this->assertEquals(
+            [
+                $id1,
+                $id2,
+                $id3,
+                $id4,
+            ],
+            $sorted,
+        );
+    }
+
+    /**
      * @param WorkflowId $id
      * @param string     $code
      * @param array      $statuses
