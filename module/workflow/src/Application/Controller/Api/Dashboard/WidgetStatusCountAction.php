@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_dashboard_widget_status_count",
- *     path="dashboard/widget/status-count",
+ *     path="dashboard/widget/{workflowLanguage}/status-count",
  *     methods={"GET"}
  * )
  */
@@ -53,13 +53,14 @@ class WidgetStatusCountAction
      * )
      *
      * @param Language $language
+     * @param Language $workflowLanguage
      *
      * @return Response
      *
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language, Language $workflowLanguage): Response
     {
-        $result = $this->query->getStatusCount($language);
+        $result = $this->query->getStatusCount($language, $workflowLanguage);
 
         return new SuccessResponse($result);
     }
