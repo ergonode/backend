@@ -131,33 +131,30 @@ class DbalStatusQuery implements StatusQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatusCount(Language $language): array
+    public function getStatusCount(Language $translationLanguage, Language $workflowLanguage): array
     {
-        $sql = "SELECT id, code, name->>:language AS label FROM status;";
-        $stmt = $this->connection->executeQuery($sql, ['language' => (string) $language]);
-        $statuses = $stmt->fetchAll();
-
-        $sql = 'SELECT vt.value, count(pv.product_id)
-            FROM attribute a
-            JOIN product_value pv ON a.id = pv.attribute_id
-            JOIN value_translation vt ON pv.value_id = vt.value_id
-            WHERE code = :code
-            GROUP BY vt.value
+        $sql = 'SELECT s.code, s.name->>:translationLanguage AS label, s.id AS status_id, count(pws.product_id) AS value
+            FROM status s
+            JOIN product_workflow_status pws ON s.id = pws.status_id
+            WHERE pws.language = :workflowLanguage
+            GROUP BY s.id, s.code, label
+            UNION
+            SELECT s.code, s.name->>:translationLanguage AS label, s.id, 0 AS value FROM status s
         ';
-        $stmt = $this->connection->executeQuery($sql, ['code' => StatusSystemAttribute::CODE]);
-        $products = $stmt->fetchAll();
+        $stmt = $this->connection->executeQuery(
+            $sql,
+            [
+                'translationLanguage' => (string) $translationLanguage,
+                'workflowLanguage' => (string) $workflowLanguage,
+            ],
+        );
+        $statuses = $stmt->fetchAll();
 
         $result = [];
         foreach ($statuses as $status) {
-            $result[$status['code']] = [
-                'status_id' => $status['id'],
-                'label' => $status['label'],
-                'code' => $status['code'],
-                'value' => 0,
-            ];
-        }
-        foreach ($products as $product) {
-            $result[$product['value']]['value'] = $product['count'];
+            $result[$status['status_id']] = $result[$status['status_id']]['value'] ?? 0 ?
+                $result[$status['status_id']] :
+                $status;
         }
 
         return $this->sortStatusesByWorkflowTransitions($result);
@@ -186,64 +183,17 @@ class DbalStatusQuery implements StatusQueryInterface
      */
     private function sortStatusesByWorkflowTransitions(array $statuses): array
     {
-        $workflow = $this->workflowProvider->provide();
-        $workflowSorted = $this->sortTransitionStatuses($workflow);
+        $workflowSorted = $this->workflowProvider->provide()->getSortedTransitionStatuses();
         $sorted = [];
         foreach ($workflowSorted as $item) {
-            $sorted[] = $statuses[$item];
-            unset($statuses[$item]);
+            $sorted[] = $statuses[$item->getValue()];
+            unset($statuses[$item->getValue()]);
         }
-        ksort($statuses);
+        usort(
+            $statuses,
+            fn(array $a, array $b) => strcmp($a['code'], $b['code']),
+        );
 
         return array_merge($sorted, array_values($statuses));
-    }
-
-    /**
-     * @param AbstractWorkflow $workflow
-     *
-     * @return array
-     */
-    private function sortTransitionStatuses(AbstractWorkflow $workflow): array
-    {
-        $transitions = $workflow->getTransitions();
-
-        $defaultStatusCode = $this->getStatusCodeValueById($workflow->getDefaultStatus());
-        $code = $defaultStatusCode;
-        $sorted = [$code];
-        $transitions = new \ArrayIterator($transitions);
-        for (; $transitions->valid(); $hit ? $transitions->rewind() : $transitions->next()) {
-            $transition = $transitions->current();
-            $hit = false;
-            $transitionFromCode = $this->getStatusCodeValueById($transition->getFrom());
-            $transitionToCode = $this->getStatusCodeValueById($transition->getTo());
-            if ($code !== $transitionFromCode) {
-                continue;
-            }
-            // avoids infinite loop
-            if ($defaultStatusCode === $transitionToCode) {
-                break;
-            }
-            $code = $sorted[] = $transitionToCode;
-
-            $transitions->offsetUnset($transitions->key());
-            $hit = true;
-        }
-
-        return $sorted;
-    }
-
-    /**
-     * @param StatusId $statusId
-     *
-     * @return string|null
-     */
-    private function getStatusCodeValueById(StatusId $statusId)
-    {
-        $status = $this->statusRepository->load($statusId);
-        if ($status) {
-            return $status->getCode()->getValue();
-        }
-
-        return null;
     }
 }
