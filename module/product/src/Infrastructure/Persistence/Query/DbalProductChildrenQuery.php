@@ -211,7 +211,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($bindingAttribute, $language));
 
         $subQbBinding = $this->connection->createQueryBuilder();
-        $subQbBinding->select(sprintf('vt.value_id as %s', $bindingAttribute->getCode()))
+        $subQbBinding->select(sprintf('vt.value as %s', $bindingAttribute->getCode()))
             ->from(self::VALUE_TRANSLATION_TABLE, 'vt')
             ->join('vt', self::PRODUCT_VALUE_TABLE, 'pv', 'vt.id = pv.value_id')
             ->leftJoin('pv', self::LANGUAGE_TREE_TABLE, 'lt', 'lt.code = vt.language')
