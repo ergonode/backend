@@ -119,6 +119,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     ): DataSetInterface {
         $info = $this->query->getLanguageNodeInfo($language);
         $count = 0;
+        $bindingValues = [];
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('p.id, p.sku, dt.name as template')
@@ -130,7 +131,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
             ->having($qb->expr()->gt('count(*)', ':count'));
 
         if ($product instanceof VariableProduct) {
-            $bindingValues = [];
             foreach ($bindingAttributes as $bindingAttribute) {
                 $bindingValues[] = $bindingAttribute->getId()->getValue();
                 $this->addBinding($qb, $bindingAttribute, $language);

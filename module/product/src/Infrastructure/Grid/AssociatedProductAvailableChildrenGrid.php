@@ -105,7 +105,10 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
             }
             $attributeCode = $bindingAttribute->getCode()->getValue();
             $attributeLabel = $bindingAttribute->getLabel()->get($language);
-            $this->addColumn($attributeCode, new SelectColumn($attributeCode, $attributeLabel, new MultiSelectFilter($result)));
+            $this->addColumn(
+                $attributeCode,
+                new SelectColumn($attributeCode, $attributeLabel, new MultiSelectFilter($result))
+            );
         }
     }
 }
