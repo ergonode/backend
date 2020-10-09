@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -9,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
-use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
-use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 
 /**
  */
-class ImportCategoryCommandHandler
+final class ImportCategoryCommandHandler
 {
     /**
      * @var CategoryImportAction
@@ -43,7 +44,7 @@ class ImportCategoryCommandHandler
      *
      * @throws \Exception
      */
-    public function __invoke(ImportCategoryCommand $command)
+    public function __invoke(ImportCategoryCommand $command): void
     {
         try {
             $this->action->action(

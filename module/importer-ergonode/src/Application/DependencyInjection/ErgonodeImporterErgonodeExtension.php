@@ -9,6 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterErgonode\Application\DependencyInjection;
 
+use Ergonode\ImporterErgonode\Application\DependencyInjection\CompilerPass\AttributeCommandFactoryCompilerPass;
+use Ergonode\ImporterErgonode\Application\DependencyInjection\CompilerPass\ProductCommandFactoryCompilerPass;
+use Ergonode\ImporterErgonode\Infrastructure\Factory\Attribute\AttributeCommandFactoryInterface;
+use Ergonode\ImporterErgonode\Infrastructure\Factory\Product\ProductCommandFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -30,6 +34,14 @@ class ErgonodeImporterErgonodeExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(ProductCommandFactoryInterface::class)
+            ->addTag(ProductCommandFactoryCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(AttributeCommandFactoryInterface::class)
+            ->addTag(AttributeCommandFactoryCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

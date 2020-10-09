@@ -31,37 +31,40 @@ final class AttributeModel
     /**
      * @var string
      */
-    private string $hint;
-
-    /**
-     * @var string
-     */
-    private string $placeholder;
+    private string $scope;
 
     /**
      * @var array
      */
-    private array $translations;
+    private array $name;
+
+    /**
+     * @var array
+     */
+    private array $hint;
+
+    /**
+     * @var array
+     */
+    private array $placeholder;
+
+    /**
+     * @var array
+     */
+    private array $parameters;
 
     /**
      * @param string $id
      * @param string $code
      * @param string $type
-     * @param string $hint
-     * @param string $placeholder
+     * @param string $scope
      */
-    public function __construct(
-        string $id,
-        string $code,
-        string $type,
-        string $hint,
-        string $placeholder
-    ) {
+    public function __construct(string $id, string $code, string $type, string $scope)
+    {
         $this->id = $id;
         $this->code = $code;
         $this->type = $type;
-        $this->hint = $hint;
-        $this->placeholder = $placeholder;
+        $this->scope = $scope;
     }
 
     /**
@@ -91,33 +94,76 @@ final class AttributeModel
     /**
      * @return string
      */
-    public function getHint(): string
+    public function getScope(): string
+    {
+        return $this->scope;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHint(): array
     {
         return $this->hint;
     }
 
     /**
-     * @return string
+     * @param string $language
+     * @param string $value
      */
-    public function getPlaceholder(): string
+    public function addHint(string $language, string $value): void
+    {
+        $this->hint[$language] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPlaceholder(): array
     {
         return $this->placeholder;
     }
 
     /**
      * @param string $language
-     * @param string $name
+     * @param string $value
      */
-    public function addTranslation(string $language, string $name): void
+    public function addPlaceholder(string $language, string $value): void
     {
-        $this->translations[$language] = $name;
+        $this->placeholder[$language] = $value;
     }
 
     /**
      * @return array
      */
-    public function getTranslations(): array
+    public function getName(): array
     {
-        return $this->translations;
+        return $this->name;
+    }
+
+    /**
+     * @param string $language
+     * @param string $value
+     */
+    public function addName(string $language, string $value): void
+    {
+        $this->name[$language] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function addParameter(string $name, string $value): void
+    {
+        $this->parameters[$name] = $value;
     }
 }

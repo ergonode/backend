@@ -30,14 +30,14 @@ final class ErgonodeAttributeReader extends AbstractErgonodeReader
                     $record['_id'],
                     $record['_code'],
                     $record['_type'],
-                    $record['_hint'], // @todo is translatable?
-                    $record['_placeholder']
                 );
             } else if ($item->getId() !== $record['_id']) {
                 break;
             }
 
-            $item->addTranslation($record['_language'], $record['_name']);
+            $item->addName($record['_language'], $record['_name']);
+            $item->addHint($record['_language'], $record['_hint']);
+            $item->addPlaceholder($record['_language'], $record['_placeholder']);
             $this->records->next();
         }
 
