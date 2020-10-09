@@ -109,6 +109,24 @@ class DbalDraftQuery implements DraftQueryInterface
     }
 
     /**
+     * @param ProductDraftId $id
+     *
+     * @return ProductId
+     */
+    public function getProductId(ProductDraftId $id): ProductId
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('d.product_id')
+            ->from('designer.draft', 'd')
+            ->andWhere($qb->expr()->eq('d.id', ':draftId'))
+            ->setParameter(':draftId', $id->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        return new ProductId($result);
+    }
+
+    /**
      * @param ProductDraftId $draftId
      *
      * @return array

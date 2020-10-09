@@ -34,4 +34,11 @@ interface DraftQueryInterface
      * @return ProductDraftId[]
      */
     public function getNotAppliedWithAttribute(AttributeId $attributeId): array;
+
+    /**
+     * @param ProductDraftId $id
+     *
+     * @return ProductId
+     */
+    public function getProductId(ProductDraftId $id): ProductId;
 }
