@@ -17,10 +17,11 @@ Feature: Variable product available children grid feature
     And store response param "id" as "template_id"
 
   Scenario Outline: Create SELECT attribute <attribute>
+    Given remember param "select_<attribute>" with value "select_@@random_code@@"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
-        "code": "SELECT_@@random_code@@",
+        "code": "@select_<attribute>@",
         "type": "SELECT",
         "scope": "local"
       }
@@ -104,6 +105,7 @@ Feature: Variable product available children grid feature
     Examples:
       | id             | sku           |
       | @product_1_id@ | product_1_sku |
+      | @product_1_id@ | product_1_sku |
       | @product_2_id@ | product_2_sku |
       | @product_3_id@ | product_3_sku |
 
@@ -165,6 +167,15 @@ Feature: Variable product available children grid feature
       | @product_2_id@ |
       | @product_3_id@ |
 
+  Scenario: Add children to variable product 1
+    When I send a POST request to "/api/v1/en_GB/products/@variable_product_1_id@/children" with body:
+         """
+      {
+       "child_id": "@product_1_id@"
+      }
+      """
+
+
   Scenario: Get variable product 1 children and available products
     When I send a GET request to "/api/v1/en_GB/products/@variable_product_1_id@/children-and-available-products?field=sku&order=ASC"
     Then the response status code should be 200
@@ -179,10 +190,11 @@ Feature: Variable product available children grid feature
     When I send a GET request to "/api/v1/en_GB/products/@variable_product_1_id@/children-and-available-products?field=sku&filter=sku=@product_1_sku@&order=ASC"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | columns[0].id    | id             |
-      | columns[0].type  | TEXT           |
-      | collection[0].id | @product_1_id@ |
-      | info.filtered    | 1              |
+      | columns[0].id    | id                             |
+      | columns[0].type  | TEXT                           |
+      | columns[6].id    | @select_select_attribute_1_id@ |
+      | collection[0].id | @product_1_id@                 |
+      | info.filtered    | 1                              |
 
   Scenario: Get variable product 2 children and available products
     When I send a GET request to "/api/v1/en_GB/products/@variable_product_2_id@/children-and-available-products?field=sku&order=ASC"
@@ -191,6 +203,24 @@ Feature: Variable product available children grid feature
       | columns[0].id    | id             |
       | columns[0].type  | TEXT           |
       | collection[0].id | @product_1_id@ |
+      | info.filtered    | 1              |
+
+  Scenario: Get variable product 1 children and available products (filtered by attached true)
+    When I send a GET request to "/api/v1/en_GB/products/@variable_product_1_id@/children-and-available-products?field=sku&filter=attached=true&order=ASC"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | columns[0].id    | id             |
+      | columns[0].type  | TEXT           |
+      | collection[0].id | @product_1_id@ |
+      | info.filtered    | 1              |
+
+  Scenario: Get variable product 1 children and available products (filtered by attached true)
+    When I send a GET request to "/api/v1/en_GB/products/@variable_product_1_id@/children-and-available-products?field=sku&filter=attached=false&order=ASC"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | columns[0].id    | id             |
+      | columns[0].type  | TEXT           |
+      | collection[0].id | @product_2_id@ |
       | info.filtered    | 1              |
 
   Scenario Outline: Get attributes (filter by <field>)
@@ -202,14 +232,14 @@ Feature: Variable product available children grid feature
       | sku           | abc   |
       | template      | abc   |
       | default_label | abc   |
-      | attached   | abc   |
+      | attached      | abc   |
 
   Scenario: Get grouping product children and available products
     When I send a GET request to "/api/v1/en_GB/products/@grouping_product_1_id@/children-and-available-products?field=sku&order=ASC"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | columns[0].id    | id             |
-      | columns[0].type  | TEXT           |
+      | columns[0].id   | id   |
+      | columns[0].type | TEXT |
 
   Scenario: Get simple product children and available products
     When I send a GET request to "/api/v1/en_GB/products/@product_1_id@/children-and-available-products?field=sku&order=ASC"

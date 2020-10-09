@@ -51,6 +51,7 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
     {
         $this->templateQuery = $templateQuery;
         $this->optionQuery = $optionQuery;
+        $this->bindingAttributes = [];
     }
 
     /**
