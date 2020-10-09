@@ -135,7 +135,7 @@ class DbalStatusQuery implements StatusQueryInterface
     {
         $sql = 'SELECT s.code, s.name->>:translationLanguage AS label, s.id AS status_id, count(pws.product_id) AS value
             FROM status s
-            LEFT JOIN product_workflow_status pws ON s.id = pws.status_id
+            JOIN product_workflow_status pws ON s.id = pws.status_id
             WHERE pws.language = :workflowLanguage
             GROUP BY s.id, s.code, label
             UNION
