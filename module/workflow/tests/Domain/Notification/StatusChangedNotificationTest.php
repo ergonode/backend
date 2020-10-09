@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Notification;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -41,6 +42,11 @@ class StatusChangedNotificationTest extends TestCase
     private User $user;
 
     /**
+     * @var Language|MockObject
+     */
+    private Language $language;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -48,6 +54,7 @@ class StatusChangedNotificationTest extends TestCase
         $this->from = $this->createMock(StatusCode::class);
         $this->to = $this->createMock(StatusCode::class);
         $this->user = $this->createMock(User::class);
+        $this->language = $this->createMock(Language::class);
     }
 
     /**
@@ -73,13 +80,15 @@ class StatusChangedNotificationTest extends TestCase
         $this->to->method('getValue')->willReturn('code value to');
         $this->user->method('getFirstName')->willReturn('first name');
         $this->user->method('getLastName')->willReturn('last name');
+        $this->language->method('getCode')->willReturn('en_GB');
 
-        $notification = new StatusChangedNotification($this->sku, $this->from, $this->to, $this->user);
+        $notification = new StatusChangedNotification($this->sku, $this->from, $this->to, $this->user, $this->language);
         $parameters = $notification->getParameters();
         self::assertSame('sku value', $parameters['%sku%']);
         self::assertSame('code value from', $parameters['%from%']);
         self::assertSame('code value to', $parameters['%to%']);
         self::assertSame('first name last name', $parameters['%user%']);
+        self::assertSame('en_GB', $parameters['%language%']);
     }
 
     /**
@@ -87,9 +96,10 @@ class StatusChangedNotificationTest extends TestCase
      */
     public function testReturnedMessage(): void
     {
-        $notification = new StatusChangedNotification($this->sku, $this->from, $this->to, $this->user);
+        $notification = new StatusChangedNotification($this->sku, $this->from, $this->to, $this->user, $this->language);
         self::assertSame(
-            'Product "%sku%" status was changed from "%from%" to "%to%" by user "%user%"',
+            'Product "%sku%" status was changed from "%from%" to "%to%" '.
+            'in language "%language%" by user "%user%"',
             $notification->getMessage()
         );
     }
