@@ -33,7 +33,7 @@ final class ErgonodeTemplateReader extends AbstractErgonodeReader
                 (int) $record['_y'],
                 (int) $record['_width'],
                 (int) $record['_height'],
-                $record['_property']
+                $record['_properties']
             );
 
             $this->records->next();

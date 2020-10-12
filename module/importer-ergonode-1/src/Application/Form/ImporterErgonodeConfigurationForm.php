@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterErgonode\Application\Form;
 
 use Ergonode\ImporterErgonode\Application\Model\ImporterErgonodeConfigurationModel;
+use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -40,11 +41,11 @@ final class ImporterErgonodeConfigurationForm extends AbstractType
                 [
                     'label' => 'Include in the imports',
                     'choices' => [
-                        'Attributes' => 'attributes',
-                        'Categories' => 'categories',
-                        'Options' => 'options',
-                        'Products' => 'products',
-                        'Templates' => 'templates',
+                        'Attributes' => ErgonodeZipSource::ATTRIBUTES,
+                        'Categories' => ErgonodeZipSource::CATEGORIES,
+                        'Options' => ErgonodeZipSource::OPTIONS,
+                        'Products' => ErgonodeZipSource::PRODUCTS,
+                        'Templates' => ErgonodeZipSource::TEMPLATES,
                     ],
                     'multiple' => true,
                 ]
