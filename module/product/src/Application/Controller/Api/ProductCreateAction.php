@@ -102,7 +102,10 @@ class ProductCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        $type = $request->request->get('type', SimpleProduct::TYPE);
+        $type = $request->request->get('type');
+        if (!$type) {
+            throw new BadRequestHttpException('Type has to be passed');
+        }
         if (!$class = $this->provider->provide($type)) {
             throw new BadRequestHttpException("Not existing $type type");
         }
