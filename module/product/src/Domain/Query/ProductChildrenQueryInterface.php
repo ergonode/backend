@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Query;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
@@ -29,12 +30,14 @@ interface ProductChildrenQueryInterface
     /**
      * @param AbstractAssociatedProduct $product
      * @param Language                  $language
+     * @param AbstractAttribute[]       $bindingAttributes
      *
      * @return DataSetInterface
      */
     public function getChildrenAndAvailableProductsDataSet(
         AbstractAssociatedProduct $product,
-        Language $language
+        Language $language,
+        array $bindingAttributes
     ): DataSetInterface;
 
     /**

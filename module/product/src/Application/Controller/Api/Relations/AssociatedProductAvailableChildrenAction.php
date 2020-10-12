@@ -10,10 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Application\Controller\Api\Relations;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -49,18 +51,26 @@ class AssociatedProductAvailableChildrenAction
     private AssociatedProductAvailableChildrenGrid $grid;
 
     /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $attributeRepository;
+
+    /**
      * @param ProductChildrenQueryInterface          $query
      * @param GridRenderer                           $gridRenderer
      * @param AssociatedProductAvailableChildrenGrid $grid
+     * @param AttributeRepositoryInterface           $attributeRepository
      */
     public function __construct(
         ProductChildrenQueryInterface $query,
         GridRenderer $gridRenderer,
-        AssociatedProductAvailableChildrenGrid $grid
+        AssociatedProductAvailableChildrenGrid $grid,
+        AttributeRepositoryInterface $attributeRepository
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
         $this->grid = $grid;
+        $this->attributeRepository = $attributeRepository;
     }
 
     /**
@@ -154,10 +164,18 @@ class AssociatedProductAvailableChildrenAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
+        $bindingAttributes = [];
+        if ($product instanceof VariableProduct) {
+            $bindings = $product->getBindings();
+            foreach ($bindings as $binding) {
+                $bindingAttributes[] = $this->attributeRepository->load($binding);
+            }
+            $this->grid->addBindingAttributes($bindingAttributes);
+        }
         $data = $this->gridRenderer->render(
             $this->grid,
             $configuration,
-            $this->query->getChildrenAndAvailableProductsDataSet($product, $language),
+            $this->query->getChildrenAndAvailableProductsDataSet($product, $language, $bindingAttributes),
             $language
         );
 
