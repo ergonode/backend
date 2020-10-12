@@ -112,7 +112,7 @@
 
     <target name="database:fixture:dev" description="Fill database with development data">
         <echo msg="Fill database with dev fixtures ..."/>
-        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load -g develop --no-interaction"
+        <exec command="APP_ENV=${APP_ENV} php -d memory_limit=512M ${dir.console} ergonode:fixture:load -g develop --no-interaction"
               checkreturn="true"
               logoutput="true">
         </exec>
