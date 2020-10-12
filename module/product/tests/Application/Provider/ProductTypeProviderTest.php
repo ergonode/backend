@@ -12,8 +12,6 @@ use Ergonode\Product\Application\Provider\ProductTypeProvider;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
-use Ergonode\Product\Application\Form\Product\ProductFormInterface;
-use Ergonode\Product\Application\Provider\ProductFormProvider;
 
 /**
  */

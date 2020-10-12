@@ -109,6 +109,7 @@ Feature: Draft edit and inheritance value for product draft with select attribut
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
+        "type": "SIMPLE-PRODUCT",
         "sku": "SKU_@@random_code@@",
         "templateId": "@template_id@",
         "categoryIds": []
