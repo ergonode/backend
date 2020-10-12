@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Entity;
 
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 /**
@@ -133,14 +133,22 @@ class Import
     }
 
     /**
+     * @return string
+     */
+    public function getFileHash(): string
+    {
+        return sha1($this->file);
+    }
+
+    /**
      */
     public function start(): void
     {
-        if (!$this->getStatus()->isCreated()) {
-            throw new \LogicException(
-                \sprintf('Can\'t change status to %s from %s', ImportStatus::PRECESSED, $this->getStatus())
-            );
-        }
+//        if (!$this->getStatus()->isCreated()) {
+//            throw new \LogicException(
+//                \sprintf('Can\'t change status to %s from %s', ImportStatus::PRECESSED, $this->getStatus())
+//            );
+//        }
 
         $this->status = new ImportStatus(ImportStatus::PRECESSED);
         $this->startedAt = new \DateTime();

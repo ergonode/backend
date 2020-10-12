@@ -50,4 +50,14 @@ class UiTemplateElementProperty implements TemplateElementPropertyInterface
     {
         return $this->label;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isEqual(TemplateElementPropertyInterface $property): bool
+    {
+        return
+            $this->getVariant() === $property->getVariant() &&
+            $this->getLabel() === $property->getLabel();
+    }
 }

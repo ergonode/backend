@@ -8,12 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
-use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -61,12 +61,12 @@ class StartProcessCommandHandler
         $availableAttributes = array_values($this->attributeQuery->getDictionary());
         sort($availableAttributes);
 
-        $attribute = ['_id', '_code', '_type', '_language', '_name', '_hint', '_placeholder'];
+        $attribute = ['_id', '_code', '_type', '_language', '_name', '_hint', '_placeholder', '_parameters'];
         $categories = ['_id', '_code', '_name', '_language'];
         $products = array_merge(['_id', '_sku', '_type', '_language', '_template'], $availableAttributes);
         $options = ['_id', '_code', '_attribute', '_language', '_label'];
         $multimedia = ['_id', '_language', '_name', '_filename', '_extension', '_mime', '_alt', '_size'];
-        $templates = ['_id', '_name', '_type', '_x', '_y', '_width', '_height'];
+        $templates = ['_id', '_name', '_type', '_x', '_y', '_width', '_height', '_properties'];
         $this->storage->create(sprintf('%s/attributes.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $attribute).PHP_EOL]);
         $this->storage->close();

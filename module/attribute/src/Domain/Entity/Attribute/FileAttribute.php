@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
-use JMS\Serializer\Annotation as JMS;
-
 /**
  */
 class FileAttribute extends AbstractCollectionAttribute

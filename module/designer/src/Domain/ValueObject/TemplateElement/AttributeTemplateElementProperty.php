@@ -69,4 +69,15 @@ class AttributeTemplateElementProperty implements TemplateElementPropertyInterfa
     {
         return $this->required;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isEqual(TemplateElementPropertyInterface $property): bool
+    {
+        return
+            $this->getVariant() === $property->getVariant() &&
+            $this->isRequired() === $property->isRequired() &&
+            $this->getAttributeId()->isEqual($property->getAttributeId());
+    }
 }

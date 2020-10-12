@@ -17,4 +17,11 @@ interface TemplateElementPropertyInterface
      * @return string
      */
     public function getVariant(): string;
+
+    /**
+     * @param TemplateElementPropertyInterface $property
+     *
+     * @return bool
+     */
+    public function isEqual(TemplateElementPropertyInterface $property): bool;
 }

@@ -115,7 +115,7 @@
             "Ergonode\\Generator\\": "module/generator/src",
             "Ergonode\\Grid\\": "module/grid/src",
             "Ergonode\\Importer\\": "module/importer/src",
-            "Ergonode\\ImporterErgonode\\": "module/importer-ergonode/src",
+            "Ergonode\\ImporterErgonode\\": "module/importer-ergonode-1/src",
             "Ergonode\\ImporterMagento1\\": "module/importer-magento-1/src",
             "Ergonode\\ImporterMagento2\\": "module/importer-magento-2/src",
             "Ergonode\\Mailer\\": "module/mailer/src",

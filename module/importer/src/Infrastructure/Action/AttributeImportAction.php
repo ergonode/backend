@@ -11,8 +11,9 @@ namespace Ergonode\Importer\Infrastructure\Action;
  */
 final class AttributeImportAction
 {
+    /**
+     */
     public function action(): void
     {
-
     }
 }

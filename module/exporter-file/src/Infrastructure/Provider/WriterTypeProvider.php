@@ -17,7 +17,7 @@ class WriterTypeProvider
     /**
      * @var string[]
      */
-    private array $types;
+    private array $types = [];
 
     /**
      * @param WriterInterface ...$writers

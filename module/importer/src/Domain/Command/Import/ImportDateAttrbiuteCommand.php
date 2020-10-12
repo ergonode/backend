@@ -11,10 +11,9 @@ namespace Ergonode\Importer\Domain\Command\Import;
  */
 final class ImportDateAttrbiuteCommand
 {
-
-
+    /**
+     */
     public function __construct()
     {
-
     }
 }
