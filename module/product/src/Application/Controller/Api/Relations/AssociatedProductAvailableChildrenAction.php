@@ -172,6 +172,7 @@ class AssociatedProductAvailableChildrenAction
             }
             $this->grid->addBindingAttributes($bindingAttributes);
         }
+        $this->grid->addAssociatedProduct($product);
         $data = $this->gridRenderer->render(
             $this->grid,
             $configuration,
