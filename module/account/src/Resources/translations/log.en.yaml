@@ -7,7 +7,7 @@
 'User role changed': 'User role changed'
 'User activated': 'User activated'
 'User disabled': 'User disabled'
-'Privilege added': 'Provilege "%privilege%" added'
+'Privilege added': 'Privilege "%privilege%" added'
 'Privilege removed': 'Privilege "%privilege%" removed'
 'Role created': 'Role "%name%" created'
 'Role name changed': 'Role name changed from "%from%" to "%to%"'
