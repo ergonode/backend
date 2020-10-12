@@ -69,11 +69,14 @@ final class ErgonodeImportProcess implements SourceImportProcessorInterface
         try {
             $zipDirectory = $this->extractor->extract($import);
             foreach ($this->steps as $step) {
+                dump(get_class($step));
                 $step($import, $zipDirectory);
             }
         } catch (ImportException|ReaderException $exception) {
+            dump($exception->getMessage());
             $this->notifyError($import, $exception->getMessage());
         } catch (Throwable $exception) {
+            dump($exception->getMessage());
             $this->notifyError($import, 'Import processing error');
         } finally {
             $this->extractor->cleanup($import);
