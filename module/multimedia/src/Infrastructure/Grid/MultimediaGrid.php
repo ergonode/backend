@@ -73,7 +73,7 @@ class MultimediaGrid extends AbstractGrid
         $this->addColumn('image', new ImageColumn('image', 'Preview'));
         $this->addColumn('name', new TextColumn('name', 'File name', new TextFilter()));
         $this->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)));
-        $this->addColumn('type', new SelectColumn('type', 'Extension', new MultiSelectFilter($types)));
+        $this->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)));
         $column = new NumericColumn('size', 'Size', new NumericFilter());
         $column->setSuffix('KB');
         $this->addColumn('size', $column);
@@ -97,6 +97,12 @@ class MultimediaGrid extends AbstractGrid
                 'privilege' => 'MULTIMEDIA_READ',
                 'parameters' => ['multimedia' => '{id}'],
                 'method' => Request::METHOD_GET,
+            ],
+            'delete' => [
+                'route' => 'ergonode_multimedia_delete',
+                'privilege' => 'MULTIMEDIA_DELETE',
+                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
+                'method' => Request::METHOD_DELETE,
             ],
         ];
         $this->addColumn('_links', new LinkColumn('hal', $links));

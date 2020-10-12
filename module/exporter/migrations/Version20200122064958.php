@@ -25,40 +25,6 @@ final class Version20200122064958 extends AbstractErgonodeMigration
     public function up(Schema $schema) : void
     {
         $this->addSql('CREATE SCHEMA IF NOT EXISTS exporter');
-        $this->addSql(
-            'CREATE TABLE exporter.product(
-                    id uuid NOT NULL,
-                    data jsonb NOT NULL,
-                    type VARCHAR(255) NOT NULL,
-                    PRIMARY KEY (id)
-                 )'
-        );
-
-        $this->addSql(
-            'CREATE TABLE exporter.category(
-                    id uuid NOT NULL,
-                    code varchar(255) NULL DEFAULT NULL::character varying,
-                    data jsonb NOT NULL,
-                    PRIMARY KEY (id)
-                 )'
-        );
-
-        $this->addSql(
-            'CREATE TABLE exporter.tree(
-                    id uuid NOT NULL,
-                    data jsonb NOT NULL,
-                    PRIMARY KEY (id)
-                 )'
-        );
-
-        $this->addSql(
-            'CREATE TABLE exporter.attribute(
-                    id uuid NOT NULL,
-                    code varchar(255) NULL DEFAULT NULL::character varying,
-                    data jsonb NOT NULL,
-                    PRIMARY KEY (id)
-                 )'
-        );
 
         $this->addSql('
             CREATE TABLE exporter.export(
@@ -73,6 +39,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 PRIMARY KEY (id)
             )
         ');
+
         $this->addSql(
             'ALTER TABLE exporter.export 
                     ADD CONSTRAINT export_channel_id_fk FOREIGN KEY (channel_id) 
