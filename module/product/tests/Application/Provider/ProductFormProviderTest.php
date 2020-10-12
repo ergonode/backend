@@ -8,9 +8,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Tests\Application\Provider;
 
+use Ergonode\Product\Application\Form\Product\AbstractProductForm;
 use Ergonode\Product\Application\Provider\ProductFormProvider;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 
 /**
  */
@@ -21,7 +21,7 @@ class ProductFormProviderTest extends TestCase
      */
     public function testProvide(): void
     {
-        $form = $this->createMock(ProductFormInterface::class);
+        $form = $this->createMock(AbstractProductForm::class);
         $form->method('supported')->willReturn(true);
 
         $provider = new ProductFormProvider(...[$form]);
@@ -33,11 +33,10 @@ class ProductFormProviderTest extends TestCase
      */
     public function testProvideNotFund(): void
     {
-        $this->expectException(\RuntimeException::class);
-        $form = $this->createMock(ProductFormInterface::class);
+        $form = $this->createMock(AbstractProductForm::class);
         $form->method('supported')->willReturn(false);
 
         $provider = new ProductFormProvider(...[$form]);
-        $this->assertSame(get_class($form), $provider->provide('type'));
+        $this->assertNull($provider->provide('type'));
     }
 }

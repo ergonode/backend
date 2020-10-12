@@ -11,16 +11,14 @@ namespace Ergonode\Product\Application\Form\Product;
 
 use Ergonode\Category\Application\Form\Type\CategoryType;
 use Ergonode\Product\Application\Model\Product\VariableProductFormModel;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Product\Domain\Entity\VariableProduct;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  */
-class VariableProductForm extends AbstractType implements ProductFormInterface
+class VariableProductForm extends AbstractProductForm
 {
     /**
      * @param string $type
@@ -36,7 +34,7 @@ class VariableProductForm extends AbstractType implements ProductFormInterface
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function extendForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -68,13 +66,5 @@ class VariableProductForm extends AbstractType implements ProductFormInterface
             'data_class' => VariableProductFormModel::class,
             'translation_domain' => 'product',
         ]);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getBlockPrefix(): ?string
-    {
-        return null;
     }
 }

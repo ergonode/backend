@@ -14,13 +14,16 @@ use Ergonode\Product\Infrastructure\Validator\Sku;
 use Ergonode\Product\Infrastructure\Validator\SkuUnique;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 
 /**
  */
 class VariableProductFormModel
 {
+    /**
+     * @Assert\NotBlank(message="Type is required", groups={"Create"})
+     */
+    public ?string $type = null;
+
     /**
      * @var string|null
      *
