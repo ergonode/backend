@@ -30,7 +30,7 @@ class ImportMultimediaFromUrlCommandHandler
     private ImportErrorRepositoryInterface $repository;
 
     /**
-     * @param MultimediaFromUrlImportAction         $action
+     * @param MultimediaFromUrlImportAction  $action
      * @param ImportErrorRepositoryInterface $repository
      */
     public function __construct(MultimediaFromUrlImportAction $action, ImportErrorRepositoryInterface $repository)

@@ -63,8 +63,6 @@ final class ErgonodeImportProcess implements SourceImportProcessorInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @throws \ReflectionException
      */
     public function start(Import $import): void
     {
@@ -76,9 +74,8 @@ final class ErgonodeImportProcess implements SourceImportProcessorInterface
         } catch (ImportException|ReaderException $exception) {
             $this->notifyError($import, $exception->getMessage());
         } catch (Throwable $exception) {
-            $this->notifyError($import, 'Import processing error'); // @todo Co z informacja o bledzie dla developerow?
-        }
-        finally {
+            $this->notifyError($import, 'Import processing error');
+        } finally {
             $this->extractor->cleanup($import);
         }
     }
