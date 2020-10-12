@@ -21,6 +21,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -116,7 +117,9 @@ class ProductChangeAction
      */
     public function __invoke(AbstractProduct $product, Request $request): Response
     {
-        $class = $this->provider->provide($product->getType());
+        if (!$class = $this->provider->provide($product->getType())) {
+            throw new BadRequestHttpException("Not existing {$product->getType()} type");
+        }
 
         $form = $this->formFactory->create($class, null, ['method' => Request::METHOD_PUT]);
         $form->handleRequest($request);

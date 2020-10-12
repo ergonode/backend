@@ -30,9 +30,9 @@ class ProductFormProvider
     /**
      * @param string $type
      *
-     * @return string
+     * @return ?string
      */
-    public function provide(string $type): string
+    public function provide(string $type): ?string
     {
         foreach ($this->forms as $form) {
             if ($form->supported($type)) {
@@ -40,6 +40,6 @@ class ProductFormProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\' find factory for %s type', $type));
+        return null;
     }
 }

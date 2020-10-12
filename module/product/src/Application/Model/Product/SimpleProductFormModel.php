@@ -20,6 +20,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 class SimpleProductFormModel
 {
     /**
+     * @Assert\NotBlank(message="Type is required", groups={"Create"})
+     */
+    public ?string $type = null;
+
+    /**
      * @var string|null
      *
      * @Assert\NotBlank(message="Sku is required", groups={"Create"})

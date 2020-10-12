@@ -33,11 +33,10 @@ class ProductFormProviderTest extends TestCase
      */
     public function testProvideNotFund(): void
     {
-        $this->expectException(\RuntimeException::class);
         $form = $this->createMock(ProductFormInterface::class);
         $form->method('supported')->willReturn(false);
 
         $provider = new ProductFormProvider(...[$form]);
-        $this->assertSame(get_class($form), $provider->provide('type'));
+        $this->assertNull($provider->provide('type'));
     }
 }

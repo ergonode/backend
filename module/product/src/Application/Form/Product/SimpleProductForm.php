@@ -39,6 +39,10 @@ class SimpleProductForm extends AbstractType implements ProductFormInterface
     {
         $builder
             ->add(
+                'type',
+                TextType::class
+            )
+            ->add(
                 'sku',
                 TextType::class
             )

@@ -19,6 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 
@@ -102,8 +103,9 @@ class ProductCreateAction
     public function __invoke(Request $request): Response
     {
         $type = $request->request->get('type', SimpleProduct::TYPE);
-        $request->request->remove('type');
-        $class = $this->provider->provide($type);
+        if (!$class = $this->provider->provide($type)) {
+            throw new BadRequestHttpException("Not existing $type type");
+        }
 
         $form = $this->formFactory->create($class, null, ['validation_groups' => ['Default', 'Create']]);
         $form->handleRequest($request);
