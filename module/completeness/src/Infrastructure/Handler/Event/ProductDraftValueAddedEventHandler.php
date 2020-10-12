@@ -11,11 +11,12 @@ namespace Ergonode\Completeness\Infrastructure\Handler\Event;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
-use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
+use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
+use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 
 /**
  */
-class ProductValueChangedEventHandler
+class ProductDraftValueAddedEventHandler
 {
     /**
      * @var CommandBusInterface
@@ -23,19 +24,27 @@ class ProductValueChangedEventHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $commandBus
+     * @var DraftQueryInterface
      */
-    public function __construct(CommandBusInterface $commandBus)
+    private DraftQueryInterface $query;
+
+    /**
+     * @param CommandBusInterface $commandBus
+     * @param DraftQueryInterface $query
+     */
+    public function __construct(CommandBusInterface $commandBus, DraftQueryInterface $query)
     {
         $this->commandBus = $commandBus;
+        $this->query = $query;
     }
 
     /**
-     * @param ProductValueChangedEvent $event
+     * @param ProductDraftValueAdded $event
      */
-    public function __invoke(ProductValueChangedEvent $event): void
+    public function __invoke(ProductDraftValueAdded $event): void
     {
-        $command = new ProductCompletenessCalculateCommand($event->getAggregateId());
+        $productId = $this->query->getProductId($event->getAggregateId());
+        $command = new ProductCompletenessCalculateCommand($productId);
         $this->commandBus->dispatch($command, true);
     }
 }
