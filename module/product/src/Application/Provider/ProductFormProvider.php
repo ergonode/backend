@@ -8,21 +8,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Provider;
 
-use Ergonode\Product\Application\Form\Product\ProductFormInterface;
+use Ergonode\Product\Application\Form\Product\AbstractProductForm;
 
 /**
  */
 class ProductFormProvider
 {
     /**
-     * @var ProductFormInterface[]
+     * @var AbstractProductForm[]
      */
     private array $forms;
 
     /**
-     * @param ProductFormInterface ...$forms
+     * @param AbstractProductForm ...$forms
      */
-    public function __construct(ProductFormInterface ...$forms)
+    public function __construct(AbstractProductForm ...$forms)
     {
         $this->forms = $forms;
     }
