@@ -9,37 +9,37 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
+use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */
-class ProductTypeValidator extends ConstraintValidator
+class ProductNoBindingsValidator extends ConstraintValidator
 {
     /**
-     * @var ProductRepositoryInterface
+     * @var ProductBindingQueryInterface
      */
-    private ProductRepositoryInterface $repository;
+    private ProductBindingQueryInterface $query;
 
     /**
-     * @param ProductRepositoryInterface $repository
+     * @param ProductBindingQueryInterface $query
      */
-    public function __construct(ProductRepositoryInterface $repository)
+    public function __construct(ProductBindingQueryInterface $query)
     {
-        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
-     * @param mixed                  $value
-     * @param ProductType|Constraint $constraint
+     * @param mixed                    $value
+     * @param ProductExists|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ProductType) {
-            throw new UnexpectedTypeException($constraint, ProductType::class);
+        if (!$constraint instanceof ProductNoBindings) {
+            throw new UnexpectedTypeException($constraint, ProductNoBindings::class);
         }
 
         if (null === $value || '' === $value) {
@@ -52,14 +52,12 @@ class ProductTypeValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $product = null;
         if (ProductId::isValid($value)) {
-            $product = $this->repository->load(new ProductId($value));
+            $bindings = $this->query->getBindings(new ProductId($value));
         }
 
-        if ($product && !in_array($product->getType(), $constraint->type)) {
+        if (empty($bindings)) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ value }}', $value)
                 ->addViolation();
         }
     }

@@ -70,13 +70,6 @@ class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
             $attributes,
         );
 
-        foreach ($command->getBindings() as $attributeId) {
-            /** @var SelectAttribute $attribute */
-            $attribute = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($attribute, SelectAttribute::class);
-            $product->addBind($attribute);
-        }
-
         $this->productRepository->save($product);
     }
 }

@@ -60,13 +60,6 @@ class GetProductAttributeBindingsAction extends AbstractController
      *     default="en_GB",
      *     description="Language Code",
      * )
-     * @SWG\Parameter(
-     *     name="body",
-     *     in="body",
-     *     description="Add multiselect attribute binding",
-     *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product_binding_colection")
-     * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns list of binded attributes",

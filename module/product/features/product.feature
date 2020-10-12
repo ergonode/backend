@@ -141,6 +141,18 @@ Feature: Product module
     Then the response status code should be 201
     And store response param "id" as "product_2"
 
+  Scenario: Add children product to simple product
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/products/@product@/children" with body:
+      """
+      {
+        "child_id": "@product_2@"
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Create product collection type
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -352,7 +364,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a PUT request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 404
+    Then the response status code should be 400
 
   Scenario: Update product (no content)
     Given I am Authenticated as "test@ergonode.com"
@@ -405,7 +417,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 404
+    Then the response status code should be 400
 
   Scenario: Get product collections  (not authorized)
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections"
@@ -490,7 +502,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a DELETE request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 404
+    Then the response status code should be 400
 
   Scenario: Delete product (not authorized)
     When I send a DELETE request to "/api/v1/en_GB/products/@product@"
