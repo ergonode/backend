@@ -78,9 +78,9 @@ final class ErgonodeImportProcess implements SourceImportProcessorInterface
         } catch (Throwable $exception) {
             $this->notifyError($import, 'Import processing error'); // @todo Co z informacja o bledzie dla developerow?
         }
-//        finally {
-//            $this->extractor->cleanup($import);
-//        }
+        finally {
+            $this->extractor->cleanup($import);
+        }
     }
 
     /**

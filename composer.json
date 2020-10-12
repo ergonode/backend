@@ -156,7 +156,7 @@
             "Ergonode\\Generator\\Tests\\": "module/generator/tests",
             "Ergonode\\Grid\\Tests\\": "module/grid/tests",
             "Ergonode\\Importer\\Tests\\": "module/importer/tests",
-            "Ergonode\\ImporterErgonode\\Tests\\": "module/importer-ergonode/tests",
+            "Ergonode\\ImporterErgonode\\Tests\\": "module/importer-ergonode-1/tests",
             "Ergonode\\ImporterMagento1\\Tests\\": "module/importer-magento-1/tests",
             "Ergonode\\ImporterMagento2\\Tests\\": "module/importer-magento-2/tests",
             "Ergonode\\Mailer\\Tests\\": "module/mailer/tests",

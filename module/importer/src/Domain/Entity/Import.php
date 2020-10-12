@@ -144,11 +144,11 @@ class Import
      */
     public function start(): void
     {
-//        if (!$this->getStatus()->isCreated()) {
-//            throw new \LogicException(
-//                \sprintf('Can\'t change status to %s from %s', ImportStatus::PRECESSED, $this->getStatus())
-//            );
-//        }
+        if (!$this->getStatus()->isCreated()) {
+            throw new \LogicException(
+                \sprintf('Can\'t change status to %s from %s', ImportStatus::PRECESSED, $this->getStatus())
+            );
+        }
 
         $this->status = new ImportStatus(ImportStatus::PRECESSED);
         $this->startedAt = new \DateTime();

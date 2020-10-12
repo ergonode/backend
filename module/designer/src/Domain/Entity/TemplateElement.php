@@ -97,9 +97,7 @@ class TemplateElement
     }
 
     /**
-     * @param TemplateElement $element
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isEqual(TemplateElement $element): bool
     {
