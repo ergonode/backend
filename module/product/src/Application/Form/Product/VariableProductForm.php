@@ -67,12 +67,4 @@ class VariableProductForm extends AbstractProductForm
             'translation_domain' => 'product',
         ]);
     }
-
-    /**
-     * @return null|string
-     */
-    public function getBlockPrefix(): ?string
-    {
-        return null;
-    }
 }

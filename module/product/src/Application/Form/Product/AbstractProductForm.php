@@ -23,8 +23,10 @@ abstract class AbstractProductForm extends AbstractType
      */
     abstract public function supported(string $type): bool;
 
-    abstract protected function extendForm(FormBuilderInterface $builder, array $options): void;
-
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -42,4 +44,10 @@ abstract class AbstractProductForm extends AbstractType
     {
         return null;
     }
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    abstract protected function extendForm(FormBuilderInterface $builder, array $options): void;
 }

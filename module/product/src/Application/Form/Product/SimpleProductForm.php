@@ -31,10 +31,21 @@ class SimpleProductForm extends AbstractProductForm
     }
 
     /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => SimpleProductFormModel::class,
+            'translation_domain' => 'product',
+        ]);
+    }
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function extendForm(FormBuilderInterface $builder, array $options): void
+    protected function extendForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -55,24 +66,5 @@ class SimpleProductForm extends AbstractProductForm
                     'property_path' => 'categories',
                 ]
             );
-    }
-
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => SimpleProductFormModel::class,
-            'translation_domain' => 'product',
-        ]);
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getBlockPrefix(): ?string
-    {
-        return null;
     }
 }
