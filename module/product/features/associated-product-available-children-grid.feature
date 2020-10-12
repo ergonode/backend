@@ -174,7 +174,7 @@ Feature: Variable product available children grid feature
        "child_id": "@product_1_id@"
       }
       """
-
+    Then the response status code should be 204
 
   Scenario: Get variable product 1 children and available products
     When I send a GET request to "/api/v1/en_GB/products/@variable_product_1_id@/children-and-available-products?field=sku&order=ASC"
