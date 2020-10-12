@@ -16,6 +16,7 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\ImageColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
@@ -23,6 +24,8 @@ use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
@@ -39,6 +42,11 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
     private array $bindingAttributes;
 
     /**
+     * @var AbstractAssociatedProduct
+     */
+    private AbstractAssociatedProduct $associatedProduct;
+
+    /**
      * @var OptionQueryInterface
      */
     private OptionQueryInterface $optionQuery;
@@ -47,8 +55,10 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
      * @param TemplateQueryInterface $templateQuery
      * @param OptionQueryInterface   $optionQuery
      */
-    public function __construct(TemplateQueryInterface $templateQuery, OptionQueryInterface $optionQuery)
-    {
+    public function __construct(
+        TemplateQueryInterface $templateQuery,
+        OptionQueryInterface $optionQuery
+    ) {
         $this->templateQuery = $templateQuery;
         $this->optionQuery = $optionQuery;
         $this->bindingAttributes = [];
@@ -77,6 +87,18 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
         if ($this->bindingAttributes) {
             $this->addBindingColumn($language);
         }
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'delete' => [
+                'privilege' => 'PRODUCT_UPDATE',
+                'route' => 'ergonode_product_child_remove',
+                'parameters' => [
+                    'language' => $language->getCode(),
+                    'product' => $this->associatedProduct->getId(),
+                    'child' => '{id}',
+                ],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
     }
 
     /**
@@ -86,6 +108,15 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
     {
         $this->bindingAttributes = $bindingAttributes;
     }
+
+    /**
+     * @param AbstractAssociatedProduct $associatedProduct
+     */
+    public function addAssociatedProduct(AbstractAssociatedProduct $associatedProduct): void
+    {
+        $this->associatedProduct = $associatedProduct;
+    }
+
 
     /**
      * @param Language $language
