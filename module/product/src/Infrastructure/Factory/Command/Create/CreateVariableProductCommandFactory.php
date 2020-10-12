@@ -49,17 +49,11 @@ class CreateVariableProductCommandFactory implements CreateProductCommandFactory
             $categories[] = new CategoryId($category);
         }
 
-        $bindings = [];
-        foreach ($data->bindings as $binding) {
-            $bindings[] = new AttributeId($binding);
-        }
-
         return new CreateVariableProductCommand(
             ProductId::generate(),
             new Sku($data->sku),
             new TemplateId($data->template),
             $categories,
-            $bindings,
         );
     }
 }

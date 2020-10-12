@@ -54,7 +54,7 @@ class AbstractProductParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn(AbstractProduct::class);
 
         $paramConverter = new AbstractProductParamConverter($this->repository);
-        $this->assertTrue($paramConverter->supports($this->configuration));
+        $this::assertTrue($paramConverter->supports($this->configuration));
     }
 
     /**
@@ -65,7 +65,7 @@ class AbstractProductParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn('Any other class namespace');
 
         $paramConverter = new AbstractProductParamConverter($this->repository);
-        $this->assertFalse($paramConverter->supports($this->configuration));
+        $this::assertFalse($paramConverter->supports($this->configuration));
     }
 
     /**
@@ -94,9 +94,9 @@ class AbstractProductParamConverterTest extends TestCase
      */
     public function testEntityNotExists(): void
     {
-        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
-
+        $this->configuration->method('getClass')->willReturn(AbstractProduct::class);
         $paramConverter = new AbstractProductParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);
     }
@@ -107,8 +107,9 @@ class AbstractProductParamConverterTest extends TestCase
     {
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
         $this->repository->method('load')->willReturn($this->createMock(AbstractProduct::class));
+        $this->configuration->method('getClass')->willReturn(AbstractProduct::class);
         $this->request->attributes = $this->createMock(ParameterBag::class);
-        $this->request->attributes->expects($this->once())->method('set');
+        $this->request->attributes->expects($this::once())->method('set');
 
         $paramConverter = new AbstractProductParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);

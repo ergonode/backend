@@ -14,15 +14,10 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class ProductType extends Constraint
+class ProductNoBindings extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Incorrect product type.';
-
-    /**
-     * @var array|null
-     */
-    public ?array $type = [];
+    public string $message = 'Can\'t add child, parent product doesn\'t have binding attributes.';
 }

@@ -66,7 +66,7 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
         $product->method('getType')->willReturn('type');
         $this->repository->method('load')->willReturn($product);
         $constraint = new ProductType();
-        $constraint->type = 'type';
+        $constraint->type = ['type'];
         $this->validator->validate($uuid, $constraint);
 
         $this->assertNoViolation();
@@ -81,7 +81,7 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
         $product->method('getType')->willReturn('type1');
         $this->repository->method('load')->willReturn($product);
         $constraint = new ProductType();
-        $constraint->type = 'type2';
+        $constraint->type = ['type2'];
         $this->validator->validate($uuid, $constraint);
 
         $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $uuid);

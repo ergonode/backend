@@ -24,22 +24,19 @@ class UpdateVariableProductCommandTest extends TestCase
      * @param ProductId  $id
      * @param TemplateId $templateId
      * @param array      $categories
-     * @param array      $bindings
      *
      * @dataProvider dataProvider
      */
     public function testCreateCommand(
         ProductId $id,
         TemplateId $templateId,
-        array $categories,
-        array $bindings
+        array $categories
     ): void {
-        $command = new UpdateVariableProductCommand($id, $templateId, $categories, $bindings);
+        $command = new UpdateVariableProductCommand($id, $templateId, $categories);
 
         self::assertSame($id, $command->getId());
         self::assertSame($templateId, $command->getTemplateId());
         self::assertSame($categories, $command->getCategories());
-        self::assertSame($bindings, $command->getBindings());
     }
 
     /**
@@ -56,9 +53,6 @@ class UpdateVariableProductCommandTest extends TestCase
                 [
                     $this->createMock(CategoryId::class),
                     $this->createMock(CategoryId::class),
-                ],
-                [
-                    $this->createMock(AttributeId::class),
                 ],
             ],
         ];
