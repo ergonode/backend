@@ -21,7 +21,7 @@ class CategoryFormModel
      * @var CategoryCode
      *
      * @Assert\NotBlank(
-     *     message="Category code is required",
+     *     message="System name is required",
      *     groups={"Create"}
      *     )
      * @Assert\Length(
@@ -31,7 +31,7 @@ class CategoryFormModel
      *     )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
-     *     message="Category code can have only letters, digits or underscore symbol",
+     *     message="System name  can have only letters, digits or underscore symbol",
      *     groups={"Create"}
      *  )
      *
