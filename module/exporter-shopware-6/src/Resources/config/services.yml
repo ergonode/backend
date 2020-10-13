@@ -78,10 +78,10 @@ services:
         arguments:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductSkuMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductNameMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductPriceMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Decorator\Shopware6NewProductPriceMapperDecorator'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCategoryMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductActiveMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductStockMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Decorator\Shopware6NewProductActiveMapperDecorator'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Decorator\Shopware6NewProductStockMapperDecorator'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductDescriptionMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductGalleryMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup\Shopware6ProductGroupSelectMapper'
