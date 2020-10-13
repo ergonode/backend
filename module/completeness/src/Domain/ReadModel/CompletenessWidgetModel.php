@@ -24,16 +24,16 @@ class CompletenessWidgetModel
     private string $label;
 
     /**
-     * @var int
+     * @var float
      */
-    private int $value;
+    private float $value;
 
     /**
      * @param string $code
      * @param string $label
-     * @param int    $value
+     * @param float  $value
      */
-    public function __construct(string $code, string $label, int $value)
+    public function __construct(string $code, string $label, float $value)
     {
         $this->code = $code;
         $this->label = $label;
@@ -57,9 +57,9 @@ class CompletenessWidgetModel
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getValue(): int
+    public function getValue(): float
     {
         return $this->value;
     }

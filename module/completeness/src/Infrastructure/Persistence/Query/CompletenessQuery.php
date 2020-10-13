@@ -20,6 +20,7 @@ use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
@@ -28,14 +29,9 @@ class CompletenessQuery implements CompletenessQueryInterface
     private const TABLE = 'product_completeness';
 
     /**
-     * @var Connection $connection ;
+     * @var Connection $connection
      */
     private Connection $connection;
-
-    /**
-     * @var AttributeRepositoryInterface
-     */
-    private AttributeRepositoryInterface $repository;
 
     /**
      * @var TranslatorInterface
@@ -43,18 +39,31 @@ class CompletenessQuery implements CompletenessQueryInterface
     private TranslatorInterface $translator;
 
     /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $repository;
+
+    /**
+     * @var LanguageQueryInterface
+     */
+    private LanguageQueryInterface $query;
+
+    /**
      * @param Connection                   $connection
-     * @param AttributeRepositoryInterface $repository
      * @param TranslatorInterface          $translator
+     * @param AttributeRepositoryInterface $repository
+     * @param LanguageQueryInterface       $query
      */
     public function __construct(
         Connection $connection,
+        TranslatorInterface $translator,
         AttributeRepositoryInterface $repository,
-        TranslatorInterface $translator
+        LanguageQueryInterface $query
     ) {
         $this->connection = $connection;
-        $this->repository = $repository;
         $this->translator = $translator;
+        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -104,6 +113,15 @@ class CompletenessQuery implements CompletenessQueryInterface
      */
     public function getCompletenessCount(Language $language): array
     {
+        $result = [];
+        foreach ($this->query->getActive() as $active) {
+            $result[$active->getCode()] = new CompletenessWidgetModel(
+                $active->getCode(),
+                $this->translator->trans($active->getCode(), [], 'language', $language->getCode()),
+                0,
+            );
+        }
+
         $sqb = $this->connection->createQueryBuilder();
         $sqb->select('product_id, language, sum(required::int) as required, sum(filled::int) as filled')
             ->from(self::TABLE)
@@ -111,22 +129,24 @@ class CompletenessQuery implements CompletenessQueryInterface
             ->groupBy('product_id, language');
 
         $qb = $this->connection->createQueryBuilder();
-        $records = $qb->select('count(*) AS value, language AS code ')
+        $records = $qb->select('count(product_id) as product, sum(required) AS required, 
+        sum(filled) AS filled, language AS code')
             ->from(sprintf('(%s)', $sqb->getSQL()), 't')
-            ->where($qb->expr()->lte('required', 'filled'))
             ->groupBy('language')
             ->execute()->fetchAll();
 
-        $result = [];
         foreach ($records as $key => $record) {
-            $result[] = new CompletenessWidgetModel(
+            $result[$record['code']] = new CompletenessWidgetModel(
                 $record['code'],
                 $this->translator->trans($records[$key]['code'], [], 'language', $language->getCode()),
-                $record['value'],
+                round(
+                    ($record['product'] - ($record['required'] - $record['filled'])) / $record['product'] * 100,
+                    2
+                ),
             );
         }
 
-        return $result;
+        return array_values($result);
     }
 
     /**
