@@ -49,6 +49,7 @@ class Shopware6NewProductActiveMapperDecorator implements Shopware6ProductMapper
         if ($shopware6Product->isNew()) {
             return $this->productActiveMapper->map($shopware6Product, $product, $channel, $language);
         }
+
         return $shopware6Product;
     }
 }
