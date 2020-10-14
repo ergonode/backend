@@ -10,8 +10,10 @@ namespace Ergonode\Channel\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
@@ -30,8 +32,8 @@ class ExportGrid extends AbstractGrid
         $this->addColumn('id', $id);
 
         $this->addColumn('status', new TextColumn('status', 'Status', new TextFilter()));
-        $this->addColumn('started_at', new TextColumn('started_at', 'Started on', new TextFilter()));
-        $this->addColumn('ended_at', new TextColumn('ended_at', 'Ended at', new TextFilter()));
+        $this->addColumn('started_at', new DateColumn('started_at', 'Started on', new DateFilter()));
+        $this->addColumn('ended_at', new DateColumn('ended_at', 'Ended at', new DateFilter()));
 
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
