@@ -13,7 +13,7 @@
   },
   "require": {
     "php": "^7.4",
-    "ergonode/importer": "^0.10.0"
+    "ergonode/importer": "^1.0.0-beta"
   },
   "require-dev": {
     "phpunit/phpunit": "^9"
