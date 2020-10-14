@@ -117,9 +117,7 @@ class ProductChangeAction
      */
     public function __invoke(AbstractProduct $product, Request $request): Response
     {
-        if (!$class = $this->provider->provide($product->getType())) {
-            throw new BadRequestHttpException("Not existing {$product->getType()} type");
-        }
+        $class = $this->provider->provide($product->getType());
 
         $form = $this->formFactory->create($class, null, ['method' => Request::METHOD_PUT]);
         $form->handleRequest($request);
