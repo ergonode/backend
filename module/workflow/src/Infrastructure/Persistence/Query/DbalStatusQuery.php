@@ -133,13 +133,18 @@ class DbalStatusQuery implements StatusQueryInterface
      */
     public function getStatusCount(Language $translationLanguage, Language $workflowLanguage): array
     {
-        $sql = 'SELECT s.code, s.name->>:translationLanguage AS label, s.id AS status_id, count(pws.product_id) AS value
+        $sql = 'SELECT 
+            s.code, 
+            s.name->>:translationLanguage AS label,
+            s.id AS status_id,
+            count(pws.product_id) AS value,
+            s.color
             FROM status s
             JOIN product_workflow_status pws ON s.id = pws.status_id
             WHERE pws.language = :workflowLanguage
             GROUP BY s.id, s.code, label
             UNION
-            SELECT s.code, s.name->>:translationLanguage AS label, s.id, 0 AS value FROM status s
+            SELECT s.code, s.name->>:translationLanguage AS label, s.id, 0 AS value, s.color FROM status s
         ';
         $stmt = $this->connection->executeQuery(
             $sql,
@@ -153,8 +158,8 @@ class DbalStatusQuery implements StatusQueryInterface
         $result = [];
         foreach ($statuses as $status) {
             $result[$status['status_id']] = $result[$status['status_id']]['value'] ?? 0 ?
-                $result[$status['status_id']] :
-                $status;
+                    $result[$status['status_id']] :
+                    $status;
         }
 
         return $this->sortStatusesByWorkflowTransitions($result);

@@ -77,7 +77,7 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('sku', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
         $this->addColumn('template', new SelectColumn('template', 'Template', new MultiSelectFilter($templates)));
         $this->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
         $this->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
