@@ -36,7 +36,7 @@ final class ProductModel
     /**
      * @var array
      */
-    private array $attributes;
+    private array $attributes = [];
 
     /**
      * @param string $id

@@ -53,7 +53,7 @@ final class ErgonodeProductReader extends AbstractErgonodeReader
     private function prepareAttributes(): array
     {
         return array_filter($this->headers, static function ($item) {
-            return '_' === $item[0];
+            return '_' !== $item[0];
         });
     }
 }

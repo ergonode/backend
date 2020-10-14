@@ -36,22 +36,22 @@ final class AttributeModel
     /**
      * @var array
      */
-    private array $name;
+    private array $name = [];
 
     /**
      * @var array
      */
-    private array $hint;
+    private array $hint = [];
 
     /**
      * @var array
      */
-    private array $placeholder;
+    private array $placeholder = [];
 
     /**
      * @var array
      */
-    private array $parameters;
+    private array $parameters = [];
 
     /**
      * @param string $id

@@ -26,7 +26,7 @@ final class ErgonodeOptionReader extends AbstractErgonodeReader
             $record = $this->records->current();
 
             if (null === $item) {
-                $item = new OptionModel($record['_id'], $record['_code'], $record['_attribute']);
+                $item = new OptionModel($record['_id'], $record['_code'], $record['_attribute_code']);
             } else if ($item->getId() !== $record['_id']) {
                 break;
             }

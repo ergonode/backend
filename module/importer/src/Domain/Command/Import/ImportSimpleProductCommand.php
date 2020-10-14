@@ -55,7 +55,7 @@ class ImportSimpleProductCommand implements DomainCommandInterface
         ImportId $importId,
         Sku $sku,
         string $template,
-        array $categories,
+        array $categories = [],
         array $attributes = []
     ) {
         Assert::allIsInstanceOf($categories, CategoryCode::class);

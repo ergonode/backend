@@ -50,7 +50,7 @@ final class TextareaAttributeFactory implements AttributeFactoryInterface
             $hint,
             $placeholder,
             $scope,
-            $parameters->get(TextareaAttribute::RICH_EDIT)
+            (bool) $parameters->get(TextareaAttribute::RICH_EDIT)
         );
     }
 }

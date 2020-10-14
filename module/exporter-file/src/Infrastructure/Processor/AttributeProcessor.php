@@ -61,6 +61,7 @@ class AttributeProcessor
         $result->set('_name', $attribute->getLabel()->get($language));
         $result->set('_hint', $attribute->getHint()->get($language));
         $result->set('_placeholder', $attribute->getPlaceholder()->get($language));
+        $result->set('_scope', $attribute->getScope()->getValue());
         $result->set('_parameters', json_encode($attribute->getParameters(), JSON_THROW_ON_ERROR));
 
         return $result;

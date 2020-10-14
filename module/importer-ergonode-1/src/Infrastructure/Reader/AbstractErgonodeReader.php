@@ -44,7 +44,7 @@ abstract class AbstractErgonodeReader
             $this->records = $reader->getRecords();
             $this->records->rewind();
         } catch (\Exception $exception) {
-            throw new ReaderFileProcessException($directory, $exception);
+            throw new ReaderFileProcessException("$directory/$file", $exception);
         }
     }
 }

@@ -33,4 +33,4 @@ services:
                 - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeTemplateProcessorStep'
                 - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeAttributesProcessorStep'
                 - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeOptionsProcessorStep'
-#                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeProductProcessorStep'
+                - '@Ergonode\ImporterErgonode\Infrastructure\Processor\Step\ErgonodeProductProcessorStep'
