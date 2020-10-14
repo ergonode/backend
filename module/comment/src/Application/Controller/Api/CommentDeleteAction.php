@@ -80,7 +80,7 @@ class CommentDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Comment\Domain\Entity\Comment")
+     * @ParamConverter(name="comment")
      *
      * @param Comment $comment
      *

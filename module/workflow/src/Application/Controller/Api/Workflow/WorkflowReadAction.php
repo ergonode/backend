@@ -47,6 +47,8 @@ class WorkflowReadAction
      *     description="Not found",
      * )
      *
+     * @ParamConverter(name="workflow")
+     *
      * @param AbstractWorkflow $workflow
      *
      * @return Response

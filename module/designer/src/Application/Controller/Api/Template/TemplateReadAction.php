@@ -54,7 +54,7 @@ class TemplateReadAction
      *     description="Not found"
      * )
      *
-     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
+     * @ParamConverter(name="template")
      *
      * @param Template $template
      *

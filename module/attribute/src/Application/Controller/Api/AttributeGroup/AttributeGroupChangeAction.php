@@ -30,9 +30,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 /**
  * @Route(
  *     name="ergonode_attribute_group_change",
- *     path="/attributes/groups/{group}",
+ *     path="/attributes/groups/{attributeGroup}",
  *     methods={"PUT"},
- *     requirements={"group" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"attributeGroup" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class AttributeGroupChangeAction
@@ -62,7 +62,7 @@ class AttributeGroupChangeAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="group",
+     *     name="attributeGroup",
      *     in="path",
      *     type="string",
      *     description="Attribute Group id",
@@ -96,7 +96,7 @@ class AttributeGroupChangeAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
+     * @ParamConverter(name="attributeGroup")
      *
      * @param AttributeGroup $attributeGroup
      * @param Request        $request

@@ -30,9 +30,9 @@ use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementsComman
 /**
  * @Route(
  *     name="ergonode_product_collection_element_add_from_segments",
- *     path="/collections/{collection}/elements/add-from-segments",
+ *     path="/collections/{productCollection}/elements/add-from-segments",
  *     methods={"POST"},
- *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
+ *     requirements={"productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  * )
  */
 class AddProductCollectionElementFromSegmentsAction
@@ -80,7 +80,7 @@ class AddProductCollectionElementFromSegmentsAction
      *     default="en_GB"
      * )
      * @SWG\Parameter(
-     *     name="collection",
+     *     name="productCollection",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -103,7 +103,7 @@ class AddProductCollectionElementFromSegmentsAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     * @ParamConverter(name="productCollection")
      *
      * @param ProductCollection $productCollection
      * @param Request           $request

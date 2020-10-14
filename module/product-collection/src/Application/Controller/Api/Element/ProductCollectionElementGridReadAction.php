@@ -24,9 +24,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     path = "/collections/{collection}/elements",
+ *     path = "/collections/{productCollection}/elements",
  *     methods={"GET"},
- *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
+ *     requirements={"productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  *     )
  */
 class ProductCollectionElementGridReadAction
@@ -125,7 +125,7 @@ class ProductCollectionElementGridReadAction
      *     description="Returns import",
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     * @ParamConverter(name="productCollection")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param Language                 $language

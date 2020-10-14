@@ -55,7 +55,7 @@ class StatusReadAction
      *     description="Not found"
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     * @ParamConverter(name="status")
      *
      * @param Status $status
      *

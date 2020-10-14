@@ -96,7 +96,7 @@ class StatusDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     * @ParamConverter(name="status")
      *
      * @param Status $status
      *

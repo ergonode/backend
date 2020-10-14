@@ -93,6 +93,8 @@ class WorkflowDeleteAction
      *     description="Existing relationships"
      * )
      *
+     * @ParamConverter(name="workflow")
+     *
      * @param AbstractWorkflow $workflow
      *
      * @return Response

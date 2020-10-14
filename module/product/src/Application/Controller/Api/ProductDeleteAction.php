@@ -93,7 +93,7 @@ class ProductDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @param AbstractProduct $product
      *

@@ -102,7 +102,7 @@ class TemplateChangeAction
      * @param Template $template
      * @param Request  $request
      *
-     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
+     * @ParamConverter(name="template")
      *
      * @return Response
      */

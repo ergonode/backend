@@ -125,7 +125,7 @@ class SegmentProductsGridReadAction
      *     description="Returns import",
      * )
      *
-     * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
+     * @ParamConverter(name="segment")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param Language                 $language

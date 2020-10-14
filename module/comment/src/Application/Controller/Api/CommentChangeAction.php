@@ -103,7 +103,7 @@ class CommentChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Comment\Domain\Entity\Comment")
+     * @ParamConverter(name="comment")
      *
      * @param Comment $comment
      * @param Request $request

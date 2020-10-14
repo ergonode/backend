@@ -65,7 +65,7 @@ class GetProductAttributeBindingsAction extends AbstractController
      *     description="Returns list of binded attributes",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      *
      * @param Language        $language

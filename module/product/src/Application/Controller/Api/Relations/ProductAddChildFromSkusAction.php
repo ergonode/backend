@@ -92,7 +92,7 @@ class ProductAddChildFromSkusAction extends AbstractController
      *     description="Returns import",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @param Language        $language
      * @param AbstractProduct $product

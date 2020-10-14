@@ -73,7 +73,7 @@ class ProductReadAction
      * @param AbstractProduct $product
      * @param Language        $language
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @return Response
      */

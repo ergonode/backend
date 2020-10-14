@@ -107,7 +107,7 @@ class ConditionSetChangeAction
      *     description="Not found"
      * )
      *
-     * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
+     * @ParamConverter(name="conditionSet")
      *
      * @param ConditionSet $conditionSet
      * @param Request      $request

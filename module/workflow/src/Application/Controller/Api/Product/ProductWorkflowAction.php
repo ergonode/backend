@@ -82,7 +82,7 @@ class ProductWorkflowAction
      * @param Language        $language
      * @param string          $productLanguage
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @return Response
      *

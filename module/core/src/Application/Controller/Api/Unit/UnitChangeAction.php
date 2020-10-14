@@ -95,7 +95,7 @@ class UnitChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Core\Domain\Entity\Unit")
+     * @ParamConverter(name="unit")
      *
      * @param Unit    $unit
      * @param Request $request

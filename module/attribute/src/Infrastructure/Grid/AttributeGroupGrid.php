@@ -43,18 +43,18 @@ class AttributeGroupGrid extends AbstractGrid
             'get' => [
                 'privilege' => 'ATTRIBUTE_GROUP_READ',
                 'route' => 'ergonode_attribute_group_read',
-                'parameters' => ['language' => $language->getCode(), 'group' => '{id}'],
+                'parameters' => ['language' => $language->getCode(), 'attributeGroup' => '{id}'],
             ],
             'edit' => [
                 'privilege' => 'ATTRIBUTE_GROUP_UPDATE',
                 'route' => 'ergonode_attribute_group_change',
-                'parameters' => ['language' => $language->getCode(), 'group' => '{id}'],
+                'parameters' => ['language' => $language->getCode(), 'attributeGroup' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'privilege' => 'ATTRIBUTE_GROUP_DELETE',
                 'route' => 'ergonode_attribute_group_delete',
-                'parameters' => ['language' => $language->getCode(), 'group' => '{id}'],
+                'parameters' => ['language' => $language->getCode(), 'attributeGroup' => '{id}'],
                 'method' => Request::METHOD_DELETE,
             ],
         ];

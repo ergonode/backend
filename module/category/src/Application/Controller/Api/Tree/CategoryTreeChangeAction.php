@@ -93,7 +93,7 @@ class CategoryTreeChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\CategoryTree")
+     * @ParamConverter(name="tree")
      *
      * @param CategoryTree $tree
      * @param Request      $request

@@ -117,7 +117,7 @@ class OptionGridAction
      *     description="Returns attribute collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(name="attribute")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param AbstractAttribute        $attribute

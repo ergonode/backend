@@ -26,9 +26,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_type_delete",
- *     path="/collections/type/{type}",
+ *     path="/collections/type/{productCollectionType}",
  *     methods={"DELETE"},
- *     requirements={"type"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"productCollectionType"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductCollectionTypeDeleteAction
@@ -77,7 +77,7 @@ class ProductCollectionTypeDeleteAction
      *     default="en_GB"
      * )
      * @SWG\Parameter(
-     *     name="type",
+     *     name="productCollectionType",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -96,20 +96,20 @@ class ProductCollectionTypeDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
+     * @ParamConverter(name="productCollectionType")
      *
-     * @param ProductCollectionType $productCollection
+     * @param ProductCollectionType $productCollectionType
      * @param Request               $request
      *
      * @return Response
      */
-    public function __invoke(ProductCollectionType $productCollection, Request $request): Response
+    public function __invoke(ProductCollectionType $productCollectionType, Request $request): Response
     {
-        $relations = $this->relationshipsResolver->resolve($productCollection->getId());
+        $relations = $this->relationshipsResolver->resolve($productCollectionType->getId());
         if (!$relations->isEmpty()) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
-        $command = new DeleteProductCollectionTypeCommand($productCollection->getId());
+        $command = new DeleteProductCollectionTypeCommand($productCollectionType->getId());
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

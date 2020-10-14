@@ -21,10 +21,10 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_element_read",
- *     path="/collections/{collection}/elements/{product}",
+ *     path="/collections/{productCollection}/elements/{product}",
  *     methods={"GET"},
  *     requirements={
- *     "collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *     "productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
  *      "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     },
  * )
@@ -44,7 +44,7 @@ class ProductCollectionElementReadAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="collection",
+     *     name="productCollection",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -66,8 +66,8 @@ class ProductCollectionElementReadAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="productCollection")
+     * @ParamConverter(name="product")
      *
      * @param ProductCollection $productCollection
      * @param AbstractProduct   $product

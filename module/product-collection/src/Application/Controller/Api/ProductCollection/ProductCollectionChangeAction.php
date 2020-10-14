@@ -30,9 +30,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_change",
- *     path="/collections/{collection}",
+ *     path="/collections/{productCollection}",
  *     methods={"PUT"},
- *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductCollectionChangeAction
@@ -73,7 +73,7 @@ class ProductCollectionChangeAction
      * )
      *
      * @SWG\Parameter(
-     *     name="collection",
+     *     name="productCollection",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -96,7 +96,7 @@ class ProductCollectionChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     * @ParamConverter(name="productCollection")
      *
      * @param ProductCollection $productCollection
      * @param Request           $request

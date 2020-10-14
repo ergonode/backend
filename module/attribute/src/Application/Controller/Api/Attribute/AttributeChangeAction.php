@@ -112,7 +112,7 @@ class AttributeChangeAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(name="attribute")
      *
      * @param AbstractAttribute $attribute
      * @param Request           $request

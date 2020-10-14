@@ -30,10 +30,10 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_element_change",
- *     path="/collections/{collection}/elements/{product}",
+ *     path="/collections/{productCollection}/elements/{product}",
  *     methods={"PUT"},
  *     requirements={
- *     "collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *     "productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
  *      "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     },
  * )
@@ -67,7 +67,7 @@ class ProductCollectionElementChangeAction
      *
      * @SWG\Tag(name="Product Collection")
      * * @SWG\Parameter(
-     *     name="collection",
+     *     name="productCollection",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -103,8 +103,8 @@ class ProductCollectionElementChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     * @ParamConverter(name="product")
+     * @ParamConverter(name="productCollection")
      *
      * @param ProductCollection $productCollection
      * @param AbstractProduct   $product

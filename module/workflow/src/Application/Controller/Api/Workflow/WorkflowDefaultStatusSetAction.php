@@ -71,7 +71,7 @@ class WorkflowDefaultStatusSetAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     * @ParamConverter(name="status")
      *
      * @param AbstractWorkflow $workflow
      * @param Status           $status

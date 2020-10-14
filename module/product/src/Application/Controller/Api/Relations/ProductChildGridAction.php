@@ -138,7 +138,7 @@ class ProductChildGridAction
      *     description="Returns import",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param AbstractProduct          $product

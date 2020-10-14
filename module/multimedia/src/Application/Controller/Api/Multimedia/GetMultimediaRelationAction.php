@@ -75,7 +75,7 @@ class GetMultimediaRelationAction
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
+     * @ParamConverter(name="multimedia")
      */
     public function __invoke(Language $language, Multimedia $multimedia): Response
     {

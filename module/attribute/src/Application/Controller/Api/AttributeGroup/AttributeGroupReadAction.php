@@ -20,9 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_attribute_group_read",
- *     path="/attributes/groups/{group}",
+ *     path="/attributes/groups/{attributeGroup}",
  *     methods={"GET"},
- *     requirements={"group" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"attributeGroup" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class AttributeGroupReadAction
@@ -32,7 +32,7 @@ class AttributeGroupReadAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="group",
+     *     name="attributeGroup",
      *     in="path",
      *     type="string",
      *     description="Attribute Group id",
@@ -54,15 +54,15 @@ class AttributeGroupReadAction
      *     description="Not found",
      * )
      *
-     * @param AttributeGroup $group
+     * @param AttributeGroup $attributeGroup
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
+     * @ParamConverter(name="attributeGroup")
      *
      */
-    public function __invoke(AttributeGroup $group): Response
+    public function __invoke(AttributeGroup $attributeGroup): Response
     {
-        return new SuccessResponse($group);
+        return new SuccessResponse($attributeGroup);
     }
 }

@@ -94,7 +94,7 @@ class RoleDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
+     * @ParamConverter(name="role")
      *
      * @param Role $role
      *

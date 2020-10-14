@@ -87,7 +87,7 @@ class DeleteMultimediaAction
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
+     * @ParamConverter(name="multimedia")
      */
     public function __invoke(Multimedia $multimedia): Response
     {

@@ -69,7 +69,7 @@ class CompletenessReadAction
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @throws \Exception
      */

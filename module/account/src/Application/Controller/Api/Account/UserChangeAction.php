@@ -92,7 +92,7 @@ class UserChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
+     * @ParamConverter(name="user")
      *
      * @param User    $user
      * @param Request $request

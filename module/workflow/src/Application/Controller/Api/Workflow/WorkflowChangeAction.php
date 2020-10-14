@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,6 +100,9 @@ class WorkflowChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
+     *
+     * @ParamConverter(name="workflow")
+     *
      * @param AbstractWorkflow $workflow
      * @param Request          $request
      *

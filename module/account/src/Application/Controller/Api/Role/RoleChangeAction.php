@@ -92,7 +92,7 @@ class RoleChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
+     * @ParamConverter(name="role")
      *
      * @param Role    $role
      * @param Request $request

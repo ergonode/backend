@@ -331,7 +331,7 @@ Feature: Product collection module
 
   Scenario: Update product collection element (not found product)
     When I send a PUT request to "/api/v1/en_GB/collections/@product_collection_1@/elements/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Update product collection element (not found collection)
     When I send a PUT request to "/api/v1/en_GB/collections/@@static_uuid@@/elements/@product_1@"
@@ -356,7 +356,7 @@ Feature: Product collection module
 
   Scenario: Request product collection element (not found)
     When I send a GET request to "/api/v1/en_GB/collections/@product_collection_1@/elements/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Request product collection element
     When I send a GET request to "/api/v1/en_GB/collections/@product_collection_1@/elements/@product_1@"
@@ -403,7 +403,7 @@ Feature: Product collection module
 
   Scenario: Delete product collection element (not found)
     When I send a DELETE request to "/api/v1/en_GB/collections/@product_collection_1@/elements/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Delete product collection element
     When I send a DELETE request to "/api/v1/en_GB/collections/@product_collection_1@/elements/@product_1@"

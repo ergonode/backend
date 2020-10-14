@@ -52,7 +52,7 @@ class CommentReadAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Comment\Domain\Entity\Comment")
+     * @ParamConverter(name="comment")
      *
      * @param Comment $comment
      *

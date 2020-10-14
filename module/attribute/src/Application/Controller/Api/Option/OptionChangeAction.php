@@ -101,8 +101,8 @@ class OptionChangeAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractOption")
+     * @ParamConverter(name="attribute")
+     * @ParamConverter(name="option")
      *
      * @param AbstractAttribute $attribute
      * @param AbstractOption    $option

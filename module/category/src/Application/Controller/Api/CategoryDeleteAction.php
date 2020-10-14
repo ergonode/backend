@@ -86,7 +86,7 @@ class CategoryDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
+     * @ParamConverter(name="category")
      *
      * @param AbstractCategory $category
      *

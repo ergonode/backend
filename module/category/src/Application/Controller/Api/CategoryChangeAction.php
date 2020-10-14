@@ -111,7 +111,7 @@ class CategoryChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
+     * @ParamConverter(name="category")
      *
      * @param AbstractCategory $category
      * @param Request          $request

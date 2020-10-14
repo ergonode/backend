@@ -25,9 +25,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 /**
  * @Route(
  *     name="ergonode_attribute_group_delete",
- *     path="/attributes/groups/{group}",
+ *     path="/attributes/groups/{attributeGroup}",
  *     methods={"DELETE"},
- *     requirements={"group" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"attributeGroup" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class AttributeGroupDeleteAction
@@ -67,7 +67,7 @@ class AttributeGroupDeleteAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="group",
+     *     name="attributeGroup",
      *     in="path",
      *     type="string",
      *     description="Attribute group id"
@@ -93,20 +93,20 @@ class AttributeGroupDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @param AttributeGroup $group
+     * @param AttributeGroup $attributeGroup
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
+     * @ParamConverter(name="attributeGroup")
      *
      * @return Response
      */
-    public function __invoke(AttributeGroup $group): Response
+    public function __invoke(AttributeGroup $attributeGroup): Response
     {
-        $relationships = $this->relationshipsResolver->resolve($group->getId());
+        $relationships = $this->relationshipsResolver->resolve($attributeGroup->getId());
         if (!$relationships->isEmpty()) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
-        $command = new DeleteAttributeGroupCommand($group->getId());
+        $command = new DeleteAttributeGroupCommand($attributeGroup->getId());
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

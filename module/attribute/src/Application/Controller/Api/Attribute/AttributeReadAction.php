@@ -71,7 +71,7 @@ class AttributeReadAction
      *
      * @param AbstractAttribute $attribute
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(name="attribute")
      *
      * @return Response
      */

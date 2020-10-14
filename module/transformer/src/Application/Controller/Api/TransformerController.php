@@ -81,7 +81,7 @@ class TransformerController extends AbstractController
      *
      * @param Transformer $transformer
      *
-     * @ParamConverter(class="Ergonode\Transformer\Domain\Entity\Transformer")
+     * @ParamConverter(name="transformer")
      *
      * @return Response
      *
@@ -151,7 +151,7 @@ class TransformerController extends AbstractController
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Transformer\Domain\Entity\Transformer")
+     * @ParamConverter(name="transformer")
      *
      * @param Transformer $transformer
      *

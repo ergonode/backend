@@ -93,7 +93,7 @@ class SegmentDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
+     * @ParamConverter(name="segment")
      *
      * @param Segment $segment
      *

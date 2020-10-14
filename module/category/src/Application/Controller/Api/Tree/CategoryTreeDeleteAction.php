@@ -94,7 +94,7 @@ class CategoryTreeDeleteAction
      *     description="Can't delete category tree"
      * )
      *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\CategoryTree")
+     * @ParamConverter(name="tree")
      *
      * @param CategoryTree $tree
      *

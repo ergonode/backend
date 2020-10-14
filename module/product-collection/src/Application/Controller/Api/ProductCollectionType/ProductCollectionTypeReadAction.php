@@ -20,9 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_type_read",
- *     path="/collections/type/{type}",
+ *     path="/collections/type/{productCollectionType}",
  *     methods={"GET"},
- *     requirements={"type"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"productCollectionType"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductCollectionTypeReadAction
@@ -55,7 +55,7 @@ class ProductCollectionTypeReadAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
+     * @ParamConverter(name="productCollectionType")
      *
      * @param ProductCollectionType $productCollectionType
      *

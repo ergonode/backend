@@ -93,7 +93,7 @@ class TemplateDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
+     * @ParamConverter(name="template")
      *
      * @param Template $template
      *

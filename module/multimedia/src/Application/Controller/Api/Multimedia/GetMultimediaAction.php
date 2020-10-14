@@ -48,7 +48,7 @@ class GetMultimediaAction
      *
      * @param Multimedia $multimedia
      *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
+     * @ParamConverter(name="multimedia")
      *
      * @return Response
      *

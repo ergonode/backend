@@ -121,7 +121,7 @@ class ProductCategoryGridReadAction
      *     description="Returns categories from product",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param Language                 $language

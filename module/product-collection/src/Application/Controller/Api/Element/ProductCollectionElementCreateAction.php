@@ -29,9 +29,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_element_create",
- *     path="/collections/{collection}/elements",
+ *     path="/collections/{productCollection}/elements",
  *     methods={"POST"},
- *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
+ *     requirements={"productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  * )
  */
 class ProductCollectionElementCreateAction
@@ -70,7 +70,7 @@ class ProductCollectionElementCreateAction
      *     default="en_GB"
      * )
      * @SWG\Parameter(
-     *     name="collection",
+     *     name="productCollection",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -93,7 +93,7 @@ class ProductCollectionElementCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     * @ParamConverter(name="productCollection")
      *
      * @param ProductCollection $productCollection
      * @param Request           $request

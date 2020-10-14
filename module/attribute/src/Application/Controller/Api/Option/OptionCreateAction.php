@@ -99,7 +99,7 @@ class OptionCreateAction
      * @param AbstractAttribute $attribute
      * @param Request           $request
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(name="attribute")
      *
      * @return Response
      *

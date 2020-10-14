@@ -93,7 +93,7 @@ class UnitDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Core\Domain\Entity\Unit")
+     * @ParamConverter(name="unit")
      *
      * @param Unit $unit
      *

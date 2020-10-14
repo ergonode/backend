@@ -91,7 +91,7 @@ class StatusChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     * @ParamConverter(name="status")
      *
      * @param Status  $status
      * @param Request $request

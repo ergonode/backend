@@ -30,9 +30,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_type_change",
- *     path="/collections/type/{type}",
+ *     path="/collections/type/{productCollectionType}",
  *     methods={"PUT"},
- *     requirements={"type"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"productCollectionType"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductCollectionTypeChangeAction
@@ -73,7 +73,7 @@ class ProductCollectionTypeChangeAction
      * )
      *
      * @SWG\Parameter(
-     *     name="type",
+     *     name="productCollectionType",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -96,16 +96,16 @@ class ProductCollectionTypeChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
+     * @ParamConverter(name="productCollectionType")
      *
-     * @param ProductCollectionType $productCollection
+     * @param ProductCollectionType $productCollectionType
      * @param Request               $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(ProductCollectionType $productCollection, Request $request): Response
+    public function __invoke(ProductCollectionType $productCollectionType, Request $request): Response
     {
         try {
             $model = new ProductCollectionTypeUpdateFormModel();
@@ -120,7 +120,7 @@ class ProductCollectionTypeChangeAction
                 /** @var ProductCollectionTypeUpdateFormModel $data */
                 $data = $form->getData();
                 $command = new UpdateProductCollectionTypeCommand(
-                    $productCollection->getId(),
+                    $productCollectionType->getId(),
                     new TranslatableString($data->name),
                 );
                 $this->commandBus->dispatch($command);

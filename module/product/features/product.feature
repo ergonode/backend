@@ -364,7 +364,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a PUT request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Update product (no content)
     Given I am Authenticated as "test@ergonode.com"
@@ -417,7 +417,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Get product collections  (not authorized)
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections"
@@ -502,7 +502,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a DELETE request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Delete product (not authorized)
     When I send a DELETE request to "/api/v1/en_GB/products/@product@"

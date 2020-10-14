@@ -67,7 +67,7 @@ class OptionsReadAction
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(name="attribute")
      */
     public function __invoke(AbstractAttribute $attribute): Response
     {

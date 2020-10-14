@@ -152,7 +152,7 @@ class ProductDraftController extends AbstractController
      *
      * @param AbstractProduct $product
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @return Response
      *
@@ -224,8 +224,8 @@ class ProductDraftController extends AbstractController
      * @param AbstractAttribute $attribute
      * @param Request           $request
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(name="product")
+     * @ParamConverter(name="attribute")
      *
      * @return Response
      *
@@ -303,8 +303,8 @@ class ProductDraftController extends AbstractController
      * @param Language          $language
      * @param AbstractAttribute $attribute
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(name="product")
+     * @ParamConverter(name="attribute")
      *
      * @return Response
      *
@@ -360,7 +360,7 @@ class ProductDraftController extends AbstractController
      * @param Language        $language
      * @param AbstractProduct $product
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @return Response
      *
@@ -420,7 +420,7 @@ class ProductDraftController extends AbstractController
      *
      * @throws \Exception
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      */
     public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {

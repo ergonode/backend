@@ -72,7 +72,7 @@ class DownloadThumbnailMultimediaAction
      *
      * @param string     $thumbnail
      *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
+     * @ParamConverter(name="multimedia")
      *
      * @return Response
      *

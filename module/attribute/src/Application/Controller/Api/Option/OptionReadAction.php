@@ -63,8 +63,8 @@ class OptionReadAction
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractOption")
+     * @ParamConverter(name="attribute")
+     * @ParamConverter(name="option")
      *
      */
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response

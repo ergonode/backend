@@ -90,7 +90,7 @@ class ConditionSetDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
+     * @ParamConverter(name="conditionSet")
      *
      * @param ConditionSet $conditionSet
      *

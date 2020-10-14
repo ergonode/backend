@@ -131,7 +131,7 @@ class ProductHistoryReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(name="product")
      *
      * @param Language                 $language
      * @param AbstractProduct          $product

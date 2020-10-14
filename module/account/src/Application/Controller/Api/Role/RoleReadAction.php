@@ -55,7 +55,7 @@ class RoleReadAction
      *     description="Not found"
      * )
      *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
+     * @ParamConverter(name="role")
      *
      * @param Role $role
      *

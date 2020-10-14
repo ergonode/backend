@@ -70,7 +70,7 @@ class UserReadAction
      *     description="Not found"
      * )
      *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
+     * @ParamConverter(name="user")
      *
      * @param User $user
      *

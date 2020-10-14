@@ -53,7 +53,7 @@ class UnitReadAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Core\Domain\Entity\Unit")
+     * @ParamConverter(name="unit")
      *
      * @param Unit $unit
      *

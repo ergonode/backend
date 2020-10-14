@@ -68,7 +68,7 @@ class GetMultimediaMetadataAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
+     * @ParamConverter(name="multimedia")
      *
      * @param Multimedia $multimedia
      * @param Request    $request
