@@ -196,4 +196,12 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     ): array {
         return $this->query->autocomplete($search, $limit, $field, $order);
     }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return $this->query->getCount();
+    }
 }

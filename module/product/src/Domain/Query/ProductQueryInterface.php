@@ -118,6 +118,11 @@ interface ProductQueryInterface
     public function findProductIdByType(string $type): array;
 
     /**
+     * @return int
+     */
+    public function getCount(): int;
+
+    /**
      * @param string|null $search
      * @param int|null    $limit
      * @param string|null $field

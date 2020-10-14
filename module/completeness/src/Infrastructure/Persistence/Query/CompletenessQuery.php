@@ -21,6 +21,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
 /**
  */
@@ -49,21 +50,29 @@ class CompletenessQuery implements CompletenessQueryInterface
     private LanguageQueryInterface $query;
 
     /**
+     * @var ProductQueryInterface
+     */
+    private ProductQueryInterface $productQuery;
+
+    /**
      * @param Connection                   $connection
      * @param TranslatorInterface          $translator
      * @param AttributeRepositoryInterface $repository
      * @param LanguageQueryInterface       $query
+     * @param ProductQueryInterface        $productQuery
      */
     public function __construct(
         Connection $connection,
         TranslatorInterface $translator,
         AttributeRepositoryInterface $repository,
-        LanguageQueryInterface $query
+        LanguageQueryInterface $query,
+        ProductQueryInterface $productQuery
     ) {
         $this->connection = $connection;
         $this->translator = $translator;
         $this->repository = $repository;
         $this->query = $query;
+        $this->productQuery = $productQuery;
     }
 
     /**
@@ -113,6 +122,7 @@ class CompletenessQuery implements CompletenessQueryInterface
      */
     public function getCompletenessCount(Language $language): array
     {
+        $products = $this->productQuery->getCount();
         $result = [];
         foreach ($this->query->getActive() as $active) {
             $result[$active->getCode()] = new CompletenessWidgetModel(
@@ -122,27 +132,30 @@ class CompletenessQuery implements CompletenessQueryInterface
             );
         }
 
-        $sqb = $this->connection->createQueryBuilder();
-        $sqb->select('product_id, language, sum(required::int) as required, sum(filled::int) as filled')
-            ->from(self::TABLE)
-            ->where($sqb->expr()->eq('required::int', 1))
-            ->groupBy('product_id, language');
+        $sqba = $this->connection->createQueryBuilder();
+        $sqba->select('product_id, language')
+            ->addSelect('(CASE WHEN required <= filled THEN true ELSE false END) AS completed')
+            ->from(self::TABLE);
 
-        $qb = $this->connection->createQueryBuilder();
-        $records = $qb->select('count(product_id) as product, sum(required) AS required, 
-        sum(filled) AS filled, language AS code')
-            ->from(sprintf('(%s)', $sqb->getSQL()), 't')
+        $sqbb = $this->connection->createQueryBuilder()
+            ->select('product_id, language')
+            ->addSelect('(CASE WHEN count(product_id) = sum(completed::int) THEN true ELSE false END) AS completed')
+            ->from(sprintf('(%s)', $sqba->getSQL()), 't')
+            ->groupBy('product_id, language')
+            ->having('(CASE WHEN count(product_id) = sum(completed::int) THEN true ELSE false END) = true');
+
+        $records = $this->connection->createQueryBuilder()
+            ->select('count(*) as count, language')
+            ->from(sprintf('(%s)', $sqbb->getSQL()), 't')
             ->groupBy('language')
-            ->execute()->fetchAll();
+            ->execute()
+            ->fetchAll();
 
         foreach ($records as $key => $record) {
-            $result[$record['code']] = new CompletenessWidgetModel(
-                $record['code'],
-                $this->translator->trans($records[$key]['code'], [], 'language', $language->getCode()),
-                round(
-                    ($record['product'] - ($record['required'] - $record['filled'])) / $record['product'] * 100,
-                    2
-                ),
+            $result[$record['language']] = new CompletenessWidgetModel(
+                $record['language'],
+                $this->translator->trans($records[$key]['language'], [], 'language', $language->getCode()),
+                round(( $record['count'] / $products * 100), 2),
             );
         }
 
