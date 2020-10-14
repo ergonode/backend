@@ -11,8 +11,10 @@ namespace Ergonode\Multimedia\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
@@ -78,7 +80,7 @@ class MultimediaGrid extends AbstractGrid
         $column->setSuffix('KB');
         $this->addColumn('size', $column);
         $this->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()));
-        $this->addColumn('created_at', new TextColumn('created_at', 'Created at', new TextFilter()));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
 
         $links = [
             'get' => [
