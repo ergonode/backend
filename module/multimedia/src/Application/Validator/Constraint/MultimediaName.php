@@ -18,7 +18,7 @@ class MultimediaName extends Constraint
     /**
      * @var string
      */
-    public string $message = 'Multimedia name is to long, It should have {{ limit }} character or less.';
+    public string $message = 'Multimedia name is too long. It should contain {{ limit }} characters or less.';
 
     /**
      * @var int

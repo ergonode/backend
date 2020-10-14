@@ -8,21 +8,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Form\Product;
 
+use Ergonode\Product\Application\Model\Product\ProductTypeFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-abstract class AbstractProductForm extends AbstractType
+class ProductTypeForm extends AbstractType
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
-    abstract public function supported(string $type): bool;
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -32,9 +27,21 @@ abstract class AbstractProductForm extends AbstractType
         $builder
             ->add(
                 'type',
-                TextType::class
+                TextType::class,
             );
-        $this->extendForm($builder, $options);
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults(
+            [
+                'data_class' => ProductTypeFormModel::class,
+                'translation_domain' => 'product',
+            ]
+        );
     }
 
     /**
@@ -44,10 +51,4 @@ abstract class AbstractProductForm extends AbstractType
     {
         return null;
     }
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
-    abstract protected function extendForm(FormBuilderInterface $builder, array $options): void;
 }
