@@ -443,6 +443,18 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return $this->connection->createQueryBuilder()
+            ->select('count(*)')
+            ->from(self::PRODUCT_TABLE)
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder
