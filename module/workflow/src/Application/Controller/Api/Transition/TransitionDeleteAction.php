@@ -80,8 +80,8 @@ class TransitionDeleteAction
      *     description="Status not found"
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
+     * @ParamConverter(name="source")
+     * @ParamConverter(name="destination")
      *
      * @param AbstractWorkflow $workflow
      * @param Status           $source

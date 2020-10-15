@@ -150,7 +150,7 @@ class AssociatedProductAvailableChildrenAction
      *     description="Returns products",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractAssociatedProduct")
+     * @ParamConverter(name="product")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param AbstractAssociatedProduct $product

@@ -243,4 +243,4 @@ Feature: Variable product available children grid feature
 
   Scenario: Get simple product children and available products
     When I send a GET request to "/api/v1/en_GB/products/@product_1_id@/children-and-available-products?field=sku&order=ASC"
-    Then the response status code should be 400
+    Then the response status code should be 404

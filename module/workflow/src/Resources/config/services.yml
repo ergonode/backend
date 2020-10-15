@@ -45,3 +45,8 @@ services:
         decorates: Ergonode\Product\Domain\Query\GetProductQueryInterface
         arguments:
             - '@Ergonode\Workflow\Infrastructure\Query\Decorator\WorkflowGetProductQueryDecorator.inner'
+
+    Ergonode\Workflow\Application\Request\ParamConverter\AbstractWorkflowParamConverter:
+        class: Ergonode\Workflow\Application\Request\ParamConverter\AbstractWorkflowParamConverter
+        tags:
+            - { name: request.param_converter, priority: 2, converter: abstract_workflow_param_converter }

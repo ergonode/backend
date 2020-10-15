@@ -79,8 +79,8 @@ class AddProductCategoryAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(name="product")
      * @ParamConverter(name="category")
+     * @ParamConverter(name="product")
      *
      * @param AbstractProduct  $product
      * @param AbstractCategory $category

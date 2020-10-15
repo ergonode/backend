@@ -14,8 +14,6 @@ use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Core\Application\Request\ParamConverter\AggregateRootParamConverter;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
-use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -44,25 +42,19 @@ class AggregateRootParamConverterTest extends TestCase
     private EventStoreManager $manager;
 
     /**
-     * @var WorkflowProvider|MockObject
-     */
-    private WorkflowProvider $provider;
-
-    /**
      */
     protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
         $this->manager = $this->createMock(EventStoreManager::class);
-        $this->provider = $this->createMock(WorkflowProvider::class);
     }
 
     /**
      */
     public function testSupportedClass(): void
     {
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $this->configuration->method('getClass')->willReturn(AbstractCategory::class);
         self::assertTrue($paramConverter->supports($this->configuration));
     }
@@ -71,7 +63,7 @@ class AggregateRootParamConverterTest extends TestCase
      */
     public function testUnsupportedClass(): void
     {
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $this->configuration->method('getClass')->willReturn('Any other class namespace');
         self::assertFalse($paramConverter->supports($this->configuration));
     }
@@ -80,10 +72,10 @@ class AggregateRootParamConverterTest extends TestCase
      */
     public function testEmptyName(): void
     {
-        $this->expectException(BadRequestHttpException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->configuration->method('getName')->willReturn(null);
 
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -91,12 +83,12 @@ class AggregateRootParamConverterTest extends TestCase
      */
     public function testEmptyParameter(): void
     {
-        $this->expectException(BadRequestHttpException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->configuration->method('getName')->willReturn('test');
         $this->configuration->method('getClass')->willReturn(Category::class);
         $this->request->method('get')->willReturn(null);
 
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -109,7 +101,7 @@ class AggregateRootParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn(Category::class);
         $this->request->method('get')->willReturn('test');
 
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -123,7 +115,7 @@ class AggregateRootParamConverterTest extends TestCase
         $this->request->method('get')->willReturn('afe5ca9f-c3ce-4732-bb50-a5bc109fa823');
         $this->manager->method('load')->willReturn(null);
 
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -131,13 +123,13 @@ class AggregateRootParamConverterTest extends TestCase
      */
     public function testIncorrectEntity(): void
     {
-        $this->expectException(BadRequestHttpException::class);
+        $this->expectException(NotFoundHttpException::class);
         $this->configuration->method('getName')->willReturn('test');
         $this->configuration->method('getClass')->willReturn(Category::class);
         $this->request->method('get')->willReturn('afe5ca9f-c3ce-4732-bb50-a5bc109fa823');
         $this->manager->method('load')->willReturn($this->createMock(SimpleProduct::class));
 
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -151,23 +143,8 @@ class AggregateRootParamConverterTest extends TestCase
         $this->manager->method('load')->willReturn($this->createMock(Category::class));
         $this->request->attributes = $this->createMock(ParameterBag::class);
         $this->request->attributes->expects(self::once())->method('set');
-        $this->provider->expects(self::never())->method('provide');
 
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
-        $paramConverter->apply($this->request, $this->configuration);
-    }
-
-    /**
-     */
-    public function testAbstractWorkflowEntityExists():void
-    {
-        $this->configuration->method('getName')->willReturn('test');
-        $this->configuration->method('getClass')->willReturn(AbstractWorkflow::class);
-        $this->provider->method('provide')->willReturn($this->createMock(AbstractWorkflow::class));
-        $this->request->attributes = $this->createMock(ParameterBag::class);
-        $this->request->attributes->expects(self::once())->method('set');
-
-        $paramConverter = new AggregateRootParamConverter($this->manager, $this->provider);
+        $paramConverter = new AggregateRootParamConverter($this->manager);
         $paramConverter->apply($this->request, $this->configuration);
     }
 }

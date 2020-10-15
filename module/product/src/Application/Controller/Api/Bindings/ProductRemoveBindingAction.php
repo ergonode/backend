@@ -76,8 +76,8 @@ class ProductRemoveBindingAction
      *     description="Returns import",
      * )
      *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct", name="product")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute", name="binding")
+     * @ParamConverter(name="product")
+     * @ParamConverter(name="binding")
      *
      * @param Language                                  $language
      * @param AbstractProduct|AbstractAssociatedProduct $product

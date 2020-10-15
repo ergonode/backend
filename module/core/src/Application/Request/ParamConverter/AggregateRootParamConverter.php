@@ -31,18 +31,11 @@ class AggregateRootParamConverter implements ParamConverterInterface
     private EventStoreManager $manager;
 
     /**
-     * @var WorkflowProvider
-     */
-    private WorkflowProvider $provider;
-
-    /**
      * @param EventStoreManager $manager
-     * @param WorkflowProvider  $provider
      */
-    public function __construct(EventStoreManager $manager, WorkflowProvider $provider)
+    public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
-        $this->provider = $provider;
     }
 
     /**
@@ -51,35 +44,26 @@ class AggregateRootParamConverter implements ParamConverterInterface
     public function apply(Request $request, ParamConverter $configuration): void
     {
         $name = $configuration->getName();
+        Assert::notNull($name);
+
+        $parameter = $request->get($name);
+        Assert::notNull($parameter);
+
+        if (!AggregateId::isValid($parameter)) {
+            throw new BadRequestHttpException(sprintf('Invalid "%s" ID', $name));
+        }
+        $resource = $this->manager->load(new AggregateId($parameter));
+
+        if (null === $resource) {
+            throw new NotFoundHttpException(sprintf('"%s" by ID "%s" not found', $name, $parameter));
+        }
         $class = $configuration->getClass();
-        if (null === $name) {
-            throw new BadRequestHttpException('Param Converter argument \'Name\'is missing');
+
+        if (!$resource instanceof $class) {
+            throw new NotFoundHttpException(sprintf('Resource is not instance of %s', $name));
         }
 
-        if (AbstractWorkflow::class === $class) {
-            $entity = $this->provider->provide();
-        } else {
-            $parameter = $request->get($name);
-
-            if (null === $parameter) {
-                throw new BadRequestHttpException(sprintf('Request parameter "%s" is missing', $name));
-            }
-
-            if (!AggregateId::isValid($parameter)) {
-                throw new BadRequestHttpException(sprintf('Invalid "%s" ID', $name));
-            }
-            $entity = $this->manager->load(new AggregateId($parameter));
-
-            if (null === $entity) {
-                throw new NotFoundHttpException(sprintf('"%s" by ID "%s" not found', $name, $parameter));
-            }
-
-            if (!$entity instanceof $class) {
-                throw new BadRequestHttpException(sprintf('Entity is not instance of %s', $class));
-            }
-        }
-
-        $request->attributes->set($configuration->getName(), $entity);
+        $request->attributes->set($configuration->getName(), $resource);
     }
 
     /**
