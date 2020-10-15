@@ -2,18 +2,25 @@
 
 ## Documentation
 
-* Follow link to  [**Ergonode Documentation**](https://docs.ergonode.com),
+* Follow link to [Ergonode Documentation][docs],
 
 ## Community
 
-* Get Ergonode support on **Stack Overflow**, [**Slack**](https://ergonode.slack.com) and [**email**](team@ergonode.com).
-* Follow us on [**GitHub**](https://github.com/ergonode), [**Twitter**](https://twitter.com/ergonode) and [**Facebook**](https://www.facebook.com/ergonode),  
+* Get Ergonode support on **Stack Overflow**, [Slack][slack] or email team@ergonode.com
+* Follow us on [GitHub][github], [Twitter][twitter] and [Facebook][facebook],  
 
 ## Contributing
 
-Ergonode is a Open Source. Join us as a contributor.
+Ergonode is an Open Source. Join us as a [contributor][contribution]. 
 
 ## About Us
 
 Ergonode development is sponsored by Bold Brand Commerce Sp. z o.o., lead by **Ergonode Core Team** and supported by Ergonode contributors. 
 
+[docs]: https://docs.ergonode.com
+[slack]: https://ergonode-community.slack.com
+[twitter]: https://twitter.com/ergonode
+[facebook]: https://www.facebook.com/ergonode
+[github]: https://github.com/ergonode
+[license]: ./LICENSE.txt
+[contribution]: http://docs.ergonode.com/#/community/contribution

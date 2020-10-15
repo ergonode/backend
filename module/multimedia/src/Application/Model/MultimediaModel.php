@@ -21,7 +21,7 @@ class MultimediaModel
      * @Assert\NotBlank(),
      * @Assert\Length(
      *   max=128,
-     *   maxMessage="Multimedia alt is to long, It should have {{ limit }} character or less."
+     *   maxMessage="Multimedia name is too long. It should contain {{ limit }} characters or less."
      * )
      */
     public ?string $name = null;
@@ -33,7 +33,7 @@ class MultimediaModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *       max=128,
-     *       maxMessage="Multimedia alt is to long, It should have {{ limit }} character or less."
+     *       maxMessage="Multimedia alt is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
