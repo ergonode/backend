@@ -18,6 +18,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
 /**
  */
@@ -26,9 +30,14 @@ class CompletenessQuery implements CompletenessQueryInterface
     private const TABLE = 'product_completeness';
 
     /**
-     * @var Connection $connection ;
+     * @var Connection $connection
      */
     private Connection $connection;
+
+    /**
+     * @var TranslatorInterface
+     */
+    private TranslatorInterface $translator;
 
     /**
      * @var AttributeRepositoryInterface
@@ -36,13 +45,34 @@ class CompletenessQuery implements CompletenessQueryInterface
     private AttributeRepositoryInterface $repository;
 
     /**
-     * @param Connection                   $connection
-     * @param AttributeRepositoryInterface $repository
+     * @var LanguageQueryInterface
      */
-    public function __construct(Connection $connection, AttributeRepositoryInterface $repository)
-    {
+    private LanguageQueryInterface $query;
+
+    /**
+     * @var ProductQueryInterface
+     */
+    private ProductQueryInterface $productQuery;
+
+    /**
+     * @param Connection                   $connection
+     * @param TranslatorInterface          $translator
+     * @param AttributeRepositoryInterface $repository
+     * @param LanguageQueryInterface       $query
+     * @param ProductQueryInterface        $productQuery
+     */
+    public function __construct(
+        Connection $connection,
+        TranslatorInterface $translator,
+        AttributeRepositoryInterface $repository,
+        LanguageQueryInterface $query,
+        ProductQueryInterface $productQuery
+    ) {
         $this->connection = $connection;
+        $this->translator = $translator;
         $this->repository = $repository;
+        $this->query = $query;
+        $this->productQuery = $productQuery;
     }
 
     /**
@@ -83,6 +113,53 @@ class CompletenessQuery implements CompletenessQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param $language
+     *
+     * @return CompletenessWidgetModel[]
+     */
+    public function getCompletenessCount(Language $language): array
+    {
+        $products = $this->productQuery->getCount();
+        $result = [];
+        foreach ($this->query->getActive() as $active) {
+            $result[$active->getCode()] = new CompletenessWidgetModel(
+                $active->getCode(),
+                $this->translator->trans($active->getCode(), [], 'language', $language->getCode()),
+                0,
+            );
+        }
+
+        $sqba = $this->connection->createQueryBuilder();
+        $sqba->select('product_id, language')
+            ->addSelect('(CASE WHEN required <= filled THEN true ELSE false END) AS completed')
+            ->from(self::TABLE);
+
+        $sqbb = $this->connection->createQueryBuilder()
+            ->select('product_id, language')
+            ->addSelect('(CASE WHEN count(product_id) = sum(completed::int) THEN true ELSE false END) AS completed')
+            ->from(sprintf('(%s)', $sqba->getSQL()), 't')
+            ->groupBy('product_id, language')
+            ->having('(CASE WHEN count(product_id) = sum(completed::int) THEN true ELSE false END) = true');
+
+        $records = $this->connection->createQueryBuilder()
+            ->select('count(*) as count, language')
+            ->from(sprintf('(%s)', $sqbb->getSQL()), 't')
+            ->groupBy('language')
+            ->execute()
+            ->fetchAll();
+
+        foreach ($records as $key => $record) {
+            $result[$record['language']] = new CompletenessWidgetModel(
+                $record['language'],
+                $this->translator->trans($records[$key]['language'], [], 'language', $language->getCode()),
+                round(( $record['count'] / $products * 100), 2),
+            );
+        }
+
+        return array_values($result);
     }
 
     /**

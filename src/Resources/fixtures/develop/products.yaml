@@ -36,8 +36,9 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         en_GB: '@select_option_*->id'
   translation_multiselect_option_{1..5}:
     __construct:
-      -   pl_PL: '@multiselect_option_*->id'
-          en_GB: '@multiselect_option_*->id'
+      -
+        pl_PL: '@multiselect_option_*->id'
+        en_GB: '@multiselect_option_*->id'
 
 Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
   product_{1..1000}:
@@ -84,7 +85,6 @@ Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
       - '<sku(SKU_<current()>)>'
       - '@template->id'
       - []
-      - ['@attribute_41->id']
       -
         'image_attribute': '<translatableStringValue(@translation_image_*)>'
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'

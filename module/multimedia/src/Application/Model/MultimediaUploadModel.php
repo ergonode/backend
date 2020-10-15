@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExtension;
+use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaName;
 
 /**
  * @Vich\Uploadable()
@@ -25,6 +26,8 @@ class MultimediaUploadModel
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
      *
      * @MultimediaExtension()
+     *
+     * @MultimediaName(max="128")
      *
      * @var null|UploadedFile
      */

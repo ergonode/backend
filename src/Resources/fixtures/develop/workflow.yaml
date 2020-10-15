@@ -40,6 +40,6 @@ Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
 Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
   add_status_new:
     __construct:
-      - '<workflowId(default)>'
+      - '@default_workflow->id'
       - '@status_new->id'
       - '@status_draft->id'

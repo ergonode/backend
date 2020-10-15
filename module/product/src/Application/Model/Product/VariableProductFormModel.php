@@ -14,8 +14,6 @@ use Ergonode\Product\Infrastructure\Validator\Sku;
 use Ergonode\Product\Infrastructure\Validator\SkuUnique;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 
 /**
  */
@@ -46,19 +44,4 @@ class VariableProductFormModel
      * @TemplateExists()
      */
     public ?string $template = null;
-
-    /**
-     * @var array
-     *
-     * @Assert\Count(min=1)
-     * @Assert\All({
-     *    @Assert\NotBlank(message="Bind attribute is required"),
-     *    @Assert\Uuid(strict=true),
-     *
-     *    @AttributeExists(),
-     *
-     *    @AttributeTypeValid(type="SELECT")
-     * })
-     */
-    public array $bindings = [];
 }

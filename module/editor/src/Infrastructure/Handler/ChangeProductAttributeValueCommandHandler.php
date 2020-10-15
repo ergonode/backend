@@ -78,9 +78,13 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
         $newValue = $this->createValue($language, $attribute, $command->getValue());
 
         if ($draft->hasAttribute($attribute->getCode())) {
-            $oldValue = $draft->getAttribute($attribute->getCode());
-            $calculatedValue = $this->service->calculate($oldValue, $newValue);
-            $draft->changeAttribute($attribute->getCode(), $calculatedValue);
+            if (null === $newValue) {
+                $draft->removeAttribute($attribute->getCode());
+            } else {
+                $oldValue = $draft->getAttribute($attribute->getCode());
+                $calculatedValue = $this->service->calculate($oldValue, $newValue);
+                $draft->changeAttribute($attribute->getCode(), $calculatedValue);
+            }
         } else {
             $draft->addAttribute($attribute->getCode(), $newValue);
         }

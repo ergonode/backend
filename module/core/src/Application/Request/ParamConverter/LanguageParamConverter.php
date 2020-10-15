@@ -24,10 +24,10 @@ class LanguageParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('language');
+        $parameter = $request->get($configuration->getName());
 
         if (null === $parameter) {
-            throw new BadRequestHttpException('Request parameter "language" is missing');
+            throw new BadRequestHttpException("Request parameter '{$configuration->getName()}' is missing");
         }
 
         if (!Language::isValid($parameter)) {

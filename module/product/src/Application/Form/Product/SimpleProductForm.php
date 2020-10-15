@@ -32,6 +32,17 @@ class SimpleProductForm extends AbstractType implements ProductFormInterface
     }
 
     /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => SimpleProductFormModel::class,
+            'translation_domain' => 'product',
+        ]);
+    }
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
@@ -59,18 +70,7 @@ class SimpleProductForm extends AbstractType implements ProductFormInterface
     }
 
     /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => SimpleProductFormModel::class,
-            'translation_domain' => 'product',
-        ]);
-    }
-
-    /**
-     * @return null|string
+     * {@inheritdoc}
      */
     public function getBlockPrefix(): ?string
     {

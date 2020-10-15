@@ -32,16 +32,8 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Workflow\Domain\Entity\Workflow:
-
     Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalStatusRepository'
     Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalWorkflowRepository'
     Ergonode\Workflow\Domain\Query\StatusQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery'
     Ergonode\Workflow\Domain\Query\TransitionQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalTransitionQuery'
     Ergonode\Workflow\Domain\Query\WorkflowQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalWorkflowQuery'
-
-    # Product Query Decorator
-    Ergonode\Workflow\Infrastructure\Query\Decorator\WorkflowGetProductQueryDecorator:
-        decorates: Ergonode\Product\Domain\Query\GetProductQueryInterface
-        arguments:
-            - '@Ergonode\Workflow\Infrastructure\Query\Decorator\WorkflowGetProductQueryDecorator.inner'

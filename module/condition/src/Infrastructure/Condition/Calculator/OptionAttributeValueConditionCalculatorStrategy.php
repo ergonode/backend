@@ -44,6 +44,8 @@ class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalcul
 
     /**
      * {@inheritDoc}
+     *
+     * @param OptionAttributeValueCondition $configuration
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
@@ -55,9 +57,14 @@ class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalcul
         $expected = $configuration->getValue();
 
         if ($object->hasAttribute($attribute->getCode())) {
-            $value = $object->getAttribute($attribute->getCode())->getValue();
-            if ($value === $expected) {
-                return true;
+            $values = $object->getAttribute($attribute->getCode())->getValue();
+            foreach ($values as $value) {
+                // exploding for multiselect values sake
+                foreach (explode(',', $value) as $selected) {
+                    if ($selected === $expected) {
+                        return true;
+                    }
+                }
             }
         }
 

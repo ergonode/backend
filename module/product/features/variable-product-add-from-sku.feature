@@ -78,14 +78,20 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "VARIABLE-PRODUCT",
-        "templateId": "@product_template_id@",
-        "bindings": [
-          "@attribute_id@"
-        ]
+        "templateId": "@product_template_id@"
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_id"
+
+  Scenario: Add bind attribute
+    When I send a POST request to "/api/v1/en_GB/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "@attribute_id@"
+      }
+      """
+    Then the response status code should be 201
 
   Scenario: Get binded attributes
     When I send a GET request to "/api/v1/en_GB/products/@product_id@/bindings"

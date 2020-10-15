@@ -11,8 +11,10 @@ namespace Ergonode\Multimedia\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
@@ -73,12 +75,12 @@ class MultimediaGrid extends AbstractGrid
         $this->addColumn('image', new ImageColumn('image', 'Preview'));
         $this->addColumn('name', new TextColumn('name', 'File name', new TextFilter()));
         $this->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)));
-        $this->addColumn('type', new SelectColumn('type', 'Extension', new MultiSelectFilter($types)));
+        $this->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)));
         $column = new NumericColumn('size', 'Size', new NumericFilter());
         $column->setSuffix('KB');
         $this->addColumn('size', $column);
         $this->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()));
-        $this->addColumn('created_at', new TextColumn('created_at', 'Created at', new TextFilter()));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
 
         $links = [
             'get' => [
@@ -97,6 +99,12 @@ class MultimediaGrid extends AbstractGrid
                 'privilege' => 'MULTIMEDIA_READ',
                 'parameters' => ['multimedia' => '{id}'],
                 'method' => Request::METHOD_GET,
+            ],
+            'delete' => [
+                'route' => 'ergonode_multimedia_delete',
+                'privilege' => 'MULTIMEDIA_DELETE',
+                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
+                'method' => Request::METHOD_DELETE,
             ],
         ];
         $this->addColumn('_links', new LinkColumn('hal', $links));

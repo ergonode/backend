@@ -73,6 +73,86 @@ Feature: Segment module
     Then the response status code should be 201
     And store response param "id" as "product_id_1"
 
+  Scenario: Create select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "CONDITION_SELECT_@@random_code@@",
+          "type": "SELECT",
+          "scope": "global",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_attribute_id"
+
+  Scenario: I add option to select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a "POST" request to "/api/v1/en_GB/attributes/@select_attribute_id@/options" with body:
+      """
+      {
+          "code": "val_1"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_val_1_id"
+
+  Scenario: I add second option to select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a "POST" request to "/api/v1/en_GB/attributes/@select_attribute_id@/options" with body:
+      """
+      {
+          "code": "val_2"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_val_2_id"
+
+  Scenario: Create OPTION_ATTRIBUTE_VALUE_CONDITION condition set
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/conditionsets" with body:
+      """
+        {
+          "conditions": [
+            {
+              "type": "OPTION_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@select_attribute_id@",
+              "value": "@select_val_1_id@"
+            }
+          ]
+        }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "condition_set_id"
+
+  Scenario: Assign select attribute to product
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "api/v1/en_GB/products/@product_id_1@/draft/@select_attribute_id@/value" with body:
+      """
+      {
+        "value": "@select_val_1_id@"
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Apply product draft
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "api/v1/en_GB/products/@product_id_1@/draft/persist"
+    Then the response status code should be 204
+
   Scenario: Create condition set
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -112,6 +192,28 @@ Feature: Segment module
       """
     Then the response status code should be 201
     And store response param "id" as "segment"
+
+  Scenario: Create segment with select
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/segments" with body:
+      """
+      {
+        "code": "SEG_2_@@random_code@@",
+        "condition_set_id": "@condition_set_id@",
+        "name": {
+          "pl_PL": "Segment z opcją",
+          "en_GB": "Segment with option"
+        },
+        "description": {
+          "pl_PL": "Opis segmentu",
+          "en_GB": "Segment description"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "segment_2"
 
   Scenario: Create segment (not unique code)
     Given I am Authenticated as "test@ergonode.com"
@@ -394,6 +496,16 @@ Feature: Segment module
     And the JSON node "collection[0].sku" should exist
     And the JSON node "collection[1].id" should exist
     And the JSON node "collection[1].sku" should exist
+
+  Scenario: Get products based on segment from select (order by id)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/en_GB/segments/@segment_2@/products?field=id"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should be equal to the number 1
+    And the JSON node "collection[0].id" should exist
+    And the JSON node "collection[0].sku" should exist
 
   Scenario: Get products based on segment (order by sku)
     Given I am Authenticated as "test@ergonode.com"

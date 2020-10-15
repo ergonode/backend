@@ -35,7 +35,7 @@ class CategoryCodeType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'invalid_message' => 'Category code {{ value }} is not valid',
+                'invalid_message' => 'System name {{ value }} is not valid',
             ]
         );
     }

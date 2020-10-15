@@ -12,6 +12,7 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Application\Form\Product\ProductTypeForm;
 use Ergonode\Product\Application\Provider\ProductFormProvider;
 use Ergonode\Product\Infrastructure\Provider\CreateProductCommandFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -19,8 +20,8 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 /**
  * @Route("products", methods={"POST"})
@@ -101,8 +102,14 @@ class ProductCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        $type = $request->request->get('type', SimpleProduct::TYPE);
+        $type = $request->request->get('type');
+        $typeForm = $this->formFactory->create(ProductTypeForm::class);
+        $typeForm->submit(['type' => $type]);
+        if (!$typeForm->isSubmitted() || !$typeForm->isValid()) {
+            throw new FormValidationHttpException($typeForm);
+        }
         $request->request->remove('type');
+
         $class = $this->provider->provide($type);
 
         $form = $this->formFactory->create($class, null, ['validation_groups' => ['Default', 'Create']]);

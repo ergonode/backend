@@ -12,7 +12,7 @@ use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 
 /**
  */
-class ProductFormProvider
+class ProductFormProvider implements ProductSupportProviderInterface
 {
     /**
      * @var ProductFormInterface[]
@@ -40,6 +40,22 @@ class ProductFormProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\' find factory for %s type', $type));
+        throw new \InvalidArgumentException('Unsupported product type');
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supports(string $type): bool
+    {
+        foreach ($this->forms as $form) {
+            if ($form->supported($type)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

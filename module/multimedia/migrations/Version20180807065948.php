@@ -11,6 +11,7 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
+use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
 use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
@@ -55,6 +56,7 @@ final class Version20180807065948 extends AbstractErgonodeMigration
             MultimediaCreatedEvent::class => 'Multimedia added',
             MultimediaAltChangedEvent::class => 'Multimedia alt changed',
             MultimediaNameChangedEvent::class => 'Multimedia name changed',
+            MultimediaDeletedEvent::class => 'Multimedia deleted',
         ]);
     }
 

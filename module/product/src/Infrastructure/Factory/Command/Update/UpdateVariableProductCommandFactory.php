@@ -49,16 +49,10 @@ class UpdateVariableProductCommandFactory implements UpdateProductCommandFactory
             $categories[] = new CategoryId($category);
         }
 
-        $bindings = [];
-        foreach ($data->bindings as $binding) {
-            $bindings[] = new AttributeId($binding);
-        }
-
         return new UpdateVariableProductCommand(
             $productId,
             new TemplateId($data->template),
             $categories,
-            $bindings,
         );
     }
 }

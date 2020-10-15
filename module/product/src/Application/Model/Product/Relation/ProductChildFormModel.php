@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Model\Product\Relation;
 
+use Ergonode\Product\Infrastructure\Validator\ProductNoBindings;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Product\Infrastructure\Validator\ProductExists;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -22,6 +23,10 @@ class ProductChildFormModel
 {
     /**
      * @var ProductId $parentId
+     *
+     * @ProductType(type={"VARIABLE-PRODUCT", "GROUPING-PRODUCT"})
+     *
+     * @ProductNoBindings(groups={"VARIABLE-PRODUCT"})
      */
     private ProductId $parentId;
 
@@ -33,7 +38,7 @@ class ProductChildFormModel
      *
      * @ProductExists()
      *
-     * @ProductType(type="SIMPLE-PRODUCT")
+     * @ProductType(type={"SIMPLE-PRODUCT"})
      */
     public ?string $childId = null;
 

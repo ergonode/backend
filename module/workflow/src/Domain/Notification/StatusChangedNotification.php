@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Notification;
 
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -18,7 +19,8 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
  */
 class StatusChangedNotification implements NotificationInterface
 {
-    private const MESSAGE = 'Product "%sku%" status was changed from "%from%" to "%to%" by user "%user%"';
+    private const MESSAGE = 'Product "%sku%" status was changed from "%from%" to "%to%" '.
+    'in language "%language%" by user "%user%"';
 
     /**
      * @var string
@@ -41,14 +43,15 @@ class StatusChangedNotification implements NotificationInterface
     private \DateTime $createdAt;
 
     /**
-     * @param Sku        $sku
-     * @param StatusCode $from
-     * @param StatusCode $to
-     * @param User       $user
+     * @param Sku           $sku
+     * @param StatusCode    $from
+     * @param StatusCode    $to
+     * @param User          $user
+     * @param Language|null $language
      *
      * @throws \Exception
      */
-    public function __construct(Sku $sku, StatusCode $from, StatusCode $to, User $user)
+    public function __construct(Sku $sku, StatusCode $from, StatusCode $to, User $user, ?Language $language = null)
     {
         $this->createdAt = new \DateTime();
         $this->message = self::MESSAGE;
@@ -57,6 +60,7 @@ class StatusChangedNotification implements NotificationInterface
             '%from%' => $from->getValue(),
             '%to%' => $to->getValue(),
             '%user%' => sprintf('%s %s', $user->getFirstName(), $user->getLastName()),
+            '%language%' => $language ? $language->getCode() : null,
         ];
         $this->userId = $user->getId();
     }

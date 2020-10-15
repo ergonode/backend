@@ -69,7 +69,7 @@ class CreateUserFormModel
      * @var Password|null
      *
      * @Assert\NotBlank(message="User password repeat is required")
-     * @Assert\EqualTo(propertyPath="password", message="This value should be same as password")
+     * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
     public ?Password $passwordRepeat;
 

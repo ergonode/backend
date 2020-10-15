@@ -57,7 +57,7 @@ class ProductTypeValidator extends ConstraintValidator
             $product = $this->repository->load(new ProductId($value));
         }
 
-        if ($product && $product->getType() !== $constraint->type) {
+        if ($product && !in_array($product->getType(), $constraint->type)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

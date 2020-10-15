@@ -32,6 +32,17 @@ class GroupingProductForm extends AbstractType implements ProductFormInterface
     }
 
     /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => GroupingProductFormModel::class,
+            'translation_domain' => 'product',
+        ]);
+    }
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
@@ -59,18 +70,7 @@ class GroupingProductForm extends AbstractType implements ProductFormInterface
     }
 
     /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => GroupingProductFormModel::class,
-            'translation_domain' => 'product',
-        ]);
-    }
-
-    /**
-     * @return null|string
+     * {@inheritdoc}
      */
     public function getBlockPrefix(): ?string
     {

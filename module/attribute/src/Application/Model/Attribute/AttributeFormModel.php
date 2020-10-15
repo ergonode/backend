@@ -20,7 +20,7 @@ class AttributeFormModel
      * @var string
      *
      * @Assert\NotBlank(
-     *     message="Attribute code is required",
+     *     message="System name is required",
      *     groups={"Create"}
      *     )
      * @Assert\Length(
@@ -50,7 +50,7 @@ class AttributeFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *      max=32,
+     *      max=128,
      *      maxMessage="Attribute name is to long, It should have {{ limit }} character or less."
      *     )
      * })
