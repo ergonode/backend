@@ -2,9 +2,7 @@
 
 ## Documentation
 
-* Follow link to  [**Ergonode Documentation**](https://docs.ergonode.com),
-
-## Cons
+* Follow link to [Ergonode Documentation][docs],
 
 ### Message template translation
 
@@ -17,7 +15,7 @@ You must set correct translation in `MailMessage` object. We don't translate it 
 
 ### Attachments
 
-In first version we don't need to make it. That functionality will be develop in next version. 
+In first version we don't need to make it. That functionality will be developed in next version. 
 
 ## Tips
 
@@ -31,13 +29,21 @@ bin/console ergonode:mailer:test team@ergonode.com -l en_US
 
 ## Community
 
-* Get Ergonode support on **Stack Overflow**, [**Slack**](https://ergonode.slack.com) and [**email**](team@ergonode.com).
-* Follow us on [**GitHub**](https://github.com/ergonode), [**Twitter**](https://twitter.com/ergonode) and [**Facebook**](https://www.facebook.com/ergonode),  
+* Get Ergonode support on **Stack Overflow**, [Slack][slack] or email team@ergonode.com
+* Follow us on [GitHub][github], [Twitter][twitter] and [Facebook][facebook],  
 
 ## Contributing
 
-Ergonode is a Open Source. Join us as a contributor.
+Ergonode is an Open Source. Join us as a [contributor][contribution]. 
 
 ## About Us
 
 Ergonode development is sponsored by Bold Brand Commerce Sp. z o.o., lead by **Ergonode Core Team** and supported by Ergonode contributors. 
+
+[docs]: https://docs.ergonode.com
+[slack]: https://ergonode.slack.com
+[twitter]: https://twitter.com/ergonode
+[facebook]: https://www.facebook.com/ergonode
+[github]: https://github.com/ergonode
+[license]: ./LICENSE.txt
+[contribution]: http://docs.ergonode.com/#/community/contribution
