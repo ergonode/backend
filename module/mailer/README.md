@@ -41,7 +41,7 @@ Ergonode is an Open Source. Join us as a [contributor][contribution].
 Ergonode development is sponsored by Bold Brand Commerce Sp. z o.o., lead by **Ergonode Core Team** and supported by Ergonode contributors. 
 
 [docs]: https://docs.ergonode.com
-[slack]: https://ergonode.slack.com
+[slack]: https://ergonode-community.slack.com
 [twitter]: https://twitter.com/ergonode
 [facebook]: https://www.facebook.com/ergonode
 [github]: https://github.com/ergonode

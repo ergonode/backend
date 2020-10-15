@@ -3,16 +3,13 @@
     <img width="300" src="https://ergonode.com/img/logo.svg" alt="Egronode logo">
   </a>
 </p>
-<p align="center">Desktop PWA Ready Product Information Management Platform</p>
+<p align="center">Modern Product Information Management Platform/p>
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-1.0.0beta-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-1.0.0--beta-4c9aff.svg" alt="Version">
   </a>
-  <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version%20code-Vegas-00bc87.svg" alt="Code Version">
-  </a>
-  <a href="https://ergonode.slack.com/join/shared_invite/enQtNjE2NTA2ODM2NzIwLWU5NzhmNGM5NDUyYTVlZTI0YWJmMTViYWEyYWU2NDc2NzU4Y2U4ZTc0OTUwYmY0ODVhNzA2ZGE5OTMwOWFlYmM">
+  <a href="https://join.slack.com/t/ergonode-community/shared_invite/zt-ibppxnyc-4Ykac1Gh64Qkk5SWy3sg3w">
      <img src="https://img.shields.io/badge/chat-on%20slack-e51670.svg" alt="Chat">
   </a>
   <a href="https://docs.ergonode.com" target="_blank">
@@ -23,9 +20,9 @@
   </a>
 </p>
 
-## Installation
+Ergonode is modern PIM platform based on Symfony and Vue.js frameworks. It has modular structure and gives power of flexibility and easy management thousand of products. More info how to use it for merchants and users: https://userguide.ergonode.com
 
-**1) Manual**
+## Installation
 
 Download project repository (ergonode) to your local directory:
 ```
@@ -70,11 +67,7 @@ Run build in server
 bin/console server:run
 ```
 
-Run [frontend application][frontend] and login with credentials `test@ergonode.com` password `abcd1234`.
-
-**2) Using Docker**
-
-Documentation how to install: [docker repository][docker]
+For more information check our [installation][installation] section in the documentation.
 
 ## Documentation
 
@@ -86,34 +79,20 @@ The project is in early stage and we have got a lot of milestones to develop.  W
 
 - PHP 7.4
 - Symfony 4.4
-- Postgres 10 (uuid-ossp, ltree)
-- RabbitMQ (optional)
-- Redis (optional)
-- Elasticsearch (optional)
-- Nginx (possible Apache)
-- MongoDB (optional)
+- Postgres 10
+- RabbitMQ
 
 #### Tests
 
 - Phpunit
 - Behat (API) 
 
-
-#### Domain Driven Design Approach
-
-- CQRS
-- ES
-- SAGA
-- EVENT BUS
-
 ## Build with us community on Slack
 
 If you have any questions or ideas feel free to join our [slack][slack].
 
 ## Is it production ready?
-
-No! At the moment we have only one testing implementation to production environment (with more than 150k+ product indexes and integration with Magento Commerce 2.3), but in our opinion system still needs to be stabilised and we recommend not to use it at the moment in production mode. We still develop the core and there could be a lot of changes in the near future. If you want to know when it will be production ready look at Ergonode Roadmap. 
-
+We're releasing 1.0.0-beta so there are some minor bugs and improvements that need to be eliminated before the stable version 1.0. Follow our SM channels and take a look at Ergonode Roadmap to see what's coming in the future. 
 
 ## Roadmap
 
@@ -132,11 +111,12 @@ Ergonode is open-source, and it can be brought to you only by great community an
 
 Ergonode source code is released under the [OSL 3.0 License][license].
 
-[slack]: https://ergonode.slack.com/join/shared_invite/enQtOTA2ODY0ODMxNTI0LThlZGE2YWE0YzY4NzU1ODk3NWRmNTJiMGI2NmM5ZTgxYTk0MWRhMjM1Y2M4MjdjZjAxY2FkOWE1M2FhZmJkMDY
+[slack]: https://join.slack.com/t/ergonode-community/shared_invite/zt-ibppxnyc-4Ykac1Gh64Qkk5SWy3sg3w
 [contribut]: http://docs.ergonode.com/#/community/contribution
 [license]: ./LICENSE.txt
 [roadmap]: https://trello.com/b/DSWyaTlL/ergonode-product-roadmap
 [docs]: https://docs.ergonode.com
+[installation]: https://docs.ergonode.com/#/installation
 [ddd]: https://en.wikipedia.org/wiki/Domain-driven_design
 [cqrs]: https://en.wikipedia.org/wiki/Command%E2%80%93query_separation
 [es]: https://dev.to/barryosull/event-sourcing-what-it-is-and-why-its-awesome
