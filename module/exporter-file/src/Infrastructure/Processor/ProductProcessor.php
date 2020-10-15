@@ -108,8 +108,12 @@ class ProductProcessor
      *
      * @return LanguageData
      */
-    private function getLanguage(AbstractProduct $product, Language $language, array $attributes, Template $template): LanguageData
-    {
+    private function getLanguage(
+        AbstractProduct $product,
+        Language $language,
+        array $attributes,
+        Template $template
+    ): LanguageData {
         $result = new LanguageData();
         $result->set('_id', $product->getId()->getValue());
         $result->set('_sku', $product->getSku()->getValue());
