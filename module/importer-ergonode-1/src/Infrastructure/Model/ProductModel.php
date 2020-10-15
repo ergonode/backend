@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Model;
 
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+
 /**
  */
 final class ProductModel
@@ -104,9 +107,9 @@ final class ProductModel
     public function addAttribute(string $code, string $language, string $value): void
     {
         if (!array_key_exists($code, $this->attributes)) {
-            $this->attributes[$code] = [];
+            $this->attributes[$code] = new TranslatableString([]);
         }
 
-        $this->attributes[$code][$language] = $value;
+        $this->attributes[$code]->add(new Language($language), $value);
     }
 }
