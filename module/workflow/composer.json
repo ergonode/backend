@@ -19,6 +19,7 @@
         "ergonode/condition": "^1.0.0-beta",
         "ergonode/es": "^1.0.0-beta",
         "ergonode/grid": "^1.0.0-beta",
+        "ergonode/notification": "^1.0.0-beta",
         "ergonode/shared-kernel": "^1.0.0-beta",
         "jms/serializer": "^3.4",
         "ramsey/uuid": "^3.8"
