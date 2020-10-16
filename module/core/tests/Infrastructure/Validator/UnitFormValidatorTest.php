@@ -80,7 +80,8 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $constraint = new UnitForm();
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->emptyNameMessage);
+        $assertion = $this->buildViolation($constraint->emptyNameMessage)
+        ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 
@@ -96,7 +97,8 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $constraint = new UnitForm();
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->emptyNameMessage);
+        $assertion = $this->buildViolation($constraint->emptyNameMessage)
+            ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 
@@ -112,7 +114,8 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $constraint = new UnitForm();
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->emptySymbolMessage);
+        $assertion = $this->buildViolation($constraint->emptySymbolMessage)
+            ->atPath('property.path.symbol');
         $assertion->assertRaised();
     }
 
@@ -131,7 +134,8 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
 
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->uniqueNameMessage);
+        $assertion = $this->buildViolation($constraint->uniqueNameMessage)
+            ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 
@@ -150,7 +154,8 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
 
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->uniqueSymbolMessage);
+        $assertion = $this->buildViolation($constraint->uniqueSymbolMessage)
+            ->atPath('property.path.symbol');
         $assertion->assertRaised();
     }
 

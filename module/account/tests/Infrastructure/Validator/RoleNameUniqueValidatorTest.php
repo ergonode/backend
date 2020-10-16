@@ -79,7 +79,8 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
 
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->uniqueMessage);
+        $assertion = $this->buildViolation($constraint->uniqueMessage)
+        ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 

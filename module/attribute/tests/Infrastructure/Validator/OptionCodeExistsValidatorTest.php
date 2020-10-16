@@ -98,7 +98,9 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $constraint = new OptionCodeExists();
         $this->validator->validate($value, $constraint);
         $assertion = $this->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $value->code);
+            ->setParameter('{{ value }}', $value->code)
+            ->atPath('property.path.code');
+
         $assertion->assertRaised();
     }
 
@@ -118,7 +120,8 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $constraint = new OptionCodeExists();
         $this->validator->validate($value, $constraint);
         $assertion = $this->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $value->code);
+            ->setParameter('{{ value }}', $value->code)
+            ->atPath('property.path.code');
         $assertion->assertRaised();
     }
 

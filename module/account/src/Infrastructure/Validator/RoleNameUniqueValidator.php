@@ -56,6 +56,7 @@ class RoleNameUniqueValidator extends ConstraintValidator
 
         if (null !== $roleId && $roleId != $value->getRoleId()) {
             $this->context->buildViolation($constraint->uniqueMessage)
+                ->atPath('name')
                 ->addViolation();
         }
     }

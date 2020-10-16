@@ -55,6 +55,7 @@ class OptionCodeExistsValidator extends ConstraintValidator
             if ($this->optionQuery->findIdByAttributeIdAndCode($value->attributeId, new OptionKey($value->code))) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ value }}', $value->code)
+                    ->atPath('code')
                     ->addViolation();
             }
 
@@ -65,6 +66,7 @@ class OptionCodeExistsValidator extends ConstraintValidator
         if (null !== $optionId && !$optionId->isEqual($value->optionId)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value->code)
+                ->atPath('code')
                 ->addViolation();
         }
     }

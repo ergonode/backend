@@ -44,11 +44,11 @@ class CreateUserForm extends AbstractType
             )
             ->add(
                 'password',
-                PasswordType::class
+                TextType::class
             )
             ->add(
                 'passwordRepeat',
-                PasswordType::class
+                TextType::class
             )
             ->add(
                 'language',
