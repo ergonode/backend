@@ -23,6 +23,7 @@ default:
                 - module/generator/features
                 - module/grid/features
                 - module/importer/features
+                - module/importer-ergonode-1/features
                 - module/importer-magento-1/features
                 - module/importer-magento-2/features
                 - module/migration/features

@@ -11,6 +11,7 @@ namespace Ergonode\ExporterFile\Tests\Infrastructure\Processor\Process;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\Processor\ProductProcessor;
@@ -31,6 +32,8 @@ final class ProductProcessTest extends TestCase
         $calculator = $this->createMock(TranslationInheritanceCalculator::class);
         $attributeRepository = $this->createMock(AttributeRepositoryInterface::class);
         $templateRepository = $this->createMock(TemplateRepositoryInterface::class);
+        $templateRepository->expects(self::once())->method('load')
+            ->willReturn($this->createMock(Template::class));
 
         $channel = $this->createMock(FileExportChannel::class);
         $product = $this->createMock(AbstractProduct::class);
