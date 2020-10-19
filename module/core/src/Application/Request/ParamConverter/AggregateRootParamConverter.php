@@ -60,7 +60,7 @@ class AggregateRootParamConverter implements ParamConverterInterface
         $class = $configuration->getClass();
 
         if (!$resource instanceof $class) {
-            throw new NotFoundHttpException(sprintf('Resource is not instance of %s', $name));
+            throw new NotFoundHttpException(sprintf('There is no such %s resource', $name));
         }
 
         $request->attributes->set($configuration->getName(), $resource);
