@@ -25,12 +25,12 @@ class CategorySystemAttributeTest extends TestCase
         $hint = $this->createMock(TranslatableString::class);
         $placeholder = $this->createMock(TranslatableString::class);
         $attribute = new CategorySystemAttribute($label, $hint, $placeholder);
-        $this->assertSame($label, $attribute->getLabel());
-        $this->assertSame($hint, $attribute->getHint());
-        $this->assertSame($placeholder, $attribute->getPlaceholder());
-        $this->assertTrue($attribute->isSystem());
-        $this->assertFalse($attribute->isEditable());
-        $this->assertTrue($attribute->isDeletable());
-        $this->assertFalse($attribute->isMultilingual());
+        self::assertSame($label, $attribute->getLabel());
+        self::assertSame($hint, $attribute->getHint());
+        self::assertSame($placeholder, $attribute->getPlaceholder());
+        self::assertTrue($attribute->isSystem());
+        self::assertFalse($attribute->isEditable());
+        self::assertTrue($attribute->isDeletable());
+        self::assertFalse($attribute->isMultilingual());
     }
 }

@@ -55,10 +55,10 @@ class SkuHandlerTest extends TestCase
     {
         $configurations = SkuHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -70,7 +70,7 @@ class SkuHandlerTest extends TestCase
         $code = new Sku($testValue);
         $result = $this->handler->serialize($this->serializerVisitor, $code, [], $this->context);
 
-        $this->assertEquals($testValue, $result);
+        self::assertEquals($testValue, $result);
     }
 
     /**
@@ -80,6 +80,6 @@ class SkuHandlerTest extends TestCase
         $testValue = 'code';
         $result = $this->handler->deserialize($this->deserializerVisitor, $testValue, [], $this->context);
 
-        $this->assertEquals($testValue, (string) $result);
+        self::assertEquals($testValue, (string) $result);
     }
 }

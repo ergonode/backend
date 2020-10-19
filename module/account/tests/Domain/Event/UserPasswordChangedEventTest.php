@@ -29,7 +29,7 @@ class UserPasswordChangedEventTest extends TestCase
 
         $event = new UserPasswordChangedEvent($id, $password);
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($password, $event->getPassword());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($password, $event->getPassword());
     }
 }

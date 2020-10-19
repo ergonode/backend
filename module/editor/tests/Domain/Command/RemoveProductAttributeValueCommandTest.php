@@ -32,8 +32,8 @@ class RemoveProductAttributeValueCommandTest extends TestCase
         $language = $this->createMock(Language::class);
 
         $command = new RemoveProductAttributeValueCommand($draftId, $attributeId, $language);
-        $this->assertSame($draftId, $command->getId());
-        $this->assertSame($attributeId, $command->getAttributeId());
-        $this->assertSame($language, $command->getLanguage());
+        self::assertSame($draftId, $command->getId());
+        self::assertSame($attributeId, $command->getAttributeId());
+        self::assertSame($language, $command->getLanguage());
     }
 }

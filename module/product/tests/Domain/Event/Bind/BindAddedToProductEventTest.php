@@ -28,7 +28,7 @@ class BindAddedToProductEventTest extends TestCase
         /** @var AttributeId|MockObject $attributeId */
         $attributeId = $this->createMock(AttributeId::class);
         $event = new BindAddedToProductEvent($id, $attributeId);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($attributeId, $event->getAttributeId());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($attributeId, $event->getAttributeId());
     }
 }

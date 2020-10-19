@@ -43,10 +43,10 @@ class ProductCollectionFactoryTest extends TestCase
         $factory = new ProductCollectionFactory();
         $entity = $factory->create($id, $code, $name, $description, $typeId);
 
-        $this->assertEquals($id, $entity->getId());
-        $this->assertEquals($code, $entity->getCode());
-        $this->assertEquals($name, $entity->getName());
-        $this->assertEquals($description, $entity->getDescription());
-        $this->assertEquals($typeId, $entity->getTypeId());
+        self::assertEquals($id, $entity->getId());
+        self::assertEquals($code, $entity->getCode());
+        self::assertEquals($name, $entity->getName());
+        self::assertEquals($description, $entity->getDescription());
+        self::assertEquals($typeId, $entity->getTypeId());
     }
 }

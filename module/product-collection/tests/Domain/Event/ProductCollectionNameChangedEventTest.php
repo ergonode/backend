@@ -37,9 +37,9 @@ class ProductCollectionNameChangedEventTest extends TestCase
 
         $event = new ProductCollectionNameChangedEvent($id, $from, $to, $dateTime);
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
-        $this->assertEquals($to, $event->getTo());
-        $this->assertEquals($dateTime, $event->getEditedAt());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($from, $event->getFrom());
+        self::assertEquals($to, $event->getTo());
+        self::assertEquals($dateTime, $event->getEditedAt());
     }
 }

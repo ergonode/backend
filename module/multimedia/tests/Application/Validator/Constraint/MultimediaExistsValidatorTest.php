@@ -37,7 +37,7 @@ class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new MultimediaExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -47,7 +47,7 @@ class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
         $this->repository->method('load')->willReturn($this->createMock(Multimedia::class));
         $this->validator->validate(MultimediaId::generate(), new MultimediaExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

@@ -39,7 +39,7 @@ class DataSetQueryBuilderProviderTest extends TestCase
         $strategy->method('supports')->willReturn(true);
         $provider = new DataSetQueryBuilderProvider(...[$strategy]);
         $result = $provider->provide($this->attribute);
-        $this->assertEquals($strategy, $result);
+        self::assertEquals($strategy, $result);
     }
 
     /**

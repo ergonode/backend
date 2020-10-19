@@ -51,8 +51,8 @@ class DeleteSegmentCommandHandlerTest extends TestCase
      */
     public function testCommandHandling(): void
     {
-        $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(Segment::class));
-        $this->repository->expects($this->once())->method('delete');
+        $this->repository->expects(self::once())->method('load')->willReturn($this->createMock(Segment::class));
+        $this->repository->expects(self::once())->method('delete');
 
         $handler = new DeleteSegmentCommandHandler($this->repository, $this->resolver);
         $handler->__invoke($this->command);

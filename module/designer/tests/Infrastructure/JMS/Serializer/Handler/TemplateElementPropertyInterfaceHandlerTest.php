@@ -49,10 +49,10 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
     {
         $configurations = TemplateElementPropertyInterfaceHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -66,8 +66,8 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
         /** @var AttributeTemplateElementProperty $result */
         $result = $this->serializer->deserialize($testValue, TemplateElementPropertyInterface::class, 'json');
 
-        $this->assertInstanceOf(AttributeTemplateElementProperty::class, $result);
-        $this->assertEquals(AttributeTemplateElementProperty::VARIANT, $result->getVariant());
+        self::assertInstanceOf(AttributeTemplateElementProperty::class, $result);
+        self::assertEquals(AttributeTemplateElementProperty::VARIANT, $result->getVariant());
     }
 
     /**
@@ -79,7 +79,7 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
         /** @var UiTemplateElementProperty $result */
         $result = $this->serializer->deserialize($testValue, TemplateElementPropertyInterface::class, 'json');
 
-        $this->assertInstanceOf(UiTemplateElementProperty::class, $result);
-        $this->assertEquals(UiTemplateElementProperty::VARIANT, $result->getVariant());
+        self::assertInstanceOf(UiTemplateElementProperty::class, $result);
+        self::assertEquals(UiTemplateElementProperty::VARIANT, $result->getVariant());
     }
 }

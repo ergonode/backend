@@ -53,7 +53,7 @@ class CreatePriceAttributeCommandHandlerTest extends TestCase
     public function testHandleCommand(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('save');
 
         $handler = new CreatePriceAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);

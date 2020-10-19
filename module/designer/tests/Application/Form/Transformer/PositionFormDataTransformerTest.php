@@ -38,7 +38,7 @@ class PositionFormDataTransformerTest extends TestCase
      */
     public function testTransform(?Position $positionValueObject, ?array $array): void
     {
-        $this->assertSame($array, $this->transformer->transform($positionValueObject));
+        self::assertSame($array, $this->transformer->transform($positionValueObject));
     }
 
     /**
@@ -60,7 +60,7 @@ class PositionFormDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?Position $positionValueObject, ?array $array): void
     {
-        $this->assertEquals($positionValueObject, $this->transformer->reverseTransform($array));
+        self::assertEquals($positionValueObject, $this->transformer->reverseTransform($array));
     }
 
     /**

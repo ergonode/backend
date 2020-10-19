@@ -33,6 +33,6 @@ class NotificationGridTest extends TestCase
         $grid = new NotificationGrid($translator);
         $grid->init($configuration, $language);
 
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

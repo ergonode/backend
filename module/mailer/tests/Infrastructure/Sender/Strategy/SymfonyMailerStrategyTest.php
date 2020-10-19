@@ -29,41 +29,41 @@ final class SymfonyMailerStrategyTest extends TestCase
     public function testHandling(): void
     {
         $mailer = $this->createMock(MailerInterface::class);
-        $mailer->expects($this->once())->method('send');
+        $mailer->expects(self::once())->method('send');
 
         $translator = $this->createMock(Translator::class);
-        $translator->expects($this->atMost(2))->method('setLocale');
-        $translator->expects($this->once())->method('getLocale')->willReturn('en_US');
+        $translator->expects(self::atMost(2))->method('setLocale');
+        $translator->expects(self::once())->method('getLocale')->willReturn('en_US');
 
         $emailCollection = $this->createMock(EmailCollection::class);
-        $emailCollection->expects($this->atMost(5))->method('asStringArray')->willReturn(['test@ergonode.com']);
+        $emailCollection->expects(self::atMost(5))->method('asStringArray')->willReturn(['test@ergonode.com']);
 
         $recipient = $this->createMock(Recipient::class);
-        $recipient->expects($this->once())->method('getTo')->willReturn($emailCollection);
-        $recipient->expects($this->once())->method('hasBcc')->willReturn(true);
-        $recipient->expects($this->once())->method('getBcc')->willReturn($emailCollection);
-        $recipient->expects($this->once())->method('hasCc')->willReturn(true);
-        $recipient->expects($this->once())->method('getCc')->willReturn($emailCollection);
+        $recipient->expects(self::once())->method('getTo')->willReturn($emailCollection);
+        $recipient->expects(self::once())->method('hasBcc')->willReturn(true);
+        $recipient->expects(self::once())->method('getBcc')->willReturn($emailCollection);
+        $recipient->expects(self::once())->method('hasCc')->willReturn(true);
+        $recipient->expects(self::once())->method('getCc')->willReturn($emailCollection);
 
         $sender = $this->createMock(Sender::class);
-        $sender->expects($this->once())->method('hasFrom')->willReturn(true);
-        $sender->expects($this->once())->method('getFrom')->willReturn($emailCollection);
-        $sender->expects($this->once())->method('hasReplyTo')->willReturn(true);
-        $sender->expects($this->once())->method('getReplyTo')->willReturn($emailCollection);
+        $sender->expects(self::once())->method('hasFrom')->willReturn(true);
+        $sender->expects(self::once())->method('getFrom')->willReturn($emailCollection);
+        $sender->expects(self::once())->method('hasReplyTo')->willReturn(true);
+        $sender->expects(self::once())->method('getReplyTo')->willReturn($emailCollection);
 
         $language = $this->createMock(Language::class);
-        $language->expects($this->once())->method('getLanguageCode')->willReturn('en');
+        $language->expects(self::once())->method('getLanguageCode')->willReturn('en');
 
         $template = $this->createMock(Template::class);
-        $template->expects($this->once())->method('getPath')->willReturn('ergonode');
-        $template->expects($this->once())->method('getParameters')->willReturn([]);
-        $template->expects($this->once())->method('getLanguage')->willReturn($language);
+        $template->expects(self::once())->method('getPath')->willReturn('ergonode');
+        $template->expects(self::once())->method('getParameters')->willReturn([]);
+        $template->expects(self::once())->method('getLanguage')->willReturn($language);
 
         $mail = $this->createMock(MailInterface::class);
-        $mail->expects($this->atLeastOnce())->method('getRecipient')->willReturn($recipient);
-        $mail->expects($this->atLeastOnce())->method('getSender')->willReturn($sender);
-        $mail->expects($this->atLeastOnce())->method('getTemplate')->willReturn($template);
-        $mail->expects($this->once())->method('getSubject');
+        $mail->expects(self::atLeastOnce())->method('getRecipient')->willReturn($recipient);
+        $mail->expects(self::atLeastOnce())->method('getSender')->willReturn($sender);
+        $mail->expects(self::atLeastOnce())->method('getTemplate')->willReturn($template);
+        $mail->expects(self::once())->method('getSubject');
 
         $symfonyMailer = new SymfonyMailerStrategy($mailer, $translator);
         $symfonyMailer->send($mail);

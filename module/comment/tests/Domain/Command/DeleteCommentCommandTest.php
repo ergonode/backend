@@ -25,6 +25,6 @@ class DeleteCommentCommandTest extends TestCase
         $commentId = $this->createMock(CommentId::class);
 
         $command = new DeleteCommentCommand($commentId);
-        $this->assertSame($commentId, $command->getId());
+        self::assertSame($commentId, $command->getId());
     }
 }

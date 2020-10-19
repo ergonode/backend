@@ -35,10 +35,10 @@ class CreateSegmentCommandTest extends TestCase
         $description = $this->createMock(TranslatableString::class);
 
         $command = new CreateSegmentCommand($code, $name, $description, $conditionSetId);
-        $this->assertNotNull($command->getId());
-        $this->assertEquals($code, $command->getCode());
-        $this->assertEquals($name, $command->getName());
-        $this->assertEquals($description, $command->getDescription());
-        $this->assertEquals($conditionSetId, $command->getConditionSetId());
+        self::assertNotNull($command->getId());
+        self::assertEquals($code, $command->getCode());
+        self::assertEquals($name, $command->getName());
+        self::assertEquals($description, $command->getDescription());
+        self::assertEquals($conditionSetId, $command->getConditionSetId());
     }
 }

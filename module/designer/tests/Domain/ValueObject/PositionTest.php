@@ -22,8 +22,8 @@ class PositionTest extends TestCase
     public function testGreaterOrEqualThenZeroValue(int $x, int $y): void
     {
         $position = new Position($x, $y);
-        $this->assertSame($x, $position->getX());
-        $this->assertSame($y, $position->getY());
+        self::assertSame($x, $position->getX());
+        self::assertSame($y, $position->getY());
     }
 
     /**
@@ -35,8 +35,8 @@ class PositionTest extends TestCase
     public function testGreaterThenZeroValue(int $x, int $y): void
     {
         $position = new Position($x, $y);
-        $this->assertSame($x, $position->getX());
-        $this->assertSame($y, $position->getY());
+        self::assertSame($x, $position->getX());
+        self::assertSame($y, $position->getY());
     }
 
     /**

@@ -29,9 +29,9 @@ class CommentContentChangedEventTest extends TestCase
         $editedAt = $this->createMock(\DateTime::class);
 
         $command = new CommentContentChangedEvent($id, $from, $to, $editedAt);
-        $this->assertSame($id, $command->getAggregateId());
-        $this->assertSame($editedAt, $command->getEditedAt());
-        $this->assertSame($from, $command->getFrom());
-        $this->assertSame($to, $command->getTo());
+        self::assertSame($id, $command->getAggregateId());
+        self::assertSame($editedAt, $command->getEditedAt());
+        self::assertSame($from, $command->getFrom());
+        self::assertSame($to, $command->getTo());
     }
 }

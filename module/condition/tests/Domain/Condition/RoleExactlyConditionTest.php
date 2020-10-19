@@ -27,7 +27,7 @@ class RoleExactlyConditionTest extends TestCase
 
         $condition = new RoleExactlyCondition($roleId);
 
-        $this->assertSame($roleId, $condition->getRole());
-        $this->assertSame(RoleExactlyCondition::TYPE, $condition->getType());
+        self::assertSame($roleId, $condition->getRole());
+        self::assertSame(RoleExactlyCondition::TYPE, $condition->getType());
     }
 }

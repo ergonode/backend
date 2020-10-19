@@ -24,6 +24,6 @@ class PersistProductDraftCommandTest extends TestCase
         $draftId = $this->createMock(ProductDraftId::class);
 
         $command = new PersistProductDraftCommand($draftId);
-        $this->assertEquals($draftId, $command->getId());
+        self::assertEquals($draftId, $command->getId());
     }
 }

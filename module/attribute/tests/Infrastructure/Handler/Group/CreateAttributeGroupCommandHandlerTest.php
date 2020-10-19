@@ -47,8 +47,8 @@ class CreateAttributeGroupCommandHandlerTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->factory->expects($this->once())->method('create');
-        $this->repository->expects($this->once())->method('save');
+        $this->factory->expects(self::once())->method('create');
+        $this->repository->expects(self::once())->method('save');
 
         $handler = new CreateAttributeGroupCommandHandler($this->factory, $this->repository);
         $handler->__invoke($this->command);

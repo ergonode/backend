@@ -38,7 +38,7 @@ class CategoryCodeDataTransformerTest extends TestCase
      */
     public function testTransform(?CategoryCode $categoryCodeValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($categoryCodeValueObject));
+        self::assertSame($string, $this->transformer->transform($categoryCodeValueObject));
     }
 
     /**
@@ -60,7 +60,7 @@ class CategoryCodeDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?CategoryCode $categoryCodeValueObject, ?string $string): void
     {
-        $this->assertEquals($categoryCodeValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($categoryCodeValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**

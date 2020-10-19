@@ -29,9 +29,9 @@ class CreateCommentCommandTest extends TestCase
         $content = 'Any content';
 
         $command = new CreateCommentCommand($userId, $objectId, $content);
-        $this->assertSame($userId, $command->getAuthorId());
-        $this->assertSame($objectId, $command->getObjectId());
-        $this->assertSame($content, $command->getContent());
-        $this->assertNotEmpty($command->getId());
+        self::assertSame($userId, $command->getAuthorId());
+        self::assertSame($objectId, $command->getObjectId());
+        self::assertSame($content, $command->getContent());
+        self::assertNotEmpty($command->getId());
     }
 }

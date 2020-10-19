@@ -51,9 +51,9 @@ class AbstractWorkflowTest extends TestCase
     public function testWorkflowCreation(): void
     {
         $workflow = $this->getClass($this->id, $this->code, [$this->status]);
-        $this->assertSame($this->id, $workflow->getId());
-        $this->assertSame($this->code, $workflow->getCode());
-        $this->assertSame([$this->status], $workflow->getStatuses());
+        self::assertSame($this->id, $workflow->getId());
+        self::assertSame($this->code, $workflow->getCode());
+        self::assertSame([$this->status], $workflow->getStatuses());
     }
 
     /**
@@ -62,16 +62,16 @@ class AbstractWorkflowTest extends TestCase
     public function testStatusManipulation(): void
     {
         $workflow = $this->getClass($this->id, $this->code, [$this->status]);
-        $this->assertSame($this->id, $workflow->getId());
-        $this->assertSame($this->code, $workflow->getCode());
-        $this->assertSame([$this->status], $workflow->getStatuses());
-        $this->assertTrue($workflow->hasStatus($this->status));
+        self::assertSame($this->id, $workflow->getId());
+        self::assertSame($this->code, $workflow->getCode());
+        self::assertSame([$this->status], $workflow->getStatuses());
+        self::assertTrue($workflow->hasStatus($this->status));
         $workflow->removeStatus($this->status);
-        $this->assertFalse($workflow->hasStatus($this->status));
-        $this->assertEmpty($workflow->getStatuses());
+        self::assertFalse($workflow->hasStatus($this->status));
+        self::assertEmpty($workflow->getStatuses());
         $workflow->addStatus($this->status);
-        $this->assertTrue($workflow->hasStatus($this->status));
-        $this->assertSame([$this->status], $workflow->getStatuses());
+        self::assertTrue($workflow->hasStatus($this->status));
+        self::assertSame([$this->status], $workflow->getStatuses());
     }
 
     /**
@@ -84,16 +84,16 @@ class AbstractWorkflowTest extends TestCase
         $status2 = StatusId::generate();
 
         $workflow = $this->getClass($this->id, $this->code, [$status1, $status2]);
-        $this->assertTrue($workflow->hasDefaultStatus());
-        $this->assertSame($status1, $workflow->getDefaultStatus());
+        self::assertTrue($workflow->hasDefaultStatus());
+        self::assertSame($status1, $workflow->getDefaultStatus());
         $workflow->setDefaultStatus($status2);
-        $this->assertTrue($workflow->hasDefaultStatus());
-        $this->assertSame($status2, $workflow->getDefaultStatus());
+        self::assertTrue($workflow->hasDefaultStatus());
+        self::assertSame($status2, $workflow->getDefaultStatus());
         $workflow->removeStatus($status2);
-        $this->assertTrue($workflow->hasDefaultStatus());
-        $this->assertSame($status1, $workflow->getDefaultStatus());
+        self::assertTrue($workflow->hasDefaultStatus());
+        self::assertSame($status1, $workflow->getDefaultStatus());
         $workflow->removeStatus($status1);
-        $this->assertFalse($workflow->hasDefaultStatus());
+        self::assertFalse($workflow->hasDefaultStatus());
     }
 
     /**
@@ -218,7 +218,7 @@ class AbstractWorkflowTest extends TestCase
 
         $sorted = $workflow->getSortedTransitionStatuses();
 
-        $this->assertEquals(
+        self::assertEquals(
             [
                 $id1,
                 $id2,

@@ -27,8 +27,8 @@ class AddProductCategoryCommandHandlerTest extends TestCase
         $product = $this->createMock(AbstractProduct::class);
 
         $repository = $this->createMock(ProductRepositoryInterface::class);
-        $repository->expects($this->once())->method('load')->willReturn($product);
-        $repository->expects($this->once())->method('save');
+        $repository->expects(self::once())->method('load')->willReturn($product);
+        $repository->expects(self::once())->method('save');
 
         $handler = new AddProductCategoryCommandHandler($repository);
         $handler->__invoke($command);

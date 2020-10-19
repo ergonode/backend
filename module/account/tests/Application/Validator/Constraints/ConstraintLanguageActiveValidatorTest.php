@@ -59,7 +59,7 @@ class ConstraintLanguageActiveValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('getDictionaryActive')->willReturn(['code1' => 'code1']);
         $this->validator->validate($value, new ConstraintLanguageActive());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

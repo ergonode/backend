@@ -53,10 +53,10 @@ class DeleteTreeCommandHandlerTest extends TestCase
     {
         $collection = $this->createMock(RelationshipCollection::class);
         $collection->method('isEmpty')->willReturn(true);
-        $this->resolver->expects($this->once())->method('resolve')->willReturn($collection);
+        $this->resolver->expects(self::once())->method('resolve')->willReturn($collection);
         $tree = $this->createMock(CategoryTree::class);
-        $this->repository->expects($this->once())->method('load')->willReturn($tree);
-        $this->repository->expects($this->once())->method('delete');
+        $this->repository->expects(self::once())->method('load')->willReturn($tree);
+        $this->repository->expects(self::once())->method('delete');
 
         $handler = new DeleteTreeCommandHandler($this->repository, $this->resolver);
         $handler->__invoke($this->command);
@@ -69,10 +69,10 @@ class DeleteTreeCommandHandlerTest extends TestCase
         $this->expectException(ExistingRelationshipsException::class);
         $collection = $this->createMock(RelationshipCollection::class);
         $collection->method('isEmpty')->willReturn(false);
-        $this->resolver->expects($this->once())->method('resolve')->willReturn($collection);
+        $this->resolver->expects(self::once())->method('resolve')->willReturn($collection);
         $tree = $this->createMock(CategoryTree::class);
-        $this->repository->expects($this->once())->method('load')->willReturn($tree);
-        $this->repository->expects($this->never())->method('delete');
+        $this->repository->expects(self::once())->method('load')->willReturn($tree);
+        $this->repository->expects(self::never())->method('delete');
 
         $handler = new DeleteTreeCommandHandler($this->repository, $this->resolver);
         $handler->__invoke($this->command);
@@ -83,8 +83,8 @@ class DeleteTreeCommandHandlerTest extends TestCase
     public function testHandlingNotExistsTree(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->repository->expects($this->once())->method('load')->willReturn(null);
-        $this->repository->expects($this->never())->method('save');
+        $this->repository->expects(self::once())->method('load')->willReturn(null);
+        $this->repository->expects(self::never())->method('save');
 
         $handler = new DeleteTreeCommandHandler($this->repository, $this->resolver);
         $handler->__invoke($this->command);

@@ -59,7 +59,7 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
     {
         $this->validator->validate('', new ProductCollectionTypeCodeUnique());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -68,7 +68,7 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
     {
         $this->validator->validate('code', new ProductCollectionTypeCodeUnique());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

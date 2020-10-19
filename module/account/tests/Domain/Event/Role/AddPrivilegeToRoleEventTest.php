@@ -28,7 +28,7 @@ class AddPrivilegeToRoleEventTest extends TestCase
         /** @var Privilege|MockObject $privilege */
         $privilege = $this->createMock(Privilege::class);
         $event = new AddPrivilegeToRoleEvent($id, $privilege);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($privilege, $event->getPrivilege());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($privilege, $event->getPrivilege());
     }
 }

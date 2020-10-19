@@ -27,7 +27,7 @@ class PrivilegeTypeResolverTest extends TestCase
     {
         $result = (new PrivilegeTypeResolver())->resolve(new Privilege($input));
 
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**

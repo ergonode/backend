@@ -42,6 +42,6 @@ class PrivilegeGroupedByAreaProviderTest extends TestCase
 
         $provider = new PrivilegeGroupedByAreaProvider($query, $resolver);
 
-        $this->assertSame(['area1' => ['type' => 'code1']], $provider->provide());
+        self::assertSame(['area1' => ['type' => 'code1']], $provider->provide());
     }
 }

@@ -34,6 +34,6 @@ class AttributeFormProviderTest extends TestCase
 
         $provider = new AttributeFormProvider(...[$form]);
         $result = $provider->provide('Any not supported form type');
-        $this->assertSame(get_class($form), $result);
+        self::assertSame(get_class($form), $result);
     }
 }

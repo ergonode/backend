@@ -83,7 +83,7 @@ class TransitionTest extends TestCase
      */
     public function testChangingConditionSetNull(): void
     {
-        $this->aggregateRoot->expects($this->once())->method('apply');
+        $this->aggregateRoot->expects(self::once())->method('apply');
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
         $transition->setAggregateRoot($this->aggregateRoot);
         $transition->changeConditionSetId();
@@ -93,7 +93,7 @@ class TransitionTest extends TestCase
      */
     public function testChangingConditionSetForTheSame(): void
     {
-        $this->aggregateRoot->expects($this->never())->method('apply');
+        $this->aggregateRoot->expects(self::never())->method('apply');
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
         $conditionSetId = $this->createMock(ConditionSetId::class);
         $conditionSetId->method('isEqual')->willReturn(true);
@@ -105,7 +105,7 @@ class TransitionTest extends TestCase
      */
     public function testChangingRoleIds(): void
     {
-        $this->aggregateRoot->expects($this->once())->method('apply');
+        $this->aggregateRoot->expects(self::once())->method('apply');
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
         $transition->setAggregateRoot($this->aggregateRoot);
         $transition->changeRoleIds($this->roleIds);

@@ -43,7 +43,7 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
     {
         $this->validator->validate('', new ProductCollectionTypeCodeValid());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -52,7 +52,7 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
     {
         $this->validator->validate('code', new ProductCollectionTypeCodeValid());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

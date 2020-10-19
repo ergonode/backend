@@ -50,17 +50,17 @@ class ProductCollectionElementTest extends TestCase
     public function testElementCreation(): void
     {
         $entity = new ProductCollectionElement($this->id, $this->productId, true, new \DateTime());
-        $this->assertSame($this->id, $entity->getId());
-        $this->assertSame($this->productId, $entity->getProductId());
-        $this->assertTrue($entity->isVisible());
-        $this->assertNotNull($entity->getCreatedAt());
+        self::assertSame($this->id, $entity->getId());
+        self::assertSame($this->productId, $entity->getProductId());
+        self::assertTrue($entity->isVisible());
+        self::assertNotNull($entity->getCreatedAt());
     }
 
     /**
      */
     public function testElementManipulation(): void
     {
-        $this->aggregateRoot->expects($this->once())->method('apply');
+        $this->aggregateRoot->expects(self::once())->method('apply');
         $entity = new ProductCollectionElement($this->id, $this->productId, true, new \DateTime());
         $entity->setAggregateRoot($this->aggregateRoot);
         $entity->changeVisible(false);

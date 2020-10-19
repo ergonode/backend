@@ -59,7 +59,7 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new CategoryCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

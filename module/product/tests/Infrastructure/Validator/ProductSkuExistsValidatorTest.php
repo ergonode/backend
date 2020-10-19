@@ -54,7 +54,7 @@ class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new ProductSkuExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -65,7 +65,7 @@ class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('findProductIdBySku')->willReturn(new ProductId($uuid));
         $this->validator->validate('SKU', new ProductSkuExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

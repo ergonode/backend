@@ -26,12 +26,12 @@ class ProductCollectionSystemAttributeTest extends TestCase
         $hint = $this->createMock(TranslatableString::class);
         $placeholder = $this->createMock(TranslatableString::class);
         $productCollection = new ProductCollectionSystemAttribute($label, $hint, $placeholder);
-        $this->assertSame($label, $productCollection->getLabel());
-        $this->assertSame($hint, $productCollection->getHint());
-        $this->assertSame($placeholder, $productCollection->getPlaceholder());
-        $this->assertTrue($productCollection->isSystem());
-        $this->assertFalse($productCollection->isEditable());
-        $this->assertTrue($productCollection->isDeletable());
-        $this->assertFalse($productCollection->isMultilingual());
+        self::assertSame($label, $productCollection->getLabel());
+        self::assertSame($hint, $productCollection->getHint());
+        self::assertSame($placeholder, $productCollection->getPlaceholder());
+        self::assertTrue($productCollection->isSystem());
+        self::assertFalse($productCollection->isEditable());
+        self::assertTrue($productCollection->isDeletable());
+        self::assertFalse($productCollection->isMultilingual());
     }
 }

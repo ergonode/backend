@@ -33,7 +33,7 @@ class RemoveProductBindingCommandTest extends TestCase
         $binding->method('getId')->willReturn($this->createMock(AttributeId::class));
 
         $command = new RemoveProductBindingCommand($product, $binding);
-        $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame($binding->getId(), $command->getBindingId());
+        self::assertSame($product->getId(), $command->getId());
+        self::assertSame($binding->getId(), $command->getBindingId());
     }
 }

@@ -26,10 +26,10 @@ class DomainEventEnvelopeTest extends TestCase
         $event = $this->createMock(DomainEventInterface::class);
         $recordedAt = $this->createMock(\DateTime::class);
         $envelope = new DomainEventEnvelope($id, $sequence, $event, $recordedAt);
-        $this->assertSame($id, $envelope->getAggregateId());
-        $this->assertSame($event, $envelope->getEvent());
-        $this->assertSame($sequence, $envelope->getSequence());
-        $this->assertSame($recordedAt, $envelope->getRecordedAt());
-        $this->assertSame(get_class($event), $envelope->getType());
+        self::assertSame($id, $envelope->getAggregateId());
+        self::assertSame($event, $envelope->getEvent());
+        self::assertSame($sequence, $envelope->getSequence());
+        self::assertSame($recordedAt, $envelope->getRecordedAt());
+        self::assertSame(get_class($event), $envelope->getType());
     }
 }

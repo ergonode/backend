@@ -55,7 +55,7 @@ class FormAuthenticatorTest extends TestCase
     {
         $request = $this->createMock(Request::class);
         $authenticator = new FormAuthenticator($this->passwordEncoder, $this->successHandler, $this->failureHandler);
-        $this->assertTrue($authenticator->supports($request));
+        self::assertTrue($authenticator->supports($request));
     }
 
     /**
@@ -65,10 +65,10 @@ class FormAuthenticatorTest extends TestCase
         $request = $this->createMock(Request::class);
         $parameterBag = $this->createMock(ParameterBag::class);
         $request->request = $parameterBag;
-        $parameterBag->expects($this->at(0))->method('get')->willReturn('username');
-        $parameterBag->expects($this->at(1))->method('get')->willReturn('pass');
+        $parameterBag->expects(self::at(0))->method('get')->willReturn('username');
+        $parameterBag->expects(self::at(1))->method('get')->willReturn('pass');
         $authenticator = new FormAuthenticator($this->passwordEncoder, $this->successHandler, $this->failureHandler);
-        $this->assertSame([
+        self::assertSame([
             'email' => 'username',
             'password' => 'pass',
         ], $authenticator->getCredentials($request));
@@ -84,9 +84,9 @@ class FormAuthenticatorTest extends TestCase
         ];
         $userProvider = $this->createMock(UserProviderInterface::class);
         $user = $this->createMock(UserInterface::class);
-        $userProvider->expects($this->once())->method('loadUserByUsername')->willReturn($user);
+        $userProvider->expects(self::once())->method('loadUserByUsername')->willReturn($user);
         $authenticator = new FormAuthenticator($this->passwordEncoder, $this->successHandler, $this->failureHandler);
-        $this->assertSame($user, $authenticator->getUser($credential, $userProvider));
+        self::assertSame($user, $authenticator->getUser($credential, $userProvider));
     }
 
     /**
@@ -100,7 +100,7 @@ class FormAuthenticatorTest extends TestCase
         ];
         $userProvider = $this->createMock(UserProviderInterface::class);
         $exception = $this->createMock(InvalidEmailException::class);
-        $userProvider->expects($this->once())->method('loadUserByUsername')->willThrowException($exception);
+        $userProvider->expects(self::once())->method('loadUserByUsername')->willThrowException($exception);
         $authenticator = new FormAuthenticator($this->passwordEncoder, $this->successHandler, $this->failureHandler);
         $authenticator->getUser($credentials, $userProvider);
     }
@@ -114,7 +114,7 @@ class FormAuthenticatorTest extends TestCase
             'password' => 'pass',
         ];
         $user = $this->createMock(UserInterface::class);
-        $this->passwordEncoder->expects($this->once())->method('isPasswordValid')->willReturn(true);
+        $this->passwordEncoder->expects(self::once())->method('isPasswordValid')->willReturn(true);
         $authenticator = new FormAuthenticator($this->passwordEncoder, $this->successHandler, $this->failureHandler);
         $authenticator->checkCredentials($credentials, $user);
     }
@@ -131,7 +131,7 @@ class FormAuthenticatorTest extends TestCase
             'password' => 'pass',
         ];
         $user = $this->createMock(UserInterface::class);
-        $this->passwordEncoder->expects($this->once())->method('isPasswordValid')->willReturn(false);
+        $this->passwordEncoder->expects(self::once())->method('isPasswordValid')->willReturn(false);
         $authenticator = new FormAuthenticator($this->passwordEncoder, $this->successHandler, $this->failureHandler);
         $authenticator->checkCredentials($credentials, $user);
     }

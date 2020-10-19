@@ -37,7 +37,7 @@ class SkuValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new Sku());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -46,7 +46,7 @@ class SkuValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('SKU', new Sku());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

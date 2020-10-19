@@ -45,8 +45,8 @@ class ConditionSetTest extends TestCase
     public function testConditionSetCreation(): void
     {
         $conditionSet = new ConditionSet($this->id, [$this->conditions]);
-        $this->assertSame($this->id, $conditionSet->getId());
-        $this->assertSame([$this->conditions], $conditionSet->getConditions());
+        self::assertSame($this->id, $conditionSet->getId());
+        self::assertSame([$this->conditions], $conditionSet->getConditions());
     }
 
     /**
@@ -57,6 +57,6 @@ class ConditionSetTest extends TestCase
         $newConditions = [new NumericAttributeValueCondition($this->createMock(AttributeId::class), 'test', 4)];
         $conditionSet = new ConditionSet($this->id, [$this->conditions]);
         $conditionSet->changeConditions($newConditions);
-        $this->assertEquals($newConditions, $conditionSet->getConditions());
+        self::assertEquals($newConditions, $conditionSet->getConditions());
     }
 }

@@ -37,7 +37,7 @@ class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate(null, new MultimediaExtension());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -49,7 +49,7 @@ class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
         $this->provider->method('dictionary')->willReturn(['png', 'jpg']);
         $this->validator->validate($value, new MultimediaExtension());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

@@ -36,7 +36,7 @@ class DateTimeTransformerTest extends TestCase
     {
         $result = $this->transformer->reverseTransform($dateTime);
 
-        $this->assertEquals($timezone, $result->getTimezone()->getName());
+        self::assertEquals($timezone, $result->getTimezone()->getName());
     }
 
     /**
@@ -45,7 +45,7 @@ class DateTimeTransformerTest extends TestCase
     {
         $result = $this->transformer->reverseTransform(null);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     /**
@@ -95,7 +95,7 @@ class DateTimeTransformerTest extends TestCase
 
         $result = $this->transformer->transform($date);
 
-        $this->assertEquals($date->format(\DateTimeInterface::RFC3339), $result);
+        self::assertEquals($date->format(\DateTimeInterface::RFC3339), $result);
     }
 
     /**
@@ -104,7 +104,7 @@ class DateTimeTransformerTest extends TestCase
     {
         $result = $this->transformer->transform(null);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     /**

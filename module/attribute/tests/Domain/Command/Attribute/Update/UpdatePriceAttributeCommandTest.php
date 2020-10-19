@@ -41,13 +41,13 @@ class UpdatePriceAttributeCommandTest extends TestCase
         array $groups
     ): void {
         $command = new UpdatePriceAttributeCommand($id, $label, $hint, $placeholder, $scope, $currency, $groups);
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($label, $command->getLabel());
-        $this->assertSame($hint, $command->getHint());
-        $this->assertSame($placeholder, $command->getPlaceholder());
-        $this->assertSame($groups, $command->getGroups());
-        $this->assertSame($scope, $command->getScope());
-        $this->assertSame($currency, $command->getCurrency());
+        self::assertSame($id, $command->getId());
+        self::assertSame($label, $command->getLabel());
+        self::assertSame($hint, $command->getHint());
+        self::assertSame($placeholder, $command->getPlaceholder());
+        self::assertSame($groups, $command->getGroups());
+        self::assertSame($scope, $command->getScope());
+        self::assertSame($currency, $command->getCurrency());
     }
 
     /**

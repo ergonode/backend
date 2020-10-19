@@ -27,8 +27,8 @@ class CreateCategoryCommandFactoryTest extends TestCase
     public function testSupported(): void
     {
         $commandFactory = new CreateCategoryCommandFactory();
-        $this->assertTrue($commandFactory->support(Category::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(Category::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -48,7 +48,7 @@ class CreateCategoryCommandFactoryTest extends TestCase
 
         /** @var CreateCategoryCommand $command */
         $command = $commandFactory->create($form);
-        $this->assertEquals($command->getName(), new TranslatableString($name));
-        $this->assertEquals($command->getCode(), $code);
+        self::assertEquals($command->getName(), new TranslatableString($name));
+        self::assertEquals($command->getCode(), $code);
     }
 }

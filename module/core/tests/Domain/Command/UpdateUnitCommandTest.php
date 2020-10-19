@@ -27,8 +27,8 @@ class UpdateUnitCommandTest extends TestCase
 
         $command = new UpdateUnitCommand($id, $name, $symbol);
 
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($name, $command->getName());
-        $this->assertEquals($symbol, $command->getSymbol());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($name, $command->getName());
+        self::assertEquals($symbol, $command->getSymbol());
     }
 }

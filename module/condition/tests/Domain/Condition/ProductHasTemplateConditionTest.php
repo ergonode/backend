@@ -25,9 +25,9 @@ class ProductHasTemplateConditionTest extends TestCase
         $value = $this->createMock(TemplateId::class);
         $condition = new ProductHasTemplateCondition($operator, $value);
 
-        $this->assertSame($operator, $condition->getOperator());
-        $this->assertSame($value, $condition->getTemplateId());
-        $this->assertSame('PRODUCT_HAS_TEMPLATE_CONDITION', $condition->getType());
+        self::assertSame($operator, $condition->getOperator());
+        self::assertSame($value, $condition->getTemplateId());
+        self::assertSame('PRODUCT_HAS_TEMPLATE_CONDITION', $condition->getType());
     }
 
     /**
@@ -35,7 +35,7 @@ class ProductHasTemplateConditionTest extends TestCase
     public function testGetSupportedOperators(): void
     {
         $operators = ProductHasTemplateCondition::getSupportedOperators();
-        $this->assertIsArray($operators);
-        $this->assertTrue(count($operators) >= 2);
+        self::assertIsArray($operators);
+        self::assertTrue(count($operators) >= 2);
     }
 }

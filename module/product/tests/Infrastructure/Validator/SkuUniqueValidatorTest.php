@@ -58,7 +58,7 @@ class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new SkuUnique());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -68,7 +68,7 @@ class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('findProductIdBySku')->willReturn(null);
         $this->validator->validate(new Sku('Value'), new SkuUnique());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

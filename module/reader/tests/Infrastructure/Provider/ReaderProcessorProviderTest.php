@@ -35,7 +35,7 @@ class ReaderProcessorProviderTest extends TestCase
         $provider = new ReaderProcessorProvider();
         $provider->setReader($key, $reader);
 
-        $this->assertEquals($reader, $provider->provide($key));
+        self::assertEquals($reader, $provider->provide($key));
     }
 
     /**

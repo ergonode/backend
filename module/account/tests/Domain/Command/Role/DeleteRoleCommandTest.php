@@ -27,6 +27,6 @@ class DeleteRoleCommandTest extends TestCase
 
         $command = new DeleteRoleCommand($id);
 
-        $this->assertEquals($id, $command->getId());
+        self::assertEquals($id, $command->getId());
     }
 }

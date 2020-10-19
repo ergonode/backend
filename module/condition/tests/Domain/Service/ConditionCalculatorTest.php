@@ -48,7 +48,7 @@ class ConditionCalculatorTest extends TestCase
         $calculator->method('calculate')->willReturn(true);
         $this->provider->method('provide')->willReturn($calculator);
         $conditionCalculator = new ConditionCalculator($this->provider);
-        $this->assertTrue($conditionCalculator->calculate($this->conditionSet, $this->product));
+        self::assertTrue($conditionCalculator->calculate($this->conditionSet, $this->product));
     }
 
     /**
@@ -59,6 +59,6 @@ class ConditionCalculatorTest extends TestCase
         $calculator->method('calculate')->willReturn(false);
         $this->provider->method('provide')->willReturn($calculator);
         $conditionCalculator = new ConditionCalculator($this->provider);
-        $this->assertFalse($conditionCalculator->calculate($this->conditionSet, $this->product));
+        self::assertFalse($conditionCalculator->calculate($this->conditionSet, $this->product));
     }
 }

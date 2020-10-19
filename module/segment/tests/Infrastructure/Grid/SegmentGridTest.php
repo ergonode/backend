@@ -34,6 +34,6 @@ class SegmentGridTest extends TestCase
         $grid = new SegmentGrid($translator);
         $grid->init($configuration, $language);
 
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

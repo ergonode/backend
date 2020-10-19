@@ -28,8 +28,8 @@ class TransformerFactoryTest extends TestCase
 
         $factory = new TransformerFactory();
         $result = $factory->create($id, $name, $key);
-        $this->assertEquals($id, $result->getId());
-        $this->assertEquals($name, $result->getName());
-        $this->assertEquals($key, $result->getKey());
+        self::assertEquals($id, $result->getId());
+        self::assertEquals($name, $result->getName());
+        self::assertEquals($key, $result->getKey());
     }
 }

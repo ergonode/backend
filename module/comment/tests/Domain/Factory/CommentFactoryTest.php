@@ -34,9 +34,9 @@ class CommentFactoryTest extends TestCase
         $factory = new CommentFactory();
 
         $comment = $factory->create($commentId, $userId, $objectId, $content);
-        $this->assertSame($commentId, $comment->getId());
-        $this->assertSame($userId, $comment->getAuthorId());
-        $this->assertSame($objectId, $comment->getObjectId());
-        $this->assertSame($content, $comment->getContent());
+        self::assertSame($commentId, $comment->getId());
+        self::assertSame($userId, $comment->getAuthorId());
+        self::assertSame($objectId, $comment->getObjectId());
+        self::assertSame($content, $comment->getContent());
     }
 }

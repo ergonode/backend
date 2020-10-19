@@ -27,6 +27,6 @@ class StatusDeletedEventTest extends TestCase
 
         $event = new StatusDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

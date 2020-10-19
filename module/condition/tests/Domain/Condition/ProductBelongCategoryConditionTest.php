@@ -27,8 +27,8 @@ class ProductBelongCategoryConditionTest extends TestCase
 
         $condition = new ProductBelongCategoryCondition([$categoryId], $operator);
 
-        $this->assertSame([$categoryId], $condition->getCategory());
-        $this->assertSame($operator, $condition->getOperator());
-        $this->assertSame(ProductBelongCategoryCondition::TYPE, $condition->getType());
+        self::assertSame([$categoryId], $condition->getCategory());
+        self::assertSame($operator, $condition->getOperator());
+        self::assertSame(ProductBelongCategoryCondition::TYPE, $condition->getType());
     }
 }

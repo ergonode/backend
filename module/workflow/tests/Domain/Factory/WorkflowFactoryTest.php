@@ -42,8 +42,8 @@ class WorkflowFactoryTest extends TestCase
     {
         $factory = new WorkflowFactory();
         $workflow  = $factory->create($this->id, $this->code);
-        $this->assertNotNull($workflow);
-        $this->assertSame($this->id, $workflow->getId());
-        $this->assertSame($this->code, $workflow->getCode());
+        self::assertNotNull($workflow);
+        self::assertSame($this->id, $workflow->getId());
+        self::assertSame($this->code, $workflow->getCode());
     }
 }

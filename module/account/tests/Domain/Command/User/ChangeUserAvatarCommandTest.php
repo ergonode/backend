@@ -29,7 +29,7 @@ class ChangeUserAvatarCommandTest extends TestCase
         $file = $this->createMock(File::class);
         $command = new ChangeUserAvatarCommand($id, $file);
 
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($file, $command->getFile());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($file, $command->getFile());
     }
 }

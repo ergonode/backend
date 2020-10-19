@@ -23,7 +23,7 @@ class MultimediaNameValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate(null, new MultimediaName());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -34,7 +34,7 @@ class MultimediaNameValidatorTest extends ConstraintValidatorTestCase
         $value->method('getClientOriginalName')->willReturn('File_name.png');
         $this->validator->validate($value, new MultimediaName(['max' => 16]));
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

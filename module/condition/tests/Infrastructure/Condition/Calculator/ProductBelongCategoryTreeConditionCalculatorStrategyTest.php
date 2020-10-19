@@ -43,8 +43,8 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->strategy->supports('PRODUCT_BELONG_CATEGORY_TREE_CONDITION'));
-        $this->assertFalse($this->strategy->supports('PRODUCT'));
+        self::assertTrue($this->strategy->supports('PRODUCT_BELONG_CATEGORY_TREE_CONDITION'));
+        self::assertFalse($this->strategy->supports('PRODUCT'));
     }
     /**
      * @param string $operator
@@ -57,18 +57,18 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
         $object = $this->createMock(AbstractProduct::class);
         $configuration = $this->createMock(ProductBelongCategoryTreeCondition::class);
         $configuration
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getTree')
             ->willReturn([$this->createMock(CategoryTreeId::class)]);
 
         $this
             ->repository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('load')
             ->willReturn($this->createMock(CategoryTree::class));
 
-        $configuration->expects($this->once())->method('getOperator')->willReturn($operator);
-        $this->assertSame($result, $this->strategy->calculate($object, $configuration));
+        $configuration->expects(self::once())->method('getOperator')->willReturn($operator);
+        self::assertSame($result, $this->strategy->calculate($object, $configuration));
     }
 
     /**

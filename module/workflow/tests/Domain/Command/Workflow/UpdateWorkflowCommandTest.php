@@ -29,8 +29,8 @@ class UpdateWorkflowCommandTest extends TestCase
         $status = $this->createMock(StatusId::class);
 
         $command = new UpdateWorkflowCommand($id, [$status]);
-        $this->assertSame([$status], $command->getStatuses());
-        $this->assertSame($id, $command->getId());
+        self::assertSame([$status], $command->getStatuses());
+        self::assertSame($id, $command->getId());
     }
 
     /**

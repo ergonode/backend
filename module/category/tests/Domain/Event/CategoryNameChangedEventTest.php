@@ -27,8 +27,8 @@ class CategoryNameChangedEventTest extends TestCase
         $to = $this->createMock(TranslatableString::class);
 
         $command = new CategoryNameChangedEvent($id, $from, $to);
-        $this->assertEquals($id, $command->getAggregateId());
-        $this->assertEquals($from, $command->getFrom());
-        $this->assertEquals($to, $command->getTo());
+        self::assertEquals($id, $command->getAggregateId());
+        self::assertEquals($from, $command->getFrom());
+        self::assertEquals($to, $command->getTo());
     }
 }

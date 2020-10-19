@@ -27,6 +27,6 @@ class RoleDeletedEventTest extends TestCase
 
         $event = new RoleDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

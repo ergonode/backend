@@ -49,8 +49,8 @@ class AttributeGroupFactoryTest extends TestCase
     {
         $factory = new AttributeGroupFactory();
         $entity = $factory->create($this->id, $this->code, $this->name);
-        $this->assertSame($this->id, $entity->getId());
-        $this->assertSame($this->code, $entity->getCode());
-        $this->assertSame($this->name, $entity->getName());
+        self::assertSame($this->id, $entity->getId());
+        self::assertSame($this->code, $entity->getCode());
+        self::assertSame($this->name, $entity->getName());
     }
 }

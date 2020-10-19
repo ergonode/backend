@@ -32,10 +32,10 @@ class CreateTreeCommandTest extends TestCase
         array $categories
     ): void {
         $command = new CreateTreeCommand($code, $name, $categories);
-        $this->assertSame($name, $command->getName());
-        $this->assertSame($code, $command->getCode());
+        self::assertSame($name, $command->getName());
+        self::assertSame($code, $command->getCode());
         foreach ($command->getCategories() as $category) {
-            $this->assertInstanceOf(Node::class, $category);
+            self::assertInstanceOf(Node::class, $category);
         }
     }
 

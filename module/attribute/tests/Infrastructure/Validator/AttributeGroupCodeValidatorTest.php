@@ -56,7 +56,7 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new AttributeGroupCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -66,7 +66,7 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
         $attributeGroupCode = 'code';
         $this->validator->validate($attributeGroupCode, new AttributeGroupCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

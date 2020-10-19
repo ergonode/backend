@@ -65,12 +65,12 @@ class SegmentTest extends TestCase
     {
         $segment = new Segment($this->id, $this->code, $this->name, $this->description, $this->conditionSetId);
 
-        $this->assertEquals($this->id, $segment->getId());
-        $this->assertEquals($this->code, $segment->getCode());
-        $this->assertEquals($this->name, $segment->getName());
-        $this->assertEquals($this->description, $segment->getDescription());
-        $this->assertEquals($this->conditionSetId, $segment->getConditionSetId());
-        $this->assertEquals(new SegmentStatus(SegmentStatus::NEW), $segment->getStatus());
+        self::assertEquals($this->id, $segment->getId());
+        self::assertEquals($this->code, $segment->getCode());
+        self::assertEquals($this->name, $segment->getName());
+        self::assertEquals($this->description, $segment->getDescription());
+        self::assertEquals($this->conditionSetId, $segment->getConditionSetId());
+        self::assertEquals(new SegmentStatus(SegmentStatus::NEW), $segment->getStatus());
     }
 
     /**
@@ -100,9 +100,9 @@ class SegmentTest extends TestCase
         $segment->changeDescription($description);
         $segment->changeConditionSet($conditionSetId);
 
-        $this->assertSame($name, $segment->getName());
-        $this->assertSame($description, $segment->getDescription());
-        $this->assertSame($status, $segment->getStatus());
-        $this->assertSame($conditionSetId, $segment->getConditionSetId());
+        self::assertSame($name, $segment->getName());
+        self::assertSame($description, $segment->getDescription());
+        self::assertSame($status, $segment->getStatus());
+        self::assertSame($conditionSetId, $segment->getConditionSetId());
     }
 }

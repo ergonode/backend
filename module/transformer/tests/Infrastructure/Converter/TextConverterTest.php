@@ -21,6 +21,6 @@ class TextConverterTest extends TestCase
         $field = 'Any field name';
         $converter = new TextConverter($field);
 
-        $this->assertEquals($field, $converter->getField());
+        self::assertEquals($field, $converter->getField());
     }
 }

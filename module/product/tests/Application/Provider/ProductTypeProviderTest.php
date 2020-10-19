@@ -24,6 +24,6 @@ class ProductTypeProviderTest extends TestCase
     {
         $types = [SimpleProduct::class, GroupingProduct::class];
         $provider = new ProductTypeProvider(...$types);
-        $this->assertSame([SimpleProduct::TYPE, GroupingProduct::TYPE], $provider->provide());
+        self::assertSame([SimpleProduct::TYPE, GroupingProduct::TYPE], $provider->provide());
     }
 }

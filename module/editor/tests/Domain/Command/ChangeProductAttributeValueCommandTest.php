@@ -31,9 +31,9 @@ class ChangeProductAttributeValueCommandTest extends TestCase
         $value = 'Any value';
 
         $command = new ChangeProductAttributeValueCommand($draftId, $attributeId, $language, $value);
-        $this->assertSame($draftId, $command->getId());
-        $this->assertSame($attributeId, $command->getAttributeId());
-        $this->assertSame($language, $command->getLanguage());
-        $this->assertSame($value, $value);
+        self::assertSame($draftId, $command->getId());
+        self::assertSame($attributeId, $command->getAttributeId());
+        self::assertSame($language, $command->getLanguage());
+        self::assertSame($value, $value);
     }
 }

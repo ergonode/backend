@@ -29,8 +29,8 @@ class CreateCategoryCommandTest extends TestCase
         $name = $this->createMock(TranslatableString::class);
 
         $command = new CreateCategoryCommand($id, $code, $name);
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($code, $command->getCode());
-        $this->assertEquals($name, $command->getName());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($code, $command->getCode());
+        self::assertEquals($name, $command->getName());
     }
 }

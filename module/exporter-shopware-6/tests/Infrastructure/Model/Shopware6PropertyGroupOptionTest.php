@@ -50,12 +50,12 @@ class Shopware6PropertyGroupOptionTest extends TestCase
     {
         $model = new Shopware6PropertyGroupOption($this->id, $this->name, $this->mediaId, $this->position);
 
-        $this->assertEquals($this->id, $model->getId());
-        $this->assertEquals($this->name, $model->getName());
-        $this->assertEquals($this->mediaId, $model->getMediaId());
-        $this->assertEquals($this->position, $model->getPosition());
-        $this->assertIsInt($model->getPosition());
-        $this->assertNotTrue($model->isModified());
+        self::assertEquals($this->id, $model->getId());
+        self::assertEquals($this->name, $model->getName());
+        self::assertEquals($this->mediaId, $model->getMediaId());
+        self::assertEquals($this->position, $model->getPosition());
+        self::assertIsInt($model->getPosition());
+        self::assertNotTrue($model->isModified());
     }
 
     /**
@@ -68,10 +68,10 @@ class Shopware6PropertyGroupOptionTest extends TestCase
         $model->setMediaId($this->mediaId);
         $model->setPosition($this->position);
 
-        $this->assertEquals($this->name, $model->getName());
-        $this->assertEquals($this->mediaId, $model->getMediaId());
-        $this->assertEquals($this->position, $model->getPosition());
-        $this->assertIsInt($model->getPosition());
-        $this->assertTrue($model->isModified());
+        self::assertEquals($this->name, $model->getName());
+        self::assertEquals($this->mediaId, $model->getMediaId());
+        self::assertEquals($this->position, $model->getPosition());
+        self::assertIsInt($model->getPosition());
+        self::assertTrue($model->isModified());
     }
 }

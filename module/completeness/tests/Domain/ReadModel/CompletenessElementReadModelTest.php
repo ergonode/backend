@@ -30,9 +30,9 @@ class CompletenessElementReadModelTest extends TestCase
 
         $model = new CompletenessElementReadModel($attributeId, $name, $required, $filled);
 
-        $this->assertEquals($attributeId, $model->getId());
-        $this->assertEquals($name, $model->getName());
-        $this->assertEquals($required, $model->isRequired());
-        $this->assertTrue($model->isFilled());
+        self::assertEquals($attributeId, $model->getId());
+        self::assertEquals($name, $model->getName());
+        self::assertEquals($required, $model->isRequired());
+        self::assertTrue($model->isFilled());
     }
 }

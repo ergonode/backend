@@ -28,8 +28,8 @@ class UnitFactoryTest extends TestCase
         $factory = new UnitFactory();
         $unit = $factory->create($id, $name, $symbol);
 
-        $this->assertSame($id, $unit->getId());
-        $this->assertSame($name, $unit->getName());
-        $this->assertSame($symbol, $unit->getSymbol());
+        self::assertSame($id, $unit->getId());
+        self::assertSame($name, $unit->getName());
+        self::assertSame($symbol, $unit->getSymbol());
     }
 }

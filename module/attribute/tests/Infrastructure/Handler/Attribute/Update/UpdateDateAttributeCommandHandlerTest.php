@@ -64,7 +64,7 @@ class UpdateDateAttributeCommandHandlerTest extends TestCase
     public function testUpdate(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('save');
 
         $handler = new UpdateDateAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);

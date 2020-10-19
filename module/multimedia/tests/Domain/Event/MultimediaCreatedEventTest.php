@@ -39,11 +39,11 @@ class MultimediaCreatedEventTest extends TestCase
             $mime
         );
 
-        $this->assertEquals($multimediaId, $event->getAggregateId());
-        $this->assertEquals($name, $event->getName());
-        $this->assertEquals($ext, $event->getExtension());
-        $this->assertEquals($size, $event->getSize());
-        $this->assertEquals($mime, $event->getMime());
-        $this->assertEquals($hash, $event->getHash());
+        self::assertEquals($multimediaId, $event->getAggregateId());
+        self::assertEquals($name, $event->getName());
+        self::assertEquals($ext, $event->getExtension());
+        self::assertEquals($size, $event->getSize());
+        self::assertEquals($mime, $event->getMime());
+        self::assertEquals($hash, $event->getHash());
     }
 }

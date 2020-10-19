@@ -46,13 +46,13 @@ class CreateUserCommandTest extends TestCase
             true,
         );
 
-        $this->assertNotNull($command->getId());
-        $this->assertEquals($firstName, $command->getFirstName());
-        $this->assertEquals($lastName, $command->getLastName());
-        $this->assertEquals($language, $command->getLanguage());
-        $this->assertEquals($roleId, $command->getRoleId());
-        $this->assertEquals($email, $command->getEmail());
-        $this->assertEquals($password, $command->getPassword());
-        $this->assertTrue($command->isActive());
+        self::assertNotNull($command->getId());
+        self::assertEquals($firstName, $command->getFirstName());
+        self::assertEquals($lastName, $command->getLastName());
+        self::assertEquals($language, $command->getLanguage());
+        self::assertEquals($roleId, $command->getRoleId());
+        self::assertEquals($email, $command->getEmail());
+        self::assertEquals($password, $command->getPassword());
+        self::assertTrue($command->isActive());
     }
 }

@@ -32,7 +32,7 @@ class WorkflowTransitionAddedEventTest extends TestCase
 
         $event = new WorkflowTransitionAddedEvent($id, $transition);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($transition, $event->getTransition());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($transition, $event->getTransition());
     }
 }

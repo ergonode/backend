@@ -45,10 +45,10 @@ class Shopware6TaxTest extends TestCase
     {
         $model = new Shopware6Tax($this->id, $this->rate, $this->name);
 
-        $this->assertEquals($this->id, $model->getId());
-        $this->assertEquals($this->rate, $model->getRate());
-        $this->assertIsFloat($model->getRate());
-        $this->assertEquals($this->name, $model->getName());
+        self::assertEquals($this->id, $model->getId());
+        self::assertEquals($this->rate, $model->getRate());
+        self::assertIsFloat($model->getRate());
+        self::assertEquals($this->name, $model->getName());
     }
 
     /**
@@ -60,8 +60,8 @@ class Shopware6TaxTest extends TestCase
         $model->setName($this->name);
         $model->setRate($this->rate);
 
-        $this->assertEquals($this->rate, $model->getRate());
-        $this->assertIsFloat($model->getRate());
-        $this->assertEquals($this->name, $model->getName());
+        self::assertEquals($this->rate, $model->getRate());
+        self::assertIsFloat($model->getRate());
+        self::assertEquals($this->name, $model->getName());
     }
 }

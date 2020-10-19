@@ -23,6 +23,6 @@ class DeleteDesignerTemplateCommandTest extends TestCase
         /** @var TemplateId|MockObject $id */
         $id = $this->createMock(TemplateId::class);
         $command = new DeleteTemplateCommand($id);
-        $this->assertSame($id, $command->getId());
+        self::assertSame($id, $command->getId());
     }
 }

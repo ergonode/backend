@@ -41,8 +41,8 @@ class UpdateAttributeGroupCommandHandlerTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(AttributeGroup::class));
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('load')->willReturn($this->createMock(AttributeGroup::class));
+        $this->repository->expects(self::once())->method('save');
 
         $handler = new UpdateAttributeGroupCommandHandler($this->repository);
         $handler->__invoke($this->command);

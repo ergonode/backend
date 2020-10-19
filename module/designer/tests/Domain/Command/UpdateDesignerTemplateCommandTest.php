@@ -36,11 +36,11 @@ class UpdateDesignerTemplateCommandTest extends TestCase
         $defaultImage = $this->createMock(AttributeId::class);
 
         $command = new UpdateTemplateCommand($id, $name, $elements, $defaultText, $defaultImage, $multimediaId);
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($name, $command->getName());
-        $this->assertSame($multimediaId, $command->getImageId());
-        $this->assertSame($defaultText, $command->getDefaultLabel());
-        $this->assertSame($defaultImage, $command->getDefaultImage());
-        $this->assertSame($elements, $command->getElements());
+        self::assertSame($id, $command->getId());
+        self::assertSame($name, $command->getName());
+        self::assertSame($multimediaId, $command->getImageId());
+        self::assertSame($defaultText, $command->getDefaultLabel());
+        self::assertSame($defaultImage, $command->getDefaultImage());
+        self::assertSame($elements, $command->getElements());
     }
 }

@@ -38,6 +38,6 @@ class UiTemplateElementCompletenessStrategyTest extends TestCase
 
         $strategy = new UiTemplateElementCompletenessStrategy();
         $result = $strategy->getElementCompleteness($draft, $language, $property);
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 }

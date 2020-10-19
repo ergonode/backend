@@ -33,10 +33,10 @@ class RoleFactoryTest extends TestCase
         $factory = new RoleFactory();
         $role = $factory->create($id, $name, $description, $privileges);
 
-        $this->assertNotNull($role->getId());
-        $this->assertEquals($name, $role->getName());
-        $this->assertEquals($description, $role->getDescription());
-        $this->assertEquals($privileges, $role->getPrivileges());
+        self::assertNotNull($role->getId());
+        self::assertEquals($name, $role->getName());
+        self::assertEquals($description, $role->getDescription());
+        self::assertEquals($privileges, $role->getPrivileges());
     }
 
     /**

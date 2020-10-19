@@ -42,8 +42,8 @@ class UpdateCommentCommandHandlerTest extends TestCase
      */
     public function testHandlingExistsObject(): void
     {
-        $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(Comment::class));
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('load')->willReturn($this->createMock(Comment::class));
+        $this->repository->expects(self::once())->method('save');
         $handler = new UpdateCommentCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
@@ -53,7 +53,7 @@ class UpdateCommentCommandHandlerTest extends TestCase
     public function testHandlingCommentExistsObject(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->repository->expects($this->once())->method('load');
+        $this->repository->expects(self::once())->method('load');
         $handler = new UpdateCommentCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }

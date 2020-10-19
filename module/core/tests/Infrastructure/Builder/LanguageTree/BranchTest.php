@@ -54,10 +54,10 @@ class BranchTest extends TestCase
     {
         $branch = new Branch($this->id, $this->code, $this->left, $this->right);
 
-        $this->assertEquals($this->id, $branch->getId());
-        $this->assertEquals($this->code, $branch->getCode());
-        $this->assertEquals($this->left, $branch->getLeft());
-        $this->assertEquals($this->right, $branch->getRight());
+        self::assertEquals($this->id, $branch->getId());
+        self::assertEquals($this->code, $branch->getCode());
+        self::assertEquals($this->left, $branch->getLeft());
+        self::assertEquals($this->right, $branch->getRight());
     }
 
     /**
@@ -69,7 +69,7 @@ class BranchTest extends TestCase
         $branch->addToLeft(10);
 
 
-        $this->assertEquals($this->left + 10, $branch->getLeft());
-        $this->assertEquals($this->right + 100, $branch->getRight());
+        self::assertEquals($this->left + 10, $branch->getLeft());
+        self::assertEquals($this->right + 100, $branch->getRight());
     }
 }

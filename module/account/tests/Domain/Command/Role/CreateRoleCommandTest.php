@@ -31,9 +31,9 @@ class CreateRoleCommandTest extends TestCase
             $privileges
         );
 
-        $this->assertNotNull($command->getId());
-        $this->assertEquals($name, $command->getName());
-        $this->assertEquals($description, $command->getDescription());
-        $this->assertEquals($privileges, $command->getPrivileges());
+        self::assertNotNull($command->getId());
+        self::assertEquals($name, $command->getName());
+        self::assertEquals($description, $command->getDescription());
+        self::assertEquals($privileges, $command->getPrivileges());
     }
 }

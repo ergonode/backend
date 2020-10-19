@@ -50,10 +50,10 @@ class OptionInterfaceHandlerTest extends TestCase
     {
         $configurations = OptionInterfaceHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -66,10 +66,10 @@ class OptionInterfaceHandlerTest extends TestCase
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, OptionInterface::class, 'json');
 
-        $this->assertInstanceOf(StringOption::class, $result);
-        $this->assertEquals(StringOption::TYPE, $result->getType());
-        $this->assertEquals('test_value', $result->getValue());
-        $this->assertEquals('test_value', (string) $result);
+        self::assertInstanceOf(StringOption::class, $result);
+        self::assertEquals(StringOption::TYPE, $result->getType());
+        self::assertEquals('test_value', $result->getValue());
+        self::assertEquals('test_value', (string) $result);
     }
 
     /**
@@ -81,8 +81,8 @@ class OptionInterfaceHandlerTest extends TestCase
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, OptionInterface::class, 'json');
 
-        $this->assertInstanceOf(MultilingualOption::class, $result);
-        $this->assertEquals(MultilingualOption::TYPE, $result->getType());
-        $this->assertInstanceOf(TranslatableString::class, $result->getValue());
+        self::assertInstanceOf(MultilingualOption::class, $result);
+        self::assertEquals(MultilingualOption::TYPE, $result->getType());
+        self::assertInstanceOf(TranslatableString::class, $result->getValue());
     }
 }

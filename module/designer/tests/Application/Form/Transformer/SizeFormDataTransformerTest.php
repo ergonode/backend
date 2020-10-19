@@ -38,7 +38,7 @@ class SizeFormDataTransformerTest extends TestCase
      */
     public function testTransform(?Size $sizeValueObject, ?array $array): void
     {
-        $this->assertSame($array, $this->transformer->transform($sizeValueObject));
+        self::assertSame($array, $this->transformer->transform($sizeValueObject));
     }
 
     /**
@@ -60,7 +60,7 @@ class SizeFormDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?Size $sizeValueObject, ?array $array): void
     {
-        $this->assertEquals($sizeValueObject, $this->transformer->reverseTransform($array));
+        self::assertEquals($sizeValueObject, $this->transformer->reverseTransform($array));
     }
 
     /**

@@ -26,7 +26,7 @@ class ImportStatusTest extends TestCase
     {
         $status = new ImportStatus($status);
 
-        $this->assertEquals($status, (string) $status);
+        self::assertEquals($status, (string) $status);
     }
 
     /**

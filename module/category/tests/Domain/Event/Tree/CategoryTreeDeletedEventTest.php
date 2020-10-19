@@ -27,6 +27,6 @@ class CategoryTreeDeletedEventTest extends TestCase
 
         $event = new CategoryTreeDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

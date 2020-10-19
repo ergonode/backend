@@ -48,9 +48,9 @@ class AttributeGroupTest extends TestCase
     public function testEntityCreation(): void
     {
         $entity = new AttributeGroup($this->id, $this->code, $this->name);
-        $this->assertSame($this->id, $entity->getId());
-        $this->assertSame($this->code, $entity->getCode());
-        $this->assertSame($this->name, $entity->getName());
+        self::assertSame($this->id, $entity->getId());
+        self::assertSame($this->code, $entity->getCode());
+        self::assertSame($this->name, $entity->getName());
     }
 
     /**
@@ -62,7 +62,7 @@ class AttributeGroupTest extends TestCase
         $name = $this->createMock(TranslatableString::class);
         $entity = new AttributeGroup($this->id, $this->code, $this->name);
         $entity->changeName($name);
-        $this->assertNotSame($this->name, $entity->getName());
-        $this->assertSame($name, $entity->getName());
+        self::assertNotSame($this->name, $entity->getName());
+        self::assertSame($name, $entity->getName());
     }
 }

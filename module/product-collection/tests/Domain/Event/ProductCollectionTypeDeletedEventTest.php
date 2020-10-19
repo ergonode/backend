@@ -27,6 +27,6 @@ class ProductCollectionTypeDeletedEventTest extends TestCase
 
         $event = new ProductCollectionTypeDeletedEvent($id);
 
-        $this->assertEqualsCanonicalizing($id, $event->getAggregateId());
+        self::assertEqualsCanonicalizing($id, $event->getAggregateId());
     }
 }

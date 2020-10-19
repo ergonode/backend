@@ -27,7 +27,7 @@ class AttributeGroupAddedEventTest extends TestCase
         /** @var AttributeGroupId $groupId */
         $groupId = $this->createMock(AttributeGroupId::class);
         $event = new AttributeGroupAddedEvent($id, $groupId);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($groupId, $event->getGroupId());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($groupId, $event->getGroupId());
     }
 }

@@ -27,8 +27,8 @@ class UpdateUnitAttributeCommandFactoryTest extends AbstractUpdateAttributeComma
     public function testSupported(): void
     {
         $commandFactory = new UpdateUnitAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(UnitAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(UnitAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -48,7 +48,7 @@ class UpdateUnitAttributeCommandFactoryTest extends AbstractUpdateAttributeComma
         /** @var UpdateUnitAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
-        $this->assertSame($data->parameters->unit, $result->getUnitId()->getValue());
+        self::assertAttributeFormModel($id, $data, $result);
+        self::assertSame($data->parameters->unit, $result->getUnitId()->getValue());
     }
 }

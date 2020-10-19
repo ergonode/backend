@@ -30,9 +30,9 @@ class CategoryTreeCategoryAddedEventTest extends TestCase
         /** @var CategoryId|MockObject $parentId */
         $parentId = $this->createMock(CategoryId::class);
         $event = new CategoryTreeCategoryAddedEvent($id, $categoryId, $parentId);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($categoryId, $event->getCategoryId());
-        $this->assertEquals($parentId, $event->getParentId());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($categoryId, $event->getCategoryId());
+        self::assertEquals($parentId, $event->getParentId());
     }
 
     /**
@@ -44,8 +44,8 @@ class CategoryTreeCategoryAddedEventTest extends TestCase
         /** @var CategoryId|MockObject $categoryId */
         $categoryId = $this->createMock(CategoryId::class);
         $event = new CategoryTreeCategoryAddedEvent($id, $categoryId);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($categoryId, $event->getCategoryId());
-        $this->assertNull($event->getParentId());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($categoryId, $event->getCategoryId());
+        self::assertNull($event->getParentId());
     }
 }

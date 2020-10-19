@@ -29,8 +29,8 @@ class CreateAttributeGroupCommandTest extends TestCase
         $name = $this->createMock(TranslatableString::class);
 
         $command = new CreateAttributeGroupCommand($code, $name);
-        $this->assertNotNull($command->getId());
-        $this->assertEquals($code, $command->getCode());
-        $this->assertEquals($name, $command->getName());
+        self::assertNotNull($command->getId());
+        self::assertEquals($code, $command->getCode());
+        self::assertEquals($name, $command->getName());
     }
 }

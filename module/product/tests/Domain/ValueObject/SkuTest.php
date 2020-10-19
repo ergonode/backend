@@ -26,7 +26,7 @@ class SkuTest extends TestCase
     {
         $sku = new Sku($sku);
 
-        $this->assertEquals($sku, $sku->getValue());
+        self::assertEquals($sku, $sku->getValue());
     }
 
     /**

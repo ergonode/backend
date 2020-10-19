@@ -26,6 +26,6 @@ class DeleteAttributeCommandTest extends TestCase
         $attributeId = $this->createMock(AttributeId::class);
         $command = new DeleteAttributeCommand($attributeId);
 
-        $this->assertSame($attributeId, $command->getId());
+        self::assertSame($attributeId, $command->getId());
     }
 }

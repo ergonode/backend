@@ -54,10 +54,10 @@ class RoleTest extends TestCase
     public function testRoleCreation(): void
     {
         $role = new Role($this->roleId, $this->name, $this->description, [$this->privilege]);
-        $this->assertEquals($this->roleId, $role->getId());
-        $this->assertEquals($this->name, $role->getName());
-        $this->assertEquals($this->description, $role->getDescription());
-        $this->assertEquals([$this->privilege], $role->getPrivileges());
+        self::assertEquals($this->roleId, $role->getId());
+        self::assertEquals($this->name, $role->getName());
+        self::assertEquals($this->description, $role->getDescription());
+        self::assertEquals([$this->privilege], $role->getPrivileges());
     }
 
     /**
@@ -70,8 +70,8 @@ class RoleTest extends TestCase
         $role = new Role($this->roleId, $this->name, $this->description);
         $role->changeName($newName);
         $role->changeDescription($newDescription);
-        $this->assertEquals($newName, $role->getName());
-        $this->assertEquals($newDescription, $role->getDescription());
+        self::assertEquals($newName, $role->getName());
+        self::assertEquals($newDescription, $role->getDescription());
     }
 
     /**
@@ -81,14 +81,14 @@ class RoleTest extends TestCase
         $this->privilege->method('isEqual')->willReturn(true);
 
         $role = new Role($this->roleId, $this->name, $this->description, [$this->privilege]);
-        $this->assertTrue($role->hasPrivilege($this->privilege));
+        self::assertTrue($role->hasPrivilege($this->privilege));
         $role->removePrivilege($this->privilege);
-        $this->assertFalse($role->hasPrivilege($this->privilege));
+        self::assertFalse($role->hasPrivilege($this->privilege));
         $role->addPrivilege($this->privilege);
-        $this->assertTrue($role->hasPrivilege($this->privilege));
+        self::assertTrue($role->hasPrivilege($this->privilege));
         $role->removePrivilege($this->privilege);
         $role->changesPrivileges([$this->privilege]);
-        $this->assertEquals([$this->privilege], $role->getPrivileges());
+        self::assertEquals([$this->privilege], $role->getPrivileges());
     }
 
     /**

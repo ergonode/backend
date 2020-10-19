@@ -33,8 +33,8 @@ class ProductCollectionElementAddedEventTest extends TestCase
 
         $event = new ProductCollectionElementAddedEvent($id, $element, $dateTime);
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($element, $event->getElement());
-        $this->assertEquals($dateTime, $event->getCurrentDateTime());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($element, $event->getElement());
+        self::assertEquals($dateTime, $event->getCurrentDateTime());
     }
 }

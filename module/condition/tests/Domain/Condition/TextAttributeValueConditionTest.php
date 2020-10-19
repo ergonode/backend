@@ -29,9 +29,9 @@ class TextAttributeValueConditionTest extends TestCase
 
         $condition = new TextAttributeValueCondition($attributeId, $operator, $value);
 
-        $this->assertSame($attributeId, $condition->getAttribute());
-        $this->assertSame($operator, $condition->getOption());
-        $this->assertSame($value, $condition->getValue());
-        $this->assertSame(TextAttributeValueCondition::TYPE, $condition->getType());
+        self::assertSame($attributeId, $condition->getAttribute());
+        self::assertSame($operator, $condition->getOption());
+        self::assertSame($value, $condition->getValue());
+        self::assertSame(TextAttributeValueCondition::TYPE, $condition->getType());
     }
 }

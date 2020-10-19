@@ -57,7 +57,7 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new ProductNoBindings());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -69,7 +69,7 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
         $constraint = new ProductNoBindings();
         $this->validator->validate($uuid, $constraint);
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

@@ -50,7 +50,7 @@ class WidgetStatusCountActionTest extends TestCase
             new Language('pl_PL'),
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             ['status data'],
             $response->getContent(),
         );

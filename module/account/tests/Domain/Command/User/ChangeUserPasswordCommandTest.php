@@ -29,7 +29,7 @@ class ChangeUserPasswordCommandTest extends TestCase
         $password = $this->createMock(Password::class);
         $command = new ChangeUserPasswordCommand($id, $password);
 
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($password, $command->getPassword());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($password, $command->getPassword());
     }
 }

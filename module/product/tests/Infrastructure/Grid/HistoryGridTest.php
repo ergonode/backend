@@ -28,6 +28,6 @@ class HistoryGridTest extends TestCase
         $language = $this->createMock(Language::class);
         $grid = new ProductHistoryGrid();
         $grid->init($configuration, $language);
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

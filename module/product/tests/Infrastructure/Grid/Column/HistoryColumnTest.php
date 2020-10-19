@@ -27,10 +27,10 @@ class HistoryColumnTest extends TestCase
         $label = 'Any label';
         $language = $this->createMock(Language::class);
         $column = new HistoryColumn($field, $parameter, $label, $language);
-        $this->assertSame($field, $column->getField());
-        $this->assertSame($parameter, $column->getParameterField());
-        $this->assertSame($label, $column->getLabel());
-        $this->assertSame($language, $column->getLanguage());
-        $this->assertSame(HistoryColumn::TYPE, $column->getType());
+        self::assertSame($field, $column->getField());
+        self::assertSame($parameter, $column->getParameterField());
+        self::assertSame($label, $column->getLabel());
+        self::assertSame($language, $column->getLanguage());
+        self::assertSame(HistoryColumn::TYPE, $column->getType());
     }
 }

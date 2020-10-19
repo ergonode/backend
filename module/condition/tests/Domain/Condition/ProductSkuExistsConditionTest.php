@@ -25,8 +25,8 @@ class ProductSkuExistsConditionTest extends TestCase
         $value = 'someValue';
         $condition = new ProductSkuExistsCondition($operator, $value);
 
-        $this->assertSame($operator, $condition->getOperator());
-        $this->assertSame($value, $condition->getValue());
-        $this->assertSame(ProductSkuExistsCondition::TYPE, $condition->getType());
+        self::assertSame($operator, $condition->getOperator());
+        self::assertSame($value, $condition->getValue());
+        self::assertSame(ProductSkuExistsCondition::TYPE, $condition->getType());
     }
 }

@@ -56,10 +56,10 @@ class TransitionIdHandlerTest extends TestCase
     {
         $configurations = TransitionIdHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -70,7 +70,7 @@ class TransitionIdHandlerTest extends TestCase
         $id = TransitionId::generate();
         $result = $this->handler->serialize($this->serializationVisitor, $id, [], $this->context);
 
-        $this->assertEquals($id->getValue(), $result);
+        self::assertEquals($id->getValue(), $result);
     }
 
     /**
@@ -80,6 +80,6 @@ class TransitionIdHandlerTest extends TestCase
         $id = TransitionId::generate();
         $result = $this->handler->deserialize($this->deserializationVisitor, $id->getValue(), [], $this->context);
 
-        $this->assertEquals($id, $result->getValue());
+        self::assertEquals($id, $result->getValue());
     }
 }

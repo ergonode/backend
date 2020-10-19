@@ -57,22 +57,22 @@ class AbstractAssociatedProductTest extends TestCase
         $child2->method('getId')->willReturn(ProductId::generate());
 
         $product = $this->getClass();
-        $this->assertFalse($product->hasChild($child1->getId()));
-        $this->assertFalse($product->hasChild($child2->getId()));
+        self::assertFalse($product->hasChild($child1->getId()));
+        self::assertFalse($product->hasChild($child2->getId()));
         $product->addChild($child1);
-        $this->assertTrue($product->hasChild($child1->getId()));
-        $this->assertFalse($product->hasChild($child2->getId()));
+        self::assertTrue($product->hasChild($child1->getId()));
+        self::assertFalse($product->hasChild($child2->getId()));
         $product->addChild($child2);
-        $this->assertTrue($product->hasChild($child1->getId()));
-        $this->assertTrue($product->hasChild($child2->getId()));
-        $this->assertEquals([$child1->getId(), $child2->getId()], $product->getChildren());
+        self::assertTrue($product->hasChild($child1->getId()));
+        self::assertTrue($product->hasChild($child2->getId()));
+        self::assertEquals([$child1->getId(), $child2->getId()], $product->getChildren());
         $product->removeChild($child1->getId());
-        $this->assertFalse($product->hasChild($child1->getId()));
-        $this->assertTrue($product->hasChild($child2->getId()));
+        self::assertFalse($product->hasChild($child1->getId()));
+        self::assertTrue($product->hasChild($child2->getId()));
         $product->removeChild($child2->getId());
-        $this->assertFalse($product->hasChild($child1->getId()));
-        $this->assertFalse($product->hasChild($child2->getId()));
-        $this->assertEquals([], $product->getChildren());
+        self::assertFalse($product->hasChild($child1->getId()));
+        self::assertFalse($product->hasChild($child2->getId()));
+        self::assertEquals([], $product->getChildren());
     }
 
 

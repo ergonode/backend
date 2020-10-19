@@ -27,6 +27,6 @@ class MultimediaDeletedEventTest extends TestCase
 
         $event = new MultimediaDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

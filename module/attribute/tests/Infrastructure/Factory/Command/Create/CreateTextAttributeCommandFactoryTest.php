@@ -24,8 +24,8 @@ class CreateTextAttributeCommandFactoryTest extends AbstractCreateAttributeComma
     public function testSupported(): void
     {
         $commandFactory = new CreateTextAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(TextAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(TextAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -41,6 +41,6 @@ class CreateTextAttributeCommandFactoryTest extends AbstractCreateAttributeComma
         /** @var CreateTextAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
+        self::assertAttributeFormModel($data, $result);
     }
 }

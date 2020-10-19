@@ -83,13 +83,13 @@ class UnitAttributeTest extends TestCase
             $this->scope,
             $this->unit
         );
-        $this->assertEquals($this->unit, $attribute->getUnitId());
-        $this->assertEquals($this->id, $attribute->getId());
-        $this->assertEquals($this->code, $attribute->getCode());
-        $this->assertEquals($this->label, $attribute->getLabel());
-        $this->assertEquals($this->hint, $attribute->getHint());
-        $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
-        $this->assertEquals($this->scope, $attribute->getScope());
+        self::assertEquals($this->unit, $attribute->getUnitId());
+        self::assertEquals($this->id, $attribute->getId());
+        self::assertEquals($this->code, $attribute->getCode());
+        self::assertEquals($this->label, $attribute->getLabel());
+        self::assertEquals($this->hint, $attribute->getHint());
+        self::assertEquals($this->placeholder, $attribute->getPlaceholder());
+        self::assertEquals($this->scope, $attribute->getScope());
     }
 
     /**
@@ -109,7 +109,7 @@ class UnitAttributeTest extends TestCase
             $this->unit
         );
         $attribute->changeUnit($unit);
-        $this->assertNotEquals($this->unit, $attribute->getUnitId());
-        $this->assertEquals($unit, $attribute->getUnitId());
+        self::assertNotEquals($this->unit, $attribute->getUnitId());
+        self::assertEquals($unit, $attribute->getUnitId());
     }
 }

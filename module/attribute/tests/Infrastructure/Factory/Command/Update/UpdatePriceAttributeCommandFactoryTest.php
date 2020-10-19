@@ -27,8 +27,8 @@ class UpdatePriceAttributeCommandFactoryTest extends AbstractUpdateAttributeComm
     public function testSupported(): void
     {
         $commandFactory = new UpdatePriceAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(PriceAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(PriceAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -48,7 +48,7 @@ class UpdatePriceAttributeCommandFactoryTest extends AbstractUpdateAttributeComm
         /** @var UpdatePriceAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
-        $this->assertSame($data->parameters->currency, $result->getCurrency()->getCode());
+        self::assertAttributeFormModel($id, $data, $result);
+        self::assertSame($data->parameters->currency, $result->getCurrency()->getCode());
     }
 }

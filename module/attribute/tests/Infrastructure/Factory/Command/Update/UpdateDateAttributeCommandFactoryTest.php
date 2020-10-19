@@ -27,8 +27,8 @@ class UpdateDateAttributeCommandFactoryTest extends AbstractUpdateAttributeComma
     public function testSupported(): void
     {
         $commandFactory = new UpdateDateAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(DateAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(DateAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -48,7 +48,7 @@ class UpdateDateAttributeCommandFactoryTest extends AbstractUpdateAttributeComma
         /** @var UpdateDateAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
-        $this->assertSame($data->parameters->format, $result->getFormat()->getFormat());
+        self::assertAttributeFormModel($id, $data, $result);
+        self::assertSame($data->parameters->format, $result->getFormat()->getFormat());
     }
 }

@@ -24,8 +24,8 @@ class CreateNumericAttributeCommandFactoryTest extends AbstractCreateAttributeCo
     public function testSupported(): void
     {
         $commandFactory = new CreateNumericAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(NumericAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(NumericAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -42,6 +42,6 @@ class CreateNumericAttributeCommandFactoryTest extends AbstractCreateAttributeCo
         /** @var CreateNumericAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
+        self::assertAttributeFormModel($data, $result);
     }
 }

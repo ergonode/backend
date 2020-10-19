@@ -30,7 +30,7 @@ class AddProductChildCommandTest extends TestCase
         $childId = $this->createMock(ProductId::class);
 
         $command = new AddProductChildCommand($product, $childId);
-        $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame($childId, $command->getChildId());
+        self::assertSame($product->getId(), $command->getId());
+        self::assertSame($childId, $command->getChildId());
     }
 }

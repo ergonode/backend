@@ -64,13 +64,13 @@ class AbstractAttributeTest extends TestCase
     {
         $attribute = $this->getClass();
 
-        $this->assertEquals($this->id, $attribute->getId());
-        $this->assertEquals($this->code, $attribute->getCode());
-        $this->assertEquals($this->translation, $attribute->getLabel());
-        $this->assertEquals($this->translation, $attribute->getHint());
-        $this->assertEquals($this->translation, $attribute->getPlaceholder());
-        $this->assertEquals($this->scope, $attribute->getScope());
-        $this->assertEquals($this->parameters, $attribute->getParameters());
+        self::assertEquals($this->id, $attribute->getId());
+        self::assertEquals($this->code, $attribute->getCode());
+        self::assertEquals($this->translation, $attribute->getLabel());
+        self::assertEquals($this->translation, $attribute->getHint());
+        self::assertEquals($this->translation, $attribute->getPlaceholder());
+        self::assertEquals($this->scope, $attribute->getScope());
+        self::assertEquals($this->parameters, $attribute->getParameters());
     }
 
     /**
@@ -82,8 +82,8 @@ class AbstractAttributeTest extends TestCase
         $translation->method('isEqual')->willReturn(false);
         $attribute = $this->getClass();
         $attribute->changeLabel($translation);
-        $this->assertNotSame($this->translation, $attribute->getLabel());
-        $this->assertSame($translation, $attribute->getLabel());
+        self::assertNotSame($this->translation, $attribute->getLabel());
+        self::assertSame($translation, $attribute->getLabel());
     }
 
     /**
@@ -95,8 +95,8 @@ class AbstractAttributeTest extends TestCase
         $translation->method('isEqual')->willReturn(false);
         $attribute = $this->getClass();
         $attribute->changePlaceholder($translation);
-        $this->assertNotSame($this->translation, $attribute->getPlaceholder());
-        $this->assertSame($translation, $attribute->getPlaceholder());
+        self::assertNotSame($this->translation, $attribute->getPlaceholder());
+        self::assertSame($translation, $attribute->getPlaceholder());
     }
 
     /**
@@ -108,8 +108,8 @@ class AbstractAttributeTest extends TestCase
         $translation->method('isEqual')->willReturn(false);
         $attribute = $this->getClass();
         $attribute->changeHint($translation);
-        $this->assertNotSame($this->translation, $attribute->getHint());
-        $this->assertSame($translation, $attribute->getHint());
+        self::assertNotSame($this->translation, $attribute->getHint());
+        self::assertSame($translation, $attribute->getHint());
     }
 
     /**
@@ -121,11 +121,11 @@ class AbstractAttributeTest extends TestCase
 
         $attribute = $this->getClass();
         $attribute->addGroup($groupId);
-        $this->assertTrue($attribute->inGroup($groupId));
-        $this->assertEquals([$groupId], $attribute->getGroups());
+        self::assertTrue($attribute->inGroup($groupId));
+        self::assertEquals([$groupId], $attribute->getGroups());
         $attribute->removeGroup($groupId);
-        $this->assertFalse($attribute->inGroup($groupId));
-        $this->assertEquals([], $attribute->getGroups());
+        self::assertFalse($attribute->inGroup($groupId));
+        self::assertEquals([], $attribute->getGroups());
     }
 
     /**

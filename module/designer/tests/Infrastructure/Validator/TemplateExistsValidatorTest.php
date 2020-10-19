@@ -59,7 +59,7 @@ class TemplateExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new TemplateExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -82,7 +82,7 @@ class TemplateExistsValidatorTest extends ConstraintValidatorTestCase
         $this->templateRepository->method('load')->willReturn($this->createMock(Template::class));
         $this->validator->validate(TemplateId::generate(), new TemplateExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

@@ -27,6 +27,6 @@ class ConditionSetDeletedEventTest extends TestCase
 
         $event = new ConditionSetDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

@@ -23,8 +23,8 @@ class ProductCompletenessConditionTest extends TestCase
     public function testConditionCreation(string $completeness): void
     {
         $condition = new ProductCompletenessCondition($completeness);
-        $this->assertSame($completeness, $condition->getCompleteness());
-        $this->assertSame('PRODUCT_COMPLETENESS_CONDITION', $condition->getType());
+        self::assertSame($completeness, $condition->getCompleteness());
+        self::assertSame('PRODUCT_COMPLETENESS_CONDITION', $condition->getType());
     }
 
     /**

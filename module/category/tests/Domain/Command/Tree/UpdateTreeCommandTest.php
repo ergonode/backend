@@ -32,8 +32,8 @@ class UpdateTreeCommandTest extends TestCase
         array $categories
     ): void {
         $command = new UpdateTreeCommand($id, $name, $categories);
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($name, $command->getName());
+        self::assertSame($id, $command->getId());
+        self::assertSame($name, $command->getName());
         $this->containsOnlyInstancesOf(TreeNodeFormModel::class, $command->getCategories());
     }
 

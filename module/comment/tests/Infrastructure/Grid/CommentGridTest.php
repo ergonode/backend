@@ -30,7 +30,7 @@ class CommentGridTest extends TestCase
         $language = $this->createMock(Language::class);
         /** @var AuthenticatedUserProviderInterface|MockObject $provider */
         $provider = $this->createMock(AuthenticatedUserProviderInterface::class);
-        $provider->expects($this->once())->method('provide')->willReturn($this->createMock(User::class));
+        $provider->expects(self::once())->method('provide')->willReturn($this->createMock(User::class));
         $grid = new CommentGrid($provider);
         $grid->init($configuration, $language);
     }

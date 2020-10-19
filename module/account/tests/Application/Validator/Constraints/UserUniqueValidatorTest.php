@@ -58,7 +58,7 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new UserUnique());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -68,7 +68,7 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('findIdByEmail')->willReturn(null);
         $this->validator->validate('email@example.com', new UserUnique());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

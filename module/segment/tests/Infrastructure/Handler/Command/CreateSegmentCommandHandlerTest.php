@@ -40,7 +40,7 @@ class CreateSegmentCommandHandlerTest extends TestCase
      */
     public function testCommandHandling(): void
     {
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('save');
 
         $handler = new CreateSegmentCommandHandler($this->repository);
         $handler->__invoke($this->command);

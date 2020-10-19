@@ -28,10 +28,10 @@ class AttributeBoolParameterChangeEventTest extends TestCase
     public function testCreateEvent(AttributeId $id, string $name, bool $from, bool $to): void
     {
         $event = new AttributeBoolParameterChangeEvent($id, $name, $from, $to);
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($name, $event->getName());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($name, $event->getName());
+        self::assertSame($from, $event->getFrom());
+        self::assertSame($to, $event->getTo());
     }
 
     /**

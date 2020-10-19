@@ -20,8 +20,8 @@ class MultiSelectFilterTest extends TestCase
     public function testRender(): void
     {
         $option = $this->createMock(FilterOptionInterface::class);
-        $option->expects($this->once())->method('render');
-        $option->expects($this->once())->method('getKey');
+        $option->expects(self::once())->method('render');
+        $option->expects(self::once())->method('getKey');
 
         $filter = new MultiSelectFilter([$option]);
 
@@ -33,6 +33,6 @@ class MultiSelectFilterTest extends TestCase
     public function testType(): void
     {
         $filter = new MultiSelectFilter([]);
-        $this->assertEquals(MultiSelectFilter::TYPE, $filter->getType());
+        self::assertEquals(MultiSelectFilter::TYPE, $filter->getType());
     }
 }

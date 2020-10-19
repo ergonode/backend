@@ -40,10 +40,10 @@ class CreateCategoryCommandHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->factory = $this->createMock(CategoryFactory::class);
-        $this->factory->expects($this->once())->method('create')
+        $this->factory->expects(self::once())->method('create')
             ->willReturn($this->createMock(AbstractCategory::class));
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('save');
         $this->command = $this->createMock(CreateCategoryCommand::class);
     }
 

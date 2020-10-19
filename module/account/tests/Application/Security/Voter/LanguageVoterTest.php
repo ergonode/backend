@@ -30,7 +30,7 @@ class LanguageVoterTest extends TestCase
     {
         $voter = new LanguageVoter();
         $result = $voter->supports($attribute, $subject);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -44,7 +44,7 @@ class LanguageVoterTest extends TestCase
 
         $voter = new LanguageVoter();
         $result = $voter->voteOnAttribute($attribute, $subject, $token);
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 
     /**
@@ -67,7 +67,7 @@ class LanguageVoterTest extends TestCase
 
         $voter = new LanguageVoter();
         $result = $voter->voteOnAttribute($attribute, $subject, $token);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**

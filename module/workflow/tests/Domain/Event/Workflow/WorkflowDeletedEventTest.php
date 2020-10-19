@@ -27,6 +27,6 @@ class WorkflowDeletedEventTest extends TestCase
 
         $event = new WorkflowDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

@@ -26,7 +26,7 @@ class CategoryTypeDictionaryProviderTest extends TestCase
     {
         /** @var TranslatorInterface | MockObject $translator */
         $translator = $this->createMock(TranslatorInterface::class);
-        $translator->expects($this->at(0))->method('trans')->willReturn('translation');
+        $translator->expects(self::at(0))->method('trans')->willReturn('translation');
 
         $provider = $this->createMock(CategoryTypeProvider::class);
         $provider->method('provide')->willReturn(['TYPE']);
@@ -37,6 +37,6 @@ class CategoryTypeDictionaryProviderTest extends TestCase
 
         $provider = new CategoryTypeDictionaryProvider($provider, $translator);
 
-        $this->assertSame(['TYPE' => 'translation'], $provider->getDictionary($language));
+        self::assertSame(['TYPE' => 'translation'], $provider->getDictionary($language));
     }
 }

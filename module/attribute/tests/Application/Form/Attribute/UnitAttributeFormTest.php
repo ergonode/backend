@@ -57,8 +57,8 @@ class UnitAttributeFormTest extends TypeTestCase
     public function testSupport(): void
     {
         $form = new UnitAttributeForm();
-        $this->assertTrue($form->supported(UnitAttribute::TYPE));
-        $this->assertFalse($form->supported('unsupported type'));
+        self::assertTrue($form->supported(UnitAttribute::TYPE));
+        self::assertFalse($form->supported('unsupported type'));
     }
 
     /**
@@ -86,15 +86,15 @@ class UnitAttributeFormTest extends TypeTestCase
         $form = $this->factory->create(UnitAttributeForm::class, $objectToCompare);
         $form->submit($formData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertTrue($form->isValid());
-        $this->assertEquals($object, $objectToCompare);
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isValid());
+        self::assertEquals($object, $objectToCompare);
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($formData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 

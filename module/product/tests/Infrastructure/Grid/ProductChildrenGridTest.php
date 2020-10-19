@@ -29,6 +29,6 @@ class ProductChildrenGridTest extends TestCase
         $grid = new ProductChildrenGrid();
         $grid->init($configuration, $language);
 
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

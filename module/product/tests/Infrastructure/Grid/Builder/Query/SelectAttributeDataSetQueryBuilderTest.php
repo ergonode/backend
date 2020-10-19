@@ -65,7 +65,7 @@ class SelectAttributeDataSetQueryBuilderTest extends TestCase
     public function testIsSupported(): void
     {
         $builder = new SelectAttributeDataSetQueryBuilder($this->query, $this->resolver);
-        $this->assertTrue($builder->supports($this->attribute));
+        self::assertTrue($builder->supports($this->attribute));
     }
 
     /**
@@ -73,14 +73,14 @@ class SelectAttributeDataSetQueryBuilderTest extends TestCase
     public function testIsNotSupported(): void
     {
         $builder = new SelectAttributeDataSetQueryBuilder($this->query, $this->resolver);
-        $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
      */
     public function testAddQuerySelect(): void
     {
-        $this->queryBuilder->expects($this->once())->method('addSelect');
+        $this->queryBuilder->expects(self::once())->method('addSelect');
         $builder = new SelectAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $builder->addSelect($this->queryBuilder, 'any key', $this->attribute, $this->language);
     }

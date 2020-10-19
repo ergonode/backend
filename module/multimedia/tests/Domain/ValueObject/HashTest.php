@@ -24,8 +24,8 @@ class HashTest extends TestCase
     {
         $hash = new Hash($data);
 
-        $this->assertSame($data, $hash->getValue());
-        $this->assertSame($data, (string) $hash);
+        self::assertSame($data, $hash->getValue());
+        self::assertSame($data, (string) $hash);
     }
 
     /**
@@ -35,7 +35,7 @@ class HashTest extends TestCase
      */
     public function testValidDataValidationMethod(string $data): void
     {
-        $this->assertTrue(Hash::isValid($data));
+        self::assertTrue(Hash::isValid($data));
     }
 
     /**
@@ -57,7 +57,7 @@ class HashTest extends TestCase
      */
     public function testInvalidDataValidationMethod(string $data): void
     {
-        $this->assertFalse(Hash::isValid($data));
+        self::assertFalse(Hash::isValid($data));
     }
 
     /**
@@ -67,12 +67,12 @@ class HashTest extends TestCase
         $object1 = new Hash('da39a3ee5e6b4b0d3255bfef95601890afd80709');
         $object2 = new Hash('da39a3ee5e6b4b0d3255bfef95601890afd80709');
         $object3 = new Hash('3fcaf44b_b65a_48bb_8769_49d1a8fa48d0');
-        $this->assertTrue($object1->isEqual($object2));
-        $this->assertTrue($object2->isEqual($object1));
-        $this->assertFalse($object1->isEqual($object3));
-        $this->assertFalse($object2->isEqual($object3));
-        $this->assertFalse($object3->isEqual($object1));
-        $this->assertFalse($object3->isEqual($object2));
+        self::assertTrue($object1->isEqual($object2));
+        self::assertTrue($object2->isEqual($object1));
+        self::assertFalse($object1->isEqual($object3));
+        self::assertFalse($object2->isEqual($object3));
+        self::assertFalse($object3->isEqual($object1));
+        self::assertFalse($object3->isEqual($object2));
     }
 
 

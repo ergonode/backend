@@ -57,10 +57,10 @@ class EmailHandlerTest extends TestCase
     {
         $configurations = EmailHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -75,7 +75,7 @@ class EmailHandlerTest extends TestCase
         $code->method('getValue')->willReturn($value);
         $result = $this->handler->serialize($this->serializerVisitor, $code, [], $this->context);
 
-        $this->assertEquals($value, $result);
+        self::assertEquals($value, $result);
     }
 
     /**
@@ -86,7 +86,7 @@ class EmailHandlerTest extends TestCase
 
         $result = $this->handler->deserialize($this->deserializerVisitor, $value, [], $this->context);
 
-        $this->assertInstanceOf(Email::class, $result);
-        $this->assertEquals($value, $result->getValue());
+        self::assertInstanceOf(Email::class, $result);
+        self::assertEquals($value, $result->getValue());
     }
 }

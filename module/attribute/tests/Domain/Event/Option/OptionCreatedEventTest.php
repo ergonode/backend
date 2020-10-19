@@ -33,9 +33,9 @@ class OptionCreatedEventTest extends TestCase
         /** @var TranslatableString $label */
         $label = $this->createMock(TranslatableString::class);
         $event = new OptionCreatedEvent($id, $attributeId, $code, $label);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($attributeId, $event->getAttributeId());
-        $this->assertEquals($code, $event->getCode());
-        $this->assertEquals($label, $event->getLabel());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($attributeId, $event->getAttributeId());
+        self::assertEquals($code, $event->getCode());
+        self::assertEquals($label, $event->getLabel());
     }
 }

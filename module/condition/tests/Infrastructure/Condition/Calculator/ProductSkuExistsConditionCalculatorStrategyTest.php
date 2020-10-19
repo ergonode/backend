@@ -30,8 +30,8 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->strategy->supports('PRODUCT_SKU_EXISTS_CONDITION'));
-        $this->assertFalse($this->strategy->supports('test'));
+        self::assertTrue($this->strategy->supports('PRODUCT_SKU_EXISTS_CONDITION'));
+        self::assertFalse($this->strategy->supports('test'));
     }
 
 
@@ -48,7 +48,7 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
         $product = $this->createProductMock($sku);
         $condition = $this->createProductSkuExistsConditionMock($operator, $value);
 
-        $this->assertSame(
+        self::assertSame(
             $result,
             $this->strategy->calculate($product, $condition)
         );

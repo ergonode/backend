@@ -25,6 +25,6 @@ class DeleteUnitCommandTest extends TestCase
 
         $command = new DeleteUnitCommand($id);
 
-        $this->assertEquals($id, $command->getId());
+        self::assertEquals($id, $command->getId());
     }
 }

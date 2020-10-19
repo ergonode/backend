@@ -22,6 +22,6 @@ class WorkflowTest extends TestCase
     public function testType(): void
     {
         $workflow = new Workflow(WorkflowId::generate(), 'code', []);
-        $this->assertSame(Workflow::TYPE, $workflow->getType());
+        self::assertSame(Workflow::TYPE, $workflow->getType());
     }
 }

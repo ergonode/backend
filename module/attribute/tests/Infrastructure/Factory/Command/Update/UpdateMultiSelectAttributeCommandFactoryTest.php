@@ -25,8 +25,8 @@ class UpdateMultiSelectAttributeCommandFactoryTest extends AbstractUpdateAttribu
     public function testSupported(): void
     {
         $commandFactory = new UpdateMultiSelectAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(MultiSelectAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(MultiSelectAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -43,6 +43,6 @@ class UpdateMultiSelectAttributeCommandFactoryTest extends AbstractUpdateAttribu
         /** @var UpdateMultiSelectAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
+        self::assertAttributeFormModel($id, $data, $result);
     }
 }

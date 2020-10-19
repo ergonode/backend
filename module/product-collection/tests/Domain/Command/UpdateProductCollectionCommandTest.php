@@ -39,9 +39,9 @@ class UpdateProductCollectionCommandTest extends TestCase
 
         $command = new UpdateProductCollectionCommand($id, $name, $description, $typeId);
 
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($name, $command->getName());
-        $this->assertEquals($description, $command->getDescription());
-        $this->assertEquals($typeId, $command->getTypeId());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($name, $command->getName());
+        self::assertEquals($description, $command->getDescription());
+        self::assertEquals($typeId, $command->getTypeId());
     }
 }

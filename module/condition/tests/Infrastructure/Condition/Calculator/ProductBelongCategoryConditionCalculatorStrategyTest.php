@@ -36,8 +36,8 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->strategy->supports('PRODUCT_BELONG_CATEGORY_CONDITION'));
-        $this->assertFalse($this->strategy->supports('PRODUCT'));
+        self::assertTrue($this->strategy->supports('PRODUCT_BELONG_CATEGORY_CONDITION'));
+        self::assertFalse($this->strategy->supports('PRODUCT'));
     }
 
     /**
@@ -51,7 +51,7 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
         $object = $this->createMock(AbstractProduct::class);
         $configuration = $this->createMock(ProductBelongCategoryCondition::class);
         $configuration
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getCategory')
             ->willReturn(
                 [
@@ -59,8 +59,8 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
                 ]
             );
 
-        $configuration->expects($this->once())->method('getOperator')->willReturn($operator);
-        $this->assertSame($result, $this->strategy->calculate($object, $configuration));
+        $configuration->expects(self::once())->method('getOperator')->willReturn($operator);
+        self::assertSame($result, $this->strategy->calculate($object, $configuration));
     }
 
     /**

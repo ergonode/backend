@@ -55,7 +55,7 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new AttributeCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -64,7 +64,7 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('code', new AttributeCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

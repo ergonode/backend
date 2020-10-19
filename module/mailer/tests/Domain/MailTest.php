@@ -29,9 +29,9 @@ final class MailTest extends TestCase
         $subject = 'ergonode';
         $mail = new Mail($recipient, $sender, $template, $subject);
 
-        $this->assertSame($recipient, $mail->getRecipient());
-        $this->assertSame($sender, $mail->getSender());
-        $this->assertSame($template, $mail->getTemplate());
-        $this->assertSame($subject, $mail->getSubject());
+        self::assertSame($recipient, $mail->getRecipient());
+        self::assertSame($sender, $mail->getSender());
+        self::assertSame($template, $mail->getTemplate());
+        self::assertSame($subject, $mail->getSubject());
     }
 }

@@ -38,7 +38,7 @@ class RoleIdDataTransformerTest extends TestCase
      */
     public function testTransform(?RoleId $roleIdValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($roleIdValueObject));
+        self::assertSame($string, $this->transformer->transform($roleIdValueObject));
     }
 
     /**
@@ -61,7 +61,7 @@ class RoleIdDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?RoleId $roleIdValueObject, ?string $string): void
     {
-        $this->assertEquals($roleIdValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($roleIdValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**

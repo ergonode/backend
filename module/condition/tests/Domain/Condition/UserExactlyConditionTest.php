@@ -27,7 +27,7 @@ class UserExactlyConditionTest extends TestCase
 
         $condition = new UserExactlyCondition($userId);
 
-        $this->assertSame($userId, $condition->getUser());
-        $this->assertSame(UserExactlyCondition::TYPE, $condition->getType());
+        self::assertSame($userId, $condition->getUser());
+        self::assertSame(UserExactlyCondition::TYPE, $condition->getType());
     }
 }

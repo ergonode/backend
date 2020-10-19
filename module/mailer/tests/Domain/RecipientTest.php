@@ -27,13 +27,13 @@ final class RecipientTest extends TestCase
 
         $recipient = new Recipient($to);
 
-        $this->assertSame($to, $recipient->getTo());
-        $this->assertTrue($recipient->hasTo());
-        $this->assertCount(1, $recipient->getTo());
-        $this->assertFalse($recipient->hasBcc());
-        $this->assertCount(0, $recipient->getBcc());
-        $this->assertFalse($recipient->hasCc());
-        $this->assertCount(0, $recipient->getCc());
+        self::assertSame($to, $recipient->getTo());
+        self::assertTrue($recipient->hasTo());
+        self::assertCount(1, $recipient->getTo());
+        self::assertFalse($recipient->hasBcc());
+        self::assertCount(0, $recipient->getBcc());
+        self::assertFalse($recipient->hasCc());
+        self::assertCount(0, $recipient->getCc());
     }
 
     /**
@@ -49,8 +49,8 @@ final class RecipientTest extends TestCase
         $recipient->addCc($email2);
         $recipient->addBcc($email2);
 
-        $this->assertCount(2, $recipient->getTo());
-        $this->assertCount(1, $recipient->getCc());
-        $this->assertCount(1, $recipient->getBcc());
+        self::assertCount(2, $recipient->getTo());
+        self::assertCount(1, $recipient->getCc());
+        self::assertCount(1, $recipient->getBcc());
     }
 }

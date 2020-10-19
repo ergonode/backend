@@ -32,7 +32,7 @@ class AddProductBindingCommandTest extends TestCase
         $bindingId = $this->createMock(AttributeId::class);
 
         $command = new AddProductBindingCommand($product, $bindingId);
-        $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame($bindingId, $command->getBindingId());
+        self::assertSame($product->getId(), $command->getId());
+        self::assertSame($bindingId, $command->getBindingId());
     }
 }

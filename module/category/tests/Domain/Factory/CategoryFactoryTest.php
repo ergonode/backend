@@ -35,10 +35,10 @@ class CategoryFactoryTest extends TestCase
     ): void {
         $factory = new CategoryFactory();
         $category = $factory->create($id, $code, $name, $attributes);
-        $this->assertSame($id, $category->getId());
-        $this->assertSame($code, $category->getCode());
-        $this->assertSame($name, $category->getName());
-        $this->assertSame($attributes, $category->getAttributes());
+        self::assertSame($id, $category->getId());
+        self::assertSame($code, $category->getCode());
+        self::assertSame($name, $category->getName());
+        self::assertSame($attributes, $category->getAttributes());
     }
 
     /**
@@ -53,10 +53,10 @@ class CategoryFactoryTest extends TestCase
 
         $factory = new CategoryFactory();
         $category = $factory->create($id, $code, $name, $attributes);
-        $this->assertSame($id, $category->getId());
-        $this->assertSame($code, $category->getCode());
-        $this->assertSame($name, $category->getName());
-        $this->assertSame($attributes, $category->getAttributes());
+        self::assertSame($id, $category->getId());
+        self::assertSame($code, $category->getCode());
+        self::assertSame($name, $category->getName());
+        self::assertSame($attributes, $category->getAttributes());
     }
 
     /**

@@ -23,7 +23,7 @@ final class MailerSenderTest extends TestCase
     public function testHandling(): void
     {
         $strategy = $this->createMock(MailerStrategyInterface::class);
-        $strategy->expects($this->once())->method('send');
+        $strategy->expects(self::once())->method('send');
 
         $message = $this->createMock(MailInterface::class);
 

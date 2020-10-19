@@ -25,8 +25,8 @@ class AttributeGroupCodeTest extends TestCase
 
         $valueObject = new AttributeGroupCode($value);
 
-        $this->assertSame($check, $valueObject->getValue());
-        $this->assertSame($check, (string) $valueObject);
+        self::assertSame($check, $valueObject->getValue());
+        self::assertSame($check, (string) $valueObject);
     }
 
     /**

@@ -24,9 +24,9 @@ class ProductHasStatusConditionTest extends TestCase
         $value = ['some value'];
         $condition = new ProductHasStatusCondition($operator, $value);
 
-        $this->assertSame($operator, $condition->getOperator());
-        $this->assertSame($value, $condition->getValue());
-        $this->assertSame('PRODUCT_HAS_STATUS_CONDITION', $condition->getType());
+        self::assertSame($operator, $condition->getOperator());
+        self::assertSame($value, $condition->getValue());
+        self::assertSame('PRODUCT_HAS_STATUS_CONDITION', $condition->getType());
     }
 
     /**
@@ -34,7 +34,7 @@ class ProductHasStatusConditionTest extends TestCase
     public function testGetSupportedOperators()
     {
         $operators = ProductHasStatusCondition::getSupportedOperators();
-        $this->assertIsArray($operators);
-        $this->assertTrue(count($operators) >= 2);
+        self::assertIsArray($operators);
+        self::assertTrue(count($operators) >= 2);
     }
 }

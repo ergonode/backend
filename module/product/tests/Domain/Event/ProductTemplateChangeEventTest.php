@@ -25,7 +25,7 @@ class ProductTemplateChangeEventTest extends TestCase
         $id = $this->createMock(ProductId::class);
         $templateId = $this->createMock(TemplateId::class);
         $event = new ProductTemplateChangedEvent($id, $templateId);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($templateId, $event->getTemplateId());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($templateId, $event->getTemplateId());
     }
 }

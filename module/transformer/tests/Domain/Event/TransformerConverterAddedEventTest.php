@@ -29,8 +29,8 @@ class TransformerConverterAddedEventTest extends TestCase
         $filed = 'Any Field name';
 
         $result = new TransformerFieldAddedEvent($id, $filed, $converter);
-        $this->assertEquals($id, $result->getAggregateId());
-        $this->assertEquals($filed, $result->getField());
-        $this->assertEquals($converter, $result->getConverter());
+        self::assertEquals($id, $result->getAggregateId());
+        self::assertEquals($filed, $result->getField());
+        self::assertEquals($converter, $result->getConverter());
     }
 }

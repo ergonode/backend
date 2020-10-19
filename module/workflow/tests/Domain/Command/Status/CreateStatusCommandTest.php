@@ -33,10 +33,10 @@ class CreateStatusCommandTest extends TestCase
         $description = $this->createMock(TranslatableString::class);
 
         $command = new CreateStatusCommand($code, $color, $name, $description);
-        $this->assertSame($code, $command->getCode());
-        $this->assertSame($color, $command->getColor());
-        $this->assertSame($name, $command->getName());
-        $this->assertSame($description, $command->getDescription());
-        $this->assertNotNull($command->getId());
+        self::assertSame($code, $command->getCode());
+        self::assertSame($color, $command->getColor());
+        self::assertSame($name, $command->getName());
+        self::assertSame($description, $command->getDescription());
+        self::assertNotNull($command->getId());
     }
 }

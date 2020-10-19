@@ -31,8 +31,8 @@ class ValueAddedEventTest extends TestCase
         $value = $this->createMock(ValueInterface::class);
 
         $event = new ValueAddedEvent($id, $code, $value);
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($code, $event->getAttributeCode());
-        $this->assertSame($value, $event->getValue());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($code, $event->getAttributeCode());
+        self::assertSame($value, $event->getValue());
     }
 }

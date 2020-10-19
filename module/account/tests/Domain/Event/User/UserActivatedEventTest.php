@@ -27,6 +27,6 @@ class UserActivatedEventTest extends TestCase
 
         $event = new UserActivatedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

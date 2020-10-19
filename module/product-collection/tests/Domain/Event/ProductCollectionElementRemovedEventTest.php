@@ -33,8 +33,8 @@ class ProductCollectionElementRemovedEventTest extends TestCase
 
         $event = new ProductCollectionElementRemovedEvent($id, $productId, $dateTime);
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($productId, $event->getProductId());
-        $this->assertEquals($dateTime, $event->getCollectionEditedAt());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($productId, $event->getProductId());
+        self::assertEquals($dateTime, $event->getCollectionEditedAt());
     }
 }

@@ -27,7 +27,7 @@ class AttributeExistsConditionTest extends TestCase
 
         $condition = new AttributeExistsCondition($attributeId);
 
-        $this->assertSame($attributeId, $condition->getAttribute());
-        $this->assertSame(AttributeExistsCondition::TYPE, $condition->getType());
+        self::assertSame($attributeId, $condition->getAttribute());
+        self::assertSame(AttributeExistsCondition::TYPE, $condition->getType());
     }
 }

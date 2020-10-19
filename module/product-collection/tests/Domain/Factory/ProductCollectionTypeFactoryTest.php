@@ -33,8 +33,8 @@ class ProductCollectionTypeFactoryTest extends TestCase
         $factory = new ProductCollectionTypeFactory();
         $entity = $factory->create($id, $code, $name);
 
-        $this->assertEquals($id, $entity->getId());
-        $this->assertEquals($code, $entity->getCode());
-        $this->assertEquals($name, $entity->getName());
+        self::assertEquals($id, $entity->getId());
+        self::assertEquals($code, $entity->getCode());
+        self::assertEquals($name, $entity->getName());
     }
 }

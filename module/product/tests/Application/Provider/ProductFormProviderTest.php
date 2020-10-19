@@ -26,7 +26,7 @@ class ProductFormProviderTest extends TestCase
         $form->method('supported')->willReturn(true);
 
         $provider = new ProductFormProvider($form);
-        $this->assertSame(get_class($form), $provider->provide('type'));
+        self::assertSame(get_class($form), $provider->provide('type'));
     }
 
     /**

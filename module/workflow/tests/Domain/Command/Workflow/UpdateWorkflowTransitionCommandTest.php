@@ -49,10 +49,10 @@ class UpdateWorkflowTransitionCommandTest extends TestCase
             $conditionSetId
         );
 
-        $this->assertSame($workflowId, $command->getWorkflowId());
-        $this->assertSame($source, $command->getSource());
-        $this->assertSame($destination, $command->getDestination());
-        $this->assertSame($roleIds, $command->getRoleIds());
-        $this->assertSame($conditionSetId, $command->getConditionSetId());
+        self::assertSame($workflowId, $command->getWorkflowId());
+        self::assertSame($source, $command->getSource());
+        self::assertSame($destination, $command->getDestination());
+        self::assertSame($roleIds, $command->getRoleIds());
+        self::assertSame($conditionSetId, $command->getConditionSetId());
     }
 }

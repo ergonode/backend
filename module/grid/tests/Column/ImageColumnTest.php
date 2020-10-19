@@ -20,8 +20,8 @@ class ImageColumnTest extends TestCase
         $field = 'Any id';
 
         $column = new ImageColumn($field);
-        $this->assertSame($field, $column->getField());
-        $this->assertNull($column->getLabel());
-        $this->assertSame(ImageColumn::TYPE, $column->getType());
+        self::assertSame($field, $column->getField());
+        self::assertNull($column->getLabel());
+        self::assertSame(ImageColumn::TYPE, $column->getType());
     }
 }

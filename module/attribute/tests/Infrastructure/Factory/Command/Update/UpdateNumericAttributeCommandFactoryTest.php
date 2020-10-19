@@ -25,8 +25,8 @@ class UpdateNumericAttributeCommandFactoryTest extends AbstractUpdateAttributeCo
     public function testSupported(): void
     {
         $commandFactory = new UpdateNumericAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(NumericAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(NumericAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -43,6 +43,6 @@ class UpdateNumericAttributeCommandFactoryTest extends AbstractUpdateAttributeCo
         /** @var UpdateNumericAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
+        self::assertAttributeFormModel($id, $data, $result);
     }
 }

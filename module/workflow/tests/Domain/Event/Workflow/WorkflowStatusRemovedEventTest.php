@@ -31,7 +31,7 @@ class WorkflowStatusRemovedEventTest extends TestCase
 
         $event = new WorkflowStatusRemovedEvent($id, $statusId);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($statusId, $event->getStatusId());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($statusId, $event->getStatusId());
     }
 }

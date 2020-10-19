@@ -25,8 +25,8 @@ class UpdateSelectAttributeCommandFactoryTest extends AbstractUpdateAttributeCom
     public function testSupported(): void
     {
         $commandFactory = new UpdateSelectAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(SelectAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(SelectAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -43,6 +43,6 @@ class UpdateSelectAttributeCommandFactoryTest extends AbstractUpdateAttributeCom
         /** @var UpdateSelectAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
+        self::assertAttributeFormModel($id, $data, $result);
     }
 }

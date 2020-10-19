@@ -40,7 +40,7 @@ class DateAttributeColumnStrategyTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new DateAttributeColumnStrategy();
-        $this->assertTrue($strategy->supports($this->attribute));
+        self::assertTrue($strategy->supports($this->attribute));
     }
 
     /**
@@ -48,7 +48,7 @@ class DateAttributeColumnStrategyTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new DateAttributeColumnStrategy();
-        $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
@@ -58,7 +58,7 @@ class DateAttributeColumnStrategyTest extends TestCase
         $language = $this->createMock(Language::class);
         $strategy = new DateAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
-        $this->assertInstanceOf(DateColumn::class, $column);
-        $this->assertInstanceOf(DateFilter::class, $column->getFilter());
+        self::assertInstanceOf(DateColumn::class, $column);
+        self::assertInstanceOf(DateFilter::class, $column->getFilter());
     }
 }

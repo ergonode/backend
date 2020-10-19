@@ -38,10 +38,10 @@ class NotificationSenderTest extends TestCase
         $notification = $this->createMock(NotificationInterface::class);
         /** @var NotificationStrategyInterface|MockObject $strategy1 */
         $strategy1 = $this->createMock(NotificationStrategyInterface::class);
-        $strategy1->expects($this->once())->method('send');
+        $strategy1->expects(self::once())->method('send');
         /** @var NotificationStrategyInterface|MockObject $strategy2 */
         $strategy2 = $this->createMock(NotificationStrategyInterface::class);
-        $strategy2->expects($this->once())->method('send');
+        $strategy2->expects(self::once())->method('send');
 
         $sender = new NotificationSender($strategy1, $strategy2);
         $sender->send($notification, $recipients);

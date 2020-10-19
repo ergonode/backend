@@ -58,8 +58,8 @@ class TemplateElementFactoryTest extends TestCase
         $factory = new TemplateElementFactory($this->resolver, $this->serializer);
         $element = $factory->create($position, $size, $type);
 
-        $this->assertEquals($position, $element->getPosition());
-        $this->assertEquals($type, $element->getType());
-        $this->assertNotEmpty($element->getProperties());
+        self::assertEquals($position, $element->getPosition());
+        self::assertEquals($type, $element->getType());
+        self::assertNotEmpty($element->getProperties());
     }
 }

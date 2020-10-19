@@ -25,8 +25,8 @@ class CreateUnitCommandTest extends TestCase
         $symbol = 'symbol';
         $command = new CreateUnitCommand($name, $symbol);
 
-        $this->assertEquals($symbol, $command->getSymbol());
-        $this->assertEquals($name, $command->getName());
-        $this->assertTrue(Uuid::isValid($command->getId()->getValue()));
+        self::assertEquals($symbol, $command->getSymbol());
+        self::assertEquals($name, $command->getName());
+        self::assertTrue(Uuid::isValid($command->getId()->getValue()));
     }
 }

@@ -53,7 +53,7 @@ class LanguageCodeActiveValidatorTest extends ConstraintValidatorTestCase
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new LanguageCodeActive());
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -63,7 +63,7 @@ class LanguageCodeActiveValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('getDictionaryActive')->willReturn(['en_GB']);
         $this->validator->validate('en_GB', new LanguageCodeActive());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

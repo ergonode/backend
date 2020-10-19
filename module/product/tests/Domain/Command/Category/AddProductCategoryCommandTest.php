@@ -29,7 +29,7 @@ class AddProductCategoryCommandTest extends TestCase
         $categoryId = $this->createMock(CategoryId::class);
 
         $command = new AddProductCategoryCommand($productId, $categoryId);
-        $this->assertSame($productId, $command->getId());
-        $this->assertSame($categoryId, $command->getCategoryId());
+        self::assertSame($productId, $command->getId());
+        self::assertSame($categoryId, $command->getCategoryId());
     }
 }

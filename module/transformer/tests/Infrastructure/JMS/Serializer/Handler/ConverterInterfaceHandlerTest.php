@@ -58,10 +58,10 @@ class ConverterInterfaceHandlerTest extends TestCase
     {
         $configurations = ConverterInterfaceHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -74,8 +74,8 @@ class ConverterInterfaceHandlerTest extends TestCase
         /** @var ConverterInterface $result */
         $result = $this->serializer->deserialize($testValue, ConverterInterface::class, 'json');
 
-        $this->assertInstanceOf(TextConverter::class, $result);
-        $this->assertEquals(TextConverter::TYPE, $result->getType());
+        self::assertInstanceOf(TextConverter::class, $result);
+        self::assertEquals(TextConverter::TYPE, $result->getType());
     }
 
     /**
@@ -87,8 +87,8 @@ class ConverterInterfaceHandlerTest extends TestCase
         /** @var ConverterInterface $result */
         $result = $this->serializer->deserialize($testValue, ConverterInterface::class, 'json');
 
-        $this->assertInstanceOf(SlugConverter::class, $result);
-        $this->assertEquals(SlugConverter::TYPE, $result->getType());
+        self::assertInstanceOf(SlugConverter::class, $result);
+        self::assertEquals(SlugConverter::TYPE, $result->getType());
     }
 
     /**
@@ -100,8 +100,8 @@ class ConverterInterfaceHandlerTest extends TestCase
         /** @var ConverterInterface $result */
         $result = $this->serializer->deserialize($testValue, ConverterInterface::class, 'json');
 
-        $this->assertInstanceOf(JoinConverter::class, $result);
-        $this->assertEquals(JoinConverter::TYPE, $result->getType());
+        self::assertInstanceOf(JoinConverter::class, $result);
+        self::assertEquals(JoinConverter::TYPE, $result->getType());
     }
 
     /**
@@ -113,8 +113,8 @@ class ConverterInterfaceHandlerTest extends TestCase
         /** @var ConverterInterface $result */
         $result = $this->serializer->deserialize($testValue, ConverterInterface::class, 'json');
 
-        $this->assertInstanceOf(DateConverter::class, $result);
-        $this->assertEquals(DateConverter::TYPE, $result->getType());
+        self::assertInstanceOf(DateConverter::class, $result);
+        self::assertEquals(DateConverter::TYPE, $result->getType());
     }
 
     /**
@@ -126,8 +126,8 @@ class ConverterInterfaceHandlerTest extends TestCase
         /** @var ConverterInterface $result */
         $result = $this->serializer->deserialize($testValue, ConverterInterface::class, 'json');
 
-        $this->assertInstanceOf(ConstConverter::class, $result);
-        $this->assertEquals(ConstConverter::TYPE, $result->getType());
+        self::assertInstanceOf(ConstConverter::class, $result);
+        self::assertEquals(ConstConverter::TYPE, $result->getType());
     }
 
     /**
@@ -139,7 +139,7 @@ class ConverterInterfaceHandlerTest extends TestCase
         /** @var ConverterInterface $result */
         $result = $this->serializer->deserialize($testValue, ConverterInterface::class, 'json');
 
-        $this->assertInstanceOf(MappingConverter::class, $result);
-        $this->assertEquals(MappingConverter::TYPE, $result->getType());
+        self::assertInstanceOf(MappingConverter::class, $result);
+        self::assertEquals(MappingConverter::TYPE, $result->getType());
     }
 }

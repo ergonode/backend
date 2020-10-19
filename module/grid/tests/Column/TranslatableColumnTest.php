@@ -23,10 +23,10 @@ class TranslatableColumnTest extends TestCase
         $domain = 'Any domain';
 
         $column = new TranslatableColumn($field, $label, $parameters, $domain);
-        $this->assertSame($field, $column->getField());
-        $this->assertSame($label, $column->getLabel());
-        $this->assertSame($parameters, $column->getParameters());
-        $this->assertSame($domain, $column->getDomain());
-        $this->assertSame(TranslatableColumn::TYPE, $column->getType());
+        self::assertSame($field, $column->getField());
+        self::assertSame($label, $column->getLabel());
+        self::assertSame($parameters, $column->getParameters());
+        self::assertSame($domain, $column->getDomain());
+        self::assertSame(TranslatableColumn::TYPE, $column->getType());
     }
 }

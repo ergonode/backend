@@ -24,8 +24,8 @@ class CreateMultiSelectAttributeCommandFactoryTest extends AbstractCreateAttribu
     public function testSupported(): void
     {
         $commandFactory = new CreateMultiSelectAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(MultiSelectAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(MultiSelectAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -41,6 +41,6 @@ class CreateMultiSelectAttributeCommandFactoryTest extends AbstractCreateAttribu
         /** @var CreateMultiSelectAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
+        self::assertAttributeFormModel($data, $result);
     }
 }

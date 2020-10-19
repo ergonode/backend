@@ -27,8 +27,8 @@ class UpdateTextareaAttributeCommandFactoryTest extends AbstractUpdateAttributeC
     public function testSupported(): void
     {
         $commandFactory = new UpdateTextareaAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(TextareaAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(TextareaAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -48,7 +48,7 @@ class UpdateTextareaAttributeCommandFactoryTest extends AbstractUpdateAttributeC
         /** @var UpdateTextareaAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
-        $this->assertTrue($result->isRichEdit());
+        self::assertAttributeFormModel($id, $data, $result);
+        self::assertTrue($result->isRichEdit());
     }
 }

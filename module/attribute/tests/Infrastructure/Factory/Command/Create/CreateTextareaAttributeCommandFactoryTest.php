@@ -24,8 +24,8 @@ class CreateTextareaAttributeCommandFactoryTest extends AbstractCreateAttributeC
     public function testSupported(): void
     {
         $commandFactory = new CreateTextareaAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(TextareaAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(TextareaAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -44,7 +44,7 @@ class CreateTextareaAttributeCommandFactoryTest extends AbstractCreateAttributeC
         /** @var CreateTextareaAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
-        $this->assertTrue($result->richEdit());
+        self::assertAttributeFormModel($data, $result);
+        self::assertTrue($result->richEdit());
     }
 }

@@ -23,7 +23,7 @@ class CreateTreeCommandHandlerTest extends TestCase
     public function testHandling(): void
     {
         $repository = $this->createMock(TreeRepositoryInterface::class);
-        $repository->expects($this->once())->method('save');
+        $repository->expects(self::once())->method('save');
 
         $command = $this->createMock(CreateTreeCommand::class);
         $handler = new CreateTreeCommandHandler($repository);

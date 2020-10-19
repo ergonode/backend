@@ -29,6 +29,6 @@ class TreeGridTest extends TestCase
         $grid = new TreeGrid();
         $grid->init($configuration, $language);
 
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

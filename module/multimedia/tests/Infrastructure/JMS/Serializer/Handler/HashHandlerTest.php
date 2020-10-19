@@ -55,10 +55,10 @@ class HashHandlerTest extends TestCase
     {
         $configurations = HashHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -71,7 +71,7 @@ class HashHandlerTest extends TestCase
         $value->method('getValue')->willReturn($testValue);
         $result = $this->handler->serialize($this->serializationVisitor, $value, [], $this->context);
 
-        $this->assertEquals($testValue, $result);
+        self::assertEquals($testValue, $result);
     }
 
     /**
@@ -81,6 +81,6 @@ class HashHandlerTest extends TestCase
         $testValue = 'abcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh';
         $result = $this->handler->deserialize($this->deserializationVisitor, $testValue, [], $this->context);
 
-        $this->assertEquals($testValue, $result->getValue());
+        self::assertEquals($testValue, $result->getValue());
     }
 }

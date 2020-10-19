@@ -25,6 +25,6 @@ class UpdateLanguageCommandTest extends TestCase
 
         $command = new UpdateLanguageCommand($languages);
 
-        $this->assertSame($languages, $command->getLanguages());
+        self::assertSame($languages, $command->getLanguages());
     }
 }

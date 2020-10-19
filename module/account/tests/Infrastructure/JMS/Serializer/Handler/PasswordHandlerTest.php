@@ -60,10 +60,10 @@ class PasswordHandlerTest extends TestCase
     {
         $configurations = PasswordHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -76,7 +76,7 @@ class PasswordHandlerTest extends TestCase
         $code->method('getValue')->willReturn(self::DECODED);
         $result = $this->handler->serialize($this->serializerVisitor, $code, [], $this->context);
 
-        $this->assertEquals(self::ENCODED, $result);
+        self::assertEquals(self::ENCODED, $result);
     }
 
     /**
@@ -85,7 +85,7 @@ class PasswordHandlerTest extends TestCase
     {
         $result = $this->handler->deserialize($this->deserializerVisitor, self::ENCODED, [], $this->context);
 
-        $this->assertInstanceOf(Password::class, $result);
-        $this->assertEquals(self::DECODED, $result->getValue());
+        self::assertInstanceOf(Password::class, $result);
+        self::assertEquals(self::DECODED, $result->getValue());
     }
 }

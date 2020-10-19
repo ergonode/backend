@@ -33,11 +33,11 @@ class EditedBySystemAttributeTest extends TestCase
 
         $entity = new EditedBySystemAttribute($label, $hint, $placeholder);
 
-        $this->assertSame(EditedBySystemAttribute::TYPE, $entity->getType());
-        $this->assertTrue($entity->isSystem());
-        $this->assertFalse($entity->isEditable());
-        $this->assertSame($label, $entity->getLabel());
-        $this->assertSame($hint, $entity->getHint());
-        $this->assertSame($placeholder, $entity->getPlaceholder());
+        self::assertSame(EditedBySystemAttribute::TYPE, $entity->getType());
+        self::assertTrue($entity->isSystem());
+        self::assertFalse($entity->isEditable());
+        self::assertSame($label, $entity->getLabel());
+        self::assertSame($hint, $entity->getHint());
+        self::assertSame($placeholder, $entity->getPlaceholder());
     }
 }

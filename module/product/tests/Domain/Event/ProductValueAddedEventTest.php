@@ -32,8 +32,8 @@ class ProductValueAddedEventTest extends TestCase
         /** @var ValueInterface|MockObject $value */
         $value = $this->createMock(ValueInterface::class);
         $event = new ProductValueAddedEvent($id, $code, $value);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($code, $event->getAttributeCode());
-        $this->assertEquals($value, $event->getValue());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($code, $event->getAttributeCode());
+        self::assertEquals($value, $event->getValue());
     }
 }

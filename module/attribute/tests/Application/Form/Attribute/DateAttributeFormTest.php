@@ -45,8 +45,8 @@ class DateAttributeFormTest extends TypeTestCase
     public function testSupport(): void
     {
         $form = new DateAttributeForm();
-        $this->assertTrue($form->supported(DateAttribute::TYPE));
-        $this->assertFalse($form->supported('unsupported type'));
+        self::assertTrue($form->supported(DateAttribute::TYPE));
+        self::assertFalse($form->supported('unsupported type'));
     }
 
     /**
@@ -74,15 +74,15 @@ class DateAttributeFormTest extends TypeTestCase
         $form = $this->factory->create(DateAttributeForm::class, $objectToCompare);
         $form->submit($formData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertTrue($form->isValid());
-        $this->assertEquals($object, $objectToCompare);
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isValid());
+        self::assertEquals($object, $objectToCompare);
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($formData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 

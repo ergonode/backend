@@ -62,7 +62,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn(Multimedia::class);
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
-        $this->assertTrue($paramConverter->supports($this->configuration));
+        self::assertTrue($paramConverter->supports($this->configuration));
     }
 
     /**
@@ -73,7 +73,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn('Any other class namespace');
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
-        $this->assertFalse($paramConverter->supports($this->configuration));
+        self::assertFalse($paramConverter->supports($this->configuration));
     }
 
     /**
@@ -129,7 +129,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
         $this->repository->method('load')->willReturn($this->createMock(Multimedia::class));
         $this->request->attributes = $this->createMock(ParameterBag::class);
-        $this->request->attributes->expects($this->once())->method('set');
+        $this->request->attributes->expects(self::once())->method('set');
         $this->storage->method('has')->willReturn(true);
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);

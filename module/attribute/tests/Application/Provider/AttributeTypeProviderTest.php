@@ -20,7 +20,7 @@ class AttributeTypeProviderTest extends TestCase
     public function testEmptyType(): void
     {
         $provider = new AttributeTypeProvider();
-        $this->assertEmpty($provider->provide());
+        self::assertEmpty($provider->provide());
     }
 
     /**
@@ -29,6 +29,6 @@ class AttributeTypeProviderTest extends TestCase
     {
         $types = ['type 1', 'type 2'];
         $provider = new AttributeTypeProvider(...$types);
-        $this->assertSame($types, $provider->provide());
+        self::assertSame($types, $provider->provide());
     }
 }

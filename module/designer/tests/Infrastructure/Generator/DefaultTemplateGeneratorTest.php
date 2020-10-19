@@ -28,7 +28,7 @@ class DefaultTemplateGeneratorTest extends TestCase
 
         $generator = new DefaultTemplateGenerator();
         $result = $generator->getTemplate($templateId, $groupId);
-        $this->assertEquals($templateId, $result->getId());
-        $this->assertEquals($groupId, $result->getGroupId());
+        self::assertEquals($templateId, $result->getId());
+        self::assertEquals($groupId, $result->getGroupId());
     }
 }

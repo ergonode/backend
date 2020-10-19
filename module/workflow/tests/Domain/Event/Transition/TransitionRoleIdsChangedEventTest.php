@@ -35,8 +35,8 @@ class TransitionRoleIdsChangedEventTest extends TestCase
 
         $event = new TransitionRoleIdsChangedEvent($id, $transitionId, $roleIds);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($transitionId, $event->getTransitionId());
-        $this->assertSame($roleIds, $event->getRoleIds());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($transitionId, $event->getTransitionId());
+        self::assertSame($roleIds, $event->getRoleIds());
     }
 }

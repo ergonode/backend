@@ -28,9 +28,9 @@ class NumericAttributeValueConditionTest extends TestCase
         $value = 1.2;
 
         $condition = new NumericAttributeValueCondition($attributeId, $operator, $value);
-        $this->assertSame($attributeId, $condition->getAttribute());
-        $this->assertSame($operator, $condition->getOption());
-        $this->assertSame($value, $condition->getValue());
-        $this->assertSame(NumericAttributeValueCondition::TYPE, $condition->getType());
+        self::assertSame($attributeId, $condition->getAttribute());
+        self::assertSame($operator, $condition->getOption());
+        self::assertSame($value, $condition->getValue());
+        self::assertSame(NumericAttributeValueCondition::TYPE, $condition->getType());
     }
 }

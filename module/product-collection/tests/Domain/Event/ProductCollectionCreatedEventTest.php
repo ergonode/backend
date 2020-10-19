@@ -46,11 +46,11 @@ class ProductCollectionCreatedEventTest extends TestCase
             $typeId,
             $dateTime
         );
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($code, $event->getCode());
-        $this->assertEquals($name, $event->getName());
-        $this->assertEquals($description, $event->getDescription());
-        $this->assertEquals($typeId, $event->getTypeId());
-        $this->assertEquals($dateTime, $event->getCreatedAt());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($code, $event->getCode());
+        self::assertEquals($name, $event->getName());
+        self::assertEquals($description, $event->getDescription());
+        self::assertEquals($typeId, $event->getTypeId());
+        self::assertEquals($dateTime, $event->getCreatedAt());
     }
 }

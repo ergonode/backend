@@ -31,6 +31,6 @@ class CategoryGridTest extends TestCase
         $grid = new CategoryGrid();
         $grid->init($configuration, $language);
 
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

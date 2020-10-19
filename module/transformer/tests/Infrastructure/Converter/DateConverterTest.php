@@ -21,7 +21,7 @@ class DateConverterTest extends TestCase
         $field = 'Any field name';
         $format = 'Y-m-d';
         $converter = new DateConverter($field, $format);
-        $this->assertSame($field, $converter->getField());
-        $this->assertSame($format, $converter->getFormat());
+        self::assertSame($field, $converter->getField());
+        self::assertSame($format, $converter->getFormat());
     }
 }

@@ -57,7 +57,7 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new AttributeExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -67,7 +67,7 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->repository->method('load')->willReturn($this->createMock(AbstractAttribute::class));
         $this->validator->validate(AttributeId::generate(), new AttributeExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

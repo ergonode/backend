@@ -31,7 +31,7 @@ class AddProductChildrenBySegmentsCommandTest extends TestCase
         $segmentId = $this->createMock(SegmentId::class);
 
         $command = new AddProductChildrenBySegmentsCommand($product, [$segmentId]);
-        $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame([$segmentId], $command->getSegments());
+        self::assertSame($product->getId(), $command->getId());
+        self::assertSame([$segmentId], $command->getSegments());
     }
 }

@@ -29,8 +29,8 @@ class SegmentDescriptionChangedEventTest extends TestCase
         $to = $this->createMock(TranslatableString::class);
 
         $event = new SegmentDescriptionChangedEvent($id, $from, $to);
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($from, $event->getFrom());
+        self::assertSame($to, $event->getTo());
     }
 }

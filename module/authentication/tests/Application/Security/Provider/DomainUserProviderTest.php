@@ -48,7 +48,7 @@ class DomainUserProviderTest extends TestCase
 
         $result = $this->provider->loadUserByUsername((string) Uuid::uuid4());
 
-        $this->assertSame($user, $result);
+        self::assertSame($user, $result);
     }
 
     /**

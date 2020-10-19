@@ -24,8 +24,8 @@ class ProductCollectionTypeCodeTest extends TestCase
     public function testCreationValidCode(string $code): void
     {
         $result = new ProductCollectionTypeCode($code);
-        $this->assertSame($code, $result->getValue());
-        $this->assertSame($code, (string) $result);
+        self::assertSame($code, $result->getValue());
+        self::assertSame($code, (string) $result);
     }
 
     /**

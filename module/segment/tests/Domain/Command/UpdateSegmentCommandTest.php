@@ -35,9 +35,9 @@ class UpdateSegmentCommandTest extends TestCase
         $conditionSetId = $this->createMock(ConditionSetId::class);
 
         $command = new UpdateSegmentCommand($id, $name, $description, $conditionSetId);
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($name, $command->getName());
-        $this->assertEquals($description, $command->getDescription());
-        $this->assertEquals($conditionSetId, $command->getConditionSetId());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($name, $command->getName());
+        self::assertEquals($description, $command->getDescription());
+        self::assertEquals($conditionSetId, $command->getConditionSetId());
     }
 }

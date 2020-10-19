@@ -34,8 +34,8 @@ class WorkflowTransitionRemovedEventTest extends TestCase
 
         $event = new WorkflowTransitionRemovedEvent($id, $source, $destination);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($source, $event->getSource());
-        $this->assertSame($destination, $event->getDestination());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($source, $event->getSource());
+        self::assertSame($destination, $event->getDestination());
     }
 }

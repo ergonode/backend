@@ -41,11 +41,11 @@ class SegmentCreatedEventTest extends TestCase
 
         $event = new SegmentCreatedEvent($id, $code, $name, $description, $status, $conditionSetId);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($code, $event->getCode());
-        $this->assertSame($name, $event->getName());
-        $this->assertSame($description, $event->getDescription());
-        $this->assertSame($conditionSetId, $event->getConditionSetId());
-        $this->assertSame($status, $event->getStatus());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($code, $event->getCode());
+        self::assertSame($name, $event->getName());
+        self::assertSame($description, $event->getDescription());
+        self::assertSame($conditionSetId, $event->getConditionSetId());
+        self::assertSame($status, $event->getStatus());
     }
 }

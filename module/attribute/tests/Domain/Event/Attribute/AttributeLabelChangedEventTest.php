@@ -28,9 +28,9 @@ class AttributeLabelChangedEventTest extends TestCase
     public function testCreateEvent(AttributeId $id, TranslatableString $from, TranslatableString $to): void
     {
         $event = new AttributeLabelChangedEvent($id, $from, $to);
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($from, $event->getFrom());
+        self::assertSame($to, $event->getTo());
     }
 
     /**

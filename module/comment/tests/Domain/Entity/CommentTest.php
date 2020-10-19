@@ -55,12 +55,12 @@ class CommentTest extends TestCase
     public function testCommentCreation(): void
     {
         $comment = new Comment($this->id, $this->uuid, $this->userId, $this->content);
-        $this->assertSame($this->id, $comment->getId());
-        $this->assertSame($this->userId, $comment->getAuthorId());
-        $this->assertSame($this->uuid, $comment->getObjectId());
-        $this->assertSame($this->content, $comment->getContent());
-        $this->assertEmpty($comment->getEditedAt());
-        $this->assertNotEmpty($comment->getCreatedAt());
+        self::assertSame($this->id, $comment->getId());
+        self::assertSame($this->userId, $comment->getAuthorId());
+        self::assertSame($this->uuid, $comment->getObjectId());
+        self::assertSame($this->content, $comment->getContent());
+        self::assertEmpty($comment->getEditedAt());
+        self::assertNotEmpty($comment->getCreatedAt());
     }
 
     /**
@@ -71,7 +71,7 @@ class CommentTest extends TestCase
         $newContent = 'new Content';
         $comment = new Comment($this->id, $this->uuid, $this->userId, $this->content);
         $comment->changeContent($newContent);
-        $this->assertSame($newContent, $comment->getContent());
-        $this->assertNotEmpty($comment->getEditedAt());
+        self::assertSame($newContent, $comment->getContent());
+        self::assertNotEmpty($comment->getEditedAt());
     }
 }

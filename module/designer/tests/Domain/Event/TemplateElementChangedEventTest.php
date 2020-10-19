@@ -32,7 +32,7 @@ class TemplateElementChangedEventTest extends TestCase
 
         $event = new TemplateElementChangedEvent($id, $element);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($element, $event->getElement());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($element, $event->getElement());
     }
 }

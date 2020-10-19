@@ -34,7 +34,7 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new DeeplLanguageConstraint());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -43,7 +43,7 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('EN', new DeeplLanguageConstraint());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

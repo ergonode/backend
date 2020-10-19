@@ -38,7 +38,7 @@ class PrivilegeDataTransformerTest extends TestCase
      */
     public function testTransform(?Privilege $privilegeValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($privilegeValueObject));
+        self::assertSame($string, $this->transformer->transform($privilegeValueObject));
     }
 
     /**
@@ -61,7 +61,7 @@ class PrivilegeDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?Privilege $privilegeValueObject, ?string $string): void
     {
-        $this->assertEquals($privilegeValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($privilegeValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**

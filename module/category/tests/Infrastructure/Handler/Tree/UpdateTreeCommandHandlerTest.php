@@ -43,9 +43,9 @@ class UpdateTreeCommandHandlerTest extends TestCase
     public function testHandlingExistsTree(): void
     {
         $tree = $this->createMock(CategoryTree::class);
-        $tree->expects($this->once())->method('changeName');
-        $this->repository->expects($this->once())->method('load')->willReturn($tree);
-        $this->repository->expects($this->once())->method('save');
+        $tree->expects(self::once())->method('changeName');
+        $this->repository->expects(self::once())->method('load')->willReturn($tree);
+        $this->repository->expects(self::once())->method('save');
 
         $handler = new UpdateTreeCommandHandler($this->repository);
         $handler->__invoke($this->command);
@@ -56,8 +56,8 @@ class UpdateTreeCommandHandlerTest extends TestCase
     public function testHandlingNotExistsTree(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->repository->expects($this->once())->method('load')->willReturn(null);
-        $this->repository->expects($this->never())->method('save');
+        $this->repository->expects(self::once())->method('load')->willReturn(null);
+        $this->repository->expects(self::never())->method('save');
         $handler = new UpdateTreeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }

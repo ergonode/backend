@@ -49,8 +49,8 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->strategy->supports('PRODUCT_HAS_STATUS_CONDITION'));
-        $this->assertFalse($this->strategy->supports('PRODUCT'));
+        self::assertTrue($this->strategy->supports('PRODUCT_HAS_STATUS_CONDITION'));
+        self::assertFalse($this->strategy->supports('PRODUCT'));
     }
 
     /**
@@ -82,7 +82,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
 
         $condition = $this->createProductHasStatusConditionMock($operator, $searchedStatusIds);
         $result = $this->strategy->calculate($product, $condition);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**

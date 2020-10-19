@@ -60,10 +60,10 @@ class TemplateTest extends TestCase
     {
         $template = $this->getTemplate();
 
-        $this->assertEquals($this->id, $template->getId());
-        $this->assertEquals($this->groupId, $template->getGroupId());
-        $this->assertEquals($this->name, $template->getName());
-        $this->assertNull($template->getImageId());
+        self::assertEquals($this->id, $template->getId());
+        self::assertEquals($this->groupId, $template->getGroupId());
+        self::assertEquals($this->name, $template->getName());
+        self::assertNull($template->getImageId());
     }
 
     /**
@@ -73,11 +73,11 @@ class TemplateTest extends TestCase
         $template = $this->getTemplate();
 
         $template->addElement($this->element);
-        $this->assertTrue($template->hasElement($this->element->getPosition()));
-        $this->assertEquals($template->getElement($this->element->getPosition()), $this->element);
-        $this->assertEquals($template->getElements()->toArray(), [$this->element]);
+        self::assertTrue($template->hasElement($this->element->getPosition()));
+        self::assertEquals($template->getElement($this->element->getPosition()), $this->element);
+        self::assertEquals($template->getElements()->toArray(), [$this->element]);
         $template->removeElement($this->element->getPosition());
-        $this->assertFalse($template->hasElement($this->element->getPosition()));
+        self::assertFalse($template->hasElement($this->element->getPosition()));
     }
 
     /**
@@ -113,8 +113,8 @@ class TemplateTest extends TestCase
         $template = $this->getTemplate();
         $template->changeGroup($groupId);
         $template->changeName($name);
-        $this->assertSame($groupId, $template->getGroupId());
-        $this->assertSame($name, $template->getName());
+        self::assertSame($groupId, $template->getGroupId());
+        self::assertSame($name, $template->getName());
     }
 
     /**
@@ -129,13 +129,13 @@ class TemplateTest extends TestCase
         $imageId2->method('isEqual')->willReturn(false);
 
         $template = $this->getTemplate();
-        $this->assertNull($template->getImageId());
+        self::assertNull($template->getImageId());
         $template->addImage($imageId1);
-        $this->assertEquals($imageId1, $template->getImageId());
+        self::assertEquals($imageId1, $template->getImageId());
         $template->changeImage($imageId2);
-        $this->assertEquals($imageId2, $template->getImageId());
+        self::assertEquals($imageId2, $template->getImageId());
         $template->removeImage();
-        $this->assertNull($template->getImageId());
+        self::assertNull($template->getImageId());
     }
 
     /**
@@ -147,9 +147,9 @@ class TemplateTest extends TestCase
         $image = $this->createMock(MultimediaId::class);
 
         $template->addImage($image);
-        $this->assertEquals($template->getImageId(), $image);
+        self::assertEquals($template->getImageId(), $image);
         $template->removeImage();
-        $this->assertEquals(null, $template->getImageId());
+        self::assertEquals(null, $template->getImageId());
     }
 
     /**
@@ -174,13 +174,13 @@ class TemplateTest extends TestCase
         $defaultText2->method('isEqual')->willReturn(false);
 
         $template = $this->getTemplate();
-        $this->assertNull($template->getDefaultLabel());
+        self::assertNull($template->getDefaultLabel());
         $template->addDefaultLabel($defaultText1);
-        $this->assertEquals($defaultText1, $template->getDefaultLabel());
+        self::assertEquals($defaultText1, $template->getDefaultLabel());
         $template->changeDefaultLabel($defaultText2);
-        $this->assertEquals($defaultText2, $template->getDefaultLabel());
+        self::assertEquals($defaultText2, $template->getDefaultLabel());
         $template->removeDefaultLabel();
-        $this->assertNull($template->getDefaultLabel());
+        self::assertNull($template->getDefaultLabel());
     }
 
     /**
@@ -192,9 +192,9 @@ class TemplateTest extends TestCase
         $defaultText = $this->createMock(AttributeId::class);
 
         $template->addDefaultLabel($defaultText);
-        $this->assertEquals($template->getDefaultLabel(), $defaultText);
+        self::assertEquals($template->getDefaultLabel(), $defaultText);
         $template->removeDefaultLabel();
-        $this->assertEquals(null, $template->getDefaultLabel());
+        self::assertEquals(null, $template->getDefaultLabel());
     }
 
     /**
@@ -219,13 +219,13 @@ class TemplateTest extends TestCase
         $defaultImage2->method('isEqual')->willReturn(false);
 
         $template = $this->getTemplate();
-        $this->assertNull($template->getDefaultImage());
+        self::assertNull($template->getDefaultImage());
         $template->addDefaultImage($defaultImage1);
-        $this->assertEquals($defaultImage1, $template->getDefaultImage());
+        self::assertEquals($defaultImage1, $template->getDefaultImage());
         $template->changeDefaultImage($defaultImage2);
-        $this->assertEquals($defaultImage2, $template->getDefaultImage());
+        self::assertEquals($defaultImage2, $template->getDefaultImage());
         $template->removeDefaultImage();
-        $this->assertNull($template->getDefaultImage());
+        self::assertNull($template->getDefaultImage());
     }
 
     /**
@@ -237,9 +237,9 @@ class TemplateTest extends TestCase
         $defaultImage = $this->createMock(AttributeId::class);
 
         $template->addDefaultImage($defaultImage);
-        $this->assertEquals($template->getDefaultImage(), $defaultImage);
+        self::assertEquals($template->getDefaultImage(), $defaultImage);
         $template->removeDefaultImage();
-        $this->assertEquals(null, $template->getDefaultImage());
+        self::assertEquals(null, $template->getDefaultImage());
     }
 
     /**

@@ -32,9 +32,9 @@ class CreateOptionCommandTest extends TestCase
         $label = $this->createMock(TranslatableString::class);
 
         $command = new CreateOptionCommand($attributeId, $key, $label);
-        $this->assertNotNull($command->getId());
-        $this->assertEquals($attributeId, $command->getAttributeId());
-        $this->assertEquals($key, $command->getCode());
-        $this->assertEquals($label, $command->getLabel());
+        self::assertNotNull($command->getId());
+        self::assertEquals($attributeId, $command->getAttributeId());
+        self::assertEquals($key, $command->getCode());
+        self::assertEquals($label, $command->getLabel());
     }
 }

@@ -33,9 +33,9 @@ class ValueChangedEventTest extends TestCase
         $to = $this->createMock(ValueInterface::class);
 
         $event = new ValueChangedEvent($id, $code, $from, $to);
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($code, $event->getAttributeCode());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($code, $event->getAttributeCode());
+        self::assertSame($from, $event->getFrom());
+        self::assertSame($to, $event->getTo());
     }
 }

@@ -28,7 +28,7 @@ class TemplateElementCompletenessStrategyProviderTest extends TestCase
 
         $provider = new TemplateElementCompletenessStrategyProvider(...[$strategy]);
         $result = $provider->provide('Any Supported Type');
-        $this->assertEquals($strategy, $result);
+        self::assertEquals($strategy, $result);
     }
 
     /**

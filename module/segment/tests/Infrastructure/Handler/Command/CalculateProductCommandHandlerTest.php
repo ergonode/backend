@@ -43,7 +43,7 @@ class CalculateProductCommandHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->command = $this->createMock(CalculateProductCommand::class);
-        $this->command->expects($this->once())->method('getProductId')
+        $this->command->expects(self::once())->method('getProductId')
             ->willReturn($this->createMock(ProductId::class));
         $this->query = $this->createMock(SegmentQueryInterface::class);
         $this->commandBus = $this->createMock(CommandBusInterface::class);

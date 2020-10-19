@@ -29,7 +29,7 @@ class DeleteOptionCommandTest extends TestCase
         $attributeId = $this->createMock(AttributeId::class);
 
         $command = new DeleteOptionCommand($id, $attributeId);
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($attributeId, $command->getAttributeId());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($attributeId, $command->getAttributeId());
     }
 }

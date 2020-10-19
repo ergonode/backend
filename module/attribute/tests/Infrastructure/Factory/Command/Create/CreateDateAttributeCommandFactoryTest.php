@@ -25,8 +25,8 @@ class CreateDateAttributeCommandFactoryTest extends AbstractCreateAttributeComma
     public function testSupported(): void
     {
         $commandFactory = new CreateDateAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(DateAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(DateAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -45,7 +45,7 @@ class CreateDateAttributeCommandFactoryTest extends AbstractCreateAttributeComma
         /** @var CreateDateAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
-        $this->assertSame($data->parameters->format, $result->getFormat()->getFormat());
+        self::assertAttributeFormModel($data, $result);
+        self::assertSame($data->parameters->format, $result->getFormat()->getFormat());
     }
 }

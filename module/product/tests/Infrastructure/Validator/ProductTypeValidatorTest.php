@@ -54,7 +54,7 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new ProductType());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -69,7 +69,7 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
         $constraint->type = ['type'];
         $this->validator->validate($uuid, $constraint);
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

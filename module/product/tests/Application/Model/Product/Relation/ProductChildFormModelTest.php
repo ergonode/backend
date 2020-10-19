@@ -22,6 +22,6 @@ class ProductChildFormModelTest extends TestCase
     {
         $id = $this->createMock(ProductId::class);
         $model = new ProductChildFormModel($id);
-        $this->assertSame($id, $model->getParentId());
+        self::assertSame($id, $model->getParentId());
     }
 }

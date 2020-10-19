@@ -34,10 +34,10 @@ class CommentCreatedEventTest extends TestCase
         $createAt = $this->createMock(\DateTime::class);
 
         $command = new CommentCreatedEvent($commentId, $userId, $objectId, $content, $createAt);
-        $this->assertSame($userId, $command->getAuthorId());
-        $this->assertSame($objectId, $command->getObjectId());
-        $this->assertSame($content, $command->getContent());
-        $this->assertSame($commentId, $command->getAggregateId());
-        $this->assertSame($createAt, $command->getCreatedAt());
+        self::assertSame($userId, $command->getAuthorId());
+        self::assertSame($objectId, $command->getObjectId());
+        self::assertSame($content, $command->getContent());
+        self::assertSame($commentId, $command->getAggregateId());
+        self::assertSame($createAt, $command->getCreatedAt());
     }
 }

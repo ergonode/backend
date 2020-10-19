@@ -28,8 +28,8 @@ class UpdateCategoryCommandFactoryTest extends TestCase
     public function testSupported(): void
     {
         $commandFactory = new UpdateCategoryCommandFactory();
-        $this->assertTrue($commandFactory->support(Category::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(Category::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -48,7 +48,7 @@ class UpdateCategoryCommandFactoryTest extends TestCase
 
         /** @var UpdateCategoryCommand $command */
         $command = $commandFactory->create($categorId, $form);
-        $this->assertEquals($command->getName(), new TranslatableString($name));
-        $this->assertEquals($command->getId(), $categorId);
+        self::assertEquals($command->getName(), new TranslatableString($name));
+        self::assertEquals($command->getId(), $categorId);
     }
 }

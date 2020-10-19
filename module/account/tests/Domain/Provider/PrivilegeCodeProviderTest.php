@@ -42,6 +42,6 @@ class PrivilegeCodeProviderTest extends TestCase
         );
         $provider = new PrivilegeCodeProvider($query);
 
-        $this->assertSame(['code1', 'code2'], $provider->provide());
+        self::assertSame(['code1', 'code2'], $provider->provide());
     }
 }

@@ -70,20 +70,20 @@ class TransportMessageSerializerTest extends TestCase
     {
         $this
             ->serializer
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('deserialize')->willReturn($this->createMock(\stdClass::class));
         $result = $this->messageSerializer->decode(['body' => 'example1', 'headers' => ['type' => 'example']]);
-        $this->assertInstanceOf(Envelope::class, $result);
+        self::assertInstanceOf(Envelope::class, $result);
     }
 
     /**
      */
     public function testStampDecode()
     {
-        $this->serializer->expects($this->at(0))->method('deserialize')->willReturn([]);
+        $this->serializer->expects(self::at(0))->method('deserialize')->willReturn([]);
         $this
             ->serializer
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('deserialize')
             ->willReturn($this->createMock(\stdClass::class));
         $result = $this->messageSerializer->decode([
@@ -93,34 +93,34 @@ class TransportMessageSerializerTest extends TestCase
                 'X-Message-Stamp-test' => 'example',
             ],
         ]);
-        $this->assertInstanceOf(Envelope::class, $result);
+        self::assertInstanceOf(Envelope::class, $result);
     }
 
     /**
      */
     public function testEncode()
     {
-        $this->serializer->expects($this->once())->method('serialize')->willReturn('message');
+        $this->serializer->expects(self::once())->method('serialize')->willReturn('message');
         $message = $this->createMock(\stdClass::class);
         $envelope = new Envelope($message);
         $result = $this->messageSerializer->encode($envelope);
-        $this->assertEquals('message', $result['body']);
-        $this->assertArrayHasKey('headers', $result);
-        $this->assertArrayHasKey('type', $result['headers']);
+        self::assertEquals('message', $result['body']);
+        self::assertArrayHasKey('headers', $result);
+        self::assertArrayHasKey('type', $result['headers']);
     }
 
     /**
      */
     public function testStampsEncode()
     {
-        $this->serializer->expects($this->at(0))->method('serialize')->willReturn('message');
-        $this->serializer->expects($this->at(1))->method('serialize')->willReturn('stamp');
+        $this->serializer->expects(self::at(0))->method('serialize')->willReturn('message');
+        $this->serializer->expects(self::at(1))->method('serialize')->willReturn('stamp');
         $message = $this->createMock(\stdClass::class);
         $stamp = $this->createMock(\stdClass::class);
         $envelope = new Envelope($message, [$stamp]);
         $result = $this->messageSerializer->encode($envelope);
-        $this->assertEquals('stamp', $result['body']);
-        $this->assertArrayHasKey('headers', $result);
-        $this->assertArrayHasKey('type', $result['headers']);
+        self::assertEquals('stamp', $result['body']);
+        self::assertArrayHasKey('headers', $result);
+        self::assertArrayHasKey('type', $result['headers']);
     }
 }

@@ -28,8 +28,8 @@ class MarkNotificationCommandTest extends TestCase
 
         $command = new MarkNotificationCommand($notificationId, $userId, $readAt);
 
-        $this->assertSame($notificationId, $command->getNotificationId());
-        $this->assertSame($userId, $command->getUserId());
-        $this->assertSame($readAt, $command->getReadAt());
+        self::assertSame($notificationId, $command->getNotificationId());
+        self::assertSame($userId, $command->getUserId());
+        self::assertSame($readAt, $command->getReadAt());
     }
 }

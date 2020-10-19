@@ -58,7 +58,7 @@ class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new UniqueCategoryTreeCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -68,7 +68,7 @@ class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('findTreeIdByCode')->willReturn(null);
         $this->validator->validate(CategoryTreeId::generate(), new UniqueCategoryTreeCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

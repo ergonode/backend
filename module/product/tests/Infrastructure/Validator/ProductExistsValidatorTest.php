@@ -53,7 +53,7 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new ProductExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -62,7 +62,7 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('SKU', new ProductExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

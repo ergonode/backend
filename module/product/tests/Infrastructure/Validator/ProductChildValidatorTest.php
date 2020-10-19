@@ -41,7 +41,7 @@ class ProductChildValidatorTest extends ConstraintValidatorTestCase
         $model = $this->createMock(ProductChildFormModel::class);
         $this->validator->validate($model, new ProductChild());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -55,7 +55,7 @@ class ProductChildValidatorTest extends ConstraintValidatorTestCase
         $constraint = new ProductChild();
         $this->validator->validate($model, $constraint);
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

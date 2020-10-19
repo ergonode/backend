@@ -41,8 +41,8 @@ class UpdateSegmentCommandHandlerTest extends TestCase
      */
     public function testCommandHandlingExistsSegment(): void
     {
-        $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(Segment::class));
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('load')->willReturn($this->createMock(Segment::class));
+        $this->repository->expects(self::once())->method('save');
 
         $handler = new UpdateSegmentCommandHandler($this->repository);
         $handler->__invoke($this->command);
@@ -52,8 +52,8 @@ class UpdateSegmentCommandHandlerTest extends TestCase
      */
     public function testCommandHandlingNotExistsSegment(): void
     {
-        $this->repository->expects($this->once())->method('load')->willReturn(null);
-        $this->repository->expects($this->never())->method('save');
+        $this->repository->expects(self::once())->method('load')->willReturn(null);
+        $this->repository->expects(self::never())->method('save');
 
         $this->expectException(\InvalidArgumentException::class);
 

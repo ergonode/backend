@@ -54,10 +54,10 @@ class CurrencyHandlerTest extends TestCase
     {
         $configurations = CurrencyHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -68,7 +68,7 @@ class CurrencyHandlerTest extends TestCase
         $id = new Currency('PLN');
         $result = $this->handler->serialize($this->serializerVisitor, $id, [], $this->context);
 
-        $this->assertEquals($id->getCode(), $result);
+        self::assertEquals($id->getCode(), $result);
     }
 
     /**
@@ -78,6 +78,6 @@ class CurrencyHandlerTest extends TestCase
         $id = new Currency('PLN');
         $result = $this->handler->deserialize($this->deserializerVisitor, $id->getCode(), [], $this->context);
 
-        $this->assertEquals($id, $result);
+        self::assertEquals($id, $result);
     }
 }

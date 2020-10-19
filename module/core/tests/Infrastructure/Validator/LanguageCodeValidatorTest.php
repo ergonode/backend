@@ -41,7 +41,7 @@ class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new LanguageCodeConstraint());
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -50,7 +50,7 @@ class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('en_GB', new LanguageCodeConstraint());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

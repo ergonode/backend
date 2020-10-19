@@ -36,6 +36,6 @@ class AttributeParametersProviderTest extends TestCase
         );
 
         $provider = new AttributeParametersProvider($unitRepository);
-        $this->assertSame(['unit' => 'W'], $provider->provide($attribute));
+        self::assertSame(['unit' => 'W'], $provider->provide($attribute));
     }
 }

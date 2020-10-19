@@ -22,9 +22,9 @@ class WriterTypeDictionaryTest extends TestCase
     public function testDictionary(): void
     {
         $provider = $this->createMock(WriterTypeProvider::class);
-        $provider->expects($this->once())->method('provide')->willReturn(['type']);
+        $provider->expects(self::once())->method('provide')->willReturn(['type']);
         $translator = $this->createMock(TranslatorInterface::class);
-        $translator->expects($this->once())->method('trans')->willReturn('translated');
+        $translator->expects(self::once())->method('trans')->willReturn('translated');
 
         $dictionary = new WriterTypeDictionary($provider, $translator);
         $result = $dictionary->dictionary();

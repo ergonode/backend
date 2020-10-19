@@ -31,6 +31,6 @@ class AttributeGroupDictionaryProviderTest extends TestCase
 
         $provider = new AttributeGroupDictionaryProvider($attributeGroupQuery);
 
-        $this->assertSame(['id1' => 'label1'], $provider->getDictionary($language));
+        self::assertSame(['id1' => 'label1'], $provider->getDictionary($language));
     }
 }

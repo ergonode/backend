@@ -30,7 +30,7 @@ class ConstraintPrivilegeRelationsValidatorTest extends TestCase
     {
         $provider = $this->createMock(PrivilegeGroupedByAreaProvider::class);
         $provider
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('provide')
             ->willReturn([
                 'A' => [
@@ -49,11 +49,11 @@ class ConstraintPrivilegeRelationsValidatorTest extends TestCase
 
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
         $constraintViolationBuilder
-            ->expects($this->atLeast(0))
+            ->expects(self::atLeast(0))
             ->method('addViolation')
             ->willReturn(null);
 
-        $expected = $isValid ? $this->exactly(0) : $this->once();
+        $expected = $isValid ? self::exactly(0) : self::once();
         $context = $this->createMock(ExecutionContextInterface::class);
         $context
             ->expects($expected)

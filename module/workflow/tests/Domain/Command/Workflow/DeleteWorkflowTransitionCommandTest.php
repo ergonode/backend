@@ -34,8 +34,8 @@ class DeleteWorkflowTransitionCommandTest extends TestCase
 
         $command = new DeleteWorkflowTransitionCommand($workflowId, $source, $destination);
 
-        $this->assertSame($workflowId, $command->getWorkflowId());
-        $this->assertSame($source, $command->getSource());
-        $this->assertSame($destination, $command->getDestination());
+        self::assertSame($workflowId, $command->getWorkflowId());
+        self::assertSame($source, $command->getSource());
+        self::assertSame($destination, $command->getDestination());
     }
 }

@@ -58,12 +58,12 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
     {
         $this
             ->attributeQuery
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAttributeByCode')
             ->willReturn($this->createMock(AttributeViewModel::class));
         $this->validator->validate(['code' => 'value'], new ConstraintAttributeExistsCondition());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
 
@@ -85,7 +85,7 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
     {
         $constraint = new ConstraintAttributeExistsCondition();
         $value = ['code' => 'value'];
-        $this->attributeQuery->expects($this->once())->method('findAttributeByCode')->willReturn(null);
+        $this->attributeQuery->expects(self::once())->method('findAttributeByCode')->willReturn(null);
         $this->validator->validate($value, $constraint);
 
         $assertion = $this

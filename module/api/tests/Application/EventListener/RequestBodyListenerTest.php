@@ -61,15 +61,15 @@ class RequestBodyListenerTest extends TestCase
         array $deserialize,
         string $expected
     ): void {
-        $this->event->expects($this->once())->method('getRequest')->willReturn($this->request);
-        $this->request->expects($this->once())->method('getContentType')->willReturn($contentType);
-        $this->request->expects($this->once())->method('getMethod')->willReturn($method);
-        $this->request->expects($this->once())->method('getContent')->willReturn($content);
-        $this->serializer->expects($this->once())->method('deserialize')->willReturn($deserialize);
+        $this->event->expects(self::once())->method('getRequest')->willReturn($this->request);
+        $this->request->expects(self::once())->method('getContentType')->willReturn($contentType);
+        $this->request->expects(self::once())->method('getMethod')->willReturn($method);
+        $this->request->expects(self::once())->method('getContent')->willReturn($content);
+        $this->serializer->expects(self::once())->method('deserialize')->willReturn($deserialize);
 
         $listener = new RequestBodyListener($this->serializer);
         $listener($this->event);
-        $this->assertInstanceOf($expected, $this->request->request);
+        self::assertInstanceOf($expected, $this->request->request);
     }
 
     /**
@@ -112,11 +112,11 @@ class RequestBodyListenerTest extends TestCase
         ?string $method,
         ?string $content
     ): void {
-        $this->event->expects($this->once())->method('getRequest')->willReturn($this->request);
-        $this->request->expects($this->once())->method('getContentType')->willReturn($contentType);
-        $this->request->expects($this->once())->method('getMethod')->willReturn($method);
-        $this->request->expects($this->once())->method('getContent')->willReturn($content);
-        $this->serializer->expects($this->never())->method('deserialize');
+        $this->event->expects(self::once())->method('getRequest')->willReturn($this->request);
+        $this->request->expects(self::once())->method('getContentType')->willReturn($contentType);
+        $this->request->expects(self::once())->method('getMethod')->willReturn($method);
+        $this->request->expects(self::once())->method('getContent')->willReturn($content);
+        $this->serializer->expects(self::never())->method('deserialize');
 
         $listener = new RequestBodyListener($this->serializer);
         $listener($this->event);

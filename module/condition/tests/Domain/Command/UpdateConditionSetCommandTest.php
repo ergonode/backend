@@ -28,8 +28,8 @@ class UpdateConditionSetCommandTest extends TestCase
     {
         $command = new UpdateConditionSetCommand($id, $conditions);
 
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($conditions, $command->getConditions());
+        self::assertSame($id, $command->getId());
+        self::assertSame($conditions, $command->getConditions());
     }
 
     /**

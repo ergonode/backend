@@ -24,6 +24,6 @@ class CreateLanguageTreeCommandTest extends TestCase
         $rootLanguage = $this->createMock(LanguageId::class);
         $command = new CreateLanguageTreeCommand($rootLanguage);
 
-        $this->assertEquals($rootLanguage, $command->getRootLanguage());
+        self::assertEquals($rootLanguage, $command->getRootLanguage());
     }
 }

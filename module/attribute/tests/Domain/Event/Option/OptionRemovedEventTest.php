@@ -24,6 +24,6 @@ class OptionRemovedEventTest extends TestCase
         /** @var AggregateId $id */
         $id = $this->createMock(AggregateId::class);
         $event = new OptionRemovedEvent($id);
-        $this->assertEquals($id, $event->getAggregateId());
+        self::assertEquals($id, $event->getAggregateId());
     }
 }

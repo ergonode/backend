@@ -23,10 +23,10 @@ class FilterCollectionTest extends TestCase
     {
         $string = 'key1=value1;key2=value2,value3;key3:pl_PL=value4';
         $collection = new FilterValueCollection($string);
-        $this->assertCount(3, $collection);
+        self::assertCount(3, $collection);
         foreach ($collection as $elements) {
             foreach ($elements as $element) {
-                $this->assertInstanceOf(FilterValue::class, $element);
+                self::assertInstanceOf(FilterValue::class, $element);
             }
         }
     }

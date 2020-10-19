@@ -26,7 +26,7 @@ class MultimediaAltChangedEventTest extends TestCase
 
         $event = new MultimediaAltChangedEvent($id, $alt);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($alt, $event->getAlt());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($alt, $event->getAlt());
     }
 }

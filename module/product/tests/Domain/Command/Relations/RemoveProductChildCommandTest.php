@@ -32,7 +32,7 @@ class RemoveProductChildCommandTest extends TestCase
         $child->method('getId')->willReturn($this->createMock(ProductId::class));
 
         $command = new RemoveProductChildCommand($product, $child);
-        $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame($child->getId(), $command->getChildId());
+        self::assertSame($product->getId(), $command->getId());
+        self::assertSame($child->getId(), $command->getChildId());
     }
 }

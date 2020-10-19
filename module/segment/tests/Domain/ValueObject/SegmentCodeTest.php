@@ -24,8 +24,8 @@ class SegmentCodeTest extends TestCase
     public function testValidCreation(string $string): void
     {
         $status = new SegmentCode($string);
-        $this->assertEquals($string, $status->getValue());
-        $this->assertTrue(SegmentCode::isValid($string));
+        self::assertEquals($string, $status->getValue());
+        self::assertTrue(SegmentCode::isValid($string));
     }
 
     /**
@@ -35,7 +35,7 @@ class SegmentCodeTest extends TestCase
      */
     public function testPositiveValidation(string $status): void
     {
-        $this->assertTrue(SegmentCode::isValid($status));
+        self::assertTrue(SegmentCode::isValid($status));
     }
 
     /**
@@ -45,7 +45,7 @@ class SegmentCodeTest extends TestCase
      */
     public function testNegativeValidation(string $status): void
     {
-        $this->assertFalse(SegmentCode::isValid($status));
+        self::assertFalse(SegmentCode::isValid($status));
     }
 
     /**

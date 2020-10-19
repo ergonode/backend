@@ -64,7 +64,7 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $value->code = null;
         $this->validator->validate($value, new OptionCodeExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -79,7 +79,7 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $value->attributeId = new AttributeId('bd50b704-f225-49a1-8d1b-ae43adc3f0e1');
         $this->query->method('findIdByAttributeIdAndCode')->willReturn(null);
         $this->validator->validate($value, new OptionCodeExists());
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

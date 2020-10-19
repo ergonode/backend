@@ -25,9 +25,9 @@ class LanguageCompletenessConditionTest extends TestCase
     public function testConditionCreation(string $completeness, Language $language): void
     {
         $condition = new LanguageCompletenessCondition($completeness, $language);
-        $this->assertSame($completeness, $condition->getCompleteness());
-        $this->assertSame($language, $condition->getLanguage());
-        $this->assertSame('LANGUAGE_COMPLETENESS_CONDITION', $condition->getType());
+        self::assertSame($completeness, $condition->getCompleteness());
+        self::assertSame($language, $condition->getLanguage());
+        self::assertSame('LANGUAGE_COMPLETENESS_CONDITION', $condition->getType());
     }
 
     /**

@@ -28,7 +28,7 @@ class ExceptionMapperTest extends TestCase
     {
         $mapper = new ExceptionMapper($map);
         $result = $mapper->map($exception);
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**

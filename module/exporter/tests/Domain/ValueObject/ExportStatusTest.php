@@ -27,11 +27,11 @@ class ExportStatusTest extends TestCase
     public function testValidCreation(string $status, bool $created, bool $processed, bool $ended, bool $stopped): void
     {
         $vo = new ExportStatus($status);
-        $this->assertSame($created, $vo->isCreated());
-        $this->assertSame($processed, $vo->isProcessed());
-        $this->assertSame($ended, $vo->isEnded());
-        $this->assertSame($stopped, $vo->isStopped());
-        $this->assertSame($status, $vo->getValue());
+        self::assertSame($created, $vo->isCreated());
+        self::assertSame($processed, $vo->isProcessed());
+        self::assertSame($ended, $vo->isEnded());
+        self::assertSame($stopped, $vo->isStopped());
+        self::assertSame($status, $vo->getValue());
     }
 
     /**

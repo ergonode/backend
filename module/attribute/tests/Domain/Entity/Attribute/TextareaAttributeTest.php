@@ -82,12 +82,12 @@ class TextareaAttributeTest extends TestCase
             $this->scope,
             $this->richEdit
         );
-        $this->assertEquals($this->id, $attribute->getId());
-        $this->assertEquals($this->code, $attribute->getCode());
-        $this->assertEquals($this->label, $attribute->getLabel());
-        $this->assertEquals($this->hint, $attribute->getHint());
-        $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
-        $this->assertEquals($this->scope, $attribute->getScope());
-        $this->assertEquals($this->richEdit, $attribute->isRichEdit());
+        self::assertEquals($this->id, $attribute->getId());
+        self::assertEquals($this->code, $attribute->getCode());
+        self::assertEquals($this->label, $attribute->getLabel());
+        self::assertEquals($this->hint, $attribute->getHint());
+        self::assertEquals($this->placeholder, $attribute->getPlaceholder());
+        self::assertEquals($this->scope, $attribute->getScope());
+        self::assertEquals($this->richEdit, $attribute->isRichEdit());
     }
 }

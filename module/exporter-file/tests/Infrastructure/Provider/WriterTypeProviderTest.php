@@ -34,7 +34,7 @@ class WriterTypeProviderTest extends TestCase
     public function testProvideWriterTypes(): void
     {
         $type = 'Any type';
-        $this->interface->expects($this->once())->method('getType')->willReturn($type);
+        $this->interface->expects(self::once())->method('getType')->willReturn($type);
 
         $provider = new WriterTypeProvider(...[$this->interface]);
         $result = $provider->provide();

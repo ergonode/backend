@@ -49,14 +49,14 @@ class UnitTest extends TestCase
         $entity = new Unit($this->id, $this->name, $this->symbol);
         $newName = 'new name';
         $newSymbol = 'new symbol';
-        $this->assertEquals($this->id, $entity->getId());
-        $this->assertEquals($this->name, $entity->getName());
-        $this->assertEquals($this->symbol, $entity->getSymbol());
+        self::assertEquals($this->id, $entity->getId());
+        self::assertEquals($this->name, $entity->getName());
+        self::assertEquals($this->symbol, $entity->getSymbol());
 
         $entity->changeName($newName);
-        $this->assertEquals($newName, $entity->getName());
+        self::assertEquals($newName, $entity->getName());
 
         $entity->changeSymbol($newSymbol);
-        $this->assertEquals($newSymbol, $entity->getSymbol());
+        self::assertEquals($newSymbol, $entity->getSymbol());
     }
 }

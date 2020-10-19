@@ -50,13 +50,13 @@ class UpdateUserCommandTest extends TestCase
             $password
         );
 
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($firstName, $command->getFirstName());
-        $this->assertEquals($lastName, $command->getLastName());
-        $this->assertEquals($language, $command->getLanguage());
-        $this->assertEquals($roleId, $command->getRoleId());
-        $this->assertEquals($languagePrivilegesCollection, $command->getLanguagePrivilegesCollection());
-        $this->assertEquals($password, $command->getPassword());
-        $this->assertTrue($command->isActive());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($firstName, $command->getFirstName());
+        self::assertEquals($lastName, $command->getLastName());
+        self::assertEquals($language, $command->getLanguage());
+        self::assertEquals($roleId, $command->getRoleId());
+        self::assertEquals($languagePrivilegesCollection, $command->getLanguagePrivilegesCollection());
+        self::assertEquals($password, $command->getPassword());
+        self::assertTrue($command->isActive());
     }
 }

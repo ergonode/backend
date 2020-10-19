@@ -27,6 +27,6 @@ class DeleteTreeCommandTest extends TestCase
 
         $command = new DeleteTreeCommand($id);
 
-        $this->assertSame($id, $command->getId());
+        self::assertSame($id, $command->getId());
     }
 }

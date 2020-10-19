@@ -26,7 +26,7 @@ class ChildAddedToProductEventTest extends TestCase
         /** @var ProductId|MockObject $productId */
         $productId = $this->createMock(ProductId::class);
         $event = new ChildAddedToProductEvent($id, $productId);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($productId, $event->getChildId());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($productId, $event->getChildId());
     }
 }

@@ -28,8 +28,8 @@ class RoleDescriptionChangedEventTest extends TestCase
         $to = 'New Description';
 
         $event = new RoleDescriptionChangedEvent($id, $from, $to);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
-        $this->assertEquals($to, $event->getTo());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($from, $event->getFrom());
+        self::assertEquals($to, $event->getTo());
     }
 }

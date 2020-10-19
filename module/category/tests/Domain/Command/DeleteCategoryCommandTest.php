@@ -24,6 +24,6 @@ class DeleteCategoryCommandTest extends TestCase
         $id = $this->createMock(CategoryId::class);
 
         $command = new DeleteCategoryCommand($id);
-        $this->assertEquals($id, $command->getId());
+        self::assertEquals($id, $command->getId());
     }
 }

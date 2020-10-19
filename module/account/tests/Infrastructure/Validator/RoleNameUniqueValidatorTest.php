@@ -63,7 +63,7 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('findIdByRoleName')->willReturn(null);
 
         $this->validator->validate($model, new RoleNameUnique());
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

@@ -31,8 +31,8 @@ class ValueRemovedEventTest extends TestCase
         $value = $this->createMock(ValueInterface::class);
 
         $event = new ValueRemovedEvent($id, $code, $value);
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($code, $event->getAttributeCode());
-        $this->assertSame($value, $event->getOld());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($code, $event->getAttributeCode());
+        self::assertSame($value, $event->getOld());
     }
 }

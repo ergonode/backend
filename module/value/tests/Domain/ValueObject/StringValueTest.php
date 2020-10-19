@@ -25,10 +25,10 @@ class StringValueTest extends TestCase
         $valueObject1 = new StringValue($value);
         $valueObject2 = new StringValue($value);
 
-        $this->assertSame($value, $valueObject1->getValue()[null]);
-        $this->assertSame(StringValue::TYPE, $valueObject1->getType());
-        $this->assertSame($value, (string) $valueObject1);
-        $this->assertTrue($valueObject1->isEqual($valueObject2));
+        self::assertSame($value, $valueObject1->getValue()[null]);
+        self::assertSame(StringValue::TYPE, $valueObject1->getType());
+        self::assertSame($value, (string) $valueObject1);
+        self::assertTrue($valueObject1->isEqual($valueObject2));
     }
 
     /**

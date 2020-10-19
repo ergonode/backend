@@ -26,7 +26,7 @@ final class SendMailCommandHandlerTest extends TestCase
         $command = $this->createMock(SendMailCommand::class);
 
         $mailerSender = $this->createMock(MailerSender::class);
-        $mailerSender->expects($this->once())->method('send');
+        $mailerSender->expects(self::once())->method('send');
 
         $handler = new SendMailCommandHandler($mailerSender);
         $handler->__invoke($command);

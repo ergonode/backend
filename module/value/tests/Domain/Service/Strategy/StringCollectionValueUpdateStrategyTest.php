@@ -26,8 +26,8 @@ class StringCollectionValueUpdateStrategyTest extends TestCase
         $valid = $this->createMock(StringCollectionValue::class);
         $invalid = $this->createMock(StringValue::class);
 
-        $this->assertTrue($strategy->isSupported($valid));
-        $this->assertFalse($strategy->isSupported($invalid));
+        self::assertTrue($strategy->isSupported($valid));
+        self::assertFalse($strategy->isSupported($invalid));
     }
 
     /**
@@ -42,7 +42,7 @@ class StringCollectionValueUpdateStrategyTest extends TestCase
 
         $calculated = $strategy->calculate($oldValue, $newValue);
 
-        $this->assertEquals($calculated->getValue(), ['test2', 'test1']);
+        self::assertEquals($calculated->getValue(), ['test2', 'test1']);
     }
 
     /**

@@ -56,21 +56,21 @@ class VariableProductTest extends TestCase
         $attribute2->method('getId')->willReturn(AttributeId::generate());
 
         $product = new VariableProduct($this->id, $this->sku, $this->templateId);
-        $this->assertFalse($product->hasBind($attribute1->getId()));
-        $this->assertFalse($product->hasBind($attribute2->getId()));
+        self::assertFalse($product->hasBind($attribute1->getId()));
+        self::assertFalse($product->hasBind($attribute2->getId()));
         $product->addBind($attribute1);
-        $this->assertTrue($product->hasBind($attribute1->getId()));
-        $this->assertFalse($product->hasBind($attribute2->getId()));
+        self::assertTrue($product->hasBind($attribute1->getId()));
+        self::assertFalse($product->hasBind($attribute2->getId()));
         $product->addBind($attribute2);
-        $this->assertTrue($product->hasBind($attribute1->getId()));
-        $this->assertTrue($product->hasBind($attribute2->getId()));
-        $this->assertEquals([$attribute1->getId(), $attribute2->getId()], $product->getBindings());
+        self::assertTrue($product->hasBind($attribute1->getId()));
+        self::assertTrue($product->hasBind($attribute2->getId()));
+        self::assertEquals([$attribute1->getId(), $attribute2->getId()], $product->getBindings());
         $product->removeBind($attribute1->getId());
-        $this->assertFalse($product->hasBind($attribute1->getId()));
-        $this->assertTrue($product->hasBind($attribute2->getId()));
+        self::assertFalse($product->hasBind($attribute1->getId()));
+        self::assertTrue($product->hasBind($attribute2->getId()));
         $product->removeBind($attribute2->getId());
-        $this->assertFalse($product->hasBind($attribute1->getId()));
-        $this->assertFalse($product->hasBind($attribute2->getId()));
-        $this->assertEquals([], $product->getBindings());
+        self::assertFalse($product->hasBind($attribute1->getId()));
+        self::assertFalse($product->hasBind($attribute2->getId()));
+        self::assertEquals([], $product->getBindings());
     }
 }

@@ -24,8 +24,8 @@ class ColorTest extends TestCase
     public function testValidColorCreation(string $hex): void
     {
         $color = new Color($hex);
-        $this->assertSame(strtoupper($hex), $color->getValue());
-        $this->assertSame(strtoupper($hex), (string) $color);
+        self::assertSame(strtoupper($hex), $color->getValue());
+        self::assertSame(strtoupper($hex), (string) $color);
     }
 
     /**
@@ -48,12 +48,12 @@ class ColorTest extends TestCase
         $color2 = new Color('#000000');
         $color3 = new Color('#ffffff');
 
-        $this->assertTrue($color1->isEqual($color2));
-        $this->assertTrue($color2->isEqual($color1));
-        $this->assertFalse($color1->isEqual($color3));
-        $this->assertFalse($color2->isEqual($color3));
-        $this->assertFalse($color3->isEqual($color1));
-        $this->assertFalse($color3->isEqual($color2));
+        self::assertTrue($color1->isEqual($color2));
+        self::assertTrue($color2->isEqual($color1));
+        self::assertFalse($color1->isEqual($color3));
+        self::assertFalse($color2->isEqual($color3));
+        self::assertFalse($color3->isEqual($color1));
+        self::assertFalse($color3->isEqual($color2));
     }
 
     /**

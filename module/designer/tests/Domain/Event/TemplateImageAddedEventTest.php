@@ -31,7 +31,7 @@ class TemplateImageAddedEventTest extends TestCase
 
         $event = new TemplateImageAddedEvent($id, $imageId);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($imageId, $event->getImageId());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($imageId, $event->getImageId());
     }
 }

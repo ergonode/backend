@@ -41,13 +41,13 @@ class UpdateDateAttributeCommandTest extends TestCase
         array $groups
     ): void {
         $command = new UpdateDateAttributeCommand($id, $label, $hint, $placeholder, $scope, $format, $groups);
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($label, $command->getLabel());
-        $this->assertSame($hint, $command->getHint());
-        $this->assertSame($placeholder, $command->getPlaceholder());
-        $this->assertSame($groups, $command->getGroups());
-        $this->assertSame($scope, $command->getScope());
-        $this->assertSame($format, $command->getFormat());
+        self::assertSame($id, $command->getId());
+        self::assertSame($label, $command->getLabel());
+        self::assertSame($hint, $command->getHint());
+        self::assertSame($placeholder, $command->getPlaceholder());
+        self::assertSame($groups, $command->getGroups());
+        self::assertSame($scope, $command->getScope());
+        self::assertSame($format, $command->getFormat());
     }
 
     /**

@@ -25,8 +25,8 @@ class GenerateSegmentCommandTest extends TestCase
 
         $command = new GenerateSegmentCommand($code, $type);
 
-        $this->assertNotNull($command->getId());
-        $this->assertSame($code, $command->getCode());
-        $this->assertSame($type, $command->getType());
+        self::assertNotNull($command->getId());
+        self::assertSame($code, $command->getCode());
+        self::assertSame($type, $command->getType());
     }
 }

@@ -33,12 +33,12 @@ class SegmentStatusTest extends TestCase
         bool $outdated
     ): void {
         $status = new SegmentStatus($string);
-        $this->assertEquals(strtoupper($string), (string) $string);
-        $this->assertTrue(SegmentStatus::isValid($string));
-        $this->assertEquals($new, $status->isNew());
-        $this->assertEquals($processed, $status->isProcessed());
-        $this->assertEquals($calculated, $status->isCalculated());
-        $this->assertEquals($outdated, $status->isOutdated());
+        self::assertEquals(strtoupper($string), (string) $string);
+        self::assertTrue(SegmentStatus::isValid($string));
+        self::assertEquals($new, $status->isNew());
+        self::assertEquals($processed, $status->isProcessed());
+        self::assertEquals($calculated, $status->isCalculated());
+        self::assertEquals($outdated, $status->isOutdated());
     }
 
     /**
@@ -48,7 +48,7 @@ class SegmentStatusTest extends TestCase
      */
     public function testPositiveValidation(string $status): void
     {
-        $this->assertTrue(SegmentStatus::isValid($status));
+        self::assertTrue(SegmentStatus::isValid($status));
     }
 
     /**
@@ -58,7 +58,7 @@ class SegmentStatusTest extends TestCase
      */
     public function testNegativeValidation(string $status): void
     {
-        $this->assertFalse(SegmentStatus::isValid($status));
+        self::assertFalse(SegmentStatus::isValid($status));
     }
 
     /**
@@ -86,12 +86,12 @@ class SegmentStatusTest extends TestCase
         $status2 = new SegmentStatus(SegmentStatus::CALCULATED);
         $status3 = new SegmentStatus(SegmentStatus::OUTDATED);
 
-        $this->assertTrue($status1->isEqual($status2));
-        $this->assertTrue($status2->isEqual($status1));
-        $this->assertFalse($status1->isEqual($status3));
-        $this->assertFalse($status2->isEqual($status3));
-        $this->assertFalse($status3->isEqual($status1));
-        $this->assertFalse($status3->isEqual($status1));
+        self::assertTrue($status1->isEqual($status2));
+        self::assertTrue($status2->isEqual($status1));
+        self::assertFalse($status1->isEqual($status3));
+        self::assertFalse($status2->isEqual($status3));
+        self::assertFalse($status3->isEqual($status1));
+        self::assertFalse($status3->isEqual($status1));
 
         new SegmentStatus($status);
     }

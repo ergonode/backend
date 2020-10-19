@@ -35,8 +35,8 @@ class CategoryTreeNameChangedEventTest extends TestCase
 
         $event = new CategoryTreeNameChangedEvent($id, $from, $to);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($from, $event->getFrom());
+        self::assertSame($to, $event->getTo());
     }
 }

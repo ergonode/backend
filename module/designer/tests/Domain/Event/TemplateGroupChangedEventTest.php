@@ -34,8 +34,8 @@ class TemplateGroupChangedEventTest extends TestCase
 
         $event = new TemplateGroupChangedEvent($id, $from, $to);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getOld());
-        $this->assertSame($to, $event->getNew());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($from, $event->getOld());
+        self::assertSame($to, $event->getNew());
     }
 }

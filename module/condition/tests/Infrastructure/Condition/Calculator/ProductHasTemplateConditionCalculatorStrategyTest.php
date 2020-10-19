@@ -47,8 +47,8 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->strategy->supports('PRODUCT_HAS_TEMPLATE_CONDITION'));
-        $this->assertFalse($this->strategy->supports('PRODUCT'));
+        self::assertTrue($this->strategy->supports('PRODUCT_HAS_TEMPLATE_CONDITION'));
+        self::assertFalse($this->strategy->supports('PRODUCT'));
     }
 
     /**
@@ -77,7 +77,7 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
             ->willReturn($productTemplateId);
 
         $result = $this->strategy->calculate($product, $condition);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**

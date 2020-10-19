@@ -56,10 +56,10 @@ class TemplateIdHandlerTest extends TestCase
     {
         $configurations = TemplateIdHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -70,7 +70,7 @@ class TemplateIdHandlerTest extends TestCase
         $id = TemplateId::generate();
         $result = $this->handler->serialize($this->serializationVisitor, $id, [], $this->context);
 
-        $this->assertEquals($id->getValue(), $result);
+        self::assertEquals($id->getValue(), $result);
     }
 
     /**
@@ -80,6 +80,6 @@ class TemplateIdHandlerTest extends TestCase
         $id = TemplateId::generate();
         $result = $this->handler->deserialize($this->deserializationVisitor, $id->getValue(), [], $this->context);
 
-        $this->assertEquals($id, $result->getValue());
+        self::assertEquals($id, $result->getValue());
     }
 }

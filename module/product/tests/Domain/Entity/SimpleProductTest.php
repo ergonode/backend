@@ -49,6 +49,6 @@ class SimpleProductTest extends TestCase
     public function testType(): void
     {
         $product = new SimpleProduct($this->id, $this->sku, $this->templateId);
-        $this->assertSame(SimpleProduct::TYPE, $product->getType());
+        self::assertSame(SimpleProduct::TYPE, $product->getType());
     }
 }

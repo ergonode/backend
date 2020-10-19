@@ -53,14 +53,14 @@ class CreateDateAttributeCommandTest extends TestCase
             $groups
         );
 
-        $this->assertSame($attributeCode, $command->getCode());
-        $this->assertEquals(AttributeId::fromKey($attributeCode->getValue()), $command->getId());
-        $this->assertSame($label, $command->getLabel());
-        $this->assertSame($hint, $command->getHint());
-        $this->assertSame($placeholder, $command->getPlaceholder());
-        $this->assertSame($scope, $command->getScope());
-        $this->assertSame($groups, $command->getGroups());
-        $this->assertSame($format, $command->getFormat());
+        self::assertSame($attributeCode, $command->getCode());
+        self::assertEquals(AttributeId::fromKey($attributeCode->getValue()), $command->getId());
+        self::assertSame($label, $command->getLabel());
+        self::assertSame($hint, $command->getHint());
+        self::assertSame($placeholder, $command->getPlaceholder());
+        self::assertSame($scope, $command->getScope());
+        self::assertSame($groups, $command->getGroups());
+        self::assertSame($format, $command->getFormat());
     }
 
     /**

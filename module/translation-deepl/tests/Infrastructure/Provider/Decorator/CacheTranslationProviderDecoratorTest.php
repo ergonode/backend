@@ -31,14 +31,14 @@ class CacheTranslationProviderDecoratorTest extends TestCase
             ->method('get')
             ->willReturn(null);
         $cache
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('set');
 
         $sourceLanguage = $this->createMock(Language::class);
         $targetLanguage = $this->createMock(Language::class);
 
         $decorator = new CacheTranslationProviderDecorator($provider, $cache);
-        $this->assertEquals('ABCD', $decorator->provide('DEFG', $sourceLanguage, $targetLanguage));
+        self::assertEquals('ABCD', $decorator->provide('DEFG', $sourceLanguage, $targetLanguage));
     }
 
     /**
@@ -47,7 +47,7 @@ class CacheTranslationProviderDecoratorTest extends TestCase
     {
         $provider = $this->createMock(DeeplTranslationProvider::class);
         $provider
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('provide');
 
         $cache = $this->createMock(DatabaseTranslationCache::class);
@@ -55,13 +55,13 @@ class CacheTranslationProviderDecoratorTest extends TestCase
             ->method('get')
             ->willReturn('ABC');
         $cache
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('set');
 
         $sourceLanguage = $this->createMock(Language::class);
         $targetLanguage = $this->createMock(Language::class);
 
         $decorator = new CacheTranslationProviderDecorator($provider, $cache);
-        $this->assertEquals('ABC', $decorator->provide('DEFG', $sourceLanguage, $targetLanguage));
+        self::assertEquals('ABC', $decorator->provide('DEFG', $sourceLanguage, $targetLanguage));
     }
 }

@@ -37,9 +37,9 @@ class ProductCollectionTypeIdChangedEventTest extends TestCase
 
         $event = new ProductCollectionTypeIdChangedEvent($id, $typeId, $newTypeId, $dateTime);
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($typeId, $event->getOldTypeId());
-        $this->assertEquals($newTypeId, $event->getNewTypeId());
-        $this->assertEquals($dateTime, $event->getEditedAt());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($typeId, $event->getOldTypeId());
+        self::assertEquals($newTypeId, $event->getNewTypeId());
+        self::assertEquals($dateTime, $event->getEditedAt());
     }
 }

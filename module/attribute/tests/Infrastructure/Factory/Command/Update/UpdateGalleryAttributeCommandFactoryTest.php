@@ -25,8 +25,8 @@ class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCo
     public function testSupported(): void
     {
         $commandFactory = new UpdateGalleryAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(GalleryAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(GalleryAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -43,6 +43,6 @@ class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCo
         /** @var UpdateGalleryAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
-        $this->assertAttributeFormModel($id, $data, $result);
+        self::assertAttributeFormModel($id, $data, $result);
     }
 }

@@ -31,8 +31,8 @@ class SegmentStatusChangedEventTest extends TestCase
         $to = $this->createMock(SegmentStatus::class);
 
         $event = new SegmentStatusChangedEvent($id, $from, $to);
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($from, $event->getFrom());
+        self::assertSame($to, $event->getTo());
     }
 }

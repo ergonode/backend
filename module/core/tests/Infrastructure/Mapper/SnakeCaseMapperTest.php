@@ -24,7 +24,7 @@ class SnakeCaseMapperTest extends TestCase
     {
         $mapper  = new SnakeCaseMapper();
         $result = $mapper->map([$source => null]);
-        $this->assertEquals([$destination => null], $result);
+        self::assertEquals([$destination => null], $result);
     }
 
     /**

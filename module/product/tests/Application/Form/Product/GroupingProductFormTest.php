@@ -44,8 +44,8 @@ class GroupingProductFormTest extends TypeTestCase
     public function testSupported(): void
     {
         $form = new GroupingProductForm();
-        $this->assertTrue($form->supported(GroupingProduct::TYPE));
-        $this->assertFalse($form->supported('Any incorrect type'));
+        self::assertTrue($form->supported(GroupingProduct::TYPE));
+        self::assertFalse($form->supported('Any incorrect type'));
     }
 
     /**
@@ -67,15 +67,15 @@ class GroupingProductFormTest extends TypeTestCase
         $form = $this->factory->create(GroupingProductForm::class, $objectToCompare);
         $form->submit($formData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertTrue($form->isValid());
-        $this->assertEquals($object, $objectToCompare);
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isValid());
+        self::assertEquals($object, $objectToCompare);
 
         $view = $form->createView();
         $children = $view->children;
 
         foreach (array_keys($formData) as $key) {
-            $this->assertArrayHasKey($key, $children);
+            self::assertArrayHasKey($key, $children);
         }
     }
 

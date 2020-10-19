@@ -31,7 +31,7 @@ class SetDefaultStatusCommandTest extends TestCase
 
         $command = new SetDefaultStatusCommand($workflowId, $statusId);
 
-        $this->assertSame($workflowId, $command->getWorkflowId());
-        $this->assertSame($statusId, $command->getStatusId());
+        self::assertSame($workflowId, $command->getWorkflowId());
+        self::assertSame($statusId, $command->getStatusId());
     }
 }

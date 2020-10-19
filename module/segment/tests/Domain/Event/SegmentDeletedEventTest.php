@@ -27,6 +27,6 @@ class SegmentDeletedEventTest extends TestCase
 
         $event = new SegmentDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

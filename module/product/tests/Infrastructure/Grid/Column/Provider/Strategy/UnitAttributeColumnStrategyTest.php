@@ -49,7 +49,7 @@ class UnitAttributeColumnStrategyTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new UnitAttributeColumnStrategy($this->unitRepository);
-        $this->assertTrue($strategy->supports($this->attribute));
+        self::assertTrue($strategy->supports($this->attribute));
     }
 
     /**
@@ -57,7 +57,7 @@ class UnitAttributeColumnStrategyTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new UnitAttributeColumnStrategy($this->unitRepository);
-        $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
@@ -67,7 +67,7 @@ class UnitAttributeColumnStrategyTest extends TestCase
         $language = $this->createMock(Language::class);
         $strategy = new UnitAttributeColumnStrategy($this->unitRepository);
         $column = $strategy->create($this->attribute, $language);
-        $this->assertInstanceOf(NumericColumn::class, $column);
-        $this->assertInstanceOf(NumericFilter::class, $column->getFilter());
+        self::assertInstanceOf(NumericColumn::class, $column);
+        self::assertInstanceOf(NumericFilter::class, $column->getFilter());
     }
 }

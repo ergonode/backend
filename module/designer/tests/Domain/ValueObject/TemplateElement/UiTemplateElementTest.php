@@ -23,7 +23,7 @@ class UiTemplateElementTest extends TestCase
         $label = 'Any Element label';
 
         $element = new UiTemplateElementProperty($label);
-        $this->assertEquals($label, $element->getLabel());
-        $this->assertEquals(UiTemplateElementProperty::VARIANT, $element->getVariant());
+        self::assertEquals($label, $element->getLabel());
+        self::assertEquals(UiTemplateElementProperty::VARIANT, $element->getVariant());
     }
 }

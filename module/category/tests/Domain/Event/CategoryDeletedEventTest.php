@@ -23,6 +23,6 @@ class CategoryDeletedEventTest extends TestCase
         $id = $this->createMock(CategoryId::class);
 
         $command = new CategoryDeletedEvent($id);
-        $this->assertEquals($id, $command->getAggregateId());
+        self::assertEquals($id, $command->getAggregateId());
     }
 }

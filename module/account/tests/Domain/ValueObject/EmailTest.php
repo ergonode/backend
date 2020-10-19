@@ -24,8 +24,8 @@ class EmailTest extends TestCase
     public function testValidaValue(string $value): void
     {
         $email = new Email($value);
-        $this->assertEquals($value, $email->getValue());
-        $this->assertEquals($value, (string) $email);
+        self::assertEquals($value, $email->getValue());
+        self::assertEquals($value, (string) $email);
     }
 
     /**
@@ -78,7 +78,7 @@ class EmailTest extends TestCase
     {
         $email = new Email($input);
 
-        $this->assertEquals($expected, $email->getValue());
+        self::assertEquals($expected, $email->getValue());
     }
 
     /**
@@ -109,7 +109,7 @@ class EmailTest extends TestCase
         $email1 = new Email('correct@email.com');
         $email2 = new Email('correct@email.com');
 
-        $this->assertTrue($email1->isEqual($email2));
+        self::assertTrue($email1->isEqual($email2));
     }
 
     /**
@@ -119,6 +119,6 @@ class EmailTest extends TestCase
         $email1 = new Email('correct1@email.com');
         $email2 = new Email('correct2@email.com');
 
-        $this->assertFalse($email1->isEqual($email2));
+        self::assertFalse($email1->isEqual($email2));
     }
 }

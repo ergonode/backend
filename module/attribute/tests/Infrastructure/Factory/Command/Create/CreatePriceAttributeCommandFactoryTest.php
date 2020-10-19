@@ -24,8 +24,8 @@ class CreatePriceAttributeCommandFactoryTest extends AbstractCreateAttributeComm
     public function testSupported(): void
     {
         $commandFactory = new CreatePriceAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(PriceAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(PriceAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -44,7 +44,7 @@ class CreatePriceAttributeCommandFactoryTest extends AbstractCreateAttributeComm
         /** @var CreatePriceAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
-        $this->assertSame($data->parameters->currency, $result->getCurrency()->getCode());
+        self::assertAttributeFormModel($data, $result);
+        self::assertSame($data->parameters->currency, $result->getCurrency()->getCode());
     }
 }

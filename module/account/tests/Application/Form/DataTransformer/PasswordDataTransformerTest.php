@@ -37,7 +37,7 @@ class PasswordDataTransformerTest extends TestCase
      */
     public function testTransform(?Password $passwordValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($passwordValueObject));
+        self::assertSame($string, $this->transformer->transform($passwordValueObject));
     }
 
     /**
@@ -48,7 +48,7 @@ class PasswordDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?Password $passwordValueObject, ?string $string): void
     {
-        $this->assertEquals($passwordValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($passwordValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**

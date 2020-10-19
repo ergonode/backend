@@ -41,8 +41,8 @@ class PrivilegeDictionaryProviderTest extends TestCase
 
         /** @var TranslatorInterface | MockObject $translator */
         $translator = $this->createMock(TranslatorInterface::class);
-        $translator->expects($this->at(0))->method('trans')->willReturn('area_translation1');
-        $translator->expects($this->at(1))->method('trans')->willReturn('description_translation1');
+        $translator->expects(self::at(0))->method('trans')->willReturn('area_translation1');
+        $translator->expects(self::at(1))->method('trans')->willReturn('description_translation1');
 
         /** @var PrivilegeTypeResolverInterface | MockObject $resolver */
         $resolver = $this->createMock(PrivilegeTypeResolverInterface::class);
@@ -53,8 +53,8 @@ class PrivilegeDictionaryProviderTest extends TestCase
         /** @var Language | MockObject $language */
         $language = $this->createMock(Language::class);
         $result = $provider->provide($language);
-        $this->assertSame('area_translation1', $result[0]['name']);
-        $this->assertSame('description_translation1', $result[0]['description']);
-        $this->assertEquals(new Privilege('code1'), $result[0]['privileges']['type']);
+        self::assertSame('area_translation1', $result[0]['name']);
+        self::assertSame('description_translation1', $result[0]['description']);
+        self::assertEquals(new Privilege('code1'), $result[0]['privileges']['type']);
     }
 }

@@ -79,10 +79,10 @@ class TemplateFactoryTest extends TestCase
             [$this->element]
         );
 
-        $this->assertEquals($this->id, $template->getId());
-        $this->assertEquals($this->groupId, $template->getGroupId());
-        $this->assertEquals($this->name, $template->getName());
-        $this->assertCount(1, $template->getElements());
-        $this->assertContainsOnlyInstancesOf(TemplateElement::class, $template->getElements());
+        self::assertEquals($this->id, $template->getId());
+        self::assertEquals($this->groupId, $template->getGroupId());
+        self::assertEquals($this->name, $template->getName());
+        self::assertCount(1, $template->getElements());
+        self::assertContainsOnlyInstancesOf(TemplateElement::class, $template->getElements());
     }
 }

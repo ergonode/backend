@@ -27,7 +27,7 @@ class AddProductCollectionElementsCommandTest extends TestCase
 
         $command = new AddProductCollectionElementsCommand($productCollectionId, [$productId]);
 
-        $this->assertEquals($productCollectionId, $command->getProductCollectionId());
-        $this->assertEquals([$productId], $command->getProductIds());
+        self::assertEquals($productCollectionId, $command->getProductCollectionId());
+        self::assertEquals([$productId], $command->getProductIds());
     }
 }

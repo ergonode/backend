@@ -44,7 +44,7 @@ class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
     {
         $strategy = new CategorySystemAttributeColumnBuilderStrategy($this->query);
 
-        $this->assertTrue($strategy->supports($this->attribute));
+        self::assertTrue($strategy->supports($this->attribute));
     }
 
     /**
@@ -53,16 +53,16 @@ class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
     {
         $strategy = new CategorySystemAttributeColumnBuilderStrategy($this->query);
 
-        $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
      */
     public function testCreation(): void
     {
-        $this->attribute->expects($this->once())->method('getCode');
-        $this->attribute->expects($this->once())->method('getLabel');
-        $this->query->expects($this->once())->method('getAll');
+        $this->attribute->expects(self::once())->method('getCode');
+        $this->attribute->expects(self::once())->method('getLabel');
+        $this->query->expects(self::once())->method('getAll');
         $language = $this->createMock(Language::class);
         $strategy = new CategorySystemAttributeColumnBuilderStrategy($this->query);
         $strategy->create($this->attribute, $language);

@@ -32,7 +32,7 @@ class CreateProductCollectionTypeCommandTest extends TestCase
 
         $command = new CreateProductCollectionTypeCommand($code, $name);
 
-        $this->assertEquals($code, $command->getCode());
-        $this->assertEquals($name, $command->getName());
+        self::assertEquals($code, $command->getCode());
+        self::assertEquals($name, $command->getName());
     }
 }

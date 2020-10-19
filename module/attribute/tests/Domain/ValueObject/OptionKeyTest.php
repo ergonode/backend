@@ -22,8 +22,8 @@ class OptionKeyTest extends TestCase
     public function testValidCharactersValue(string $value): void
     {
         $key = new OptionKey($value);
-        $this->assertEquals($value, $key->getValue());
-        $this->assertEquals($value, (string) $key);
+        self::assertEquals($value, $key->getValue());
+        self::assertEquals($value, (string) $key);
     }
 
     /**
@@ -34,7 +34,7 @@ class OptionKeyTest extends TestCase
         $value = str_repeat('a', 256);
 
         $key = new OptionKey($value);
-        $this->assertEquals($value, $key->getValue());
+        self::assertEquals($value, $key->getValue());
     }
 
     /**

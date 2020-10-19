@@ -23,7 +23,7 @@ class MarkNotificationCommandHandlerTest extends TestCase
     public function testHandling(): void
     {
         $query = $this->createMock(NotificationQueryInterface::class);
-        $query->expects($this->once())->method('mark');
+        $query->expects(self::once())->method('mark');
         $command = $this->createMock(MarkNotificationCommand::class);
 
         $handler = new MarkNotificationCommandHandler($query);

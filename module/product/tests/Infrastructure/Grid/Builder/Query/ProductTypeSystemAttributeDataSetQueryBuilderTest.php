@@ -49,7 +49,7 @@ class ProductTypeSystemAttributeDataSetQueryBuilderTest extends TestCase
     public function testIsSupported(): void
     {
         $builder = new ProductTypeSystemAttributeDataSetQueryBuilder();
-        $this->assertTrue($builder->supports($this->attribute));
+        self::assertTrue($builder->supports($this->attribute));
     }
 
     /**
@@ -57,14 +57,14 @@ class ProductTypeSystemAttributeDataSetQueryBuilderTest extends TestCase
     public function testIsNotSupported(): void
     {
         $builder = new ProductTypeSystemAttributeDataSetQueryBuilder();
-        $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
      */
     public function testAddQuerySelect(): void
     {
-        $this->queryBuilder->expects($this->once())->method('addSelect');
+        $this->queryBuilder->expects(self::once())->method('addSelect');
         $builder = new ProductTypeSystemAttributeDataSetQueryBuilder();
         $builder->addSelect($this->queryBuilder, 'any key', $this->attribute, $this->language);
     }

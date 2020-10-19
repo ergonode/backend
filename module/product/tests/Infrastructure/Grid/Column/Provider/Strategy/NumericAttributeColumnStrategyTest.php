@@ -42,7 +42,7 @@ class NumericAttributeColumnStrategyTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new NumericAttributeColumnStrategy();
-        $this->assertTrue($strategy->supports($this->attribute));
+        self::assertTrue($strategy->supports($this->attribute));
     }
 
     /**
@@ -50,7 +50,7 @@ class NumericAttributeColumnStrategyTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new NumericAttributeColumnStrategy();
-        $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
@@ -60,7 +60,7 @@ class NumericAttributeColumnStrategyTest extends TestCase
         $language = $this->createMock(Language::class);
         $strategy = new NumericAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
-        $this->assertInstanceOf(NumericColumn::class, $column);
-        $this->assertInstanceOf(NumericFilter::class, $column->getFilter());
+        self::assertInstanceOf(NumericColumn::class, $column);
+        self::assertInstanceOf(NumericFilter::class, $column->getFilter());
     }
 }

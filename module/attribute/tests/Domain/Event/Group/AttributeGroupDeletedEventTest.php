@@ -27,6 +27,6 @@ class AttributeGroupDeletedEventTest extends TestCase
 
         $event = new AttributeGroupDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

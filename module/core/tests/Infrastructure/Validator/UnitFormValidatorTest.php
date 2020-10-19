@@ -65,7 +65,7 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $this->query->method('findIdByCode')->willReturn(null);
 
         $this->validator->validate($model, new UnitForm());
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

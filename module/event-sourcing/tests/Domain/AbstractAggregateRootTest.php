@@ -26,7 +26,7 @@ class AbstractAggregateRootTest extends TestCase
     public function testCreate(): void
     {
         $aggregate = $this->getClass();
-        $this->assertSame(0, $aggregate->getSequence());
+        self::assertSame(0, $aggregate->getSequence());
     }
 
     /**
@@ -39,8 +39,8 @@ class AbstractAggregateRootTest extends TestCase
         $aggregate->apply($event);
         $events = $aggregate->popEvents();
         $result = reset($events);
-        $this->assertSame($event, $result[0]->getEvent());
-        $this->assertSame(1, $aggregate->getSequence());
+        self::assertSame($event, $result[0]->getEvent());
+        self::assertSame(1, $aggregate->getSequence());
     }
 
     /**
@@ -54,7 +54,7 @@ class AbstractAggregateRootTest extends TestCase
         $stream = new DomainEventStream([$envelope]);
         $aggregate = $this->getClass();
         $aggregate->initialize($stream);
-        $this->assertSame(1, $aggregate->getSequence());
+        self::assertSame(1, $aggregate->getSequence());
     }
 
 

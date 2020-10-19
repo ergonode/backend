@@ -26,6 +26,6 @@ class DeleteWorkflowCommandTest extends TestCase
         $id = $this->createMock(WorkflowId::class);
 
         $command = new DeleteWorkflowCommand($id);
-        $this->assertSame($id, $command->getId());
+        self::assertSame($id, $command->getId());
     }
 }

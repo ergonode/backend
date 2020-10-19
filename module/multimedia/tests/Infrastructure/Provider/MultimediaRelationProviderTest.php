@@ -28,7 +28,7 @@ class MultimediaRelationProviderTest extends TestCase
 
         $provider = new MultimediaRelationProvider(...[]);
         $result = $provider->provide($id, $language);
-        $this->assertEmpty($result);
+        self::assertEmpty($result);
     }
 
     /**
@@ -36,12 +36,12 @@ class MultimediaRelationProviderTest extends TestCase
     public function testProviderWithInterfaces(): void
     {
         $interface = $this->createMock(MultimediaRelationInterface::class);
-        $interface->expects($this->once())->method('getRelation')->willReturn(['array']);
+        $interface->expects(self::once())->method('getRelation')->willReturn(['array']);
         $id = $this->createMock(MultimediaId::class);
         $language = $this->createMock(Language::class);
 
         $provider = new MultimediaRelationProvider(...[$interface]);
         $result = $provider->provide($id, $language);
-        $this->assertSame([['array']], $result);
+        self::assertSame([['array']], $result);
     }
 }

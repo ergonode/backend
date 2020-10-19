@@ -39,7 +39,7 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
     {
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
         $attributeId = $this->createMock(AttributeId::class);
-        $this->assertTrue($templateAttributeRelationshipStrategy->supports($attributeId));
+        self::assertTrue($templateAttributeRelationshipStrategy->supports($attributeId));
     }
 
     /**
@@ -48,7 +48,7 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
     {
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
         $roleId = $this->createMock(AggregateId::class);
-        $this->assertFalse($templateAttributeRelationshipStrategy->supports($roleId));
+        self::assertFalse($templateAttributeRelationshipStrategy->supports($roleId));
     }
 
     /**
@@ -57,6 +57,6 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
     {
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
         $attributeId = $this->createMock(AttributeId::class);
-        $this->assertIsArray($templateAttributeRelationshipStrategy->getRelationships($attributeId));
+        self::assertIsArray($templateAttributeRelationshipStrategy->getRelationships($attributeId));
     }
 }

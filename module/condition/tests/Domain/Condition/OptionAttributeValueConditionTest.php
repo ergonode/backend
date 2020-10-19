@@ -28,8 +28,8 @@ class OptionAttributeValueConditionTest extends TestCase
 
         $condition = new OptionAttributeValueCondition($attributeId, $value);
 
-        $this->assertSame($attributeId, $condition->getAttribute());
-        $this->assertSame($value, $condition->getValue());
-        $this->assertSame(OptionAttributeValueCondition::TYPE, $condition->getType());
+        self::assertSame($attributeId, $condition->getAttribute());
+        self::assertSame($value, $condition->getValue());
+        self::assertSame(OptionAttributeValueCondition::TYPE, $condition->getType());
     }
 }

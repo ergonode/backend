@@ -34,7 +34,7 @@ class LanguageTreeTest extends TestCase
     public function testCreateEntity(): void
     {
         $entity = new LanguageTree($this->languageNode);
-        $this->assertEquals($this->languageNode, $entity->getLanguages());
+        self::assertEquals($this->languageNode, $entity->getLanguages());
     }
 
     /**
@@ -46,6 +46,6 @@ class LanguageTreeTest extends TestCase
         $node = $this->createMock(LanguageNode::class);
         $entity->updateLanguages($node);
 
-        $this->assertEquals($node, $entity->getLanguages());
+        self::assertEquals($node, $entity->getLanguages());
     }
 }

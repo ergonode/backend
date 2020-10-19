@@ -59,7 +59,7 @@ class ConstraintLanguageCodeExistsValidatorTest extends ConstraintValidatorTestC
         $this->query->method('getDictionary')->willReturn(['code1' => 'code1']);
         $this->validator->validate($value, new ConstraintLanguageCodeExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

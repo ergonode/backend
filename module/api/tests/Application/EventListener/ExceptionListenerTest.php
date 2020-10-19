@@ -57,16 +57,16 @@ class ExceptionListenerTest extends TestCase
      */
     public function testInvokeWithoutMapping(): void
     {
-        $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
+        $this->exceptionMapper->expects(self::once())->method('map')->willReturn(null);
         $this
             ->event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getThrowable')->willReturn($this->authenticationCredentialNotFoundException);
         $this->event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setResponse')->willreturnCallback(function ($response) {
-                $this->assertInstanceOf(ExceptionResponse::class, $response);
-                $this->assertEquals(500, $response->getStatusCode());
+                self::assertInstanceOf(ExceptionResponse::class, $response);
+                self::assertEquals(500, $response->getStatusCode());
             });
         $listener = new ExceptionListener($this->exceptionMapper);
         $listener($this->event);
@@ -76,18 +76,18 @@ class ExceptionListenerTest extends TestCase
      */
     public function testInvokeWithoutMappingWithHandlerFailedException(): void
     {
-        $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
+        $this->exceptionMapper->expects(self::once())->method('map')->willReturn(null);
         $this
             ->event
-            ->expects($this->once())->method('getThrowable')->willReturn($this->handlerFailedException);
+            ->expects(self::once())->method('getThrowable')->willReturn($this->handlerFailedException);
         $this
             ->handlerFailedException
             ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
         $this->event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setResponse')->willreturnCallback(function ($response) {
-                $this->assertInstanceOf(ExceptionResponse::class, $response);
-                $this->assertEquals(500, $response->getStatusCode());
+                self::assertInstanceOf(ExceptionResponse::class, $response);
+                self::assertEquals(500, $response->getStatusCode());
             });
         $listener = new ExceptionListener($this->exceptionMapper);
         $listener($this->event);
@@ -108,16 +108,16 @@ class ExceptionListenerTest extends TestCase
         ]);
         $this
             ->event
-            ->expects($this->once())->method('getThrowable')->willReturn($this->handlerFailedException);
+            ->expects(self::once())->method('getThrowable')->willReturn($this->handlerFailedException);
         $this
             ->handlerFailedException
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
         $this->event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setResponse')->willreturnCallback(function ($response) {
-                $this->assertInstanceOf(ExceptionResponse::class, $response);
-                $this->assertEquals(403, $response->getStatusCode());
+                self::assertInstanceOf(ExceptionResponse::class, $response);
+                self::assertEquals(403, $response->getStatusCode());
             });
         $listener = new ExceptionListener($this->exceptionMapper);
         $listener($this->event);
@@ -127,7 +127,7 @@ class ExceptionListenerTest extends TestCase
      */
     public function testInvokeWithMapping(): void
     {
-        $this->exceptionMapper->expects($this->once())->method('map')->willReturn([
+        $this->exceptionMapper->expects(self::once())->method('map')->willReturn([
             'http' => [
                 'code' => 403,
             ],
@@ -138,13 +138,13 @@ class ExceptionListenerTest extends TestCase
         ]);
         $this
             ->event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getThrowable')->willReturn($this->authenticationCredentialNotFoundException);
         $this->event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setResponse')->willreturnCallback(function ($response) {
-                $this->assertInstanceOf(ExceptionResponse::class, $response);
-                $this->assertEquals(403, $response->getStatusCode());
+                self::assertInstanceOf(ExceptionResponse::class, $response);
+                self::assertEquals(403, $response->getStatusCode());
             });
         $listener = new ExceptionListener($this->exceptionMapper);
         $listener($this->event);

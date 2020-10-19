@@ -24,7 +24,7 @@ class ValueManipulationServiceTest extends TestCase
     {
         $strategy = $this->createMock(ValueUpdateStrategyInterface::class);
         $strategy->method('isSupported')->willReturn(true);
-        $strategy->expects($this->once())->method('calculate');
+        $strategy->expects(self::once())->method('calculate');
         $oldValue = $this->createMock(ValueInterface::class);
         $newValue = $this->createMock(ValueInterface::class);
         $service = new ValueManipulationService(...[$strategy]);

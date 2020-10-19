@@ -23,8 +23,8 @@ class CategoryCodeTest extends TestCase
     public function testCreationValidCode(string $code): void
     {
         $result = new CategoryCode($code);
-        $this->assertSame($code, $result->getValue());
-        $this->assertSame($code, (string) $result);
+        self::assertSame($code, $result->getValue());
+        self::assertSame($code, (string) $result);
     }
 
     /**

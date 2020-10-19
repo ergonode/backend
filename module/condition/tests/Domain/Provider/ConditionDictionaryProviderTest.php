@@ -42,11 +42,11 @@ class ConditionDictionaryProviderTest extends TestCase
 
         $provider->set($group1, $classes1);
         $provider->set($group2, $classes2);
-        $this->assertSame(
+        self::assertSame(
             [AttributeExistsCondition::TYPE => $translation, RoleExactlyCondition::TYPE => $translation],
             $provider->getDictionary($language)
         );
-        $this->assertSame(
+        self::assertSame(
             [AttributeExistsCondition::TYPE => $translation],
             $provider->getDictionary($language, $group1)
         );

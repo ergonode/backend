@@ -52,7 +52,7 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
             $this->createMock(Node::class),
         ];
         $result = new CategoryTreeCategoriesChangedEvent($id, $collection);
-        $this->assertEquals($id, $result->getAggregateId());
-        $this->assertEquals($collection, $result->getCategories());
+        self::assertEquals($id, $result->getAggregateId());
+        self::assertEquals($collection, $result->getCategories());
     }
 }

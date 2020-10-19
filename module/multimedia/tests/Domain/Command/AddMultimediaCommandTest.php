@@ -28,7 +28,7 @@ class AddMultimediaCommandTest extends TestCase
         $id = MultimediaId::generate();
 
         $command = new AddMultimediaCommand($id, $uploadedFile);
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($uploadedFile, $command->getFile());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($uploadedFile, $command->getFile());
     }
 }

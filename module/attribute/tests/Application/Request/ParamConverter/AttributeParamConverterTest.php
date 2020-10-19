@@ -54,7 +54,7 @@ class AttributeParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn(AbstractAttribute::class);
 
         $paramConverter = new AttributeParamConverter($this->repository);
-        $this->assertTrue($paramConverter->supports($this->configuration));
+        self::assertTrue($paramConverter->supports($this->configuration));
     }
 
     /**
@@ -65,7 +65,7 @@ class AttributeParamConverterTest extends TestCase
         $this->configuration->method('getClass')->willReturn('Any other class namespace');
 
         $paramConverter = new AttributeParamConverter($this->repository);
-        $this->assertFalse($paramConverter->supports($this->configuration));
+        self::assertFalse($paramConverter->supports($this->configuration));
     }
 
     /**
@@ -108,7 +108,7 @@ class AttributeParamConverterTest extends TestCase
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
         $this->repository->method('load')->willReturn($this->createMock(AbstractAttribute::class));
         $this->request->attributes = $this->createMock(ParameterBag::class);
-        $this->request->attributes->expects($this->once())->method('set');
+        $this->request->attributes->expects(self::once())->method('set');
 
         $paramConverter = new AttributeParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);

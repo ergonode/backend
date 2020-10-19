@@ -58,7 +58,7 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new AttributeTypeValid());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -70,7 +70,7 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $attribute->method('getType')->willReturn('UNIT');
         $this->query->method('load')->willReturn($attribute);
         $this->validator->validate($value, new AttributeTypeValid(['type' => 'UNIT']));
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -81,7 +81,7 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate($value, new AttributeTypeValid());
         $constraint = new AttributeTypeValid();
         $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value);
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

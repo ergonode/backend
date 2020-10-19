@@ -23,9 +23,9 @@ class IntegerColumnTest extends TestCase
         $filter = $this->createMock(FilterInterface::class);
 
         $column = new IntegerColumn($field, $label, $filter);
-        $this->assertSame($field, $column->getField());
-        $this->assertSame($label, $column->getLabel());
-        $this->assertSame($filter, $column->getFilter());
-        $this->assertSame(IntegerColumn::TYPE, $column->getType());
+        self::assertSame($field, $column->getField());
+        self::assertSame($label, $column->getLabel());
+        self::assertSame($filter, $column->getFilter());
+        self::assertSame(IntegerColumn::TYPE, $column->getType());
     }
 }

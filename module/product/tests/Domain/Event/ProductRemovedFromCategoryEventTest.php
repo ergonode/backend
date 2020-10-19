@@ -28,7 +28,7 @@ class ProductRemovedFromCategoryEventTest extends TestCase
         /** @var CategoryId|MockObject $categoryId */
         $categoryId = $this->createMock(CategoryId::class);
         $event = new ProductRemovedFromCategoryEvent($id, $categoryId);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($categoryId, $event->getCategoryId());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($categoryId, $event->getCategoryId());
     }
 }

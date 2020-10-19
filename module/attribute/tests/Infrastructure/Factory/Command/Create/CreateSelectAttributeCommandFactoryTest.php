@@ -24,8 +24,8 @@ class CreateSelectAttributeCommandFactoryTest extends AbstractCreateAttributeCom
     public function testSupported(): void
     {
         $commandFactory = new CreateSelectAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(SelectAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(SelectAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -41,6 +41,6 @@ class CreateSelectAttributeCommandFactoryTest extends AbstractCreateAttributeCom
         /** @var CreateSelectAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
+        self::assertAttributeFormModel($data, $result);
     }
 }

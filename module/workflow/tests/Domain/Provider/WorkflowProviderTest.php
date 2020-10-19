@@ -68,7 +68,7 @@ class WorkflowProviderTest extends TestCase
 
         $provider = new WorkflowProvider($this->repository, $this->factory, $this->query);
         $workflow = $provider->provide();
-        $this->assertEquals($this->workflow, $workflow);
+        self::assertEquals($this->workflow, $workflow);
     }
 
     /**
@@ -78,10 +78,10 @@ class WorkflowProviderTest extends TestCase
         $this->query->method('findWorkflowIdByCode')->willReturn(null);
         $this->repository->method('load')->willReturn(null);
         $this->factory->method('create')->willReturn($this->workflow);
-        $this->repository->expects($this->once())->method('save');
+        $this->repository->expects(self::once())->method('save');
 
         $provider = new WorkflowProvider($this->repository, $this->factory, $this->query);
         $workflow = $provider->provide();
-        $this->assertEquals($this->workflow, $workflow);
+        self::assertEquals($this->workflow, $workflow);
     }
 }

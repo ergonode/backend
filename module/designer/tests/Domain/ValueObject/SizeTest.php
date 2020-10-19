@@ -23,8 +23,8 @@ class SizeTest extends TestCase
     public function testGreaterOrEqualThenZeroValue(int $width, int $height): void
     {
         $position = new Size($width, $height);
-        $this->assertSame($width, $position->getWidth());
-        $this->assertSame($height, $position->getHeight());
+        self::assertSame($width, $position->getWidth());
+        self::assertSame($height, $position->getHeight());
     }
 
     /**
@@ -36,8 +36,8 @@ class SizeTest extends TestCase
     public function testGreaterThenZeroValue(int $width, int $height): void
     {
         $position = new Size($width, $height);
-        $this->assertSame($width, $position->getWidth());
-        $this->assertSame($height, $position->getHeight());
+        self::assertSame($width, $position->getWidth());
+        self::assertSame($height, $position->getHeight());
     }
 
     /**

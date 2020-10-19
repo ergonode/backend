@@ -26,7 +26,7 @@ class UpdateCategoryCommandFactoryProviderTest extends TestCase
         $provider = new UpdateCategoryCommandFactoryProvider(...[$factory]);
 
         $factoryProvided = $provider->provide('type');
-        $this->assertEquals($factory, $factoryProvided);
+        self::assertEquals($factory, $factoryProvided);
     }
 
     /**

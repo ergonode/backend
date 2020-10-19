@@ -31,8 +31,8 @@ class ProductCollectionElementVisibleChangedEventTest extends TestCase
 
         $event = new ProductCollectionElementVisibleChangedEvent($id, $productId, true);
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($productId, $event->getProductId());
-        $this->assertTrue($event->isVisible());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($productId, $event->getProductId());
+        self::assertTrue($event->isVisible());
     }
 }

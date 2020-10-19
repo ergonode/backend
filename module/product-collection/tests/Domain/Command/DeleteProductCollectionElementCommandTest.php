@@ -32,7 +32,7 @@ class DeleteProductCollectionElementCommandTest extends TestCase
 
         $command = new DeleteProductCollectionElementCommand($productCollectionId, $productId);
 
-        $this->assertEquals($productCollectionId, $command->getProductCollectionId());
-        $this->assertEquals($productId, $command->getProductId());
+        self::assertEquals($productCollectionId, $command->getProductCollectionId());
+        self::assertEquals($productId, $command->getProductId());
     }
 }

@@ -76,7 +76,7 @@ class FormErrorMapperTest extends TestCase
 
         $result = $this->mapper->map($this->form);
 
-        $this->assertEquals($result['form'][0], 'Very serious error');
+        self::assertEquals($result['form'][0], 'Very serious error');
     }
 
     /**
@@ -102,7 +102,7 @@ class FormErrorMapperTest extends TestCase
         $this->errorFormElement->method('isSubmitted')->willReturn(false);
         $this->errorFormElement->method('isValid')->willReturn(false);
         $result = $this->mapper->map($this->form);
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**

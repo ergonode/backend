@@ -31,7 +31,7 @@ class WorkflowStatusAddedEventTest extends TestCase
 
         $event = new WorkflowStatusAddedEvent($id, $statusId);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($statusId, $event->getStatusId());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($statusId, $event->getStatusId());
     }
 }

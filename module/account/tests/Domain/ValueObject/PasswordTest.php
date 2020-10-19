@@ -24,8 +24,8 @@ class PasswordTest extends TestCase
     public function testValidaValue(string $value): void
     {
         $password = new Password($value);
-        $this->assertEquals($value, $password->getValue());
-        $this->assertEquals($value, (string) $password);
+        self::assertEquals($value, $password->getValue());
+        self::assertEquals($value, (string) $password);
     }
 
     /**

@@ -28,11 +28,11 @@ class CompletenessReadModelTest extends TestCase
 
         $model = new CompletenessReadModel($language);
 
-        $this->assertEquals(0, $model->getFilled());
-        $this->assertEquals($language, $model->getLanguage());
-        $this->assertEquals(0, $model->getRequired());
-        $this->assertEquals([], $model->getMissing());
-        $this->assertEquals(100, $model->getPercent());
+        self::assertEquals(0, $model->getFilled());
+        self::assertEquals($language, $model->getLanguage());
+        self::assertEquals(0, $model->getRequired());
+        self::assertEquals([], $model->getMissing());
+        self::assertEquals(100, $model->getPercent());
     }
 
     /**
@@ -46,11 +46,11 @@ class CompletenessReadModelTest extends TestCase
         $model = new CompletenessReadModel($language);
         $model->addCompletenessElement($element);
 
-        $this->assertEquals(0, $model->getFilled());
-        $this->assertEquals($language, $model->getLanguage());
-        $this->assertEquals(0, $model->getRequired());
-        $this->assertEquals([], $model->getMissing());
-        $this->assertEquals(100, $model->getPercent());
+        self::assertEquals(0, $model->getFilled());
+        self::assertEquals($language, $model->getLanguage());
+        self::assertEquals(0, $model->getRequired());
+        self::assertEquals([], $model->getMissing());
+        self::assertEquals(100, $model->getPercent());
     }
 
     /**
@@ -65,11 +65,11 @@ class CompletenessReadModelTest extends TestCase
         $model = new CompletenessReadModel($language);
         $model->addCompletenessElement($element);
 
-        $this->assertEquals(0, $model->getFilled());
-        $this->assertEquals($language, $model->getLanguage());
-        $this->assertEquals(1, $model->getRequired());
-        $this->assertEquals([$element], $model->getMissing());
-        $this->assertEquals(0, $model->getPercent());
+        self::assertEquals(0, $model->getFilled());
+        self::assertEquals($language, $model->getLanguage());
+        self::assertEquals(1, $model->getRequired());
+        self::assertEquals([$element], $model->getMissing());
+        self::assertEquals(0, $model->getPercent());
     }
 
     /**
@@ -85,10 +85,10 @@ class CompletenessReadModelTest extends TestCase
         $model = new CompletenessReadModel($language);
         $model->addCompletenessElement($element);
 
-        $this->assertEquals(1, $model->getFilled());
-        $this->assertEquals($language, $model->getLanguage());
-        $this->assertEquals(1, $model->getRequired());
-        $this->assertEquals([], $model->getMissing());
-        $this->assertEquals(100, $model->getPercent());
+        self::assertEquals(1, $model->getFilled());
+        self::assertEquals($language, $model->getLanguage());
+        self::assertEquals(1, $model->getRequired());
+        self::assertEquals([], $model->getMissing());
+        self::assertEquals(100, $model->getPercent());
     }
 }

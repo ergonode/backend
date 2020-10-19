@@ -23,10 +23,10 @@ final class SenderTest extends TestCase
     {
         $sender = new Sender();
 
-        $this->assertFalse($sender->hasFrom());
-        $this->assertCount(0, $sender->getFrom());
-        $this->assertFalse($sender->hasReplyTo());
-        $this->assertCount(0, $sender->getReplyTo());
+        self::assertFalse($sender->hasFrom());
+        self::assertCount(0, $sender->getFrom());
+        self::assertFalse($sender->hasReplyTo());
+        self::assertCount(0, $sender->getReplyTo());
     }
 
     /**
@@ -39,9 +39,9 @@ final class SenderTest extends TestCase
         $sender->addFrom($email);
         $sender->addReplyTo($email);
 
-        $this->assertTrue($sender->hasFrom());
-        $this->assertCount(1, $sender->getFrom());
-        $this->assertTrue($sender->hasReplyTo());
-        $this->assertCount(1, $sender->getReplyTo());
+        self::assertTrue($sender->hasFrom());
+        self::assertCount(1, $sender->getFrom());
+        self::assertTrue($sender->hasReplyTo());
+        self::assertCount(1, $sender->getReplyTo());
     }
 }

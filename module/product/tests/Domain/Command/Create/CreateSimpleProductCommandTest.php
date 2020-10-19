@@ -38,12 +38,12 @@ class CreateSimpleProductCommandTest extends TestCase
     ): void {
         $command = new CreateSimpleProductCommand($id, $sku, $templateId, $categories, $attributes);
 
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($sku, $command->getSku());
-        $this->assertSame($categories, $command->getCategories());
-        $this->assertSame($attributes, $command->getAttributes());
-        $this->assertSame($templateId, $command->getTemplateId());
-        $this->assertNotNull($command->getId());
+        self::assertSame($id, $command->getId());
+        self::assertSame($sku, $command->getSku());
+        self::assertSame($categories, $command->getCategories());
+        self::assertSame($attributes, $command->getAttributes());
+        self::assertSame($templateId, $command->getTemplateId());
+        self::assertNotNull($command->getId());
     }
 
     /**

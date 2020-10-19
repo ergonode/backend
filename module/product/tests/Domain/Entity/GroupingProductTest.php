@@ -49,6 +49,6 @@ class GroupingProductTest extends TestCase
     public function testType(): void
     {
         $product = new GroupingProduct($this->id, $this->sku, $this->templateId);
-        $this->assertSame(GroupingProduct::TYPE, $product->getType());
+        self::assertSame(GroupingProduct::TYPE, $product->getType());
     }
 }

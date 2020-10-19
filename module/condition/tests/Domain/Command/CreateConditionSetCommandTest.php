@@ -30,8 +30,8 @@ class CreateConditionSetCommandTest extends TestCase
     {
         $command = new CreateConditionSetCommand($id, $conditions);
 
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($conditions, $command->getConditions());
+        self::assertSame($id, $command->getId());
+        self::assertSame($conditions, $command->getConditions());
     }
 
     /**
@@ -65,7 +65,7 @@ class CreateConditionSetCommandTest extends TestCase
 
         $command = new CreateConditionSetCommand($id, $conditions);
 
-        $this->assertSame($id, $command->getId());
-        $this->assertSame($conditions, $command->getConditions());
+        self::assertSame($id, $command->getId());
+        self::assertSame($conditions, $command->getConditions());
     }
 }

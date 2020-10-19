@@ -25,6 +25,6 @@ class DeleteConditionSetCommandTest extends TestCase
         $id = $this->createMock(ConditionSetId::class);
         $command = new DeleteConditionSetCommand($id);
 
-        $this->assertSame($id, $command->getId());
+        self::assertSame($id, $command->getId());
     }
 }

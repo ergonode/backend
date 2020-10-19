@@ -58,10 +58,10 @@ class AbstractOptionTest extends TestCase
     {
         $option = $this->getClass();
 
-        $this->assertEquals($this->id, $option->getId());
-        $this->assertEquals($this->attributeId, $option->getAttributeId());
-        $this->assertEquals($this->code, $option->getCode());
-        $this->assertEquals($this->label, $option->getLabel());
+        self::assertEquals($this->id, $option->getId());
+        self::assertEquals($this->attributeId, $option->getAttributeId());
+        self::assertEquals($this->code, $option->getCode());
+        self::assertEquals($this->label, $option->getLabel());
     }
 
     /**
@@ -74,8 +74,8 @@ class AbstractOptionTest extends TestCase
 
         $option = $this->getClass();
         $option->changeLabel($label);
-        $this->assertSame($label, $option->getLabel());
-        $this->assertNotSame($this->label, $option->getLabel());
+        self::assertSame($label, $option->getLabel());
+        self::assertNotSame($this->label, $option->getLabel());
     }
 
     /**
@@ -88,8 +88,8 @@ class AbstractOptionTest extends TestCase
 
         $option = $this->getClass();
         $option->changeCode($code);
-        $this->assertSame($code, $option->getCode());
-        $this->assertNotSame($this->code, $option->getCode());
+        self::assertSame($code, $option->getCode());
+        self::assertNotSame($this->code, $option->getCode());
     }
 
     /**

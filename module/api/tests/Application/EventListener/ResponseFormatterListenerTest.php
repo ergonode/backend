@@ -46,18 +46,18 @@ class ResponseFormatterListenerTest extends TestCase
     public function testInvokeSuccess(): void
     {
         $response = $this->createMock(AbstractResponse::class);
-        $this->event->expects($this->once())->method('getResponse')->willReturn($response);
+        $this->event->expects(self::once())->method('getResponse')->willReturn($response);
         $content = $this->createMock(AuthenticationCredentialsNotFoundException::class);
-        $response->expects($this->once())->method('getContent')->willReturn($content);
-        $this->serializer->expects($this->once())->method('serialize')->willReturn(
+        $response->expects(self::once())->method('getContent')->willReturn($content);
+        $this->serializer->expects(self::once())->method('serialize')->willReturn(
             '{
     "code": "401",
     "message": "A Token was not found in the TokenStorage.",
     "trace": [#random/path/to/something"]
     }'
         );
-        $response->expects($this->once())->method('setContent');
-        $this->event->expects($this->once())->method('setResponse');
+        $response->expects(self::once())->method('setContent');
+        $this->event->expects(self::once())->method('setResponse');
         $listener = new ResponseFormatterListener($this->serializer);
         $listener($this->event);
     }
@@ -67,8 +67,8 @@ class ResponseFormatterListenerTest extends TestCase
     public function testInvokeWithWrongResponse(): void
     {
         $response = $this->createMock(JsonResponse::class);
-        $this->event->expects($this->once())->method('getResponse')->willReturn($response);
-        $response->expects($this->never())->method('getContent');
+        $this->event->expects(self::once())->method('getResponse')->willReturn($response);
+        $response->expects(self::never())->method('getContent');
         $listener = new ResponseFormatterListener($this->serializer);
         $listener($this->event);
     }
@@ -78,9 +78,9 @@ class ResponseFormatterListenerTest extends TestCase
     public function testInvokeWithWrongContent(): void
     {
         $response = $this->createMock(AbstractResponse::class);
-        $this->event->expects($this->once())->method('getResponse')->willReturn($response);
-        $response->expects($this->once())->method('getContent')->willReturn('test');
-        $this->serializer->expects($this->never())->method('serialize');
+        $this->event->expects(self::once())->method('getResponse')->willReturn($response);
+        $response->expects(self::once())->method('getContent')->willReturn('test');
+        $this->serializer->expects(self::never())->method('serialize');
         $listener = new ResponseFormatterListener($this->serializer);
         $listener($this->event);
     }

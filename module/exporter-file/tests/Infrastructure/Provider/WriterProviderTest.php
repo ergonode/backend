@@ -33,7 +33,7 @@ class WriterProviderTest extends TestCase
      */
     public function testFindWriter(): void
     {
-        $this->interface->expects($this->once())->method('support')->willReturn(true);
+        $this->interface->expects(self::once())->method('support')->willReturn(true);
 
         $provider = new WriterProvider(...[$this->interface]);
         $result = $provider->provide('type');
@@ -46,7 +46,7 @@ class WriterProviderTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
         $interface = $this->createMock(WriterInterface::class);
-        $interface->expects($this->once())->method('support')->willReturn(false);
+        $interface->expects(self::once())->method('support')->willReturn(false);
 
         $provider = new WriterProvider(...[$interface]);
         $provider->provide('type');

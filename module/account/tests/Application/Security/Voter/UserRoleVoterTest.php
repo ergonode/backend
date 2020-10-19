@@ -65,20 +65,20 @@ class UserRoleVoterTest extends TestCase
 
         $result = $voter->supports($privilege, null);
 
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
      */
     public function testNoUser(): void
     {
-        $this->token->expects($this->once())->method('getUser')->willReturn(null);
+        $this->token->expects(self::once())->method('getUser')->willReturn(null);
 
         $voter = new UserRoleVoter($this->repository, $this->query);
 
         $result = $voter->voteOnAttribute(null, null, $this->token);
 
-        $this->assertTrue($result);
+        self::assertTrue($result);
     }
 
     /**
@@ -87,20 +87,20 @@ class UserRoleVoterTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
 
-        $this->repository->expects($this->once())->method('load')->willReturn(null);
+        $this->repository->expects(self::once())->method('load')->willReturn(null);
         $roleId = $this->createMock(RoleId::class);
         $roleId
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getValue')
             ->willReturn('test');
 
         $user = $this->createMock(User::class);
         $user
-            ->expects($this->exactly(2))
+            ->expects(self::exactly(2))
             ->method('getRoleId')
             ->willReturn($roleId);
 
-        $this->token->expects($this->once())->method('getUser')->willReturn($user);
+        $this->token->expects(self::once())->method('getUser')->willReturn($user);
         $voter = new UserRoleVoter($this->repository, $this->query);
 
         $voter->voteOnAttribute(null, null, $this->token);
@@ -116,7 +116,7 @@ class UserRoleVoterTest extends TestCase
     {
         $role = $this->createMock(Role::class);
         $role
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getPrivileges')
             ->willReturn(
                 [
@@ -126,7 +126,7 @@ class UserRoleVoterTest extends TestCase
             );
 
         $this->repository
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('load')
             ->willReturn($role);
 
@@ -134,13 +134,13 @@ class UserRoleVoterTest extends TestCase
 
         $user = $this->createMock(User::class);
         $user
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getRoleId')
             ->willReturn($roleId);
 
         $token = $this->createMock(TokenInterface::class);
         $token
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getUser')
             ->willReturn($user);
 
@@ -148,7 +148,7 @@ class UserRoleVoterTest extends TestCase
 
         $result = $voter->voteOnAttribute($privilege, null, $token);
 
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**

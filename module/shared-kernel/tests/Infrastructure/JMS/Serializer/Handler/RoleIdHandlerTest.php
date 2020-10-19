@@ -57,10 +57,10 @@ class RoleIdHandlerTest extends TestCase
     {
         $configurations = RoleIdHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -72,7 +72,7 @@ class RoleIdHandlerTest extends TestCase
         $code = new RoleId($testValue);
         $result = $this->handler->serialize($this->serializerVisitor, $code, [], $this->context);
 
-        $this->assertEquals($testValue, $result);
+        self::assertEquals($testValue, $result);
     }
 
     /**
@@ -82,6 +82,6 @@ class RoleIdHandlerTest extends TestCase
         $testValue = Uuid::uuid4()->toString();
         $result = $this->handler->deserialize($this->deserializerVisitor, $testValue, [], $this->context);
 
-        $this->assertEquals($testValue, $result->getValue());
+        self::assertEquals($testValue, $result->getValue());
     }
 }

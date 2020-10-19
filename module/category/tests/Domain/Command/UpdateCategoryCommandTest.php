@@ -26,7 +26,7 @@ class UpdateCategoryCommandTest extends TestCase
         $name = $this->createMock(TranslatableString::class);
 
         $command = new UpdateCategoryCommand($id, $name);
-        $this->assertEquals($id, $command->getId());
-        $this->assertEquals($name, $command->getName());
+        self::assertEquals($id, $command->getId());
+        self::assertEquals($name, $command->getName());
     }
 }

@@ -40,7 +40,7 @@ class TextAreaAttributeColumnStrategyTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new TextAreaAttributeColumnStrategy();
-        $this->assertTrue($strategy->supports($this->attribute));
+        self::assertTrue($strategy->supports($this->attribute));
     }
 
     /**
@@ -48,7 +48,7 @@ class TextAreaAttributeColumnStrategyTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new TextAreaAttributeColumnStrategy();
-        $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
@@ -58,7 +58,7 @@ class TextAreaAttributeColumnStrategyTest extends TestCase
         $language = $this->createMock(Language::class);
         $strategy = new TextAreaAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
-        $this->assertInstanceOf(TextAreaColumn::class, $column);
-        $this->assertInstanceOf(TextFilter::class, $column->getFilter());
+        self::assertInstanceOf(TextAreaColumn::class, $column);
+        self::assertInstanceOf(TextFilter::class, $column->getFilter());
     }
 }

@@ -27,6 +27,6 @@ class DeleteSegmentCommandTest extends TestCase
 
         $command = new DeleteSegmentCommand($id);
 
-        $this->assertSame($id, $command->getId());
+        self::assertSame($id, $command->getId());
     }
 }

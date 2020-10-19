@@ -26,6 +26,6 @@ class DeleteAttributeGroupCommandTest extends TestCase
         $id = $this->createMock(AttributeGroupId::class);
 
         $command = new DeleteAttributeGroupCommand($id);
-        $this->assertEquals($id, $command->getId());
+        self::assertEquals($id, $command->getId());
     }
 }

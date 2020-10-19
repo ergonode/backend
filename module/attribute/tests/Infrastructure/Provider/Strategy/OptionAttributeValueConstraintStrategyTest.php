@@ -45,14 +45,14 @@ class OptionAttributeValueConstraintStrategyTest extends TestCase
      */
     public function testSupportValidAttribute(): void
     {
-        $this->assertTrue($this->strategy->supports($this->attribute));
+        self::assertTrue($this->strategy->supports($this->attribute));
     }
 
     /**
      */
     public function testNotSupportValidAttribute(): void
     {
-        $this->assertFalse($this->strategy->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($this->strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
@@ -60,6 +60,6 @@ class OptionAttributeValueConstraintStrategyTest extends TestCase
     public function testReturnConstraint(): void
     {
         $constraint = $this->strategy->get($this->attribute);
-        $this->assertInstanceOf(Collection::class, $constraint);
+        self::assertInstanceOf(Collection::class, $constraint);
     }
 }

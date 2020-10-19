@@ -70,13 +70,13 @@ class AbstractMultimediaTest extends TestCase
     {
         $multimedia = $this->getClass();
 
-        $this->assertEquals($this->id, $multimedia->getId());
-        $this->assertEquals(sprintf('hash.%s', $this->extension), $multimedia->getFileName());
-        $this->assertEquals($this->filename, $multimedia->getName());
-        $this->assertEquals($this->extension, $multimedia->getExtension());
-        $this->assertEquals($this->size, $multimedia->getSize());
-        $this->assertEquals($this->mime, $multimedia->getMime());
-        $this->assertEquals($this->hash, $multimedia->getHash());
+        self::assertEquals($this->id, $multimedia->getId());
+        self::assertEquals(sprintf('hash.%s', $this->extension), $multimedia->getFileName());
+        self::assertEquals($this->filename, $multimedia->getName());
+        self::assertEquals($this->extension, $multimedia->getExtension());
+        self::assertEquals($this->size, $multimedia->getSize());
+        self::assertEquals($this->mime, $multimedia->getMime());
+        self::assertEquals($this->hash, $multimedia->getHash());
     }
 
     /**
@@ -89,10 +89,10 @@ class AbstractMultimediaTest extends TestCase
 
         $multimedia = $this->getClass();
         $oldAlt = $multimedia->getAlt();
-        $this->assertNotSame($newAlt, $multimedia->getAlt());
+        self::assertNotSame($newAlt, $multimedia->getAlt());
         $multimedia->changeAlt($newAlt);
-        $this->assertNotSame($oldAlt, $multimedia->getAlt());
-        $this->assertSame($newAlt, $multimedia->getAlt());
+        self::assertNotSame($oldAlt, $multimedia->getAlt());
+        self::assertSame($newAlt, $multimedia->getAlt());
     }
 
     /**

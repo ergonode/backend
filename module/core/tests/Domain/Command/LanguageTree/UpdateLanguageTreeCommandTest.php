@@ -29,6 +29,6 @@ class UpdateLanguageTreeCommandTest extends TestCase
         $language1->children = [$language2];
         $command = new UpdateLanguageTreeCommand($language1);
 
-        $this->assertEquals($command->getLanguages()->getLanguageId(), $language1->languageId);
+        self::assertEquals($command->getLanguages()->getLanguageId(), $language1->languageId);
     }
 }

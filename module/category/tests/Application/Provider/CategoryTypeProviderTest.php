@@ -21,7 +21,7 @@ class CategoryTypeProviderTest extends TestCase
     public function testEmptyType(): void
     {
         $provider = new CategoryTypeProvider();
-        $this->assertEmpty($provider->provide());
+        self::assertEmpty($provider->provide());
     }
 
     /**
@@ -30,6 +30,6 @@ class CategoryTypeProviderTest extends TestCase
     {
         $types = ['type 1', 'type 2'];
         $provider = new CategoryTypeProvider(...$types);
-        $this->assertSame($types, $provider->provide());
+        self::assertSame($types, $provider->provide());
     }
 }

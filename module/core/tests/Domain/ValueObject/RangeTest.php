@@ -24,8 +24,8 @@ class RangeTest extends TestCase
     public function testValidRange(float $min, float $max): void
     {
         $range = new Range($min, $max);
-        $this->assertSame($min, $range->getMin());
-        $this->assertSame($max, $range->getMax());
+        self::assertSame($min, $range->getMin());
+        self::assertSame($max, $range->getMax());
     }
 
     /**
@@ -36,8 +36,8 @@ class RangeTest extends TestCase
      */
     public function testRangeIsValid(float $min, float $max): void
     {
-        $this->assertTrue(Range::isValid($min, $max));
-        $this->assertFalse(Range::isValid($max, $min));
+        self::assertTrue(Range::isValid($min, $max));
+        self::assertFalse(Range::isValid($max, $min));
     }
 
     /**
@@ -51,8 +51,8 @@ class RangeTest extends TestCase
         $range1 = new Range($min, $max);
         $range2 = new Range($min, $max);
 
-        $this->assertTrue($range1->isEqual($range2));
-        $this->assertTrue($range2->isEqual($range1));
+        self::assertTrue($range1->isEqual($range2));
+        self::assertTrue($range2->isEqual($range1));
     }
 
     /**

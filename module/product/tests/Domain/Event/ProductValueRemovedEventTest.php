@@ -31,8 +31,8 @@ class ProductValueRemovedEventTest extends TestCase
         /** @var ValueInterface|MockObject $old */
         $old = $this->createMock(ValueInterface::class);
         $event = new ProductValueRemovedEvent($id, $code, $old);
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($code, $event->getAttributeCode());
-        $this->assertEquals($old, $event->getOld());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($code, $event->getAttributeCode());
+        self::assertEquals($old, $event->getOld());
     }
 }

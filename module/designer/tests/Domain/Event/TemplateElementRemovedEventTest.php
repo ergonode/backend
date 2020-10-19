@@ -31,7 +31,7 @@ class TemplateElementRemovedEventTest extends TestCase
 
         $event = new TemplateElementRemovedEvent($id, $position);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($position, $event->getPosition());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($position, $event->getPosition());
     }
 }

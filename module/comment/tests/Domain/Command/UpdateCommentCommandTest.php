@@ -28,7 +28,7 @@ class UpdateCommentCommandTest extends TestCase
         $content = 'Any content';
 
         $command = new UpdateCommentCommand($commentId, $content);
-        $this->assertSame($commentId, $command->getId());
-        $this->assertSame($content, $command->getContent());
+        self::assertSame($commentId, $command->getId());
+        self::assertSame($content, $command->getContent());
     }
 }

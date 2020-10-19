@@ -24,10 +24,10 @@ class StringOptionTest extends TestCase
 
         $valueObject = new StringOption($value);
 
-        $this->assertSame($value, $valueObject->getValue());
-        $this->assertSame(StringOption::TYPE, $valueObject->getType());
-        $this->assertSame($value, (string) $valueObject);
-        $this->assertFalse($valueObject->isMultilingual());
+        self::assertSame($value, $valueObject->getValue());
+        self::assertSame(StringOption::TYPE, $valueObject->getType());
+        self::assertSame($value, (string) $valueObject);
+        self::assertFalse($valueObject->isMultilingual());
     }
 
     /**
@@ -40,7 +40,7 @@ class StringOptionTest extends TestCase
         $valueObject1 = new StringOption($value1);
         $valueObject2 = new StringOption($value2);
 
-        $this->assertTrue($valueObject1->equal($valueObject2));
+        self::assertTrue($valueObject1->equal($valueObject2));
     }
 
     /**
@@ -53,6 +53,6 @@ class StringOptionTest extends TestCase
         $valueObject1 = new StringOption($value1);
         $valueObject2 = new StringOption($value2);
 
-        $this->assertFalse($valueObject1->equal($valueObject2));
+        self::assertFalse($valueObject1->equal($valueObject2));
     }
 }

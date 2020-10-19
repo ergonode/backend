@@ -48,10 +48,10 @@ class FormatterInterfaceHandlerTest extends TestCase
     {
         $configurations = FormatterInterfaceHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -64,8 +64,8 @@ class FormatterInterfaceHandlerTest extends TestCase
         /** @var FormatterInterface $result */
         $result = $this->serializer->deserialize($testValue, FormatterInterface::class, 'json');
 
-        $this->assertInstanceOf(EncodingFormatter::class, $result);
-        $this->assertEquals(EncodingFormatter::TYPE, $result->getType());
+        self::assertInstanceOf(EncodingFormatter::class, $result);
+        self::assertEquals(EncodingFormatter::TYPE, $result->getType());
     }
 
     /**
@@ -77,7 +77,7 @@ class FormatterInterfaceHandlerTest extends TestCase
         /** @var FormatterInterface $result */
         $result = $this->serializer->deserialize($testValue, FormatterInterface::class, 'json');
 
-        $this->assertInstanceOf(ReplaceFormatter::class, $result);
-        $this->assertEquals(ReplaceFormatter::TYPE, $result->getType());
+        self::assertInstanceOf(ReplaceFormatter::class, $result);
+        self::assertEquals(ReplaceFormatter::TYPE, $result->getType());
     }
 }

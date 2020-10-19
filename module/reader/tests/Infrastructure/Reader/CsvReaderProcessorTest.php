@@ -31,10 +31,10 @@ class CsvReaderProcessorTest extends TestCase
             $result = $line;
         }
 
-        $this->assertCount(2, $result);
-        $this->assertArrayHasKey('id', $result);
-        $this->assertArrayHasKey('value', $result);
-        $this->assertNotEmpty($result);
+        self::assertCount(2, $result);
+        self::assertArrayHasKey('id', $result);
+        self::assertArrayHasKey('value', $result);
+        self::assertNotEmpty($result);
     }
 
     /**

@@ -22,6 +22,6 @@ class JoinConverterTest extends TestCase
 
         $converter = new JoinConverter($pattern);
 
-        $this->assertEquals($pattern, $converter->getPattern());
+        self::assertEquals($pattern, $converter->getPattern());
     }
 }

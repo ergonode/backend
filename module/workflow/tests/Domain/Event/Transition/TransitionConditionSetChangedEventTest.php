@@ -35,8 +35,8 @@ class TransitionConditionSetChangedEventTest extends TestCase
 
         $event = new TransitionConditionSetChangedEvent($id, $transitionId, $conditionSetId);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($transitionId, $event->getTransitionId());
-        $this->assertSame($conditionSetId, $event->getConditionSetId());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($transitionId, $event->getTransitionId());
+        self::assertSame($conditionSetId, $event->getConditionSetId());
     }
 }

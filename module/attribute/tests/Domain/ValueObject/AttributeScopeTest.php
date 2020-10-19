@@ -23,8 +23,8 @@ class AttributeScopeTest extends TestCase
     public function testValidCharactersValue(string $value): void
     {
         $attributeScope = new AttributeScope($value);
-        $this->assertEquals($value, $attributeScope->getValue());
-        $this->assertEquals($value, (string) $attributeScope);
+        self::assertEquals($value, $attributeScope->getValue());
+        self::assertEquals($value, (string) $attributeScope);
     }
 
     /**
@@ -37,7 +37,7 @@ class AttributeScopeTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attributeScope = new AttributeScope($value);
-        $this->assertEquals($value, $attributeScope->getValue());
+        self::assertEquals($value, $attributeScope->getValue());
     }
 
     /**

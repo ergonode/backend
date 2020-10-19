@@ -72,7 +72,7 @@ class EmailUserProviderTest extends TestCase
 
         $result = $this->provider->loadUserByUsername('test@ergonode.com');
 
-        $this->assertEquals(
+        self::assertEquals(
             new SecurityUser(
                 $userId->getValue(),
                 'password',
@@ -107,7 +107,7 @@ class EmailUserProviderTest extends TestCase
             ->method('findIdByEmail')
             ->willReturn(null);
         $this->mockUserRepository
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('load');
 
         $this->expectExceptionMessage('Username \'test@ergonode.com\' not found');

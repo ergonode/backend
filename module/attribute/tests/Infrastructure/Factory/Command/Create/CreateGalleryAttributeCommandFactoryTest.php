@@ -24,8 +24,8 @@ class CreateGalleryAttributeCommandFactoryTest extends AbstractCreateAttributeCo
     public function testSupported(): void
     {
         $commandFactory = new CreateGalleryAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(GalleryAttribute::TYPE));
-        $this->assertFalse($commandFactory->support('Any other type'));
+        self::assertTrue($commandFactory->support(GalleryAttribute::TYPE));
+        self::assertFalse($commandFactory->support('Any other type'));
     }
 
     /**
@@ -41,6 +41,6 @@ class CreateGalleryAttributeCommandFactoryTest extends AbstractCreateAttributeCo
         /** @var CreateGalleryAttributeCommand $result */
         $result = $commandFactory->create($form);
 
-        $this->assertAttributeFormModel($data, $result);
+        self::assertAttributeFormModel($data, $result);
     }
 }

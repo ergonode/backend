@@ -58,10 +58,10 @@ class UserIdHandlerTest extends TestCase
     {
         $configurations = UserIdHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -75,7 +75,7 @@ class UserIdHandlerTest extends TestCase
         $code->method('getValue')->willReturn($testValue);
         $result = $this->handler->serialize($this->serializerVisitor, $code, [], $this->context);
 
-        $this->assertEquals($testValue, $result);
+        self::assertEquals($testValue, $result);
     }
 
     /**
@@ -85,6 +85,6 @@ class UserIdHandlerTest extends TestCase
         $testValue = Uuid::uuid4()->toString();
         $result = $this->handler->deserialize($this->deserializerVisitor, $testValue, [], $this->context);
 
-        $this->assertEquals($testValue, $result->getValue());
+        self::assertEquals($testValue, $result->getValue());
     }
 }

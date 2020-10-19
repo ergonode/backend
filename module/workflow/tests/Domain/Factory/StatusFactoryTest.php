@@ -58,11 +58,11 @@ class StatusFactoryTest extends TestCase
     {
         $factory = new StatusFactory();
         $status  = $factory->create($this->code, $this->color, $this->name, $this->description);
-        $this->assertNotNull($status);
-        $this->assertEquals(StatusId::fromCode($this->code->getValue()), $status->getId());
-        $this->assertSame($this->code, $status->getCode());
-        $this->assertSame($this->color, $status->getColor());
-        $this->assertSame($this->name, $status->getName());
-        $this->assertSame($this->description, $status->getDescription());
+        self::assertNotNull($status);
+        self::assertEquals(StatusId::fromCode($this->code->getValue()), $status->getId());
+        self::assertSame($this->code, $status->getCode());
+        self::assertSame($this->color, $status->getColor());
+        self::assertSame($this->name, $status->getName());
+        self::assertSame($this->description, $status->getDescription());
     }
 }

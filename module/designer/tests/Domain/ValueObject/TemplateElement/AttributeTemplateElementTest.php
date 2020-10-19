@@ -26,8 +26,8 @@ class AttributeTemplateElementTest extends TestCase
         $attributeId = $this->createMock(AttributeId::class);
 
         $element = new AttributeTemplateElementProperty($attributeId, true);
-        $this->assertEquals($attributeId, $element->getAttributeId());
-        $this->assertTrue($element->isRequired());
-        $this->assertEquals(AttributeTemplateElementProperty::VARIANT, $element->getVariant());
+        self::assertEquals($attributeId, $element->getAttributeId());
+        self::assertTrue($element->isRequired());
+        self::assertEquals(AttributeTemplateElementProperty::VARIANT, $element->getVariant());
     }
 }

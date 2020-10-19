@@ -58,7 +58,7 @@ class CategoryExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new CategoryExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -68,7 +68,7 @@ class CategoryExistsValidatorTest extends ConstraintValidatorTestCase
         $this->repository->method('exists')->willReturn(true);
         $this->validator->validate(CategoryId::generate(), new CategoryExists());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

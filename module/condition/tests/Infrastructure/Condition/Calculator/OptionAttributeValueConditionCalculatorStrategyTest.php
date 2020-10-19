@@ -73,7 +73,7 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
 
         $result = $this->calculator->calculate($product, $configuration);
 
-        $this->assertEquals($calculated, $result);
+        self::assertEquals($calculated, $result);
     }
 
     /**
@@ -97,7 +97,7 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
 
         $result = $this->calculator->calculate($product, $configuration);
 
-        $this->assertFalse($result);
+        self::assertFalse($result);
     }
 
     /**

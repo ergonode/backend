@@ -28,7 +28,7 @@ class UserAvatarChangedEventTest extends TestCase
 
         $event = new UserAvatarChangedEvent($id, $avatarFilename);
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($avatarFilename, $event->getAvatarFilename());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($avatarFilename, $event->getAvatarFilename());
     }
 }

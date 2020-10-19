@@ -28,7 +28,7 @@ class TemplateGroupCreatedEventTest extends TestCase
 
         $event = new TemplateGroupCreatedEvent($id, $name);
 
-        $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($name, $event->getName());
+        self::assertSame($id, $event->getAggregateId());
+        self::assertSame($name, $event->getName());
     }
 }

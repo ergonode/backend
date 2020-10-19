@@ -38,7 +38,7 @@ class AttributeCodeDataTransformerTest extends TestCase
      */
     public function testTransform(?AttributeCode $attributeCodeValueObject, ?string $string): void
     {
-        $this->assertSame($string, $this->transformer->transform($attributeCodeValueObject));
+        self::assertSame($string, $this->transformer->transform($attributeCodeValueObject));
     }
 
     /**
@@ -60,7 +60,7 @@ class AttributeCodeDataTransformerTest extends TestCase
      */
     public function testReverseTransform(?AttributeCode $attributeCodeValueObject, ?string $string): void
     {
-        $this->assertEquals($attributeCodeValueObject, $this->transformer->reverseTransform($string));
+        self::assertEquals($attributeCodeValueObject, $this->transformer->reverseTransform($string));
     }
 
     /**

@@ -43,9 +43,9 @@ class SegmentConditionSetChangedEventTest extends TestCase
 
         $event = new SegmentConditionSetChangedEvent($this->id, $from, $to);
 
-        $this->assertSame($this->id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
+        self::assertSame($this->id, $event->getAggregateId());
+        self::assertSame($from, $event->getFrom());
+        self::assertSame($to, $event->getTo());
     }
 
     /**

@@ -57,7 +57,7 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate('', new UniqueSegmentCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**
@@ -79,7 +79,7 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
     {
         $this->validator->validate(new SegmentCode('code'), new UniqueSegmentCode());
 
-        $this->assertNoViolation();
+        self::assertNoViolation();
     }
 
     /**

@@ -39,11 +39,11 @@ class HandlerRegistryTest extends TestCase
         $format = 'format';
         $container = $this->createMock(ContainerInterface::class);
         $handlers = [];
-        $this->registry->expects($this->at(0))->method('getHandler')->willReturn($this->createMock(\stdClass::class));
-        $this->registry->expects($this->at(1))->method('getHandler')->willReturn(null);
+        $this->registry->expects(self::at(0))->method('getHandler')->willReturn($this->createMock(\stdClass::class));
+        $this->registry->expects(self::at(1))->method('getHandler')->willReturn(null);
         $handlerRegistry1 = new HandlerRegistry($container, $handlers, $this->registry);
-        $this->assertInstanceOf(\stdClass::class, $handlerRegistry1->getHandler($direction, $typeName, $format));
+        self::assertInstanceOf(\stdClass::class, $handlerRegistry1->getHandler($direction, $typeName, $format));
         $handlerRegistry2 = new HandlerRegistry($container, $handlers, $this->registry);
-        $this->assertNull($handlerRegistry2->getHandler($direction, $typeName, $format));
+        self::assertNull($handlerRegistry2->getHandler($direction, $typeName, $format));
     }
 }

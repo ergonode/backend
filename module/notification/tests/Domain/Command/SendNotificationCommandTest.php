@@ -26,8 +26,8 @@ class SendNotificationCommandTest extends TestCase
     public function testCommandCreation(NotificationInterface $notification, array $recipients): void
     {
         $command = new SendNotificationCommand($notification, $recipients);
-        $this->assertSame($notification, $command->getNotification());
-        $this->assertSame($recipients, $command->getRecipients());
+        self::assertSame($notification, $command->getNotification());
+        self::assertSame($recipients, $command->getRecipients());
     }
 
     /**

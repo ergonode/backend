@@ -22,7 +22,7 @@ class TextFilterTest extends TestCase
 
         $result = $filter->render();
 
-        $this->assertEquals([], $result);
+        self::assertEquals([], $result);
     }
 
     /**
@@ -30,6 +30,6 @@ class TextFilterTest extends TestCase
     public function testType(): void
     {
         $filter = new TextFilter();
-        $this->assertEquals(TextFilter::TYPE, $filter->getType());
+        self::assertEquals(TextFilter::TYPE, $filter->getType());
     }
 }

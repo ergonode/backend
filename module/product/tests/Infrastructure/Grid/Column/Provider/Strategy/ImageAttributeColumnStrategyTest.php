@@ -40,7 +40,7 @@ class ImageAttributeColumnStrategyTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new ImageAttributeColumnStrategy();
-        $this->assertTrue($strategy->supports($this->attribute));
+        self::assertTrue($strategy->supports($this->attribute));
     }
 
     /**
@@ -48,7 +48,7 @@ class ImageAttributeColumnStrategyTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new ImageAttributeColumnStrategy();
-        $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
+        self::assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
@@ -58,7 +58,7 @@ class ImageAttributeColumnStrategyTest extends TestCase
         $language = $this->createMock(Language::class);
         $strategy = new ImageAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
-        $this->assertInstanceOf(ImageColumn::class, $column);
-        $this->assertNull($column->getFilter());
+        self::assertInstanceOf(ImageColumn::class, $column);
+        self::assertNull($column->getFilter());
     }
 }

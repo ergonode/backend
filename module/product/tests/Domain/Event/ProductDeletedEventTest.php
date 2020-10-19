@@ -27,6 +27,6 @@ class ProductDeletedEventTest extends TestCase
 
         $event = new ProductDeletedEvent($id);
 
-        $this->assertSame($id, $event->getAggregateId());
+        self::assertSame($id, $event->getAggregateId());
     }
 }

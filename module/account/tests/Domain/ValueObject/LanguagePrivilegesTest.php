@@ -24,7 +24,7 @@ class LanguagePrivilegesTest extends TestCase
 
         $value = new LanguagePrivileges(true, false);
 
-        $this->assertTrue($value->isEqual(new LanguagePrivileges(true, false)));
-        $this->assertFalse($value->isEqual(new LanguagePrivileges(true, true)));
+        self::assertTrue($value->isEqual(new LanguagePrivileges(true, false)));
+        self::assertFalse($value->isEqual(new LanguagePrivileges(true, true)));
     }
 }

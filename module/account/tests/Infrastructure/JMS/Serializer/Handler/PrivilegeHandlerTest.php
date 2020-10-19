@@ -56,10 +56,10 @@ class PrivilegeHandlerTest extends TestCase
     {
         $configurations = PrivilegeHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this->assertArrayHasKey('direction', $configuration);
-            $this->assertArrayHasKey('type', $configuration);
-            $this->assertArrayHasKey('format', $configuration);
-            $this->assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -71,7 +71,7 @@ class PrivilegeHandlerTest extends TestCase
         $code = new Privilege($testValue);
         $result = $this->handler->serialize($this->serializerVisitor, $code, [], $this->context);
 
-        $this->assertEquals(strtoupper($testValue), $result);
+        self::assertEquals(strtoupper($testValue), $result);
     }
 
     /**
@@ -81,6 +81,6 @@ class PrivilegeHandlerTest extends TestCase
         $testValue = 'test_value';
         $result = $this->handler->deserialize($this->deserializerVisitor, $testValue, [], $this->context);
 
-        $this->assertEquals(strtoupper($testValue), $result->getValue());
+        self::assertEquals(strtoupper($testValue), $result->getValue());
     }
 }
