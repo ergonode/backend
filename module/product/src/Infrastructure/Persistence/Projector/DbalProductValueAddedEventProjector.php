@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
-use Ergonode\Product\Persistence\Dbal\Projector\AbstractProductValueProjector;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
