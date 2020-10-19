@@ -45,12 +45,14 @@ class UpdateUserFormModel
     public ?Language $language;
 
     /**
-     * @var Password|null
+     * @var string|null
+     *
+     * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
-    public ?Password $passwordRepeat;
+    public ?string $passwordRepeat;
 
     /**
-     * @var Password|null
+     * @var string|null
      *
      * @Assert\Length(
      *     min="6",
@@ -59,7 +61,7 @@ class UpdateUserFormModel
      *     maxMessage="User password is too long, should have at most {{ limit }} characters"
      * )
      */
-    public ?Password $password;
+    public ?string $password;
 
     /**
      * @var bool

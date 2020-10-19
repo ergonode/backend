@@ -13,6 +13,7 @@ use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UpdateUserForm;
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -109,7 +110,7 @@ class UserChangeAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var UpdateUserFormModel $data */
                 $data = $form->getData();
-
+                $password = $data->password ? new Password($data->password) : null;
                 $command = new UpdateUserCommand(
                     $user->getId(),
                     $data->firstName,
@@ -118,7 +119,7 @@ class UserChangeAction
                     $data->roleId,
                     $data->languagePrivilegesCollection,
                     $data->isActive,
-                    $data->password
+                    $password
                 );
                 $this->commandBus->dispatch($command);
 
