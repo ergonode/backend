@@ -13,6 +13,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  */
-class MigrationBundle extends Bundle
+class ErgonodeMigrationBundle extends Bundle
 {
 }

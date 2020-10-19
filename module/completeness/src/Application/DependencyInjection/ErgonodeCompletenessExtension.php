@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  */
-class CompletenessExtension extends Extension
+class ErgonodeCompletenessExtension extends Extension
 {
     /**
      * @param array            $configs

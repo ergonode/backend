@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  */
-class MigrationExtension extends Extension
+class ErgonodeMigrationExtension extends Extension
 {
     /**
      * @param array            $configs
