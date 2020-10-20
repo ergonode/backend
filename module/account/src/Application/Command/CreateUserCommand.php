@@ -81,7 +81,7 @@ class CreateUserCommand extends Command
 
         $roleId = array_search($role, $this->query->getDictionary(), true);
 
-        if ($roleId === false) {
+        if (false === $roleId) {
             $output->writeln(sprintf('<error>Can\'t find role %s</error>', $role));
 
             return 1;
