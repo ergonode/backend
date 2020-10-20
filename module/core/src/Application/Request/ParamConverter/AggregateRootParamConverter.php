@@ -48,6 +48,7 @@ class AggregateRootParamConverter implements ParamConverterInterface
 
         $parameter = $request->get($name);
         Assert::notNull($parameter);
+        Assert::string($parameter);
 
         if (!AggregateId::isValid($parameter)) {
             throw new BadRequestHttpException(sprintf('Invalid "%s" ID', $name));

@@ -94,6 +94,19 @@ class AggregateRootParamConverterTest extends TestCase
 
     /**
      */
+    public function testNotStringParameter(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->configuration->method('getName')->willReturn('test');
+        $this->configuration->method('getClass')->willReturn(Category::class);
+        $this->request->method('get')->willReturn(234);
+
+        $paramConverter = new AggregateRootParamConverter($this->manager);
+        $paramConverter->apply($this->request, $this->configuration);
+    }
+
+    /**
+     */
     public function testInvalidParameter(): void
     {
         $this->expectException(BadRequestHttpException::class);
