@@ -174,67 +174,67 @@ Feature: Category module
 
   Scenario: Get categories (order by code)
     When I send a GET request to "/api/v1/en_GB/categories?field=code"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (order by name)
     When I send a GET request to "/api/v1/en_GB/categories?field=name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (order by elements_count)
     When I send a GET request to "/api/v1/en_GB/categories?field=elements_count"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (order by sequence)
     When I send a GET request to "/api/v1/en_GB/categories?field=sequence"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (order ASC)
     When I send a GET request to "/api/v1/en_GB/categories?field=name&order=ASC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (order DESC)
     When I send a GET request to "/api/v1/en_GB/categories?field=name&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (filter by sequence)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=sequence%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (filter by name)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=name%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (filter by code)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=code%3DCAT"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (filter by elements_count)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get categories (filter by elements_count = 0)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=0"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get categories (filter by elements_count = 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count=9999999"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get categories (filter by elements_count >= 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count>=9999999"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get categories (filter by elements_count <= 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count<=9999999"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get categories (filter by elements_count >= 888888 <= 9999999)
     When I send a GET request to "/api/v1/en_GB/categories?limit=25&offset=0&filter=elements_count>=8888888;elements_count<=9999999"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get category configuration

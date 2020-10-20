@@ -9,45 +9,45 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Test\Behat\Context;
 
-use Behat\Behat\Context\Context;
-use Behatch\HttpCall\Request;
-use Ergonode\Authentication\Application\Security\User\User;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\FeatureNode;
+use Behatch\Context\JsonContext;
 
 /**
  */
-class ApiAuthContext implements Context
+class ExtendJsonContext extends JsonContext
 {
     /**
-     * @var JWTTokenManagerInterface
+     * @var FeatureNode
      */
-    private JWTTokenManagerInterface $JWTTokenManager;
+    private FeatureNode $feature;
 
     /**
-     * @var Request
+     * @param BeforeScenarioScope $scope
+     *
+     * @BeforeScenario
      */
-    private Request $request;
-
-    /**
-     * @param JWTTokenManagerInterface $JWTTokenManager
-     * @param Request                  $request
-     */
-    public function __construct(
-        JWTTokenManagerInterface $JWTTokenManager,
-        Request $request
-    ) {
-        $this->JWTTokenManager = $JWTTokenManager;
-        $this->request         = $request;
+    public function beforeScenario(BeforeScenarioScope $scope): void
+    {
+        $this->feature = $scope->getFeature();
     }
 
     /**
-     * @Given I am Authenticated as :user
+     * @override @Then the JSON should be valid according to the schema :filename
      *
-     * @param User $user
+     * @param string $filename
      */
-    public function iAmAuthenticatedAsUser(User $user): void
+    public function theJsonShouldBeValidAccordingToTheSchema($filename): void
     {
-        $token = $this->JWTTokenManager->create($user);
-        $this->request->setHttpHeader('JWTAuthorization', 'Bearer '.$token);
+        $directory = dirname(realpath($this->feature->getFile()));
+        $path = $directory.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$filename;
+
+        $newFilename = realpath($path);
+
+        if ($newFilename && is_file($newFilename)) {
+            $filename = $newFilename;
+        }
+
+        parent::theJsonShouldBeValidAccordingToTheSchema($filename);
     }
 }
