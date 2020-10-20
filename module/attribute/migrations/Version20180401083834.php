@@ -62,16 +62,6 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             )
         ');
 
-        // @todo verify is really needed
-        $this->addSql('
-            CREATE TABLE value (               
-                id UUID NOT NULL, 
-                key TEXT,                                                                       
-                PRIMARY KEY(id)
-            )
-        ');
-        $this->addSql('CREATE UNIQUE INDEX attribute_value_key_key ON value USING btree (key)');
-
         $this->addSql('
             CREATE TABLE value_translation (      
                 id UUID NOT NULL,
