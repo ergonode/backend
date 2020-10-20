@@ -53,7 +53,7 @@ class CreateUserFormModel
     public ?Language $language;
 
     /**
-     * @var Password|null
+     * @var string|null
      *
      * @Assert\NotBlank(message="User password is required")
      * @Assert\Length(
@@ -63,15 +63,15 @@ class CreateUserFormModel
      *     maxMessage="User password is too long, should have at most {{ limit }} characters"
      * )
      */
-    public ?Password $password;
+    public ?string $password;
 
     /**
-     * @var Password|null
+     * @var string|null
      *
      * @Assert\NotBlank(message="User password repeat is required")
      * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
-    public ?Password $passwordRepeat;
+    public ?string $passwordRepeat;
 
     /**
      * @var RoleId

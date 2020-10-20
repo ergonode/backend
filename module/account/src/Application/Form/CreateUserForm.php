@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Form;
 
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
-use Ergonode\Account\Application\Form\Type\PasswordType;
 use Ergonode\Account\Application\Form\Type\RoleIdType;
 use Ergonode\Core\Application\Form\Type\BooleanType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
@@ -44,11 +43,11 @@ class CreateUserForm extends AbstractType
             )
             ->add(
                 'password',
-                PasswordType::class
+                TextType::class
             )
             ->add(
                 'passwordRepeat',
-                PasswordType::class
+                TextType::class
             )
             ->add(
                 'language',

@@ -60,6 +60,7 @@ class UnitFormValidator extends ConstraintValidator
     {
         if (!isset($value->name) || null == $value->name) {
             $this->context->buildViolation($constraint->emptyNameMessage)
+                ->atPath('name')
                 ->addViolation();
 
             return;
@@ -67,6 +68,7 @@ class UnitFormValidator extends ConstraintValidator
         $unitIdByName = $this->query->findIdByName($value->name);
         if (null !== $unitIdByName && $unitIdByName != $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueNameMessage)
+                ->atPath('name')
                 ->addViolation();
         }
     }
@@ -79,6 +81,7 @@ class UnitFormValidator extends ConstraintValidator
     {
         if (!isset($value->symbol) || null === $value->symbol) {
             $this->context->buildViolation($constraint->emptySymbolMessage)
+                ->atPath('symbol')
                 ->addViolation();
 
             return;
@@ -86,6 +89,7 @@ class UnitFormValidator extends ConstraintValidator
         $unitIdBySymbol = $this->query->findIdByCode($value->symbol);
         if (null !== $unitIdBySymbol && $unitIdBySymbol != $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueSymbolMessage)
+                ->atPath('symbol')
                 ->addViolation();
         }
     }
