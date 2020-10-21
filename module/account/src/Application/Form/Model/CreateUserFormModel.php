@@ -59,8 +59,8 @@ class CreateUserFormModel
      * @Assert\Length(
      *     min="6",
      *     max="32",
-     *     minMessage="User password is too short, should have at least {{ limit }} characters",
-     *     maxMessage="User password is too long, should have at most {{ limit }} characters"
+     *     minMessage="User password is too short. It should have at least {{ limit }} characters.",
+     *     maxMessage="User password is too long. It should contain {{ limit }} characters or less."
      * )
      */
     public ?string $password;

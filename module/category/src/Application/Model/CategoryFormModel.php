@@ -26,12 +26,12 @@ class CategoryFormModel
      *     )
      * @Assert\Length(
      *     max=64,
-     *     maxMessage="Maximum number of characters is 64",
+     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less.",
      *     groups={"Create"}
      *     )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
-     *     message="System name  can have only letters, digits or underscore symbol",
+     *     message="System name can have only letters, digits or underscore symbol",
      *     groups={"Create"}
      *  )
      *
@@ -44,7 +44,10 @@ class CategoryFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=32, maxMessage="Category name is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *       max=32,
+     *       maxMessage="Category name is too long. It should contain {{ limit }} characters or less."
+     *     )
      * })
      */
     public array $name = [];

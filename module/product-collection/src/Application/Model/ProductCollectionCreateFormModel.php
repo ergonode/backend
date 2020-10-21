@@ -22,11 +22,14 @@ class ProductCollectionCreateFormModel
     /**
      * @var ProductCollectionCode | null
      *
-     * @Assert\NotBlank(message="Product collection code is required")
-     * @Assert\Length(max=64)
+     * @Assert\NotBlank(message="System name is required")
+     * @Assert\Length(
+     *     max=64,
+     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
+     *     )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
-     *     message="Category code can have only letters, digits or underscore symbol"
+     *     message="Product collection System Name can have only letters, digits or underscore symbol"
      *  )
      *
      * @ProductCollectionCodeValid()
@@ -42,7 +45,7 @@ class ProductCollectionCreateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *     max=100,
-     *     maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Product collection name is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
@@ -55,7 +58,7 @@ class ProductCollectionCreateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *     max=1000,
-     *     maxMessage="Product collection description is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Product collection description is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */

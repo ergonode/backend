@@ -51,7 +51,7 @@ class AttributeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=128,
-     *      maxMessage="Attribute name is to long, It should have {{ limit }} character or less."
+     *      maxMessage="Attribute name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
@@ -64,7 +64,7 @@ class AttributeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *       max=4000,
-     *       maxMessage="Attribute placeholder is to long. It should have {{ limit }} character or less."
+     *       maxMessage="Attribute placeholder is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
@@ -77,7 +77,7 @@ class AttributeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *       max=4000,
-     *       maxMessage="Attribute hint is to long. It should have {{ limit }} character or less."
+     *       maxMessage="Attribute hint is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */

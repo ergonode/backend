@@ -35,7 +35,7 @@ class StatusChangeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=100,
-     *      maxMessage="Status name is to long, It should have {{ limit }} character or less."
+     *      maxMessage="Status name is too long. It should contain {{ limit }} characters or less."
      *  )
      * })
      */
@@ -48,7 +48,7 @@ class StatusChangeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=500,
-     *      maxMessage="Status description is to long,. It should have {{ limit }} character or less."
+     *      maxMessage="Status description is too long. It should contain {{ limit }} characters or less."
      *  )
      * })
      */
