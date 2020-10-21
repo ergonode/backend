@@ -81,22 +81,24 @@ class CreateUserCommand extends Command
 
         $roleId = array_search($role, $this->query->getDictionary(), true);
 
-        if ($roleId) {
-            $command = new \Ergonode\Account\Domain\Command\User\CreateUserCommand(
-                $firstName,
-                $lastName,
-                $email,
-                $language,
-                $password,
-                new RoleId($roleId)
-            );
-            $this->commandBus->dispatch($command);
-
-            $output->writeln('<info>User created.</info>');
-        } else {
+        if (false === $roleId) {
             $output->writeln(sprintf('<error>Can\'t find role %s</error>', $role));
+
+            return 1;
         }
 
-        return 1;
+        $command = new \Ergonode\Account\Domain\Command\User\CreateUserCommand(
+            $firstName,
+            $lastName,
+            $email,
+            $language,
+            $password,
+            new RoleId($roleId)
+        );
+        $this->commandBus->dispatch($command);
+
+        $output->writeln('<info>User created.</info>');
+        
+        return 0;
     }
 }
