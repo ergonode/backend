@@ -35,7 +35,7 @@ class CategoryGrid extends AbstractGrid
         $index = new IntegerColumn('sequence', 'Index', new TextFilter());
         $this->addColumn('sequence', $index);
 
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
 
         $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);

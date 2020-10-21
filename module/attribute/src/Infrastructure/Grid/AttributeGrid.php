@@ -76,7 +76,7 @@ class AttributeGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $index = new IntegerColumn('index', 'Index', new TextFilter());
         $this->addColumn('index', $index);
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
         $column = new TextColumn('label', 'Name', new TextFilter());
         $this->addColumn('label', $column);
         $column = new SelectColumn('type', 'Type', new MultiSelectFilter($types));

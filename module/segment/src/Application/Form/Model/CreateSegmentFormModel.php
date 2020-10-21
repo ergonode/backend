@@ -26,7 +26,7 @@ class CreateSegmentFormModel
     /**
      * @var string|null
      *
-     * @Assert\NotBlank(message="Segment code is required")
+     * @Assert\NotBlank(message="System name is required")
      * @Assert\Length(max=100)
      *
      * @UniqueSegmentCode()

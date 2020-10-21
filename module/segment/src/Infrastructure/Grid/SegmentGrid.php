@@ -34,7 +34,7 @@ class SegmentGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new TextColumn('name', 'Code', new TextFilter()));
+        $this->addColumn('code', new TextColumn('name', 'System name', new TextFilter()));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
         $this->addColumn('status', new TextColumn('status', 'Status', new TextFilter()));
