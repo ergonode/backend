@@ -33,7 +33,7 @@ class SimpleOptionModel
      * @var string
      *
      * @Assert\NotBlank(message="Option code is required")
-     * @Assert\Length(max=128, maxMessage="Option code is to long. It should have {{ limit }} character or less.")
+     * @Assert\Length(max=128, maxMessage="Option code is too long. It should contain {{ limit }} characters or less.")
      */
     public ?string $code;
 
@@ -44,7 +44,7 @@ class SimpleOptionModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=255,
-     *      maxMessage="Attribute name is to long, It should have {{ limit }} character or less."
+     *      maxMessage="Attribute name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */

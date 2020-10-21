@@ -23,7 +23,7 @@ class ProductCollectionUpdateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *     max=100,
-     *      maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Product collection name is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
@@ -36,7 +36,7 @@ class ProductCollectionUpdateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *     max=1000,
-     *      maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Product collection description is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */

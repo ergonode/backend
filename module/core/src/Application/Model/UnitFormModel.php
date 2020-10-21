@@ -28,7 +28,7 @@ class UnitFormModel
      *
      * @Assert\Length(
      *     max=255,
-     *     maxMessage="Unit name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Unit name is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
@@ -40,7 +40,7 @@ class UnitFormModel
      *
      * @Assert\Length(
      *     max=16,
-     *     maxMessage="Unit symbol is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Unit symbol is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
