@@ -26,7 +26,7 @@ class CategoryCode
     public function __construct(string $value)
     {
         if (!self::isValid($value)) {
-            throw new \InvalidArgumentException('Invalid category code value');
+            throw new \InvalidArgumentException(sprintf('Invalid category code value "%s"', $value));
         }
 
         $this->value = $value;
