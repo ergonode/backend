@@ -19,6 +19,7 @@ use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
+use Psr\Log\LoggerInterface;
 
 /**
  */
@@ -45,6 +46,11 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     private Magento1CsvReader $reader;
 
     /**
+     * @var LoggerInterface $logger;
+     */
+    private LoggerInterface $logger;
+
+    /**
      * @var Magento1ProcessorStepInterface[]
      */
     private array $steps;
@@ -54,6 +60,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
      * @param TransformerRepositoryInterface   $transformerRepository
      * @param ImportErrorRepositoryInterface   $importErrorRepository
      * @param Magento1CsvReader                $reader
+     * @param LoggerInterface                  $importLogger
      * @param Magento1ProcessorStepInterface[] $steps
      */
     public function __construct(
@@ -61,12 +68,14 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         TransformerRepositoryInterface $transformerRepository,
         ImportErrorRepositoryInterface $importErrorRepository,
         Magento1CsvReader $reader,
+        LoggerInterface $importLogger,
         array $steps
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
         $this->importErrorRepository = $importErrorRepository;
         $this->reader = $reader;
+        $this->logger = $importLogger;
         $this->steps = $steps;
     }
 
@@ -106,6 +115,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         } catch (ImportException|ReaderException $exception) {
             $message = $exception->getMessage();
         } catch (\Throwable $exception) {
+            $this->logger->error($exception);
             $message = 'Import processing error';
         }
 
