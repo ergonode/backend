@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Infrastructure\Action\GroupingProductImportAction;
+use Psr\Log\LoggerInterface;
 
 /**
  */
@@ -29,13 +30,23 @@ class ImportGroupingProductCommandHandler
     private ImportErrorRepositoryInterface $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private LoggerInterface $importLogger;
+
+    /**
      * @param GroupingProductImportAction    $action
      * @param ImportErrorRepositoryInterface $repository
+     * @param LoggerInterface                $importLogger
      */
-    public function __construct(GroupingProductImportAction $action, ImportErrorRepositoryInterface $repository)
-    {
+    public function __construct(
+        GroupingProductImportAction $action,
+        ImportErrorRepositoryInterface $repository,
+        LoggerInterface $importLogger
+    ) {
         $this->action = $action;
         $this->repository = $repository;
+        $this->importLogger = $importLogger;
     }
 
     /**
@@ -54,9 +65,12 @@ class ImportGroupingProductCommandHandler
                 $command->getAttributes()
             );
         } catch (ImportException $exception) {
-            $message = $exception->getMessage();
+            $this->repository->add(ImportError::createFromImportException($command->getImportId(), $exception));
+        } catch (\Exception $exception) {
+            $message = sprintf('Can\'t import grouping product %s', $command->getSku());
             $error = new ImportError($command->getImportId(), $message);
             $this->repository->add($error);
+            $this->importLogger->error($exception);
         }
     }
 }

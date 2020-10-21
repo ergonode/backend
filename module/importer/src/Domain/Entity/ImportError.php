@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 
 /**
  */
@@ -39,6 +40,17 @@ class ImportError
         $this->importId = $importId;
         $this->message = $message;
         $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @param ImportId        $importId
+     * @param ImportException $exception
+     *
+     * @return static
+     */
+    public static function createFromImportException(ImportId $importId, ImportException $exception): self
+    {
+        return new self($importId, $exception->getMessage());
     }
 
        /**
