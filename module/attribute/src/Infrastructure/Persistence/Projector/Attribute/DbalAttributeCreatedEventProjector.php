@@ -21,7 +21,6 @@ class DbalAttributeCreatedEventProjector
 {
     private const TABLE = 'attribute';
     private const TABLE_PARAMETER = 'attribute_parameter';
-    private const TABLE_VALUE = 'value';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
     /**
@@ -54,27 +53,6 @@ class DbalAttributeCreatedEventProjector
         $labelUuid = Uuid::uuid4();
         $placeholderUuid = Uuid::uuid4();
         $hintUuid = Uuid::uuid4();
-
-        $this->connection->insert(
-            self::TABLE_VALUE,
-            [
-                'id' => $labelUuid->toString(),
-            ]
-        );
-
-        $this->connection->insert(
-            self::TABLE_VALUE,
-            [
-                'id' => $placeholderUuid->toString(),
-            ]
-        );
-
-        $this->connection->insert(
-            self::TABLE_VALUE,
-            [
-                'id' => $hintUuid->toString(),
-            ]
-        );
 
         foreach ($event->getLabel()->getTranslations() as $language => $value) {
             $this->connection->insert(
