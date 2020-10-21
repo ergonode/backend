@@ -34,63 +34,63 @@ Feature: Core module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?field=code"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (order by label)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?field=label"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (order by active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?field=active"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?field=label&order=ASC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?field=label&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?limit=25&offset=0&filter=code%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by label)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?limit=25&offset=0&filter=label%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by iso)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?limit=25&offset=0&filter=iso%3Den"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages?limit=25&offset=0&filter=active%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get languages (not authorized)
     When I send a GET request to "/api/v1/en_GB/languages"
@@ -163,7 +163,7 @@ Feature: Core module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete"
     Then the response status code should be 200
-    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON should be valid according to the schema "core/features/language.json"
 
   Scenario: Get language autocomplete (not authorized)
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete"
@@ -175,7 +175,7 @@ Feature: Core module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=code"
     Then the response status code should be 200
-    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON should be valid according to the schema "core/features/language.json"
 
   Scenario: Get language autocomplete (order by label)
     Given I am Authenticated as "test@ergonode.com"
@@ -183,7 +183,7 @@ Feature: Core module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=label"
     Then the response status code should be 200
-    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON should be valid according to the schema "core/features/language.json"
 
   Scenario: Get language autocomplete (order by active)
     Given I am Authenticated as "test@ergonode.com"
@@ -191,7 +191,7 @@ Feature: Core module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=active"
     Then the response status code should be 200
-    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON should be valid according to the schema "core/features/language.json"
 
   Scenario: Get language autocomplete (order ASC)
     Given I am Authenticated as "test@ergonode.com"
@@ -199,7 +199,7 @@ Feature: Core module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=label&order=ASC"
     Then the response status code should be 200
-    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON should be valid according to the schema "core/features/language.json"
 
   Scenario: Get language autocomplete (order DESC)
     Given I am Authenticated as "test@ergonode.com"
@@ -207,11 +207,11 @@ Feature: Core module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete?field=label&order=DESC"
     Then the response status code should be 200
-    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON should be valid according to the schema "core/features/language.json"
 
   Scenario: Get language autocomplete (search f limit 1)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/languages/autocomplete?search=f&limit=1"
-    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON should be valid according to the schema "core/features/language.json"

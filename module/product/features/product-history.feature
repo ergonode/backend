@@ -35,7 +35,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?field=recorded_at"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].recorded_at" should exist
 
@@ -44,7 +44,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?field=event"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].event:en_GB" should exist
 
@@ -53,7 +53,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?limit=25&offset=0&filter=recorded_at=2000-01-01"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get products history (filter by null time)
@@ -61,7 +61,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?limit=25&offset=0&filter=recorded_at="
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get products history (filter by time lower or equal 2000-01-01)
@@ -69,7 +69,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2000-01-01"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get products history (filter by time lower or equal 2000-01-01)
@@ -77,7 +77,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2000-01-01"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get products history (filter by time greater or equal 2050-01-01)
@@ -85,7 +85,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2050-01-01"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get products history (filter by time greater or equal 2050-01-01)
@@ -93,7 +93,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get products history (filter by time in range 2000-01-01 -2050-01-01)
@@ -101,7 +101,7 @@ Feature: Product history feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01;recorded_at>=2000-01-01"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get products history (not authorized)

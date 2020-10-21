@@ -113,39 +113,39 @@ Feature: Product collection module
 
   Scenario: Get product collection type (order by code)
     When I send a GET request to "/api/v1/en_GB/collections/type?field=code"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
 
   Scenario: Get product collection type (order by name)
     When I send a GET request to "/api/v1/en_GB/collections/type?field=name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
 
   Scenario: Get product collection type (filter by code)
     When I send a GET request to "/api/v1/en_GB/collections/type?limit=25&offset=0&filter=code=text_"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get product collection type (filter by null code)
     When I send a GET request to "/api/v1/en_GB/collections/type?limit=25&offset=0&filter=code="
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
   Scenario: Get product collection type (filter by name)
     When I send a GET request to "/api/v1/en_GB/collections/type?limit=25&offset=0&filter=name=Name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get product collection type (order ASC)
     When I send a GET request to "/api/v1/en_GB/collections/type?limit=50&offset=0&order=ASC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get products collection type  (order DESC)
     When I send a GET request to "/api/v1/en_GB/collections/type?limit=50&offset=0&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Delete product collection type (not found)
