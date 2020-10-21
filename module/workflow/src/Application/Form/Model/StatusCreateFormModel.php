@@ -21,7 +21,10 @@ class StatusCreateFormModel
      * @var string|null
      *
      * @Assert\NotBlank()
-     * @Assert\Length(max=100, maxMessage="System name is too long. It should contain {{ limit }} characters or less.")
+     * @Assert\Length(
+     *     max=100,
+     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
+     * )
      * @Assert\Regex(pattern="/^[a-zA-Z0-9-_ ]+$\b/i")
      *
      * @ErgoAssert\StatusCodeUnique()
@@ -45,7 +48,10 @@ class StatusCreateFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=100, maxMessage="Status name is too long. It should contain {{ limit }} characters or less.")
+     *     @Assert\Length(
+     *          max=100,
+     *          maxMessage="Status name is too long. It should contain {{ limit }} characters or less."
+     *     )
      * })
      */
     public array $name;

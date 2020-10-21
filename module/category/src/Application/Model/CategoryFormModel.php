@@ -44,7 +44,10 @@ class CategoryFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=32, maxMessage="Category name is too long. It should contain {{ limit }} characters or less.")
+     *     @Assert\Length(
+     *       max=32,
+     *       maxMessage="Category name is too long. It should contain {{ limit }} characters or less."
+     *     )
      * })
      */
     public array $name = [];

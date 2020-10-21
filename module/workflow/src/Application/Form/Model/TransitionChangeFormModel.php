@@ -21,7 +21,10 @@ class TransitionChangeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=100, maxMessage="Status name is too long. It should contain {{ limit }} characters or less.")
+     *     @Assert\Length(
+     *       max=100,
+     *       maxMessage="Status name is too long. It should contain {{ limit }} characters or less."
+     *     )
      * })
      */
     public array $name;
