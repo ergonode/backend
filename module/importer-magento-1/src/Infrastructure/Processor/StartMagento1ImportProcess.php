@@ -66,7 +66,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
      * @param TransformerRepositoryInterface   $transformerRepository
      * @param ImportErrorRepositoryInterface   $importErrorRepository
      * @param Magento1CsvReader                $reader
-     * @param LoggerInterface                  $importLogger
+     * @param LoggerInterface                  $logger
      * @param CommandBusInterface              $commandBus
      * @param Magento1ProcessorStepInterface[] $steps
      */
@@ -75,7 +75,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         TransformerRepositoryInterface $transformerRepository,
         ImportErrorRepositoryInterface $importErrorRepository,
         Magento1CsvReader $reader,
-        LoggerInterface $importLogger,
+        LoggerInterface $logger,
         CommandBusInterface $commandBus,
         array $steps
     ) {
@@ -83,7 +83,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         $this->transformerRepository = $transformerRepository;
         $this->importErrorRepository = $importErrorRepository;
         $this->reader = $reader;
-        $this->logger = $importLogger;
+        $this->logger = $logger;
         $this->commandBus = $commandBus;
         $this->steps = $steps;
     }
