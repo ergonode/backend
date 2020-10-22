@@ -14,5 +14,8 @@ interface SourceImportProcessorInterface
 {
     public function supported(string $type): bool;
 
+    /**
+     * @throw ImportException
+     */
     public function start(Import $import): void;
 }

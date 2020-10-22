@@ -22,4 +22,6 @@ interface ImportRepositoryInterface
     public function exists(ImportId $id): bool;
 
     public function delete(Import $import): void;
+
+    public function addError(ImportId $importId, string $message): void;
 }

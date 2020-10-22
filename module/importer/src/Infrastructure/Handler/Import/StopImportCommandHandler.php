@@ -34,5 +34,6 @@ class StopImportCommandHandler
 
         $import->stop();
         $this->repository->save($import);
+        $this->repository->addError($import->getId(), $command->getReason());
     }
 }

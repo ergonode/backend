@@ -23,6 +23,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 class DbalImportRepository implements ImportRepositoryInterface
 {
     private const TABLE = 'importer.import';
+    private const TABLE_ERROR = 'importer.import_error';
     private const FIELDS = [
         'id',
         'status',
@@ -105,6 +106,24 @@ class DbalImportRepository implements ImportRepositoryInterface
             [
                 'id' => $import->getId()->getValue(),
             ]
+        );
+    }
+
+    /**
+     * @throws DBALException
+     */
+    public function addError(ImportId $importId, string $message): void
+    {
+        $this->connection->insert(
+            self::TABLE_ERROR,
+            [
+                'import_id' => $importId,
+                'created_at' => new \DateTime(),
+                'message' => $message,
+            ],
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 
