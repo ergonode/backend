@@ -14,13 +14,8 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
-use Ergonode\Importer\Domain\Entity\ImportError;
-use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
-use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
-use Psr\Log\LoggerInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
+use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 
 class StartMagento1ImportProcess implements SourceImportProcessorInterface
 {
@@ -28,13 +23,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
 
     private TransformerRepositoryInterface $transformerRepository;
 
-    private ImportErrorRepositoryInterface $importErrorRepository;
-
     private Magento1CsvReader $reader;
-
-    private LoggerInterface $logger;
-
-    private CommandBusInterface $commandBus;
 
     /**
      * @var Magento1ProcessorStepInterface[]
@@ -47,18 +36,12 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
-        ImportErrorRepositoryInterface $importErrorRepository,
         Magento1CsvReader $reader,
-        LoggerInterface $logger,
-        CommandBusInterface $commandBus,
         array $steps
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
-        $this->importErrorRepository = $importErrorRepository;
         $this->reader = $reader;
-        $this->logger = $logger;
-        $this->commandBus = $commandBus;
         $this->steps = $steps;
     }
 
@@ -68,6 +51,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     }
 
     /**
+     * @throws ReaderException
      * @throws \ReflectionException
      */
     public function start(Import $import): void
@@ -78,31 +62,12 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         $transformer = $this->transformerRepository->load($import->getTransformerId());
         Assert::notNull($transformer);
 
-        $error = null;
-
-        try {
-            $this->reader->open($import);
-            while ($product = $this->reader->read($transformer)) {
-                foreach ($this->steps as $step) {
-                    $step->process($import, $product, $transformer, $source);
-                }
+        $this->reader->open($import);
+        while ($product = $this->reader->read($transformer)) {
+            foreach ($this->steps as $step) {
+                $step->process($import, $product, $transformer, $source);
             }
-            $this->reader->close();
-        } catch (\RuntimeException $exception) {
-            $error = new ImportError($import->getId(), $exception->getMessage());
-        } catch (ImportException $exception) {
-            $error = ImportError::createFromImportException($import->getId(), $exception);
-        } catch (\Throwable $exception) {
-            $this->logger->error($exception);
-            $message = 'Import processing error';
-            $error = new ImportError($import->getId(), $message);
         }
-
-        if ($error) {
-            $import->stop();
-            $this->importErrorRepository->add($error);
-        } else {
-            $this->commandBus->dispatch(new EndImportCommand($import->getId()), true);
-        }
+        $this->reader->close();
     }
 }

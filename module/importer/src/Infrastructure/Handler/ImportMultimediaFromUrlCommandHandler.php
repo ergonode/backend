@@ -9,8 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Domain\Entity\ImportError;
-use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 use Psr\Log\LoggerInterface;
@@ -19,23 +18,20 @@ class ImportMultimediaFromUrlCommandHandler
 {
     private MultimediaImportAction $action;
 
-    private ImportErrorRepositoryInterface $repository;
+    private ImportRepositoryInterface $repository;
 
-    private LoggerInterface $importLogger;
+    private LoggerInterface $logger;
 
     public function __construct(
         MultimediaImportAction $action,
-        ImportErrorRepositoryInterface $repository,
-        LoggerInterface $importLogger
+        ImportRepositoryInterface $repository,
+        LoggerInterface $logger
     ) {
         $this->action = $action;
         $this->repository = $repository;
-        $this->importLogger = $importLogger;
+        $this->logger = $logger;
     }
 
-    /**
-     * @throws \Exception
-     */
     public function __invoke(ImportMultimediaFromWebCommand $command)
     {
         try {
@@ -45,12 +41,11 @@ class ImportMultimediaFromUrlCommandHandler
                 $command->getName()
             );
         } catch (ImportException $exception) {
-            $this->repository->add(ImportError::createFromImportException($command->getImportId(), $exception));
+            $this->repository->addError($command->getImportId(), $exception->getMessage());
         } catch (\Exception $exception) {
             $message = sprintf('Can\'t import multimedia %s from url %s', $command->getName(), $command->getUrl());
-            $error = new ImportError($command->getImportId(), $message);
-            $this->repository->add($error);
-            $this->importLogger->error($exception);
+            $this->repository->addError($command->getImportId(), $message);
+            $this->logger->error($exception);
         }
     }
 }
