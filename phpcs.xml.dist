@@ -13,8 +13,7 @@
 
     <!-- Include Symfony2 Coding Standard -->
     <rule ref="Symfony">
-        <exclude name="Symfony.Commenting.ClassComment"/>
-        <exclude name="Symfony.Commenting.FunctionComment"/>
+        <exclude name="Symfony.Commenting"/>
         <exclude name="Zend.NamingConventions.ValidVariableName"/>
     </rule>
     <rule ref="Symfony.Functions.Arguments.Invalid">
