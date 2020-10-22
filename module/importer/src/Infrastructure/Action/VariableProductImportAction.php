@@ -195,7 +195,7 @@ class VariableProductImportAction
             }
             $bindingClass = $this->attributeRepository->load($attributeId);
 
-            if (!$binding instanceof SelectAttribute) {
+            if (!$bindingClass instanceof SelectAttribute) {
                 throw new ImportIncorrectBindingAttributeException($binding, $sku);
             }
 
