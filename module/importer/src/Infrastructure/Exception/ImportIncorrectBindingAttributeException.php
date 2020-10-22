@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Exception;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class ImportIncorrectBindingAttributeException extends ImportException
 {
     private const MESSAGE = 'Attribute {{code}} is not a select attribute, required for product {{sku}}';
