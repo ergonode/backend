@@ -20,32 +20,14 @@ use Webmozart\Assert\Assert;
 
 class CustomFieldShopware6ExportCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var CustomFiledShopware6ExportProcess
-     */
     private CustomFiledShopware6ExportProcess $process;
 
-    /**
-     * @param ExportRepositoryInterface         $exportRepository
-     * @param ChannelRepositoryInterface        $channelRepository
-     * @param AttributeRepositoryInterface      $attributeRepository
-     * @param CustomFiledShopware6ExportProcess $process
-     */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
@@ -58,9 +40,6 @@ class CustomFieldShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    /**
-     * @param CustomFieldShopware6ExportCommand $command
-     */
     public function __invoke(CustomFieldShopware6ExportCommand $command)
     {
         $export = $this->exportRepository->load($command->getExportId());

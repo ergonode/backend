@@ -18,20 +18,10 @@ use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 
 class CategoryImportAction
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @var CategoryRepositoryInterface
-     */
     private CategoryRepositoryInterface $repository;
 
-    /**
-     * @param CategoryQueryInterface      $query
-     * @param CategoryRepositoryInterface $repository
-     */
     public function __construct(
         CategoryQueryInterface $query,
         CategoryRepositoryInterface $repository
@@ -41,9 +31,6 @@ class CategoryImportAction
     }
 
     /**
-     * @param CategoryCode       $code
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function action(CategoryCode $code, TranslatableString $name): void

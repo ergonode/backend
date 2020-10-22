@@ -18,20 +18,10 @@ use Webmozart\Assert\Assert;
 
 class DeleteTransformerCommandHandler
 {
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param TransformerRepositoryInterface $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         TransformerRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -41,8 +31,6 @@ class DeleteTransformerCommandHandler
     }
 
     /**
-     * @param DeleteTransformerCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteTransformerCommand $command)

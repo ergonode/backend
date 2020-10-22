@@ -15,20 +15,10 @@ use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 
 class CreateWorkflowCommandHandler
 {
-    /**
-     * @var WorkflowRepositoryInterface
-     */
     private WorkflowRepositoryInterface $repository;
 
-    /**
-     * @var WorkflowFactory
-     */
     private WorkflowFactory $factory;
 
-    /**
-     * @param WorkflowRepositoryInterface $repository
-     * @param WorkflowFactory             $factory
-     */
     public function __construct(WorkflowRepositoryInterface $repository, WorkflowFactory $factory)
     {
         $this->repository = $repository;
@@ -36,8 +26,6 @@ class CreateWorkflowCommandHandler
     }
 
     /**
-     * @param CreateWorkflowCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateWorkflowCommand $command)

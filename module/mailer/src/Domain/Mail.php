@@ -7,37 +7,16 @@ use DateTime;
 
 class Mail implements MailInterface
 {
-    /**
-     * @var Recipient
-     */
     protected Recipient $recipient;
 
-    /**
-     * @var Sender
-     */
     protected Sender $sender;
 
-    /**
-     * @var Template
-     */
     protected Template $template;
 
-    /**
-     * @var string
-     */
     protected string $subject;
 
-    /**
-     * @var DateTime
-     */
     protected DateTime $createdAt;
 
-    /**
-     * @param Recipient $recipient
-     * @param Sender    $sender
-     * @param Template  $template
-     * @param string    $subject
-     */
     public function __construct(
         Recipient $recipient,
         Sender $sender,

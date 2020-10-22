@@ -12,26 +12,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 interface Shopware6CurrencyRepositoryInterface
 {
-    /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channel, string $iso): ?string;
 
-    /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     * @param string    $shopwareId
-     */
     public function save(ChannelId $channel, string $iso, string $shopwareId): void;
 
-    /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channel, string $iso): bool;
 }

@@ -18,14 +18,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UnitFormValidator extends ConstraintValidator
 {
-    /**
-     * @var UnitQueryInterface
-     */
     private UnitQueryInterface $query;
 
-    /**
-     * @param UnitQueryInterface $query
-     */
     public function __construct(UnitQueryInterface $query)
     {
         $this->query = $query;
@@ -52,7 +46,6 @@ class UnitFormValidator extends ConstraintValidator
 
     /**
      * @param            $value
-     * @param Constraint $constraint
      */
     private function validateName($value, Constraint $constraint)
     {
@@ -74,7 +67,6 @@ class UnitFormValidator extends ConstraintValidator
 
     /**
      * @param            $value
-     * @param Constraint $constraint
      */
     private function validateSymbol($value, Constraint $constraint)
     {

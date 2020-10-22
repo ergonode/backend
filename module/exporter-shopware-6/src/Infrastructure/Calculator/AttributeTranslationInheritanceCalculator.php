@@ -18,24 +18,14 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 class AttributeTranslationInheritanceCalculator
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $languageQuery;
 
-    /**
-     * @param LanguageQueryInterface $languageQuery
-     */
     public function __construct(LanguageQueryInterface $languageQuery)
     {
         $this->languageQuery = $languageQuery;
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     * @param ValueInterface    $value
-     * @param Language          $language
-     *
      * @return array|mixed|string|null
      */
     public function calculate(AbstractAttribute $attribute, ValueInterface $value, Language $language)

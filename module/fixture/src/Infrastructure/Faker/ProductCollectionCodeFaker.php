@@ -15,10 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class ProductCollectionCodeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
-     *
-     * @return ProductCollectionCode
-     *
      * @throws \Exception
      */
     public function productCollectionCode(?string $code = null): ProductCollectionCode

@@ -23,26 +23,12 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     private const TABLE = 'event_store_snapshot';
     private const SNAPSHOT_EVENTS = 10;
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @var int
-     */
     private int $snapshotEvents;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     * @param int                 $snapshotEvents
-     */
     public function __construct(
         Connection $connection,
         SerializerInterface $serializer,
@@ -54,11 +40,6 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     }
 
     /**
-     * @param AggregateId $id
-     * @param string      $class
-     *
-     * @return AbstractAggregateRoot
-     *
      * @throws \ReflectionException
      */
     public function load(AggregateId $id, string $class): ?AbstractAggregateRoot
@@ -97,8 +78,6 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregate
-     *
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregate): void
@@ -123,8 +102,6 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     }
 
     /**
-     * @param AggregateId $id
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */

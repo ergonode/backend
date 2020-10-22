@@ -14,21 +14,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LanguageTreeMapper
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
     /**
-     * @param Language             $language
      * @param array                $treeLanguages
      * @param LanguagePrivileges[] $privileges
      *

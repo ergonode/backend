@@ -16,9 +16,6 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductType extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Incorrect product type.';
 
     /**

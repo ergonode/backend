@@ -15,8 +15,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class CategoryTreeExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Category tree {{ value }} not exists.';
 }

@@ -18,7 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class AvatarUploadForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -26,17 +25,11 @@ class AvatarUploadForm extends AbstractType
         $builder->add('upload', FileType::class);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix() :?string
     {
         return null;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

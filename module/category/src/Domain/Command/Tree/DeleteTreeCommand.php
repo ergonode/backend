@@ -16,23 +16,15 @@ use JMS\Serializer\Annotation as JMS;
 class DeleteTreeCommand implements DomainCommandInterface
 {
     /**
-     * @var CategoryTreeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private CategoryTreeId $id;
 
-    /**
-     * @param CategoryTreeId $id
-     */
     public function __construct(CategoryTreeId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return CategoryTreeId
-     */
     public function getId(): CategoryTreeId
     {
         return $this->id;

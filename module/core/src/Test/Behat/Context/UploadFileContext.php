@@ -37,33 +37,19 @@ use function GuzzleHttp\Psr7\mimetype_from_filename;
  *        | form_param2 | other form param2  |
  *      Then the response status code should be 201
  *      And the JSON node "id" should exist
- *
  */
 class UploadFileContext extends BaseContext
 {
-    /**
-     * @var Request
-     */
     private Request $request;
 
-    /**
-     * @var FeatureNode
-     */
     private FeatureNode $currentFeature;
 
-    /**
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
     /**
-     * @param string    $method
-     * @param string    $url
-     * @param TableNode $data
-     *
      * @return mixed
      *
      * @Given I send a :method request to :url with params:
@@ -94,8 +80,6 @@ class UploadFileContext extends BaseContext
     }
 
     /**
-     * @param BeforeScenarioScope $scope
-     *
      * @BeforeScenario
      */
     public function beforeScenario(BeforeScenarioScope $scope)
@@ -103,11 +87,6 @@ class UploadFileContext extends BaseContext
         $this->currentFeature = $scope->getFeature();
     }
 
-    /**
-     * @param string $value
-     *
-     * @return UploadedFile
-     */
     private function uploadTestFile(string $value): UploadedFile
     {
         $testFilePath = $this->getAbsolutePathToTestFile(
@@ -130,8 +109,6 @@ class UploadFileContext extends BaseContext
 
     /**
      * @param string $relativePath to feature file
-     *
-     * @return string
      */
     private function getAbsolutePathToTestFile(string $relativePath): string
     {
@@ -149,8 +126,6 @@ class UploadFileContext extends BaseContext
 
     /**
      * @param mixed $value
-     *
-     * @return bool
      */
     private function isTestFileUpload($value): bool
     {

@@ -16,22 +16,13 @@ use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 class SegmentCreatedEventHandler implements MessageSubscriberInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param SegmentCreatedEvent $event
-     */
     public function __invoke(SegmentCreatedEvent $event)
     {
         if ($event->getConditionSetId()) {

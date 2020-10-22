@@ -18,8 +18,6 @@ class AttributeTypeCompilerPass implements CompilerPassInterface
     public const TAG = 'attribute.domain.attribute_interface';
 
     /**
-     * @param ContainerBuilder $container
-     *
      * @throws \ReflectionException
      */
     public function process(ContainerBuilder $container): void
@@ -30,8 +28,6 @@ class AttributeTypeCompilerPass implements CompilerPassInterface
     }
 
     /**
-     * @param ContainerBuilder $container
-     *
      * @throws \ReflectionException
      */
     private function processHandler(ContainerBuilder $container): void

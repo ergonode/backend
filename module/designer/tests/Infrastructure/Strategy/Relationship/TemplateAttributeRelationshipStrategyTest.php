@@ -18,9 +18,6 @@ use PHPUnit\Framework\TestCase;
 class TemplateAttributeRelationshipStrategyTest extends TestCase
 {
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
     protected function setUp(): void

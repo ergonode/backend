@@ -24,25 +24,13 @@ class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInte
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param string    $shopwareId
-     *
-     * @return AttributeId|null
-     */
     public function loadByShopwareId(ChannelId $channelId, string $shopwareId): ?AttributeId
     {
         $query = $this->connection->createQueryBuilder();
@@ -63,11 +51,6 @@ class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInte
         return null;
     }
 
-    /**
-     * @param ChannelId          $channelId
-     * @param \DateTimeImmutable $dateTime
-     * @param string             $type
-     */
     public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime, string $type): void
     {
         $query = $this->connection->createQueryBuilder();

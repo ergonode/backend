@@ -17,22 +17,14 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 
 class UpdateTextareaAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateTextareaAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateTextareaAttributeCommand $command): void

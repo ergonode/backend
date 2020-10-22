@@ -26,26 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryGridReadAction
 {
-    /**
-     * @var CategoryGrid
-     */
     private CategoryGrid $categoryGrid;
 
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer           $gridRenderer
-     * @param CategoryGrid           $categoryGrid
-     * @param CategoryQueryInterface $categoryQuery
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         CategoryGrid $categoryGrid,
@@ -120,11 +106,6 @@ class CategoryGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

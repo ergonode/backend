@@ -15,27 +15,14 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 interface TransformerRepositoryInterface
 {
-    /**
-     * @param TransformerId $id
-     *
-     * @return bool
-     */
     public function exists(TransformerId $id): bool;
 
     /**
-     * @param TransformerId $id
-     *
      * @return AbstractAggregateRoot|Transformer
      */
     public function load(TransformerId $id): ?AbstractAggregateRoot;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

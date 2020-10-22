@@ -17,14 +17,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ProductExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @param ProductRepositoryInterface $repository
-     */
     public function __construct(ProductRepositoryInterface $repository)
     {
         $this->repository = $repository;

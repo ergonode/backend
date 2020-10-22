@@ -25,22 +25,13 @@ class RequestBodyListener
 
     private const CONTENT_TYPES = ['json'];
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
     public function __invoke(GetResponseEvent $event): void
     {
         $request = $event->getRequest();

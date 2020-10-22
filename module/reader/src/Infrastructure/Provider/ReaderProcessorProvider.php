@@ -18,10 +18,6 @@ class ReaderProcessorProvider
      */
     private array $readers = [];
 
-    /**
-     * @param string                   $key
-     * @param ReaderProcessorInterface $reader
-     */
     public function setReader(string $key, ReaderProcessorInterface $reader): void
     {
         $key = strtolower($key);
@@ -29,11 +25,6 @@ class ReaderProcessorProvider
         $this->readers[$key] = $reader;
     }
 
-    /**
-     * @param string $extension
-     *
-     * @return ReaderProcessorInterface
-     */
     public function provide(string $extension): ReaderProcessorInterface
     {
         $extension = strtolower($extension);

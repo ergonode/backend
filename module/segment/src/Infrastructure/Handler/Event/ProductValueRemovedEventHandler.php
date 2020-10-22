@@ -16,22 +16,13 @@ use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 
 class ProductValueRemovedEventHandler implements MessageSubscriberInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ProductValueRemovedEvent $event
-     */
     public function __invoke(ProductValueRemovedEvent $event)
     {
         $command = new CalculateProductCommand($event->getAggregateId());

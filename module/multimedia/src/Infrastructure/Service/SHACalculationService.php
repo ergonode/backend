@@ -13,11 +13,6 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 class SHACalculationService implements HashCalculationServiceInterface
 {
-    /**
-     * @param \SplFileInfo $file
-     *
-     * @return Hash
-     */
     public function calculateHash(\SplFileInfo $file): Hash
     {
         $result = sha1_file($file->getRealPath());

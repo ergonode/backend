@@ -10,18 +10,9 @@ namespace Ergonode\Multimedia\Infrastructure\Service\Thumbnail;
 
 interface ThumbnailGenerationStrategyInterface
 {
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function supported(string $name): bool;
 
     /**
-     * @param \Imagick $imagick
-     *
-     * @return \Imagick
-     *
      * @throws \ImagickException
      */
     public function generate(\Imagick $imagick): \Imagick;

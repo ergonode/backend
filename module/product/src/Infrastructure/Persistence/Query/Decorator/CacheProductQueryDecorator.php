@@ -23,9 +23,6 @@ use Ramsey\Uuid\Uuid;
 
 class CacheProductQueryDecorator implements ProductQueryInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
     /**
@@ -33,31 +30,17 @@ class CacheProductQueryDecorator implements ProductQueryInterface
      */
     private array $cache = [];
 
-    /**
-     * @param ProductQueryInterface $query
-     */
     public function __construct(ProductQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param Language  $language
-     * @param ProductId $productId
-     *
-     * @return DataSetInterface
-     */
     public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
     {
         return $this->query->getDataSetByProduct($language, $productId);
     }
 
 
-    /**
-     * @param Sku $sku
-     *
-     * @return ProductId|null
-     */
     public function findProductIdBySku(Sku $sku): ?ProductId
     {
         $key = $sku->getValue();
@@ -77,8 +60,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @param \DateTime|null $dateTime
-     *
      * @return array
      */
     public function getAllEditedIds(?\DateTime $dateTime = null): array
@@ -119,8 +100,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @param TemplateId $templateId
-     *
      * @return array
      */
     public function findProductIdsByTemplate(TemplateId $templateId): array
@@ -161,8 +140,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @param MultimediaId $id
-     *
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array
@@ -179,11 +156,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -195,9 +167,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
         return $this->query->autocomplete($search, $limit, $field, $order);
     }
 
-    /**
-     * @return int
-     */
     public function getCount(): int
     {
         return $this->query->getCount();

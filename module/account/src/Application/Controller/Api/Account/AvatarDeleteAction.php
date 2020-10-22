@@ -30,15 +30,9 @@ use Swagger\Annotations as SWG;
  */
 class AvatarDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(
         CommandBusInterface $commandBus
     ) {
@@ -70,11 +64,6 @@ class AvatarDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
-     *
-     * @param User    $user
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(User $user, Request $request): Response
     {

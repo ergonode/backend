@@ -17,24 +17,12 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 
 class SkuHandlerTest extends TestCase
 {
-    /**
-     * @var SkuHandler
-     */
     private SkuHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

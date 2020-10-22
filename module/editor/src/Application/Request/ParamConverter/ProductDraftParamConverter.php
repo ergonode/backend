@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProductDraftParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ProductDraftRepositoryInterface
-     */
     private ProductDraftRepositoryInterface $repository;
 
-    /**
-     * @param ProductDraftRepositoryInterface $repository
-     */
     public function __construct(ProductDraftRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -17,11 +17,6 @@ use Money\Currency;
  */
 class CurrencyFaker extends BaseProvider
 {
-    /**
-     * @param string|null $currency
-     *
-     * @return Currency
-     */
     public function currency(string $currency = null): Currency
     {
         if (null === $currency) {

@@ -13,16 +13,9 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 interface ConditionConfigurationStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getConfiguration(Language $language): array;

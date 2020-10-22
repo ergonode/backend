@@ -13,29 +13,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ColumnModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank()
      */
     public ?string $column;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank()
      */
     public ?string $code;
 
     /**
-     * @var  string
-     *
      * @Assert\NotBlank()
      */
     public ?string $type;
 
     /**
-     * @var bool
-     *
      * @Assert\NotBlank()
      */
     public ?bool $imported;

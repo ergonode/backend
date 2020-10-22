@@ -14,8 +14,6 @@ class TranslatableStringFaker
 {
     /**
      * @param array $translations
-     *
-     * @return TranslatableString
      */
     public function translation(array $translations = []): TranslatableString
     {

@@ -24,30 +24,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class Shopware6ProductVariantChildMapper extends AbstractShopware6VariantOptionMapper
 {
-    /**
-     * @var ProductChildrenQueryInterface
-     */
     private ProductChildrenQueryInterface  $childQuery;
 
-    /**
-     * @var Shopware6ProductRepositoryInterface
-     */
     private Shopware6ProductRepositoryInterface $shopware6ProductRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @param ProductChildrenQueryInterface                    $childQuery
-     * @param Shopware6ProductRepositoryInterface              $shopware6ProductRepository
-     * @param ProductRepositoryInterface                       $productRepository
-     * @param AttributeRepositoryInterface                     $attributeRepository
-     * @param OptionRepositoryInterface                        $optionRepository
-     * @param AttributeTranslationInheritanceCalculator        $calculator
-     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
-     */
     public function __construct(
         ProductChildrenQueryInterface $childQuery,
         Shopware6ProductRepositoryInterface $shopware6ProductRepository,
@@ -63,14 +45,6 @@ class Shopware6ProductVariantChildMapper extends AbstractShopware6VariantOptionM
         $this->productRepository = $productRepository;
     }
 
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
@@ -86,14 +60,6 @@ class Shopware6ProductVariantChildMapper extends AbstractShopware6VariantOptionM
         return $shopware6Product;
     }
 
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param ProductId        $parentProductId
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
-     */
     private function parentMap(
         Shopware6Product $shopware6Product,
         ProductId $parentProductId,

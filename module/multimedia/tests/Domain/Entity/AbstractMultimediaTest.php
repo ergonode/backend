@@ -23,14 +23,8 @@ class AbstractMultimediaTest extends TestCase
      */
     private MultimediaId $id;
 
-    /**
-     * @var string
-     */
     private string $filename;
 
-    /**
-     * @var string
-     */
     private string $extension;
 
     /**
@@ -38,14 +32,8 @@ class AbstractMultimediaTest extends TestCase
      */
     private Hash $hash;
 
-    /**
-     * @var string
-     */
     private string $mime;
 
-    /**
-     * @var int
-     */
     private int $size;
 
     protected function setUp(): void
@@ -91,9 +79,6 @@ class AbstractMultimediaTest extends TestCase
         $this->assertSame($newAlt, $multimedia->getAlt());
     }
 
-    /**
-     * @return AbstractMultimedia
-     */
     private function getClass(): AbstractMultimedia
     {
         return new class(

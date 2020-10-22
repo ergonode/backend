@@ -17,26 +17,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateImportAction
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
-    /**
-     * @var TemplateGroupQueryInterface
-     */
     private TemplateGroupQueryInterface $templateGroupQuery;
 
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @param TemplateQueryInterface      $query
-     * @param TemplateGroupQueryInterface $templateGroupQuery
-     * @param TemplateRepositoryInterface $templateRepository
-     */
     public function __construct(
         TemplateQueryInterface $query,
         TemplateGroupQueryInterface $templateGroupQuery,
@@ -48,8 +34,6 @@ class TemplateImportAction
     }
 
     /**
-     * @param string $code
-     *
      * @throws \Exception
      */
     public function action(string $code): void

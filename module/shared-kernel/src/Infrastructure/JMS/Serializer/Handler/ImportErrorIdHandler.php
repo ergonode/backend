@@ -46,12 +46,7 @@ class ImportErrorIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param ImportErrorId                 $id
      * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -63,12 +58,8 @@ class ImportErrorIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
      * @param mixed                           $data
      * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return ImportErrorId
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

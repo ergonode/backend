@@ -24,14 +24,8 @@ use Ergonode\Importer\Infrastructure\Provider\SourceTypeDictionaryProvider;
  */
 class SourceTypeDictionaryAction
 {
-    /**
-     * @var SourceTypeDictionaryProvider
-     */
     private SourceTypeDictionaryProvider $provider;
 
-    /**
-     * @param SourceTypeDictionaryProvider $provider
-     */
     public function __construct(SourceTypeDictionaryProvider $provider)
     {
         $this->provider = $provider;
@@ -51,9 +45,6 @@ class SourceTypeDictionaryAction
      *     response=200,
      *     description="Returns import source dictionary",
      * )
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

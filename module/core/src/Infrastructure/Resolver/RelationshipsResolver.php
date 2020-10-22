@@ -20,9 +20,6 @@ class RelationshipsResolver implements RelationshipsResolverInterface
      */
     private array $strategies;
 
-    /**
-     * @param RelationshipStrategyInterface ...$strategies
-     */
     public function __construct(RelationshipStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;

@@ -19,9 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
     protected function setUp(): void
@@ -71,9 +68,6 @@ class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return SkuUniqueValidator
-     */
     protected function createValidator(): SkuUniqueValidator
     {
         return new SkuUniqueValidator($this->query);

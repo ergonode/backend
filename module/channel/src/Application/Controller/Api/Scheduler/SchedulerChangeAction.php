@@ -37,20 +37,10 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class SchedulerChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -98,10 +88,7 @@ class SchedulerChangeAction
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
-     * @param AbstractChannel $channel
-     * @param Request         $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

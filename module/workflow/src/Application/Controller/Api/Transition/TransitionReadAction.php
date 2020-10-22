@@ -65,12 +65,6 @@ class TransitionReadAction
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
-     *
-     * @param AbstractWorkflow $workflow
-     * @param Status           $source
-     * @param Status           $destination
-     *
-     * @return Response
      */
     public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
     {

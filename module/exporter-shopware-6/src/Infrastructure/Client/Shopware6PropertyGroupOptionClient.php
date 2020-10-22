@@ -20,20 +20,10 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 class Shopware6PropertyGroupOptionClient
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @var Shopware6PropertyGroupOptionsRepositoryInterface
-     */
     private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
-    /**
-     * @param Shopware6Connector                               $connector
-     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
-     */
     public function __construct(
         Shopware6Connector $connector,
         Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
@@ -43,11 +33,6 @@ class Shopware6PropertyGroupOptionClient
     }
 
     /**
-     * @param Shopware6Channel       $channel
-     * @param string                 $propertyGroupId
-     * @param string                 $propertyGroupOptionId
-     * @param Shopware6Language|null $shopware6Language
-     *
      * @return array|object|string|null
      */
     public function get(
@@ -64,14 +49,6 @@ class Shopware6PropertyGroupOptionClient
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel             $channel
-     * @param string                       $propertyGroupId
-     * @param Shopware6PropertyGroupOption $propertyGroupOption
-     * @param AbstractOption               $option
-     *
-     * @return Shopware6PropertyGroupOption|null
-     */
     public function insert(
         Shopware6Channel $channel,
         string $propertyGroupId,
@@ -92,12 +69,6 @@ class Shopware6PropertyGroupOptionClient
         return $shopwarePropertyGroupOptions;
     }
 
-    /**
-     * @param Shopware6Channel             $channel
-     * @param string                       $propertyGroupId
-     * @param Shopware6PropertyGroupOption $propertyGroupOption
-     * @param Shopware6Language|null       $shopware6Language
-     */
     public function update(
         Shopware6Channel $channel,
         string $propertyGroupId,

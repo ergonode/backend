@@ -15,26 +15,12 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 class ImportCategoryCommand implements DomainCommandInterface
 {
-    /**
-     * @var ImportId
-     */
     private ImportId $importId;
 
-    /**
-     * @var CategoryCode
-     */
     private CategoryCode $code;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $name;
 
-    /**
-     * @param ImportId           $importId
-     * @param CategoryCode       $code
-     * @param TranslatableString $name
-     */
     public function __construct(ImportId $importId, CategoryCode $code, TranslatableString $name)
     {
         $this->importId = $importId;
@@ -42,25 +28,16 @@ class ImportCategoryCommand implements DomainCommandInterface
         $this->name = $name;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getImportId(): ImportId
     {
         return $this->importId;
     }
 
-    /**
-     * @return CategoryCode
-     */
     public function getCode(): CategoryCode
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;

@@ -19,26 +19,12 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
 {
     private const URI = '/api/v2/property-group/%s/options?%s';
 
-    /**
-     * @var string
-     */
     private string $propertyGroupId;
 
-    /**
-     * @var Shopware6PropertyGroupOption
-     */
     private Shopware6PropertyGroupOption $propertyGroupOption;
 
-    /**
-     * @var bool
-     */
     private bool $response;
 
-    /**
-     * @param string                       $propertyGroupId
-     * @param Shopware6PropertyGroupOption $propertyGroupOption
-     * @param bool                         $response
-     */
     public function __construct(
         string $propertyGroupId,
         Shopware6PropertyGroupOption $propertyGroupOption,
@@ -50,9 +36,6 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
     }
 
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -64,10 +47,6 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6PropertyGroupOption|null
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?Shopware6PropertyGroupOption
@@ -86,9 +65,6 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
         );
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $serializer = SerializerBuilder::create()->build();
@@ -96,9 +72,6 @@ class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInt
         return $serializer->serialize($this->propertyGroupOption, 'json');
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [];

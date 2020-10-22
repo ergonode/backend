@@ -45,10 +45,6 @@ class WorkflowReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @param AbstractWorkflow $workflow
-     *
-     * @return Response
      */
     public function __invoke(AbstractWorkflow $workflow): Response
     {

@@ -20,37 +20,15 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 interface AttributeQueryInterface
 {
-    /**
-     * @param AttributeCode $code
-     *
-     * @return bool
-     */
     public function checkAttributeExistsByCode(AttributeCode $code): bool;
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return null|AttributeViewModel
-     */
     public function findAttributeByCode(AttributeCode $code): ?AttributeViewModel;
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return null|AttributeId
-     */
     public function findAttributeIdByCode(AttributeCode $code): ?AttributeId;
 
-    /**
-     * @param AttributeId $id
-     *
-     * @return AttributeType|null
-     */
     public function findAttributeType(AttributeId $id): ?AttributeType;
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array|null
      */
     public function getAttribute(AttributeId $attributeId): ?array;
@@ -74,42 +52,24 @@ interface AttributeQueryInterface
      */
     public function getAttributeCodes(array $types = []): array;
 
-    /**
-     * @param AttributeId $id
-     * @param OptionKey   $key
-     *
-     * @return OptionInterface
-     */
     public function findAttributeOption(AttributeId $id, OptionKey $key): ?OptionInterface;
 
     /**
-     * @param UnitId $id
-     *
      * @return array
      */
     public function findAttributeIdsByUnitId(UnitId $id): array;
 
     /**
-     * @param AttributeGroupId $id
-     *
      * @return array
      */
     public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array;
 
     /**
-     * @param MultimediaId $id
-     *
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array;
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(

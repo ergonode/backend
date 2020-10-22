@@ -24,23 +24,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TemplateGrid extends AbstractGrid
 {
-    /**
-     * @var TemplateGroupQueryInterface
-     */
     private TemplateGroupQueryInterface $query;
 
-    /**
-     * @param TemplateGroupQueryInterface $query
-     */
     public function __construct(TemplateGroupQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $collection = [];

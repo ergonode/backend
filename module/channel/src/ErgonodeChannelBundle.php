@@ -17,9 +17,6 @@ use Ergonode\Channel\Application\DependencyInjection\CompilerPass\UpdateChannelC
 
 class ErgonodeChannelBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ChannelFormFactoryCompilerPass());

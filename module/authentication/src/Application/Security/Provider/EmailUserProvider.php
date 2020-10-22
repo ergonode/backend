@@ -23,10 +23,6 @@ final class EmailUserProvider implements UserProviderInterface
     private UserQueryInterface $query;
     private UserRepositoryInterface $repository;
 
-    /**
-     * @param UserQueryInterface      $query
-     * @param UserRepositoryInterface $repository
-     */
     public function __construct(UserQueryInterface $query, UserRepositoryInterface $repository)
     {
         $this->query = $query;

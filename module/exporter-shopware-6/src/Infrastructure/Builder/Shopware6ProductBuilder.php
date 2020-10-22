@@ -21,22 +21,11 @@ class Shopware6ProductBuilder
      */
     private array $collection;
 
-    /**
-     * @param Shopware6ProductMapperInterface ...$collection
-     */
     public function __construct(Shopware6ProductMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
 
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     */
     public function build(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,

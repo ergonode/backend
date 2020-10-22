@@ -20,14 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UsageReadAction
 {
-    /**
-     * @var UsageDeeplProviderInterface
-     */
     private UsageDeeplProviderInterface $usageProvider;
 
-    /**
-     * @param UsageDeeplProviderInterface $usageProvider
-     */
     public function __construct(UsageDeeplProviderInterface $usageProvider)
     {
         $this->usageProvider = $usageProvider;
@@ -39,8 +33,6 @@ class UsageReadAction
      *     response=200,
      *     description="Returns usage information",
      * )
-     *
-     * @return Response
      */
     public function __invoke(): Response
     {

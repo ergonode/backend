@@ -18,7 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CategoryCodeType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -26,9 +25,6 @@ class CategoryCodeType extends AbstractType
         $builder->addModelTransformer(new CategoryCodeDataTransformer());
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -38,9 +34,6 @@ class CategoryCodeType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return TextType::class;

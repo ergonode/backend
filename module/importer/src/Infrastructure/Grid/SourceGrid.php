@@ -25,23 +25,13 @@ use Ergonode\Grid\Filter\NumericFilter;
 
 class SourceGrid extends AbstractGrid
 {
-    /**
-     * @var SourceTypeDictionaryProvider
-     */
     private SourceTypeDictionaryProvider $provider;
 
-    /**
-     * @param SourceTypeDictionaryProvider $provider
-     */
     public function __construct(SourceTypeDictionaryProvider $provider)
     {
         $this->provider = $provider;
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $types = [];

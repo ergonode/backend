@@ -17,19 +17,11 @@ class ExportProcessorProvider
      */
     private array $processors;
 
-    /**
-     * @param ExportProcessorInterface ...$processors
-     */
     public function __construct(ExportProcessorInterface ...$processors)
     {
         $this->processors = $processors;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return ExportProcessorInterface
-     */
     public function provide(string $type): ExportProcessorInterface
     {
         foreach ($this->processors as $processor) {

@@ -21,10 +21,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SegmentGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $statuses = array_combine(SegmentStatus::AVAILABLE, SegmentStatus::AVAILABLE);

@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class TemplateExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @param TemplateRepositoryInterface $templateRepository
-     */
     public function __construct(TemplateRepositoryInterface $templateRepository)
     {
         $this->templateRepository = $templateRepository;
@@ -32,7 +26,6 @@ class TemplateExistsValidator extends ConstraintValidator
 
     /**
      * @param mixed      $value
-     * @param Constraint $constraint
      */
     public function validate($value, Constraint $constraint)
     {

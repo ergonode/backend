@@ -17,11 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 interface ProductCollectionQueryInterface
 {
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface;
 
     /**
@@ -30,22 +25,13 @@ interface ProductCollectionQueryInterface
     public function getDictionary(): array;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getOptions(Language $language): array;
 
-    /**
-     * @param ProductCollectionCode $code
-     *
-     * @return ProductCollectionId|null
-     */
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId;
 
     /**
-     * @param ProductCollectionTypeId $id
-     *
      * @return mixed
      */
     public function findCollectionIdsByCollectionTypeId(ProductCollectionTypeId $id);

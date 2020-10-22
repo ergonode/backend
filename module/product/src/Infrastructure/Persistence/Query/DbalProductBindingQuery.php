@@ -19,22 +19,14 @@ class DbalProductBindingQuery implements ProductBindingQueryInterface
     private const ATTRIBUTE_TABLE = 'public.attribute';
     private const PRODUCT_BINDING_TABLE = 'public.product_binding';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductId $productId
-     *
      * @return array
      */
     public function getBindings(ProductId $productId): array
@@ -49,9 +41,6 @@ class DbalProductBindingQuery implements ProductBindingQueryInterface
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

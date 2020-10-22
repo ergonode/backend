@@ -21,14 +21,6 @@ class Shopware6CustomFieldConfigTextareaMapper implements Shopware6CustomFieldMa
     private const CUSTOM_FIELD_TYPE = 'textEditor';
     private const COMPONENT_NAME = 'sw-text-editor';
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,

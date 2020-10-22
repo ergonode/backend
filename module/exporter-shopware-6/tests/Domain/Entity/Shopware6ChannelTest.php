@@ -24,23 +24,11 @@ class Shopware6ChannelTest extends TestCase
      */
     private ChannelId $id;
 
-    /**
-     * @var string
-     */
     private string $name;
-    /**
-     * @var string
-     */
     private string $host;
 
-    /**
-     * @var string
-     */
     private string $clientId;
 
-    /**
-     * @var string
-     */
     private string $clientKey;
 
     /**

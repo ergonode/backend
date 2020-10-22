@@ -19,7 +19,6 @@ use PHPUnit\Framework\TestCase;
 class CreateConditionSetCommandTest extends TestCase
 {
     /**
-     * @param ConditionSetId $id
      * @param array          $conditions
      *
      * @dataProvider dataProvider

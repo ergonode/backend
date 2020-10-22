@@ -15,13 +15,6 @@ interface DataSetInterface
 {
     /**
      * @param ColumnInterface[]     $columns
-     * @param FilterValueCollection $values
-     * @param int                   $limit
-     * @param int                   $offset
-     * @param string|null           $field
-     * @param string                $order
-     *
-     * @return \Traversable
      */
     public function getItems(
         array $columns,
@@ -33,10 +26,7 @@ interface DataSetInterface
     ): \Traversable;
 
     /**
-     * @param FilterValueCollection $values
      * @param ColumnInterface[]     $columns
-     *
-     * @return int
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int;
 }

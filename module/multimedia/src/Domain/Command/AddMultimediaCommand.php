@@ -15,20 +15,11 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class AddMultimediaCommand implements DomainCommandInterface
 {
-    /**
-     * @var MultimediaId
-     */
     private MultimediaId $id;
 
-    /**
-     * @var File
-     */
     private File $file;
 
     /**
-     * @param MultimediaId $id
-     * @param File         $file
-     *
      * @throws \Exception
      */
     public function __construct(MultimediaId $id, File $file)
@@ -37,17 +28,11 @@ class AddMultimediaCommand implements DomainCommandInterface
         $this->file = $file;
     }
 
-    /**
-     * @return MultimediaId
-     */
     public function getId(): MultimediaId
     {
         return $this->id;
     }
 
-    /**
-     * @return File
-     */
     public function getFile(): File
     {
         return $this->file;

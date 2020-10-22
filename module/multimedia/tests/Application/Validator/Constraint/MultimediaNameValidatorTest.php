@@ -42,9 +42,6 @@ class MultimediaNameValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return MultimediaNameValidator
-     */
     protected function createValidator(): MultimediaNameValidator
     {
         return new MultimediaNameValidator();

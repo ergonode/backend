@@ -19,13 +19,7 @@ interface TemplateGroupQueryInterface
      */
     public function getDictionary(): array;
 
-    /**
-     * @return TemplateGroupId
-     */
     public function getDefaultId(): TemplateGroupId;
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 }

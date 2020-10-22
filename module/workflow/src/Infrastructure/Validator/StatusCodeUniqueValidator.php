@@ -18,14 +18,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StatusCodeUniqueValidator extends ConstraintValidator
 {
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @param StatusRepositoryInterface $repository
-     */
     public function __construct(StatusRepositoryInterface $repository)
     {
         $this->repository = $repository;

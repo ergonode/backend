@@ -21,36 +21,26 @@ use Webmozart\Assert\Assert;
 class UpdateTemplateCommand implements DomainCommandInterface
 {
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var MultimediaId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private ?MultimediaId $imageId;
 
     /**
-     * @var AttributeId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultLabel;
 
     /**
-     * @var AttributeId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultImage;
@@ -62,14 +52,6 @@ class UpdateTemplateCommand implements DomainCommandInterface
      */
     private ArrayCollection $elements;
 
-    /**
-     * @param TemplateId        $id
-     * @param string            $name
-     * @param ArrayCollection   $elements
-     * @param AttributeId       $defaultLabel
-     * @param AttributeId       $defaultImage
-     * @param MultimediaId|null $imageId
-     */
     public function __construct(
         TemplateId $id,
         string $name,
@@ -88,41 +70,26 @@ class UpdateTemplateCommand implements DomainCommandInterface
         $this->imageId = $imageId;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getId(): TemplateId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return MultimediaId|null
-     */
     public function getImageId(): ?MultimediaId
     {
         return $this->imageId;
     }
 
-    /**
-     * @return AttributeId|null
-     */
     public function getDefaultLabel(): ?AttributeId
     {
         return $this->defaultLabel;
     }
 
-    /**
-     * @return AttributeId|null
-     */
     public function getDefaultImage(): ?AttributeId
     {
         return $this->defaultImage;

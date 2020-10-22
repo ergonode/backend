@@ -16,8 +16,6 @@ use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
 class UpdateGroupingProductCommandHandler extends AbstractUpdateProductHandler
 {
     /**
-     * @param UpdateGroupingProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateGroupingProductCommand $command)

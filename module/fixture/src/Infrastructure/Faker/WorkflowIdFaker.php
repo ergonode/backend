@@ -18,10 +18,6 @@ class WorkflowIdFaker extends BaseProvider
     private const NAMESPACE = '34f4084f-7cc8-4db3-b4b4-5f75263a44a3';
 
     /**
-     * @param string|null $code
-     *
-     * @return WorkflowId
-     *
      * @throws \Exception
      */
     public function workflowId(?string $code = null): WorkflowId

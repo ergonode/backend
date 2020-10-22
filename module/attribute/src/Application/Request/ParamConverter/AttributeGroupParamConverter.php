@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AttributeGroupParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var AttributeGroupRepositoryInterface
-     */
     private AttributeGroupRepositoryInterface $repository;
 
-    /**
-     * @param AttributeGroupRepositoryInterface $repository
-     */
     public function __construct(AttributeGroupRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -20,38 +20,16 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class EventStoreManager
 {
-    /**
-     * @var AggregateBuilderInterface
-     */
     private AggregateBuilderInterface $builder;
 
-    /**
-     * @var DomainEventStoreInterface
-     */
     private DomainEventStoreInterface $eventStore;
 
-    /**
-     * @var EventBusInterface
-     */
     private EventBusInterface $eventBus;
 
-    /**
-     * @var AggregateSnapshotInterface
-     */
     private AggregateSnapshotInterface $snapshot;
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param AggregateBuilderInterface  $builder
-     * @param DomainEventStoreInterface  $eventStore
-     * @param EventBusInterface          $eventBus
-     * @param AggregateSnapshotInterface $snapshot
-     * @param Connection                 $connection
-     */
     public function __construct(
         AggregateBuilderInterface $builder,
         DomainEventStoreInterface $eventStore,
@@ -67,10 +45,6 @@ class EventStoreManager
     }
 
     /**
-     * @param AggregateId $id
-     *
-     * @return AbstractAggregateRoot|null
-     *
      * @throws \ReflectionException
      */
     public function load(AggregateId $id): ?AbstractAggregateRoot
@@ -91,8 +65,6 @@ class EventStoreManager
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
@@ -111,19 +83,12 @@ class EventStoreManager
         }
     }
 
-    /**
-     * @param AggregateId $id
-     *
-     * @return bool
-     */
     public function exists(AggregateId $id): bool
     {
         return null !== $this->findClass($id);
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -134,11 +99,6 @@ class EventStoreManager
         $this->snapshot->delete($aggregateRoot->getId());
     }
 
-    /**
-     * @param AggregateId $id
-     *
-     * @return string|null
-     */
     private function findClass(AggregateId $id): ?string
     {
         $qb = $this->connection->createQueryBuilder();
@@ -157,8 +117,6 @@ class EventStoreManager
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregate
-     *
      * @throws DBALException
      */
     private function addClass(AbstractAggregateRoot $aggregate): void
@@ -173,8 +131,6 @@ class EventStoreManager
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregate
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */

@@ -20,15 +20,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProductCollectionTypeParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ProductCollectionTypeRepositoryInterface
-     */
     private ProductCollectionTypeRepositoryInterface $productCollectionRepository;
 
     /**
      * ProductCollectionParamConverter constructor.
-     *
-     * @param ProductCollectionTypeRepositoryInterface $productCollectionRepository
      */
     public function __construct(ProductCollectionTypeRepositoryInterface $productCollectionRepository)
     {

@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ProductNoBindingsValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductBindingQueryInterface
-     */
     private ProductBindingQueryInterface $query;
 
-    /**
-     * @param ProductBindingQueryInterface $query
-     */
     public function __construct(ProductBindingQueryInterface $query)
     {
         $this->query = $query;

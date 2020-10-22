@@ -41,9 +41,6 @@ class AbstractCategoryTest extends TestCase
      */
     private array $attributes;
 
-    /**
-     * @var AttributeCode
-     */
     private AttributeCode $attributeCode;
 
     protected function setUp(): void
@@ -139,9 +136,6 @@ class AbstractCategoryTest extends TestCase
             $this->name,
             $this->attributes,
         ) extends AbstractCategory {
-            /**
-             * @return string
-             */
             public function getType(): string
             {
                 return 'TYPE';

@@ -18,11 +18,6 @@ class DefaultTemplateGenerator implements TemplateGeneratorInterface
     public const CODE = 'DEFAULT';
 
     /**
-     * @param TemplateId      $id
-     * @param TemplateGroupId $groupId
-     *
-     * @return Template
-     *
      * @throws \Exception
      */
     public function getTemplate(TemplateId $id, TemplateGroupId $groupId): Template
@@ -30,9 +25,6 @@ class DefaultTemplateGenerator implements TemplateGeneratorInterface
         return new Template($id, $groupId, 'Default');
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return self::CODE;

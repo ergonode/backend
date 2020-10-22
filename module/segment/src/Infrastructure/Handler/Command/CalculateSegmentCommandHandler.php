@@ -18,26 +18,12 @@ use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
 class CalculateSegmentCommandHandler
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var SegmentProductService
-     */
     private SegmentProductService $service;
 
-    /**
-     * @param ProductQueryInterface $query
-     * @param CommandBusInterface   $commandBus
-     * @param SegmentProductService $service
-     */
     public function __construct(
         ProductQueryInterface $query,
         CommandBusInterface $commandBus,
@@ -49,8 +35,6 @@ class CalculateSegmentCommandHandler
     }
 
     /**
-     * @param CalculateSegmentCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CalculateSegmentCommand $command): void

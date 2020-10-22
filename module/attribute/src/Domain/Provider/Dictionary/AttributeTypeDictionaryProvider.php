@@ -15,19 +15,9 @@ use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
 class AttributeTypeDictionaryProvider
 {
-    /**
-     * @var AttributeTypeProvider
-     */
     private AttributeTypeProvider $provider;
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param AttributeTypeProvider $provider
-     * @param TranslatorInterface   $translator
-     */
     public function __construct(AttributeTypeProvider $provider, TranslatorInterface $translator)
     {
         $this->provider = $provider;
@@ -35,8 +25,6 @@ class AttributeTypeDictionaryProvider
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array

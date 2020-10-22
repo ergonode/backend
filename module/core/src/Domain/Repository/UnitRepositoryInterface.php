@@ -14,27 +14,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 interface UnitRepositoryInterface
 {
-    /**
-     * @param UnitId $id
-     *
-     * @return bool
-     */
     public function exists(UnitId $id): bool;
 
-    /**
-     * @param UnitId $id
-     *
-     * @return AbstractAggregateRoot|null
-     */
     public function load(UnitId $id): ?AbstractAggregateRoot;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

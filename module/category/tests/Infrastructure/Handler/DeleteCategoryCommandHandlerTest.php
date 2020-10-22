@@ -29,9 +29,6 @@ class DeleteCategoryCommandHandlerTest extends TestCase
      */
     private $command;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $resolver;
 
     protected function setUp(): void

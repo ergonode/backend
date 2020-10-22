@@ -17,23 +17,15 @@ use JMS\Serializer\Annotation as JMS;
 class AttributeDeletedEvent extends AbstractDeleteEvent
 {
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $id;
 
-    /**
-     * @param AttributeId $id
-     */
     public function __construct(AttributeId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getAggregateId(): AttributeId
     {
         return $this->id;

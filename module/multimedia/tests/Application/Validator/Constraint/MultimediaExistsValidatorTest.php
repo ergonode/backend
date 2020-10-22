@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 namespace Ergonode\Multimedia\Tests\Application\Validator\Constraint;
@@ -16,9 +15,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $repository;
 
     protected function setUp(): void
@@ -54,9 +50,6 @@ class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return MultimediaExistsValidator
-     */
     protected function createValidator(): MultimediaExistsValidator
     {
         return new MultimediaExistsValidator($this->repository);

@@ -46,12 +46,7 @@ class CategoryTreeIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param CategoryTreeId                $id
      * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -63,12 +58,8 @@ class CategoryTreeIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
      * @param mixed                           $data
      * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return CategoryTreeId
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

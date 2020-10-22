@@ -18,9 +18,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
     /**
@@ -28,21 +25,12 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
      */
     private array $media;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
         $this->media = [];
     }
 
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,
@@ -72,11 +60,6 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         }
     }
 
-    /**
-     * @param Magento1CsvSource $source
-     * @param Import            $import
-     * @param string            $image
-     */
     private function processImage(Magento1CsvSource $source, Import $import, string $image): void
     {
         $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $image);

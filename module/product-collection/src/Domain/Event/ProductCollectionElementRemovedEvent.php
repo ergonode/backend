@@ -17,31 +17,20 @@ use JMS\Serializer\Annotation as JMS;
 class ProductCollectionElementRemovedEvent implements DomainEventInterface
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $productId;
 
     /**
-     * @var \DateTime
-     *
      * @JMS\Type("DateTime")
      */
     private \DateTime $collectionEditedAt;
 
-    /**
-     * @param ProductCollectionId $id
-     * @param ProductId           $productId
-     * @param \DateTime           $collectionEditedAt
-     */
     public function __construct(ProductCollectionId $id, ProductId $productId, \DateTime $collectionEditedAt)
     {
         $this->id = $id;
@@ -50,25 +39,16 @@ class ProductCollectionElementRemovedEvent implements DomainEventInterface
     }
 
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCollectionEditedAt(): \DateTime
     {
         return $this->collectionEditedAt;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getProductId(): ProductId
     {
         return $this->productId;

@@ -62,9 +62,6 @@ class ProductChildValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     * @return ProductChildValidator
-     */
     protected function createValidator(): ProductChildValidator
     {
         return new ProductChildValidator();

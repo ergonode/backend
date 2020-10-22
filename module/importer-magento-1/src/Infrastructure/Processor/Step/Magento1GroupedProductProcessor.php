@@ -19,25 +19,13 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 
 class Magento1GroupedProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,
@@ -62,8 +50,6 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
     }
 
     /**
-     * @param ProductModel $product
-     *
      * @return Sku[]
      */
     private function getChildren(ProductModel $product): array

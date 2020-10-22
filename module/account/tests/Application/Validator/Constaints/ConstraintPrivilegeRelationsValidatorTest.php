@@ -20,7 +20,6 @@ class ConstraintPrivilegeRelationsValidatorTest extends TestCase
 {
     /**
      * @param array $value
-     * @param bool  $isValid
      *
      * @dataProvider validatorDataProvider
      */

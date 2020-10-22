@@ -17,22 +17,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends AbstractType
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @param CategoryQueryInterface $query
-     */
     public function __construct(CategoryQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $language = new Language('en_GB');
@@ -49,9 +40,6 @@ class CategoryType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

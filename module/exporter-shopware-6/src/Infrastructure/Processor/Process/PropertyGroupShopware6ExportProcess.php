@@ -23,38 +23,16 @@ use Webmozart\Assert\Assert;
 
 class PropertyGroupShopware6ExportProcess
 {
-    /**
-     * @var Shopware6PropertyGroupRepositoryInterface
-     */
     private Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository;
 
-    /**
-     * @var Shopware6PropertyGroupClient
-     */
     private Shopware6PropertyGroupClient $propertyGroupClient;
 
-    /**
-     * @var Shopware6PropertyGroupBuilder
-     */
     private Shopware6PropertyGroupBuilder $builder;
 
-    /**
-     * @var Shopware6LanguageRepositoryInterface
-     */
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
-    /**
-     * @var PropertyGroupOptionsShopware6ExportProcess
-     */
     private PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess;
 
-    /**
-     * @param Shopware6PropertyGroupRepositoryInterface  $propertyGroupRepository
-     * @param Shopware6PropertyGroupClient               $propertyGroupClient
-     * @param Shopware6PropertyGroupBuilder              $builder
-     * @param Shopware6LanguageRepositoryInterface       $languageRepository
-     * @param PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess
-     */
     public function __construct(
         Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
         Shopware6PropertyGroupClient $propertyGroupClient,
@@ -69,11 +47,6 @@ class PropertyGroupShopware6ExportProcess
         $this->propertyGroupOptionsProcess = $propertyGroupOptionsProcess;
     }
 
-    /**
-     * @param ExportId          $id
-     * @param Shopware6Channel  $channel
-     * @param AbstractAttribute $attribute
-     */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
         $propertyGroup = $this->loadPropertyGroup($channel, $attribute);
@@ -93,13 +66,6 @@ class PropertyGroupShopware6ExportProcess
         $this->propertyGroupOptionsProcess->process($id, $channel, $attribute);
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6PropertyGroup $propertyGroup
-     * @param AbstractAttribute      $attribute
-     * @param Language|null          $language
-     * @param Shopware6Language|null $shopwareLanguage
-     */
     private function updatePropertyGroup(
         Shopware6Channel $channel,
         Shopware6PropertyGroup $propertyGroup,
@@ -113,11 +79,6 @@ class PropertyGroupShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel  $channel
-     * @param Language          $language
-     * @param AbstractAttribute $attribute
-     */
     private function updatePropertyGroupWithLanguage(
         Shopware6Channel $channel,
         Language $language,
@@ -132,13 +93,6 @@ class PropertyGroupShopware6ExportProcess
         $this->updatePropertyGroup($channel, $shopwarePropertyGroup, $attribute, $language, $shopwareLanguage);
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param AbstractAttribute      $attribute
-     * @param Shopware6Language|null $shopware6Language
-     *
-     * @return Shopware6PropertyGroup|null
-     */
     private function loadPropertyGroup(
         Shopware6Channel $channel,
         AbstractAttribute $attribute,

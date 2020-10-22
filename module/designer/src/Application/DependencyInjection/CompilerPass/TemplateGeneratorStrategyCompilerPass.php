@@ -18,9 +18,6 @@ class TemplateGeneratorStrategyCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.template_generator.template_generator_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(TemplateGeneratorProvider::class)) {
@@ -28,9 +25,6 @@ class TemplateGeneratorStrategyCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processTransformers(ContainerBuilder $container): void
     {
         $arguments = [];

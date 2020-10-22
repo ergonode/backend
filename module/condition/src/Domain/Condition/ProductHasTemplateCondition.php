@@ -22,23 +22,15 @@ class ProductHasTemplateCondition implements ConditionInterface
     public const NOT_HAS = 'NOT_HAS';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $operator;
 
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
 
-    /**
-     * @param string     $operator
-     * @param TemplateId $templateId
-     */
     public function __construct(string $operator, TemplateId $templateId)
     {
         $this->operator = $operator;
@@ -55,17 +47,11 @@ class ProductHasTemplateCondition implements ConditionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;

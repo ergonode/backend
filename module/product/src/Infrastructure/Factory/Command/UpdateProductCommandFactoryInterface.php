@@ -14,19 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 interface UpdateProductCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool;
 
-    /**
-     * @param ProductId     $productId
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
-     */
     public function create(ProductId $productId, FormInterface $form): DomainCommandInterface;
 }

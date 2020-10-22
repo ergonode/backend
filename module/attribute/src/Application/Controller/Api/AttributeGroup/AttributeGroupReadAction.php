@@ -54,12 +54,9 @@ class AttributeGroupReadAction
      *     description="Not found",
      * )
      *
-     * @param AttributeGroup $group
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
-     *
      */
     public function __invoke(AttributeGroup $group): Response
     {

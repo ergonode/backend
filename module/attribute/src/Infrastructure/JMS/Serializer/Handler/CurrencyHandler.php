@@ -46,12 +46,7 @@ class CurrencyHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Currency                      $currency
      * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -63,12 +58,8 @@ class CurrencyHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
      * @param mixed                           $data
      * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return Currency
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

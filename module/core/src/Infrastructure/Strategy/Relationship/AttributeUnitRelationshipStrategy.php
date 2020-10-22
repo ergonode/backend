@@ -17,14 +17,8 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class AttributeUnitRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @param AttributeQueryInterface $query
-     */
     public function __construct(AttributeQueryInterface $query)
     {
         $this->query = $query;

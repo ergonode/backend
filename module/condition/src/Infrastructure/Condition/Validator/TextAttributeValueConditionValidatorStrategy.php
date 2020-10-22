@@ -21,11 +21,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 class TextAttributeValueConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === TextAttributeValueCondition::TYPE;
@@ -33,8 +28,6 @@ class TextAttributeValueConditionValidatorStrategy implements ConditionValidator
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

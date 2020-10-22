@@ -24,38 +24,16 @@ use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 
 class GenerateImportCommandHandler
 {
-    /**
-     * @var ImportRepositoryInterface
-     */
     private ImportRepositoryInterface $importRepository;
 
-    /**
-     * @var SourceRepositoryInterface
-     */
     private SourceRepositoryInterface $sourceRepository;
 
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $transformerRepository;
 
-    /**
-     * @var TransformerGeneratorProvider
-     */
     private TransformerGeneratorProvider $provider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ImportRepositoryInterface      $importRepository
-     * @param SourceRepositoryInterface      $sourceRepository
-     * @param TransformerRepositoryInterface $transformerRepository
-     * @param TransformerGeneratorProvider   $provider
-     * @param CommandBusInterface            $commandBus
-     */
     public function __construct(
         ImportRepositoryInterface $importRepository,
         SourceRepositoryInterface $sourceRepository,
@@ -71,8 +49,6 @@ class GenerateImportCommandHandler
     }
 
     /**
-     * @param GenerateImportCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(GenerateImportCommand $command)

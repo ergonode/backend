@@ -18,31 +18,20 @@ use JMS\Serializer\Annotation as JMS;
 class UserRoleChangedEvent implements DomainEventInterface
 {
     /**
-     * @var UserId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $from;
 
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $to;
 
-    /**
-     * @param UserId $id
-     * @param RoleId $from
-     * @param RoleId $to
-     */
     public function __construct(UserId $id, RoleId $from, RoleId $to)
     {
         $this->id = $id;
@@ -50,25 +39,16 @@ class UserRoleChangedEvent implements DomainEventInterface
         $this->to = $to;
     }
 
-    /**
-     * @return UserId
-     */
     public function getAggregateId(): UserId
     {
         return $this->id;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getFrom(): RoleId
     {
         return $this->from;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getTo(): RoleId
     {
         return $this->to;

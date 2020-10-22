@@ -24,20 +24,10 @@ use Webmozart\Assert\Assert;
 
 class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @param ProductQueryInterface     $query
-     * @param StatusRepositoryInterface $repository
-     */
     public function __construct(ProductQueryInterface $query, StatusRepositoryInterface $repository)
     {
         $this->query = $query;

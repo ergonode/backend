@@ -16,8 +16,6 @@ use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 class CreateGroupingProductCommandHandler extends AbstractCreateProductHandler
 {
     /**
-     * @param CreateGroupingProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateGroupingProductCommand $command)

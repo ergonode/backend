@@ -20,36 +20,18 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 
 class ImportProductImageAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $multimediaQuery;
 
-    /**
-     * @param MultimediaQueryInterface $multimediaQuery
-     */
     public function __construct(MultimediaQueryInterface $multimediaQuery)
     {
         $this->multimediaQuery = $multimediaQuery;
     }
 
-    /**
-     * @param AttributeType $type
-     *
-     * @return bool
-     */
     public function supported(AttributeType $type): bool
     {
         return ImageAttribute::TYPE === $type->getValue();
     }
 
-    /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $value
-     *
-     * @return ValueInterface
-     */
     public function build(AttributeId $id, AttributeCode $code, TranslatableString $value): ValueInterface
     {
         $result = [];

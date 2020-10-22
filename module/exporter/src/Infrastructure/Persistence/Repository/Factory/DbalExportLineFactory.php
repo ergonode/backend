@@ -18,7 +18,6 @@ class DbalExportLineFactory
     /**
      * @param array $record
      *
-     * @return ExportLine
      *
      * @throws \ReflectionException
      * @throws \Exception

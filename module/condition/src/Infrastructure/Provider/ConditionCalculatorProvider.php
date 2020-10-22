@@ -18,19 +18,11 @@ class ConditionCalculatorProvider
      */
     private array $strategies;
 
-    /**
-     * @param ConditionCalculatorStrategyInterface ...$strategies
-     */
     public function __construct(ConditionCalculatorStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return ConditionCalculatorStrategyInterface
-     */
     public function provide(string $type): ConditionCalculatorStrategyInterface
     {
         foreach ($this->strategies as $strategy) {

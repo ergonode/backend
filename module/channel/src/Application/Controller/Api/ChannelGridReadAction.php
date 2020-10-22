@@ -30,26 +30,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ChannelGridReadAction
 {
-    /**
-     * @var ChannelGrid
-     */
     private ChannelGrid $grid;
 
-    /**
-     * @var ChannelQueryInterface
-     */
     private ChannelQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param ChannelGrid           $grid
-     * @param ChannelQueryInterface $query
-     * @param GridRenderer          $gridRenderer
-     */
     public function __construct(ChannelGrid $grid, ChannelQueryInterface $query, GridRenderer $gridRenderer)
     {
         $this->grid = $grid;
@@ -121,11 +107,6 @@ class ChannelGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

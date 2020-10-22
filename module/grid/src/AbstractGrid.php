@@ -23,35 +23,17 @@ abstract class AbstractGrid
      */
     private array $actions = [];
 
-    /**
-     * @var string|null
-     */
     private ?string $field = null;
 
-    /**
-     * @var string
-     */
     private string $order = 'ASC';
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     abstract public function init(GridConfigurationInterface $configuration, Language $language): void;
 
-    /**
-     * @param string          $id
-     * @param ColumnInterface $column
-     */
     public function addColumn(string $id, ColumnInterface $column): void
     {
         $this->columns[$id] = $column;
     }
 
-    /**
-     * @param string $field
-     * @param string $order
-     */
     public function orderBy(string $field, string $order): void
     {
         $this->field = $field;
@@ -59,10 +41,6 @@ abstract class AbstractGrid
     }
 
 
-    /**
-     * @param string          $name
-     * @param ActionInterface $action
-     */
     public function addAction(string $name, ActionInterface $action): void
     {
         $this->actions[$name] = $action;
@@ -84,17 +62,11 @@ abstract class AbstractGrid
         return $this->columns;
     }
 
-    /**
-     * @return string|null
-     */
     public function getField(): ?string
     {
         return $this->field;
     }
 
-    /**
-     * @return string
-     */
     public function getOrder(): string
     {
         return $this->order;

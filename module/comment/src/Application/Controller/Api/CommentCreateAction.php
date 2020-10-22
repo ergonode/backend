@@ -30,26 +30,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class CommentCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @param CommandBusInterface                $commandBus
-     * @param FormFactoryInterface               $formFactory
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
@@ -88,9 +74,7 @@ class CommentCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

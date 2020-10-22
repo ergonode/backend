@@ -21,18 +21,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TextAttributeForm extends AbstractType implements AttributeFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return TextAttribute::TYPE === $type;
     }
 
     /**
-     * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -64,9 +58,6 @@ class TextAttributeForm extends AbstractType implements AttributeFormInterface
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -76,9 +67,6 @@ class TextAttributeForm extends AbstractType implements AttributeFormInterface
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

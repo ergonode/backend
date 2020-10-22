@@ -18,22 +18,14 @@ use Webmozart\Assert\Assert;
 
 class DbalRoleRepository implements RoleRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param RoleId $id
-     *
      * @return Role|null
      *
      * @throws \ReflectionException
@@ -47,8 +39,6 @@ class DbalRoleRepository implements RoleRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void

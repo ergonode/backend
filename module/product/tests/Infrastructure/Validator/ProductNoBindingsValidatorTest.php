@@ -72,9 +72,6 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     * @return ProductNoBindingsValidator
-     */
     protected function createValidator(): ProductNoBindingsValidator
     {
         return new ProductNoBindingsValidator($this->query);

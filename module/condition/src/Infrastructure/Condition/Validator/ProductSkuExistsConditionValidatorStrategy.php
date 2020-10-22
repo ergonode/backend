@@ -48,7 +48,6 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
 
     /**
      * @param mixed                     $value
-     * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
     public function wildcardValidate($value, ExecutionContextInterface $context, $payload)
@@ -68,7 +67,6 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
 
     /**
      * @param mixed                     $value
-     * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
     public function regexpValidate($value, ExecutionContextInterface $context, $payload)

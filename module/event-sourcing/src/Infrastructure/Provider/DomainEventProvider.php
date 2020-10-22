@@ -15,20 +15,10 @@ use Psr\Cache\InvalidArgumentException;
 
 class DomainEventProvider implements DomainEventProviderInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var AdapterInterface
-     */
     private AdapterInterface $cache;
 
-    /**
-     * @param Connection       $connection
-     * @param AdapterInterface $cache
-     */
     public function __construct(Connection $connection, AdapterInterface $cache)
     {
         $this->connection = $connection;
@@ -36,10 +26,6 @@ class DomainEventProvider implements DomainEventProviderInterface
     }
 
     /**
-     * @param string $eventClass
-     *
-     * @return string
-     *
      * @throws InvalidArgumentException
      */
     public function provideEventId(string $eventClass): string
@@ -51,10 +37,6 @@ class DomainEventProvider implements DomainEventProviderInterface
     }
 
     /**
-     * @param string $eventClass
-     *
-     * @return string
-     *
      * @throws \RuntimeException
      */
     private function fetchFromDatabase(string $eventClass): string

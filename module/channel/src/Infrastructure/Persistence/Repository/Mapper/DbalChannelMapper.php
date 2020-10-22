@@ -14,22 +14,14 @@ use JMS\Serializer\SerializerInterface;
 
 class DbalChannelMapper
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
     /**
-     * @param AbstractChannel $channel
-     *
      * @return array
      */
     public function map(AbstractChannel $channel): array

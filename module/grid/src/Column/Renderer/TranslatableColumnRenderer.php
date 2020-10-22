@@ -16,14 +16,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TranslatableColumnRenderer implements ColumnRendererInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
@@ -39,10 +33,8 @@ class TranslatableColumnRenderer implements ColumnRendererInterface
 
     /**
      * @param ColumnInterface|TranslatableColumn $column
-     * @param string                             $id
      * @param array                              $row
      *
-     * @return string|null
      *
      * @throws UnsupportedColumnException
      */

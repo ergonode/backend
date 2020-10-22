@@ -20,14 +20,8 @@ use Ergonode\Grid\Filter\Option\FilterOption;
 
 class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @param OptionQueryInterface $query
-     */
     public function __construct(OptionQueryInterface $query)
     {
         $this->query = $query;

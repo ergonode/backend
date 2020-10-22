@@ -25,14 +25,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class WidgetStatusCountAction
 {
-    /**
-     * @var StatusQueryInterface
-     */
     private StatusQueryInterface $query;
 
-    /**
-     * @param StatusQueryInterface $query
-     */
     public function __construct(StatusQueryInterface $query)
     {
         $this->query = $query;
@@ -51,12 +45,6 @@ class WidgetStatusCountAction
      *     response=200,
      *     description="widget status count information",
      * )
-     *
-     * @param Language $language
-     * @param Language $workflowLanguage
-     *
-     * @return Response
-     *
      */
     public function __invoke(Language $language, Language $workflowLanguage): Response
     {

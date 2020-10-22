@@ -13,23 +13,9 @@ use Ramsey\Uuid\UuidInterface;
 
 interface CacheInterface
 {
-    /**
-     * @param UuidInterface $key
-     *
-     * @return string|null
-     */
     public function get(UuidInterface $key): ?string;
 
-    /**
-     * @param UuidInterface $key
-     * @param string        $data
-     */
     public function set(UuidInterface $key, string $data): void;
 
-    /**
-     * @param UuidInterface $key
-     *
-     * @return bool
-     */
     public function has(UuidInterface $key): bool;
 }

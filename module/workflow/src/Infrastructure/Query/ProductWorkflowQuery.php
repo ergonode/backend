@@ -22,26 +22,12 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 class ProductWorkflowQuery
 {
-    /**
-     * @var WorkflowProvider
-     */
     private WorkflowProvider $workflowProvider;
 
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $statusRepository;
 
-    /**
-     * @var StatusCalculationService
-     */
     private StatusCalculationService $service;
 
-    /**
-     * @param WorkflowProvider          $workflowProvider
-     * @param StatusRepositoryInterface $statusRepository
-     * @param StatusCalculationService  $service
-     */
     public function __construct(
         WorkflowProvider $workflowProvider,
         StatusRepositoryInterface $statusRepository,
@@ -53,10 +39,6 @@ class ProductWorkflowQuery
     }
 
     /**
-     * @param AbstractProduct $product
-     * @param Language        $language
-     * @param Language        $productLanguage
-     *
      * @return array
      *
      * @throws \ReflectionException

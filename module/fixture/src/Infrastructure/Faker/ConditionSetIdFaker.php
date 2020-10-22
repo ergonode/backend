@@ -18,10 +18,6 @@ class ConditionSetIdFaker extends BaseProvider
     private const NAMESPACE = '14343bf2-6c4c-47cc-92fc-3002a09521fc';
 
     /**
-     * @param string|null $name
-     *
-     * @return ConditionSetId
-     *
      * @throws \Exception
      */
     public function conditionSetId(?string $name = null): ConditionSetId

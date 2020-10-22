@@ -22,9 +22,6 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
      */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
@@ -44,10 +41,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
     }
 
     /**
-     * @param AggregateId $id
      * @param array       $record
-     *
-     * @return DomainEventEnvelope
      */
     private function createElement(AggregateId $id, array $record): DomainEventEnvelope
     {
@@ -59,12 +53,6 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
         );
     }
 
-    /**
-     * @param string $class
-     * @param string $data
-     *
-     * @return DomainEventInterface
-     */
     private function getEvent(string $class, string $data): DomainEventInterface
     {
         return $this->serializer->deserialize($data, $class, 'json');

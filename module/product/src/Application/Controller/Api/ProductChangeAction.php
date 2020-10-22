@@ -33,32 +33,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductChangeAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var ProductFormProvider
-     */
     private ProductFormProvider $provider;
 
-    /**
-     * @var UpdateProductCommandFactoryProvider
-     */
     private UpdateProductCommandFactoryProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface                $formFactory
-     * @param ProductFormProvider                 $provider
-     * @param UpdateProductCommandFactoryProvider $commandProvider
-     * @param CommandBusInterface                 $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         ProductFormProvider $provider,
@@ -107,10 +89,7 @@ class ProductChangeAction
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
-     * @param AbstractProduct $product
-     * @param Request         $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

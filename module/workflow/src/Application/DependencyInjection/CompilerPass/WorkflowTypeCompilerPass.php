@@ -17,9 +17,6 @@ class WorkflowTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'workflow.domain.workflow_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(WorkflowTypeProvider::class)) {
@@ -27,9 +24,6 @@ class WorkflowTypeCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(WorkflowTypeProvider::class);

@@ -18,24 +18,12 @@ use Ramsey\Uuid\Uuid;
 
 class TransformerIdHandlerTest extends TestCase
 {
-    /**
-     * @var TransformerIdHandler
-     */
     private TransformerIdHandler $handler;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializationVisitor;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializationVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

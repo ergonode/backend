@@ -17,26 +17,12 @@ use Psr\Log\LoggerInterface;
 
 class ImportCategoryCommandHandler
 {
-    /**
-     * @var CategoryImportAction
-     */
     private CategoryImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
     private ImportErrorRepositoryInterface $repository;
 
-    /**
-     * @var LoggerInterface
-     */
     private LoggerInterface $importLogger;
 
-    /**
-     * @param CategoryImportAction           $action
-     * @param ImportErrorRepositoryInterface $repository
-     * @param LoggerInterface                $importLogger
-     */
     public function __construct(
         CategoryImportAction $action,
         ImportErrorRepositoryInterface $repository,
@@ -48,8 +34,6 @@ class ImportCategoryCommandHandler
     }
 
     /**
-     * @param ImportCategoryCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ImportCategoryCommand $command)

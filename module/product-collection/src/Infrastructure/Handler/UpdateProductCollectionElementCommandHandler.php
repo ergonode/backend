@@ -16,22 +16,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateProductCollectionElementCommandHandler
 {
-    /**
-     * @var ProductCollectionRepositoryInterface
-     */
     private ProductCollectionRepositoryInterface $repository;
 
-    /**
-     * @param ProductCollectionRepositoryInterface $repository
-     */
     public function __construct(ProductCollectionRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateProductCollectionElementCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateProductCollectionElementCommand $command)

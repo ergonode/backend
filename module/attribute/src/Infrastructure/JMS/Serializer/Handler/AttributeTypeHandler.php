@@ -46,12 +46,7 @@ class AttributeTypeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param AttributeType                 $attributeType
      * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -63,12 +58,8 @@ class AttributeTypeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
      * @param mixed                           $data
      * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return AttributeType
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

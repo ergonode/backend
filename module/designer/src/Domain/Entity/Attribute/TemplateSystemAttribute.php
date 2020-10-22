@@ -20,10 +20,6 @@ class TemplateSystemAttribute extends AbstractOptionAttribute
     public const CODE = 'esa_template';
 
     /**
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -38,33 +34,21 @@ class TemplateSystemAttribute extends AbstractOptionAttribute
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return bool
-     */
     public function isSystem(): bool
     {
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isEditable(): bool
     {
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function isMultilingual(): bool
     {
         return false;

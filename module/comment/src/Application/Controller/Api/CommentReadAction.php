@@ -53,10 +53,6 @@ class CommentReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Comment\Domain\Entity\Comment")
-     *
-     * @param Comment $comment
-     *
-     * @return Response
      */
     public function __invoke(Comment $comment): Response
     {

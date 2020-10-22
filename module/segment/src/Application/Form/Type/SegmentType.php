@@ -18,14 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SegmentType extends AbstractType
 {
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $query;
 
-    /**
-     * @param SegmentQueryInterface $query
-     */
     public function __construct(SegmentQueryInterface $query)
     {
         $this->query = $query;
@@ -33,7 +27,6 @@ class SegmentType extends AbstractType
 
 
     /**
-     * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -41,9 +34,6 @@ class SegmentType extends AbstractType
         $builder->addModelTransformer(new SegmentIdDataTransformer());
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $ids = $this->query->getAllSegmentIds();
@@ -58,9 +48,6 @@ class SegmentType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

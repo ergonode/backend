@@ -20,12 +20,7 @@ use Webmozart\Assert\Assert;
 class CategoryFactory
 {
     /**
-     * @param CategoryId         $id
-     * @param CategoryCode       $code
-     * @param TranslatableString $name
      * @param array              $attributes
-     *
-     * @return AbstractCategory
      */
     public function create(
         CategoryId $id,

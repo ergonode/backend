@@ -20,15 +20,11 @@ use Webmozart\Assert\Assert;
 abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
 {
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $id;
 
     /**
-     * @var AttributeScope
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
     private AttributeScope $scope;
@@ -41,32 +37,21 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
     private array $groups;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $label;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $hint;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $placeholder;
 
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
      * @param AttributeGroupId[] $groups
      */
     public function __construct(
@@ -87,9 +72,6 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
         $this->groups = $groups;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getId(): AttributeId
     {
         return $this->id;
@@ -103,11 +85,6 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
         return $this->groups;
     }
 
-    /**
-     * @param AttributeGroupId $id
-     *
-     * @return bool
-     */
     public function hasGroup(AttributeGroupId $id): bool
     {
         foreach ($this->groups as $group) {
@@ -119,33 +96,21 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
         return false;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getLabel(): TranslatableString
     {
         return $this->label;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getHint(): TranslatableString
     {
         return $this->hint;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getPlaceholder(): TranslatableString
     {
         return $this->placeholder;
     }
 
-    /**
-     * @return AttributeScope
-     */
     public function getScope(): AttributeScope
     {
         return $this->scope;

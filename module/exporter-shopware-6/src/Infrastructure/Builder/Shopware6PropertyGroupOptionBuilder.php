@@ -21,22 +21,11 @@ class Shopware6PropertyGroupOptionBuilder
      */
     private array $collection;
 
-    /**
-     * @param Shopware6PropertyGroupOptionMapperInterface ...$collection
-     */
     public function __construct(Shopware6PropertyGroupOptionMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
 
-    /**
-     * @param Shopware6Channel             $channel
-     * @param Shopware6PropertyGroupOption $propertyGroupOption
-     * @param AbstractOption               $option
-     * @param Language|null                $language
-     *
-     * @return Shopware6PropertyGroupOption
-     */
     public function build(
         Shopware6Channel $channel,
         Shopware6PropertyGroupOption $propertyGroupOption,

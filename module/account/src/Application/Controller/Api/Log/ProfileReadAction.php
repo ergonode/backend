@@ -26,32 +26,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProfileReadAction
 {
-    /**
-     * @var LogQueryInterface
-     */
     private LogQueryInterface $query;
 
-    /**
-     * @var LogGrid
-     */
     private LogGrid $grid;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer                       $gridRenderer
-     * @param LogQueryInterface                  $query
-     * @param LogGrid                            $grid
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         LogQueryInterface $query,
@@ -129,10 +111,6 @@ class ProfileReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(RequestGridConfiguration $configuration): Response
     {

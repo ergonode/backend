@@ -16,9 +16,6 @@ class ChannelTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'channel.channel_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ChannelTypeProvider::class)) {
@@ -26,9 +23,6 @@ class ChannelTypeCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(ChannelTypeProvider::class);

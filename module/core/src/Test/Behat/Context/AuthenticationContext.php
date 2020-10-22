@@ -14,25 +14,12 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 
 class AuthenticationContext implements Context
 {
-    /**
-     * @var StorageContext
-     */
     private StorageContext $storageContext;
 
-    /**
-     * @var string
-     */
     private string $username;
 
-    /**
-     * @var string
-     */
     private string $password;
 
-    /**
-     * @param string $username
-     * @param string $password
-     */
     public function __construct(string $username, string $password)
     {
         $this->username = $username;
@@ -41,8 +28,6 @@ class AuthenticationContext implements Context
 
     /**
      * @BeforeScenario
-     *
-     * @param BeforeScenarioScope $scope
      */
     public function gatherContexts(BeforeScenarioScope $scope): void
     {

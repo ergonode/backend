@@ -16,9 +16,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var MultimediaExtensionProvider
-     */
     private MultimediaExtensionProvider $provider;
 
     protected function setUp(): void
@@ -57,9 +54,6 @@ class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return MultimediaExtensionValidator
-     */
     protected function createValidator(): MultimediaExtensionValidator
     {
         return new MultimediaExtensionValidator($this->provider);

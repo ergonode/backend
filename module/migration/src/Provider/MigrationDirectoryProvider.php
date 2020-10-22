@@ -20,10 +20,6 @@ class MigrationDirectoryProvider implements MigrationDirectoryProviderInterface
      */
     private array $directories = [];
 
-    /**
-     * @param string          $path
-     * @param KernelInterface $kernel
-     */
     public function __construct(string $path, KernelInterface $kernel)
     {
         $mainDirectory = realpath(sprintf('%s%s', $path, self::DIRECTORY));
@@ -49,9 +45,6 @@ class MigrationDirectoryProvider implements MigrationDirectoryProviderInterface
         return $this->directories;
     }
 
-    /**
-     * @return string
-     */
     public function getMainDirectory(): string
     {
         return reset($this->directories);

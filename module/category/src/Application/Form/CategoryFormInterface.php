@@ -11,10 +11,5 @@ namespace Ergonode\Category\Application\Form;
 
 interface CategoryFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 }

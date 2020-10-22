@@ -18,22 +18,13 @@ class GetLocate extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/locale/%s';
 
-    /**
-     * @var string
-     */
     private string $locateId;
 
-    /**
-     * @param string $locateId
-     */
     public function __construct(string $locateId)
     {
         $this->locateId = $locateId;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -44,10 +35,6 @@ class GetLocate extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6Locate
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): Shopware6Locate
@@ -61,9 +48,6 @@ class GetLocate extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->locateId);

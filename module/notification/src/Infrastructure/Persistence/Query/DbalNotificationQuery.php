@@ -33,25 +33,13 @@ class DbalNotificationQuery implements NotificationQueryInterface
         'COALESCE(u.first_name || \' \' || u.last_name, \'Deleted\') AS author',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param UserId   $id
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(UserId $id, Language $language): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -66,8 +54,6 @@ class DbalNotificationQuery implements NotificationQueryInterface
     }
 
     /**
-     * @param UserId $id
-     *
      * @return array
      */
     public function check(UserId $id): array
@@ -87,10 +73,6 @@ class DbalNotificationQuery implements NotificationQueryInterface
     }
 
     /**
-     * @param Uuid      $id
-     * @param UserId    $userId
-     * @param \DateTime $readAt
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function mark(Uuid $id, UserId $userId, \DateTime $readAt): void
@@ -110,9 +92,6 @@ class DbalNotificationQuery implements NotificationQueryInterface
         );
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

@@ -15,8 +15,6 @@ use JMS\Serializer\Annotation as JMS;
 class Node
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $categoryId;
@@ -28,36 +26,22 @@ class Node
      */
     private array $children;
 
-    /**
-     * @param CategoryId $categoryId
-     */
     public function __construct(CategoryId $categoryId)
     {
         $this->categoryId = $categoryId;
         $this->children = [];
     }
 
-    /**
-     * @param Node $child
-     */
     public function addChild(Node $child): void
     {
         $this->children[] = $child;
     }
 
-    /**
-     * @return CategoryId
-     */
     public function getCategoryId(): CategoryId
     {
         return $this->categoryId;
     }
 
-    /**
-     * @param CategoryId $categoryId
-     *
-     * @return bool
-     */
     public function hasChild(CategoryId $categoryId): bool
     {
         foreach ($this->children as $child) {
@@ -69,11 +53,6 @@ class Node
         return false;
     }
 
-    /**
-     * @param CategoryId $categoryId
-     *
-     * @return bool
-     */
     public function hasSuccessor(CategoryId $categoryId): bool
     {
         foreach ($this->children as $child) {

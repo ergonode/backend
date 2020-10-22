@@ -19,18 +19,11 @@ class StartShopware6ExportProcess
      */
     private array $synchronizerCollection;
 
-    /**
-     * @param SynchronizerInterface ...$synchronizerCollection
-     */
     public function __construct(SynchronizerInterface ...$synchronizerCollection)
     {
         $this->synchronizerCollection = $synchronizerCollection;
     }
 
-    /**
-     * @param ExportId         $id
-     * @param Shopware6Channel $channel
-     */
     public function process(ExportId $id, Shopware6Channel $channel): void
     {
         foreach ($this->synchronizerCollection as $synchronizer) {

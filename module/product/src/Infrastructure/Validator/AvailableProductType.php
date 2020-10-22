@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class AvailableProductType extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Product "{{ value }}" type does not exist.';
 }

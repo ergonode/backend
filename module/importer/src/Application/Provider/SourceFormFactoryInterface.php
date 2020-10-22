@@ -13,17 +13,7 @@ use Symfony\Component\Form\FormInterface;
 
 interface SourceFormFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 
-    /**
-     * @param AbstractSource|null $source
-     *
-     * @return FormInterface
-     */
     public function create(AbstractSource $source = null): FormInterface;
 }

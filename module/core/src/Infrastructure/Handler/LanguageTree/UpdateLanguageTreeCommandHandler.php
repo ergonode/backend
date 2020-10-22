@@ -14,22 +14,13 @@ use Webmozart\Assert\Assert;
 
 class UpdateLanguageTreeCommandHandler
 {
-    /**
-     * @var LanguageTreeRepositoryInterface
-     */
     private LanguageTreeRepositoryInterface $repository;
 
-    /**
-     * @param LanguageTreeRepositoryInterface $repository
-     */
     public function __construct(LanguageTreeRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param UpdateLanguageTreeCommand $command
-     */
     public function __invoke(UpdateLanguageTreeCommand $command): void
     {
         $tree = $this->repository->load();

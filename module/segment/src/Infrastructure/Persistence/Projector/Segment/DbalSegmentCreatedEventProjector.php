@@ -19,20 +19,10 @@ class DbalSegmentCreatedEventProjector
 {
     private const TABLE = 'segment';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -40,8 +30,6 @@ class DbalSegmentCreatedEventProjector
     }
 
     /**
-     * @param SegmentCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(SegmentCreatedEvent $event): void

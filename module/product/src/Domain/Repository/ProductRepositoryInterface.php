@@ -14,27 +14,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 interface ProductRepositoryInterface
 {
-    /**
-     * @param ProductId $id
-     *
-     * @return AbstractProduct
-     */
     public function load(ProductId $id): ?AbstractProduct;
 
-    /**
-     * @param ProductId $id
-     *
-     * @return bool
-     */
     public function exists(ProductId $id): bool;
 
-    /**
-     * @param AbstractProduct $aggregateRoot
-     */
     public function save(AbstractProduct $aggregateRoot): void;
 
-    /**
-     * @param AbstractProduct $aggregateRoot
-     */
     public function delete(AbstractProduct $aggregateRoot): void;
 }

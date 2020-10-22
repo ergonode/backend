@@ -18,18 +18,12 @@ class MultimediaRelationProvider
      */
     private array $relations;
 
-    /**
-     * @param MultimediaRelationInterface ...$relations
-     */
     public function __construct(MultimediaRelationInterface ...$relations)
     {
         $this->relations = $relations;
     }
 
     /**
-     * @param MultimediaId $id
-     * @param Language     $language
-     *
      * @return array
      */
     public function provide(MultimediaId $id, Language $language): array

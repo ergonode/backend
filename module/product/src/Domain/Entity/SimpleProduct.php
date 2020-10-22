@@ -17,8 +17,6 @@ class SimpleProduct extends AbstractProduct
 
     /**
      * @JMS\Type("string");
-     *
-     * @return string
      */
     public function getType(): string
     {

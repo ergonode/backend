@@ -30,26 +30,12 @@ use Ergonode\Importer\Domain\Query\SourceQueryInterface;
  */
 class SourceGridAction
 {
-    /**
-     * @var SourceGrid
-     */
     private SourceGrid $grid;
 
-    /**
-     * @var SourceQueryInterface
-     */
     private SourceQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $renderer;
 
-    /**
-     * @param SourceGrid           $grid
-     * @param SourceQueryInterface $query
-     * @param GridRenderer         $renderer
-     */
     public function __construct(SourceGrid $grid, SourceQueryInterface $query, GridRenderer $renderer)
     {
         $this->grid = $grid;
@@ -121,11 +107,6 @@ class SourceGridAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

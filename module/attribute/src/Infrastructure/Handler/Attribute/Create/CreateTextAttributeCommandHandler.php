@@ -15,22 +15,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 class CreateTextAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateTextAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateTextAttributeCommand $command): void

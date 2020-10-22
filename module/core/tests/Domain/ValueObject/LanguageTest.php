@@ -16,8 +16,6 @@ class LanguageTest extends TestCase
 {
     /**
      * @dataProvider validLanguage
-     *
-     * @param string $code
      */
     public function testValidLanguageCreation(string $code): void
     {
@@ -27,9 +25,6 @@ class LanguageTest extends TestCase
 
     /**
      * @dataProvider invalidLanguage
-     *
-     * @param string $hex
-     *
      */
     public function testInvalidLanguageCreation(string $hex): void
     {

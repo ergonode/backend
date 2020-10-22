@@ -18,22 +18,13 @@ class PostCurrencyCreate extends AbstractAction implements ActionInterface, Head
 {
     private const URI = '/api/v1/currency';
 
-    /**
-     * @var string
-     */
     private string $iso;
 
-    /**
-     * @param string $iso
-     */
     public function __construct(string $iso)
     {
         $this->iso = $iso;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -45,8 +36,6 @@ class PostCurrencyCreate extends AbstractAction implements ActionInterface, Head
     }
 
     /**
-     * @param string|null $content
-     *
      * @return null
      */
     public function parseContent(?string $content)
@@ -54,9 +43,6 @@ class PostCurrencyCreate extends AbstractAction implements ActionInterface, Head
         return null;
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $body = [
@@ -71,9 +57,6 @@ class PostCurrencyCreate extends AbstractAction implements ActionInterface, Head
         return json_encode($body);
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return self::URI;

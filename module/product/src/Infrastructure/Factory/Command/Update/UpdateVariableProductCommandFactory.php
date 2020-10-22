@@ -20,22 +20,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class UpdateVariableProductCommandFactory implements UpdateProductCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === VariableProduct::TYPE;
     }
 
-    /**
-     * @param ProductId     $productId
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function create(ProductId $productId, FormInterface $form): DomainCommandInterface
     {
         /** @var VariableProductFormModel $data */

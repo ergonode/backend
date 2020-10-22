@@ -13,9 +13,6 @@ use Ergonode\Grid\ColumnInterface;
 
 class UnsupportedColumnException extends \Exception
 {
-    /**
-     * @param ColumnInterface $column
-     */
     public function __construct(ColumnInterface $column)
     {
         $message = sprintf('Unsupported column type "%s" (%s)', $column->getType(), get_class($column));

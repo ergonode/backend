@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DateAttributeFormModel extends AttributeFormModel
 {
     /**
-     * @var DateAttributePropertyModel
-     *
      * @Assert\Valid()
      */
     public DateAttributePropertyModel $parameters;

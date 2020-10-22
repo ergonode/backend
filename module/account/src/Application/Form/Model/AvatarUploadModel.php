@@ -26,8 +26,6 @@ class AvatarUploadModel
      * )
      *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
-     *
-     * @var null|UploadedFile
      */
     public ?UploadedFile $upload;
 

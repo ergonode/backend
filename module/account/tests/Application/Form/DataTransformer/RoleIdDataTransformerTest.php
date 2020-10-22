@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class RoleIdDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var RoleIdDataTransformer
-     */
     protected RoleIdDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,9 +24,6 @@ class RoleIdDataTransformerTest extends TestCase
     }
 
     /**
-     * @param RoleId|null $roleIdValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?RoleId $roleIdValueObject, ?string $string): void
@@ -47,9 +41,6 @@ class RoleIdDataTransformerTest extends TestCase
 
 
     /**
-     * @param RoleId|null $roleIdValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?RoleId $roleIdValueObject, ?string $string): void

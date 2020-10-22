@@ -18,14 +18,8 @@ use Webmozart\Assert\Assert;
 
 class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -68,9 +62,6 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
 
     /**
      * @param array  $value
-     * @param string $expected
-     *
-     * @return bool
      */
     private function calculateHasTranslatableStringValue(array $value, string $expected): bool
     {
@@ -85,9 +76,6 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
 
     /**
      * @param array  $value
-     * @param string $expected
-     *
-     * @return bool
      */
     private function calculateEqualTranslatableStringValue(array $value, string $expected): bool
     {

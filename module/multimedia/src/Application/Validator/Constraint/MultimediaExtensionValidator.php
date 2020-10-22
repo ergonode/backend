@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -17,14 +16,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MultimediaExtensionValidator extends ConstraintValidator
 {
-    /**
-     * @var MultimediaExtensionProvider
-     */
     private MultimediaExtensionProvider $provider;
 
-    /**
-     * @param MultimediaExtensionProvider $provider
-     */
     public function __construct(MultimediaExtensionProvider $provider)
     {
         $this->provider = $provider;
@@ -32,7 +25,6 @@ class MultimediaExtensionValidator extends ConstraintValidator
 
     /**
      * @param mixed      $value
-     * @param Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {

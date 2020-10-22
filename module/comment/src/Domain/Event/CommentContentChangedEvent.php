@@ -17,39 +17,25 @@ use JMS\Serializer\Annotation as JMS;
 class CommentContentChangedEvent implements DomainEventInterface
 {
     /**
-     * @var CommentId $id
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
      */
     private CommentId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $from;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $to;
 
     /**
-     * @var \DateTime
-     *
      * @JMS\Type("DateTime")
      */
     private \DateTime $editedAt;
 
-    /**
-     * @param CommentId $id
-     * @param string    $from
-     * @param string    $to
-     * @param \DateTime $editedAt
-     */
     public function __construct(CommentId $id, string $from, string $to, \DateTime $editedAt)
     {
         $this->id = $id;
@@ -66,25 +52,16 @@ class CommentContentChangedEvent implements DomainEventInterface
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getFrom(): string
     {
         return $this->from;
     }
 
-    /**
-     * @return string
-     */
     public function getTo(): string
     {
         return $this->to;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getEditedAt(): \DateTime
     {
         return $this->editedAt;

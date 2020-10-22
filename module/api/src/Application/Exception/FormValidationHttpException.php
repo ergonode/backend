@@ -15,14 +15,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class FormValidationHttpException extends HttpException
 {
-    /**
-     * @var FormInterface
-     */
     private FormInterface $form;
 
-    /**
-     * @param FormInterface $violations
-     */
     public function __construct(FormInterface $violations)
     {
         $this->form = $violations;
@@ -30,9 +24,6 @@ class FormValidationHttpException extends HttpException
         parent::__construct(Response::HTTP_BAD_REQUEST, 'Validation error');
     }
 
-    /**
-     * @return FormInterface
-     */
     public function getForm(): FormInterface
     {
         return $this->form;

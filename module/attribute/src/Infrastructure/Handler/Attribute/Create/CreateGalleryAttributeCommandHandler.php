@@ -15,22 +15,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 class CreateGalleryAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateGalleryAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateGalleryAttributeCommand $command): void

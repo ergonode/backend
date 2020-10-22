@@ -56,10 +56,6 @@ class ProductCollectionTypeReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
-     *
-     * @param ProductCollectionType $productCollectionType
-     *
-     * @return Response
      */
     public function __invoke(ProductCollectionType $productCollectionType): Response
     {

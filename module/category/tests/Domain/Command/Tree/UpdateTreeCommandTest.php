@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
 class UpdateTreeCommandTest extends TestCase
 {
     /**
-     * @param CategoryTreeId     $id
-     * @param TranslatableString $name
      * @param array              $categories
      *
      * @dataProvider dataProvider

@@ -30,50 +30,20 @@ use Webmozart\Assert\Assert;
 
 class PropertyGroupOptionsShopware6ExportProcess
 {
-    /**
-     * @var Shopware6PropertyGroupRepositoryInterface
-     */
     protected Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository;
 
-    /**
-     * @var OptionQueryInterface
-     */
     protected OptionQueryInterface  $optionQuery;
 
-    /**
-     * @var Shopware6PropertyGroupOptionsRepositoryInterface
-     */
     private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
-    /**
-     * @var Shopware6PropertyGroupOptionClient
-     */
     private Shopware6PropertyGroupOptionClient $propertyGroupOptionClient;
 
-    /**
-     * @var Shopware6PropertyGroupOptionBuilder
-     */
     private Shopware6PropertyGroupOptionBuilder $builder;
 
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $optionRepository;
 
-    /**
-     * @var Shopware6LanguageRepositoryInterface
-     */
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
-    /**
-     * @param Shopware6PropertyGroupRepositoryInterface        $propertyGroupRepository
-     * @param OptionQueryInterface                             $optionQuery
-     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
-     * @param Shopware6PropertyGroupOptionClient               $propertyGroupOptionClient
-     * @param Shopware6PropertyGroupOptionBuilder              $builder
-     * @param OptionRepositoryInterface                        $optionRepository
-     * @param Shopware6LanguageRepositoryInterface             $languageRepository
-     */
     public function __construct(
         Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
         OptionQueryInterface $optionQuery,
@@ -92,11 +62,6 @@ class PropertyGroupOptionsShopware6ExportProcess
         $this->languageRepository = $languageRepository;
     }
 
-    /**
-     * @param ExportId          $id
-     * @param Shopware6Channel  $channel
-     * @param AbstractAttribute $attribute
-     */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
         $propertyGroupId = $this->propertyGroupRepository->load($channel->getId(), $attribute->getId());
@@ -111,12 +76,6 @@ class PropertyGroupOptionsShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel  $channel
-     * @param string            $propertyGroupId
-     * @param AbstractAttribute $attribute
-     * @param AbstractOption    $option
-     */
     private function processOptions(
         Shopware6Channel $channel,
         string $propertyGroupId,
@@ -144,14 +103,6 @@ class PropertyGroupOptionsShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel             $channel
-     * @param Shopware6PropertyGroupOption $propertyGroupOption
-     * @param string                       $propertyGroupId
-     * @param AbstractOption               $option
-     * @param Language|null                $language
-     * @param Shopware6Language|null       $shopwareLanguage
-     */
     private function updatePropertyGroupOption(
         Shopware6Channel $channel,
         Shopware6PropertyGroupOption $propertyGroupOption,
@@ -171,12 +122,6 @@ class PropertyGroupOptionsShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param Language         $language
-     * @param string           $propertyGroupId
-     * @param AbstractOption   $option
-     */
     private function updatePropertyGroupOptionWithLanguage(
         Shopware6Channel $channel,
         Language $language,
@@ -206,12 +151,6 @@ class PropertyGroupOptionsShopware6ExportProcess
     }
 
     /**
-     * @param Shopware6Channel       $channel
-     * @param AttributeId            $attributeId
-     * @param AggregateId            $optionId
-     * @param string                 $propertyGroupId
-     * @param Shopware6Language|null $shopware6Language
-     *
      * @return Shopware6PropertyGroup|null
      */
     private function loadPropertyGroupOption(

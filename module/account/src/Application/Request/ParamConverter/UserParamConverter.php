@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $userRepository;
 
-    /**
-     * @param UserRepositoryInterface $userRepository
-     */
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;

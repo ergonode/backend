@@ -18,14 +18,8 @@ use Webmozart\Assert\Assert;
 
 class DbalSegmentRepository implements SegmentRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;

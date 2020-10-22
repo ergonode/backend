@@ -74,9 +74,6 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return CategoryCodeValidator
-     */
     protected function createValidator(): CategoryCodeValidator
     {
         return new CategoryCodeValidator($this->query);

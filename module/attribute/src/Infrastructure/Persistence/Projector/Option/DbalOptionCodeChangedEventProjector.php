@@ -17,22 +17,14 @@ class DbalOptionCodeChangedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param OptionCodeChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(OptionCodeChangedEvent $event): void

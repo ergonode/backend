@@ -27,32 +27,14 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class ConditionSetCreateAction
 {
-    /**
-     * @var ValidatorInterface
-     */
     private ValidatorInterface $validator;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @var ConditionSetValidatorBuilder
-     */
     private ConditionSetValidatorBuilder $conditionSetValidatorBuilder;
 
-    /**
-     * @param ValidatorInterface           $validator
-     * @param CommandBusInterface          $commandBus
-     * @param SerializerInterface          $serializer
-     * @param ConditionSetValidatorBuilder $conditionSetValidatorBuilder
-     */
     public function __construct(
         ValidatorInterface $validator,
         CommandBusInterface $commandBus,
@@ -91,9 +73,7 @@ class ConditionSetCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

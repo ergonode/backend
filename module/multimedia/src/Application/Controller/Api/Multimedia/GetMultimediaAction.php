@@ -46,11 +46,9 @@ class GetMultimediaAction
      *     description="Not found",
      * )
      *
-     * @param Multimedia $multimedia
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      *
-     * @return Response
      *
      * @throws \Exception
      */

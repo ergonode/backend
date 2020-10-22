@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class WorkflowExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Workflow {{ value }} already exists.';
 }

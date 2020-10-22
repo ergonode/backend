@@ -21,9 +21,6 @@ class WorkflowFactoryTest extends TestCase
      */
     private $id;
 
-    /**
-     * @var string
-     */
     private string $code;
 
     protected function setUp(): void

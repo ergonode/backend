@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -14,20 +13,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ChannelTypeDictionaryProvider
 {
-    /**
-     * @var ChannelTypeProvider
-     */
     private ChannelTypeProvider $provider;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param ChannelTypeProvider $provider
-     * @param TranslatorInterface $translator
-     */
     public function __construct(ChannelTypeProvider $provider, TranslatorInterface $translator)
     {
         $this->provider = $provider;
@@ -35,8 +24,6 @@ class ChannelTypeDictionaryProvider
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function provide(Language $language): array

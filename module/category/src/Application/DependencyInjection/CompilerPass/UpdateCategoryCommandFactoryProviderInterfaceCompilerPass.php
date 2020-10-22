@@ -18,9 +18,6 @@ class UpdateCategoryCommandFactoryProviderInterfaceCompilerPass implements Compi
 {
     public const TAG = 'component.category.update_category_command_factory_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(UpdateCategoryCommandFactoryProvider::class)) {
@@ -28,9 +25,6 @@ class UpdateCategoryCommandFactoryProviderInterfaceCompilerPass implements Compi
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];

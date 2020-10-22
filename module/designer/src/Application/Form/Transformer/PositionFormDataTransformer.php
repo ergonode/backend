@@ -39,8 +39,6 @@ class PositionFormDataTransformer implements DataTransformerInterface
 
     /**
      * @param array|null $value
-     *
-     * @return Position|null
      */
     public function reverseTransform($value): ?Position
     {

@@ -28,8 +28,6 @@ class MultimediaUploadModel
      * @MultimediaExtension()
      *
      * @MultimediaName(max="128")
-     *
-     * @var null|UploadedFile
      */
     public ?UploadedFile $upload;
 

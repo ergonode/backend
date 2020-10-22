@@ -15,11 +15,6 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 class StringCollectionValueUpdateStrategy implements ValueUpdateStrategyInterface
 {
-    /**
-     * @param ValueInterface $oldValue
-     *
-     * @return bool
-     */
     public function isSupported(ValueInterface $oldValue): bool
     {
         return $oldValue instanceof StringCollectionValue;

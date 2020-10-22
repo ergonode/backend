@@ -21,14 +21,8 @@ use Ergonode\Core\Domain\ValueObject\Color;
 
 class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var StatusQueryInterface
-     */
     private StatusQueryInterface $statusQuery;
 
-    /**
-     * @param StatusQueryInterface $statusQuery
-     */
     public function __construct(StatusQueryInterface $statusQuery)
     {
         $this->statusQuery = $statusQuery;
@@ -43,11 +37,6 @@ class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     *
-     * @return ColumnInterface
-     *
      * @throws \Exception
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface

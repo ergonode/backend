@@ -17,24 +17,12 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 class HashHandlerTest extends TestCase
 {
-    /**
-     * @var HashHandler
-     */
     private HashHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializationVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializationVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

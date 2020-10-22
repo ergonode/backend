@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LanguageTreeNodeFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Language is required")
      * @Assert\NotNull()
      *

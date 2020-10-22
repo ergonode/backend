@@ -15,22 +15,14 @@ use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 
 class CreateTreeCommandHandler
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $repository;
 
-    /**
-     * @param TreeRepositoryInterface $repository
-     */
     public function __construct(TreeRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param CreateTreeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateTreeCommand $command): void

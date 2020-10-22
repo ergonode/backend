@@ -19,29 +19,21 @@ use Webmozart\Assert\Assert;
 class CreateMagento1CsvSourceCommand implements DomainCommandInterface
 {
     /**
-     * @var SourceId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     private SourceId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var Language
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $defaultLanguage;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $host;
@@ -68,10 +60,6 @@ class CreateMagento1CsvSourceCommand implements DomainCommandInterface
     private array $import;
 
     /**
-     * @param SourceId      $id
-     * @param string        $name
-     * @param Language      $defaultLanguage
-     * @param string|null   $host
      * @param Language[]    $languages
      * @param AttributeId[] $attributes
      * @param array         $import
@@ -97,33 +85,21 @@ class CreateMagento1CsvSourceCommand implements DomainCommandInterface
         $this->import = $import;
     }
 
-    /**
-     * @return SourceId
-     */
     public function getId(): SourceId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return Language
-     */
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
     }
 
-    /**
-     * @return string|null
-     */
     public function getHost(): ?string
     {
         return $this->host;

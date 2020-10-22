@@ -28,26 +28,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 class TransformerController extends AbstractController
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
@@ -77,12 +63,8 @@ class TransformerController extends AbstractController
      *     description="Transformer not found"
      * )
      *
-     * @param Transformer $transformer
      *
      * @ParamConverter(class="Ergonode\Transformer\Domain\Entity\Transformer")
-     *
-     * @return Response
-     *
      */
     public function getTransformer(Transformer $transformer): Response
     {
@@ -104,9 +86,7 @@ class TransformerController extends AbstractController
      *     description="Return id of created Transformer"
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */
@@ -150,10 +130,6 @@ class TransformerController extends AbstractController
      * )
      *
      * @ParamConverter(class="Ergonode\Transformer\Domain\Entity\Transformer")
-     *
-     * @param Transformer $transformer
-     *
-     * @return Response
      */
     public function deleteTransformer(Transformer $transformer): Response
     {

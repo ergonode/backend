@@ -17,8 +17,6 @@ class Category extends AbstractCategory implements CategoryInterface
 
     /**
      * @JMS\Type("string");
-     *
-     * @return string
      */
     public function getType(): string
     {

@@ -17,14 +17,8 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class ChildrenProductRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var ProductChildrenQueryInterface
-     */
     private ProductChildrenQueryInterface $query;
 
-    /**
-     * @param ProductChildrenQueryInterface $query
-     */
     public function __construct(ProductChildrenQueryInterface $query)
     {
         $this->query = $query;

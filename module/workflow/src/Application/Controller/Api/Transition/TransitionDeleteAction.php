@@ -29,14 +29,8 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class TransitionDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -82,13 +76,6 @@ class TransitionDeleteAction
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
-     *
-     * @param AbstractWorkflow $workflow
-     * @param Status           $source
-     * @param Status           $destination
-     *
-     * @return Response
-     *
      */
     public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
     {

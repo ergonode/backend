@@ -14,10 +14,5 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 interface HistoryQueryInterface
 {
-    /**
-     * @param ProductId $id
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(ProductId $id): DataSetInterface;
 }

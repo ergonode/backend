@@ -13,10 +13,6 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 class SkuFaker
 {
     /**
-     * @param string|null $sku
-     *
-     * @return Sku
-     *
      * @throws \Exception
      */
     public function sku(?string $sku = null): Sku

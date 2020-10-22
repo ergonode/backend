@@ -22,11 +22,6 @@ use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 
 class NumericAttributeValueConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === NumericAttributeValueCondition::TYPE;
@@ -34,8 +29,6 @@ class NumericAttributeValueConditionValidatorStrategy implements ConditionValida
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

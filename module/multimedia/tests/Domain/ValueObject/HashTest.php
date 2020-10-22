@@ -14,8 +14,6 @@ use PHPUnit\Framework\TestCase;
 class HashTest extends TestCase
 {
     /**
-     * @param string $data
-     *
      * @dataProvider validDataProvider
      */
     public function testValidHashCreation(string $data): void
@@ -27,8 +25,6 @@ class HashTest extends TestCase
     }
 
     /**
-     * @param string $data
-     *
      * @dataProvider validDataProvider
      */
     public function testValidDataValidationMethod(string $data): void
@@ -37,9 +33,6 @@ class HashTest extends TestCase
     }
 
     /**
-     *
-     * @param string $data
-     *
      * @dataProvider invalidDataProvider
      */
     public function testNotValidHashCreation(string $data): void
@@ -49,8 +42,6 @@ class HashTest extends TestCase
     }
 
     /**
-     * @param string $data
-     *
      * @dataProvider invalidDataProvider
      */
     public function testInvalidDataValidationMethod(string $data): void

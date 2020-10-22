@@ -19,19 +19,11 @@ use JMS\Serializer\Annotation as JMS;
 class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**
-     * @var DateFormat
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\DateFormat")
      */
     private DateFormat $format;
 
     /**
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param DateFormat         $format
      * @param array              $groups
      *
      * @throws \Exception
@@ -57,9 +49,6 @@ class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
         $this->format = $format;
     }
 
-    /**
-     * @return DateFormat
-     */
     public function getFormat(): DateFormat
     {
         return $this->format;

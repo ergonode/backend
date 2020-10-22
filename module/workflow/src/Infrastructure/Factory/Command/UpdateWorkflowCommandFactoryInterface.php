@@ -14,18 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
 interface UpdateWorkflowCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool;
 
-    /**
-     * @param WorkflowId    $id
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function create(WorkflowId $id, FormInterface $form): DomainCommandInterface;
 }

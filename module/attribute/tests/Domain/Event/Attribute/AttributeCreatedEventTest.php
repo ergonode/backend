@@ -20,8 +20,6 @@ use PHPUnit\Framework\TestCase;
 class AttributeCreatedEventTest extends TestCase
 {
     /**
-     * @param bool $system
-     *
      * @dataProvider dataProvider
      */
     public function testEventCreation(bool $system): void

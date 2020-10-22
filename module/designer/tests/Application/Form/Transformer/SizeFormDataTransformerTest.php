@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class SizeFormDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var SizeFormDataTransformer
-     */
     protected SizeFormDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,7 +24,6 @@ class SizeFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Size|null  $sizeValueObject
      * @param array|null $array
      *
      * @dataProvider dataProvider
@@ -46,7 +42,6 @@ class SizeFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Size|null  $sizeValueObject
      * @param array|null $array
      *
      * @dataProvider dataProvider

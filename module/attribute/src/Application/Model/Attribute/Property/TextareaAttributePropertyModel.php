@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TextareaAttributePropertyModel
 {
     /**
-     * @var bool|null
-     *
      * @Assert\Type(type="bool")
      */
     public ?bool $richEdit = false;

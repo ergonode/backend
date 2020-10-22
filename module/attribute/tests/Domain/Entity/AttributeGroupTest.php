@@ -16,19 +16,10 @@ use PHPUnit\Framework\TestCase;
 
 class AttributeGroupTest extends TestCase
 {
-    /**
-     * @var AttributeGroupId
-     */
     private AttributeGroupId $id;
 
-    /**
-     * @var AttributeGroupCode
-     */
     private AttributeGroupCode $code;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $name;
 
     protected function setUp(): void

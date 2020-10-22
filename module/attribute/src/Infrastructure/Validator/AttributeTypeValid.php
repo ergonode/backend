@@ -16,13 +16,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class AttributeTypeValid extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Attribute {{ value }} not valid.';
 
-    /**
-     * @var string|null
-     */
     public ?string $type = null;
 }

@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StatusCreateFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *     max=100,
@@ -30,8 +28,6 @@ class StatusCreateFormModel
     public ?string $code;
 
     /**
-     * @var Color|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min=4,

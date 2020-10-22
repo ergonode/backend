@@ -13,9 +13,6 @@ class SelectAttribute extends AbstractOptionAttribute
 {
     public const TYPE = 'SELECT';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

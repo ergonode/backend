@@ -16,40 +16,26 @@ use JMS\Serializer\Annotation as JMS;
 class ChildRemovedFromProductEvent implements DomainEventInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $childId;
 
-    /**
-     * @param ProductId $id
-     * @param ProductId $childId
-     */
     public function __construct(ProductId $id, ProductId $childId)
     {
         $this->id = $id;
         $this->childId = $childId;
     }
 
-    /**
-     * @return AggregateId
-     */
     public function getAggregateId(): AggregateId
     {
         return $this->id;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getChildId(): ProductId
     {
         return $this->childId;

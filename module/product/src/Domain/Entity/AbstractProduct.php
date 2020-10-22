@@ -30,15 +30,11 @@ use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 abstract class AbstractProduct extends AbstractAggregateRoot implements ProductInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     protected ProductId $id;
 
     /**
-     * @var Sku
-     *
      * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
      */
     protected Sku $sku;
@@ -58,16 +54,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     protected array $categories;
 
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     protected TemplateId $templateId;
 
     /**
-     * @param ProductId    $id
-     * @param Sku          $sku
-     * @param TemplateId   $templateId
      * @param CategoryId[] $categories
      * @param array        $attributes
      *
@@ -101,30 +92,20 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("type")
-     *
-     * @return string
      */
     abstract public function getType(): string;
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return Sku
-     */
     public function getSku(): Sku
     {
         return $this->sku;
     }
 
     /**
-     * @param ProductDraft $draft
-     *
      * @throws \Exception
      */
     public function applyDraft(ProductDraft $draft): void
@@ -148,8 +129,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
-     * @param TemplateId $templateId
-     *
      * @throws \Exception
      */
     public function changeTemplate(TemplateId $templateId): void
@@ -159,11 +138,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
     }
 
-    /**
-     * @param CategoryId $categoryId
-     *
-     * @return bool
-     */
     public function belongToCategory(CategoryId $categoryId): bool
     {
         foreach ($this->categories as $category) {
@@ -176,8 +150,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
-     * @param CategoryId $categoryId
-     *
      * @throws \Exception
      */
     public function addToCategory(CategoryId $categoryId): void
@@ -188,8 +160,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
-     * @param CategoryId $categoryId
-     *
      * @throws \Exception
      */
     public function removeFromCategory(CategoryId $categoryId): void
@@ -229,21 +199,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         return array_values($this->categories);
     }
 
-    /**
-     * @param AttributeCode $attributeCode
-     *
-     * @return bool
-     */
     public function hasAttribute(AttributeCode $attributeCode): bool
     {
         return isset($this->attributes[$attributeCode->getValue()]);
     }
 
-    /**
-     * @param AttributeCode $attributeCode
-     *
-     * @return ValueInterface
-     */
     public function getAttribute(AttributeCode $attributeCode): ValueInterface
     {
         if (!$this->hasAttribute($attributeCode)) {
@@ -254,9 +214,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
-     * @param AttributeCode  $attributeCode
-     * @param ValueInterface $value
-     *
      * @throws \Exception
      */
     public function addAttribute(AttributeCode $attributeCode, ValueInterface $value): void
@@ -304,9 +261,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
-     * @param AttributeCode  $attributeCode
-     * @param ValueInterface $value
-     *
      * @throws \Exception
      */
     public function changeAttribute(AttributeCode $attributeCode, ValueInterface $value): void
@@ -328,8 +282,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
-     * @param AttributeCode $attributeCode
-     *
      * @throws \Exception
      */
     public function removeAttribute(AttributeCode $attributeCode): void
@@ -343,17 +295,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         );
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;
     }
 
-    /**
-     * @param ProductCreatedEvent $event
-     */
     protected function applyProductCreatedEvent(ProductCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -369,17 +315,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
     }
 
-    /**
-     * @param ProductAddedToCategoryEvent $event
-     */
     protected function applyProductAddedToCategoryEvent(ProductAddedToCategoryEvent $event): void
     {
         $this->categories[] = $event->getCategoryId();
     }
 
-    /**
-     * @param ProductRemovedFromCategoryEvent $event
-     */
     protected function applyProductRemovedFromCategoryEvent(ProductRemovedFromCategoryEvent $event): void
     {
         foreach ($this->categories as $key => $category) {
@@ -389,33 +329,21 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         }
     }
 
-    /**
-     * @param ProductValueAddedEvent $event
-     */
     protected function applyProductValueAddedEvent(ProductValueAddedEvent $event): void
     {
         $this->attributes[$event->getAttributeCode()->getValue()] = $event->getValue();
     }
 
-    /**
-     * @param ProductValueChangedEvent $event
-     */
     protected function applyProductValueChangedEvent(ProductValueChangedEvent $event): void
     {
         $this->attributes[$event->getAttributeCode()->getValue()] = $event->getTo();
     }
 
-    /**
-     * @param ProductValueRemovedEvent $event
-     */
     protected function applyProductValueRemovedEvent(ProductValueRemovedEvent $event): void
     {
         unset($this->attributes[$event->getAttributeCode()->getValue()]);
     }
 
-    /**
-     * @param ProductTemplateChangedEvent $event
-     */
     protected function applyProductTemplateChangedEvent(ProductTemplateChangedEvent $event): void
     {
         $this->templateId = $event->getTemplateId();

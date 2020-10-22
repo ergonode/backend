@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ConstraintLanguageCodeExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Language code {{ value }} does not exists.';
 }

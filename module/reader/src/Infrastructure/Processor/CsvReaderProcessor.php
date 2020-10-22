@@ -32,9 +32,6 @@ class CsvReaderProcessor implements ReaderProcessorInterface
      */
     private $file;
 
-    /**
-     * @var int
-     */
     private int $count = 0;
 
     /**
@@ -53,7 +50,6 @@ class CsvReaderProcessor implements ReaderProcessorInterface
     private array $formatters;
 
     /**
-     * @param string $file
      * @param array  $configuration
      * @param array  $formatters
      */
@@ -106,17 +102,11 @@ class CsvReaderProcessor implements ReaderProcessorInterface
         fclose($this->file);
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return $this->count;
     }
 
-    /**
-     * @return \Traversable
-     */
     public function getIterator(): \Traversable
     {
         return $this->read();

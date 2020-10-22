@@ -26,26 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UsersReadAction
 {
-    /**
-     * @var AccountGrid
-     */
     private AccountGrid $grid;
 
-    /**
-     * @var AccountQueryInterface
-     */
     private AccountQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer          $gridRenderer
-     * @param AccountGrid           $grid
-     * @param AccountQueryInterface $query
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         AccountGrid $grid,
@@ -121,11 +107,6 @@ class UsersReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

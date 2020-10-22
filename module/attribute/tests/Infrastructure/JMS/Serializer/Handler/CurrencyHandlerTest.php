@@ -17,23 +17,11 @@ use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\CurrencyHandler;
 
 class CurrencyHandlerTest extends TestCase
 {
-    /**
-     * @var CurrencyHandler
-     */
     private CurrencyHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

@@ -25,20 +25,10 @@ use Ergonode\Workflow\Application\Provider\WorkflowTypeProvider;
  */
 class WorkflowTypeDictionaryAction
 {
-    /**
-     * @var WorkflowTypeProvider
-     */
     private WorkflowTypeProvider $provider;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param WorkflowTypeProvider $provider
-     * @param TranslatorInterface  $translator
-     */
     public function __construct(WorkflowTypeProvider $provider, TranslatorInterface $translator)
     {
         $this->provider = $provider;
@@ -59,7 +49,6 @@ class WorkflowTypeDictionaryAction
      *     description="Returns workflow types"
      * )
      *
-     * @return Response
      *
      * @throws \Exception
      */

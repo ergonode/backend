@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UserExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $userRepository;
 
-    /**
-     * @param UserRepositoryInterface $userRepository
-     */
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;

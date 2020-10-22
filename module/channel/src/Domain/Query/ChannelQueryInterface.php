@@ -12,10 +12,5 @@ use Ergonode\Grid\DataSetInterface;
 
 interface ChannelQueryInterface
 {
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface;
 }

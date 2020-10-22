@@ -19,22 +19,13 @@ class GetPropertyGroupList extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/property-group?%s';
 
-    /**
-     * @var Shopware6QueryBuilder
-     */
     private Shopware6QueryBuilder $query;
 
-    /**
-     * @param Shopware6QueryBuilder $query
-     */
     public function __construct(Shopware6QueryBuilder $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -45,8 +36,6 @@ class GetPropertyGroupList extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return array
      */
     public function parseContent(?string $content): array
@@ -66,9 +55,6 @@ class GetPropertyGroupList extends AbstractAction implements ActionInterface
         return $result;
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');

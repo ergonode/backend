@@ -17,20 +17,10 @@ use Webmozart\Assert\Assert;
 
 class DeleteConditionSetCommandHandler
 {
-    /**
-     * @var ConditionSetRepositoryInterface
-     */
     private ConditionSetRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param ConditionSetRepositoryInterface $repository
-     * @param RelationshipsResolverInterface  $relationshipsResolver
-     */
     public function __construct(
         ConditionSetRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -40,8 +30,6 @@ class DeleteConditionSetCommandHandler
     }
 
     /**
-     * @param DeleteConditionSetCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteConditionSetCommand $command): void

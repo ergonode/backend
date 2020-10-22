@@ -14,10 +14,5 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 interface RelationshipsResolverInterface
 {
-    /**
-     * @param AggregateId $id
-     *
-     * @return RelationshipCollection
-     */
     public function resolve(AggregateId $id): RelationshipCollection;
 }

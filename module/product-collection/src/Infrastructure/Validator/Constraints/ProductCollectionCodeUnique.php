@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductCollectionCodeUnique extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'The product collection code {{ value }} is not unique.';
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return ProductCollectionCodeUniqueValidator::class;

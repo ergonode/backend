@@ -19,9 +19,6 @@ class FileWriterCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'export.export_file.writer_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(WriterProvider::class)) {
@@ -33,9 +30,6 @@ class FileWriterCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];
@@ -49,9 +43,6 @@ class FileWriterCompilerPass implements CompilerPassInterface
         $definition->setArguments($arguments);
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processType(ContainerBuilder $container): void
     {
         $arguments = [];

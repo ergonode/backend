@@ -26,22 +26,16 @@ class CategoryTree extends AbstractAggregateRoot
     public const DEFAULT = 'Default';
 
     /**
-     * @var CategoryTreeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId");
      */
     private CategoryTreeId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string");
      */
     private string $code;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type(" Ergonode\Core\Domain\ValueObject\TranslatableString");
      */
     private TranslatableString $name;
@@ -54,10 +48,6 @@ class CategoryTree extends AbstractAggregateRoot
     private array $categories;
 
     /**
-     * @param CategoryTreeId     $id
-     * @param string             $code
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function __construct(CategoryTreeId $id, string $code, TranslatableString $name)
@@ -65,33 +55,22 @@ class CategoryTree extends AbstractAggregateRoot
         $this->apply(new CategoryTreeCreatedEvent($id, $code, $name));
     }
 
-    /**
-     * @return CategoryTreeId
-     */
     public function getId(): CategoryTreeId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
     }
 
     /**
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function changeName(TranslatableString $name): void
@@ -102,9 +81,6 @@ class CategoryTree extends AbstractAggregateRoot
     }
 
     /**
-     * @param CategoryId      $categoryId
-     * @param CategoryId|null $parentId
-     *
      * @throws \Exception
      */
     public function addCategory(CategoryId $categoryId, CategoryId $parentId = null): void
@@ -128,11 +104,6 @@ class CategoryTree extends AbstractAggregateRoot
         $this->apply(new CategoryTreeCategoriesChangedEvent($this->id, $categories));
     }
 
-    /**
-     * @param CategoryId $categoryId
-     *
-     * @return bool
-     */
     public function hasCategory(CategoryId $categoryId): bool
     {
         foreach ($this->categories as $category) {
@@ -156,9 +127,6 @@ class CategoryTree extends AbstractAggregateRoot
     }
 
 
-    /**
-     * @param CategoryTreeCreatedEvent $event
-     */
     protected function applyCategoryTreeCreatedEvent(CategoryTreeCreatedEvent $event): void
     {
         $this->categories = [];
@@ -167,25 +135,16 @@ class CategoryTree extends AbstractAggregateRoot
         $this->name = $event->getName();
     }
 
-    /**
-     * @param CategoryTreeNameChangedEvent $event
-     */
     protected function applyCategoryTreeNameChangedEvent(CategoryTreeNameChangedEvent $event): void
     {
         $this->name = $event->getTo();
     }
 
-    /**
-     * @param CategoryTreeCategoriesChangedEvent $event
-     */
     protected function applyCategoryTreeCategoriesChangedEvent(CategoryTreeCategoriesChangedEvent $event): void
     {
         $this->categories = $event->getCategories();
     }
 
-    /**
-     * @param CategoryTreeCategoryAddedEvent $event
-     */
     protected function applyCategoryTreeCategoryAddedEvent(CategoryTreeCategoryAddedEvent $event): void
     {
         $parent = $event->getParentId() ? $this->findNode($event->getParentId()) : null;
@@ -197,11 +156,6 @@ class CategoryTree extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param CategoryId $categoryId
-     *
-     * @return Node|null
-     */
     private function findNode(CategoryId $categoryId): ?Node
     {
         foreach ($this->categories as $category) {
@@ -214,12 +168,6 @@ class CategoryTree extends AbstractAggregateRoot
         return null;
     }
 
-    /**
-     * @param CategoryId $categoryId
-     * @param Node       $node
-     *
-     * @return Node|null
-     */
     private function findSingleNode(CategoryId $categoryId, Node $node): ?Node
     {
         if ($node->getCategoryId()->isEqual($categoryId)) {

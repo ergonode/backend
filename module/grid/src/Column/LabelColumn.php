@@ -18,10 +18,6 @@ class LabelColumn extends AbstractColumn
     public const TYPE = 'LABEL';
 
     /**
-     * @param string               $field
-     * @param string               $label
-     * @param FilterInterface|null $filter
-     *
      * @throws \Exception
      */
     public function __construct(

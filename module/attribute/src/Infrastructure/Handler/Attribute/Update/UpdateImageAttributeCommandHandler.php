@@ -17,22 +17,14 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 
 class UpdateImageAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateImageAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateImageAttributeCommand $command): void

@@ -17,8 +17,6 @@ class AttributeCodeDataTransformer implements DataTransformerInterface
 {
     /**
      * @param AttributeCode|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -35,8 +33,6 @@ class AttributeCodeDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return AttributeCode|null
      */
     public function reverseTransform($value): ?AttributeCode
     {

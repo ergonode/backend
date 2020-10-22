@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CategoryFormModel
 {
     /**
-     * @var CategoryCode
-     *
      * @Assert\NotBlank(
      *     message="System name is required",
      *     groups={"Create"}

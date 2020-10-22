@@ -38,20 +38,10 @@ use Ergonode\Api\Application\Response\EmptyResponse;
  */
 class ProductAddChildAction extends AbstractController
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -89,13 +79,6 @@ class ProductAddChildAction extends AbstractController
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     *
-     * @param Language        $language
-     * @param AbstractProduct $product
-     * @param Request         $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {

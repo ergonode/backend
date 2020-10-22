@@ -17,8 +17,6 @@ use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
 class UpdateVariableProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId  $id
-     * @param TemplateId $templateId
      * @param array      $categories
      *
      * @dataProvider dataProvider

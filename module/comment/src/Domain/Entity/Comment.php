@@ -20,53 +20,36 @@ use Ramsey\Uuid\Uuid;
 class Comment extends AbstractAggregateRoot
 {
     /**
-     * @var CommentId $id
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
      */
     private CommentId $id;
 
     /**
-     * @var UserId $authorId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $authorId;
 
     /**
-     * @var Uuid
-     *
      * @JMS\Type("uuid")
      */
     private Uuid $objectId;
 
     /**
-     * @var \DateTime $createdAt
-     *
      * @JMS\Type("DateTime")
      */
     private \DateTime $createdAt;
 
     /**
-     * @var null|\DateTime $editedAt
-     *
      * @JMS\Type("DateTime")
      */
     private ?\DateTime $editedAt = null;
 
     /**
-     * @var string $content
-     *
      * @JMS\Type("string")
      */
     private string $content;
 
     /**
-     * @param CommentId $id
-     * @param Uuid      $objectId
-     * @param UserId    $authorId
-     * @param string    $content
-     *
      * @throws \Exception
      */
     public function __construct(CommentId $id, Uuid $objectId, UserId $authorId, string $content)
@@ -75,8 +58,6 @@ class Comment extends AbstractAggregateRoot
     }
 
     /**
-     * @param string $contend
-     *
      * @throws \Exception
      */
     public function changeContent(string $contend): void
@@ -86,57 +67,36 @@ class Comment extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @return CommentId
-     */
     public function getId(): CommentId
     {
         return $this->id;
     }
 
-    /**
-     * @return UserId
-     */
     public function getAuthorId(): UserId
     {
         return $this->authorId;
     }
 
-    /**
-     * @return Uuid
-     */
     public function getObjectId(): Uuid
     {
         return $this->objectId;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getEditedAt(): ?\DateTime
     {
         return $this->editedAt;
     }
 
-    /**
-     * @return string
-     */
     public function getContent(): string
     {
         return $this->content;
     }
 
-    /**
-     * @param CommentCreatedEvent $event
-     */
     protected function applyCommentCreatedEvent(CommentCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -146,9 +106,6 @@ class Comment extends AbstractAggregateRoot
         $this->content = $event->getContent();
     }
 
-    /**
-     * @param CommentContentChangedEvent $event
-     */
     protected function applyCommentContentChangedEvent(CommentContentChangedEvent $event): void
     {
         $this->content = $event->getTo();

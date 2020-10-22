@@ -17,22 +17,14 @@ class DbalChildRemovedFromProductEventProjector
 {
     private const TABLE = 'product_children';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ChildRemovedFromProductEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ChildRemovedFromProductEvent $event): void

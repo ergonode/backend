@@ -17,8 +17,6 @@ class StringValueFaker extends BaseProvider
 {
     /**
      * @param mixed $value
-     *
-     * @return StringValue
      */
     public function stringValue($value): StringValue
     {

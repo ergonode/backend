@@ -25,26 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AttributeGroupGridReadAction
 {
-    /**
-     * @var AttributeGroupGrid
-     */
     private AttributeGroupGrid $grid;
 
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer                 $gridRenderer
-     * @param AttributeGroupGrid           $grid
-     * @param AttributeGroupQueryInterface $query
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         AttributeGroupGrid $grid,
@@ -117,11 +103,6 @@ class AttributeGroupGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

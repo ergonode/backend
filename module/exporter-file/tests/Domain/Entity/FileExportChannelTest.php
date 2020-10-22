@@ -20,19 +20,10 @@ class FileExportChannelTest extends TestCase
      */
     private $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $format;
 
-    /**
-     * @var string
-     */
     private string $exportType;
 
     protected function setUp(): void

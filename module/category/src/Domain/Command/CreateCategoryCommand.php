@@ -18,31 +18,21 @@ use JMS\Serializer\Annotation as JMS;
 class CreateCategoryCommand implements DomainCommandInterface
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
     /**
-     * @var CategoryCode
-     *
      * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
      */
     private CategoryCode $code;
 
     /**
-     * @param CategoryId         $id
-     * @param CategoryCode       $code
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function __construct(CategoryId $id, CategoryCode $code, TranslatableString $name)
@@ -52,25 +42,16 @@ class CreateCategoryCommand implements DomainCommandInterface
         $this->name = $name;
     }
 
-    /**
-     * @return CategoryId
-     */
     public function getId(): CategoryId
     {
         return $this->id;
     }
 
-    /**
-     * @return CategoryCode
-     */
     public function getCode(): CategoryCode
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;

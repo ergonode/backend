@@ -33,14 +33,8 @@ class Shopware6ProductNameMapperTest extends TestCase
      */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
     private AttributeTranslationInheritanceCalculator $calculator;
 
-    /**
-     * @var AbstractProduct
-     */
     private AbstractProduct $product;
 
     /**

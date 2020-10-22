@@ -24,23 +24,14 @@ class DbalOptionQuery implements OptionQueryInterface
     private const TABLE_OPTIONS = 'attribute_option';
     private const TABLE_VALUES = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param AttributeId $attributeId
-     * @param Language    $language
-     *
      * @return array
      */
     public function getList(AttributeId $attributeId, Language $language): array
@@ -63,8 +54,6 @@ class DbalOptionQuery implements OptionQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function getOptions(AttributeId $attributeId): array
@@ -80,8 +69,6 @@ class DbalOptionQuery implements OptionQueryInterface
     }
 
     /**
-     * @param AttributeId|null $attributeId
-     *
      * @return array
      */
     public function getAll(?AttributeId $attributeId = null): array
@@ -112,12 +99,6 @@ class DbalOptionQuery implements OptionQueryInterface
         return $result;
     }
 
-    /**
-     * @param AttributeId $id
-     * @param OptionKey   $code
-     *
-     * @return AggregateId|null
-     */
     public function findIdByAttributeIdAndCode(AttributeId $id, OptionKey $code): ?AggregateId
     {
         $qb = $this->getQuery();
@@ -138,12 +119,6 @@ class DbalOptionQuery implements OptionQueryInterface
         return null;
     }
 
-    /**
-     * @param AttributeId $attributeId
-     * @param Language    $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(AttributeId $attributeId, Language $language): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -158,8 +133,6 @@ class DbalOptionQuery implements OptionQueryInterface
     }
 
     /**
-     * @param string $valueId
-     *
      * @return array
      */
     private function getValue(string $valueId): array
@@ -175,9 +148,6 @@ class DbalOptionQuery implements OptionQueryInterface
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

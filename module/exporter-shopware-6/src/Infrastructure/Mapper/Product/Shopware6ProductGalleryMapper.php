@@ -23,32 +23,14 @@ use Webmozart\Assert\Assert;
 
 class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
     private AttributeTranslationInheritanceCalculator $calculator;
 
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $multimediaRepository;
 
-    /**
-     * @var Shopware6ProductMediaClient
-     */
     private Shopware6ProductMediaClient $mediaClient;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     * @param MultimediaRepositoryInterface             $multimediaRepository
-     * @param Shopware6ProductMediaClient               $mediaClient
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator,
@@ -94,13 +76,6 @@ class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
         return $shopware6Product;
     }
 
-    /**
-     * @param MultimediaId     $multimediaId
-     * @param Shopware6Product $shopware6Product
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6Product
-     */
     private function getShopware6MultimediaId(
         MultimediaId $multimediaId,
         Shopware6Product $shopware6Product,

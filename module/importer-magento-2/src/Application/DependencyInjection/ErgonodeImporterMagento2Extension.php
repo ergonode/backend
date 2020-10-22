@@ -18,7 +18,6 @@ class ErgonodeImporterMagento2Extension extends Extension
 {
     /**
      * @param array            $configs
-     * @param ContainerBuilder $container
      *
      * @throws \Exception
      */

@@ -18,26 +18,12 @@ use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand
 
 class StartShopware6ExportCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var StartShopware6ExportProcess
-     */
     private StartShopware6ExportProcess $processor;
 
-    /**
-     * @param ExportRepositoryInterface   $exportRepository
-     * @param ChannelRepositoryInterface  $channelRepository
-     * @param StartShopware6ExportProcess $processor
-     */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
@@ -48,9 +34,6 @@ class StartShopware6ExportCommandHandler
         $this->processor = $processor;
     }
 
-    /**
-     * @param StartShopware6ExportCommand $command
-     */
     public function __invoke(StartShopware6ExportCommand $command)
     {
         $export = $this->exportRepository->load($command->getExportId());

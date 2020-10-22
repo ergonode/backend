@@ -15,9 +15,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 
 class AddConditionsNodeSection
 {
-     /**
-     * @param ArrayNodeDefinition $node
-     */
     public static function addSection(ArrayNodeDefinition $node): void
     {
         $node

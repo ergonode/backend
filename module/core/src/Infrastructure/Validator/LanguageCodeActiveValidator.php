@@ -19,9 +19,6 @@ class LanguageCodeActiveValidator extends ConstraintValidator
 {
     private LanguageQueryInterface $query;
 
-    /**
-     * @param LanguageQueryInterface $query
-     */
     public function __construct(LanguageQueryInterface $query)
     {
         $this->query = $query;
@@ -30,7 +27,6 @@ class LanguageCodeActiveValidator extends ConstraintValidator
 
     /**
      * @param mixed      $value
-     * @param Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {

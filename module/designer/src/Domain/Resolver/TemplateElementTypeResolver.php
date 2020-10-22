@@ -14,11 +14,6 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProper
 
 class TemplateElementTypeResolver
 {
-    /**
-     * @param string $type
-     *
-     * @return string
-     */
     public function resolve(string $type): string
     {
         return ($type === 'SECTION') ? UiTemplateElementProperty::VARIANT : AttributeTemplateElementProperty::VARIANT;

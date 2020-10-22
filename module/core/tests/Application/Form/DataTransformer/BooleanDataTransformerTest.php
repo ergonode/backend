@@ -31,7 +31,6 @@ class BooleanDataTransformerTest extends TestCase
      * @dataProvider  reverseDataProvider
      *
      * @param mixed  $value
-     * @param string $expected
      */
     public function testReverseTransform($value, string $expected): void
     {

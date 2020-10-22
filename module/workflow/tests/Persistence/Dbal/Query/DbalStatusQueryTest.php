@@ -38,9 +38,6 @@ class DbalStatusQueryTest extends TestCase
      */
     private $mockStatusRepository;
 
-    /**
-     * @var DbalStatusQuery
-     */
     private DbalStatusQuery $query;
 
     protected function setUp(): void

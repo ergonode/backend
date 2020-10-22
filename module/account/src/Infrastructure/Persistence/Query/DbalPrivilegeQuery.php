@@ -24,22 +24,14 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
         'g.description',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param bool $hidden
-     *
      * @return array
      */
     public function getPrivileges(bool $hidden = false): array
@@ -54,9 +46,6 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
         return $qb->execute()->fetchAll();
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

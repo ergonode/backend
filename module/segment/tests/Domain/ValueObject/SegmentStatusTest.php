@@ -15,12 +15,6 @@ use PHPUnit\Framework\TestCase;
 class SegmentStatusTest extends TestCase
 {
     /**
-     * @param string $string
-     * @param bool   $new
-     * @param bool   $processed
-     * @param bool   $calculated
-     * @param bool   $outdated
-     *
      * @dataProvider validDataProvider
      */
     public function testValidCreation(
@@ -40,8 +34,6 @@ class SegmentStatusTest extends TestCase
     }
 
     /**
-     * @param string $status
-     *
      * @dataProvider validDataProvider
      */
     public function testPositiveValidation(string $status): void
@@ -50,8 +42,6 @@ class SegmentStatusTest extends TestCase
     }
 
     /**
-     * @param string $status
-     *
      * @dataProvider inValidDataProvider
      */
     public function testNegativeValidation(string $status): void
@@ -60,10 +50,7 @@ class SegmentStatusTest extends TestCase
     }
 
     /**
-     * @param string $status
-     *
      * @dataProvider inValidDataProvider
-     *
      */
     public function testInvalidData(string $status): void
     {
@@ -72,10 +59,7 @@ class SegmentStatusTest extends TestCase
     }
 
     /**
-     * @param string $status
-     *
      * @dataProvider inValidDataProvider
-     *
      */
     public function testEquality(string $status): void
     {

@@ -15,22 +15,13 @@ use Ergonode\Channel\Domain\Entity\Scheduler;
 
 class UpdateScheduleCommandHandler
 {
-    /**
-     * @var SchedulerRepositoryInterface
-     */
     private SchedulerRepositoryInterface $repository;
 
-    /**
-     * @param SchedulerRepositoryInterface $repository
-     */
     public function __construct(SchedulerRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param UpdateSchedulerCommand $command
-     */
     public function __invoke(UpdateSchedulerCommand $command)
     {
         $scheduler = $this->repository->load($command->getId());

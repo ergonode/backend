@@ -16,19 +16,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
 interface TransitionQueryInterface
 {
-    /**
-     * @param WorkflowId $workflowId
-     * @param Language   $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(WorkflowId $workflowId, Language $language): DataSetInterface;
 
-    /**
-     * @param WorkflowId $workflowId
-     * @param StatusId   $statusId
-     *
-     * @return bool
-     */
     public function hasStatus(WorkflowId $workflowId, StatusId $statusId): bool;
 }

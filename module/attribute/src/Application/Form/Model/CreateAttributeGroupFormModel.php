@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateAttributeGroupFormModel
 {
     /**
-     * @var AttributeGroupCode|null
-     *
      * @Assert\NotBlank(message="System name is required")
      * @Assert\Length(
      *     max=128,

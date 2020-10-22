@@ -21,9 +21,6 @@ class AvailableProductTypeValidator extends ConstraintValidator
 {
     private ProductSupportProviderInterface $productSupportProvider;
 
-    /**
-     * @param ProductSupportProviderInterface $productSupportProvider
-     */
     public function __construct(ProductSupportProviderInterface $productSupportProvider)
     {
         $this->productSupportProvider = $productSupportProvider;

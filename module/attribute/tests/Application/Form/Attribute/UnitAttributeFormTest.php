@@ -27,9 +27,6 @@ class UnitAttributeFormTest extends TypeTestCase
      */
     private AttributeGroupQueryInterface $groupQuery;
 
-    /**
-     * @var UnitQueryInterface
-     */
     private UnitQueryInterface $unitQuery;
 
     public function setUp(): void

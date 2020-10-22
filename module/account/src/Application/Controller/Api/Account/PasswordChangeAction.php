@@ -35,32 +35,14 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class PasswordChangeAction
 {
-    /**
-     * @var PasswordValidationBuilder
-     */
     private PasswordValidationBuilder $builder;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var ValidatorInterface
-     */
     private ValidatorInterface $validator;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @param PasswordValidationBuilder          $builder
-     * @param CommandBusInterface                $commandBus
-     * @param ValidatorInterface                 $validator
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(
         PasswordValidationBuilder $builder,
         CommandBusInterface $commandBus,
@@ -114,11 +96,6 @@ class PasswordChangeAction
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
-     *
-     * @param User    $user
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(User $user, Request $request): Response
     {

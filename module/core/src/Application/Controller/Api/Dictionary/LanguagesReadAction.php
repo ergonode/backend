@@ -21,14 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LanguagesReadAction
 {
-    /**
-     * @var LanguageProviderInterface
-     */
     private LanguageProviderInterface $languageProvider;
 
-    /**
-     * @param LanguageProviderInterface $languageProvider
-     */
     public function __construct(LanguageProviderInterface $languageProvider)
     {
         $this->languageProvider = $languageProvider;
@@ -48,10 +42,6 @@ class LanguagesReadAction
      *     response=200,
      *     description="Returns collection of languages",
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

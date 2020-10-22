@@ -15,9 +15,6 @@ abstract class AbstractTextAttribute extends AbstractAttribute
 {
     public const TYPE = 'TEXT';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

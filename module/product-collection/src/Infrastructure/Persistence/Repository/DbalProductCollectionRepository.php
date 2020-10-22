@@ -19,14 +19,8 @@ use Webmozart\Assert\Assert;
 
 class DbalProductCollectionRepository implements ProductCollectionRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
@@ -41,10 +35,6 @@ class DbalProductCollectionRepository implements ProductCollectionRepositoryInte
     }
 
     /**
-     * @param ProductCollectionId $id
-     *
-     * @return AbstractAggregateRoot|null
-     *
      * @throws \ReflectionException
      */
     public function load(ProductCollectionId $id): ?AbstractAggregateRoot

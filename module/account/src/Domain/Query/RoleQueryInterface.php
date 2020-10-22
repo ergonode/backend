@@ -15,9 +15,6 @@ use Ergonode\Grid\DataSetInterface;
 
 interface RoleQueryInterface
 {
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 
     /**
@@ -25,26 +22,14 @@ interface RoleQueryInterface
      */
     public function getDictionary(): array;
 
-    /**
-     * @param RoleId $id
-     *
-     * @return int
-     */
     public function getRoleUsersCount(RoleId $id): int;
 
     /**
-     * @param RoleId $id
-     *
      * @return UserId[]
      */
     public function getAllRoleUsers(RoleId $id): array;
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -54,10 +39,5 @@ interface RoleQueryInterface
         ?string $order = 'ASC'
     ): array;
 
-    /**
-     * @param string $name
-     *
-     * @return RoleId | null
-     */
     public function findIdByRoleName(string $name): ?RoleId;
 }

@@ -14,8 +14,6 @@ use PHPUnit\Framework\TestCase;
 class AttributeScopeTest extends TestCase
 {
     /**
-     * @param string $value
-     *
      * @dataProvider validDataProvider
      */
     public function testValidCharactersValue(string $value): void
@@ -26,10 +24,7 @@ class AttributeScopeTest extends TestCase
     }
 
     /**
-     * @param string $value
-     *
      * @dataProvider invalidDataProvider
-     *
      */
     public function testInvalidCharactersValue(string $value): void
     {

@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PriceAttributePropertyModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      */
     public ?string $currency = null;

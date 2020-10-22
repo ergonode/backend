@@ -178,8 +178,6 @@ class LanguagePrivilegesFaker extends BaseProvider
     ];
 
     /**
-     * @param bool $all
-     *
      * @return array|LanguagePrivileges[]
      */
     public function languagePrivilegesCollection(bool $all = false): array

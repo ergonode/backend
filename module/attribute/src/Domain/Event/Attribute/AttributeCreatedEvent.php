@@ -19,22 +19,16 @@ use JMS\Serializer\Annotation as JMS;
 class AttributeCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $id;
 
     /**
-     * @var AttributeCode
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
     private AttributeCode $code;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $type;
@@ -47,22 +41,16 @@ class AttributeCreatedEvent implements DomainEventInterface
     private TranslatableString $label;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $hint;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $placeholder;
 
     /**
-     * @var AttributeScope
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
     private AttributeScope $scope;
@@ -75,22 +63,12 @@ class AttributeCreatedEvent implements DomainEventInterface
     private array $parameters;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("bool")
      */
     private bool $system;
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param string             $type
      * @param array              $parameters
-     * @param bool               $system
      */
     public function __construct(
         AttributeId $id,
@@ -114,57 +92,36 @@ class AttributeCreatedEvent implements DomainEventInterface
         $this->system = $system;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getAggregateId(): AttributeId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getCode(): AttributeCode
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getLabel(): TranslatableString
     {
         return $this->label;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getHint(): TranslatableString
     {
         return $this->hint;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getPlaceholder(): TranslatableString
     {
         return $this->placeholder;
     }
 
-    /**
-     * @return AttributeScope
-     */
     public function getScope(): AttributeScope
     {
         return $this->scope;
@@ -178,9 +135,6 @@ class AttributeCreatedEvent implements DomainEventInterface
         return $this->parameters;
     }
 
-    /**
-     * @return bool
-     */
     public function isSystem(): bool
     {
         return $this->system;

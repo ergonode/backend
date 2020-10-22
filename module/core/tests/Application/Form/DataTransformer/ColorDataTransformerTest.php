@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class ColorDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var ColorDataTransformer
-     */
     protected ColorDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,9 +24,6 @@ class ColorDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Color|null  $colorValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?Color $colorValueObject, ?string $string): void
@@ -46,9 +40,6 @@ class ColorDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Color|null  $colorValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?Color $colorValueObject, ?string $string): void

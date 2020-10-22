@@ -17,27 +17,14 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class Shopware6NewProductPriceMapperDecorator implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var Shopware6ProductPriceMapper
-     */
     private Shopware6ProductPriceMapper  $productPriceMapper;
 
-    /**
-     * @param Shopware6ProductPriceMapper $productPriceMapper
-     */
     public function __construct(Shopware6ProductPriceMapper $productPriceMapper)
     {
         $this->productPriceMapper = $productPriceMapper;
     }
 
     /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     *
      * @throws \Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException
      */
     public function map(

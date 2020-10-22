@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RoleNameUniqueValidator extends ConstraintValidator
 {
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $query;
 
-    /**
-     * @param RoleQueryInterface $query
-     */
     public function __construct(RoleQueryInterface $query)
     {
         $this->query = $query;

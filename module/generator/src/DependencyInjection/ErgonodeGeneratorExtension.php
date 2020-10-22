@@ -18,7 +18,6 @@ class ErgonodeGeneratorExtension extends Extension
 {
     /**
      * @param array            $configs
-     * @param ContainerBuilder $container
      *
      * @throws \Exception
      */

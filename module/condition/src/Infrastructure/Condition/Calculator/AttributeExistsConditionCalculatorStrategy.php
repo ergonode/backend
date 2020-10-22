@@ -18,14 +18,8 @@ use Webmozart\Assert\Assert;
 
 class AttributeExistsConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -21,20 +21,10 @@ class DbalValueChangedEventProjector
     private const VALUE_TABLE = 'attribute_value';
     private const RELATION_TABLE = 'entity_attribute_value';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -42,8 +32,6 @@ class DbalValueChangedEventProjector
     }
 
     /**
-     * @param ValueChangedEvent $event
-     *
      * @throws \Throwable
      */
     public function __invoke(ValueChangedEvent $event): void

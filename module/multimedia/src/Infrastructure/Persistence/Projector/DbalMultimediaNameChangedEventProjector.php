@@ -18,22 +18,14 @@ class DbalMultimediaNameChangedEventProjector
 {
     private const TABLE = 'multimedia';
 
-    /**
-     * @var Connection
-     */
     protected Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param MultimediaNameChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(MultimediaNameChangedEvent $event): void

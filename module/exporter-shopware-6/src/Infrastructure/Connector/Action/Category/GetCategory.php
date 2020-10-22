@@ -18,21 +18,12 @@ class GetCategory extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/category/%s';
 
-    /**
-     * @var string
-     */
     private string $categoryId;
 
-    /**
-     * @param string $categoryId
-     */
     public function __construct(string $categoryId)
     {
         $this->categoryId = $categoryId;
     }
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -43,10 +34,6 @@ class GetCategory extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6Category
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content):Shopware6Category
@@ -62,9 +49,6 @@ class GetCategory extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->categoryId);

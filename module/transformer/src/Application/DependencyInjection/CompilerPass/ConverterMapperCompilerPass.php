@@ -18,9 +18,6 @@ class ConverterMapperCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'transformer.converter.converter_mapper_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConverterMapperProvider::class)) {
@@ -28,9 +25,6 @@ class ConverterMapperCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processTransformers(ContainerBuilder $container): void
     {
         $arguments = [];

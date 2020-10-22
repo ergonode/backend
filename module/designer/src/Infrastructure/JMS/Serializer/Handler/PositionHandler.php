@@ -46,10 +46,7 @@ class PositionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Position                      $position
      * @param array                         $type
-     * @param Context                       $context
      *
      * @return array
      */
@@ -63,12 +60,8 @@ class PositionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
      * @param mixed                           $data
      * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return Position
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

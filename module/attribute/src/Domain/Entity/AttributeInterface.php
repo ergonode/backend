@@ -13,14 +13,8 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 interface AttributeInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 
-    /**
-     * @return AttributeCode
-     */
     public function getCode(): AttributeCode;
 
     /**

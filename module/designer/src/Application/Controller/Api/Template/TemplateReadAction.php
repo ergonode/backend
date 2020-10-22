@@ -55,10 +55,6 @@ class TemplateReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
-     *
-     * @param Template $template
-     *
-     * @return Response
      */
     public function __invoke(Template $template): Response
     {

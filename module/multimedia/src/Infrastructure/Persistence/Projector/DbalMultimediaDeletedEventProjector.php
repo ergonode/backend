@@ -16,22 +16,14 @@ class DbalMultimediaDeletedEventProjector
 {
     private const TABLE = 'multimedia';
 
-    /**
-     * @var Connection
-     */
     protected Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param MultimediaDeletedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(MultimediaDeletedEvent $event): void

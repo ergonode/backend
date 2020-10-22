@@ -23,9 +23,6 @@ class TextFilter implements FilterInterface
         return [];
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

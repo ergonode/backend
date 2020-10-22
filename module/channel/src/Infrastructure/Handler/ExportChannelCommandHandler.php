@@ -19,32 +19,14 @@ use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 
 class ExportChannelCommandHandler
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param ExportRepositoryInterface  $exportRepository
-     * @param ProductQueryInterface      $productQuery
-     * @param CommandBusInterface        $commandBus
-     */
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ExportRepositoryInterface $exportRepository,
@@ -57,9 +39,6 @@ class ExportChannelCommandHandler
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportChannelCommand $command
-     */
     public function __invoke(ExportChannelCommand $command)
     {
         $channel = $this->channelRepository->exists($command->getChannelId());

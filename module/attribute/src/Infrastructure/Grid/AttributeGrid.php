@@ -28,20 +28,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AttributeGrid extends AbstractGrid
 {
-    /**
-     * @var AttributeTypeDictionaryProvider
-     */
     private AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider;
 
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $attributeGroupQuery;
 
-    /**
-     * @param AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider
-     * @param AttributeGroupQueryInterface    $attributeGroupQuery
-     */
     public function __construct(
         AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider,
         AttributeGroupQueryInterface $attributeGroupQuery
@@ -50,10 +40,6 @@ class AttributeGrid extends AbstractGrid
         $this->attributeGroupQuery = $attributeGroupQuery;
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $types = [];

@@ -19,12 +19,6 @@ use PHPUnit\Framework\TestCase;
 class UpdateDateAttributeCommandTest extends TestCase
 {
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param DateFormat         $format
      * @param array              $groups
      *
      * @dataProvider dataProvider

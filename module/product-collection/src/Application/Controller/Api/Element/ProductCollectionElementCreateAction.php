@@ -36,20 +36,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionElementCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
@@ -95,10 +85,7 @@ class ProductCollectionElementCreateAction
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      *
-     * @param ProductCollection $productCollection
-     * @param Request           $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

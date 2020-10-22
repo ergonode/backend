@@ -17,7 +17,6 @@ class ExceptionMapperTest extends TestCase
 {
     /**
      * @param array      $map
-     * @param \Throwable $exception
      * @param array      $expected
      *
      * @dataProvider dataProvider

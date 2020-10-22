@@ -16,29 +16,16 @@ use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 
 class TemplateElementRemovedEventHandler
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @param CommandBusInterface   $commandBus
-     * @param ProductQueryInterface $query
-     */
     public function __construct(CommandBusInterface $commandBus, ProductQueryInterface $query)
     {
         $this->commandBus = $commandBus;
         $this->query = $query;
     }
 
-    /**
-     * @param TemplateElementRemovedEvent $event
-     */
     public function __invoke(TemplateElementRemovedEvent $event): void
     {
         $products = $this->query->findProductIdsByTemplate($event->getAggregateId());

@@ -19,32 +19,14 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 
 class AttributeMultimediaRelation implements MultimediaRelationInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @var Security
-     */
     private Security $security;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
     private UrlGeneratorInterface $generator;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param AttributeQueryInterface $query
-     * @param Security                $security
-     * @param UrlGeneratorInterface   $generator
-     * @param TranslatorInterface     $translator
-     */
     public function __construct(
         AttributeQueryInterface $query,
         Security $security,
@@ -58,9 +40,6 @@ class AttributeMultimediaRelation implements MultimediaRelationInterface
     }
 
     /**
-     * @param MultimediaId $multimediaId
-     * @param Language     $language
-     *
      * @return array
      */
     public function getRelation(MultimediaId $multimediaId, Language $language): array
@@ -86,10 +65,7 @@ class AttributeMultimediaRelation implements MultimediaRelationInterface
     }
 
     /**
-     * @param string $name
      * @param array  $parameters
-     *
-     * @return string
      */
     private function getUrl(string $name, array $parameters): string
     {

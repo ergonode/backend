@@ -18,19 +18,12 @@ class ConditionConstraintProvider
      */
     private array $strategies;
 
-    /**
-     * @param ConditionValidatorStrategyInterface ...$strategies
-     */
     public function __construct(ConditionValidatorStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
     /**
-     * @param string $type
-     *
-     * @return ConditionValidatorStrategyInterface
-     *
      * @throws \OutOfBoundsException
      */
     public function resolve(string $type): ConditionValidatorStrategyInterface

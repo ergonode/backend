@@ -16,14 +16,8 @@ use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 
 class WorkflowExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var WorkflowQueryInterface
-     */
     private WorkflowQueryInterface $query;
 
-    /**
-     * @param WorkflowQueryInterface $query
-     */
     public function __construct(WorkflowQueryInterface $query)
     {
         $this->query = $query;

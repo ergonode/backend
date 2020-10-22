@@ -16,30 +16,21 @@ use JMS\Serializer\Annotation as JMS;
 class CreateUnitCommand implements DomainCommandInterface
 {
     /**
-     * @var UnitId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
      */
     private UnitId $id;
 
     /**
-     * @var string $name
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string $symbol
-     *
      * @JMS\Type("string")
      */
     private string $symbol;
 
     /**
-     * @param string $name
-     * @param string $symbol
-     *
      * @throws \Exception
      */
     public function __construct(string $name, string $symbol)
@@ -49,25 +40,16 @@ class CreateUnitCommand implements DomainCommandInterface
         $this->symbol = $symbol;
     }
 
-    /**
-     * @return UnitId
-     */
     public function getId(): UnitId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getSymbol(): string
     {
         return $this->symbol;

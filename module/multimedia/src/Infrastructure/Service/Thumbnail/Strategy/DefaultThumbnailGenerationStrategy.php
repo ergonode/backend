@@ -14,21 +14,12 @@ class DefaultThumbnailGenerationStrategy implements ThumbnailGenerationStrategyI
 {
     public const MAX_WIDTH = 800;
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function supported(string $name): bool
     {
         return 'default' === $name;
     }
 
     /**
-     * @param \Imagick $imagick
-     *
-     * @return \Imagick
-     *
      * @throws \ImagickException
      */
     public function generate(\Imagick $imagick): \Imagick

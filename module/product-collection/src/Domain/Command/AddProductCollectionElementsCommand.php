@@ -17,8 +17,6 @@ use JMS\Serializer\Annotation as JMS;
 class AddProductCollectionElementsCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $productCollectionId;
@@ -31,7 +29,6 @@ class AddProductCollectionElementsCommand implements DomainCommandInterface
     private array $productIds;
 
     /**
-     * @param ProductCollectionId $productCollectionId
      * @param array|ProductId[]   $productIds
      */
     public function __construct(ProductCollectionId $productCollectionId, $productIds)
@@ -40,9 +37,6 @@ class AddProductCollectionElementsCommand implements DomainCommandInterface
         $this->productIds = $productIds;
     }
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getProductCollectionId(): ProductCollectionId
     {
         return $this->productCollectionId;

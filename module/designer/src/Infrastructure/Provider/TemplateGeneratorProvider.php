@@ -19,19 +19,12 @@ class TemplateGeneratorProvider
      */
     private array $generators;
 
-    /**
-     * @param TemplateGeneratorInterface ...$generators
-     */
     public function __construct(TemplateGeneratorInterface...$generators)
     {
         $this->generators = $generators;
     }
 
     /**
-     * @param string $code
-     *
-     * @return TemplateGeneratorInterface
-     *
      * @throws TemplateGeneratorException
      */
     public function provide(string $code): TemplateGeneratorInterface

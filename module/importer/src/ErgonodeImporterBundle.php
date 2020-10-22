@@ -20,9 +20,6 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceC
 
 class ErgonodeImporterBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

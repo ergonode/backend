@@ -16,8 +16,6 @@ class ColorTest extends TestCase
 {
     /**
      * @dataProvider validHexColor
-     *
-     * @param string $hex
      */
     public function testValidColorCreation(string $hex): void
     {
@@ -28,9 +26,6 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider inValidHexColor
-     *
-     * @param string $hex
-     *
      */
     public function testInvalidColorCreation(string $hex): void
     {

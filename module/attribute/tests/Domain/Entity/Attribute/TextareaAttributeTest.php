@@ -48,9 +48,6 @@ class TextareaAttributeTest extends TestCase
      */
     private AttributeScope $scope;
 
-    /**
-     * @var bool
-     */
     private bool $richEdit;
 
     protected function setUp(): void

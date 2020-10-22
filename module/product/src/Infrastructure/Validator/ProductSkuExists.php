@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductSkuExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Product sku not exists.';
 }

@@ -15,9 +15,6 @@ class ChannelTypeProvider
      */
     private array $types;
 
-    /**
-     * @param string ...$types
-     */
     public function __construct(string ...$types)
     {
         $this->types = $types;

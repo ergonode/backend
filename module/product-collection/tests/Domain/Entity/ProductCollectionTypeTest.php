@@ -17,20 +17,10 @@ use PHPUnit\Framework\TestCase;
 
 class ProductCollectionTypeTest extends TestCase
 {
-    /**
-     * @var ProductCollectionTypeId
-     */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @var ProductCollectionTypeCode
-     *
-     */
     private ProductCollectionTypeCode $code;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $name;
 
     public function setUp(): void

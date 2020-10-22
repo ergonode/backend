@@ -14,22 +14,13 @@ use Webmozart\Assert\Assert;
 
 class DeleteMultimediaCommandHandler
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $multimediaRepository;
 
-    /**
-     * @param MultimediaRepositoryInterface $multimediaRepository
-     */
     public function __construct(MultimediaRepositoryInterface $multimediaRepository)
     {
         $this->multimediaRepository = $multimediaRepository;
     }
 
-    /**
-     * @param DeleteMultimediaCommand $command
-     */
     public function __invoke(DeleteMultimediaCommand $command): void
     {
         $multimedia = $this->multimediaRepository->load($command->getId());

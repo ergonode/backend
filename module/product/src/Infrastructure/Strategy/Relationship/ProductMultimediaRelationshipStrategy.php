@@ -17,14 +17,8 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class ProductMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @param ProductQueryInterface $productQuery
-     */
     public function __construct(ProductQueryInterface $productQuery)
     {
         $this->productQuery = $productQuery;

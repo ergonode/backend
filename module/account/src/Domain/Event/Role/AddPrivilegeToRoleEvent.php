@@ -17,40 +17,26 @@ use JMS\Serializer\Annotation as JMS;
 class AddPrivilegeToRoleEvent implements DomainEventInterface
 {
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $id;
 
     /**
-     * @var Privilege
-     *
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\Privilege")
      */
     private Privilege $privilege;
 
-    /**
-     * @param RoleId    $id
-     * @param Privilege $privilege
-     */
     public function __construct(RoleId $id, Privilege $privilege)
     {
         $this->id = $id;
         $this->privilege = $privilege;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getAggregateId(): RoleId
     {
         return $this->id;
     }
 
-    /**
-     * @return Privilege
-     */
     public function getPrivilege(): Privilege
     {
         return $this->privilege;

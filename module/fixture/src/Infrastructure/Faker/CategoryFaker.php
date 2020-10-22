@@ -47,9 +47,6 @@ class CategoryFaker extends BaseProvider
         'torebki',
     ];
 
-    /**
-     * @return string
-     */
     public function category(): string
     {
         $random = array_rand(self::CATEGORIES);

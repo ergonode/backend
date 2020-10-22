@@ -88,9 +88,6 @@ class AbstractOptionTest extends TestCase
         $this->assertNotSame($this->code, $option->getCode());
     }
 
-    /**
-     * @return AbstractOption
-     */
     private function getClass(): AbstractOption
     {
         return  new class(

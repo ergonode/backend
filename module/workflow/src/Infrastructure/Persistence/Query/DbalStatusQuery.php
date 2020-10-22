@@ -22,26 +22,12 @@ class DbalStatusQuery implements StatusQueryInterface
 {
     private const STATUS_TABLE = 'public.status';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var WorkflowProvider
-     */
     private WorkflowProvider $workflowProvider;
 
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $statusRepository;
 
-    /**
-     * @param Connection                $connection
-     * @param WorkflowProvider          $workflowProvider
-     * @param StatusRepositoryInterface $statusRepository
-     */
     public function __construct(
         Connection $connection,
         WorkflowProvider $workflowProvider,
@@ -52,11 +38,6 @@ class DbalStatusQuery implements StatusQueryInterface
         $this->statusRepository = $statusRepository;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery($language);
@@ -73,8 +54,6 @@ class DbalStatusQuery implements StatusQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array
@@ -87,8 +66,6 @@ class DbalStatusQuery implements StatusQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getAllStatuses(Language $language): array
@@ -159,11 +136,6 @@ class DbalStatusQuery implements StatusQueryInterface
         return $this->sortStatusesByWorkflowTransitions($result);
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return QueryBuilder
-     */
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

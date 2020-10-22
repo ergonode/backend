@@ -15,14 +15,8 @@ use Ergonode\Grid\Request\FilterValueCollection;
 
 class DbalDataSet extends AbstractDbalDataSet
 {
-    /**
-     * @var QueryBuilder
-     */
     protected QueryBuilder $queryBuilder;
 
-    /**
-     * @param QueryBuilder $queryBuilder
-     */
     public function __construct(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = clone $queryBuilder;
@@ -30,13 +24,6 @@ class DbalDataSet extends AbstractDbalDataSet
 
     /**
      * @param ColumnInterface[]     $columns
-     * @param FilterValueCollection $values
-     * @param int                   $limit
-     * @param int                   $offset
-     * @param string|null           $field
-     * @param string                $order
-     *
-     * @return \Traversable
      */
     public function getItems(
         array $columns,
@@ -59,10 +46,7 @@ class DbalDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param FilterValueCollection $values
      * @param ColumnInterface[]     $columns
-     *
-     * @return int
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int
     {

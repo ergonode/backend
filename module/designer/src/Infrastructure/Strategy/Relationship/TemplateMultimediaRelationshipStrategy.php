@@ -17,14 +17,8 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class TemplateMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @param TemplateQueryInterface $templateQuery
-     */
     public function __construct(TemplateQueryInterface $templateQuery)
     {
         $this->templateQuery = $templateQuery;

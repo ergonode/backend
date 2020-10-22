@@ -19,24 +19,12 @@ use PHPUnit\Framework\TestCase;
 
 class EmailHandlerTest extends TestCase
 {
-    /**
-     * @var EmailHandler
-     */
     private EmailHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

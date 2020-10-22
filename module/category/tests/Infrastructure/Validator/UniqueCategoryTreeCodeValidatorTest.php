@@ -19,9 +19,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $query;
 
     protected function setUp(): void
@@ -70,9 +67,6 @@ class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return UniqueCategoryTreeCodeValidator
-     */
     protected function createValidator(): UniqueCategoryTreeCodeValidator
     {
         return new UniqueCategoryTreeCodeValidator($this->query);

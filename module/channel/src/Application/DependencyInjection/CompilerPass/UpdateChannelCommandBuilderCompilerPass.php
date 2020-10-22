@@ -17,9 +17,6 @@ class UpdateChannelCommandBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'channel.update_channel_builder_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         if ($container->has(UpdateChannelCommandBuilderProvider::class)) {
@@ -27,9 +24,6 @@ class UpdateChannelCommandBuilderCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

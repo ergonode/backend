@@ -16,40 +16,26 @@ use JMS\Serializer\Annotation as JMS;
 class StopImportCommand implements DomainCommandInterface
 {
     /**
-     * @var ImportId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
      */
     private ImportId $id;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $reason;
 
-    /**
-     * @param ImportId    $id
-     * @param null|string $reason
-     */
     public function __construct(ImportId $id, ?string $reason = null)
     {
         $this->id = $id;
         $this->reason = $reason;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getId(): ImportId
     {
         return $this->id;
     }
 
-    /**
-     * @return null|string
-     */
     public function getReason(): ?string
     {
         return $this->reason;

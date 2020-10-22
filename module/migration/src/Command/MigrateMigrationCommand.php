@@ -14,9 +14,6 @@ use Ergonode\Migration\Provider\MigrationConfigurationProvider;
 
 class MigrateMigrationCommand extends MigrateCommand
 {
-     /**
-     * @param MigrationConfigurationProvider $configurationService
-     */
     public function __construct(MigrationConfigurationProvider $configurationService)
     {
         $this->setMigrationConfiguration($configurationService->configure());

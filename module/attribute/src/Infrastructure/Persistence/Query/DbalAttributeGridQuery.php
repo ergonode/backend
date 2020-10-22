@@ -28,26 +28,13 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         'a.scope',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @param bool     $system
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language, bool $system = false): DataSetInterface
     {
         $query = $this->getQuery();
@@ -71,9 +58,6 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

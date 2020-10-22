@@ -21,26 +21,12 @@ use Nette\PhpGenerator\PhpFile;
 
 class EntityClassBuilder implements BuilderInterface
 {
-    /**
-     * @var FileBuilder
-     */
     private FileBuilder $builder;
 
-    /**
-     * @var PropertyBuilder
-     */
     private PropertyBuilder $propertyBuilder;
 
-    /**
-     * @var MethodBuilder
-     */
     private MethodBuilder $methodBuilder;
 
-    /**
-     * @param FileBuilder     $builder
-     * @param PropertyBuilder $propertyBuilder
-     * @param MethodBuilder   $methodBuilder
-     */
     public function __construct(FileBuilder $builder, PropertyBuilder $propertyBuilder, MethodBuilder $methodBuilder)
     {
         $this->builder = $builder;
@@ -49,11 +35,7 @@ class EntityClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $module
-     * @param string $entity
      * @param array  $properties
-     *
-     * @return PhpFile
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -82,10 +64,7 @@ class EntityClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $entity
      * @param array  $properties
-     *
-     * @return Method
      */
     private function buildConstructor(string $entity, array $properties = []): Method
     {
@@ -103,11 +82,7 @@ class EntityClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $module
-     * @param string $entity
      * @param array  $properties
-     *
-     * @return Method
      */
     private function buildCreateEvent(string $module, string $entity, array $properties = []): Method
     {
@@ -127,12 +102,6 @@ class EntityClassBuilder implements BuilderInterface
         return $method;
     }
 
-    /**
-     * @param string $name
-     * @param string $returnType
-     *
-     * @return Method
-     */
     private function buildGetter(string $name, string $returnType): Method
     {
         $method = $this->methodBuilder->build(sprintf('get%s', ucfirst($name)), [], $returnType);

@@ -17,40 +17,26 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 class ProductRemovedFromCategoryEvent implements DomainEventInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var CategoryId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $categoryId;
 
-    /**
-     * @param ProductId  $id
-     * @param CategoryId $categoryId
-     */
     public function __construct(ProductId $id, CategoryId $categoryId)
     {
         $this->id = $id;
         $this->categoryId = $categoryId;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getAggregateId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return CategoryId
-     */
     public function getCategoryId(): CategoryId
     {
         return $this->categoryId;

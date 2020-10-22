@@ -64,9 +64,6 @@ class LanguageCodeActiveValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return LanguageCodeActiveValidator
-     */
     protected function createValidator(): LanguageCodeActiveValidator
     {
         return new LanguageCodeActiveValidator($this->query);

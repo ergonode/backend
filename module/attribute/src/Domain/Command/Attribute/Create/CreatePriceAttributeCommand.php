@@ -19,19 +19,11 @@ use Money\Currency;
 class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**
-     * @var Currency
-     *
      * @JMS\Type("Money\Currency")
      */
     private Currency $currency;
 
     /**
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param Currency           $currency
      * @param array              $groups
      *
      * @throws \Exception
@@ -57,9 +49,6 @@ class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
         $this->currency = $currency;
     }
 
-    /**
-     * @return Currency
-     */
     public function getCurrency(): Currency
     {
         return $this->currency;

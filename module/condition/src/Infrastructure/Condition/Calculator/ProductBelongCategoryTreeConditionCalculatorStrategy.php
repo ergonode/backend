@@ -17,14 +17,8 @@ use Webmozart\Assert\Assert;
 
 class ProductBelongCategoryTreeConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $repository;
 
-    /**
-     * @param TreeRepositoryInterface $repository
-     */
     public function __construct(TreeRepositoryInterface $repository)
     {
         $this->repository = $repository;

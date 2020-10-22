@@ -14,14 +14,8 @@ class Password
     public const MIN_LENGTH = 6;
     public const MAX_LENGTH = 32;
 
-    /**
-     * @var string
-     */
     private string $value;
 
-    /**
-     * @param string $value
-     */
     public function __construct(string $value)
     {
         if (!self::isValid($value)) {
@@ -31,27 +25,16 @@ class Password
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->getValue();
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
     public static function isValid(string $value): bool
     {
         $length = mb_strlen($value);

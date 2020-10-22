@@ -18,9 +18,6 @@ class CategoryFormCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'category.form.category_form_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(CategoryFormProvider::class)) {
@@ -28,9 +25,6 @@ class CategoryFormCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $arguments = [];

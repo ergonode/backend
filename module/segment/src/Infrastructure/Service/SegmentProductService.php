@@ -18,23 +18,14 @@ class SegmentProductService
 {
     private const TABLE = 'segment_product';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param SegmentId $segmentId
-     * @param ProductId $productId
-     *
      * @throws DBALException
      */
     public function add(SegmentId $segmentId, ProductId $productId): void
@@ -53,9 +44,6 @@ class SegmentProductService
     }
 
     /**
-     * @param SegmentId $segmentId
-     * @param ProductId $productId
-     *
      * @throws DBALException
      */
     public function mark(SegmentId $segmentId, ProductId $productId): void
@@ -79,9 +67,6 @@ class SegmentProductService
     }
 
     /**
-     * @param SegmentId $segmentId
-     * @param ProductId $productId
-     *
      * @throws DBALException
      */
     public function unmark(SegmentId $segmentId, ProductId $productId): void
@@ -103,12 +88,6 @@ class SegmentProductService
         );
     }
 
-    /**
-     * @param SegmentId $segmentId
-     * @param ProductId $productId
-     *
-     * @return bool
-     */
     public function exists(SegmentId $segmentId, ProductId $productId): bool
     {
         $qb = $this->connection->createQueryBuilder();

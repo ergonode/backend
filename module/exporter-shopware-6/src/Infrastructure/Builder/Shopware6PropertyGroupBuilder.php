@@ -21,22 +21,11 @@ class Shopware6PropertyGroupBuilder
      */
     private array $collection;
 
-    /**
-     * @param Shopware6PropertyGroupMapperInterface ...$collection
-     */
     public function __construct(Shopware6PropertyGroupMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6PropertyGroup $shopware6PropertyGroup
-     * @param AbstractAttribute      $attribute
-     * @param Language|null          $language
-     *
-     * @return Shopware6PropertyGroup
-     */
     public function build(
         Shopware6Channel $channel,
         Shopware6PropertyGroup $shopware6PropertyGroup,

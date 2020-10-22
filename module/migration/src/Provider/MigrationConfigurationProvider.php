@@ -17,20 +17,10 @@ class MigrationConfigurationProvider
     private const NAMESPACE = 'Ergonode\\Migration';
     private const TABLE_NAME = 'migrations';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var MigrationDirectoryProviderInterface
-     */
     private MigrationDirectoryProviderInterface $migrationDirectoryProvider;
 
-    /**
-     * @param Connection                          $connection
-     * @param MigrationDirectoryProviderInterface $migrationDirectoryProvider
-     */
     public function __construct(
         Connection $connection,
         MigrationDirectoryProviderInterface $migrationDirectoryProvider
@@ -39,9 +29,6 @@ class MigrationConfigurationProvider
         $this->migrationDirectoryProvider = $migrationDirectoryProvider;
     }
 
-    /**
-     * @return Configuration
-     */
     public function configure(): Configuration
     {
         $configuration = new Configuration($this->connection);

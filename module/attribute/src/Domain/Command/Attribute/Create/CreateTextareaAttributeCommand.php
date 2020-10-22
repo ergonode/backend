@@ -18,19 +18,11 @@ use JMS\Serializer\Annotation as JMS;
 class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**
-     * @var bool
-     *
      * @JMS\Type("boolean")
      */
     private bool $richEdit;
 
     /**
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param bool               $richEdit
      * @param array              $groups
      *
      * @throws \Exception
@@ -56,9 +48,6 @@ class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
         $this->richEdit = $richEdit;
     }
 
-    /**
-     * @return bool
-     */
     public function richEdit(): bool
     {
         return $this->richEdit;

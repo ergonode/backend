@@ -20,9 +20,6 @@ use PHPUnit\Framework\TestCase;
 
 class FormatterInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
     protected function setUp(): void

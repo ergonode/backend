@@ -26,26 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommentGridAction
 {
-    /**
-     * @var CommentGrid
-     */
     private CommentGrid $grid;
 
-    /**
-     * @var CommentQueryInterface
-     */
     private CommentQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $renderer;
 
-    /**
-     * @param CommentGrid           $grid
-     * @param CommentQueryInterface $query
-     * @param GridRenderer          $renderer
-     */
     public function __construct(CommentGrid $grid, CommentQueryInterface $query, GridRenderer $renderer)
     {
         $this->grid = $grid;
@@ -118,11 +104,6 @@ class CommentGridAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

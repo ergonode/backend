@@ -13,23 +13,15 @@ use JMS\Serializer\Annotation as JMS;
 class Shopware6Media
 {
     /**
-     * @var string|null
-     *
      * @JMS\Exclude()
      */
     private ?string $id;
 
-    /**
-     * @param string|null $id
-     */
     public function __construct(?string $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;

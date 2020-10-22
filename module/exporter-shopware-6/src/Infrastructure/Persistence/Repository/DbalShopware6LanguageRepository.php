@@ -26,25 +26,13 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
         'iso',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param string    $iso
-     *
-     * @return Shopware6Language|null
-     */
     public function load(ChannelId $channelId, string $iso): ?Shopware6Language
     {
         $query = $this->connection->createQueryBuilder();
@@ -72,9 +60,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     }
 
     /**
-     * @param ChannelId         $channelId
-     * @param Shopware6Language $shopware6Language
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function save(ChannelId $channelId, Shopware6Language $shopware6Language): void
@@ -86,12 +71,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
         }
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param string    $iso
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, string $iso): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -112,9 +91,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     }
 
     /**
-     * @param ChannelId         $channelId
-     * @param Shopware6Language $shopware6Language
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function update(ChannelId $channelId, Shopware6Language $shopware6Language): void
@@ -138,9 +114,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     }
 
     /**
-     * @param ChannelId         $channelId
-     * @param Shopware6Language $shopware6Language
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function insert(ChannelId $channelId, Shopware6Language $shopware6Language): void

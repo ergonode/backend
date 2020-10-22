@@ -21,26 +21,12 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class OptionImportAction
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     * @param OptionQueryInterface    $optionQuery
-     * @param CommandBusInterface     $commandBus
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         OptionQueryInterface $optionQuery,
@@ -52,10 +38,6 @@ class OptionImportAction
     }
 
     /**
-     * @param AttributeCode      $code
-     * @param OptionKey          $optionKey
-     * @param TranslatableString $label
-     *
      * @throws \Exception
      */
     public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): void

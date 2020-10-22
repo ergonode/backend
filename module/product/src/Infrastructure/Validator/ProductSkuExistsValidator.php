@@ -17,14 +17,8 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
 class ProductSkuExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @param ProductQueryInterface $query
-     */
     public function __construct(ProductQueryInterface $query)
     {
         $this->query = $query;

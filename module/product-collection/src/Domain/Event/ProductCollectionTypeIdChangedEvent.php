@@ -17,40 +17,27 @@ use JMS\Serializer\Annotation as JMS;
 class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
     /**
-     * @var ProductCollectionTypeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $oldTypeId;
 
     /**
-     * @var ProductCollectionTypeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $newTypeId;
 
     /**
-     * @var \DateTime
-     *
      * @JMS\Type("DateTime")
      */
     private \DateTime $editedAt;
 
     /**
      * ProductCollectionTypeIdChangedEvent constructor.
-     *
-     * @param ProductCollectionId     $id
-     * @param ProductCollectionTypeId $oldTypeId
-     * @param ProductCollectionTypeId $newTypeId
-     * @param \DateTime               $editedAt
      */
     public function __construct(
         ProductCollectionId $id,
@@ -64,34 +51,22 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
         $this->editedAt = $editedAt;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getEditedAt(): \DateTime
     {
         return $this->editedAt;
     }
 
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }
 
-    /**
-     * @return ProductCollectionTypeId
-     */
     public function getOldTypeId(): ProductCollectionTypeId
     {
         return $this->oldTypeId;
     }
 
-    /**
-     * @return ProductCollectionTypeId
-     */
     public function getNewTypeId(): ProductCollectionTypeId
     {
         return $this->newTypeId;

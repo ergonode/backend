@@ -18,19 +18,11 @@ use Money\Currency;
 class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
 {
     /**
-     * @var Currency
-     *
      * @JMS\Type("Money\Currency")
      */
     private Currency $currency;
 
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param Currency           $currency
      * @param array              $groups
      */
     public function __construct(
@@ -54,9 +46,6 @@ class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
         $this->currency = $currency;
     }
 
-    /**
-     * @return Currency
-     */
     public function getCurrency(): Currency
     {
         return $this->currency;

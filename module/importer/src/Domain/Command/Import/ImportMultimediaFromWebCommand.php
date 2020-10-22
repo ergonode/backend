@@ -13,26 +13,12 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 class ImportMultimediaFromWebCommand implements DomainCommandInterface
 {
-    /**
-     * @var ImportId
-     */
     private ImportId $importId;
 
-    /**
-     * @var string
-     */
     private string $url;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @param ImportId $importId
-     * @param string   $url
-     * @param string   $name
-     */
     public function __construct(ImportId $importId, string $url, string $name)
     {
         $this->importId = $importId;
@@ -40,25 +26,16 @@ class ImportMultimediaFromWebCommand implements DomainCommandInterface
         $this->name = $name;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getImportId(): ImportId
     {
         return $this->importId;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

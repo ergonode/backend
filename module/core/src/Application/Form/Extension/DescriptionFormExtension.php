@@ -15,7 +15,6 @@ use Symfony\Component\Form\FormInterface;
 class DescriptionFormExtension implements ExtensionInterface
 {
     /**
-     * @param FormInterface $form
      * @param array         $schema
      *
      * @return array

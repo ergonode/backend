@@ -24,38 +24,16 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 class TaxSynchronizer implements SynchronizerInterface
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @var Shopware6TaxRepositoryInterface
-     */
     private Shopware6TaxRepositoryInterface $taxRepository;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var AttributeValueQueryInterface
-     */
     private AttributeValueQueryInterface $attributeValueQuery;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @param Shopware6Connector              $connector
-     * @param Shopware6TaxRepositoryInterface $taxRepository
-     * @param AttributeRepositoryInterface    $attributeRepository
-     * @param AttributeValueQueryInterface    $attributeValueQuery
-     * @param OptionQueryInterface            $optionQuery
-     */
     public function __construct(
         Shopware6Connector $connector,
         Shopware6TaxRepositoryInterface $taxRepository,
@@ -71,19 +49,12 @@ class TaxSynchronizer implements SynchronizerInterface
     }
 
 
-    /**
-     * @param ExportId         $id
-     * @param Shopware6Channel $channel
-     */
     public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
         $this->synchronizeShopware($channel);
         $this->checkExistOrCreate($channel);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     */
     private function synchronizeShopware(Shopware6Channel $channel): void
     {
         $taxList = $this->getShopwareTax($channel);
@@ -93,8 +64,6 @@ class TaxSynchronizer implements SynchronizerInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return array|Shopware6Tax[]
      */
     private function getShopwareTax(Shopware6Channel $channel): array
@@ -106,9 +75,6 @@ class TaxSynchronizer implements SynchronizerInterface
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     */
     private function checkExistOrCreate(Shopware6Channel $channel): void
     {
         $value = [];

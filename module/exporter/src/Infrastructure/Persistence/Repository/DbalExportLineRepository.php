@@ -30,26 +30,12 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
         'processed_at',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DbalExportLineFactory
-     */
     private DbalExportLineFactory $factory;
 
-    /**
-     * @var DbalExportLineMapper
-     */
     private DbalExportLineMapper $mapper;
 
-    /**
-     * @param Connection            $connection
-     * @param DbalExportLineFactory $factory
-     * @param DbalExportLineMapper  $mapper
-     */
     public function __construct(Connection $connection, DbalExportLineFactory $factory, DbalExportLineMapper $mapper)
     {
         $this->connection = $connection;
@@ -58,11 +44,6 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
     }
 
     /**
-     * @param ExportId    $exportId
-     * @param AggregateId $objectId
-     *
-     * @return ExportLine|null
-     *
      * @throws \ReflectionException
      */
     public function load(ExportId $exportId, AggregateId $objectId): ?ExportLine
@@ -84,8 +65,6 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
     }
 
     /**
-     * @param ExportLine $line
-     *
      * @throws DBALException
      */
     public function save(ExportLine $line): void
@@ -97,12 +76,6 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
         }
     }
 
-    /**
-     * @param ExportId    $exportId
-     * @param AggregateId $objectId
-     *
-     * @return bool
-     */
     public function exists(ExportId $exportId, AggregateId $objectId): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -123,8 +96,6 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
     }
 
     /**
-     * @param ExportLine $line
-     *
      * @throws DBALException
      */
     public function update(ExportLine $line): void
@@ -145,8 +116,6 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
     }
 
     /**
-     * @param ExportLine $line
-     *
      * @throws DBALException
      */
     public function insert(ExportLine $line): void
@@ -162,9 +131,6 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
         );
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

@@ -37,20 +37,10 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class TransitionCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -85,10 +75,7 @@ class TransitionCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param AbstractWorkflow $workflow
-     * @param Request          $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

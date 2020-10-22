@@ -15,24 +15,14 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 interface AggregateSnapshotInterface
 {
     /**
-     * @param AggregateId $id
-     * @param string      $class
-     *
-     * @return AbstractAggregateRoot
-     *
      * @throws \ReflectionException
      */
     public function load(AggregateId $id, string $class): ?AbstractAggregateRoot;
 
     /**
-     * @param AbstractAggregateRoot $aggregate
-     *
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregate): void;
 
-    /**
-     * @param AggregateId $id
-     */
     public function delete(AggregateId $id): void;
 }

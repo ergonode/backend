@@ -22,9 +22,6 @@ use PHPUnit\Framework\TestCase;
 
 class OptionInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
     protected function setUp(): void

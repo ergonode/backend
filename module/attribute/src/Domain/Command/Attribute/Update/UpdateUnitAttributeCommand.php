@@ -20,19 +20,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 class UpdateUnitAttributeCommand extends AbstractUpdateAttributeCommand
 {
     /**
-     * @var UnitId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
      */
     private UnitId $unitId;
 
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param UnitId             $unitId
      * @param AttributeGroupId[] $groups
      */
     public function __construct(
@@ -56,9 +48,6 @@ class UpdateUnitAttributeCommand extends AbstractUpdateAttributeCommand
         $this->unitId = $unitId;
     }
 
-    /**
-     * @return UnitId
-     */
     public function getUnitId(): UnitId
     {
         return $this->unitId;

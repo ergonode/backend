@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class StatusCodeUnique extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Status {{ value }} is not unique';
 }

@@ -20,26 +20,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class Shopware6SimpleProductStep implements Shopware6ExportStepProcessInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var SegmentProductsQueryInterface
-     */
     private SegmentProductsQueryInterface  $segmentProductsQuery;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ProductQueryInterface         $productQuery
-     * @param SegmentProductsQueryInterface $segmentProductsQuery
-     * @param CommandBusInterface           $commandBus
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         SegmentProductsQueryInterface $segmentProductsQuery,
@@ -50,10 +36,6 @@ class Shopware6SimpleProductStep implements Shopware6ExportStepProcessInterface
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId         $exportId
-     * @param Shopware6Channel $channel
-     */
     public function export(ExportId $exportId, Shopware6Channel $channel): void
     {
         $productList = $this->getProduct($channel);
@@ -67,8 +49,6 @@ class Shopware6SimpleProductStep implements Shopware6ExportStepProcessInterface
 
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return array
      */
     private function getProduct(Shopware6Channel $channel): array

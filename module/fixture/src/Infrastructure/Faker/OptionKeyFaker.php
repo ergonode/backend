@@ -19,10 +19,6 @@ use Ramsey\Uuid\Uuid;
 class OptionKeyFaker extends BaseProvider
 {
     /**
-     * @param string|null $key
-     *
-     * @return OptionKey
-     *
      * @throws \Exception
      */
     public function optionKey(?string $key = null): OptionKey

@@ -16,22 +16,13 @@ use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 
 class ProductAddedToCategoryEventHandler implements MessageSubscriberInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ProductAddedToCategoryEvent $event
-     */
     public function __invoke(ProductAddedToCategoryEvent $event)
     {
         $command = new CalculateProductCommand($event->getAggregateId());

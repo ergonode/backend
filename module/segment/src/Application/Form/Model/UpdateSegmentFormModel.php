@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UpdateSegmentFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\Uuid()
      */
     public ?string $conditionSetId;

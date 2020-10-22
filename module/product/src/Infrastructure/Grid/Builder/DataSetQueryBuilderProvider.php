@@ -18,19 +18,11 @@ class DataSetQueryBuilderProvider
      */
     private array $strategies;
 
-    /**
-     * @param AttributeDataSetQueryBuilderInterface ...$strategies
-     */
     public function __construct(AttributeDataSetQueryBuilderInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return AttributeDataSetQueryBuilderInterface
-     */
     public function provide(AbstractAttribute $attribute): AttributeDataSetQueryBuilderInterface
     {
         foreach ($this->strategies as $strategy) {

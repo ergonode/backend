@@ -14,11 +14,6 @@ use Ergonode\Designer\Application\Form\Type\Properties\SegmentElementPropertyTyp
 
 class TemplateElementFormTypeResolver
 {
-    /**
-     * @param string $type
-     *
-     * @return string
-     */
     public function resolve(string $type): string
     {
         return ($type === 'SECTION') ? SegmentElementPropertyType::class : AttributeElementPropertyType::class;

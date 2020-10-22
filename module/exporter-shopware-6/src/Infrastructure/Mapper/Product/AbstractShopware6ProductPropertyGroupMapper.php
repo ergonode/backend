@@ -24,26 +24,12 @@ use Webmozart\Assert\Assert;
 
 abstract class AbstractShopware6ProductPropertyGroupMapper implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     protected AttributeRepositoryInterface $repository;
 
-    /**
-     * @var Shopware6PropertyGroupOptionClient
-     */
     protected Shopware6PropertyGroupOptionClient $propertyGroupOptionClient;
 
-    /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
     protected AttributeTranslationInheritanceCalculator $calculator;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param Shopware6PropertyGroupOptionClient        $propertyGroupOptionClient
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         Shopware6PropertyGroupOptionClient $propertyGroupOptionClient,
@@ -70,28 +56,13 @@ abstract class AbstractShopware6ProductPropertyGroupMapper implements Shopware6P
         return $shopware6Product;
     }
 
-    /**
-     * @return string
-     */
     abstract public function getType(): string;
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     protected function isSupported(string $type): bool
     {
         return $this->getType() === $type;
     }
 
-    /**
-     * @param Shopware6Channel  $channel
-     * @param AbstractAttribute $attribute
-     * @param ValueInterface    $value
-     *
-     * @return Shopware6PropertyGroupOption
-     */
     protected function createPropertyGroupOptions(
         Shopware6Channel $channel,
         AbstractAttribute $attribute,
@@ -111,15 +82,6 @@ abstract class AbstractShopware6ProductPropertyGroupMapper implements Shopware6P
         return $propertyGroupOption;
     }
 
-    /**
-     * @param Shopware6Product  $shopware6Product
-     * @param AbstractAttribute $attribute
-     * @param AbstractProduct   $product
-     * @param Shopware6Channel  $channel
-     * @param Language|null     $language
-     *
-     * @return Shopware6Product
-     */
     abstract protected function addProperty(
         Shopware6Product $shopware6Product,
         AbstractAttribute $attribute,
@@ -128,15 +90,6 @@ abstract class AbstractShopware6ProductPropertyGroupMapper implements Shopware6P
         ?Language $language = null
     ): Shopware6Product;
 
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AttributeId      $attributeId
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     */
     private function attributeMap(
         Shopware6Product $shopware6Product,
         AttributeId $attributeId,

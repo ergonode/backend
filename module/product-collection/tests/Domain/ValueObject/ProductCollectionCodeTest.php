@@ -15,8 +15,6 @@ use PHPUnit\Framework\TestCase;
 class ProductCollectionCodeTest extends TestCase
 {
     /**
-     * @param string $code
-     *
      * @dataProvider validDataProvider
      */
     public function testCreationValidCode(string $code): void
@@ -27,10 +25,7 @@ class ProductCollectionCodeTest extends TestCase
     }
 
     /**
-     * @param string $code
-     *
      * @dataProvider invalidDataProvider
-     *
      */
     public function testCreationInValidCode(string $code): void
     {

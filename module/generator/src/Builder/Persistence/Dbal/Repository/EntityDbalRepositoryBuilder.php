@@ -21,26 +21,12 @@ use Nette\PhpGenerator\PhpFile;
 
 class EntityDbalRepositoryBuilder implements BuilderInterface
 {
-    /**
-     * @var FileBuilder
-     */
     private FileBuilder $builder;
 
-    /**
-     * @var MethodBuilder
-     */
     private MethodBuilder $methodBuilder;
 
-    /**
-     * @var PropertyBuilder
-     */
     private PropertyBuilder $propertyBuilder;
 
-    /**
-     * @param FileBuilder     $builder
-     * @param MethodBuilder   $methodBuilder
-     * @param PropertyBuilder $propertyBuilder
-     */
     public function __construct(FileBuilder $builder, MethodBuilder $methodBuilder, PropertyBuilder $propertyBuilder)
     {
         $this->builder = $builder;
@@ -49,11 +35,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $module
-     * @param string $entity
      * @param array  $properties
-     *
-     * @return PhpFile
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -120,11 +102,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $module
-     * @param string $entity
      * @param array  $properties
-     *
-     * @return Method
      */
     private function buildConstructor(string $module, string $entity, array $properties = []): Method
     {

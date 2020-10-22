@@ -21,14 +21,8 @@ use Ergonode\Grid\Filter\Option\FilterOption;
 
 class ProductCollectionSystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var ProductCollectionQueryInterface
-     */
     private ProductCollectionQueryInterface $query;
 
-    /**
-     * @param ProductCollectionQueryInterface $query
-     */
     public function __construct(ProductCollectionQueryInterface $query)
     {
         $this->query = $query;

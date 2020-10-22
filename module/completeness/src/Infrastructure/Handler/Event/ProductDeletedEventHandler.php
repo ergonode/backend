@@ -15,22 +15,13 @@ use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 
 class ProductDeletedEventHandler
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ProductDeletedEvent $event
-     */
     public function __invoke(ProductDeletedEvent $event): void
     {
         $command = new ProductCompletenessCalculateCommand($event->getAggregateId());

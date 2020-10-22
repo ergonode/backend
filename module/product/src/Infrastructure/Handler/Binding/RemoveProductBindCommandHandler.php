@@ -18,20 +18,10 @@ use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 
 class RemoveProductBindCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param ProductRepositoryInterface   $productRepository
-     */
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         ProductRepositoryInterface $productRepository
@@ -41,8 +31,6 @@ class RemoveProductBindCommandHandler
     }
 
     /**
-     * @param RemoveProductBindingCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(RemoveProductBindingCommand $command): void

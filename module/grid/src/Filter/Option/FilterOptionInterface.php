@@ -10,9 +10,6 @@ namespace Ergonode\Grid\Filter\Option;
 
 interface FilterOptionInterface
 {
-    /**
-     * @return string
-     */
     public function getKey(): string;
 
     /**

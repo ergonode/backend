@@ -15,26 +15,12 @@ use Ramsey\Uuid\Uuid;
 
 class MarkNotificationCommand implements DomainCommandInterface
 {
-    /**
-     * @var Uuid
-     */
     private Uuid $notificationId;
 
-    /**
-     * @var UserId
-     */
     private UserId $userId;
 
-    /**
-     * @var \DateTime
-     */
     private \DateTime $readAt;
 
-    /**
-     * @param Uuid      $notificationId
-     * @param UserId    $userId
-     * @param \DateTime $readAt
-     */
     public function __construct(Uuid $notificationId, UserId $userId, \DateTime $readAt)
     {
         $this->notificationId = $notificationId;
@@ -42,25 +28,16 @@ class MarkNotificationCommand implements DomainCommandInterface
         $this->readAt = $readAt;
     }
 
-    /**
-     * @return Uuid
-     */
     public function getNotificationId(): Uuid
     {
         return $this->notificationId;
     }
 
-    /**
-     * @return UserId
-     */
     public function getUserId(): UserId
     {
         return $this->userId;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getReadAt(): \DateTime
     {
         return $this->readAt;

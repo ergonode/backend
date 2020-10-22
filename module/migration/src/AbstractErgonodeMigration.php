@@ -16,8 +16,6 @@ use Doctrine\Migrations\Exception\IrreversibleMigration;
 abstract class AbstractErgonodeMigration extends AbstractMigration
 {
     /**
-     * @param Schema $schema
-     *
      * @throws IrreversibleMigration
      */
     public function down(Schema $schema): void

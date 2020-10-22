@@ -32,26 +32,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class TemplateDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
@@ -94,10 +80,6 @@ class TemplateDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
-     *
-     * @param Template $template
-     *
-     * @return Response
      */
     public function __invoke(Template $template): Response
     {

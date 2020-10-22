@@ -27,14 +27,8 @@ class DbalSegmentQuery implements SegmentQueryInterface
         't.status',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -140,12 +134,6 @@ class DbalSegmentQuery implements SegmentQueryInterface
     }
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -177,9 +165,6 @@ class DbalSegmentQuery implements SegmentQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

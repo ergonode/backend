@@ -46,12 +46,8 @@ class PasswordHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Password                      $password
      * @param array                         $type
-     * @param Context                       $context
      *
-     * @return string
      *
      * @throws \Exception
      */
@@ -65,12 +61,9 @@ class PasswordHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
      * @param mixed                           $data
      * @param array                           $type
-     * @param Context                         $context
      *
-     * @return Password
      *
      * @throws \Exception
      */

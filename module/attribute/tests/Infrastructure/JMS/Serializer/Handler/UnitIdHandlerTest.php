@@ -17,23 +17,11 @@ use PHPUnit\Framework\TestCase;
 
 class UnitIdHandlerTest extends TestCase
 {
-    /**
-     * @var UnitIdHandler
-     */
     private UnitIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

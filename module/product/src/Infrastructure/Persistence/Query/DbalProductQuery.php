@@ -35,25 +35,13 @@ class DbalProductQuery implements ProductQueryInterface
     private const PRODUCT_COLLECTION_TABLE = 'public.product_collection';
     private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.product_collection_element';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Language  $language
-     * @param ProductId $productId
-     *
-     * @return DataSetInterface
-     */
     public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
     {
         $qb = $this->connection->createQueryBuilder()
@@ -81,11 +69,6 @@ class DbalProductQuery implements ProductQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @param Sku $sku
-     *
-     * @return ProductId|null
-     */
     public function findProductIdBySku(Sku $sku): ?ProductId
     {
         $qb = $this->getQuery();
@@ -121,8 +104,6 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param \DateTime|null $dateTime
-     *
      * @return array
      */
     public function getAllEditedIds(?\DateTime $dateTime = null): array
@@ -290,8 +271,6 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param ProductId $id
-     *
      * @return mixed|void
      */
     public function findProductCollectionIdByProductId(ProductId $id)
@@ -318,8 +297,6 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param TemplateId $templateId
-     *
      * @return ProductId[]
      */
     public function findProductIdsByTemplate(TemplateId $templateId): array
@@ -341,8 +318,6 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param AggregateId $id
-     *
      * @return array|mixed|mixed[]
      */
     public function findProductIdByOptionId(AggregateId $id)
@@ -370,8 +345,6 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param MultimediaId $id
-     *
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array
@@ -406,11 +379,6 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -440,9 +408,6 @@ class DbalProductQuery implements ProductQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @return int
-     */
     public function getCount(): int
     {
         return $this->connection->createQueryBuilder()
@@ -452,9 +417,6 @@ class DbalProductQuery implements ProductQueryInterface
             ->fetch(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

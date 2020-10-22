@@ -13,24 +13,12 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6PropertyGroupTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $displayType;
 
-    /**
-     * @var string
-     */
     private string $sortingType;
 
     protected function setUp(): void

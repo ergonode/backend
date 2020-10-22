@@ -17,22 +17,14 @@ use Ergonode\Product\Domain\Command\Relations\AddProductChildrenCommand;
 
 class AddProductChildrenCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @param ProductRepositoryInterface $repository
-     */
     public function __construct(ProductRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param AddProductChildrenCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(AddProductChildrenCommand $command): void

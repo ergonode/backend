@@ -14,14 +14,8 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 
 class PrivilegeCodeProvider
 {
-    /**
-     * @var PrivilegeQueryInterface
-     */
     private PrivilegeQueryInterface $query;
 
-    /**
-     * @param PrivilegeQueryInterface $query
-     */
     public function __construct(PrivilegeQueryInterface $query)
     {
         $this->query = $query;

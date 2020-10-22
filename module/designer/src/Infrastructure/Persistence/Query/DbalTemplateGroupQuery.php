@@ -25,14 +25,8 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
         'custom',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -48,9 +42,6 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @return TemplateGroupId
-     */
     public function getDefaultId(): TemplateGroupId
     {
         $qb = $this->getQuery();
@@ -65,17 +56,11 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
     }
 
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         return new DbalDataSet($this->getQuery());
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

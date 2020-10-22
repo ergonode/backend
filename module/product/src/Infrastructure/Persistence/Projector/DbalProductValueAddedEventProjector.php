@@ -17,8 +17,6 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 class DbalProductValueAddedEventProjector extends AbstractProductValueProjector
 {
     /**
-     * @param ProductValueAddedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductValueAddedEvent $event): void

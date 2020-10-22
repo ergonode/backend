@@ -15,23 +15,16 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractChannel implements ChannelInterface
 {
     /**
-     * @var ChannelId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
      */
     private ChannelId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @param ChannelId $channelId
-     * @param string    $name
-     *
      * @throws \Exception
      */
     public function __construct(ChannelId $channelId, string $name)
@@ -40,9 +33,6 @@ abstract class AbstractChannel implements ChannelInterface
         $this->name = $name;
     }
 
-    /**
-     * @return ChannelId
-     */
     public function getId(): ChannelId
     {
         return $this->id;
@@ -51,14 +41,10 @@ abstract class AbstractChannel implements ChannelInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("type")
-     *
-     * @return string
      */
     abstract public static function getType(): string;
 
     /**
-     * @param string $name
-     *
      * @throws \Exception
      */
     public function setName(string $name): void
@@ -68,9 +54,6 @@ abstract class AbstractChannel implements ChannelInterface
         }
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

@@ -19,7 +19,6 @@ class LinkColumn extends AbstractColumn
     private array $links;
 
     /**
-     * @param string $field
      * @param array  $links
      */
     public function __construct(string $field, array $links = [])

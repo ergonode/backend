@@ -16,11 +16,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Converter\Magento1CategoryConverter
 
 class Magento1CategoryConverterMapper implements ConverterMapperInterface
 {
-    /**
-     * @param ConverterInterface $converter
-     *
-     * @return bool
-     */
     public function supported(ConverterInterface $converter): bool
     {
         return $converter instanceof Magento1CategoryConverter;
@@ -29,9 +24,6 @@ class Magento1CategoryConverterMapper implements ConverterMapperInterface
     /**
      * @param ConverterInterface|JoinConverter $converter
      * @param array                            $line
-     * @param string|null                      $default
-     *
-     * @return string|null
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {

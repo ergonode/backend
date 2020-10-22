@@ -46,9 +46,6 @@ class UserRoleVoterTest extends TestCase
 
 
     /**
-     * @param string $privilege
-     * @param bool   $expectedResult
-     *
      * @dataProvider supportsDataProvider
      */
     public function testSupports(string $privilege, bool $expectedResult): void
@@ -98,9 +95,6 @@ class UserRoleVoterTest extends TestCase
     }
 
     /**
-     * @param string $privilege
-     * @param bool   $expectedResult
-     *
      * @dataProvider privilegeCheckDataProvider
      */
     public function testPrivilegeCheck(string $privilege, bool $expectedResult): void

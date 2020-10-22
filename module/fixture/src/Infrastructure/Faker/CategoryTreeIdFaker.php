@@ -18,10 +18,6 @@ class CategoryTreeIdFaker extends BaseProvider
     private const NAMESPACE = 'f39d019e-92f0-47e8-b5ee-81155e7ddfc2';
 
     /**
-     * @param string|null $code
-     *
-     * @return CategoryTreeId
-     *
      * @throws \Exception
      */
     public function categoryTreeId(?string $code = null): CategoryTreeId

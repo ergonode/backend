@@ -17,32 +17,16 @@ use Webmozart\Assert\Assert;
 
 class StatusCalculationService
 {
-    /**
-     * @var ConditionCalculator
-     */
     private ConditionCalculator $service;
 
-    /**
-     * @var ConditionSetRepositoryInterface
-     */
     private ConditionSetRepositoryInterface $repository;
 
-    /**
-     * @param ConditionCalculator             $service
-     * @param ConditionSetRepositoryInterface $repository
-     */
     public function __construct(ConditionCalculator $service, ConditionSetRepositoryInterface $repository)
     {
         $this->service = $service;
         $this->repository = $repository;
     }
 
-    /**
-     * @param Transition      $transition
-     * @param AbstractProduct $product
-     *
-     * @return bool
-     */
     public function available(Transition $transition, AbstractProduct $product): bool
     {
         if (null === $transition->getConditionSetId()) {

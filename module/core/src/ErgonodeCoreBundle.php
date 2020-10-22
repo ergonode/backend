@@ -15,9 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ErgonodeCoreBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

@@ -17,23 +17,15 @@ use JMS\Serializer\Annotation as JMS;
 class UpdateProductCollectionTypeCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductCollectionTypeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $id;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
-    /**
-     * @param ProductCollectionTypeId $id
-     * @param TranslatableString      $name
-     */
     public function __construct(
         ProductCollectionTypeId $id,
         TranslatableString $name
@@ -42,17 +34,11 @@ class UpdateProductCollectionTypeCommand implements DomainCommandInterface
         $this->name = $name;
     }
 
-    /**
-     * @return ProductCollectionTypeId
-     */
     public function getId(): ProductCollectionTypeId
     {
         return $this->id;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;

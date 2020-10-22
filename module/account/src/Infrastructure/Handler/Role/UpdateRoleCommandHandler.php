@@ -16,22 +16,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateRoleCommandHandler
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $repository;
 
-    /**
-     * @param RoleRepositoryInterface $repository
-     */
     public function __construct(RoleRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateRoleCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateRoleCommand $command)

@@ -15,23 +15,14 @@ use Ergonode\Designer\Domain\Provider\ViewTemplateElementProvider;
 
 class ViewTemplateBuilder
 {
-    /**
-     * @var  ViewTemplateElementProvider
-     */
     private ViewTemplateElementProvider $provider;
 
-    /**
-     * @param ViewTemplateElementProvider $provider
-     */
     public function __construct(ViewTemplateElementProvider $provider)
     {
         $this->provider = $provider;
     }
 
     /**
-     * @param Template $template
-     * @param Language $language
-     *
      * @return array
      */
     public function build(Template $template, Language $language): array

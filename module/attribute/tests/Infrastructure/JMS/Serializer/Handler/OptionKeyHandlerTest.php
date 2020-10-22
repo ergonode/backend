@@ -17,24 +17,12 @@ use PHPUnit\Framework\TestCase;
 
 class OptionKeyHandlerTest extends TestCase
 {
-    /**
-     * @var OptionKeyHandler
-     */
     private OptionKeyHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

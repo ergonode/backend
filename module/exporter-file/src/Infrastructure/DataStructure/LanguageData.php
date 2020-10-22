@@ -15,10 +15,6 @@ class LanguageData
      */
     private array $values = [];
 
-    /**
-     * @param string      $key
-     * @param string|null $data
-     */
     public function set(string $key, ?string $data = null): void
     {
         $this->values[$key] = $data;

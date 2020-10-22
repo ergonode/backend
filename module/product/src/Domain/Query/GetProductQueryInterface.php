@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 interface GetProductQueryInterface
 {
     /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
      * @return array
      */
     public function query(ProductId $productId, Language $language): array;

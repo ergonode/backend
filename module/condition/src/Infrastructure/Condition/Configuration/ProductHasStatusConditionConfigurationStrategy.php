@@ -17,20 +17,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProductHasStatusConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var StatusQueryInterface
-     */
     private StatusQueryInterface $statusQuery;
 
-    /**
-     * @param TranslatorInterface  $translator
-     * @param StatusQueryInterface $statusQuery
-     */
     public function __construct(TranslatorInterface $translator, StatusQueryInterface $statusQuery)
     {
         $this->translator = $translator;

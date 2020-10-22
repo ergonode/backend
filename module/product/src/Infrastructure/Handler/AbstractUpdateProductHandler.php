@@ -20,26 +20,12 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 abstract class AbstractUpdateProductHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     protected ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     protected AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var TokenStorageInterface
-     */
     protected TokenStorageInterface $tokenStorage;
 
-    /**
-     * @param ProductRepositoryInterface   $productRepository
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param TokenStorageInterface        $tokenStorage
-     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
@@ -51,10 +37,6 @@ abstract class AbstractUpdateProductHandler
     }
 
     /**
-     * @param AbstractProduct $product
-     *
-     * @return AbstractProduct
-     *
      * @throws \Exception
      */
     public function updateAudit(AbstractProduct $product): AbstractProduct
@@ -72,10 +54,6 @@ abstract class AbstractUpdateProductHandler
     }
 
     /**
-     * @param AbstractProduct $product
-     * @param AttributeCode   $code
-     * @param ValueInterface  $value
-     *
      * @throws \Exception
      */
     protected function attributeUpdate(AbstractProduct $product, AttributeCode $code, ValueInterface $value): void

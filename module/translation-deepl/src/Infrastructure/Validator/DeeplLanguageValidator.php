@@ -19,7 +19,6 @@ class DeeplLanguageValidator extends ConstraintValidator
 {
     /**
      * @param mixed      $value
-     * @param Constraint $constraint
      *
      * @throws \ReflectionException
      */

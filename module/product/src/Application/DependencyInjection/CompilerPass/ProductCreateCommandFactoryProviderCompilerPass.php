@@ -18,9 +18,6 @@ class ProductCreateCommandFactoryProviderCompilerPass implements CompilerPassInt
 {
     public const TAG = 'component.product.product_create_command_factory';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateProductCommandFactoryProvider::class)) {
@@ -28,9 +25,6 @@ class ProductCreateCommandFactoryProviderCompilerPass implements CompilerPassInt
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

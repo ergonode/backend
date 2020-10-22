@@ -15,9 +15,6 @@ class MetadataReader
      */
     private array $readers;
 
-    /**
-     * @param MetadataReaderInterface ...$readers
-     */
     public function __construct(MetadataReaderInterface ...$readers)
     {
         $this->readers = $readers;

@@ -31,26 +31,12 @@ use Swagger\Annotations as SWG;
  */
 class ProductChildGridAction
 {
-    /**
-     * @var ProductChildrenQueryInterface
-     */
     private ProductChildrenQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @var ProductChildrenGrid
-     */
     private ProductChildrenGrid $grid;
 
-    /**
-     * @param ProductChildrenQueryInterface $query
-     * @param GridRenderer                  $gridRenderer
-     * @param ProductChildrenGrid           $grid
-     */
     public function __construct(
         ProductChildrenQueryInterface $query,
         GridRenderer $gridRenderer,
@@ -140,12 +126,6 @@ class ProductChildGridAction
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param AbstractProduct          $product
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractProduct $product,

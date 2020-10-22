@@ -19,20 +19,10 @@ use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 class AddProductChildrenBySegmentsCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @var SegmentProductsQueryInterface
-     */
     private SegmentProductsQueryInterface $query;
 
-    /**
-     * @param ProductRepositoryInterface    $repository
-     * @param SegmentProductsQueryInterface $query
-     */
     public function __construct(
         ProductRepositoryInterface $repository,
         SegmentProductsQueryInterface $query
@@ -42,8 +32,6 @@ class AddProductChildrenBySegmentsCommandHandler
     }
 
     /**
-     * @param AddProductChildrenBySegmentsCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(AddProductChildrenBySegmentsCommand $command): void

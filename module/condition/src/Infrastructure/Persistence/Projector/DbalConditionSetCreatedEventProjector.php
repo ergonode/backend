@@ -18,20 +18,10 @@ class DbalConditionSetCreatedEventProjector
 {
     private const TABLE = 'condition_set';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -39,8 +29,6 @@ class DbalConditionSetCreatedEventProjector
     }
 
     /**
-     * @param ConditionSetCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ConditionSetCreatedEvent $event): void

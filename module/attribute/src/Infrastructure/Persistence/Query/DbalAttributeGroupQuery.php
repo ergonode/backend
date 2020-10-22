@@ -24,22 +24,14 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     private const TABLE = 'attribute_group';
     private const RELATION_TABLE = 'attribute_group_attribute';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getAttributeGroups(Language $language): array
@@ -68,8 +60,6 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     }
 
     /**
-     * @param AttributeGroupId $id
-     *
      * @return AttributeId[]
      */
     public function getAllAttributes(AttributeGroupId $id): array
@@ -91,11 +81,6 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
         return $result;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder();
@@ -106,11 +91,6 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
         return new DbalDataSet($query);
     }
 
-    /**
-     * @param AttributeGroupCode $code
-     *
-     * @return bool
-     */
     public function checkAttributeGroupExistsByCode(AttributeGroupCode $code): bool
     {
         $qb = $this->connection->createQueryBuilder();
@@ -129,12 +109,6 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     }
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -166,11 +140,6 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return QueryBuilder
-     */
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

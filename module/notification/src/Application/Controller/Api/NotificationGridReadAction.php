@@ -25,32 +25,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NotificationGridReadAction
 {
-    /**
-     * @var NotificationGrid
-     */
     private NotificationGrid $grid;
 
-    /**
-     * @var NotificationQueryInterface
-     */
     private NotificationQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @param NotificationGrid                   $grid
-     * @param NotificationQueryInterface         $query
-     * @param GridRenderer                       $gridRenderer
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(
         NotificationGrid $grid,
         NotificationQueryInterface $query,
@@ -126,10 +108,6 @@ class NotificationGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(RequestGridConfiguration $configuration): Response
     {

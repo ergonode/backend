@@ -22,24 +22,12 @@ class PasswordHandlerTest extends TestCase
     private const DECODED = 'test_value';
     private const ENCODED = 'dGVzdF92YWx1ZQ==';
 
-    /**
-     * @var PasswordHandler
-     */
     private PasswordHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

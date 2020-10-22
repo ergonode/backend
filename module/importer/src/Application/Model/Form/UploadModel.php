@@ -27,15 +27,11 @@ class UploadModel
      * @Assert\File(maxSize="500M")
      *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
-     *
-     * @var UploadedFile
      */
     public ?UploadedFile $upload = null;
 
     /**
      * @Assert\Callback
-     *
-     * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context): void
     {

@@ -152,8 +152,6 @@ class StatusTest extends TestCase
     }
 
     /**
-     * @return Status
-     *
      * @throws \Exception
      */
     private function getClass(): Status

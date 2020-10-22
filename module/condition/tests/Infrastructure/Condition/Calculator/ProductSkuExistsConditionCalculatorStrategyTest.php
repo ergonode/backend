@@ -18,9 +18,6 @@ use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductSkuExistsCondi
 
 class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 {
-    /**
-     * @var ProductSkuExistsConditionCalculatorStrategy
-     */
     private ProductSkuExistsConditionCalculatorStrategy $strategy;
 
     public function testSupports(): void
@@ -31,11 +28,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 
 
     /**
-     * @param string $sku
-     * @param string $operator
-     * @param string $value
-     * @param bool   $result
-     *
      * @dataProvider calculateProvider
      */
     public function testCalculate(string $sku, string $operator, string $value, bool $result)
@@ -184,8 +176,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 
 
     /**
-     * @param string $sku
-     *
      * @return AbstractProduct|MockObject
      */
     private function createProductMock(string $sku)
@@ -201,9 +191,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param string $value
-     *
      * @return ProductSkuExistsCondition|MockObject
      */
     private function createProductSkuExistsConditionMock(string $operator, string $value)

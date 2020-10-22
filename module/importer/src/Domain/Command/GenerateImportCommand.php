@@ -17,21 +17,13 @@ use JMS\Serializer\Annotation as JMS;
 class GenerateImportCommand implements DomainCommandInterface
 {
     /**
-     * @var SourceId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     private SourceId $id;
 
-    /**
-     * @var ConfigurationModel
-     */
     private ConfigurationModel $configuration;
 
     /**
-     * @param SourceId           $id
-     * @param ConfigurationModel $configuration
-     *
      * @throws \Exception
      */
     public function __construct(SourceId $id, ConfigurationModel $configuration)
@@ -40,17 +32,11 @@ class GenerateImportCommand implements DomainCommandInterface
         $this->configuration = $configuration;
     }
 
-    /**
-     * @return SourceId
-     */
     public function getId(): SourceId
     {
         return $this->id;
     }
 
-    /**
-     * @return ConfigurationModel
-     */
     public function getConfiguration(): ConfigurationModel
     {
         return $this->configuration;
