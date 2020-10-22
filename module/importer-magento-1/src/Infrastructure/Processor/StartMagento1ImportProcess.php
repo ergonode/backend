@@ -47,7 +47,7 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     private Magento1CsvReader $reader;
 
     /**
-     * @var LoggerInterface $logger ;
+     * @var LoggerInterface
      */
     private LoggerInterface $logger;
 
