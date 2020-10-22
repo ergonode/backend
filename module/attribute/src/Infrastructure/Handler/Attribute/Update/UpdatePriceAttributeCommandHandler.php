@@ -17,22 +17,14 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeComma
 
 class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdatePriceAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdatePriceAttributeCommand $command): void

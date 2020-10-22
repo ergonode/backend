@@ -19,32 +19,14 @@ use Webmozart\Assert\Assert;
 
 class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
-    /**
-     * @var ProductDraftRepositoryInterface
-     */
     private ProductDraftRepositoryInterface $repository;
 
-    /**
-     * @var ValueManipulationService
-     */
     private ValueManipulationService $service;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var TokenStorageInterface
-     */
     private TokenStorageInterface $tokenStorage;
 
-    /**
-     * @param ProductDraftRepositoryInterface $repository
-     * @param ValueManipulationService        $service
-     * @param AttributeRepositoryInterface    $attributeRepository
-     * @param TokenStorageInterface           $tokenStorage
-     */
     public function __construct(
         ProductDraftRepositoryInterface $repository,
         ValueManipulationService $service,
@@ -59,8 +41,6 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
 
 
     /**
-     * @param ChangeProductAttributeValueCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ChangeProductAttributeValueCommand $command)

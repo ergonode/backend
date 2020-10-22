@@ -14,10 +14,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 class TextProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
-     * @param string $name
-     * @param array  $values
-     *
-     * @return bool
+     * @param array $values
      */
     public function support(string $name, array $values): bool
     {
@@ -30,9 +27,6 @@ class TextProposalStrategy implements AttributeProposalStrategyInterface
         return true;
     }
 
-    /**
-     * @return string
-     */
     public function getTypeProposal(): string
     {
         return AbstractTextAttribute::TYPE;

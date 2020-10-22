@@ -34,14 +34,8 @@ use League\Flysystem\FileNotFoundException;
  */
 class ChannelExportDownloadAction
 {
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $exportStorage;
 
-    /**
-     * @param FilesystemInterface $exportStorage
-     */
     public function __construct(FilesystemInterface $exportStorage)
     {
         $this->exportStorage = $exportStorage;
@@ -81,11 +75,7 @@ class ChannelExportDownloadAction
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
      *
-     * @param Language        $language
-     * @param AbstractChannel $channel
-     * @param Export          $export
      *
-     * @return Response
      *
      * @throws FileNotFoundException
      */

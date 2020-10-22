@@ -14,24 +14,12 @@ interface GridConfigurationInterface
     public const VIEW_GRID = 'grid';
     public const VIEW_LIST = 'list';
 
-    /**
-     * @return int
-     */
     public function getOffset(): int;
 
-    /**
-     * @return int
-     */
     public function getLimit(): int;
 
-    /**
-     * @return string|null
-     */
     public function getField(): ?string;
 
-    /**
-     * @return string
-     */
     public function getOrder(): string;
 
     /**
@@ -39,18 +27,9 @@ interface GridConfigurationInterface
      */
     public function getColumns(): array;
 
-    /**
-     * @return FilterValueCollection
-     */
     public function getFilters(): FilterValueCollection;
 
-    /**
-     * @return string
-     */
     public function getView(): string;
 
-    /**
-     * @return bool
-     */
     public function isExtended(): bool;
 }

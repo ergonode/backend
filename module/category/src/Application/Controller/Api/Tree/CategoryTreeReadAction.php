@@ -64,11 +64,6 @@ class CategoryTreeReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Category\Domain\Entity\CategoryTree")
-     *
-     * @param CategoryTree $tree
-     * @param Language     $language
-     *
-     * @return Response
      */
     public function __invoke(CategoryTree $tree, Language $language): Response
     {

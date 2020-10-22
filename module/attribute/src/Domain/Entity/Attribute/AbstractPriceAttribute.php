@@ -23,14 +23,6 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
     public const CURRENCY = 'currency';
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param Currency           $format
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -53,25 +45,17 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
         );
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return Currency
-     */
     public function getCurrency(): Currency
     {
         return new Currency($this->getParameter(self::CURRENCY));
     }
 
     /**
-     * @param Currency $new
-     *
      * @throws \Exception
      */
     public function changeCurrency(Currency $new): void

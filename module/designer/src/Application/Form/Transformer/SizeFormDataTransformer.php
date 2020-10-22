@@ -39,8 +39,6 @@ class SizeFormDataTransformer implements DataTransformerInterface
 
     /**
      * @param array|null $value
-     *
-     * @return Size|null
      */
     public function reverseTransform($value): ?Size
     {

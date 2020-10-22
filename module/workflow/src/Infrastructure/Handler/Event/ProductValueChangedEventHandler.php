@@ -30,44 +30,18 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class ProductValueChangedEventHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var WorkflowProvider
-     */
     private WorkflowProvider $workflowProvider;
 
-    /**
-     * @var UserIdsProvider
-     */
     private UserIdsProvider $userIdsProvider;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $statusRepository;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ProductRepositoryInterface         $productRepository
-     * @param WorkflowProvider                   $workflowProvider
-     * @param UserIdsProvider                    $userIdsProvider
-     * @param AuthenticatedUserProviderInterface $userProvider
-     * @param StatusRepositoryInterface          $statusRepository
-     * @param CommandBusInterface                $commandBus
-     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         WorkflowProvider $workflowProvider,
@@ -85,8 +59,6 @@ class ProductValueChangedEventHandler
     }
 
     /**
-     * @param ProductValueChangedEvent $event
-     *
      * @throws \Exception
      */
     public function __invoke(ProductValueChangedEvent $event): void
@@ -115,12 +87,6 @@ class ProductValueChangedEventHandler
     }
 
     /**
-     * @param AbstractWorkflow $workflow
-     * @param StatusId         $source
-     * @param StatusId         $destination
-     * @param ProductId        $productId
-     * @param Language|null    $language
-     *
      * @throws \Exception
      */
     private function sendNotificationCommand(
@@ -153,10 +119,6 @@ class ProductValueChangedEventHandler
     }
 
     /**
-     * @param StatusId $statusId
-     *
-     * @return StatusCode
-     *
      * @throws \Exception
      */
     private function getStatusCode(StatusId $statusId): StatusCode
@@ -168,9 +130,6 @@ class ProductValueChangedEventHandler
     }
 
     /**
-     * @param ValueInterface $from
-     * @param ValueInterface $to
-     *
      * @return Language[]
      */
     private function getLanguages(ValueInterface $from, ValueInterface $to): array

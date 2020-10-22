@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ConstraintLanguageActive extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Language code {{ value }} is not active';
 }

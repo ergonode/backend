@@ -11,9 +11,6 @@ namespace Ergonode\Condition\Domain\Exception;
 
 class ConditionStrategyNotFoundException extends \Exception
 {
-    /**
-     * @param string $type
-     */
     public function __construct(string $type)
     {
         $message = sprintf('Can\'t find configuration strategy for "%s" condition type', $type);

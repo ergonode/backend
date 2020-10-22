@@ -14,20 +14,10 @@ use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 
 class CreateAttributeGroupCommandHandler
 {
-    /**
-     * @var AttributeGroupFactory
-     */
     private AttributeGroupFactory $factory;
 
-    /**
-     * @var AttributeGroupRepositoryInterface
-     */
     private AttributeGroupRepositoryInterface $repository;
 
-    /**
-     * @param AttributeGroupFactory             $factory
-     * @param AttributeGroupRepositoryInterface $repository
-     */
     public function __construct(AttributeGroupFactory $factory, AttributeGroupRepositoryInterface $repository)
     {
         $this->factory = $factory;
@@ -35,8 +25,6 @@ class CreateAttributeGroupCommandHandler
     }
 
     /**
-     * @param CreateAttributeGroupCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateAttributeGroupCommand $command): void

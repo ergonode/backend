@@ -16,13 +16,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class CategoryCode extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $validMessage = 'The category code is not valid.';
 
-    /**
-     * @var string
-     */
     public string $uniqueMessage = 'The category code is not unique.';
 }

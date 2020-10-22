@@ -32,50 +32,20 @@ use Ergonode\Importer\Infrastructure\Exception\ImportIncorrectBindingAttributeEx
 
 class VariableProductImportAction
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @var ImportProductAttributeBuilder
-     */
     private ImportProductAttributeBuilder $builder;
 
-    /**
-     * @param ProductQueryInterface         $productQuery
-     * @param ProductRepositoryInterface    $productRepository
-     * @param AttributeQueryInterface       $attributeQuery
-     * @param AttributeRepositoryInterface  $attributeRepository
-     * @param TemplateQueryInterface        $templateQuery
-     * @param CategoryQueryInterface        $categoryQuery
-     * @param ImportProductAttributeBuilder $builder
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
@@ -95,12 +65,10 @@ class VariableProductImportAction
     }
 
     /**
-     * @param Sku    $sku
-     * @param string $template
-     * @param array  $categories
-     * @param array  $bindings
-     * @param array  $children
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $bindings
+     * @param array $children
+     * @param array $attributes
      *
      * @throws ImportRelatedProductIncorrectTypeException
      * @throws ImportRelatedProductNotFoundException
@@ -146,7 +114,6 @@ class VariableProductImportAction
     }
 
     /**
-     * @param Sku   $sku
      * @param Sku[] $children
      *
      * @return AbstractProduct[]
@@ -176,7 +143,6 @@ class VariableProductImportAction
 
     /**
      * @param array $bindings
-     * @param Sku   $sku
      *
      * @return array
      *

@@ -14,23 +14,14 @@ use Ergonode\Grid\DataSetInterface;
 
 interface StatusQueryInterface
 {
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getAllStatuses(Language $language): array;
@@ -41,9 +32,6 @@ interface StatusQueryInterface
     public function getAllCodes(): array;
 
     /**
-     * @param Language $translationLanguage
-     * @param Language $workflowLanguage
-     *
      * @return mixed[][]
      */
     public function getStatusCount(Language $translationLanguage, Language $workflowLanguage): array;

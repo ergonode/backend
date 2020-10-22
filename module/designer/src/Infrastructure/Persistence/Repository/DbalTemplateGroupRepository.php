@@ -18,22 +18,14 @@ use Webmozart\Assert\Assert;
 
 class DbalTemplateGroupRepository implements TemplateGroupRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param TemplateGroupId $id
-     *
      * @return TemplateGroup|null
      *
      * @throws \ReflectionException
@@ -47,9 +39,6 @@ class DbalTemplateGroupRepository implements TemplateGroupRepositoryInterface
         return $result;
     }
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);

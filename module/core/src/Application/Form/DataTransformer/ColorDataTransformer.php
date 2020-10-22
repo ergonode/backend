@@ -17,8 +17,6 @@ class ColorDataTransformer implements DataTransformerInterface
 {
     /**
      * @param Color|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -34,8 +32,6 @@ class ColorDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return Color|null
      */
     public function reverseTransform($value): ?Color
     {

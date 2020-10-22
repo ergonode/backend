@@ -41,8 +41,6 @@ class ProductCollectionUpdateFormModel
     public array $description;
 
     /**
-     * @var ProductCollectionTypeId | null
-     *
      * @Assert\NotBlank(message="Collection type is required")
      * @Assert\Uuid(message="Collection type must be valid uuid format")
      */

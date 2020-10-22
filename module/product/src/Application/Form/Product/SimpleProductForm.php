@@ -19,19 +19,11 @@ use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 class SimpleProductForm extends AbstractType implements ProductFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return SimpleProduct::TYPE === $type;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -41,8 +33,7 @@ class SimpleProductForm extends AbstractType implements ProductFormInterface
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

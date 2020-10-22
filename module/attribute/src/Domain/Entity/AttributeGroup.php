@@ -20,31 +20,21 @@ use JMS\Serializer\Annotation as JMS;
 class AttributeGroup extends AbstractAggregateRoot
 {
     /**
-     * @var AttributeGroupId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
     private AttributeGroupId $id;
 
     /**
-     * @var AttributeGroupCode
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode")
      */
     private AttributeGroupCode $code;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
     /**
-     * @param AttributeGroupId   $id
-     * @param AttributeGroupCode $code
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function __construct(AttributeGroupId $id, AttributeGroupCode $code, TranslatableString $name)
@@ -53,8 +43,6 @@ class AttributeGroup extends AbstractAggregateRoot
     }
 
     /**
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function changeName(TranslatableString $name): void
@@ -64,33 +52,21 @@ class AttributeGroup extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @return AttributeGroupId
-     */
     public function getId(): AttributeGroupId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeGroupCode
-     */
     public function getCode(): AttributeGroupCode
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
     }
 
-    /**
-     * @param AttributeGroupCreatedEvent $event
-     */
     protected function applyAttributeGroupCreatedEvent(AttributeGroupCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -98,9 +74,6 @@ class AttributeGroup extends AbstractAggregateRoot
         $this->name = $event->getName();
     }
 
-    /**
-     * @param AttributeGroupNameChangedEvent $event
-     */
     protected function applyAttributeGroupNameChangedEvent(AttributeGroupNameChangedEvent $event): void
     {
         $this->name = $event->getTo();

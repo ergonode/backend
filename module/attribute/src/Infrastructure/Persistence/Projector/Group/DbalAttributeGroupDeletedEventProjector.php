@@ -17,22 +17,14 @@ class DbalAttributeGroupDeletedEventProjector
 {
     private const TABLE = 'attribute_group';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param AttributeGroupDeletedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(AttributeGroupDeletedEvent $event): void

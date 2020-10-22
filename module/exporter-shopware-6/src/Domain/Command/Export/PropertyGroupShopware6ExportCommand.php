@@ -16,40 +16,26 @@ use JMS\Serializer\Annotation as JMS;
 class PropertyGroupShopware6ExportCommand implements DomainCommandInterface
 {
     /**
-     * @var ExportId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
      */
     private ExportId $exportId;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $attributeId;
 
-    /**
-     * @param ExportId    $exportId
-     * @param AttributeId $attributeId
-     */
     public function __construct(ExportId $exportId, AttributeId $attributeId)
     {
         $this->exportId = $exportId;
         $this->attributeId = $attributeId;
     }
 
-    /**
-     * @return ExportId
-     */
     public function getExportId(): ExportId
     {
         return $this->exportId;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getAttributeId(): AttributeId
     {
         return $this->attributeId;

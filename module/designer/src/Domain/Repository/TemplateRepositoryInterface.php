@@ -14,20 +14,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 interface TemplateRepositoryInterface
 {
-    /**
-     * @param TemplateId $id
-     *
-     * @return Template|null
-     */
     public function load(TemplateId $id): ?Template;
 
-    /**
-     * @param Template $template
-     */
     public function save(Template $template): void;
 
-    /**
-     * @param Template $template
-     */
     public function delete(Template $template): void;
 }

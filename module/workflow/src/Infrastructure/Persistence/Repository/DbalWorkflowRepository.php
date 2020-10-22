@@ -19,14 +19,8 @@ use Webmozart\Assert\Assert;
 
 class DbalWorkflowRepository implements WorkflowRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;

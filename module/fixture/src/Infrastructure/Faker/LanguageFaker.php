@@ -21,12 +21,6 @@ class LanguageFaker extends BaseProvider
         'es_ES',
     ];
 
-    /**
-     * @param string|null $code
-     *
-     * @return Language
-     *
-     */
     public function language(string $code = null): Language
     {
         if (null === $code) {

@@ -32,14 +32,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
  */
 class ImportShowAction
 {
-    /**
-     * @var ImportQueryInterface
-     */
     private ImportQueryInterface $query;
 
-    /**
-     * @param ImportQueryInterface $query
-     */
     public function __construct(ImportQueryInterface $query)
     {
         $this->query = $query;
@@ -78,10 +72,7 @@ class ImportShowAction
      *     description="Not found",
      * )
      *
-     * @param Language $language
-     * @param Import   $import
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
      */

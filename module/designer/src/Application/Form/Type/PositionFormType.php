@@ -18,8 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PositionFormType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -34,9 +33,6 @@ class PositionFormType extends AbstractType
         $builder->addModelTransformer(new PositionFormDataTransformer());
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(

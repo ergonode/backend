@@ -24,9 +24,6 @@ use PHPUnit\Framework\TestCase;
 
 class ConverterInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
     /**

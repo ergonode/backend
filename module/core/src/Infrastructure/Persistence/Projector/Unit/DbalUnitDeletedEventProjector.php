@@ -18,22 +18,14 @@ class DbalUnitDeletedEventProjector
 {
     private const TABLE = 'unit';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UnitDeletedEvent $event
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */

@@ -17,15 +17,10 @@ use JMS\Serializer\Annotation as JMS;
 class CommentDeletedEvent extends AbstractDeleteEvent
 {
     /**
-     * @var CommentId $id
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
      */
     private CommentId $id;
 
-    /**
-     * @param CommentId $id
-     */
     public function __construct(CommentId $id)
     {
         $this->id = $id;

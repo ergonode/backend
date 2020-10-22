@@ -18,9 +18,6 @@ class NotificationStrategyInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.notification.notification_strategy_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(NotificationSender::class)) {
@@ -28,9 +25,6 @@ class NotificationStrategyInterfaceCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];

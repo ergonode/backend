@@ -22,33 +22,16 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 
 class Shopware6CustomFieldClient
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @var Shopware6CustomFieldRepositoryInterface
-     */
     private Shopware6CustomFieldRepositoryInterface $repository;
 
-    /**
-     * @param Shopware6Connector                      $connector
-     * @param Shopware6CustomFieldRepositoryInterface $repository
-     */
     public function __construct(Shopware6Connector $connector, Shopware6CustomFieldRepositoryInterface $repository)
     {
         $this->connector = $connector;
         $this->repository = $repository;
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param AbstractAttribute      $attribute
-     * @param Shopware6Language|null $shopware6Language
-     *
-     * @return Shopware6CustomField|null
-     */
     public function find(
         Shopware6Channel $channel,
         AbstractAttribute $attribute,
@@ -84,13 +67,6 @@ class Shopware6CustomFieldClient
         return null;
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param string                 $shopwareId
-     * @param Shopware6Language|null $shopware6Language
-     *
-     * @return Shopware6CustomField|null
-     */
     public function get(
         Shopware6Channel $channel,
         string $shopwareId,
@@ -104,13 +80,6 @@ class Shopware6CustomFieldClient
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $customField
-     * @param AbstractAttribute    $attribute
-     *
-     * @return Shopware6CustomField|null
-     */
     public function insert(
         Shopware6Channel $channel,
         Shopware6CustomField $customField,
@@ -129,11 +98,6 @@ class Shopware6CustomFieldClient
         return $shopwareCustomField;
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6CustomField   $customField
-     * @param Shopware6Language|null $shopware6Language
-     */
     public function update(
         Shopware6Channel $channel,
         Shopware6CustomField $customField,

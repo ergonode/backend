@@ -16,22 +16,14 @@ use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementsComman
 
 class AddProductCollectionElementsCommandHandler
 {
-    /**
-     * @var ProductCollectionRepositoryInterface
-     */
     private ProductCollectionRepositoryInterface $repository;
 
-    /**
-     * @param ProductCollectionRepositoryInterface $repository
-     */
     public function __construct(ProductCollectionRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param AddProductCollectionElementsCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(AddProductCollectionElementsCommand $command)

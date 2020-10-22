@@ -16,14 +16,8 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 
 class CategoryCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @param CategoryQueryInterface $query
-     */
     public function __construct(CategoryQueryInterface $query)
     {
         $this->query = $query;

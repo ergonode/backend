@@ -15,14 +15,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 
 interface Shopware6PropertyGroupMapperInterface
 {
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6PropertyGroup $shopware6PropertyGroup
-     * @param AbstractAttribute      $attribute
-     * @param Language|null          $language
-     *
-     * @return Shopware6PropertyGroup
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6PropertyGroup $shopware6PropertyGroup,

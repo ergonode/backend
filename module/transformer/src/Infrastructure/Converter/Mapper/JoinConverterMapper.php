@@ -14,11 +14,6 @@ use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 
 class JoinConverterMapper implements ConverterMapperInterface
 {
-    /**
-     * @param ConverterInterface $converter
-     *
-     * @return bool
-     */
     public function supported(ConverterInterface $converter): bool
     {
         return $converter instanceof JoinConverter;
@@ -27,9 +22,6 @@ class JoinConverterMapper implements ConverterMapperInterface
     /**
      * @param ConverterInterface|JoinConverter $converter
      * @param array                            $line
-     * @param string|null                      $default
-     *
-     * @return string|null
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {

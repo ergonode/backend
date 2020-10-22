@@ -51,10 +51,6 @@ class ConditionSetReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
-     *
-     * @param ConditionSet $conditionSet
-     *
-     * @return Response
      */
     public function __invoke(ConditionSet $conditionSet): Response
     {

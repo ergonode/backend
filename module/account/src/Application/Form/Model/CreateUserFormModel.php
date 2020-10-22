@@ -17,24 +17,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateUserFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="User first name is required")
      * @Assert\Length(min="1", max="128")
      */
     public ?string $firstName;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="User last name is required")
      * @Assert\Length(min="3", max="128")
      */
     public ?string $lastName;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="User email is required")
      * @Assert\Email(mode="strict")
      *
@@ -43,15 +37,11 @@ class CreateUserFormModel
     public ?string $email;
 
     /**
-     * @var Language
-     *
      * @Assert\NotBlank(message="User language is required")
      */
     public ?Language $language;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="User password is required")
      * @Assert\Length(
      *     min="6",
@@ -63,24 +53,18 @@ class CreateUserFormModel
     public ?string $password;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="User password repeat is required")
      * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
     public ?string $passwordRepeat;
 
     /**
-     * @var RoleId
-     *
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
     public ?RoleId $roleId;
 
     /**
-     * @var bool
-     *
      * @Assert\NotNull(message="Activity is required")
      * @Assert\Type("boolean")
      */

@@ -15,23 +15,15 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 class DeleteTransformerCommand implements DomainCommandInterface
 {
     /**
-     * @var TransformerId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 
-    /**
-     * @param TransformerId $id
-     */
     public function __construct(TransformerId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return TransformerId
-     */
     public function getId(): TransformerId
     {
         return $this->id;

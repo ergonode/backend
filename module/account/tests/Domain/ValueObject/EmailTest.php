@@ -15,8 +15,6 @@ use PHPUnit\Framework\TestCase;
 class EmailTest extends TestCase
 {
     /**
-     * @param string $value
-     *
      * @dataProvider validDataProvider
      */
     public function testValidaValue(string $value): void
@@ -42,9 +40,6 @@ class EmailTest extends TestCase
     }
 
     /**
-     * @param string $value
-     *
-     *
      * @dataProvider invalidDataProvider
      */
     public function testInvalidValue(string $value): void
@@ -67,9 +62,6 @@ class EmailTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
-     *
      * @dataProvider formatDataProvider
      */
     public function testFormat(string $input, string $expected): void

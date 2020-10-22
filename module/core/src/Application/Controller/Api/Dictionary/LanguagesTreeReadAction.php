@@ -20,14 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LanguagesTreeReadAction
 {
-    /**
-     * @var LanguageTreeProviderInterface
-     */
     private LanguageTreeProviderInterface $provider;
 
-    /**
-     * @param LanguageTreeProviderInterface $provider
-     */
     public function __construct(LanguageTreeProviderInterface $provider)
     {
         $this->provider = $provider;
@@ -47,10 +41,6 @@ class LanguagesTreeReadAction
      *     response=200,
      *     description="Returns collection of languages",
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

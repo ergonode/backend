@@ -10,10 +10,5 @@ namespace Ergonode\Attribute\Application\Form\Attribute;
 
 interface AttributeFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 }

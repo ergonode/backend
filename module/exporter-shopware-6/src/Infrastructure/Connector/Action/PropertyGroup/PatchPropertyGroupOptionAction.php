@@ -19,29 +19,16 @@ class PatchPropertyGroupOptionAction extends AbstractAction implements ActionInt
 {
     private const URI = '/api/v2/property-group/%s/options/%s';
 
-    /**
-     * @var string
-     */
     private string $propertyGroupId;
 
-    /**
-     * @var Shopware6PropertyGroupOption
-     */
     private Shopware6PropertyGroupOption $propertyGroupOption;
 
-    /**
-     * @param string                       $propertyGroupId
-     * @param Shopware6PropertyGroupOption $propertyGroupOption
-     */
     public function __construct(string $propertyGroupId, Shopware6PropertyGroupOption $propertyGroupOption)
     {
         $this->propertyGroupId = $propertyGroupId;
         $this->propertyGroupOption = $propertyGroupOption;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -53,8 +40,6 @@ class PatchPropertyGroupOptionAction extends AbstractAction implements ActionInt
     }
 
     /**
-     * @param string|null $content
-     *
      * @return null
      */
     public function parseContent(?string $content)
@@ -62,9 +47,6 @@ class PatchPropertyGroupOptionAction extends AbstractAction implements ActionInt
         return null;
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $serializer = SerializerBuilder::create()->build();
@@ -72,9 +54,6 @@ class PatchPropertyGroupOptionAction extends AbstractAction implements ActionInt
         return $serializer->serialize($this->propertyGroupOption, 'json');
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->propertyGroupId, $this->propertyGroupOption->getId());

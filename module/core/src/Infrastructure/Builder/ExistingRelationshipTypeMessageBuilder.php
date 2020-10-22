@@ -15,14 +15,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMessageBuilderInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
@@ -45,8 +39,6 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
     }
 
     /**
-     * @param RelationshipCollection $relationshipCollection
-     *
      * @return array
      */
     private function groupByClass(RelationshipCollection $relationshipCollection): array
@@ -64,10 +56,6 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
     }
 
     /**
-     * @param string $class
-     *
-     * @return string
-     *
      * @todo This is evil! rprzedzik, we need to discuss it, because this very bad hax
      */
     private function convertClassToTranslation(string $class): string

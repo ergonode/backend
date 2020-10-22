@@ -22,20 +22,10 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 class Shopware6PropertyGroupClient
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @var Shopware6PropertyGroupRepositoryInterface
-     */
     private Shopware6PropertyGroupRepositoryInterface $repository;
 
-    /**
-     * @param Shopware6Connector                        $connector
-     * @param Shopware6PropertyGroupRepositoryInterface $repository
-     */
     public function __construct(Shopware6Connector $connector, Shopware6PropertyGroupRepositoryInterface $repository)
     {
         $this->connector = $connector;
@@ -43,8 +33,6 @@ class Shopware6PropertyGroupClient
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return Shopware6PropertyGroup[]|null
      */
     public function load(Shopware6Channel $channel): ?array
@@ -57,10 +45,6 @@ class Shopware6PropertyGroupClient
     }
 
     /**
-     * @param Shopware6Channel       $channel
-     * @param string                 $shopwareId
-     * @param Shopware6Language|null $shopware6Language
-     *
      * @return array|object|string|null
      */
     public function get(Shopware6Channel $channel, string $shopwareId, ?Shopware6Language $shopware6Language = null)
@@ -73,13 +57,6 @@ class Shopware6PropertyGroupClient
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6PropertyGroup $propertyGroup
-     * @param AbstractAttribute      $attribute
-     *
-     * @return Shopware6PropertyGroup|null
-     */
     public function insert(
         Shopware6Channel $channel,
         Shopware6PropertyGroup $propertyGroup,
@@ -98,11 +75,6 @@ class Shopware6PropertyGroupClient
         return $shopwarePropertyGroup;
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6PropertyGroup $propertyGroup
-     * @param Shopware6Language|null $shopware6Language
-     */
     public function update(
         Shopware6Channel $channel,
         Shopware6PropertyGroup $propertyGroup,
@@ -115,12 +87,6 @@ class Shopware6PropertyGroupClient
         $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param string           $name
-     *
-     * @return Shopware6PropertyGroup|null
-     */
     public function findByName(Shopware6Channel $channel, string $name): ?Shopware6PropertyGroup
     {
         $query = new Shopware6QueryBuilder();

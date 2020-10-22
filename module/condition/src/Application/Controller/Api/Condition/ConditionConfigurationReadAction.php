@@ -23,14 +23,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ConditionConfigurationReadAction
 {
-    /**
-     * @var ConditionConfigurationProvider
-     */
     private ConditionConfigurationProvider $provider;
 
-    /**
-     * @param ConditionConfigurationProvider $provider
-     */
     public function __construct(ConditionConfigurationProvider $provider)
     {
         $this->provider = $provider;
@@ -59,11 +53,6 @@ class ConditionConfigurationReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @param Language $language
-     * @param string   $condition
-     *
-     * @return Response
      */
     public function __invoke(Language $language, string $condition): Response
     {

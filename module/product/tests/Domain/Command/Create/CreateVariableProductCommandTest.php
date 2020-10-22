@@ -19,11 +19,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 class CreateVariableProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      *
      * @dataProvider dataProvider
      */

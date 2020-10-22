@@ -16,40 +16,26 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 class CalculateProductInSegmentCommand implements DomainCommandInterface
 {
     /**
-     * @var SegmentId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $segmentId;
 
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $productId;
 
-    /**
-     * @param SegmentId $segmentId
-     * @param ProductId $productId
-     */
     public function __construct(SegmentId $segmentId, ProductId $productId)
     {
         $this->segmentId = $segmentId;
         $this->productId = $productId;
     }
 
-    /**
-     * @return SegmentId
-     */
     public function getSegmentId(): SegmentId
     {
         return $this->segmentId;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getProductId(): ProductId
     {
         return $this->productId;

@@ -14,26 +14,12 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class SymfonyCommandBus implements CommandBusInterface
 {
-    /**
-     * @var MessageBusInterface
-     */
     private MessageBusInterface $syncBus;
 
-    /**
-     * @var MessageBusInterface
-     */
     private MessageBusInterface $asyncBus;
 
-    /**
-     * @var bool
-     */
     private bool $asyncEnable;
 
-    /**
-     * @param MessageBusInterface $syncBus
-     * @param MessageBusInterface $asyncBus
-     * @param bool                $asyncEnable
-     */
     public function __construct(MessageBusInterface $syncBus, MessageBusInterface $asyncBus, bool $asyncEnable = false)
     {
         $this->syncBus = $syncBus;
@@ -41,10 +27,6 @@ class SymfonyCommandBus implements CommandBusInterface
         $this->asyncEnable = $asyncEnable;
     }
 
-    /**
-     * @param DomainCommandInterface $command
-     * @param bool                   $asyncMode
-     */
     public function dispatch(DomainCommandInterface $command, bool $asyncMode = false): void
     {
         if ($this->asyncEnable && $asyncMode) {

@@ -17,23 +17,11 @@ use PHPUnit\Framework\TestCase;
 
 class NoteIdHandlerTest extends TestCase
 {
-    /**
-     * @var CommentIdHandler
-     */
     private CommentIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

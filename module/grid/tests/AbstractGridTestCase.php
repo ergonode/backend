@@ -17,11 +17,6 @@ use PHPUnit\Framework\TestCase;
 
 abstract class AbstractGridTestCase extends TestCase
 {
-    /**
-     * @param \Traversable|null $collection
-     *
-     * @return DataSetInterface
-     */
     protected function getDataSet(\Traversable $collection = null): DataSetInterface
     {
         if (null === $collection) {
@@ -35,9 +30,6 @@ abstract class AbstractGridTestCase extends TestCase
         return $dataSet;
     }
 
-    /**
-     * @return GridConfigurationInterface
-     */
     protected function getPagination(): GridConfigurationInterface
     {
         return $this->createMock(GridConfigurationInterface::class);

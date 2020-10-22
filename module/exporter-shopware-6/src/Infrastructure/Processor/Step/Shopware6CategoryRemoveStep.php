@@ -21,26 +21,12 @@ use Webmozart\Assert\Assert;
 
 class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $treeRepository;
 
-    /**
-     * @var Shopware6CategoryQueryInterface
-     */
     private Shopware6CategoryQueryInterface $shopwareCategoryQuery;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param TreeRepositoryInterface         $treeRepository
-     * @param Shopware6CategoryQueryInterface $shopwareCategoryQuery
-     * @param CommandBusInterface             $commandBus
-     */
     public function __construct(
         TreeRepositoryInterface $treeRepository,
         Shopware6CategoryQueryInterface $shopwareCategoryQuery,
@@ -51,10 +37,6 @@ class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId         $exportId
-     * @param Shopware6Channel $channel
-     */
     public function export(ExportId $exportId, Shopware6Channel $channel): void
     {
         $categoryTreeId = $channel->getCategoryTree();
@@ -73,9 +55,7 @@ class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
     }
 
     /**
-     * @param ExportId         $exportId
-     * @param Shopware6Channel $channel
-     * @param array            $categoryIds
+     * @param array $categoryIds
      */
     private function categoryDelete(ExportId $exportId, Shopware6Channel $channel, array $categoryIds): void
     {
@@ -89,8 +69,6 @@ class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
     }
 
     /**
-     * @param Node $node
-     *
      * @return array
      */
     private function buildStep(Node $node): array

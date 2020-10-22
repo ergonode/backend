@@ -34,22 +34,13 @@ class DbalTemplateQuery implements TemplateQueryInterface
         't.template_group_id AS group_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -65,8 +56,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array
@@ -138,11 +127,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
         return $result;
     }
 
-    /**
-     * @param ProductId $productId
-     *
-     * @return TemplateId
-     */
     public function findProductTemplateId(ProductId $productId): TemplateId
     {
         $queryBuilder = $this->connection->createQueryBuilder();
@@ -157,11 +141,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
         return new TemplateId($result);
     }
 
-    /**
-     * @param string $code
-     *
-     * @return TemplateId|null
-     */
     public function findTemplateIdByCode(string $code): ?TemplateId
     {
         $queryBuilder = $this->getQuery();
@@ -180,8 +159,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
     }
 
     /**
-     * @param MultimediaId $id
-     *
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array
@@ -197,11 +174,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
     }
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -232,9 +204,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

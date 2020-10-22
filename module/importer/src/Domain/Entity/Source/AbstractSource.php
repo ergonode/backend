@@ -14,47 +14,30 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractSource
 {
     /**
-     * @var SourceId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     protected SourceId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $name;
 
-    /**
-     * @param SourceId $id
-     * @param string   $name
-     */
     public function __construct(SourceId $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
     }
 
-    /**
-     * @return SourceId
-     */
     public function getId(): SourceId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     abstract public function getType(): string;
 }

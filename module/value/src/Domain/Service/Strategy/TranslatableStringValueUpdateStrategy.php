@@ -16,11 +16,6 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 class TranslatableStringValueUpdateStrategy implements ValueUpdateStrategyInterface
 {
-    /**
-     * @param ValueInterface $oldValue
-     *
-     * @return bool
-     */
     public function isSupported(ValueInterface $oldValue): bool
     {
         return $oldValue instanceof TranslatableStringValue;

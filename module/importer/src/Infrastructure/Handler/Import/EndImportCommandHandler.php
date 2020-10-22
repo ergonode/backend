@@ -15,22 +15,14 @@ use Webmozart\Assert\Assert;
 
 class EndImportCommandHandler
 {
-    /**
-     * @var ImportRepositoryInterface
-     */
     private ImportRepositoryInterface $repository;
 
-    /**
-     * @param ImportRepositoryInterface $repository
-     */
     public function __construct(ImportRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param EndImportCommand $command
-     *
      * @throws \ReflectionException
      */
     public function __invoke(EndImportCommand $command)

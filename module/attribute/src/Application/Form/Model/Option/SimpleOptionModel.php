@@ -19,19 +19,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SimpleOptionModel
 {
-    /**
-     * @var AttributeId|null
-     */
     public ?AttributeId $attributeId;
 
-    /**
-     * @var AggregateId|null
-     */
     public ?AggregateId $optionId;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="Option code is required")
      * @Assert\Length(max=128, maxMessage="Option code is too long. It should contain {{ limit }} characters or less.")
      */
@@ -50,10 +42,6 @@ class SimpleOptionModel
      */
     public array $label;
 
-    /**
-     * @param AttributeId $attributeId
-     * @param AggregateId $optionId
-     */
     public function __construct(AttributeId $attributeId = null, AggregateId $optionId = null)
     {
         $this->attributeId = $attributeId;

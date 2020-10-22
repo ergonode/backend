@@ -16,22 +16,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateWorkflowCommandHandler
 {
-    /**
-     * @var WorkflowRepositoryInterface
-     */
     private WorkflowRepositoryInterface $repository;
 
-    /**
-     * @param WorkflowRepositoryInterface $repository
-     */
     public function __construct(WorkflowRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateWorkflowCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateWorkflowCommand $command)

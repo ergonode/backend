@@ -18,9 +18,6 @@ class UpdateWorkflowCommandFactoryProviderInterfaceCompilerPass implements Compi
 {
     public const TAG = 'component.workflow.update_workflow_command_factory_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(UpdateWorkflowCommandFactoryProvider::class)) {
@@ -28,9 +25,6 @@ class UpdateWorkflowCommandFactoryProviderInterfaceCompilerPass implements Compi
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];

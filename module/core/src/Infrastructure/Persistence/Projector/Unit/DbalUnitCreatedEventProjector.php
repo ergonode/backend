@@ -17,22 +17,14 @@ class DbalUnitCreatedEventProjector
 {
     private const TABLE = 'public.unit';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UnitCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UnitCreatedEvent $event): void

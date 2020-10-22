@@ -14,20 +14,10 @@ use Ergonode\ExporterFile\Infrastructure\Provider\WriterTypeProvider;
 
 class WriterTypeDictionary
 {
-    /**
-     * @var WriterTypeProvider
-     */
     private WriterTypeProvider $provider;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param WriterTypeProvider  $provider
-     * @param TranslatorInterface $translator
-     */
     public function __construct(WriterTypeProvider $provider, TranslatorInterface $translator)
     {
         $this->provider = $provider;
@@ -35,8 +25,6 @@ class WriterTypeDictionary
     }
 
     /**
-     * @param Language|null $language
-     *
      * @return string[]
      */
     public function dictionary(?Language $language = null): array

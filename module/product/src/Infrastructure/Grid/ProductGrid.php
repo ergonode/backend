@@ -16,23 +16,14 @@ use Ergonode\Product\Infrastructure\Grid\Builder\ProductGridColumnBuilder;
 
 class ProductGrid extends AbstractGrid
 {
-    /**
-     * @var ProductGridColumnBuilder
-     */
     private ProductGridColumnBuilder $builder;
 
-    /**
-     * @param ProductGridColumnBuilder $builder
-     */
     public function __construct(ProductGridColumnBuilder $builder)
     {
         $this->builder = $builder;
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     *
      * @throws \Exception
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void

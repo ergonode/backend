@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TransformerParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $transformerRepository;
 
-    /**
-     * @param TransformerRepositoryInterface $transformerRepository
-     */
     public function __construct(TransformerRepositoryInterface $transformerRepository)
     {
         $this->transformerRepository = $transformerRepository;

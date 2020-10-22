@@ -15,22 +15,13 @@ use Ergonode\Core\Domain\ValueObject\LanguageNode;
 
 class CreateLanguageTreeCommandHandler
 {
-    /**
-     * @var LanguageTreeRepositoryInterface
-     */
     private LanguageTreeRepositoryInterface $repository;
 
-    /**
-     * @param LanguageTreeRepositoryInterface $repository
-     */
     public function __construct(LanguageTreeRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param CreateLanguageTreeCommand $command
-     */
     public function __invoke(CreateLanguageTreeCommand $command): void
     {
         $root = new LanguageNode($command->getRootLanguage());

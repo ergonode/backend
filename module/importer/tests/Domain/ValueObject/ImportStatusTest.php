@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
 class ImportStatusTest extends TestCase
 {
     /**
-     * @param string $status
-     *
      * @dataProvider importStatusProvider
      */
     public function testCreateWitchCorrectStatus(string $status): void
@@ -35,9 +33,6 @@ class ImportStatusTest extends TestCase
          new ImportStatus('any incorrect status');
     }
 
-    /**
-     * @return \Generator
-     */
     public static function importStatusProvider(): \Generator
     {
         foreach (ImportStatus::AVAILABLE as $status) {

@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class OptionKeyDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var OptionKeyDataTransformer
-     */
     protected OptionKeyDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,9 +24,6 @@ class OptionKeyDataTransformerTest extends TestCase
     }
 
     /**
-     * @param OptionKey|null $optionKeyValueObject
-     * @param string|null    $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?OptionKey $optionKeyValueObject, ?string $string): void
@@ -46,9 +40,6 @@ class OptionKeyDataTransformerTest extends TestCase
     }
 
     /**
-     * @param OptionKey|null $optionKeyValueObject
-     * @param string|null    $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?OptionKey $optionKeyValueObject, ?string $string): void

@@ -24,9 +24,6 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $repository;
 
-    /**
-     * @var ProductBelongCategoryTreeConditionCalculatorStrategy
-     */
     private ProductBelongCategoryTreeConditionCalculatorStrategy $strategy;
 
     protected function setUp(): void
@@ -41,9 +38,6 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
         $this->assertFalse($this->strategy->supports('PRODUCT'));
     }
     /**
-     * @param string $operator
-     * @param bool   $result
-     *
      * @dataProvider dataProvider
      */
     public function testCalculate(string $operator, bool $result): void

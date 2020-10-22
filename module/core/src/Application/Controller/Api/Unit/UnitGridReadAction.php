@@ -25,27 +25,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UnitGridReadAction
 {
-    /**
-     * @var UnitGrid
-     */
     private UnitGrid $unitGrid;
 
-    /**
-     * @var UnitQueryInterface
-     */
     private UnitQueryInterface $unitQuery;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
     /**
      * UnitGridReadAction constructor.
-     *
-     * @param UnitGrid           $unitGrid
-     * @param UnitQueryInterface $unitQuery
-     * @param GridRenderer       $gridRenderer
      */
     public function __construct(
         UnitGrid $unitGrid,
@@ -119,11 +106,6 @@ class UnitGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

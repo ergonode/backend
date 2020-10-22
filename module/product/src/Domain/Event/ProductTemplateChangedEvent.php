@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 class ProductTemplateChangedEvent implements DomainEventInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
@@ -30,7 +28,6 @@ class ProductTemplateChangedEvent implements DomainEventInterface
     private TemplateId $templateId;
 
     /**
-     * @param ProductId  $id
      * @param TemplateId $templateId
      */
     public function __construct(ProductId $id, $templateId)
@@ -39,17 +36,11 @@ class ProductTemplateChangedEvent implements DomainEventInterface
         $this->templateId = $templateId;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getAggregateId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;

@@ -18,39 +18,25 @@ use JMS\Serializer\Annotation as JMS;
 class UpdateSegmentCommand implements DomainCommandInterface
 {
     /**
-     * @var SegmentId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $id;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $description;
 
     /**
-     * @var ConditionSetId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ?ConditionSetId $conditionSetId;
 
-    /**
-     * @param SegmentId           $id
-     * @param TranslatableString  $name
-     * @param TranslatableString  $description
-     * @param ConditionSetId|null $conditionSetId
-     */
     public function __construct(
         SegmentId $id,
         TranslatableString $name,
@@ -63,33 +49,21 @@ class UpdateSegmentCommand implements DomainCommandInterface
         $this->conditionSetId = $conditionSetId;
     }
 
-    /**
-     * @return SegmentId
-     */
     public function getId(): SegmentId
     {
         return $this->id;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getDescription(): TranslatableString
     {
         return $this->description;
     }
 
-    /**
-     * @return ConditionSetId|null
-     */
     public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;

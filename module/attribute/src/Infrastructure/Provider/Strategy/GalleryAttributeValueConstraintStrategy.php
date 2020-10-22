@@ -19,14 +19,8 @@ use Symfony\Component\Validator\Constraints\Collection;
 
 class GalleryAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $query;
 
-    /**
-     * @param MultimediaQueryInterface $query
-     */
     public function __construct(MultimediaQueryInterface $query)
     {
         $this->query = $query;

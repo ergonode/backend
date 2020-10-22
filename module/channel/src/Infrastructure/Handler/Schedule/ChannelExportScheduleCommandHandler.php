@@ -16,20 +16,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class ChannelExportScheduleCommandHandler
 {
-    /**
-     * @var SchedulerQueryInterface
-     */
     private SchedulerQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param SchedulerQueryInterface $query
-     * @param CommandBusInterface     $commandBus
-     */
     public function __construct(SchedulerQueryInterface $query, CommandBusInterface $commandBus)
     {
         $this->query = $query;
@@ -37,8 +27,6 @@ class ChannelExportScheduleCommandHandler
     }
 
     /**
-     * @param ScheduleCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ScheduleCommand $command)

@@ -14,11 +14,6 @@ use Faker\Provider\Base as BaseProvider;
 
 class ColorFaker extends BaseProvider
 {
-    /**
-     * @param string $color
-     *
-     * @return Color
-     */
     public function color(string $color): Color
     {
         return new Color($color);

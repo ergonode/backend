@@ -19,14 +19,8 @@ use Webmozart\Assert\Assert;
 
 class DbalTreeRepository implements TreeRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;

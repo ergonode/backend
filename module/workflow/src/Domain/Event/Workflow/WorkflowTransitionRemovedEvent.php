@@ -17,31 +17,20 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 class WorkflowTransitionRemovedEvent implements DomainEventInterface
 {
     /**
-     * @var WorkflowId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private WorkflowId $id;
 
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $source;
 
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $destination;
 
-    /**
-     * @param WorkflowId $id
-     * @param StatusId   $source
-     * @param StatusId   $destination
-     */
     public function __construct(WorkflowId $id, StatusId $source, StatusId $destination)
     {
         $this->id = $id;
@@ -49,26 +38,17 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
         $this->destination = $destination;
     }
 
-    /**
-     * @return WorkflowId
-     */
     public function getAggregateId(): WorkflowId
     {
         return $this->id;
     }
 
 
-    /**
-     * @return StatusId
-     */
     public function getSource(): StatusId
     {
         return $this->source;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getDestination(): StatusId
     {
         return $this->destination;

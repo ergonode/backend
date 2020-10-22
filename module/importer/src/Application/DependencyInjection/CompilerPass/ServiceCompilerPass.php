@@ -18,9 +18,6 @@ class ServiceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.service.import_source_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(SourceServiceProvider::class)) {
@@ -28,9 +25,6 @@ class ServiceCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

@@ -21,22 +21,16 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 class CreateGroupingProductCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var Sku
-     *
      * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
      */
     private Sku $sku;
 
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
@@ -56,11 +50,8 @@ class CreateGroupingProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      */
     public function __construct(
         ProductId $id,
@@ -79,25 +70,16 @@ class CreateGroupingProductCommand implements DomainCommandInterface
         $this->attributes = $attributes;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return Sku
-     */
     public function getSku(): Sku
     {
         return $this->sku;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;

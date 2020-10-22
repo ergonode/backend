@@ -17,23 +17,14 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
 {
     private const TABLE = 'language';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param Language $language
-     * @param bool     $active
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function save(Language $language, bool $active): void
@@ -54,11 +45,6 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
         }
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return bool
-     */
     public function exists(Language $language): bool
     {
         $query = $this->connection->createQueryBuilder();

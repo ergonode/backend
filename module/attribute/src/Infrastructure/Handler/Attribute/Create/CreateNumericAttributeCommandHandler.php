@@ -15,22 +15,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 class CreateNumericAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateNumericAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateNumericAttributeCommand $command): void

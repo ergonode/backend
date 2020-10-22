@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SegmentElementPropertyTypeModel
 {
     /**
-     * @var string | null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(max="255")
      */

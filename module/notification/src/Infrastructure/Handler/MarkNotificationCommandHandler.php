@@ -13,22 +13,14 @@ use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 
 class MarkNotificationCommandHandler
 {
-    /**
-     * @var NotificationQueryInterface
-     */
     private NotificationQueryInterface $query;
 
-    /**
-     * @param NotificationQueryInterface $query
-     */
     public function __construct(NotificationQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * @param MarkNotificationCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(MarkNotificationCommand $command)

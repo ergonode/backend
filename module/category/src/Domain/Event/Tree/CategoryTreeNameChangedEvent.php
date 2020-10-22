@@ -17,17 +17,10 @@ use JMS\Serializer\Annotation as JMS;
 class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
     /**
-     * @var CategoryTreeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private CategoryTreeId $id;
 
-    /**
-     * @param CategoryTreeId     $id
-     * @param TranslatableString $from
-     * @param TranslatableString $to
-     */
     public function __construct(CategoryTreeId $id, TranslatableString $from, TranslatableString $to)
     {
         parent::__construct($from, $to);
@@ -35,9 +28,6 @@ class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChange
         $this->id = $id;
     }
 
-    /**
-     * @return CategoryTreeId
-     */
     public function getAggregateId(): CategoryTreeId
     {
         return $this->id;

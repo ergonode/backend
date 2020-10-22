@@ -16,9 +16,6 @@ class FileContentResponse extends AbstractResponse
 {
 
     /**
-     * @param string              $filename
-     * @param FilesystemInterface $storage
-     *
      * @throws \League\Flysystem\FileNotFoundException
      */
     public function __construct(string $filename, FilesystemInterface $storage)

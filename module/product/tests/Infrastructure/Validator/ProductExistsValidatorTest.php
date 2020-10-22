@@ -64,9 +64,6 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     * @return ProductExistsValidator
-     */
     protected function createValidator(): ProductExistsValidator
     {
         return new ProductExistsValidator($this->repository);

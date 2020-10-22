@@ -19,39 +19,25 @@ use JMS\Serializer\Annotation as JMS;
 class ProductDraftValueChanged implements DomainEventInterface
 {
     /**
-     * @var ProductDraftId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
     private ProductDraftId $id;
 
     /**
-     * @var AttributeCode
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
     private AttributeCode $attributeCode;
 
     /**
-     * @var ValueInterface
-     *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private ValueInterface $from;
 
     /**
-     * @var ValueInterface
-     *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private ValueInterface $to;
 
-    /**
-     * @param ProductDraftId $id
-     * @param AttributeCode  $attributeCode
-     * @param ValueInterface $from
-     * @param ValueInterface $to
-     */
     public function __construct(
         ProductDraftId $id,
         AttributeCode $attributeCode,
@@ -64,33 +50,21 @@ class ProductDraftValueChanged implements DomainEventInterface
         $this->to = $to;
     }
 
-    /**
-     * @return ProductDraftId
-     */
     public function getAggregateId(): ProductDraftId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getAttributeCode(): AttributeCode
     {
         return $this->attributeCode;
     }
 
-    /**
-     * @return ValueInterface
-     */
     public function getFrom(): ValueInterface
     {
         return $this->from;
     }
 
-    /**
-     * @return ValueInterface
-     */
     public function getTo(): ValueInterface
     {
         return $this->to;

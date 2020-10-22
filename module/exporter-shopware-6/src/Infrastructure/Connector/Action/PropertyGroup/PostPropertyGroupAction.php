@@ -19,29 +19,16 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/property-group?%s';
 
-    /**
-     * @var Shopware6PropertyGroup
-     */
     private Shopware6PropertyGroup $propertyGroup;
 
-    /**
-     * @var bool
-     */
     private bool $response;
 
-    /**
-     * @param Shopware6PropertyGroup $propertyGroup
-     * @param bool                   $response
-     */
     public function __construct(Shopware6PropertyGroup $propertyGroup, bool $response = false)
     {
         $this->propertyGroup = $propertyGroup;
         $this->response = $response;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -53,10 +40,6 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6PropertyGroup|null
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?Shopware6PropertyGroup
@@ -75,9 +58,6 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $serializer = SerializerBuilder::create()->build();
@@ -85,9 +65,6 @@ class PostPropertyGroupAction extends AbstractAction implements ActionInterface
         return $serializer->serialize($this->propertyGroup, 'json');
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [];

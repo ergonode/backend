@@ -13,9 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6ProductCategoryTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
     protected function setUp(): void

@@ -33,32 +33,14 @@ use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderProvider;
  */
 class SourceCreateAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var SourceFormFactoryProvider
-     */
     private SourceFormFactoryProvider $provider;
 
-    /**
-     * @var CreateSourceCommandBuilderProvider
-     */
     private CreateSourceCommandBuilderProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface               $formFactory
-     * @param SourceFormFactoryProvider          $provider
-     * @param CreateSourceCommandBuilderProvider $commandProvider
-     * @param CommandBusInterface                $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         SourceFormFactoryProvider $provider,
@@ -99,9 +81,7 @@ class SourceCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

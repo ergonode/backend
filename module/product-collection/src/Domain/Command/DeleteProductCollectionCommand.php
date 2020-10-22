@@ -16,23 +16,15 @@ use JMS\Serializer\Annotation as JMS;
 class DeleteProductCollectionCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
-    /**
-     * @param ProductCollectionId $id
-     */
     public function __construct(ProductCollectionId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getId(): ProductCollectionId
     {
         return $this->id;

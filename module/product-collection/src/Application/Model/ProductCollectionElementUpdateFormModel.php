@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ProductCollectionElementUpdateFormModel
 {
     /**
-     * @var bool | null
-     *
      * @Assert\NotNull(),
      * @Assert\Type("boolean")
      */

@@ -17,8 +17,6 @@ class GroupingProduct extends AbstractAssociatedProduct
 
     /**
      * @JMS\Type("string");
-     *
-     * @return string
      */
     public function getType(): string
     {

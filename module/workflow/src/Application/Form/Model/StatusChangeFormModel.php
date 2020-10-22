@@ -15,8 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StatusChangeFormModel
 {
     /**
-     * @var Color|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min=4,

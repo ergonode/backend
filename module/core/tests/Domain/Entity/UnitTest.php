@@ -21,14 +21,8 @@ class UnitTest extends TestCase
      */
     private UnitId $id;
 
-    /**
-     * @var string $name
-     */
     private string $name;
 
-    /**
-     * @var string $symbol
-     */
     private string $symbol;
 
     protected function setUp(): void

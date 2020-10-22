@@ -18,22 +18,14 @@ class DbalProductCollectionTypeIdChangedEventProjector
 {
     private const TABLE = 'product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductCollectionTypeIdChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCollectionTypeIdChangedEvent $event): void

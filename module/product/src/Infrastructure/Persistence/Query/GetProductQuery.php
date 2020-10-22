@@ -20,20 +20,10 @@ use Webmozart\Assert\Assert;
 
 class GetProductQuery implements GetProductQueryInterface
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
     private UrlGeneratorInterface $router;
 
-    /**
-     * @param ProductRepositoryInterface $repository
-     * @param UrlGeneratorInterface      $router
-     */
     public function __construct(ProductRepositoryInterface $repository, UrlGeneratorInterface $router)
     {
         $this->repository = $repository;
@@ -41,9 +31,6 @@ class GetProductQuery implements GetProductQueryInterface
     }
 
     /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
      * @return array
      */
     public function query(ProductId $productId, Language $language): array

@@ -13,22 +13,10 @@ class TranslatableColumn extends AbstractColumn
 {
     public const TYPE = 'TEXT';
 
-    /**
-     * @var string|null
-     */
     private ?string $parameters;
 
-    /**
-     * @var string|null
-     */
     private ?string $domain;
 
-    /**
-     * @param string      $field
-     * @param string      $label
-     * @param string|null $parameters
-     * @param string|null $domain
-     */
     public function __construct(
         string $field,
         string $label,
@@ -48,17 +36,11 @@ class TranslatableColumn extends AbstractColumn
         return self::TYPE;
     }
 
-    /**
-     * @return string|null
-     */
     public function getParameters(): ?string
     {
         return $this->parameters;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDomain(): ?string
     {
         return $this->domain;

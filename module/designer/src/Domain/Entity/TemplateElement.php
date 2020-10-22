@@ -17,39 +17,25 @@ use JMS\Serializer\Annotation as JMS;
 class TemplateElement
 {
     /**
-     * @var Position
-     *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Position")
      */
     protected Position $position;
 
     /**
-     * @var Size
-     *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Size")
      */
     protected Size $size;
 
     /**
-     * @var TemplateElementPropertyInterface
-     *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface")
      */
     protected TemplateElementPropertyInterface $properties;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $type;
 
-    /**
-     * @param Position                         $position
-     * @param Size                             $size
-     * @param string                           $type
-     * @param TemplateElementPropertyInterface $properties
-     */
     public function __construct(
         Position $position,
         Size $size,
@@ -62,33 +48,21 @@ class TemplateElement
         $this->type = $type;
     }
 
-    /**
-     * @return Position
-     */
     public function getPosition(): Position
     {
         return $this->position;
     }
 
-    /**
-     * @return Size
-     */
     public function getSize(): Size
     {
         return $this->size;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return TemplateElementPropertyInterface
-     */
     public function getProperties(): TemplateElementPropertyInterface
     {
         return $this->properties;

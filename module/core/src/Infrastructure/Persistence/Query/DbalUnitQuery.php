@@ -25,22 +25,13 @@ class DbalUnitQuery implements UnitQueryInterface
         'symbol',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -69,11 +60,6 @@ class DbalUnitQuery implements UnitQueryInterface
         return [];
     }
 
-    /**
-     * @param string $code
-     *
-     * @return UnitId|null
-     */
     public function findIdByCode(string $code): ?UnitId
     {
         $qb = $this->getQuery();
@@ -90,11 +76,6 @@ class DbalUnitQuery implements UnitQueryInterface
         return null;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return UnitId|null
-     */
     public function findIdByName(string $name): ?UnitId
     {
         $qb = $this->getQuery();
@@ -111,9 +92,6 @@ class DbalUnitQuery implements UnitQueryInterface
         return null;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

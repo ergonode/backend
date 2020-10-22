@@ -25,26 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LanguageGridReadAction
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var LanguageGrid
-     */
     private LanguageGrid $languageGrid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer           $gridRenderer
-     * @param LanguageQueryInterface $query
-     * @param LanguageGrid           $languageGrid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         LanguageQueryInterface $query,
@@ -111,11 +97,6 @@ class LanguageGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

@@ -13,20 +13,10 @@ use Webmozart\Assert\Assert;
 
 class Size
 {
-    /**
-     * @var int
-     */
     private int $width;
 
-    /**
-     * @var int
-     */
     private int $height;
 
-    /**
-     * @param int $width
-     * @param int $height
-     */
     public function __construct(int $width, int $height)
     {
         Assert::greaterThanEq($width, 0);
@@ -36,27 +26,16 @@ class Size
         $this->height = $height;
     }
 
-    /**
-     * @param Size $object
-     *
-     * @return bool
-     */
     public function isEqual(Size $object): bool
     {
         return $object->getWidth() === $this->getWidth() && $object->getHeight() === $this->getHeight();
     }
 
-    /**
-     * @return int
-     */
     public function getWidth(): int
     {
         return $this->width;
     }
 
-    /**
-     * @return int
-     */
     public function getHeight(): int
     {
         return $this->height;

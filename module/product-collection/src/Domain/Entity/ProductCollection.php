@@ -28,37 +28,26 @@ use JMS\Serializer\Annotation as JMS;
 class ProductCollection extends AbstractAggregateRoot
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
     /**
-     * @var ProductCollectionCode
-     *
      * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
-     *
      */
     private ProductCollectionCode $code;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $description;
 
     /**
-     * @var ProductCollectionTypeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $typeId;
@@ -71,26 +60,15 @@ class ProductCollection extends AbstractAggregateRoot
     private array $elements;
 
     /**
-     * @var \DateTime $createdAt
-     *
      * @JMS\Type("DateTime")
      */
     private \DateTime $createdAt;
 
     /**
-     * @var \DateTime | null $editedAt
-     *
      * @JMS\Type("DateTime")
      */
     private ?\DateTime $editedAt = null;
 
-    /**
-     * @param ProductCollectionId     $id
-     * @param ProductCollectionCode   $code
-     * @param TranslatableString      $name
-     * @param TranslatableString      $description
-     * @param ProductCollectionTypeId $typeId
-     */
     public function __construct(
         ProductCollectionId $id,
         ProductCollectionCode $code,
@@ -101,65 +79,42 @@ class ProductCollection extends AbstractAggregateRoot
         $this->apply(new ProductCollectionCreatedEvent($id, $code, $name, $description, $typeId, new \DateTime()));
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getDescription(): TranslatableString
     {
         return $this->description;
     }
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getId(): ProductCollectionId
     {
         return $this->id;
     }
 
-    /**
-     * @return ProductCollectionCode
-     */
     public function getCode(): ProductCollectionCode
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
     }
 
-    /**
-     * @return ProductCollectionTypeId
-     */
     public function getTypeId(): ProductCollectionTypeId
     {
         return $this->typeId;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getEditedAt(): ?\DateTime
     {
         return $this->editedAt;
     }
 
     /**
-     * @param TranslatableString $newName
-     *
      * @throws \Exception
      */
     public function changeName(TranslatableString $newName): void
@@ -170,8 +125,6 @@ class ProductCollection extends AbstractAggregateRoot
     }
 
     /**
-     * @param TranslatableString $newDescription
-     *
      * @throws \Exception
      */
     public function changeDescription(TranslatableString $newDescription): void
@@ -187,8 +140,6 @@ class ProductCollection extends AbstractAggregateRoot
     }
 
     /**
-     * @param ProductCollectionTypeId $newType
-     *
      * @throws \Exception
      */
     public function changeType(ProductCollectionTypeId $newType): void
@@ -203,11 +154,6 @@ class ProductCollection extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param ProductId $productId
-     *
-     * @return bool
-     */
     public function hasElement(ProductId $productId): bool
     {
         foreach ($this->elements as $element) {
@@ -219,10 +165,6 @@ class ProductCollection extends AbstractAggregateRoot
         return false;
     }
 
-    /**
-     * @param ProductId $productId
-     * @param bool      $visible
-     */
     public function addElement(ProductId $productId, bool $visible): void
     {
         if ($this->hasElement($productId)) {
@@ -242,7 +184,6 @@ class ProductCollection extends AbstractAggregateRoot
 
     /**
      * @param array $productIds
-     * @param bool  $visible
      */
     public function addElements(array $productIds, bool $visible = true): void
     {
@@ -260,19 +201,11 @@ class ProductCollection extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param ProductId $productId
-     */
     public function removeElement(ProductId $productId): void
     {
         $this->apply(new ProductCollectionElementRemovedEvent($this->id, $productId, new \DateTime()));
     }
 
-    /**
-     * @param ProductId $productId
-     *
-     * @return ProductCollectionElement
-     */
     public function getElement(ProductId $productId): ProductCollectionElement
     {
         foreach ($this->elements as $element) {
@@ -294,9 +227,6 @@ class ProductCollection extends AbstractAggregateRoot
         return $this->elements;
     }
 
-    /**
-     * @param ProductCollectionCreatedEvent $event
-     */
     protected function applyProductCollectionCreatedEvent(ProductCollectionCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -308,18 +238,12 @@ class ProductCollection extends AbstractAggregateRoot
         $this->elements = [];
     }
 
-    /**
-     * @param ProductCollectionNameChangedEvent $event
-     */
     protected function applyProductCollectionNameChangedEvent(ProductCollectionNameChangedEvent $event): void
     {
         $this->name = $event->getTo();
         $this->editedAt = $event->getEditedAt();
     }
 
-    /**
-     * @param ProductCollectionDescriptionChangedEvent $event
-     */
     protected function applyProductCollectionDescriptionChangedEvent(
         ProductCollectionDescriptionChangedEvent $event
     ): void {
@@ -327,18 +251,12 @@ class ProductCollection extends AbstractAggregateRoot
         $this->editedAt = $event->getEditedAt();
     }
 
-    /**
-     * @param ProductCollectionTypeIdChangedEvent $event
-     */
     protected function applyProductCollectionTypeIdChangedEvent(ProductCollectionTypeIdChangedEvent $event): void
     {
         $this->typeId = $event->getNewTypeId();
         $this->editedAt = $event->getEditedAt();
     }
 
-    /**
-     * @param ProductCollectionElementAddedEvent $event
-     */
     protected function applyProductCollectionElementAddedEvent(
         ProductCollectionElementAddedEvent $event
     ): void {
@@ -347,9 +265,6 @@ class ProductCollection extends AbstractAggregateRoot
         $this->editedAt = $event->getCurrentDateTime();
     }
 
-    /**
-     * @param ProductCollectionElementRemovedEvent $event
-     */
     protected function applyProductCollectionElementRemovedEvent(
         ProductCollectionElementRemovedEvent $event
     ): void {

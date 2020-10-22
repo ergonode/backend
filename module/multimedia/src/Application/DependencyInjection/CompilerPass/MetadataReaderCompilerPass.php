@@ -18,9 +18,6 @@ class MetadataReaderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.multimedia.metadata_reader';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(MetadataReader::class)) {
@@ -28,9 +25,6 @@ class MetadataReaderCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processTransformers(ContainerBuilder $container): void
     {
         $arguments = [];

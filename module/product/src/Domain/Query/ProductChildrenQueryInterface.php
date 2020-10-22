@@ -17,20 +17,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 interface ProductChildrenQueryInterface
 {
-    /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(ProductId $productId, Language $language): DataSetInterface;
 
     /**
-     * @param AbstractAssociatedProduct $product
-     * @param Language                  $language
-     * @param AbstractAttribute[]       $bindingAttributes
-     *
-     * @return DataSetInterface
+     * @param AbstractAttribute[] $bindingAttributes
      */
     public function getChildrenAndAvailableProductsDataSet(
         AbstractAssociatedProduct $product,
@@ -39,8 +29,6 @@ interface ProductChildrenQueryInterface
     ): DataSetInterface;
 
     /**
-     * @param ProductId $id
-     *
      * @return array
      */
     public function findProductIdByProductChildrenId(ProductId $id): array;

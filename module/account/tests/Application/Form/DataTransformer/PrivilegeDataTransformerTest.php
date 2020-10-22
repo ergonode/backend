@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class PrivilegeDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var PrivilegeDataTransformer
-     */
     protected PrivilegeDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,9 +24,6 @@ class PrivilegeDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Privilege|null $privilegeValueObject
-     * @param string|null    $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?Privilege $privilegeValueObject, ?string $string): void
@@ -47,9 +41,6 @@ class PrivilegeDataTransformerTest extends TestCase
 
 
     /**
-     * @param Privilege|null $privilegeValueObject
-     * @param string|null    $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?Privilege $privilegeValueObject, ?string $string): void

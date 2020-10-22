@@ -26,26 +26,13 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
         'shopware6_id',
         'option_id',
     ];
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param AggregateId $optionId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -69,11 +56,6 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param AggregateId $optionId
-     * @param string      $shopwareId
-     *
      * @throws DBALException
      */
     public function save(
@@ -89,13 +71,6 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
         }
     }
 
-    /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param AggregateId $optionId
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): bool
     {
 
@@ -119,11 +94,6 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param AggregateId $optionId
-     * @param string      $shopwareId
-     *
      * @throws DBALException
      */
     private function update(
@@ -150,11 +120,6 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param AggregateId $optionId
-     * @param string      $shopwareId
-     *
      * @throws DBALException
      */
     private function insert(

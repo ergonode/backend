@@ -17,31 +17,20 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 class DeleteWorkflowTransitionCommand implements DomainCommandInterface
 {
     /**
-     * @var WorkflowId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private WorkflowId $workflowId;
 
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $source;
 
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $destination;
 
-    /**
-     * @param WorkflowId $workflowId
-     * @param StatusId   $source
-     * @param StatusId   $destination
-     */
     public function __construct(
         WorkflowId $workflowId,
         StatusId $source,
@@ -52,25 +41,16 @@ class DeleteWorkflowTransitionCommand implements DomainCommandInterface
         $this->destination = $destination;
     }
 
-    /**
-     * @return WorkflowId
-     */
     public function getWorkflowId(): WorkflowId
     {
         return $this->workflowId;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getSource(): StatusId
     {
         return $this->source;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getDestination(): StatusId
     {
         return $this->destination;

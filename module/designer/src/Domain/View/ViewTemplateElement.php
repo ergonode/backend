@@ -12,24 +12,12 @@ use Ergonode\Designer\Domain\ValueObject\Size;
 
 class ViewTemplateElement
 {
-    /**
-     * @var Position
-     */
     private Position $position;
 
-    /**
-     * @var Size
-     */
     private Size $size;
 
-    /**
-     * @var string
-     */
     private string $label;
 
-    /**
-     * @var string
-     */
     private string $type;
 
     /**
@@ -38,11 +26,7 @@ class ViewTemplateElement
     private array $properties;
 
     /**
-     * @param Position $position
-     * @param Size     $size
-     * @param string   $label
-     * @param string   $type
-     * @param array    $properties
+     * @param array $properties
      */
     public function __construct(Position $position, Size $size, string $label, string $type, array $properties = [])
     {
@@ -53,33 +37,21 @@ class ViewTemplateElement
         $this->properties = $properties;
     }
 
-    /**
-     * @return Position
-     */
     public function getPosition(): Position
     {
         return $this->position;
     }
 
-    /**
-     * @return Size
-     */
     public function getSize(): Size
     {
         return $this->size;
     }
 
-    /**
-     * @return string
-     */
     public function getLabel(): string
     {
         return $this->label;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;

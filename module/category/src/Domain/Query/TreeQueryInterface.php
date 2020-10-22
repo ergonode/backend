@@ -15,24 +15,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 interface TreeQueryInterface
 {
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array;
 
-    /**
-     * @param string $code
-     *
-     * @return CategoryTreeId|null
-     */
     public function findTreeIdByCode(string $code): ?CategoryTreeId;
 }

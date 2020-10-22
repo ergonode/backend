@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LanguageTreeUpdateFormModel
 {
     /**
-     * @var LanguageTreeNodeFormModel
-     *
      * @Assert\Valid()
      * @Assert\NotBlank(message="Languages is required")
      */

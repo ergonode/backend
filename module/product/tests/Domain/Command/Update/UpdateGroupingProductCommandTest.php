@@ -17,9 +17,7 @@ use Ergonode\Product\Domain\Command\Update\UpdateGroupingProductCommand;
 class UpdateGroupingProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId  $id
-     * @param TemplateId $templateId
-     * @param array      $categories
+     * @param array $categories
      *
      * @dataProvider dataProvider
      */

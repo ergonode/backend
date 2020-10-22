@@ -21,26 +21,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OptionAttributeValueConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     * @param OptionQueryInterface    $optionQuery
-     * @param TranslatorInterface     $translator
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         OptionQueryInterface $optionQuery,

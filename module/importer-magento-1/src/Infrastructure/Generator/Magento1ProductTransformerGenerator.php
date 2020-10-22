@@ -19,33 +19,21 @@ use Ergonode\ImporterMagento1\Infrastructure\Converter\Magento1CategoryConverter
 
 class Magento1ProductTransformerGenerator implements TransformerGeneratorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return Magento1CsvSource::TYPE;
     }
 
     /**
-     * @param TransformerId                    $transformerId
-     * @param string                           $name
      * @param AbstractSource|Magento1CsvSource $source
      *
-     * @return Transformer
      *
      * @throws \Exception
      */

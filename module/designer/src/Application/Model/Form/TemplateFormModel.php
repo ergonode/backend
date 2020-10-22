@@ -20,16 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TemplateFormModel
 {
     /**
-     * @var string | null
-     *
      * @Assert\NotBlank(message="Template name is required")
      * @Assert\Length(min="3", max="32")
      */
     public ?string $name;
 
     /**
-     * @var string | null
-     *
      * @Assert\Uuid()
      *
      * @MultimediaExists()
@@ -37,18 +33,13 @@ class TemplateFormModel
     public ?string $image;
 
     /**
-     * @var AttributeId | null
-     *
      * @AttributeExists()
      *
      * @AttributeTypeValid(type="TEXT")
-     *
      */
     public ?AttributeId $defaultLabel;
 
     /**
-     * @var AttributeId | null
-     *
      * @AttributeExists()
      *
      * @AttributeTypeValid(type="IMAGE")

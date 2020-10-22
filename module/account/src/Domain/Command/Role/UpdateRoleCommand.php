@@ -17,22 +17,16 @@ use JMS\Serializer\Annotation as JMS;
 class UpdateRoleCommand implements DomainCommandInterface
 {
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $description;
@@ -45,9 +39,6 @@ class UpdateRoleCommand implements DomainCommandInterface
     private array $privileges;
 
     /**
-     * @param RoleId      $id
-     * @param string      $name
-     * @param string|null $description
      * @param Privilege[] $privileges
      */
     public function __construct(RoleId $id, string $name, ?string $description = null, array $privileges = [])
@@ -58,25 +49,16 @@ class UpdateRoleCommand implements DomainCommandInterface
         $this->privileges = $privileges;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getId(): RoleId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;

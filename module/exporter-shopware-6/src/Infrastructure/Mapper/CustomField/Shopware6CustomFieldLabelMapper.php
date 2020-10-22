@@ -17,27 +17,13 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 
 class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInterface
 {
-    /**
-     * @var Shopware6LanguageRepositoryInterface
-     */
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
-    /**
-     * @param Shopware6LanguageRepositoryInterface $languageRepository
-     */
     public function __construct(Shopware6LanguageRepositoryInterface $languageRepository)
     {
         $this->languageRepository = $languageRepository;
     }
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,

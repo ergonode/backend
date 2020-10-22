@@ -13,12 +13,5 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 interface TranslationProviderInterface
 {
-    /**
-     * @param string   $content
-     * @param Language $sourceLanguage
-     * @param Language $targetLanguage
-     *
-     * @return string
-     */
     public function provide(string $content, Language $sourceLanguage, Language $targetLanguage): string;
 }

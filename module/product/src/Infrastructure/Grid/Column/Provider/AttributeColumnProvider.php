@@ -23,20 +23,11 @@ class AttributeColumnProvider
      */
     private array $strategies;
 
-    /**
-     * @param AttributeColumnStrategyInterface ...$strategies
-     */
     public function __construct(AttributeColumnStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     *
-     * @return ColumnInterface
-     */
     public function provide(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         foreach ($this->strategies as $strategy) {

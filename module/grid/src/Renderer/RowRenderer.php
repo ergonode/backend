@@ -20,9 +20,6 @@ class RowRenderer implements RowRendererInterface
      */
     private array $rendererCollection;
 
-    /**
-     * @param ColumnRendererInterface ...$collection
-     */
     public function __construct(ColumnRendererInterface ...$collection)
     {
         $this->rendererCollection = $collection;

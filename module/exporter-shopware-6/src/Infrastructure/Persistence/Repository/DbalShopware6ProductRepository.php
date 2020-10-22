@@ -25,25 +25,13 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, ProductId $productId): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -65,10 +53,6 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     public function save(ChannelId $channelId, ProductId $productId, string $shopwareId): void
@@ -80,12 +64,6 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
         }
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, ProductId $productId): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -107,10 +85,6 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     private function update(ChannelId $channelId, ProductId $productId, string $shopwareId): void
@@ -132,10 +106,6 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     private function insert(ChannelId $channelId, ProductId $productId, string $shopwareId): void

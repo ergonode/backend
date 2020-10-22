@@ -12,9 +12,8 @@ namespace Ergonode\Reader\Infrastructure;
 interface ReaderProcessorInterface extends \IteratorAggregate, \Countable
 {
     /**
-     * @param string $file
-     * @param array  $configuration
-     * @param array  $formatters
+     * @param array $configuration
+     * @param array $formatters
      */
     public function open(string $file, array $configuration = [], array $formatters = []): void;
 

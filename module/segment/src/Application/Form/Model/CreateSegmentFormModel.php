@@ -15,15 +15,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateSegmentFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\Uuid()
      */
     public ?string $conditionSetId;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="System name is required")
      * @Assert\Length(max=100)
      *

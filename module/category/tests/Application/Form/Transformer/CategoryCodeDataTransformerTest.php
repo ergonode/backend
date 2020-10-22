@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class CategoryCodeDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var CategoryCodeDataTransformer
-     */
     protected CategoryCodeDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,9 +24,6 @@ class CategoryCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @param CategoryCode|null $categoryCodeValueObject
-     * @param string|null       $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?CategoryCode $categoryCodeValueObject, ?string $string): void
@@ -46,9 +40,6 @@ class CategoryCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @param CategoryCode|null $categoryCodeValueObject
-     * @param string|null       $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?CategoryCode $categoryCodeValueObject, ?string $string): void

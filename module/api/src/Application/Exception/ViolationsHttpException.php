@@ -15,14 +15,8 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ViolationsHttpException extends HttpException
 {
-    /**
-     * @var ConstraintViolationListInterface
-     */
     private ConstraintViolationListInterface $violations;
 
-    /**
-     * @param ConstraintViolationListInterface $violations
-     */
     public function __construct(ConstraintViolationListInterface $violations)
     {
         $this->violations = $violations;
@@ -30,9 +24,6 @@ class ViolationsHttpException extends HttpException
         parent::__construct(Response::HTTP_BAD_REQUEST, 'Validation error');
     }
 
-    /**
-     * @return ConstraintViolationListInterface
-     */
     public function getViolations(): ConstraintViolationListInterface
     {
         return $this->violations;

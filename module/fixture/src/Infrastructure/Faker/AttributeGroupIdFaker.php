@@ -15,8 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class AttributeGroupIdFaker extends BaseProvider
 {
     /**
-     * @return AttributeGroupId
-     *
      * @throws \Exception
      */
     public function attributeGroupId(): AttributeGroupId

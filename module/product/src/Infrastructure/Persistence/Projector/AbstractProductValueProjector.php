@@ -18,24 +18,14 @@ abstract class AbstractProductValueProjector
     private const TABLE_PRODUCT_VALUE = 'product_value';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     protected Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param string         $productId
-     * @param string         $attributeId
-     * @param ValueInterface $value
-     *
      * @throws DBALException
      */
     protected function insertValue(string $productId, string $attributeId, ValueInterface $value): void
@@ -46,11 +36,6 @@ abstract class AbstractProductValueProjector
     }
 
     /**
-     * @param string      $productId
-     * @param string      $attributeId
-     * @param string|null $value
-     * @param string|null $language
-     *
      * @throws DBALException
      */
     protected function insert(string $productId, string $attributeId, ?string $value, ?string $language = null): void
@@ -84,9 +69,6 @@ abstract class AbstractProductValueProjector
     }
 
     /**
-     * @param string $productId
-     * @param string $attributeId
-     *
      * @throws DBALException
      */
     protected function delete(string $productId, string $attributeId): void

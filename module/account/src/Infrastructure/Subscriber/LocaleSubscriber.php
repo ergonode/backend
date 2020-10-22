@@ -19,20 +19,10 @@ use Webmozart\Assert\Assert;
 
 class LocaleSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var Security
-     */
     private Security $security;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param Security            $security
-     * @param TranslatorInterface $translator
-     */
     public function __construct(Security $security, TranslatorInterface $translator)
     {
         $this->security = $security;
@@ -40,8 +30,6 @@ class LocaleSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param KernelEvent $event
-     *
      * @throws \ReflectionException
      */
     public function onKernelRequest(KernelEvent $event): void

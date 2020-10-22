@@ -30,9 +30,6 @@ class AbstractAssociatedProductTest extends TestCase
     private Sku $sku;
 
 
-    /**
-     * @var TemplateId
-     */
     private TemplateId $templateId;
 
     protected function setUp(): void
@@ -72,15 +69,9 @@ class AbstractAssociatedProductTest extends TestCase
     }
 
 
-    /**
-     * @return AbstractAssociatedProduct
-     */
     private function getClass(): AbstractAssociatedProduct
     {
         return new class($this->id, $this->sku, $this->templateId) extends AbstractAssociatedProduct {
-            /**
-             * @return string
-             */
             public function getType(): string
             {
                 return 'TYPE';

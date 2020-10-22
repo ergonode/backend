@@ -16,10 +16,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 class InfoRender
 {
     /**
-     * @param AbstractGrid               $grid
-     * @param GridConfigurationInterface $configuration
-     * @param DataSetInterface           $dataSet
-     *
      * @return array
      */
     public function render(

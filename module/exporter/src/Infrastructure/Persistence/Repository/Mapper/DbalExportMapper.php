@@ -14,8 +14,6 @@ use Ergonode\Exporter\Domain\Entity\Export;
 class DbalExportMapper
 {
     /**
-     * @param Export $export
-     *
      * @return array
      */
     public function map(Export $export): array

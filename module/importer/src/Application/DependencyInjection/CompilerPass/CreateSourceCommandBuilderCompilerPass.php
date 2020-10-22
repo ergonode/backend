@@ -18,9 +18,6 @@ class CreateSourceCommandBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.create_source_command_builder_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateSourceCommandBuilderProvider::class)) {
@@ -28,9 +25,6 @@ class CreateSourceCommandBuilderCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

@@ -19,14 +19,8 @@ use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
 class FileAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $query;
 
-    /**
-     * @param MultimediaQueryInterface $query
-     */
     public function __construct(MultimediaQueryInterface $query)
     {
         $this->query = $query;

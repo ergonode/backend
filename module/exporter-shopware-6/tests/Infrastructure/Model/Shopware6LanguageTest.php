@@ -13,29 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6LanguageTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string  $localeId;
 
-    /**
-     * @var string
-     */
     private string $translationCodeId;
 
-    /**
-     * @var string
-     */
     private string $iso;
 
     protected function setUp(): void

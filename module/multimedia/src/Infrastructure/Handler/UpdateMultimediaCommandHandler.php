@@ -15,14 +15,8 @@ use Ergonode\Multimedia\Domain\Command\UpdateMultimediaCommand;
 
 class UpdateMultimediaCommandHandler
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $repository;
 
-    /**
-     * @param MultimediaRepositoryInterface $repository
-     */
     public function __construct(
         MultimediaRepositoryInterface $repository
     ) {
@@ -30,8 +24,6 @@ class UpdateMultimediaCommandHandler
     }
 
     /**
-     * @param UpdateMultimediaCommand $command
-     *
      * @return mixed
      *
      * @throws \Exception

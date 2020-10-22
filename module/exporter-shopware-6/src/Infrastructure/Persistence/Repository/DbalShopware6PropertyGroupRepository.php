@@ -25,25 +25,13 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, AttributeId $attributeId): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -65,11 +53,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     * @param string      $type
-     *
      * @throws DBALException
      */
     public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void
@@ -81,12 +64,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
         }
     }
 
-    /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, AttributeId $attributeId): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -107,10 +84,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     *
      * @throws DBALException
      */
     private function update(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void
@@ -132,11 +105,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     * @param string      $type
-     *
      * @throws DBALException
      */
     private function insert(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void

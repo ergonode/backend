@@ -24,20 +24,10 @@ class CreateUserCommand extends Command
 {
     private const NAME = 'ergonode:user:create';
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $query;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     * @param RoleQueryInterface  $query
-     */
     public function __construct(CommandBusInterface $commandBus, RoleQueryInterface $query)
     {
         parent::__construct(static::NAME);
@@ -61,11 +51,6 @@ class CreateUserCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int
-     *
      * @throws \Exception
      */
     public function execute(InputInterface $input, OutputInterface $output): int

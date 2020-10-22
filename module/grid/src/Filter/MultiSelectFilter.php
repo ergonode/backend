@@ -44,9 +44,6 @@ class MultiSelectFilter implements FilterInterface
         return $result;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

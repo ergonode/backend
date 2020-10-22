@@ -18,14 +18,8 @@ use Webmozart\Assert\Assert;
 
 class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -63,13 +57,6 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
         return false;
     }
 
-    /**
-     * @param string $option
-     * @param float  $expected
-     * @param float  $value
-     *
-     * @return bool
-     */
     private function calculateValue(string $option, float $expected, float $value): bool
     {
         if (('=' === $option) && $value !== $expected) {

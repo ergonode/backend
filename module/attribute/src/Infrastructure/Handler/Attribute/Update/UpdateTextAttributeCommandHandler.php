@@ -17,22 +17,14 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 class UpdateTextAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateTextAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateTextAttributeCommand $command): void

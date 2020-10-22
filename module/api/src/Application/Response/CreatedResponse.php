@@ -15,9 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreatedResponse extends AbstractResponse
 {
-    /**
-     * @param object $data
-     */
     public function __construct(object $data)
     {
         if ($data instanceof AggregateId || $data instanceof AbstractCode) {

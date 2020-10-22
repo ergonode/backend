@@ -18,11 +18,6 @@ use Ergonode\Designer\Domain\Entity\Template;
 class TemplateProcessor
 {
     /**
-     * @param FileExportChannel $channel
-     * @param Template          $template
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, Template $template): ExportData
@@ -43,12 +38,6 @@ class TemplateProcessor
         }
     }
 
-    /**
-     * @param Template        $template
-     * @param TemplateElement $element
-     *
-     * @return LanguageData
-     */
     private function getLanguage(Template $template, TemplateElement $element): LanguageData
     {
         $result = new LanguageData();

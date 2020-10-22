@@ -20,26 +20,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class RoleFormModel
 {
-    /**
-     * @var RoleId|null
-     */
     private ?RoleId $roleId;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="Role name is required")
      * @Assert\Length(
      *     max="100",
      *     maxMessage="Role name is too long. It should contain {{ limit }} characters or less."
      * )
-     *
      */
     public ?string $name;
 
     /**
-     * @var string
-     *
      * @Assert\Length(
      *     min="3",
      *     max="500",
@@ -56,9 +48,6 @@ class RoleFormModel
      */
     public array $privileges;
 
-    /**
-     * @param RoleId|null $roleId
-     */
     public function __construct(RoleId $roleId = null)
     {
         $this->roleId = $roleId;
@@ -67,9 +56,6 @@ class RoleFormModel
         $this->privileges = [];
     }
 
-    /**
-     * @return RoleId|null
-     */
     public function getRoleId(): ?RoleId
     {
         return $this->roleId;

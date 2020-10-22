@@ -18,21 +18,11 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class TextareaAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof TextareaAttribute;
     }
 
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return Constraint
-     */
     public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([

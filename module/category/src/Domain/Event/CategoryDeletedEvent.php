@@ -17,23 +17,15 @@ use JMS\Serializer\Annotation as JMS;
 class CategoryDeletedEvent extends AbstractDeleteEvent
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
-    /**
-     * @param CategoryId $id
-     */
     public function __construct(CategoryId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return CategoryId
-     */
     public function getAggregateId(): CategoryId
     {
         return $this->id;

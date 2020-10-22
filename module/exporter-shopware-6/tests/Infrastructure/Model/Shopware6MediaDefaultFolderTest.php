@@ -13,19 +13,10 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6MediaDefaultFolderTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $entity;
 
-    /**
-     * @var string
-     */
     private string $mediaFolderId;
 
     protected function setUp(): void

@@ -14,22 +14,14 @@ use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 class SymfonyQueryBus implements QueryBusInterface
 {
-    /**
-     * @var MessageBusInterface
-     */
     private MessageBusInterface $bus;
 
-    /**
-     * @param MessageBusInterface $bus
-     */
     public function __construct(MessageBusInterface $bus)
     {
         $this->bus = $bus;
     }
 
     /**
-     * @param object $command
-     *
      * @return mixed
      */
     public function dispatch(object $command)

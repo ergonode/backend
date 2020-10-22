@@ -29,9 +29,6 @@ class TextAttributeValueConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $repository;
 
-    /**
-     * @var TextAttributeValueConditionCalculatorStrategy
-     */
     private TextAttributeValueConditionCalculatorStrategy $strategy;
 
     protected function setUp(): void
@@ -47,11 +44,6 @@ class TextAttributeValueConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string         $option
-     * @param string         $expected
-     * @param ValueInterface $value
-     * @param bool           $result
-     *
      * @dataProvider dataProvider
      */
     public function testCalculate(string $option, string $expected, ValueInterface $value, bool $result): void

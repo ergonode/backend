@@ -14,20 +14,10 @@ use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 
 class SnapshotBuilderDecorator implements AggregateBuilderInterface
 {
-    /**
-     * @var AggregateBuilder
-     */
     private AggregateBuilder $builder;
 
-    /**
-     * @var AggregateSnapshotInterface
-     */
     private AggregateSnapshotInterface $snapshot;
 
-    /**
-     * @param AggregateBuilder           $builder
-     * @param AggregateSnapshotInterface $snapshot
-     */
     public function __construct(
         AggregateBuilder $builder,
         AggregateSnapshotInterface $snapshot
@@ -37,11 +27,6 @@ class SnapshotBuilderDecorator implements AggregateBuilderInterface
     }
 
     /**
-     * @param AggregateId $id
-     * @param string      $class
-     *
-     * @return AbstractAggregateRoot|null
-     *
      * @throws \ReflectionException
      */
     public function build(AggregateId $id, string $class): AbstractAggregateRoot

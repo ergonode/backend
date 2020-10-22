@@ -22,38 +22,16 @@ use Symfony\Component\Security\Core\Security;
 
 abstract class AbstractCreateProductHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     protected ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var TokenStorageInterface
-     */
     protected TokenStorageInterface   $tokenStorage;
 
-    /**
-     * @var WorkflowProvider
-     */
     protected WorkflowProvider $provider;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     protected LanguageQueryInterface $query;
 
-    /**
-     * @var Security
-     */
     private Security $security;
 
-    /**
-     * @param ProductRepositoryInterface $productRepository
-     * @param TokenStorageInterface      $tokenStorage
-     * @param WorkflowProvider           $provider
-     * @param LanguageQueryInterface     $query
-     * @param Security                   $security
-     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         TokenStorageInterface $tokenStorage,

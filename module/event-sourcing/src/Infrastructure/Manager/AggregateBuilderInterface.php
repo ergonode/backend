@@ -14,11 +14,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 interface AggregateBuilderInterface
 {
     /**
-     * @param AggregateId $id
-     * @param string      $class
-     *
-     * @return AbstractAggregateRoot
-     *
      * @throws \ReflectionException
      */
     public function build(AggregateId $id, string $class): ?AbstractAggregateRoot;

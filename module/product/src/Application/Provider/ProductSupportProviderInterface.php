@@ -11,10 +11,5 @@ namespace Ergonode\Product\Application\Provider;
 
 interface ProductSupportProviderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool;
 }

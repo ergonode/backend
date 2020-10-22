@@ -23,14 +23,8 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
  */
 class OptionsReadAction
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @param OptionQueryInterface $query
-     */
     public function __construct(OptionQueryInterface $query)
     {
         $this->query = $query;
@@ -63,9 +57,7 @@ class OptionsReadAction
      *     description="Not found",
      * )
      *
-     * @param AbstractAttribute $attribute
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      */

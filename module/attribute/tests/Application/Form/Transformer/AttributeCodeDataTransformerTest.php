@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class AttributeCodeDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var AttributeCodeDataTransformer
-     */
     protected AttributeCodeDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,9 +24,6 @@ class AttributeCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @param AttributeCode|null $attributeCodeValueObject
-     * @param string|null        $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?AttributeCode $attributeCodeValueObject, ?string $string): void
@@ -46,9 +40,6 @@ class AttributeCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @param AttributeCode|null $attributeCodeValueObject
-     * @param string|null        $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?AttributeCode $attributeCodeValueObject, ?string $string): void

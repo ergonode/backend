@@ -17,30 +17,16 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class TemplateExportProcessorStep implements ExportStepProcessInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param TemplateQueryInterface $query
-     * @param CommandBusInterface    $commandBus
-     */
     public function __construct(TemplateQueryInterface $query, CommandBusInterface $commandBus)
     {
         $this->query = $query;
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId          $exportId
-     * @param FileExportChannel $channel
-     */
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $templates = $this->query->getAll();

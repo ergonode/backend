@@ -81,9 +81,6 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
         $assertion->assertRaised();
     }
 
-    /**
-     * @return ConstraintAttributeExistsConditionValidator
-     */
     protected function createValidator(): ConstraintAttributeExistsConditionValidator
     {
         return new ConstraintAttributeExistsConditionValidator($this->attributeQuery);

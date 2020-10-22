@@ -20,14 +20,8 @@ class StatusChangedNotification implements NotificationInterface
     private const MESSAGE = 'Product "%sku%" status was changed from "%from%" to "%to%" '.
     'in language "%language%" by user "%user%"';
 
-    /**
-     * @var string
-     */
     private string $message;
 
-    /**
-     * @var UserId
-     */
     private UserId $userId;
 
     /**
@@ -35,18 +29,9 @@ class StatusChangedNotification implements NotificationInterface
      */
     private array $parameters;
 
-    /**
-     * @var \DateTime
-     */
     private \DateTime $createdAt;
 
     /**
-     * @param Sku           $sku
-     * @param StatusCode    $from
-     * @param StatusCode    $to
-     * @param User          $user
-     * @param Language|null $language
-     *
      * @throws \Exception
      */
     public function __construct(Sku $sku, StatusCode $from, StatusCode $to, User $user, ?Language $language = null)
@@ -63,17 +48,11 @@ class StatusChangedNotification implements NotificationInterface
         $this->userId = $user->getId();
     }
 
-    /**
-     * @return string
-     */
     public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return UserId
-     */
     public function getUserId(): UserId
     {
         return $this->userId;
@@ -87,17 +66,11 @@ class StatusChangedNotification implements NotificationInterface
         return $this->parameters;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return UserId|null
-     */
     public function getAuthorId(): ?UserId
     {
         return $this->userId;

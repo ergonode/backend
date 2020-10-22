@@ -17,30 +17,16 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class OptionExportProcessorStep implements ExportStepProcessInterface
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param OptionQueryInterface $query
-     * @param CommandBusInterface  $commandBus
-     */
     public function __construct(OptionQueryInterface $query, CommandBusInterface $commandBus)
     {
         $this->query = $query;
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId          $exportId
-     * @param FileExportChannel $channel
-     */
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $options = $this->query->getAll();

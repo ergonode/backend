@@ -14,18 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 interface UpdateChannelCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 
-    /**
-     * @param ChannelId     $id
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function build(ChannelId $id, FormInterface $form): DomainCommandInterface;
 }

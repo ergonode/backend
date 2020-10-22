@@ -15,9 +15,6 @@ class Workflow extends AbstractWorkflow
     public const TYPE = 'default';
 
 
-    /**
-     * @return string
-     */
     public static function getType(): string
     {
         return self::TYPE;

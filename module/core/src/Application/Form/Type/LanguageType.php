@@ -19,20 +19,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LanguageType extends AbstractType
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $provider;
 
-    /**
-     * @param TranslatorInterface    $translator
-     * @param LanguageQueryInterface $provider
-     */
     public function __construct(TranslatorInterface $translator, LanguageQueryInterface $provider)
     {
         $this->translator = $translator;
@@ -40,17 +30,13 @@ class LanguageType extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new LanguageDataTransformer());
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $languages = $this->provider->getDictionary();
@@ -69,9 +55,6 @@ class LanguageType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

@@ -18,9 +18,6 @@ class AttributeValueConstraintStrategyInterfaceCompilerPass implements CompilerP
 {
     public const TAG = 'component.attribute.attribute_validation_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(AttributeValueConstraintProvider::class)) {
@@ -28,9 +25,6 @@ class AttributeValueConstraintStrategyInterfaceCompilerPass implements CompilerP
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

@@ -20,7 +20,6 @@ class DbalImportFactory
     /**
      * @param array $record
      *
-     * @return Import
      *
      * @throws \ReflectionException
      */

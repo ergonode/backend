@@ -13,10 +13,5 @@ use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 
 interface ExistingRelationshipMessageBuilderInterface
 {
-    /**
-     * @param RelationshipCollection $relationshipCollection
-     *
-     * @return string
-     */
     public function build(RelationshipCollection $relationshipCollection): string;
 }

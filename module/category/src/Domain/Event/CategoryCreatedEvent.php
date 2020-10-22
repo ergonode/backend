@@ -20,29 +20,21 @@ use JMS\Serializer\Annotation as JMS;
 class CategoryCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
     /**
-     * @var CategoryCode
-     *
      * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
      */
     private CategoryCode $code;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $type;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
@@ -55,11 +47,7 @@ class CategoryCreatedEvent implements DomainEventInterface
     private array $attributes;
 
     /**
-     * @param CategoryId         $id
-     * @param CategoryCode       $code
-     * @param string             $type
-     * @param TranslatableString $name
-     * @param ValueInterface[]   $attributes
+     * @param ValueInterface[] $attributes
      */
     public function __construct(
         CategoryId $id,
@@ -75,33 +63,21 @@ class CategoryCreatedEvent implements DomainEventInterface
         $this->attributes = $attributes;
     }
 
-    /**
-     * @return CategoryId
-     */
     public function getAggregateId(): CategoryId
     {
         return $this->id;
     }
 
-    /**
-     * @return CategoryCode
-     */
     public function getCode(): CategoryCode
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;

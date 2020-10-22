@@ -34,26 +34,12 @@ use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderProvider;
  */
 class ChannelChangeAction
 {
-    /**
-     * @var ChannelFormFactoryProvider
-     */
     private ChannelFormFactoryProvider $provider;
 
-    /**
-     * @var UpdateChannelCommandBuilderProvider
-     */
     private UpdateChannelCommandBuilderProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ChannelFormFactoryProvider          $provider
-     * @param UpdateChannelCommandBuilderProvider $commandProvider
-     * @param CommandBusInterface                 $commandBus
-     */
     public function __construct(
         ChannelFormFactoryProvider $provider,
         UpdateChannelCommandBuilderProvider $commandProvider,
@@ -105,10 +91,7 @@ class ChannelChangeAction
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
-     * @param AbstractChannel $channel
-     * @param Request         $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

@@ -16,22 +16,13 @@ use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 class ProductCreatedEventHandler implements MessageSubscriberInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ProductCreatedEvent $event
-     */
     public function __invoke(ProductCreatedEvent $event)
     {
         $command = new CalculateProductCommand($event->getAggregateId());

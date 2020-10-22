@@ -15,11 +15,6 @@ class ImportBindingAttributeNotFoundException extends ImportException
 {
     private const MESSAGE  = 'Can\'t find attribute {{code}} new to bind product {{sku}}';
 
-    /**
-     * @param AttributeCode   $code
-     * @param Sku             $sku
-     * @param \Throwable|null $previous
-     */
     public function __construct(AttributeCode $code, Sku $sku, \Throwable $previous = null)
     {
         parent::__construct(self::MESSAGE, ['code' => $code->getValue(), 'sku' => $sku->getValue()], $previous);

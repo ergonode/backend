@@ -30,23 +30,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCategoryGridReadAction
 {
-    /**
-     * @var ProductCategoryQueryInterface
-     */
     private ProductCategoryQueryInterface $productCategoryQuery;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
     private ProductCategoryGrid $productCategoryGrid;
 
-    /**
-     * @param ProductCategoryQueryInterface $productCategoryQuery
-     * @param GridRenderer                  $gridRenderer
-     * @param ProductCategoryGrid           $productCategoryGrid
-     */
     public function __construct(
         ProductCategoryQueryInterface $productCategoryQuery,
         GridRenderer $gridRenderer,
@@ -123,12 +112,6 @@ class ProductCategoryGridReadAction
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param AbstractProduct          $product
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         Language $language,

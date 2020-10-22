@@ -15,20 +15,10 @@ use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 
 class CreateTransformerCommandHandler
 {
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $repository;
 
-    /**
-     * @var TransformerFactory
-     */
     private TransformerFactory $factory;
 
-    /**
-     * @param TransformerRepositoryInterface $repository
-     * @param TransformerFactory             $factory
-     */
     public function __construct(TransformerRepositoryInterface $repository, TransformerFactory $factory)
     {
         $this->repository = $repository;
@@ -36,8 +26,6 @@ class CreateTransformerCommandHandler
     }
 
     /**
-     * @param CreateTransformerCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateTransformerCommand $command)

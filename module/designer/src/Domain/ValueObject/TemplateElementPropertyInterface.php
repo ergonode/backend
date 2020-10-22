@@ -11,8 +11,5 @@ namespace Ergonode\Designer\Domain\ValueObject;
 
 interface TemplateElementPropertyInterface
 {
-    /**
-     * @return string
-     */
     public function getVariant(): string;
 }

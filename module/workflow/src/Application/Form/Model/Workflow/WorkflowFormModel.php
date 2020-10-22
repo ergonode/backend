@@ -15,8 +15,6 @@ use Ergonode\Workflow\Infrastructure\Validator\WorkflowExists;
 class WorkflowFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(groups={"Create"})
      * @Assert\Length(
      *     max=100,

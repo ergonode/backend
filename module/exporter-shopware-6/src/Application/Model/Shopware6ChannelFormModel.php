@@ -18,32 +18,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Shopware6ChannelFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $name = null;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Url()
      */
     public ?string $host = null;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $clientId = null;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
@@ -55,13 +47,10 @@ class Shopware6ChannelFormModel
     public $segment = null;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(),
      *
      * @CoreAssert\LanguageCodeExists()
      * @CoreAssert\LanguageCodeActive()
-     *
      */
     public ?string $defaultLanguage = null;
 
@@ -77,60 +66,39 @@ class Shopware6ChannelFormModel
     public ?array $languages = [];
 
     /**
-     * @var AttributeId|null
-     *
      * @Assert\NotNull()
      */
     public ?AttributeId $attributeProductName = null;
 
     /**
-     * @var AttributeId|null
-     *
      * @Assert\NotNull()
      */
     public ?AttributeId $attributeProductActive = null;
 
     /**
-     * @var AttributeId|null
-     *
      * @Assert\NotNull()
      */
     public ?AttributeId $attributeProductStock = null;
 
     /**
-     * @var AttributeId|null
-     *
      * @Assert\NotNull()
      */
     public ?AttributeId $attributeProductPriceGross = null;
 
     /**
-     * @var AttributeId|null
-     *
      * @Assert\NotNull()
      */
     public ?AttributeId $attributeProductPriceNet = null;
 
     /**
-     * @var AttributeId|null
-     *
      * @Assert\NotNull()
      */
     public ?AttributeId $attributeProductTax = null;
 
-    /**
-     * @var AttributeId|null
-     */
     public ?AttributeId $attributeProductDescription = null;
 
-    /**
-     * @var AttributeId|null
-     */
     public ?AttributeId $attributeProductGallery = null;
 
-    /**
-     * @var string |null
-     */
     public ?string $categoryTree = null;
 
     /**
@@ -147,9 +115,6 @@ class Shopware6ChannelFormModel
      */
     public array $customField = [];
 
-    /**
-     * @param Shopware6Channel|null $channel
-     */
     public function __construct(Shopware6Channel $channel = null)
     {
         if ($channel) {

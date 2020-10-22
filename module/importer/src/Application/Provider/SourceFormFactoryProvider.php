@@ -15,19 +15,11 @@ class SourceFormFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param SourceFormFactoryInterface ...$factories
-     */
     public function __construct(SourceFormFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return SourceFormFactoryInterface
-     */
     public function provide(string $type): SourceFormFactoryInterface
     {
         foreach ($this->factories as $factory) {

@@ -19,29 +19,21 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 class UpdateFileExportChannelCommand implements DomainCommandInterface
 {
     /**
-     * @var  ChannelId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
      */
     protected ChannelId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $name;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $format;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $exportType;
@@ -54,11 +46,7 @@ class UpdateFileExportChannelCommand implements DomainCommandInterface
     protected array $languages;
 
     /**
-     * @param ChannelId $id
-     * @param string    $name
-     * @param string    $format
-     * @param string    $exportType
-     * @param array     $languages
+     * @param array $languages
      */
     public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
     {
@@ -72,33 +60,21 @@ class UpdateFileExportChannelCommand implements DomainCommandInterface
         $this->languages = $languages;
     }
 
-    /**
-     * @return ChannelId
-     */
     public function getId(): ChannelId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getFormat(): string
     {
         return $this->format;
     }
 
-    /**
-     * @return string
-     */
     public function getExportType(): string
     {
         return $this->exportType;

@@ -36,9 +36,6 @@ class LabelFilter implements FilterInterface
         return ['options' => $this->options];
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

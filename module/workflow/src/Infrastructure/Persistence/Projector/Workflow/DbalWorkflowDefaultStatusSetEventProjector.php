@@ -17,22 +17,14 @@ class DbalWorkflowDefaultStatusSetEventProjector
 {
     private const TABLE = 'workflow';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param WorkflowDefaultStatusSetEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(WorkflowDefaultStatusSetEvent $event): void

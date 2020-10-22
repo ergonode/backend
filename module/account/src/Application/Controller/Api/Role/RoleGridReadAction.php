@@ -26,26 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RoleGridReadAction
 {
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $query;
 
-    /**
-     * @var RoleGrid
-     */
     private RoleGrid $grid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer       $gridRenderer
-     * @param RoleQueryInterface $query
-     * @param RoleGrid           $grid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         RoleQueryInterface $query,
@@ -125,11 +111,6 @@ class RoleGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

@@ -75,9 +75,6 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     * @return ProductTypeValidator
-     */
     protected function createValidator(): ProductTypeValidator
     {
         return new ProductTypeValidator($this->repository);

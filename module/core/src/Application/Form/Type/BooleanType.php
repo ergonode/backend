@@ -24,9 +24,6 @@ class BooleanType extends AbstractType
     {
         $builder->addViewTransformer(new BooleanDataTransformer());
     }
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -40,9 +37,6 @@ class BooleanType extends AbstractType
         ]);
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return CheckboxType::class;

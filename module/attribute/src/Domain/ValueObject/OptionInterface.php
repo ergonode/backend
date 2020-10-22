@@ -11,9 +11,6 @@ namespace Ergonode\Attribute\Domain\ValueObject;
 
 interface OptionInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 
     /**
@@ -21,20 +18,9 @@ interface OptionInterface
      */
     public function getValue();
 
-    /**
-     * @return string
-     */
     public function __toString(): string;
 
-    /**
-     * @return bool
-     */
     public function isMultilingual(): bool;
 
-    /**
-     * @param OptionInterface $value
-     *
-     * @return bool
-     */
     public function equal(OptionInterface $value): bool;
 }

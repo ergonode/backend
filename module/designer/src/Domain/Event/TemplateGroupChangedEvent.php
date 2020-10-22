@@ -17,31 +17,20 @@ use JMS\Serializer\Annotation as JMS;
 class TemplateGroupChangedEvent implements DomainEventInterface
 {
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $id;
 
     /**
-     * @var TemplateGroupId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $from;
 
     /**
-     * @var TemplateGroupId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $to;
 
-    /**
-     * @param TemplateId      $id
-     * @param TemplateGroupId $from
-     * @param TemplateGroupId $to
-     */
     public function __construct(TemplateId $id, TemplateGroupId $from, TemplateGroupId $to)
     {
         $this->id = $id;
@@ -49,25 +38,16 @@ class TemplateGroupChangedEvent implements DomainEventInterface
         $this->to = $to;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getAggregateId(): TemplateId
     {
         return $this->id;
     }
 
-    /**
-     * @return TemplateGroupId
-     */
     public function getOld(): TemplateGroupId
     {
         return $this->from;
     }
 
-    /**
-     * @return TemplateGroupId
-     */
     public function getNew(): TemplateGroupId
     {
         return $this->to;

@@ -19,10 +19,5 @@ interface UserQueryInterface
      */
     public function getDictionary(): array;
 
-    /**
-     * @param Email $email
-     *
-     * @return UserId|null
-     */
     public function findIdByEmail(Email $email): ?UserId;
 }

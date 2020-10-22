@@ -17,22 +17,14 @@ class DbalProductTemplateChangedEventProjector
 {
     private const TABLE_PRODUCT = 'product';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductTemplateChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductTemplateChangedEvent $event): void

@@ -16,25 +16,15 @@ use Nette\PhpGenerator\PhpFile;
 
 class EntityIdClassBuilder implements BuilderInterface
 {
-    /**
-     * @var FileBuilder
-     */
     private FileBuilder $builder;
 
-    /**
-     * @param FileBuilder $builder
-     */
     public function __construct(FileBuilder $builder)
     {
         $this->builder = $builder;
     }
 
     /**
-     * @param string $module
-     * @param string $entityName
-     * @param array  $properties
-     *
-     * @return PhpFile
+     * @param array $properties
      */
     public function build(string $module, string $entityName, array $properties = []): PhpFile
     {

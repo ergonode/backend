@@ -19,20 +19,12 @@ use JMS\Serializer\Annotation as JMS;
 class CreateUnitAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**
-     * @var UnitId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
      */
     private UnitId $unitId;
 
     /**
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param UnitId             $unitId
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      */
@@ -57,9 +49,6 @@ class CreateUnitAttributeCommand extends AbstractCreateAttributeCommand
         $this->unitId = $unitId;
     }
 
-    /**
-     * @return UnitId
-     */
     public function getUnitId(): UnitId
     {
         return $this->unitId;

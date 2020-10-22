@@ -15,24 +15,12 @@ use PHPUnit\Framework\TestCase;
 
 class DesignerTemplateGroupIdHandlerTest extends TestCase
 {
-    /**
-     * @var TemplateGroupIdHandler
-     */
     private TemplateGroupIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializeVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializeVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

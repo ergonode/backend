@@ -19,14 +19,8 @@ use Webmozart\Assert\Assert;
 
 class DbalTemplateRepository implements TemplateRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
@@ -49,8 +43,6 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
     }
 
     /**
-     * @param Template $template
-     *
      * @throws DBALException
      */
     public function save(Template $template): void

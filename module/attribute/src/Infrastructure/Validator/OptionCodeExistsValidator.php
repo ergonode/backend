@@ -18,22 +18,15 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class OptionCodeExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @param OptionQueryInterface $optionQuery
-     */
     public function __construct(OptionQueryInterface $optionQuery)
     {
         $this->optionQuery = $optionQuery;
     }
 
     /**
-     * @param mixed      $value
-     * @param Constraint $constraint
+     * @param mixed $value
      */
     public function validate($value, Constraint $constraint): void
     {

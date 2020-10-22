@@ -32,9 +32,6 @@ class CommentTest extends TestCase
      */
     private $userId;
 
-    /**
-     * @var string
-     */
     private string $content;
 
     protected function setUp(): void

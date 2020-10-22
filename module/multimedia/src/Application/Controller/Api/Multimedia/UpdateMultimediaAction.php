@@ -37,20 +37,10 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
  */
 class UpdateMultimediaAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -76,10 +66,7 @@ class UpdateMultimediaAction
      *     description="Not found",
      * )
      *
-     * @param Multimedia $multimedia
-     * @param Request    $request
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      */

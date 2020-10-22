@@ -37,8 +37,6 @@ class LanguagePrivilegesDataTransformer implements DataTransformerInterface
 
     /**
      * @param array|null $value
-     *
-     * @return LanguagePrivileges|null
      */
     public function reverseTransform($value): ?LanguagePrivileges
     {

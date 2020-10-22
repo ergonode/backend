@@ -14,8 +14,6 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 class ExporterFileConfigurationModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
@@ -29,22 +27,15 @@ class ExporterFileConfigurationModel
     public array $languages = [];
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      */
     public ?string $exportType = null;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      */
     public ?string $format = null;
 
-    /**
-     * @param FileExportChannel|null $channel
-     */
     public function __construct(FileExportChannel $channel = null)
     {
         if ($channel) {

@@ -27,9 +27,6 @@ class ExportTest extends TestCase
      */
     private ChannelId $channelId;
 
-    /**
-     * @var int
-     */
     private int $items;
 
     protected function setUp(): void

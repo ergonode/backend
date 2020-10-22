@@ -17,14 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AbstractWorkflowParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var WorkflowProvider
-     */
     private WorkflowProvider $provider;
 
-    /**
-     * @param WorkflowProvider $provider
-     */
     public function __construct(WorkflowProvider $provider)
     {
         $this->provider = $provider;

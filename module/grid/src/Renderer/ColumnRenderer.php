@@ -16,20 +16,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ColumnRenderer
 {
-    /**
-     * @var FilterRenderer
-     */
     private FilterRenderer $filterRenderer;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param FilterRenderer      $filterRenderer
-     * @param TranslatorInterface $translator
-     */
     public function __construct(FilterRenderer $filterRenderer, TranslatorInterface $translator)
     {
         $this->filterRenderer = $filterRenderer;
@@ -37,9 +27,6 @@ class ColumnRenderer
     }
 
     /**
-     * @param AbstractGrid               $grid
-     * @param GridConfigurationInterface $configuration
-     *
      * @return array
      */
     public function render(AbstractGrid $grid, GridConfigurationInterface $configuration): array
@@ -53,10 +40,6 @@ class ColumnRenderer
     }
 
     /**
-     * @param string                     $id
-     * @param ColumnInterface            $column
-     * @param GridConfigurationInterface $gridConfiguration
-     *
      * @return array
      */
     public function renderColumn(

@@ -18,10 +18,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 
 class TemplateGroupGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $this->addColumn('id', new TextColumn('id', 'Id'));

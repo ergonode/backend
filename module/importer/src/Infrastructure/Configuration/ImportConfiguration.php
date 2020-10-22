@@ -17,17 +17,12 @@ class ImportConfiguration
      */
     private array $columns;
 
-    /**
-     * @param ConfigurationColumnInterface ...$columns
-     */
     public function __construct(ConfigurationColumnInterface ...$columns)
     {
         $this->columns = $columns;
     }
 
     /**
-     * @param ConfigurationColumnInterface $column
-     *
      * @return $this
      */
     public function add(ConfigurationColumnInterface $column): self

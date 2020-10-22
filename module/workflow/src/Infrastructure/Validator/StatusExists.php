@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class StatusExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Status {{ value }} exists';
 }

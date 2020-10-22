@@ -14,31 +14,23 @@ use JMS\Serializer\Annotation as JMS;
 class Shopware6PropertyGroupOption
 {
     /**
-     * @var string|null
-     *
      * @JMS\Exclude()
      */
     protected ?string $id;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("mediaId")
      */
     protected ?string $mediaId;
 
     /**
-     * @var int|null
-     *
      * @JMS\Type("int")
      * @JMS\SerializedName("position")
      */
@@ -53,18 +45,12 @@ class Shopware6PropertyGroupOption
     protected ?array $translations;
 
     /**
-     * @var bool
-     *
      * @JMS\Exclude()
      */
     protected bool $modified = false;
 
     /**
-     * @param string|null $id
-     * @param string|null $name
-     * @param string|null $mediaId
-     * @param int|null    $position
-     * @param array|null  $translations
+     * @param array|null $translations
      */
     public function __construct(
         ?string $id = null,
@@ -80,25 +66,16 @@ class Shopware6PropertyGroupOption
         $this->translations = $translations;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         if ($name !== $this->name) {
@@ -107,17 +84,11 @@ class Shopware6PropertyGroupOption
         }
     }
 
-    /**
-     * @return string|null
-     */
     public function getMediaId(): ?string
     {
         return $this->mediaId;
     }
 
-    /**
-     * @param string|null $mediaId
-     */
     public function setMediaId(?string $mediaId): void
     {
         if ($mediaId !== $this->mediaId) {
@@ -126,17 +97,11 @@ class Shopware6PropertyGroupOption
         }
     }
 
-    /**
-     * @return int|null
-     */
     public function getPosition(): ?int
     {
         return $this->position;
     }
 
-    /**
-     * @param int|null $position
-     */
     public function setPosition(?int $position): void
     {
         if ($position !== $this->position) {
@@ -153,11 +118,6 @@ class Shopware6PropertyGroupOption
         return $this->translations;
     }
 
-    /**
-     * @param Language $language
-     * @param string   $field
-     * @param string   $value
-     */
     public function addTranslations(Language $language, string $field, string $value): void
     {
         $code = str_replace('_', '-', $language->getCode());
@@ -165,9 +125,6 @@ class Shopware6PropertyGroupOption
         $this->translations[$code][$field] = $value;
     }
 
-    /**
-     * @return bool
-     */
     public function isModified(): bool
     {
         return $this->modified;

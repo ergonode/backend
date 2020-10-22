@@ -18,14 +18,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ConditionSetValidatorBuilder
 {
-    /**
-     * @var ConditionConstraintProvider
-     */
     private ConditionConstraintProvider $provider;
 
-    /**
-     * @param ConditionConstraintProvider $provider
-     */
     public function __construct(ConditionConstraintProvider $provider)
     {
         $this->provider = $provider;
@@ -33,8 +27,6 @@ class ConditionSetValidatorBuilder
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

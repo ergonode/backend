@@ -17,31 +17,20 @@ use JMS\Serializer\Annotation as JMS;
 class StatusColorChangedEvent implements DomainEventInterface
 {
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $id;
 
     /**
-     * @var Color
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
     private Color $from;
 
     /**
-     * @var Color
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
     private Color $to;
 
-    /**
-     * @param StatusId $id
-     * @param Color    $from
-     * @param Color    $to
-     */
     public function __construct(StatusId $id, Color $from, Color $to)
     {
         $this->id = $id;
@@ -49,25 +38,16 @@ class StatusColorChangedEvent implements DomainEventInterface
         $this->to = $to;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getAggregateId(): StatusId
     {
         return $this->id;
     }
 
-    /**
-     * @return Color
-     */
     public function getFrom(): Color
     {
         return $this->from;
     }
 
-    /**
-     * @return Color
-     */
     public function getTo(): Color
     {
         return $this->to;

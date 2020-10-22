@@ -14,14 +14,8 @@ use Webmozart\Assert\Assert;
 
 class UserIdsProvider
 {
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $query;
 
-    /**
-     * @param RoleQueryInterface $query
-     */
     public function __construct(RoleQueryInterface $query)
     {
         $this->query = $query;

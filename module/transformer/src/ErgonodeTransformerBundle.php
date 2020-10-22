@@ -17,9 +17,6 @@ use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterC
 
 class ErgonodeTransformerBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

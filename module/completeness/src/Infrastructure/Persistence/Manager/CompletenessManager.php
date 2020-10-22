@@ -20,22 +20,14 @@ class CompletenessManager
 {
     private const TABLE = 'product_completeness';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductId $productId
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -50,13 +42,6 @@ class CompletenessManager
     }
 
     /**
-     * @param ProductId   $productId
-     * @param TemplateId  $templateId
-     * @param AttributeId $attributeId
-     * @param Language    $language
-     * @param bool        $required
-     * @param bool        $filled
-     *
      * @throws DBALException
      */
     public function add(

@@ -28,15 +28,12 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
     private array $tree;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $operator;
 
     /**
      * @param CategoryTreeId[] $tree
-     * @param string           $operator
      */
     public function __construct(array $tree, string $operator)
     {
@@ -62,9 +59,6 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
         return $this->tree;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;

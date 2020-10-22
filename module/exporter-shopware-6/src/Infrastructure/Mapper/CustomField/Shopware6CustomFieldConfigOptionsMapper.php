@@ -18,20 +18,10 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 
 class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMapperInterface
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @var Shopware6LanguageRepositoryInterface
-     */
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
-    /**
-     * @param OptionQueryInterface                 $optionQuery
-     * @param Shopware6LanguageRepositoryInterface $languageRepository
-     */
     public function __construct(
         OptionQueryInterface $optionQuery,
         Shopware6LanguageRepositoryInterface $languageRepository
@@ -40,14 +30,6 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
         $this->languageRepository = $languageRepository;
     }
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,
@@ -59,13 +41,6 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
         return $shopware6CustomField;
     }
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     *
-     * @return Shopware6CustomField
-     */
     private function getOptions(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,
@@ -81,8 +56,7 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param array            $option
+     * @param array $option
      *
      * @return array
      */
@@ -95,8 +69,7 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param array            $option
+     * @param array $option
      *
      * @return array
      */

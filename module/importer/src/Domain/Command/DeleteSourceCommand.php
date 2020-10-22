@@ -15,23 +15,15 @@ use JMS\Serializer\Annotation as JMS;
 class DeleteSourceCommand implements DomainCommandInterface
 {
     /**
-     * @var SourceId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     private SourceId $id;
 
-    /**
-     * @param SourceId $id
-     */
     public function __construct(SourceId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return SourceId
-     */
     public function getId(): SourceId
     {
         return $this->id;

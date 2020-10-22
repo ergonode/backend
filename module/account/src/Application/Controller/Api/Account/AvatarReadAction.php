@@ -30,14 +30,8 @@ use Swagger\Annotations as SWG;
  */
 class AvatarReadAction
 {
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $avatarStorage;
 
-    /**
-     * @param FilesystemInterface $avatarStorage
-     */
     public function __construct(FilesystemInterface $avatarStorage)
     {
         $this->avatarStorage = $avatarStorage;
@@ -70,11 +64,6 @@ class AvatarReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
-     *
-     * @param User    $user
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(User $user, Request $request): Response
     {

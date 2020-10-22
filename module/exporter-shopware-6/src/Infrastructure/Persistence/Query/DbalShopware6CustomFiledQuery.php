@@ -24,25 +24,13 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channel
-     * @param string    $shopwareId
-     *
-     * @return AttributeId|null
-     */
     public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?AttributeId
     {
         $query = $this->connection->createQueryBuilder();
@@ -63,11 +51,6 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
         return null;
     }
 
-    /**
-     * @param ChannelId          $channel
-     * @param \DateTimeImmutable $dateTime
-     * @param string             $type
-     */
     public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime, string $type): void
     {
         $query = $this->connection->createQueryBuilder();

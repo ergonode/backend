@@ -15,10 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class StatusCodeFaker extends BaseProvider
 {
     /**
-     * @param string $code
-     *
-     * @return StatusCode
-     *
      * @throws \Exception
      */
     public function statusCode(string $code): StatusCode

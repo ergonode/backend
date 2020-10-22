@@ -24,34 +24,16 @@ use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 
 class StartMagento1ImportProcess implements SourceImportProcessorInterface
 {
-    /**
-     * @var SourceRepositoryInterface
-     */
     private SourceRepositoryInterface $sourceRepository;
 
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $transformerRepository;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
     private ImportErrorRepositoryInterface $importErrorRepository;
 
-    /**
-     * @var Magento1CsvReader
-     */
     private Magento1CsvReader $reader;
 
-    /**
-     * @var LoggerInterface
-     */
     private LoggerInterface $logger;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
     /**
@@ -60,12 +42,6 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     private array $steps;
 
     /**
-     * @param SourceRepositoryInterface        $sourceRepository
-     * @param TransformerRepositoryInterface   $transformerRepository
-     * @param ImportErrorRepositoryInterface   $importErrorRepository
-     * @param Magento1CsvReader                $reader
-     * @param LoggerInterface                  $logger
-     * @param CommandBusInterface              $commandBus
      * @param Magento1ProcessorStepInterface[] $steps
      */
     public function __construct(
@@ -86,19 +62,12 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         $this->steps = $steps;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return $type === Magento1CsvSource::TYPE;
     }
 
     /**
-     * @param Import $import
-     *
      * @throws \ReflectionException
      */
     public function start(Import $import): void

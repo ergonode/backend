@@ -15,8 +15,6 @@ use Ergonode\Category\Infrastructure\Validator\UniqueCategoryTreeCode;
 class CategoryTreeCreateFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="Category tree system name is required")
      * @Assert\Length(
      *     max=64,

@@ -15,10 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class AttributeCodeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
-     *
-     * @return AttributeCode
-     *
      * @throws \Exception
      */
     public function attributeCode(?string $code = null): AttributeCode

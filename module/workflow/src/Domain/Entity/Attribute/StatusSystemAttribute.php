@@ -20,19 +20,12 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
     public const TYPE = 'STATUS';
     public const CODE = 'esa_status';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
     /**
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -47,9 +40,6 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
-    /**
-     * @return bool
-     */
     public function isSystem(): bool
     {
         return true;

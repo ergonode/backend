@@ -19,49 +19,35 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 class UpdateShopware6ChannelCommand implements DomainCommandInterface
 {
     /**
-     * @var ChannelId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
      */
     protected ChannelId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $name;
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $host;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $clientId;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $clientKey;
 
     /**
-     * @var SegmentId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private ?SegmentId $segment;
 
     /**
-     * @var Language
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $defaultLanguage;
@@ -74,64 +60,46 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
     private array $languages;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $productName;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $productActive;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $productStock;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $productPriceGross;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $productPriceNet;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $productTax;
 
     /**
-     * @var AttributeId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $productDescription;
 
     /**
-     * @var AttributeId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $productGallery;
 
     /**
-     * @var CategoryTreeId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private ?CategoryTreeId $categoryTree;
@@ -151,23 +119,7 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
     private array $customField;
 
     /**
-     * @param ChannelId           $id
-     * @param string              $name
-     * @param string              $host
-     * @param string              $clientId
-     * @param string              $clientKey
-     * @param SegmentId|null      $segment
-     * @param Language            $defaultLanguage
      * @param Language[]          $languages
-     * @param AttributeId         $productName
-     * @param AttributeId         $productActive
-     * @param AttributeId         $productStock
-     * @param AttributeId         $productPriceGross
-     * @param AttributeId         $productPriceNet
-     * @param AttributeId         $productTax
-     * @param AttributeId|null    $productDescription
-     * @param AttributeId|null    $productGallery
-     * @param CategoryTreeId|null $categoryTree
      * @param array|AttributeId[] $propertyGroup
      * @param array|AttributeId[] $customField
      */
@@ -213,57 +165,36 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
         $this->customField = $customField;
     }
 
-    /**
-     * @return ChannelId
-     */
     public function getId(): ChannelId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getHost(): string
     {
         return $this->host;
     }
 
-    /**
-     * @return string
-     */
     public function getClientId(): string
     {
         return $this->clientId;
     }
 
-    /**
-     * @return string
-     */
     public function getClientKey(): string
     {
         return $this->clientKey;
     }
 
-    /**
-     * @return SegmentId|null
-     */
     public function getSegment(): ?SegmentId
     {
         return $this->segment;
     }
 
-    /**
-     * @return Language
-     */
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
@@ -277,73 +208,46 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
         return $this->languages;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getProductName(): AttributeId
     {
         return $this->productName;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getProductActive(): AttributeId
     {
         return $this->productActive;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getProductStock(): AttributeId
     {
         return $this->productStock;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getProductPriceGross(): AttributeId
     {
         return $this->productPriceGross;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getProductPriceNet(): AttributeId
     {
         return $this->productPriceNet;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getProductTax(): AttributeId
     {
         return $this->productTax;
     }
 
-    /**
-     * @return AttributeId|null
-     */
     public function getProductDescription(): ?AttributeId
     {
         return $this->productDescription;
     }
 
-    /**
-     * @return AttributeId|null
-     */
     public function getProductGallery(): ?AttributeId
     {
         return $this->productGallery;
     }
 
-    /**
-     * @return CategoryTreeId|null
-     */
     public function getCategoryTree(): ?CategoryTreeId
     {
         return $this->categoryTree;

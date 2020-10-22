@@ -19,35 +19,16 @@ use PHPUnit\Framework\TestCase;
 
 class ProductCollectionTest extends TestCase
 {
-    /**
-     * @var ProductCollectionId
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @var ProductCollectionCode
-     *
-     */
     private ProductCollectionCode $code;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $name;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $description;
 
-    /**
-     * @var ProductCollectionTypeId
-     */
     private ProductCollectionTypeId $typeId;
 
-    /**
-     * @var ProductId
-     */
     private ProductId $productId;
 
     public function setUp(): void

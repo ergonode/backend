@@ -69,10 +69,7 @@ class ProductCollectionElementReadAction
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
-     * @param ProductCollection $productCollection
-     * @param AbstractProduct   $product
      *
-     * @return Response
      *
      * @throws \Exception
      */

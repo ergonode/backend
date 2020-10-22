@@ -13,9 +13,6 @@ use Symfony\Component\Validator\Constraint;
 
 class ConstraintAttributeExistsCondition extends Constraint
 {
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return ConstraintAttributeExistsConditionValidator::class;

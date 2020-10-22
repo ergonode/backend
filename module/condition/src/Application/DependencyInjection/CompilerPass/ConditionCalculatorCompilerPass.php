@@ -18,9 +18,6 @@ class ConditionCalculatorCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.condition.condition_set.calculator_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConditionCalculatorProvider::class)) {
@@ -28,9 +25,6 @@ class ConditionCalculatorCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processCalculators(ContainerBuilder $container): void
     {
         $arguments = [];

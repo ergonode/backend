@@ -26,23 +26,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductCollectionGrid extends AbstractGrid
 {
-    /**
-     * @var ProductCollectionTypeQueryInterface
-     */
     private ProductCollectionTypeQueryInterface $query;
 
-    /**
-     * @param ProductCollectionTypeQueryInterface $query
-     */
     public function __construct(ProductCollectionTypeQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     *
      * @throws \Exception
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void

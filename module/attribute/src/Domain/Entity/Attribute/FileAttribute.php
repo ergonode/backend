@@ -13,9 +13,6 @@ class FileAttribute extends AbstractCollectionAttribute
 {
     public const TYPE = 'FILE';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

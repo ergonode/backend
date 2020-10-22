@@ -16,8 +16,6 @@ use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 class CreateSimpleProductCommandHandler extends AbstractCreateProductHandler
 {
     /**
-     * @param CreateSimpleProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateSimpleProductCommand $command)

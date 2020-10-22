@@ -29,14 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductReadAction
 {
-    /**
-     * @var GetProductQueryInterface
-     */
     private GetProductQueryInterface $getProductQuery;
 
-    /**
-     * @param GetProductQueryInterface $getProductQuery
-     */
     public function __construct(GetProductQueryInterface $getProductQuery)
     {
         $this->getProductQuery = $getProductQuery;
@@ -70,12 +64,8 @@ class ProductReadAction
      *     description="Not found",
      * )
      *
-     * @param AbstractProduct $product
-     * @param Language        $language
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     * @return Response
      */
     public function __invoke(AbstractProduct $product, Language $language): Response
     {

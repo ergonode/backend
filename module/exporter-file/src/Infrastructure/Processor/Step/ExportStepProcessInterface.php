@@ -13,9 +13,5 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 interface ExportStepProcessInterface
 {
-    /**
-     * @param ExportId          $exportId
-     * @param FileExportChannel $channel
-     */
     public function export(ExportId $exportId, FileExportChannel $channel): void;
 }

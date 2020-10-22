@@ -23,20 +23,10 @@ class ExceptionHandler implements SubscribingHandlerInterface
     private const DEFAULT_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
     private const DEFAULT_MESSAGE = 'Internal server error';
 
-    /**
-     * @var ExceptionMapperInterface
-     */
     private ExceptionMapperInterface $exceptionMapper;
 
-    /**
-     * @var ExceptionNormalizerInterface
-     */
     private ExceptionNormalizerInterface $exceptionNormalizer;
 
-    /**
-     * @param ExceptionMapperInterface     $exceptionMapper
-     * @param ExceptionNormalizerInterface $exceptionNormalizer
-     */
     public function __construct(
         ExceptionMapperInterface $exceptionMapper,
         ExceptionNormalizerInterface $exceptionNormalizer
@@ -66,10 +56,7 @@ class ExceptionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param \Exception                    $exception
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */

@@ -15,20 +15,10 @@ use Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface;
 
 class PrivilegeGroupedByAreaProvider
 {
-    /**
-     * @var PrivilegeQueryInterface
-     */
     private PrivilegeQueryInterface $query;
 
-    /**
-     * @var PrivilegeTypeResolverInterface
-     */
     private PrivilegeTypeResolverInterface $resolver;
 
-    /**
-     * @param PrivilegeQueryInterface        $query
-     * @param PrivilegeTypeResolverInterface $resolver
-     */
     public function __construct(
         PrivilegeQueryInterface $query,
         PrivilegeTypeResolverInterface $resolver

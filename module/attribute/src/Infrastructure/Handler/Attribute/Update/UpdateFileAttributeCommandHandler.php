@@ -17,22 +17,14 @@ use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
 class UpdateFileAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateFileAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateFileAttributeCommand $command): void

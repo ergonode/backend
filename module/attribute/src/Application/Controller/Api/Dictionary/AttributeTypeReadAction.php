@@ -21,14 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AttributeTypeReadAction
 {
-    /**
-     * @var AttributeTypeDictionaryProvider
-     */
     private AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider;
 
-    /**
-     * @param AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider
-     */
     public function __construct(AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider)
     {
         $this->attributeTypeDictionaryProvider = $attributeTypeDictionaryProvider;
@@ -52,10 +46,6 @@ class AttributeTypeReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

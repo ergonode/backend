@@ -13,11 +13,5 @@ use Ergonode\Grid\DataSetInterface;
 
 interface AttributeGridQueryInterface
 {
-    /**
-     * @param Language $language
-     * @param bool     $system
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language, bool $system = false): DataSetInterface;
 }

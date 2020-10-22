@@ -17,22 +17,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateDateAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateDateAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateDateAttributeCommand $command): void

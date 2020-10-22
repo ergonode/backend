@@ -15,9 +15,6 @@ use PHPUnit\Framework\TestCase;
 class LanguageCompletenessConditionTest extends TestCase
 {
     /**
-     * @param string   $completeness
-     * @param Language $language
-     *
      * @dataProvider dataProvider
      */
     public function testConditionCreation(string $completeness, Language $language): void

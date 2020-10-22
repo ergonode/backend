@@ -15,13 +15,9 @@ use Symfony\Component\Validator\Constraint;
  * @Annotation
  *
  * @Target({"CLASS", "ANNOTATION"})
- *
  */
 class OptionCodeExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Option code {{ value }} already exists.';
 
     /**

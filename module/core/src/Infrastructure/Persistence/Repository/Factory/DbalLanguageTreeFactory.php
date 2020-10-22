@@ -17,8 +17,6 @@ class DbalLanguageTreeFactory
 {
     /**
      * @param array $data
-     *
-     * @return LanguageTree
      */
     public function create(array $data): LanguageTree
     {

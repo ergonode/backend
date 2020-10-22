@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ProductCollectionTypeCreateFormModel
 {
     /**
-     * @var ProductCollectionTypeCode | null
-     *
      * @Assert\NotBlank(message="Product collection type code is required")
      * @Assert\Length(
      *     max=64,

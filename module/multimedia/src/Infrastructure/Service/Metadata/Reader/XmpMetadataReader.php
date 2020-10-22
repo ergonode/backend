@@ -48,8 +48,6 @@ class XmpMetadataReader implements MetadataReaderInterface
 
     /**
      * @param resource $pointer
-     *
-     * @return null|string
      */
     private function getProfile($pointer): ?string
     {

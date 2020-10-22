@@ -18,21 +18,11 @@ use Symfony\Component\Validator\Constraints\Collection;
 
 class NumericAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof NumericAttribute;
     }
 
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return Constraint
-     */
     public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([

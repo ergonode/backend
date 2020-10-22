@@ -14,24 +14,12 @@ use PHPUnit\Framework\TestCase;
 
 class BranchTest extends TestCase
 {
-    /**
-     * @var AggregateId
-     */
     private AggregateId $id;
 
-    /**
-     * @var string
-     */
     private string $code;
 
-    /**
-     * @var int
-     */
     private int $left;
 
-    /**
-     * @var int
-     */
     private int $right;
 
     /**

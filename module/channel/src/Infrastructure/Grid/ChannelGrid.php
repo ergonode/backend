@@ -22,23 +22,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ChannelGrid extends AbstractGrid
 {
-    /**
-     * @var ChannelTypeDictionaryProvider
-     */
     private ChannelTypeDictionaryProvider $channelTypeProvider;
 
-    /**
-     * @param ChannelTypeDictionaryProvider $channelTypeProvider
-     */
     public function __construct(ChannelTypeDictionaryProvider $channelTypeProvider)
     {
         $this->channelTypeProvider = $channelTypeProvider;
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $types = [];

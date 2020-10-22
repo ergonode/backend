@@ -42,11 +42,7 @@ class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @param string $contentType
-     * @param string $method
-     * @param string $content
-     * @param array  $deserialize
-     * @param string $expected
+     * @param array $deserialize
      *
      * @dataProvider dataProviderHappy
      */
@@ -97,10 +93,6 @@ class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @param string $contentType
-     * @param string $method
-     * @param string $content
-     *
      * @dataProvider dataProviderUnhappy
      */
     public function testInvokeUnhappy(

@@ -19,57 +19,37 @@ use JMS\Serializer\Annotation as JMS;
 class ProductCollectionCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
     /**
-     * @var ProductCollectionCode
-     *
      * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
-     *
      */
     private ProductCollectionCode $code;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $description;
 
     /**
-     * @var ProductCollectionTypeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $typeId;
 
     /**
-     * @var \DateTime $createdAt
-     *
      * @JMS\Type("DateTime")
      */
     private \DateTime $createdAt;
 
     /**
      * ProductCollectionCreatedEvent constructor.
-     *
-     * @param ProductCollectionId     $id
-     * @param ProductCollectionCode   $code
-     * @param TranslatableString      $name
-     * @param TranslatableString      $description
-     * @param ProductCollectionTypeId $typeId
-     * @param \DateTime               $createdAt
      */
     public function __construct(
         ProductCollectionId $id,
@@ -88,49 +68,31 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
     }
 
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getDescription(): TranslatableString
     {
         return $this->description;
     }
 
-    /**
-     * @return ProductCollectionCode
-     */
     public function getCode(): ProductCollectionCode
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
     }
 
-    /**
-     * @return ProductCollectionTypeId
-     */
     public function getTypeId(): ProductCollectionTypeId
     {
         return $this->typeId;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;

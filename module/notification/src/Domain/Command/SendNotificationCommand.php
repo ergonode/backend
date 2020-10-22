@@ -15,9 +15,6 @@ use Ergonode\Notification\Domain\NotificationInterface;
 
 class SendNotificationCommand implements DomainCommandInterface
 {
-    /**
-     * @var NotificationInterface
-     */
     private NotificationInterface $notification;
 
     /**
@@ -26,8 +23,7 @@ class SendNotificationCommand implements DomainCommandInterface
     private array $recipients;
 
     /**
-     * @param NotificationInterface $notification
-     * @param UserId[]              $recipients
+     * @param UserId[] $recipients
      */
     public function __construct(NotificationInterface $notification, array $recipients)
     {
@@ -35,9 +31,6 @@ class SendNotificationCommand implements DomainCommandInterface
         $this->recipients = $recipients;
     }
 
-    /**
-     * @return NotificationInterface
-     */
     public function getNotification(): NotificationInterface
     {
         return $this->notification;

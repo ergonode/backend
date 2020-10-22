@@ -20,14 +20,8 @@ use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 
 class LogColumnRenderer implements ColumnRendererInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;

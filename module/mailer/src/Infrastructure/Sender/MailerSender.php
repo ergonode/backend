@@ -28,9 +28,6 @@ class MailerSender
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param MailInterface $message
-     */
     public function send(MailInterface $message): void
     {
         foreach ($this->strategies as $strategy) {

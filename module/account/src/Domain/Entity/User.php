@@ -33,50 +33,36 @@ use JMS\Serializer\Annotation as JMS;
 class User extends AbstractAggregateRoot implements UserInterface
 {
     /**
-     * @var UserId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $firstName;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $lastName;
 
     /**
-     * @var Email
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\ValueObject\Email")
      */
     private Email $email;
 
     /**
-     * @var Password
-     *
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\Password")
      */
     private Password $password;
 
     /**
-     * @var Language
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $language;
 
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $roleId;
@@ -89,22 +75,12 @@ class User extends AbstractAggregateRoot implements UserInterface
     private array $languagePrivilegesCollection;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("boolean")
      */
     private bool $isActive;
 
     /**
-     * @param UserId               $id
-     * @param string               $firstName
-     * @param string               $lastName
-     * @param Email                $email
-     * @param Language             $language
-     * @param Password             $password
-     * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param bool                 $isActive
      *
      * @throws \Exception
      */
@@ -134,49 +110,31 @@ class User extends AbstractAggregateRoot implements UserInterface
         );
     }
 
-    /**
-     * @return UserId
-     */
     public function getId(): UserId
     {
         return $this->id;
     }
 
-    /**
-     * @return Email
-     */
     public function getEmail(): Email
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @return Language
-     */
     public function getLanguage(): Language
     {
         return $this->language;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password->getValue();
@@ -190,9 +148,6 @@ class User extends AbstractAggregateRoot implements UserInterface
         return [];
     }
 
-    /**
-     * @return RoleId
-     */
     public function getRoleId(): RoleId
     {
         return $this->roleId;
@@ -206,17 +161,12 @@ class User extends AbstractAggregateRoot implements UserInterface
         return $this->languagePrivilegesCollection;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->isActive;
     }
 
     /**
-     * @param string $firstName
-     *
      * @throws \Exception
      */
     public function changeFirstName(string $firstName): void
@@ -227,8 +177,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param RoleId $roleId
-     *
      * @throws \Exception
      */
     public function changeRole(RoleId $roleId): void
@@ -268,8 +216,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param string $lastName
-     *
      * @throws \Exception
      */
     public function changeLastName(string $lastName): void
@@ -280,8 +226,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @throws \Exception
      */
     public function changeLanguage(Language $language): void
@@ -292,8 +236,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param string|null $avatarFilename
-     *
      * @throws \Exception
      */
     public function changeAvatar(string $avatarFilename = null): void
@@ -302,8 +244,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param Password $password
-     *
      * @throws \Exception
      */
     public function changePassword(Password $password): void
@@ -343,35 +283,21 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->apply(new UserDeactivatedEvent($this->id));
     }
 
-    /**
-     * @return string
-     */
     public function getSalt(): string
     {
         return '';
     }
 
-    /**
-     * @return string
-     */
     public function getUsername(): string
     {
         return $this->email->getValue();
     }
 
-    /**
-     * @return bool
-     */
     public function eraseCredentials(): bool
     {
         return false;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return bool
-     */
     public function hasReadLanguagePrivilege(Language $language): bool
     {
         return (
@@ -380,11 +306,6 @@ class User extends AbstractAggregateRoot implements UserInterface
         );
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return bool
-     */
     public function hasEditLanguagePrivilege(Language $language): bool
     {
         return (
@@ -393,9 +314,6 @@ class User extends AbstractAggregateRoot implements UserInterface
         );
     }
 
-    /**
-     * @param UserCreatedEvent $event
-     */
     protected function applyUserCreatedEvent(UserCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -409,67 +327,42 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->isActive = $event->isActive();
     }
 
-    /**
-     *
-     * @param UserLanguagePrivilegesCollectionChangedEvent $event
-     */
     protected function applyUserLanguagePrivilegesCollectionChangedEvent(
         UserLanguagePrivilegesCollectionChangedEvent $event
     ): void {
         $this->languagePrivilegesCollection = $event->getTo();
     }
 
-    /**
-     * @param UserRoleChangedEvent $event
-     */
     protected function applyUserRoleChangedEvent(UserRoleChangedEvent $event): void
     {
         $this->roleId = $event->getTo();
     }
 
-    /**
-     * @param UserFirstNameChangedEvent $event
-     */
     protected function applyUserFirstNameChangedEvent(UserFirstNameChangedEvent $event): void
     {
         $this->firstName = $event->getTo();
     }
 
-    /**
-     * @param UserLastNameChangedEvent $event
-     */
     protected function applyUserLastNameChangedEvent(UserLastNameChangedEvent $event): void
     {
         $this->lastName = $event->getTo();
     }
 
-    /**
-     * @param UserLanguageChangedEvent $event
-     */
     protected function applyUserLanguageChangedEvent(UserLanguageChangedEvent $event): void
     {
         $this->language = $event->getTo();
     }
 
-    /**
-     * @param UserPasswordChangedEvent $event
-     */
     protected function applyUserPasswordChangedEvent(UserPasswordChangedEvent $event): void
     {
         $this->password = $event->getPassword();
     }
 
-    /**
-     * @param UserActivatedEvent $event
-     */
     protected function applyUserActivatedEvent(UserActivatedEvent $event): void
     {
         $this->isActive = true;
     }
 
-    /**
-     * @param UserDeactivatedEvent $event
-     */
     protected function applyUserDeactivatedEvent(UserDeactivatedEvent $event): void
     {
         $this->isActive = false;

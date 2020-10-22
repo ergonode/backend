@@ -21,32 +21,14 @@ use Webmozart\Assert\Assert;
 
 class ProductCompletenessConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var CompletenessCalculator
-     */
     private CompletenessCalculator $calculator;
 
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $repository;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var DraftProvider
-     */
     private DraftProvider $provider;
 
-    /**
-     * @param CompletenessCalculator      $calculator
-     * @param TemplateRepositoryInterface $repository
-     * @param LanguageQueryInterface      $query
-     * @param DraftProvider               $provider
-     */
     public function __construct(
         CompletenessCalculator $calculator,
         TemplateRepositoryInterface $repository,
@@ -68,10 +50,8 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
     }
 
     /**
-     * @param AbstractProduct                                 $object
      * @param ConditionInterface|ProductCompletenessCondition $configuration
      *
-     * @return bool
      *
      * @throws \Exception
      */

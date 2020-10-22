@@ -13,8 +13,5 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 interface UserInterface extends BaseUserInterface
 {
-    /**
-     * @return bool
-     */
     public function isActive(): bool;
 }

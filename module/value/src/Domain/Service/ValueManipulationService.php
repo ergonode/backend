@@ -18,20 +18,11 @@ class ValueManipulationService
      */
     private array $strategies;
 
-    /**
-     * @param ValueUpdateStrategyInterface ...$strategies
-     */
     public function __construct(ValueUpdateStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param ValueInterface $oldValue
-     * @param ValueInterface $newValue
-     *
-     * @return ValueInterface
-     */
     public function calculate(ValueInterface $oldValue, ValueInterface $newValue): ValueInterface
     {
         foreach ($this->strategies as $strategy) {

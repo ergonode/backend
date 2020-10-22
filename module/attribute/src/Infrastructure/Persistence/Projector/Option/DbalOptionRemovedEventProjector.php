@@ -18,22 +18,14 @@ class DbalOptionRemovedEventProjector
     private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param OptionRemovedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(OptionRemovedEvent $event): void

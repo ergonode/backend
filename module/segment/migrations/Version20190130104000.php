@@ -15,8 +15,6 @@ use Ramsey\Uuid\Uuid;
 final class Version20190130104000 extends AbstractErgonodeMigration
 {
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema): void

@@ -23,10 +23,6 @@ abstract class AbstractAction implements HeaderProviderInterface
         return $this->header;
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     */
     public function addHeader(string $key, string $value): void
     {
         $this->header[$key] = $value;

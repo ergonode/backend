@@ -15,24 +15,12 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6ProductTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $sku;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $description;
 
     /**
@@ -50,19 +38,10 @@ class Shopware6ProductTest extends TestCase
      */
     private array $customFields;
 
-    /**
-     * @var bool
-     */
     private bool $active;
 
-    /**
-     * @var int
-     */
     private int $stock;
 
-    /**
-     * @var string
-     */
     private string $taxId;
 
     /**
@@ -70,9 +49,6 @@ class Shopware6ProductTest extends TestCase
      */
     private array $price;
 
-    /**
-     * @var string
-     */
     private string $parentId;
 
     /**
@@ -85,9 +61,6 @@ class Shopware6ProductTest extends TestCase
      */
     private array $media;
 
-    /**
-     * @var string
-     */
     private string $coverId;
 
 

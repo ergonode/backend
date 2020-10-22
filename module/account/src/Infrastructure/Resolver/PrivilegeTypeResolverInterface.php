@@ -13,10 +13,5 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 
 interface PrivilegeTypeResolverInterface
 {
-    /**
-     * @param Privilege $privilege
-     *
-     * @return string
-     */
     public function resolve(Privilege $privilege): string;
 }

@@ -17,22 +17,14 @@ class DbalUserRoleChangedEventProjector
 {
     private const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UserRoleChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UserRoleChangedEvent $event): void

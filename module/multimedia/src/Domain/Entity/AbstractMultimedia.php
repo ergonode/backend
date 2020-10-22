@@ -21,29 +21,21 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractMultimedia extends AbstractAggregateRoot
 {
     /**
-     * @var MultimediaId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private MultimediaId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $extension;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $mime;
@@ -51,33 +43,23 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     /**
      * The file size in bytes.
      *
-     * @var int
      *
      * @JMS\Type("int")
      */
     private int $size;
 
     /**
-     * @var Hash
-     *
      * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
      */
     private Hash $hash;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $alt;
 
     /**
-     * @param MultimediaId $id
-     * @param string       $name
-     * @param string       $extension
-     * @param int          $size      The file size in bytes.
-     * @param Hash         $hash
-     * @param string|null  $mime
+     * @param int $size The file size in bytes.
      *
      * @throws \Exception
      */
@@ -101,17 +83,12 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
         );
     }
 
-    /**
-     * @return string
-     */
     public function getFileName(): string
     {
         return sprintf('%s.%s', $this->hash->getValue(), $this->extension);
     }
 
     /**
-     * @param TranslatableString $alt
-     *
      * @throws \Exception
      */
     public function changeAlt(TranslatableString $alt): void
@@ -122,8 +99,6 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     }
 
     /**
-     * @param string $name
-     *
      * @throws \Exception
      */
     public function changeName(string $name): void
@@ -133,65 +108,41 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @return MultimediaId
-     */
     public function getId(): MultimediaId
     {
         return $this->id;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getAlt(): TranslatableString
     {
         return $this->alt;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getExtension(): string
     {
         return $this->extension;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMime(): ?string
     {
         return $this->mime;
     }
 
-    /**
-     * @return int
-     */
     public function getSize(): int
     {
         return $this->size;
     }
 
-    /**
-     * @return Hash
-     */
     public function getHash(): Hash
     {
         return $this->hash;
     }
 
-    /**
-     * @param MultimediaCreatedEvent $event
-     */
     protected function applyMultimediaCreatedEvent(MultimediaCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -203,17 +154,11 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
         $this->alt = new TranslatableString();
     }
 
-    /**
-     * @param MultimediaAltChangedEvent $event
-     */
     protected function applyMultimediaAltChangedEvent(MultimediaAltChangedEvent $event): void
     {
         $this->alt = $event->getAlt();
     }
 
-    /**
-     * @param MultimediaNameChangedEvent $event
-     */
     protected function applyMultimediaNameChangedEvent(MultimediaNameChangedEvent $event): void
     {
         $this->name = $event->getName();

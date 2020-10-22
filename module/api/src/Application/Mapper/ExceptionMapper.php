@@ -39,11 +39,6 @@ class ExceptionMapper implements ExceptionMapperInterface
         return $result;
     }
 
-    /**
-     * @param \Throwable $exception
-     *
-     * @return string|null
-     */
     private function findClass(\Throwable $exception): ?string
     {
         $result = null;

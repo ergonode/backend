@@ -18,11 +18,6 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 class CategoryProcessor
 {
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractCategory  $category
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractCategory $category): ExportData
@@ -43,12 +38,6 @@ class CategoryProcessor
         }
     }
 
-    /**
-     * @param AbstractCategory $category
-     * @param Language         $language
-     *
-     * @return LanguageData
-     */
     private function getLanguage(AbstractCategory $category, Language $language): LanguageData
     {
         $result = new LanguageData();

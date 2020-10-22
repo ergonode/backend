@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 class DbalImportErrorMapper
 {
     /**
-     * @param ImportError $importLine
-     *
      * @return array
      */
     public function map(ImportError $importLine): array

@@ -24,14 +24,6 @@ abstract class AbstractDateAttribute extends AbstractAttribute
     public const FORMAT = 'format';
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param DateFormat         $format
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -57,25 +49,18 @@ abstract class AbstractDateAttribute extends AbstractAttribute
     /**
      * @JMS\VirtualProperty();
      * @JMS\SerializedName("type")
-     *
-     * @return string
      */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return DateFormat
-     */
     public function getFormat(): DateFormat
     {
         return new DateFormat($this->getParameter(self::FORMAT));
     }
 
     /**
-     * @param DateFormat $new
-     *
      * @throws \Exception
      */
     public function changeFormat(DateFormat $new): void

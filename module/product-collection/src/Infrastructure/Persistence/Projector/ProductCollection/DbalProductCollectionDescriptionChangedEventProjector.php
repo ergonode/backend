@@ -19,20 +19,10 @@ class DbalProductCollectionDescriptionChangedEventProjector
 {
     private const TABLE = 'product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -40,8 +30,6 @@ class DbalProductCollectionDescriptionChangedEventProjector
     }
 
     /**
-     * @param ProductCollectionDescriptionChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCollectionDescriptionChangedEvent $event): void

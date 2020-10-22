@@ -19,7 +19,6 @@ class DbalExportFactory
     /**
      * @param array $record
      *
-     * @return Export
      *
      * @throws \ReflectionException
      */

@@ -19,8 +19,6 @@ class SkuTest extends TestCase
 {
     /**
      * @dataProvider data
-     *
-     * @param string $sku
      */
     public function testGetValue(string $sku): void
     {

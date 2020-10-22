@@ -32,8 +32,7 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductFormCom
 class ErgonodeProductExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

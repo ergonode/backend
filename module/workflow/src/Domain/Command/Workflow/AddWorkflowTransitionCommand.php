@@ -19,22 +19,16 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 class AddWorkflowTransitionCommand implements DomainCommandInterface
 {
     /**
-     * @var WorkflowId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private WorkflowId $workflowId;
 
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $source;
 
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $destination;
@@ -47,18 +41,12 @@ class AddWorkflowTransitionCommand implements DomainCommandInterface
     private array $roleIds;
 
     /**
-     * @var ConditionSetId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ?ConditionSetId $conditionSetId;
 
     /**
-     * @param WorkflowId          $workflowId
-     * @param StatusId            $source
-     * @param StatusId            $destination
-     * @param RoleId[]            $roleIds
-     * @param ConditionSetId|null $conditionSetId
+     * @param RoleId[] $roleIds
      */
     public function __construct(
         WorkflowId $workflowId,
@@ -75,33 +63,21 @@ class AddWorkflowTransitionCommand implements DomainCommandInterface
     }
 
 
-    /**
-     * @return WorkflowId
-     */
     public function getWorkflowId(): WorkflowId
     {
         return $this->workflowId;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getSource(): StatusId
     {
         return $this->source;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getDestination(): StatusId
     {
         return $this->destination;
     }
 
-    /**
-     * @return ConditionSetId|null
-     */
     public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;

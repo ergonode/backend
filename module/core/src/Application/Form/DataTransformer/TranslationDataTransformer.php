@@ -34,8 +34,6 @@ class TranslationDataTransformer implements DataTransformerInterface
 
     /**
      * @param array|null $value
-     *
-     * @return TranslatableString
      */
     public function reverseTransform($value): TranslatableString
     {

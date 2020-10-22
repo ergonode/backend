@@ -16,26 +16,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 interface CommentRepositoryInterface
 {
     /**
-     * @param CommentId $id
-     *
      * @return Comment
      */
     public function load(CommentId $id): ?AbstractAggregateRoot;
 
-    /**
-     * @param Comment $object
-     */
     public function save(Comment $object): void;
 
-    /**
-     * @param CommentId $id
-     *
-     * @return bool
-     */
     public function exists(CommentId $id): bool;
 
-    /**
-     * @param Comment $object
-     */
     public function delete(Comment $object): void;
 }

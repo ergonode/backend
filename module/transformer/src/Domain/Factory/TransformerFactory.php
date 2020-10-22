@@ -15,12 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 class TransformerFactory
 {
     /**
-     * @param TransformerId $id
-     * @param string        $name
-     * @param string        $key
-     *
-     * @return Transformer
-     *
      * @throws \Exception
      */
     public function create(TransformerId $id, string $name, string $key): Transformer

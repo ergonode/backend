@@ -30,26 +30,12 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class TransitionGridReadAction
 {
-    /**
-     * @var TransitionQueryInterface
-     */
     private TransitionQueryInterface $query;
 
-    /**
-     * @var TransitionGrid
-     */
     private TransitionGrid $grid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer             $gridRenderer
-     * @param TransitionQueryInterface $query
-     * @param TransitionGrid           $grid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         TransitionQueryInterface $query,
@@ -122,12 +108,6 @@ class TransitionGridReadAction
      *     response=200,
      *     description="Returns statuses collection",
      * )
-     *
-     * @param AbstractWorkflow         $workflow
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractWorkflow $workflow,

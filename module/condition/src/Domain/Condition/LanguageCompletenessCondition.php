@@ -26,23 +26,15 @@ class LanguageCompletenessCondition implements ConditionInterface
     public const PRODUCT_TRANSLATION_NOT_COMPLETE = 'PRODUCT_TRANSLATION_NOT_COMPLETE';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $completeness;
 
     /**
-     * @var Language
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $language;
 
-    /**
-     * @param string   $completeness
-     * @param Language $language
-     */
     public function __construct(string $completeness, Language $language)
     {
         Assert::oneOf($completeness, [self::COMPLETE, self::NOT_COMPLETE]);
@@ -61,17 +53,11 @@ class LanguageCompletenessCondition implements ConditionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getCompleteness(): string
     {
         return $this->completeness;
     }
 
-    /**
-     * @return Language
-     */
     public function getLanguage(): Language
     {
         return $this->language;

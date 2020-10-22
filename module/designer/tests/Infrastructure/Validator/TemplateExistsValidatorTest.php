@@ -82,9 +82,6 @@ class TemplateExistsValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return TemplateExistsValidator
-     */
     protected function createValidator(): TemplateExistsValidator
     {
         return new TemplateExistsValidator($this->templateRepository);

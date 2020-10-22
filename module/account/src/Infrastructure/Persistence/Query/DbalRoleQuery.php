@@ -21,22 +21,13 @@ class DbalRoleQuery implements RoleQueryInterface
 {
     public const TABLE = 'roles';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         $query = $this->getQuery();
@@ -50,11 +41,6 @@ class DbalRoleQuery implements RoleQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @param RoleId $id
-     *
-     * @return int
-     */
     public function getRoleUsersCount(RoleId $id): int
     {
         $qb = $this->getQuery();
@@ -71,8 +57,6 @@ class DbalRoleQuery implements RoleQueryInterface
     }
 
     /**
-     * @param RoleId $id
-     *
      * @return array
      */
     public function getAllRoleUsers(RoleId $id): array
@@ -110,11 +94,6 @@ class DbalRoleQuery implements RoleQueryInterface
     }
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -145,11 +124,6 @@ class DbalRoleQuery implements RoleQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @param string $name
-     *
-     * @return RoleId
-     */
     public function findIdByRoleName(string $name): ?RoleId
     {
         $qb = $this->connection->createQueryBuilder();
@@ -167,9 +141,6 @@ class DbalRoleQuery implements RoleQueryInterface
         return null;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

@@ -17,21 +17,10 @@ class Shopware6QueryBuilder
      */
     private array $parts = [];
 
-    /**
-     * @var int|null
-     */
     private ?int $limit = null;
 
-    /**
-     * @var int|null
-     */
     private ?int $page = null;
 
-    /**
-     * @param int $limit
-     *
-     * @return Shopware6QueryBuilder
-     */
     public function limit(int $limit): Shopware6QueryBuilder
     {
         $this->limit = $limit;
@@ -39,11 +28,6 @@ class Shopware6QueryBuilder
         return $this;
     }
 
-    /**
-     * @param int $page
-     *
-     * @return Shopware6QueryBuilder
-     */
     public function setPage(int $page): Shopware6QueryBuilder
     {
         $this->page = $page;
@@ -52,10 +36,6 @@ class Shopware6QueryBuilder
     }
 
     /**
-     * @param string $type
-     * @param string $field
-     * @param string $value
-     *
      * @return $this
      */
     public function add(string $type, string $field, string $value): Shopware6QueryBuilder
@@ -71,21 +51,12 @@ class Shopware6QueryBuilder
         return $this;
     }
 
-    /**
-     * @param string $field
-     * @param string $value
-     *
-     * @return Shopware6QueryBuilder
-     */
     public function equals(string $field, string $value): Shopware6QueryBuilder
     {
         return $this->add(self::EQUALS, $field, $value);
     }
 
     /**
-     * @param string $field
-     * @param string $value
-     *
      * @return $this
      */
     public function sort(string $field, string $value): Shopware6QueryBuilder
@@ -99,9 +70,6 @@ class Shopware6QueryBuilder
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getQuery(): string
     {
         $param['query'] = [];
@@ -120,9 +88,6 @@ class Shopware6QueryBuilder
         return http_build_query($param);
     }
 
-    /**
-     * @return bool
-     */
     private function isLimit(): bool
     {
         return null !== $this->limit;

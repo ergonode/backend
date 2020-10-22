@@ -57,14 +57,8 @@ class DateFormat
         '31 Jan 1999' => self::DD_MMM_YYYY,
     ];
 
-    /**
-     * @var string
-     */
     private string $format;
 
-    /**
-     * @param string $format
-     */
     public function __construct(string $format)
     {
         $this->format = trim($format);
@@ -74,27 +68,16 @@ class DateFormat
         }
     }
 
-    /**
-     * @return string
-     */
     public function getFormat(): string
     {
         return $this->format;
     }
 
-    /**
-     * @return string
-     */
     public function getPhpFormat(): string
     {
         return self::PHP_FORMATS[$this->format];
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
     public static function isValid(string $value): bool
     {
         return \in_array($value, self::AVAILABLE, true);

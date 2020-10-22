@@ -19,8 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class ProductCollectionElementFromSkusForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -36,9 +35,6 @@ class ProductCollectionElementFromSkusForm extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -47,9 +43,6 @@ class ProductCollectionElementFromSkusForm extends AbstractType
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

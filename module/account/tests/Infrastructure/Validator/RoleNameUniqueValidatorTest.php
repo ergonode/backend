@@ -72,9 +72,6 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return RoleNameUniqueValidator
-     */
     protected function createValidator(): RoleNameUniqueValidator
     {
         return new RoleNameUniqueValidator($this->query);

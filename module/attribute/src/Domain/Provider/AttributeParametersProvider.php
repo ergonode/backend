@@ -15,14 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 class AttributeParametersProvider
 {
-    /**
-     * @var UnitRepositoryInterface
-     */
     private UnitRepositoryInterface $unitRepository;
 
-    /**
-     * @param UnitRepositoryInterface $unitRepository
-     */
     public function __construct(UnitRepositoryInterface $unitRepository)
     {
         $this->unitRepository = $unitRepository;
@@ -30,8 +24,6 @@ class AttributeParametersProvider
 
 
     /**
-     * @param AbstractAttribute $attribute
-     *
      * @return array
      */
     public function provide(AbstractAttribute $attribute): array

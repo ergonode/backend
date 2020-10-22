@@ -18,9 +18,6 @@ class UpdateAttributeCommandFactoryProviderInterfaceCompilerPass implements Comp
 {
     public const TAG = 'component.attribute.update_attribute_command_factory_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(UpdateAttributeCommandFactoryProvider::class)) {
@@ -28,9 +25,6 @@ class UpdateAttributeCommandFactoryProviderInterfaceCompilerPass implements Comp
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];

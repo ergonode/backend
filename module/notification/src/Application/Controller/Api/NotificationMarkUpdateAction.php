@@ -23,20 +23,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NotificationMarkUpdateAction
 {
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBud;
 
-    /**
-     * @param AuthenticatedUserProviderInterface $userProvider
-     * @param CommandBusInterface                $commandBud
-     */
     public function __construct(AuthenticatedUserProviderInterface $userProvider, CommandBusInterface $commandBud)
     {
         $this->userProvider = $userProvider;
@@ -64,9 +54,7 @@ class NotificationMarkUpdateAction
      *     description="Returns notifications",
      * )
      *
-     * @param string $notification
      *
-     * @return Response
      *
      * @throws \Exception
      */

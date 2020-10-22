@@ -15,22 +15,14 @@ use Webmozart\Assert\Assert;
 
 class DeleteChannelCommandHandler
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $repository;
 
-    /**
-     * @param ChannelRepositoryInterface $repository
-     */
     public function __construct(ChannelRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param DeleteChannelCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteChannelCommand $command)

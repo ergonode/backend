@@ -21,9 +21,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     public const NAMESPACE = 'b2e8fb6d-e1ac-4322-bd54-6e78926ba365';
 
     /**
-     * @param QueryBuilder          $query
-     * @param FilterValueCollection $values
-     * @param ColumnInterface[]     $columns
+     * @param ColumnInterface[] $columns
      */
     protected function buildFilters(QueryBuilder $query, FilterValueCollection $values, array $columns = []): void
     {
@@ -54,12 +52,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         }
     }
 
-    /**
-     * @param QueryBuilder $query
-     * @param string       $field
-     * @param string       $operator
-     * @param string|null  $givenValue
-     */
     private function buildMultiSelectQuery(
         QueryBuilder $query,
         string $field,
@@ -115,36 +107,16 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         }
     }
 
-    /**
-     * @param QueryBuilder $query
-     * @param string       $field
-     * @param string       $operator
-     * @param string|null  $value
-     */
     private function buildDefaultQuery(QueryBuilder $query, string $field, string $operator, string $value = null): void
     {
         $query->andWhere($this->getExpresion($query, $field, $operator, $value));
     }
 
-    /**
-     * @param QueryBuilder $query
-     * @param string       $field
-     * @param string       $operator
-     * @param string|null  $value
-     */
     private function buildTextQuery(QueryBuilder $query, string $field, string $operator, string $value = null): void
     {
         $query->andWhere($this->getExpresion($query, $field, $operator, $value));
     }
 
-    /**
-     * @param QueryBuilder $query
-     * @param string       $field
-     * @param string       $operator
-     * @param string       $value
-     *
-     * @return string
-     */
     private function getExpresion(QueryBuilder $query, string $field, string $operator, ?string $value = null): string
     {
         $field = sprintf('"%s"', $field);
@@ -180,11 +152,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         return $query->expr()->isNull($field);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
     private function escape(string $value): string
     {
         $replace = [

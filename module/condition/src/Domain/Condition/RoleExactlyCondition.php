@@ -19,15 +19,10 @@ class RoleExactlyCondition implements ConditionInterface
     public const PHRASE = 'ROLE_EXACTLY_CONDITION_PHRASE';
 
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $role;
 
-    /**
-     * @param RoleId $role
-     */
     public function __construct(RoleId $role)
     {
         $this->role = $role;
@@ -43,9 +38,6 @@ class RoleExactlyCondition implements ConditionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getRole(): RoleId
     {
         return $this->role;

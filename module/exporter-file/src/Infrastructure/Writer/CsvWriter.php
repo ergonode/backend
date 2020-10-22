@@ -14,19 +14,11 @@ class CsvWriter implements WriterInterface
 {
     public const TYPE = 'csv';
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return self::TYPE === $type;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
@@ -43,8 +35,6 @@ class CsvWriter implements WriterInterface
     }
 
     /**
-     * @param ExportData $data
-     *
      * @return array
      */
     public function add(ExportData $data): array
@@ -69,8 +59,6 @@ class CsvWriter implements WriterInterface
 
     /**
      * @param array $data
-     *
-     * @return string
      */
     private function formatLine(array $data): string
     {

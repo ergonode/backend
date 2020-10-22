@@ -21,32 +21,14 @@ use Webmozart\Assert\Assert;
 
 abstract class AbstractShopware6VariantOptionMapper implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     protected AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var OptionRepositoryInterface
-     */
     protected OptionRepositoryInterface $optionRepository;
 
-    /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
     protected AttributeTranslationInheritanceCalculator $calculator;
 
-    /**
-     * @var Shopware6PropertyGroupOptionsRepositoryInterface
-     */
     protected Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
-    /**
-     * @param AttributeRepositoryInterface                     $attributeRepository
-     * @param OptionRepositoryInterface                        $optionRepository
-     * @param AttributeTranslationInheritanceCalculator        $calculator
-     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
-     */
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         OptionRepositoryInterface $optionRepository,
@@ -59,13 +41,6 @@ abstract class AbstractShopware6VariantOptionMapper implements Shopware6ProductM
         $this->propertyGroupOptionsRepository = $propertyGroupOptionsRepository;
     }
 
-    /**
-     * @param AttributeId      $bindingId
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     *
-     * @return string|null
-     */
     protected function optionMapper(
         AttributeId $bindingId,
         AbstractProduct $product,
@@ -83,13 +58,6 @@ abstract class AbstractShopware6VariantOptionMapper implements Shopware6ProductM
         return $this->optionMap($channel, $bindingId, $optionId);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param AttributeId      $bindingId
-     * @param AggregateId      $optionId
-     *
-     * @return string|null
-     */
     protected function optionMap(Shopware6Channel $channel, AttributeId $bindingId, AggregateId $optionId): ?string
     {
         return $this->propertyGroupOptionsRepository->load(

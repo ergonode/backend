@@ -16,8 +16,5 @@ interface FilterInterface
      */
     public function render(): array;
 
-    /**
-     * @return string
-     */
     public function getType(): string;
 }

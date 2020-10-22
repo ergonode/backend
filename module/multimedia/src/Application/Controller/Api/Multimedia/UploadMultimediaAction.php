@@ -34,32 +34,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  */
 class UploadMultimediaAction
 {
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $query;
 
-    /**
-     * @var HashCalculationServiceInterface
-     */
     private HashCalculationServiceInterface $hashService;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param MultimediaQueryInterface        $query
-     * @param HashCalculationServiceInterface $hashService
-     * @param FormFactoryInterface            $formFactory
-     * @param CommandBusInterface             $commandBus
-     */
     public function __construct(
         MultimediaQueryInterface $query,
         HashCalculationServiceInterface $hashService,
@@ -92,9 +74,7 @@ class UploadMultimediaAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

@@ -17,26 +17,12 @@ use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 
 class GridRenderer
 {
-    /**
-     * @var ColumnRenderer
-     */
     private ColumnRenderer $columnRenderer;
 
-    /**
-     * @var RowRendererInterface
-     */
     private RowRendererInterface $rowRenderer;
 
-    /**
-     * @var InfoRender
-     */
     private InfoRender $infoRenderer;
 
-    /**
-     * @param ColumnRenderer       $columnRenderer
-     * @param RowRendererInterface $rowRenderer
-     * @param InfoRender           $infoRenderer
-     */
     public function __construct(
         ColumnRenderer $columnRenderer,
         RowRendererInterface $rowRenderer,
@@ -48,11 +34,6 @@ class GridRenderer
     }
 
     /**
-     * @param AbstractGrid               $grid
-     * @param GridConfigurationInterface $configuration
-     * @param DataSetInterface           $dataSet
-     * @param Language                   $language
-     *
      * @return array
      */
     public function render(

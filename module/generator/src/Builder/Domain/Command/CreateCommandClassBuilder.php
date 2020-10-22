@@ -18,26 +18,12 @@ use Nette\PhpGenerator\PhpFile;
 
 class CreateCommandClassBuilder implements BuilderInterface
 {
-    /**
-     * @var FileBuilder
-     */
     private FileBuilder $builder;
 
-    /**
-     * @var MethodBuilder
-     */
     private MethodBuilder $methodBuilder;
 
-    /**
-     * @var PropertyBuilder
-     */
     private PropertyBuilder $propertyBuilder;
 
-    /**
-     * @param FileBuilder     $builder
-     * @param MethodBuilder   $methodBuilder
-     * @param PropertyBuilder $propertyBuilder
-     */
     public function __construct(FileBuilder $builder, MethodBuilder $methodBuilder, PropertyBuilder $propertyBuilder)
     {
         $this->builder = $builder;
@@ -46,11 +32,7 @@ class CreateCommandClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $module
-     * @param string $entity
-     * @param array  $properties
-     *
-     * @return PhpFile
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -81,10 +63,7 @@ class CreateCommandClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $entity
-     * @param array  $properties
-     *
-     * @return Method
+     * @param array $properties
      */
     private function buildConstructor(string $entity, array $properties = []): Method
     {
@@ -96,12 +75,6 @@ class CreateCommandClassBuilder implements BuilderInterface
         return $method;
     }
 
-    /**
-     * @param string $name
-     * @param string $returnType
-     *
-     * @return Method
-     */
     private function buildGetter(string $name, string $returnType): Method
     {
         $method = $this->methodBuilder->build(sprintf('get%s', ucfirst($name)), [], $returnType);

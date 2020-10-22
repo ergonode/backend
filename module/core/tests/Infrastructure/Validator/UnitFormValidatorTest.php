@@ -139,9 +139,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return UnitFormValidator
-     */
     protected function createValidator(): UnitFormValidator
     {
         return new UnitFormValidator($this->query);

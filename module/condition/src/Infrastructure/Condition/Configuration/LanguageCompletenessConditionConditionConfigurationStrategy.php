@@ -17,20 +17,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LanguageCompletenessConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var LanguageProviderInterface
-     */
     private LanguageProviderInterface $languageProvider;
 
-    /**
-     * @param TranslatorInterface       $translator
-     * @param LanguageProviderInterface $languageProvider
-     */
     public function __construct(
         TranslatorInterface $translator,
         LanguageProviderInterface $languageProvider

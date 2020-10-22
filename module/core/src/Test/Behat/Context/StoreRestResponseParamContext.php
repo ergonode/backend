@@ -15,20 +15,10 @@ use Behatch\Json\Json;
 
 class StoreRestResponseParamContext extends RawMinkContext
 {
-    /**
-     * @var StorageContext
-     */
     private StorageContext $storageContext;
 
-    /**
-     * @var JsonInspector
-     */
     private JsonInspector $inspector;
 
-    /**
-     * @param StorageContext $storageContext
-     * @param string         $evaluationMode
-     */
     public function __construct(StorageContext $storageContext, string $evaluationMode = 'javascript')
     {
         $this->storageContext = $storageContext;
@@ -36,9 +26,6 @@ class StoreRestResponseParamContext extends RawMinkContext
     }
 
     /**
-     * @param string $var
-     * @param string $key
-     *
      * @Then store response param :var as :key
      *
      * @throws \Exception
@@ -52,8 +39,6 @@ class StoreRestResponseParamContext extends RawMinkContext
     }
 
     /**
-     * @param string $key
-     *
      * @Then print store param :key
      *
      * @throws \Exception

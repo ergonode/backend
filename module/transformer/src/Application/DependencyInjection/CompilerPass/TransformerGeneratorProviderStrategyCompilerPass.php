@@ -18,9 +18,6 @@ class TransformerGeneratorProviderStrategyCompilerPass implements CompilerPassIn
 {
     public const TAG = 'component.transformer_generator_strategy.transformer_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(TransformerGeneratorProvider::class)) {
@@ -28,9 +25,6 @@ class TransformerGeneratorProviderStrategyCompilerPass implements CompilerPassIn
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processTransformers(ContainerBuilder $container): void
     {
         $arguments = [];

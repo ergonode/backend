@@ -17,7 +17,6 @@ class UuidFaker extends BaseProvider
     /**
      * @param mixed $uuid
      *
-     * @return string
      *
      * @throws \Exception
      */

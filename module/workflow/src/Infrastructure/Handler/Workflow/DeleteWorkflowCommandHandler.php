@@ -18,20 +18,10 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 class DeleteWorkflowCommandHandler
 {
-    /**
-     * @var WorkflowRepositoryInterface
-     */
     private WorkflowRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param WorkflowRepositoryInterface    $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         WorkflowRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -41,8 +31,6 @@ class DeleteWorkflowCommandHandler
     }
 
     /**
-     * @param DeleteWorkflowCommand $command
-     *
      * @throws ExistingRelationshipsException
      */
     public function __invoke(DeleteWorkflowCommand $command)

@@ -18,8 +18,6 @@ class AttributeViewModelFactory
 {
     /**
      * @param array $record
-     *
-     * @return AttributeViewModel
      */
     public function create(array $record): AttributeViewModel
     {

@@ -16,23 +16,15 @@ use JMS\Serializer\Annotation as JMS;
 class DeleteStatusCommand implements DomainCommandInterface
 {
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $id;
 
-    /**
-     * @param StatusId $id
-     */
     public function __construct(StatusId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getId(): StatusId
     {
         return $this->id;

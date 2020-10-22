@@ -15,10 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class AttributeGroupCodeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
-     *
-     * @return AttributeGroupCode
-     *
      * @throws \Exception
      */
     public function attributeGroupCode(?string $code = null): AttributeGroupCode

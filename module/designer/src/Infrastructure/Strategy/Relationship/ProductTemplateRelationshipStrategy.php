@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ProductTemplateRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
-    /**
-     * @param TemplateQueryInterface $query
-     */
     public function __construct(TemplateQueryInterface $query)
     {
         $this->query = $query;

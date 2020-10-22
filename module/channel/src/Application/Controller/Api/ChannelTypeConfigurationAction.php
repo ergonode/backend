@@ -24,20 +24,10 @@ use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
  */
 class ChannelTypeConfigurationAction
 {
-    /**
-     * @var ChannelFormFactoryProvider
-     */
     private ChannelFormFactoryProvider $provider;
 
-    /**
-     * @var Liform
-     */
     private Liform $liForm;
 
-    /**
-     * @param ChannelFormFactoryProvider $provider
-     * @param Liform                     $liForm
-     */
     public function __construct(ChannelFormFactoryProvider $provider, Liform $liForm)
     {
         $this->provider = $provider;
@@ -66,7 +56,6 @@ class ChannelTypeConfigurationAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     * @param string $type
      *
      * @return Response
      *

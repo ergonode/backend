@@ -18,22 +18,13 @@ class GetCustomField extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/custom-field/%s';
 
-    /**
-     * @var string
-     */
     private string $customFieldId;
 
-    /**
-     * @param string $customFieldId
-     */
     public function __construct(string $customFieldId)
     {
         $this->customFieldId = $customFieldId;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -44,10 +35,6 @@ class GetCustomField extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6CustomField|null
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?Shopware6CustomField
@@ -65,9 +52,6 @@ class GetCustomField extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->customFieldId);

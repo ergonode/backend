@@ -22,8 +22,7 @@ use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 class ErgonodeAttributeExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

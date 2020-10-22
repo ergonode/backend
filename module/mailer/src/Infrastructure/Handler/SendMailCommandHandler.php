@@ -14,22 +14,14 @@ use Ergonode\Mailer\Infrastructure\Sender\MailerSender;
 
 class SendMailCommandHandler
 {
-    /**
-     * @var MailerSender
-     */
     private MailerSender $mailerSender;
 
-    /**
-     * @param MailerSender $mailerSender
-     */
     public function __construct(MailerSender $mailerSender)
     {
         $this->mailerSender = $mailerSender;
     }
 
     /**
-     * @param SendMailCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(SendMailCommand $command)

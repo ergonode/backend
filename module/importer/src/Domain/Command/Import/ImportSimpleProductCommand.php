@@ -16,19 +16,10 @@ use Webmozart\Assert\Assert;
 
 class ImportSimpleProductCommand implements DomainCommandInterface
 {
-    /**
-     * @var ImportId
-     */
     private ImportId $importId;
 
-    /**
-     * @var Sku
-     */
     private Sku $sku;
 
-    /**
-     * @var string
-     */
     private string $template;
 
     /**
@@ -42,11 +33,8 @@ class ImportSimpleProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ImportId $importId
-     * @param Sku      $sku
-     * @param string   $template
-     * @param array    $categories
-     * @param array    $attributes
+     * @param array $categories
+     * @param array $attributes
      */
     public function __construct(
         ImportId $importId,
@@ -64,25 +52,16 @@ class ImportSimpleProductCommand implements DomainCommandInterface
         $this->attributes = $attributes;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getImportId(): ImportId
     {
         return $this->importId;
     }
 
-    /**
-     * @return Sku
-     */
     public function getSku(): Sku
     {
         return $this->sku;
     }
 
-    /**
-     * @return string
-     */
     public function getTemplate(): string
     {
         return $this->template;

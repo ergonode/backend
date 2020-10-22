@@ -19,38 +19,28 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class UpdateUserFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="User first name is required")
      * @Assert\Length(min="1", max="128")
      */
     public ?string $firstName;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="User last name is required")
      * @Assert\Length(min="3", max="128")
      */
     public ?string $lastName;
 
     /**
-     * @var Language
-     *
      * @Assert\NotBlank(message="User language is required")
      */
     public ?Language $language;
 
     /**
-     * @var string|null
-     *
      * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
     public ?string $passwordRepeat;
 
     /**
-     * @var string|null
-     *
      * @Assert\Length(
      *     min="6",
      *     max="32",
@@ -61,16 +51,12 @@ class UpdateUserFormModel
     public ?string $password;
 
     /**
-     * @var bool
-     *
      * @Assert\NotNull(message="Activity is required")
      * @Assert\Type("bool")
      */
     public ?bool $isActive;
 
     /**
-     * @var RoleId
-     *
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
@@ -100,8 +86,7 @@ class UpdateUserFormModel
     /**
      * @Assert\Callback()
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param mixed $payload
      */
     public function validatePassword(ExecutionContextInterface $context, $payload)
     {

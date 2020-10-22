@@ -16,22 +16,13 @@ use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 class SegmentConditionSetChangedEventHandler implements MessageSubscriberInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param SegmentConditionSetChangedEvent $event
-     */
     public function __invoke(SegmentConditionSetChangedEvent $event)
     {
         if ($event->getTo()) {

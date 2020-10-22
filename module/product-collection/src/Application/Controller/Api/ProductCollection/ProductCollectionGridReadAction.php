@@ -26,27 +26,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionGridReadAction
 {
-    /**
-     * @var ProductCollectionGrid
-     */
     private ProductCollectionGrid $productCollectionGrid;
 
-    /**
-     * @var ProductCollectionQueryInterface
-     */
     private ProductCollectionQueryInterface $collectionQuery;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
     /**
      * ProductCollectionGridReadAction constructor.
-     *
-     * @param ProductCollectionGrid           $productCollectionGrid
-     * @param ProductCollectionQueryInterface $collectionQuery
-     * @param GridRenderer                    $gridRenderer
      */
     public function __construct(
         ProductCollectionGrid $productCollectionGrid,
@@ -59,7 +46,6 @@ class ProductCollectionGridReadAction
     }
 
     /**
-     *
      * @IsGranted("PRODUCT_COLLECTION_READ")
      *
      * @SWG\Tag(name="Product Collection")
@@ -123,11 +109,6 @@ class ProductCollectionGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

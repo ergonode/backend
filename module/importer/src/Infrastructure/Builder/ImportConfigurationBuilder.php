@@ -24,15 +24,8 @@ class ImportConfigurationBuilder
      */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AttributeProposalProvider
-     */
     private AttributeProposalProvider $provider;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     * @param AttributeProposalProvider    $provider
-     */
     public function __construct(AttributeRepositoryInterface $repository, AttributeProposalProvider $provider)
     {
         $this->repository = $repository;
@@ -43,7 +36,6 @@ class ImportConfigurationBuilder
      * @param array $headers
      * @param array $lines
      *
-     * @return ImportConfiguration
      *
      * @throws \Exception
      */
@@ -58,10 +50,8 @@ class ImportConfigurationBuilder
     }
 
     /**
-     * @param string $name
-     * @param array  $values
+     * @param array $values
      *
-     * @return ConfigurationColumnInterface
      *
      * @throws \Exception
      */

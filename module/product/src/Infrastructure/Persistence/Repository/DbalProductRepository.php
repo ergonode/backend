@@ -19,14 +19,8 @@ use Webmozart\Assert\Assert;
 
 class DbalProductRepository implements ProductRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
@@ -47,8 +41,6 @@ class DbalProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @param AbstractProduct $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(AbstractProduct $aggregateRoot): void
@@ -56,11 +48,6 @@ class DbalProductRepository implements ProductRepositoryInterface
         $this->manager->save($aggregateRoot);
     }
 
-    /**
-     * @param ProductId $id
-     *
-     * @return bool
-     */
     public function exists(ProductId $id): bool
     {
         return $this->manager->exists($id);

@@ -18,19 +18,13 @@ use Ergonode\Workflow\Domain\Entity\Workflow;
 
 class WorkflowForm extends AbstractType implements WorkflowFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return Workflow::TYPE === $type;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -51,9 +45,6 @@ class WorkflowForm extends AbstractType implements WorkflowFormInterface
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -63,9 +54,6 @@ class WorkflowForm extends AbstractType implements WorkflowFormInterface
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

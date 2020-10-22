@@ -16,29 +16,16 @@ use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
 
 class ProductDraftValueRemovedEventHandler
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var DraftQueryInterface
-     */
     private DraftQueryInterface $query;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     * @param DraftQueryInterface $query
-     */
     public function __construct(CommandBusInterface $commandBus, DraftQueryInterface $query)
     {
         $this->commandBus = $commandBus;
         $this->query = $query;
     }
 
-    /**
-     * @param ProductDraftValueRemoved $event
-     */
     public function __invoke(ProductDraftValueRemoved $event): void
     {
         $productId = $this->query->getProductId($event->getAggregateId());

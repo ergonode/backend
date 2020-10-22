@@ -20,14 +20,8 @@ use Ergonode\Attribute\Domain\Entity\AbstractOption;
 
 class OptionParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $repository;
 
-    /**
-     * @param OptionRepositoryInterface $repository
-     */
     public function __construct(OptionRepositoryInterface $repository)
     {
         $this->repository = $repository;

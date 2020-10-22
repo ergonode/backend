@@ -19,17 +19,13 @@ class NotificationSender
      */
     private array $strategies;
 
-    /**
-     * @param NotificationStrategyInterface ...$strategies
-     */
     public function __construct(NotificationStrategyInterface...$strategies)
     {
         $this->strategies = $strategies;
     }
 
     /**
-     * @param NotificationInterface $notification
-     * @param array                 $recipients
+     * @param array $recipients
      */
     public function send(NotificationInterface $notification, array $recipients): void
     {

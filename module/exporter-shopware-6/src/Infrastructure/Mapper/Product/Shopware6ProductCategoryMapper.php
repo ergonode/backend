@@ -18,14 +18,8 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class Shopware6ProductCategoryMapper implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var Shopware6CategoryRepositoryInterface
-     */
     private Shopware6CategoryRepositoryInterface $categoryRepository;
 
-    /**
-     * @param Shopware6CategoryRepositoryInterface $categoryRepository
-     */
     public function __construct(Shopware6CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;

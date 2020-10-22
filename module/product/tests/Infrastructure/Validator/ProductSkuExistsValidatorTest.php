@@ -67,9 +67,6 @@ class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     * @return ProductSkuExistsValidator
-     */
     protected function createValidator(): ProductSkuExistsValidator
     {
         return new ProductSkuExistsValidator($this->query);

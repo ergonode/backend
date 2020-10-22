@@ -32,26 +32,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class SegmentDeleteAction
 {
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipTypeMessageBuilder
-     */
     private ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param RelationshipsResolverInterface         $relationshipsResolver
-     * @param ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder
-     * @param CommandBusInterface                    $commandBus
-     */
     public function __construct(
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder,
@@ -94,10 +80,6 @@ class SegmentDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
-     *
-     * @param Segment $segment
-     *
-     * @return Response
      */
     public function __invoke(Segment $segment): Response
     {

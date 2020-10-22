@@ -21,8 +21,7 @@ use Ergonode\ImporterMagento1\Application\Form\Type\AttributeMapType;
 class ImporterMagento1ConfigurationForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -82,9 +81,6 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -95,9 +91,6 @@ class ImporterMagento1ConfigurationForm extends AbstractType
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

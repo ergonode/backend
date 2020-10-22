@@ -10,10 +10,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
 interface HeaderProviderInterface
 {
-    /**
-     * @param string $key
-     * @param string $value
-     */
     public function addHeader(string $key, string $value): void;
 
     /**

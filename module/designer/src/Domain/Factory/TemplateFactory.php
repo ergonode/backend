@@ -20,15 +20,8 @@ use Webmozart\Assert\Assert;
 class TemplateFactory
 {
     /**
-     * @param TemplateId        $id
-     * @param TemplateGroupId   $groupId
-     * @param string            $name
-     * @param AttributeId|null  $defaultLabel
-     * @param AttributeId|null  $defaultImage
-     * @param array             $elements
-     * @param MultimediaId|null $imageId
+     * @param array $elements
      *
-     * @return Template
      *
      * @throws \Exception
      */

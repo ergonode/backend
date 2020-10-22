@@ -14,22 +14,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 class AttributeGroupDictionaryProvider
 {
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $attributeGroupQuery;
 
-    /**
-     * @param AttributeGroupQueryInterface $attributeGroupQuery
-     */
     public function __construct(AttributeGroupQueryInterface $attributeGroupQuery)
     {
         $this->attributeGroupQuery = $attributeGroupQuery;
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array

@@ -21,14 +21,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StatusParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @param StatusRepositoryInterface $repository
-     */
     public function __construct(StatusRepositoryInterface $repository)
     {
         $this->repository = $repository;

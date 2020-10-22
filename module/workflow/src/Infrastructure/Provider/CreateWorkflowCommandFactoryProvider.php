@@ -17,19 +17,11 @@ class CreateWorkflowCommandFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param CreateWorkflowCommandFactoryInterface ...$factories
-     */
     public function __construct(CreateWorkflowCommandFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return CreateWorkflowCommandFactoryInterface
-     */
     public function provide(string $type): CreateWorkflowCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {

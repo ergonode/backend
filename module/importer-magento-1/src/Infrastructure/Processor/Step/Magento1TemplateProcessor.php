@@ -18,9 +18,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 
 class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
     /**
@@ -28,21 +25,12 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
      */
     private array $templates;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
         $this->templates = [];
     }
 
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,

@@ -20,22 +20,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class Magento1CsvUpdateSourceCommandBuilder implements UpdateSourceCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return $type === Magento1CsvSource::TYPE;
     }
 
     /**
-     * @param SourceId                                        $id
      * @param FormInterface|ImporterMagento1ConfigurationForm $form
-     *
-     * @return DomainCommandInterface
-     *
      */
     public function build(SourceId $id, FormInterface $form): DomainCommandInterface
     {

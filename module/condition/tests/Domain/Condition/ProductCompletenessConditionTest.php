@@ -14,8 +14,6 @@ use PHPUnit\Framework\TestCase;
 class ProductCompletenessConditionTest extends TestCase
 {
     /**
-     * @param string $completeness
-     *
      * @dataProvider dataProvider
      */
     public function testConditionCreation(string $completeness): void

@@ -25,9 +25,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $templateQuery;
 
-    /**
-     * @var ProductHasTemplateConditionCalculatorStrategy
-     */
     private ProductHasTemplateConditionCalculatorStrategy $strategy;
 
     protected function setUp(): void
@@ -46,11 +43,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string     $operator
-     * @param TemplateId $productTemplateId
-     * @param TemplateId $searchedTemplateId
-     * @param bool       $expectedResult
-     *
      * @throws \Exception
      *
      * @dataProvider calculateProvider
@@ -108,8 +100,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $productId
-     *
      * @return AbstractProduct|MockObject
      */
     private function createProductMock(string $productId)
@@ -125,9 +115,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string     $operator
-     * @param TemplateId $searchedTemplateId
-     *
      * @return ProductHasTemplateCondition|MockObject
      */
     private function createProductHasTemplateConditionMock(string $operator, TemplateId $searchedTemplateId)

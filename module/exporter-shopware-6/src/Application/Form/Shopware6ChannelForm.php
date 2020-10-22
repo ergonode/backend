@@ -31,32 +31,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Shopware6ChannelForm extends AbstractType
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $languageQuery;
 
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $categoryTreeQuery;
 
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $segmentQuery;
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     * @param LanguageQueryInterface  $languageQuery
-     * @param TreeQueryInterface      $categoryTreeQuery
-     * @param SegmentQueryInterface   $segmentQuery
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         LanguageQueryInterface $languageQuery,
@@ -70,8 +52,7 @@ class Shopware6ChannelForm extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -256,9 +237,6 @@ class Shopware6ChannelForm extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -271,9 +249,6 @@ class Shopware6ChannelForm extends AbstractType
         );
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

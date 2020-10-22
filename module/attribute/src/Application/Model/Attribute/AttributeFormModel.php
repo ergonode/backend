@@ -15,8 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AttributeFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(
      *     message="System name is required",
      *     groups={"Create"}
@@ -33,8 +31,6 @@ class AttributeFormModel
     public ?string $code = null;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(
      *     message="Attribute scope is required",
      *     )

@@ -69,9 +69,6 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return AttributeExistsValidator
-     */
     protected function createValidator(): AttributeExistsValidator
     {
         return new AttributeExistsValidator($this->repository);

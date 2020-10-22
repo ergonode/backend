@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Product not exists.';
 }

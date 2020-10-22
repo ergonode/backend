@@ -17,22 +17,14 @@ class DbalBindRemovedFromProductEventProjector
 {
     private const TABLE = 'product_binding';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param BindRemovedFromProductEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(BindRemovedFromProductEvent $event): void

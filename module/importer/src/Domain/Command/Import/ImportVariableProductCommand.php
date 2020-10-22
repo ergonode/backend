@@ -17,19 +17,10 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 class ImportVariableProductCommand implements DomainCommandInterface
 {
-    /**
-     * @var ImportId
-     */
     private ImportId $importId;
 
-    /**
-     * @var Sku
-     */
     private Sku $sku;
 
-    /**
-     * @var string
-     */
     private string $template;
 
     /**
@@ -53,9 +44,6 @@ class ImportVariableProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ImportId        $importId
-     * @param Sku             $sku
-     * @param string          $template
      * @param CategoryCode[]  $categories
      * @param AttributeCode[] $bindings
      * @param Sku[]           $children
@@ -83,25 +71,16 @@ class ImportVariableProductCommand implements DomainCommandInterface
         $this->attributes = $attributes;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getImportId(): ImportId
     {
         return $this->importId;
     }
 
-    /**
-     * @return Sku
-     */
     public function getSku(): Sku
     {
         return $this->sku;
     }
 
-    /**
-     * @return string
-     */
     public function getTemplate(): string
     {
         return $this->template;

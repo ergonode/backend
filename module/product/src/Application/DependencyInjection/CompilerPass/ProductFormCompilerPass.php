@@ -18,9 +18,6 @@ class ProductFormCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'product.application.product_form_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ProductFormProvider::class)) {
@@ -28,9 +25,6 @@ class ProductFormCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $arguments = [];

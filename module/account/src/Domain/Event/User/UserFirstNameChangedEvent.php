@@ -17,26 +17,16 @@ use JMS\Serializer\Annotation as JMS;
 class UserFirstNameChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**
-     * @var UserId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
-    /**
-     * @param UserId $id
-     * @param string $from
-     * @param string $to
-     */
     public function __construct(UserId $id, string $from, string $to)
     {
         $this->id = $id;
         parent::__construct($from, $to);
     }
 
-    /**
-     * @return UserId
-     */
     public function getAggregateId(): UserId
     {
         return $this->id;

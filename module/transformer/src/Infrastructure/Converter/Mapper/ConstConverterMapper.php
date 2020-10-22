@@ -14,11 +14,6 @@ use Ergonode\Transformer\Infrastructure\Converter\ConstConverter;
 
 class ConstConverterMapper implements ConverterMapperInterface
 {
-    /**
-     * @param ConverterInterface $converter
-     *
-     * @return bool
-     */
     public function supported(ConverterInterface $converter): bool
     {
         return $converter instanceof ConstConverter;
@@ -27,9 +22,6 @@ class ConstConverterMapper implements ConverterMapperInterface
     /**
      * @param ConverterInterface|ConstConverter $converter
      * @param array                             $line
-     * @param string|null                       $default
-     *
-     * @return string|null
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {

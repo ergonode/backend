@@ -18,22 +18,14 @@ class DbalProductDraftAppliedEventProjector
     private const PRODUCT_TABLE = 'product';
     private const DRAFT_TABLE = 'designer.draft';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductDraftApplied $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductDraftApplied $event): void

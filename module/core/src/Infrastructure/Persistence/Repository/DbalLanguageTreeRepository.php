@@ -19,26 +19,12 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
 {
     private const TABLE = 'language_tree';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var LanguageTreeBuilder
-     */
     private LanguageTreeBuilder $builder;
 
-    /**
-     * @var DbalLanguageTreeFactory
-     */
     private DbalLanguageTreeFactory $factory;
 
-    /**
-     * @param Connection              $connection
-     * @param LanguageTreeBuilder     $builder
-     * @param DbalLanguageTreeFactory $factory
-     */
     public function __construct(Connection $connection, LanguageTreeBuilder $builder, DbalLanguageTreeFactory $factory)
     {
         $this->connection = $connection;

@@ -19,22 +19,13 @@ class GetMediaDefaultFolderList extends AbstractAction implements ActionInterfac
 {
     private const URI = '/api/v2/media-default-folder?%s';
 
-    /**
-     * @var Shopware6QueryBuilder
-     */
     private Shopware6QueryBuilder $query;
 
-    /**
-     * @param Shopware6QueryBuilder $query
-     */
     public function __construct(Shopware6QueryBuilder $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -45,8 +36,6 @@ class GetMediaDefaultFolderList extends AbstractAction implements ActionInterfac
     }
 
     /**
-     * @param string|null $content
-     *
      * @return array
      */
     public function parseContent(?string $content): array
@@ -65,9 +54,6 @@ class GetMediaDefaultFolderList extends AbstractAction implements ActionInterfac
         return $result;
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');

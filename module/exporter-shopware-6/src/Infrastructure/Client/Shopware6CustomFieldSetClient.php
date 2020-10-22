@@ -18,22 +18,14 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 class Shopware6CustomFieldSetClient
 {
 
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @param Shopware6Connector $connector
-     */
     public function __construct(Shopware6Connector $connector)
     {
         $this->connector = $connector;
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return array|null
      */
     public function load(Shopware6Channel $channel): ?array
@@ -46,12 +38,6 @@ class Shopware6CustomFieldSetClient
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel        $channel
-     * @param Shopware6CustomFieldSet $customFieldSet
-     *
-     * @return Shopware6CustomFieldSet|null
-     */
     public function insert(Shopware6Channel $channel, Shopware6CustomFieldSet $customFieldSet): ?Shopware6CustomFieldSet
     {
         $action = new PostCustomFieldSetAction($customFieldSet, true);
@@ -59,12 +45,6 @@ class Shopware6CustomFieldSetClient
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param string           $code
-     *
-     * @return Shopware6CustomFieldSet|null
-     */
     public function findByCode(Shopware6Channel $channel, string $code): ?Shopware6CustomFieldSet
     {
         $query = new Shopware6QueryBuilder();

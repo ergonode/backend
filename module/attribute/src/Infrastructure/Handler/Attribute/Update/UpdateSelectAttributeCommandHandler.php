@@ -17,22 +17,14 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateSelectAttributeComm
 
 class UpdateSelectAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateSelectAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateSelectAttributeCommand $command): void

@@ -22,14 +22,8 @@ class RoleTest extends TestCase
      */
     private $roleId;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $description;
 
     /**

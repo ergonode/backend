@@ -40,9 +40,6 @@ class TransitionChangeFormModel
      */
     public array $description;
 
-    /**
-     * @var string|null
-     */
     public ?string $conditionSet;
 
     /**

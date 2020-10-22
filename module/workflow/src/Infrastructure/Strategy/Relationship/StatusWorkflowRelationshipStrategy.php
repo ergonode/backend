@@ -18,20 +18,10 @@ use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
 class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var TransitionQueryInterface
-     */
     private TransitionQueryInterface $query;
 
-    /**
-     * @var WorkflowProvider
-     */
     private WorkflowProvider $provider;
 
-    /**
-     * @param TransitionQueryInterface $query
-     * @param WorkflowProvider         $provider
-     */
     public function __construct(TransitionQueryInterface $query, WorkflowProvider $provider)
     {
         $this->query = $query;
@@ -47,8 +37,6 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
     }
 
     /**
-     * @param AggregateId $statusId
-     *
      * @return array
      *
      * @throws \Exception

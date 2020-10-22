@@ -29,9 +29,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AssociatedProductAvailableChildrenGrid extends AbstractGrid
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
     /**
@@ -39,20 +36,10 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
      */
     private array $bindingAttributes;
 
-    /**
-     * @var AbstractAssociatedProduct
-     */
     private AbstractAssociatedProduct $associatedProduct;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @param TemplateQueryInterface $templateQuery
-     * @param OptionQueryInterface   $optionQuery
-     */
     public function __construct(
         TemplateQueryInterface $templateQuery,
         OptionQueryInterface $optionQuery
@@ -62,10 +49,6 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
         $this->bindingAttributes = [];
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $templates = [];
@@ -107,18 +90,12 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
         $this->bindingAttributes = $bindingAttributes;
     }
 
-    /**
-     * @param AbstractAssociatedProduct $associatedProduct
-     */
     public function addAssociatedProduct(AbstractAssociatedProduct $associatedProduct): void
     {
         $this->associatedProduct = $associatedProduct;
     }
 
 
-    /**
-     * @param Language $language
-     */
     private function addBindingColumn(Language $language): void
     {
         foreach ($this->bindingAttributes as $bindingAttribute) {

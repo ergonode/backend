@@ -65,18 +65,12 @@ class AbstractAggregateRootTest extends TestCase
 
         return new class($id) extends AbstractAggregateRoot {
 
-            /**
-             * @param AggregateId $id
-             */
             public function __construct(AggregateId $id)
             {
                 $this->id = $id;
             }
 
 
-            /**
-             * @return AggregateId
-             */
             public function getId(): AggregateId
             {
                 return $this->id;

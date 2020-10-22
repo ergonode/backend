@@ -25,25 +25,13 @@ class DbalExportQuery implements ExportQueryInterface
     private const TABLE_LINE = 'exporter.export_line';
     private const TABLE_CHANNEL = 'exporter.channel';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param Language  $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface
     {
         $query = $this->getQuery();
@@ -58,12 +46,6 @@ class DbalExportQuery implements ExportQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @param ExportId $exportId
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getErrorDataSet(ExportId $exportId, Language $language): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder();
@@ -80,8 +62,6 @@ class DbalExportQuery implements ExportQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getProfileInfo(Language $language): array
@@ -102,8 +82,6 @@ class DbalExportQuery implements ExportQueryInterface
     }
 
     /**
-     * @param ExportId $exportId
-     *
      * @return array
      */
     public function getInformation(ExportId $exportId): array
@@ -122,10 +100,6 @@ class DbalExportQuery implements ExportQueryInterface
     }
 
     /**
-     * @param ChannelId $channelId
-     *
-     * @return \DateTime|null
-     *
      * @throws \Exception
      */
     public function findLastExport(ChannelId $channelId): ?\DateTime
@@ -148,9 +122,6 @@ class DbalExportQuery implements ExportQueryInterface
         return null;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

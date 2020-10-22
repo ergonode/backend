@@ -22,14 +22,8 @@ use Ergonode\Channel\Domain\Query\ExportQueryInterface;
  */
 class ExportNotificationAction
 {
-    /**
-     * @var ExportQueryInterface
-     */
     private ExportQueryInterface $query;
 
-    /**
-     * @param ExportQueryInterface $query
-     */
     public function __construct(ExportQueryInterface $query)
     {
         $this->query = $query;
@@ -52,10 +46,6 @@ class ExportNotificationAction
      *     response=200,
      *     description="Returns export information",
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

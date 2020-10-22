@@ -17,8 +17,6 @@ use JMS\Serializer\Annotation as JMS;
 class CreateConditionSetCommand implements DomainCommandInterface
 {
     /**
-     * @var ConditionSetId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ConditionSetId $id;
@@ -31,8 +29,7 @@ class CreateConditionSetCommand implements DomainCommandInterface
     private array $conditions;
 
     /**
-     * @param ConditionSetId $id
-     * @param array          $conditions
+     * @param array $conditions
      */
     public function __construct(ConditionSetId $id, array $conditions = [])
     {
@@ -40,9 +37,6 @@ class CreateConditionSetCommand implements DomainCommandInterface
         $this->conditions = $conditions;
     }
 
-    /**
-     * @return ConditionSetId
-     */
     public function getId(): ConditionSetId
     {
         return $this->id;

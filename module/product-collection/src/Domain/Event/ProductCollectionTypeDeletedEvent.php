@@ -16,23 +16,15 @@ use JMS\Serializer\Annotation as JMS;
 class ProductCollectionTypeDeletedEvent extends AbstractDeleteEvent
 {
     /**
-     * @var ProductCollectionTypeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $id;
 
-    /**
-     * @param ProductCollectionTypeId $id
-     */
     public function __construct(ProductCollectionTypeId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return ProductCollectionTypeId
-     */
     public function getAggregateId(): ProductCollectionTypeId
     {
         return $this->id;

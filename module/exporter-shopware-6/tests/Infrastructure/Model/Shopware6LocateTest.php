@@ -13,19 +13,10 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6LocateTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $code;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     protected function setUp(): void

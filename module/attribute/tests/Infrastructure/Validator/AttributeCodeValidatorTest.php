@@ -76,9 +76,6 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return AttributeCodeValidator
-     */
     protected function createValidator(): AttributeCodeValidator
     {
         return new AttributeCodeValidator($this->query);

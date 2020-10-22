@@ -19,22 +19,14 @@ class DbalProductCollectionElementAddedEventProjector
     private const TABLE_ELEMENT = 'product_collection_element';
     private const TABLE_COLLECTION = 'product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductCollectionElementAddedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCollectionElementAddedEvent $event): void

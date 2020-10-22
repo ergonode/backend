@@ -16,8 +16,6 @@ class ProductTypeProvider
     private array $types;
 
     /**
-     * @param string ...$classes
-     *
      * @throws \ReflectionException
      */
     public function __construct(string ...$classes)

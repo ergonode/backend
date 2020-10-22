@@ -17,8 +17,6 @@ class LanguageDataTransformer implements DataTransformerInterface
 {
     /**
      * @param Language|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -34,8 +32,6 @@ class LanguageDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return Language|null
      */
     public function reverseTransform($value): ?Language
     {

@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class SkuUnique extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Sku {{ value }} already exists.';
 }

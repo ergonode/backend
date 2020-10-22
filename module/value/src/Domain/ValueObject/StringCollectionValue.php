@@ -49,11 +49,6 @@ class StringCollectionValue implements ValueInterface
         return $this->value;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return string|null
-     */
     public function getTranslation(Language $language): ?string
     {
         return $this->value[$language->getCode()] ?? null;
@@ -67,11 +62,6 @@ class StringCollectionValue implements ValueInterface
         return implode(',', $this->value);
     }
 
-    /**
-     * @param ValueInterface $value
-     *
-     * @return bool
-     */
     public function isEqual(ValueInterface $value): bool
     {
         return

@@ -21,36 +21,18 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
 class ImportProductSelectAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @param OptionQueryInterface $optionQuery
-     */
     public function __construct(OptionQueryInterface $optionQuery)
     {
         $this->optionQuery = $optionQuery;
     }
 
-    /**
-     * @param AttributeType $type
-     *
-     * @return bool
-     */
     public function supported(AttributeType $type): bool
     {
         return SelectAttribute::TYPE === $type->getValue();
     }
 
-    /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $value
-     *
-     * @return ValueInterface
-     */
     public function build(AttributeId $id, AttributeCode $code, TranslatableString $value): ValueInterface
     {
         $result = [];

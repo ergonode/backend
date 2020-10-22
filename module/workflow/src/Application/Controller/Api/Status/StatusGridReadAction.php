@@ -30,26 +30,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class StatusGridReadAction
 {
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @var StatusQueryInterface
-     */
     private StatusQueryInterface $query;
 
-    /**
-     * @var StatusGrid
-     */
     private StatusGrid $grid;
 
-    /**
-     * @param GridRenderer         $gridRenderer
-     * @param StatusQueryInterface $query
-     * @param StatusGrid           $grid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         StatusQueryInterface $query,
@@ -124,11 +110,6 @@ class StatusGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

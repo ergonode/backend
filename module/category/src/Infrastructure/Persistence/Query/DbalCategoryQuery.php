@@ -22,24 +22,13 @@ class DbalCategoryQuery implements CategoryQueryInterface
 {
     private const CATEGORY_TABLE = 'category';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
@@ -55,11 +44,6 @@ class DbalCategoryQuery implements CategoryQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @param CategoryCode $code
-     *
-     * @return CategoryId|null
-     */
     public function findIdByCode(CategoryCode $code): ?CategoryId
     {
         $qb = $this->connection->createQueryBuilder();
@@ -78,8 +62,6 @@ class DbalCategoryQuery implements CategoryQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getAll(Language $language): array
@@ -93,8 +75,6 @@ class DbalCategoryQuery implements CategoryQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array
@@ -108,8 +88,6 @@ class DbalCategoryQuery implements CategoryQueryInterface
     }
 
     /**
-     * @param CategoryId $categoryId
-     *
      * @return null|array
      */
     public function getCategory(CategoryId $categoryId): ?array
@@ -134,12 +112,6 @@ class DbalCategoryQuery implements CategoryQueryInterface
     }
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -171,9 +143,6 @@ class DbalCategoryQuery implements CategoryQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

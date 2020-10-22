@@ -19,29 +19,16 @@ class PostCategoryAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/category?%s';
 
-    /**
-     * @var Shopware6Category
-     */
     private Shopware6Category $category;
 
-    /**
-     * @var bool
-     */
     private bool $response;
 
-    /**
-     * @param Shopware6Category $category
-     * @param bool              $response
-     */
     public function __construct(Shopware6Category $category, bool $response = false)
     {
         $this->category = $category;
         $this->response = $response;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -53,10 +40,6 @@ class PostCategoryAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6Category|null
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?Shopware6Category
@@ -76,9 +59,6 @@ class PostCategoryAction extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $serializer = SerializerBuilder::create()->build();
@@ -86,9 +66,6 @@ class PostCategoryAction extends AbstractAction implements ActionInterface
         return $serializer->serialize($this->category, 'json');
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [];

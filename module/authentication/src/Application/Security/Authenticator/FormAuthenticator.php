@@ -27,26 +27,12 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
     private UserPasswordEncoderInterface $passwordEncoder;
 
-    /**
-     * @var AuthenticationSuccessHandler
-     */
     private AuthenticationSuccessHandler $successHandler;
 
-    /**
-     * @var AuthenticationFailureHandler
-     */
     private AuthenticationFailureHandler $failureHandler;
 
-    /**
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param AuthenticationSuccessHandler $successHandler
-     * @param AuthenticationFailureHandler $failureHandler
-     */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
         AuthenticationSuccessHandler $successHandler,
@@ -57,19 +43,12 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
         $this->failureHandler = $failureHandler;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return bool
-     */
     public function supports(Request $request): bool
     {
         return true;
     }
 
     /**
-     * @param Request $request
-     *
      * @return array
      */
     public function getCredentials(Request $request): array
@@ -81,10 +60,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param mixed                 $credentials
-     * @param UserProviderInterface $userProvider
-     *
-     * @return UserInterface|null
+     * @param mixed $credentials
      */
     public function getUser(
         $credentials,
@@ -98,10 +74,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param mixed         $credentials
-     * @param UserInterface $user
-     *
-     * @return bool
+     * @param mixed $credentials
      */
     public function checkCredentials(
         $credentials,
@@ -116,11 +89,8 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param Request        $request
-     * @param TokenInterface $token
-     * @param string         $providerKey
+     * @param string $providerKey
      *
-     * @return Response
      *
      * @throws \Exception
      */
@@ -132,12 +102,6 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
         return $this->successHandler->onAuthenticationSuccess($request, $token);
     }
 
-    /**
-     * @param Request                 $request
-     * @param AuthenticationException $exception
-     *
-     * @return Response
-     */
     public function onAuthenticationFailure(
         Request $request,
         AuthenticationException $exception
@@ -145,12 +109,6 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
         return $this->failureHandler->onAuthenticationFailure($request, $exception);
     }
 
-    /**
-     * @param Request                      $request
-     * @param AuthenticationException|null $authException
-     *
-     * @return Response
-     */
     public function start(
         Request $request,
         AuthenticationException $authException = null
@@ -158,9 +116,6 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
         return new Response(null, Response::HTTP_UNAUTHORIZED);
     }
 
-    /**
-     * @return bool
-     */
     public function supportsRememberMe(): bool
     {
         return false;

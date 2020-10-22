@@ -17,8 +17,6 @@ use Ergonode\Product\Domain\Entity\VariableProduct;
 class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
 {
     /**
-     * @param UpdateVariableProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateVariableProductCommand $command)

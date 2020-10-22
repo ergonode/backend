@@ -21,20 +21,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class NotificationCheckAction
 {
-    /**
-     * @var NotificationQueryInterface
-     */
     private NotificationQueryInterface $query;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @param NotificationQueryInterface         $query
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(NotificationQueryInterface $query, AuthenticatedUserProviderInterface $userProvider)
     {
         $this->query = $query;
@@ -56,7 +46,6 @@ class NotificationCheckAction
      *     description="Returns notification information for current user",
      * )
      *
-     * @return Response
      *
      * @throws \Exception
      */

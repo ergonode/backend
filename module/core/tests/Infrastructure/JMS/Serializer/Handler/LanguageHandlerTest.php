@@ -18,24 +18,12 @@ use PHPUnit\Framework\TestCase;
 
 class LanguageHandlerTest extends TestCase
 {
-    /**
-     * @var LanguageHandler
-     */
     private LanguageHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializationVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializationVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

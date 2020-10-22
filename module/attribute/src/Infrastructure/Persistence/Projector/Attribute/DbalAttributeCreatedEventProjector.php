@@ -21,20 +21,10 @@ class DbalAttributeCreatedEventProjector
     private const TABLE_PARAMETER = 'attribute_parameter';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -42,8 +32,6 @@ class DbalAttributeCreatedEventProjector
     }
 
     /**
-     * @param AttributeCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(AttributeCreatedEvent $event): void

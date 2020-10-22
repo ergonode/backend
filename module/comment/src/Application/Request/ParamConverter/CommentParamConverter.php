@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CommentParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var CommentRepositoryInterface
-     */
     private CommentRepositoryInterface $repository;
 
-    /**
-     * @param CommentRepositoryInterface $repository
-     */
     public function __construct(CommentRepositoryInterface $repository)
     {
         $this->repository = $repository;

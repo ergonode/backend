@@ -18,11 +18,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserExactlyConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === UserExactlyCondition::TYPE;
@@ -30,8 +25,6 @@ class UserExactlyConditionValidatorStrategy implements ConditionValidatorStrateg
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

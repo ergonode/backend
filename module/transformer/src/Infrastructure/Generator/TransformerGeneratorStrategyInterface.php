@@ -13,17 +13,7 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 
 interface TransformerGeneratorStrategyInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 
-    /**
-     * @param TransformerId  $transformerId
-     * @param string         $name
-     * @param AbstractSource $source
-     *
-     * @return Transformer
-     */
     public function generate(TransformerId $transformerId, string $name, AbstractSource $source): Transformer;
 }

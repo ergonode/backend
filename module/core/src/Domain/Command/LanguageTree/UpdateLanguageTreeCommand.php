@@ -17,33 +17,20 @@ use JMS\Serializer\Annotation as JMS;
 class UpdateLanguageTreeCommand implements DomainCommandInterface
 {
     /**
-     * @var LanguageNode
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\LanguageNode")
      */
     private LanguageNode $languages;
 
-    /**
-     * @param LanguageTreeNodeFormModel $language
-     */
     public function __construct(LanguageTreeNodeFormModel $language)
     {
         $this->languages = $this->createNode($language);
     }
 
-    /**
-     * @return LanguageNode
-     */
     public function getLanguages(): LanguageNode
     {
         return $this->languages;
     }
 
-    /**
-     * @param LanguageTreeNodeFormModel $languages
-     *
-     * @return LanguageNode
-     */
     private function createNode(LanguageTreeNodeFormModel $languages): LanguageNode
     {
         $node = new LanguageNode(new LanguageId($languages->languageId));

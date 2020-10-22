@@ -19,14 +19,8 @@ use Webmozart\Assert\Assert;
 
 class DbalTransformerRepository implements TransformerRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
