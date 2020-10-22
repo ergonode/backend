@@ -16,15 +16,8 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- */
 class AttributeExistsConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === AttributeExistsCondition::TYPE;
@@ -32,8 +25,6 @@ class AttributeExistsConditionValidatorStrategy implements ConditionValidatorStr
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

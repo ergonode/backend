@@ -33,20 +33,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class LanguageChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -81,9 +71,7 @@ class LanguageChangeAction
      *     description="Form validation error",
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

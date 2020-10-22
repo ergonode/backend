@@ -14,18 +14,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class RoleFactory
 {
     /**
-     * @param RoleId      $id
-     * @param string      $name
-     * @param string|null $description
      * @param Privilege[] $privileges
-     * @param bool        $hidden
      *
-     * @return Role
      *
      * @throws \Exception
      */

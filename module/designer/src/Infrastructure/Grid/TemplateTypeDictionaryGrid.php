@@ -16,14 +16,8 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class TemplateTypeDictionaryGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $this->addColumn('type', new TextColumn('type', 'Type', new TextFilter()));

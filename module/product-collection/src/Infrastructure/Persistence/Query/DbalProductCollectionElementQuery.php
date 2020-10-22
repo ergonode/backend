@@ -20,39 +20,19 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
-/**
- */
 class DbalProductCollectionElementQuery implements ProductCollectionElementQueryInterface
 {
     private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'product_collection_element';
     private const PUBLIC_PRODUCT_TABLE = 'public.product';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     protected LanguageQueryInterface $query;
 
-    /**
-     * @var DefaultLabelQueryBuilderInterface
-     */
     protected DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder;
 
-    /**
-     * @var DefaultImageQueryBuilderInterface
-     */
     protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
 
-    /**
-     * @param Connection                        $connection
-     * @param LanguageQueryInterface            $query
-     * @param DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder
-     * @param DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
-     */
     public function __construct(
         Connection $connection,
         LanguageQueryInterface $query,
@@ -65,12 +45,6 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
         $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
     }
 
-    /**
-     * @param ProductCollectionId $productCollectionId
-     * @param Language            $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(ProductCollectionId $productCollectionId, Language $language): DataSetInterface
     {
         $info = $this->query->getLanguageNodeInfo($language);
@@ -86,9 +60,6 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
         return new DbalDataSet($result);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

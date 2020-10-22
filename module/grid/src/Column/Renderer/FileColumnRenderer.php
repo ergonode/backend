@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Column\FileColumn;
 
-/**
- */
 class FileColumnRenderer implements ColumnRendererInterface
 {
     /**
@@ -53,11 +51,6 @@ class FileColumnRenderer implements ColumnRendererInterface
         return $value ? [$value] : [];
     }
 
-    /**
-     * @param string $string
-     *
-     * @return bool
-     */
     private function isJson(?string $string = null): bool
     {
         if (null === $string) {

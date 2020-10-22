@@ -17,25 +17,14 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class CreateCategoryCommandFactory implements CreateCategoryCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === Category::TYPE;
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface

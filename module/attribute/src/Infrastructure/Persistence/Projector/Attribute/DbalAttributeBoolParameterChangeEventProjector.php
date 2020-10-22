@@ -11,13 +11,8 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeBoolParameterChangeEvent;
 
-/**
- */
 class DbalAttributeBoolParameterChangeEventProjector extends AbstractDbalAttributeParameterChangeEventProjector
 {
-    /**
-     * @param AttributeBoolParameterChangeEvent $event
-     */
     public function __invoke(AttributeBoolParameterChangeEvent $event): void
     {
         $this->projection($event->getAggregateId(), $event->getName(), $event->getTo());

@@ -16,8 +16,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostCategoryActionTest extends TestCase
 {
     /**
@@ -25,8 +23,6 @@ class PostCategoryActionTest extends TestCase
      */
     private Shopware6Category $category;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->category = new Shopware6Category(
@@ -36,8 +32,6 @@ class PostCategoryActionTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testAction():void
     {
         $action = new PostCategoryAction($this->category);

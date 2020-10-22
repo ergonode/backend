@@ -17,25 +17,14 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 
-/**
- */
 class CreateWorkflowCommandFactory implements CreateWorkflowCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === Workflow::TYPE;
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface

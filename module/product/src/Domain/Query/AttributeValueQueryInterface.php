@@ -10,13 +10,9 @@ namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 interface AttributeValueQueryInterface
 {
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function getUniqueValue(AttributeId $attributeId): array;

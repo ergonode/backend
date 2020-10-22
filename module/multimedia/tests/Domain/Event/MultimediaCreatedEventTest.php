@@ -14,8 +14,6 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class MultimediaCreatedEventTest extends TestCase
 {
     /**

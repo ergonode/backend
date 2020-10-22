@@ -19,23 +19,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class MultiSelectAttributeForm extends AbstractType implements AttributeFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return MultiSelectAttribute::TYPE === $type;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -66,9 +58,6 @@ class MultiSelectAttributeForm extends AbstractType implements AttributeFormInte
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -78,9 +67,6 @@ class MultiSelectAttributeForm extends AbstractType implements AttributeFormInte
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

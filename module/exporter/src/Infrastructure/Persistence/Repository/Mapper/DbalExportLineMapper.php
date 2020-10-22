@@ -11,13 +11,9 @@ namespace Ergonode\Exporter\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 
-/**
- */
 class DbalExportLineMapper
 {
     /**
-     * @param ExportLine $line
-     *
      * @return array
      */
     public function map(ExportLine $line): array

@@ -11,12 +11,8 @@ namespace Ergonode\Multimedia\Tests\Infrastructure\Service\Thumbnail\Strategy;
 use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\Strategy\DefaultThumbnailGenerationStrategy;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DefaultThumbnailGenerationStrategyTest extends TestCase
 {
-    /**
-     */
     public function testSupportedType(): void
     {
         $strategy = new DefaultThumbnailGenerationStrategy();
@@ -24,8 +20,6 @@ class DefaultThumbnailGenerationStrategyTest extends TestCase
         self::assertTrue($strategy->supported('default'));
     }
 
-    /**
-     */
     public function testNotSupportedType(): void
     {
         $strategy = new DefaultThumbnailGenerationStrategy();
@@ -33,8 +27,6 @@ class DefaultThumbnailGenerationStrategyTest extends TestCase
         self::assertFalse($strategy->supported('any non supported type'));
     }
 
-    /**
-     */
     public function testGenerationThumbnail(): void
     {
         $imagick = $this->createMock(\Imagick::class);
@@ -44,8 +36,6 @@ class DefaultThumbnailGenerationStrategyTest extends TestCase
         $strategy->generate($imagick);
     }
 
-    /**
-     */
     public function testLeaveOriginalImage(): void
     {
         $imagick = $this->createMock(\Imagick::class);

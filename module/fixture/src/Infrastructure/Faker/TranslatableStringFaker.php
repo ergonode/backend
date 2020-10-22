@@ -10,14 +10,10 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class TranslatableStringFaker
 {
     /**
      * @param array $translations
-     *
-     * @return TranslatableString
      */
     public function translation(array $translations = []): TranslatableString
     {

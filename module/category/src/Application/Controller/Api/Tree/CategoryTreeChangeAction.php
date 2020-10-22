@@ -37,20 +37,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class CategoryTreeChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -94,11 +84,6 @@ class CategoryTreeChangeAction
      * )
      *
      * @ParamConverter(name="tree")
-     *
-     * @param CategoryTree $tree
-     * @param Request      $request
-     *
-     * @return Response
      */
     public function __invoke(CategoryTree $tree, Request $request): Response
     {

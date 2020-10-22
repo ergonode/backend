@@ -15,13 +15,9 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
-/**
- */
 abstract class AbstractProductProcessor
 {
     /**
-     * @param ProductModel $product
-     *
      * @return CategoryCode[]
      */
     protected function getCategories(ProductModel $product): array
@@ -39,10 +35,6 @@ abstract class AbstractProductProcessor
     }
 
     /**
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     * @param ProductModel      $product
-     *
      * @return string[]
      */
     protected function getAttributes(
@@ -79,12 +71,6 @@ abstract class AbstractProductProcessor
         return $result;
     }
 
-    /**
-     * @param string      $type
-     * @param string|null $value
-     *
-     * @return string|null
-     */
     protected function format(
         string $type,
         ?string $value

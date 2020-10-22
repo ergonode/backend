@@ -16,26 +16,17 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class OptionCodeExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @param OptionQueryInterface $optionQuery
-     */
     public function __construct(OptionQueryInterface $optionQuery)
     {
         $this->optionQuery = $optionQuery;
     }
 
     /**
-     * @param mixed      $value
-     * @param Constraint $constraint
+     * @param mixed $value
      */
     public function validate($value, Constraint $constraint): void
     {
@@ -55,6 +46,7 @@ class OptionCodeExistsValidator extends ConstraintValidator
             if ($this->optionQuery->findIdByAttributeIdAndCode($value->attributeId, new OptionKey($value->code))) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ value }}', $value->code)
+                    ->atPath('code')
                     ->addViolation();
             }
 
@@ -65,6 +57,7 @@ class OptionCodeExistsValidator extends ConstraintValidator
         if (null !== $optionId && !$optionId->isEqual($value->optionId)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value->code)
+                ->atPath('code')
                 ->addViolation();
         }
     }

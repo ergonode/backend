@@ -13,36 +13,23 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UnitCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var UnitId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
      */
     private UnitId $id;
 
     /**
-     * @var string $name
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string $symbol
-     *
      * @JMS\Type("string")
      */
     private string $symbol;
 
-    /**
-     * @param UnitId $id
-     * @param string $name
-     * @param string $symbol
-     */
     public function __construct(UnitId $id, string $name, string $symbol)
     {
         $this->id = $id;
@@ -50,25 +37,16 @@ class UnitCreatedEvent implements DomainEventInterface
         $this->symbol = $symbol;
     }
 
-    /**
-     * @return UnitId
-     */
     public function getAggregateId(): UnitId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getSymbol(): string
     {
         return $this->symbol;

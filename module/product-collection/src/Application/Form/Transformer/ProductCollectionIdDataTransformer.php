@@ -13,14 +13,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class ProductCollectionIdDataTransformer implements DataTransformerInterface
 {
     /**
      * @param ProductCollectionId|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -36,8 +32,6 @@ class ProductCollectionIdDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return ProductCollectionId|null
      */
     public function reverseTransform($value): ?ProductCollectionId
     {

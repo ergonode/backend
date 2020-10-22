@@ -12,20 +12,14 @@ namespace Ergonode\EventSourcing\Domain\Event;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 abstract class AbstractStringBasedChangedEvent implements DomainEventInterface
 {
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $from;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $to;
@@ -40,17 +34,11 @@ abstract class AbstractStringBasedChangedEvent implements DomainEventInterface
         $this->to = $to;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFrom(): ?string
     {
         return $this->from;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTo(): ?string
     {
         return $this->to;

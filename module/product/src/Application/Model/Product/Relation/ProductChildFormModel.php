@@ -22,8 +22,6 @@ use Ergonode\Product\Infrastructure\Validator\ProductType;
 class ProductChildFormModel
 {
     /**
-     * @var ProductId $parentId
-     *
      * @ProductType(type={"VARIABLE-PRODUCT", "GROUPING-PRODUCT"})
      *
      * @ProductNoBindings(groups={"VARIABLE-PRODUCT"})
@@ -31,8 +29,6 @@ class ProductChildFormModel
     private ProductId $parentId;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Child product is required")
      * @Assert\Uuid(strict=true)
      *
@@ -42,17 +38,11 @@ class ProductChildFormModel
      */
     public ?string $childId = null;
 
-    /**
-     * @param ProductId $parentId
-     */
     public function __construct(ProductId $parentId)
     {
         $this->parentId = $parentId;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getParentId(): ProductId
     {
         return $this->parentId;

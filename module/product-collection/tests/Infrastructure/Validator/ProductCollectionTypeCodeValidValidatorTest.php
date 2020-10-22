@@ -14,21 +14,15 @@ use Ergonode\ProductCollection\Infrastructure\Validator\ProductCollectionTypeCod
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTestCase
 {
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), new ProductCollectionTypeCodeValid());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\UnexpectedTypeException::class);
@@ -37,8 +31,6 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new ProductCollectionTypeCodeValid());
@@ -46,8 +38,6 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->validator->validate('code', new ProductCollectionTypeCodeValid());
@@ -55,8 +45,6 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testInCorrectValueValidation(): void
     {
         $constraint = new ProductCollectionTypeCodeValid();
@@ -67,9 +55,6 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
         $assertion->assertRaised();
     }
 
-    /**
-     * @return ProductCollectionTypeCodeValidValidator
-     */
     protected function createValidator(): ProductCollectionTypeCodeValidValidator
     {
         return new ProductCollectionTypeCodeValidValidator();

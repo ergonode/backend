@@ -15,12 +15,8 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryCreatedEventTest extends TestCase
 {
-    /**
-     */
     public function testEvent(): void
     {
         $id = $this->createMock(CategoryId::class);

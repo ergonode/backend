@@ -10,8 +10,6 @@ namespace Ergonode\Channel\Application\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class SchedulerModel
 {
     /**

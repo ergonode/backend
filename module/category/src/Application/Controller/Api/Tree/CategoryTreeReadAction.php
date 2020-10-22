@@ -64,11 +64,6 @@ class CategoryTreeReadAction
      * )
      *
      * @ParamConverter(name="tree")
-     *
-     * @param CategoryTree $tree
-     * @param Language     $language
-     *
-     * @return Response
      */
     public function __invoke(CategoryTree $tree, Language $language): Response
     {

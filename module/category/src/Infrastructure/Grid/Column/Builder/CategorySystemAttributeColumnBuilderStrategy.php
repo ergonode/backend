@@ -19,18 +19,10 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\Grid\Filter\Option\FilterOption;
 
-/**
- */
 class CategorySystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @param CategoryQueryInterface $query
-     */
     public function __construct(CategoryQueryInterface $query)
     {
         $this->query = $query;

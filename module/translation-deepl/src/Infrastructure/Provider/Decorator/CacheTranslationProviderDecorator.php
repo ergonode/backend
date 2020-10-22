@@ -15,26 +15,15 @@ use Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider;
 use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CacheTranslationProviderDecorator implements TranslationProviderInterface
 {
     public const NAMESPACE = 'a16c8554-70f5-487e-b0b7-a4a52e890ab3';
-    /**
-     * @var DeeplTranslationProvider
-     */
     private DeeplTranslationProvider $provider;
 
-    /**
-     * @var DatabaseTranslationCache
-     */
     private DatabaseTranslationCache $cache;
 
     /**
      * CacheTranslationProviderDecorator constructor.
-     *
-     * @param TranslationProviderInterface $provider
-     * @param DatabaseTranslationCache     $cache
      */
     public function __construct(TranslationProviderInterface $provider, DatabaseTranslationCache $cache)
     {
@@ -42,13 +31,6 @@ class CacheTranslationProviderDecorator implements TranslationProviderInterface
         $this->cache = $cache;
     }
 
-    /**
-     * @param string   $content
-     * @param Language $sourceLanguage
-     * @param Language $targetLanguage
-     *
-     * @return string
-     */
     public function provide(string $content, Language $sourceLanguage, Language $targetLanguage): string
     {
         $name = sprintf('%s_%s_%s', $sourceLanguage, $targetLanguage, $content);

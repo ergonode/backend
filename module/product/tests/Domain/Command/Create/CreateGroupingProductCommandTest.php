@@ -16,16 +16,11 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class CreateGroupingProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      *
      * @dataProvider dataProvider
      */

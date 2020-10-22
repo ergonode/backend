@@ -16,13 +16,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateConditionSetCommandTest extends TestCase
 {
     /**
-     * @param ConditionSetId $id
-     * @param array          $conditions
+     * @param array $conditions
      *
      * @dataProvider dataProvider
      */
@@ -51,8 +48,6 @@ class CreateConditionSetCommandTest extends TestCase
         ];
     }
 
-    /**
-     */
     public function testCreateProductBelong(): void
     {
         $categoryId = $this->createMock(CategoryId::class);

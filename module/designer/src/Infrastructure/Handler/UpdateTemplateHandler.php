@@ -14,26 +14,15 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateTemplateHandler
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $designerTemplateRepository;
 
-    /**
-     * @param TemplateRepositoryInterface $designerTemplateRepository
-     */
     public function __construct(TemplateRepositoryInterface $designerTemplateRepository)
     {
         $this->designerTemplateRepository = $designerTemplateRepository;
     }
 
-    /**
-     * @param UpdateTemplateCommand $command
-     */
     public function __invoke(UpdateTemplateCommand $command)
     {
         $current = [];

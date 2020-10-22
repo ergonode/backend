@@ -14,19 +14,12 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteProductCollectionElementCommandHandler
 {
-    /**
-     * @var ProductCollectionRepositoryInterface
-     */
     private ProductCollectionRepositoryInterface $repository;
 
     /**
      * DeleteProductCollectionElementCommandHandler constructor.
-     *
-     * @param ProductCollectionRepositoryInterface $repository
      */
     public function __construct(ProductCollectionRepositoryInterface $repository)
     {
@@ -34,8 +27,6 @@ class DeleteProductCollectionElementCommandHandler
     }
 
     /**
-     * @param DeleteProductCollectionElementCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteProductCollectionElementCommand $command)

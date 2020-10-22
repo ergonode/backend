@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class TemplateElementIdHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,12 +46,7 @@ class TemplateElementIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param TemplateElementId             $templateElementId
-     * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
+     * @param array $type
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -65,12 +58,8 @@ class TemplateElementIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return TemplateElementId
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

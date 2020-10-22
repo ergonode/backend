@@ -15,13 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class UploadForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,17 +29,11 @@ class UploadForm extends AbstractType
             );
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

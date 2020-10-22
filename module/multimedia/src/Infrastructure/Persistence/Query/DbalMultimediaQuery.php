@@ -17,30 +17,17 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class DbalMultimediaQuery implements MultimediaQueryInterface
 {
     private const TABLE = 'multimedia';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Hash $hash
-     *
-     * @return bool
-     */
     public function fileExists(Hash $hash): bool
     {
         $query = $this->getQuery();
@@ -54,11 +41,6 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         return $result ? true : false;
     }
 
-    /**
-     * @param Hash $hash
-     *
-     * @return MultimediaId|null
-     */
     public function findIdByHash(Hash $hash): ?MultimediaId
     {
         $query = $this->getQuery();
@@ -72,11 +54,6 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         return $result ? new MultimediaId($result) : null;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return MultimediaId|null
-     */
     public function findIdByFilename(string $name): ?MultimediaId
     {
         $query = $this->getQuery();
@@ -103,9 +80,6 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -146,9 +120,6 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this

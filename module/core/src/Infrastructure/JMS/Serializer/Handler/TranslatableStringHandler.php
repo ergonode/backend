@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class TranslatableStringHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,10 +46,7 @@ class TranslatableStringHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param TranslatableString            $translatableString
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */
@@ -68,12 +63,8 @@ class TranslatableStringHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return TranslatableString
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

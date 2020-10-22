@@ -12,28 +12,16 @@ namespace Ergonode\Segment\Domain\Query;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
-/**
- */
 interface SegmentProductsQueryInterface
 {
-    /**
-     * @param SegmentId $segmentId
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(SegmentId $segmentId): DataSetInterface;
 
     /**
-     * @param SegmentId $segmentId
-     *
      * @return string[]
      */
     public function getProducts(SegmentId $segmentId): array;
 
     /**
-     * @param SegmentId $segmentId
-     * @param string    $type
-     *
      * @return array
      */
     public function getProductsByType(SegmentId $segmentId, string $type): array;

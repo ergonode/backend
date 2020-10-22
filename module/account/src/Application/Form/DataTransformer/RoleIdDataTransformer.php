@@ -13,14 +13,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class RoleIdDataTransformer implements DataTransformerInterface
 {
     /**
      * @param RoleId|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -36,8 +32,6 @@ class RoleIdDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return RoleId|null
      */
     public function reverseTransform($value): ?RoleId
     {

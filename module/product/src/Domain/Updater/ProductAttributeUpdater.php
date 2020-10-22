@@ -13,13 +13,10 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class ProductAttributeUpdater
 {
     /**
-     * @param AbstractProduct $product
-     * @param array           $attributes
+     * @param array $attributes
      *
      * @throws \Exception
      */

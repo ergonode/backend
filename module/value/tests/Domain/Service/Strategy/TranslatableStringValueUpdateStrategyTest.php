@@ -14,12 +14,8 @@ use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TranslatableStringValueUpdateStrategyTest extends TestCase
 {
-    /**
-     */
     public function testSupported(): void
     {
         $strategy = new TranslatableStringValueUpdateStrategy();
@@ -30,8 +26,6 @@ class TranslatableStringValueUpdateStrategyTest extends TestCase
         self::assertFalse($strategy->isSupported($invalid));
     }
 
-    /**
-     */
     public function testCalculate(): void
     {
         $strategy = new TranslatableStringValueUpdateStrategy();
@@ -45,8 +39,6 @@ class TranslatableStringValueUpdateStrategyTest extends TestCase
         self::assertEquals($calculated->getValue(), ['en_GB' => 'test1']);
     }
 
-    /**
-     */
     public function testWrongOldValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -57,8 +49,6 @@ class TranslatableStringValueUpdateStrategyTest extends TestCase
         $strategy->calculate($invalid, $newValue);
     }
 
-    /**
-     */
     public function testWrongNewValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

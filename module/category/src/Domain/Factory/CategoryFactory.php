@@ -17,17 +17,10 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class CategoryFactory
 {
     /**
-     * @param CategoryId         $id
-     * @param CategoryCode       $code
-     * @param TranslatableString $name
-     * @param array              $attributes
-     *
-     * @return AbstractCategory
+     * @param array $attributes
      */
     public function create(
         CategoryId $id,

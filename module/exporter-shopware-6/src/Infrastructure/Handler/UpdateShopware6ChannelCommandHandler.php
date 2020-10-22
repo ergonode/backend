@@ -12,26 +12,16 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Command\UpdateShopware6ChannelCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class UpdateShopware6ChannelCommandHandler
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $repository;
 
-    /**
-     * @param ChannelRepositoryInterface $repository
-     */
     public function __construct(ChannelRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateShopware6ChannelCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateShopware6ChannelCommand $command)

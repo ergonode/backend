@@ -13,45 +13,29 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class ProcessCategoryCommand implements DomainCommandInterface
 {
     /**
-     * @var ExportId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
      */
     private ExportId $exportId;
 
     /**
-     * @var CategoryId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $categoryId;
 
-    /**
-     * @param ExportId   $exportId
-     * @param CategoryId $categoryId
-     */
     public function __construct(ExportId $exportId, CategoryId $categoryId)
     {
         $this->exportId = $exportId;
         $this->categoryId = $categoryId;
     }
 
-    /**
-     * @return ExportId
-     */
     public function getExportId(): ExportId
     {
         return $this->exportId;
     }
 
-    /**
-     * @return CategoryId
-     */
     public function getCategoryId(): CategoryId
     {
         return $this->categoryId;

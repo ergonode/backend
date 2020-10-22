@@ -12,8 +12,6 @@ use Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategorySystemAttributeTest extends TestCase
 {
     /**

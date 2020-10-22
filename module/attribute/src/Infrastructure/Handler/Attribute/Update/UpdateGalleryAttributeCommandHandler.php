@@ -15,26 +15,16 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateGalleryAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateGalleryAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateGalleryAttributeCommand $command): void

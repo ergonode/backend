@@ -12,15 +12,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 interface ProductCategoryQueryInterface
 {
-    /**
-     * @param Language  $language
-     * @param ProductId $productId
-     *
-     * @return DataSetInterface
-     */
     public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface;
 }

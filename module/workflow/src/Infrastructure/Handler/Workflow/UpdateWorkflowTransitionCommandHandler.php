@@ -13,26 +13,16 @@ use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateWorkflowTransitionCommandHandler
 {
-    /**
-     * @var WorkflowRepositoryInterface
-     */
     private WorkflowRepositoryInterface $repository;
 
-    /**
-     * @param WorkflowRepositoryInterface $repository
-     */
     public function __construct(WorkflowRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateWorkflowTransitionCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateWorkflowTransitionCommand $command)

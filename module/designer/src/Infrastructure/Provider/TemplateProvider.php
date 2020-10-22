@@ -14,36 +14,16 @@ use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 
-/**
- */
 class TemplateProvider
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $repository;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @var TemplateGroupQueryInterface
-     */
     private TemplateGroupQueryInterface $query;
 
-    /**
-     * @var TemplateGeneratorProvider
-     */
     private TemplateGeneratorProvider $provider;
 
-    /**
-     * @param TemplateRepositoryInterface $repository
-     * @param TemplateQueryInterface      $templateQuery
-     * @param TemplateGroupQueryInterface $query
-     * @param TemplateGeneratorProvider   $provider
-     */
     public function __construct(
         TemplateRepositoryInterface $repository,
         TemplateQueryInterface $templateQuery,
@@ -57,10 +37,6 @@ class TemplateProvider
     }
 
     /**
-     * @param string $code
-     *
-     * @return Template
-     *
      * @throws \Exception
      */
     public function provide(string $code): Template

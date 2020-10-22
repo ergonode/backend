@@ -13,14 +13,10 @@ use Ergonode\SharedKernel\Domain\AbstractId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class StringValueFaker extends BaseProvider
 {
     /**
      * @param mixed $value
-     *
-     * @return StringValue
      */
     public function stringValue($value): StringValue
     {

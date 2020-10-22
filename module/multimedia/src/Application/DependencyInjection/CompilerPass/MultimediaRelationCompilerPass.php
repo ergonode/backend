@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationProvider;
 
-/**
- */
 class MultimediaRelationCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'multimedia.multimedia_relation_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(MultimediaRelationProvider::class)) {
@@ -30,9 +25,6 @@ class MultimediaRelationCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

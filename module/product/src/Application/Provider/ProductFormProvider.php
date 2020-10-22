@@ -10,8 +10,6 @@ namespace Ergonode\Product\Application\Provider;
 
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 
-/**
- */
 class ProductFormProvider implements ProductSupportProviderInterface
 {
     /**
@@ -19,19 +17,11 @@ class ProductFormProvider implements ProductSupportProviderInterface
      */
     private array $forms;
 
-    /**
-     * @param ProductFormInterface ...$forms
-     */
     public function __construct(ProductFormInterface ...$forms)
     {
         $this->forms = $forms;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return string
-     */
     public function provide(string $type): string
     {
         foreach ($this->forms as $form) {
@@ -43,11 +33,6 @@ class ProductFormProvider implements ProductSupportProviderInterface
         throw new \InvalidArgumentException('Unsupported product type');
     }
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         foreach ($this->forms as $form) {

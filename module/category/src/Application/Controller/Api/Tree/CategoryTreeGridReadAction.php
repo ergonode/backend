@@ -26,26 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryTreeGridReadAction
 {
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $query;
 
-    /**
-     * @var TreeGrid
-     */
     private TreeGrid $grid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer       $gridRenderer
-     * @param TreeQueryInterface $query
-     * @param TreeGrid           $grid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         TreeQueryInterface $query,
@@ -114,11 +100,6 @@ class CategoryTreeGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

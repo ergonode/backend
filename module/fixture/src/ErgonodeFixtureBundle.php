@@ -11,8 +11,6 @@ namespace Ergonode\Fixture;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeFixtureBundle extends AbstractModule
 {
 }

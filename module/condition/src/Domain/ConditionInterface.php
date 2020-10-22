@@ -9,12 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain;
 
-/**
- */
 interface ConditionInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 }

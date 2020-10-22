@@ -13,8 +13,6 @@ use Ergonode\Grid\FilterInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Grid\Filter\Option\FilterOptionInterface;
 
-/**
- */
 class MultiSelectFilter implements FilterInterface
 {
     public const TYPE = 'MULTI_SELECT';
@@ -46,9 +44,6 @@ class MultiSelectFilter implements FilterInterface
         return $result;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

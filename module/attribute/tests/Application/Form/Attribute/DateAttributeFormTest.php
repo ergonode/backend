@@ -18,8 +18,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class DateAttributeFormTest extends TypeTestCase
 {
     /**
@@ -27,9 +25,6 @@ class DateAttributeFormTest extends TypeTestCase
      */
     private AttributeGroupQueryInterface $query;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         $this->query = $this->createMock(AttributeGroupQueryInterface::class);
@@ -40,8 +35,6 @@ class DateAttributeFormTest extends TypeTestCase
         parent::setUp();
     }
 
-    /**
-     */
     public function testSupport(): void
     {
         $form = new DateAttributeForm();
@@ -49,8 +42,6 @@ class DateAttributeFormTest extends TypeTestCase
         $this->assertFalse($form->supported('unsupported type'));
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

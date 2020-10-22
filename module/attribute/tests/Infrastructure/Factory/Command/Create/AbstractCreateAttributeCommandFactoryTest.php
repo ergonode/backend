@@ -14,15 +14,9 @@ use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 
-/**
- */
 abstract class AbstractCreateAttributeCommandFactoryTest extends TestCase
 {
     /**
-     * @param string $class
-     *
-     * @return AttributeFormModel
-     *
      * @throws \Exception
      */
     protected function getAttributeFormModel(string $class): AttributeFormModel
@@ -45,10 +39,6 @@ abstract class AbstractCreateAttributeCommandFactoryTest extends TestCase
         return $data;
     }
 
-    /**
-     * @param AttributeFormModel             $model
-     * @param AbstractCreateAttributeCommand $command
-     */
     protected function assertAttributeFormModel(
         AttributeFormModel $model,
         AbstractCreateAttributeCommand $command

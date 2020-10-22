@@ -16,18 +16,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateUnitAttributeCommandTest extends TestCase
 {
     /**
-     * @param AttributeCode      $attributeCode
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param array              $groups
-     * @param UnitId             $unitId
-     * @param AttributeScope     $scope
+     * @param array $groups
      *
      * @throws \Exception
      *

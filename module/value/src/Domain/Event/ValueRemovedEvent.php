@@ -17,36 +17,23 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ValueRemovedEvent implements DomainEventInterface
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type(" Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
     /**
-     * @var AttributeCode
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
     private AttributeCode $code;
 
     /**
-     * @var ValueInterface
-     *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private ValueInterface $old;
 
-    /**
-     * @param CategoryId     $id
-     * @param AttributeCode  $code
-     * @param ValueInterface $old
-     */
     public function __construct(CategoryId $id, AttributeCode $code, ValueInterface $old)
     {
         $this->id = $id;
@@ -62,17 +49,11 @@ class ValueRemovedEvent implements DomainEventInterface
         return $this->id;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getAttributeCode(): AttributeCode
     {
         return $this->code;
     }
 
-    /**
-     * @return ValueInterface
-     */
     public function getOld(): ValueInterface
     {
         return $this->old;

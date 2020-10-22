@@ -56,10 +56,6 @@ class StatusReadAction
      * )
      *
      * @ParamConverter(name="status")
-     *
-     * @param Status $status
-     *
-     * @return Response
      */
     public function __invoke(Status $status): Response
     {

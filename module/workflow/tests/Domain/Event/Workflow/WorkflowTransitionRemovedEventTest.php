@@ -15,12 +15,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class WorkflowTransitionRemovedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var WorkflowId |MockObject $id */

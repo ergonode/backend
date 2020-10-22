@@ -12,13 +12,8 @@ namespace Ergonode\Condition\Domain\Provider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ConditionDictionaryProvider
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
     /**
@@ -26,9 +21,6 @@ class ConditionDictionaryProvider
      */
     private array $groups;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
@@ -36,8 +28,7 @@ class ConditionDictionaryProvider
     }
 
     /**
-     * @param string $group
-     * @param array  $classes
+     * @param array $classes
      *
      * @throws \ReflectionException
      */
@@ -56,9 +47,6 @@ class ConditionDictionaryProvider
     }
 
     /**
-     * @param Language    $language
-     * @param string|null $requestedGroup
-     *
      * @return array
      */
     public function getDictionary(Language $language, string $requestedGroup = null): array
@@ -76,9 +64,6 @@ class ConditionDictionaryProvider
     }
 
     /**
-     * @param Language $language
-     * @param string   $group
-     *
      * @return array
      */
     private function getGroup(Language $language, string $group): array

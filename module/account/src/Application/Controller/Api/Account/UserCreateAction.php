@@ -12,6 +12,7 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 use Ergonode\Account\Application\Form\CreateUserForm;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
+use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -30,20 +31,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -79,9 +70,7 @@ class UserCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */
@@ -100,7 +89,7 @@ class UserCreateAction
                     $data->lastName,
                     new Email($data->email),
                     $data->language,
-                    $data->password,
+                    new Password($data->password),
                     $data->roleId,
                     $data->isActive
                 );

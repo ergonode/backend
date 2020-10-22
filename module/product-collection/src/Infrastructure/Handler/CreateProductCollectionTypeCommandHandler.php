@@ -13,24 +13,12 @@ use Ergonode\ProductCollection\Domain\Command\CreateProductCollectionTypeCommand
 use Ergonode\ProductCollection\Domain\Factory\ProductCollectionTypeFactory;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
 
-/**
- */
 class CreateProductCollectionTypeCommandHandler
 {
-    /**
-     * @var ProductCollectionTypeRepositoryInterface
-     */
     private ProductCollectionTypeRepositoryInterface $repository;
 
-    /**
-     * @var ProductCollectionTypeFactory
-     */
     private ProductCollectionTypeFactory $factory;
 
-    /**
-     * @param ProductCollectionTypeRepositoryInterface $repository
-     * @param ProductCollectionTypeFactory             $factory
-     */
     public function __construct(
         ProductCollectionTypeRepositoryInterface $repository,
         ProductCollectionTypeFactory $factory
@@ -40,8 +28,6 @@ class CreateProductCollectionTypeCommandHandler
     }
 
     /**
-     * @param CreateProductCollectionTypeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateProductCollectionTypeCommand $command)

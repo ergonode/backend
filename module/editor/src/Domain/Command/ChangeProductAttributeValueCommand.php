@@ -15,27 +15,19 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ChangeProductAttributeValueCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductDraftId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
     private ProductDraftId $id;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $attributeId;
 
     /**
-     * @var Language
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $language;
@@ -48,10 +40,7 @@ class ChangeProductAttributeValueCommand implements DomainCommandInterface
     private $value;
 
     /**
-     * @param ProductDraftId $id
-     * @param AttributeId    $attributeId
-     * @param Language       $language
-     * @param mixed          $value
+     * @param mixed $value
      */
     public function __construct(ProductDraftId $id, AttributeId $attributeId, Language $language, $value = null)
     {
@@ -61,25 +50,16 @@ class ChangeProductAttributeValueCommand implements DomainCommandInterface
         $this->value = $value;
     }
 
-    /**
-     * @return ProductDraftId
-     */
     public function getId(): ProductDraftId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getAttributeId(): AttributeId
     {
         return $this->attributeId;
     }
 
-    /**
-     * @return Language
-     */
     public function getLanguage(): Language
     {
         return $this->language;

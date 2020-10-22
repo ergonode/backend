@@ -13,15 +13,12 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UserTest extends TestCase
 {
     /**
@@ -29,14 +26,8 @@ class UserTest extends TestCase
      */
     private $userId;
 
-    /**
-     * @var string
-     */
     private string $firstName;
 
-    /**
-     * @var string
-     */
     private string $lastName;
 
     /**
@@ -44,9 +35,6 @@ class UserTest extends TestCase
      */
     private $email;
 
-    /**
-     * @var string
-     */
     private string $filename;
 
     /**
@@ -69,8 +57,6 @@ class UserTest extends TestCase
      */
     private array $languagePrivilegesCollection;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->userId = $this->createMock(UserId::class);
@@ -83,8 +69,6 @@ class UserTest extends TestCase
         $this->languagePrivilegesCollection = [];
     }
 
-    /**
-     */
     public function testUserCreation(): void
     {
         $user = new User(
@@ -106,8 +90,6 @@ class UserTest extends TestCase
         self::assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
 
-    /**
-     */
     public function testUserEdit(): void
     {
         $firstName = 'New first name';

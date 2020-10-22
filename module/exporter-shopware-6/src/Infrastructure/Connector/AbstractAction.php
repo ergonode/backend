@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
-/**
- */
 abstract class AbstractAction implements HeaderProviderInterface
 {
     /**
@@ -25,10 +23,6 @@ abstract class AbstractAction implements HeaderProviderInterface
         return $this->header;
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     */
     public function addHeader(string $key, string $value): void
     {
         $this->header[$key] = $value;

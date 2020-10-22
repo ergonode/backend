@@ -22,15 +22,10 @@ use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
-/**
- */
 class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 {
     private const NAMESPACE = 'fee77612-b07d-4eea-af71-d4e1e6c3ea1a';
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
     /**
@@ -38,21 +33,12 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
      */
     private array $options;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
         $this->options = [];
     }
 
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,

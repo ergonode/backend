@@ -13,26 +13,14 @@ use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessageSerializerInterface;
 
-/**
- */
 class TransportMessageSerializer implements MessageSerializerInterface
 {
     private const STAMP_HEADER_PREFIX = 'X-Message-Stamp-';
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @var string
-     */
     private string $format;
 
-    /**
-     * @param SerializerInterface $serializer
-     * @param string              $format
-     */
     public function __construct(SerializerInterface $serializer, string $format = 'json')
     {
         $this->serializer = $serializer;
@@ -99,8 +87,6 @@ class TransportMessageSerializer implements MessageSerializerInterface
     }
 
     /**
-     * @param Envelope $envelope
-     *
      * @return array
      */
     private function encodeStamps(Envelope $envelope): array

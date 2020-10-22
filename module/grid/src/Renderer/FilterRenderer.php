@@ -12,16 +12,9 @@ namespace Ergonode\Grid\Renderer;
 use Ergonode\Grid\FilterInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
 
-/**
- */
 class FilterRenderer
 {
     /**
-     * @param string                $key
-     * @param FilterInterface       $filter
-     *
-     * @param FilterValueCollection $filters
-     *
      * @return array
      */
     public function render(string $key, FilterInterface $filter, FilterValueCollection $filters): array

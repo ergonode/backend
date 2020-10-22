@@ -10,20 +10,10 @@ namespace Ergonode\ExporterFile\Infrastructure\Writer;
 
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 
-/**
- */
 interface WriterInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool;
 
-    /**
-     * @return string
-     */
     public function getType(): string;
 
     /**
@@ -34,8 +24,6 @@ interface WriterInterface
     public function header(array $header): array;
 
     /**
-     * @param ExportData $line
-     *
      * @return string[]
      */
     public function add(ExportData $line): array;

@@ -14,18 +14,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-/**
- */
 class SimpleAuthenticatedUserProvider implements AuthenticatedUserProviderInterface
 {
-    /**
-     * @var TokenStorageInterface
-     */
     private TokenStorageInterface $tokenStorage;
 
-    /**
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;

@@ -13,23 +13,16 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AttributeExistsCondition implements ConditionInterface
 {
     public const TYPE = 'ATTRIBUTE_EXISTS_CONDITION';
     public const PHRASE = 'ATTRIBUTE_EXISTS_CONDITION_PHRASE';
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $attribute;
 
-    /**
-     * @param AttributeId $attribute
-     */
     public function __construct(AttributeId $attribute)
     {
         $this->attribute = $attribute;
@@ -45,9 +38,6 @@ class AttributeExistsCondition implements ConditionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getAttribute(): AttributeId
     {
         return $this->attribute;

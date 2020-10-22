@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ConditionConfigurator
 {
     /**
@@ -22,18 +20,12 @@ class ConditionConfigurator
      */
     private array $strategies;
 
-    /**
-     * @param ConditionConfigurationStrategyInterface ...$strategies
-     */
     public function __construct(ConditionConfigurationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
     /**
-     * @param ConditionInterface $condition
-     * @param Language           $language
-     *
      * @return array
      */
     public function getConfiguration(ConditionInterface $condition, Language $language): array

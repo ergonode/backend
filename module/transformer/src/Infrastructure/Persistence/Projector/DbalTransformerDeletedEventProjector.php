@@ -12,18 +12,10 @@ namespace Ergonode\Transformer\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
 
-/**
- */
 class DbalTransformerDeletedEventProjector
 {
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

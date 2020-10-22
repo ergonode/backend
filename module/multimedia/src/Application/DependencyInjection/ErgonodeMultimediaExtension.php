@@ -18,13 +18,10 @@ use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaR
 use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReaderInterface;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataReaderCompilerPass;
 
-/**
- */
 class ErgonodeMultimediaExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

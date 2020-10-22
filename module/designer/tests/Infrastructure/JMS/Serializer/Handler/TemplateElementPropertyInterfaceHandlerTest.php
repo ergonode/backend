@@ -18,13 +18,8 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateElementPropertyInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
     /**
@@ -43,8 +38,6 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
             ->build();
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = TemplateElementPropertyInterfaceHandler::getSubscribingMethods();
@@ -56,8 +49,6 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testDeserializeAttributeTemplateElementProperty(): void
     {
         $testValue =
@@ -70,8 +61,6 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
         $this->assertEquals(AttributeTemplateElementProperty::VARIANT, $result->getVariant());
     }
 
-    /**
-     */
     public function testDeserializeUiTemplateElementProperty(): void
     {
         $testValue = '{"variant":"ui","label":"test_label"}';

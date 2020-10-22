@@ -12,28 +12,17 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreatePriceAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreatePriceAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreatePriceAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreatePriceAttributeCommand $command): void

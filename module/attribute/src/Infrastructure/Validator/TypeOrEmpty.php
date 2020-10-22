@@ -15,14 +15,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class TypeOrEmpty extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'This value should be of type {{ type }}.';
 
-    /**
-     * @var string|null
-     */
     public ?string $type = null;
 
     /**

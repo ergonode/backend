@@ -13,18 +13,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 
-/**
- */
 interface Shopware6CustomFieldMapperInterface
 {
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,

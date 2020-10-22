@@ -17,11 +17,6 @@ use Faker\Provider\Base as BaseProvider;
  */
 class UnitIdFaker extends BaseProvider
 {
-    /**
-     * @param string|null $unit
-     *
-     * @return UnitId
-     */
     public function unitId(string $unit = null): UnitId
     {
         if ($unit) {

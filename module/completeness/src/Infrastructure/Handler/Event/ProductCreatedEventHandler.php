@@ -13,26 +13,15 @@ use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 
-/**
- */
 class ProductCreatedEventHandler
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ProductCreatedEvent $event
-     */
     public function __invoke(ProductCreatedEvent $event): void
     {
         $command = new ProductCompletenessCalculateCommand($event->getAggregateId());

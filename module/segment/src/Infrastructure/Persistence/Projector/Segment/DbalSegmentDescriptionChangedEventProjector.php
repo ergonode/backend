@@ -14,26 +14,14 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalSegmentDescriptionChangedEventProjector
 {
     private const TABLE = 'segment';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -41,8 +29,6 @@ class DbalSegmentDescriptionChangedEventProjector
     }
 
     /**
-     * @param SegmentDescriptionChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(SegmentDescriptionChangedEvent $event): void

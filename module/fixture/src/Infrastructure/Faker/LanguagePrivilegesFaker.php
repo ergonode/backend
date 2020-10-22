@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class LanguagePrivilegesFaker extends BaseProvider
 {
     private const ACTIVE_LANGUAGE_CODES = [
@@ -180,8 +178,6 @@ class LanguagePrivilegesFaker extends BaseProvider
     ];
 
     /**
-     * @param bool $all
-     *
      * @return array|LanguagePrivileges[]
      */
     public function languagePrivilegesCollection(bool $all = false): array

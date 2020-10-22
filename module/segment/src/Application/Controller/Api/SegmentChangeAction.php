@@ -37,20 +37,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class SegmentChangeAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
-     */
     public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
     {
         $this->formFactory = $formFactory;
@@ -91,11 +81,6 @@ class SegmentChangeAction
      * )
      *
      * @ParamConverter(name="segment")
-     *
-     * @param Segment $segment
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(Segment $segment, Request $request): Response
     {

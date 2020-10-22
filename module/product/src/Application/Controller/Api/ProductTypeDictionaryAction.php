@@ -25,20 +25,10 @@ use Ergonode\Api\Application\Response\SuccessResponse;
  */
 class ProductTypeDictionaryAction
 {
-    /**
-     * @var ProductTypeProvider
-     */
     private ProductTypeProvider $provider;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param ProductTypeProvider $provider
-     * @param TranslatorInterface $translator
-     */
     public function __construct(ProductTypeProvider $provider, TranslatorInterface $translator)
     {
         $this->provider = $provider;
@@ -59,7 +49,6 @@ class ProductTypeDictionaryAction
      *     description="Returns collection supported product types"
      * )
      *
-     * @return Response
      *
      * @throws \Exception
      */

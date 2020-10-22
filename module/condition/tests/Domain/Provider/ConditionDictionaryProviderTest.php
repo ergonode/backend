@@ -17,12 +17,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ConditionDictionaryProviderTest extends TestCase
 {
-    /**
-     */
     public function testProviderCreation(): void
     {
         $translation = 'condition_translation';

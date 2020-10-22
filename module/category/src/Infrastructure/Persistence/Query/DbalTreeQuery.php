@@ -17,31 +17,18 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
-/**
- */
 class DbalTreeQuery implements TreeQueryInterface
 {
     private const TREE_TABLE = 'category_tree';
 
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
@@ -55,8 +42,6 @@ class DbalTreeQuery implements TreeQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array
@@ -69,11 +54,6 @@ class DbalTreeQuery implements TreeQueryInterface
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
-    /**
-     * @param string $code
-     *
-     * @return CategoryTreeId|null
-     */
     public function findTreeIdByCode(string $code): ?CategoryTreeId
     {
         $qb = $this->getQuery();
@@ -90,9 +70,6 @@ class DbalTreeQuery implements TreeQueryInterface
         return null;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

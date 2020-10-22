@@ -15,24 +15,12 @@ use Ergonode\Generator\Builder\MethodBuilder;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class EntityFactoryBuilder implements BuilderInterface
 {
-    /**
-     * @var FileBuilder
-     */
     private FileBuilder $builder;
 
-    /**
-     * @var MethodBuilder
-     */
     private MethodBuilder $methodBuilder;
 
-    /**
-     * @param FileBuilder   $builder
-     * @param MethodBuilder $methodBuilder
-     */
     public function __construct(FileBuilder $builder, MethodBuilder $methodBuilder)
     {
         $this->builder = $builder;
@@ -40,12 +28,7 @@ class EntityFactoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $module
-     * @param string $entity
-     *
-     * @param array  $properties
-     *
-     * @return PhpFile
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -70,11 +53,7 @@ class EntityFactoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $entity
-     * @param string $class
-     * @param array  $properties
-     *
-     * @return Method
+     * @param array $properties
      */
     private function buildCreateMethod(string $entity, string $class, array $properties = []): Method
     {

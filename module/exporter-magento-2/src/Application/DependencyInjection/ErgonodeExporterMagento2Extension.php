@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -14,13 +13,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-/**
- */
 class ErgonodeExporterMagento2Extension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

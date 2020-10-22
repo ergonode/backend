@@ -17,8 +17,6 @@ use Ergonode\Condition\Infrastructure\Provider\ConditionCalculatorProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ConditionCalculatorTest extends TestCase
 {
     private ConditionCalculatorProvider $provider;
@@ -28,8 +26,6 @@ class ConditionCalculatorTest extends TestCase
     private AbstractProduct $product;
 
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->provider = $this->createMock(ConditionCalculatorProvider::class);
@@ -40,8 +36,6 @@ class ConditionCalculatorTest extends TestCase
         $this->product = $this->createMock(AbstractProduct::class);
     }
 
-    /**
-     */
     public function testConditionCalculationTrue(): void
     {
         $calculator = $this->createMock(ConditionCalculatorStrategyInterface::class);
@@ -51,8 +45,6 @@ class ConditionCalculatorTest extends TestCase
         $this->assertTrue($conditionCalculator->calculate($this->conditionSet, $this->product));
     }
 
-    /**
-     */
     public function testConditionCalculationFalse(): void
     {
         $calculator = $this->createMock(ConditionCalculatorStrategyInterface::class);

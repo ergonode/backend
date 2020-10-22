@@ -26,26 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductGridReadAction
 {
-    /**
-     * @var DbalProductDataSet
-     */
     private DbalProductDataSet $dataSet;
 
-    /**
-     * @var ProductGrid
-     */
     private ProductGrid $productGrid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer       $gridRenderer
-     * @param DbalProductDataSet $dataSet
-     * @param ProductGrid        $productGrid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         DbalProductDataSet $dataSet,
@@ -128,11 +114,6 @@ class ProductGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

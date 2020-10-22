@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteOptionCommandTest extends TestCase
 {
     /**

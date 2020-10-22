@@ -55,10 +55,6 @@ class TemplateReadAction
      * )
      *
      * @ParamConverter(name="template")
-     *
-     * @param Template $template
-     *
-     * @return Response
      */
     public function __invoke(Template $template): Response
     {

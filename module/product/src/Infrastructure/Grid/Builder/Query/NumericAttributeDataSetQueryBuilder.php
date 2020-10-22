@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class NumericAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

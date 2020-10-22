@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -24,14 +23,8 @@ use Ergonode\Channel\Application\Provider\ChannelTypeDictionaryProvider;
  */
 class ChannelTypeDictionaryAction
 {
-    /**
-     * @var ChannelTypeDictionaryProvider
-     */
     private ChannelTypeDictionaryProvider $provider;
 
-    /**
-     * @param ChannelTypeDictionaryProvider $provider
-     */
     public function __construct(ChannelTypeDictionaryProvider $provider)
     {
         $this->provider = $provider;
@@ -51,7 +44,6 @@ class ChannelTypeDictionaryAction
      *     response=200,
      *     description="Returns export profile dictionary",
      * )
-     * @param Language $language
      *
      * @return Response
      */

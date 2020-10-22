@@ -13,12 +13,8 @@ use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SegmentDescriptionChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var SegmentId|MockObject $id */

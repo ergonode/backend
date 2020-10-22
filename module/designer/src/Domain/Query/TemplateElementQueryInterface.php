@@ -11,12 +11,7 @@ namespace Ergonode\Designer\Domain\Query;
 
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface TemplateElementQueryInterface
 {
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 }

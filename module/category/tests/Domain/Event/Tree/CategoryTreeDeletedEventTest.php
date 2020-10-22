@@ -14,12 +14,8 @@ use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTreeDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var CategoryTreeId | MockObject $id */

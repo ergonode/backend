@@ -14,8 +14,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
-/**
- */
 class FileAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

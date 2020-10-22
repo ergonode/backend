@@ -14,8 +14,6 @@ use Ergonode\Mailer\Infrastructure\Handler\SendMailCommandHandler;
 use Ergonode\Mailer\Infrastructure\Sender\MailerSender;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 final class SendMailCommandHandlerTest extends TestCase
 {
     /**

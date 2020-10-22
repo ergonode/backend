@@ -16,18 +16,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-/**
- */
 class ConstraintAttributeExistsConditionValidator extends ConstraintValidator
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     */
     public function __construct(AttributeQueryInterface $attributeQuery)
     {
         $this->attributeQuery = $attributeQuery;

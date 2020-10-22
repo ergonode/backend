@@ -9,13 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Application\Mapper;
 
-/**
- */
 interface ExceptionMapperInterface
 {
     /**
-     * @param \Throwable $exception
-     *
      * @return array|null
      */
     public function map(\Throwable $exception): ?array;

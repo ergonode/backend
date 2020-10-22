@@ -15,30 +15,14 @@ use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Entity\Export;
 
-/**
- */
 class StartProcessCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $repository;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @param ExportRepositoryInterface $repository
-     * @param TempFileStorage           $storage
-     * @param AttributeQueryInterface   $attributeQuery
-     */
     public function __construct(
         ExportRepositoryInterface $repository,
         TempFileStorage $storage,
@@ -49,9 +33,6 @@ class StartProcessCommandHandler
         $this->attributeQuery = $attributeQuery;
     }
 
-    /**
-     * @param StartFileExportCommand $command
-     */
     public function __invoke(StartFileExportCommand $command)
     {
         $export = $this->repository->load($command->getExportId());

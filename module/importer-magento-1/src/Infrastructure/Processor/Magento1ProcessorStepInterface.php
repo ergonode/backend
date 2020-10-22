@@ -13,16 +13,8 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 
-/**
- */
 interface Magento1ProcessorStepInterface
 {
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,

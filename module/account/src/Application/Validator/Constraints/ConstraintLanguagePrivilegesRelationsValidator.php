@@ -15,13 +15,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-/**
- */
 class ConstraintLanguagePrivilegesRelationsValidator extends ConstraintValidator
 {
     /**
-     * @param mixed      $value
-     * @param Constraint $constraint
+     * @param mixed $value
      */
     public function validate($value, Constraint $constraint): void
     {

@@ -11,12 +11,7 @@ namespace Ergonode\EventSourcing\Infrastructure;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface DomainEventInterface
 {
-    /**
-     * @return AggregateId
-     */
     public function getAggregateId(): AggregateId;
 }

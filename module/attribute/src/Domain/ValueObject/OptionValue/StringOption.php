@@ -12,22 +12,15 @@ namespace Ergonode\Attribute\Domain\ValueObject\OptionValue;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class StringOption implements OptionInterface
 {
     public const TYPE = 'string';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $value;
 
-    /**
-     * @param string $value
-     */
     public function __construct(string $value)
     {
         $this->value = $value;
@@ -43,9 +36,6 @@ class StringOption implements OptionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;

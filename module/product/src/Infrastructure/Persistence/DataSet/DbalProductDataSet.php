@@ -20,20 +20,12 @@ use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilderProvider;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalProductDataSet extends AbstractDbalDataSet
 {
     private const PRODUCT_TABLE = 'product';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DataSetQueryBuilderProvider
-     */
     private DataSetQueryBuilderProvider $provider;
 
     /**
@@ -41,10 +33,6 @@ class DbalProductDataSet extends AbstractDbalDataSet
      */
     private array $names;
 
-    /**
-     * @param Connection                  $connection
-     * @param DataSetQueryBuilderProvider $provider
-     */
     public function __construct(Connection $connection, DataSetQueryBuilderProvider $provider)
     {
         $this->connection = $connection;
@@ -53,14 +41,8 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param ColumnInterface[]     $columns
-     * @param FilterValueCollection $values
-     * @param int                   $limit
-     * @param int                   $offset
-     * @param string|null           $field
-     * @param string                $order
+     * @param ColumnInterface[] $columns
      *
-     * @return \Traversable
      *
      * @throws \Exception
      */
@@ -104,10 +86,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param FilterValueCollection $values
-     * @param ColumnInterface[]     $columns
-     *
-     * @return int
+     * @param ColumnInterface[] $columns
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int
     {
@@ -131,8 +110,6 @@ class DbalProductDataSet extends AbstractDbalDataSet
 
     /**
      * @param array $columns
-     *
-     * @return QueryBuilder
      */
     private function build(array $columns): QueryBuilder
     {
@@ -154,9 +131,6 @@ class DbalProductDataSet extends AbstractDbalDataSet
         return $query;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

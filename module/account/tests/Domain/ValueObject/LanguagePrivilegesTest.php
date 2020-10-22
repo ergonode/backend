@@ -12,13 +12,9 @@ namespace Ergonode\Account\Tests\Domain\ValueObject;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class LanguagePrivilegesTest extends TestCase
 {
 
-    /**
-     */
     public function testDataManipulation(): void
     {
 

@@ -13,26 +13,15 @@ use Ergonode\Comment\Domain\Command\UpdateCommentCommand;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateCommentCommandHandler
 {
-    /**
-     * @var CommentRepositoryInterface $repository
-     */
     private CommentRepositoryInterface $repository;
 
-    /**
-     * @param CommentRepositoryInterface $repository
-     */
     public function __construct(CommentRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param UpdateCommentCommand $command
-     */
     public function __invoke(UpdateCommentCommand $command): void
     {
         $comment = $this->repository->load($command->getId());

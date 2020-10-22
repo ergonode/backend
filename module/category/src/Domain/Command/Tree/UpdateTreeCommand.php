@@ -17,20 +17,14 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateTreeCommand implements DomainCommandInterface
 {
     /**
-     * @var CategoryTreeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private CategoryTreeId $id;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
@@ -43,9 +37,7 @@ class UpdateTreeCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param CategoryTreeId     $id
-     * @param TranslatableString $name
-     * @param array              $categories
+     * @param array $categories
      */
     public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories = [])
     {
@@ -58,17 +50,11 @@ class UpdateTreeCommand implements DomainCommandInterface
     }
 
 
-    /**
-     * @return CategoryTreeId
-     */
     public function getId(): CategoryTreeId
     {
         return $this->id;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
@@ -82,11 +68,6 @@ class UpdateTreeCommand implements DomainCommandInterface
         return $this->categories;
     }
 
-    /**
-     * @param TreeNodeFormModel $category
-     *
-     * @return Node
-     */
     private function createNode(TreeNodeFormModel $category): Node
     {
         $node = new Node(new CategoryId($category->categoryId));

@@ -17,14 +17,8 @@ use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class ExportGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $id = new TextColumn('id', 'Id');

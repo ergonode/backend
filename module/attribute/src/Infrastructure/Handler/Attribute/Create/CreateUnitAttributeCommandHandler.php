@@ -12,28 +12,17 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreateUnitAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateUnitAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateUnitAttributeCommand $command): void

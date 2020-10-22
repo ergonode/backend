@@ -14,26 +14,14 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalProductCollectionTypeCreatedEventProjector
 {
     private const TABLE = 'product_collection_type';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -41,8 +29,6 @@ class DbalProductCollectionTypeCreatedEventProjector
     }
 
     /**
-     * @param ProductCollectionTypeCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCollectionTypeCreatedEvent $event): void

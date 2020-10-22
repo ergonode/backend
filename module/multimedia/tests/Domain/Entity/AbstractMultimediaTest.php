@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class AbstractMultimediaTest extends TestCase
 {
     /**
@@ -25,14 +23,8 @@ class AbstractMultimediaTest extends TestCase
      */
     private MultimediaId $id;
 
-    /**
-     * @var string
-     */
     private string $filename;
 
-    /**
-     * @var string
-     */
     private string $extension;
 
     /**
@@ -40,18 +32,10 @@ class AbstractMultimediaTest extends TestCase
      */
     private Hash $hash;
 
-    /**
-     * @var string
-     */
     private string $mime;
 
-    /**
-     * @var int
-     */
     private int $size;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(MultimediaId::class);
@@ -95,9 +79,6 @@ class AbstractMultimediaTest extends TestCase
         $this->assertSame($newAlt, $multimedia->getAlt());
     }
 
-    /**
-     * @return AbstractMultimedia
-     */
     private function getClass(): AbstractMultimedia
     {
         return new class(

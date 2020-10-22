@@ -29,14 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AddProductCategoryAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -81,11 +75,6 @@ class AddProductCategoryAction
      *
      * @ParamConverter(name="category")
      * @ParamConverter(name="product")
-     *
-     * @param AbstractProduct  $product
-     * @param AbstractCategory $category
-     *
-     * @return Response
      */
     public function __invoke(AbstractProduct $product, AbstractCategory $category): Response
     {

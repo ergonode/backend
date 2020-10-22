@@ -14,26 +14,14 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Psr\Cache\InvalidArgumentException;
 
-/**
- */
 class CacheDomainEventStorage implements DomainEventStorageInterface
 {
     private const KEY = 'ev_%s';
 
-    /**
-     * @var DomainEventStorageInterface
-     */
     private DomainEventStorageInterface $storage;
 
-    /**
-     * @var AdapterInterface
-     */
     private AdapterInterface $cache;
 
-    /**
-     * @param DomainEventStorageInterface $storage
-     * @param AdapterInterface            $cache
-     */
     public function __construct(DomainEventStorageInterface $storage, AdapterInterface $cache)
     {
         $this->storage = $storage;
@@ -41,11 +29,6 @@ class CacheDomainEventStorage implements DomainEventStorageInterface
     }
 
     /**
-     * @param AggregateId $id
-     * @param int         $sequence
-     *
-     * @param string|null $name
-     *
      * @return array
      *
      * @throws InvalidArgumentException
@@ -74,22 +57,12 @@ class CacheDomainEventStorage implements DomainEventStorageInterface
         return $result;
     }
 
-    /**
-     * @param AggregateId       $id
-     * @param DomainEventStream $stream
-     * @param string|null       $name
-     */
     public function append(AggregateId $id, DomainEventStream $stream, string $name = null): void
     {
         $this->storage->append($id, $stream);
     }
 
     /**
-     * @param AggregateId $id
-     * @param string|null $table
-     *
-     * @param string|null $name
-     *
      * @throws InvalidArgumentException
      */
     public function delete(AggregateId $id, ?string $table = null, string $name = null): void

@@ -27,26 +27,12 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
  */
 class OptionGridAction
 {
-    /**
-     * @var OptionGrid
-     */
     private OptionGrid $grid;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param OptionGrid           $grid
-     * @param OptionQueryInterface $query
-     * @param GridRenderer         $gridRenderer
-     */
     public function __construct(OptionGrid $grid, OptionQueryInterface $query, GridRenderer $gridRenderer)
     {
         $this->grid = $grid;
@@ -119,12 +105,6 @@ class OptionGridAction
      *
      * @ParamConverter(name="attribute")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param AbstractAttribute        $attribute
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractAttribute $attribute,

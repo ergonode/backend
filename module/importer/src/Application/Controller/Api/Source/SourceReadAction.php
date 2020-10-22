@@ -29,20 +29,10 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class SourceReadAction
 {
-    /**
-     * @var SourceFormFactoryProvider
-     */
     private SourceFormFactoryProvider $provider;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SourceFormFactoryProvider $provider
-     * @param SerializerInterface       $serializer
-     */
     public function __construct(SourceFormFactoryProvider $provider, SerializerInterface $serializer)
     {
         $this->provider = $provider;
@@ -72,11 +62,6 @@ class SourceReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
-     *
-     * @param AbstractSource $source
-     *
-     * @return Response
-     *
      */
     public function __invoke(AbstractSource $source): Response
     {

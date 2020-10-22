@@ -12,13 +12,8 @@ namespace Ergonode\SharedKernel\Domain\Collection;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ramsey\Collection\AbstractCollection;
 
-/**
- */
 class EmailCollection extends AbstractCollection
 {
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return Email::class;

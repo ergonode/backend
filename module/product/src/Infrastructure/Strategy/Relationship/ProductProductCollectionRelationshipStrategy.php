@@ -15,18 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductProductCollectionRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @param ProductQueryInterface $query
-     */
     public function __construct(ProductQueryInterface $query)
     {
         $this->query = $query;

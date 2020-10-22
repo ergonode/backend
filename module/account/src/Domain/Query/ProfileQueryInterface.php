@@ -11,13 +11,9 @@ namespace Ergonode\Account\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 interface ProfileQueryInterface
 {
     /**
-     * @param UserId $userId
-     *
      * @return array
      */
     public function getProfile(UserId $userId): array;

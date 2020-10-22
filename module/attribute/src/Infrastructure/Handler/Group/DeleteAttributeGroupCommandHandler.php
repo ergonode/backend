@@ -14,30 +14,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteAttributeGroupCommandHandler
 {
-    /**
-     * @var AttributeGroupRepositoryInterface
-     */
     private AttributeGroupRepositoryInterface $groupRepository;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $query;
 
-    /**
-     * @param AttributeGroupRepositoryInterface $groupRepository
-     * @param AttributeRepositoryInterface      $attributeRepository
-     * @param AttributeGroupQueryInterface      $query
-     */
     public function __construct(
         AttributeGroupRepositoryInterface $groupRepository,
         AttributeRepositoryInterface $attributeRepository,
@@ -49,8 +33,6 @@ class DeleteAttributeGroupCommandHandler
     }
 
     /**
-     * @param DeleteAttributeGroupCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteAttributeGroupCommand $command): void

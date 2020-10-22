@@ -12,12 +12,8 @@ namespace Ergonode\Account\Tests\Domain\ValueObject;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeTest extends TestCase
 {
-    /**
-     */
     public function testValidaValue(): void
     {
         $value = 'Any valid value';
@@ -27,8 +23,6 @@ class PrivilegeTest extends TestCase
         $this->assertEquals('ANY VALID VALUE', (string) $privilege);
     }
 
-    /**
-     */
     public function testInvalidValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -36,8 +30,6 @@ class PrivilegeTest extends TestCase
         new Privilege($value);
     }
 
-    /**
-     */
     public function testObjectEquality(): void
     {
         $value1 = 'value1';

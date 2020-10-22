@@ -13,16 +13,9 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeBoolParameterChangeEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeBoolParameterChangeEventTest extends TestCase
 {
     /**
-     * @param AttributeId $id
-     * @param string      $name
-     * @param bool        $from
-     * @param bool        $to
-     *
      * @dataProvider dataProvider
      */
     public function testCreateEvent(AttributeId $id, string $name, bool $from, bool $to): void

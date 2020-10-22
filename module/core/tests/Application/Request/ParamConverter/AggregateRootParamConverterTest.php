@@ -22,8 +22,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class AggregateRootParamConverterTest extends TestCase
 {
     /**
@@ -41,8 +39,6 @@ class AggregateRootParamConverterTest extends TestCase
      */
     private EventStoreManager $manager;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
@@ -50,8 +46,6 @@ class AggregateRootParamConverterTest extends TestCase
         $this->manager = $this->createMock(EventStoreManager::class);
     }
 
-    /**
-     */
     public function testSupportedClass(): void
     {
         $paramConverter = new AggregateRootParamConverter($this->manager);
@@ -59,8 +53,6 @@ class AggregateRootParamConverterTest extends TestCase
         self::assertTrue($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testUnsupportedClass(): void
     {
         $paramConverter = new AggregateRootParamConverter($this->manager);
@@ -68,8 +60,6 @@ class AggregateRootParamConverterTest extends TestCase
         self::assertFalse($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testEmptyName(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -79,8 +69,6 @@ class AggregateRootParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEmptyParameter(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -92,8 +80,6 @@ class AggregateRootParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testNotStringParameter(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -105,8 +91,6 @@ class AggregateRootParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testInvalidParameter(): void
     {
         $this->expectException(BadRequestHttpException::class);
@@ -118,8 +102,6 @@ class AggregateRootParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityNotFound(): void
     {
         $this->expectException(NotFoundHttpException::class);
@@ -132,8 +114,6 @@ class AggregateRootParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testIncorrectEntity(): void
     {
         $this->expectException(NotFoundHttpException::class);
@@ -146,8 +126,6 @@ class AggregateRootParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityExists(): void
     {
         $this->configuration->method('getName')->willReturn('test');

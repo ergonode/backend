@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class RelationshipStrategyInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.core.relationship_strategy_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(RelationshipsResolverInterface::class)) {
@@ -30,9 +25,6 @@ class RelationshipStrategyInterfaceCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

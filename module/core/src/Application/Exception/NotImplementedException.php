@@ -9,13 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Exception;
 
-/**
- */
 class NotImplementedException extends \Exception
 {
-    /**
-     * @param string $message
-     */
     public function __construct(string $message = 'Feature not implemented')
     {
         parent::__construct($message);

@@ -11,8 +11,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class CategoryFaker extends BaseProvider
 {
     public const CATEGORIES = [
@@ -49,9 +47,6 @@ class CategoryFaker extends BaseProvider
         'torebki',
     ];
 
-    /**
-     * @return string
-     */
     public function category(): string
     {
         $random = array_rand(self::CATEGORIES);

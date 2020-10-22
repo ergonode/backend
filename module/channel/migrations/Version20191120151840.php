@@ -7,13 +7,9 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 final class Version20191120151840 extends AbstractErgonodeMigration
 {
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema): void

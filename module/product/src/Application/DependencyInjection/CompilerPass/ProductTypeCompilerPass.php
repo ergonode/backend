@@ -13,15 +13,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Product\Application\Provider\ProductTypeProvider;
 
-/**
- */
 class ProductTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'product.domain.product_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ProductTypeProvider::class)) {
@@ -29,9 +24,6 @@ class ProductTypeCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(ProductTypeProvider::class);

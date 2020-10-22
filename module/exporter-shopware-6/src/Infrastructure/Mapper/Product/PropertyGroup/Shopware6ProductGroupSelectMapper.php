@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\PropertyGroup
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductPropertyGroupOptionMapper;
 
-/**
- */
 class Shopware6ProductGroupSelectMapper extends AbstractShopware6ProductPropertyGroupOptionMapper
 {
     /**

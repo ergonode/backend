@@ -15,18 +15,10 @@ use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class FormValidationExceptionHandler implements SubscribingHandlerInterface
 {
-    /**
-     * @var FormErrorHandler
-     */
     private FormErrorHandler $formErrorHandler;
 
-    /**
-     * @param FormErrorHandler $formErrorHandler
-     */
     public function __construct(FormErrorHandler $formErrorHandler)
     {
         $this->formErrorHandler = $formErrorHandler;
@@ -53,10 +45,7 @@ class FormValidationExceptionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param FormValidationHttpException   $exception
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */

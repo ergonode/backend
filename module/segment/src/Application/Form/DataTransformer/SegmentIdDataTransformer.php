@@ -13,14 +13,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class SegmentIdDataTransformer implements DataTransformerInterface
 {
     /**
      * @param SegmentId|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -36,8 +32,6 @@ class SegmentIdDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return SegmentId|null
      */
     public function reverseTransform($value): ?SegmentId
     {

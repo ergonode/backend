@@ -10,19 +10,12 @@ namespace Ergonode\Importer\Infrastructure\Processor;
 
 use Ergonode\Importer\Domain\Entity\Import;
 
-/**
- */
 interface SourceImportProcessorInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 
     /**
-     * @param Import $import
+     * @throw ImportException
      */
     public function start(Import $import): void;
 }

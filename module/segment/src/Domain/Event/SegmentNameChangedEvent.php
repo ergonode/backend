@@ -14,31 +14,19 @@ use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEv
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class SegmentNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
     /**
-     * @var SegmentId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $id;
 
-    /**
-     * @param SegmentId          $id
-     * @param TranslatableString $from
-     * @param TranslatableString $to
-     */
     public function __construct(SegmentId $id, TranslatableString $from, TranslatableString $to)
     {
         parent::__construct($from, $to);
         $this->id = $id;
     }
 
-    /**
-     * @return SegmentId
-     */
     public function getAggregateId(): SegmentId
     {
         return $this->id;

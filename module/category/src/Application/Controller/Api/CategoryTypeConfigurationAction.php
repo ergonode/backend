@@ -26,26 +26,12 @@ use Ergonode\Api\Application\Response\SuccessResponse;
  */
 class CategoryTypeConfigurationAction
 {
-    /**
-     * @var CategoryFormProvider
-     */
     private CategoryFormProvider $formProvider;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var Liform
-     */
     private Liform $liForm;
 
-    /**
-     * @param CategoryFormProvider $formProvider
-     * @param FormFactoryInterface $formFactory
-     * @param Liform               $liForm
-     */
     public function __construct(CategoryFormProvider $formProvider, FormFactoryInterface $formFactory, Liform $liForm)
     {
         $this->formProvider = $formProvider;
@@ -75,7 +61,6 @@ class CategoryTypeConfigurationAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     * @param string $type
      *
      * @return Response
      */

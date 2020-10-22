@@ -13,35 +13,20 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class DeleteProductCategory extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product/%s/categories/%s';
 
-    /**
-     * @var string
-     */
     private string $productId;
 
-    /**
-     * @var string
-     */
     private string $categoryId;
 
-    /**
-     * @param string $productId
-     * @param string $categoryId
-     */
     public function __construct(string $productId, string $categoryId)
     {
         $this->productId = $productId;
         $this->categoryId = $categoryId;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -52,8 +37,6 @@ class DeleteProductCategory extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return null
      */
     public function parseContent(?string $content)
@@ -61,9 +44,6 @@ class DeleteProductCategory extends AbstractAction implements ActionInterface
         return null;
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->productId, $this->categoryId);

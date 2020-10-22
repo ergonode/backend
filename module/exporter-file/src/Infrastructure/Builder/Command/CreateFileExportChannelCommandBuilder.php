@@ -17,25 +17,14 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return FileExportChannel::TYPE === $type;
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function build(FormInterface $form): DomainCommandInterface

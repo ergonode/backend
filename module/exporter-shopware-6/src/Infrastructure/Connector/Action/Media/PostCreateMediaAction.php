@@ -14,26 +14,14 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Media;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostCreateMediaAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/media?%s';
 
-    /**
-     * @var string
-     */
     private string $mediaFolderId;
 
-    /**
-     * @var bool
-     */
     private bool $response;
 
-    /**
-     * @param string $mediaFolderId
-     * @param bool   $response
-     */
     public function __construct(string $mediaFolderId, bool $response = false)
     {
         $this->mediaFolderId = $mediaFolderId;
@@ -41,8 +29,6 @@ class PostCreateMediaAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @return Request
-     *
      * @throws \JsonException
      */
     public function getRequest(): Request
@@ -56,10 +42,6 @@ class PostCreateMediaAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6Media|null
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?Shopware6Media
@@ -74,8 +56,6 @@ class PostCreateMediaAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @return string
-     *
      * @throws \JsonException
      */
     private function buildBody(): string
@@ -88,9 +68,6 @@ class PostCreateMediaAction extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [];

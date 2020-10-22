@@ -15,26 +15,16 @@ use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildCommand;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 
-/**
- */
 class AddProductChildCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @param ProductRepositoryInterface $repository
-     */
     public function __construct(ProductRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param AddProductChildCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(AddProductChildCommand $command): void

@@ -14,19 +14,8 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 interface Shopware6CategoryMapperInterface
 {
-    /**
-     * @param Shopware6Channel  $channel
-     * @param Shopware6Category $shopware6Category
-     * @param AbstractCategory  $category
-     * @param CategoryId|null   $parentCategoryId
-     * @param Language|null     $language
-     *
-     * @return Shopware6Category
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6Category $shopware6Category,

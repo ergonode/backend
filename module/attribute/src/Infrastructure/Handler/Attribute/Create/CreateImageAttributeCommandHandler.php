@@ -12,28 +12,17 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreateImageAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateImageAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateImageAttributeCommand $command): void

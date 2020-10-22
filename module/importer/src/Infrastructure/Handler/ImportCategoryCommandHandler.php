@@ -11,38 +11,27 @@ namespace Ergonode\Importer\Infrastructure\Handler;
 use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Domain\Entity\ImportError;
-use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportCategoryCommandHandler
 {
-    /**
-     * @var CategoryImportAction
-     */
     private CategoryImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
-    private ImportErrorRepositoryInterface $repository;
+    private ImportRepositoryInterface $repository;
 
-    /**
-     * @param CategoryImportAction           $action
-     * @param ImportErrorRepositoryInterface $repository
-     */
-    public function __construct(CategoryImportAction $action, ImportErrorRepositoryInterface $repository)
-    {
+    private LoggerInterface $logger;
+
+    public function __construct(
+        CategoryImportAction $action,
+        ImportRepositoryInterface $repository,
+        LoggerInterface $logger
+    ) {
         $this->action = $action;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
-    /**
-     * @param ImportCategoryCommand $command
-     *
-     * @throws \Exception
-     */
     public function __invoke(ImportCategoryCommand $command)
     {
         try {
@@ -51,9 +40,11 @@ class ImportCategoryCommandHandler
                 $command->getName(),
             );
         } catch (ImportException $exception) {
-            $message = $exception->getMessage();
-            $error = new ImportError($command->getImportId(), $message);
-            $this->repository->add($error);
+            $this->repository->addError($command->getImportId(), $exception->getMessage());
+        } catch (\Exception $exception) {
+            $message = sprintf('Can\'t import category product %s', $command->getName());
+            $this->repository->addError($command->getImportId(), $message);
+            $this->logger->error($exception);
         }
     }
 }

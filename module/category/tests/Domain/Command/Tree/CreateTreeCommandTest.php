@@ -15,14 +15,10 @@ use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateTreeCommandTest extends TestCase
 {
     /**
-     * @param TranslatableString $name
-     * @param string             $code
-     * @param array              $categories
+     * @param array $categories
      *
      * @dataProvider dataProvider
      */

@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class RemoveProductBindingCommandTest extends TestCase
 {
     /**

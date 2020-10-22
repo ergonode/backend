@@ -16,18 +16,10 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- */
 class StatusIdNotExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @param StatusRepositoryInterface $repository
-     */
     public function __construct(StatusRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -12,36 +12,25 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 
-/**
- */
 class ExporterMagento2CsvConfigurationModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $name = null;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $filename = null;
 
     /**
-     * @var Language|null
-     *
      * @Assert\NotBlank()
      */
     public ?Language $defaultLanguage = null;
 
-    /**
-     * @param Magento2CsvChannel|null $channel
-     */
     public function __construct(Magento2CsvChannel $channel = null)
     {
         if ($channel) {

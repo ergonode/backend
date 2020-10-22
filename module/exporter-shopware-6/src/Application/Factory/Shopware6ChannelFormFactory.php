@@ -17,38 +17,20 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
 use Ergonode\ExporterShopware6\Application\Form\Shopware6ChannelForm;
 
-/**
- */
 class Shopware6ChannelFormFactory implements ChannelFormFactoryInterface
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return Shopware6Channel::TYPE === $type;
     }
 
-    /**
-     * @param AbstractChannel|null $channel
-     *
-     * @return FormInterface
-     */
     public function create(AbstractChannel $channel = null): FormInterface
     {
         $model = new Shopware6ChannelFormModel($channel);

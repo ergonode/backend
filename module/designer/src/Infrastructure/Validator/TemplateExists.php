@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class TemplateExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Template {{ value }} doesn\'t exists';
 }

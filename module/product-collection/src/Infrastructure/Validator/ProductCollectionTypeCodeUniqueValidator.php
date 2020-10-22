@@ -16,18 +16,10 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- */
 class ProductCollectionTypeCodeUniqueValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductCollectionTypeQueryInterface
-     */
     private ProductCollectionTypeQueryInterface $query;
 
-    /**
-     * @param ProductCollectionTypeQueryInterface $query
-     */
     public function __construct(ProductCollectionTypeQueryInterface $query)
     {
         $this->query = $query;

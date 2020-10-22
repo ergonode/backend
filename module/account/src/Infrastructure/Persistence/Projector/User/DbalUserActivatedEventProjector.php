@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
 
-/**
- */
 class DbalUserActivatedEventProjector
 {
     private const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UserActivatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UserActivatedEvent $event): void

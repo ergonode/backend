@@ -11,17 +11,12 @@ namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
-/**
- */
 class MultiSelectProposalStrategy implements AttributeProposalStrategyInterface
 {
     private const SEPARATOR = '|';
 
     /**
-     * @param string $name
-     * @param array  $values
-     *
-     * @return bool
+     * @param array $values
      */
     public function support(string $name, array $values): bool
     {
@@ -34,9 +29,6 @@ class MultiSelectProposalStrategy implements AttributeProposalStrategyInterface
         return false;
     }
 
-    /**
-     * @return string
-     */
     public function getTypeProposal(): string
     {
         return MultiSelectAttribute::TYPE;

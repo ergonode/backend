@@ -51,10 +51,6 @@ class ConditionSetReadAction
      * )
      *
      * @ParamConverter(name="conditionSet")
-     *
-     * @param ConditionSet $conditionSet
-     *
-     * @return Response
      */
     public function __invoke(ConditionSet $conditionSet): Response
     {

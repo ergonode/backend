@@ -13,26 +13,15 @@ use Ergonode\Api\Application\Response\AbstractResponse;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
-/**
- */
 class ResponseFormatterListener
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
-    /**
-     * @param ResponseEvent $event
-     */
     public function __invoke(ResponseEvent $event): void
     {
         $response = $event->getResponse();

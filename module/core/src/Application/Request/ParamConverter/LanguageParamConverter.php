@@ -15,8 +15,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-/**
- */
 class LanguageParamConverter implements ParamConverterInterface
 {
     /**

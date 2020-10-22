@@ -11,8 +11,6 @@ namespace Ergonode\Authentication;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeAuthenticationBundle extends AbstractModule
 {
 }

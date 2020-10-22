@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 
-/**
- */
 class DbalUserLastNameChangedEventProjector
 {
     private const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UserLastNameChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UserLastNameChangedEvent $event): void

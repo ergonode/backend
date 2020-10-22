@@ -13,27 +13,17 @@ use Ergonode\Account\Application\Form\DataTransformer\RoleIdDataTransformer;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RoleIdDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var RoleIdDataTransformer
-     */
     protected RoleIdDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new RoleIdDataTransformer();
     }
 
     /**
-     * @param RoleId|null $roleIdValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?RoleId $roleIdValueObject, ?string $string): void
@@ -41,9 +31,6 @@ class RoleIdDataTransformerTest extends TestCase
         $this->assertSame($string, $this->transformer->transform($roleIdValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -54,9 +41,6 @@ class RoleIdDataTransformerTest extends TestCase
 
 
     /**
-     * @param RoleId|null $roleIdValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?RoleId $roleIdValueObject, ?string $string): void
@@ -64,8 +48,6 @@ class RoleIdDataTransformerTest extends TestCase
         $this->assertEquals($roleIdValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid "not_uuid" value');

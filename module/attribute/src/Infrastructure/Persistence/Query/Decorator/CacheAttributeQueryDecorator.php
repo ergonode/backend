@@ -21,13 +21,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 class CacheAttributeQueryDecorator implements AttributeQueryInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
     /**
@@ -35,29 +30,16 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
      */
     private array $cache = [];
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     */
     public function __construct(AttributeQueryInterface $attributeQuery)
     {
         $this->attributeQuery = $attributeQuery;
     }
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return bool
-     */
     public function checkAttributeExistsByCode(AttributeCode $code): bool
     {
         return $this->attributeQuery->checkAttributeExistsByCode($code);
     }
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return AttributeViewModel
-     */
     public function findAttributeByCode(AttributeCode $code): ?AttributeViewModel
     {
         $key = $code->getValue();
@@ -68,11 +50,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         return $this->cache[$key];
     }
 
-    /**
-     * @param AttributeId $id
-     *
-     * @return AttributeType|null
-     */
     public function findAttributeType(AttributeId $id): ?AttributeType
     {
         $key = sprintf('type_%s', $id->getValue());
@@ -83,19 +60,12 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         return $this->cache[$key];
     }
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return null|AttributeId
-     */
     public function findAttributeIdByCode(AttributeCode $code): ?AttributeId
     {
         return $this->attributeQuery->findAttributeIdByCode($code);
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array|null
      */
     public function getAttribute(AttributeId $attributeId): ?array
@@ -126,12 +96,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         return $this->attributeQuery->getAttributeCodes($types);
     }
 
-    /**
-     * @param AttributeId $id
-     * @param OptionKey   $key
-     *
-     * @return OptionInterface|null
-     */
     public function findAttributeOption(AttributeId $id, OptionKey $key): ?OptionInterface
     {
         return $this->attributeQuery->findAttributeOption($id, $key);
@@ -148,8 +112,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     }
 
     /**
-     * @param UnitId $id
-     *
      * @return array
      */
     public function findAttributeIdsByUnitId(UnitId $id): array
@@ -158,8 +120,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeGroupId $id
-     *
      * @return array
      */
     public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array
@@ -168,8 +128,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     }
 
     /**
-     * @param MultimediaId $id
-     *
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array
@@ -178,12 +136,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     }
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(

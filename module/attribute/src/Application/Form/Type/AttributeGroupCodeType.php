@@ -15,22 +15,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class AttributeGroupCodeType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new AttributeGroupCodeDataTransformer());
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -40,9 +34,6 @@ class AttributeGroupCodeType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return TextType::class;

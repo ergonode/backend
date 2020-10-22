@@ -9,12 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-/**
- */
 interface ConverterInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 }

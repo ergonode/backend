@@ -15,32 +15,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use Ergonode\Product\Infrastructure\JMS\Serializer\Handler\SkuHandler;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class SkuHandlerTest extends TestCase
 {
-    /**
-     * @var SkuHandler
-     */
     private SkuHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new SkuHandler();
@@ -49,8 +33,6 @@ class SkuHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = SkuHandler::getSubscribingMethods();
@@ -62,8 +44,6 @@ class SkuHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = 'code';
@@ -73,8 +53,6 @@ class SkuHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = 'code';

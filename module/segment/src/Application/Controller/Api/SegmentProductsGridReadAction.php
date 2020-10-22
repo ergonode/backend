@@ -31,26 +31,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SegmentProductsGridReadAction
 {
-    /**
-     * @var SegmentProductsGrid
-     */
     private SegmentProductsGrid $segmentProductsGrid;
 
-    /**
-     * @var SegmentProductsQueryInterface
-     */
     private SegmentProductsQueryInterface $segmentProductsQuery;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param SegmentProductsGrid           $segmentProductsGrid
-     * @param SegmentProductsQueryInterface $elementQuery
-     * @param GridRenderer                  $gridRenderer
-     */
     public function __construct(
         SegmentProductsGrid $segmentProductsGrid,
         SegmentProductsQueryInterface $elementQuery,
@@ -62,7 +48,6 @@ class SegmentProductsGridReadAction
     }
 
     /**
-     *
      * @IsGranted("SEGMENT_READ")
      *
      * @SWG\Tag(name="Segment")
@@ -127,12 +112,6 @@ class SegmentProductsGridReadAction
      *
      * @ParamConverter(name="segment")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     * @param Segment                  $segment
-     *
-     * @return Response
      */
     public function __invoke(
         Language $language,

@@ -13,27 +13,17 @@ use Ergonode\Attribute\Application\Form\Transformer\OptionKeyDataTransformer;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class OptionKeyDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var OptionKeyDataTransformer
-     */
     protected OptionKeyDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new OptionKeyDataTransformer();
     }
 
     /**
-     * @param OptionKey|null $optionKeyValueObject
-     * @param string|null    $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?OptionKey $optionKeyValueObject, ?string $string): void
@@ -41,9 +31,6 @@ class OptionKeyDataTransformerTest extends TestCase
         self::assertSame($string, $this->transformer->transform($optionKeyValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -53,9 +40,6 @@ class OptionKeyDataTransformerTest extends TestCase
     }
 
     /**
-     * @param OptionKey|null $optionKeyValueObject
-     * @param string|null    $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?OptionKey $optionKeyValueObject, ?string $string): void
@@ -63,8 +47,6 @@ class OptionKeyDataTransformerTest extends TestCase
         self::assertEquals($optionKeyValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);

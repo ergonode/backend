@@ -14,8 +14,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class UpdateMagento2ExportChannelCommandTest extends TestCase
 {
     /**
@@ -23,13 +21,7 @@ class UpdateMagento2ExportChannelCommandTest extends TestCase
      */
     private ChannelId $id;
 
-    /**
-     * @var string
-     */
     private string $name;
-    /**
-     * @var string
-     */
     private string $filename;
 
     /**
@@ -37,8 +29,6 @@ class UpdateMagento2ExportChannelCommandTest extends TestCase
      */
     private Language $defaultLanguage;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -47,8 +37,6 @@ class UpdateMagento2ExportChannelCommandTest extends TestCase
         $this->defaultLanguage = $this->createMock(Language::class);
     }
 
-    /**
-     */
     public function testCreateCommand(): void
     {
         $command = new UpdateMagento2ExportChannelCommand(

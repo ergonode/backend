@@ -34,32 +34,14 @@ use Ergonode\Workflow\Infrastructure\Provider\UpdateWorkflowCommandFactoryProvid
  */
 class WorkflowChangeAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var WorkflowFormProvider
-     */
     private WorkflowFormProvider $formProvider;
 
-    /**
-     * @var UpdateWorkflowCommandFactoryProvider
-     */
     private UpdateWorkflowCommandFactoryProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface                 $formFactory
-     * @param WorkflowFormProvider                 $formProvider
-     * @param UpdateWorkflowCommandFactoryProvider $commandProvider
-     * @param CommandBusInterface                  $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         WorkflowFormProvider $formProvider,
@@ -100,13 +82,7 @@ class WorkflowChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
      * @ParamConverter(name="workflow")
-     *
-     * @param AbstractWorkflow $workflow
-     * @param Request          $request
-     *
-     * @return Response
      *
      * @throws \Exception
      */

@@ -13,26 +13,16 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
-/**
- */
 class CreateFileAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateFileAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateFileAttributeCommand $command): void

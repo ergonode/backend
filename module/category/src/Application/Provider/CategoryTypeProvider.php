@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Application\Provider;
 
-/**
- */
 class CategoryTypeProvider
 {
     /**
@@ -18,9 +16,6 @@ class CategoryTypeProvider
      */
     private array $types;
 
-    /**
-     * @param string ...$types
-     */
     public function __construct(string ...$types)
     {
         $this->types = $types;

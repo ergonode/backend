@@ -16,15 +16,8 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Ergonode\Core\Infrastructure\Validator\Constraint\LanguageCodeActive;
 
-/**
- */
 class LanguageCompletenessConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === LanguageCompletenessCondition::TYPE;
@@ -32,8 +25,6 @@ class LanguageCompletenessConditionValidatorStrategy implements ConditionValidat
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

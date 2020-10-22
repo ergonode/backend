@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Provider;
 
-/**
- */
 class CreateSourceCommandBuilderProvider
 {
     /**
@@ -17,19 +15,11 @@ class CreateSourceCommandBuilderProvider
      */
     private array $builders;
 
-    /**
-     * @param CreateSourceCommandBuilderInterface ...$builders
-     */
     public function __construct(CreateSourceCommandBuilderInterface ...$builders)
     {
         $this->builders = $builders;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return CreateSourceCommandBuilderInterface
-     */
     public function provide(string $type): CreateSourceCommandBuilderInterface
     {
         foreach ($this->builders as $builder) {

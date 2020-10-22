@@ -9,9 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Infrastructure\Exception;
 
-/**
- *
- */
 class ChannelGeneratorProviderNotFoundException extends ChannelException
 {
 }

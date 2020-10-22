@@ -15,16 +15,9 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class AttributeProcessor
 {
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractAttribute $attribute
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractAttribute $attribute): ExportData
@@ -45,12 +38,6 @@ class AttributeProcessor
         }
     }
 
-    /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     *
-     * @return LanguageData
-     */
     private function getLanguage(AbstractAttribute $attribute, Language $language): LanguageData
     {
         $result = new LanguageData();

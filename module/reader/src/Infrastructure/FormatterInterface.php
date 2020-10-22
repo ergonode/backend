@@ -9,19 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Infrastructure;
 
-/**
- */
 interface FormatterInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 
-    /**
-     * @param string $string
-     *
-     * @return string
-     */
     public function format(string $string): string;
 }

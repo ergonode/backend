@@ -12,31 +12,20 @@ namespace Ergonode\Multimedia\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 
-/**
- */
 class DbalMultimediaNameChangedEventProjector
 {
     private const TABLE = 'multimedia';
 
-    /**
-     * @var Connection
-     */
     protected Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param MultimediaNameChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(MultimediaNameChangedEvent $event): void

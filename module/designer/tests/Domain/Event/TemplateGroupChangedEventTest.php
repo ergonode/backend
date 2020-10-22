@@ -15,12 +15,8 @@ use Ergonode\Designer\Domain\Event\TemplateGroupChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateGroupChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var TemplateId | MockObject $id */

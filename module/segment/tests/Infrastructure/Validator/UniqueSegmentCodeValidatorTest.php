@@ -16,33 +16,22 @@ use Ergonode\Segment\Infrastructure\Validator\UniqueSegmentCodeValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(SegmentQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new UniqueSegmentCode());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -51,8 +40,6 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new UniqueSegmentCode());
@@ -60,8 +47,6 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testSegmentCodeNotValidValidation(): void
     {
         $constraint = new UniqueSegmentCode();
@@ -73,8 +58,6 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testStatusExistsValidation(): void
     {
         $this->validator->validate(new SegmentCode('code'), new UniqueSegmentCode());
@@ -82,8 +65,6 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testUniqueSegmentCodeValidation(): void
     {
         $this->query->method('isExistsByCode')->willReturn(true);
@@ -95,9 +76,6 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return UniqueSegmentCodeValidator
-     */
     protected function createValidator(): UniqueSegmentCodeValidator
     {
         return new UniqueSegmentCodeValidator($this->query);

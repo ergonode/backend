@@ -65,12 +65,6 @@ class TransitionReadAction
      *
      * @ParamConverter(name="source")
      * @ParamConverter(name="destination")
-     *
-     * @param AbstractWorkflow $workflow
-     * @param Status           $source
-     * @param Status           $destination
-     *
-     * @return Response
      */
     public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
     {

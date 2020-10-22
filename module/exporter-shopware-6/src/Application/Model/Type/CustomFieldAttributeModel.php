@@ -10,20 +10,13 @@ namespace Ergonode\ExporterShopware6\Application\Model\Type;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CustomFieldAttributeModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      */
     public ?string $id;
 
-    /**
-     * @param string|null $id
-     */
     public function __construct(?string $id = null)
     {
         $this->id = $id;

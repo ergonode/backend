@@ -16,8 +16,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute;
 
-/**
- */
 class ProductTypeSystemAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class ProductTypeSystemAttributeDataSetQueryBuilderTest extends TestCase
      */
     private Language $language;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(ProductTypeSystemAttribute::class);
@@ -44,24 +40,18 @@ class ProductTypeSystemAttributeDataSetQueryBuilderTest extends TestCase
         $this->language = $this->createMock(Language::class);
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $builder = new ProductTypeSystemAttributeDataSetQueryBuilder();
         $this->assertTrue($builder->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $builder = new ProductTypeSystemAttributeDataSetQueryBuilder();
         $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testAddQuerySelect(): void
     {
         $this->queryBuilder->expects($this->once())->method('addSelect');

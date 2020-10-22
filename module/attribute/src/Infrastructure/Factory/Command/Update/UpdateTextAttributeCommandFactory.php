@@ -19,27 +19,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class UpdateTextAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === TextAttribute::TYPE;
     }
 
-    /**
-     * @param AttributeId   $id
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
-     */
     public function create(AttributeId $id, FormInterface $form): DomainCommandInterface
     {
         /** @var UnitAttributeFormModel $data */

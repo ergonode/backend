@@ -18,17 +18,10 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class FormatterInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $handler = new FormatterInterfaceHandler();
@@ -42,8 +35,6 @@ class FormatterInterfaceHandlerTest extends TestCase
             ->build();
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = FormatterInterfaceHandler::getSubscribingMethods();
@@ -55,8 +46,6 @@ class FormatterInterfaceHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testDeserializeEncodingFormatter(): void
     {
         $testValue = '{"type":"encoding","encoding":"test_value"}';
@@ -68,8 +57,6 @@ class FormatterInterfaceHandlerTest extends TestCase
         $this->assertEquals(EncodingFormatter::TYPE, $result->getType());
     }
 
-    /**
-     */
     public function testDeserializeReplaceFormatter(): void
     {
         $testValue = '{"type":"replace","from":"test_value","to":"test_value"}';

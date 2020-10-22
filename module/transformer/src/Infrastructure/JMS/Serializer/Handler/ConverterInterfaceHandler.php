@@ -12,8 +12,6 @@ namespace Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler;
 use Ergonode\Core\Infrastructure\JMS\Serializer\Handler\AbstractInterfaceHandler;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 
-/**
- */
 class ConverterInterfaceHandler extends AbstractInterfaceHandler
 {
     /**

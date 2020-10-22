@@ -11,8 +11,6 @@ namespace Ergonode\EventSourcing\Infrastructure\Stream;
 
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
-/**
- */
 class DomainEventStream implements \IteratorAggregate, \Countable
 {
     /**
@@ -39,17 +37,11 @@ class DomainEventStream implements \IteratorAggregate, \Countable
         return new \ArrayIterator($this->events);
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->events);
     }
 
-    /**
-     * @param DomainEventEnvelope $event
-     */
     private function addEvent(DomainEventEnvelope $event): void
     {
         $this->events[] = $event;

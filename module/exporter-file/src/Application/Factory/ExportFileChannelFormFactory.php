@@ -18,28 +18,15 @@ use Ergonode\Channel\Application\Provider\ChannelFormFactoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class ExportFileChannelFormFactory implements ChannelFormFactoryInterface
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return FileExportChannel::TYPE === $type;
@@ -47,8 +34,6 @@ class ExportFileChannelFormFactory implements ChannelFormFactoryInterface
 
     /**
      * @param AbstractChannel|FileExportChannel|null $channel
-     *
-     * @return FormInterface
      */
     public function create(AbstractChannel $channel = null): FormInterface
     {

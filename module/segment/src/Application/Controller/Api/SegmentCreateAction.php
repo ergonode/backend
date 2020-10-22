@@ -30,20 +30,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class SegmentCreateAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
-     */
     public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
     {
         $this->formFactory = $formFactory;
@@ -77,9 +67,7 @@ class SegmentCreateAction
      *     description="Not found",
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

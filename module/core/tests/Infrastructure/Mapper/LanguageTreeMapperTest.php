@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageTreeMapperTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class LanguageTreeMapperTest extends TestCase
      */
     private Language $language;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->translator = $this->createMock(TranslatorInterface::class);

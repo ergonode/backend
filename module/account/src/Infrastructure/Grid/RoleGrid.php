@@ -19,14 +19,8 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class RoleGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $id = new TextColumn('id', 'Id');

@@ -11,8 +11,6 @@ namespace Ergonode\Category\Infrastructure\Provider;
 
 use Ergonode\Category\Infrastructure\Factory\Command\UpdateCategoryCommandFactoryInterface;
 
-/**
- */
 class UpdateCategoryCommandFactoryProvider
 {
     /**
@@ -20,19 +18,11 @@ class UpdateCategoryCommandFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param UpdateCategoryCommandFactoryInterface ...$factories
-     */
     public function __construct(UpdateCategoryCommandFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return UpdateCategoryCommandFactoryInterface
-     */
     public function provide(string $type): UpdateCategoryCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {

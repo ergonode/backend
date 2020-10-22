@@ -15,13 +15,8 @@ use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterM
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerGeneratorProviderStrategyCompilerPass;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterCompilerPass;
 
-/**
- */
 class ErgonodeTransformerBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

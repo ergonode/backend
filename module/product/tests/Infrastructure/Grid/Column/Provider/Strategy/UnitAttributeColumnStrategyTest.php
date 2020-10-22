@@ -20,8 +20,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\Filter\NumericFilter;
 
-/**
- */
 class UnitAttributeColumnStrategyTest extends TestCase
 {
     /**
@@ -34,8 +32,6 @@ class UnitAttributeColumnStrategyTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->unitRepository = $this->createMock(UnitRepositoryInterface::class);
@@ -44,24 +40,18 @@ class UnitAttributeColumnStrategyTest extends TestCase
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $strategy = new UnitAttributeColumnStrategy($this->unitRepository);
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $strategy = new UnitAttributeColumnStrategy($this->unitRepository);
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testCreateColumn(): void
     {
         $language = $this->createMock(Language::class);

@@ -13,13 +13,8 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use ReflectionClass;
 use Ergonode\Condition\Domain\ConditionInterface;
 
-/**
- */
 class AddConditionsNodeSection
 {
-     /**
-     * @param ArrayNodeDefinition $node
-     */
     public static function addSection(ArrayNodeDefinition $node): void
     {
         $node

@@ -10,8 +10,6 @@ namespace Ergonode\Workflow\Infrastructure\Provider;
 
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
 
-/**
- */
 class UpdateWorkflowCommandFactoryProvider
 {
     /**
@@ -19,19 +17,11 @@ class UpdateWorkflowCommandFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param UpdateWorkflowCommandFactoryInterface ...$factories
-     */
     public function __construct(UpdateWorkflowCommandFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return UpdateWorkflowCommandFactoryInterface
-     */
     public function provide(string $type): UpdateWorkflowCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {

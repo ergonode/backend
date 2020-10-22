@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class AddProductChildrenBySegmentsCommandTest extends TestCase
 {
     /**

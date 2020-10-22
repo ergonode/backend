@@ -38,26 +38,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 class ImportUploadAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var UploadServiceInterface
-     */
     private UploadServiceInterface $uploadService;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface   $formFactory
-     * @param UploadServiceInterface $uploadService
-     * @param CommandBusInterface    $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         UploadServiceInterface $uploadService,
@@ -102,12 +88,9 @@ class ImportUploadAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param AbstractSource $source
-     * @param Request        $request
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      *
-     * @return Response
      *
      * @throws \Exception
      */

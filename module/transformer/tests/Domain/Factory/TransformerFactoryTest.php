@@ -13,12 +13,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Factory\TransformerFactory;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TransformerFactoryTest extends TestCase
 {
-    /**
-     */
     public function testFactoryCreate(): void
     {
         /** @var TransformerId $id */

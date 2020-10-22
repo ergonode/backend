@@ -10,28 +10,17 @@ namespace Ergonode\Notification\Infrastructure\Handler;
 
 use Ergonode\Notification\Domain\Command\MarkNotificationCommand;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
-use Ergonode\Notification\Infrastructure\Sender\NotificationMarker;
 
-/**
- */
 class MarkNotificationCommandHandler
 {
-    /**
-     * @var NotificationQueryInterface
-     */
     private NotificationQueryInterface $query;
 
-    /**
-     * @param NotificationQueryInterface $query
-     */
     public function __construct(NotificationQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * @param MarkNotificationCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(MarkNotificationCommand $command)

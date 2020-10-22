@@ -13,17 +13,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class ProductCollectionTypeIdFaker extends BaseProvider
 {
     public const NAMESPACE = '5205c16c-5534-4aef-811a-f6bb5ef0dca2';
 
     /**
-     * @param string|null $string
-     *
-     * @return ProductCollectionTypeId
-     *
      * @throws \Exception
      */
     public function productCollectionTypeId(?string $string = null): ProductCollectionTypeId

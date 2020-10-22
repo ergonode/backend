@@ -17,23 +17,13 @@ use Ergonode\Category\Application\Form\Type\CategoryType;
 use Ergonode\Product\Application\Model\Product\GroupingProductFormModel;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 
-/**
- */
 class GroupingProductForm extends AbstractType implements ProductFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return GroupingProduct::TYPE === $type;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -43,8 +33,7 @@ class GroupingProductForm extends AbstractType implements ProductFormInterface
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

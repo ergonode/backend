@@ -16,23 +16,14 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateDateAttributeCommandTest extends TestCase
 {
     /**
-     * @param AttributeCode      $attributeCode
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param array              $groups
-     * @param DateFormat         $format
-     * @param AttributeScope     $scope
+     * @param array $groups
      *
      * @throws \Exception
      *
      * @dataProvider dataProvider
-     *
      */
     public function testCreateCommand(
         AttributeCode $attributeCode,

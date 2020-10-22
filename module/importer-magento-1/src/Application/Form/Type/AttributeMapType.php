@@ -16,18 +16,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\ImporterMagento1\Application\Model\Type\AttributeMapModel;
 
-/**
- */
 class AttributeMapType extends AbstractType
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @param AttributeQueryInterface $query
-     */
     public function __construct(AttributeQueryInterface $query)
     {
         $this->query = $query;
@@ -35,8 +27,7 @@ class AttributeMapType extends AbstractType
 
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -60,9 +51,6 @@ class AttributeMapType extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

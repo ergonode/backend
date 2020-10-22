@@ -18,29 +18,15 @@ use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,
@@ -67,8 +53,6 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     }
 
     /**
-     * @param ProductModel $product
-     *
      * @return AttributeCode[]
      */
     private function getBindings(ProductModel $product): array
@@ -86,8 +70,6 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     }
 
     /**
-     * @param ProductModel $product
-     *
      * @return Sku[]
      */
     private function getVariants(ProductModel $product): ?array

@@ -18,13 +18,8 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceImport
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
 
-/**
- */
 class ErgonodeImporterBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

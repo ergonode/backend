@@ -16,8 +16,6 @@ use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
-/**
- */
 class DefaultImageSystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
     /**

@@ -7,27 +7,26 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Migration\DependencyInjection;
+namespace Ergonode\Completeness\Application\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-/**
- */
-class MigrationExtension extends Extension
+class ErgonodeCompletenessExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $locator = new FileLocator(__DIR__.'/../Resources/config/');
-        $loader  = new YamlFileLoader($container, $locator);
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../../Resources/config')
+        );
 
         $loader->load('services.yml');
     }

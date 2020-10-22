@@ -13,26 +13,15 @@ use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteCommentCommandHandler
 {
-    /**
-     * @var CommentRepositoryInterface $repository
-     */
     private CommentRepositoryInterface $repository;
 
-    /**
-     * @param CommentRepositoryInterface $repository
-     */
     public function __construct(CommentRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param DeleteCommentCommand $command
-     */
     public function __invoke(DeleteCommentCommand $command): void
     {
         $comment = $this->repository->load($command->getId());

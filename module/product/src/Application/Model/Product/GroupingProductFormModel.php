@@ -15,13 +15,9 @@ use Ergonode\Product\Infrastructure\Validator\SkuUnique;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class GroupingProductFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Sku is required", groups={"Create"})
      *
      * @Sku(groups={"Create"})
@@ -36,8 +32,6 @@ class GroupingProductFormModel
     public array $categories = [];
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Template is required")
      * @Assert\Uuid()
      *

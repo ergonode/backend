@@ -9,16 +9,31 @@
     <arg name="extensions" value="php"/>
     <arg name="parallel" value="80"/>
     <arg value="p"/>
-    <config name="installed_paths" value="vendor/escapestudios/symfony2-coding-standard"/>
+    <config name="installed_paths" value="vendor/escapestudios/symfony2-coding-standard,vendor/slevomat/coding-standard"/>
 
-    <!-- Include full Symfony2 Coding Standard -->
-    <rule ref="Symfony"/>
+    <!-- Include Symfony2 Coding Standard -->
+    <rule ref="Symfony">
+        <exclude name="Symfony.Commenting"/>
+        <exclude name="Zend.NamingConventions.ValidVariableName"/>
+    </rule>
     <rule ref="Symfony.Functions.Arguments.Invalid">
          <severity>0</severity>
     </rule>
     <rule ref="Generic.Files.LineLength.MaxExceeded">
          <type>error</type>
     </rule>
+
+    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property name="searchAnnotations" value="1"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation" />
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation" />
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation" />
 
     <!-- Directories to be checked -->
     <file>config/</file>

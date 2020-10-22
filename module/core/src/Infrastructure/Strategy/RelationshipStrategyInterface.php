@@ -11,20 +11,11 @@ namespace Ergonode\Core\Infrastructure\Strategy;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface RelationshipStrategyInterface
 {
-    /**
-     * @param AggregateId $id
-     *
-     * @return bool
-     */
     public function supports(AggregateId $id): bool;
 
     /**
-     * @param AggregateId $id
-     *
      * @return AggregateId[]
      */
     public function getRelationships(AggregateId $id): array;

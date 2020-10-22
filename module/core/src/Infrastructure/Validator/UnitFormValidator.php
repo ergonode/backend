@@ -16,18 +16,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class UnitFormValidator extends ConstraintValidator
 {
-    /**
-     * @var UnitQueryInterface
-     */
     private UnitQueryInterface $query;
 
-    /**
-     * @param UnitQueryInterface $query
-     */
     public function __construct(UnitQueryInterface $query)
     {
         $this->query = $query;
@@ -53,39 +45,42 @@ class UnitFormValidator extends ConstraintValidator
     }
 
     /**
-     * @param            $value
-     * @param Constraint $constraint
+     * @param $value
      */
     private function validateName($value, Constraint $constraint)
     {
-        if (!isset($value->name) || null == $value->name) {
+        if (!isset($value->name) || null === $value->name) {
             $this->context->buildViolation($constraint->emptyNameMessage)
+                ->atPath('name')
                 ->addViolation();
 
             return;
         }
         $unitIdByName = $this->query->findIdByName($value->name);
+        // phpcs:ignore
         if (null !== $unitIdByName && $unitIdByName != $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueNameMessage)
+                ->atPath('name')
                 ->addViolation();
         }
     }
 
     /**
-     * @param            $value
-     * @param Constraint $constraint
+     * @param $value
      */
     private function validateSymbol($value, Constraint $constraint)
     {
         if (!isset($value->symbol) || null === $value->symbol) {
             $this->context->buildViolation($constraint->emptySymbolMessage)
+                ->atPath('symbol')
                 ->addViolation();
 
             return;
         }
         $unitIdBySymbol = $this->query->findIdByCode($value->symbol);
-        if (null !== $unitIdBySymbol && $unitIdBySymbol != $value->getUnitId()) {
+        if (null !== $unitIdBySymbol && $unitIdBySymbol !== $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueSymbolMessage)
+                ->atPath('symbol')
                 ->addViolation();
         }
     }

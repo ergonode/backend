@@ -12,20 +12,12 @@ namespace Ergonode\Category\Infrastructure\Persistence\Projector\Tree;
 use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 
-/**
- */
 class DbalCategoryTreeDeletedEventProjector
 {
     private const TABLE = 'category_tree';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

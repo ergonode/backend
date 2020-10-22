@@ -29,32 +29,14 @@ use Ergonode\Attribute\Infrastructure\Provider\CreateAttributeCommandFactoryProv
  */
 class AttributeCreateAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var AttributeFormProvider
-     */
     private AttributeFormProvider $formProvider;
 
-    /**
-     * @var CreateAttributeCommandFactoryProvider
-     */
     private CreateAttributeCommandFactoryProvider $factoryProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface                  $formFactory
-     * @param AttributeFormProvider                 $formProvider
-     * @param CreateAttributeCommandFactoryProvider $factoryProvider
-     * @param CommandBusInterface                   $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         AttributeFormProvider $formProvider,
@@ -103,9 +85,7 @@ class AttributeCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

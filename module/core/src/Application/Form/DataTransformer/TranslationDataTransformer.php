@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class TranslationDataTransformer implements DataTransformerInterface
 {
     /**
@@ -36,8 +34,6 @@ class TranslationDataTransformer implements DataTransformerInterface
 
     /**
      * @param array|null $value
-     *
-     * @return TranslatableString
      */
     public function reverseTransform($value): TranslatableString
     {

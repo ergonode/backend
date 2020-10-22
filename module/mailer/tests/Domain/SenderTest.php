@@ -13,12 +13,8 @@ use Ergonode\Mailer\Domain\Sender;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 final class SenderTest extends TestCase
 {
-    /**
-     */
     public function testConstructor(): void
     {
         $sender = new Sender();
@@ -29,8 +25,6 @@ final class SenderTest extends TestCase
         $this->assertCount(0, $sender->getReplyTo());
     }
 
-    /**
-     */
     public function testAdd(): void
     {
         $email = new Email('test@ergonode.com');

@@ -13,26 +13,16 @@ use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\Entity\Option\SimpleOption;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 
-/**
- */
 class CreateOptionCommandHandler
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $repository;
 
-    /**
-     * @param OptionRepositoryInterface $repository
-     */
     public function __construct(OptionRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param CreateOptionCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateOptionCommand $command): void

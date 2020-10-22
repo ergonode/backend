@@ -15,24 +15,12 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ChangeUserPasswordCommandHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $repository;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
     private UserPasswordEncoderInterface $userPasswordEncoder;
 
-    /**
-     * @param UserRepositoryInterface      $repository
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     */
     public function __construct(
         UserRepositoryInterface $repository,
         UserPasswordEncoderInterface $userPasswordEncoder
@@ -42,8 +30,6 @@ class ChangeUserPasswordCommandHandler
     }
 
     /**
-     * @param ChangeUserPasswordCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ChangeUserPasswordCommand $command)

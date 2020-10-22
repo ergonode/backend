@@ -12,14 +12,10 @@ namespace Ergonode\Grid\Renderer;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 interface RowRendererInterface
 {
     /**
-     * @param AbstractGrid               $grid
-     * @param GridConfigurationInterface $configuration
-     * @param array                      $row
+     * @param array $row
      *
      * @return array
      */

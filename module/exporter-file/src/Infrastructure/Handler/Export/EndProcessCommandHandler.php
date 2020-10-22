@@ -17,22 +17,11 @@ use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Entity\Export;
 
-/**
- */
 class EndProcessCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $repository;
-    /**
-     * @var DirectoryCompressorInterface
-     */
     private DirectoryCompressorInterface $compressor;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
     /**
@@ -40,12 +29,6 @@ class EndProcessCommandHandler
      */
     private FilesystemInterface $exportStorage;
 
-    /**
-     * @param ExportRepositoryInterface    $repository
-     * @param DirectoryCompressorInterface $compressor
-     * @param TempFileStorage              $storage
-     * @param FilesystemInterface          $exportStorage
-     */
     public function __construct(
         ExportRepositoryInterface $repository,
         DirectoryCompressorInterface $compressor,
@@ -59,8 +42,6 @@ class EndProcessCommandHandler
     }
 
     /**
-     * @param EndFileExportCommand $command
-     *
      * @throws FileExistsException
      */
     public function __invoke(EndFileExportCommand $command)

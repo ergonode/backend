@@ -16,35 +16,23 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class ProductCollectionIdType extends AbstractType
 {
-    /**
-     * @var ProductCollectionQueryInterface
-     */
     private ProductCollectionQueryInterface $query;
 
-    /**
-     * @param ProductCollectionQueryInterface $query
-     */
     public function __construct(ProductCollectionQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new ProductCollectionIdDataTransformer());
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $collections = $this->query->getDictionary();
@@ -56,9 +44,6 @@ class ProductCollectionIdType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

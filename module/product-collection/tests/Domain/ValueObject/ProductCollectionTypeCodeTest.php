@@ -12,13 +12,9 @@ namespace Ergonode\ProductCollection\Tests\Domain\ValueObject;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionTypeCodeTest extends TestCase
 {
     /**
-     * @param string $code
-     *
      * @dataProvider validDataProvider
      */
     public function testCreationValidCode(string $code): void
@@ -29,10 +25,7 @@ class ProductCollectionTypeCodeTest extends TestCase
     }
 
     /**
-     * @param string $code
-     *
      * @dataProvider invalidDataProvider
-     *
      */
     public function testCreationInValidCode(string $code): void
     {

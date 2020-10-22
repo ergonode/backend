@@ -58,14 +58,10 @@ class OptionReadAction
      *     description="Not found",
      * )
      *
-     * @param AbstractAttribute $attribute
-     * @param AbstractOption    $option
      *
-     * @return Response
      *
      * @ParamConverter(name="attribute")
      * @ParamConverter(name="option")
-     *
      */
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {

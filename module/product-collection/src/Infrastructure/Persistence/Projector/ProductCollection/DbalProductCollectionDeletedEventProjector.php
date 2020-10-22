@@ -14,28 +14,18 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionDeletedEvent;
 
-/**
- */
 class DbalProductCollectionDeletedEventProjector
 {
     private const TABLE = 'product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductCollectionDeletedEvent $event
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */

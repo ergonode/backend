@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CommentTest extends TestCase
 {
     /**
@@ -34,13 +32,8 @@ class CommentTest extends TestCase
      */
     private $userId;
 
-    /**
-     * @var string
-     */
     private string $content;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(CommentId::class);

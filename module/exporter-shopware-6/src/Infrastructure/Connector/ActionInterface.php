@@ -10,18 +10,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
 use GuzzleHttp\Psr7\Request;
 
-/**
- */
 interface ActionInterface
 {
-    /**
-     * @return Request
-     */
     public function getRequest(): Request;
 
     /**
-     * @param string|null $content
-     *
      * @return string|null|object|array
      */
     public function parseContent(?string $content);

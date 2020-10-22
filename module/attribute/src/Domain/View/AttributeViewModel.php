@@ -12,23 +12,12 @@ namespace Ergonode\Attribute\Domain\View;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
-/**
- */
 class AttributeViewModel
 {
-    /**
-     * @var AttributeId
-     */
     private AttributeId $id;
 
-    /**
-     * @var AttributeCode
-     */
     private AttributeCode $code;
 
-    /**
-     * @var string
-     */
     private string $type;
 
     /**
@@ -37,10 +26,7 @@ class AttributeViewModel
     private array $groups;
 
     /**
-     * @param AttributeId   $id
-     * @param AttributeCode $code
-     * @param string        $type
-     * @param array         $groups
+     * @param array $groups
      */
     public function __construct(AttributeId $id, AttributeCode $code, string $type, array $groups)
     {
@@ -50,17 +36,11 @@ class AttributeViewModel
         $this->groups = $groups;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getId(): AttributeId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getCode(): AttributeCode
     {
         return $this->code;
@@ -74,9 +54,6 @@ class AttributeViewModel
         return $this->groups;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;

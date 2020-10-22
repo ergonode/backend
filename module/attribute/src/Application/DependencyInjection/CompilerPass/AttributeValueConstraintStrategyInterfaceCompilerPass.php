@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class AttributeValueConstraintStrategyInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.attribute.attribute_validation_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(AttributeValueConstraintProvider::class)) {
@@ -30,9 +25,6 @@ class AttributeValueConstraintStrategyInterfaceCompilerPass implements CompilerP
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

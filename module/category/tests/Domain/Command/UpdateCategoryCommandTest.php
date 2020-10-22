@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateCategoryCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $id = $this->createMock(CategoryId::class);

@@ -17,20 +17,10 @@ use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInh
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class Shopware6ProductCustomFieldSetMultiSelectMapper extends AbstractShopware6ProductCustomFieldSetMapper
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $optionRepository;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     * @param OptionRepositoryInterface                 $optionRepository
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator,

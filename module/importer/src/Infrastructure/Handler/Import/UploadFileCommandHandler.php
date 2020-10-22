@@ -20,42 +20,18 @@ use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UploadFileCommandHandler
 {
-    /**
-     * @var SourceRepositoryInterface
-     */
     private SourceRepositoryInterface $sourceRepository;
 
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $transformerRepository;
 
-    /**
-     * @var ImportRepositoryInterface
-     */
     private ImportRepositoryInterface $importRepository;
 
-    /**
-     * @var TransformerGeneratorProvider
-     */
     private TransformerGeneratorProvider $provider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param SourceRepositoryInterface      $sourceRepository
-     * @param TransformerRepositoryInterface $transformerRepository
-     * @param ImportRepositoryInterface      $importRepository
-     * @param TransformerGeneratorProvider   $provider
-     * @param CommandBusInterface            $commandBus
-     */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
@@ -71,8 +47,6 @@ class UploadFileCommandHandler
     }
 
     /**
-     * @param UploadFileCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UploadFileCommand $command)

@@ -16,8 +16,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6MultimediaRepositoryIn
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_multimedia';
@@ -27,25 +25,13 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId    $channelId
-     * @param MultimediaId $multimediaId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, MultimediaId $multimediaId): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -67,10 +53,6 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
     }
 
     /**
-     * @param ChannelId    $channelId
-     * @param MultimediaId $multimediaId
-     * @param string       $shopwareId
-     *
      * @throws DBALException
      */
     public function save(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void
@@ -82,12 +64,6 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
         }
     }
 
-    /**
-     * @param ChannelId    $channelId
-     * @param MultimediaId $multimediaId
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, MultimediaId $multimediaId): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -108,10 +84,6 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
     }
 
     /**
-     * @param ChannelId    $channelId
-     * @param MultimediaId $multimediaId
-     * @param string       $shopwareId
-     *
      * @throws DBALException
      */
     private function update(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void
@@ -133,10 +105,6 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
     }
 
     /**
-     * @param ChannelId    $channelId
-     * @param MultimediaId $multimediaId
-     * @param string       $shopwareId
-     *
      * @throws DBALException
      */
     private function insert(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void

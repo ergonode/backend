@@ -11,67 +11,52 @@ namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
-use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- */
 class UpdateUserFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="User first name is required")
      * @Assert\Length(min="1", max="128")
      */
     public ?string $firstName;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="User last name is required")
      * @Assert\Length(min="3", max="128")
      */
     public ?string $lastName;
 
     /**
-     * @var Language
-     *
      * @Assert\NotBlank(message="User language is required")
      */
     public ?Language $language;
 
     /**
-     * @var Password|null
+     * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
-    public ?Password $passwordRepeat;
+    public ?string $passwordRepeat;
 
     /**
-     * @var Password|null
-     *
      * @Assert\Length(
      *     min="6",
      *     max="32",
-     *     minMessage="User password is too short, should have at least {{ limit }} characters",
-     *     maxMessage="User password is too long, should have at most {{ limit }} characters"
+     *     minMessage="User password is too short. It should have at least {{ limit }} characters.",
+     *     maxMessage="User password is too long. It should contain {{ limit }} characters or less."
      * )
      */
-    public ?Password $password;
+    public ?string $password;
 
     /**
-     * @var bool
-     *
      * @Assert\NotNull(message="Activity is required")
      * @Assert\Type("bool")
      */
     public ?bool $isActive;
 
     /**
-     * @var RoleId
-     *
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
@@ -86,8 +71,6 @@ class UpdateUserFormModel
      */
     public ?array $languagePrivilegesCollection;
 
-    /**
-     */
     public function __construct()
     {
         $this->firstName = null;
@@ -103,8 +86,7 @@ class UpdateUserFormModel
     /**
      * @Assert\Callback()
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param mixed $payload
      */
     public function validatePassword(ExecutionContextInterface $context, $payload)
     {

@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AbstractAttributeTest extends TestCase
 {
     /**
@@ -46,8 +44,6 @@ class AbstractAttributeTest extends TestCase
      */
     private array $parameters;
 
-    /**
-     */
     public function setUp(): void
     {
         $this->id = $this->createMock(AttributeId::class);
@@ -128,9 +124,6 @@ class AbstractAttributeTest extends TestCase
         $this->assertEquals([], $attribute->getGroups());
     }
 
-    /**
-     * @return AbstractAttribute
-     */
     private function getClass(): AbstractAttribute
     {
         return  new class(
@@ -142,9 +135,6 @@ class AbstractAttributeTest extends TestCase
             $this->scope,
             $this->parameters,
         ) extends AbstractAttribute {
-            /**
-             * @return string
-             */
             public function getType(): string
             {
                 return 'TYPE';

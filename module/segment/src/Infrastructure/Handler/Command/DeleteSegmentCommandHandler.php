@@ -16,24 +16,12 @@ use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteSegmentCommandHandler
 {
-    /**
-     * @var SegmentRepositoryInterface
-     */
     private SegmentRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param SegmentRepositoryInterface     $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         SegmentRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -43,8 +31,6 @@ class DeleteSegmentCommandHandler
     }
 
     /**
-     * @param DeleteSegmentCommand $command
-     *
      * @throws ExistingRelationshipsException
      */
     public function __invoke(DeleteSegmentCommand $command)

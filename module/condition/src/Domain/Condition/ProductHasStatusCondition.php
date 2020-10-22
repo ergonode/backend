@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductHasStatusCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_HAS_STATUS_CONDITION';
@@ -24,8 +22,6 @@ class ProductHasStatusCondition implements ConditionInterface
     public const NOT_HAS = 'NOT_HAS';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $operator;
@@ -38,7 +34,6 @@ class ProductHasStatusCondition implements ConditionInterface
     private array $value;
 
     /**
-     * @param string     $operator
      * @param StatusId[] $value
      */
     public function __construct(string $operator, array $value)
@@ -57,9 +52,6 @@ class ProductHasStatusCondition implements ConditionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;

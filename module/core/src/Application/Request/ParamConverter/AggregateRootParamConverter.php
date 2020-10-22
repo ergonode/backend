@@ -12,8 +12,6 @@ namespace Ergonode\Core\Application\Request\ParamConverter;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,26 +19,15 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class AggregateRootParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function apply(Request $request, ParamConverter $configuration): void
     {
         $name = $configuration->getName();
@@ -67,9 +54,6 @@ class AggregateRootParamConverter implements ParamConverterInterface
         $request->attributes->set($configuration->getName(), $resource);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(ParamConverter $configuration): bool
     {
         return is_subclass_of($configuration->getClass(), AbstractAggregateRoot::class);

@@ -20,14 +20,8 @@ use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
  */
 class CurrencyReadAction
 {
-    /**
-     * @var CurrencyQueryInterface
-     */
     private CurrencyQueryInterface $currencyQuery;
 
-    /**
-     * @param CurrencyQueryInterface $currencyQuery
-     */
     public function __construct(CurrencyQueryInterface $currencyQuery)
     {
         $this->currencyQuery = $currencyQuery;
@@ -47,8 +41,6 @@ class CurrencyReadAction
      *     response=200,
      *     description="Returns collection of currencies",
      * )
-     *
-     * @return Response
      */
     public function __invoke(): Response
     {

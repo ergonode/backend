@@ -12,12 +12,8 @@ use Ergonode\Attribute\Application\Provider\AttributeFormProvider;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 
-/**
- */
 class AttributeFormProviderTest extends TestCase
 {
-    /**
-     */
     public function testFormNotExistForm(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -25,8 +21,6 @@ class AttributeFormProviderTest extends TestCase
         $provider->provide('Any not supported form type');
     }
 
-    /**
-     */
     public function testExistForm(): void
     {
         $form = $this->createMock(AttributeFormInterface::class);

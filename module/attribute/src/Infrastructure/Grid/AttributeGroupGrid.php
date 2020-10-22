@@ -18,20 +18,14 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class AttributeGroupGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->
         addColumn(

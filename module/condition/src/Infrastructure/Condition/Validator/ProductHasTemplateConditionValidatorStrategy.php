@@ -16,16 +16,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Designer\Infrastructure\Validator\TemplateExists;
 
-/**
- */
 class ProductHasTemplateConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type ===  ProductHasTemplateCondition::TYPE;
@@ -33,8 +26,6 @@ class ProductHasTemplateConditionValidatorStrategy implements ConditionValidator
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

@@ -19,8 +19,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
-/**
- */
 class TextareaAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
@@ -43,13 +41,8 @@ class TextareaAttributeDataSetQueryBuilderTest extends TestCase
      */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var ProductAttributeLanguageResolver
-     */
     private ProductAttributeLanguageResolver $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(TextareaAttribute::class);
@@ -60,24 +53,18 @@ class TextareaAttributeDataSetQueryBuilderTest extends TestCase
         $this->resolver = new ProductAttributeLanguageResolver($this->query);
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $builder = new TextareaAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertTrue($builder->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $builder = new TextareaAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testAddQuerySelect(): void
     {
         $this->queryBuilder->expects($this->once())->method('addSelect');

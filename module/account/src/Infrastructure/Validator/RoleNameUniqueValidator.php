@@ -15,18 +15,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class RoleNameUniqueValidator extends ConstraintValidator
 {
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $query;
 
-    /**
-     * @param RoleQueryInterface $query
-     */
     public function __construct(RoleQueryInterface $query)
     {
         $this->query = $query;
@@ -54,8 +46,10 @@ class RoleNameUniqueValidator extends ConstraintValidator
 
         $roleId = $this->query->findIdByRoleName($value->name);
 
+        // phpcs:ignore
         if (null !== $roleId && $roleId != $value->getRoleId()) {
             $this->context->buildViolation($constraint->uniqueMessage)
+                ->atPath('name')
                 ->addViolation();
         }
     }

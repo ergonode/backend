@@ -16,24 +16,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- */
 class LinkColumnRenderer implements ColumnRendererInterface
 {
-    /**
-     * @var UrlGeneratorInterface
-     */
     private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
     private AuthorizationCheckerInterface $checker;
 
-    /**
-     * @param UrlGeneratorInterface         $urlGenerator
-     * @param AuthorizationCheckerInterface $checker
-     */
     public function __construct(UrlGeneratorInterface $urlGenerator, AuthorizationCheckerInterface $checker)
     {
         $this->urlGenerator = $urlGenerator;
@@ -89,8 +77,6 @@ class LinkColumnRenderer implements ColumnRendererInterface
     /**
      * @param array $link
      * @param array $row
-     *
-     * @return bool
      */
     private function isVisible(array $link, array $row): bool
     {

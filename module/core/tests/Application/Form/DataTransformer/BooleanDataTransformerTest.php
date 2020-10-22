@@ -12,8 +12,6 @@ namespace Ergonode\Core\Tests\Application\Form\DataTransformer;
 use Ergonode\Core\Application\Form\DataTransformer\BooleanDataTransformer;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class BooleanDataTransformerTest extends TestCase
 {
 
@@ -32,8 +30,7 @@ class BooleanDataTransformerTest extends TestCase
     /**
      * @dataProvider  reverseDataProvider
      *
-     * @param mixed  $value
-     * @param string $expected
+     * @param mixed $value
      */
     public function testReverseTransform($value, string $expected): void
     {
@@ -41,8 +38,6 @@ class BooleanDataTransformerTest extends TestCase
         self::assertEquals($expected, $transformer->reverseTransform($value));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $transformer = new BooleanDataTransformer();

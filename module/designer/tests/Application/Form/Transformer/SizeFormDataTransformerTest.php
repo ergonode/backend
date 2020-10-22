@@ -13,25 +13,17 @@ use Ergonode\Designer\Application\Form\Transformer\SizeFormDataTransformer;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SizeFormDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var SizeFormDataTransformer
-     */
     protected SizeFormDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new SizeFormDataTransformer();
     }
 
     /**
-     * @param Size|null  $sizeValueObject
      * @param array|null $array
      *
      * @dataProvider dataProvider
@@ -41,9 +33,6 @@ class SizeFormDataTransformerTest extends TestCase
         $this->assertSame($array, $this->transformer->transform($sizeValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -53,7 +42,6 @@ class SizeFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Size|null  $sizeValueObject
      * @param array|null $array
      *
      * @dataProvider dataProvider
@@ -63,9 +51,6 @@ class SizeFormDataTransformerTest extends TestCase
         $this->assertEquals($sizeValueObject, $this->transformer->reverseTransform($array));
     }
 
-    /**
-     *
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('invalid size -1,-2 value');

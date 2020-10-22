@@ -10,13 +10,9 @@ namespace Ergonode\Attribute\Application\Model\Attribute\Property;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class DateAttributePropertyModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      */
     public ?string $format = null;

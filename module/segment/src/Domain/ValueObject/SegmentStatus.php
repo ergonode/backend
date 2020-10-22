@@ -26,14 +26,8 @@ class SegmentStatus
         self::OUTDATED,
     ];
 
-    /**
-     * @var string
-     */
     private string $value;
 
-    /**
-     * @param string $value
-     */
     public function __construct(string $value = self::NEW)
     {
         $value = strtoupper($value);
@@ -50,51 +44,31 @@ class SegmentStatus
         $this->value = $value;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
     public static function isValid(string $value): bool
     {
         return in_array(strtoupper($value), self::AVAILABLE, true);
     }
 
-    /**
-     * @return bool
-     */
     public function isNew(): bool
     {
         return self::NEW === $this->value;
     }
 
-    /**
-     * @return bool
-     */
     public function isProcessed(): bool
     {
         return self::PROCESSED === $this->value;
     }
 
-    /**
-     * @return bool
-     */
     public function isCalculated(): bool
     {
         return self::CALCULATED === $this->value;
     }
 
-    /**
-     * @return bool
-     */
     public function isOutdated(): bool
     {
         return self::OUTDATED === $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->value;
@@ -102,8 +76,6 @@ class SegmentStatus
 
     /**
      * @param SegmentStatus $status
-     *
-     * @return bool
      */
     public function isEqual(self $status): bool
     {

@@ -12,15 +12,8 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\SlugConverter;
 
-/**
- */
 class SlugConverterMapper implements ConverterMapperInterface
 {
-    /**
-     * @param ConverterInterface $converter
-     *
-     * @return bool
-     */
     public function supported(ConverterInterface $converter): bool
     {
         return $converter instanceof SlugConverter;
@@ -29,9 +22,6 @@ class SlugConverterMapper implements ConverterMapperInterface
     /**
      * @param ConverterInterface|SlugConverter $converter
      * @param array                            $line
-     * @param string|null                      $default
-     *
-     * @return string|null
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {

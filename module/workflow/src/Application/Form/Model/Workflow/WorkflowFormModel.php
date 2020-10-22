@@ -12,18 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Workflow\Infrastructure\Validator\StatusIdNotExists;
 use Ergonode\Workflow\Infrastructure\Validator\WorkflowExists;
 
-/**
- *
- */
 class WorkflowFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(groups={"Create"})
      * @Assert\Length(
      *     max=100,
-     *     maxMessage="Workflow code is to long, It should have {{ limit }} character or less.",
+     *     maxMessage="Workflow name is too long. It should contain {{ limit }} characters or less.",
      *     groups={"Create"}
      *     )
      * @WorkflowExists(groups={"Create"})

@@ -13,13 +13,9 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class LanguageConfigurationFormTypeModel
 {
     /**
-     * @var Language|null
-     *
      * @Assert\NotBlank(message="Lanugage code is required")
      *
      * @CoreAssert\LanguageCodeConstraint();
@@ -27,8 +23,6 @@ class LanguageConfigurationFormTypeModel
     public ?Language $code = null;
 
     /**
-     * @var bool
-     *
      * @Assert\NotNull(),
      * @Assert\Type("boolean")
      */

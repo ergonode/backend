@@ -12,28 +12,17 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreateDateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateDateAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateDateAttributeCommand $command): void

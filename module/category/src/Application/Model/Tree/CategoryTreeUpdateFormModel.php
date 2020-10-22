@@ -11,8 +11,6 @@ namespace Ergonode\Category\Application\Model\Tree;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CategoryTreeUpdateFormModel
 {
     /**
@@ -20,7 +18,10 @@ class CategoryTreeUpdateFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=255, maxMessage="Category name is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *       max=255,
+     *       maxMessage="Category tree name is too long. It should contain {{ limit }} characters or less."
+     *     )
      * })
      */
     public array $name;
@@ -32,8 +33,6 @@ class CategoryTreeUpdateFormModel
      */
     public array $categories;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

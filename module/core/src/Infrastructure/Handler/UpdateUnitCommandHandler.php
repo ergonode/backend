@@ -14,26 +14,16 @@ use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateUnitCommandHandler
 {
-    /**
-     * @var UnitRepositoryInterface
-     */
     private UnitRepositoryInterface $repository;
 
-    /**
-     * @param UnitRepositoryInterface $repository
-     */
     public function __construct(UnitRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateUnitCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateUnitCommand $command)

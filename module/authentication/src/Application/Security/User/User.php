@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\User;
 
-/**
- */
 class User implements UserInterface
 {
     private string $id;
@@ -19,10 +17,7 @@ class User implements UserInterface
     private bool $active;
 
     /**
-     * @param string $id
-     * @param string $password
-     * @param array  $roles
-     * @param bool   $active
+     * @param array $roles
      */
     public function __construct(
         string $id,
@@ -36,9 +31,6 @@ class User implements UserInterface
         $this->active = $active;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;

@@ -15,22 +15,12 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 
-/**
- */
 class Shopware6CustomFieldConfigTextareaMapper implements Shopware6CustomFieldMapperInterface
 {
     private const TYPE = 'text';
     private const CUSTOM_FIELD_TYPE = 'textEditor';
     private const COMPONENT_NAME = 'sw-text-editor';
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,

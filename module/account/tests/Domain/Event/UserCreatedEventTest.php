@@ -18,12 +18,8 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UserCreatedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreateEvent(): void
     {
         /** @var UserId|MockObject $id */

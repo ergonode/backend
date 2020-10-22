@@ -28,14 +28,8 @@ use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
  */
 class CompletenessReadAction
 {
-    /**
-     * @var CompletenessQueryInterface
-     */
     private CompletenessQueryInterface $query;
 
-    /**
-     * @param CompletenessQueryInterface $query
-     */
     public function __construct(CompletenessQueryInterface $query)
     {
         $this->query = $query;
@@ -64,10 +58,7 @@ class CompletenessReadAction
      *     description="Get draft grid",
      * )
      *
-     * @param AbstractProduct $product
-     * @param Language        $language
      *
-     * @return Response
      *
      * @ParamConverter(name="product")
      *

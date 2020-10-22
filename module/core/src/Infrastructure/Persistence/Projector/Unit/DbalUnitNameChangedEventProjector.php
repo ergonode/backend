@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Core\Domain\Event\UnitNameChangedEvent;
 
-/**
- */
 class DbalUnitNameChangedEventProjector
 {
     private const TABLE = 'unit';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UnitNameChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UnitNameChangedEvent $event): void

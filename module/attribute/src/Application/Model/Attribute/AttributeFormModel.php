@@ -12,13 +12,9 @@ namespace Ergonode\Attribute\Application\Model\Attribute;
 use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class AttributeFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(
      *     message="System name is required",
      *     groups={"Create"}
@@ -35,8 +31,6 @@ class AttributeFormModel
     public ?string $code = null;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(
      *     message="Attribute scope is required",
      *     )
@@ -51,7 +45,7 @@ class AttributeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=128,
-     *      maxMessage="Attribute name is to long, It should have {{ limit }} character or less."
+     *      maxMessage="Attribute name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
@@ -64,7 +58,7 @@ class AttributeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *       max=4000,
-     *       maxMessage="Attribute placeholder is to long. It should have {{ limit }} character or less."
+     *       maxMessage="Attribute placeholder is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
@@ -77,7 +71,7 @@ class AttributeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *       max=4000,
-     *       maxMessage="Attribute hint is to long. It should have {{ limit }} character or less."
+     *       maxMessage="Attribute hint is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */

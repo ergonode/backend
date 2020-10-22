@@ -22,13 +22,10 @@ use Ergonode\Channel\Application\DependencyInjection\CompilerPass\CreateChannelC
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderInterface;
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\UpdateChannelCommandBuilderCompilerPass;
 
-/**
- */
 class ErgonodeChannelExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

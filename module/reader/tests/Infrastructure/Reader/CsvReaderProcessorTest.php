@@ -10,14 +10,10 @@ namespace Ergonode\Reader\Tests\Infrastructure\Reader;
 use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CsvReaderProcessorTest extends TestCase
 {
     private const FILE_NAME = 'test.csv';
 
-    /**
-     */
     public function testFileRead(): void
     {
         $file = \sprintf('%s/../../%s', __DIR__, self::FILE_NAME);
@@ -37,8 +33,6 @@ class CsvReaderProcessorTest extends TestCase
         $this->assertNotEmpty($result);
     }
 
-    /**
-     */
     public function testIncorrectFileRead(): void
     {
         $this->expectException(\RuntimeException::class);

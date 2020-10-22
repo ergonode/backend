@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\GalleryColumn;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class GalleryAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

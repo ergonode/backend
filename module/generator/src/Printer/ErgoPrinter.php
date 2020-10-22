@@ -14,8 +14,6 @@ use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\Printer;
 use Nette\Utils\Strings;
 
-/**
- */
 class ErgoPrinter extends Printer
 {
     /**
@@ -28,11 +26,6 @@ class ErgoPrinter extends Printer
      */
     protected $linesBetweenMethods = 1;
 
-    /**
-     * @param PhpFile $file
-     *
-     * @return string
-     */
     public function printFile(PhpFile $file): string
     {
         $namespaces = [];
@@ -51,8 +44,6 @@ class ErgoPrinter extends Printer
 
     /**
      * @param $var
-     *
-     * @return string
      */
     protected function dump($var): string
     {

@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Domain\Command\Attribute\Update;
 
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
 
-/**
- */
 class UpdateImageAttributeCommand extends AbstractUpdateAttributeCommand
 {
 }

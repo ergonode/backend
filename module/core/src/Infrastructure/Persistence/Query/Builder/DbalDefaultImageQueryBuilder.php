@@ -12,15 +12,8 @@ namespace Ergonode\Core\Infrastructure\Persistence\Query\Builder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface;
 
-/**
- */
 class DbalDefaultImageQueryBuilder implements DefaultImageQueryBuilderInterface
 {
-    /**
-     * @param QueryBuilder $query
-     * @param int          $lft
-     * @param int          $rgt
-     */
     public function addSelect(QueryBuilder $query, int $lft, int $rgt): void
     {
 

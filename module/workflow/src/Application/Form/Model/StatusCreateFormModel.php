@@ -13,15 +13,14 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class StatusCreateFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
-     * @Assert\Length(max=100, maxMessage="Status code is to long, It should have {{ limit }} character or less.")
+     * @Assert\Length(
+     *     max=100,
+     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
+     * )
      * @Assert\Regex(pattern="/^[a-zA-Z0-9-_ ]+$\b/i")
      *
      * @ErgoAssert\StatusCodeUnique()
@@ -29,8 +28,6 @@ class StatusCreateFormModel
     public ?string $code;
 
     /**
-     * @var Color|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min=4,
@@ -45,7 +42,10 @@ class StatusCreateFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=100, maxMessage="Status name is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *          max=100,
+     *          maxMessage="Status name is too long. It should contain {{ limit }} characters or less."
+     *     )
      * })
      */
     public array $name;
@@ -57,14 +57,12 @@ class StatusCreateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=500,
-     *      maxMessage="Status description is to long,. It should have {{ limit }} character or less."
+     *      maxMessage="Status description is too long. It should contain {{ limit }} characters or less."
      *  )
      * })
      */
     public array $description;
 
-    /**
-     */
     public function __construct()
     {
         $this->code = null;

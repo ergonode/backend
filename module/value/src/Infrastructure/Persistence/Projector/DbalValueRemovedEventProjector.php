@@ -15,27 +15,15 @@ use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalValueRemovedEventProjector
 {
     private const NAMESPACE = '0cc20207-d1b7-460b-8ef6-6898d00de4c0';
     private const RELATION_TABLE = 'entity_attribute_value';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -43,8 +31,6 @@ class DbalValueRemovedEventProjector
     }
 
     /**
-     * @param ValueRemovedEvent $event
-     *
      * @throws \Throwable
      */
     public function __invoke(ValueRemovedEvent $event): void

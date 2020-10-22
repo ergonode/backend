@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryI
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_custom_field';
@@ -26,25 +24,13 @@ class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldReposito
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId   $channel
-     * @param AttributeId $attributeId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channel, AttributeId $attributeId): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -66,11 +52,6 @@ class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldReposito
     }
 
     /**
-     * @param ChannelId   $channel
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     * @param string      $type
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function save(ChannelId $channel, AttributeId $attributeId, string $shopwareId, string $type): void
@@ -82,12 +63,6 @@ class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldReposito
         }
     }
 
-    /**
-     * @param ChannelId   $channel
-     * @param AttributeId $attributeId
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channel, AttributeId $attributeId): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -108,10 +83,6 @@ class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldReposito
     }
 
     /**
-     * @param ChannelId   $channel
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function update(ChannelId $channel, AttributeId $attributeId, string $shopwareId): void
@@ -133,11 +104,6 @@ class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldReposito
     }
 
     /**
-     * @param ChannelId   $channel
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     * @param string      $type
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function insert(ChannelId $channel, AttributeId $attributeId, string $shopwareId, string $type): void

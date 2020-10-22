@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class ImportCategoryCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

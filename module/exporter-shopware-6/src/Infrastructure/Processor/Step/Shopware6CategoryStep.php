@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
-use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -19,34 +18,18 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $treeRepository;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param TreeRepositoryInterface $treeRepository
-     * @param CommandBusInterface     $commandBus
-     */
     public function __construct(TreeRepositoryInterface $treeRepository, CommandBusInterface $commandBus)
     {
         $this->treeRepository = $treeRepository;
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId         $exportId
-     * @param Shopware6Channel $channel
-     */
     public function export(ExportId $exportId, Shopware6Channel $channel): void
     {
         $categoryTreeId = $channel->getCategoryTree();
@@ -60,11 +43,6 @@ class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
         }
     }
 
-    /**
-     * @param ExportId        $exportId
-     * @param Node            $node
-     * @param CategoryId|null $parentId
-     */
     private function buildStep(ExportId $exportId, Node $node, CategoryId $parentId = null): void
     {
         $processCommand = new CategoryShopware6ExportCommand($exportId, $node->getCategoryId(), $parentId);

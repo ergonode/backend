@@ -15,25 +15,15 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
 {
     /**
-     * @var bool
-     *
      * @JMS\Type("boolean")
      */
     private bool $richEdit;
 
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param bool               $richEdit
-     * @param array              $groups
+     * @param array $groups
      */
     public function __construct(
         AttributeId $id,
@@ -56,9 +46,6 @@ class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
         $this->richEdit = $richEdit;
     }
 
-    /**
-     * @return bool
-     */
     public function isRichEdit(): bool
     {
         return $this->richEdit;

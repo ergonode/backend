@@ -17,15 +17,8 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
 
-/**
- */
 class PriceAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof PriceAttribute;
@@ -33,8 +26,6 @@ class PriceAttributeValueConstraintStrategy implements AttributeValueConstraintS
 
     /**
      * @param AbstractAttribute|PriceAttribute $attribute
-     *
-     * @return Constraint
      */
     public function get(AbstractAttribute $attribute): Constraint
     {

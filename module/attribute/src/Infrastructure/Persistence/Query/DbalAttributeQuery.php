@@ -27,8 +27,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 class DbalAttributeQuery implements AttributeQueryInterface
 {
     private const TABLE = 'attribute';
@@ -37,20 +35,10 @@ class DbalAttributeQuery implements AttributeQueryInterface
     private const TABLE_OPTIONS = 'attribute_option';
     private const TABLE_ATTRIBUTE_GROUPS = 'attribute_group_attribute';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var AttributeViewModelFactory
-     */
     private AttributeViewModelFactory $factory;
 
-    /**
-     * @param Connection                $connection
-     * @param AttributeViewModelFactory $factory
-     */
     public function __construct(Connection $connection, AttributeViewModelFactory $factory)
     {
         $this->connection = $connection;
@@ -58,8 +46,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array|null
      */
     public function getAttribute(AttributeId $attributeId): ?array
@@ -94,12 +80,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return null;
     }
 
-    /**
-     * @param AttributeId $id
-     * @param OptionKey   $key
-     *
-     * @return OptionInterface|null
-     */
     public function findAttributeOption(AttributeId $id, OptionKey $key): ?OptionInterface
     {
         $qb = $this->connection->createQueryBuilder();
@@ -128,11 +108,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return null;
     }
 
-    /**
-     * @param AttributeId $attributeId
-     *
-     * @return AttributeType|null
-     */
     public function findAttributeType(AttributeId $attributeId): ?AttributeType
     {
         $qb = $this->getQuery();
@@ -150,11 +125,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return null;
     }
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return null|AttributeId
-     */
     public function findAttributeIdByCode(AttributeCode $code): ?AttributeId
     {
         $qb = $this->getQuery();
@@ -172,11 +142,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return null;
     }
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return AttributeViewModel
-     */
     public function findAttributeByCode(AttributeCode $code): ?AttributeViewModel
     {
         $qb = $this->getQuery();
@@ -197,11 +162,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return null;
     }
 
-    /**
-     * @param AttributeCode $code
-     *
-     * @return bool
-     */
     public function checkAttributeExistsByCode(AttributeCode $code): bool
     {
         $qb = $this->getQuery();
@@ -268,8 +228,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param UnitId $unitId
-     *
      * @return array
      */
     public function findAttributeIdsByUnitId(UnitId $unitId): array
@@ -295,8 +253,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeGroupId $id
-     *
      * @return array
      */
     public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array
@@ -322,8 +278,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param MultimediaId $id
-     *
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array
@@ -344,12 +298,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -389,8 +337,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     private function getParameters(AttributeId $attributeId): array
@@ -412,8 +358,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param string $valueId
-     *
      * @return array
      */
     private function getTranslations(string $valueId): array
@@ -430,8 +374,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     private function getGroups(AttributeId $attributeId): array
@@ -446,8 +388,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     private function getOptions(AttributeId $attributeId): array
@@ -476,9 +416,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return array_values($result);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
@@ -486,9 +423,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->from(self::TABLE, 'a');
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getTranslationsQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
@@ -496,9 +430,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->from(self::TABLE_VALUE_TRANSLATION, 't');
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getParametersQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
@@ -506,9 +437,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->from(self::TABLE_PARAMETER, 'p');
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getOptionsQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
@@ -518,9 +446,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->orderBy('ao.key');
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getGroupQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

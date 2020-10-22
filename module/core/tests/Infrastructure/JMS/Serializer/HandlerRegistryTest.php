@@ -14,24 +14,15 @@ use JMS\Serializer\Handler\HandlerRegistryInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-/**
- */
 class HandlerRegistryTest extends TestCase
 {
-    /**
-     * @var HandlerRegistryInterface
-     */
     private HandlerRegistryInterface $registry;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->registry = $this->createMock(HandlerRegistryInterface::class);
     }
 
-    /**
-     */
     public function testGetHandler(): void
     {
         $direction = 2;

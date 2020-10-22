@@ -11,13 +11,9 @@ namespace Ergonode\Comment\Application\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class UpdateCommentFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(),
      * @Assert\Length(max=4000, maxMessage="Comment to long, max length is {{ limit }} characters")
      */

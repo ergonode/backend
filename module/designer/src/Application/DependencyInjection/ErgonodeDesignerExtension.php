@@ -11,22 +11,17 @@ namespace Ergonode\Designer\Application\DependencyInjection;
 
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateElementProviderCompilerPass;
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
-use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateRelationCheckerCompilerPass;
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
-use Ergonode\Designer\Domain\Checker\TemplateRelationCheckerInterface;
 use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-/**
- */
 class ErgonodeDesignerExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

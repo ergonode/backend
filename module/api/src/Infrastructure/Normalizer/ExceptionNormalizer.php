@@ -11,18 +11,10 @@ namespace Ergonode\Api\Infrastructure\Normalizer;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ExceptionNormalizer implements ExceptionNormalizerInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;

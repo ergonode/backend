@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Attribute\Infrastructure\Provider\CreateAttributeCommandFactoryProvider;
 
-/**
- */
 class CreateAttributeCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.attribute.create_attribute_command_factory_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateAttributeCommandFactoryProvider::class)) {
@@ -30,9 +25,6 @@ class CreateAttributeCommandFactoryProviderInterfaceCompilerPass implements Comp
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];

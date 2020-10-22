@@ -12,15 +12,9 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class UserEmailFaker extends BaseProvider
 {
     /**
-     * @param string $email
-     *
-     * @return Email
-     *
      * @throws \Exception
      */
     public function userEmail(string $email): Email

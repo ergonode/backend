@@ -16,36 +16,23 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ValueAddedEvent implements DomainEventInterface
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type(" Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
     /**
-     * @var AttributeCode
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
     private AttributeCode $code;
 
     /**
-     * @var ValueInterface
-     *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private ValueInterface $value;
 
-    /**
-     * @param CategoryId     $id
-     * @param AttributeCode  $code
-     * @param ValueInterface $value
-     */
     public function __construct(CategoryId $id, AttributeCode $code, ValueInterface $value)
     {
         $this->id = $id;
@@ -62,17 +49,11 @@ class ValueAddedEvent implements DomainEventInterface
     }
 
 
-    /**
-     * @return AttributeCode
-     */
     public function getAttributeCode(): AttributeCode
     {
         return $this->code;
     }
 
-    /**
-     * @return ValueInterface
-     */
     public function getValue(): ValueInterface
     {
         return $this->value;

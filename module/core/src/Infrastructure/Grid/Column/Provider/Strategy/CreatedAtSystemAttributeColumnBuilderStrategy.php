@@ -17,8 +17,6 @@ use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
-/**
- */
 class CreatedAtSystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
     /**

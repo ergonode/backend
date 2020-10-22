@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class AttributeCodeHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,12 +46,7 @@ class AttributeCodeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param AttributeCode                 $attributeCode
-     * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
+     * @param array $type
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -65,12 +58,8 @@ class AttributeCodeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return AttributeCode
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

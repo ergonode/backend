@@ -22,30 +22,14 @@ use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductMediaClient
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $multimediaStorage;
 
-    /**
-     * @var Shopware6MultimediaRepositoryInterface
-     */
     private Shopware6MultimediaRepositoryInterface $multimediaRepository;
 
-    /**
-     * @param Shopware6Connector                     $connector
-     * @param FilesystemInterface                    $multimediaStorage
-     * @param Shopware6MultimediaRepositoryInterface $multimediaRepository
-     */
     public function __construct(
         Shopware6Connector $connector,
         FilesystemInterface $multimediaStorage,
@@ -57,11 +41,6 @@ class Shopware6ProductMediaClient
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param Multimedia       $multimedia
-     *
-     * @return string
-     *
      * @throws Shopware6ExporterMapperException
      */
     public function findOrCreateMedia(Shopware6Channel $channel, Multimedia $multimedia): string
@@ -81,11 +60,6 @@ class Shopware6ProductMediaClient
         return $media->getId();
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param Shopware6Media   $media
-     * @param Multimedia       $multimedia
-     */
     private function upload(Shopware6Channel $channel, Shopware6Media $media, Multimedia $multimedia): void
     {
         $content = $this->multimediaStorage->read($multimedia->getFileName());
@@ -94,12 +68,6 @@ class Shopware6ProductMediaClient
         $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel            $channel
-     * @param Shopware6MediaDefaultFolder $folder
-     *
-     * @return Shopware6Media|null
-     */
     private function createMediaResource(
         Shopware6Channel $channel,
         Shopware6MediaDefaultFolder $folder
@@ -109,11 +77,6 @@ class Shopware6ProductMediaClient
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     *
-     * @return Shopware6MediaDefaultFolder|null
-     */
     private function getProductFolderId(Shopware6Channel $channel): ?Shopware6MediaDefaultFolder
     {
         $query = new Shopware6QueryBuilder();

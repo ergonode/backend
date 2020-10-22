@@ -10,14 +10,9 @@ namespace Ergonode\Core\Tests\Infrastructure\Mapper;
 use Ergonode\Core\Infrastructure\Mapper\SnakeCaseMapper;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SnakeCaseMapperTest extends TestCase
 {
     /**
-     * @param string $source
-     * @param string $destination
-     *
      * @dataProvider dataProvider
      */
     public function testMapper(string $source, string $destination): void

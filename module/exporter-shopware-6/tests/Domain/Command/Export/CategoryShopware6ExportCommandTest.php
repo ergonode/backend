@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryShopware6ExportCommandTest extends TestCase
 {
     /**
@@ -33,8 +31,6 @@ class CategoryShopware6ExportCommandTest extends TestCase
      */
     private CategoryId $parentCategoryId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exportId = $this->createMock(ExportId::class);
@@ -42,8 +38,6 @@ class CategoryShopware6ExportCommandTest extends TestCase
         $this->parentCategoryId = $this->createMock(CategoryId::class);
     }
 
-    /**
-     */
     public function testCreateCommand(): void
     {
         $command = new CategoryShopware6ExportCommand(

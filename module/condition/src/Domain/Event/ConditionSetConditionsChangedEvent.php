@@ -16,13 +16,9 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ConditionSetConditionsChangedEvent implements DomainEventInterface
 {
     /**
-     * @var ConditionSetId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ConditionSetId $id;
@@ -42,9 +38,8 @@ class ConditionSetConditionsChangedEvent implements DomainEventInterface
     private array $to;
 
     /**
-     * @param ConditionSetId $id
-     * @param array          $from
-     * @param array          $to
+     * @param array $from
+     * @param array $to
      */
     public function __construct(ConditionSetId $id, array $from, array $to)
     {
@@ -56,9 +51,6 @@ class ConditionSetConditionsChangedEvent implements DomainEventInterface
         $this->to = $to;
     }
 
-    /**
-     * @return ConditionSetId
-     */
     public function getAggregateId(): ConditionSetId
     {
         return $this->id;

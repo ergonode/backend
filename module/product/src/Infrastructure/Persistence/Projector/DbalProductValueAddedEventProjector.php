@@ -11,17 +11,12 @@ namespace Ergonode\Product\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
-use Ergonode\Product\Persistence\Dbal\Projector\AbstractProductValueProjector;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
-/**
- */
 class DbalProductValueAddedEventProjector extends AbstractProductValueProjector
 {
     /**
-     * @param ProductValueAddedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductValueAddedEvent $event): void

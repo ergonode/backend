@@ -18,26 +18,14 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Infrastructure\Factory\Command\CreateProductCommandFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CreateVariableProductCommandFactory implements CreateProductCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === VariableProduct::TYPE;
     }
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface

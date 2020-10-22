@@ -56,10 +56,6 @@ class RoleReadAction
      * )
      *
      * @ParamConverter(name="role")
-     *
-     * @param Role $role
-     *
-     * @return Response
      */
     public function __invoke(Role $role): Response
     {

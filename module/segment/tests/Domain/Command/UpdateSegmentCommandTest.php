@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateSegmentCommandTest extends TestCase
 {
     /**

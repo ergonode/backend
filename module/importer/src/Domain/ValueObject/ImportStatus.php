@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\ValueObject;
 
-/**
- */
 class ImportStatus
 {
     public const CREATED = 'CREATED';
@@ -27,14 +25,8 @@ class ImportStatus
         self::ERROR,
     ];
 
-    /**
-     * @var string
-     */
     private string $value;
 
-    /**
-     * @param string $value
-     */
     public function __construct(string $value)
     {
         $value = \strtoupper($value);
@@ -51,49 +43,31 @@ class ImportStatus
         $this->value = $value;
     }
 
-    /**
-     * @return bool
-     */
     public function isCreated(): bool
     {
         return self::CREATED === $this->value;
     }
 
-    /**
-     * @return bool
-     */
     public function isProcessed(): bool
     {
         return self::PRECESSED === $this->value;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnded(): bool
     {
         return self::ENDED === $this->value;
     }
 
-    /**
-     * @return bool
-     */
     public function isStopped(): bool
     {
         return self::STOPPED === $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;

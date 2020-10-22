@@ -13,15 +13,8 @@ use Faker\Provider\Base as BaseProvider;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class TranslatableStringValueFaker extends BaseProvider
 {
-    /**
-     * @param TranslatableString $values
-     *
-     * @return TranslatableStringValue
-     */
     public function translatableStringValue(TranslatableString $values): TranslatableStringValue
     {
         return new TranslatableStringValue($values);

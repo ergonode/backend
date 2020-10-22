@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\Exception\ConditionStrategyNotFoundException;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ConditionConfigurationProvider
 {
     /**
@@ -22,18 +20,12 @@ class ConditionConfigurationProvider
      */
     private array $strategies;
 
-    /**
-     * @param ConditionConfigurationStrategyInterface ...$strategies
-     */
     public function __construct(ConditionConfigurationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
     /**
-     * @param Language $language
-     * @param string   $type
-     *
      * @return array
      *
      * @throws ConditionStrategyNotFoundException

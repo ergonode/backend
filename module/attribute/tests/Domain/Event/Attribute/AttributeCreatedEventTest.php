@@ -17,13 +17,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeCreatedEventTest extends TestCase
 {
     /**
-     * @param bool $system
-     *
      * @dataProvider dataProvider
      */
     public function testEventCreation(bool $system): void

@@ -15,18 +15,10 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductTypeValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @param ProductRepositoryInterface $repository
-     */
     public function __construct(ProductRepositoryInterface $repository)
     {
         $this->repository = $repository;

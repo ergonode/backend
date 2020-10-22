@@ -15,15 +15,10 @@ use Ergonode\Migration\Provider\MigrationConfigurationProvider;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- */
 class GenerateMigrationCommand extends AbstractCommand
 {
     private const FILENAME_TEMPLATE = '%s/Version%s.php';
 
-    /**
-     * @param MigrationConfigurationProvider $configurationService
-     */
     public function __construct(MigrationConfigurationProvider $configurationService)
     {
         $this->setMigrationConfiguration($configurationService->configure());
@@ -32,9 +27,6 @@ class GenerateMigrationCommand extends AbstractCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
      * @return null|int|void
      */
     public function execute(InputInterface $input, OutputInterface $output)
@@ -49,13 +41,6 @@ class GenerateMigrationCommand extends AbstractCommand
         $output->writeln(\sprintf('Generated migration class:"<info>%s</info>"', $path));
     }
 
-    /**
-     * @param Configuration $configuration
-     * @param string        $version
-     * @param string        $template
-     *
-     * @return string
-     */
     protected function generateMigration(Configuration $configuration, string $version, string $template): string
     {
         $migration = $this->replace($template, $version, $configuration->getMigrationsNamespace());
@@ -68,9 +53,6 @@ class GenerateMigrationCommand extends AbstractCommand
         return $path;
     }
 
-    /**
-     *
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -78,13 +60,6 @@ class GenerateMigrationCommand extends AbstractCommand
         $this->setName('ergonode:migrations:generate');
     }
 
-    /**
-     * @param string $template
-     * @param string $version
-     * @param string $namespace
-     *
-     * @return string
-     */
     private function replace(string $template, string $version, string $namespace): string
     {
         $placeholders = $this->getPlaceholders($version, $namespace);
@@ -97,9 +72,6 @@ class GenerateMigrationCommand extends AbstractCommand
     }
 
     /**
-     * @param string $version
-     * @param string $namespace
-     *
      * @return array
      */
     private function getPlaceholders(string $version, string $namespace): array

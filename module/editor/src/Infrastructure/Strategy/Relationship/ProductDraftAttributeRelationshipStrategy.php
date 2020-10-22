@@ -14,18 +14,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductDraftAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var DraftQueryInterface
-     */
     private DraftQueryInterface $query;
 
-    /**
-     * @param DraftQueryInterface $query
-     */
     public function __construct(DraftQueryInterface $query)
     {
         $this->query = $query;

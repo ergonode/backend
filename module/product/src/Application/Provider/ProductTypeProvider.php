@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Provider;
 
-/**
- */
 class ProductTypeProvider
 {
     /**
@@ -18,8 +16,6 @@ class ProductTypeProvider
     private array $types;
 
     /**
-     * @param string ...$classes
-     *
      * @throws \ReflectionException
      */
     public function __construct(string ...$classes)

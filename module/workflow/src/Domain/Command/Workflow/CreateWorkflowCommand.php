@@ -15,20 +15,14 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class CreateWorkflowCommand implements DomainCommandInterface
 {
     /**
-     * @var WorkflowId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private WorkflowId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $code;
@@ -41,10 +35,7 @@ class CreateWorkflowCommand implements DomainCommandInterface
     private array $statuses;
 
     /**
-     * @param WorkflowId $id
-     * @param string     $code
-     * @param array      $statuses
-     *
+     * @param array $statuses
      */
     public function __construct(WorkflowId $id, string $code, array $statuses = [])
     {
@@ -55,17 +46,11 @@ class CreateWorkflowCommand implements DomainCommandInterface
         $this->statuses = $statuses;
     }
 
-    /**
-     * @return WorkflowId
-     */
     public function getId(): WorkflowId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;

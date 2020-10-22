@@ -14,26 +14,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class UnitIdFormType extends AbstractType
 {
-    /**
-     * @var UnitQueryInterface
-     */
     private UnitQueryInterface $query;
 
-    /**
-     * @param UnitQueryInterface $query
-     */
     public function __construct(UnitQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $ids = $this->query->getAllUnitIds();
@@ -47,9 +36,6 @@ class UnitIdFormType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

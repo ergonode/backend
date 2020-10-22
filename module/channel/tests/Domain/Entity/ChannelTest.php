@@ -13,8 +13,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class ChannelTest extends TestCase
 {
     /**
@@ -22,13 +20,8 @@ class ChannelTest extends TestCase
      */
     private ChannelId $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -60,18 +53,12 @@ class ChannelTest extends TestCase
         self::assertSame($name, $entity->getName());
     }
 
-    /**
-     * @return AbstractChannel
-     */
     private function getClass(): AbstractChannel
     {
         return new class(
             $this->id,
             $this->name,
         ) extends AbstractChannel {
-            /**
-             * @return string
-             */
             public static function getType(): string
             {
                 return 'TYPE';

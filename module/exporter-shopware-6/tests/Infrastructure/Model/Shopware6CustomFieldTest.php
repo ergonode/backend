@@ -11,23 +11,12 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6CustomFieldTest extends TestCase
 {
-    /**
-     * @var string|null
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $type;
 
     /**
@@ -35,13 +24,8 @@ class Shopware6CustomFieldTest extends TestCase
      */
     private array $config;
 
-    /**
-     * @var string
-     */
     private string $customFieldSetId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -51,8 +35,6 @@ class Shopware6CustomFieldTest extends TestCase
         $this->customFieldSetId = 'any_set_id';
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6CustomField($this->id, $this->name, $this->type, $this->config, $this->customFieldSetId);
@@ -67,8 +49,6 @@ class Shopware6CustomFieldTest extends TestCase
         self::assertNotTrue($model->isModified());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6CustomField();

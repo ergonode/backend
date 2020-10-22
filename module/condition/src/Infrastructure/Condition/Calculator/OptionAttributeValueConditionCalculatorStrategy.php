@@ -17,18 +17,10 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInter
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;

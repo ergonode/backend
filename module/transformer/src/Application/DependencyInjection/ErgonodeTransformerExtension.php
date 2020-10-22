@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Application\DependencyInjection;
 
-use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerActionCompilerPass;
-use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,13 +20,10 @@ use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\Transforme
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterCompilerPass;
 
-/**
- */
 class ErgonodeTransformerExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
 {
     private const TABLE = 'exporter.shopware6_category';
@@ -26,25 +24,13 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channel
-     * @param string    $shopwareId
-     *
-     * @return CategoryId|null
-     */
     public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?CategoryId
     {
         $query = $this->connection->createQueryBuilder();
@@ -65,10 +51,6 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
         return null;
     }
 
-    /**
-     * @param ChannelId          $channel
-     * @param \DateTimeImmutable $dateTime
-     */
     public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime): void
     {
         $query = $this->connection->createQueryBuilder();
@@ -81,8 +63,7 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param array     $categoryIds
+     * @param array $categoryIds
      *
      * @return array
      */

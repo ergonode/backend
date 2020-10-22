@@ -12,8 +12,6 @@ namespace Ergonode\Core\Test\Behat\Context;
 use Behat\Behat\Context\Context;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class StorageContext implements Context
 {
     private const SEPARATOR = '@';
@@ -41,8 +39,7 @@ class StorageContext implements Context
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @Then remember param :key with value :value
      */
@@ -57,8 +54,6 @@ class StorageContext implements Context
     }
 
     /**
-     * @param string $key
-     *
      * @Then delete remembered :key
      */
     public function delete(string $key): void
@@ -69,19 +64,12 @@ class StorageContext implements Context
         }
     }
 
-    /**
-     * @param string $key
-     *
-     * @return bool
-     */
     public function has(string $key): bool
     {
         return array_key_exists($key, self::$storage);
     }
 
     /**
-     * @param string $key
-     *
      * @return mixed
      */
     public function get(string $key)
@@ -96,19 +84,13 @@ class StorageContext implements Context
         return self::$storage[$key];
     }
 
-    /**
-     * @param string $content
-     *
-     * @return string
-     */
     public function replaceVars(string $content): string
     {
         return str_replace(array_keys(self::$tags), array_values(self::$tags), $content);
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     public function addDefinition(string $key, $value): void
     {
@@ -116,17 +98,13 @@ class StorageContext implements Context
     }
 
     /**
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     private function addTag(string $key, $value): void
     {
         self::$tags[self::SEPARATOR.$key.self::SEPARATOR] = $value;
     }
 
-    /**
-     * @param string $key
-     */
     private function deleteTag(string $key): void
     {
         unset(self::$tags[self::SEPARATOR.$key.self::SEPARATOR]);

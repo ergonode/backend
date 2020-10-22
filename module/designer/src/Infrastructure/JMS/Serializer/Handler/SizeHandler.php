@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class SizeHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,10 +46,7 @@ class SizeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Size                          $size
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */
@@ -61,12 +56,8 @@ class SizeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return Size
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Size
     {

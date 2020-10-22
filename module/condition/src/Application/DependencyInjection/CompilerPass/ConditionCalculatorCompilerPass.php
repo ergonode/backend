@@ -14,16 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- *
- */
 class ConditionCalculatorCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.condition.condition_set.calculator_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConditionCalculatorProvider::class)) {
@@ -31,9 +25,6 @@ class ConditionCalculatorCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processCalculators(ContainerBuilder $container): void
     {
         $arguments = [];

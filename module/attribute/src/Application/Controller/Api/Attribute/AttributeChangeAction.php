@@ -35,32 +35,14 @@ use Ergonode\Attribute\Infrastructure\Provider\UpdateAttributeCommandFactoryProv
  */
 class AttributeChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var AttributeFormProvider
-     */
     private AttributeFormProvider $formProvider;
 
-    /**
-     * @var UpdateAttributeCommandFactoryProvider
-     */
     private UpdateAttributeCommandFactoryProvider $factoryProvider;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface                   $commandBus
-     * @param AttributeFormProvider                 $formProvider
-     * @param UpdateAttributeCommandFactoryProvider $factoryProvider
-     * @param FormFactoryInterface                  $formFactory
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         AttributeFormProvider $formProvider,
@@ -114,10 +96,7 @@ class AttributeChangeAction
      *
      * @ParamConverter(name="attribute")
      *
-     * @param AbstractAttribute $attribute
-     * @param Request           $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

@@ -15,16 +15,9 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 
-/**
- */
 class OptionProcessor
 {
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractOption    $option
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractOption $option): ExportData
@@ -45,12 +38,6 @@ class OptionProcessor
         }
     }
 
-    /**
-     * @param AbstractOption $option
-     * @param Language       $language
-     *
-     * @return LanguageData
-     */
     private function getLanguage(AbstractOption $option, Language $language): LanguageData
     {
         $result = new LanguageData();

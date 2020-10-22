@@ -12,8 +12,6 @@ namespace Ergonode\ProductCollection\Application\Model;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductCollectionUpdateFormModel
 {
     /**
@@ -23,7 +21,7 @@ class ProductCollectionUpdateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *     max=100,
-     *      maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Product collection name is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
@@ -36,22 +34,18 @@ class ProductCollectionUpdateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *     max=1000,
-     *      maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Product collection description is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
     public array $description;
 
     /**
-     * @var ProductCollectionTypeId | null
-     *
      * @Assert\NotBlank(message="Collection type is required")
      * @Assert\Uuid(message="Collection type must be valid uuid format")
      */
     public ?ProductCollectionTypeId $typeId;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

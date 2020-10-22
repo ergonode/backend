@@ -9,12 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\ValueObject;
 
-/**
- */
 interface TemplateElementPropertyInterface
 {
-    /**
-     * @return string
-     */
     public function getVariant(): string;
 }

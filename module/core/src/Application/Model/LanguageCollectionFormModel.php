@@ -13,8 +13,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Core\Application\Model\Type\LanguageConfigurationFormTypeModel;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class LanguageCollectionFormModel
 {
     /**
@@ -26,8 +24,6 @@ class LanguageCollectionFormModel
      */
     public $collection;
 
-    /**
-     */
     public function __construct()
     {
         $this->collection = new ArrayCollection();

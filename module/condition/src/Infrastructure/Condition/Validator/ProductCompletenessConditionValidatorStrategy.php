@@ -15,15 +15,8 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- */
 class ProductCompletenessConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === ProductCompletenessCondition::TYPE;
@@ -31,8 +24,6 @@ class ProductCompletenessConditionValidatorStrategy implements ConditionValidato
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

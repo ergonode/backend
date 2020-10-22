@@ -19,8 +19,6 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeTranslationInheritanceCalculatorTest extends TestCase
 {
     /**
@@ -28,8 +26,6 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
      */
     private LanguageQueryInterface $languageQuery;
 
-    /**
-     */
     public function setUp(): void
     {
         $this->languageQuery = $this->createMock(LanguageQueryInterface::class);
@@ -37,8 +33,6 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
             ->willReturn(new Language('en_GB'));
     }
 
-    /**
-     */
     public function testCalculate(): void
     {
         $calculator = new AttributeTranslationInheritanceCalculator($this->languageQuery);
@@ -52,8 +46,6 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
         self::assertIsString($newValue);
     }
 
-    /**
-     */
     public function testCalculateGlobal(): void
     {
         $calculator = new AttributeTranslationInheritanceCalculator($this->languageQuery);
@@ -68,8 +60,6 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
         self::assertIsString($newValue);
     }
 
-    /**
-     */
     public function testCalculateNoTranslate(): void
     {
         $calculator = new AttributeTranslationInheritanceCalculator($this->languageQuery);

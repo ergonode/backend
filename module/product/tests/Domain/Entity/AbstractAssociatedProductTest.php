@@ -17,8 +17,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class AbstractAssociatedProductTest extends TestCase
 {
     /**
@@ -32,13 +30,8 @@ class AbstractAssociatedProductTest extends TestCase
     private Sku $sku;
 
 
-    /**
-     * @var TemplateId
-     */
     private TemplateId $templateId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);
@@ -76,15 +69,9 @@ class AbstractAssociatedProductTest extends TestCase
     }
 
 
-    /**
-     * @return AbstractAssociatedProduct
-     */
     private function getClass(): AbstractAssociatedProduct
     {
         return new class($this->id, $this->sku, $this->templateId) extends AbstractAssociatedProduct {
-            /**
-             * @return string
-             */
             public function getType(): string
             {
                 return 'TYPE';

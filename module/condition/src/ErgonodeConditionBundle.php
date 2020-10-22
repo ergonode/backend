@@ -16,13 +16,8 @@ use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionInt
 use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ErgonodeConditionBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

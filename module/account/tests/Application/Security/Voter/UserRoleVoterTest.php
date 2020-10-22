@@ -20,8 +20,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class UserRoleVoterTest extends TestCase
 {
     /**
@@ -39,9 +37,6 @@ class UserRoleVoterTest extends TestCase
      */
     private TokenInterface $token;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(RoleRepositoryInterface::class);
@@ -51,9 +46,6 @@ class UserRoleVoterTest extends TestCase
 
 
     /**
-     * @param string $privilege
-     * @param bool   $expectedResult
-     *
      * @dataProvider supportsDataProvider
      */
     public function testSupports(string $privilege, bool $expectedResult): void
@@ -68,8 +60,6 @@ class UserRoleVoterTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     */
     public function testNoUser(): void
     {
         $this->token->expects($this->once())->method('getUser')->willReturn(null);
@@ -81,8 +71,6 @@ class UserRoleVoterTest extends TestCase
         $this->assertTrue($result);
     }
 
-    /**
-     */
     public function testNotExistingRole(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -107,9 +95,6 @@ class UserRoleVoterTest extends TestCase
     }
 
     /**
-     * @param string $privilege
-     * @param bool   $expectedResult
-     *
      * @dataProvider privilegeCheckDataProvider
      */
     public function testPrivilegeCheck(string $privilege, bool $expectedResult): void

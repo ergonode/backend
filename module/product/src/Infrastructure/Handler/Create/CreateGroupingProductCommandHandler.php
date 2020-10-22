@@ -13,13 +13,9 @@ use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 
-/**
- */
 class CreateGroupingProductCommandHandler extends AbstractCreateProductHandler
 {
     /**
-     * @param CreateGroupingProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateGroupingProductCommand $command)

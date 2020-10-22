@@ -11,13 +11,8 @@ namespace Ergonode\Generator\Builder;
 
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class FileBuilder
 {
-    /**
-     * @return PhpFile
-     */
     public function build(): PhpFile
     {
         $file = new PhpFile();

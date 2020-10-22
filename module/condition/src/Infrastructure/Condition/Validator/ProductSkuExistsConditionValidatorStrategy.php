@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- */
 class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**
@@ -49,9 +47,8 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
     }
 
     /**
-     * @param mixed                     $value
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param mixed $value
+     * @param mixed $payload
      */
     public function wildcardValidate($value, ExecutionContextInterface $context, $payload)
     {
@@ -69,9 +66,8 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
     }
 
     /**
-     * @param mixed                     $value
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param mixed $value
+     * @param mixed $payload
      */
     public function regexpValidate($value, ExecutionContextInterface $context, $payload)
     {

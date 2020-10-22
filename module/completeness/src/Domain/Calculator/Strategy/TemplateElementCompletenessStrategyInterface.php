@@ -15,23 +15,12 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
-/**
- */
 interface TemplateElementCompletenessStrategyInterface
 {
-    /**
-     * @param string $variant
-     *
-     * @return bool
-     */
     public function supports(string $variant): bool;
 
     /**
-     * @param ProductDraft                                                      $draft
-     * @param Language                                                          $language
      * @param TemplateElementPropertyInterface|AttributeTemplateElementProperty $properties
-     *
-     * @return CompletenessCalculatorLine|null
      */
     public function getElementCompleteness(
         ProductDraft $draft,

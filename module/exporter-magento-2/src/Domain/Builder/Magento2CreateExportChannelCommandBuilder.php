@@ -16,25 +16,14 @@ use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterMagento2\Domain\Command\CreateMagento2ExportChannelCommand;
 
-/**
- */
 class Magento2CreateExportChannelCommandBuilder implements CreateChannelCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return Magento2CsvChannel::TYPE === $type;
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function build(FormInterface $form): DomainCommandInterface

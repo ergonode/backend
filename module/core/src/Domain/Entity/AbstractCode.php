@@ -11,8 +11,6 @@ namespace Ergonode\Core\Domain\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 abstract class AbstractCode
 {
     public const MIN_LENGTH = 1;
@@ -20,15 +18,10 @@ abstract class AbstractCode
     public const PATTERN = '/^[a-zA-Z0-9-_ ]+$\b/i';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $value;
 
-    /**
-     * @param string $value
-     */
     public function __construct(string $value)
     {
         if (!self::isValid($value)) {
@@ -43,11 +36,6 @@ abstract class AbstractCode
     }
 
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
     public static function isValid(string $value): bool
     {
         return preg_match(self::PATTERN, $value, $matches) !== 0
@@ -55,27 +43,16 @@ abstract class AbstractCode
             && mb_strlen($value) >= self::MIN_LENGTH;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param AbstractCode $code
-     *
-     * @return bool
-     */
     public function isEqual(AbstractCode $code): bool
     {
         return $code->getValue() === $this->getValue();

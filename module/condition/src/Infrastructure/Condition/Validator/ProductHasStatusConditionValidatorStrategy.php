@@ -15,16 +15,9 @@ use Ergonode\Workflow\Infrastructure\Validator\StatusIdNotExists;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductHasStatusConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === ProductHasStatusCondition::TYPE;
@@ -32,8 +25,6 @@ class ProductHasStatusConditionValidatorStrategy implements ConditionValidatorSt
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

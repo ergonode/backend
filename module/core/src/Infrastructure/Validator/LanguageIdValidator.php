@@ -14,18 +14,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class LanguageIdValidator extends ConstraintValidator
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @param LanguageQueryInterface $query
-     */
     public function __construct(LanguageQueryInterface $query)
     {
         $this->query = $query;

@@ -11,14 +11,9 @@ namespace Ergonode\Multimedia\Infrastructure\Provider;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface MultimediaRelationInterface
 {
     /**
-     * @param MultimediaId $multimediaId
-     * @param Language     $language
-     *
      * @return array
      */
     public function getRelation(MultimediaId $multimediaId, Language $language): array;

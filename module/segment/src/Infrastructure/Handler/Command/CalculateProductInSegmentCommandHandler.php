@@ -17,42 +17,18 @@ use Webmozart\Assert\Assert;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
-/**
- */
 class CalculateProductInSegmentCommandHandler
 {
-    /**
-     * @var ConditionCalculator
-     */
     private ConditionCalculator $calculator;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var ConditionSetRepositoryInterface
-     */
     private ConditionSetRepositoryInterface $conditionRepository;
 
-    /**
-     * @var SegmentRepositoryInterface
-     */
     private SegmentRepositoryInterface $segmentRepository;
 
-    /**
-     * @var SegmentProductService
-     */
     private SegmentProductService $service;
 
-    /**
-     * @param ConditionCalculator             $calculator
-     * @param ProductRepositoryInterface      $productRepository
-     * @param ConditionSetRepositoryInterface $conditionRepository
-     * @param SegmentRepositoryInterface      $segmentRepository
-     * @param SegmentProductService           $service
-     */
     public function __construct(
         ConditionCalculator $calculator,
         ProductRepositoryInterface $productRepository,
@@ -68,8 +44,6 @@ class CalculateProductInSegmentCommandHandler
     }
 
     /**
-     * @param CalculateProductInSegmentCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CalculateProductInSegmentCommand $command): void

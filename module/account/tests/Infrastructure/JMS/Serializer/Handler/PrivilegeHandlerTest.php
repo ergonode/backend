@@ -16,32 +16,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeHandlerTest extends TestCase
 {
-    /**
-     * @var PrivilegeHandler
-     */
     private PrivilegeHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new PrivilegeHandler();
@@ -50,8 +34,6 @@ class PrivilegeHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = PrivilegeHandler::getSubscribingMethods();
@@ -63,8 +45,6 @@ class PrivilegeHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = 'test_value';
@@ -74,8 +54,6 @@ class PrivilegeHandlerTest extends TestCase
         $this->assertEquals(strtoupper($testValue), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = 'test_value';

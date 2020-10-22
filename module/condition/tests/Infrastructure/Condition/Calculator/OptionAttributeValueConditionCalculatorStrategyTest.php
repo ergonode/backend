@@ -20,8 +20,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
     private $mockAttributeRepository;
     private OptionAttributeValueConditionCalculatorStrategy $calculator;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->mockAttributeRepository = $this->createMock(AttributeRepositoryInterface::class);
@@ -43,9 +39,7 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
     /**
      * @dataProvider calculateCasesProvider
      *
-     * @param string   $expectedValue
      * @param string[] $values
-     * @param bool     $calculated
      */
     public function testCalculate(string $expectedValue, array $values, bool $calculated): void
     {
@@ -76,8 +70,6 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
         $this->assertEquals($calculated, $result);
     }
 
-    /**
-     */
     public function testCalculateReturnFalseWhenProductHasNoAttribute(): void
     {
         $configuration = new OptionAttributeValueCondition(
@@ -100,8 +92,6 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     */
     public function testShouldThrowExceptionWhenNoAttribute(): void
     {
         $configuration = new OptionAttributeValueCondition(

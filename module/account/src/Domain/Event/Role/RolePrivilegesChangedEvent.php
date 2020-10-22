@@ -16,13 +16,9 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class RolePrivilegesChangedEvent implements DomainEventInterface
 {
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $id;
@@ -42,7 +38,6 @@ class RolePrivilegesChangedEvent implements DomainEventInterface
     private array $to;
 
     /**
-     * @param RoleId      $id
      * @param Privilege[] $from
      * @param Privilege[] $to
      */
@@ -56,9 +51,6 @@ class RolePrivilegesChangedEvent implements DomainEventInterface
         $this->to = $to;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getAggregateId(): RoleId
     {
         return $this->id;

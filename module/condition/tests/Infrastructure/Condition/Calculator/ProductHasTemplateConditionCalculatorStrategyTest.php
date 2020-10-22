@@ -18,8 +18,6 @@ use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductHasTemplateCon
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -27,13 +25,8 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $templateQuery;
 
-    /**
-     * @var ProductHasTemplateConditionCalculatorStrategy
-     */
     private ProductHasTemplateConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->templateQuery = $this->createMock(TemplateQueryInterface::class);
@@ -43,8 +36,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
 
-    /**
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_HAS_TEMPLATE_CONDITION'));
@@ -52,11 +43,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string     $operator
-     * @param TemplateId $productTemplateId
-     * @param TemplateId $searchedTemplateId
-     * @param bool       $expectedResult
-     *
      * @throws \Exception
      *
      * @dataProvider calculateProvider
@@ -114,8 +100,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $productId
-     *
      * @return AbstractProduct|MockObject
      */
     private function createProductMock(string $productId)
@@ -131,9 +115,6 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string     $operator
-     * @param TemplateId $searchedTemplateId
-     *
      * @return ProductHasTemplateCondition|MockObject
      */
     private function createProductHasTemplateConditionMock(string $operator, TemplateId $searchedTemplateId)

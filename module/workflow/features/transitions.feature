@@ -248,19 +248,19 @@ Feature: Workflow transitions
 
   Scenario: Get transitions (order by source)
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=source"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get transitions (order by destination)
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=destination"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get transitions (order by name)
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get transitions (order by description)
     When I send a GET request to "/api/v1/en_GB/workflow/default/transitions?field=description"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Delete transition in default workflow (source not found)
     When I send a DELETE request to "/api/v1/en_GB/workflow/default/transitions/@@random_uuid@@/@workflow_destination_status_id@"

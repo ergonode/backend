@@ -20,20 +20,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- */
 class TestMessageCommand extends Command
 {
     private const NAME = 'ergonode:mailer:test';
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         parent::__construct(static::NAME);
@@ -51,12 +43,6 @@ class TestMessageCommand extends Command
         $this->addOption('language', 'l', InputOption::VALUE_OPTIONAL, 'Language', 'en_US');
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $to = new Email($input->getArgument('to'));

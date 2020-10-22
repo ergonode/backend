@@ -15,26 +15,15 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Importer\Domain\Query\SourceQueryInterface;
 
-/**
- */
 class DbalSourceQuery implements SourceQueryInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -42,9 +31,6 @@ class DbalSourceQuery implements SourceQueryInterface
         return new DbalDataSet($qb);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

@@ -11,16 +11,9 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
 
-/**
- */
 abstract class AbstractUpdateAttributeCommandHandler
 {
     /**
-     * @param AbstractUpdateAttributeCommand $command
-     * @param AbstractAttribute              $attribute
-     *
-     * @return AbstractAttribute
-     *
      * @throws \Exception
      */
     public function update(AbstractUpdateAttributeCommand $command, AbstractAttribute $attribute): AbstractAttribute

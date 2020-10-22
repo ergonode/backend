@@ -15,18 +15,10 @@ use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 
-/**
- */
 class DbalTransactionMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

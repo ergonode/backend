@@ -13,14 +13,10 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class AttributeTypeDataTransformer implements DataTransformerInterface
 {
     /**
      * @param AttributeType|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -37,8 +33,6 @@ class AttributeTypeDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return AttributeType|null
      */
     public function reverseTransform($value): ?AttributeType
     {

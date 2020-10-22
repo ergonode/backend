@@ -15,28 +15,17 @@ use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class PostAccessToken extends AbstractAction implements ActionInterface, HeaderProviderInterface
 {
     private const URI = '/api/oauth/token';
 
-    /**
-     * @var Shopware6Channel
-     */
     private Shopware6Channel $channel;
 
-    /**
-     * @param Shopware6Channel $channel
-     */
     public function __construct(Shopware6Channel $channel)
     {
         $this->channel = $channel;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -57,9 +46,6 @@ class PostAccessToken extends AbstractAction implements ActionInterface, HeaderP
         return json_decode($content, true);
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         return json_encode(
@@ -71,9 +57,6 @@ class PostAccessToken extends AbstractAction implements ActionInterface, HeaderP
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return self::URI;

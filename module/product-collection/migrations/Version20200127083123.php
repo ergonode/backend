@@ -12,9 +12,6 @@ use Ramsey\Uuid\Uuid;
  */
 final class Version20200127083123 extends AbstractErgonodeMigration
 {
-    /**
-     * @param Schema $schema
-     */
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');

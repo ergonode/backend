@@ -12,28 +12,18 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class CalculateSegmentCommand implements DomainCommandInterface
 {
     /**
-     * @var SegmentId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $segmentId;
 
-    /**
-     * @param SegmentId $segmentId
-     */
     public function __construct(SegmentId $segmentId)
     {
         $this->segmentId = $segmentId;
     }
 
-    /**
-     * @return SegmentId
-     */
     public function getSegmentId(): SegmentId
     {
         return $this->segmentId;

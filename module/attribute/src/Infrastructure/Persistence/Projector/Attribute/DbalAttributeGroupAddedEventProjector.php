@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 
-/**
- */
 class DbalAttributeGroupAddedEventProjector
 {
     private const TABLE = 'attribute_group_attribute';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param AttributeGroupAddedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(AttributeGroupAddedEvent $event): void

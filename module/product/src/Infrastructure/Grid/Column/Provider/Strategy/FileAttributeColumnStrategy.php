@@ -15,8 +15,6 @@ use Ergonode\Grid\ColumnInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 use Ergonode\Grid\Column\FileColumn;
 
-/**
- */
 class FileAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

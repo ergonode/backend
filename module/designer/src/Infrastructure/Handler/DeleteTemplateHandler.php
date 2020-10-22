@@ -16,24 +16,12 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteTemplateHandler
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param TemplateRepositoryInterface    $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         TemplateRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -43,8 +31,6 @@ class DeleteTemplateHandler
     }
 
     /**
-     * @param DeleteTemplateCommand $command
-     *
      * @throws ExistingRelationshipsException
      */
     public function __invoke(DeleteTemplateCommand $command)

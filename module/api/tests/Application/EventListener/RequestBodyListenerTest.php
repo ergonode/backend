@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-/**
- */
 class RequestBodyListenerTest extends TestCase
 {
     /**
@@ -36,8 +34,6 @@ class RequestBodyListenerTest extends TestCase
      */
     private $request;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
@@ -46,11 +42,7 @@ class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @param string $contentType
-     * @param string $method
-     * @param string $content
-     * @param array  $deserialize
-     * @param string $expected
+     * @param array $deserialize
      *
      * @dataProvider dataProviderHappy
      */
@@ -101,10 +93,6 @@ class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @param string $contentType
-     * @param string $method
-     * @param string $content
-     *
      * @dataProvider dataProviderUnhappy
      */
     public function testInvokeUnhappy(

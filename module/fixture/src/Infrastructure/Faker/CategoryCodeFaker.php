@@ -12,15 +12,9 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class CategoryCodeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
-     *
-     * @return CategoryCode
-     *
      * @throws \Exception
      */
     public function categoryCode(?string $code = null): CategoryCode

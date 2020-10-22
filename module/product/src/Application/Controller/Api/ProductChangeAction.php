@@ -21,7 +21,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -34,32 +33,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductChangeAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var ProductFormProvider
-     */
     private ProductFormProvider $provider;
 
-    /**
-     * @var UpdateProductCommandFactoryProvider
-     */
     private UpdateProductCommandFactoryProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface                $formFactory
-     * @param ProductFormProvider                 $provider
-     * @param UpdateProductCommandFactoryProvider $commandProvider
-     * @param CommandBusInterface                 $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         ProductFormProvider $provider,
@@ -108,10 +89,7 @@ class ProductChangeAction
      *
      * @ParamConverter(name="product")
      *
-     * @param AbstractProduct $product
-     * @param Request         $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

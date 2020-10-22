@@ -20,26 +20,15 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class UpdateGalleryAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === GalleryAttribute::TYPE;
     }
 
     /**
-     * @param AttributeId   $id
      * @param FormInterface $form \
-     *
-     * @return DomainCommandInterface
-     *
      */
     public function create(AttributeId $id, FormInterface $form): DomainCommandInterface
     {

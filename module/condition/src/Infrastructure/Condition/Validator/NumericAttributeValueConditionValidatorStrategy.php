@@ -17,19 +17,11 @@ use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 
-/**
- */
 class NumericAttributeValueConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === NumericAttributeValueCondition::TYPE;
@@ -37,8 +29,6 @@ class NumericAttributeValueConditionValidatorStrategy implements ConditionValida
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

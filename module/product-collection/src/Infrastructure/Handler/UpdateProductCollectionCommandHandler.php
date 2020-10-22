@@ -14,26 +14,16 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateProductCollectionCommandHandler
 {
-    /**
-     * @var ProductCollectionRepositoryInterface
-     */
     private ProductCollectionRepositoryInterface $repository;
 
-    /**
-     * @param ProductCollectionRepositoryInterface $repository
-     */
     public function __construct(ProductCollectionRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateProductCollectionCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateProductCollectionCommand $command)

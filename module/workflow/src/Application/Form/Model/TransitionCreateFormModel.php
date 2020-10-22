@@ -16,13 +16,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-/**
- */
 class TransitionCreateFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank()
      *
      * @ErgoAssert\StatusIdNotExists()
@@ -30,8 +26,6 @@ class TransitionCreateFormModel
     public ?string $source;
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      *
      * @ErgoAssert\StatusIdNotExists()
@@ -45,7 +39,7 @@ class TransitionCreateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=100,
-     *      maxMessage="Status name is to long, It should have {{ limit }} character or less."
+     *      maxMessage="Status name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
@@ -58,20 +52,14 @@ class TransitionCreateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *       max=500,
-     *       maxMessage="Status description is to long,. It should have {{ limit }} character or less."
+     *       maxMessage="Status descriptionis too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
     public array $description;
 
-    /**
-     * @var string|null
-     */
     public ?string $conditionSet;
 
-    /**
-     * @var AbstractWorkflow
-     */
     private AbstractWorkflow $workflow;
 
     /**
@@ -87,9 +75,6 @@ class TransitionCreateFormModel
      */
     public array $roles;
 
-    /**
-     * @param AbstractWorkflow $workflow
-     */
     public function __construct(
         AbstractWorkflow $workflow
     ) {
@@ -105,8 +90,7 @@ class TransitionCreateFormModel
     /**
      * @Assert\Callback()
      *
-     * @param ExecutionContextInterface $context
-     * @param mixed                     $payload
+     * @param mixed $payload
      */
     public function validate(ExecutionContextInterface $context, $payload): void
     {

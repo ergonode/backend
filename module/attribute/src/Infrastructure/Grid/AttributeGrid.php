@@ -26,24 +26,12 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class AttributeGrid extends AbstractGrid
 {
-    /**
-     * @var AttributeTypeDictionaryProvider
-     */
     private AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider;
 
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $attributeGroupQuery;
 
-    /**
-     * @param AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider
-     * @param AttributeGroupQueryInterface    $attributeGroupQuery
-     */
     public function __construct(
         AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider,
         AttributeGroupQueryInterface $attributeGroupQuery
@@ -52,10 +40,6 @@ class AttributeGrid extends AbstractGrid
         $this->attributeGroupQuery = $attributeGroupQuery;
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $types = [];
@@ -76,7 +60,7 @@ class AttributeGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $index = new IntegerColumn('index', 'Index', new TextFilter());
         $this->addColumn('index', $index);
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
         $column = new TextColumn('label', 'Name', new TextFilter());
         $this->addColumn('label', $column);
         $column = new SelectColumn('type', 'Type', new MultiSelectFilter($types));

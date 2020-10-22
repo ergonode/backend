@@ -16,30 +16,16 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 
-/**
- */
 class Magento2TransformerGenerator implements TransformerGeneratorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return Magento2CsvSource::TYPE;
     }
 
     /**
-     * @param TransformerId  $transformerId
-     * @param string         $name
-     * @param AbstractSource $source
-     *
-     * @return Transformer
-     *
      * @throws \Exception
      */
     public function generate(

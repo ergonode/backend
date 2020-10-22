@@ -18,26 +18,16 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalMultimediaRepository implements MultimediaRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param MultimediaId $id
-     *
      * @return Multimedia|null
      *
      * @throws \ReflectionException
@@ -50,19 +40,11 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
         return $aggregate;
     }
 
-    /**
-     * @param Multimedia $aggregateRoot
-     */
     public function save(Multimedia $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }
 
-    /**
-     * @param MultimediaId $id
-     *
-     * @return bool
-     */
     public function exists(MultimediaId $id): bool
     {
         return $this->manager->exists($id);

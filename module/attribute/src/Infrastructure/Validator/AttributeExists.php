@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class AttributeExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Attribute {{ value }} not exists.';
 }

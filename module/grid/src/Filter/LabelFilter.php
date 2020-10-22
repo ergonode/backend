@@ -11,8 +11,6 @@ namespace Ergonode\Grid\Filter;
 
 use Ergonode\Grid\FilterInterface;
 
-/**
- */
 class LabelFilter implements FilterInterface
 {
     public const TYPE = 'SELECT';
@@ -38,9 +36,6 @@ class LabelFilter implements FilterInterface
         return ['options' => $this->options];
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

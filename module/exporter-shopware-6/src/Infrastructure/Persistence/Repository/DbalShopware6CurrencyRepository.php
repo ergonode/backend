@@ -15,8 +15,6 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInterface
 {
 
@@ -27,25 +25,13 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channel, string $iso): ?string
     {
 
@@ -68,10 +54,6 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
     }
 
     /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     public function save(ChannelId $channel, string $iso, string $shopwareId): void
@@ -83,12 +65,6 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
         }
     }
 
-    /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     *
-     * @return bool
-     */
     public function exists(
         ChannelId $channel,
         string $iso
@@ -111,10 +87,6 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
     }
 
     /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     private function update(ChannelId $channel, string $iso, string $shopwareId): void
@@ -136,10 +108,6 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
     }
 
     /**
-     * @param ChannelId $channel
-     * @param string    $iso
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     private function insert(ChannelId $channel, string $iso, string $shopwareId): void

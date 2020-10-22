@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
@@ -12,8 +11,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

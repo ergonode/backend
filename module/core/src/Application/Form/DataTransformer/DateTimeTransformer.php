@@ -12,8 +12,6 @@ namespace Ergonode\Core\Application\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class DateTimeTransformer implements DataTransformerInterface
 {
     /**

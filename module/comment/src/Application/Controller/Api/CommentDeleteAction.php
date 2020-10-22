@@ -30,20 +30,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class CommentDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @param CommandBusInterface                $commandBus
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(CommandBusInterface $commandBus, AuthenticatedUserProviderInterface $userProvider)
     {
         $this->commandBus = $commandBus;
@@ -81,10 +71,6 @@ class CommentDeleteAction
      * )
      *
      * @ParamConverter(name="comment")
-     *
-     * @param Comment $comment
-     *
-     * @return Response
      */
     public function __invoke(Comment $comment): Response
     {

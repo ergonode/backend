@@ -11,13 +11,7 @@ namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 interface CommandBusInterface
 {
-    /**
-     * @param DomainCommandInterface $command
-     * @param bool                   $asyncMode
-     */
     public function dispatch(DomainCommandInterface $command, bool $asyncMode = false): void;
 }

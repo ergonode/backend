@@ -21,42 +21,18 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FileExistsException;
 
-/**
- */
 class MultimediaImportAction
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $repository;
 
-    /**
-     * @var DownloaderInterface
-     */
     private DownloaderInterface $downloader;
 
-    /**
-     * @var HashCalculationServiceInterface
-     */
     private HashCalculationServiceInterface $hashService;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $multimediaStorage;
 
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $multimediaQuery;
 
-    /**
-     * @param MultimediaRepositoryInterface   $repository
-     * @param DownloaderInterface             $downloader
-     * @param HashCalculationServiceInterface $hashService
-     * @param FilesystemInterface             $multimediaStorage
-     * @param MultimediaQueryInterface        $multimediaQuery
-     */
     public function __construct(
         MultimediaRepositoryInterface $repository,
         DownloaderInterface $downloader,
@@ -72,10 +48,6 @@ class MultimediaImportAction
     }
 
     /**
-     * @param ImportId $importId
-     * @param string   $url
-     * @param string   $filename
-     *
      * @throws FileExistsException
      * @throws FileNotFoundException
      */

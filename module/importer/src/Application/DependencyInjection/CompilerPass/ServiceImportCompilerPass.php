@@ -14,16 +14,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Importer\Infrastructure\Provider\ImportProcessorProvider;
 
-/**
- *
- */
 class ServiceImportCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.service.source_import_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ImportProcessorProvider::class)) {
@@ -31,9 +25,6 @@ class ServiceImportCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

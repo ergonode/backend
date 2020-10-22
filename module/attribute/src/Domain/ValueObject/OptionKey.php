@@ -9,22 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-
-/**
- */
 class OptionKey
 {
     public const MAX_LENGTH = 255;
 
-    /**
-     * @var string
-     */
     private string $value;
 
-    /**
-     * @param string $value
-     */
     public function __construct(string $value)
     {
         $this->value = strtolower(trim($value));
@@ -34,37 +24,21 @@ class OptionKey
         }
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param OptionKey $code
-     *
-     * @return bool
-     */
     public function isEqual(OptionKey $code): bool
     {
         return $code->value === $this->value;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
     public static function isValid(string $value): bool
     {
         return '' !== $value && \strlen($value) <= self::MAX_LENGTH;

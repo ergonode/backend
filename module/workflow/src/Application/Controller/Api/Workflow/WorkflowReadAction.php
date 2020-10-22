@@ -48,10 +48,6 @@ class WorkflowReadAction
      * )
      *
      * @ParamConverter(name="workflow")
-     *
-     * @param AbstractWorkflow $workflow
-     *
-     * @return Response
      */
     public function __invoke(AbstractWorkflow $workflow): Response
     {

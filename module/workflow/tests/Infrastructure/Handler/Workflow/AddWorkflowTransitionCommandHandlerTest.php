@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
-/**
- */
 class AddWorkflowTransitionCommandHandlerTest extends TestCase
 {
     /**

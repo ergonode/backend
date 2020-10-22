@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class ImportParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ImportRepositoryInterface
-     */
     private ImportRepositoryInterface $importRepository;
 
-    /**
-     * @param ImportRepositoryInterface $importRepository
-     */
     public function __construct(ImportRepositoryInterface $importRepository)
     {
         $this->importRepository = $importRepository;

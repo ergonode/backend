@@ -17,8 +17,6 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 class StatusChangedNotificationTest extends TestCase
 {
     /**
@@ -46,8 +44,6 @@ class StatusChangedNotificationTest extends TestCase
      */
     private Language $language;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->sku = $this->createMock(Sku::class);

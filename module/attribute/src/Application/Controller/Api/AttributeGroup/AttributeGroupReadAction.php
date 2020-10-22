@@ -54,12 +54,7 @@ class AttributeGroupReadAction
      *     description="Not found",
      * )
      *
-     * @param AttributeGroup $attributeGroup
-     *
-     * @return Response
-     *
      * @ParamConverter(name="attributeGroup")
-     *
      */
     public function __invoke(AttributeGroup $attributeGroup): Response
     {

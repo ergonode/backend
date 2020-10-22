@@ -19,18 +19,10 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalUnitRepository implements UnitRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
@@ -45,10 +37,6 @@ class DbalUnitRepository implements UnitRepositoryInterface
     }
 
     /**
-     * @param UnitId $id
-     *
-     * @return AbstractAggregateRoot|null
-     *
      * @throws \ReflectionException
      */
     public function load(UnitId $id): ?AbstractAggregateRoot
@@ -60,8 +48,6 @@ class DbalUnitRepository implements UnitRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
@@ -70,8 +56,6 @@ class DbalUnitRepository implements UnitRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */

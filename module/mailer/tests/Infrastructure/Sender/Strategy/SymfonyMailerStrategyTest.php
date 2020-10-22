@@ -20,12 +20,8 @@ use PHPStan\Testing\TestCase;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Translation\Translator;
 
-/**
- */
 final class SymfonyMailerStrategyTest extends TestCase
 {
-    /**
-     */
     public function testHandling(): void
     {
         $mailer = $this->createMock(MailerInterface::class);

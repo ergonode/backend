@@ -12,26 +12,16 @@ use Ergonode\Product\Domain\Command\Category\AddProductCategoryCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class AddProductCategoryCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @param ProductRepositoryInterface $productRepository
-     */
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }
 
     /**
-     * @param AddProductCategoryCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(AddProductCategoryCommand $command)

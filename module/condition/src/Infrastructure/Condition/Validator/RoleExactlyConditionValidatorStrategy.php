@@ -16,15 +16,8 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- */
 class RoleExactlyConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool
     {
         return $type === RoleExactlyCondition::TYPE;
@@ -32,8 +25,6 @@ class RoleExactlyConditionValidatorStrategy implements ConditionValidatorStrateg
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

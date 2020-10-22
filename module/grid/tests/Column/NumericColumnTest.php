@@ -10,12 +10,8 @@ use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\FilterInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NumericColumnTest extends TestCase
 {
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any id';

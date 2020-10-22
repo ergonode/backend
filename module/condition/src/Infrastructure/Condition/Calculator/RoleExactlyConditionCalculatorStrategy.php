@@ -18,24 +18,12 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class RoleExactlyConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $roleRepository;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $authenticatedUserProvider;
 
-    /**
-     * @param RoleRepositoryInterface            $roleRepository
-     * @param AuthenticatedUserProviderInterface $authenticatedUserProvider
-     */
     public function __construct(
         RoleRepositoryInterface $roleRepository,
         AuthenticatedUserProviderInterface $authenticatedUserProvider

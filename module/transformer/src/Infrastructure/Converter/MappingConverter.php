@@ -12,15 +12,11 @@ namespace Ergonode\Transformer\Infrastructure\Converter;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class MappingConverter implements ConverterInterface
 {
     public const TYPE = 'mapping';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $field;
@@ -33,8 +29,7 @@ class MappingConverter implements ConverterInterface
     private array $map;
 
     /**
-     * @param string $field
-     * @param array  $map
+     * @param array $map
      */
     public function __construct(string $field, array $map)
     {
@@ -54,9 +49,6 @@ class MappingConverter implements ConverterInterface
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getField(): string
     {
         return $this->field;

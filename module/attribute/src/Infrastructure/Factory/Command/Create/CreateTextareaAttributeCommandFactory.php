@@ -19,25 +19,14 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === TextareaAttribute::TYPE;
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface

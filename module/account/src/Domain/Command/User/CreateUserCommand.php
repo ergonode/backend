@@ -12,64 +12,28 @@ namespace Ergonode\Account\Domain\Command\User;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-/**
- */
 class CreateUserCommand implements DomainCommandInterface
 {
-    /**
-     * @var UserId
-     */
     private UserId $id;
 
-    /**
-     * @var string
-     */
     private string $firstName;
 
-    /**
-     * @var string
-     */
     private string $lastName;
 
-    /**
-     * @var Email
-     */
     private Email $email;
 
-    /**
-     * @var Password
-     */
     private Password $password;
 
-    /**
-     * @var Language
-     */
     private Language $language;
 
-    /**
-     * @var RoleId
-     */
     private RoleId $roleId;
 
-    /**
-     * @var bool
-     */
     private bool $isActive;
 
-    /**
-     * @param string   $firstName
-     * @param string   $lastName
-     * @param Email    $email
-     * @param Language $language
-     * @param Password $password
-     * @param RoleId   $roleId
-     * @param bool     $isActive
-     */
     public function __construct(
         string $firstName,
         string $lastName,
@@ -89,65 +53,41 @@ class CreateUserCommand implements DomainCommandInterface
         $this->isActive = $isActive;
     }
 
-    /**
-     * @return UserId
-     */
     public function getId(): UserId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @return Email
-     */
     public function getEmail(): Email
     {
         return $this->email;
     }
 
-    /**
-     * @return Password
-     */
     public function getPassword(): Password
     {
         return $this->password;
     }
 
-    /**
-     * @return Language
-     */
     public function getLanguage(): Language
     {
         return $this->language;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getRoleId(): RoleId
     {
         return $this->roleId;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->isActive;

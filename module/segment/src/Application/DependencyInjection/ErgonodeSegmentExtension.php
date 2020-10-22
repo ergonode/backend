@@ -14,16 +14,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-/**
- */
 class ErgonodeSegmentExtension extends Extension
 {
     public const CONDITION_GROUP_NAME = 'segment';
     public const CONDITION_PARAMETER_NAME = 'ergonode_segment.conditions';
 
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

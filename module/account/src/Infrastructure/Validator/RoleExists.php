@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class RoleExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Role {{ value }} not exists.';
 }

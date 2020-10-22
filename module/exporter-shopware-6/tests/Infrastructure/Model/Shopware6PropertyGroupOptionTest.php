@@ -11,32 +11,16 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6PropertyGroupOptionTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $mediaId;
 
-    /**
-     * @var int
-     */
     private int $position;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -44,8 +28,6 @@ class Shopware6PropertyGroupOptionTest extends TestCase
         $this->mediaId = 'any_media_id';
         $this->position = 0;
     }
-    /**
-     */
     public function testCreateModel()
     {
         $model = new Shopware6PropertyGroupOption($this->id, $this->name, $this->mediaId, $this->position);
@@ -58,8 +40,6 @@ class Shopware6PropertyGroupOptionTest extends TestCase
         $this->assertNotTrue($model->isModified());
     }
 
-    /**
-     */
     public function testSetModel()
     {
         $model = new Shopware6PropertyGroupOption();

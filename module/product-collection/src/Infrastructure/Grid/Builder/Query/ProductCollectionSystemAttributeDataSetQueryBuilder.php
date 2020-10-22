@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute;
 
-/**
- */
 class ProductCollectionSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
     /**

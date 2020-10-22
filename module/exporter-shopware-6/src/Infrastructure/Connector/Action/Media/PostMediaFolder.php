@@ -13,25 +13,13 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostMediaFolder extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/media-folder?%s';
-    /**
-     * @var string
-     */
     private string $mediaFolder;
 
-    /**
-     * @var bool
-     */
     private bool $response;
 
-    /**
-     * @param string $mediaFolder
-     * @param bool   $response
-     */
     public function __construct(string $mediaFolder, bool $response = false)
     {
         $this->mediaFolder = $mediaFolder;
@@ -39,8 +27,6 @@ class PostMediaFolder extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @return Request
-     *
      * @throws \JsonException
      */
     public function getRequest(): Request
@@ -54,8 +40,6 @@ class PostMediaFolder extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return array|object|string|null
      */
     public function parseContent(?string $content)
@@ -64,8 +48,6 @@ class PostMediaFolder extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @return string
-     *
      * @throws \JsonException
      */
     private function buildBody(): string
@@ -79,9 +61,6 @@ class PostMediaFolder extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [];

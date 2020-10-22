@@ -15,28 +15,17 @@ use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PatchProductAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product/';
 
-    /**
-     * @var Shopware6Product
-     */
     private Shopware6Product $product;
 
-    /**
-     * @param Shopware6Product $product
-     */
     public function __construct(Shopware6Product $product)
     {
         $this->product = $product;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -48,8 +37,6 @@ class PatchProductAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return null
      */
     public function parseContent(?string $content)
@@ -57,9 +44,6 @@ class PatchProductAction extends AbstractAction implements ActionInterface
         return null;
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $serializer = SerializerBuilder::create()->build();
@@ -67,9 +51,6 @@ class PatchProductAction extends AbstractAction implements ActionInterface
         return $serializer->serialize($this->product, 'json');
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return self::URI.$this->product->getId();

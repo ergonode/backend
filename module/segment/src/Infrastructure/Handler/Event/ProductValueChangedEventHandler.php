@@ -14,26 +14,15 @@ use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 
-/**
- */
 class ProductValueChangedEventHandler implements MessageSubscriberInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ProductValueChangedEvent $event
-     */
     public function __invoke(ProductValueChangedEvent $event)
     {
         $command = new CalculateProductCommand($event->getAggregateId());

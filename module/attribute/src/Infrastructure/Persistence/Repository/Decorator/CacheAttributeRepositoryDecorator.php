@@ -13,15 +13,10 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CacheAttributeRepositoryDecorator implements AttributeRepositoryInterface
 {
     public const KEY = 'aggregate_attribute_%s';
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
     /**
@@ -29,9 +24,6 @@ class CacheAttributeRepositoryDecorator implements AttributeRepositoryInterface
      */
     private array $cache;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;

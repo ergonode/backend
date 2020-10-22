@@ -20,8 +20,6 @@ use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalSourceFa
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalSourceMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
-/**
- */
 class DbalSourceRepository implements SourceRepositoryInterface
 {
     private const TABLE = 'importer.source';
@@ -32,26 +30,12 @@ class DbalSourceRepository implements SourceRepositoryInterface
         'configuration',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DbalSourceFactory
-     */
     private DbalSourceFactory $factory;
 
-    /**
-     * @var DbalSourceMapper
-     */
     private DbalSourceMapper $mapper;
 
-    /**
-     * @param Connection        $connection
-     * @param DbalSourceFactory $factory
-     * @param DbalSourceMapper  $mapper
-     */
     public function __construct(Connection $connection, DbalSourceFactory $factory, DbalSourceMapper $mapper)
     {
         $this->connection = $connection;
@@ -60,10 +44,6 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param SourceId $id
-     *
-     * @return AbstractSource|null
-     *
      * @throws \ReflectionException
      */
     public function load(SourceId $id): ?AbstractSource
@@ -82,8 +62,6 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $source
-     *
      * @throws DBALException
      */
     public function save(AbstractSource $source): void
@@ -95,11 +73,6 @@ class DbalSourceRepository implements SourceRepositoryInterface
         }
     }
 
-    /**
-     * @param SourceId $id
-     *
-     * @return bool
-     */
     public function exists(SourceId $id): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -118,8 +91,6 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $source
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -134,8 +105,6 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $source
-     *
      * @throws DBALException
      */
     private function update(AbstractSource $source): void
@@ -156,8 +125,6 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $source
-     *
      * @throws DBALException
      */
     private function insert(AbstractSource $source): void
@@ -175,9 +142,6 @@ class DbalSourceRepository implements SourceRepositoryInterface
         );
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

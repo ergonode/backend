@@ -3,7 +3,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -13,14 +12,11 @@ namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Factory;
 use Ergonode\Channel\Domain\Entity\Scheduler;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalSchedulerFactory
 {
     /**
      * @param array $record
      *
-     * @return Scheduler
      *
      * @throws \ReflectionException
      */

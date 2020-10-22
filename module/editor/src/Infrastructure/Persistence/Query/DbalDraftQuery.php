@@ -15,26 +15,16 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class DbalDraftQuery implements DraftQueryInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductDraftId $draftId
-     *
      * @return array
      */
     public function getDraftView(ProductDraftId $draftId): array
@@ -55,11 +45,6 @@ class DbalDraftQuery implements DraftQueryInterface
         return $result;
     }
 
-    /**
-     * @param ProductId $productId
-     *
-     * @return ProductDraftId|null
-     */
     public function getActualDraftId(ProductId $productId): ?ProductDraftId
     {
         $qb = $this->connection->createQueryBuilder();
@@ -81,8 +66,6 @@ class DbalDraftQuery implements DraftQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return ProductDraftId[]
      */
     public function getNotAppliedWithAttribute(AttributeId $attributeId): array
@@ -108,11 +91,6 @@ class DbalDraftQuery implements DraftQueryInterface
         return $result;
     }
 
-    /**
-     * @param ProductDraftId $id
-     *
-     * @return ProductId
-     */
     public function getProductId(ProductDraftId $id): ProductId
     {
         $qb = $this->connection->createQueryBuilder();
@@ -127,8 +105,6 @@ class DbalDraftQuery implements DraftQueryInterface
     }
 
     /**
-     * @param ProductDraftId $draftId
-     *
      * @return array
      */
     private function getDraftValues(ProductDraftId $draftId): array
@@ -145,8 +121,6 @@ class DbalDraftQuery implements DraftQueryInterface
     }
 
     /**
-     * @param ProductDraftId $draftId
-     *
      * @return array
      */
     private function getCategories(ProductDraftId $draftId): array

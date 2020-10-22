@@ -14,33 +14,18 @@ use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 
-/**
- */
 class ConditionSetConditionsChangedEventHandler
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $query;
 
-    /**
-     * @param CommandBusInterface   $commandBus
-     * @param SegmentQueryInterface $query
-     */
     public function __construct(CommandBusInterface $commandBus, SegmentQueryInterface $query)
     {
         $this->commandBus = $commandBus;
         $this->query = $query;
     }
 
-    /**
-     * @param ConditionSetConditionsChangedEvent $event
-     */
     public function __invoke(ConditionSetConditionsChangedEvent $event)
     {
         if ($event->getTo()) {

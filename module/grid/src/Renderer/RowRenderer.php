@@ -13,8 +13,6 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class RowRenderer implements RowRendererInterface
 {
     /**
@@ -22,9 +20,6 @@ class RowRenderer implements RowRendererInterface
      */
     private array $rendererCollection;
 
-    /**
-     * @param ColumnRendererInterface ...$collection
-     */
     public function __construct(ColumnRendererInterface ...$collection)
     {
         $this->rendererCollection = $collection;

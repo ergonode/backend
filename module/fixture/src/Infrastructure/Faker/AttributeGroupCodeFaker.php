@@ -12,15 +12,9 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class AttributeGroupCodeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
-     *
-     * @return AttributeGroupCode
-     *
      * @throws \Exception
      */
     public function attributeGroupCode(?string $code = null): AttributeGroupCode

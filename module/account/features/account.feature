@@ -417,7 +417,7 @@ Feature: Account module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/roles"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get roles (not authorized)
     When I send a GET request to "/api/v1/en_GB/roles"
@@ -428,42 +428,42 @@ Feature: Account module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/roles?field=name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get roles (order by description)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/roles?field=description"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get roles (order by users_count)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/roles?field=users_count"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get roles (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/roles?limit=25&offset=0&filter=name%3Dsuper"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get roles (filter by description)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/roles?limit=25&offset=0&filter=description%3DManage"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get roles (filter by user_count)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/roles?limit=25&offset=0&filter=users_count%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get roles (not authorized)
     When I send a GET request to "/api/v1/en_GB/roles"
@@ -1158,91 +1158,91 @@ Feature: Account module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (order by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=email"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (order by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=first_name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (order by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=last_name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (order by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=language"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (order by role_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=role_id"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (order by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=is_active"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (filter by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=email%3Dtest"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (filter by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=first_name%3DJohn"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (filter by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=last_name%3DBravo"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (filter by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=language%3DAR"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (filter by role_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=role_id%3D11b3145f-88e0-43b7-8f5c-a474c925622b"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get users (filter by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=is_active%3Dtrue"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   @changePassword
   Scenario: Change password
@@ -1351,98 +1351,98 @@ Feature: Account module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=id"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=email"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=first_name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=last_name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=language"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by role_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=role_id"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=is_active"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=email&order=ASC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?field=email&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=id%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by email)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=email%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by first_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=first_name%3DCAT"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by last_name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=last_name%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by language)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=language%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
 #  TODO invalid input syntax for type uuid: "asd1"
 #  Scenario: Get accounts (filter by role_id)
@@ -1450,14 +1450,14 @@ Feature: Account module
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
 #    When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=role_id%3Dasd1"
-#    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+#    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by is_active)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/accounts?limit=25&offset=0&filter=last_name%3Dasd1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get accounts (not authorized)
     When I send a GET request to "/api/v1/en_GB/accounts"

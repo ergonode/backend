@@ -3,7 +3,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -17,14 +16,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class MultimediaExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Multimedia {{ value }} not exists.';
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return MultimediaExistsValidator::class;

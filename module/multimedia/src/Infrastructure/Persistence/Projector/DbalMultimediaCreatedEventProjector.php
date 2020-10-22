@@ -14,28 +14,18 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 
-/**
- */
 class DbalMultimediaCreatedEventProjector
 {
     private const TABLE = 'multimedia';
 
-    /**
-     * @var Connection
-     */
     protected Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param MultimediaCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(MultimediaCreatedEvent $event): void

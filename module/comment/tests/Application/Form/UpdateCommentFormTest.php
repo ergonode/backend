@@ -12,12 +12,8 @@ use Ergonode\Comment\Application\Form\Model\UpdateCommentFormModel;
 use Ergonode\Comment\Application\Form\UpdateCommentForm;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class UpdateCommentFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

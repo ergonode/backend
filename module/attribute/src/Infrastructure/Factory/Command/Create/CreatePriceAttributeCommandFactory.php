@@ -20,25 +20,14 @@ use Money\Currency;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreatePriceAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === PriceAttribute::TYPE;
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface

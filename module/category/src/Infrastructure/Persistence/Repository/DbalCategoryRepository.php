@@ -16,18 +16,10 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalCategoryRepository implements CategoryRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;

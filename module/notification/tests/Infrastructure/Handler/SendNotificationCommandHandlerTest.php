@@ -15,8 +15,6 @@ use Ergonode\Notification\Infrastructure\Sender\NotificationSender;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SendNotificationCommandHandlerTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class SendNotificationCommandHandlerTest extends TestCase
     private $command;
 
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->service = $this->createMock(NotificationSender::class);
@@ -44,8 +40,6 @@ class SendNotificationCommandHandlerTest extends TestCase
         $this->command = $this->createMock(SendNotificationCommand::class);
     }
 
-    /**
-     */
     public function testHandling(): void
     {
         $handler = new SendNotificationCommandHandler($this->service);

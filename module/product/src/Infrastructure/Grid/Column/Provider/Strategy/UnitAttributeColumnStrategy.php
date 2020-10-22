@@ -18,18 +18,10 @@ use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\NumericFilter;
 
-/**
- */
 class UnitAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var UnitRepositoryInterface
-     */
     private UnitRepositoryInterface $unitRepository;
 
-    /**
-     * @param UnitRepositoryInterface $unitRepository
-     */
     public function __construct(UnitRepositoryInterface $unitRepository)
     {
         $this->unitRepository = $unitRepository;

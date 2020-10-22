@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CategoryMapperInte
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class Shopware6CategoryBuilder
 {
     /**
@@ -24,23 +22,11 @@ class Shopware6CategoryBuilder
      */
     private array $collection;
 
-    /**
-     * @param Shopware6CategoryMapperInterface ...$collection
-     */
     public function __construct(Shopware6CategoryMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
 
-    /**
-     * @param Shopware6Channel  $channel
-     * @param Shopware6Category $shopware6Category
-     * @param AbstractCategory  $category
-     * @param CategoryId|null   $parentCategoryId
-     * @param Language|null     $language
-     *
-     * @return Shopware6Category
-     */
     public function build(
         Shopware6Channel $channel,
         Shopware6Category $shopware6Category,

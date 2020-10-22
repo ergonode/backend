@@ -12,8 +12,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductBelongCategoryTreeCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_BELONG_CATEGORY_TREE_CONDITION';
@@ -30,15 +28,12 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
     private array $tree;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $operator;
 
     /**
      * @param CategoryTreeId[] $tree
-     * @param string           $operator
      */
     public function __construct(array $tree, string $operator)
     {
@@ -64,9 +59,6 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
         return $this->tree;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;

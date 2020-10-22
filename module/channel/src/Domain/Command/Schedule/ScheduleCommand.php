@@ -10,26 +10,15 @@ namespace Ergonode\Channel\Domain\Command\Schedule;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class ScheduleCommand implements DomainCommandInterface
 {
-    /**
-     * @var \DateTime
-     */
     private \DateTime $date;
 
-    /**
-     * @param \DateTime $date
-     */
     public function __construct(\DateTime $date)
     {
         $this->date = $date;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getDate(): \DateTime
     {
         return $this->date;

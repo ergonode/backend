@@ -20,42 +20,18 @@ use Faker\Generator;
 use Nelmio\Alice\Loader\NativeLoader;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 
-/**
- */
 class FixtureProcess
 {
-    /**
-     * @var FixtureLoader
-     */
     private FixtureLoader $loader;
 
-    /**
-     * @var Generator
-     */
     private Generator $generator;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param FixtureLoader       $loader
-     * @param Generator           $generator
-     * @param CommandBusInterface $commandBus
-     * @param EventStoreManager   $manager
-     * @param Connection          $connection
-     */
     public function __construct(
         FixtureLoader $loader,
         Generator $generator,
@@ -71,8 +47,6 @@ class FixtureProcess
     }
 
     /**
-     * @param string|null $group
-     *
      * @throws FixtureException
      * @throws ConnectionException
      */

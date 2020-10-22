@@ -19,14 +19,8 @@ use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class NotificationGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $notificationIdColumn = new TextColumn('id', 'Id', new TextFilter());

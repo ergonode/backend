@@ -16,13 +16,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-/**
- */
 class ConstraintPrivilegeRelationsValidatorTest extends TestCase
 {
     /**
      * @param array $value
-     * @param bool  $isValid
      *
      * @dataProvider validatorDataProvider
      */

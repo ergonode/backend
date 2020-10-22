@@ -11,8 +11,6 @@ namespace Ergonode\ProductCollection\Application\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductCollectionTypeUpdateFormModel
 {
     /**
@@ -22,14 +20,12 @@ class ProductCollectionTypeUpdateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *     max=100,
-     *     maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Product collection name is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
     public array $name;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

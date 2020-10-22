@@ -11,15 +11,7 @@ namespace Ergonode\Attribute\Domain\Query;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface AttributeGridQueryInterface
 {
-    /**
-     * @param Language $language
-     * @param bool     $system
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language, bool $system = false): DataSetInterface;
 }

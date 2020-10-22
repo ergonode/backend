@@ -12,12 +12,8 @@ use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerationStra
 use PHPUnit\Framework\TestCase;
 use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerationStrategyInterface;
 
-/**
- */
 class ThumbnailGenerationStrategyProviderTest extends TestCase
 {
-    /**
-     */
     public function testNotExistStrategy(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -25,8 +21,6 @@ class ThumbnailGenerationStrategyProviderTest extends TestCase
         $provider->provide('Any not supported strategy type');
     }
 
-    /**
-     */
     public function testExistStrategy(): void
     {
         $strategy = $this->createMock(ThumbnailGenerationStrategyInterface::class);

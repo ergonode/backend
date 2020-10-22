@@ -12,8 +12,6 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 final class Version20180401083834 extends AbstractErgonodeMigration
 {
     private const CURRENCIES = [
@@ -30,8 +28,6 @@ final class Version20180401083834 extends AbstractErgonodeMigration
     ];
 
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema): void
@@ -61,16 +57,6 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
-
-        // @todo verify is really needed
-        $this->addSql('
-            CREATE TABLE value (               
-                id UUID NOT NULL, 
-                key TEXT,                                                                       
-                PRIMARY KEY(id)
-            )
-        ');
-        $this->addSql('CREATE UNIQUE INDEX attribute_value_key_key ON value USING btree (key)');
 
         $this->addSql('
             CREATE TABLE value_translation (      

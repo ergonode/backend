@@ -16,13 +16,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class AddProductChildrenBySegmentsCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId $id
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
@@ -35,8 +31,7 @@ class AddProductChildrenBySegmentsCommand implements DomainCommandInterface
     private array $segments;
 
     /**
-     * @param AbstractAssociatedProduct $product
-     * @param array                     $segments
+     * @param array $segments
      */
     public function __construct(AbstractAssociatedProduct $product, array $segments)
     {
@@ -46,9 +41,6 @@ class AddProductChildrenBySegmentsCommand implements DomainCommandInterface
         $this->segments = $segments;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;

@@ -25,42 +25,18 @@ use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttribu
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class GroupingProductImportAction
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @var ImportProductAttributeBuilder
-     */
     private ImportProductAttributeBuilder $builder;
 
-    /**
-     * @param ProductQueryInterface         $productQuery
-     * @param ProductRepositoryInterface    $productRepository
-     * @param TemplateQueryInterface        $templateQuery
-     * @param CategoryQueryInterface        $categoryQuery
-     * @param ImportProductAttributeBuilder $builder
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
@@ -76,11 +52,9 @@ class GroupingProductImportAction
     }
 
     /**
-     * @param Sku    $sku
-     * @param string $template
-     * @param array  $categories
-     * @param array  $children
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $children
+     * @param array $attributes
      *
      * @throws ImportRelatedProductIncorrectTypeException
      * @throws ImportRelatedProductNotFoundException
@@ -123,7 +97,6 @@ class GroupingProductImportAction
     }
 
     /**
-     * @param Sku   $sku
      * @param Sku[] $children
      *
      * @return AbstractProduct[]

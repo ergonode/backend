@@ -16,8 +16,6 @@ use Ergonode\Category\Infrastructure\Handler\CreateCategoryCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateCategoryCommandHandlerTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class CreateCategoryCommandHandlerTest extends TestCase
      */
     private $command;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->factory = $this->createMock(CategoryFactory::class);
@@ -47,8 +43,6 @@ class CreateCategoryCommandHandlerTest extends TestCase
         $this->command = $this->createMock(CreateCategoryCommand::class);
     }
 
-    /**
-     */
     public function testHandling(): void
     {
         $handler = new CreateCategoryCommandHandler($this->factory, $this->repository);

@@ -12,22 +12,9 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface AttributeDataSetQueryBuilderInterface
 {
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
-     */
     public function supports(AbstractAttribute $attribute): bool;
 
-    /**
-     * @param QueryBuilder      $query
-     * @param string            $key
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void;
 }

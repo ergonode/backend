@@ -11,12 +11,7 @@ namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 
-/**
- */
 interface EventBusInterface
 {
-    /**
-     * @param DomainEventInterface $event
-     */
     public function dispatch(DomainEventInterface $event): void;
 }

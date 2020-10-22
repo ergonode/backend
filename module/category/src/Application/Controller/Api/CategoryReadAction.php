@@ -56,10 +56,6 @@ class CategoryReadAction
      * )
      *
      * @ParamConverter(name="category")
-     *
-     * @param AbstractCategory $category
-     *
-     * @return Response
      */
     public function __invoke(AbstractCategory $category): Response
     {

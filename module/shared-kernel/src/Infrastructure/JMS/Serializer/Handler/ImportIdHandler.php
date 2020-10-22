@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class ImportIdHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,12 +46,7 @@ class ImportIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param ImportId                      $id
-     * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
+     * @param array $type
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -65,12 +58,8 @@ class ImportIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param string                          $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return ImportId
+     * @param string $data
+     * @param array  $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

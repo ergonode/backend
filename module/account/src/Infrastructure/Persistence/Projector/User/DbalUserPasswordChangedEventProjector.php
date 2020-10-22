@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 
-/**
- */
 class DbalUserPasswordChangedEventProjector
 {
     private const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UserPasswordChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UserPasswordChangedEvent $event): void

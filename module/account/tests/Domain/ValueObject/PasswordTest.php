@@ -12,13 +12,9 @@ namespace Ergonode\Account\Tests\Domain\ValueObject;
 use Ergonode\Account\Domain\ValueObject\Password;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PasswordTest extends TestCase
 {
     /**
-     * @param string $value
-     *
      * @dataProvider validDataProvider
      */
     public function testValidaValue(string $value): void
@@ -29,9 +25,6 @@ class PasswordTest extends TestCase
     }
 
     /**
-     * @param string $value
-     *
-     *
      * @dataProvider invalidDataProvider
      */
     public function testInvalidValue(string $value): void

@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Provider;
 
-/**
- */
 class WorkflowTypeProvider
 {
     /**
@@ -17,9 +15,6 @@ class WorkflowTypeProvider
      */
     private array $types;
 
-    /**
-     * @param string ...$types
-     */
     public function __construct(string ...$types)
     {
         $this->types = $types;

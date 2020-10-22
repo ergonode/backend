@@ -16,24 +16,12 @@ use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteCategoryCommandHandler
 {
-    /**
-     * @var CategoryRepositoryInterface
-     */
     private CategoryRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param CategoryRepositoryInterface    $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         CategoryRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -43,8 +31,6 @@ class DeleteCategoryCommandHandler
     }
 
     /**
-     * @param DeleteCategoryCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteCategoryCommand $command): void

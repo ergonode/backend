@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
 
-/**
- */
 class DbalProductCollectionElementVisibleChangedEventProjector
 {
     private const TABLE = 'product_collection_element';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductCollectionElementVisibleChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCollectionElementVisibleChangedEvent $event): void

@@ -13,14 +13,10 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class CategoryCodeDataTransformer implements DataTransformerInterface
 {
     /**
      * @param CategoryCode|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -37,8 +33,6 @@ class CategoryCodeDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return CategoryCode|null
      */
     public function reverseTransform($value): ?CategoryCode
     {

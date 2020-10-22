@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionSystemAttributeTest extends TestCase
 {
     /**

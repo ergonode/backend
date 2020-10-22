@@ -10,20 +10,14 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6CustomFieldSet
 {
     /**
-     * @var string|null
-     *
      * @JMS\Exclude()
      */
     protected ?string $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
@@ -46,17 +40,13 @@ class Shopware6CustomFieldSet
     protected ?array $customFields;
 
     /**
-     * @var bool
-     *
      * @JMS\Exclude()
      */
     protected bool $modified = false;
 
     /**
-     * @param string|null $id
-     * @param string|null $name
-     * @param array|null  $relations
-     * @param array|null  $customFields
+     * @param array|null $relations
+     * @param array|null $customFields
      */
     public function __construct(
         ?string $id = null,
@@ -71,25 +61,16 @@ class Shopware6CustomFieldSet
     }
 
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         if ($name !== $this->name) {
@@ -130,9 +111,6 @@ class Shopware6CustomFieldSet
         $this->customFields[] = $customField;
     }
 
-    /**
-     * @return bool
-     */
     public function isModified(): bool
     {
         return $this->modified;

@@ -13,14 +13,10 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class PrivilegeDataTransformer implements DataTransformerInterface
 {
     /**
      * @param Privilege|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -36,8 +32,6 @@ class PrivilegeDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return Privilege|null
      */
     public function reverseTransform($value): ?Privilege
     {

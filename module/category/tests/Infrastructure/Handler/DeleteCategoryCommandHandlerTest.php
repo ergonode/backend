@@ -17,8 +17,6 @@ use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteCategoryCommandHandlerTest extends TestCase
 {
     /**
@@ -31,13 +29,8 @@ class DeleteCategoryCommandHandlerTest extends TestCase
      */
     private $command;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
@@ -45,8 +38,6 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $this->resolver = $this->createMock(RelationshipsResolverInterface::class);
     }
 
-    /**
-     */
     public function testHandlingExistsCategoryWithoutRelations(): void
     {
         $collection = $this->createMock(RelationshipCollection::class);
@@ -60,8 +51,6 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testHandlingExistsCategoryWithRelations(): void
     {
         $this->expectException(\Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException::class);
@@ -76,8 +65,6 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testHandlingNotExistsCategory(): void
     {
         $this->expectException(\InvalidArgumentException::class);

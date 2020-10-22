@@ -18,18 +18,10 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class ChannelParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $repository;
 
-    /**
-     * @param ChannelRepositoryInterface $repository
-     */
     public function __construct(ChannelRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ramsey\Uuid\Uuid;
 
 /**
 * Auto-generated Ergonode Migration Class:
@@ -18,8 +17,6 @@ use Ramsey\Uuid\Uuid;
 final class Version20200122064958 extends AbstractErgonodeMigration
 {
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema) : void

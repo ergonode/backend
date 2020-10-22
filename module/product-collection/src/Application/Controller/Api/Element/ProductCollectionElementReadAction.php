@@ -69,10 +69,7 @@ class ProductCollectionElementReadAction
      * @ParamConverter(name="productCollection")
      * @ParamConverter(name="product")
      *
-     * @param ProductCollection $productCollection
-     * @param AbstractProduct   $product
      *
-     * @return Response
      *
      * @throws \Exception
      */

@@ -22,27 +22,19 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Role extends AbstractAggregateRoot
 {
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $description;
@@ -55,18 +47,12 @@ class Role extends AbstractAggregateRoot
     private array $privileges;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("bool")
      */
     private bool $hidden;
 
     /**
-     * @param RoleId      $id
-     * @param string      $name
-     * @param string|null $description
-     * @param array       $privileges
-     * @param bool        $hidden
+     * @param array $privileges
      *
      * @throws \Exception
      */
@@ -90,17 +76,11 @@ class Role extends AbstractAggregateRoot
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
@@ -114,17 +94,11 @@ class Role extends AbstractAggregateRoot
         return $this->privileges;
     }
 
-    /**
-     * @return bool
-     */
     public function isHidden(): bool
     {
         return $this->hidden;
     }
 
-    /**
-     * @param string $name
-     */
     public function changeName(string $name): void
     {
         if ($name !== $this->name) {
@@ -142,9 +116,6 @@ class Role extends AbstractAggregateRoot
         $this->apply(new RolePrivilegesChangedEvent($this->id, $this->privileges, $privileges));
     }
 
-    /**
-     * @param string|null $description
-     */
     public function changeDescription(?string $description): void
     {
         if ($description !== $this->description) {
@@ -152,11 +123,6 @@ class Role extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param Privilege $privilege
-     *
-     * @return bool
-     */
     public function hasPrivilege(Privilege $privilege): bool
     {
         foreach ($this->privileges as $element) {
@@ -168,9 +134,6 @@ class Role extends AbstractAggregateRoot
         return false;
     }
 
-    /**
-     * @param Privilege $privilege
-     */
     public function addPrivilege(Privilege $privilege): void
     {
         if ($this->hasPrivilege($privilege)) {
@@ -180,9 +143,6 @@ class Role extends AbstractAggregateRoot
         $this->apply(new AddPrivilegeToRoleEvent($this->id, $privilege));
     }
 
-    /**
-     * @param Privilege $privilege
-     */
     public function removePrivilege(Privilege $privilege): void
     {
         if (!$this->hasPrivilege($privilege)) {
@@ -192,9 +152,6 @@ class Role extends AbstractAggregateRoot
         $this->apply(new RemovePrivilegeFromRoleEvent($this->id, $privilege));
     }
 
-    /**
-     * @param RoleCreatedEvent $event
-     */
     protected function applyRoleCreatedEvent(RoleCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -204,17 +161,11 @@ class Role extends AbstractAggregateRoot
         $this->hidden = false;
     }
 
-    /**
-     * @param AddPrivilegeToRoleEvent $event
-     */
     protected function applyAddPrivilegeToRoleEvent(AddPrivilegeToRoleEvent $event): void
     {
         $this->privileges[] = $event->getPrivilege();
     }
 
-    /**
-     * @param RemovePrivilegeFromRoleEvent $event
-     */
     protected function applyRemovePrivilegeFromRoleEvent(RemovePrivilegeFromRoleEvent $event): void
     {
         foreach ($this->privileges as $key => $privilege) {
@@ -224,25 +175,16 @@ class Role extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param RoleNameChangedEvent $event
-     */
     protected function applyRoleNameChangedEvent(RoleNameChangedEvent $event): void
     {
         $this->name = $event->getTo();
     }
 
-    /**
-     * @param RoleDescriptionChangedEvent $event
-     */
     protected function applyRoleDescriptionChangedEvent(RoleDescriptionChangedEvent $event): void
     {
         $this->description = $event->getTo();
     }
 
-    /**
-     * @param RolePrivilegesChangedEvent $event
-     */
     protected function applyRolePrivilegesChangedEvent(RolePrivilegesChangedEvent $event): void
     {
         $this->privileges = $event->getTo();

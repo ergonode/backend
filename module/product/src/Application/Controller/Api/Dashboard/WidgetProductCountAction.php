@@ -27,14 +27,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
  */
 class WidgetProductCountAction
 {
-    /**
-     * @var ProductDashboardQueryInterface
-     */
     private ProductDashboardQueryInterface  $query;
 
-    /**
-     * @param ProductDashboardQueryInterface $query
-     */
     public function __construct(ProductDashboardQueryInterface $query)
     {
         $this->query = $query;
@@ -55,12 +49,6 @@ class WidgetProductCountAction
      *     response=200,
      *     description="widget product count information",
      * )
-     *
-     * @param Language $language
-     * @param Request  $request
-     *
-     * @return Response
-     *
      */
     public function __invoke(Language $language, Request $request): Response
     {

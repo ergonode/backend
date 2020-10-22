@@ -15,15 +15,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 abstract class AbstractUpdateAttributeCommandFactoryTest extends TestCase
 {
     /**
-     * @param string $class
-     *
-     * @return AttributeFormModel
-     *
      * @throws \Exception
      */
     protected function getAttributeFormModel(string $class): AttributeFormModel
@@ -46,11 +40,6 @@ abstract class AbstractUpdateAttributeCommandFactoryTest extends TestCase
         return $data;
     }
 
-    /**
-     * @param AttributeId                    $id
-     * @param AttributeFormModel             $model
-     * @param AbstractUpdateAttributeCommand $command
-     */
     protected function assertAttributeFormModel(
         AttributeId $id,
         AttributeFormModel $model,

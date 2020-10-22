@@ -15,18 +15,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class UserUniqueValidator extends ConstraintValidator
 {
-    /**
-     * @var UserQueryInterface
-     */
     private UserQueryInterface $query;
 
-    /**
-     * @param UserQueryInterface $query
-     */
     public function __construct(UserQueryInterface $query)
     {
         $this->query = $query;

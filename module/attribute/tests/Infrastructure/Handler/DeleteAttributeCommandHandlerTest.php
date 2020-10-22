@@ -16,8 +16,6 @@ use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteAttributeCommandHandlerTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class DeleteAttributeCommandHandlerTest extends TestCase
      */
     private $relationshipResolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteAttributeCommand::class);
@@ -51,8 +47,6 @@ class DeleteAttributeCommandHandlerTest extends TestCase
         $this->relationshipResolver->method('resolve')->willReturn(new RelationshipCollection());
     }
 
-    /**
-     */
     public function testAttributeNotFound(): void
     {
         $this->expectException(\InvalidArgumentException::class);

@@ -9,23 +9,15 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\Template;
 
-/**
- */
 class TemplateProcessor
 {
     /**
-     * @param FileExportChannel $channel
-     * @param Template          $template
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, Template $template): ExportData
@@ -46,12 +38,6 @@ class TemplateProcessor
         }
     }
 
-    /**
-     * @param Template        $template
-     * @param TemplateElement $element
-     *
-     * @return LanguageData
-     */
     private function getLanguage(Template $template, TemplateElement $element): LanguageData
     {
         $result = new LanguageData();

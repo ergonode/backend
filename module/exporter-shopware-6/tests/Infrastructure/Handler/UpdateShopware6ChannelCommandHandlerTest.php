@@ -14,12 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
-/**
- */
 class UpdateShopware6ChannelCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $channel = $this->createMock(Shopware6Channel::class);

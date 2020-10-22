@@ -12,14 +12,7 @@ namespace Ergonode\Core\Infrastructure\Resolver;
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface RelationshipsResolverInterface
 {
-    /**
-     * @param AggregateId $id
-     *
-     * @return RelationshipCollection
-     */
     public function resolve(AggregateId $id): RelationshipCollection;
 }

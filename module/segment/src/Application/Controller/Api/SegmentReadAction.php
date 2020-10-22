@@ -54,10 +54,6 @@ class SegmentReadAction
      * )
      *
      * @ParamConverter(name="segment")
-     *
-     * @param Segment $segment
-     *
-     * @return Response
      */
     public function __invoke(Segment $segment): Response
     {

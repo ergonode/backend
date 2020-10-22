@@ -37,20 +37,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class AttributeGroupChangeAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
-     */
     public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
     {
         $this->formFactory = $formFactory;
@@ -97,11 +87,6 @@ class AttributeGroupChangeAction
      * )
      *
      * @ParamConverter(name="attributeGroup")
-     *
-     * @param AttributeGroup $attributeGroup
-     * @param Request        $request
-     *
-     * @return Response
      */
     public function __invoke(
         AttributeGroup $attributeGroup,

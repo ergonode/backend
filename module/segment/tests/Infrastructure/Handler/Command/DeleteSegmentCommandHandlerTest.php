@@ -17,8 +17,6 @@ use Ergonode\Segment\Infrastructure\Handler\Command\DeleteSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteSegmentCommandHandlerTest extends TestCase
 {
     /**
@@ -36,8 +34,6 @@ class DeleteSegmentCommandHandlerTest extends TestCase
      */
     private $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteSegmentCommand::class);

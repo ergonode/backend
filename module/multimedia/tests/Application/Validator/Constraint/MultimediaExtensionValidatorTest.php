@@ -14,25 +14,16 @@ use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExtension;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- */
 class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var MultimediaExtensionProvider
-     */
     private MultimediaExtensionProvider $provider;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->provider = $this->createMock(MultimediaExtensionProvider::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate(null, new MultimediaExtension());
@@ -40,8 +31,6 @@ class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testMultimediaExtensionValidation(): void
     {
         $value = $this->createMock(UploadedFile::class);
@@ -52,8 +41,6 @@ class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testMultimediaNotExistsValidation(): void
     {
         $this->provider->method('dictionary')->willReturn([]);
@@ -67,9 +54,6 @@ class MultimediaExtensionValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return MultimediaExtensionValidator
-     */
     protected function createValidator(): MultimediaExtensionValidator
     {
         return new MultimediaExtensionValidator($this->provider);

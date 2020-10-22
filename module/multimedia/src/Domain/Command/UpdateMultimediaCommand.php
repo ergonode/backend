@@ -13,30 +13,14 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class UpdateMultimediaCommand implements DomainCommandInterface
 {
-    /**
-     * @var MultimediaId
-     */
     private MultimediaId $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $alt;
 
-    /**
-     * @param MultimediaId       $id
-     * @param string             $name
-     * @param TranslatableString $alt
-     */
     public function __construct(MultimediaId $id, string $name, TranslatableString $alt)
     {
         $this->id = $id;
@@ -44,25 +28,16 @@ class UpdateMultimediaCommand implements DomainCommandInterface
         $this->alt = $alt;
     }
 
-    /**
-     * @return MultimediaId
-     */
     public function getId(): MultimediaId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getAlt(): TranslatableString
     {
         return $this->alt;

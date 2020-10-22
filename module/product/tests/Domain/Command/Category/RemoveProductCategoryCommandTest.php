@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RemoveProductCategoryCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         /** @var ProductId|MockObject $product */

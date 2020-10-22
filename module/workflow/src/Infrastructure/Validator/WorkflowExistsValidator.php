@@ -9,26 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Validator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 
-/**
- */
 class WorkflowExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var WorkflowQueryInterface
-     */
     private WorkflowQueryInterface $query;
 
-    /**
-     * @param WorkflowQueryInterface $query
-     */
     public function __construct(WorkflowQueryInterface $query)
     {
         $this->query = $query;

@@ -13,32 +13,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DesignerTemplateGroupIdHandlerTest extends TestCase
 {
-    /**
-     * @var TemplateGroupIdHandler
-     */
     private TemplateGroupIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializeVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializeVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new TemplateGroupIdHandler();
@@ -47,8 +31,6 @@ class DesignerTemplateGroupIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = TemplateGroupIdHandler::getSubscribingMethods();
@@ -60,8 +42,6 @@ class DesignerTemplateGroupIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = TemplateGroupId::generate();
@@ -70,8 +50,6 @@ class DesignerTemplateGroupIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = TemplateGroupId::generate();

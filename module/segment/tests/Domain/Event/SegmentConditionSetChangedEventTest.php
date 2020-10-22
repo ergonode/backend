@@ -15,8 +15,6 @@ use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SegmentConditionSetChangedEventTest extends TestCase
 {
     /**
@@ -24,15 +22,11 @@ class SegmentConditionSetChangedEventTest extends TestCase
      */
     protected $id;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(SegmentId::class);
     }
 
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var ConditionSetId | MockObject $from */
@@ -48,8 +42,6 @@ class SegmentConditionSetChangedEventTest extends TestCase
         $this->assertSame($to, $event->getTo());
     }
 
-    /**
-     */
     public function testNullException(): void
     {
         $this->expectException(\Zend\EventManager\Exception\DomainException::class);

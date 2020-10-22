@@ -17,24 +17,12 @@ use Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 
-/**
- */
 class DefaultImageSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     protected LanguageQueryInterface $query;
 
-    /**
-     * @var ProductAttributeLanguageResolver
-     */
     protected ProductAttributeLanguageResolver $resolver;
 
-    /**
-     * @param LanguageQueryInterface           $query
-     * @param ProductAttributeLanguageResolver $resolver
-     */
     public function __construct(LanguageQueryInterface $query, ProductAttributeLanguageResolver $resolver)
     {
         $this->query = $query;

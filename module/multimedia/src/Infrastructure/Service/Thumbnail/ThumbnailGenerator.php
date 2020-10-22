@@ -13,36 +13,16 @@ use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\FileExistsException;
 
-/**
- */
 class ThumbnailGenerator
 {
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $multimediaStorage;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $thumbnailStorage;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $temp;
 
-    /**
-     * @var ThumbnailGenerationStrategyProvider
-     */
     private ThumbnailGenerationStrategyProvider $provider;
 
-    /**
-     * @param FilesystemInterface                 $multimediaStorage
-     * @param FilesystemInterface                 $thumbnailStorage
-     * @param TempFileStorage                     $temp
-     * @param ThumbnailGenerationStrategyProvider $provider
-     */
     public function __construct(
         FilesystemInterface $multimediaStorage,
         FilesystemInterface $thumbnailStorage,
@@ -56,9 +36,6 @@ class ThumbnailGenerator
     }
 
     /**
-     * @param Multimedia $multimedia
-     * @param string     $type
-     *
      * @throws FileExistsException
      * @throws \ImagickException
      */

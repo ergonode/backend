@@ -18,35 +18,15 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\PropertyGroupShopware6ExportProcess;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class PropertyGroupShopware6ExportCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
-    /**
-     * @var PropertyGroupShopware6ExportProcess
-     */
     private PropertyGroupShopware6ExportProcess $process;
 
-    /**
-     * @param ExportRepositoryInterface           $exportRepository
-     * @param ChannelRepositoryInterface          $channelRepository
-     * @param AttributeRepositoryInterface        $attributeRepository
-     * @param PropertyGroupShopware6ExportProcess $process
-     */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
@@ -59,9 +39,6 @@ class PropertyGroupShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    /**
-     * @param PropertyGroupShopware6ExportCommand $command
-     */
     public function __invoke(PropertyGroupShopware6ExportCommand $command)
     {
         $export = $this->exportRepository->load($command->getExportId());

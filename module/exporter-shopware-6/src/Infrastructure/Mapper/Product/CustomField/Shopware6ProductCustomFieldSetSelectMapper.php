@@ -18,20 +18,10 @@ use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperE
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class Shopware6ProductCustomFieldSetSelectMapper extends AbstractShopware6ProductCustomFieldSetMapper
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $optionRepository;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     * @param OptionRepositoryInterface                 $optionRepository
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator,

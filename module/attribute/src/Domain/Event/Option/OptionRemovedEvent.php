@@ -13,28 +13,18 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 
-/**
- */
 class OptionRemovedEvent extends AbstractDeleteEvent
 {
     /**
-     * @var AggregateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
     private AggregateId $id;
 
-    /**
-     * @param AggregateId $id
-     */
     public function __construct(AggregateId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return AggregateId
-     */
     public function getAggregateId(): AggregateId
     {
         return $this->id;

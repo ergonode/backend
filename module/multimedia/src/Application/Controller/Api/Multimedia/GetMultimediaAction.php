@@ -46,11 +46,9 @@ class GetMultimediaAction
      *     description="Not found",
      * )
      *
-     * @param Multimedia $multimedia
      *
      * @ParamConverter(name="multimedia")
      *
-     * @return Response
      *
      * @throws \Exception
      */

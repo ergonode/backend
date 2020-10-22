@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Application\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class UpdateAttributeGroupFormModel
 {
     /**
@@ -22,14 +20,12 @@ class UpdateAttributeGroupFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *       max=32,
-     *       maxMessage="Attribute group name is to long, It should have {{ limit }} character or less."
+     *       maxMessage="Attribute group name is too long. It should contain {{ limit }} characters or less."
      *     )
      * })
      */
     public array $name;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

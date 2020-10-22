@@ -11,18 +11,10 @@ namespace Ergonode\Account\Infrastructure\Provider;
 
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 
-/**
- */
 class RoleProvider implements RoleProviderInterface
 {
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $roleQuery;
 
-    /**
-     * @param RoleQueryInterface $roleQuery
-     */
     public function __construct(RoleQueryInterface $roleQuery)
     {
         $this->roleQuery = $roleQuery;

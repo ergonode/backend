@@ -14,12 +14,8 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Infrastructure\Grid\ProductHistoryGrid;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class HistoryGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var GridConfigurationInterface $configuration */

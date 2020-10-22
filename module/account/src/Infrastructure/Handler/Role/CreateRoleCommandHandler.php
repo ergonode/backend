@@ -13,24 +13,12 @@ use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Account\Domain\Factory\RoleFactory;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 
-/**
- */
 class CreateRoleCommandHandler
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $repository;
 
-    /**
-     * @var RoleFactory
-     */
     private RoleFactory $factory;
 
-    /**
-     * @param RoleRepositoryInterface $repository
-     * @param RoleFactory             $factory
-     */
     public function __construct(RoleRepositoryInterface $repository, RoleFactory $factory)
     {
         $this->repository = $repository;
@@ -38,8 +26,6 @@ class CreateRoleCommandHandler
     }
 
     /**
-     * @param CreateRoleCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateRoleCommand $command)

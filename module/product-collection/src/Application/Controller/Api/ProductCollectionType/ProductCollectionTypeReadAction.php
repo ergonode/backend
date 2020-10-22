@@ -56,10 +56,6 @@ class ProductCollectionTypeReadAction
      * )
      *
      * @ParamConverter(name="productCollectionType")
-     *
-     * @param ProductCollectionType $productCollectionType
-     *
-     * @return Response
      */
     public function __invoke(ProductCollectionType $productCollectionType): Response
     {

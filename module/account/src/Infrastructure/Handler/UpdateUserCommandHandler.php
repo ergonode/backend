@@ -15,24 +15,12 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateUserCommandHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $repository;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
     private UserPasswordEncoderInterface $userPasswordEncoder;
 
-    /**
-     * @param UserRepositoryInterface      $repository
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     */
     public function __construct(
         UserRepositoryInterface $repository,
         UserPasswordEncoderInterface $userPasswordEncoder
@@ -42,8 +30,6 @@ class UpdateUserCommandHandler
     }
 
     /**
-     * @param UpdateUserCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateUserCommand $command)

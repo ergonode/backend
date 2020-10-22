@@ -13,26 +13,14 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalCategoryTreeCreatedEventProjector
 {
     protected const TABLE = 'category_tree';
 
-    /**
-     * @var Connection
-     */
     protected Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;

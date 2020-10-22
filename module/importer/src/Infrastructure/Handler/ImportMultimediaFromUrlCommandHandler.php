@@ -8,43 +8,30 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
-use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
-use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Domain\Entity\ImportError;
-use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
+use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportMultimediaFromUrlCommandHandler
 {
-    /**
-     * @var MultimediaImportAction
-     */
     private MultimediaImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
-    private ImportErrorRepositoryInterface $repository;
+    private ImportRepositoryInterface $repository;
 
-    /**
-     * @param MultimediaImportAction         $action
-     * @param ImportErrorRepositoryInterface $repository
-     */
-    public function __construct(MultimediaImportAction $action, ImportErrorRepositoryInterface $repository)
-    {
+    private LoggerInterface $logger;
+
+    public function __construct(
+        MultimediaImportAction $action,
+        ImportRepositoryInterface $repository,
+        LoggerInterface $logger
+    ) {
         $this->action = $action;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
-    /**
-     * @param ImportMultimediaFromWebCommand $command
-     *
-     * @throws \Exception
-     */
     public function __invoke(ImportMultimediaFromWebCommand $command)
     {
         try {
@@ -54,9 +41,11 @@ class ImportMultimediaFromUrlCommandHandler
                 $command->getName()
             );
         } catch (ImportException $exception) {
-            $message = $exception->getMessage();
-            $error = new ImportError($command->getImportId(), $message);
-            $this->repository->add($error);
+            $this->repository->addError($command->getImportId(), $exception->getMessage());
+        } catch (\Exception $exception) {
+            $message = sprintf('Can\'t import multimedia %s from url %s', $command->getName(), $command->getUrl());
+            $this->repository->addError($command->getImportId(), $message);
+            $this->logger->error($exception);
         }
     }
 }

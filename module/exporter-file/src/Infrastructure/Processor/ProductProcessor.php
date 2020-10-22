@@ -22,30 +22,14 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class ProductProcessor
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var TranslationInheritanceCalculator
-     */
     private TranslationInheritanceCalculator $calculator;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeQueryInterface          $attributeQuery
-     * @param TranslationInheritanceCalculator $calculator
-     * @param AttributeRepositoryInterface     $attributeRepository
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         TranslationInheritanceCalculator $calculator,
@@ -57,11 +41,6 @@ class ProductProcessor
     }
 
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractProduct   $product
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractProduct $product): ExportData
@@ -86,11 +65,7 @@ class ProductProcessor
     }
 
     /**
-     * @param AbstractProduct $product
-     * @param Language        $language
-     * @param array           $attributes
-     *
-     * @return LanguageData
+     * @param array $attributes
      */
     private function getLanguage(AbstractProduct $product, Language $language, array $attributes): LanguageData
     {

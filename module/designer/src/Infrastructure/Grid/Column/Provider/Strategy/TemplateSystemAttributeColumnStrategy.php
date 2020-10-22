@@ -19,18 +19,10 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
-/**
- */
 class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
-    /**
-     * @param TemplateQueryInterface $query
-     */
     public function __construct(TemplateQueryInterface $query)
     {
         $this->query = $query;

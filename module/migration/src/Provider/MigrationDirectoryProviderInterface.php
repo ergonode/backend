@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Migration\Provider;
 
-/**
- */
 interface MigrationDirectoryProviderInterface
 {
     /**
@@ -18,8 +16,5 @@ interface MigrationDirectoryProviderInterface
      */
     public function getDirectoryCollection(): array;
 
-    /**
-     * @return string
-     */
     public function getMainDirectory(): string;
 }

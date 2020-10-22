@@ -10,51 +10,24 @@ namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
-use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
-use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
-/**
- */
 class ProcessExportCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ExportLineRepositoryInterface
-     */
     private ExportLineRepositoryInterface $lineRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var ExportProcessorProvider
-     */
     private ExportProcessorProvider $provider;
 
-    /**
-     * @param ExportRepositoryInterface     $exportRepository
-     * @param ExportLineRepositoryInterface $lineRepository
-     * @param ChannelRepositoryInterface    $channelRepository
-     * @param ProductRepositoryInterface    $productRepository
-     * @param ExportProcessorProvider       $provider
-     */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ExportLineRepositoryInterface $lineRepository,
@@ -70,8 +43,6 @@ class ProcessExportCommandHandler
     }
 
     /**
-     * @param ProcessExportCommand $command
-     *
      * @throws DBALException
      */
     public function __invoke(ProcessExportCommand $command)

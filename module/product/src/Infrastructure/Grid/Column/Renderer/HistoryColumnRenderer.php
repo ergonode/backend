@@ -18,18 +18,10 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 
-/**
- */
 class HistoryColumnRenderer implements ColumnRendererInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;

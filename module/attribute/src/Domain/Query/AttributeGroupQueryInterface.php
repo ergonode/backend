@@ -13,13 +13,9 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface AttributeGroupQueryInterface
 {
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getAttributeGroups(Language $language): array;
@@ -29,34 +25,16 @@ interface AttributeGroupQueryInterface
      */
     public function getAttributeGroupIds(): array;
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface;
 
     /**
-     * @param AttributeGroupId $id
-     *
      * @return AttributeId[]
      */
     public function getAllAttributes(AttributeGroupId $id): array;
 
-    /**
-     * @param AttributeGroupCode $code
-     *
-     * @return bool
-     */
     public function checkAttributeGroupExistsByCode(AttributeGroupCode $code): bool;
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(

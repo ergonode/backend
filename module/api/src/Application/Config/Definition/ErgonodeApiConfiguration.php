@@ -12,8 +12,6 @@ namespace Ergonode\Api\Application\Config\Definition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- */
 class ErgonodeApiConfiguration implements ConfigurationInterface
 {
     /**

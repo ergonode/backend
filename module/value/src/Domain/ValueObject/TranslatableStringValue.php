@@ -13,22 +13,15 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class TranslatableStringValue implements ValueInterface
 {
     public const TYPE = 'translation';
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $value;
 
-    /**
-     * @param TranslatableString $value
-     */
     public function __construct(TranslatableString $value)
     {
         $this->value = $value;
@@ -52,11 +45,6 @@ class TranslatableStringValue implements ValueInterface
         return $this->value->getTranslations();
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return string|null
-     */
     public function getTranslation(Language $language): ?string
     {
         return $this->value->get($language);
@@ -70,11 +58,6 @@ class TranslatableStringValue implements ValueInterface
         return implode(',', $this->value->getTranslations());
     }
 
-    /**
-     * @param ValueInterface $value
-     *
-     * @return bool
-     */
     public function isEqual(ValueInterface $value): bool
     {
         return

@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- */
 class AddMultimediaCommandTest extends TestCase
 {
     /**

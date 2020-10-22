@@ -24,27 +24,16 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class ProductCollectionGrid extends AbstractGrid
 {
-    /**
-     * @var ProductCollectionTypeQueryInterface
-     */
     private ProductCollectionTypeQueryInterface $query;
 
-    /**
-     * @param ProductCollectionTypeQueryInterface $query
-     */
     public function __construct(ProductCollectionTypeQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     *
      * @throws \Exception
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
@@ -57,7 +46,7 @@ class ProductCollectionGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
         $this->addColumn('type_id', new SelectColumn('type_id', 'Type', new MultiSelectFilter($types)));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));

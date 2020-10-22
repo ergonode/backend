@@ -15,32 +15,16 @@ use Ergonode\Product\Application\Provider\ProductTypeProvider;
 use Ergonode\Product\Domain\Query\ProductDashboardQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class DbalProductDashboardQuery implements ProductDashboardQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var ProductTypeProvider
-     */
     private ProductTypeProvider $provider;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param Connection          $connection
-     * @param ProductTypeProvider $provider
-     * @param TranslatorInterface $translator
-     */
     public function __construct(Connection $connection, ProductTypeProvider $provider, TranslatorInterface $translator)
     {
         $this->connection = $connection;
@@ -49,8 +33,6 @@ class DbalProductDashboardQuery implements ProductDashboardQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getProductCount(Language  $language): array

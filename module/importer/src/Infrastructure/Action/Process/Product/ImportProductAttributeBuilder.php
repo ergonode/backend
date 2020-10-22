@@ -17,13 +17,8 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver\ImportProductAttributeStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
-/**
- */
 class ImportProductAttributeBuilder
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
     /**
@@ -31,10 +26,6 @@ class ImportProductAttributeBuilder
      */
     private array $strategies;
 
-    /**
-     * @param AttributeQueryInterface                 $attributeQuery
-     * @param ImportProductAttributeStrategyInterface ...$strategies
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         ImportProductAttributeStrategyInterface ...$strategies
@@ -73,8 +64,6 @@ class ImportProductAttributeBuilder
 
     /**
      * @param $value
-     *
-     * @return TranslatableStringValue
      */
     public function buildDefault(TranslatableString $value): TranslatableStringValue
     {
@@ -88,11 +77,6 @@ class ImportProductAttributeBuilder
         return new TranslatableStringValue(new TranslatableString($translation));
     }
 
-    /**
-     * @param AttributeType $type
-     *
-     * @return ImportProductAttributeStrategyInterface|null
-     */
     private function getStrategy(AttributeType $type): ?ImportProductAttributeStrategyInterface
     {
         foreach ($this->strategies as $strategy) {

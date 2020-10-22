@@ -15,8 +15,6 @@ use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateStatusCommandTest extends TestCase
 {
     /**

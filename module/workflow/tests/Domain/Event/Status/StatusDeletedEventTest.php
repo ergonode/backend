@@ -14,12 +14,8 @@ use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StatusDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var StatusId | MockObject $id */

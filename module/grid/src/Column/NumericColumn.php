@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
-/**
- */
 class NumericColumn extends AbstractColumn
 {
     public const TYPE = 'NUMERIC';

@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Application\Mapper;
 
-/**
- */
 class ExceptionMapper implements ExceptionMapperInterface
 {
     /**
@@ -41,11 +39,6 @@ class ExceptionMapper implements ExceptionMapperInterface
         return $result;
     }
 
-    /**
-     * @param \Throwable $exception
-     *
-     * @return string|null
-     */
     private function findClass(\Throwable $exception): ?string
     {
         $result = null;

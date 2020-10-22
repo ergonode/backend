@@ -16,13 +16,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class ProductValueAddedEventTest extends TestCase
 {
-    /**
-     *
-     */
     public function testEventCreation(): void
     {
         /** @var ProductId|MockObject $id */

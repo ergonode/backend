@@ -12,20 +12,12 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
 
-/**
- */
 class DbalTemplateElementRemovedEventProjector
 {
     private const ELEMENT_TABLE = 'designer.template_element';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

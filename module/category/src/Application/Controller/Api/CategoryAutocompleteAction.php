@@ -22,14 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryAutocompleteAction
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @param CategoryQueryInterface $categoryQuery
-     */
     public function __construct(CategoryQueryInterface $categoryQuery)
     {
         $this->categoryQuery = $categoryQuery;
@@ -78,11 +72,6 @@ class CategoryAutocompleteAction
      *     response=200,
      *     description="Return categories",
      * )
-     *
-     * @param Language $language
-     * @param Request  $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, Request $request): Response
     {

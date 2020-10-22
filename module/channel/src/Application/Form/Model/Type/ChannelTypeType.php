@@ -13,26 +13,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class ChannelTypeType extends AbstractType
 {
-    /**
-     * @var ChannelTypeProvider
-     */
     private ChannelTypeProvider $channelTypeProvider;
 
-    /**
-     * @param ChannelTypeProvider $channelTypeProvider
-     */
     public function __construct(ChannelTypeProvider $channelTypeProvider)
     {
         $this->channelTypeProvider = $channelTypeProvider;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $codes = $this->channelTypeProvider->provide();
@@ -45,9 +34,6 @@ class ChannelTypeType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

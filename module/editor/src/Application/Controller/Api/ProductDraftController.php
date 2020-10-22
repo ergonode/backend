@@ -38,66 +38,26 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductDraftController extends AbstractController
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var AttributeValueConstraintProvider
-     */
     private AttributeValueConstraintProvider $provider;
 
-    /**
-     * @var DraftProvider
-     */
     private DraftProvider $draftProvider;
 
-    /**
-     * @var ViewTemplateBuilder
-     */
     private ViewTemplateBuilder $builder;
 
-    /**
-     * @var ValidatorInterface
-     */
     private ValidatorInterface $validator;
 
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @var TranslationInheritanceCalculator
-     */
     private TranslationInheritanceCalculator $calculator;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param CommandBusInterface              $commandBus
-     * @param AttributeValueConstraintProvider $provider
-     * @param DraftProvider                    $draftProvider
-     * @param ViewTemplateBuilder              $builder
-     * @param ValidatorInterface               $validator
-     * @param TemplateRepositoryInterface      $templateRepository
-     * @param TranslationInheritanceCalculator $calculator
-     * @param LanguageQueryInterface           $query
-     * @param AttributeRepositoryInterface     $attributeRepository
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         AttributeValueConstraintProvider $provider,
@@ -150,11 +110,9 @@ class ProductDraftController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param AbstractProduct $product
      *
      * @ParamConverter(name="product")
      *
-     * @return Response
      *
      * @throws \Exception
      */
@@ -219,15 +177,10 @@ class ProductDraftController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param AbstractProduct   $product
-     * @param Language          $language
-     * @param AbstractAttribute $attribute
-     * @param Request           $request
      *
      * @ParamConverter(name="product")
      * @ParamConverter(name="attribute")
      *
-     * @return Response
      *
      * @throws \Exception
      */
@@ -299,14 +252,10 @@ class ProductDraftController extends AbstractController
      *     description="Change product attribute Value",
      * )
      *
-     * @param AbstractProduct   $product
-     * @param Language          $language
-     * @param AbstractAttribute $attribute
      *
      * @ParamConverter(name="product")
      * @ParamConverter(name="attribute")
      *
-     * @return Response
      *
      * @throws \Exception
      */
@@ -357,12 +306,9 @@ class ProductDraftController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param Language        $language
-     * @param AbstractProduct $product
      *
      * @ParamConverter(name="product")
      *
-     * @return Response
      *
      * @throws \Exception
      */
@@ -413,10 +359,7 @@ class ProductDraftController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param AbstractProduct $product
-     * @param Language        $language
      *
-     * @return Response
      *
      * @throws \Exception
      *

@@ -16,44 +16,29 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
-/**
- */
 class UpdateOptionCommand implements DomainCommandInterface
 {
     /**
-     * @var AggregateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
     private AggregateId $id;
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $attributeId;
 
     /**
-     * @var OptionKey
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionKey")
      */
     private OptionKey $code;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $label;
 
     /**
-     * @param AggregateId        $id
-     * @param AttributeId        $attributeId
-     * @param OptionKey          $code
-     * @param TranslatableString $label
-     *
      * @throws \Exception
      */
     public function __construct(AggregateId $id, AttributeId $attributeId, OptionKey $code, TranslatableString $label)
@@ -64,33 +49,21 @@ class UpdateOptionCommand implements DomainCommandInterface
         $this->label = $label;
     }
 
-    /**
-     * @return AggregateId
-     */
     public function getId(): AggregateId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getAttributeId(): AttributeId
     {
         return $this->attributeId;
     }
 
-    /**
-     * @return OptionKey
-     */
     public function getCode(): OptionKey
     {
         return $this->code;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getLabel(): TranslatableString
     {
         return $this->label;

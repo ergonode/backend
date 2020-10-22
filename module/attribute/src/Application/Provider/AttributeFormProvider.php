@@ -10,8 +10,6 @@ namespace Ergonode\Attribute\Application\Provider;
 
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 
-/**
- */
 class AttributeFormProvider
 {
     /**
@@ -27,11 +25,6 @@ class AttributeFormProvider
         $this->forms = $forms;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return string
-     */
     public function provide(string $type): string
     {
         foreach ($this->forms as $form) {

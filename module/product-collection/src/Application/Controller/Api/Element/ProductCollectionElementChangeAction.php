@@ -40,20 +40,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionElementChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
@@ -105,12 +95,6 @@ class ProductCollectionElementChangeAction
      * )
      * @ParamConverter(name="product")
      * @ParamConverter(name="productCollection")
-     *
-     * @param ProductCollection $productCollection
-     * @param AbstractProduct   $product
-     * @param Request           $request
-     *
-     * @return Response
      */
     public function __invoke(ProductCollection $productCollection, AbstractProduct $product, Request $request): Response
     {

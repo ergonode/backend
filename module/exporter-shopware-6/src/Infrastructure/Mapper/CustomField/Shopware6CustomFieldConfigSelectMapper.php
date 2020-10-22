@@ -15,21 +15,11 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 
-/**
- */
 class Shopware6CustomFieldConfigSelectMapper implements Shopware6CustomFieldMapperInterface
 {
     private const TYPE = 'select';
     private const COMPONENT_NAME = 'sw-single-select';
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,

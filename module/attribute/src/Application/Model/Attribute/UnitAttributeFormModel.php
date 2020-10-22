@@ -11,19 +11,13 @@ namespace Ergonode\Attribute\Application\Model\Attribute;
 use Ergonode\Attribute\Application\Model\Attribute\Property\UnitAttributePropertyModel;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class UnitAttributeFormModel extends AttributeFormModel
 {
     /**
-     * @var UnitAttributePropertyModel
-     *
      * @Assert\Valid()
      */
     public UnitAttributePropertyModel $parameters;
 
-    /**
-     */
     public function __construct()
     {
         $this->parameters = new UnitAttributePropertyModel();

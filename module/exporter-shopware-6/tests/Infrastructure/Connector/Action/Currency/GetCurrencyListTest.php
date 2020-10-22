@@ -15,12 +15,8 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetCurrencyListTest extends TestCase
 {
-    /**
-     */
     public function testAction()
     {
         $action = new GetCurrencyList(new Shopware6QueryBuilder());

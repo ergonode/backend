@@ -12,16 +12,8 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class PrivilegeFaker extends BaseProvider
 {
-    /**
-     * @param string $code
-     *
-     * @return Privilege
-     *
-     */
     public function privilege(string $code): Privilege
     {
         return new Privilege($code);

@@ -19,44 +19,20 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- */
 class DbalDomainEventStorage implements DomainEventStorageInterface
 {
     private const TABLE = 'event_store';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @var DomainEventFactoryInterface
-     */
     private DomainEventFactoryInterface $domainEventFactory;
 
-    /**
-     * @var TokenStorageInterface
-     */
     private TokenStorageInterface $tokenStorage;
 
-    /**
-     * @var DomainEventProviderInterface
-     */
     private DomainEventProviderInterface $domainEventProvider;
 
-    /**
-     * @param Connection                   $connection
-     * @param SerializerInterface          $serializer
-     * @param DomainEventFactoryInterface  $domainEventFactory
-     * @param TokenStorageInterface        $tokenStorage
-     * @param DomainEventProviderInterface $domainEventProvider
-     */
     public function __construct(
         Connection $connection,
         SerializerInterface $serializer,
@@ -96,11 +72,6 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
     }
 
     /**
-     * @param AggregateId       $id
-     * @param DomainEventStream $stream
-     *
-     * @param string|null       $name
-     *
      * @throws \Throwable
      */
     public function append(AggregateId $id, DomainEventStream $stream, string $name = null): void
@@ -130,9 +101,6 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
     }
 
     /**
-     * @param AggregateId $id
-     * @param string|null $name
-     *
      * @throws \Throwable
      */
     public function delete(AggregateId $id, ?string $name = null): void

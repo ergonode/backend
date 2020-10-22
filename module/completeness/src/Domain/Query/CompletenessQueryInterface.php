@@ -13,21 +13,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 
-/**
- */
 interface CompletenessQueryInterface
 {
-    /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
-     * @return CompletenessReadModel
-     */
     public function getCompleteness(ProductId $productId, Language $language): CompletenessReadModel;
 
     /**
-     * @param Language $language
-     *
      * @return CompletenessWidgetModel[]
      */
     public function getCompletenessCount(Language $language): array;

@@ -10,8 +10,6 @@ namespace Ergonode\ExporterFile\Infrastructure\DataStructure;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ExportData
 {
     /**
@@ -19,10 +17,6 @@ class ExportData
      */
     private array $languages = [];
 
-    /**
-     * @param LanguageData  $data
-     * @param Language|null $language
-     */
     public function set(LanguageData $data, ?Language $language = null): void
     {
         $code = $language ? $language->getCode() : null;

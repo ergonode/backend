@@ -11,7 +11,6 @@ namespace Ergonode\Core\Application\Controller\Api\Unit;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Entity\Unit;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,10 +53,6 @@ class UnitReadAction
      * )
      *
      * @ParamConverter(name="unit")
-     *
-     * @param Unit $unit
-     *
-     * @return Response
      */
     public function __invoke(Unit $unit): Response
     {

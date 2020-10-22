@@ -18,12 +18,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class Shopware6UpdateChannelCommandBuilderTest extends TestCase
 {
-    /**
-     */
     public function testSupport(): void
     {
         $builder = new Shopware6UpdateChannelCommandBuilder();
@@ -31,8 +27,6 @@ class Shopware6UpdateChannelCommandBuilderTest extends TestCase
         self::assertFalse($builder->supported('any other'));
     }
 
-    /**
-     */
     public function testBuild(): void
     {
         $id = $this->createMock(ChannelId::class);

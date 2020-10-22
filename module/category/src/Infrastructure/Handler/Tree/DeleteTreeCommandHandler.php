@@ -16,24 +16,12 @@ use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteTreeCommandHandler
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param TreeRepositoryInterface        $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         TreeRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -43,8 +31,6 @@ class DeleteTreeCommandHandler
     }
 
     /**
-     * @param DeleteTreeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteTreeCommand $command): void

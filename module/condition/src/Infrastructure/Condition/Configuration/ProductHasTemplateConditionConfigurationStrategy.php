@@ -15,24 +15,12 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @param TranslatorInterface    $translator
-     * @param TemplateQueryInterface $templateQuery
-     */
     public function __construct(TranslatorInterface $translator, TemplateQueryInterface $templateQuery)
     {
         $this->translator = $translator;

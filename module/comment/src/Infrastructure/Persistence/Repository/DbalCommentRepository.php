@@ -18,28 +18,16 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalCommentRepository implements CommentRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param CommentId $id
-     *
-     * @return AbstractAggregateRoot|null
-     *
      * @throws \ReflectionException
      */
     public function load(CommentId $id): ?AbstractAggregateRoot
@@ -51,8 +39,6 @@ class DbalCommentRepository implements CommentRepositoryInterface
     }
 
     /**
-     * @param Comment $object
-     *
      * @throws DBALException
      */
     public function save(Comment $object): void
@@ -60,11 +46,6 @@ class DbalCommentRepository implements CommentRepositoryInterface
         $this->manager->save($object);
     }
 
-    /**
-     * @param CommentId $id
-     *
-     * @return bool
-     */
     public function exists(CommentId $id): bool
     {
         return $this->manager->exists($id);

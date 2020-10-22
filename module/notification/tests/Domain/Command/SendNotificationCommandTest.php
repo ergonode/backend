@@ -13,13 +13,10 @@ use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Notification\Domain\NotificationInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SendNotificationCommandTest extends TestCase
 {
     /**
-     * @param NotificationInterface $notification
-     * @param array                 $recipients
+     * @param array $recipients
      *
      * @dataProvider dataProvider
      */

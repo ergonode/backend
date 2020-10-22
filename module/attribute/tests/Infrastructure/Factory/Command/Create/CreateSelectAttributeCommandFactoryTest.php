@@ -15,12 +15,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateSelectAttribu
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 
-/**
- */
 class CreateSelectAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateSelectAttributeCommandFactory();
@@ -28,8 +24,6 @@ class CreateSelectAttributeCommandFactoryTest extends AbstractCreateAttributeCom
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $data = $this->getAttributeFormModel(AttributeFormModel::class);

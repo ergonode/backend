@@ -20,11 +20,10 @@ use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalImportFa
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- */
 class DbalImportRepository implements ImportRepositoryInterface
 {
     private const TABLE = 'importer.import';
+    private const TABLE_ERROR = 'importer.import_error';
     private const FIELDS = [
         'id',
         'status',
@@ -36,26 +35,12 @@ class DbalImportRepository implements ImportRepositoryInterface
         'records',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DbalImportFactory
-     */
     private DbalImportFactory $factory;
 
-    /**
-     * @var DbalImportMapper
-     */
     private DbalImportMapper $mapper;
 
-    /**
-     * @param Connection        $connection
-     * @param DbalImportFactory $factory
-     * @param DbalImportMapper  $mapper
-     */
     public function __construct(Connection $connection, DbalImportFactory $factory, DbalImportMapper $mapper)
     {
         $this->connection = $connection;
@@ -64,10 +49,6 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param ImportId $id
-     *
-     * @return Import|null
-     *
      * @throws \ReflectionException
      */
     public function load(ImportId $id): ?Import
@@ -86,8 +67,6 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param Import $import
-     *
      * @throws DBALException
      */
     public function save(Import $import): void
@@ -99,11 +78,6 @@ class DbalImportRepository implements ImportRepositoryInterface
         }
     }
 
-    /**
-     * @param ImportId $id
-     *
-     * @return bool
-     */
     public function exists(ImportId $id): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -122,8 +96,6 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param Import $import
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -138,8 +110,24 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param Import $import
-     *
+     * @throws DBALException
+     */
+    public function addError(ImportId $importId, string $message): void
+    {
+        $this->connection->insert(
+            self::TABLE_ERROR,
+            [
+                'import_id' => $importId,
+                'created_at' => new \DateTime(),
+                'message' => $message,
+            ],
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+            ],
+        );
+    }
+
+    /**
      * @throws DBALException
      */
     private function update(Import $import): void
@@ -162,8 +150,6 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param Import $import
-     *
      * @throws DBALException
      */
     private function insert(Import $import): void
@@ -183,9 +169,6 @@ class DbalImportRepository implements ImportRepositoryInterface
         );
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

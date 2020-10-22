@@ -14,29 +14,20 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DeleteProductCollectionElementCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $productCollectionId;
 
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $productId;
 
     /**
      * DeleteProductCollectionElementCommand constructor.
-     *
-     * @param ProductCollectionId $productCollectionId
-     * @param ProductId           $productId
      */
     public function __construct(ProductCollectionId $productCollectionId, ProductId $productId)
     {
@@ -44,17 +35,11 @@ class DeleteProductCollectionElementCommand implements DomainCommandInterface
         $this->productId = $productId;
     }
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getProductCollectionId(): ProductCollectionId
     {
         return $this->productCollectionId;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getProductId(): ProductId
     {
         return $this->productId;

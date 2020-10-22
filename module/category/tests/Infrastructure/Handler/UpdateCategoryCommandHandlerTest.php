@@ -15,8 +15,6 @@ use Ergonode\Category\Infrastructure\Handler\UpdateCategoryCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateCategoryCommandHandlerTest extends TestCase
 {
     /**
@@ -29,16 +27,12 @@ class UpdateCategoryCommandHandlerTest extends TestCase
      */
     private $command;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
         $this->command = $this->createMock(UpdateCategoryCommand::class);
     }
 
-    /**
-     */
     public function testHandlingExistsCategory(): void
     {
         $category = $this->createMock(AbstractCategory::class);
@@ -50,8 +44,6 @@ class UpdateCategoryCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testHandlingNotExistsCategory(): void
     {
         $this->expectException(\InvalidArgumentException::class);

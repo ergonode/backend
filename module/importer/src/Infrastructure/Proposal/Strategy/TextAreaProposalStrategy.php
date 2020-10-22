@@ -11,15 +11,10 @@ namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextareaAttribute;
 
-/**
- */
 class TextAreaProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
-     * @param string $name
-     * @param array  $values
-     *
-     * @return bool
+     * @param array $values
      */
     public function support(string $name, array $values): bool
     {
@@ -32,9 +27,6 @@ class TextAreaProposalStrategy implements AttributeProposalStrategyInterface
         return false;
     }
 
-    /**
-     * @return string
-     */
     public function getTypeProposal(): string
     {
         return AbstractTextareaAttribute::TYPE;

@@ -17,8 +17,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class DbalLanguageQuery implements LanguageQueryInterface
 {
     private const TABLE = 'language';
@@ -39,29 +37,16 @@ class DbalLanguageQuery implements LanguageQueryInterface
         'iso as name',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param Connection          $connection
-     * @param TranslatorInterface $translator
-     */
     public function __construct(Connection $connection, TranslatorInterface $translator)
     {
         $this->connection = $connection;
         $this->translator = $translator;
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder()
@@ -80,8 +65,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getLanguageNodeInfo(Language $language): ?array
@@ -102,8 +85,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return Language[]
      */
     public function getInheritancePath(Language $language): array
@@ -140,8 +121,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param string $code
-     *
      * @return array
      */
     public function getLanguage(string $code): array
@@ -223,11 +202,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -267,8 +241,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param string $id
-     *
      * @return array|null
      */
     public function getLanguageById(string $id): ?array
@@ -287,9 +259,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
         return null;
     }
 
-    /**
-     * @return Language
-     */
     public function getRootLanguage(): Language
     {
         $qb = $this->connection->createQueryBuilder();
@@ -304,8 +273,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
 
     /**
      * @param array $fields
-     *
-     * @return QueryBuilder
      */
     private function getQuery(array $fields): QueryBuilder
     {

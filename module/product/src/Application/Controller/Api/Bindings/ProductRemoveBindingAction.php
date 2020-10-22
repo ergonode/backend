@@ -34,14 +34,8 @@ use Ergonode\Product\Domain\Command\Bindings\RemoveProductBindingCommand;
  */
 class ProductRemoveBindingAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -79,11 +73,7 @@ class ProductRemoveBindingAction
      * @ParamConverter(name="product")
      * @ParamConverter(name="binding")
      *
-     * @param Language                                  $language
      * @param AbstractProduct|AbstractAssociatedProduct $product
-     * @param AbstractAttribute                         $binding
-     *
-     * @return Response
      */
     public function __invoke(Language $language, AbstractProduct $product, AbstractAttribute $binding): Response
     {

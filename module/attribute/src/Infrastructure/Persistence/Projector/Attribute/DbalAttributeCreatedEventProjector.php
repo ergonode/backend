@@ -15,29 +15,16 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalAttributeCreatedEventProjector
 {
     private const TABLE = 'attribute';
     private const TABLE_PARAMETER = 'attribute_parameter';
-    private const TABLE_VALUE = 'value';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -45,8 +32,6 @@ class DbalAttributeCreatedEventProjector
     }
 
     /**
-     * @param AttributeCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(AttributeCreatedEvent $event): void
@@ -54,27 +39,6 @@ class DbalAttributeCreatedEventProjector
         $labelUuid = Uuid::uuid4();
         $placeholderUuid = Uuid::uuid4();
         $hintUuid = Uuid::uuid4();
-
-        $this->connection->insert(
-            self::TABLE_VALUE,
-            [
-                'id' => $labelUuid->toString(),
-            ]
-        );
-
-        $this->connection->insert(
-            self::TABLE_VALUE,
-            [
-                'id' => $placeholderUuid->toString(),
-            ]
-        );
-
-        $this->connection->insert(
-            self::TABLE_VALUE,
-            [
-                'id' => $hintUuid->toString(),
-            ]
-        );
 
         foreach ($event->getLabel()->getTranslations() as $language => $value) {
             $this->connection->insert(

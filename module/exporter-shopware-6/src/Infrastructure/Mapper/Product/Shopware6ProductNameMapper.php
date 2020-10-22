@@ -18,24 +18,12 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
     private AttributeTranslationInheritanceCalculator $calculator;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator

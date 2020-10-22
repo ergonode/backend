@@ -12,26 +12,15 @@ namespace Ergonode\EventSourcing\Infrastructure\Bus;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-/**
- */
 class SymfonyEventBus implements EventBusInterface
 {
-    /**
-     * @var MessageBusInterface
-     */
     private MessageBusInterface $eventBus;
 
-    /**
-     * @param MessageBusInterface $eventBus
-     */
     public function __construct(MessageBusInterface $eventBus)
     {
         $this->eventBus = $eventBus;
     }
 
-    /**
-     * @param DomainEventInterface $event
-     */
     public function dispatch(DomainEventInterface $event): void
     {
         $this->eventBus->dispatch($event);

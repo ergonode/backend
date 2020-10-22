@@ -21,48 +21,20 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class ProcessCategoryCommandHandler
 {
-    /**
-     * @var CategoryRepositoryInterface
-     */
     private CategoryRepositoryInterface $categoryRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var CategoryProcessor
-     */
     private CategoryProcessor $processor;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
-    /**
-     * @var WriterProvider
-     */
     private WriterProvider $provider;
 
-    /**
-     * @param CategoryRepositoryInterface $categoryRepository
-     * @param ExportRepositoryInterface   $exportRepository
-     * @param ChannelRepositoryInterface  $channelRepository
-     * @param CategoryProcessor           $processor
-     * @param TempFileStorage             $storage
-     * @param WriterProvider              $provider
-     */
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         ExportRepositoryInterface $exportRepository,
@@ -80,8 +52,6 @@ class ProcessCategoryCommandHandler
     }
 
     /**
-     * @param ProcessCategoryCommand $command
-     *
      * @throws ExportException
      */
     public function __invoke(ProcessCategoryCommand $command)

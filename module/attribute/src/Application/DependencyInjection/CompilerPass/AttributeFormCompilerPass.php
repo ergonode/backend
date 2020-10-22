@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class AttributeFormCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'attribute.form.attribute_form_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(AttributeFormProvider::class)) {
@@ -30,9 +25,6 @@ class AttributeFormCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $arguments = [];

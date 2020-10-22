@@ -20,26 +20,15 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateFileAttributeCommand;
 
-/**
- */
 class UpdateFileAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === FileAttribute::TYPE;
     }
 
     /**
-     * @param AttributeId   $id
      * @param FormInterface $form \
-     *
-     * @return DomainCommandInterface
-     *
      */
     public function create(AttributeId $id, FormInterface $form): DomainCommandInterface
     {

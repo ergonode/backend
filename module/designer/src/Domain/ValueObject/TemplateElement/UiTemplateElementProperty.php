@@ -12,22 +12,15 @@ namespace Ergonode\Designer\Domain\ValueObject\TemplateElement;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UiTemplateElementProperty implements TemplateElementPropertyInterface
 {
     public const VARIANT = 'ui';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $label;
 
-    /**
-     * @param string $label
-     */
     public function __construct(string $label)
     {
         $this->label = $label;
@@ -43,9 +36,6 @@ class UiTemplateElementProperty implements TemplateElementPropertyInterface
         return self::VARIANT;
     }
 
-    /**
-     * @return string
-     */
     public function getLabel(): string
     {
         return $this->label;

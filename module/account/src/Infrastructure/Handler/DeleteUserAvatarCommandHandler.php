@@ -15,24 +15,12 @@ use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteUserAvatarCommandHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $repository;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $avatarStorage;
 
-    /**
-     * @param UserRepositoryInterface $repository
-     * @param FilesystemInterface     $avatarStorage
-     */
     public function __construct(
         UserRepositoryInterface $repository,
         FilesystemInterface $avatarStorage
@@ -42,8 +30,6 @@ class DeleteUserAvatarCommandHandler
     }
 
     /**
-     * @param DeleteUserAvatarCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteUserAvatarCommand $command): void

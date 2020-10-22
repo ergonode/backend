@@ -16,7 +16,6 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 use Ergonode\Workflow\Infrastructure\Grid\TransitionGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,26 +30,12 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class TransitionGridReadAction
 {
-    /**
-     * @var TransitionQueryInterface
-     */
     private TransitionQueryInterface $query;
 
-    /**
-     * @var TransitionGrid
-     */
     private TransitionGrid $grid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer             $gridRenderer
-     * @param TransitionQueryInterface $query
-     * @param TransitionGrid           $grid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         TransitionQueryInterface $query,
@@ -123,12 +108,6 @@ class TransitionGridReadAction
      *     response=200,
      *     description="Returns statuses collection",
      * )
-     *
-     * @param AbstractWorkflow         $workflow
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractWorkflow $workflow,

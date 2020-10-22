@@ -11,17 +11,9 @@ namespace Ergonode\Exporter\Tests\Domain\ValueObject;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ExportStatusTest extends TestCase
 {
     /**
-     * @param string $status
-     * @param bool   $created
-     * @param bool   $processed
-     * @param bool   $ended
-     * @param bool   $stopped
-     *
      * @dataProvider dataProvider
      */
     public function testValidCreation(string $status, bool $created, bool $processed, bool $ended, bool $stopped): void
@@ -34,8 +26,6 @@ class ExportStatusTest extends TestCase
         $this->assertSame($status, $vo->getValue());
     }
 
-    /**
-     */
     public function testInvalidCreation(): void
     {
         $this->expectException(\InvalidArgumentException::class);

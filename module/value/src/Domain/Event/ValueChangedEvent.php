@@ -16,44 +16,28 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ValueChangedEvent implements DomainEventInterface
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type(" Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
     /**
-     * @var AttributeCode
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
     private AttributeCode $code;
 
     /**
-     * @var ValueInterface
-     *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private ValueInterface $from;
 
     /**
-     * @var ValueInterface
-     *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private ValueInterface $to;
 
-    /**
-     * @param CategoryId     $id
-     * @param AttributeCode  $code
-     * @param ValueInterface $from
-     * @param ValueInterface $to
-     */
     public function __construct(CategoryId $id, AttributeCode $code, ValueInterface $from, ValueInterface $to)
     {
         $this->id = $id;
@@ -70,25 +54,16 @@ class ValueChangedEvent implements DomainEventInterface
         return $this->id;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getAttributeCode(): AttributeCode
     {
         return $this->code;
     }
 
-    /**
-     * @return ValueInterface
-     */
     public function getFrom(): ValueInterface
     {
         return $this->from;
     }
 
-    /**
-     * @return ValueInterface
-     */
     public function getTo(): ValueInterface
     {
         return $this->to;

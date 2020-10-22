@@ -42,20 +42,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OptionChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -104,11 +94,7 @@ class OptionChangeAction
      * @ParamConverter(name="attribute")
      * @ParamConverter(name="option")
      *
-     * @param AbstractAttribute $attribute
-     * @param AbstractOption    $option
-     * @param Request           $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

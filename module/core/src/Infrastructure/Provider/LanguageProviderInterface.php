@@ -11,20 +11,14 @@ namespace Ergonode\Core\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface LanguageProviderInterface
 {
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getLanguages(Language $language): array;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getActiveLanguages(Language $language): array;

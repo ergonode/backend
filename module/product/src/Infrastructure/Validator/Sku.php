@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class Sku extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Sku is not valid.';
 }

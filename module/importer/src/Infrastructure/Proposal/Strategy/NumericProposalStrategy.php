@@ -11,15 +11,10 @@ namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
-/**
- */
 class NumericProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
-     * @param string $name
-     * @param array  $values
-     *
-     * @return bool
+     * @param array $values
      */
     public function support(string $name, array $values): bool
     {
@@ -32,9 +27,6 @@ class NumericProposalStrategy implements AttributeProposalStrategyInterface
         return true;
     }
 
-    /**
-     * @return string
-     */
     public function getTypeProposal(): string
     {
         return AbstractNumericAttribute::TYPE;

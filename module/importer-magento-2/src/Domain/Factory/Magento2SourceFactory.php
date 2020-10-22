@@ -12,16 +12,10 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 
-/**
- */
 class Magento2SourceFactory
 {
     /**
-     * @param SourceId $sourceId
-     * @param string   $name
-     * @param array    $configuration
-     *
-     * @return AbstractSource
+     * @param array $configuration
      */
     public function create(SourceId $sourceId, string $name, array $configuration = []): AbstractSource
     {

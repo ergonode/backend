@@ -11,8 +11,6 @@ namespace Ergonode\Generator;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
-  */
 class ErgonodeGeneratorBundle extends Bundle
 {
 }

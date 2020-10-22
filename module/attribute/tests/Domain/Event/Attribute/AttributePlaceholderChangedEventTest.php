@@ -14,15 +14,9 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributePlaceholderChangedEventTest extends TestCase
 {
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $from
-     * @param TranslatableString $to
-     *
      * @dataProvider dataProvider
      */
     public function testCreateEvent(AttributeId $id, TranslatableString $from, TranslatableString $to): void

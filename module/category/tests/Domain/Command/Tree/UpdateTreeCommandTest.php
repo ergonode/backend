@@ -15,14 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateTreeCommandTest extends TestCase
 {
     /**
-     * @param CategoryTreeId     $id
-     * @param TranslatableString $name
-     * @param array              $categories
+     * @param array $categories
      *
      * @dataProvider dataProvider
      */

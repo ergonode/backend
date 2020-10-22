@@ -11,13 +11,9 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 
-/**
- */
 final class Version20200811070000 extends AbstractErgonodeMigration
 {
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema): void

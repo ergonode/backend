@@ -22,14 +22,8 @@ use Swagger\Annotations as SWG;
  */
 class RoleAutocompleteAction
 {
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $roleQuery;
 
-    /**
-     * @param RoleQueryInterface $roleQuery
-     */
     public function __construct(RoleQueryInterface $roleQuery)
     {
         $this->roleQuery = $roleQuery;
@@ -78,11 +72,6 @@ class RoleAutocompleteAction
      *     response=200,
      *     description="Return roles",
      * )
-     *
-     * @param Language $language
-     * @param Request  $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, Request $request): Response
     {

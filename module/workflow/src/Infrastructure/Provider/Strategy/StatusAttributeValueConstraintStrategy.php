@@ -18,15 +18,8 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- */
 class StatusAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof StatusSystemAttribute;
@@ -34,8 +27,6 @@ class StatusAttributeValueConstraintStrategy implements AttributeValueConstraint
 
     /**
      * @param AbstractAttribute|PriceAttribute $attribute
-     *
-     * @return Constraint
      */
     public function get(AbstractAttribute $attribute): Constraint
     {

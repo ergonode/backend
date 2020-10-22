@@ -10,28 +10,20 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6CustomField
 {
     /**
-     * @var string|null
-     *
      * @JMS\Exclude()
      */
     protected ?string $id;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("type")
      */
@@ -45,26 +37,18 @@ class Shopware6CustomField
      */
     protected ?array $config;
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("customFieldSetId")
      */
     protected ?string $customFieldSetId;
 
     /**
-     * @var bool
-     *
      * @JMS\Exclude()
      */
     protected bool $modified = false;
 
     /**
-     * @param string|null $id
-     * @param string|null $name
-     * @param string|null $type
-     * @param array|null  $config
-     * @param string|null $customFieldSetId
+     * @param array|null $config
      */
     public function __construct(
         ?string $id = null,
@@ -80,25 +64,16 @@ class Shopware6CustomField
         $this->customFieldSetId = $customFieldSetId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         if ($name !== $this->name) {
@@ -107,17 +82,11 @@ class Shopware6CustomField
         }
     }
 
-    /**
-     * @return string|null
-     */
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
     public function setType(string $type): void
     {
         if ($type !== $this->type) {
@@ -139,8 +108,7 @@ class Shopware6CustomField
     }
 
     /**
-     * @param string $key
-     * @param        $value
+     * @param $value
      */
     public function addConfig(string $key, $value): void
     {
@@ -151,17 +119,11 @@ class Shopware6CustomField
         $this->modified = true;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCustomFieldSetId(): ?string
     {
         return $this->customFieldSetId;
     }
 
-    /**
-     * @param string|null $customFieldSetId
-     */
     public function setCustomFieldSetId(?string $customFieldSetId): void
     {
         if ($customFieldSetId !== $this->customFieldSetId) {
@@ -199,9 +161,6 @@ class Shopware6CustomField
         }
     }
 
-    /**
-     * @return bool
-     */
     public function isModified(): bool
     {
         return $this->modified;

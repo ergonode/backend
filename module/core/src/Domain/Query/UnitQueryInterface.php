@@ -12,13 +12,8 @@ namespace Ergonode\Core\Domain\Query;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 interface UnitQueryInterface
 {
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 
     /**
@@ -26,17 +21,7 @@ interface UnitQueryInterface
      */
     public function getAllUnitIds(): array;
 
-    /**
-     * @param string $code
-     *
-     * @return UnitId|null
-     */
     public function findIdByCode(string $code): ?UnitId;
 
-    /**
-     * @param string $name
-     *
-     * @return UnitId|null
-     */
     public function findIdByName(string $name): ?UnitId;
 }

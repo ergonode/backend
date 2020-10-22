@@ -13,8 +13,6 @@ use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class RelationshipsResolver implements RelationshipsResolverInterface
 {
     /**
@@ -22,9 +20,6 @@ class RelationshipsResolver implements RelationshipsResolverInterface
      */
     private array $strategies;
 
-    /**
-     * @param RelationshipStrategyInterface ...$strategies
-     */
     public function __construct(RelationshipStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;

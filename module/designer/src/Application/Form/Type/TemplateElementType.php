@@ -19,26 +19,17 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class TemplateElementType extends AbstractType implements EventSubscriberInterface
 {
-    /**
-     * @var TemplateElementFormTypeResolver
-     */
     private TemplateElementFormTypeResolver $resolver;
 
-    /**
-     * @param TemplateElementFormTypeResolver $resolver
-     */
     public function __construct(TemplateElementFormTypeResolver $resolver)
     {
         $this->resolver = $resolver;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -58,9 +49,6 @@ class TemplateElementType extends AbstractType implements EventSubscriberInterfa
             ->addEventSubscriber($this);
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -80,9 +68,6 @@ class TemplateElementType extends AbstractType implements EventSubscriberInterfa
         ];
     }
 
-    /**
-     * @param FormEvent $event
-     */
     public function onPreSubmit(FormEvent $event)
     {
         $data = $event->getData();

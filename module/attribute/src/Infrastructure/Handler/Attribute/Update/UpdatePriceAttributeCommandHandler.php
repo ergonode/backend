@@ -15,26 +15,16 @@ use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeC
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
 
-/**
- */
 class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdatePriceAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdatePriceAttributeCommand $command): void

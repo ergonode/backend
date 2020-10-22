@@ -10,18 +10,10 @@ namespace Ergonode\Workflow\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 interface WorkflowInterface
 {
-    /**
-     * @return string
-     */
     public static function getType(): string;
 
-    /**
-     * @return string
-     */
     public function getCode(): string;
 
     /**

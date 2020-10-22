@@ -18,30 +18,14 @@ use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var CompletenessCalculator
-     */
     private CompletenessCalculator $calculator;
 
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $repository;
 
-    /**
-     * @var DraftProvider
-     */
     private DraftProvider $provider;
 
-    /**
-     * @param CompletenessCalculator      $calculator
-     * @param TemplateRepositoryInterface $repository
-     * @param DraftProvider               $provider
-     */
     public function __construct(
         CompletenessCalculator $calculator,
         TemplateRepositoryInterface $repository,
@@ -61,10 +45,8 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
     }
 
     /**
-     * @param AbstractProduct                                  $object
      * @param ConditionInterface|LanguageCompletenessCondition $configuration
      *
-     * @return bool
      *
      * @throws \Exception
      */

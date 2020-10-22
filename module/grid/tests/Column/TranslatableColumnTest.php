@@ -9,12 +9,8 @@ namespace Ergonode\Grid\Tests\Column;
 use Ergonode\Grid\Column\TranslatableColumn;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TranslatableColumnTest extends TestCase
 {
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any id';

@@ -28,14 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class GetMultimediaMetadataAction
 {
-    /**
-     * @var MetadataService
-     */
     private MetadataService $service;
 
-    /**
-     * @param MetadataService $service
-     */
     public function __construct(MetadataService $service)
     {
         $this->service = $service;
@@ -69,12 +63,6 @@ class GetMultimediaMetadataAction
      * )
      *
      * @ParamConverter(name="multimedia")
-     *
-     * @param Multimedia $multimedia
-     * @param Request    $request
-     *
-     * @return Response
-     *
      */
     public function __invoke(Multimedia $multimedia, Request $request): Response
     {

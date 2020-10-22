@@ -3,7 +3,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -16,24 +15,15 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
 {
-    /**
-     * @var ProductBelongCategoryConditionCalculatorStrategy
-     */
     private ProductBelongCategoryConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->strategy = new ProductBelongCategoryConditionCalculatorStrategy();
     }
 
-    /**
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_BELONG_CATEGORY_CONDITION'));
@@ -41,9 +31,6 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param bool   $result
-     *
      * @dataProvider dataProvider
      */
     public function testCalculate(string $operator, bool $result): void

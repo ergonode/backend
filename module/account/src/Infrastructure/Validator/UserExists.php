@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class UserExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'User {{ value }} not exists.';
 }

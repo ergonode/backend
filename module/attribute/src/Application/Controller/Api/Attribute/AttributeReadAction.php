@@ -29,14 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AttributeReadAction
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     */
     public function __construct(AttributeQueryInterface $attributeQuery)
     {
         $this->attributeQuery = $attributeQuery;
@@ -69,11 +63,8 @@ class AttributeReadAction
      *     description="Not found",
      * )
      *
-     * @param AbstractAttribute $attribute
      *
      * @ParamConverter(name="attribute")
-     *
-     * @return Response
      */
     public function __invoke(AbstractAttribute $attribute): Response
     {

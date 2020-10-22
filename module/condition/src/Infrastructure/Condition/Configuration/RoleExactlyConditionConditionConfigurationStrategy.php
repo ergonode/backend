@@ -15,24 +15,12 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyIn
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class RoleExactlyConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $roleQuery;
 
-    /**
-     * @param TranslatorInterface $translator
-     * @param RoleQueryInterface  $roleQuery
-     */
     public function __construct(
         TranslatorInterface $translator,
         RoleQueryInterface $roleQuery

@@ -16,12 +16,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateTextAttribute
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
 
-/**
- */
 class UpdateTextAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdateTextAttributeCommandFactory();
@@ -29,8 +25,6 @@ class UpdateTextAttributeCommandFactoryTest extends AbstractUpdateAttributeComma
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $id = $this->createMock(AttributeId::class);

@@ -14,12 +14,8 @@ use Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DefaultLabelSystemAttributeTest extends TestCase
 {
-    /**
-     */
     public function testEntityCreation(): void
     {
         /** @var TranslatableString | MockObject $label */

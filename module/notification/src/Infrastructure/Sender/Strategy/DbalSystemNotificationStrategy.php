@@ -16,24 +16,12 @@ use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalSystemNotificationStrategy implements NotificationStrategyInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -41,8 +29,7 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
     }
 
     /**
-     * @param NotificationInterface $notification
-     * @param UserId[]              $recipients
+     * @param UserId[] $recipients
      *
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Exception

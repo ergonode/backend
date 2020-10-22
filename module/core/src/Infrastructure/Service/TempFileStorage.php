@@ -10,13 +10,8 @@ namespace Ergonode\Core\Infrastructure\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class TempFileStorage
 {
-    /**
-     * @var string $directory
-     */
     private string $directory;
 
     /**
@@ -24,27 +19,16 @@ class TempFileStorage
      */
     private $file;
 
-    /**
-     * @param KernelInterface $kernel
-     */
     public function __construct(KernelInterface $kernel)
     {
         $this->directory = sprintf('%s/var/tmp', $kernel->getProjectDir());
     }
 
-    /**
-     * @return string
-     */
     public function getDirectory(): string
     {
         return $this->directory;
     }
 
-    /**
-     * @param string $filename
-     *
-     * @return bool
-     */
     public function exists(string $filename): bool
     {
         $filename = sprintf('%s/%s', $this->directory, $filename);
@@ -52,9 +36,6 @@ class TempFileStorage
         return file_exists($filename);
     }
 
-    /**
-     * @param string $filename
-     */
     public function create(string $filename): void
     {
         $file = sprintf('%s/%s', $this->directory, $filename);
@@ -77,9 +58,6 @@ class TempFileStorage
         }
     }
 
-    /**
-     * @param string $filename
-     */
     public function open(string $filename): void
     {
         $this->file = \fopen(sprintf('%s/%s', $this->directory, $filename), 'ab');
@@ -101,16 +79,11 @@ class TempFileStorage
         }
     }
 
-    /**
-     */
     public function close(): void
     {
         \fclose($this->file);
     }
 
-    /**
-     * @param string $filename
-     */
     public function clean(string $filename): void
     {
         $filename = sprintf('%s/%s', $this->directory, $filename);

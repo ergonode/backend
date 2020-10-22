@@ -21,42 +21,18 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 
-/**
- */
 class SimpleProductImportAction
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @var ImportProductAttributeBuilder
-     */
     private ImportProductAttributeBuilder $builder;
 
-    /**
-     * @param ProductQueryInterface         $productQuery
-     * @param ProductRepositoryInterface    $repository
-     * @param TemplateQueryInterface        $templateQuery
-     * @param CategoryQueryInterface        $categoryQuery
-     * @param ImportProductAttributeBuilder $builder
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $repository,
@@ -72,10 +48,8 @@ class SimpleProductImportAction
     }
 
     /**
-     * @param Sku    $sku
-     * @param string $template
-     * @param array  $categories
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $attributes
      *
      * @throws \Exception
      */

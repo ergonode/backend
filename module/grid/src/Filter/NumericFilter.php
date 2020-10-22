@@ -11,8 +11,6 @@ namespace Ergonode\Grid\Filter;
 
 use Ergonode\Grid\FilterInterface;
 
-/**
- */
 class NumericFilter implements FilterInterface
 {
     public const TYPE = 'NUMERIC';
@@ -25,9 +23,6 @@ class NumericFilter implements FilterInterface
         return [];
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

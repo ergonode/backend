@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 
-/**
- */
 class DbalProductRemovedFromCategoryEventProjector
 {
     private const TABLE_PRODUCT_CATEGORY = 'product_category';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductRemovedFromCategoryEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductRemovedFromCategoryEvent $event): void

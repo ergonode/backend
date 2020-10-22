@@ -17,14 +17,9 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class ProductCollectionTypeGrid extends AbstractGrid
 {
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     *
      * @throws \Exception
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void

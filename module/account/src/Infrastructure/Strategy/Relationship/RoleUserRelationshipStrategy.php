@@ -15,18 +15,10 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var AccountQueryInterface
-     */
     private AccountQueryInterface $query;
 
-    /**
-     * @param AccountQueryInterface $query
-     */
     public function __construct(AccountQueryInterface $query)
     {
         $this->query = $query;

@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TextareaAttributeTest extends TestCase
 {
     /**
@@ -50,13 +48,8 @@ class TextareaAttributeTest extends TestCase
      */
     private AttributeScope $scope;
 
-    /**
-     * @var bool
-     */
     private bool $richEdit;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(AttributeId::class);

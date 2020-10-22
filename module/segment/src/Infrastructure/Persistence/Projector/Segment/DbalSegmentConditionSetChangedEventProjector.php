@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 
-/**
- */
 class DbalSegmentConditionSetChangedEventProjector
 {
     private const TABLE = 'segment';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param SegmentConditionSetChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(SegmentConditionSetChangedEvent $event): void

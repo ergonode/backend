@@ -16,14 +16,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class LanguageIdExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'LanguageId {{ value }} not exists.';
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return LanguageIdValidator::class;
