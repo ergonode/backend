@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class UserUnique extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'User {{ value }} already exists.';
 }

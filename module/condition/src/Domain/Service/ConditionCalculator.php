@@ -15,25 +15,13 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class ConditionCalculator
 {
-    /**
-     * @var ConditionCalculatorProvider
-     */
     private ConditionCalculatorProvider $provider;
 
-    /**
-     * @param ConditionCalculatorProvider $provider
-     */
     public function __construct(ConditionCalculatorProvider $provider)
     {
         $this->provider = $provider;
     }
 
-    /**
-     * @param ConditionSet    $conditionSet
-     * @param AbstractProduct $product
-     *
-     * @return bool
-     */
     public function calculate(ConditionSet $conditionSet, AbstractProduct $product): bool
     {
         foreach ($conditionSet->getConditions() as $condition) {

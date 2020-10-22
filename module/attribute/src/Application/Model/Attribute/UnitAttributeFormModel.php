@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UnitAttributeFormModel extends AttributeFormModel
 {
     /**
-     * @var UnitAttributePropertyModel
-     *
      * @Assert\Valid()
      */
     public UnitAttributePropertyModel $parameters;

@@ -15,20 +15,10 @@ use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 
 class CreateUnitCommandHandler
 {
-    /**
-     * @var UnitRepositoryInterface
-     */
     private UnitRepositoryInterface $repository;
 
-    /**
-     * @var UnitFactory
-     */
     private UnitFactory $factory;
 
-    /**
-     * @param UnitRepositoryInterface $repository
-     * @param UnitFactory             $factory
-     */
     public function __construct(UnitRepositoryInterface $repository, UnitFactory $factory)
     {
         $this->repository = $repository;
@@ -36,8 +26,6 @@ class CreateUnitCommandHandler
     }
 
     /**
-     * @param CreateUnitCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateUnitCommand $command)

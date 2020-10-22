@@ -18,9 +18,6 @@ class SourceFormFactoryCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.import_source_form_factory_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(SourceFormFactoryProvider::class)) {
@@ -28,9 +25,6 @@ class SourceFormFactoryCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

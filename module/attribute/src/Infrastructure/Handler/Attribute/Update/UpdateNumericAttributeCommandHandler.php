@@ -17,22 +17,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateNumericAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateNumericAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateNumericAttributeCommand $command): void

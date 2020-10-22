@@ -40,9 +40,6 @@ class MultiSelectAttributeDataSetQueryBuilderTest extends TestCase
      */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var ProductAttributeLanguageResolver
-     */
     private ProductAttributeLanguageResolver $resolver;
 
     protected function setUp(): void

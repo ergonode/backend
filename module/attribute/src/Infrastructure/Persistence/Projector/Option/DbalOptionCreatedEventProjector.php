@@ -20,22 +20,14 @@ class DbalOptionCreatedEventProjector
     private const TABLE_ATTRIBUTE_OPTION = 'public.attribute_option';
     private const TABLE_VALUE_TRANSLATION = 'public.value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param OptionCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(OptionCreatedEvent $event): void
@@ -56,9 +48,6 @@ class DbalOptionCreatedEventProjector
     }
 
     /**
-     * @param string             $valueId
-     * @param TranslatableString $label
-     *
      * @throws DBALException
      */
     private function insertOption(string $valueId, TranslatableString $label): void
@@ -69,10 +58,6 @@ class DbalOptionCreatedEventProjector
     }
 
     /**
-     * @param string      $valueId
-     * @param string      $value
-     * @param string|null $language
-     *
      * @throws DBALException
      * @throws \Exception
      */

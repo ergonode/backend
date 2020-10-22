@@ -23,9 +23,6 @@ class ProductAttributeLanguageResolverTest extends TestCase
      */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var Language
-     */
     private Language $rootLanguage;
 
     protected function setUp(): void

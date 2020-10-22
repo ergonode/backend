@@ -15,14 +15,8 @@ use Ergonode\Category\Domain\Query\TreeQueryInterface;
 
 class UniqueCategoryTreeCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $query;
 
-    /**
-     * @param TreeQueryInterface $query
-     */
     public function __construct(TreeQueryInterface $query)
     {
         $this->query = $query;

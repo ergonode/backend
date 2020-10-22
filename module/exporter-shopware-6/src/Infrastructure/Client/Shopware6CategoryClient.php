@@ -23,20 +23,10 @@ use GuzzleHttp\Exception\ClientException;
 
 class Shopware6CategoryClient
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @var Shopware6CategoryRepositoryInterface
-     */
     private Shopware6CategoryRepositoryInterface $repository;
 
-    /**
-     * @param Shopware6Connector                   $connector
-     * @param Shopware6CategoryRepositoryInterface $repository
-     */
     public function __construct(Shopware6Connector $connector, Shopware6CategoryRepositoryInterface $repository)
     {
         $this->connector = $connector;
@@ -44,10 +34,6 @@ class Shopware6CategoryClient
     }
 
     /**
-     * @param Shopware6Channel       $channel
-     * @param string                 $shopwareId
-     * @param Shopware6Language|null $shopware6Language
-     *
      * @return array|object|string|null
      */
     public function get(Shopware6Channel $channel, string $shopwareId, ?Shopware6Language $shopware6Language = null)
@@ -60,13 +46,6 @@ class Shopware6CategoryClient
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel  $channel
-     * @param Shopware6Category $shopwareCategory
-     * @param AbstractCategory  $category
-     *
-     * @return Shopware6Category|null
-     */
     public function insert(
         Shopware6Channel $channel,
         Shopware6Category $shopwareCategory,
@@ -84,11 +63,6 @@ class Shopware6CategoryClient
         return $newShopwareCategory;
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6Category      $shopwareCategory
-     * @param Shopware6Language|null $shopware6Language
-     */
     public function update(
         Shopware6Channel $channel,
         Shopware6Category $shopwareCategory,
@@ -101,11 +75,6 @@ class Shopware6CategoryClient
         $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param string           $shopwareId
-     * @param CategoryId       $categoryId
-     */
     public function delete(Shopware6Channel $channel, string $shopwareId, CategoryId $categoryId): void
     {
         try {

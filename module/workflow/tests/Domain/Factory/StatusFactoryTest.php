@@ -19,9 +19,6 @@ use PHPUnit\Framework\TestCase;
 
 class StatusFactoryTest extends TestCase
 {
-    /**
-     * @var StatusCode
-     */
     private StatusCode $code;
 
     /**

@@ -22,14 +22,8 @@ use Swagger\Annotations as SWG;
  */
 class AttributeGroupAutocompleteAction
 {
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $attributeGroupQuery;
 
-    /**
-     * @param AttributeGroupQueryInterface $attributeGroupQuery
-     */
     public function __construct(AttributeGroupQueryInterface $attributeGroupQuery)
     {
         $this->attributeGroupQuery = $attributeGroupQuery;
@@ -78,11 +72,6 @@ class AttributeGroupAutocompleteAction
      *     response=200,
      *     description="Return attribute groups",
      * )
-     *
-     * @param Language $language
-     * @param Request  $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, Request $request): Response
     {

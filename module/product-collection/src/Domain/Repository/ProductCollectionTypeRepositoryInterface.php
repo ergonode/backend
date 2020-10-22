@@ -14,26 +14,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 interface ProductCollectionTypeRepositoryInterface
 {
-    /**
-     * @param ProductCollectionTypeId $id
-     *
-     * @return bool
-     */
     public function exists(ProductCollectionTypeId $id): bool;
-    /**
-     * @param ProductCollectionTypeId $id
-     *
-     * @return AbstractAggregateRoot|null
-     */
     public function load(ProductCollectionTypeId $id): ?AbstractAggregateRoot;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

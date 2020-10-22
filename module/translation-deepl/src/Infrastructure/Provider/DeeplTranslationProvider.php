@@ -16,14 +16,8 @@ use Scn\DeeplApiConnector\Model\TranslationConfig;
 
 class DeeplTranslationProvider implements TranslationProviderInterface
 {
-    /**
-     * @var string
-     */
     private string $deeplAuthKey;
 
-    /**
-     * @param string $deeplAuthKey
-     */
     public function __construct(string $deeplAuthKey)
     {
         $this->deeplAuthKey = $deeplAuthKey;

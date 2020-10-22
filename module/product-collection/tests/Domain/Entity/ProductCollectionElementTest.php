@@ -18,19 +18,10 @@ use PHPUnit\Framework\TestCase;
 
 class ProductCollectionElementTest extends TestCase
 {
-    /**
-     * @var ProductCollectionElementId
-     */
     private ProductCollectionElementId $id;
 
-    /**
-     * @var ProductId
-     */
     private ProductId $productId;
 
-    /**
-     * @var AbstractAggregateRoot
-     */
     private AbstractAggregateRoot $aggregateRoot;
 
     protected function setUp(): void

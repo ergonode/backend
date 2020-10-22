@@ -20,10 +20,6 @@ class ProductTypeSystemAttribute extends AbstractTextAttribute
     public const CODE = 'esa_product_type';
 
     /**
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -38,25 +34,16 @@ class ProductTypeSystemAttribute extends AbstractTextAttribute
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return bool
-     */
     public function isSystem(): bool
     {
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isEditable(): bool
     {
         return false;

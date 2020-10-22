@@ -18,20 +18,10 @@ class DbalUserLanguagePrivilegesCollectionChangedEventProjector
 {
     private const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -39,8 +29,6 @@ class DbalUserLanguagePrivilegesCollectionChangedEventProjector
     }
 
     /**
-     * @param UserLanguagePrivilegesCollectionChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UserLanguagePrivilegesCollectionChangedEvent $event): void

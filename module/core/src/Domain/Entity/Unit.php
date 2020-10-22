@@ -19,31 +19,21 @@ use JMS\Serializer\Annotation as JMS;
 class Unit extends AbstractAggregateRoot
 {
     /**
-     * @var UnitId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
      */
     private UnitId $id;
 
     /**
-     * @var string $name
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string $symbol
-     *
      * @JMS\Type("string")
      */
     private string $symbol;
 
     /**
-     * @param UnitId $id
-     * @param string $name
-     * @param string $symbol
-     *
      * @throws \Exception
      */
     public function __construct(UnitId $id, string $name, string $symbol)
@@ -51,33 +41,22 @@ class Unit extends AbstractAggregateRoot
         $this->apply(new UnitCreatedEvent($id, $name, $symbol));
     }
 
-    /**
-     * @return UnitId
-     */
     public function getId(): UnitId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getSymbol(): string
     {
         return $this->symbol;
     }
 
     /**
-     * @param string $newName
-     *
      * @throws \Exception
      */
     public function changeName(string $newName): void
@@ -88,8 +67,6 @@ class Unit extends AbstractAggregateRoot
     }
 
     /**
-     * @param string $newSymbol
-     *
      * @throws \Exception
      */
     public function changeSymbol(string $newSymbol): void
@@ -99,25 +76,16 @@ class Unit extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param UnitNameChangedEvent $event
-     */
     protected function applyUnitNameChangedEvent(UnitNameChangedEvent $event): void
     {
         $this->name = $event->getTo();
     }
 
-    /**
-     * @param UnitSymbolChangedEvent $event
-     */
     protected function applyUnitSymbolChangedEvent(UnitSymbolChangedEvent $event): void
     {
         $this->symbol = $event->getTo();
     }
 
-    /**
-     * @param UnitCreatedEvent $event
-     */
     protected function applyUnitCreatedEvent(UnitCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();

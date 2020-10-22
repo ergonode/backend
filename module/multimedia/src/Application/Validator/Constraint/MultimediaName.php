@@ -15,19 +15,10 @@ use Symfony\Component\Validator\Constraint;
  */
 class MultimediaName extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Multimedia name is too long. It should contain {{ limit }} characters or less.';
 
-    /**
-     * @var int
-     */
     public int $max;
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return MultimediaNameValidator::class;

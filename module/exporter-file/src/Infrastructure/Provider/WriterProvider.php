@@ -17,19 +17,11 @@ class WriterProvider
      */
     private array $writers;
 
-    /**
-     * @param WriterInterface ...$writers
-     */
     public function __construct(WriterInterface ...$writers)
     {
         $this->writers = $writers;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return WriterInterface
-     */
     public function provide(string $type): WriterInterface
     {
         foreach ($this->writers as $writer) {

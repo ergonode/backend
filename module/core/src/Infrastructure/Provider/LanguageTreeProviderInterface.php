@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 interface LanguageTreeProviderInterface
 {
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getActiveLanguages(Language $language): array;

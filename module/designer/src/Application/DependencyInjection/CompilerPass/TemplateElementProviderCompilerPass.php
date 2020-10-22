@@ -18,9 +18,6 @@ class TemplateElementProviderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.template.view_template_element_strategy_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ViewTemplateElementProvider::class)) {
@@ -28,9 +25,6 @@ class TemplateElementProviderCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processTransformers(ContainerBuilder $container): void
     {
         $arguments = [];

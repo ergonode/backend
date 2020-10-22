@@ -17,31 +17,23 @@ class Shopware6PropertyGroup
     private const SORTING_TYPES = ['numeric', 'alphanumeric', 'position'];
 
     /**
-     * @var string|null
-     *
      * @JMS\Exclude()
      */
     protected ?string $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     protected ?string $name;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("displayType")
      */
     protected ?string $displayType;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("sortingType")
      */
@@ -56,18 +48,12 @@ class Shopware6PropertyGroup
     protected ?array $translations;
 
     /**
-     * @var bool
-     *
      * @JMS\Exclude()
      */
     protected bool $modified = false;
 
     /**
-     * @param string|null $id
-     * @param string|null $name
-     * @param string|null $displayType
-     * @param string|null $sortingType
-     * @param array|null  $translations
+     * @param array|null $translations
      */
     public function __construct(
         ?string $id = null,
@@ -83,33 +69,21 @@ class Shopware6PropertyGroup
         $this->translations = $translations;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @param string|null $id
-     */
     public function setId(?string $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         if ($name !== $this->name) {
@@ -118,17 +92,11 @@ class Shopware6PropertyGroup
         }
     }
 
-    /**
-     * @return string
-     */
     public function getDisplayType(): string
     {
         return $this->displayType;
     }
 
-    /**
-     * @param string $displayType
-     */
     public function setDisplayType(string $displayType): void
     {
         if ($displayType !== $this->displayType && in_array($displayType, self::DISPLAY_TYPES)) {
@@ -137,17 +105,11 @@ class Shopware6PropertyGroup
         }
     }
 
-    /**
-     * @return string
-     */
     public function getSortingType(): string
     {
         return $this->sortingType;
     }
 
-    /**
-     * @param string $sortingType
-     */
     public function setSortingType(string $sortingType): void
     {
         if ($sortingType !== $this->sortingType && in_array($sortingType, self::SORTING_TYPES)) {
@@ -164,11 +126,6 @@ class Shopware6PropertyGroup
         return $this->translations;
     }
 
-    /**
-     * @param Language $language
-     * @param string   $field
-     * @param string   $value
-     */
     public function addTranslations(Language $language, string $field, string $value): void
     {
         $code = str_replace('_', '-', $language->getCode());
@@ -176,9 +133,6 @@ class Shopware6PropertyGroup
         $this->translations[$code][$field] = $value;
     }
 
-    /**
-     * @return bool
-     */
     public function isModified(): bool
     {
         return $this->modified;

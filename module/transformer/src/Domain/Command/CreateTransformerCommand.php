@@ -16,30 +16,21 @@ use JMS\Serializer\Annotation as JMS;
 class CreateTransformerCommand implements DomainCommandInterface
 {
     /**
-     * @var TransformerId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $key;
 
     /**
-     * @param string $name
-     * @param string $key
-     *
      * @throws \Exception
      */
     public function __construct(string $name, string $key)
@@ -49,25 +40,16 @@ class CreateTransformerCommand implements DomainCommandInterface
         $this->key = $key;
     }
 
-    /**
-     * @return TransformerId
-     */
     public function getId(): TransformerId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return $this->key;

@@ -22,20 +22,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProfileReadAction
 {
-    /**
-     * @var ProfileQueryInterface
-     */
     private ProfileQueryInterface $query;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @param ProfileQueryInterface              $query
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(
         ProfileQueryInterface $query,
         AuthenticatedUserProviderInterface $userProvider
@@ -50,8 +40,6 @@ class ProfileReadAction
      *     response=200,
      *     description="Returns information about current logged user"
      * )
-     *
-     * @return Response
      */
     public function __invoke(): Response
     {

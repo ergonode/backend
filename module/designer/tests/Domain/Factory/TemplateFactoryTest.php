@@ -30,9 +30,6 @@ class TemplateFactoryTest extends TestCase
      */
     private MockObject $groupId;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     /**

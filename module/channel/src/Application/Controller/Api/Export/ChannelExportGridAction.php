@@ -31,26 +31,12 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelExportGridAction
 {
-    /**
-     * @var ExportGrid
-     */
     private ExportGrid $grid;
 
-    /**
-     * @var ExportQueryInterface
-     */
     private ExportQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param ExportGrid           $grid
-     * @param ExportQueryInterface $query
-     * @param GridRenderer         $gridRenderer
-     */
     public function __construct(ExportGrid $grid, ExportQueryInterface $query, GridRenderer $gridRenderer)
     {
         $this->grid = $grid;
@@ -123,12 +109,6 @@ class ChannelExportGridAction
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param AbstractChannel          $channel
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         Language $language,

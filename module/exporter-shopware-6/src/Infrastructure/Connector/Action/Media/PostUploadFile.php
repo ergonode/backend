@@ -18,22 +18,14 @@ class PostUploadFile extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v1/_action/media/%s/upload?%s';
 
-    /**
-     * @var string
-     */
     private string $multimediaId;
 
     private $content;
 
-    /**
-     * @var Multimedia
-     */
     private Multimedia $multimedia;
 
     /**
-     * @param string     $multimediaId
-     * @param            $content
-     * @param Multimedia $multimedia
+     * @param $content
      */
     public function __construct(string $multimediaId, $content, Multimedia $multimedia)
     {
@@ -42,9 +34,6 @@ class PostUploadFile extends AbstractAction implements ActionInterface
         $this->multimedia = $multimedia;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         $this->addHeader('Content-Type', $this->multimedia->getMime());
@@ -58,8 +47,6 @@ class PostUploadFile extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return null
      */
     public function parseContent(?string $content)
@@ -67,17 +54,11 @@ class PostUploadFile extends AbstractAction implements ActionInterface
         return null;
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         return $this->content;
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [

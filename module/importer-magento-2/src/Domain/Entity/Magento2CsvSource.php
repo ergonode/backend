@@ -24,9 +24,6 @@ class Magento2CsvSource extends AbstractSource
         self::ESCAPE => '\\',
     ];
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

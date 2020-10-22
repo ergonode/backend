@@ -23,9 +23,6 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 {
     private const UUID = '5bfd053c-e39b-45f9-87a7-6ca1cc9d9830';
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
     /**
@@ -33,21 +30,12 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
      */
     private array $categories;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
         $this->categories = [];
     }
 
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,

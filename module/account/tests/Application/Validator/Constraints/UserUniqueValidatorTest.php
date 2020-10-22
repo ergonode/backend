@@ -71,9 +71,6 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return UserUniqueValidator
-     */
     protected function createValidator(): UserUniqueValidator
     {
         return new UserUniqueValidator($this->query);

@@ -19,13 +19,7 @@ use PHPUnit\Framework\TestCase;
 class UpdateUnitAttributeCommandTest extends TestCase
 {
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param UnitId             $unitId
-     * @param array              $groups
+     * @param array $groups
      *
      * @dataProvider dataProvider
      */

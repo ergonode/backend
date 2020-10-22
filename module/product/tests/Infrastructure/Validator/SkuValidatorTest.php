@@ -50,9 +50,6 @@ class SkuValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     * @return SkuValidator
-     */
     protected function createValidator(): SkuValidator
     {
         return new SkuValidator();

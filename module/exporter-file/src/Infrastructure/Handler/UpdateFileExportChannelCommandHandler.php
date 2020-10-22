@@ -14,22 +14,14 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class UpdateFileExportChannelCommandHandler
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $repository;
 
-    /**
-     * @param ChannelRepositoryInterface $repository
-     */
     public function __construct(ChannelRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateFileExportChannelCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateFileExportChannelCommand $command)

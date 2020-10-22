@@ -15,29 +15,16 @@ use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 
 class CreateCommentCommandHandler
 {
-    /**
-     * @var CommentRepositoryInterface $repository
-     */
     private CommentRepositoryInterface $repository;
 
-    /**
-     * @var CommentFactoryInterface $factory
-     */
     private CommentFactoryInterface $factory;
 
-    /**
-     * @param CommentRepositoryInterface $repository
-     * @param CommentFactoryInterface    $factory
-     */
     public function __construct(CommentRepositoryInterface $repository, CommentFactoryInterface $factory)
     {
         $this->repository = $repository;
         $this->factory = $factory;
     }
 
-    /**
-     * @param CreateCommentCommand $command
-     */
     public function __invoke(CreateCommentCommand $command): void
     {
         $entity = $this

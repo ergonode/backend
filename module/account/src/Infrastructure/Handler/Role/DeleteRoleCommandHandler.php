@@ -18,20 +18,10 @@ use Webmozart\Assert\Assert;
 
 class DeleteRoleCommandHandler
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param RoleRepositoryInterface        $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         RoleRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -41,8 +31,6 @@ class DeleteRoleCommandHandler
     }
 
     /**
-     * @param DeleteRoleCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteRoleCommand $command)

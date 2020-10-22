@@ -18,9 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class LanguageVoterTest extends TestCase
 {
     /**
-     * @param string $attribute
-     * @param mixed  $subject
-     * @param bool   $expectedResult
+     * @param mixed $subject
      *
      * @dataProvider supportsDataProvider
      */
@@ -44,11 +42,6 @@ class LanguageVoterTest extends TestCase
     }
 
     /**
-     * @param string $attribute
-     * @param bool   $read
-     * @param bool   $edit
-     * @param bool   $expectedResult
-     *
      * @dataProvider voteOnAttributeDataProvider
      */
     public function testVoteOnAttribute(string $attribute, bool $read, bool $edit, bool $expectedResult): void

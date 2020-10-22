@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductCollectionTypeCodeValid extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'The product collection type code {{ value }} is not valid.';
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return ProductCollectionTypeCodeValidValidator::class;

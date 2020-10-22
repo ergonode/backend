@@ -18,9 +18,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class ConstraintLanguageActiveValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
     protected function setUp(): void
@@ -63,9 +60,6 @@ class ConstraintLanguageActiveValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return ConstraintLanguageActiveValidator
-     */
     protected function createValidator(): ConstraintLanguageActiveValidator
     {
         return new ConstraintLanguageActiveValidator($this->query);

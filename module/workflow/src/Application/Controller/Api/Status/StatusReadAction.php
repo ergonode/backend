@@ -56,10 +56,6 @@ class StatusReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
-     *
-     * @param Status $status
-     *
-     * @return Response
      */
     public function __invoke(Status $status): Response
     {

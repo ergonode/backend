@@ -29,32 +29,14 @@ use Ergonode\Channel\Application\Provider\CreateChannelCommandBuilderProvider;
  */
 class ChannelCreateAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var ChannelFormFactoryProvider
-     */
     private ChannelFormFactoryProvider $provider;
 
-    /**
-     * @var CreateChannelCommandBuilderProvider
-     */
     private CreateChannelCommandBuilderProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface                $formFactory
-     * @param ChannelFormFactoryProvider          $provider
-     * @param CreateChannelCommandBuilderProvider $commandProvider
-     * @param CommandBusInterface                 $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         ChannelFormFactoryProvider $provider,
@@ -103,9 +85,7 @@ class ChannelCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

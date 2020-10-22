@@ -16,14 +16,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class AttributeCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @param AttributeQueryInterface $query
-     */
     public function __construct(AttributeQueryInterface $query)
     {
         $this->query = $query;

@@ -20,14 +20,6 @@ class Shopware6CustomFieldConfigMultiSelectMapper implements Shopware6CustomFiel
     private const TYPE = 'select';
     private const COMPONENT_NAME = 'sw-multi-select';
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function map(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,

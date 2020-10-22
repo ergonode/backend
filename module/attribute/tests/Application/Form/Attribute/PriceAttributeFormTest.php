@@ -27,9 +27,6 @@ class PriceAttributeFormTest extends TypeTestCase
      */
     private AttributeGroupQueryInterface $groupQuery;
 
-    /**
-     * @var CurrencyQueryInterface
-     */
     private CurrencyQueryInterface $currencyQuery;
 
     public function setUp(): void

@@ -17,9 +17,6 @@ class ConverterCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'transformer.converter.converter_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConverterInterfaceHandler::class)) {
@@ -27,9 +24,6 @@ class ConverterCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(ConverterInterfaceHandler::class);

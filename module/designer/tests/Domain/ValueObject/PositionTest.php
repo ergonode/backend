@@ -12,9 +12,6 @@ use PHPUnit\Framework\TestCase;
 class PositionTest extends TestCase
 {
     /**
-     * @param int $x
-     * @param int $y
-     *
      * @dataProvider getCorrectDataProvider
      */
     public function testGreaterOrEqualThenZeroValue(int $x, int $y): void
@@ -25,9 +22,6 @@ class PositionTest extends TestCase
     }
 
     /**
-     * @param int $x
-     * @param int $y
-     *
      * @dataProvider getCorrectDataProvider
      */
     public function testGreaterThenZeroValue(int $x, int $y): void
@@ -38,11 +32,7 @@ class PositionTest extends TestCase
     }
 
     /**
-     * @param int $x
-     * @param int $y
-     *
      * @dataProvider getIncorrectDataProvider
-     *
      */
     public function testLessThenZeroValue(int $x, int $y): void
     {

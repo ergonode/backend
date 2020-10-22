@@ -13,30 +13,18 @@ class SimpleDirectoryProvider implements DirectoryProviderInterface
 {
     public const MULTIMEDIA = 'public/multimedia';
 
-    /**
-     * @var string
-     */
     private string $directory;
 
-    /**
-     * @param string $directory
-     */
     public function __construct(string $directory)
     {
         $this->directory = $directory;
     }
 
-    /**
-     * @return string
-     */
     public function getProjectDirectory(): string
     {
         return  $this->directory;
     }
 
-    /**
-     * @return string
-     */
     public function getMultimediaDirectory(): string
     {
         return sprintf('%s/%s', $this->directory, self::MULTIMEDIA);

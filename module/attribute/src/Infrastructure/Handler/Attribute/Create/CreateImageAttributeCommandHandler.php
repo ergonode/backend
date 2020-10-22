@@ -15,22 +15,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 class CreateImageAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateImageAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateImageAttributeCommand $command): void

@@ -38,20 +38,10 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class TransitionChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -102,13 +92,6 @@ class TransitionChangeAction
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
-     *
-     * @param AbstractWorkflow $workflow
-     * @param Status           $source
-     * @param Status           $destination
-     * @param Request          $request
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractWorkflow $workflow,

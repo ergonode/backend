@@ -16,13 +16,5 @@ use Ramsey\Uuid\Uuid;
 
 interface CommentFactoryInterface
 {
-    /**
-     * @param CommentId $id
-     * @param UserId    $authorId
-     * @param Uuid      $objectId
-     * @param string    $content
-     *
-     * @return Comment
-     */
     public function create(CommentId $id, UserId $authorId, Uuid $objectId, string $content): Comment;
 }

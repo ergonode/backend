@@ -17,19 +17,11 @@ class WorkflowFormProvider
      */
     private array $forms;
 
-    /**
-     * @param WorkflowFormInterface ...$forms
-     */
     public function __construct(WorkflowFormInterface ...$forms)
     {
         $this->forms = $forms;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return string
-     */
     public function provide(string $type): string
     {
         foreach ($this->forms as $form) {

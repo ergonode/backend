@@ -14,24 +14,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormErrorMapperMessageProvider
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * @param FormError $error
-     *
-     * @return string
-     */
     public function getMessage(FormError $error): string
     {
         $parameters = $error->getMessageParameters();

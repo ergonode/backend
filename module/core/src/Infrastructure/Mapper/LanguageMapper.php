@@ -13,21 +13,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LanguageMapper
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
     /**
-     * @param Language   $language
      * @param Language[] $allLanguages
      *
      * @return array

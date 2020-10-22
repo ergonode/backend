@@ -15,20 +15,10 @@ use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 
 class CreateStatusCommandHandler
 {
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @var StatusFactory
-     */
     private StatusFactory $factory;
 
-    /**
-     * @param StatusRepositoryInterface $repository
-     * @param StatusFactory             $factory
-     */
     public function __construct(StatusRepositoryInterface $repository, StatusFactory $factory)
     {
         $this->repository = $repository;
@@ -36,8 +26,6 @@ class CreateStatusCommandHandler
     }
 
     /**
-     * @param CreateStatusCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateStatusCommand $command)

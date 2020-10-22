@@ -16,10 +16,6 @@ use Faker\Provider\Base as BaseProvider;
 class AttributeIdFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
-     *
-     * @return AttributeId
-     *
      * @throws \Exception
      */
     public function attributeId(?string $code = null): AttributeId

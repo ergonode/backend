@@ -31,9 +31,6 @@ class TemplateTest extends TestCase
      */
     private MockObject $groupId;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     /**
@@ -220,11 +217,6 @@ class TemplateTest extends TestCase
         $template->removeDefaultImage();
     }
 
-    /**
-     * @param MultimediaId|null $multimediaId
-     *
-     * @return Template
-     */
     private function getTemplate(MultimediaId $multimediaId = null): Template
     {
         return new Template(

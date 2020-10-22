@@ -16,43 +16,30 @@ use Webmozart\Assert\Assert;
 class Scheduler
 {
     /**
-     * @var AggregateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
     private AggregateId $id;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("boolean")
      */
     private bool $active;
 
     /**
-     * @var \DateTime|null
-     *
      * @JMS\Type("DateTime")
      */
     private ?\DateTime $start;
 
     /**
-     * @var int|null
-     *
      * @JMS\Type("integer")
      */
     private ?int $hour;
 
     /**
-     * @var int|null
-     *
      * @JMS\Type("integer")
      */
     private ?int $minute;
 
-    /**
-     * @param AggregateId $id
-     */
     public function __construct(AggregateId $id)
     {
         $this->id = $id;
@@ -62,51 +49,31 @@ class Scheduler
         $this->minute = null;
     }
 
-    /**
-     * @return AggregateId
-     */
     public function getId(): AggregateId
     {
         return $this->id;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->active;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getStart(): ?\DateTime
     {
         return $this->start;
     }
 
-    /**
-     * @return int|null
-     */
     public function getHour(): ?int
     {
         return $this->hour;
     }
 
-    /**
-     * @return int|null
-     */
     public function getMinute(): ?int
     {
         return $this->minute;
     }
 
-    /**
-     * @param \DateTime $start
-     * @param int       $hour
-     * @param int       $minute
-     */
     public function active(\DateTime $start, int $hour, int $minute): void
     {
         Assert::greaterThanEq($hour, 0);

@@ -17,22 +17,14 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateMultiSelectAttribut
 
 class UpdateMultiSelectAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateMultiSelectAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateMultiSelectAttributeCommand $command): void

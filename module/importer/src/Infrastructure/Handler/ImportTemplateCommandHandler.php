@@ -17,26 +17,12 @@ use Psr\Log\LoggerInterface;
 
 class ImportTemplateCommandHandler
 {
-    /**
-     * @var TemplateImportAction
-     */
     private TemplateImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
     private ImportErrorRepositoryInterface $repository;
 
-    /**
-     * @var LoggerInterface
-     */
     private LoggerInterface $importLogger;
 
-    /**
-     * @param TemplateImportAction           $action
-     * @param ImportErrorRepositoryInterface $repository
-     * @param LoggerInterface                $importLogger
-     */
     public function __construct(
         TemplateImportAction $action,
         ImportErrorRepositoryInterface $repository,
@@ -48,8 +34,6 @@ class ImportTemplateCommandHandler
     }
 
     /**
-     * @param ImportTemplateCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ImportTemplateCommand $command)

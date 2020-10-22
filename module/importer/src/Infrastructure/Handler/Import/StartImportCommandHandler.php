@@ -17,26 +17,12 @@ use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 
 class StartImportCommandHandler
 {
-    /**
-     * @var ImportRepositoryInterface
-     */
     private ImportRepositoryInterface $importRepository;
 
-    /**
-     * @var SourceRepositoryInterface
-     */
     private SourceRepositoryInterface $sourceRepository;
 
-    /**
-     * @var ImportProcessorProvider
-     */
     private ImportProcessorProvider $provider;
 
-    /**
-     * @param ImportRepositoryInterface $importRepository
-     * @param SourceRepositoryInterface $sourceRepository
-     * @param ImportProcessorProvider   $provider
-     */
     public function __construct(
         ImportRepositoryInterface $importRepository,
         SourceRepositoryInterface $sourceRepository,
@@ -48,8 +34,6 @@ class StartImportCommandHandler
     }
 
     /**
-     * @param StartImportCommand $command
-     *
      * @throws \ReflectionException
      */
     public function __invoke(StartImportCommand $command)

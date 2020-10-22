@@ -21,8 +21,7 @@ use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataRea
 class ErgonodeMultimediaExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

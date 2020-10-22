@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ConditionSetParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ConditionSetRepositoryInterface
-     */
     private ConditionSetRepositoryInterface $conditionSetRepository;
 
-    /**
-     * @param ConditionSetRepositoryInterface $conditionSetRepository
-     */
     public function __construct(ConditionSetRepositoryInterface $conditionSetRepository)
     {
         $this->conditionSetRepository = $conditionSetRepository;

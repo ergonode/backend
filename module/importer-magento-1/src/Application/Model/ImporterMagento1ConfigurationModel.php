@@ -17,23 +17,17 @@ use Ergonode\ImporterMagento1\Application\Model\Type\AttributeMapModel;
 class ImporterMagento1ConfigurationModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $name = null;
 
     /**
-     * @var string|null
-     *
      * @Assert\Url()
      */
     public ?string $host = null;
 
     /**
-     * @var StoreViewModel
-     *
      * @Assert\Valid()
      */
     public StoreViewModel $mapping;
@@ -50,9 +44,6 @@ class ImporterMagento1ConfigurationModel
      */
     public array $import = [];
 
-    /**
-     * @param Magento1CsvSource|null $source
-     */
     public function __construct(Magento1CsvSource $source = null)
     {
         $this->mapping = new StoreViewModel();

@@ -28,8 +28,6 @@ final class Version20180401083834 extends AbstractErgonodeMigration
     ];
 
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema): void

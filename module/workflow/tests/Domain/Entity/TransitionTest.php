@@ -20,24 +20,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 class TransitionTest extends TestCase
 {
-    /**
-     * @var TransitionId
-     */
     private TransitionId $id;
 
-    /**
-     * @var StatusId
-     */
     private StatusId $from;
 
-    /**
-     * @var StatusId
-     */
     private StatusId $to;
 
-    /**
-     * @var ConditionSetId
-     */
     private ConditionSetId $conditionSetId;
 
     /**
@@ -45,9 +33,6 @@ class TransitionTest extends TestCase
      */
     private array $roleIds;
 
-    /**
-     * @var AbstractAggregateRoot
-     */
     private AbstractAggregateRoot $aggregateRoot;
 
     protected function setUp(): void

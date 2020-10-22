@@ -16,15 +16,10 @@ class TextConverter implements ConverterInterface
     public const TYPE = 'text';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $field;
 
-    /**
-     * @param string $field
-     */
     public function __construct(string $field)
     {
         $this->field = $field;
@@ -40,9 +35,6 @@ class TextConverter implements ConverterInterface
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getField(): string
     {
         return $this->field;

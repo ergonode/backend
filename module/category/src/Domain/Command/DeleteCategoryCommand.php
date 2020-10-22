@@ -16,23 +16,15 @@ use JMS\Serializer\Annotation as JMS;
 class DeleteCategoryCommand implements DomainCommandInterface
 {
     /**
-     * @var CategoryId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
-    /**
-     * @param CategoryId $id
-     */
     public function __construct(CategoryId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return CategoryId
-     */
     public function getId(): CategoryId
     {
         return $this->id;

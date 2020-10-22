@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class PostCustomFieldSetActionTest extends TestCase
 {
-    /**
-     * @var Shopware6CustomFieldSet
-     */
     private Shopware6CustomFieldSet $customFieldSet;
 
     protected function setUp(): void

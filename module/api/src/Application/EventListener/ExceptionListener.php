@@ -16,22 +16,13 @@ use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 class ExceptionListener
 {
-    /**
-     * @var ExceptionMapperInterface
-     */
     private ExceptionMapperInterface $exceptionMapper;
 
-    /**
-     * @param ExceptionMapperInterface $exceptionMapper
-     */
     public function __construct(ExceptionMapperInterface $exceptionMapper)
     {
         $this->exceptionMapper = $exceptionMapper;
     }
 
-    /**
-     * @param ExceptionEvent $event
-     */
     public function __invoke(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();

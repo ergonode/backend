@@ -35,42 +35,25 @@ interface LanguageQueryInterface
     public function getDictionaryActive(): array;
 
     /**
-     * @param string $code
-     *
      * @return array
      */
     public function getLanguage(string $code): array;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getLanguageNodeInfo(Language $language): ?array;
 
     /**
-     * @param Language $language
-     *
      * @return Language[]
      */
     public function getInheritancePath(Language $language): array;
 
-    /**
-     * @return Language
-     */
     public function getRootLanguage(): Language;
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(
@@ -81,8 +64,6 @@ interface LanguageQueryInterface
     ): array;
 
     /**
-     * @param string $id
-     *
      * @return array|null
      */
     public function getLanguageById(string $id): ?array;

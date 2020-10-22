@@ -18,25 +18,14 @@ use Webmozart\Assert\Assert;
 
 class DbalProductDraftRepository implements ProductDraftRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param ProductDraftId $id
-     * @param bool           $draft
-     *
-     * @return ProductDraft
-     *
      * @throws \ReflectionException
      */
     public function load(ProductDraftId $id, bool $draft = false): ProductDraft
@@ -49,8 +38,6 @@ class DbalProductDraftRepository implements ProductDraftRepositoryInterface
     }
 
     /**
-     * @param ProductDraft $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(ProductDraft $aggregateRoot): void

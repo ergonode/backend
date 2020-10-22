@@ -15,8 +15,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class UniqueCategoryTreeCode extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Category tree code {{ value }} is not unique.';
 }

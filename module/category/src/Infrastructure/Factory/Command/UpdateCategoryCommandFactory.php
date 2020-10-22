@@ -19,23 +19,11 @@ use Symfony\Component\Form\FormInterface;
 
 class UpdateCategoryCommandFactory implements UpdateCategoryCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === Category::TYPE;
     }
 
-    /**
-     * @param CategoryId    $id
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
-     */
     public function create(CategoryId $id, FormInterface $form): DomainCommandInterface
     {
         /** @var CategoryFormModel $data */

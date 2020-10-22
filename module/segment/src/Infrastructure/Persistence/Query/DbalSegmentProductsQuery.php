@@ -20,14 +20,8 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
     private const PRODUCT_TABLE = 'public.product';
     private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -54,8 +48,6 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
     }
 
     /**
-     * @param SegmentId $segmentId
-     *
      * @return string[]
      */
     public function getProducts(SegmentId $segmentId): array
@@ -72,9 +64,6 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
     }
 
     /**
-     * @param SegmentId $segmentId
-     * @param string    $type
-     *
      * @return string[]
      */
     public function getProductsByType(SegmentId $segmentId, string $type): array
@@ -93,9 +82,6 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

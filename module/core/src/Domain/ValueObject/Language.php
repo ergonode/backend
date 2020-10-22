@@ -13,14 +13,8 @@ class Language
 {
     private const PATTERN = '/^[a-z]{2}_[A-Z]{2}$/';
 
-    /**
-     * @var string
-     */
     private string $code;
 
-    /**
-     * @param string $code
-     */
     public function __construct(string $code)
     {
         $this->code = trim($code);
@@ -29,41 +23,27 @@ class Language
         }
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->getCode();
     }
 
-    /**
-     * @return string
-     */
     public function getLanguageCode(): string
     {
         return explode('_', $this->code)[0];
     }
 
-    /**
-     * @return string
-     */
     public function getTerritoryCode(): string
     {
         return explode('_', $this->code)[1];
     }
 
     /**
-     * @param string $code
-     *
      * @return Language
      */
     public static function fromString(string $code): self
@@ -71,21 +51,11 @@ class Language
         return new self($code);
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return bool
-     */
     public function isEqual(Language $language): bool
     {
         return $language->code === $this->code;
     }
 
-    /**
-     * @param string $code
-     *
-     * @return bool
-     */
     public static function isValid(string $code): bool
     {
         return preg_match(self::PATTERN, $code) === 1;

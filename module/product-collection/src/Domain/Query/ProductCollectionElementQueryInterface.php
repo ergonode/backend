@@ -15,11 +15,5 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 interface ProductCollectionElementQueryInterface
 {
-    /**
-     * @param ProductCollectionId $productCollectionId
-     * @param Language            $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(ProductCollectionId $productCollectionId, Language $language): DataSetInterface;
 }

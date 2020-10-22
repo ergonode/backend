@@ -17,30 +17,19 @@ use JMS\Serializer\Annotation as JMS;
 class UploadFileCommand implements DomainCommandInterface
 {
     /**
-     * @var ImportId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
      */
     private ImportId $id;
     /**
-     * @var SourceId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     private SourceId $sourceId;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $fileName;
 
-    /**
-     * @param ImportId $id
-     * @param SourceId $sourceId
-     * @param string   $fileName
-     */
     public function __construct(ImportId $id, SourceId $sourceId, string $fileName)
     {
         $this->id = $id;
@@ -48,25 +37,16 @@ class UploadFileCommand implements DomainCommandInterface
         $this->fileName = $fileName;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getId(): ImportId
     {
         return $this->id;
     }
 
-    /**
-     * @return SourceId
-     */
     public function getSourceId(): SourceId
     {
         return $this->sourceId;
     }
 
-    /**
-     * @return string
-     */
     public function getFileName(): string
     {
         return $this->fileName;

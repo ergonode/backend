@@ -15,15 +15,10 @@ use Webmozart\Assert\Assert;
 
 class UpdateTreeCommandHandler
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $repository;
 
     /**
      * UpdateTreeCommandHandler constructor.
-     *
-     * @param TreeRepositoryInterface $repository
      */
     public function __construct(TreeRepositoryInterface $repository)
     {
@@ -31,8 +26,6 @@ class UpdateTreeCommandHandler
     }
 
     /**
-     * @param UpdateTreeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateTreeCommand $command): void

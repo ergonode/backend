@@ -16,26 +16,12 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class LanguageTreeProvider implements LanguageTreeProviderInterface
 {
-    /**
-     * @var LanguageTreeQueryInterface
-     */
     private LanguageTreeQueryInterface $query;
 
-    /**
-     * @var TokenStorageInterface
-     */
     private TokenStorageInterface $tokenStorage;
 
-    /**
-     * @var LanguageTreeMapper
-     */
     private LanguageTreeMapper $mapper;
 
-    /**
-     * @param LanguageTreeQueryInterface $query
-     * @param TokenStorageInterface      $tokenStorage
-     * @param LanguageTreeMapper         $mapper
-     */
     public function __construct(
         LanguageTreeQueryInterface $query,
         TokenStorageInterface $tokenStorage,
@@ -47,8 +33,6 @@ class LanguageTreeProvider implements LanguageTreeProviderInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getActiveLanguages(Language $language): array

@@ -16,22 +16,13 @@ use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 
 class AttributeGroupType extends AbstractType
 {
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $query;
 
-    /**
-     * @param AttributeGroupQueryInterface $query
-     */
     public function __construct(AttributeGroupQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $choices = $this->query->getAttributeGroupIds();
@@ -45,9 +36,6 @@ class AttributeGroupType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

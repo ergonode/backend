@@ -19,29 +19,16 @@ class PostCustomFieldAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/custom-field?%s';
 
-    /**
-     * @var Shopware6CustomField
-     */
     private Shopware6CustomField $customField;
 
-    /**
-     * @var bool
-     */
     private bool $response;
 
-    /**
-     * @param Shopware6CustomField $customField
-     * @param bool                 $response
-     */
     public function __construct(Shopware6CustomField $customField, bool $response = false)
     {
         $this->customField = $customField;
         $this->response = $response;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -53,10 +40,6 @@ class PostCustomFieldAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6CustomField|null
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?Shopware6CustomField
@@ -78,9 +61,6 @@ class PostCustomFieldAction extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $serializer = SerializerBuilder::create()->build();
@@ -88,9 +68,6 @@ class PostCustomFieldAction extends AbstractAction implements ActionInterface
         return $serializer->serialize($this->customField, 'json');
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [];

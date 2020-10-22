@@ -25,14 +25,8 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         't.code',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -55,8 +49,6 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function findNumericConditionRelations(AttributeId $attributeId): array
@@ -80,9 +72,6 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         return $result;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

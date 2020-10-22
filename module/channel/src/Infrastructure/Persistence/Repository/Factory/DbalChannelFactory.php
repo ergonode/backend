@@ -3,7 +3,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -15,14 +14,8 @@ use JMS\Serializer\SerializerInterface;
 
 class DbalChannelFactory
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
@@ -30,8 +23,6 @@ class DbalChannelFactory
 
     /**
      * @param array $record
-     *
-     * @return AbstractChannel
      */
     public function create(array $record): AbstractChannel
     {

@@ -32,22 +32,13 @@ class DbalAccountQuery implements AccountQueryInterface
         'a.language_privileges_collection',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         $query = $this->getQuery();
@@ -107,9 +98,6 @@ class DbalAccountQuery implements AccountQueryInterface
         return $result;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

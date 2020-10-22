@@ -32,24 +32,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductHistoryReadAction
 {
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
-    /**
-     * @var HistoryQueryInterface
-     */
     private HistoryQueryInterface $query;
-    /**
-     * @var ProductHistoryGrid
-     */
     private ProductHistoryGrid $grid;
 
-    /**
-     * @param GridRenderer          $gridRenderer
-     * @param HistoryQueryInterface $query
-     * @param ProductHistoryGrid    $grid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         HistoryQueryInterface $query,
@@ -132,12 +118,6 @@ class ProductHistoryReadAction
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     * @param Language                 $language
-     * @param AbstractProduct          $product
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         Language $language,

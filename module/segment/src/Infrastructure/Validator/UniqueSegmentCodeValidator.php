@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UniqueSegmentCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $query;
 
-    /**
-     * @param SegmentQueryInterface $query
-     */
     public function __construct(SegmentQueryInterface $query)
     {
         $this->query = $query;

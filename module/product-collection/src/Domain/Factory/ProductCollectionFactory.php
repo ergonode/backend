@@ -17,15 +17,6 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 
 class ProductCollectionFactory
 {
-    /**
-     * @param ProductCollectionId     $id
-     * @param ProductCollectionCode   $code
-     * @param TranslatableString      $name
-     * @param TranslatableString      $description
-     * @param ProductCollectionTypeId $typeId
-     *
-     * @return ProductCollection
-     */
     public function create(
         ProductCollectionId $id,
         ProductCollectionCode $code,

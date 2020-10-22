@@ -19,9 +19,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ImportProductImageAttributeStrategyTest extends TestCase
 {
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $query;
 
     protected function setUp(): void

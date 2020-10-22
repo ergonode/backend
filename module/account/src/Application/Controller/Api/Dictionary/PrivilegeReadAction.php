@@ -21,14 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PrivilegeReadAction
 {
-    /**
-     * @var PrivilegeDictionaryProvider
-     */
     private PrivilegeDictionaryProvider $provider;
 
-    /**
-     * @param PrivilegeDictionaryProvider $provider
-     */
     public function __construct(PrivilegeDictionaryProvider $provider)
     {
         $this->provider = $provider;
@@ -52,10 +46,6 @@ class PrivilegeReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

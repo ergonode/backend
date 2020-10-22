@@ -14,24 +14,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LanguageMapModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank()
      * @Assert\Length(max="255", maxMessage="Store view is to long, It should have {{ limit }} character or less.")
      */
     public ?string $store;
 
     /**
-     * @var Language|null
-     *
      * @Assert\NotBlank()
      */
     public ?Language $language;
 
-    /**
-     * @param string|null   $store
-     * @param Language|null $language
-     */
     public function __construct(string $store = null, Language $language = null)
     {
         $this->store = $store;

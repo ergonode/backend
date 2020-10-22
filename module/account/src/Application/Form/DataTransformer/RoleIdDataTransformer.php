@@ -17,8 +17,6 @@ class RoleIdDataTransformer implements DataTransformerInterface
 {
     /**
      * @param RoleId|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -34,8 +32,6 @@ class RoleIdDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return RoleId|null
      */
     public function reverseTransform($value): ?RoleId
     {

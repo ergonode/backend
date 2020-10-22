@@ -23,25 +23,13 @@ class DbalShopware6MultimediaQuery implements Shopware6MultimediaQueryInterface
         'multimedia_id',
         'shopware6_id',
     ];
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channel
-     * @param string    $shopwareId
-     *
-     * @return MultimediaId|null
-     */
     public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?MultimediaId
     {
         $query = $this->connection->createQueryBuilder();
@@ -62,10 +50,6 @@ class DbalShopware6MultimediaQuery implements Shopware6MultimediaQueryInterface
         return null;
     }
 
-    /**
-     * @param ChannelId          $channel
-     * @param \DateTimeImmutable $dateTime
-     */
     public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime): void
     {
         $query = $this->connection->createQueryBuilder();

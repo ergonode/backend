@@ -22,21 +22,12 @@ use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
 
 class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return Shopware6Channel::TYPE === $type;
     }
 
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function build(FormInterface $form): DomainCommandInterface

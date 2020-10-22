@@ -17,40 +17,26 @@ use JMS\Serializer\Annotation as JMS;
 class AddProductBindingCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId $id
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var AttributeId $childId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $bindingId;
 
-    /**
-     * @param AbstractAssociatedProduct $product
-     * @param AttributeId               $attributeId
-     */
     public function __construct(AbstractAssociatedProduct $product, AttributeId $attributeId)
     {
         $this->id = $product->getId();
         $this->bindingId = $attributeId;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getBindingId(): AttributeId
     {
         return $this->bindingId;

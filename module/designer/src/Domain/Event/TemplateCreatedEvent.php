@@ -19,56 +19,37 @@ use JMS\Serializer\Annotation as JMS;
 class TemplateCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $id;
 
     /**
-     * @var TemplateGroupId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $groupId;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var AttributeId | null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultLabel;
 
     /**
-     * @var AttributeId | null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultImage;
 
     /**
-     * @var MultimediaId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private ?MultimediaId $imageId;
 
     /**
      * TemplateCreatedEvent constructor.
-     *
-     * @param TemplateId        $id
-     * @param TemplateGroupId   $groupId
-     * @param string            $name
-     * @param AttributeId|null  $defaultLabel
-     * @param AttributeId|null  $defaultImage
-     * @param MultimediaId|null $imageId
      */
     public function __construct(
         TemplateId $id,
@@ -87,49 +68,31 @@ class TemplateCreatedEvent implements DomainEventInterface
     }
 
 
-    /**
-     * @return TemplateId
-     */
     public function getAggregateId(): TemplateId
     {
         return $this->id;
     }
 
-    /**
-     * @return TemplateGroupId
-     */
     public function getGroupId(): TemplateGroupId
     {
         return $this->groupId;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return null | AttributeId
-     */
     public function getDefaultLabel(): ?AttributeId
     {
         return $this->defaultLabel;
     }
 
-    /**
-     * @return null | AttributeId
-     */
     public function getDefaultImage(): ?AttributeId
     {
         return $this->defaultImage;
     }
 
-    /**
-     * @return null|MultimediaId
-     */
     public function getImageId(): ?MultimediaId
     {
         return $this->imageId;

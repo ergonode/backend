@@ -20,8 +20,6 @@ use Webmozart\Assert\Assert;
 class ConditionSet extends AbstractAggregateRoot
 {
     /**
-     * @var ConditionSetId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ConditionSetId $id;
@@ -34,8 +32,7 @@ class ConditionSet extends AbstractAggregateRoot
     private array $conditions;
 
     /**
-     * @param ConditionSetId $id
-     * @param array          $conditions
+     * @param array $conditions
      *
      * @throws \Exception
      */
@@ -48,9 +45,6 @@ class ConditionSet extends AbstractAggregateRoot
         $this->apply(new ConditionSetCreatedEvent($id, $conditions));
     }
 
-    /**
-     * @return ConditionSetId
-     */
     public function getId(): ConditionSetId
     {
         return $this->id;
@@ -76,18 +70,12 @@ class ConditionSet extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param ConditionSetCreatedEvent $event
-     */
     protected function applyConditionSetCreatedEvent(ConditionSetCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
         $this->conditions = $event->getConditions();
     }
 
-    /**
-     * @param ConditionSetConditionsChangedEvent $event
-     */
     protected function applyConditionSetConditionsChangedEvent(ConditionSetConditionsChangedEvent $event): void
     {
         $this->conditions = $event->getTo();

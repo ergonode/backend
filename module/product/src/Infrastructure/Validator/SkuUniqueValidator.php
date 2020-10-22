@@ -16,14 +16,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class SkuUniqueValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @param ProductQueryInterface $query
-     */
     public function __construct(ProductQueryInterface $query)
     {
         $this->query = $query;

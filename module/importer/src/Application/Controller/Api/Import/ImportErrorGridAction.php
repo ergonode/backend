@@ -35,26 +35,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ImportErrorGridAction
 {
-    /**
-     * @var ImportErrorsGrid
-     */
     private ImportErrorsGrid $grid;
 
-    /**
-     * @var ImportQueryInterface
-     */
     private ImportQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param ImportErrorsGrid     $grid
-     * @param ImportQueryInterface $query
-     * @param GridRenderer         $gridRenderer
-     */
     public function __construct(ImportErrorsGrid $grid, ImportQueryInterface $query, GridRenderer $gridRenderer)
     {
         $this->grid = $grid;
@@ -94,13 +80,6 @@ class ImportErrorGridAction
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param AbstractSource           $source
-     * @param Import                   $import
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         Language $language,

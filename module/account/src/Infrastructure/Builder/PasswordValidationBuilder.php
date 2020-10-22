@@ -23,8 +23,6 @@ class PasswordValidationBuilder
 {
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function create(array $data): Constraint
     {

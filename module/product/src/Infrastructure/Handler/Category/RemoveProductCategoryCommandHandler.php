@@ -14,22 +14,14 @@ use Webmozart\Assert\Assert;
 
 class RemoveProductCategoryCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @param ProductRepositoryInterface $productRepository
-     */
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }
 
     /**
-     * @param RemoveProductCategoryCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(RemoveProductCategoryCommand $command)

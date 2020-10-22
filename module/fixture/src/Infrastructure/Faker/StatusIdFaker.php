@@ -18,10 +18,6 @@ class StatusIdFaker extends BaseProvider
     private const NAMESPACE = 'dcf14212-d63d-4829-b914-71e3d5599ad2';
 
     /**
-     * @param string|null $code
-     *
-     * @return StatusId
-     *
      * @throws \Exception
      */
     public function statusId(?string $code = null): StatusId

@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 interface ProductDashboardQueryInterface
 {
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getProductCount(Language $language): array;

@@ -70,9 +70,6 @@ class CategoryExistsValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return CategoryExistsValidator
-     */
     protected function createValidator(): CategoryExistsValidator
     {
         return new CategoryExistsValidator($this->repository);

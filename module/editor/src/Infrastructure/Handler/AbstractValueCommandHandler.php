@@ -27,11 +27,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractCollectionAttribute;
 abstract class AbstractValueCommandHandler
 {
     /**
-     * @param Language          $language
-     * @param AbstractAttribute $attribute
-     * @param mixed             $value
-     *
-     * @return ValueInterface|null
+     * @param mixed $value
      */
     protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ?ValueInterface
     {
@@ -66,10 +62,6 @@ abstract class AbstractValueCommandHandler
     }
 
     /**
-     * @param ProductDraft   $product
-     * @param AttributeCode  $code
-     * @param ValueInterface $value
-     *
      * @throws \Exception
      */
     protected function attributeUpdate(ProductDraft $product, AttributeCode $code, ValueInterface $value): void
@@ -82,9 +74,6 @@ abstract class AbstractValueCommandHandler
     }
 
     /**
-     * @param User         $user
-     * @param ProductDraft $draft
-     *
      * @throws \Exception
      */
     protected function updateAudit(User $user, ProductDraft $draft): void

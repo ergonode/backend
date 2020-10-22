@@ -18,9 +18,6 @@ class GetPropertyGroupOptionsList extends AbstractAction implements ActionInterf
 {
     private const URI = '/api/v2/property-group/%s/options?%s';
 
-    /**
-     * @var string
-     */
     private string $propertyGroupId;
 
     /**
@@ -29,10 +26,7 @@ class GetPropertyGroupOptionsList extends AbstractAction implements ActionInterf
     private array $query;
 
     /**
-     * @param string   $propertyGroupId
-     * @param array    $query
-     * @param int      $limit
-     * @param int|null $page
+     * @param array $query
      */
     public function __construct(string $propertyGroupId, array $query = [], int $limit = 500, int $page = null)
     {
@@ -49,9 +43,6 @@ class GetPropertyGroupOptionsList extends AbstractAction implements ActionInterf
         }
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -62,8 +53,6 @@ class GetPropertyGroupOptionsList extends AbstractAction implements ActionInterf
     }
 
     /**
-     * @param string|null $content
-     *
      * @return Shopware6PropertyGroupOption[]
      */
     public function parseContent(?string $content): array
@@ -83,9 +72,6 @@ class GetPropertyGroupOptionsList extends AbstractAction implements ActionInterf
         return $result;
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return rtrim(sprintf(self::URI, $this->propertyGroupId, http_build_query($this->query)), '?');

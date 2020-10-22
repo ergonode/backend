@@ -16,12 +16,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 class AttributeGroupFactory
 {
     /**
-     * @param AttributeGroupId   $id
-     * @param AttributeGroupCode $code
-     * @param TranslatableString $name
-     *
-     * @return AttributeGroup
-     *
      * @throws \Exception
      */
     public function create(AttributeGroupId $id, AttributeGroupCode $code, TranslatableString $name): AttributeGroup

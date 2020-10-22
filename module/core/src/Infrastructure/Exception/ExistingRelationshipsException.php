@@ -13,9 +13,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class ExistingRelationshipsException extends \Exception
 {
-    /**
-     * @param AggregateId $id
-     */
     public function __construct(AggregateId $id)
     {
         $message = sprintf(

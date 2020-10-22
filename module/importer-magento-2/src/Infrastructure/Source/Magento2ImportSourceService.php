@@ -14,19 +14,11 @@ class Magento2ImportSourceService implements ImportSourceInterface
 {
     public const TYPE = 'magento-2-csv';
 
-    /**
-     * @return string
-     */
     public static function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return self::TYPE === $type;

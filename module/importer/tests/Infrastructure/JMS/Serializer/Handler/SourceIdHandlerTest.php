@@ -18,24 +18,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 class SourceIdHandlerTest extends TestCase
 {
-    /**
-     * @var SourceIdHandler
-     */
     private SourceIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

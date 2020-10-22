@@ -12,14 +12,8 @@ use Ergonode\Core\Domain\Entity\LanguageTree;
 
 interface LanguageTreeRepositoryInterface
 {
-    /**
-     * @return LanguageTree|null
-     */
     public function load(): ?LanguageTree;
 
 
-    /**
-     * @param LanguageTree $tree
-     */
     public function save(LanguageTree $tree): void;
 }

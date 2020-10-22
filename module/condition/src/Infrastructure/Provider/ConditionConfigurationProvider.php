@@ -20,18 +20,12 @@ class ConditionConfigurationProvider
      */
     private array $strategies;
 
-    /**
-     * @param ConditionConfigurationStrategyInterface ...$strategies
-     */
     public function __construct(ConditionConfigurationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
     /**
-     * @param Language $language
-     * @param string   $type
-     *
      * @return array
      *
      * @throws ConditionStrategyNotFoundException

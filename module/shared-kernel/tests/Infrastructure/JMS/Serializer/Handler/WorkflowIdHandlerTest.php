@@ -18,24 +18,12 @@ use PHPUnit\Framework\TestCase;
 
 class WorkflowIdHandlerTest extends TestCase
 {
-    /**
-     * @var WorkflowIdHandler
-     */
     private WorkflowIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializationVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializationVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

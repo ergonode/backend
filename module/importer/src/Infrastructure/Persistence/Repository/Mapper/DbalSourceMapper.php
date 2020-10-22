@@ -14,22 +14,14 @@ use JMS\Serializer\SerializerInterface;
 
 class DbalSourceMapper
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
     /**
-     * @param AbstractSource $source
-     *
      * @return array
      */
     public function map(AbstractSource $source): array

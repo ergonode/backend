@@ -15,14 +15,9 @@ use Behatch\Context\JsonContext;
 
 class ExtendJsonContext extends JsonContext
 {
-    /**
-     * @var FeatureNode
-     */
     private FeatureNode $feature;
 
     /**
-     * @param BeforeScenarioScope $scope
-     *
      * @BeforeScenario
      */
     public function beforeScenario(BeforeScenarioScope $scope): void

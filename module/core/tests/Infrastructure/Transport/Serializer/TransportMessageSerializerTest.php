@@ -23,14 +23,8 @@ class TransportMessageSerializerTest extends TestCase
      */
     private $serializer;
 
-    /**
-     * @var string
-     */
     private string $format;
 
-    /**
-     * @var TransportMessageSerializer
-     */
     private TransportMessageSerializer $messageSerializer;
 
     protected function setUp(): void

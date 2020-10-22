@@ -16,13 +16,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class AttributeGroupCode extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $validMessage = 'Given value {{ value }} is not valid attribute group code';
 
-    /**
-     * @var string
-     */
     public string $uniqueMessage = 'The value is not unique.';
 }

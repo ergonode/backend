@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RoleParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $roleRepository;
 
-    /**
-     * @param RoleRepositoryInterface $roleRepository
-     */
     public function __construct(RoleRepositoryInterface $roleRepository)
     {
         $this->roleRepository = $roleRepository;

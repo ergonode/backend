@@ -29,9 +29,6 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $repository;
 
-    /**
-     * @var NumericAttributeValueConditionCalculatorStrategy
-     */
     private NumericAttributeValueConditionCalculatorStrategy $strategy;
 
     protected function setUp(): void
@@ -47,11 +44,6 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string         $option
-     * @param float          $expected
-     * @param ValueInterface $value
-     * @param bool           $result
-     *
      * @dataProvider dataProvider
      */
     public function testCalculate(string $option, float $expected, ValueInterface $value, bool $result): void

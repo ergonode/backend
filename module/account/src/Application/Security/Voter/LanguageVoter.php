@@ -25,8 +25,6 @@ class LanguageVoter extends Voter implements LoggerAwareInterface
     /**
      * @param string $attribute
      * @param mixed  $subject
-     *
-     * @return bool
      */
     public function supports($attribute, $subject): bool
     {
@@ -43,11 +41,8 @@ class LanguageVoter extends Voter implements LoggerAwareInterface
     }
 
     /**
-     * @param string         $attribute
-     * @param mixed          $subject
-     * @param TokenInterface $token
-     *
-     * @return bool
+     * @param string $attribute
+     * @param mixed  $subject
      */
     public function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {

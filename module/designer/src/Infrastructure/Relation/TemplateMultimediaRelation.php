@@ -19,32 +19,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TemplateMultimediaRelation implements MultimediaRelationInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
-    /**
-     * @var Security
-     */
     private Security $security;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
     private UrlGeneratorInterface $generator;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TemplateQueryInterface $query
-     * @param Security               $security
-     * @param UrlGeneratorInterface  $generator
-     * @param TranslatorInterface    $translator
-     */
     public function __construct(
         TemplateQueryInterface $query,
         Security $security,
@@ -58,9 +40,6 @@ class TemplateMultimediaRelation implements MultimediaRelationInterface
     }
 
     /**
-     * @param MultimediaId $multimediaId
-     * @param Language     $language
-     *
      * @return array
      */
     public function getRelation(MultimediaId $multimediaId, Language $language): array
@@ -92,10 +71,7 @@ class TemplateMultimediaRelation implements MultimediaRelationInterface
     }
 
     /**
-     * @param string $name
-     * @param array  $parameters
-     *
-     * @return string
+     * @param array $parameters
      */
     private function getUrl(string $name, array $parameters): string
     {

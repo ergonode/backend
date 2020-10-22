@@ -15,8 +15,6 @@ use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
 class ProductBindFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Bind attribute is required")
      * @Assert\Uuid(strict=true)
      *

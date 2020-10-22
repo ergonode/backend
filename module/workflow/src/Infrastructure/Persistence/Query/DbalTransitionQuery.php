@@ -22,25 +22,13 @@ class DbalTransitionQuery implements TransitionQueryInterface
 {
     private const TABLE = 'workflow_transition';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param WorkflowId $workflowId
-     * @param Language   $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(WorkflowId $workflowId, Language $language): DataSetInterface
     {
         $query = $this->getQuery($language);
@@ -54,12 +42,6 @@ class DbalTransitionQuery implements TransitionQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @param WorkflowId $workflowId
-     * @param StatusId   $statusId
-     *
-     * @return bool
-     */
     public function hasStatus(WorkflowId $workflowId, StatusId $statusId): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -85,11 +67,6 @@ class DbalTransitionQuery implements TransitionQueryInterface
         return false;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return QueryBuilder
-     */
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

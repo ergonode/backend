@@ -16,20 +16,10 @@ class FixtureLoader
 {
     private const PATH = '%s/Resources/fixtures/%s/fixture.yaml';
 
-    /**
-     * @var KernelInterface
-     */
     private KernelInterface $kernel;
 
-    /**
-     * @var string
-     */
     private string $root;
 
-    /**
-     * @param KernelInterface $kernel
-     * @param string          $root
-     */
     public function __construct(KernelInterface $kernel, string $root)
     {
         $this->kernel = $kernel;
@@ -37,8 +27,6 @@ class FixtureLoader
     }
 
     /**
-     * @param string $group
-     *
      * @return array
      */
     public function load(string $group = null): array

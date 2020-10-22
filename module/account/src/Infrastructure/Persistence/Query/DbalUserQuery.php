@@ -19,14 +19,8 @@ class DbalUserQuery implements UserQueryInterface
 {
     public const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -45,11 +39,6 @@ class DbalUserQuery implements UserQueryInterface
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
-    /**
-     * @param Email $email
-     *
-     * @return UserId|null
-     */
     public function findIdByEmail(Email $email): ?UserId
     {
         $qb = $this->getQuery();
@@ -66,9 +55,6 @@ class DbalUserQuery implements UserQueryInterface
         return null;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

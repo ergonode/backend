@@ -13,9 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class StoreViewModel
 {
-    /**
-     * @var Language|null
-     */
     public ?Language $defaultLanguage = null;
 
     /**

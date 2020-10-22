@@ -18,22 +18,13 @@ class GetProductCategory extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product/%s/categories';
 
-    /**
-     * @var string
-     */
     private string $productId;
 
-    /**
-     * @param string $productId
-     */
     public function __construct(string $productId)
     {
         $this->productId = $productId;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -44,8 +35,6 @@ class GetProductCategory extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return Shopware6ProductCategory[]|null
      *
      * @throws \JsonException
@@ -66,9 +55,6 @@ class GetProductCategory extends AbstractAction implements ActionInterface
         return $result;
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->productId);

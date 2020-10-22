@@ -17,10 +17,6 @@ use PHPUnit\Framework\TestCase;
 class AttributeLabelChangedEventTest extends TestCase
 {
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $from
-     * @param TranslatableString $to
-     *
      * @dataProvider dataProvider
      */
     public function testCreateEvent(AttributeId $id, TranslatableString $from, TranslatableString $to): void

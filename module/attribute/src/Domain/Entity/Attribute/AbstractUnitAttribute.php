@@ -23,14 +23,6 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
     public const UNIT = 'unit';
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param UnitId             $unitId
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -53,25 +45,17 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
         );
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return UnitId
-     */
     public function getUnitId(): UnitId
     {
         return new UnitId($this->getParameter(self::UNIT));
     }
 
     /**
-     * @param UnitId $new
-     *
      * @throws \Exception
      */
     public function changeUnit(UnitId $new): void

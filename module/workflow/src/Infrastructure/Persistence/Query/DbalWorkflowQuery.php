@@ -19,22 +19,14 @@ class DbalWorkflowQuery implements WorkflowQueryInterface
 {
     private const TABLE = 'workflow';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param StatusId $id
-     *
      * @return WorkflowId[]
      */
     public function getWorkflowIdsWithDefaultStatus(StatusId $id): array
@@ -52,11 +44,6 @@ class DbalWorkflowQuery implements WorkflowQueryInterface
         return $result;
     }
 
-    /**
-     * @param string $code
-     *
-     * @return WorkflowId|null
-     */
     public function findWorkflowIdByCode(string $code): ?WorkflowId
     {
         $query = $this->getQuery();
@@ -73,9 +60,6 @@ class DbalWorkflowQuery implements WorkflowQueryInterface
         return null;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

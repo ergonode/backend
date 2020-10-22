@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TemplateParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @param TemplateRepositoryInterface $templateRepository
-     */
     public function __construct(TemplateRepositoryInterface $templateRepository)
     {
         $this->templateRepository = $templateRepository;

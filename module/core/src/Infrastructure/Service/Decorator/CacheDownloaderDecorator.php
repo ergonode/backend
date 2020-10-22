@@ -13,31 +13,16 @@ use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
 
 class CacheDownloaderDecorator implements DownloaderInterface
 {
-    /**
-     * @var DownloaderInterface
-     */
     private DownloaderInterface $downloader;
 
-    /**
-     * @var string
-     */
     private string $directory;
 
-    /**
-     * @param DownloaderInterface $downloader
-     * @param KernelInterface     $appKernel
-     */
     public function __construct(DownloaderInterface $downloader, KernelInterface $appKernel)
     {
         $this->downloader = $downloader;
         $this->directory = sprintf('%s/var/downloader', $appKernel->getProjectDir());
     }
 
-    /**
-     * @param string $url
-     *
-     * @return string|null
-     */
     public function download(string $url): ?string
     {
         $data = parse_url($url);
@@ -54,10 +39,6 @@ class CacheDownloaderDecorator implements DownloaderInterface
         return file_get_contents($filename);
     }
 
-    /**
-     * @param string $filename
-     * @param string $contents
-     */
     public function saveFile(string $filename, string $contents): void
     {
         $parts = explode('/', $filename);

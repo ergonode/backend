@@ -17,29 +17,21 @@ use JMS\Serializer\Annotation as JMS;
 class MultimediaCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var MultimediaId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private MultimediaId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $extension;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $mime;
@@ -47,26 +39,18 @@ class MultimediaCreatedEvent implements DomainEventInterface
     /**
      * The file size in bytes.
      *
-     * @var int
      *
      * @JMS\Type("int")
      */
     private int $size;
 
     /**
-     * @var Hash
-     *
      * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
      */
     private Hash $hash;
 
     /**
-     * @param MultimediaId $id
-     * @param string       $name
-     * @param string       $extension
-     * @param int          $size      The file size in bytes.
-     * @param Hash         $hash
-     * @param string|null  $mime
+     * @param int $size The file size in bytes.
      */
     public function __construct(
         MultimediaId $id,
@@ -84,49 +68,31 @@ class MultimediaCreatedEvent implements DomainEventInterface
         $this->hash = $hash;
     }
 
-    /**
-     * @return MultimediaId
-     */
     public function getAggregateId(): MultimediaId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getExtension(): string
     {
         return $this->extension;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMime(): ?string
     {
         return $this->mime;
     }
 
-    /**
-     * @return int
-     */
     public function getSize(): int
     {
         return $this->size;
     }
 
-    /**
-     * @return Hash
-     */
     public function getHash(): Hash
     {
         return $this->hash;

@@ -20,13 +20,6 @@ abstract class AbstractNumericAttribute extends AbstractAttribute
     public const TYPE = 'NUMERIC';
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -40,9 +33,6 @@ abstract class AbstractNumericAttribute extends AbstractAttribute
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

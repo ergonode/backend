@@ -21,13 +21,7 @@ class UpdateMagento2ExportChannelCommandTest extends TestCase
      */
     private ChannelId $id;
 
-    /**
-     * @var string
-     */
     private string $name;
-    /**
-     * @var string
-     */
     private string $filename;
 
     /**

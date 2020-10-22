@@ -15,16 +15,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 interface TemplateGeneratorInterface
 {
-    /**
-     * @param TemplateId      $id
-     * @param TemplateGroupId $groupId
-     *
-     * @return Template
-     */
     public function getTemplate(TemplateId $id, TemplateGroupId $groupId): Template;
 
-    /**
-     * @return string
-     */
     public function getCode(): string;
 }

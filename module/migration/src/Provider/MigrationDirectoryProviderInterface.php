@@ -16,8 +16,5 @@ interface MigrationDirectoryProviderInterface
      */
     public function getDirectoryCollection(): array;
 
-    /**
-     * @return string
-     */
     public function getMainDirectory(): string;
 }

@@ -18,10 +18,6 @@ class ProductIdFaker extends BaseProvider
     public const NAMESPACE = '7cf84041-304b-41c9-8401-139d9203735e';
 
     /**
-     * @param string|null $name
-     *
-     * @return ProductId
-     *
      * @throws \Exception
      */
     public function productId(?string $name = null): ProductId

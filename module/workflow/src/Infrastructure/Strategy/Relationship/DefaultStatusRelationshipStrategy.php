@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class DefaultStatusRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var WorkflowQueryInterface
-     */
     private WorkflowQueryInterface $query;
 
-    /**
-     * @param WorkflowQueryInterface $query
-     */
     public function __construct(WorkflowQueryInterface $query)
     {
         $this->query = $query;

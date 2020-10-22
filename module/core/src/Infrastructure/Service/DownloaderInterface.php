@@ -10,10 +10,5 @@ namespace Ergonode\Core\Infrastructure\Service;
 
 interface DownloaderInterface
 {
-    /**
-     * @param string $url
-     *
-     * @return string|null
-     */
     public function download(string $url): ?string;
 }

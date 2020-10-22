@@ -16,22 +16,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CurrencyFormType extends AbstractType
 {
-    /**
-     * @var CurrencyQueryInterface
-     */
     private CurrencyQueryInterface $query;
 
-    /**
-     * @param CurrencyQueryInterface $query
-     */
     public function __construct(CurrencyQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $choices = $this->query->getDictionary();
@@ -43,9 +34,6 @@ class CurrencyFormType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

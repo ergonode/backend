@@ -16,8 +16,6 @@ use Ramsey\Uuid\Uuid;
 final class Version20180719132703 extends AbstractErgonodeMigration
 {
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema): void
@@ -137,13 +135,6 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         ]);
     }
 
-    /**
-     * @param string $uuid
-     * @param string $name
-     * @param bool   $custom
-     *
-     * @return TemplateGroupId
-     */
     private function addGroup(string $uuid, string $name, bool $custom = false): TemplateGroupId
     {
         $id = new TemplateGroupId($uuid);
@@ -155,15 +146,6 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         return $id;
     }
 
-    /**
-     * @param string $code
-     * @param string $variant
-     * @param string $label
-     * @param int    $minWidth
-     * @param int    $minHeight
-     * @param int    $maxWidth
-     * @param int    $maxHeight
-     */
     private function addType(
         string $code,
         string $variant,

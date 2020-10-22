@@ -18,14 +18,8 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 
 class Magento1CsvReader
 {
-    /**
-     * @var ConverterMapperProvider
-     */
     private ConverterMapperProvider $mapper;
 
-    /**
-     * @var string
-     */
     private string $directory;
 
     /**
@@ -39,19 +33,12 @@ class Magento1CsvReader
     private array $headers;
 
 
-    /**
-     * @param ConverterMapperProvider $mapper
-     * @param string                  $directory
-     */
     public function __construct(ConverterMapperProvider $mapper, string $directory)
     {
         $this->mapper = $mapper;
         $this->directory = $directory;
     }
 
-    /**
-     * @param Import $import
-     */
     public function open(Import $import): void
     {
         $file = \sprintf('%s%s', $this->directory, $import->getFile());
@@ -78,10 +65,6 @@ class Magento1CsvReader
     }
 
     /**
-     * @param Transformer $transformer
-     *
-     * @return ProductModel|null
-     *
      * @throws ReaderException
      */
     public function read(Transformer $transformer): ?ProductModel
@@ -190,8 +173,7 @@ class Magento1CsvReader
     }
 
     /**
-     * @param Transformer $transformer
-     * @param array       $record
+     * @param array $record
      *
      * @return array
      */

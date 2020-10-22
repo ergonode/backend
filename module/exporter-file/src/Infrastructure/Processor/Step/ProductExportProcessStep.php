@@ -18,26 +18,12 @@ use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 
 class ProductExportProcessStep implements ExportStepProcessInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var ExportQueryInterface
-     */
     private ExportQueryInterface $exportQuery;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ProductQueryInterface $productQuery
-     * @param ExportQueryInterface  $exportQuery
-     * @param CommandBusInterface   $commandBus
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         ExportQueryInterface $exportQuery,
@@ -48,10 +34,6 @@ class ProductExportProcessStep implements ExportStepProcessInterface
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId          $exportId
-     * @param FileExportChannel $channel
-     */
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $products = [];

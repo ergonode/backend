@@ -20,20 +20,10 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class FormErrorHandler implements SubscribingHandlerInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var FormErrorMapper
-     */
     private FormErrorMapper $formErrorMapper;
 
-    /**
-     * @param TranslatorInterface $translator
-     * @param FormErrorMapper     $formErrorMapper
-     */
     public function __construct(TranslatorInterface $translator, FormErrorMapper $formErrorMapper)
     {
         $this->translator = $translator;
@@ -61,10 +51,7 @@ class FormErrorHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Form                          $form
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */

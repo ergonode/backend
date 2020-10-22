@@ -15,14 +15,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 interface TemplateQueryInterface
 {
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getDictionary(Language $language): array;
@@ -33,46 +28,25 @@ interface TemplateQueryInterface
     public function getAll(): array;
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function findTemplateIdByAttributeId(AttributeId $attributeId): array;
 
     /**
-     * @param TemplateId $templateId
-     *
      * @return ProductId[]
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array;
 
-    /**
-     * @param ProductId $productId
-     *
-     * @return TemplateId
-     */
     public function findProductTemplateId(ProductId $productId): TemplateId;
 
-    /**
-     * @param string $code
-     *
-     * @return TemplateId|null
-     */
     public function findTemplateIdByCode(string $code): ?TemplateId;
 
     /**
-     * @param MultimediaId $id
-     *
      * @return array
      */
     public function getMultimediaRelation(MultimediaId $id): array;
 
     /**
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(

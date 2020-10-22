@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 interface ProductBindingQueryInterface
 {
     /**
-     * @param ProductId $productId
-     *
      * @return string[]
      */
     public function getBindings(ProductId $productId): array;

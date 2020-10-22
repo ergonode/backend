@@ -21,19 +21,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class NumericAttributeForm extends AbstractType implements AttributeFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return NumericAttribute::TYPE === $type;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -64,9 +58,6 @@ class NumericAttributeForm extends AbstractType implements AttributeFormInterfac
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -76,9 +67,6 @@ class NumericAttributeForm extends AbstractType implements AttributeFormInterfac
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

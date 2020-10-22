@@ -18,22 +18,16 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 class WorkflowCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var WorkflowId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private WorkflowId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $code;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $class;
@@ -46,9 +40,6 @@ class WorkflowCreatedEvent implements DomainEventInterface
     private array $statuses;
 
     /**
-     * @param WorkflowId $id
-     * @param string     $class
-     * @param string     $code
      * @param StatusId[] $statuses
      */
     public function __construct(WorkflowId $id, string $class, string $code, array $statuses = [])
@@ -61,25 +52,16 @@ class WorkflowCreatedEvent implements DomainEventInterface
         $this->statuses = $statuses;
     }
 
-    /**
-     * @return WorkflowId
-     */
     public function getAggregateId(): WorkflowId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getClass(): string
     {
         return $this->class;

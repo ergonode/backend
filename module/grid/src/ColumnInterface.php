@@ -14,70 +14,33 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 interface ColumnInterface
 {
-    /**
-     * @return string
-     */
     public function getField(): string;
 
-    /**
-     * @return string|null
-     */
     public function getLabel(): ?string;
 
-    /**
-     * @return string
-     */
     public function getType(): string;
 
-    /**
-     * @return bool
-     */
     public function isVisible(): bool;
 
-    /**
-     * @return bool
-     */
     public function isEditable(): bool;
 
-    /**
-     * @return bool
-     */
     public function isDeletable(): bool;
 
-    /**
-     * @return Language|null
-     */
     public function getLanguage(): ?Language;
 
-    /**
-     * @return bool
-     */
     public function hasLanguage(): bool;
 
-    /**
-     * @param bool $visible
-     */
     public function setVisible(bool $visible): void;
 
-    /**
-     * @param Language $language
-     */
     public function setLanguage(Language $language): void;
 
-    /**
-     * @return FilterInterface|null
-     */
     public function getFilter(): ?FilterInterface;
 
     /**
-     * @param string       $key
      * @param string|array $value
      */
     public function setExtension(string $key, $value): void;
 
-    /**
-     * @param bool $editable
-     */
     public function setEditable(bool $editable): void;
 
     /**
@@ -85,33 +48,15 @@ interface ColumnInterface
      */
     public function getExtensions(): array;
 
-    /**
-     * @return AbstractAttribute|null
-     */
     public function getAttribute(): ?AbstractAttribute;
 
-    /**
-     * @param AbstractAttribute $attribute
-     */
     public function setAttribute(AbstractAttribute $attribute): void;
 
-    /**
-     * @return string|null
-     */
     public function getSuffix(): ?string;
 
-    /**
-     * @param string|null $suffix
-     */
     public function setSuffix(?string $suffix): void;
 
-    /**
-     * @return string|null
-     */
     public function getPrefix(): ?string;
 
-    /**
-     * @param string|null $prefix
-     */
     public function setPrefix(?string $prefix): void;
 }

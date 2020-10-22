@@ -17,32 +17,22 @@ use JMS\Serializer\Annotation as JMS;
 class ProductCollectionElementVisibleChangedEvent implements DomainEventInterface
 {
     /**
-     * @var ProductCollectionId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $productId;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("boolean")
      */
     private bool $visible;
 
     /**
      * ProductCollectionElementVisibleChangedEvent constructor.
-     *
-     * @param ProductCollectionId $id
-     * @param ProductId           $productId
-     * @param bool                $visible
      */
     public function __construct(ProductCollectionId $id, ProductId $productId, bool $visible)
     {
@@ -51,25 +41,16 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
         $this->visible = $visible;
     }
 
-    /**
-     * @return ProductCollectionId
-     */
     public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getProductId(): ProductId
     {
         return $this->productId;
     }
 
-    /**
-     * @return bool
-     */
     public function isVisible(): bool
     {
         return $this->visible;

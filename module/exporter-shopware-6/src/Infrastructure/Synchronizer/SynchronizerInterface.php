@@ -13,9 +13,5 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 interface SynchronizerInterface
 {
-    /**
-     * @param ExportId         $id
-     * @param Shopware6Channel $channel
-     */
     public function synchronize(ExportId $id, Shopware6Channel $channel): void;
 }

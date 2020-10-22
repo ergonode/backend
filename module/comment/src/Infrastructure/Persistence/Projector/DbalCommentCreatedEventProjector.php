@@ -18,22 +18,14 @@ class DbalCommentCreatedEventProjector
 {
     private const TABLE = 'comment';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param CommentCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(CommentCreatedEvent $event): void

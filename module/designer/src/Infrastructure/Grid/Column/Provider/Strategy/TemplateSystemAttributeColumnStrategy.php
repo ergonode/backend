@@ -21,14 +21,8 @@ use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
-    /**
-     * @param TemplateQueryInterface $query
-     */
     public function __construct(TemplateQueryInterface $query)
     {
         $this->query = $query;

@@ -20,29 +20,21 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 class ProductCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var Sku
-     *
      * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
      */
     private Sku $sku;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $type;
 
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
@@ -62,12 +54,8 @@ class ProductCreatedEvent implements DomainEventInterface
     private array $attributes;
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param string     $type
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      */
     public function __construct(
         ProductId $id,
@@ -85,33 +73,21 @@ class ProductCreatedEvent implements DomainEventInterface
         $this->attributes = $attributes;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getAggregateId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return Sku
-     */
     public function getSku(): Sku
     {
         return $this->sku;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;

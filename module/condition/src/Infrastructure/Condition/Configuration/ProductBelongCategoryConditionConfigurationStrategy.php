@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
@@ -15,20 +14,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProductBelongCategoryConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @param TranslatorInterface    $translator
-     * @param CategoryQueryInterface $query
-     */
     public function __construct(TranslatorInterface $translator, CategoryQueryInterface $query)
     {
         $this->translator = $translator;

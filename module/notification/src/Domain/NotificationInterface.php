@@ -12,19 +12,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 interface NotificationInterface
 {
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime;
 
-    /**
-     * @return string
-     */
     public function getMessage(): string;
 
-    /**
-     * @return UserId|null
-     */
     public function getAuthorId(): ?UserId;
 
     /**

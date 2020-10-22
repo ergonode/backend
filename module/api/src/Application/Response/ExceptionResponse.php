@@ -14,9 +14,6 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionResponse extends AbstractResponse
 {
-    /**
-     * @param \Throwable $exception
-     */
     public function __construct(\Throwable $exception)
     {
         $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;

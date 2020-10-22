@@ -20,9 +20,6 @@ use PHPUnit\Framework\TestCase;
 
 class TemplateElementPropertyInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
     /**

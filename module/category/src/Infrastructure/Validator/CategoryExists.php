@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class CategoryExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Category {{ value }} not exists.';
 }

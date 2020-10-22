@@ -18,22 +18,16 @@ use Webmozart\Assert\Assert;
 class CreateRoleCommand implements DomainCommandInterface
 {
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $description;
@@ -46,17 +40,12 @@ class CreateRoleCommand implements DomainCommandInterface
     private array $privileges;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("bool")
      */
     private bool $hidden;
 
     /**
-     * @param string      $name
-     * @param string|null $description
      * @param Privilege[] $privileges
-     * @param bool        $hidden
      *
      * @throws \Exception
      */
@@ -71,25 +60,16 @@ class CreateRoleCommand implements DomainCommandInterface
         $this->hidden = $hidden;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getId(): RoleId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
@@ -103,9 +83,6 @@ class CreateRoleCommand implements DomainCommandInterface
         return $this->privileges;
     }
 
-    /**
-     * @return bool
-     */
     public function isHidden(): bool
     {
         return $this->hidden;

@@ -17,8 +17,6 @@ use JMS\Serializer\Annotation as JMS;
 class ConditionSetCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var ConditionSetId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ConditionSetId $id;
@@ -31,8 +29,7 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     private array $conditions;
 
     /**
-     * @param ConditionSetId $id
-     * @param array          $conditions
+     * @param array $conditions
      */
     public function __construct(ConditionSetId $id, array $conditions = [])
     {
@@ -40,9 +37,6 @@ class ConditionSetCreatedEvent implements DomainEventInterface
         $this->conditions = $conditions;
     }
 
-    /**
-     * @return ConditionSetId
-     */
     public function getAggregateId(): ConditionSetId
     {
         return $this->id;

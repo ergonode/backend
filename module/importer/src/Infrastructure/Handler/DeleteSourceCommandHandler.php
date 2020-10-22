@@ -14,22 +14,14 @@ use Webmozart\Assert\Assert;
 
 class DeleteSourceCommandHandler
 {
-    /**
-     * @var SourceRepositoryInterface
-     */
     private SourceRepositoryInterface $sourceRepository;
 
-    /**
-     * @param SourceRepositoryInterface $sourceRepository
-     */
     public function __construct(SourceRepositoryInterface $sourceRepository)
     {
         $this->sourceRepository = $sourceRepository;
     }
 
     /**
-     * @param DeleteSourceCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteSourceCommand $command)

@@ -13,21 +13,13 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 interface AttributeGroupRepositoryInterface
 {
     /**
-     * @param AttributeGroupId $id
-     *
      * @return AbstractAggregateRoot|AttributeGroup
      *
      * @throws \ReflectionException
      */
     public function load(AttributeGroupId $id): ?AbstractAggregateRoot;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

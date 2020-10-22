@@ -13,18 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 interface Shopware6CustomFieldQueryInterface
 {
-    /**
-     * @param ChannelId $channel
-     * @param string    $shopwareId
-     *
-     * @return AttributeId|null
-     */
     public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?AttributeId;
 
-    /**
-     * @param ChannelId          $channel
-     * @param \DateTimeImmutable $dateTime
-     * @param string             $type
-     */
     public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime, string  $type): void;
 }

@@ -18,21 +18,10 @@ use Webmozart\Assert\Assert;
 
 class DeleteOptionCommandHandler
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     *
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param OptionRepositoryInterface      $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         OptionRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -42,8 +31,6 @@ class DeleteOptionCommandHandler
     }
 
     /**
-     * @param DeleteOptionCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteOptionCommand $command): void

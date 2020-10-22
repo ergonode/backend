@@ -29,26 +29,12 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
  */
 class GetMultimediaGridAction
 {
-    /**
-     * @var MultimediaGrid
-     */
     private MultimediaGrid $grid;
 
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $renderer;
 
-    /**
-     * @param MultimediaGrid           $grid
-     * @param MultimediaQueryInterface $query
-     * @param GridRenderer             $renderer
-     */
     public function __construct(MultimediaGrid $grid, MultimediaQueryInterface $query, GridRenderer $renderer)
     {
         $this->grid = $grid;
@@ -118,11 +104,6 @@ class GetMultimediaGridAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

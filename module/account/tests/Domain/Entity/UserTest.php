@@ -26,14 +26,8 @@ class UserTest extends TestCase
      */
     private $userId;
 
-    /**
-     * @var string
-     */
     private string $firstName;
 
-    /**
-     * @var string
-     */
     private string $lastName;
 
     /**
@@ -41,9 +35,6 @@ class UserTest extends TestCase
      */
     private $email;
 
-    /**
-     * @var string
-     */
     private string $filename;
 
     /**

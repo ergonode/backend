@@ -16,26 +16,12 @@ use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 
 class CreateTemplateHandler
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @var TemplateFactory
-     */
     private TemplateFactory $templateFactory;
 
-    /**
-     * @var TemplateGroupQueryInterface
-     */
     private TemplateGroupQueryInterface $templateGroupQuery;
 
-    /**
-     * @param TemplateRepositoryInterface $templateRepository
-     * @param TemplateFactory             $templateFactory
-     * @param TemplateGroupQueryInterface $templateGroupQuery
-     */
     public function __construct(
         TemplateRepositoryInterface $templateRepository,
         TemplateFactory $templateFactory,
@@ -46,9 +32,6 @@ class CreateTemplateHandler
         $this->templateGroupQuery = $templateGroupQuery;
     }
 
-    /**
-     * @param CreateTemplateCommand $command
-     */
     public function __invoke(CreateTemplateCommand $command)
     {
         $groupId = $this->templateGroupQuery->getDefaultId();

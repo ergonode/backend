@@ -16,9 +16,6 @@ use Psr\Container\ContainerInterface;
 
 class HandlerRegistryTest extends TestCase
 {
-    /**
-     * @var HandlerRegistryInterface
-     */
     private HandlerRegistryInterface $registry;
 
     protected function setUp(): void

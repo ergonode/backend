@@ -20,24 +20,12 @@ use Ramsey\Uuid\Uuid;
 
 class UserIdHandlerTest extends TestCase
 {
-    /**
-     * @var UserIdHandler
-     */
     private UserIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

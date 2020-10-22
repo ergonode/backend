@@ -21,9 +21,6 @@ use JMS\Serializer\Annotation as JMS;
  */
 abstract class AbstractAggregateRoot
 {
-    /**
-     * @var int
-     */
     protected int $sequence = 0;
 
     /**
@@ -31,14 +28,9 @@ abstract class AbstractAggregateRoot
      */
     protected array $events = [];
 
-    /**
-     * @return AggregateId
-     */
     abstract public function getId(): AggregateId;
 
     /**
-     * @param DomainEventInterface $event
-     *
      * @throws \Exception
      */
     public function apply(DomainEventInterface $event): void
@@ -49,9 +41,6 @@ abstract class AbstractAggregateRoot
         $this->events[] = new DomainEventEnvelope($this->getId(), $this->sequence, $event, $recordedAt);
     }
 
-    /**
-     * @param DomainEventStream $stream
-     */
     public function initialize(DomainEventStream $stream): void
     {
         foreach ($stream as $event) {
@@ -60,9 +49,6 @@ abstract class AbstractAggregateRoot
         }
     }
 
-    /**
-     * @return DomainEventStream
-     */
     public function popEvents(): DomainEventStream
     {
         $result = new DomainEventStream($this->events);
@@ -71,9 +57,6 @@ abstract class AbstractAggregateRoot
         return $result;
     }
 
-    /**
-     * @return int
-     */
     public function getSequence(): int
     {
         return $this->sequence;
@@ -87,10 +70,6 @@ abstract class AbstractAggregateRoot
         return [];
     }
 
-    /**
-     * @param DomainEventInterface $event
-     * @param \DateTime            $recordedAt
-     */
     private function handle(DomainEventInterface $event, \DateTime $recordedAt): void
     {
         if (!$event instanceof AbstractDeleteEvent) {

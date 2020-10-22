@@ -21,19 +21,8 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param ProductRepositoryInterface   $productRepository
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param TokenStorageInterface        $tokenStorage
-     * @param WorkflowProvider             $provider
-     * @param LanguageQueryInterface       $query
-     * @param Security                     $security
-     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
@@ -47,8 +36,6 @@ class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
     }
 
     /**
-     * @param CreateVariableProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateVariableProductCommand $command)

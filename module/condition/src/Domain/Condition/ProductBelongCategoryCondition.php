@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 namespace Ergonode\Condition\Domain\Condition;
@@ -27,15 +26,12 @@ class ProductBelongCategoryCondition implements ConditionInterface
     private array $category;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $operator;
 
     /**
      * @param CategoryId[] $category
-     * @param string       $operator
      */
     public function __construct(array $category, string $operator)
     {
@@ -61,9 +57,6 @@ class ProductBelongCategoryCondition implements ConditionInterface
         return $this->category;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;

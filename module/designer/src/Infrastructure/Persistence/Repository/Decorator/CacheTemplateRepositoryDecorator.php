@@ -15,9 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $repository;
 
     /**
@@ -25,9 +22,6 @@ class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
      */
     private array $cache = [];
 
-    /**
-     * @param TemplateRepositoryInterface $repository
-     */
     public function __construct(TemplateRepositoryInterface $repository)
     {
         $this->repository = $repository;

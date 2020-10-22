@@ -19,9 +19,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $query;
 
     protected function setUp(): void
@@ -83,9 +80,6 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return AttributeTypeValidValidator
-     */
     protected function createValidator(): AttributeTypeValidValidator
     {
         return new AttributeTypeValidValidator($this->query);

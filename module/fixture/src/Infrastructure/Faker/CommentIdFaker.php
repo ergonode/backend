@@ -15,8 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class CommentIdFaker extends BaseProvider
 {
     /**
-     * @return CommentId
-     *
      * @throws \Exception
      */
     public function commentId(): CommentId

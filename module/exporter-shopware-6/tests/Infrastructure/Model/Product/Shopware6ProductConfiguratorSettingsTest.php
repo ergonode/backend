@@ -13,14 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6ProductConfiguratorSettingsTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $optionId;
 
     protected function setUp(): void

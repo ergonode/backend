@@ -20,20 +20,10 @@ class DbalImportErrorRepository implements ImportErrorRepositoryInterface
 {
     private const TABLE = 'importer.import_error';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DbalImportErrorMapper
-     */
     private DbalImportErrorMapper $mapper;
 
-    /**
-     * @param Connection            $connection
-     * @param DbalImportErrorMapper $mapper
-     */
     public function __construct(Connection $connection, DbalImportErrorMapper $mapper)
     {
         $this->connection = $connection;
@@ -41,8 +31,6 @@ class DbalImportErrorRepository implements ImportErrorRepositoryInterface
     }
 
     /**
-     * @param ImportError $importLine
-     *
      * @throws DBALException
      */
     public function add(ImportError $importLine): void

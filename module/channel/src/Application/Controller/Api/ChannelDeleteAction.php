@@ -32,26 +32,12 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelDeleteAction
 {
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     * @param CommandBusInterface                         $commandBus
-     */
     public function __construct(
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
@@ -93,11 +79,9 @@ class ChannelDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @param AbstractChannel $channel
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
-     * @return Response
      *
      * @throws \Exception
      */

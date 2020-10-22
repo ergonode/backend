@@ -24,9 +24,6 @@ class AbstractWorkflowTest extends TestCase
      */
     private $id;
 
-    /**
-     * @var string
-     */
     private string $code;
 
     /**
@@ -94,7 +91,6 @@ class AbstractWorkflowTest extends TestCase
 
     /**
      * @throws \Exception
-     *
      */
     public function testSetNotExistDefaultStatus(): void
     {
@@ -109,7 +105,6 @@ class AbstractWorkflowTest extends TestCase
 
     /**
      * @throws \Exception
-     *
      */
     public function testGetNotExistDefaultStatus(): void
     {
@@ -119,8 +114,6 @@ class AbstractWorkflowTest extends TestCase
     }
 
     /**
-     *
-     *
      * @throws \Exception
      */
     public function testNoTransitionException(): void
@@ -143,8 +136,6 @@ class AbstractWorkflowTest extends TestCase
     }
 
     /**
-     *
-     *
      * @throws \Exception
      */
     public function testAddingTransitionAlreadyExistException(): void
@@ -159,8 +150,6 @@ class AbstractWorkflowTest extends TestCase
     }
 
     /**
-     *
-     *
      * @throws \Exception
      */
     public function testAddingNoSourceException(): void
@@ -174,8 +163,6 @@ class AbstractWorkflowTest extends TestCase
     }
 
     /**
-     *
-     *
      * @throws \Exception
      */
     public function testAddingNoDestinationException(): void
@@ -224,11 +211,7 @@ class AbstractWorkflowTest extends TestCase
     }
 
     /**
-     * @param WorkflowId $id
-     * @param string     $code
-     * @param array      $statuses
-     *
-     * @return AbstractWorkflow
+     * @param array $statuses
      */
     private function getClass(WorkflowId $id, string $code, array $statuses): AbstractWorkflow
     {
@@ -237,9 +220,6 @@ class AbstractWorkflowTest extends TestCase
             $code,
             $statuses
         ) extends AbstractWorkflow {
-            /**
-             * @return string
-             */
             public static function getType(): string
             {
                 return 'TYPE';

@@ -21,57 +21,41 @@ use JMS\Serializer\Annotation as JMS;
 class UserCreatedEvent implements DomainEventInterface
 {
     /**
-     * @var UserId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $firstName;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $lastName;
 
     /**
-     * @var Email
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\ValueObject\Email")
      */
     private Email $email;
 
     /**
-     * @var Password
-     *
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\Password")
      */
     private Password $password;
 
     /**
-     * @var Language
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $language;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $avatarFilename;
 
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $roleId;
@@ -84,23 +68,12 @@ class UserCreatedEvent implements DomainEventInterface
     private array $languagePrivilegesCollection;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("boolean")
      */
     private bool $isActive;
 
     /**
-     * @param UserId               $id
-     * @param string               $firstName
-     * @param string               $lastName
-     * @param Email                $email
-     * @param Language             $language
-     * @param Password             $password
-     * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param bool                 $isActive
-     * @param string|null          $avatarFilename
      */
     public function __construct(
         UserId $id,
@@ -126,65 +99,41 @@ class UserCreatedEvent implements DomainEventInterface
         $this->isActive = $isActive;
     }
 
-    /**
-     * @return UserId
-     */
     public function getAggregateId(): UserId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @return Email
-     */
     public function getEmail(): Email
     {
         return $this->email;
     }
 
-    /**
-     * @return Language
-     */
     public function getLanguage(): Language
     {
         return $this->language;
     }
 
-    /**
-     * @return Password
-     */
     public function getPassword(): Password
     {
         return $this->password;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAvatarFilename(): ?string
     {
         return $this->avatarFilename;
     }
 
-    /**
-     * @return RoleId
-     */
     public function getRoleId(): RoleId
     {
         return $this->roleId;
@@ -198,9 +147,6 @@ class UserCreatedEvent implements DomainEventInterface
         return $this->languagePrivilegesCollection;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->isActive;

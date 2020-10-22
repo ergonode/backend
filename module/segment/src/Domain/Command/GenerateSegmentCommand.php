@@ -16,30 +16,21 @@ use JMS\Serializer\Annotation as JMS;
 class GenerateSegmentCommand implements DomainCommandInterface
 {
     /**
-     * @var SegmentId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $code;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $type;
 
     /**
-     * @param string $code
-     * @param string $type
-     *
      * @throws \Exception
      */
     public function __construct(string $code, string $type)
@@ -49,25 +40,16 @@ class GenerateSegmentCommand implements DomainCommandInterface
         $this->type = $type;
     }
 
-    /**
-     * @return SegmentId
-     */
     public function getId(): SegmentId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;

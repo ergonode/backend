@@ -13,8 +13,5 @@ use Ergonode\Grid\DataSetInterface;
 
 interface TemplateElementQueryInterface
 {
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 }

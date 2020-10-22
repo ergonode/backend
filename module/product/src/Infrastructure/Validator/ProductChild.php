@@ -16,9 +16,6 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductChild extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Can\'t add parent as children.';
 
     /**

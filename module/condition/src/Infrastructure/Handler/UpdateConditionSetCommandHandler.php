@@ -15,22 +15,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateConditionSetCommandHandler
 {
-    /**
-     * @var ConditionSetRepositoryInterface
-     */
     private ConditionSetRepositoryInterface $repository;
 
-    /**
-     * @param ConditionSetRepositoryInterface $repository
-     */
     public function __construct(ConditionSetRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateConditionSetCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateConditionSetCommand $command)

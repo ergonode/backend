@@ -13,17 +13,10 @@ use Ergonode\Grid\ColumnInterface;
 
 interface ColumnRendererInterface
 {
-    /**
-     * @param ColumnInterface $column
-     *
-     * @return bool
-     */
     public function supports(ColumnInterface $column): bool;
 
     /**
-     * @param ColumnInterface $column
-     * @param string          $id
-     * @param array           $row
+     * @param array $row
      *
      * @return mixed
      */

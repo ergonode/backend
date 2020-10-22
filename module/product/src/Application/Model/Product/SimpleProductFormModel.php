@@ -18,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 class SimpleProductFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Sku is required", groups={"Create"})
      *
      * @Sku(groups={"Create"})
@@ -34,8 +32,6 @@ class SimpleProductFormModel
     public array $categories = [];
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Template is required")
      * @Assert\Uuid()
      *

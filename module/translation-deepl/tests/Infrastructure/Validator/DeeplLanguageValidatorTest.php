@@ -48,9 +48,6 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return DeeplLanguageValidator
-     */
     protected function createValidator(): DeeplLanguageValidator
     {
         return new DeeplLanguageValidator();

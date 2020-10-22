@@ -14,13 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 class UnitFactory
 {
-    /**
-     * @param UnitId $id
-     * @param string $name
-     * @param string $symbol
-     *
-     * @return Unit
-     */
     public function create(UnitId $id, string $name, string $symbol): Unit
     {
         return new Unit($id, $name, $symbol);

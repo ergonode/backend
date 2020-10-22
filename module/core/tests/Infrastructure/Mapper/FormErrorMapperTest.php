@@ -18,9 +18,6 @@ use Symfony\Component\Form\FormInterface;
 
 class FormErrorMapperTest extends TestCase
 {
-    /**
-     * @var FormErrorMapperMessageProvider
-     */
     private FormErrorMapperMessageProvider $provider;
 
     /**
@@ -28,9 +25,6 @@ class FormErrorMapperTest extends TestCase
      */
     private $formElement;
 
-    /**
-     * @var FormErrorMapper
-     */
     private FormErrorMapper $mapper;
 
     /**
@@ -74,8 +68,7 @@ class FormErrorMapperTest extends TestCase
     }
 
     /**
-     * @param string $name
-     * @param array  $expected
+     * @param array $expected
      *
      * @dataProvider dataProvider
      */

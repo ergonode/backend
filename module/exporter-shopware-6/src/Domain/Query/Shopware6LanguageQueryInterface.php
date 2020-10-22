@@ -13,9 +13,5 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 interface Shopware6LanguageQueryInterface
 {
-    /**
-     * @param ChannelId          $channelId
-     * @param \DateTimeImmutable $dateTime
-     */
     public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime): void;
 }

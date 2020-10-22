@@ -18,24 +18,12 @@ use PHPUnit\Framework\TestCase;
 
 class SegmentStatusHandlerTest extends TestCase
 {
-    /**
-     * @var SegmentStatusHandler
-     */
     private SegmentStatusHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

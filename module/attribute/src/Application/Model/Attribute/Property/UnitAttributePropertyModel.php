@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UnitAttributePropertyModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      */
     public ?string $unit = null;

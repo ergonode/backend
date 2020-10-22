@@ -39,26 +39,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductAddChildFromSkusAction extends AbstractController
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param ProductQueryInterface $query
-     * @param CommandBusInterface   $commandBus
-     * @param FormFactoryInterface  $formFactory
-     */
     public function __construct(
         ProductQueryInterface $query,
         CommandBusInterface $commandBus,
@@ -93,12 +79,6 @@ class ProductAddChildFromSkusAction extends AbstractController
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     * @param Language        $language
-     * @param AbstractProduct $product
-     * @param Request         $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {

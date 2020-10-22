@@ -17,19 +17,11 @@ class CreateAttributeCommandFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param CreateAttributeCommandFactoryInterface ...$factories
-     */
     public function __construct(CreateAttributeCommandFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return CreateAttributeCommandFactoryInterface
-     */
     public function provide(string $type): CreateAttributeCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {

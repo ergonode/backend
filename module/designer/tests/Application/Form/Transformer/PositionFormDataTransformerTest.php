@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class PositionFormDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var PositionFormDataTransformer
-     */
     protected PositionFormDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,8 +24,7 @@ class PositionFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Position|null $positionValueObject
-     * @param array|null    $array
+     * @param array|null $array
      *
      * @dataProvider dataProvider
      */
@@ -46,8 +42,7 @@ class PositionFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Position|null $positionValueObject
-     * @param array|null    $array
+     * @param array|null $array
      *
      * @dataProvider dataProvider
      */

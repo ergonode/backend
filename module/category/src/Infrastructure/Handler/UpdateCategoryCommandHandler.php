@@ -15,22 +15,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateCategoryCommandHandler
 {
-    /**
-     * @var CategoryRepositoryInterface
-     */
     private CategoryRepositoryInterface $repository;
 
-    /**
-     * @param CategoryRepositoryInterface $repository
-     */
     public function __construct(CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateCategoryCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateCategoryCommand $command): void

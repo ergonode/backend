@@ -16,20 +16,10 @@ use Nette\PhpGenerator\PhpFile;
 
 class EntityFactoryInterfaceBuilder implements BuilderInterface
 {
-    /**
-     * @var FileBuilder
-     */
     private FileBuilder $builder;
 
-    /**
-     * @var MethodBuilder
-     */
     private MethodBuilder $methodBuilder;
 
-    /**
-     * @param FileBuilder   $builder
-     * @param MethodBuilder $methodBuilder
-     */
     public function __construct(FileBuilder $builder, MethodBuilder $methodBuilder)
     {
         $this->builder = $builder;
@@ -37,12 +27,7 @@ class EntityFactoryInterfaceBuilder implements BuilderInterface
     }
 
     /**
-     * @param string $module
-     * @param string $entity
-     *
-     * @param array  $properties
-     *
-     * @return PhpFile
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {

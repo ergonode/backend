@@ -14,8 +14,6 @@ use Ergonode\Channel\Domain\Entity\Scheduler;
 class DbalSchedulerMapper
 {
     /**
-     * @param Scheduler $scheduler
-     *
      * @return array
      */
     public function map(Scheduler $scheduler): array

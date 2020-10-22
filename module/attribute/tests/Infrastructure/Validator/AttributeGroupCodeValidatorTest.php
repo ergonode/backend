@@ -17,9 +17,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $query;
 
     protected function setUp(): void
@@ -77,9 +74,6 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return AttributeGroupCodeValidator
-     */
     protected function createValidator(): AttributeGroupCodeValidator
     {
         return new AttributeGroupCodeValidator($this->query);

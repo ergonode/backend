@@ -17,26 +17,12 @@ use Psr\Log\LoggerInterface;
 
 class ImportVariableProductCommandHandler
 {
-    /**
-     * @var VariableProductImportAction
-     */
     private VariableProductImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
     private ImportErrorRepositoryInterface $repository;
 
-    /**
-     * @var LoggerInterface
-     */
     private LoggerInterface $importLogger;
 
-    /**
-     * @param VariableProductImportAction    $action
-     * @param ImportErrorRepositoryInterface $repository
-     * @param LoggerInterface                $importLogger
-     */
     public function __construct(
         VariableProductImportAction $action,
         ImportErrorRepositoryInterface $repository,
@@ -48,8 +34,6 @@ class ImportVariableProductCommandHandler
     }
 
     /**
-     * @param ImportVariableProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ImportVariableProductCommand $command)

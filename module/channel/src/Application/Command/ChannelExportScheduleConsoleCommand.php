@@ -19,14 +19,8 @@ class ChannelExportScheduleConsoleCommand extends Command
 {
     private const NAME = 'channel:export:schedule';
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         parent::__construct(static::NAME);
@@ -34,12 +28,6 @@ class ChannelExportScheduleConsoleCommand extends Command
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $time = new \DateTime();

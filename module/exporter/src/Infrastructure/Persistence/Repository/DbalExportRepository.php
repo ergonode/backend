@@ -30,26 +30,12 @@ class DbalExportRepository implements ExportRepositoryInterface
         'ended_at',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DbalExportFactory
-     */
     private DbalExportFactory $factory;
 
-    /**
-     * @var DbalExportMapper
-     */
     private DbalExportMapper $mapper;
 
-    /**
-     * @param Connection        $connection
-     * @param DbalExportFactory $factory
-     * @param DbalExportMapper  $mapper
-     */
     public function __construct(Connection $connection, DbalExportFactory $factory, DbalExportMapper $mapper)
     {
         $this->connection = $connection;
@@ -58,10 +44,6 @@ class DbalExportRepository implements ExportRepositoryInterface
     }
 
     /**
-     * @param ExportId $id
-     *
-     * @return Export|null
-     *
      * @throws \ReflectionException
      */
     public function load(ExportId $id): ?Export
@@ -80,8 +62,6 @@ class DbalExportRepository implements ExportRepositoryInterface
     }
 
     /**
-     * @param Export $export
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function save(Export $export): void
@@ -93,11 +73,6 @@ class DbalExportRepository implements ExportRepositoryInterface
         }
     }
 
-    /**
-     * @param ExportId $id
-     *
-     * @return bool
-     */
     public function exists(ExportId $id): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -116,8 +91,6 @@ class DbalExportRepository implements ExportRepositoryInterface
     }
 
     /**
-     * @param Export $export
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function update(Export $export): void
@@ -140,8 +113,6 @@ class DbalExportRepository implements ExportRepositoryInterface
     }
 
     /**
-     * @param Export $export
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function insert(Export $export): void
@@ -161,9 +132,6 @@ class DbalExportRepository implements ExportRepositoryInterface
         );
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

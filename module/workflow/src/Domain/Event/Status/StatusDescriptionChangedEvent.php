@@ -17,26 +17,16 @@ use JMS\Serializer\Annotation as JMS;
 class StatusDescriptionChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $id;
 
-    /**
-     * @param StatusId           $id
-     * @param TranslatableString $from
-     * @param TranslatableString $to
-     */
     public function __construct(StatusId $id, TranslatableString $from, TranslatableString $to)
     {
         parent::__construct($from, $to);
         $this->id = $id;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getAggregateId(): StatusId
     {
         return $this->id;

@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RoleExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $roleRepository;
 
-    /**
-     * @param RoleRepositoryInterface $roleRepository
-     */
     public function __construct(RoleRepositoryInterface $roleRepository)
     {
         $this->roleRepository = $roleRepository;

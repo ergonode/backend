@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class PrivilegeTypeResolverTest extends TestCase
 {
     /**
-     * @param string $input
-     * @param string $expectedResult
-     *
      * @dataProvider resolverDataProvider
      */
     public function testResolver(string $input, string $expectedResult): void

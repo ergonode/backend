@@ -18,9 +18,6 @@ class AttributeDataSetQueryBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.product.dbal_data_set_query_builder_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(DataSetQueryBuilderProvider::class)) {
@@ -28,9 +25,6 @@ class AttributeDataSetQueryBuilderCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

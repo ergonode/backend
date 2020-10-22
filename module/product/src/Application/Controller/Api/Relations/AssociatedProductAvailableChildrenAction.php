@@ -34,32 +34,14 @@ use Swagger\Annotations as SWG;
  */
 class AssociatedProductAvailableChildrenAction
 {
-    /**
-     * @var ProductChildrenQueryInterface
-     */
     private ProductChildrenQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @var AssociatedProductAvailableChildrenGrid
-     */
     private AssociatedProductAvailableChildrenGrid $grid;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param ProductChildrenQueryInterface          $query
-     * @param GridRenderer                           $gridRenderer
-     * @param AssociatedProductAvailableChildrenGrid $grid
-     * @param AttributeRepositoryInterface           $attributeRepository
-     */
     public function __construct(
         ProductChildrenQueryInterface $query,
         GridRenderer $gridRenderer,
@@ -151,12 +133,6 @@ class AssociatedProductAvailableChildrenAction
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractAssociatedProduct")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param AbstractAssociatedProduct $product
-     * @param Language                  $language
-     * @param RequestGridConfiguration  $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractAssociatedProduct $product,

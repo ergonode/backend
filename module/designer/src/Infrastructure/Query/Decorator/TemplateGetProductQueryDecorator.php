@@ -16,20 +16,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class TemplateGetProductQueryDecorator implements GetProductQueryInterface
 {
-    /**
-     * @var GetProductQueryInterface
-     */
     private GetProductQueryInterface $query;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @param GetProductQueryInterface $query
-     * @param TemplateQueryInterface   $templateQuery
-     */
     public function __construct(GetProductQueryInterface $query, TemplateQueryInterface $templateQuery)
     {
         $this->query = $query;
@@ -37,9 +27,6 @@ class TemplateGetProductQueryDecorator implements GetProductQueryInterface
     }
 
     /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
      * @return array
      *
      * @throws \Exception

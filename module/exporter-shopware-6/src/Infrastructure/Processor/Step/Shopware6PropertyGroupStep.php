@@ -23,32 +23,14 @@ use Webmozart\Assert\Assert;
 
 class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var SegmentProductsQueryInterface
-     */
     private SegmentProductsQueryInterface  $segmentProductsQuery;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ProductQueryInterface         $productQuery
-     * @param SegmentProductsQueryInterface $segmentProductsQuery
-     * @param ProductRepositoryInterface    $productRepository
-     * @param CommandBusInterface           $commandBus
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         SegmentProductsQueryInterface $segmentProductsQuery,
@@ -61,10 +43,6 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId         $exportId
-     * @param Shopware6Channel $channel
-     */
     public function export(ExportId $exportId, Shopware6Channel $channel): void
     {
         $attributeList = array_unique(array_merge($this->getBindingAttributes($channel), $channel->getPropertyGroup()));
@@ -76,8 +54,6 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return AttributeId[]
      */
     private function getBindingAttributes(Shopware6Channel $channel): array
@@ -96,8 +72,6 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return array
      */
     private function getProduct(Shopware6Channel $channel): array

@@ -14,9 +14,6 @@ use Ergonode\Generator\Persister\FilePersister;
 
 class EntityGenerator
 {
-    /**
-     * @var FilePersister
-     */
     private FilePersister $persister;
 
     /**
@@ -24,10 +21,6 @@ class EntityGenerator
      */
     private array $builders;
 
-    /**
-     * @param FilePersister    $persister
-     * @param BuilderInterface ...$builders
-     */
     public function __construct(FilePersister $persister, BuilderInterface...$builders)
     {
         $this->persister = $persister;
@@ -35,9 +28,7 @@ class EntityGenerator
     }
 
     /**
-     * @param string $module
-     * @param string $entity
-     * @param array  $properties
+     * @param array $properties
      */
     public function generate(string $module, string $entity, array $properties = []): void
     {

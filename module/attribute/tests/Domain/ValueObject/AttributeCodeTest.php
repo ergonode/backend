@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 class AttributeCodeTest extends TestCase
 {
     /**
-     * @param string $value
-     *
      * @dataProvider validDataProvider
      */
     public function testValidCharactersValue(string $value): void
@@ -25,10 +23,7 @@ class AttributeCodeTest extends TestCase
     }
 
     /**
-     * @param string $value
-     *
      * @dataProvider invalidDataProvider
-     *
      */
     public function testInvalidCharactersValue(string $value): void
     {
@@ -37,9 +32,6 @@ class AttributeCodeTest extends TestCase
         $this->assertEquals($value, $attributeCode->getValue());
     }
 
-    /**
-     * @return \Generator
-     */
     public function validDataProvider(): \Generator
     {
         $collection = str_split('abcdefghijklmnopqrstuvwxyz1234567890_');
@@ -48,9 +40,6 @@ class AttributeCodeTest extends TestCase
         }
     }
 
-    /**
-     * @return \Generator
-     */
     public function invalidDataProvider(): \Generator
     {
         $collection = str_split('@#$%^&*()+={}[]:;"/?,.<>~`');

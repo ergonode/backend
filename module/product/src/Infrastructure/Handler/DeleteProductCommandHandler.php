@@ -18,20 +18,10 @@ use Webmozart\Assert\Assert;
 
 class DeleteProductCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param ProductRepositoryInterface     $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         ProductRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -41,8 +31,6 @@ class DeleteProductCommandHandler
     }
 
     /**
-     * @param DeleteProductCommand $command
-     *
      * @throws ExistingRelationshipsException
      */
     public function __invoke(DeleteProductCommand $command): void

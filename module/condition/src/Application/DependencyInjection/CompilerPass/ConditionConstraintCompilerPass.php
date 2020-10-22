@@ -18,9 +18,6 @@ class ConditionConstraintCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.condition.condition_set.constraint_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConditionConstraintProvider::class)) {
@@ -28,9 +25,6 @@ class ConditionConstraintCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processCalculators(ContainerBuilder $container): void
     {
         $arguments = [];

@@ -18,11 +18,6 @@ use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 class MultimediaProcessor
 {
     /**
-     * @param FileExportChannel  $channel
-     * @param AbstractMultimedia $multimedia
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractMultimedia $multimedia): ExportData
@@ -43,12 +38,6 @@ class MultimediaProcessor
         }
     }
 
-    /**
-     * @param AbstractMultimedia $multimedia
-     * @param Language           $language
-     *
-     * @return LanguageData
-     */
     private function getLanguage(AbstractMultimedia $multimedia, Language $language): LanguageData
     {
         $result = new LanguageData();

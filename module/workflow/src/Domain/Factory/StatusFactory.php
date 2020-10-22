@@ -18,13 +18,6 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 class StatusFactory
 {
     /**
-     * @param StatusCode         $code
-     * @param Color              $color
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     *
-     * @return Status
-     *
      * @throws \Exception
      */
     public function create(

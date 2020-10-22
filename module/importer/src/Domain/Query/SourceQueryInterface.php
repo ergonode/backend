@@ -13,8 +13,5 @@ use Ergonode\Grid\DataSetInterface;
 
 interface SourceQueryInterface
 {
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 }

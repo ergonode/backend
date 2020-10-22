@@ -19,46 +19,31 @@ use JMS\Serializer\Annotation as JMS;
 class CreateStatusCommand implements DomainCommandInterface
 {
     /**
-     * @var StatusId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private StatusId $id;
 
     /**
-     * @var StatusCode
-     *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private StatusCode $code;
 
     /**
-     * @var Color
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
     private Color $color;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $description;
 
     /**
-     * @param StatusCode         $code
-     * @param Color              $color
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -74,41 +59,26 @@ class CreateStatusCommand implements DomainCommandInterface
         $this->description = $description;
     }
 
-    /**
-     * @return StatusId
-     */
     public function getId(): StatusId
     {
         return $this->id;
     }
 
-    /**
-     * @return StatusCode
-     */
     public function getCode(): StatusCode
     {
         return $this->code;
     }
 
-    /**
-     * @return Color
-     */
     public function getColor(): Color
     {
         return $this->color;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getDescription(): TranslatableString
     {
         return $this->description;

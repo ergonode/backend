@@ -17,31 +17,20 @@ use JMS\Serializer\Annotation as JMS;
 class TransformerFieldAddedEvent implements DomainEventInterface
 {
     /**
-     * @var TransformerId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $field;
 
     /**
-     * @var ConverterInterface
-     *
      * @JMS\Type("Ergonode\Transformer\Infrastructure\Converter\ConverterInterface")
      */
     private ConverterInterface $converter;
 
-    /**
-     * @param TransformerId      $id
-     * @param string             $field
-     * @param ConverterInterface $converter
-     */
     public function __construct(TransformerId $id, string $field, ConverterInterface $converter)
     {
         $this->id = $id;
@@ -49,25 +38,16 @@ class TransformerFieldAddedEvent implements DomainEventInterface
         $this->converter = $converter;
     }
 
-    /**
-     * @return TransformerId
-     */
     public function getAggregateId(): TransformerId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getField(): string
     {
         return $this->field;
     }
 
-    /**
-     * @return ConverterInterface
-     */
     public function getConverter(): ConverterInterface
     {
         return $this->converter;

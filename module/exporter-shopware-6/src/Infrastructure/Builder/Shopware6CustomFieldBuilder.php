@@ -21,22 +21,11 @@ class Shopware6CustomFieldBuilder
      */
     private array $collection;
 
-    /**
-     * @param Shopware6CustomFieldMapperInterface ...$collection
-     */
     public function __construct(Shopware6CustomFieldMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
 
-    /**
-     * @param Shopware6Channel     $channel
-     * @param Shopware6CustomField $shopware6CustomField
-     * @param AbstractAttribute    $attribute
-     * @param Language|null        $language
-     *
-     * @return Shopware6CustomField
-     */
     public function build(
         Shopware6Channel $channel,
         Shopware6CustomField $shopware6CustomField,

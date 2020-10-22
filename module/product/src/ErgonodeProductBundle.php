@@ -20,9 +20,6 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductFormCom
 
 class ErgonodeProductBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

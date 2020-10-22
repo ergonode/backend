@@ -18,8 +18,7 @@ use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 class LanguageMapType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -40,9 +39,6 @@ class LanguageMapType extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

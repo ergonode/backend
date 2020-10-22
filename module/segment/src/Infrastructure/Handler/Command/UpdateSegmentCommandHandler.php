@@ -15,22 +15,14 @@ use Webmozart\Assert\Assert;
 
 class UpdateSegmentCommandHandler
 {
-    /**
-     * @var SegmentRepositoryInterface
-     */
     private SegmentRepositoryInterface $repository;
 
-    /**
-     * @param SegmentRepositoryInterface $repository
-     */
     public function __construct(SegmentRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateSegmentCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateSegmentCommand $command)

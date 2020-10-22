@@ -21,17 +21,8 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends AbstractShopware6ProductPropertyGroupMapper
 {
-    /**
-     * @var Shopware6PropertyGroupOptionsRepositoryInterface
-     */
     private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
-    /**
-     * @param AttributeRepositoryInterface                     $repository
-     * @param Shopware6PropertyGroupOptionClient               $propertyGroupOptionClient
-     * @param AttributeTranslationInheritanceCalculator        $calculator
-     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         Shopware6PropertyGroupOptionClient $propertyGroupOptionClient,

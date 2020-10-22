@@ -36,20 +36,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class StatusChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -93,10 +83,7 @@ class StatusChangeAction
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
      *
-     * @param Status  $status
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

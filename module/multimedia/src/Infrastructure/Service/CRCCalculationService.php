@@ -13,11 +13,6 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 class CRCCalculationService implements HashCalculationServiceInterface
 {
-    /**
-     * @param \SplFileInfo $file
-     *
-     * @return Hash
-     */
     public function calculateHash(\SplFileInfo $file): Hash
     {
         return new Hash(hash_file('crc32b', $file->getRealPath()));

@@ -16,23 +16,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class Shopware6CustomFieldStep implements Shopware6ExportStepProcessInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId         $exportId
-     * @param Shopware6Channel $channel
-     */
     public function export(ExportId $exportId, Shopware6Channel $channel): void
     {
         $attributeIds = $channel->getCustomField();

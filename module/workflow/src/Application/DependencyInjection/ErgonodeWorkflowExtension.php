@@ -25,8 +25,7 @@ class ErgonodeWorkflowExtension extends Extension
     public const CONDITION_PARAMETER_NAME = 'ergonode_workflow.conditions';
 
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

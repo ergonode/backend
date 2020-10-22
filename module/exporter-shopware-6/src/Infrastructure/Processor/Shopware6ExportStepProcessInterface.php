@@ -13,9 +13,5 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 interface Shopware6ExportStepProcessInterface
 {
-    /**
-     * @param ExportId         $exportId
-     * @param Shopware6Channel $channel
-     */
     public function export(ExportId $exportId, Shopware6Channel $channel): void;
 }

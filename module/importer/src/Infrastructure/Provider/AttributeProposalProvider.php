@@ -17,19 +17,13 @@ class AttributeProposalProvider
      */
     private array $strategies;
 
-    /**
-     * @param AttributeProposalStrategyInterface ...$strategies
-     */
     public function __construct(AttributeProposalStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
     /**
-     * @param string $name
-     * @param array  $values
-     *
-     * @return AttributeProposalStrategyInterface
+     * @param array $values
      */
     public function provide(string $name, array $values): AttributeProposalStrategyInterface
     {

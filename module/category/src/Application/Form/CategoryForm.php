@@ -19,19 +19,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryForm extends AbstractType implements CategoryFormInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return Category::TYPE === $type;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -46,9 +40,6 @@ class CategoryForm extends AbstractType implements CategoryFormInterface
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -58,9 +49,6 @@ class CategoryForm extends AbstractType implements CategoryFormInterface
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

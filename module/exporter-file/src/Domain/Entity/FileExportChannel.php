@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -29,8 +28,6 @@ class FileExportChannel extends AbstractChannel
     ];
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $format;
@@ -43,17 +40,11 @@ class FileExportChannel extends AbstractChannel
     protected array $languages;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     protected string $exportType;
 
     /**
-     * @param ChannelId  $id
-     * @param string     $name
-     * @param string     $format
-     * @param string     $exportType
      * @param Language[] $languages
      *
      * @throws \Exception
@@ -69,17 +60,11 @@ class FileExportChannel extends AbstractChannel
         $this->exportType = $exportType;
     }
 
-    /**
-     * @return string
-     */
     public static function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getFormat(): string
     {
         return $this->format;
@@ -102,26 +87,17 @@ class FileExportChannel extends AbstractChannel
         $this->languages = $languages;
     }
 
-    /**
-     * @param string $format
-     */
     public function setFormat(string $format): void
     {
         $this->format = $format;
     }
 
-    /**
-     * @param string $exportType
-     */
     public function setExportType(string $exportType): void
     {
         Assert::oneOf($exportType, self::EXPORT_TYPES);
         $this->exportType = $exportType;
     }
 
-    /**
-     * @return string
-     */
     public function getExportType(): string
     {
         return $this->exportType;

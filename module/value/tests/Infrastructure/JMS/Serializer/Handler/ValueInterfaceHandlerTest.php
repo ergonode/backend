@@ -21,9 +21,6 @@ use PHPUnit\Framework\TestCase;
 
 class ValueInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
     protected function setUp(): void

@@ -25,26 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TemplateGroupGridReadAction
 {
-    /**
-     * @var TemplateGroupQueryInterface
-     */
     private TemplateGroupQueryInterface $query;
 
-    /**
-     * @var TemplateGroupGrid
-     */
     private TemplateGroupGrid $grid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer                $gridRenderer
-     * @param TemplateGroupQueryInterface $query
-     * @param TemplateGroupGrid           $grid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         TemplateGroupQueryInterface $query,
@@ -118,11 +104,6 @@ class TemplateGroupGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

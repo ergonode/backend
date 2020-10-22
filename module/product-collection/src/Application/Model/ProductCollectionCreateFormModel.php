@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ProductCollectionCreateFormModel
 {
     /**
-     * @var ProductCollectionCode | null
-     *
      * @Assert\NotBlank(message="System name is required")
      * @Assert\Length(
      *     max=64,
@@ -63,8 +61,6 @@ class ProductCollectionCreateFormModel
     public array $description;
 
     /**
-     * @var ProductCollectionTypeId | null
-     *
      * @Assert\NotBlank(message="Collection type id is required")
      * @Assert\Uuid(message="Collection type id must be valid uuid format")
      */

@@ -13,19 +13,10 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6CustomFieldTest extends TestCase
 {
-    /**
-     * @var string|null
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $type;
 
     /**
@@ -33,9 +24,6 @@ class Shopware6CustomFieldTest extends TestCase
      */
     private array $config;
 
-    /**
-     * @var string
-     */
     private string $customFieldSetId;
 
     protected function setUp(): void

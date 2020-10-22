@@ -14,21 +14,12 @@ use Ergonode\ExporterMagento2\Domain\Command\UpdateMagento2ExportChannelCommand;
 
 class UpdateMagento2ChannelCommandHandler
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $repository;
 
-    /**
-     * @param ChannelRepositoryInterface $repository
-     */
     public function __construct(ChannelRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
-    /**
-     * @param UpdateMagento2ExportChannelCommand $command
-     */
     public function __invoke(UpdateMagento2ExportChannelCommand $command)
     {
         /** @var Magento2CsvChannel $channel */

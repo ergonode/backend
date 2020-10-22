@@ -21,10 +21,6 @@ use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
 
 class ProductHistoryGrid extends AbstractGrid
 {
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $id = new IntegerColumn('id', 'Id');

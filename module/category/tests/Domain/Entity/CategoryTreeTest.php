@@ -24,9 +24,6 @@ class CategoryTreeTest extends TestCase
      */
     private $id;
 
-    /**
-     * @var string
-     */
     private string $code;
 
     /**

@@ -16,17 +16,8 @@ class LogColumn extends AbstractColumn
 {
     public const TYPE = 'TEXT';
 
-    /**
-     * @var string
-     */
     private string $parameterField;
 
-    /**
-     * @param string   $logField
-     * @param string   $parameterField
-     * @param string   $label
-     * @param Language $language
-     */
     public function __construct(string $logField, string $parameterField, string $label, Language $language)
     {
         parent::__construct($logField, $label);
@@ -34,17 +25,11 @@ class LogColumn extends AbstractColumn
         $this->parameterField = $parameterField;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getParameterField(): string
     {
         return $this->parameterField;

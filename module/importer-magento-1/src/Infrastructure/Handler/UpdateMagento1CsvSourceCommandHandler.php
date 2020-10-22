@@ -15,22 +15,14 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 
 class UpdateMagento1CsvSourceCommandHandler
 {
-    /**
-     * @var SourceRepositoryInterface
-     */
     private SourceRepositoryInterface $repository;
 
-    /**
-     * @param SourceRepositoryInterface $repository
-     */
     public function __construct(SourceRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateMagento1CsvSourceCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateMagento1CsvSourceCommand $command)

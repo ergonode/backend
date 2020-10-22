@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TextareaAttributeFormModel extends AttributeFormModel
 {
     /**
-     * @var TextareaAttributePropertyModel
-     *
      * @Assert\Valid()
      */
     public TextareaAttributePropertyModel $parameters;

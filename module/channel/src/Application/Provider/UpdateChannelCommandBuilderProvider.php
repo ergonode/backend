@@ -15,19 +15,11 @@ class UpdateChannelCommandBuilderProvider
      */
     private array $builders;
 
-    /**
-     * @param UpdateChannelCommandBuilderInterface ...$builders
-     */
     public function __construct(UpdateChannelCommandBuilderInterface ...$builders)
     {
         $this->builders = $builders;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return UpdateChannelCommandBuilderInterface
-     */
     public function provide(string $type): UpdateChannelCommandBuilderInterface
     {
         foreach ($this->builders as $builder) {

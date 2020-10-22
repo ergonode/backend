@@ -17,9 +17,6 @@ use Ergonode\Workflow\Application\DependencyInjection\CompilerPass;
 
 class ErgonodeWorkflowBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         $compiler = new ProvideConditionDictionaryCompilerPass(

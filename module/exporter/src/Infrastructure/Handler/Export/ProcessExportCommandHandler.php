@@ -18,38 +18,16 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class ProcessExportCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ExportLineRepositoryInterface
-     */
     private ExportLineRepositoryInterface $lineRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var ExportProcessorProvider
-     */
     private ExportProcessorProvider $provider;
 
-    /**
-     * @param ExportRepositoryInterface     $exportRepository
-     * @param ExportLineRepositoryInterface $lineRepository
-     * @param ChannelRepositoryInterface    $channelRepository
-     * @param ProductRepositoryInterface    $productRepository
-     * @param ExportProcessorProvider       $provider
-     */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ExportLineRepositoryInterface $lineRepository,
@@ -65,8 +43,6 @@ class ProcessExportCommandHandler
     }
 
     /**
-     * @param ProcessExportCommand $command
-     *
      * @throws DBALException
      */
     public function __invoke(ProcessExportCommand $command)

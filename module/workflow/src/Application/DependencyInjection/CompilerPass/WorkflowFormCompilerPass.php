@@ -18,9 +18,6 @@ class WorkflowFormCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'workflow.form.workflow_form_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(WorkflowFormProvider::class)) {
@@ -28,9 +25,6 @@ class WorkflowFormCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $arguments = [];

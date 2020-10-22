@@ -17,19 +17,11 @@ class CreateProductCommandFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param CreateProductCommandFactoryInterface ...$factories
-     */
     public function __construct(CreateProductCommandFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return CreateProductCommandFactoryInterface
-     */
     public function provide(string $type):CreateProductCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {

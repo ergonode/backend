@@ -18,22 +18,14 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Locate;
 
 class Shopware6LanguageClient
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @param Shopware6Connector $connector
-     */
     public function __construct(Shopware6Connector $connector)
     {
         $this->connector = $connector;
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return Shopware6Language[]
      */
     public function getLanguageList(Shopware6Channel $channel): array
@@ -54,12 +46,6 @@ class Shopware6LanguageClient
         return $languageList;
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param string           $locateId
-     *
-     * @return Shopware6Locate
-     */
     private function getLocate(Shopware6Channel $channel, string $locateId): Shopware6Locate
     {
         $action = new GetLocate($locateId);

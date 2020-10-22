@@ -17,24 +17,12 @@ use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 
 class ExportStatusHandlerTest extends TestCase
 {
-    /**
-     * @var ExportStatusHandler
-     */
     private ExportStatusHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

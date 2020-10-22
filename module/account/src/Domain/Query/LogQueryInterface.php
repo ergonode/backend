@@ -14,10 +14,5 @@ use Ergonode\Grid\DataSetInterface;
 
 interface LogQueryInterface
 {
-    /**
-     * @param UserId|null $id
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(?UserId $id = null): DataSetInterface;
 }

@@ -13,10 +13,6 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 class EndShopware6ExportProcess
 {
-    /**
-     * @param ExportId        $id
-     * @param AbstractChannel $channel
-     */
     public function process(ExportId $id, AbstractChannel $channel): void
     {
     }

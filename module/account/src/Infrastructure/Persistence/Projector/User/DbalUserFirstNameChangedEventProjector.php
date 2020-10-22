@@ -17,22 +17,14 @@ class DbalUserFirstNameChangedEventProjector
 {
     private const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param UserFirstNameChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(UserFirstNameChangedEvent $event): void

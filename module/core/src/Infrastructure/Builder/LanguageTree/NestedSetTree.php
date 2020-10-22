@@ -25,10 +25,6 @@ class NestedSetTree
         return $this->data;
     }
 
-    /**
-     * @param AggregateId $id
-     * @param string      $code
-     */
     public function addRoot(AggregateId $id, string $code)
     {
         $this->data[] = new Branch(
@@ -40,10 +36,6 @@ class NestedSetTree
     }
 
     /**
-     * @param AggregateId $id
-     * @param string      $code
-     * @param AggregateId $parentId
-     *
      * @throws \Exception
      */
     public function addNode(AggregateId $id, string $code, AggregateId $parentId)
@@ -58,11 +50,6 @@ class NestedSetTree
         }
     }
 
-    /**
-     * @param AggregateId $id
-     * @param string      $code
-     * @param Branch      $child
-     */
     private function addChild(AggregateId $id, string $code, Branch $child)
     {
         $right = $child->getRight();
@@ -77,11 +64,6 @@ class NestedSetTree
         );
     }
 
-    /**
-     * @param AggregateId $id
-     * @param string      $code
-     * @param Branch      $parent
-     */
     private function add(AggregateId $id, string $code, Branch $parent)
     {
         $right = $parent->getRight();
@@ -96,10 +78,6 @@ class NestedSetTree
         );
     }
 
-    /**
-     * @param int $left
-     * @param int $right
-     */
     private function updateLeftRight(int $left, int $right): void
     {
         foreach ($this->data as $row) {
@@ -112,11 +90,6 @@ class NestedSetTree
         }
     }
 
-    /**
-     * @param AggregateId $id
-     *
-     * @return Branch|null
-     */
     private function findParent(AggregateId $id): ?Branch
     {
         foreach ($this->data as $row) {
@@ -128,11 +101,6 @@ class NestedSetTree
         return null;
     }
 
-    /**
-     * @param AggregateId $id
-     *
-     * @return Branch|null
-     */
     private function findChildrenMaxLevel(AggregateId $id): ?Branch
     {
         $child = null;

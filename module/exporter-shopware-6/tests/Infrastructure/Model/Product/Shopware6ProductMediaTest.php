@@ -13,14 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6ProductMediaTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $mediaId;
 
     protected function setUp(): void

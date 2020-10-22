@@ -19,24 +19,12 @@ use Ramsey\Uuid\Uuid;
 
 class RoleIdHandlerTest extends TestCase
 {
-    /**
-     * @var RoleIdHandler
-     */
     private RoleIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

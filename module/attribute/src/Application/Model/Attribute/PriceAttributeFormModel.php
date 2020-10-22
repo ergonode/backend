@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PriceAttributeFormModel extends AttributeFormModel
 {
     /**
-     * @var PriceAttributePropertyModel
-     *
      * @Assert\Valid()
      */
     public PriceAttributePropertyModel $parameters;

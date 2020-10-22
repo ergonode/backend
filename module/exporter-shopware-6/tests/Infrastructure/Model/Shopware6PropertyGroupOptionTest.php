@@ -13,24 +13,12 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6PropertyGroupOptionTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $mediaId;
 
-    /**
-     * @var int
-     */
     private int $position;
 
     protected function setUp(): void

@@ -17,26 +17,12 @@ use Psr\Log\LoggerInterface;
 
 class ImportGroupingProductCommandHandler
 {
-    /**
-     * @var GroupingProductImportAction
-     */
     private GroupingProductImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
     private ImportErrorRepositoryInterface $repository;
 
-    /**
-     * @var LoggerInterface
-     */
     private LoggerInterface $importLogger;
 
-    /**
-     * @param GroupingProductImportAction    $action
-     * @param ImportErrorRepositoryInterface $repository
-     * @param LoggerInterface                $importLogger
-     */
     public function __construct(
         GroupingProductImportAction $action,
         ImportErrorRepositoryInterface $repository,
@@ -48,8 +34,6 @@ class ImportGroupingProductCommandHandler
     }
 
     /**
-     * @param ImportGroupingProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ImportGroupingProductCommand $command)

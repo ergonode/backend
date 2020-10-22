@@ -21,20 +21,10 @@ use Webmozart\Assert\Assert;
 
 abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
     private AttributeTranslationInheritanceCalculator $calculator;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator
@@ -60,25 +50,15 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
         return $shopware6Product;
     }
 
-    /**
-     * @return string
-     */
     abstract public function getType(): string;
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     protected function isSupported(string $type): bool
     {
         return $this->getType() === $type;
     }
 
     /**
-     * @param Shopware6Channel  $channel
-     * @param AbstractAttribute $attribute
-     * @param                   $calculateValue
+     * @param $calculateValue
      *
      * @return string|array
      */
@@ -88,15 +68,6 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
         $calculateValue
     );
 
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AttributeId      $attributeId
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     */
     private function attributeMap(
         Shopware6Product $shopware6Product,
         AttributeId $attributeId,

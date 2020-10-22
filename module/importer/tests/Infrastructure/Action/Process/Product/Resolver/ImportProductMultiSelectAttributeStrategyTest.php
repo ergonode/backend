@@ -19,9 +19,6 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 
 class ImportProductMultiSelectAttributeStrategyTest extends TestCase
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
     protected function setUp(): void

@@ -14,9 +14,6 @@ use PHPUnit\Framework\TestCase;
 class RangeTest extends TestCase
 {
     /**
-     * @param float $min
-     * @param float $max
-     *
      * @dataProvider dataProvider
      */
     public function testValidRange(float $min, float $max): void
@@ -27,9 +24,6 @@ class RangeTest extends TestCase
     }
 
     /**
-     * @param float $min
-     * @param float $max
-     *
      * @dataProvider dataProvider
      */
     public function testRangeIsValid(float $min, float $max): void
@@ -39,9 +33,6 @@ class RangeTest extends TestCase
     }
 
     /**
-     * @param float $min
-     * @param float $max
-     *
      * @dataProvider dataProvider
      */
     public function testRangeEquality(float $min, float $max): void
@@ -54,10 +45,6 @@ class RangeTest extends TestCase
     }
 
     /**
-     * @param float $max
-     * @param float $min
-     *
-     *
      * @dataProvider dataProvider
      */
     public function testInValidRange(float $max, float $min): void

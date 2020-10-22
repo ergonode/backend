@@ -17,20 +17,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 class CalculateProductCommandHandler
 {
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param SegmentQueryInterface $query
-     * @param CommandBusInterface   $commandBus
-     */
     public function __construct(
         SegmentQueryInterface $query,
         CommandBusInterface $commandBus
@@ -40,8 +30,6 @@ class CalculateProductCommandHandler
     }
 
     /**
-     * @param CalculateProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CalculateProductCommand $command): void

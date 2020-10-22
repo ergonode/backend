@@ -25,14 +25,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LanguageReadAction
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @param LanguageQueryInterface $query
-     */
     public function __construct(LanguageQueryInterface $query)
     {
         $this->query = $query;
@@ -64,10 +58,6 @@ class LanguageReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @param string $translationLanguage
-     *
-     * @return Response
      */
     public function __invoke(string $translationLanguage): Response
     {

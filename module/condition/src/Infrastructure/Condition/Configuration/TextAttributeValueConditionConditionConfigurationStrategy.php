@@ -18,20 +18,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TextAttributeValueConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param AttributeQueryInterface $query
-     * @param TranslatorInterface     $translator
-     */
     public function __construct(AttributeQueryInterface $query, TranslatorInterface $translator)
     {
         $this->query = $query;

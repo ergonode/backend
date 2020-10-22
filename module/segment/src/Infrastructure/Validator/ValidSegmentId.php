@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ValidSegmentId extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'The Segment id {{ value }} is not valid.';
 }

@@ -18,24 +18,12 @@ use PHPUnit\Framework\TestCase;
 
 class PrivilegeHandlerTest extends TestCase
 {
-    /**
-     * @var PrivilegeHandler
-     */
     private PrivilegeHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
     protected function setUp(): void

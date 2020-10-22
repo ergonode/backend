@@ -13,18 +13,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 interface ProductInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 
-    /**
-     * @return Sku
-     */
     public function getSku(): Sku;
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId;
 }

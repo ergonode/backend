@@ -15,8 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class TemplateIdFaker extends BaseProvider
 {
     /**
-     * @return TemplateId
-     *
      * @throws \Exception
      */
     public function templateId(): TemplateId

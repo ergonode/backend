@@ -36,43 +36,31 @@ use JMS\Serializer\Annotation as JMS;
 class Template extends AbstractAggregateRoot
 {
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var MultimediaId | null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private ?MultimediaId $imageId;
 
     /**
-     * @var TemplateGroupId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $groupId;
 
     /**
-     * @var AttributeId | null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultLabel;
 
     /**
-     * @var AttributeId | null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultImage;
@@ -85,13 +73,6 @@ class Template extends AbstractAggregateRoot
     private array $elements;
 
     /**
-     * @param TemplateId        $id
-     * @param TemplateGroupId   $groupId
-     * @param string            $name
-     * @param AttributeId|null  $defaultLabel
-     * @param AttributeId|null  $defaultImage
-     * @param MultimediaId|null $imageId
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -105,41 +86,27 @@ class Template extends AbstractAggregateRoot
         $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $defaultLabel, $defaultImage, $imageId));
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getId(): TemplateId
     {
         return $this->id;
     }
 
-    /**
-     * @return TemplateGroupId
-     */
     public function getGroupId(): TemplateGroupId
     {
         return $this->groupId;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return AttributeId | null
-     */
     public function getDefaultLabel(): ?AttributeId
     {
         return $this->defaultLabel;
     }
 
     /**
-     * @param AttributeId $defaultLabel
-     *
      * @throws \Exception
      */
     public function addDefaultLabel(AttributeId $defaultLabel): void
@@ -160,9 +127,6 @@ class Template extends AbstractAggregateRoot
         $this->apply(new TemplateDefaultLabelRemovedEvent($this->id, $this->defaultLabel));
     }
 
-    /**
-     * @param AttributeId $newDefaultLabel
-     */
     public function changeDefaultLabel(AttributeId $newDefaultLabel): void
     {
         if (!$this->defaultLabel->isEqual($newDefaultLabel)) {
@@ -175,8 +139,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param AttributeId $defaultImage
-     *
      * @throws \Exception
      */
     public function addDefaultImage(AttributeId $defaultImage): void
@@ -197,9 +159,6 @@ class Template extends AbstractAggregateRoot
         $this->apply(new TemplateDefaultImageRemovedEvent($this->id, $this->defaultImage));
     }
 
-    /**
-     * @param AttributeId $newDefaultImage
-     */
     public function changeDefaultImage(AttributeId $newDefaultImage): void
     {
         if (!$this->defaultImage->isEqual($newDefaultImage)) {
@@ -211,19 +170,11 @@ class Template extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @return AttributeId | null
-     */
     public function getDefaultImage(): ?AttributeId
     {
         return $this->defaultImage;
     }
 
-    /**
-     * @param Position $position
-     *
-     * @return bool
-     */
     public function hasElement(Position $position): bool
     {
         foreach ($this->elements as $element) {
@@ -235,11 +186,6 @@ class Template extends AbstractAggregateRoot
         return false;
     }
 
-    /**
-     * @param Position $position
-     *
-     * @return TemplateElement
-     */
     public function getElement(Position $position): TemplateElement
     {
         foreach ($this->elements as $element) {
@@ -260,17 +206,12 @@ class Template extends AbstractAggregateRoot
         return new ArrayCollection(array_values($this->elements));
     }
 
-    /**
-     * @return MultimediaId|null
-     */
     public function getImageId(): ?MultimediaId
     {
         return $this->imageId;
     }
 
     /**
-     * @param string $name
-     *
      * @throws \Exception
      */
     public function changeName(string $name): void
@@ -281,8 +222,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param MultimediaId $imageId
-     *
      * @throws \Exception
      */
     public function addImage(MultimediaId $imageId): void
@@ -295,8 +234,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param MultimediaId $imageId
-     *
      * @throws \Exception
      */
     public function changeImage(MultimediaId $imageId): void
@@ -316,8 +253,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param TemplateGroupId $groupId
-     *
      * @throws \Exception
      */
     public function changeGroup(TemplateGroupId $groupId): void
@@ -328,8 +263,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param TemplateElement $element
-     *
      * @throws \Exception
      */
     public function addElement(TemplateElement $element): void
@@ -344,8 +277,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param TemplateElement $element
-     *
      * @throws \Exception
      */
     public function changeElement(TemplateElement $element): void
@@ -361,8 +292,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param Position $position
-     *
      * @throws \Exception
      */
     public function removeElement(Position $position): void
@@ -372,33 +301,21 @@ class Template extends AbstractAggregateRoot
         $this->apply(new TemplateElementRemovedEvent($this->id, $element->getPosition()));
     }
 
-    /**
-     * @param TemplateNameChangedEvent $event
-     */
     protected function applyTemplateNameChangedEvent(TemplateNameChangedEvent $event): void
     {
         $this->name = $event->getTo();
     }
 
-    /**
-     * @param TemplateGroupChangedEvent $event
-     */
     protected function applyTemplateGroupChangedEvent(TemplateGroupChangedEvent $event): void
     {
         $this->groupId = $event->getNew();
     }
 
-    /**
-     * @param TemplateElementAddedEvent $event
-     */
     protected function applyTemplateElementAddedEvent(TemplateElementAddedEvent $event): void
     {
         $this->elements[] = $event->getElement();
     }
 
-    /**
-     * @param TemplateElementChangedEvent $event
-     */
     protected function applyTemplateElementChangedEvent(TemplateElementChangedEvent $event): void
     {
         $element = $event->getElement();
@@ -410,9 +327,6 @@ class Template extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param TemplateElementRemovedEvent $event
-     */
     protected function applyTemplateElementRemovedEvent(TemplateElementRemovedEvent $event): void
     {
         foreach ($this->elements as $key => $element) {
@@ -422,9 +336,6 @@ class Template extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param TemplateCreatedEvent $event
-     */
     protected function applyTemplateCreatedEvent(TemplateCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -436,74 +347,47 @@ class Template extends AbstractAggregateRoot
         $this->elements = [];
     }
 
-    /**
-     * @param TemplateImageAddedEvent $event
-     */
     protected function applyTemplateImageAddedEvent(TemplateImageAddedEvent $event): void
     {
         $this->imageId = $event->getImageId();
     }
 
 
-    /**
-     * @param TemplateDefaultLabelAddedEvent $event
-     */
     protected function applyTemplateDefaultLabelAddedEvent(TemplateDefaultLabelAddedEvent $event): void
     {
         $this->defaultLabel = $event->getDefaultLabel();
     }
 
-    /**
-     * @param TemplateDefaultImageAddedEvent $event
-     */
     protected function applyTemplateDefaultImageAddedEvent(TemplateDefaultImageAddedEvent $event): void
     {
         $this->defaultImage = $event->getDefaultImage();
     }
 
-    /**
-     * @param TemplateImageChangedEvent $event
-     */
     protected function applyTemplateImageChangedEvent(TemplateImageChangedEvent $event): void
     {
         $this->imageId = $event->getTo();
     }
 
-    /**
-     * @param TemplateImageRemovedEvent $event
-     */
     protected function applyTemplateImageRemovedEvent(TemplateImageRemovedEvent $event): void
     {
         $this->imageId = null;
     }
 
-    /**
-     * @param TemplateDefaultLabelRemovedEvent $event
-     */
     protected function applyTemplateDefaultLabelRemovedEvent(TemplateDefaultLabelRemovedEvent $event): void
     {
         $this->defaultLabel = null;
     }
 
-    /**
-     * @param TemplateDefaultImageRemovedEvent $event
-     */
     protected function applyTemplateDefaultImageRemovedEvent(TemplateDefaultImageRemovedEvent $event): void
     {
         $this->defaultImage = null;
     }
 
-    /**
-     * @param TemplateDefaultLabelChangedEvent $event
-     */
     protected function applyTemplateDefaultLabelChangedEvent(TemplateDefaultLabelChangedEvent $event): void
     {
         $this->defaultLabel = $event->getTo();
     }
 
-    /**
-     * @param TemplateDefaultImageChangedEvent $event
-     */
     protected function applyTemplateDefaultImageChangedEvent(TemplateDefaultImageChangedEvent $event): void
     {
         $this->defaultImage = $event->getTo();

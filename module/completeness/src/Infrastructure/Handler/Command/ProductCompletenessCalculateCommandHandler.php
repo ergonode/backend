@@ -19,44 +19,18 @@ use Ergonode\Completeness\Infrastructure\Persistence\Manager\CompletenessManager
 
 class ProductCompletenessCalculateCommandHandler
 {
-    /**
-     * @var CompletenessCalculator
-     */
     private CompletenessCalculator  $calculator;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var DraftProvider
-     */
     private DraftProvider $provider;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @var CompletenessManager
-     */
     private CompletenessManager $manager;
 
-    /**
-     * @param CompletenessCalculator      $calculator
-     * @param LanguageQueryInterface      $query
-     * @param DraftProvider               $provider
-     * @param ProductRepositoryInterface  $productRepository
-     * @param TemplateRepositoryInterface $templateRepository
-     * @param CompletenessManager         $manager
-     */
     public function __construct(
         CompletenessCalculator $calculator,
         LanguageQueryInterface $query,
@@ -74,8 +48,6 @@ class ProductCompletenessCalculateCommandHandler
     }
 
     /**
-     * @param ProductCompletenessCalculateCommand $command
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCompletenessCalculateCommand $command): void

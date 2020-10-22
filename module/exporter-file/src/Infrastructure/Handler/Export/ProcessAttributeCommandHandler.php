@@ -23,44 +23,18 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class ProcessAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var AttributeProcessor
-     */
     private AttributeProcessor $processor;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
-    /**
-     * @var WriterProvider
-     */
     private WriterProvider $provider;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param ExportRepositoryInterface    $exportRepository
-     * @param ChannelRepositoryInterface   $channelRepository
-     * @param AttributeProcessor           $processor
-     * @param TempFileStorage              $storage
-     * @param WriterProvider               $provider
-     */
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         ExportRepositoryInterface $exportRepository,
@@ -78,8 +52,6 @@ class ProcessAttributeCommandHandler
     }
 
     /**
-     * @param ProcessAttributeCommand $command
-     *
      * @throws ExportException
      */
     public function __invoke(ProcessAttributeCommand $command)

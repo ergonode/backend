@@ -24,9 +24,6 @@ class DateTimeTransformerTest extends TestCase
 
     /**
      * @dataProvider validReverseTransformCasesProvider
-     *
-     * @param string $dateTime
-     * @param string $timezone
      */
     public function testShouldReverseTransform(string $dateTime, string $timezone): void
     {
@@ -57,8 +54,6 @@ class DateTimeTransformerTest extends TestCase
 
     /**
      * @dataProvider invalidReverseTransformCasesProvider
-     *
-     * @param string $dateTime
      */
     public function testShouldThrowExceptionOnDenormalize(string $dateTime): void
     {

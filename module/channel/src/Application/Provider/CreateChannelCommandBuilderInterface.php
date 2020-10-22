@@ -13,17 +13,7 @@ use Symfony\Component\Form\FormInterface;
 
 interface CreateChannelCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 
-    /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function build(FormInterface $form): DomainCommandInterface;
 }

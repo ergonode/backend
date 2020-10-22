@@ -18,25 +18,13 @@ use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 
 class Magento1BundleProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
-     */
     public function process(
         Import $import,
         ProductModel $product,

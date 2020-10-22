@@ -14,11 +14,6 @@ class ImportRelatedProductIncorrectTypeException extends ImportException
 {
     private const MESSAGE  = 'Incorrect related product type {{type}} to {{sku}}';
 
-    /**
-     * @param Sku             $from
-     * @param string          $type
-     * @param \Throwable|null $previous
-     */
     public function __construct(Sku $from, string $type, \Throwable $previous = null)
     {
         parent::__construct(self::MESSAGE, ['sku' => $from->getValue(), 'type' => $type], $previous);

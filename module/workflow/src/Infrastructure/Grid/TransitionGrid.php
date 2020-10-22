@@ -22,23 +22,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TransitionGrid extends AbstractGrid
 {
-    /**
-     * @var StatusQueryInterface
-     */
     private StatusQueryInterface $statusQuery;
 
-    /**
-     * @param StatusQueryInterface $statusQuery
-     */
     public function __construct(StatusQueryInterface $statusQuery)
     {
         $this->statusQuery = $statusQuery;
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     *
      * @throws \Exception
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void

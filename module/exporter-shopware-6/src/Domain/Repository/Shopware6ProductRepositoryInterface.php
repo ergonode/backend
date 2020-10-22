@@ -13,26 +13,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 interface Shopware6ProductRepositoryInterface
 {
-    /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, ProductId $productId): ?string;
 
-    /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     * @param string    $shopwareId
-     */
     public function save(ChannelId $channelId, ProductId $productId, string $shopwareId): void;
 
-    /**
-     * @param ChannelId $channelId
-     * @param ProductId $productId
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, ProductId $productId): bool;
 }

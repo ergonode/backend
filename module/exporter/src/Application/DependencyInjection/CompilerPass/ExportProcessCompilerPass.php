@@ -17,9 +17,6 @@ class ExportProcessCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'export.export_processor_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ExportProcessorProvider::class)) {
@@ -27,9 +24,6 @@ class ExportProcessCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

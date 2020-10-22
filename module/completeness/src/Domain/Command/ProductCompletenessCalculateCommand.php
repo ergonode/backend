@@ -13,22 +13,13 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 class ProductCompletenessCalculateCommand implements DomainCommandInterface
 {
-    /**
-     * @var ProductId
-     */
     private ProductId $productId;
 
-    /**
-     * @param ProductId $productId
-     */
     public function __construct(ProductId $productId)
     {
         $this->productId = $productId;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getProductId(): ProductId
     {
         return $this->productId;

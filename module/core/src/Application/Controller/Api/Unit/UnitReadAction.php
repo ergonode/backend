@@ -53,10 +53,6 @@ class UnitReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Core\Domain\Entity\Unit")
-     *
-     * @param Unit $unit
-     *
-     * @return Response
      */
     public function __invoke(Unit $unit): Response
     {

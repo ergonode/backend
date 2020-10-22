@@ -25,23 +25,9 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class Shopware6ProductVariantMapper extends AbstractShopware6VariantOptionMapper
 {
-    /**
-     * @var Shopware6PropertyGroupRepositoryInterface
-     */
     private Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository;
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface  $optionQuery;
 
-    /**
-     * @param Shopware6PropertyGroupRepositoryInterface        $propertyGroupRepository
-     * @param OptionQueryInterface                             $optionQuery
-     * @param AttributeRepositoryInterface                     $attributeRepository
-     * @param OptionRepositoryInterface                        $optionRepository
-     * @param AttributeTranslationInheritanceCalculator        $calculator
-     * @param Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
-     */
     public function __construct(
         Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
         OptionQueryInterface $optionQuery,
@@ -56,14 +42,6 @@ class Shopware6ProductVariantMapper extends AbstractShopware6VariantOptionMapper
         $this->optionQuery = $optionQuery;
     }
 
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
@@ -77,13 +55,6 @@ class Shopware6ProductVariantMapper extends AbstractShopware6VariantOptionMapper
         return $shopware6Product;
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param Shopware6Product $shopware6Product
-     * @param VariableProduct  $product
-     *
-     * @return Shopware6Product
-     */
     private function variantMapper(
         Shopware6Channel $channel,
         Shopware6Product $shopware6Product,
@@ -98,13 +69,6 @@ class Shopware6ProductVariantMapper extends AbstractShopware6VariantOptionMapper
         return $shopware6Product;
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param Shopware6Product $shopware6Product
-     * @param AttributeId      $bindingId
-     *
-     * @return Shopware6Product
-     */
     private function mapOptions(
         Shopware6Channel $channel,
         Shopware6Product $shopware6Product,

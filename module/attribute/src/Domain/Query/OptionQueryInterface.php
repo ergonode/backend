@@ -16,40 +16,21 @@ use Ergonode\Grid\DataSetInterface;
 interface OptionQueryInterface
 {
     /**
-     * @param AttributeId $attributeId
-     * @param Language    $language
-     *
      * @return array
      */
     public function getList(AttributeId $attributeId, Language $language): array;
 
     /**
-     * @param AttributeId|null $attributeId
-     *
      * @return array
      */
     public function getAll(?AttributeId $attributeId = null): array;
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function getOptions(AttributeId $attributeId): array;
 
-    /**
-     * @param AttributeId $attributeId
-     * @param Language    $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(AttributeId $attributeId, Language $language): DataSetInterface;
 
-    /**
-     * @param AttributeId $id
-     * @param OptionKey   $code
-     *
-     * @return AggregateId|null
-     */
     public function findIdByAttributeIdAndCode(AttributeId $id, OptionKey $code): ?AggregateId;
 }

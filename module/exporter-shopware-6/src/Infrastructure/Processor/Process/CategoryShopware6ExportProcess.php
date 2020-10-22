@@ -24,32 +24,14 @@ use Webmozart\Assert\Assert;
 
 class CategoryShopware6ExportProcess
 {
-    /**
-     * @var Shopware6CategoryRepositoryInterface
-     */
     private Shopware6CategoryRepositoryInterface $shopware6CategoryRepository;
 
-    /**
-     * @var Shopware6CategoryClient
-     */
     private Shopware6CategoryClient $categoryClient;
 
-    /**
-     * @var Shopware6CategoryBuilder
-     */
     private Shopware6CategoryBuilder $builder;
 
-    /**
-     * @var Shopware6LanguageRepositoryInterface
-     */
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
-    /**
-     * @param Shopware6CategoryRepositoryInterface $shopware6CategoryRepository
-     * @param Shopware6CategoryClient              $categoryClient
-     * @param Shopware6CategoryBuilder             $builder
-     * @param Shopware6LanguageRepositoryInterface $languageRepository
-     */
     public function __construct(
         Shopware6CategoryRepositoryInterface $shopware6CategoryRepository,
         Shopware6CategoryClient $categoryClient,
@@ -62,12 +44,6 @@ class CategoryShopware6ExportProcess
         $this->languageRepository = $languageRepository;
     }
 
-    /**
-     * @param ExportId         $id
-     * @param Shopware6Channel $channel
-     * @param AbstractCategory $category
-     * @param CategoryId|null  $parentId
-     */
     public function process(
         ExportId $id,
         Shopware6Channel $channel,
@@ -90,14 +66,6 @@ class CategoryShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6Category      $shopwareCategory
-     * @param AbstractCategory       $category
-     * @param CategoryId|null        $parentId
-     * @param Language|null          $language
-     * @param Shopware6Language|null $shopwareLanguage
-     */
     private function updateCategory(
         Shopware6Channel $channel,
         Shopware6Category $shopwareCategory,
@@ -112,12 +80,6 @@ class CategoryShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     * @param Language         $language
-     * @param AbstractCategory $category
-     * @param CategoryId|null  $parentId
-     */
     private function updateCategoryWithLanguage(
         Shopware6Channel $channel,
         Language $language,
@@ -133,13 +95,6 @@ class CategoryShopware6ExportProcess
         $this->updateCategory($channel, $shopwareCategory, $category, $parentId, $language, $shopwareLanguage);
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param AbstractCategory       $category
-     * @param Shopware6Language|null $shopware6Language
-     *
-     * @return Shopware6Category|null
-     */
     private function loadCategory(
         Shopware6Channel $channel,
         AbstractCategory $category,

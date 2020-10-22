@@ -18,31 +18,15 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 interface ImportQueryInterface
 {
     /**
-     * @param ImportErrorId $id
-     *
      * @return array
      */
     public function getLineContent(ImportErrorId $id): array;
 
-    /**
-     * @param SourceId $id
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(SourceId $id): DataSetInterface;
 
-    /**
-     * @param ImportId $id
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface;
 
     /**
-     * @param ImportId $id
-     * @param Language $language
-     *
      * @return array
      */
     public function getInformation(ImportId $id, Language $language): array;

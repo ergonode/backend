@@ -19,15 +19,10 @@ class EncodingFormatter implements FormatterInterface
     private const ENCODING = 'UTF-8//IGNORE';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $encoding;
 
-    /**
-     * @param string $encoding
-     */
     public function __construct(string $encoding)
     {
         $this->encoding = $encoding;

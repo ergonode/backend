@@ -18,8 +18,6 @@ use Webmozart\Assert\Assert;
 class UpdateConditionSetCommand implements DomainCommandInterface
 {
     /**
-     * @var ConditionSetId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ConditionSetId $id;
@@ -32,8 +30,7 @@ class UpdateConditionSetCommand implements DomainCommandInterface
     private array $conditions;
 
     /**
-     * @param ConditionSetId $id
-     * @param array          $conditions
+     * @param array $conditions
      */
     public function __construct(ConditionSetId $id, array $conditions = [])
     {
@@ -43,9 +40,6 @@ class UpdateConditionSetCommand implements DomainCommandInterface
         $this->conditions = $conditions;
     }
 
-    /**
-     * @return ConditionSetId
-     */
     public function getId(): ConditionSetId
     {
         return $this->id;

@@ -19,22 +19,14 @@ class DbalAttributeLabelChangedEventProjector
 {
     private const TABLE = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param AttributeLabelChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(AttributeLabelChangedEvent $event): void
@@ -81,12 +73,6 @@ class DbalAttributeLabelChangedEventProjector
         }
     }
 
-    /**
-     * @param string      $field
-     * @param AttributeId $attributeId
-     *
-     * @return string
-     */
     private function getTranslationId(string $field, AttributeId $attributeId): string
     {
         $qb = $this->connection->createQueryBuilder();

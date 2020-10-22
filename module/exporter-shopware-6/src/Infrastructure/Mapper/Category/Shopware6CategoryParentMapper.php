@@ -18,14 +18,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class Shopware6CategoryParentMapper implements Shopware6CategoryMapperInterface
 {
-    /**
-     * @var Shopware6CategoryRepositoryInterface
-     */
     private Shopware6CategoryRepositoryInterface $repository;
 
-    /**
-     * @param Shopware6CategoryRepositoryInterface $repository
-     */
     public function __construct(Shopware6CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;

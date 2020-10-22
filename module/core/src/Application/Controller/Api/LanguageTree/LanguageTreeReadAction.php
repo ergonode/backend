@@ -23,14 +23,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LanguageTreeReadAction
 {
-    /**
-     * @var LanguageTreeRepositoryInterface
-     */
     private LanguageTreeRepositoryInterface $repository;
 
-    /**
-     * @param LanguageTreeRepositoryInterface $repository
-     */
     public function __construct(LanguageTreeRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -55,10 +49,6 @@ class LanguageTreeReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

@@ -20,22 +20,14 @@ use Webmozart\Assert\Assert;
 
 class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param AttributeGroupId $id
-     *
      * @return AbstractAggregateRoot|AttributeGroup
      *
      * @throws \ReflectionException
@@ -49,8 +41,6 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void

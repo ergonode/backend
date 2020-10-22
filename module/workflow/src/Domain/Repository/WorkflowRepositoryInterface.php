@@ -16,19 +16,11 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 interface WorkflowRepositoryInterface
 {
     /**
-     * @param WorkflowId $id
-     *
      * @return null|AbstractWorkflow
      */
     public function load(WorkflowId $id): ?AbstractAggregateRoot;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void;
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

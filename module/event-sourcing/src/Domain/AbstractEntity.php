@@ -16,14 +16,9 @@ use JMS\Serializer\Annotation as JMS;
  */
 abstract class AbstractEntity
 {
-    /**
-     * @var AbstractAggregateRoot|null
-     */
     protected ?AbstractAggregateRoot $aggregateRoot;
 
     /**
-     * @param DomainEventInterface $event
-     *
      * @throws \Exception
      */
     public function apply(DomainEventInterface $event): void
@@ -31,18 +26,11 @@ abstract class AbstractEntity
         $this->aggregateRoot->apply($event);
     }
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function setAggregateRoot(AbstractAggregateRoot $aggregateRoot): void
     {
         $this->aggregateRoot = $aggregateRoot;
     }
 
-    /**
-     * @param DomainEventInterface $event
-     * @param \DateTime            $recordedAt
-     */
     public function handle(DomainEventInterface $event, \DateTime $recordedAt): void
     {
         $classArray = explode('\\', get_class($event));

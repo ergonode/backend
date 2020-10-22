@@ -20,14 +20,8 @@ use Symfony\Component\Console\Question\Question;
 
 class DomainEntityCreatorCommand extends Command
 {
-    /**
-     * @var EntityGenerator
-     */
     private EntityGenerator $generator;
 
-    /**
-     * @param EntityGenerator $generator
-     */
     public function __construct(EntityGenerator $generator)
     {
         $this->generator = $generator;
@@ -43,10 +37,6 @@ class DomainEntityCreatorCommand extends Command
         $this->addArgument('entity', InputArgument::REQUIRED, 'Entity name');
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
         $module = $input->getArgument('module');

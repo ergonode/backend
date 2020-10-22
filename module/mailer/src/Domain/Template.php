@@ -13,9 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 class Template
 {
-    /**
-     * @var string
-     */
     private string $path;
 
     /**
@@ -23,15 +20,10 @@ class Template
      */
     private array $parameters;
 
-    /**
-     * @var Language
-     */
     private Language $language;
 
     /**
-     * @param string   $path
-     * @param Language $language
-     * @param array    $parameters
+     * @param array $parameters
      */
     public function __construct(string $path, Language $language, array $parameters = [])
     {
@@ -40,9 +32,6 @@ class Template
         $this->parameters = $parameters;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;
@@ -56,9 +45,6 @@ class Template
         return $this->parameters;
     }
 
-    /**
-     * @return Language
-     */
     public function getLanguage(): Language
     {
         return $this->language;

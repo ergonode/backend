@@ -17,9 +17,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 
 abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
 {
-    /**
-     * @var string
-     */
     protected string $constant;
 
     /**
@@ -27,9 +24,6 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
      */
     private array $map;
 
-    /**
-     * @param string $constant
-     */
     public function __construct(string $constant = 'TYPE')
     {
         $this->map = [];
@@ -37,8 +31,6 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param string $class
-     *
      * @throws \ReflectionException
      */
     public function set(string $class): void
@@ -67,16 +59,11 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
         return $methods;
     }
 
-    /**
-     * @return string
-     */
     abstract public static function getSupportedInterface(): string;
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param array                           $data
-     * @param array                           $type
-     * @param Context                         $context
+     * @param array $data
+     * @param array $type
      *
      * @return object
      *

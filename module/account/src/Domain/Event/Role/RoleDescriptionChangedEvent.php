@@ -17,26 +17,16 @@ use JMS\Serializer\Annotation as JMS;
 class RoleDescriptionChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**
-     * @var RoleId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $id;
 
-    /**
-     * @param RoleId      $id
-     * @param string|null $from
-     * @param string|null $to
-     */
     public function __construct(RoleId $id, ?string $from, ?string $to)
     {
         $this->id = $id;
         parent::__construct($from, $to);
     }
 
-    /**
-     * @return RoleId
-     */
     public function getAggregateId(): RoleId
     {
         return $this->id;

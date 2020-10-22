@@ -14,9 +14,6 @@ use Ramsey\Uuid\Uuid;
 
 final class Version20191104140000 extends AbstractErgonodeMigration
 {
-    /**
-     * @param Schema $schema
-     */
     public function up(Schema $schema): void
     {
         $this->addSql('

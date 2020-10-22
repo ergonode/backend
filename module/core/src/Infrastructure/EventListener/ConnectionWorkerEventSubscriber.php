@@ -16,22 +16,14 @@ use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 class ConnectionWorkerEventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection  $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param WorkerMessageFailedEvent $event
-     *
      * @throws \Throwable
      */
     public function onMessageFailed(WorkerMessageFailedEvent $event): void

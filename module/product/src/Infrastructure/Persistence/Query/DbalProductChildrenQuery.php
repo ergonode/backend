@@ -34,38 +34,16 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
     private const LANGUAGE_TREE_TABLE = 'public.language_tree';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     protected LanguageQueryInterface $query;
 
-    /**
-     * @var ProductAttributeLanguageResolver
-     */
     protected ProductAttributeLanguageResolver $resolver;
 
-    /**
-     * @var DefaultLabelQueryBuilderInterface
-     */
     protected DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder;
 
-    /**
-     * @var DefaultImageQueryBuilderInterface
-     */
     protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
 
-    /**
-     * @param Connection                        $connection
-     * @param LanguageQueryInterface            $query
-     * @param DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder
-     * @param DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
-     * @param ProductAttributeLanguageResolver  $resolver
-     */
     public function __construct(
         Connection $connection,
         LanguageQueryInterface $query,
@@ -81,12 +59,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     }
 
 
-    /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(ProductId $productId, Language $language): DataSetInterface
     {
         $info = $this->query->getLanguageNodeInfo($language);
@@ -104,11 +76,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     }
 
     /**
-     * @param AbstractAssociatedProduct $product
-     * @param Language                  $language
-     * @param AbstractAttribute[]       $bindingAttributes
-     *
-     * @return DataSetInterface
+     * @param AbstractAttribute[] $bindingAttributes
      */
     public function getChildrenAndAvailableProductsDataSet(
         AbstractAssociatedProduct $product,
@@ -188,9 +156,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         return $result;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
@@ -199,11 +164,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
             ->innerJoin('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
     }
 
-    /**
-     * @param QueryBuilder      $qb
-     * @param AbstractAttribute $bindingAttribute
-     * @param Language          $language
-     */
     private function addBinding(QueryBuilder $qb, AbstractAttribute $bindingAttribute, Language $language)
     {
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($bindingAttribute, $language));

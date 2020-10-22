@@ -17,26 +17,12 @@ use Psr\Log\LoggerInterface;
 
 class ImportMultimediaFromUrlCommandHandler
 {
-    /**
-     * @var MultimediaImportAction
-     */
     private MultimediaImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
     private ImportErrorRepositoryInterface $repository;
 
-    /**
-     * @var LoggerInterface
-     */
     private LoggerInterface $importLogger;
 
-    /**
-     * @param MultimediaImportAction         $action
-     * @param ImportErrorRepositoryInterface $repository
-     * @param LoggerInterface                $importLogger
-     */
     public function __construct(
         MultimediaImportAction $action,
         ImportErrorRepositoryInterface $repository,
@@ -48,8 +34,6 @@ class ImportMultimediaFromUrlCommandHandler
     }
 
     /**
-     * @param ImportMultimediaFromWebCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ImportMultimediaFromWebCommand $command)

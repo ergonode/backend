@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\Entity\Import;
 class DbalImportMapper
 {
     /**
-     * @param Import $import
-     *
      * @return array
      */
     public function map(Import $import): array

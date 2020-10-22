@@ -14,23 +14,15 @@ use JMS\Serializer\Annotation as JMS;
 class Progress
 {
     /**
-     * @var int
-     *
      * @JMS\Type("int")
      */
     private int $position;
 
     /**
-     * @var int
-     *
      * @JMS\Type("int")
      */
     private int $count;
 
-    /**
-     * @param int $position
-     * @param int $count
-     */
     public function __construct(int $position, int $count)
     {
         Assert::greaterThanEq($count, 1, 'Progress requires size greater then one');
@@ -41,17 +33,11 @@ class Progress
         $this->count = $count;
     }
 
-    /**
-     * @return int
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @return int
-     */
     public function getCount(): int
     {
         return $this->count;

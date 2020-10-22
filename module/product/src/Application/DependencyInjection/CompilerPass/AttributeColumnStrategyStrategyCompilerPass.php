@@ -18,9 +18,6 @@ class AttributeColumnStrategyStrategyCompilerPass implements CompilerPassInterfa
 {
     public const TAG = 'component.product.attribute_column_strategy_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(AttributeColumnProvider::class)) {
@@ -28,9 +25,6 @@ class AttributeColumnStrategyStrategyCompilerPass implements CompilerPassInterfa
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

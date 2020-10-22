@@ -13,24 +13,12 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6ProductPriceTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $currencyId;
 
-    /**
-     * @var float
-     */
     private float $net;
 
-    /**
-     * @var float
-     */
     private float $gross;
 
-    /**
-     * @var bool
-     */
     private bool $linked;
 
     protected function setUp(): void

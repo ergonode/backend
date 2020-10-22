@@ -17,8 +17,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class ErgonodeImporterMagento1Extension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

@@ -16,32 +16,14 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ImportOptionCommand implements DomainCommandInterface
 {
-    /**
-     * @var ImportId
-     */
     private ImportId $importId;
 
-    /**
-     * @var AttributeCode
-     */
     private AttributeCode $code;
 
-    /**
-     * @var OptionKey $key
-     */
     private OptionKey $key;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $translation;
 
-    /**
-     * @param ImportId           $importId
-     * @param AttributeCode      $code
-     * @param OptionKey          $key
-     * @param TranslatableString $translation
-     */
     public function __construct(
         ImportId $importId,
         AttributeCode $code,
@@ -54,33 +36,21 @@ class ImportOptionCommand implements DomainCommandInterface
         $this->translation = $translation;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getImportId(): ImportId
     {
         return $this->importId;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getCode(): AttributeCode
     {
         return $this->code;
     }
 
-    /**
-     * @return OptionKey
-     */
     public function getKey(): OptionKey
     {
         return $this->key;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getTranslation(): TranslatableString
     {
         return $this->translation;

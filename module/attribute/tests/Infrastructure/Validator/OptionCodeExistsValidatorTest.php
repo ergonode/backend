@@ -21,9 +21,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
     protected function setUp(): void
@@ -109,9 +106,6 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return OptionCodeExistsValidator
-     */
     protected function createValidator(): OptionCodeExistsValidator
     {
         return new OptionCodeExistsValidator($this->query);

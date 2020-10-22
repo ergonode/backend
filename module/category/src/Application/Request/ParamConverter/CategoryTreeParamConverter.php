@@ -20,14 +20,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CategoryTreeParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $repository;
 
-    /**
-     * @param TreeRepositoryInterface $repository
-     */
     public function __construct(TreeRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -57,11 +51,6 @@ class CategoryTreeParamConverter implements ParamConverterInterface
         $request->attributes->set($configuration->getName(), $entity);
     }
 
-    /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
-     */
     public function supports(ParamConverter $configuration): bool
     {
         return CategoryTree::class === $configuration->getClass();

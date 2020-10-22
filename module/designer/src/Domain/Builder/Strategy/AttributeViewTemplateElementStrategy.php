@@ -22,26 +22,12 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 
 class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var AttributeParametersProvider
-     */
     private AttributeParametersProvider $provider;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param AttributeParametersProvider  $provider
-     * @param OptionQueryInterface         $query
-     */
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         AttributeParametersProvider $provider,
@@ -52,23 +38,11 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         $this->query = $query;
     }
 
-    /**
-     * @param string $variant
-     * @param string $type
-     *
-     * @return bool
-     */
     public function isSupported(string $variant, string $type): bool
     {
         return AttributeTemplateElementProperty::VARIANT === $variant;
     }
 
-    /**
-     * @param TemplateElement $element
-     * @param Language        $language
-     *
-     * @return ViewTemplateElement
-     */
     public function build(TemplateElement $element, Language $language): ViewTemplateElement
     {
         /** @var AttributeTemplateElementProperty $property */

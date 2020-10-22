@@ -19,14 +19,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ExportParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $repository;
 
-    /**
-     * @param ExportRepositoryInterface $repository
-     */
     public function __construct(ExportRepositoryInterface $repository)
     {
         $this->repository = $repository;

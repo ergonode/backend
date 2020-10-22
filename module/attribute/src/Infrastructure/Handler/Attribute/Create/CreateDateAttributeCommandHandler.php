@@ -15,22 +15,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 class CreateDateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param CreateDateAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateDateAttributeCommand $command): void

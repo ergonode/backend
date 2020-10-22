@@ -51,11 +51,6 @@ class MultiSelectColumnRenderer implements ColumnRendererInterface
         return $value ? [$value] : [];
     }
 
-    /**
-     * @param string $string
-     *
-     * @return bool
-     */
     private function isJson(?string $string = null): bool
     {
         if (null === $string) {

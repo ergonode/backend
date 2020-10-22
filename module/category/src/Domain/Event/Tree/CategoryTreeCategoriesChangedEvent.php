@@ -18,8 +18,6 @@ use Webmozart\Assert\Assert;
 class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
 {
     /**
-     * @var CategoryTreeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private CategoryTreeId $id;
@@ -32,8 +30,7 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     private array $categories;
 
     /**
-     * @param CategoryTreeId $id
-     * @param Node[]         $categories
+     * @param Node[] $categories
      */
     public function __construct(CategoryTreeId $id, array $categories = [])
     {
@@ -42,9 +39,6 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
         $this->categories = $categories;
     }
 
-    /**
-     * @return CategoryTreeId
-     */
     public function getAggregateId(): CategoryTreeId
     {
         return $this->id;

@@ -17,8 +17,6 @@ class OptionKeyDataTransformer implements DataTransformerInterface
 {
     /**
      * @param OptionKey|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -35,8 +33,6 @@ class OptionKeyDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return OptionKey|null
      */
     public function reverseTransform($value): ?OptionKey
     {

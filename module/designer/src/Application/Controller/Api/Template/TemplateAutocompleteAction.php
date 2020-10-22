@@ -21,14 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TemplateAutocompleteAction
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @param TemplateQueryInterface $templateQuery
-     */
     public function __construct(TemplateQueryInterface $templateQuery)
     {
         $this->templateQuery = $templateQuery;
@@ -77,10 +71,6 @@ class TemplateAutocompleteAction
      *     response=200,
      *     description="Return templates",
      * )
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(Request $request): Response
     {

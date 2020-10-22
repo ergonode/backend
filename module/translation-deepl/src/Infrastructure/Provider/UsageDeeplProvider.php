@@ -14,14 +14,8 @@ use Scn\DeeplApiConnector\Model\Usage;
 
 class UsageDeeplProvider implements UsageDeeplProviderInterface
 {
-    /**
-     * @var string
-     */
     private string $deeplAuthKey;
 
-    /**
-     * @param string $deeplAuthKey
-     */
     public function __construct(string $deeplAuthKey)
     {
         $this->deeplAuthKey = $deeplAuthKey;

@@ -17,22 +17,14 @@ class DbalCommentContentChangedEventProjector
 {
     private const TABLE = 'comment';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param CommentContentChangedEvent $event
-     *
      * @throws \Throwable
      */
     public function __invoke(CommentContentChangedEvent $event): void

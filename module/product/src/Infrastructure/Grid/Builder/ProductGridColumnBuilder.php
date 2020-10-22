@@ -30,38 +30,16 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 class ProductGridColumnBuilder
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AttributeColumnProvider
-     */
     private AttributeColumnProvider $provider;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $languageQuery;
 
-    /**
-     * @var Security
-     */
     private Security $security;
 
-    /**
-     * @param AttributeQueryInterface      $attributeQuery
-     * @param AttributeRepositoryInterface $repository
-     * @param AttributeColumnProvider      $provider
-     * @param LanguageQueryInterface       $languageQuery
-     * @param Security                     $security
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         AttributeRepositoryInterface $repository,
@@ -77,9 +55,6 @@ class ProductGridColumnBuilder
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $defaultLanguage
-     *
      * @return array
      *
      * @throws \Exception

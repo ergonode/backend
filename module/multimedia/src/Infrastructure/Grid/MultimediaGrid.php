@@ -29,20 +29,10 @@ use Ergonode\Grid\Column\LinkColumn;
 
 class MultimediaGrid extends AbstractGrid
 {
-    /**
-     * @var MultimediaExtensionProvider
-     */
     private MultimediaExtensionProvider $provider;
 
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $query;
 
-    /**
-     * @param MultimediaExtensionProvider $provider
-     * @param MultimediaQueryInterface    $query
-     */
     public function __construct(MultimediaExtensionProvider $provider, MultimediaQueryInterface $query)
     {
         $this->provider = $provider;
@@ -50,10 +40,6 @@ class MultimediaGrid extends AbstractGrid
     }
 
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $extensions = [];

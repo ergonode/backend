@@ -15,31 +15,14 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 interface ExportProcessorInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 
-    /**
-     * @param ExportId        $id
-     * @param AbstractChannel $channel
-     */
     public function start(ExportId $id, AbstractChannel $channel): void;
 
     /**
-     * @param ExportId        $id
-     * @param AbstractChannel $channel
-     * @param AbstractProduct $product
-     *
      * @throws ExportException
      */
     public function process(ExportId $id, AbstractChannel $channel, AbstractProduct $product): void;
 
-    /**
-     * @param ExportId        $id
-     * @param AbstractChannel $channel
-     */
     public function end(ExportId $id, AbstractChannel $channel): void;
 }

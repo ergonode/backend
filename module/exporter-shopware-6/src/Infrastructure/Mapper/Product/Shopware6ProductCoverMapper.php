@@ -16,14 +16,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class Shopware6ProductCoverMapper implements Shopware6ProductMapperInterface
 {
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,

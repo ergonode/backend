@@ -15,10 +15,6 @@ use Faker\Provider\Base as BaseProvider;
 class UserEmailFaker extends BaseProvider
 {
     /**
-     * @param string $email
-     *
-     * @return Email
-     *
      * @throws \Exception
      */
     public function userEmail(string $email): Email

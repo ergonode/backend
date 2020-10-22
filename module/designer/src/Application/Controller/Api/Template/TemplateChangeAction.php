@@ -34,26 +34,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class TemplateChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var TemplateCommandFactory
-     */
     private TemplateCommandFactory $commandFactory;
 
-    /**
-     * @param CommandBusInterface    $commandBus
-     * @param FormFactoryInterface   $formFactory
-     * @param TemplateCommandFactory $commandFactory
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
@@ -99,12 +85,8 @@ class TemplateChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Template $template
-     * @param Request  $request
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
-     *
-     * @return Response
      */
     public function __invoke(Template $template, Request $request): Response
     {

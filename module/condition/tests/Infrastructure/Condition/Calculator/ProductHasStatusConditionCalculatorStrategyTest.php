@@ -28,9 +28,6 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $statusQuery;
 
-    /**
-     * @var ProductHasStatusConditionCalculatorStrategy
-     */
     private ProductHasStatusConditionCalculatorStrategy $strategy;
 
     protected function setUp(): void
@@ -48,10 +45,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param string $productStatusUuid
-     * @param array  $searchedStatusIds
-     * @param bool   $expectedResult
+     * @param array $searchedStatusIds
      *
      * @throws \Exception
      *
@@ -113,8 +107,6 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $productId
-     *
      * @return AbstractProduct|MockObject
      */
     private function createProductMock(string $productId)
@@ -130,8 +122,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param array  $searchedStatuses
+     * @param array $searchedStatuses
      *
      * @return MockObject
      */

@@ -46,9 +46,6 @@ class AbstractProductTest extends TestCase
      */
     private AttributeCode $code;
 
-    /**
-     * @var TemplateId
-     */
     private TemplateId $templateId;
 
     protected function setUp(): void
@@ -183,13 +180,8 @@ class AbstractProductTest extends TestCase
     }
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
-     *
-     * @return AbstractProduct
+     * @param array $categories
+     * @param array $attributes
      */
     private function getClass(
         ProductId $id,
@@ -199,9 +191,6 @@ class AbstractProductTest extends TestCase
         array $attributes = []
     ): AbstractProduct {
         return new class($id, $sku, $templateId, $categories, $attributes) extends AbstractProduct {
-            /**
-             * @return string
-             */
             public function getType(): string
             {
                 return 'TYPE';

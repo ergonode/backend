@@ -18,30 +18,16 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class CategoryExportProcessorStep implements ExportStepProcessInterface
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CategoryQueryInterface $categoryQuery
-     * @param CommandBusInterface    $commandBus
-     */
     public function __construct(CategoryQueryInterface $categoryQuery, CommandBusInterface $commandBus)
     {
         $this->categoryQuery = $categoryQuery;
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId          $exportId
-     * @param FileExportChannel $channel
-     */
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $categories = $this->categoryQuery->getAll(new Language('en_GB'));

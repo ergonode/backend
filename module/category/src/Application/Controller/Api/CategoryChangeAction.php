@@ -35,32 +35,14 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class CategoryChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CategoryFormProvider
-     */
     private CategoryFormProvider $formProvider;
 
-    /**
-     * @var UpdateCategoryCommandFactoryProvider
-     */
     private UpdateCategoryCommandFactoryProvider $factoryProvider;
 
-    /**
-     * @param CommandBusInterface                  $commandBus
-     * @param FormFactoryInterface                 $formFactory
-     * @param CategoryFormProvider                 $formProvider
-     * @param UpdateCategoryCommandFactoryProvider $factoryProvider
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
@@ -113,10 +95,7 @@ class CategoryChangeAction
      *
      * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      *
-     * @param AbstractCategory $category
-     * @param Request          $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

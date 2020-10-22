@@ -16,20 +16,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProductBelongCategoryTreeConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $query;
 
-    /**
-     * @param TranslatorInterface $translator
-     * @param TreeQueryInterface  $query
-     */
     public function __construct(TranslatorInterface $translator, TreeQueryInterface $query)
     {
         $this->translator = $translator;

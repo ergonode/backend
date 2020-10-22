@@ -18,22 +18,14 @@ class DbalProductDraftValueRemovedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductDraftValueRemoved $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductDraftValueRemoved $event): void
@@ -45,9 +37,6 @@ class DbalProductDraftValueRemovedEventProjector
     }
 
     /**
-     * @param string $draftId
-     * @param string $elementId
-     *
      * @throws DBALException
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */

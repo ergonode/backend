@@ -39,9 +39,7 @@ class OptionAttributeValueConditionCalculatorStrategyTest extends TestCase
     /**
      * @dataProvider calculateCasesProvider
      *
-     * @param string   $expectedValue
      * @param string[] $values
-     * @param bool     $calculated
      */
     public function testCalculate(string $expectedValue, array $values, bool $calculated): void
     {

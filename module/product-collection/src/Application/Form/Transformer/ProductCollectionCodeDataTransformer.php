@@ -17,8 +17,6 @@ class ProductCollectionCodeDataTransformer implements DataTransformerInterface
 {
     /**
      * @param ProductCollectionCode|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -34,8 +32,6 @@ class ProductCollectionCodeDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return ProductCollectionCode|null
      */
     public function reverseTransform($value): ?ProductCollectionCode
     {

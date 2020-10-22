@@ -18,9 +18,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $query;
 
     protected function setUp(): void
@@ -79,9 +76,6 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return UniqueSegmentCodeValidator
-     */
     protected function createValidator(): UniqueSegmentCodeValidator
     {
         return new UniqueSegmentCodeValidator($this->query);

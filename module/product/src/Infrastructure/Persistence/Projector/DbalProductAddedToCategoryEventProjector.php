@@ -17,22 +17,14 @@ class DbalProductAddedToCategoryEventProjector
 {
     private const TABLE_PRODUCT_CATEGORY = 'product_category';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductAddedToCategoryEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductAddedToCategoryEvent $event): void

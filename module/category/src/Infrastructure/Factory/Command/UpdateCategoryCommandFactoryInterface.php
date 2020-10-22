@@ -15,18 +15,7 @@ use Symfony\Component\Form\FormInterface;
 
 interface UpdateCategoryCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool;
 
-    /**
-     * @param CategoryId    $id
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function create(CategoryId $id, FormInterface $form): DomainCommandInterface;
 }

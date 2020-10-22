@@ -15,16 +15,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 interface ConditionSetQueryInterface
 {
-    /**
-     * @param Language $language
-     *
-     * @return DbalDataSet
-     */
     public function getDataSet(Language $language): DbalDataSet;
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function findNumericConditionRelations(AttributeId $attributeId): array;

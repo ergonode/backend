@@ -16,9 +16,6 @@ use PHPUnit\Framework\TestCase;
 class LanguageDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var LanguageDataTransformer
-     */
     protected LanguageDataTransformer $transformer;
 
     protected function setUp(): void
@@ -27,9 +24,6 @@ class LanguageDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Language|null $languageValueObject
-     * @param string|null   $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?Language $languageValueObject, ?string $string): void
@@ -46,9 +40,6 @@ class LanguageDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Language|null $languageValueObject
-     * @param string|null   $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?Language $languageValueObject, ?string $string): void

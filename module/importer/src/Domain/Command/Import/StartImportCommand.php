@@ -16,23 +16,15 @@ use JMS\Serializer\Annotation as JMS;
 class StartImportCommand implements DomainCommandInterface
 {
     /**
-     * @var ImportId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
      */
     private ImportId $id;
 
-    /**
-     * @param ImportId $id
-     */
     public function __construct(ImportId $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getId(): ImportId
     {
         return $this->id;

@@ -15,23 +15,15 @@ use JMS\Serializer\Annotation as JMS;
 class CreateLanguageTreeCommand implements DomainCommandInterface
 {
     /**
-     * @var LanguageId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\LanguageId")
      */
     private LanguageId $rootLanguage;
 
-    /**
-     * @param LanguageId $rootLanguage
-     */
     public function __construct(LanguageId $rootLanguage)
     {
         $this->rootLanguage = $rootLanguage;
     }
 
-    /**
-     * @return LanguageId
-     */
     public function getRootLanguage(): LanguageId
     {
         return $this->rootLanguage;

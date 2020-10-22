@@ -22,15 +22,10 @@ class HandlerRegistry implements HandlerRegistryInterface
      */
     private array $map = [];
 
-    /**
-     * @var HandlerRegistryInterface
-     */
     private HandlerRegistryInterface $registry;
 
     /**
-     * @param ContainerInterface            $container
-     * @param iterable                      $handlers
-     * @param HandlerRegistryInterface|null $registry
+     * @param iterable $handlers
      */
     public function __construct(
         ContainerInterface $container,

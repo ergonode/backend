@@ -16,9 +16,6 @@ use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataRea
 
 class ErgonodeMultimediaBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

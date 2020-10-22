@@ -25,9 +25,6 @@ class TemplateElementFactoryTest extends TestCase
      */
     private MockObject $serializer;
 
-    /**
-     * @var TemplateElementTypeResolver
-     */
     private TemplateElementTypeResolver $resolver;
 
     protected function setUp(): void

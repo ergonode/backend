@@ -13,29 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6CategoryTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $parentId;
 
-    /**
-     * @var bool
-     */
     private bool $active;
 
-    /**
-     * @var bool
-     */
     private bool $visible;
 
     protected function setUp(): void

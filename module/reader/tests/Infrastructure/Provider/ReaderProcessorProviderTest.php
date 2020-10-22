@@ -21,9 +21,6 @@ class ReaderProcessorProviderTest extends TestCase
     }
 
     /**
-     * @param string                   $key
-     * @param ReaderProcessorInterface $reader
-     *
      * @dataProvider getReaderCollection
      */
     public function testProviderFoundReader(string $key, ReaderProcessorInterface $reader): void

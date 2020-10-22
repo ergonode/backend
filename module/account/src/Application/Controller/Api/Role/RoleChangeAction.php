@@ -36,20 +36,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class RoleChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -93,11 +83,6 @@ class RoleChangeAction
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
-     *
-     * @param Role    $role
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(Role $role, Request $request): Response
     {

@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 class DbalProductValueRemovedEventProjector extends AbstractProductValueProjector
 {
     /**
-     * @param ProductValueRemovedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductValueRemovedEvent $event): void

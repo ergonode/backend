@@ -33,14 +33,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionElementDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -86,11 +80,6 @@ class ProductCollectionElementDeleteAction
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     * @param ProductCollection $productCollection
-     * @param AbstractProduct   $product
-     *
-     * @return Response
      */
     public function __invoke(ProductCollection $productCollection, AbstractProduct $product): Response
     {

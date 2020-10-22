@@ -18,23 +18,13 @@ class DbalShopware6LanguageQuery implements Shopware6LanguageQueryInterface
 {
     private const TABLE = 'exporter.shopware6_language';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId          $channelId
-     * @param \DateTimeImmutable $dateTime
-     */
     public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime): void
     {
         $query = $this->connection->createQueryBuilder();

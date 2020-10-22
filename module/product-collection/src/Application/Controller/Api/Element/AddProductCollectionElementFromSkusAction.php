@@ -37,26 +37,12 @@ use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementsComman
  */
 class AddProductCollectionElementFromSkusAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface   $commandBus
-     * @param ProductQueryInterface $productQuery
-     * @param FormFactoryInterface  $formFactory
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         ProductQueryInterface $productQuery,
@@ -105,10 +91,7 @@ class AddProductCollectionElementFromSkusAction
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      *
-     * @param ProductCollection $productCollection
-     * @param Request           $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

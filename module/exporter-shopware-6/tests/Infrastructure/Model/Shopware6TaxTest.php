@@ -13,19 +13,10 @@ use PHPUnit\Framework\TestCase;
 
 class Shopware6TaxTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var float
-     */
     private float $rate;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     protected function setUp(): void

@@ -19,13 +19,7 @@ use PHPUnit\Framework\TestCase;
 class UpdatePriceAttributeCommandTest extends TestCase
 {
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param Currency           $currency
-     * @param array              $groups
+     * @param array $groups
      *
      * @dataProvider dataProvider
      */

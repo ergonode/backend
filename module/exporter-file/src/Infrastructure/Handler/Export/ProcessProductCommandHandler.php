@@ -23,44 +23,18 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class ProcessProductCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var ProductProcessor
-     */
     private ProductProcessor $processor;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
-    /**
-     * @var WriterProvider
-     */
     private WriterProvider $provider;
 
-    /**
-     * @param ProductRepositoryInterface $productRepository
-     * @param ExportRepositoryInterface  $exportRepository
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param ProductProcessor           $processor
-     * @param TempFileStorage            $storage
-     * @param WriterProvider             $provider
-     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ExportRepositoryInterface $exportRepository,
@@ -78,8 +52,6 @@ class ProcessProductCommandHandler
     }
 
     /**
-     * @param ProcessProductCommand $command
-     *
      * @throws ExportException
      */
     public function __invoke(ProcessProductCommand $command)

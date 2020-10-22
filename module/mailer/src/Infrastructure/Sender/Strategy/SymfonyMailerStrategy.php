@@ -17,32 +17,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SymfonyMailerStrategy implements MailerStrategyInterface
 {
-    /**
-     * @var MailerInterface
-     */
     private MailerInterface $mailer;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var string|null
-     */
     private ?string $defaultFrom;
 
-    /**
-     * @var string|null
-     */
     private ?string $defaultReplyTo;
 
-    /**
-     * @param MailerInterface     $mailer
-     * @param TranslatorInterface $translator
-     * @param string|null         $defaultFrom
-     * @param string|null         $defaultReplyTo
-     */
     public function __construct(
         MailerInterface $mailer,
         TranslatorInterface $translator,
@@ -58,7 +40,6 @@ class SymfonyMailerStrategy implements MailerStrategyInterface
     /**
      * @see We need to wait until Symfony resolve https://github.com/symfony/symfony/issues/35925
      *
-     * @param MailInterface $mail
      *
      * @throws \Throwable
      */

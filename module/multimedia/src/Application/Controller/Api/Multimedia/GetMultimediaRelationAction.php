@@ -29,14 +29,8 @@ use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationProvider;
  */
 class GetMultimediaRelationAction
 {
-    /**
-     * @var MultimediaRelationProvider
-     */
     private MultimediaRelationProvider $provider;
 
-    /**
-     * @param MultimediaRelationProvider $provider
-     */
     public function __construct(MultimediaRelationProvider $provider)
     {
         $this->provider = $provider;
@@ -70,10 +64,7 @@ class GetMultimediaRelationAction
      *     description="Not found",
      * )
      *
-     * @param Language   $language
-     * @param Multimedia $multimedia
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      */

@@ -33,9 +33,6 @@ class TranslatableString implements \IteratorAggregate
     }
 
     /**
-     * @param Language $language
-     * @param string   $value
-     *
      * @return TranslatableString
      */
     public static function create(Language $language, string $value): self
@@ -44,9 +41,6 @@ class TranslatableString implements \IteratorAggregate
     }
 
     /**
-     * @param Language $language
-     * @param string   $value
-     *
      * @return TranslatableString
      */
     public function add(Language $language, string $value): self
@@ -55,9 +49,6 @@ class TranslatableString implements \IteratorAggregate
     }
 
     /**
-     * @param Language $language
-     * @param string   $value
-     *
      * @return TranslatableString
      */
     public function change(Language $language, string $value): self
@@ -65,19 +56,12 @@ class TranslatableString implements \IteratorAggregate
         return new self($this->merge($this->translations, $language, $value));
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return bool
-     */
     public function has(Language $language): bool
     {
         return isset($this->translations[$language->getCode()]);
     }
 
     /**
-     * @param Language $language
-     *
      * @return TranslatableString
      */
     public function remove(Language $language): self
@@ -88,19 +72,11 @@ class TranslatableString implements \IteratorAggregate
         return new self($new);
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return null|string
-     */
     public function get(Language $language): ?string
     {
         return $this->translations[$language->getCode()] ?? null;
     }
 
-    /**
-     * @return \Traversable
-     */
     public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->translations);
@@ -115,11 +91,6 @@ class TranslatableString implements \IteratorAggregate
         return $this->translations;
     }
 
-    /**
-     * @param TranslatableString $string
-     *
-     * @return bool
-     */
     public function isEqual(TranslatableString $string): bool
     {
         return count(array_diff_assoc($string->getTranslations(), $this->translations)) === 0
@@ -127,9 +98,7 @@ class TranslatableString implements \IteratorAggregate
     }
 
     /**
-     * @param array    $array
-     * @param Language $language
-     * @param string   $value
+     * @param array $array
      *
      * @return array
      */

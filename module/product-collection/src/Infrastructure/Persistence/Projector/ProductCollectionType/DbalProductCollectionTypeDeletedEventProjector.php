@@ -17,22 +17,14 @@ class DbalProductCollectionTypeDeletedEventProjector
 {
     private const TABLE = 'product_collection_type';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductCollectionTypeDeletedEvent $event
-     *
      * @throws DBALException
      * @throws \InvalidArgumentException
      */

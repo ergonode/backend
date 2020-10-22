@@ -21,24 +21,13 @@ class DbalCommentQuery implements CommentQueryInterface
     private const COMMENT_TABLE = 'comment';
     private const USER_TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
@@ -50,9 +39,6 @@ class DbalCommentQuery implements CommentQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

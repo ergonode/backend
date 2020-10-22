@@ -16,24 +16,14 @@ use Ergonode\Editor\Domain\Entity\ProductDraft;
 
 class CompletenessCalculator
 {
-    /**
-     * @var TemplateElementCompletenessStrategyProvider
-     */
     private TemplateElementCompletenessStrategyProvider $provider;
 
-    /**
-     * @param TemplateElementCompletenessStrategyProvider $provider
-     */
     public function __construct(TemplateElementCompletenessStrategyProvider $provider)
     {
         $this->provider = $provider;
     }
 
     /**
-     * @param ProductDraft $draft
-     * @param Template     $template
-     * @param Language     $language
-     *
      * @return CompletenessCalculatorLine[]
      */
     public function calculate(ProductDraft $draft, Template $template, Language $language): array

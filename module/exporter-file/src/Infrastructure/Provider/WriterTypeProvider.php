@@ -17,9 +17,6 @@ class WriterTypeProvider
      */
     private array $types;
 
-    /**
-     * @param WriterInterface ...$writers
-     */
     public function __construct(WriterInterface ...$writers)
     {
         foreach ($writers as $writer) {

@@ -17,14 +17,8 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @param TemplateQueryInterface $templateQuery
-     */
     public function __construct(TemplateQueryInterface $templateQuery)
     {
         $this->templateQuery = $templateQuery;
@@ -39,10 +33,7 @@ class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param AbstractProduct                                $product
      * @param ConditionInterface|ProductHasTemplateCondition $configuration
-     *
-     * @return bool
      */
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {

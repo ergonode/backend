@@ -22,20 +22,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateCommandFactory
 {
-    /**
-     * @var TemplateElementFactory
-     */
     private TemplateElementFactory $factory;
 
-    /**
-     * @var SnakeCaseMapper
-     */
     private SnakeCaseMapper $mapper;
 
-    /**
-     * @param TemplateElementFactory $factory
-     * @param SnakeCaseMapper        $mapper
-     */
     public function __construct(TemplateElementFactory $factory, SnakeCaseMapper $mapper)
     {
         $this->factory = $factory;
@@ -43,10 +33,6 @@ class TemplateCommandFactory
     }
 
     /**
-     * @param TemplateFormModel $model
-     *
-     * @return CreateTemplateCommand
-     *
      * @throws \Exception
      */
     public function getCreateTemplateCommand(TemplateFormModel $model): CreateTemplateCommand
@@ -60,12 +46,6 @@ class TemplateCommandFactory
         );
     }
 
-    /**
-     * @param TemplateId        $id
-     * @param TemplateFormModel $model
-     *
-     * @return UpdateTemplateCommand
-     */
     public function getUpdateTemplateCommand(TemplateId $id, TemplateFormModel $model): UpdateTemplateCommand
     {
         return new UpdateTemplateCommand(
@@ -78,11 +58,6 @@ class TemplateCommandFactory
         );
     }
 
-    /**
-     * @param TemplateFormModel $model
-     *
-     * @return ArrayCollection
-     */
     private function createElements(TemplateFormModel $model): ArrayCollection
     {
         $result = new ArrayCollection();
@@ -93,11 +68,6 @@ class TemplateCommandFactory
         return $result;
     }
 
-    /**
-     * @param TemplateElementTypeModel $model
-     *
-     * @return TemplateElement
-     */
     private function createElement(TemplateElementTypeModel $model): TemplateElement
     {
         $property = $this->mapper->map((array) $model->properties);

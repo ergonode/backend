@@ -55,9 +55,6 @@ class ProductCollectionCodeValidValidatorTest extends ConstraintValidatorTestCas
         $assertion->assertRaised();
     }
 
-    /**
-     * @return ProductCollectionCodeValidValidator
-     */
     protected function createValidator(): ProductCollectionCodeValidValidator
     {
         return new ProductCollectionCodeValidValidator();

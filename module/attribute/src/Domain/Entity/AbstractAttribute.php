@@ -29,43 +29,31 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractAttribute extends AbstractAggregateRoot implements AttributeInterface
 {
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     protected AttributeId $id;
 
     /**
-     * @var AttributeCode
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
     protected AttributeCode $code;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     protected TranslatableString $label;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     protected TranslatableString $hint;
 
     /**
-     * @var AttributeScope $scope
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
     protected AttributeScope $scope;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     protected TranslatableString $placeholder;
@@ -85,13 +73,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     protected array $parameters;
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param array              $parameters
+     * @param array $parameters
      *
      * @throws \Exception
      */
@@ -122,70 +104,45 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("type")
-     *
-     * @return string
      */
     abstract public function getType(): string;
 
-    /**
-     * @return AttributeId
-     */
     public function getId(): AttributeId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getCode(): AttributeCode
     {
         return $this->code;
     }
 
-    /**
-     * @return AttributeScope
-     */
     public function getScope(): AttributeScope
     {
         return $this->scope;
     }
 
-    /**
-     * @return bool
-     */
     public function isSystem(): bool
     {
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function isEditable(): bool
     {
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isDeletable(): bool
     {
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isMultilingual(): bool
     {
         return true;
     }
 
     /**
-     * @param TranslatableString $label
-     *
      * @throws \Exception
      */
     public function changeLabel(TranslatableString $label): void
@@ -196,8 +153,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @param TranslatableString $hint
-     *
      * @throws \Exception
      */
     public function changeHint(TranslatableString $hint): void
@@ -208,8 +163,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @param TranslatableString $placeholder
-     *
      * @throws \Exception
      */
     public function changePlaceholder(TranslatableString $placeholder): void
@@ -220,8 +173,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @param AttributeScope $scope
-     *
      * @throws \Exception
      */
     public function changeScope(AttributeScope $scope): void
@@ -231,25 +182,16 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
         }
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getLabel(): TranslatableString
     {
         return $this->label;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getHint(): TranslatableString
     {
         return $this->hint;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getPlaceholder(): TranslatableString
     {
         return $this->placeholder;
@@ -263,19 +205,12 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
         return array_values($this->groups);
     }
 
-    /**
-     * @param AttributeGroupId $groupId
-     *
-     * @return bool
-     */
     public function inGroup(AttributeGroupId $groupId): bool
     {
         return isset($this->groups[$groupId->getValue()]);
     }
 
     /**
-     * @param AttributeGroupId $groupId
-     *
      * @throws \Exception
      */
     public function addGroup(AttributeGroupId $groupId): void
@@ -286,8 +221,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @param AttributeGroupId $groupId
-     *
      * @throws \Exception
      */
     public function removeGroup(AttributeGroupId $groupId): void
@@ -306,8 +239,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
      */
     protected function setParameter(string $name, $value): void
     {
@@ -315,8 +247,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @param string $name
-     *
      * @return mixed
      */
     protected function getParameter(string $name)
@@ -324,9 +254,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
         return $this->parameters[$name];
     }
 
-    /**
-     * @param AttributeCreatedEvent $event
-     */
     protected function applyAttributeCreatedEvent(AttributeCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -339,65 +266,41 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
         $this->parameters = $event->getParameters();
     }
 
-    /**
-     * @param AttributeGroupAddedEvent $event
-     */
     protected function applyAttributeGroupAddedEvent(AttributeGroupAddedEvent $event): void
     {
         $this->groups[$event->getGroupId()->getValue()] = $event->getGroupId();
     }
 
-    /**
-     * @param AttributeGroupRemovedEvent $event
-     */
     protected function applyAttributeGroupRemovedEvent(AttributeGroupRemovedEvent $event): void
     {
         unset($this->groups[$event->getGroupId()->getValue()]);
     }
 
-    /**
-     * @param AttributeLabelChangedEvent $event
-     */
     protected function applyAttributeLabelChangedEvent(AttributeLabelChangedEvent $event): void
     {
         $this->label = $event->getTo();
     }
 
-    /**
-     * @param AttributeHintChangedEvent $event
-     */
     protected function applyAttributeHintChangedEvent(AttributeHintChangedEvent $event): void
     {
         $this->hint = $event->getTo();
     }
 
-    /**
-     * @param AttributePlaceholderChangedEvent $event
-     */
     protected function applyAttributePlaceholderChangedEvent(AttributePlaceholderChangedEvent $event): void
     {
         $this->placeholder = $event->getTo();
     }
 
-    /**
-     * @param AttributeScopeChangedEvent $event
-     */
     protected function applyAttributeScopeChangedEvent(AttributeScopeChangedEvent $event): void
     {
         $this->scope = $event->getTo();
     }
 
-    /**
-     * @param AttributeStringParameterChangeEvent $event
-     */
     protected function applyAttributeStringParameterChangeEvent(AttributeStringParameterChangeEvent $event): void
     {
         $this->setParameter($event->getName(), $event->getTo());
     }
 
-    /**
-     * @param AttributeBoolParameterChangeEvent $event
-     */
     protected function applyAttributeBoolParameterChangeEvent(AttributeBoolParameterChangeEvent $event): void
     {
         $this->setParameter($event->getName(), $event->getTo());

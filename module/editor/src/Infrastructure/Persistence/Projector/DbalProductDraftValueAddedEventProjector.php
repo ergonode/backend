@@ -23,22 +23,14 @@ class DbalProductDraftValueAddedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductDraftValueAdded $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductDraftValueAdded $event): void
@@ -51,10 +43,6 @@ class DbalProductDraftValueAddedEventProjector
     }
 
     /**
-     * @param string         $draftId
-     * @param string         $elementId
-     * @param ValueInterface $value
-     *
      * @throws DBALException
      */
     private function insertValue(string $draftId, string $elementId, ValueInterface $value): void
@@ -77,11 +65,6 @@ class DbalProductDraftValueAddedEventProjector
     }
 
     /**
-     * @param string      $draftId
-     * @param string      $elementId
-     * @param string|null $value
-     * @param string|null $language
-     *
      * @throws DBALException
      * @throws \Exception
      */

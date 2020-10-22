@@ -15,11 +15,6 @@ class ImportIncorrectBindingAttributeException extends ImportException
 {
     private const MESSAGE = 'Attribute {{code}} is not a select attribute, required for product {{sku}}';
 
-    /**
-     * @param AttributeCode   $code
-     * @param Sku             $sku
-     * @param \Throwable|null $previous
-     */
     public function __construct(AttributeCode $code, Sku $sku, \Throwable $previous = null)
     {
         parent::__construct(self::MESSAGE, ['code' => $code->getValue(), 'sku' => $sku], $previous);

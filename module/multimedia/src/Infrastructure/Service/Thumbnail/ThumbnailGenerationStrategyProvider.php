@@ -15,19 +15,11 @@ class ThumbnailGenerationStrategyProvider
      */
     private array $strategies;
 
-    /**
-     * @param ThumbnailGenerationStrategyInterface ...$strategies
-     */
     public function __construct(ThumbnailGenerationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return ThumbnailGenerationStrategyInterface
-     */
     public function provide(string $type): ThumbnailGenerationStrategyInterface
     {
         foreach ($this->strategies as $strategy) {

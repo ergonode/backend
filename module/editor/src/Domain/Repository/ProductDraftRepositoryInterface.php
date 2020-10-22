@@ -11,17 +11,7 @@ use Ergonode\Editor\Domain\Entity\ProductDraft;
 
 interface ProductDraftRepositoryInterface
 {
-    /**
-     * @param ProductDraftId $id
-     *
-     * @param bool           $draft
-     *
-     * @return ProductDraft
-     */
     public function load(ProductDraftId $id, bool $draft = false): ProductDraft;
 
-    /**
-     * @param ProductDraft $aggregateRoot
-     */
     public function save(ProductDraft $aggregateRoot): void;
 }

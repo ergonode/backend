@@ -15,16 +15,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 interface WorkflowQueryInterface
 {
     /**
-     * @param StatusId $id
-     *
      * @return WorkflowId[]
      */
     public function getWorkflowIdsWithDefaultStatus(StatusId $id): array;
 
-    /**
-     * @param string $code
-     *
-     * @return WorkflowId|null
-     */
     public function findWorkflowIdByCode(string $code): ?WorkflowId;
 }

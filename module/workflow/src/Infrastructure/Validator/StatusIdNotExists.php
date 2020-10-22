@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class StatusIdNotExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Status Id {{ value }} does not exists';
 }

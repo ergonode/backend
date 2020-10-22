@@ -71,9 +71,6 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
         $assertion->assertRaised();
     }
 
-    /**
-     * @return ProductCollectionTypeCodeUniqueValidator
-     */
     protected function createValidator(): ProductCollectionTypeCodeUniqueValidator
     {
         return new ProductCollectionTypeCodeUniqueValidator($this->query);

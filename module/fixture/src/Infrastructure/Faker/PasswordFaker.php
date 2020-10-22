@@ -13,10 +13,6 @@ use Ergonode\Account\Domain\ValueObject\Password;
 class PasswordFaker
 {
     /**
-     * @param string $password
-     *
-     * @return Password
-     *
      * @throws \Exception
      */
     public function password(string $password): Password

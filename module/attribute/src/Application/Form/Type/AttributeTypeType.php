@@ -18,31 +18,21 @@ use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
 class AttributeTypeType extends AbstractType
 {
-    /**
-     * @var AttributeTypeProvider
-     */
     private AttributeTypeProvider $provider;
 
-    /**
-     * @param AttributeTypeProvider $provider
-     */
     public function __construct(AttributeTypeProvider $provider)
     {
         $this->provider = $provider;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new AttributeTypeDataTransformer());
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $codes = $this->provider->provide();
@@ -55,9 +45,6 @@ class AttributeTypeType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

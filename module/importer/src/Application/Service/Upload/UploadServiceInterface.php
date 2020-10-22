@@ -14,10 +14,5 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface UploadServiceInterface
 {
-    /**
-     * @param UploadedFile $file
-     *
-     * @return File
-     */
     public function upload(UploadedFile $file): File;
 }

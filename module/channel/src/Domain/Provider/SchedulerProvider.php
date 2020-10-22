@@ -14,24 +14,13 @@ use Ergonode\Channel\Domain\Repository\SchedulerRepositoryInterface;
 
 class SchedulerProvider
 {
-    /**
-     * @var SchedulerRepositoryInterface
-     */
     private SchedulerRepositoryInterface $repository;
 
-    /**
-     * @param SchedulerRepositoryInterface $repository
-     */
     public function __construct(SchedulerRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param AggregateId $id
-     *
-     * @return Scheduler
-     */
     public function provide(AggregateId $id): Scheduler
     {
         $scheduler = $this->repository->load($id);

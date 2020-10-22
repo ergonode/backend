@@ -18,9 +18,6 @@ class ColumnRendererCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.grid.renderer.column';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(RowRendererInterface::class)) {
@@ -28,9 +25,6 @@ class ColumnRendererCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processRenderers(ContainerBuilder $container): void
     {
         $arguments = [];

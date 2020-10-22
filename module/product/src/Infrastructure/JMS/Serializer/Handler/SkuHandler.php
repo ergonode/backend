@@ -46,12 +46,7 @@ class SkuHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Sku                           $sku
-     * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
+     * @param array $type
      */
     public function serialize(SerializationVisitorInterface $visitor, Sku $sku, array $type, Context $context): string
     {
@@ -59,12 +54,8 @@ class SkuHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return Sku
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Sku
     {

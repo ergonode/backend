@@ -31,23 +31,15 @@ class ProductSkuExistsCondition implements ConditionInterface
     public const REGEXP_PHRASE = 'REGEXP';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $operator;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $value;
 
-    /**
-     * @param string $operator
-     * @param string $value
-     */
     public function __construct(string $operator, string $value)
     {
         $this->operator = $operator;
@@ -65,17 +57,11 @@ class ProductSkuExistsCondition implements ConditionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getOperator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;

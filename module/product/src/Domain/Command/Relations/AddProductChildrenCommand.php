@@ -17,8 +17,6 @@ use Webmozart\Assert\Assert;
 class AddProductChildrenCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId $id
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
@@ -31,8 +29,7 @@ class AddProductChildrenCommand implements DomainCommandInterface
     private array $children;
 
     /**
-     * @param AbstractAssociatedProduct $product
-     * @param ProductId[]               $children
+     * @param ProductId[] $children
      */
     public function __construct(AbstractAssociatedProduct $product, array $children)
     {
@@ -42,9 +39,6 @@ class AddProductChildrenCommand implements DomainCommandInterface
         $this->children = $children;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;

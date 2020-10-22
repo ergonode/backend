@@ -20,14 +20,8 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
 
 class ErgonodeFixtureCommand extends Command
 {
-    /**
-     * @var FixtureProcess
-     */
     private FixtureProcess $process;
 
-    /**
-     * @param FixtureProcess $process
-     */
     public function __construct(FixtureProcess $process)
     {
         $this->process = $process;
@@ -43,11 +37,6 @@ class ErgonodeFixtureCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return void
-     *
      * @throws \Ergonode\Fixture\Exception\FixtureException
      */
     public function execute(InputInterface $input, OutputInterface $output): void
@@ -60,10 +49,6 @@ class ErgonodeFixtureCommand extends Command
         $this->endFixtureLoad($event, $output);
     }
 
-    /**
-     * @param StopwatchEvent  $stopwatchEvent
-     * @param OutputInterface $output
-     */
     private function endFixtureLoad(StopwatchEvent $stopwatchEvent, OutputInterface $output)
     {
         $output->write("\n  <comment>------------------------</comment>\n");

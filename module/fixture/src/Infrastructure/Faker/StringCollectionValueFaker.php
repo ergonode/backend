@@ -15,11 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class StringCollectionValueFaker extends BaseProvider
 {
-    /**
-     * @param TranslatableString $value
-     *
-     * @return StringCollectionValue
-     */
     public function stringCollectionValue(TranslatableString $value): StringCollectionValue
     {
         return new StringCollectionValue($value->getTranslations());

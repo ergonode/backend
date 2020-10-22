@@ -23,14 +23,8 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 {
     private const PRODUCT_COLLECTION_TABLE = 'public.product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -50,8 +44,6 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
      * @return string[]
      */
     public function getOptions(Language $language): array
@@ -65,11 +57,6 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
             ->fetchAll();
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -88,11 +75,6 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @param ProductCollectionCode $code
-     *
-     * @return ProductCollectionId|null
-     */
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId
     {
         $qb = $this->connection->createQueryBuilder();
@@ -111,8 +93,6 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
     }
 
     /**
-     * @param ProductCollectionTypeId $id
-     *
      * @return mixed|void
      */
     public function findCollectionIdsByCollectionTypeId(ProductCollectionTypeId $id)
@@ -138,9 +118,6 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
         return $result;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

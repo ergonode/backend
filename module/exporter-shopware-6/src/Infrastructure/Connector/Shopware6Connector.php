@@ -17,14 +17,8 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 class Shopware6Connector
 {
-    /**
-     * @var Configurator
-     */
     private Configurator $configurator;
 
-    /**
-     * @var string|null
-     */
     private ?string $token;
 
     /**
@@ -32,9 +26,6 @@ class Shopware6Connector
      */
     private $expiresAt;
 
-    /**
-     * @param Configurator $configurator
-     */
     public function __construct(Configurator $configurator)
     {
         $this->configurator = $configurator;
@@ -44,9 +35,6 @@ class Shopware6Connector
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param ActionInterface  $action
-     *
      * @return object|string|null
      *
      * @throws /Exception
@@ -61,9 +49,6 @@ class Shopware6Connector
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param ActionInterface  $action
-     *
      * @return array|object|string|null
      *
      * @throws GuzzleException
@@ -93,8 +78,6 @@ class Shopware6Connector
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @throws GuzzleException
      */
     private function requestToken(Shopware6Channel $channel): void
@@ -105,11 +88,6 @@ class Shopware6Connector
         $this->expiresAt = $this->calculateExpiryTime((int) $data['expires_in']);
     }
 
-    /**
-     * @param int $expiresIn
-     *
-     * @return \DateTimeInterface
-     */
     private function calculateExpiryTime(int $expiresIn): \DateTimeInterface
     {
         $expiryTimestamp = (new \DateTime())->getTimestamp() + $expiresIn;
@@ -117,11 +95,6 @@ class Shopware6Connector
         return (new \DateTimeImmutable())->setTimestamp($expiryTimestamp);
     }
 
-    /**
-     * @param ResponseInterface $response
-     *
-     * @return string
-     */
     private function resolveResponse(ResponseInterface $response): ?string
     {
         $statusCode = $response->getStatusCode();
