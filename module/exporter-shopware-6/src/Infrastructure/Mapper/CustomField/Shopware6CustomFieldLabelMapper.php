@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInte
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 
-/**
- */
 class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInterface
 {
     /**

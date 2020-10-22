@@ -10,8 +10,6 @@ namespace Ergonode\Workflow\Application\Provider;
 
 use Ergonode\Workflow\Application\Form\Workflow\WorkflowFormInterface;
 
-/**
- */
 class WorkflowFormProvider
 {
     /**

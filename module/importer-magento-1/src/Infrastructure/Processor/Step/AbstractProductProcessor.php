@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
-/**
- */
 abstract class AbstractProductProcessor
 {
     /**

@@ -20,8 +20,6 @@ use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalImportFa
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- */
 class DbalImportRepository implements ImportRepositoryInterface
 {
     private const TABLE = 'importer.import';

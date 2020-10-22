@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class ProcessAttributeCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $exportId = $this->createMock(ExportId::class);

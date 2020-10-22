@@ -38,8 +38,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductDraftController extends AbstractController
 {
     /**

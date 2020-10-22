@@ -12,9 +12,6 @@ namespace Ergonode\Core\Application\Form\Extension;
 use Limenius\Liform\Transformer\ExtensionInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- *
- */
 class TitleFormExtension implements ExtensionInterface
 {
     /**

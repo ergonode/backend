@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class MultilingualOption implements OptionInterface
 {
     public const TYPE = 'translation';

@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 
-/**
- */
 class CreateWorkflowCommandFactory implements CreateWorkflowCommandFactoryInterface
 {
     /**

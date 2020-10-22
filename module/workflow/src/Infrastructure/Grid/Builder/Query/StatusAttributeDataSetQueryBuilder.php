@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class StatusAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

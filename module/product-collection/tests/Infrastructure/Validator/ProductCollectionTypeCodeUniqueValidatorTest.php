@@ -17,8 +17,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -26,8 +24,6 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
      */
     private $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(ProductCollectionTypeQueryInterface::class);
@@ -35,16 +31,12 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
     }
 
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), new ProductCollectionTypeCodeUnique());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\UnexpectedTypeException::class);
@@ -53,8 +45,6 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new ProductCollectionTypeCodeUnique());
@@ -62,8 +52,6 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->validator->validate('code', new ProductCollectionTypeCodeUnique());
@@ -71,8 +59,6 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCodeExistsValidation(): void
     {
         $collectionTypeId = $this->createMock(ProductCollectionTypeId::class);

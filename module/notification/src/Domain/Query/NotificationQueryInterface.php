@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 interface NotificationQueryInterface
 {
     /**

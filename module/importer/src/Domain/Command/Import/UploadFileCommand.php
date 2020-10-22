@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UploadFileCommand implements DomainCommandInterface
 {
     /**

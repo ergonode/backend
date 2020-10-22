@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Psr\Cache\InvalidArgumentException;
 
-/**
- */
 class DomainEventProvider implements DomainEventProviderInterface
 {
     /**

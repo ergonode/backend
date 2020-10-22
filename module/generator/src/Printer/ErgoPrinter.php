@@ -14,8 +14,6 @@ use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\Printer;
 use Nette\Utils\Strings;
 
-/**
- */
 class ErgoPrinter extends Printer
 {
     /**

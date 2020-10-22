@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class StatusCodeFaker extends BaseProvider
 {
     /**

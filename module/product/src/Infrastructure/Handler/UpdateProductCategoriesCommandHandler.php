@@ -12,8 +12,6 @@ namespace Ergonode\Product\Infrastructure\Handler;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\UpdateProductCategoriesCommand;
 
-/**
- */
 class UpdateProductCategoriesCommandHandler extends AbstractUpdateProductHandler
 {
     /**

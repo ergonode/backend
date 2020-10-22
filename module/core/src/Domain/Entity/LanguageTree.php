@@ -10,8 +10,6 @@ namespace Ergonode\Core\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 
-/**
- */
 class LanguageTree
 {
     /**

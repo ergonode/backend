@@ -15,28 +15,20 @@ use Ergonode\Category\Infrastructure\Grid\Builder\Query\CategorySystemAttributeD
 use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategorySystemAttributeDataSetQueryBuilderTest extends TestCase
 {
-    /**
-     */
     public function testSupportedType(): void
     {
         $builder = new CategorySystemAttributeDataSetQueryBuilder();
         $this->assertTrue($builder->supports($this->createMock(CategorySystemAttribute::class)));
     }
 
-    /**
-     */
     public function testUnSupportedType(): void
     {
         $builder = new CategorySystemAttributeDataSetQueryBuilder();
         $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testAddSelect(): void
     {
         $query = $this->createMock(QueryBuilder::class);

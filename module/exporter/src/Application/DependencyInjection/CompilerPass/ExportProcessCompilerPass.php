@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class ExportProcessCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'export.export_processor_interface';

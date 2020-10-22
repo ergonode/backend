@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 
-/**
- */
 class DbalUserDeactivatedEventProjector
 {
     private const TABLE = 'users';

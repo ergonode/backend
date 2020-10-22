@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DeleteChannelCommand implements DomainCommandInterface
 {
     /**

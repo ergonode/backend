@@ -16,8 +16,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CategoryMapperInte
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class Shopware6CategoryParentMapper implements Shopware6CategoryMapperInterface
 {
     /**

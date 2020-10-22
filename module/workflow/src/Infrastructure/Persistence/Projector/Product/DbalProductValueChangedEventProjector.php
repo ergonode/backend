@@ -14,8 +14,6 @@ use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalProductValueChangedEventProjector
 {
     private const TABLE_WORKFLOW_PRODUCT_STATUS = 'product_workflow_status';

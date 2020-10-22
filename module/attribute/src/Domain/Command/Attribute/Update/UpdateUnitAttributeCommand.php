@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class UpdateUnitAttributeCommand extends AbstractUpdateAttributeCommand
 {
     /**

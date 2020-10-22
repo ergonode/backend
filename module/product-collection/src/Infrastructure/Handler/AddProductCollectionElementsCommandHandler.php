@@ -14,8 +14,6 @@ use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInte
 use Webmozart\Assert\Assert;
 use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementsCommand;
 
-/**
- */
 class AddProductCollectionElementsCommandHandler
 {
     /**

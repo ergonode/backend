@@ -11,8 +11,6 @@ namespace Ergonode\ProductCollection;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeProductCollectionBundle extends AbstractModule
 {
 }

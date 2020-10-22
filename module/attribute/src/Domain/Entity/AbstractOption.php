@@ -18,9 +18,6 @@ use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Option\OptionCodeChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- *
- */
 abstract class AbstractOption extends AbstractAggregateRoot
 {
     /**

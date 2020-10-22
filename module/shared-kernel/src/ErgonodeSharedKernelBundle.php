@@ -11,8 +11,6 @@ namespace Ergonode\SharedKernel;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeSharedKernelBundle extends AbstractModule
 {
 

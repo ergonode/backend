@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 
-/**
- */
 class DbalMultimediaCreatedEventProjector
 {
     private const TABLE = 'multimedia';

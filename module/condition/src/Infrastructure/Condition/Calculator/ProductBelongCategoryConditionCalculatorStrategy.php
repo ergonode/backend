@@ -12,8 +12,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

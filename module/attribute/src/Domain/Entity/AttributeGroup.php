@@ -17,8 +17,6 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AttributeGroup extends AbstractAggregateRoot
 {
     /**

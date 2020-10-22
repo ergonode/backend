@@ -15,8 +15,6 @@ use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class PostAccessToken extends AbstractAction implements ActionInterface, HeaderProviderInterface
 {
     private const URI = '/api/oauth/token';

@@ -11,12 +11,8 @@ namespace Ergonode\Completeness\Tests\Domain\ReadModel;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CompletenessWidgetModelTest extends TestCase
 {
-    /**
-     */
     public function testProperCreation(): void
     {
         $code = 'Any code';

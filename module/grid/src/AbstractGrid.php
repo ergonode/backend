@@ -11,8 +11,6 @@ namespace Ergonode\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 abstract class AbstractGrid
 {
     /**

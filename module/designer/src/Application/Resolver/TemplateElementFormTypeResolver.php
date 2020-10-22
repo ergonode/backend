@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Application\Resolver;
 use Ergonode\Designer\Application\Form\Type\Properties\AttributeElementPropertyType;
 use Ergonode\Designer\Application\Form\Type\Properties\SegmentElementPropertyType;
 
-/**
- */
 class TemplateElementFormTypeResolver
 {
     /**

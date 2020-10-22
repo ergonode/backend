@@ -14,8 +14,6 @@ use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
 
-/**
- */
 class FilePersister
 {
     /**

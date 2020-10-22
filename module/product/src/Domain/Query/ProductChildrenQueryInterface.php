@@ -15,8 +15,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 interface ProductChildrenQueryInterface
 {
     /**

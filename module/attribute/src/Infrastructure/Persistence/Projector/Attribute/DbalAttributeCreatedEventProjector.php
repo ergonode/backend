@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalAttributeCreatedEventProjector
 {
     private const TABLE = 'attribute';

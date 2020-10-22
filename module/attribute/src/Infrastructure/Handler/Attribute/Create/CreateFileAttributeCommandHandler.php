@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
-/**
- */
 class CreateFileAttributeCommandHandler
 {
     /**

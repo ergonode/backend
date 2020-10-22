@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 
-/**
- */
 class DbalProductAddedToCategoryEventProjector
 {
     private const TABLE_PRODUCT_CATEGORY = 'product_category';

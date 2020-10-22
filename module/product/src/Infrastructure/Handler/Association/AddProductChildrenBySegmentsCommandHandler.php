@@ -17,8 +17,6 @@ use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 
-/**
- */
 class AddProductChildrenBySegmentsCommandHandler
 {
     /**

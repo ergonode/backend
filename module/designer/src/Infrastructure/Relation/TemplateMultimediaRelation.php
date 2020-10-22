@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class TemplateMultimediaRelation implements MultimediaRelationInterface
 {
     /**

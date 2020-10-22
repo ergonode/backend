@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6PropertyGroupOption
 {
     /**

@@ -15,12 +15,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class PostAccessTokenTest extends TestCase
 {
-    /**
-     */
     public function testAction(): void
     {
         $channel = $this->createMock(Shopware6Channel::class);

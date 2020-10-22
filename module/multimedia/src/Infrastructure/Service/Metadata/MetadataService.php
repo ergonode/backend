@@ -11,8 +11,6 @@ namespace Ergonode\Multimedia\Infrastructure\Service\Metadata;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use League\Flysystem\FilesystemInterface;
 
-/**
- */
 class MetadataService
 {
     /**

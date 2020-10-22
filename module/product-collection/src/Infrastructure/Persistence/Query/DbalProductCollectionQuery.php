@@ -19,8 +19,6 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
-/**
- */
 class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 {
     private const PRODUCT_COLLECTION_TABLE = 'public.product_collection';

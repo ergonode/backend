@@ -19,8 +19,6 @@ use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand
 use Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class ProcessExportCommandHandler
 {
     /**

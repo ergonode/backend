@@ -19,8 +19,6 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 {
     private const UUID = '5bfd053c-e39b-45f9-87a7-6ca1cc9d9830';

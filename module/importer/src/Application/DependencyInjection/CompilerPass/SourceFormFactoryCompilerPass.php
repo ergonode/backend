@@ -14,9 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- *
- */
 class SourceFormFactoryCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.import_source_form_factory_interface';

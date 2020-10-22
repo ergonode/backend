@@ -13,8 +13,6 @@ use Ergonode\Attribute\Application\Model\Attribute\Property\TextareaAttributePro
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class TextareaAttributeFormModel extends AttributeFormModel
 {
     /**
@@ -24,8 +22,6 @@ class TextareaAttributeFormModel extends AttributeFormModel
      */
     public TextareaAttributePropertyModel $parameters;
 
-    /**
-     */
     public function __construct()
     {
         $this->parameters = new TextareaAttributePropertyModel();

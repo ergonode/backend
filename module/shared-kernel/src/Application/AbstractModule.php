@@ -11,8 +11,6 @@ namespace Ergonode\SharedKernel\Application;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- */
 abstract class AbstractModule extends Bundle
 {
     /**

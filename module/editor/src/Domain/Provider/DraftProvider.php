@@ -15,8 +15,6 @@ use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class DraftProvider
 {
     /**

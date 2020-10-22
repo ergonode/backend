@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Exception;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class ExistingRelationshipsException extends \Exception
 {
     /**

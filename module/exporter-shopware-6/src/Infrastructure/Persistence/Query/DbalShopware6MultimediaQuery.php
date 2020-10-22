@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Query\Shopware6MultimediaQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class DbalShopware6MultimediaQuery implements Shopware6MultimediaQueryInterface
 {
     private const TABLE = 'exporter.shopware6_multimedia';

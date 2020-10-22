@@ -12,8 +12,6 @@ namespace Ergonode\Attribute\Domain\Provider\Dictionary;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class AttributeGroupDictionaryProvider
 {
     /**

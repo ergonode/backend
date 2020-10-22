@@ -14,8 +14,6 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Infrastructure\Grid\Builder\ProductGridColumnBuilder;
 
-/**
- */
 class ProductGrid extends AbstractGrid
 {
     /**

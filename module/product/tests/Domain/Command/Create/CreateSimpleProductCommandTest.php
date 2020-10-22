@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class CreateSimpleProductCommandTest extends TestCase
 {
     /**

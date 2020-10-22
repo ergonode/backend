@@ -15,8 +15,6 @@ use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportOptionCommandHandler
 {
     /**

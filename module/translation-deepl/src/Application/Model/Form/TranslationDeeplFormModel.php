@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\TranslationDeepl\Infrastructure\Validator\Constraints as DeeplAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class TranslationDeeplFormModel
 {
     /**
@@ -44,8 +42,6 @@ class TranslationDeeplFormModel
      */
     public ?Language $targetLanguage;
 
-    /**
-     */
     public function __construct()
     {
         $this->content = null;

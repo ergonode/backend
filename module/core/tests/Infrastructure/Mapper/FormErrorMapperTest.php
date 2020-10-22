@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class FormErrorMapperTest extends TestCase
 {
     /**
@@ -45,8 +43,6 @@ class FormErrorMapperTest extends TestCase
      */
     private $errorFormElement;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->provider = $this->createMock(FormErrorMapperMessageProvider::class);
@@ -68,8 +64,6 @@ class FormErrorMapperTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testFormValidMapper(): void
     {
         $this->formElement->method('isValid')->willReturn(true);

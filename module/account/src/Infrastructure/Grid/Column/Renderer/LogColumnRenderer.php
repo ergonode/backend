@@ -18,8 +18,6 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 
-/**
- */
 class LogColumnRenderer implements ColumnRendererInterface
 {
     /**

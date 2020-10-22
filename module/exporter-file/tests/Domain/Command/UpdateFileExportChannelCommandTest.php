@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class UpdateFileExportChannelCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $id = $this->createMock(ChannelId::class);

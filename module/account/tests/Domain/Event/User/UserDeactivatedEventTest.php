@@ -14,12 +14,8 @@ use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UserDeactivatedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var UserId | MockObject $id */

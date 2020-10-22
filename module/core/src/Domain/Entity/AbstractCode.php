@@ -11,8 +11,6 @@ namespace Ergonode\Core\Domain\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 abstract class AbstractCode
 {
     public const MIN_LENGTH = 1;

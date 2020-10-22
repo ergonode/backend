@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class MultiSelectColumnRenderer implements ColumnRendererInterface
 {
     /**

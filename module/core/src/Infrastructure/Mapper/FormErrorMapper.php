@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Mapper;
 
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class FormErrorMapper
 {
     /**

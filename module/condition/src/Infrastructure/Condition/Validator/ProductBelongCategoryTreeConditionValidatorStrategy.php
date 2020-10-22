@@ -14,8 +14,6 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterf
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductBelongCategoryTreeConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**

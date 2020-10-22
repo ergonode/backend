@@ -15,8 +15,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildCommand;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 
-/**
- */
 class AddProductChildCommandHandler
 {
     /**

@@ -11,10 +11,7 @@ namespace Ergonode\Core\Tests\Infrastructure\Builder\LanguageTree;
 use Ergonode\Core\Infrastructure\Builder\LanguageTree\Branch;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
-/**
- */
 class BranchTest extends TestCase
 {
     /**
@@ -48,8 +45,6 @@ class BranchTest extends TestCase
         $this->right = 2;
     }
 
-    /**
-     */
     public function testCreate(): void
     {
         $branch = new Branch($this->id, $this->code, $this->left, $this->right);
@@ -60,8 +55,6 @@ class BranchTest extends TestCase
         $this->assertEquals($this->right, $branch->getRight());
     }
 
-    /**
-     */
     public function testAdded(): void
     {
         $branch = new Branch($this->id, $this->code, $this->left, $this->right);

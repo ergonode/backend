@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class UpdateTextAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
     /**

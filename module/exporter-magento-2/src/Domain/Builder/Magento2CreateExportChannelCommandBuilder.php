@@ -16,8 +16,6 @@ use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterMagento2\Domain\Command\CreateMagento2ExportChannelCommand;
 
-/**
- */
 class Magento2CreateExportChannelCommandBuilder implements CreateChannelCommandBuilderInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Account\Domain\Factory\RoleFactory;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 
-/**
- */
 class CreateRoleCommandHandler
 {
     /**

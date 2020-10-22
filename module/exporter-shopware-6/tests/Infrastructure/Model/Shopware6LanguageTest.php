@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6LanguageTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class Shopware6LanguageTest extends TestCase
      */
     private string $iso;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -51,8 +47,6 @@ class Shopware6LanguageTest extends TestCase
         $this->iso = 'en-GB';
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6Language($this->id, $this->name, $this->localeId, $this->translationCodeId, $this->iso);
@@ -64,8 +58,6 @@ class Shopware6LanguageTest extends TestCase
         self::assertEquals($this->iso, $model->getIso());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6Language();

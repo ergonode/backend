@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CategoryTreeCategoryRemovedEvent implements DomainEventInterface
 {
     /**

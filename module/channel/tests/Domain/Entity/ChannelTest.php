@@ -13,8 +13,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class ChannelTest extends TestCase
 {
     /**
@@ -27,8 +25,6 @@ class ChannelTest extends TestCase
      */
     private string $name;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);

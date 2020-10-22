@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NoteIdHandlerTest extends TestCase
 {
     /**
@@ -38,8 +36,6 @@ class NoteIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new CommentIdHandler();
@@ -48,8 +44,6 @@ class NoteIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = CommentIdHandler::getSubscribingMethods();
@@ -61,8 +55,6 @@ class NoteIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = CommentId::generate();
@@ -71,8 +63,6 @@ class NoteIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = CommentId::generate();

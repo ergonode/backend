@@ -17,8 +17,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalConditionSetRepository implements ConditionSetRepositoryInterface
 {
     /**

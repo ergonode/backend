@@ -12,12 +12,8 @@ namespace Ergonode\Segment\Tests\Domain\Command;
 use Ergonode\Segment\Domain\Command\GenerateSegmentCommand;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class GenerateSegmentCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $code = 'code';

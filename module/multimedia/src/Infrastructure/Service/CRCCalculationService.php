@@ -11,8 +11,6 @@ namespace Ergonode\Multimedia\Infrastructure\Service;
 
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
-/**
- */
 class CRCCalculationService implements HashCalculationServiceInterface
 {
     /**

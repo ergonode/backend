@@ -21,8 +21,6 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 use Ergonode\ExporterFile\Infrastructure\Processor\MultimediaProcessor;
 
-/**
- */
 class ProcessMultimediaCommandHandler
 {
     /**

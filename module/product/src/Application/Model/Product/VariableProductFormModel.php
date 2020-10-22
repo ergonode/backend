@@ -15,8 +15,6 @@ use Ergonode\Product\Infrastructure\Validator\SkuUnique;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class VariableProductFormModel
 {
     /**

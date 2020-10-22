@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Channel\Domain\Entity\Scheduler;
 use Ergonode\Channel\Domain\Repository\SchedulerRepositoryInterface;
 
-/**
- */
 class SchedulerProvider
 {
     /**

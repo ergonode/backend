@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Domain\Resolver;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
 
-/**
- */
 class TemplateElementTypeResolver
 {
     /**

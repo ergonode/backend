@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class CategoryTreeExistsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -27,34 +25,26 @@ class CategoryTreeExistsValidatorTest extends ConstraintValidatorTestCase
      */
     private $repository;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(TreeRepositoryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(ValidatorException::class);
         $this->validator->validate(new \stdClass(), new CategoryTreeExists());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(ValidatorException::class);
-        /** @var constraint $constrain */
+        /** @var Constraint $constrain */
         $constraint = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new CategoryTreeExists());
@@ -62,8 +52,6 @@ class CategoryTreeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testTreeExistsValidation(): void
     {
         $this->repository->method('exists')->willReturn(true);
@@ -72,8 +60,6 @@ class CategoryTreeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testTreeNotExistsValidation(): void
     {
         $this->repository->method('load')->willReturn(null);

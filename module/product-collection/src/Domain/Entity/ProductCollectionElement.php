@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductCollectionElement extends AbstractEntity
 {
     /**

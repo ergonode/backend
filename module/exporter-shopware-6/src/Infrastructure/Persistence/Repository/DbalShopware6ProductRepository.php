@@ -16,8 +16,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInter
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_product';

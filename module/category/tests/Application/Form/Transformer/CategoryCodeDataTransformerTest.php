@@ -13,8 +13,6 @@ use Ergonode\Category\Application\Form\Transformer\CategoryCodeDataTransformer;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryCodeDataTransformerTest extends TestCase
 {
 
@@ -23,8 +21,6 @@ class CategoryCodeDataTransformerTest extends TestCase
      */
     protected CategoryCodeDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new CategoryCodeDataTransformer();
@@ -41,9 +37,6 @@ class CategoryCodeDataTransformerTest extends TestCase
         $this->assertSame($string, $this->transformer->transform($categoryCodeValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -63,9 +56,6 @@ class CategoryCodeDataTransformerTest extends TestCase
         $this->assertEquals($categoryCodeValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     *
-     */
     public function testReverseTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);

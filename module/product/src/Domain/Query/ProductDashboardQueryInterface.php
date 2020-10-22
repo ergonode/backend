@@ -11,8 +11,6 @@ namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface ProductDashboardQueryInterface
 {
     /**

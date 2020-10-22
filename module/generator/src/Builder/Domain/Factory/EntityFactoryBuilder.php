@@ -15,8 +15,6 @@ use Ergonode\Generator\Builder\MethodBuilder;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class EntityFactoryBuilder implements BuilderInterface
 {
     /**

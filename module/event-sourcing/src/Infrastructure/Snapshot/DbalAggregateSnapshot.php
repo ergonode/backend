@@ -18,8 +18,6 @@ use Ramsey\Uuid\Uuid;
 use Doctrine\DBAL\DBALException;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
 
-/**
- */
 class DbalAggregateSnapshot implements AggregateSnapshotInterface
 {
     private const TABLE = 'event_store_snapshot';

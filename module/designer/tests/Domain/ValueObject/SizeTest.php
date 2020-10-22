@@ -10,8 +10,6 @@ namespace Ergonode\Designer\Tests\Domain\ValueObject;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SizeTest extends TestCase
 {
     /**

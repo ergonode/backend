@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalAttributeGroupNameChangedEventProjector
 {
     private const TABLE = 'attribute_group';

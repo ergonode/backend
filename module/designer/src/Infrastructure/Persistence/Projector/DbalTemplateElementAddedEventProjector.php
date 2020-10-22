@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalTemplateElementAddedEventProjector
 {
     private const ELEMENT_TABLE = 'designer.template_element';

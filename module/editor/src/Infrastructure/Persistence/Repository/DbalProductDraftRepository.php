@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalProductDraftRepository implements ProductDraftRepositoryInterface
 {
     /**

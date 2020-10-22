@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class LanguageConfigurationFormTypeModel
 {
     /**

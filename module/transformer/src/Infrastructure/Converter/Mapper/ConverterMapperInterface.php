@@ -10,8 +10,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 
-/**
- */
 interface ConverterMapperInterface
 {
     /**

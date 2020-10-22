@@ -14,8 +14,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 interface TransitionQueryInterface
 {
     /**

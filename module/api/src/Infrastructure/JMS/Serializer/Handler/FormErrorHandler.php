@@ -18,8 +18,6 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
 
-/**
- */
 class FormErrorHandler implements SubscribingHandlerInterface
 {
     /**

@@ -16,8 +16,6 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 
-/**
- */
 class ErgonodeExporterExtension extends Extension
 {
     /**

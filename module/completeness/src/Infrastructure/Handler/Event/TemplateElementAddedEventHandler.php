@@ -14,8 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
-/**
- */
 class TemplateElementAddedEventHandler
 {
     /**

@@ -16,8 +16,6 @@ use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalSystemNotificationStrategy implements NotificationStrategyInterface
 {
     /**

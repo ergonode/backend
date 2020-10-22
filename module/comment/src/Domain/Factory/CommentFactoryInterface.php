@@ -14,8 +14,6 @@ use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 interface CommentFactoryInterface
 {
     /**

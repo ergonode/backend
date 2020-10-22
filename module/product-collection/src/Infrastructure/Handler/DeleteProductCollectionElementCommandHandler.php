@@ -14,8 +14,6 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteProductCollectionElementCommandHandler
 {
     /**

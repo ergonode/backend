@@ -21,8 +21,6 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
      */
     private ProductHasStatusConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
 
@@ -45,8 +41,6 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
 
-    /**
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_HAS_STATUS_CONDITION'));

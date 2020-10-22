@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalAttributeHintChangedEventProjector
 {
     private const TABLE = 'value_translation';

@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class DbalLanguageRepository implements LanguageRepositoryInterface
 {
     private const TABLE = 'language';

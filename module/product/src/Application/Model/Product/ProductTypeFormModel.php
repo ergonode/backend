@@ -12,8 +12,6 @@ namespace Ergonode\Product\Application\Model\Product;
 use Ergonode\Product\Infrastructure\Validator\AvailableProductType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductTypeFormModel
 {
     /**

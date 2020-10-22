@@ -18,8 +18,6 @@ use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class Shopware6VariableProductStep implements Shopware6ExportStepProcessInterface
 {
     /**

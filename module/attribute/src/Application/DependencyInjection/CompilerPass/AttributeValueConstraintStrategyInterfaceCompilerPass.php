@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class AttributeValueConstraintStrategyInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.attribute.attribute_validation_interface';

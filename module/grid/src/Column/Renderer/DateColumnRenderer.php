@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class DateColumnRenderer implements ColumnRendererInterface
 {
     /**

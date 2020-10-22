@@ -13,8 +13,6 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\FeatureNode;
 use Behatch\Context\JsonContext;
 
-/**
- */
 class ExtendJsonContext extends JsonContext
 {
     /**

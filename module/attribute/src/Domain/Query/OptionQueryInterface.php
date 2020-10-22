@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface OptionQueryInterface
 {
     /**

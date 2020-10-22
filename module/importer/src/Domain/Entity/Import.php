@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
-/**
- */
 class Import
 {
     /**
@@ -132,8 +130,6 @@ class Import
         return $this->file;
     }
 
-    /**
-     */
     public function start(): void
     {
         if (!$this->getStatus()->isCreated()) {
@@ -146,8 +142,6 @@ class Import
         $this->startedAt = new \DateTime();
     }
 
-    /**
-     */
     public function stop(): void
     {
         if ($this->getStatus()->isStopped()) {
@@ -175,8 +169,6 @@ class Import
         return $this->records;
     }
 
-    /**
-     */
     public function end(): void
     {
         if (!$this->getStatus()->isProcessed()) {

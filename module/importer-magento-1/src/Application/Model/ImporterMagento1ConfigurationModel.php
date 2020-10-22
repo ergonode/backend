@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
 use Ergonode\ImporterMagento1\Application\Model\Type\AttributeMapModel;
 
-/**
- */
 class ImporterMagento1ConfigurationModel
 {
     /**

@@ -9,10 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-
-/**
- */
 class OptionKey
 {
     public const MAX_LENGTH = 255;

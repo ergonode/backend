@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteProductCollectionElementCommandTest extends TestCase
 {
     /**

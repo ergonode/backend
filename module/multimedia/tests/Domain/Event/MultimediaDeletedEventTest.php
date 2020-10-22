@@ -14,12 +14,8 @@ use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class MultimediaDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreationEvent(): void
     {
         /** @var MultimediaId | MockObject $id */

@@ -11,8 +11,6 @@ namespace Ergonode\Notification\Infrastructure\Sender;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 
-/**
- */
 interface NotificationStrategyInterface
 {
     /**

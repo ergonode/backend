@@ -11,8 +11,6 @@ namespace Ergonode\Category\Application\Provider;
 
 use Ergonode\Category\Application\Form\CategoryFormInterface;
 
-/**
- */
 class CategoryFormProvider
 {
     /**

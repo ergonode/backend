@@ -12,8 +12,6 @@ namespace Ergonode\Workflow\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 interface WorkflowQueryInterface
 {
     /**

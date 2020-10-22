@@ -18,8 +18,6 @@ use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\ImporterMagento1\Domain\Command\UpdateMagento1CsvSourceCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class Magento1CsvUpdateSourceCommandBuilder implements UpdateSourceCommandBuilderInterface
 {
     /**

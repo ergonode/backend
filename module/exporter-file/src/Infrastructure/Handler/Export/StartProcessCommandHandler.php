@@ -15,8 +15,6 @@ use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Entity\Export;
 
-/**
- */
 class StartProcessCommandHandler
 {
     /**

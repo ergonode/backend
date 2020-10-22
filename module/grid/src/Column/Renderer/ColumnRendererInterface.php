@@ -11,8 +11,6 @@ namespace Ergonode\Grid\Column\Renderer;
 
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 interface ColumnRendererInterface
 {
     /**

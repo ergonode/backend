@@ -18,8 +18,6 @@ use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class SegmentCreatedEvent implements DomainEventInterface
 {
     /**

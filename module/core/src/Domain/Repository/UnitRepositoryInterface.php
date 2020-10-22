@@ -12,8 +12,6 @@ namespace Ergonode\Core\Domain\Repository;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 interface UnitRepositoryInterface
 {
     /**

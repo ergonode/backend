@@ -12,8 +12,6 @@ use Symfony\Component\Form\FormInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
-/**
- */
 interface UpdateSourceCommandBuilderInterface
 {
     /**

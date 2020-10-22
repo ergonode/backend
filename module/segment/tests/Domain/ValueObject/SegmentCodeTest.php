@@ -12,8 +12,6 @@ namespace Ergonode\Segment\Tests\Domain\ValueObject;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SegmentCodeTest extends TestCase
 {
     /**

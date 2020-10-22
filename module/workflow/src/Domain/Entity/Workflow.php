@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
-/**
- */
 class Workflow extends AbstractWorkflow
 {
     public const DEFAULT = 'default';

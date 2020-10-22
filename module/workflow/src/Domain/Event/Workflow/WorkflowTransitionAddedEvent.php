@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class WorkflowTransitionAddedEvent implements DomainEventInterface
 {
     /**

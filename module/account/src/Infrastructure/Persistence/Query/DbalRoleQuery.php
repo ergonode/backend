@@ -17,8 +17,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 class DbalRoleQuery implements RoleQueryInterface
 {
     public const TABLE = 'roles';
@@ -90,7 +88,7 @@ class DbalRoleQuery implements RoleQueryInterface
         $result = [];
 
         foreach ($records as $record) {
-            $result[] = new userId($record);
+            $result[] = new UserId($record);
         }
 
         return $result;

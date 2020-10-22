@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
 
-/**
- */
 class DbalProductCollectionElementVisibleChangedEventProjector
 {
     private const TABLE = 'product_collection_element';

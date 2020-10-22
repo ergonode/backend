@@ -9,8 +9,6 @@ namespace Ergonode\Attribute\Domain\Repository;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 interface AttributeRepositoryInterface
 {
     /**

@@ -12,11 +12,8 @@ namespace Ergonode\Product\Application\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Product\Application\Provider\ProductFormProvider;
-use Ergonode\Product\Infrastructure\Provider\CreateProductCommandFactoryProvider;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class ProductFormCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'product.application.product_form_interface';

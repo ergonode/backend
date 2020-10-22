@@ -14,12 +14,8 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class WorkflowDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var WorkflowId | MockObject $id */

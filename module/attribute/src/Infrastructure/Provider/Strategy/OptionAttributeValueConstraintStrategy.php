@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Symfony\Component\Validator\Constraints\Unique;
 
-/**
- */
 class OptionAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

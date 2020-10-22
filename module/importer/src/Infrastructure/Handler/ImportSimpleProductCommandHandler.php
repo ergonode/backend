@@ -15,8 +15,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 use Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportSimpleProductCommandHandler
 {
     /**

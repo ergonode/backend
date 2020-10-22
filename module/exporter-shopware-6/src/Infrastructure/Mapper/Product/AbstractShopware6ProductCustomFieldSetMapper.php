@@ -19,8 +19,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6ProductMapperInterface
 {
     /**

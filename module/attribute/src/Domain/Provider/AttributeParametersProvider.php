@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 class AttributeParametersProvider
 {
     /**

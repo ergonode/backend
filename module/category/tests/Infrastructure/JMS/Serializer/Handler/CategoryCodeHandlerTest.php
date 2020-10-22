@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryCodeHandlerTest extends TestCase
 {
     /**
@@ -38,8 +36,6 @@ class CategoryCodeHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new CategoryCodeHandler();
@@ -48,8 +44,6 @@ class CategoryCodeHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = CategoryCodeHandler::getSubscribingMethods();
@@ -61,8 +55,6 @@ class CategoryCodeHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = new CategoryCode('Code');
@@ -71,8 +63,6 @@ class CategoryCodeHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = new CategoryCode('Code');

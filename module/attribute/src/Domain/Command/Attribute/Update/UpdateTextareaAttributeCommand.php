@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
 {
     /**

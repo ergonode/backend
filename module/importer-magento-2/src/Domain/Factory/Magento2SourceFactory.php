@@ -12,8 +12,6 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 
-/**
- */
 class Magento2SourceFactory
 {
     /**

@@ -18,8 +18,6 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CategoryShopware6ExportProcess;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class CategoryShopware6ExportCommandHandler
 {
     /**

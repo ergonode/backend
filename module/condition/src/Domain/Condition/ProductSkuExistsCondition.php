@@ -12,8 +12,6 @@ namespace Ergonode\Condition\Domain\Condition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductSkuExistsCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_SKU_EXISTS_CONDITION';

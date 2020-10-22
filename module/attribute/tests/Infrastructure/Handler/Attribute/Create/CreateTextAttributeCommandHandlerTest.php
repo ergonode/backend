@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateTextAttributeCommandHandlerTest extends TestCase
 {
     /**
@@ -34,8 +32,6 @@ class CreateTextAttributeCommandHandlerTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(CreateTextAttributeCommand::class);
@@ -46,8 +42,6 @@ class CreateTextAttributeCommandHandlerTest extends TestCase
         $this->attribute = $this->createMock(AbstractAttribute::class);
     }
 
-    /**
-     */
     public function testHandleCommand(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);

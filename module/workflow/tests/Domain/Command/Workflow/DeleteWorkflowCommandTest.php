@@ -13,8 +13,6 @@ use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteWorkflowCommandTest extends TestCase
 {
     /**

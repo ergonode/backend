@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ProductHasStatusConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     /**

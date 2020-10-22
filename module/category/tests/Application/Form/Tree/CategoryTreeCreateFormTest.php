@@ -11,15 +11,10 @@ namespace Ergonode\Category\Tests\Application\Form\Tree;
 
 use Ergonode\Category\Application\Form\Tree\CategoryTreeCreateForm;
 use Ergonode\Category\Application\Model\Tree\CategoryTreeCreateFormModel;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class CategoryTreeCreateFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

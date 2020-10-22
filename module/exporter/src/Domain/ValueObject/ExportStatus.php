@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\ValueObject;
 
-/**
- */
 class ExportStatus
 {
     public const CREATED = 'CREATED';

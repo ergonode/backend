@@ -14,13 +14,10 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 
-/**
- */
 class ImportProductImageAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
     /**

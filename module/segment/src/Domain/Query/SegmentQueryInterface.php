@@ -14,8 +14,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
-/**
- */
 interface SegmentQueryInterface
 {
     /**

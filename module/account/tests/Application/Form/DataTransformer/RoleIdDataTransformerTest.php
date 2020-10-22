@@ -13,8 +13,6 @@ use Ergonode\Account\Application\Form\DataTransformer\RoleIdDataTransformer;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RoleIdDataTransformerTest extends TestCase
 {
 
@@ -23,8 +21,6 @@ class RoleIdDataTransformerTest extends TestCase
      */
     protected RoleIdDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new RoleIdDataTransformer();
@@ -41,9 +37,6 @@ class RoleIdDataTransformerTest extends TestCase
         $this->assertSame($string, $this->transformer->transform($roleIdValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -64,8 +57,6 @@ class RoleIdDataTransformerTest extends TestCase
         $this->assertEquals($roleIdValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid "not_uuid" value');

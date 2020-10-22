@@ -14,8 +14,6 @@ use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ColumnRenderer
 {
     /**

@@ -20,8 +20,6 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductShopware6ExportCommandHandlerTest extends TestCase
 {
     /**
@@ -44,8 +42,6 @@ class ProductShopware6ExportCommandHandlerTest extends TestCase
      */
     private ProductShopware6ExportProcess $process;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exportRepository = $this->createMock(ExportRepositoryInterface::class);
@@ -67,8 +63,6 @@ class ProductShopware6ExportCommandHandlerTest extends TestCase
         $this->process->expects(self::once())->method('process');
     }
 
-    /**
-     */
     public function testHandling(): void
     {
         $command = $this->createMock(ProductShopware6ExportCommand::class);

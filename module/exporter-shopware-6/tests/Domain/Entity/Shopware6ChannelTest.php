@@ -17,8 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class Shopware6ChannelTest extends TestCase
 {
     /**
@@ -105,8 +103,6 @@ class Shopware6ChannelTest extends TestCase
      */
     private CategoryTreeId $categoryTreeId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -128,8 +124,6 @@ class Shopware6ChannelTest extends TestCase
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
     }
 
-    /**
-     */
     public function testCreateEntity(): void
     {
         $entity = new Shopware6Channel(

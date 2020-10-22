@@ -16,8 +16,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6MultimediaRepositoryIn
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_multimedia';

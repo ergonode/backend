@@ -15,8 +15,6 @@ use Ergonode\Workflow\Infrastructure\Validator\StatusIdNotExists;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductHasStatusConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
 

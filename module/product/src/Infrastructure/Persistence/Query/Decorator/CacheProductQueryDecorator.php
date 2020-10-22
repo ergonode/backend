@@ -21,8 +21,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CacheProductQueryDecorator implements ProductQueryInterface
 {
     /**

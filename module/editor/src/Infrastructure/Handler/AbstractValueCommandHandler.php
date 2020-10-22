@@ -10,7 +10,6 @@ namespace Ergonode\Editor\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -25,8 +24,6 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractCollectionAttribute;
 
-/**
- */
 abstract class AbstractValueCommandHandler
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Application\Model\Form;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class SourceTypeFormModel
 {
     /**

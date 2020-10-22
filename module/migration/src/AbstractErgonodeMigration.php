@@ -13,8 +13,6 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use Doctrine\Migrations\Exception\IrreversibleMigration;
 
-/**
- */
 abstract class AbstractErgonodeMigration extends AbstractMigration
 {
     /**

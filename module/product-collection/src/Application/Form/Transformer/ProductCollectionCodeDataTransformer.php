@@ -13,8 +13,6 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class ProductCollectionCodeDataTransformer implements DataTransformerInterface
 {
     /**

@@ -16,8 +16,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\ExporterFile\Infrastructure\Writer\WriterInterface;
 use Ergonode\ExporterFile\Application\DependencyInjection\CompilerPass\FileWriterCompilerPass;
 
-/**
- */
 class ErgonodeExporterFileExtension extends Extension
 {
     /**

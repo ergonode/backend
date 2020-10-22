@@ -13,8 +13,6 @@ use Ergonode\Category\Domain\Command\Tree\UpdateTreeCommand;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateTreeCommandHandler
 {
     /**

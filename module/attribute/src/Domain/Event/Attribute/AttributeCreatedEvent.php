@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AttributeCreatedEvent implements DomainEventInterface
 {
     /**

@@ -12,8 +12,6 @@ namespace Ergonode\Core\Infrastructure\Resolver;
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface RelationshipsResolverInterface
 {
     /**

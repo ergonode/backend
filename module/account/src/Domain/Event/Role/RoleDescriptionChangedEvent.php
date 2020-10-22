@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class RoleDescriptionChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**

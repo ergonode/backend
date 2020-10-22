@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class AttributeExportProcessorStep implements ExportStepProcessInterface
 {
     /**

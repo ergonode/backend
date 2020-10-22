@@ -14,8 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 
-/**
- */
 class AttributeGroupType extends AbstractType
 {
     /**

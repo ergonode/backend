@@ -12,8 +12,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ProductAttributeLanguageResolver
 {
     /**

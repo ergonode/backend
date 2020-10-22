@@ -15,8 +15,6 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInterface
 {
 

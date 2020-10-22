@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class SegmentIdDataTransformer implements DataTransformerInterface
 {
     /**

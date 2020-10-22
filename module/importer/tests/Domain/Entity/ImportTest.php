@@ -15,12 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 
-/**
- */
 class ImportTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

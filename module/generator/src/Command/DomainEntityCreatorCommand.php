@@ -18,8 +18,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 
-/**
- */
 class DomainEntityCreatorCommand extends Command
 {
     /**
@@ -37,8 +35,6 @@ class DomainEntityCreatorCommand extends Command
         parent::__construct();
     }
 
-    /**
-     */
     public function configure(): void
     {
         $this->setName('ergonode:generator:entity');

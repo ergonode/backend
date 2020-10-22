@@ -22,8 +22,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductDraft extends AbstractAggregateRoot
 {
     /**
@@ -91,8 +89,6 @@ class ProductDraft extends AbstractAggregateRoot
         return $this->applied;
     }
 
-    /**
-     */
     public function applied(): void
     {
         $this->apply(new ProductDraftApplied($this->id));

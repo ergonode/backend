@@ -34,8 +34,6 @@ class TreeNodeFormModel
      */
     public array $children;
 
-    /**
-     */
     public function __construct()
     {
         $this->categoryId = null;

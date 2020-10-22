@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryFactoryTest extends TestCase
 {
     /**
@@ -41,8 +39,6 @@ class CategoryFactoryTest extends TestCase
         $this->assertSame($attributes, $category->getAttributes());
     }
 
-    /**
-     */
     public function testCreationWithInvalidAttributeType(): void
     {
         $this->expectException(\InvalidArgumentException::class);

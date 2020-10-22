@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class StopImportCommand implements DomainCommandInterface
 {
     /**

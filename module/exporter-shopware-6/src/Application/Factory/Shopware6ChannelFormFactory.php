@@ -17,8 +17,6 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
 use Ergonode\ExporterShopware6\Application\Form\Shopware6ChannelForm;
 
-/**
- */
 class Shopware6ChannelFormFactory implements ChannelFormFactoryInterface
 {
     /**

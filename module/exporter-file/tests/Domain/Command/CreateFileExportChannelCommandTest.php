@@ -13,12 +13,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class CreateFileExportChannelCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $id = $this->createMock(ChannelId::class);

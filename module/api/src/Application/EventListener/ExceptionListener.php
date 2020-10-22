@@ -14,8 +14,6 @@ use Ergonode\Api\Application\Response\ExceptionResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
-/**
- */
 class ExceptionListener
 {
     /**

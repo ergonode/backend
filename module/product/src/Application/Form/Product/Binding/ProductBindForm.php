@@ -15,8 +15,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 
-/**
- */
 class ProductBindForm extends AbstractType
 {
     /**

@@ -13,8 +13,6 @@ use JMS\Serializer\Handler\HandlerRegistryInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use Psr\Container\ContainerInterface;
 
-/**
- */
 class HandlerRegistry implements HandlerRegistryInterface
 {
     private const MAP_KEY_TEMPLATE = '%s.%s.%s';

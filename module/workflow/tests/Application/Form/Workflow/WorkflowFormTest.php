@@ -14,12 +14,8 @@ use Ergonode\Workflow\Application\Form\Model\Workflow\WorkflowFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class WorkflowFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSupport(): void
     {
         $form = new WorkflowForm();
@@ -27,8 +23,6 @@ class WorkflowFormTest extends TypeTestCase
         self::assertFalse($form->supported('unsupported type'));
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

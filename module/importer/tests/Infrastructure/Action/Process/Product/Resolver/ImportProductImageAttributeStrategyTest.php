@@ -16,10 +16,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver\ImportProductMultiSelectAttributeStrategy;
 
-/**
- */
 class ImportProductImageAttributeStrategyTest extends TestCase
 {
     /**
@@ -27,16 +24,12 @@ class ImportProductImageAttributeStrategyTest extends TestCase
      */
     private MultimediaQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(MultimediaQueryInterface::class);
     }
 
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $strategy = new ImportProductImageAttributeStrategy($this->query);
@@ -45,8 +38,6 @@ class ImportProductImageAttributeStrategyTest extends TestCase
         self::assertFalse($strategy->supported(new AttributeType('any other type')));
     }
 
-    /**
-     */
     public function testEmptyValue(): void
     {
         $id = $this->createMock(AttributeId::class);
@@ -59,8 +50,6 @@ class ImportProductImageAttributeStrategyTest extends TestCase
         self::assertEmpty($result->getValue());
     }
 
-    /**
-     */
     public function testNotEmptyWithoutOptionValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

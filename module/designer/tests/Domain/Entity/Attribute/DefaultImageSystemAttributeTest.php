@@ -14,12 +14,8 @@ use Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DefaultImageSystemAttributeTest extends TestCase
 {
-    /**
-     */
     public function testEntityCreation(): void
     {
         /** @var TranslatableString | MockObject $label */

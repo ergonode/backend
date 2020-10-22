@@ -19,8 +19,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
-/**
- */
 class FileAttributeForm extends AbstractType implements AttributeFormInterface
 {
     /**

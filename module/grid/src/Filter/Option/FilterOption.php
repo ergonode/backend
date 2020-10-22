@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Filter\Option;
 
-/**
- */
 class FilterOption implements FilterOptionInterface
 {
     /**

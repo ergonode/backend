@@ -19,8 +19,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
 {
     private const TABLE = 'attribute_group';

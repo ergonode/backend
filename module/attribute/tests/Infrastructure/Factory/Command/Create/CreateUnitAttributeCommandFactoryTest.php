@@ -16,12 +16,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateUnitAttribute
 use Ramsey\Uuid\Uuid;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 
-/**
- */
 class CreateUnitAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateUnitAttributeCommandFactory();
@@ -29,8 +25,6 @@ class CreateUnitAttributeCommandFactoryTest extends AbstractCreateAttributeComma
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         /** @var UnitAttributeFormModel $data */

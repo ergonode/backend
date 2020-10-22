@@ -18,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class TransitionTest extends TestCase
 {
     /**
@@ -52,8 +50,6 @@ class TransitionTest extends TestCase
      */
     private AbstractAggregateRoot $aggregateRoot;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(TransitionId::class);
@@ -66,8 +62,6 @@ class TransitionTest extends TestCase
         $this->aggregateRoot->method('getId')->willReturn($this->createMock(WorkflowId::class));
     }
 
-    /**
-     */
     public function testTransitionCreation(): void
     {
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
@@ -79,8 +73,6 @@ class TransitionTest extends TestCase
         self::assertSame($this->conditionSetId, $transition->getConditionSetId());
     }
 
-    /**
-     */
     public function testChangingConditionSetNull(): void
     {
         $this->aggregateRoot->expects($this->once())->method('apply');
@@ -89,8 +81,6 @@ class TransitionTest extends TestCase
         $transition->changeConditionSetId();
     }
 
-    /**
-     */
     public function testChangingConditionSetForTheSame(): void
     {
         $this->aggregateRoot->expects($this->never())->method('apply');
@@ -111,8 +101,6 @@ class TransitionTest extends TestCase
         $transition->changeRoleIds($this->roleIds);
     }
 
-    /**
-     */
     public function testChangingRoleIdsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);

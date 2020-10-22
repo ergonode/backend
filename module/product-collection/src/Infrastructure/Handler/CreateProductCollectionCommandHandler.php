@@ -13,8 +13,6 @@ use Ergonode\ProductCollection\Domain\Command\CreateProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Factory\ProductCollectionFactory;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 
-/**
- */
 class CreateProductCollectionCommandHandler
 {
     /**

@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalRoleCreatedEventProjector
 {
     private const TABLE = 'roles';

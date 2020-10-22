@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 
-/**
- */
 interface CompletenessQueryInterface
 {
     /**

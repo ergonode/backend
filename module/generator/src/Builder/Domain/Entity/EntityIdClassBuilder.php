@@ -14,8 +14,6 @@ use Ergonode\Generator\Builder\FileBuilder;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class EntityIdClassBuilder implements BuilderInterface
 {
     /**

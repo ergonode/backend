@@ -11,8 +11,6 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 
-/**
- */
 final class Version20191112111500 extends AbstractErgonodeMigration
 {
     /**

@@ -10,8 +10,6 @@ namespace Ergonode\Attribute\Infrastructure\Provider;
 
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 
-/**
- */
 class UpdateAttributeCommandFactoryProvider
 {
     /**

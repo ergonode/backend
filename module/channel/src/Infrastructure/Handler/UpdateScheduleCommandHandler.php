@@ -13,8 +13,6 @@ use Ergonode\Channel\Domain\Command\UpdateSchedulerCommand;
 use Ergonode\Channel\Domain\Repository\SchedulerRepositoryInterface;
 use Ergonode\Channel\Domain\Entity\Scheduler;
 
-/**
- */
 class UpdateScheduleCommandHandler
 {
     /**

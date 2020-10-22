@@ -14,8 +14,6 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateRoleCommand implements DomainCommandInterface
 {
     /**

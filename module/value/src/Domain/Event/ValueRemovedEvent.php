@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ValueRemovedEvent implements DomainEventInterface
 {
     /**

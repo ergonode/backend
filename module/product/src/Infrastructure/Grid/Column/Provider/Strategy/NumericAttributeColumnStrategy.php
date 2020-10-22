@@ -16,8 +16,6 @@ use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\NumericFilter;
 
-/**
- */
 class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

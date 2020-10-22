@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ChildAddedToProductEvent implements DomainEventInterface
 {
     /**

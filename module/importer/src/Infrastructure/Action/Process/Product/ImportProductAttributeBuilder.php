@@ -17,8 +17,6 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver\ImportProductAttributeStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
-/**
- */
 class ImportProductAttributeBuilder
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Builder;
 
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 
-/**
- */
 interface ExistingRelationshipMessageBuilderInterface
 {
     /**

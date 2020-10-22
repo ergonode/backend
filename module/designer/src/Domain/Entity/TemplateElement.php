@@ -14,8 +14,6 @@ use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TemplateElement
 {
     /**

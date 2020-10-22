@@ -11,8 +11,6 @@ namespace Ergonode\Mailer\Domain;
 
 use DateTime;
 
-/**
- */
 interface MailInterface
 {
     /**

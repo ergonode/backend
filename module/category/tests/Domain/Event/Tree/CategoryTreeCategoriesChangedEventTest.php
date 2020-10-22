@@ -15,8 +15,6 @@ use Ergonode\Category\Domain\ValueObject\Node;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTreeCategoriesChangedEventTest extends TestCase
 {
     /**
@@ -24,15 +22,11 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
      */
     private $node;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->node = $this->createMock(Node::class);
     }
 
-    /**
-     */
     public function testCreateWithIncorrectTypeInserted(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -41,8 +35,6 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
         new CategoryTreeCategoriesChangedEvent($id, [new \stdClass()]);
     }
 
-    /**
-     */
     public function testCreateWithCorrectTypeInserted(): void
     {
         /** @var CategoryTreeId $id */

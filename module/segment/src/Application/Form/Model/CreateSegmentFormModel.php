@@ -12,8 +12,6 @@ namespace Ergonode\Segment\Application\Form\Model;
 use Ergonode\Segment\Infrastructure\Validator\UniqueSegmentCode;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CreateSegmentFormModel
 {
     /**
@@ -43,8 +41,6 @@ class CreateSegmentFormModel
      */
     public array $description;
 
-    /**
-     */
     public function __construct()
     {
         $this->conditionSetId = null;

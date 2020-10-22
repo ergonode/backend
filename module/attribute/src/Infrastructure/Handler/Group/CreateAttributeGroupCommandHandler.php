@@ -12,8 +12,6 @@ use Ergonode\Attribute\Domain\Command\Group\CreateAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Factory\Group\AttributeGroupFactory;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 
-/**
- */
 class CreateAttributeGroupCommandHandler
 {
     /**

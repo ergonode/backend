@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class MultimediaAltChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreationEvent(): void
     {
         $id = $this->createMock(MultimediaId::class);

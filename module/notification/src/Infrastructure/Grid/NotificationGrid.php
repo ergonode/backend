@@ -19,8 +19,6 @@ use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class NotificationGrid extends AbstractGrid
 {
     /**

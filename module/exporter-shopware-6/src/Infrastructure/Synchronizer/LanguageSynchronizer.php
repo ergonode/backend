@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInte
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6LanguageClient;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class LanguageSynchronizer implements SynchronizerInterface
 {
     /**

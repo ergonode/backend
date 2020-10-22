@@ -15,8 +15,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateFileAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
-/**
- */
 class UpdateFileAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     /**

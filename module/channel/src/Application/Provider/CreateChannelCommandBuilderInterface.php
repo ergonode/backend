@@ -11,8 +11,6 @@ namespace Ergonode\Channel\Application\Provider;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 interface CreateChannelCommandBuilderInterface
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     /**

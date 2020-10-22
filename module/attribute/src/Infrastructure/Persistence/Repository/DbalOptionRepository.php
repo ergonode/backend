@@ -17,8 +17,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalOptionRepository implements OptionRepositoryInterface
 {
     /**

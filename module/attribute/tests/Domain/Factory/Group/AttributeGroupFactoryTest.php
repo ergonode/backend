@@ -14,8 +14,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupFactoryTest extends TestCase
 {
     /**
@@ -33,8 +31,6 @@ class AttributeGroupFactoryTest extends TestCase
      */
     private TranslatableString $name;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id  = $this->createMock(AttributeGroupId::class);

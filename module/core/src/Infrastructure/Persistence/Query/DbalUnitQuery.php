@@ -16,8 +16,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 class DbalUnitQuery implements UnitQueryInterface
 {
     private const TABLE = 'unit';

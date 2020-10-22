@@ -18,8 +18,6 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Grid\Filter\Option\FilterOption;
 
-/**
- */
 class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

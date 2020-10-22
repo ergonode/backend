@@ -12,8 +12,6 @@ namespace Ergonode\Account\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-/**
- */
 interface UserQueryInterface
 {
     /**

@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 
-/**
- */
 class DbalAttributeGroupRemovedEventProjector
 {
     private const TABLE = 'attribute_group_attribute';

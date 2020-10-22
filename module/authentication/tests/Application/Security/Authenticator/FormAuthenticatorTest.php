@@ -21,8 +21,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-/**
- */
 class FormAuthenticatorTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class FormAuthenticatorTest extends TestCase
      */
     private $failureHandler;
 
-    /**
-     */
     public function setUp(): void
     {
         $this->passwordEncoder = $this->createMock(UserPasswordEncoderInterface::class);
@@ -49,8 +45,6 @@ class FormAuthenticatorTest extends TestCase
         $this->failureHandler = $this->createMock(AuthenticationFailureHandler::class);
     }
 
-    /**
-     */
     public function testSupports(): void
     {
         $request = $this->createMock(Request::class);
@@ -58,8 +52,6 @@ class FormAuthenticatorTest extends TestCase
         $this->assertTrue($authenticator->supports($request));
     }
 
-    /**
-     */
     public function testGetCredentials(): void
     {
         $request = $this->createMock(Request::class);
@@ -74,8 +66,6 @@ class FormAuthenticatorTest extends TestCase
         ], $authenticator->getCredentials($request));
     }
 
-    /**
-     */
     public function testGetUser(): void
     {
         $credential = [
@@ -89,8 +79,6 @@ class FormAuthenticatorTest extends TestCase
         $this->assertSame($user, $authenticator->getUser($credential, $userProvider));
     }
 
-    /**
-     */
     public function testGetUserException(): void
     {
         $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
@@ -105,8 +93,6 @@ class FormAuthenticatorTest extends TestCase
         $authenticator->getUser($credentials, $userProvider);
     }
 
-    /**
-     */
     public function testCheckCredentials(): void
     {
         $credentials = [
@@ -119,9 +105,6 @@ class FormAuthenticatorTest extends TestCase
         $authenticator->checkCredentials($credentials, $user);
     }
 
-    /**
-     *
-     */
     public function testCheckCredentialsException(): void
     {
         $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);

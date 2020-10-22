@@ -21,8 +21,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
 {
     /**

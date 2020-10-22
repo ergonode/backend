@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 
-/**
- */
 class CategoryImportAction
 {
     /**

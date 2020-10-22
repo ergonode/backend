@@ -16,8 +16,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class OptionCreatedEvent implements DomainEventInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 
-/**
- */
 class CreateGroupingProductCommandHandler extends AbstractCreateProductHandler
 {
     /**

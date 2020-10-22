@@ -13,8 +13,6 @@ namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Factory;
 use Ergonode\Channel\Domain\Entity\Scheduler;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalSchedulerFactory
 {
     /**

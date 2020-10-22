@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AddProductCollectionElementsCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $productCollectionId = $this->createMock(ProductCollectionId::class);

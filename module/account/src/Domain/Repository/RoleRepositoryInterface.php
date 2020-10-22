@@ -13,8 +13,6 @@ use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
-/**
- */
 interface RoleRepositoryInterface
 {
     /**

@@ -23,8 +23,6 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Ergonode\Workflow\Infrastructure\Grid\Filter\Option\StatusOption;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class StatusGrid extends AbstractGrid
 {
     /**

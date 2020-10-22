@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Infrastructure\Exception;
 
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class ImportRelatedProductNotFoundException extends ImportException
 {
     private const MESSAGE  = 'Cant\'t find related {{to}} product to {{from}}';

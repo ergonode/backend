@@ -19,8 +19,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class EntityIdHandlerClassBuilder implements BuilderInterface
 {
     /**

@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- */
 class StatusAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

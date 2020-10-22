@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Domain\Repository;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- */
 interface ImportRepositoryInterface
 {
     /**

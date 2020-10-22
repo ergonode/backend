@@ -20,8 +20,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class DbalImportQuery implements ImportQueryInterface
 {
     /**

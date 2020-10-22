@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UnitTest extends TestCase
 {
     /**
@@ -33,8 +31,6 @@ class UnitTest extends TestCase
      */
     private string $symbol;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(UnitId::class);
@@ -42,8 +38,6 @@ class UnitTest extends TestCase
         $this->symbol = 'symbol';
     }
 
-    /**
-     */
     public function testCreateEntity(): void
     {
         $entity = new Unit($this->id, $this->name, $this->symbol);

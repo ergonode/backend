@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class UpdateCommentCommandTest extends TestCase
 {
     /**

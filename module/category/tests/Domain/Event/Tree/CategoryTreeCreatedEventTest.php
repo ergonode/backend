@@ -15,12 +15,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTreeCreatedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreateEvent(): void
     {
         /** @var CategoryTreeId|MockObject $id */

@@ -11,8 +11,6 @@ namespace Ergonode\Comment;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeCommentBundle extends AbstractModule
 {
 }

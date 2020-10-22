@@ -11,8 +11,6 @@ namespace Ergonode\ImporterMagento1;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeImporterMagento1Bundle extends AbstractModule
 {
 }

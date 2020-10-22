@@ -27,8 +27,6 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Column\LinkColumn;
 
-/**
- */
 class MultimediaGrid extends AbstractGrid
 {
     /**

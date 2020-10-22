@@ -12,8 +12,6 @@ namespace Ergonode\Account\Domain\Provider;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 
-/**
- */
 class PrivilegeCodeProvider
 {
     /**

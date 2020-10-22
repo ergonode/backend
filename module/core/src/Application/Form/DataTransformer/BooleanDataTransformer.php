@@ -12,8 +12,6 @@ namespace Ergonode\Core\Application\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class BooleanDataTransformer implements DataTransformerInterface
 {
     /**
@@ -38,9 +36,11 @@ class BooleanDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
+        // phpcs:ignore
         if (1 == $value || 'true' === $value) {
             return 'true';
         }
+        // phpcs:ignore
         if (false == $value || 'false' === $value) {
             return 'false';
         }

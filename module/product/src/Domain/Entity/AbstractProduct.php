@@ -27,8 +27,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
-/**
- */
 abstract class AbstractProduct extends AbstractAggregateRoot implements ProductInterface
 {
     /**

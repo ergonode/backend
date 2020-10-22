@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Application\Mapper;
 
-/**
- */
 class ExceptionMapper implements ExceptionMapperInterface
 {
     /**

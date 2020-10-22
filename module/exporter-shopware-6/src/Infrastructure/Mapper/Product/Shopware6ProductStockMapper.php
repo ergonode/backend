@@ -17,8 +17,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductStockMapper implements Shopware6ProductMapperInterface
 {
     /**

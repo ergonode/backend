@@ -13,8 +13,6 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolver;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeTypeResolverTest extends TestCase
 {
     /**
@@ -42,8 +40,6 @@ class PrivilegeTypeResolverTest extends TestCase
         ];
     }
 
-    /**
-     */
     public function testIncorrectPrivilege(): void
     {
         $this->expectException(\InvalidArgumentException::class);

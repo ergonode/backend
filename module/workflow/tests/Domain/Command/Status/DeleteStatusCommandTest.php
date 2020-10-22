@@ -13,8 +13,6 @@ use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteStatusCommandTest extends TestCase
 {
     /**

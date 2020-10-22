@@ -13,8 +13,6 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
 {
     /**

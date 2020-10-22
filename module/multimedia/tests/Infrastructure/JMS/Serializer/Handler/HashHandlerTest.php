@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Context;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
-/**
- */
 class HashHandlerTest extends TestCase
 {
     /**
@@ -39,8 +37,6 @@ class HashHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new HashHandler();
@@ -49,8 +45,6 @@ class HashHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = HashHandler::getSubscribingMethods();
@@ -62,8 +56,6 @@ class HashHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = 'abcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh';
@@ -74,8 +66,6 @@ class HashHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = 'abcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh';

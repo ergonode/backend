@@ -15,8 +15,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class StatusCalculationService
 {
     /**

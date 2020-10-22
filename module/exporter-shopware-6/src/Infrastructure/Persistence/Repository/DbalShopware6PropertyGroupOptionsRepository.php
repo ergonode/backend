@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGroupOptionsRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_property_group_options';

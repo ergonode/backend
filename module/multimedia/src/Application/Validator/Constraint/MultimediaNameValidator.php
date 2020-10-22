@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- */
 class MultimediaNameValidator extends ConstraintValidator
 {
     /**

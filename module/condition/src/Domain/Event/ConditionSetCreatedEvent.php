@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ConditionSetCreatedEvent implements DomainEventInterface
 {
     /**

@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
 
-/**
- */
 class ConverterMapperCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'transformer.converter.converter_mapper_interface';

@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Infrastructure\Service;
 
-/**
- */
 class ZipDirectoryCompressor implements DirectoryCompressorInterface
 {
     /**

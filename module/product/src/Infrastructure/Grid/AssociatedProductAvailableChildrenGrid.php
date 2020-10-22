@@ -27,8 +27,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class AssociatedProductAvailableChildrenGrid extends AbstractGrid
 {
     /**

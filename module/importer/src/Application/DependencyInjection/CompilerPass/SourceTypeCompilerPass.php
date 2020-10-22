@@ -13,9 +13,6 @@ use Ergonode\Importer\Infrastructure\Provider\SourceTypeProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- *
- */
 class SourceTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.import_source_interface';

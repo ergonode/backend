@@ -14,12 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
-/**
- */
 class ProductTemplateChangeEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         $id = $this->createMock(ProductId::class);

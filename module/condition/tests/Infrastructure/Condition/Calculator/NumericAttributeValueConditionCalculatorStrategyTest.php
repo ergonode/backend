@@ -22,8 +22,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 
-/**
- */
 class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -36,16 +34,12 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
      */
     private NumericAttributeValueConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->strategy = new NumericAttributeValueConditionCalculatorStrategy($this->repository);
     }
 
-    /**
-     */
     public function testSupports(): void
     {
         self::assertTrue($this->strategy->supports('NUMERIC_ATTRIBUTE_VALUE_CONDITION'));

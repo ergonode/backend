@@ -14,8 +14,6 @@ use Ergonode\Channel\Domain\Command\Schedule\ScheduleCommand;
 use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class ChannelExportScheduleCommandHandler
 {
     /**

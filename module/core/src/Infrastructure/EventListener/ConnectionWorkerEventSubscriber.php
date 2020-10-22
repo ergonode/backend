@@ -14,8 +14,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
-/**
- */
 class ConnectionWorkerEventSubscriber implements EventSubscriberInterface
 {
     /**
@@ -60,8 +58,6 @@ class ConnectionWorkerEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     */
     private function reconnect(): void
     {
         if (!$this->connection->ping()) {

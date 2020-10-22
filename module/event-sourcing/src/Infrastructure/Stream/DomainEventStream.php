@@ -11,8 +11,6 @@ namespace Ergonode\EventSourcing\Infrastructure\Stream;
 
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
-/**
- */
 class DomainEventStream implements \IteratorAggregate, \Countable
 {
     /**

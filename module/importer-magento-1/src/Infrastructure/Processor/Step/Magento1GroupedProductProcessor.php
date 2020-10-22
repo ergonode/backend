@@ -17,8 +17,6 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class Magento1GroupedProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
     /**

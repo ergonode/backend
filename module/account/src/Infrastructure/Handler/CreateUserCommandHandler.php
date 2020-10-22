@@ -16,8 +16,6 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
-/**
- */
 class CreateUserCommandHandler
 {
     /**

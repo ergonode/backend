@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Domain\Entity\Source;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 abstract class AbstractSource
 {
     /**

@@ -16,12 +16,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
-/**
- */
 class AttributeTypeDictionaryProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingAttributeTypeDictionary(): void
     {
         /** @var TranslatorInterface | MockObject $translator */

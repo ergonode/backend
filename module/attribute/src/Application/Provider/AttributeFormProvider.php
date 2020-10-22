@@ -10,8 +10,6 @@ namespace Ergonode\Attribute\Application\Provider;
 
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 
-/**
- */
 class AttributeFormProvider
 {
     /**

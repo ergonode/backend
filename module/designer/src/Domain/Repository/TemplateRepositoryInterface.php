@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Domain\Repository;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 interface TemplateRepositoryInterface
 {
     /**

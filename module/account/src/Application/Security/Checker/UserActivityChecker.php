@@ -14,8 +14,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- */
 class UserActivityChecker implements UserCheckerInterface
 {
     /**

@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
 {
     /**
@@ -30,16 +28,12 @@ class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(CategoryQueryInterface::class);
         $this->attribute = $this->createMock(CategorySystemAttribute::class);
     }
 
-    /**
-     */
     public function testValidSupport(): void
     {
         $strategy = new CategorySystemAttributeColumnBuilderStrategy($this->query);
@@ -47,8 +41,6 @@ class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testInvalidSupport(): void
     {
         $strategy = new CategorySystemAttributeColumnBuilderStrategy($this->query);
@@ -56,8 +48,6 @@ class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $this->attribute->expects($this->once())->method('getCode');

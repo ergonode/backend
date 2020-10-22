@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class DbalAttributeValueQuery implements AttributeValueQueryInterface
 {
     private const TABLE_PRODUCT_VALUE = 'product_value';

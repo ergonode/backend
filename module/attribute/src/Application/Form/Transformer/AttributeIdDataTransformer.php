@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class AttributeIdDataTransformer implements DataTransformerInterface
 {
     /**

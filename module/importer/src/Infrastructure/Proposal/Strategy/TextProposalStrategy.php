@@ -8,12 +8,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 
-/**
- */
 class TextProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**

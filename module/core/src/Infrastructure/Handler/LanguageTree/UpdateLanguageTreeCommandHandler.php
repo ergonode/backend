@@ -12,8 +12,6 @@ use Ergonode\Core\Domain\Command\LanguageTree\UpdateLanguageTreeCommand;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateLanguageTreeCommandHandler
 {
     /**

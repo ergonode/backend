@@ -14,12 +14,8 @@ use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class OptionChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var AggregateId $id */

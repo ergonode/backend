@@ -15,8 +15,6 @@ use Ergonode\Attribute\Infrastructure\Validator\AttributeGroupCodeValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -24,24 +22,18 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
      */
     private AttributeGroupQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(AttributeGroupQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new AttributeGroupCode());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -50,8 +42,6 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new AttributeGroupCode());
@@ -59,8 +49,6 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testAttributeGropuCodeValidation(): void
     {
         $attributeGroupCode = 'code';
@@ -69,8 +57,6 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testAttributeGroupCodeInvalidValidation(): void
     {
         $value = 'fes//efs..';
@@ -81,8 +67,6 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testAttributeGroupCodeInvalidGroupExistsValidation(): void
     {
         $value = 'code';

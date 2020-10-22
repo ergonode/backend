@@ -10,12 +10,8 @@ use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\FilterInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DateColumnTest extends TestCase
 {
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any id';

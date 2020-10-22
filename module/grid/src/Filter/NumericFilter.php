@@ -11,8 +11,6 @@ namespace Ergonode\Grid\Filter;
 
 use Ergonode\Grid\FilterInterface;
 
-/**
- */
 class NumericFilter implements FilterInterface
 {
     public const TYPE = 'NUMERIC';

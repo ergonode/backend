@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class ProductAddedToCategoryEvent implements DomainEventInterface
 {
     /**

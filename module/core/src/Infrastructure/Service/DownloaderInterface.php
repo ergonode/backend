@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Service;
 
-/**
- */
 interface DownloaderInterface
 {
     /**

@@ -18,8 +18,6 @@ use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeTemplateElementCompletenessStrategyTest extends TestCase
 {
     /**
@@ -32,16 +30,12 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
      */
     private TranslationInheritanceCalculator $calculator;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->calculator = $this->createMock(TranslationInheritanceCalculator::class);
     }
 
-    /**
-     */
     public function testSupport():void
     {
         $strategy = new AttributeTemplateElementCompletenessStrategy($this->repository, $this->calculator);
@@ -49,8 +43,6 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
         $this::assertFalse($strategy->supports('Any other variant'));
     }
 
-    /**
-     */
     public function testGetElementCompletenessForNotExistsAttribute(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -62,8 +54,6 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
         $strategy->getElementCompleteness($draft, $language, $property);
     }
 
-    /**
-     */
     public function testGetElementCompleteness(): void
     {
         $attribute = $this->createMock(AbstractAttribute::class);

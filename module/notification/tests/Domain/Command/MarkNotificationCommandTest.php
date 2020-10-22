@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class MarkNotificationCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $notificationId = $this->createMock(Uuid::class);

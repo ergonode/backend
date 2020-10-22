@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupAddedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var AttributeId $id */

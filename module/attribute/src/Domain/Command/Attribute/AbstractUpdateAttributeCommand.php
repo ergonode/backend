@@ -17,8 +17,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
 {
     /**

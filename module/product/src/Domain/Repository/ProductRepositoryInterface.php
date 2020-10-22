@@ -12,8 +12,6 @@ namespace Ergonode\Product\Domain\Repository;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 interface ProductRepositoryInterface
 {
     /**

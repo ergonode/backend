@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class OptionAttributeValueCondition implements ConditionInterface
 {
     public const TYPE = 'OPTION_ATTRIBUTE_VALUE_CONDITION';

@@ -14,8 +14,6 @@ use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class DbalExportFactory
 {
     /**

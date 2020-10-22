@@ -25,8 +25,6 @@ use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 
-/**
- */
 class DbalProductChildrenQuery implements ProductChildrenQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';

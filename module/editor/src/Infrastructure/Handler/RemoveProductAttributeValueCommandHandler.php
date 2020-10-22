@@ -21,8 +21,6 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 
-/**
- */
 class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
     /**

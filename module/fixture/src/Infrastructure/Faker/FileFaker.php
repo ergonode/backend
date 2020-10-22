@@ -15,8 +15,6 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class FileFaker extends BaseProvider
 {
     /**

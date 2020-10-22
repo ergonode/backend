@@ -15,8 +15,6 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
-/**
- */
 class ImportVariableProductCommand implements DomainCommandInterface
 {
     /**

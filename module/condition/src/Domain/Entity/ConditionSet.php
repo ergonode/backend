@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ConditionSet extends AbstractAggregateRoot
 {
     /**

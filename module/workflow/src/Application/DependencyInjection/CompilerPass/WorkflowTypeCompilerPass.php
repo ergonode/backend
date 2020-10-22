@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Workflow\Application\Provider\WorkflowTypeProvider;
 
-/**
- */
 class WorkflowTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'workflow.domain.workflow_interface';

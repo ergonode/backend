@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Application\Model\Form\Type;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ColumnModel
 {
     /**

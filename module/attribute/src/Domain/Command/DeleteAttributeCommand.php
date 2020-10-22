@@ -12,8 +12,6 @@ namespace Ergonode\Attribute\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class DeleteAttributeCommand implements DomainCommandInterface
 {
     /**

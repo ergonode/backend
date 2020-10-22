@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Infrastructure\Exception;
 
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class ImportRelatedProductIncorrectTypeException extends ImportException
 {
     private const MESSAGE  = 'Incorrect related product type {{type}} to {{sku}}';

@@ -14,8 +14,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
-/**
- */
 interface ProductCollectionTypeQueryInterface
 {
     /**

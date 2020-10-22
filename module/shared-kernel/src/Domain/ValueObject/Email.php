@@ -13,8 +13,6 @@ use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Ergonode\SharedKernel\Domain\Exception\InvalidEmailException;
 
-/**
- */
 class Email
 {
     /**

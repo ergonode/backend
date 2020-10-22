@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupRemovedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var AttributeId $id */

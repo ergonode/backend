@@ -10,9 +10,6 @@ namespace Ergonode\Completeness;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- *
- */
 class ErgonodeCompletenessBundle extends AbstractModule
 {
 }

@@ -17,8 +17,6 @@ use Behat\Gherkin\Node\TableNode;
 use ReflectionClass;
 use ReflectionException;
 
-/**
- */
 class ResolveVarsContext implements Context
 {
     /**

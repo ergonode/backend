@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalCategoryNameChangedEventProjector
 {
     private const TABLE = 'category';

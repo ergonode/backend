@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
-/**
- */
 interface ConditionSetRepositoryInterface
 {
     /**

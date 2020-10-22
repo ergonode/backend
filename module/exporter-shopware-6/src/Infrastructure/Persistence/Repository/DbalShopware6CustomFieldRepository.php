@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryI
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CustomFieldRepository implements Shopware6CustomFieldRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_custom_field';

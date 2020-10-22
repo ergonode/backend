@@ -10,8 +10,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
 use GuzzleHttp\Psr7\Request;
 
-/**
- */
 interface ActionInterface
 {
     /**

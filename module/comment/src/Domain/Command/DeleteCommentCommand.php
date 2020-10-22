@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DeleteCommentCommand implements DomainCommandInterface
 {
     /**

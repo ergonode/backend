@@ -9,10 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-
-/**
- */
 class TranslatableColumn extends AbstractColumn
 {
     public const TYPE = 'TEXT';

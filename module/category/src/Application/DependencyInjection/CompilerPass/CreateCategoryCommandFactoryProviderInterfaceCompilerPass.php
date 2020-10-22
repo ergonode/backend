@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class CreateCategoryCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.category.create_category_command_factory_interface';

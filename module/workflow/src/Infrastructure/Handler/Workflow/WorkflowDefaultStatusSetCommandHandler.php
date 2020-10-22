@@ -13,8 +13,6 @@ use Ergonode\Workflow\Domain\Command\Status\SetDefaultStatusCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class WorkflowDefaultStatusSetCommandHandler
 {
     /**

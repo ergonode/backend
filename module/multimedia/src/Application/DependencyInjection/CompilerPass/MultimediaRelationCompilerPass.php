@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationProvider;
 
-/**
- */
 class MultimediaRelationCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'multimedia.multimedia_relation_interface';

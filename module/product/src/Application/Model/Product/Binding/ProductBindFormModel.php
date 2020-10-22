@@ -12,8 +12,6 @@ namespace Ergonode\Product\Application\Model\Product\Binding;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
 
-/**
- */
 class ProductBindFormModel
 {
     /**

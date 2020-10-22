@@ -13,8 +13,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\Request\FilterValueCollection;
 
-/**
- */
 class DbalDataSet extends AbstractDbalDataSet
 {
     /**

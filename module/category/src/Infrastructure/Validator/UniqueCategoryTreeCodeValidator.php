@@ -13,8 +13,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
 
-/**
- */
 class UniqueCategoryTreeCodeValidator extends ConstraintValidator
 {
     /**

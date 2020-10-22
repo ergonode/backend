@@ -13,8 +13,6 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class InfoRender
 {
     /**

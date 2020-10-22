@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CreateAttributeGroupFormModel
 {
     /**
@@ -43,8 +41,6 @@ class CreateAttributeGroupFormModel
      */
     public array $name;
 
-    /**
-     */
     public function __construct()
     {
         $this->code = null;

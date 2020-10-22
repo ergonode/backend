@@ -17,8 +17,6 @@ use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 
-/**
- */
 class ExportChannelCommandHandler
 {
     /**

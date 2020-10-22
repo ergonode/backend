@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 
-/**
- */
 class ProductExportProcessStep implements ExportStepProcessInterface
 {
     /**

@@ -16,8 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Workflow\Application\Form\Model\Workflow\WorkflowFormModel;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 
-/**
- */
 class WorkflowForm extends AbstractType implements WorkflowFormInterface
 {
     /**

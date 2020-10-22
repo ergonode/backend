@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 
-/**
- */
 class SnapshotBuilderDecorator implements AggregateBuilderInterface
 {
     /**

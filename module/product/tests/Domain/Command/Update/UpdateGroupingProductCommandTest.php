@@ -13,10 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Command\Update\UpdateGroupingProductCommand;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class UpdateGroupingProductCommandTest extends TestCase
 {
     /**

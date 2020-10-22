@@ -16,8 +16,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Money\Currency;
 
-/**
- */
 class CurrencyHandler implements SubscribingHandlerInterface
 {
     /**

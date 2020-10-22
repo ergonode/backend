@@ -17,8 +17,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
 
-/**
- */
 abstract class AbstractPriceAttribute extends AbstractAttribute
 {
     public const TYPE = 'PRICE';

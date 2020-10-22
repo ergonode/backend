@@ -10,8 +10,6 @@ namespace Ergonode\SharedKernel\Domain\Aggregate;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class ExportId extends AggregateId
 {
 }

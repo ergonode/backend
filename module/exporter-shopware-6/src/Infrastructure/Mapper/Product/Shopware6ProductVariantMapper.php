@@ -23,8 +23,6 @@ use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class Shopware6ProductVariantMapper extends AbstractShopware6VariantOptionMapper
 {
     /**

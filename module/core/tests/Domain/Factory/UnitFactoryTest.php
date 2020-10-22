@@ -13,12 +13,8 @@ use Ergonode\Core\Domain\Factory\UnitFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UnitFactoryTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $id = $this->createMock(UnitId::class);

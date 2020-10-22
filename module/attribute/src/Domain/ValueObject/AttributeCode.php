@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
-/**
- */
 class AttributeCode
 {
     private const PATTERN = '/^([a-zA-Z0-9_]+)$/';

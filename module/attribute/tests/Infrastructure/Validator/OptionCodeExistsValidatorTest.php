@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -28,24 +26,18 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
      */
     private OptionQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(OptionQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), new OptionCodeExists());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -54,8 +46,6 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $value = $this->getMockBuilder(SimpleOptionModel::class)
@@ -67,8 +57,6 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testOptionIdNotExists(): void
     {
         $value = $this->getMockBuilder(SimpleOptionModel::class)
@@ -82,8 +70,6 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testOptionIdNotExistsFoundOptionId(): void
     {
         $value = $this->getMockBuilder(SimpleOptionModel::class)
@@ -104,8 +90,6 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testAttributeIdInvalidValidation(): void
     {
         $value = $this->getMockBuilder(SimpleOptionModel::class)

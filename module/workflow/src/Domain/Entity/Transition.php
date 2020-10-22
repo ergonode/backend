@@ -18,8 +18,6 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class Transition extends AbstractEntity
 {
     /**

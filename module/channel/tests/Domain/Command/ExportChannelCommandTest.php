@@ -14,8 +14,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 
-/**
- */
 class ExportChannelCommandTest extends TestCase
 {
     /**
@@ -28,16 +26,12 @@ class ExportChannelCommandTest extends TestCase
      */
     private ExportId $exportId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->channelId = $this->createMock(ChannelId::class);
         $this->exportId = $this->createMock(ExportId::class);
     }
 
-    /**
-     */
     public function testCreateCommand(): void
     {
         $command = new ExportChannelCommand(

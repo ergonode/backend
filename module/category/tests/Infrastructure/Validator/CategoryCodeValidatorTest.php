@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Validator;
 
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Validator\CategoryCode;
 use Ergonode\Category\Infrastructure\Validator\CategoryCodeValidator;
 use Symfony\Component\Validator\Constraint;
@@ -18,8 +17,6 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -27,24 +24,18 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
      */
     private CategoryQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(CategoryQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new CategoryCode());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -53,8 +44,6 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new CategoryCode());
@@ -62,8 +51,6 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCategoryCodeInvalidValidation(): void
     {
         $constraint = new CategoryCode();
@@ -76,8 +63,6 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCategoryNotExistsValidation(): void
     {
         $this->query->method('findIdByCode')->willReturn($this->createMock(CategoryId::class));

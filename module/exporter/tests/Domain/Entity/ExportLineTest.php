@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 
-/**
- */
 class ExportLineTest extends TestCase
 {
     /**
@@ -29,16 +27,12 @@ class ExportLineTest extends TestCase
      */
     private AggregateId $objectId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exportId = $this->createMock(ExportId::class);
         $this->objectId = $this->createMock(ChannelId::class);
     }
 
-    /**
-     */
     public function testEntityCreation(): void
     {
         $entity = new ExportLine($this->exportId, $this->objectId);

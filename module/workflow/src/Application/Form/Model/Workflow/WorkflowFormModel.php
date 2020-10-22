@@ -12,9 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Workflow\Infrastructure\Validator\StatusIdNotExists;
 use Ergonode\Workflow\Infrastructure\Validator\WorkflowExists;
 
-/**
- *
- */
 class WorkflowFormModel
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Channel\Domain\Entity\Scheduler;
 
-/**
- */
 class DbalSchedulerMapper
 {
     /**

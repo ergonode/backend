@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class RoleExactlyCondition implements ConditionInterface
 {
     public const TYPE = 'ROLE_EXACTLY_CONDITION';

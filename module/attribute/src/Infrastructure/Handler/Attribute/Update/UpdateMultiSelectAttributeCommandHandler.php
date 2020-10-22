@@ -15,8 +15,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateMultiSelectAttributeCommand;
 
-/**
- */
 class UpdateMultiSelectAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     /**
@@ -33,11 +31,11 @@ class UpdateMultiSelectAttributeCommandHandler extends AbstractUpdateAttributeCo
     }
 
     /**
-     * @param UpdateMultiselectAttributeCommand $command
+     * @param UpdateMultiSelectAttributeCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(UpdateMultiselectAttributeCommand $command): void
+    public function __invoke(UpdateMultiSelectAttributeCommand $command): void
     {
         /** @var MultiSelectAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());

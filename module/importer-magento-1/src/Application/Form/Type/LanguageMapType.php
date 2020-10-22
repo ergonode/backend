@@ -15,8 +15,6 @@ use Ergonode\Core\Application\Form\Type\LanguageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 
-/**
- */
 class LanguageMapType extends AbstractType
 {
     /**

@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
-/**
- */
 class StatusSystemAttributeTest extends TestCase
 {
     /**

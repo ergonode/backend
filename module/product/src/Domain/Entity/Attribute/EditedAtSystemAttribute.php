@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractDateAttribute;
 
-/**
- */
 class EditedAtSystemAttribute extends AbstractDateAttribute
 {
     public const TYPE = 'DATE';

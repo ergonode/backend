@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class ProductCollectionIdFaker extends BaseProvider
 {
     private const NAMESPACE = 'a6edc906-2f9f-5fb2-a373-efac406f0ef2';

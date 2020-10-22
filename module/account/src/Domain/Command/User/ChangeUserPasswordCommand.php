@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class ChangeUserPasswordCommand implements DomainCommandInterface
 {
     /**

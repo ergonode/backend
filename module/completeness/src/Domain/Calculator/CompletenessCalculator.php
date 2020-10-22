@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 
-/**
- */
 class CompletenessCalculator
 {
     /**

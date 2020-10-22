@@ -9,8 +9,6 @@ namespace Ergonode\Editor\Domain\Repository;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 
-/**
- */
 interface ProductDraftRepositoryInterface
 {
     /**

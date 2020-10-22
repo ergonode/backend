@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\Command\CreateUnitCommand;
 use Ergonode\Core\Domain\Factory\UnitFactory;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 
-/**
- */
 class CreateUnitCommandHandler
 {
     /**

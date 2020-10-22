@@ -24,8 +24,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class ProductCollectionGrid extends AbstractGrid
 {
     /**

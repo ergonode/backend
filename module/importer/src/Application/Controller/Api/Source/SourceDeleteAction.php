@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Exception\NotImplementedException;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;

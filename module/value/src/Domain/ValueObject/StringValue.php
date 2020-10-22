@@ -11,8 +11,6 @@ namespace Ergonode\Value\Domain\ValueObject;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class StringValue implements ValueInterface
 {
     public const TYPE = 'string';

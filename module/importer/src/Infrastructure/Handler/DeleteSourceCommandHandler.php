@@ -12,8 +12,6 @@ use Ergonode\Importer\Domain\Command\DeleteSourceCommand;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteSourceCommandHandler
 {
     /**

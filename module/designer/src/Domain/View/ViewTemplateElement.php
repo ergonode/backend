@@ -10,8 +10,6 @@ namespace Ergonode\Designer\Domain\View;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 
-/**
- */
 class ViewTemplateElement
 {
     /**

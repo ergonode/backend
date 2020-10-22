@@ -13,14 +13,10 @@ use Ergonode\Core\Application\Form\DataTransformer\DateTimeTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class DateTimeTransformerTest extends TestCase
 {
     private DateTimeTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new DateTimeTransformer();
@@ -39,8 +35,6 @@ class DateTimeTransformerTest extends TestCase
         $this->assertEquals($timezone, $result->getTimezone()->getName());
     }
 
-    /**
-     */
     public function testShouldReverseTransformEmpty(): void
     {
         $result = $this->transformer->reverseTransform(null);
@@ -87,8 +81,6 @@ class DateTimeTransformerTest extends TestCase
         ];
     }
 
-    /**
-     */
     public function testShouldTransform(): void
     {
         $date = new \DateTime();
@@ -98,8 +90,6 @@ class DateTimeTransformerTest extends TestCase
         $this->assertEquals($date->format(\DateTimeInterface::RFC3339), $result);
     }
 
-    /**
-     */
     public function testShouldTransformEmpty(): void
     {
         $result = $this->transformer->transform(null);
@@ -107,8 +97,6 @@ class DateTimeTransformerTest extends TestCase
         $this->assertNull($result);
     }
 
-    /**
-     */
     public function testShouldThrowExceptionOnInvalidTypeTransform(): void
     {
         $this->expectException(TransformationFailedException::class);

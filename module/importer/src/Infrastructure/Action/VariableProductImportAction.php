@@ -30,8 +30,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportBindingAttributeNotFoundException;
 use Ergonode\Importer\Infrastructure\Exception\ImportIncorrectBindingAttributeException;
 
-/**
- */
 class VariableProductImportAction
 {
     /**

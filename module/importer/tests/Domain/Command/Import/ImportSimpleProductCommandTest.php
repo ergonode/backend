@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Tests\Domain\Command\Import;
 
-use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
@@ -16,12 +15,8 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class ImportSimpleProductCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TextAttributeValueCondition implements ConditionInterface
 {
     public const TYPE = 'TEXT_ATTRIBUTE_VALUE_CONDITION';

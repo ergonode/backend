@@ -13,8 +13,6 @@ use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class EndImportCommandHandler
 {
     /**

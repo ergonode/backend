@@ -12,8 +12,6 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 
-/**
- */
 class DbalStatusDeletedEventProjector
 {
     private const TABLE = 'status';

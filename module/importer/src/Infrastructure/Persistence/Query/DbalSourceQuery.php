@@ -15,8 +15,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Importer\Domain\Query\SourceQueryInterface;
 
-/**
- */
 class DbalSourceQuery implements SourceQueryInterface
 {
     /**

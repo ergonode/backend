@@ -14,8 +14,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteAttributeGroupCommandHandler
 {
     /**

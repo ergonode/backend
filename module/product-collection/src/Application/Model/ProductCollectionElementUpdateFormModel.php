@@ -11,8 +11,6 @@ namespace Ergonode\ProductCollection\Application\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductCollectionElementUpdateFormModel
 {
     /**
@@ -23,8 +21,6 @@ class ProductCollectionElementUpdateFormModel
      */
     public ?bool $visible;
 
-    /**
-     */
     public function __construct()
     {
         $this->visible = null;

@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Cache;
 
 use Ramsey\Uuid\UuidInterface;
 
-/**
- */
 interface CacheInterface
 {
     /**

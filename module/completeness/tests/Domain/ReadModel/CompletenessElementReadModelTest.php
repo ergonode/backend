@@ -14,12 +14,8 @@ use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CompletenessElementReadModelTest extends TestCase
 {
-    /**
-     */
     public function testProperCreation(): void
     {
         /** @var AttributeId|MockObject $attributeId */

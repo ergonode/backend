@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6CategoryTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class Shopware6CategoryTest extends TestCase
      */
     private bool $visible;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -51,8 +47,6 @@ class Shopware6CategoryTest extends TestCase
         $this->visible = false;
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6Category($this->id, $this->name, $this->parentId, $this->active, $this->visible);
@@ -65,8 +59,6 @@ class Shopware6CategoryTest extends TestCase
         self::assertNotTrue($model->isModified());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6Category();

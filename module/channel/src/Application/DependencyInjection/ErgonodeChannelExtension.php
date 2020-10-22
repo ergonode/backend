@@ -22,8 +22,6 @@ use Ergonode\Channel\Application\DependencyInjection\CompilerPass\CreateChannelC
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderInterface;
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\UpdateChannelCommandBuilderCompilerPass;
 
-/**
- */
 class ErgonodeChannelExtension extends Extension
 {
     /**

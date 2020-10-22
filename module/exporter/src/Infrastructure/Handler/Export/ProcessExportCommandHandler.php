@@ -10,17 +10,12 @@ namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
-use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
-use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
-/**
- */
 class ProcessExportCommandHandler
 {
     /**

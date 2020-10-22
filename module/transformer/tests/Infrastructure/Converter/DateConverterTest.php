@@ -10,12 +10,8 @@ namespace Ergonode\Transformer\Tests\Infrastructure\Converter;
 use Ergonode\Transformer\Infrastructure\Converter\DateConverter;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DateConverterTest extends TestCase
 {
-    /**
-     */
     public function testConverterCreation(): void
     {
         $field = 'Any field name';

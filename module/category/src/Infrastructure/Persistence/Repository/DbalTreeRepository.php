@@ -17,8 +17,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalTreeRepository implements TreeRepositoryInterface
 {
     /**

@@ -20,8 +20,6 @@ use Money\Currency;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreatePriceAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
     /**

@@ -19,8 +19,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class EmailUserProviderTest extends TestCase
 {
     /**
@@ -33,8 +31,6 @@ class EmailUserProviderTest extends TestCase
     private $mockUserRepository;
     private EmailUserProvider $provider;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->mockUserQuery = $this->createMock(UserQueryInterface::class);
@@ -46,8 +42,6 @@ class EmailUserProviderTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testShouldProvide(): void
     {
         $user = $this->createMock(User::class);
@@ -83,8 +77,6 @@ class EmailUserProviderTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testThrowExceptionWhenNoSuchUser(): void
     {
         $this->mockUserQuery
@@ -99,8 +91,6 @@ class EmailUserProviderTest extends TestCase
         $this->provider->loadUserByUsername('test@ergonode.com');
     }
 
-    /**
-     */
     public function testThrowExceptionWhenNoSuchUserName(): void
     {
         $this->mockUserQuery
@@ -115,8 +105,6 @@ class EmailUserProviderTest extends TestCase
         $this->provider->loadUserByUsername('test@ergonode.com');
     }
 
-    /**
-     */
     public function testThrowExceptionWhenInvalidEmailGiven(): void
     {
         $this->expectExceptionMessage('Invalid email format');
@@ -124,8 +112,6 @@ class EmailUserProviderTest extends TestCase
         $this->provider->loadUserByUsername('plain string');
     }
 
-    /**
-     */
     public function testThrowExceptionWhenNoStringGiven(): void
     {
         $this->expectExceptionMessage('Username has to be a string');
@@ -133,8 +119,6 @@ class EmailUserProviderTest extends TestCase
         $this->provider->loadUserByUsername(1);
     }
 
-    /**
-     */
     public function testThrowExceptionWhenEmptyStringGiven(): void
     {
         $this->expectExceptionMessage('Empty username');

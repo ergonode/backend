@@ -17,8 +17,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class Shopware6Channel extends AbstractChannel
 {
     public const TYPE = 'shopware-6-api';

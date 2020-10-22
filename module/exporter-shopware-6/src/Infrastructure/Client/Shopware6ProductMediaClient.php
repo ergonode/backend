@@ -22,8 +22,6 @@ use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductMediaClient
 {
     /**

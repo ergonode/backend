@@ -13,8 +13,6 @@ use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateCategoryCommandHandler
 {
     /**

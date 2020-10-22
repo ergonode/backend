@@ -13,8 +13,6 @@ use Ergonode\Designer\Domain\Entity\TemplateGroup;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
-/**
- */
 interface TemplateGroupRepositoryInterface
 {
     /**

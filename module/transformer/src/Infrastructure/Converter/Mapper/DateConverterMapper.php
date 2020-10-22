@@ -13,8 +13,6 @@ use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\DateConverter;
 use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
 
-/**
- */
 class DateConverterMapper implements ConverterMapperInterface
 {
     /**

@@ -20,8 +20,6 @@ use Faker\Generator;
 use Nelmio\Alice\Loader\NativeLoader;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 
-/**
- */
 class FixtureProcess
 {
     /**

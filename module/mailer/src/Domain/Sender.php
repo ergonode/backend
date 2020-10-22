@@ -12,8 +12,6 @@ namespace Ergonode\Mailer\Domain;
 use Ergonode\SharedKernel\Domain\Collection\EmailCollection;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-/**
- */
 class Sender
 {
     /**
@@ -26,8 +24,6 @@ class Sender
      */
     private EmailCollection $replyTo;
 
-    /**
-     */
     public function __construct()
     {
         $this->from = new EmailCollection();

@@ -11,8 +11,6 @@ namespace Ergonode\Api;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeApiBundle extends AbstractModule
 {
 }

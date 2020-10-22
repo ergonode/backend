@@ -12,8 +12,6 @@ namespace Ergonode\Product\Domain\Query;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 interface HistoryQueryInterface
 {
     /**

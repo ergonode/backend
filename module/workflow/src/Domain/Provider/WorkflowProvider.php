@@ -15,8 +15,6 @@ use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-/**
- */
 class WorkflowProvider
 {
     /**

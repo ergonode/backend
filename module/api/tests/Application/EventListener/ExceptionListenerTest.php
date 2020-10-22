@@ -18,8 +18,6 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
-/**
- */
 class ExceptionListenerTest extends TestCase
 {
     /**
@@ -42,8 +40,6 @@ class ExceptionListenerTest extends TestCase
      */
     private $authenticationCredentialNotFoundException;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exceptionMapper = $this->createMock(ExceptionMapperInterface::class);
@@ -53,8 +49,6 @@ class ExceptionListenerTest extends TestCase
         $this->handlerFailedException = $this->createMock(HandlerFailedException::class);
     }
 
-    /**
-     */
     public function testInvokeWithoutMapping(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
@@ -72,8 +66,6 @@ class ExceptionListenerTest extends TestCase
         $listener($this->event);
     }
 
-    /**
-     */
     public function testInvokeWithoutMappingWithHandlerFailedException(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
@@ -93,8 +85,6 @@ class ExceptionListenerTest extends TestCase
         $listener($this->event);
     }
 
-    /**
-     */
     public function testInvokeWithMappingWithHandlerFailedException(): void
     {
         $this->exceptionMapper->method('map')->willReturn([
@@ -123,8 +113,6 @@ class ExceptionListenerTest extends TestCase
         $listener($this->event);
     }
 
-    /**
-     */
     public function testInvokeWithMapping(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn([

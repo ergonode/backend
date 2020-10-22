@@ -12,8 +12,6 @@ namespace Ergonode\Api\Application\Response;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- */
 class FileContentResponse extends AbstractResponse
 {
 

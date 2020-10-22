@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Application\Form\Attribute;
 use Ergonode\Attribute\Application\Form\Attribute\Configuration\TextareaAttributeConfigurationForm;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
@@ -21,8 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class TextareaAttributeForm extends AbstractType implements AttributeFormInterface
 {
     /**

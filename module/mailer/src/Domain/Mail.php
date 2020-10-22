@@ -5,8 +5,6 @@ namespace Ergonode\Mailer\Domain;
 
 use DateTime;
 
-/**
- */
 class Mail implements MailInterface
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class ExportTest extends TestCase
 {
     /**
@@ -34,8 +32,6 @@ class ExportTest extends TestCase
      */
     private int $items;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ExportId::class);
@@ -43,8 +39,6 @@ class ExportTest extends TestCase
         $this->items = 0;
     }
 
-    /**
-     */
     public function testEntityCreation(): void
     {
         $entity = new Export($this->id, $this->channelId, $this->items);
@@ -56,8 +50,6 @@ class ExportTest extends TestCase
         self::assertNull($entity->getEndedAt());
     }
 
-    /**
-     */
     public function testExportStatus(): void
     {
         $entity = new Export($this->id, $this->channelId, $this->items);
@@ -71,8 +63,6 @@ class ExportTest extends TestCase
         self::assertSame(ExportStatus::STOPPED, $entity->getStatus()->getValue());
     }
 
-    /**
-     */
     public function testInvalidEndStatusChange(): void
     {
         $this->expectException(\LogicException::class);
@@ -80,8 +70,6 @@ class ExportTest extends TestCase
         $entity->end();
     }
 
-    /**
-     */
     public function testInvalidStartStatusChange(): void
     {
         $this->expectException(\LogicException::class);
@@ -90,8 +78,6 @@ class ExportTest extends TestCase
         $entity->start();
     }
 
-    /**
-     */
     public function testInvalidStopStatusChange(): void
     {
         $this->expectException(\LogicException::class);

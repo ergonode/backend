@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetTaxList extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/tax?%s';

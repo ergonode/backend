@@ -12,8 +12,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 
-/**
- */
 class ImportStatusDictionary
 {
     /**

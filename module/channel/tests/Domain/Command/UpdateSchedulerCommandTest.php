@@ -12,12 +12,8 @@ use Ergonode\Channel\Domain\Command\UpdateSchedulerCommand;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class UpdateSchedulerCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         $id = $this->createMock(AggregateId::class);

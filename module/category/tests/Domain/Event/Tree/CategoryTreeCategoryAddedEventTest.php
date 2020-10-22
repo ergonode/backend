@@ -15,12 +15,8 @@ use Ergonode\Category\Domain\Event\Tree\CategoryTreeCategoryAddedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTreeCategoryAddedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreateEventWithParent(): void
     {
         /** @var CategoryTreeId $id */
@@ -35,8 +31,6 @@ class CategoryTreeCategoryAddedEventTest extends TestCase
         $this->assertEquals($parentId, $event->getParentId());
     }
 
-    /**
-     */
     public function testCreateEventWithoutParent(): void
     {
         /** @var CategoryTreeId $id */

@@ -10,8 +10,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6Category
 {
     /**

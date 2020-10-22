@@ -16,8 +16,6 @@ use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**

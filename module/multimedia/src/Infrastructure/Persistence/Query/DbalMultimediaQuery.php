@@ -17,8 +17,6 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class DbalMultimediaQuery implements MultimediaQueryInterface
 {
     private const TABLE = 'multimedia';

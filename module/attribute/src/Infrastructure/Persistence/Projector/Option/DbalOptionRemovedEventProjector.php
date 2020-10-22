@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent;
 
-/**
- */
 class DbalOptionRemovedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';

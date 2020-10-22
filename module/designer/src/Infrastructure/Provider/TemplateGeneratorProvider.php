@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Infrastructure\Provider;
 use Ergonode\Designer\Infrastructure\Exception\TemplateGeneratorException;
 use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
 
-/**
- */
 class TemplateGeneratorProvider
 {
     /**

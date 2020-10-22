@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInter
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class Shopware6NewProductPriceMapperDecorator implements Shopware6ProductMapperInterface
 {
     /**

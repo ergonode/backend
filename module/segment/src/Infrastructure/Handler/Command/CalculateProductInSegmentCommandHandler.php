@@ -17,8 +17,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
-/**
- */
 class CalculateProductInSegmentCommandHandler
 {
     /**

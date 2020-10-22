@@ -17,8 +17,6 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class LocaleSubscriber implements EventSubscriberInterface
 {
     /**

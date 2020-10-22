@@ -13,8 +13,6 @@ use Ergonode\Category\Domain\Command\CreateCategoryCommand;
 use Ergonode\Category\Domain\Factory\CategoryFactory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 
-/**
- */
 class CreateCategoryCommandHandler
 {
     /**

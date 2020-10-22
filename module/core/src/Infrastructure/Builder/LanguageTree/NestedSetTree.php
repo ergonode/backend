@@ -9,10 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Infrastructure\Builder\LanguageTree;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ramsey\Uuid\Uuid;
 
-/**
- */
 class NestedSetTree
 {
     /**

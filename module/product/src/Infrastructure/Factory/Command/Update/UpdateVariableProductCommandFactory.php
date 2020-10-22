@@ -17,10 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
 use Ergonode\Product\Infrastructure\Factory\Command\UpdateProductCommandFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class UpdateVariableProductCommandFactory implements UpdateProductCommandFactoryInterface
 {
     /**

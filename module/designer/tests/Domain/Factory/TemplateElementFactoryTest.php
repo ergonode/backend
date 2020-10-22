@@ -18,8 +18,6 @@ use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateElementFactoryTest extends TestCase
 {
     /**
@@ -32,8 +30,6 @@ class TemplateElementFactoryTest extends TestCase
      */
     private TemplateElementTypeResolver $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
@@ -43,8 +39,6 @@ class TemplateElementFactoryTest extends TestCase
         $this->resolver->method('resolve')->willReturn('Resolver type');
     }
 
-    /**
-     */
     public function testFactoryCreateTemplateElement(): void
     {
         /** @var Position|MockObject $position */
@@ -52,8 +46,6 @@ class TemplateElementFactoryTest extends TestCase
         /** @var Size|MockObject $size */
         $size = $this->createMock(Size::class);
 
-        /**
-         */
         $type = 'Any Type';
         $factory = new TemplateElementFactory($this->resolver, $this->serializer);
         $element = $factory->create($position, $size, $type);

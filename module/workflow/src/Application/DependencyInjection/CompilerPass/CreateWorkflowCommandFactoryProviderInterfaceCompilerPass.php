@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Workflow\Infrastructure\Provider\CreateWorkflowCommandFactoryProvider;
 
-/**
- */
 class CreateWorkflowCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.workflow.create_workflow_command_factory';

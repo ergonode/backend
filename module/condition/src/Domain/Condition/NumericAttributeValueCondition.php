@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class NumericAttributeValueCondition implements ConditionInterface
 {
     public const TYPE = 'NUMERIC_ATTRIBUTE_VALUE_CONDITION';

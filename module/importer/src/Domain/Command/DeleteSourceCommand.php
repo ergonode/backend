@@ -12,8 +12,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DeleteSourceCommand implements DomainCommandInterface
 {
     /**

@@ -17,8 +17,6 @@ use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
-/**
- */
 class DefaultLabelSystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Domain\Command\Group;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class DeleteAttributeGroupCommand implements DomainCommandInterface
 {
     /**

@@ -14,8 +14,6 @@ use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateEleme
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ErgonodeDesignerBundle extends AbstractModule
 {
     /**

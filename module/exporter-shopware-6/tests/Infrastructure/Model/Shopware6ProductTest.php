@@ -13,8 +13,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6ProductTest extends TestCase
 {
     /**
@@ -93,8 +91,6 @@ class Shopware6ProductTest extends TestCase
     private string $coverId;
 
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -133,8 +129,6 @@ class Shopware6ProductTest extends TestCase
         $this->coverId = 'any_product_media_id';
     }
 
-    /**
-     */
     public function testCreateModel():void
     {
         $model = new Shopware6Product(
@@ -172,8 +166,6 @@ class Shopware6ProductTest extends TestCase
         self::assertFalse($model->isModified());
     }
 
-    /**
-     */
     public function testSetModel():void
     {
         $model = new Shopware6Product();

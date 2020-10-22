@@ -14,8 +14,6 @@ use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use League\Flysystem\FilesystemInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ChangeUserAvatarCommandHandler
 {
     /**

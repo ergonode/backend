@@ -15,8 +15,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateStatusCommand implements DomainCommandInterface
 {
     /**

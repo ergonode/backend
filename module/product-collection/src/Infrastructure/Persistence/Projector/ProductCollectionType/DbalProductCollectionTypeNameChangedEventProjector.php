@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalProductCollectionTypeNameChangedEventProjector
 {
     private const TABLE = 'product_collection_type';

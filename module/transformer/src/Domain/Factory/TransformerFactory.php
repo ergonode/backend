@@ -12,8 +12,6 @@ namespace Ergonode\Transformer\Domain\Factory;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
-/**
- */
 class TransformerFactory
 {
     /**
@@ -25,7 +23,7 @@ class TransformerFactory
      *
      * @throws \Exception
      */
-    public function create(Transformerid $id, string $name, string $key): Transformer
+    public function create(TransformerId $id, string $name, string $key): Transformer
     {
         return new Transformer(
             $id,

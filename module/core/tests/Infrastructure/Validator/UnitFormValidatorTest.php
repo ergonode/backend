@@ -19,8 +19,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class UnitFormValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -28,24 +26,18 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
      */
     private UnitQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(UnitQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new UnitForm());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -54,8 +46,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -68,8 +58,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectNullNameValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -85,8 +73,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedEmptyNameValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -102,8 +88,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedEmptySymbolValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -119,8 +103,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedUniqueNameValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
@@ -139,8 +121,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedUniqueSymbolValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();

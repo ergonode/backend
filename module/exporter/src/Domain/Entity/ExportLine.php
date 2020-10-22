@@ -12,8 +12,6 @@ namespace Ergonode\Exporter\Domain\Entity;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class ExportLine
 {
     /**

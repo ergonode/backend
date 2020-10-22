@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class SegmentStatusChangedEvent implements DomainEventInterface
 {
     /**

@@ -12,8 +12,6 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 final class Version20190818160000 extends AbstractErgonodeMigration
 {
     /**

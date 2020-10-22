@@ -15,8 +15,6 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class TemplateExportProcessorStep implements ExportStepProcessInterface
 {
     /**

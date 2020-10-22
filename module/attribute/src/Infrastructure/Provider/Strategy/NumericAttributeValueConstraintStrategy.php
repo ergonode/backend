@@ -16,8 +16,6 @@ use Ergonode\Attribute\Infrastructure\Validator\TypeOrEmpty;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 
-/**
- */
 class NumericAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

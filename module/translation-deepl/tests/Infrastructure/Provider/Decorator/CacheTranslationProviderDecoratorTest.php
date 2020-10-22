@@ -15,12 +15,8 @@ use Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\CacheTranslation
 use Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CacheTranslationProviderDecoratorTest extends TestCase
 {
-    /**
-     */
     public function testProvide(): void
     {
         $provider = $this->createMock(DeeplTranslationProvider::class);
@@ -41,8 +37,6 @@ class CacheTranslationProviderDecoratorTest extends TestCase
         $this->assertEquals('ABCD', $decorator->provide('DEFG', $sourceLanguage, $targetLanguage));
     }
 
-    /**
-     */
     public function testCache(): void
     {
         $provider = $this->createMock(DeeplTranslationProvider::class);

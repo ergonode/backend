@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalRoleRepository implements RoleRepositoryInterface
 {
     /**

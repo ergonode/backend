@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Infrastructure\Provider\ConditionCalculatorProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ConditionCalculator
 {
     /**

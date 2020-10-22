@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
-/**
- */
 class Magento1CsvSourceTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $id = $this->createMock(SourceId::class);

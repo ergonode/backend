@@ -15,8 +15,6 @@ use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class FormValidationExceptionHandler implements SubscribingHandlerInterface
 {
     /**

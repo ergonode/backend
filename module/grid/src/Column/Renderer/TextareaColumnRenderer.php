@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\Column\TextAreaColumn;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class TextareaColumnRenderer implements ColumnRendererInterface
 {
     /**

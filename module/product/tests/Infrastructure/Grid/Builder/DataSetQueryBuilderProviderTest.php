@@ -14,8 +14,6 @@ use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuil
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class DataSetQueryBuilderProviderTest extends TestCase
 {
     /**
@@ -23,16 +21,12 @@ class DataSetQueryBuilderProviderTest extends TestCase
      */
     private AbstractAttribute $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(AbstractAttribute::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testValidStrategy(): void
     {
         $strategy = $this->createMock(AttributeDataSetQueryBuilderInterface::class);
@@ -42,8 +36,6 @@ class DataSetQueryBuilderProviderTest extends TestCase
         $this->assertEquals($strategy, $result);
     }
 
-    /**
-     */
     public function testNoValidStrategy(): void
     {
         $this->expectException(\RuntimeException::class);

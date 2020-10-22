@@ -14,8 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalUserRepository implements UserRepositoryInterface
 {
     /**

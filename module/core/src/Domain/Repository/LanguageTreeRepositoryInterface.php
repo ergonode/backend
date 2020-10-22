@@ -9,10 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Domain\Repository;
 
 use Ergonode\Core\Domain\Entity\LanguageTree;
-use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface LanguageTreeRepositoryInterface
 {
     /**

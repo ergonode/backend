@@ -14,8 +14,6 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AddPrivilegeToRoleEvent implements DomainEventInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Category\Infrastructure\Validator as CategoryAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CategoryFormModel
 {
     /**

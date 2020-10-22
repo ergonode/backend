@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface TemplateGroupQueryInterface
 {
     /**

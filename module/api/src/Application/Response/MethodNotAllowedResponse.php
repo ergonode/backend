@@ -12,8 +12,6 @@ namespace Ergonode\Api\Application\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- */
 class MethodNotAllowedResponse extends JsonResponse
 {
     /**

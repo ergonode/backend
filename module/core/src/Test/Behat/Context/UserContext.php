@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Exception;
 use InvalidArgumentException;
 
-/**
- */
 class UserContext implements Context
 {
     /**

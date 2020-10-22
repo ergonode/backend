@@ -17,8 +17,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class AbstractAssociatedProductTest extends TestCase
 {
     /**
@@ -37,8 +35,6 @@ class AbstractAssociatedProductTest extends TestCase
      */
     private TemplateId $templateId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);

@@ -15,8 +15,6 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RoleTest extends TestCase
 {
     /**
@@ -39,8 +37,6 @@ class RoleTest extends TestCase
      */
     private $privilege;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->roleId = $this->createMock(RoleId::class);
@@ -49,8 +45,6 @@ class RoleTest extends TestCase
         $this->privilege = $this->createMock(Privilege::class);
     }
 
-    /**
-     */
     public function testRoleCreation(): void
     {
         $role = new Role($this->roleId, $this->name, $this->description, [$this->privilege]);
@@ -60,8 +54,6 @@ class RoleTest extends TestCase
         $this->assertEquals([$this->privilege], $role->getPrivileges());
     }
 
-    /**
-     */
     public function testChangingNameAndDescription(): void
     {
         $newName = 'New name';
@@ -74,8 +66,6 @@ class RoleTest extends TestCase
         $this->assertEquals($newDescription, $role->getDescription());
     }
 
-    /**
-     */
     public function testChangingPrivilege(): void
     {
         $this->privilege->method('isEqual')->willReturn(true);
@@ -91,8 +81,6 @@ class RoleTest extends TestCase
         $this->assertEquals([$this->privilege], $role->getPrivileges());
     }
 
-    /**
-     */
     public function testRemoveNotExistsPrivilege(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -100,8 +88,6 @@ class RoleTest extends TestCase
         $role->removePrivilege($this->privilege);
     }
 
-    /**
-     */
     public function testAddExistsPrivilege(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -110,8 +96,6 @@ class RoleTest extends TestCase
         $role->addPrivilege($this->privilege);
     }
 
-    /**
-     */
     public function testRoleCreationWithIncorrectType(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -120,8 +104,6 @@ class RoleTest extends TestCase
         new Role($this->roleId, $this->name, $this->description, [$privileges]);
     }
 
-    /**
-     */
     public function testChangePrivilegesWithIncorrectType(): void
     {
         $this->expectException(\InvalidArgumentException::class);

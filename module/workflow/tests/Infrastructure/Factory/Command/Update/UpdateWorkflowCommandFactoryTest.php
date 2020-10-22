@@ -17,12 +17,8 @@ use Symfony\Component\Form\FormInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 class UpdateWorkflowCommandFactoryTest extends TestCase
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdateWorkflowCommandFactory();

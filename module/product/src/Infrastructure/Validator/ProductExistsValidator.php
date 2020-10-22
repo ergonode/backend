@@ -15,8 +15,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class ProductExistsValidator extends ConstraintValidator
 {
     /**

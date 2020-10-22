@@ -12,8 +12,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\SlugConverter;
 
-/**
- */
 class SlugConverterMapper implements ConverterMapperInterface
 {
     /**

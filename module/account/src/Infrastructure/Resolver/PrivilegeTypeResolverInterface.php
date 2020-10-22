@@ -11,8 +11,6 @@ namespace Ergonode\Account\Infrastructure\Resolver;
 
 use Ergonode\Account\Domain\ValueObject\Privilege;
 
-/**
- */
 interface PrivilegeTypeResolverInterface
 {
     /**

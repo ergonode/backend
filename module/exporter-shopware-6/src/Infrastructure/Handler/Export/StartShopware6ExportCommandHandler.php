@@ -16,8 +16,6 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand;
 
-/**
- */
 class StartShopware6ExportCommandHandler
 {
     /**

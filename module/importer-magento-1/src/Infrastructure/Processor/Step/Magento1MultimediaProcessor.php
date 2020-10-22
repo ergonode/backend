@@ -16,8 +16,6 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 
-/**
- */
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
     /**

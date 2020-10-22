@@ -9,8 +9,6 @@ namespace Ergonode\Importer\Domain\Repository;
 
 use Ergonode\Importer\Domain\Entity\ImportError;
 
-/**
- */
 interface ImportErrorRepositoryInterface
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInte
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_language';

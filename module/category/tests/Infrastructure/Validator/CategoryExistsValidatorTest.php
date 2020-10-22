@@ -17,8 +17,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class CategoryExistsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -26,34 +24,26 @@ class CategoryExistsValidatorTest extends ConstraintValidatorTestCase
      */
     private $repository;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new CategoryExists());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
-        /** @var constraint $constrain */
+        /** @var Constraint $constrain */
         $constraint = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new CategoryExists());
@@ -61,8 +51,6 @@ class CategoryExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCategoryExistsValidation(): void
     {
         $this->repository->method('exists')->willReturn(true);
@@ -71,8 +59,6 @@ class CategoryExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCategoryNotExistsValidation(): void
     {
         $this->repository->method('load')->willReturn(null);

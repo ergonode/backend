@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Application\Provider;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 interface CreateSourceCommandBuilderInterface
 {
     /**

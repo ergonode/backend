@@ -13,8 +13,6 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class RowRenderer implements RowRendererInterface
 {
     /**

@@ -14,8 +14,6 @@ use Behatch\HttpCall\Request;
 use Ergonode\Authentication\Application\Security\User\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
-/**
- */
 class ApiAuthContext implements Context
 {
     /**

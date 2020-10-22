@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model\Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6ProductConfiguratorSettingsTest extends TestCase
 {
     /**
@@ -25,16 +23,12 @@ class Shopware6ProductConfiguratorSettingsTest extends TestCase
      */
     private string $optionId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
         $this->optionId = 'any_option_id';
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6ProductConfiguratorSettings($this->id, $this->optionId);
@@ -43,8 +37,6 @@ class Shopware6ProductConfiguratorSettingsTest extends TestCase
         self::assertEquals($this->optionId, $model->getOptionId());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6ProductConfiguratorSettings();

@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 
-/**
- */
 class TransformerGeneratorProviderStrategyCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.transformer_generator_strategy.transformer_interface';

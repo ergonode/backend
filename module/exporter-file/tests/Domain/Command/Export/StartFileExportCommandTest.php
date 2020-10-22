@@ -12,12 +12,8 @@ use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class StartFileExportCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $exportId = $this->createMock(ExportId::class);

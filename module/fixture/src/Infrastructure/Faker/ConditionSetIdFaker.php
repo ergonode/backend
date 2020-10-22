@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class ConditionSetIdFaker extends BaseProvider
 {
     private const NAMESPACE = '14343bf2-6c4c-47cc-92fc-3002a09521fc';

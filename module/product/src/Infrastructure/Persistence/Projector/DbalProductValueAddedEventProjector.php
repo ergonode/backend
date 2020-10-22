@@ -14,8 +14,6 @@ use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
-/**
- */
 class DbalProductValueAddedEventProjector extends AbstractProductValueProjector
 {
     /**

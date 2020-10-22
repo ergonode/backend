@@ -12,8 +12,6 @@ namespace Ergonode\Workflow\Domain\Command\Workflow;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 class DeleteWorkflowCommand implements DomainCommandInterface
 {
     /**

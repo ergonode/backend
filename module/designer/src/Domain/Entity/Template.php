@@ -33,8 +33,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Template extends AbstractAggregateRoot
 {
     /**
@@ -153,8 +151,6 @@ class Template extends AbstractAggregateRoot
         $this->apply(new TemplateDefaultLabelAddedEvent($this->id, $defaultLabel));
     }
 
-    /**
-     */
     public function removeDefaultLabel(): void
     {
         if (!$this->defaultLabel) {
@@ -192,8 +188,6 @@ class Template extends AbstractAggregateRoot
         $this->apply(new TemplateDefaultImageAddedEvent($this->id, $defaultImage));
     }
 
-    /**
-     */
     public function removeDefaultImage(): void
     {
         if (!$this->defaultImage) {
@@ -312,8 +306,6 @@ class Template extends AbstractAggregateRoot
         }
     }
 
-    /**
-     */
     public function removeImage(): void
     {
         if (!$this->imageId) {

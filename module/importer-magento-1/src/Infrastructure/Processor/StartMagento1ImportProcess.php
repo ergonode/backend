@@ -22,8 +22,6 @@ use Psr\Log\LoggerInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 
-/**
- */
 class StartMagento1ImportProcess implements SourceImportProcessorInterface
 {
     /**

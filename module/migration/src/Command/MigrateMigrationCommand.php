@@ -12,8 +12,6 @@ namespace Ergonode\Migration\Command;
 use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 use Ergonode\Migration\Provider\MigrationConfigurationProvider;
 
-/**
- */
 class MigrateMigrationCommand extends MigrateCommand
 {
      /**
@@ -25,9 +23,6 @@ class MigrateMigrationCommand extends MigrateCommand
         parent::__construct();
     }
 
-    /**
-     *
-     */
     protected function configure(): void
     {
         parent::configure();

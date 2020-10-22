@@ -12,8 +12,6 @@ namespace Ergonode\Account\Tests\Domain\ValueObject;
 use Ergonode\Account\Domain\ValueObject\Password;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PasswordTest extends TestCase
 {
     /**

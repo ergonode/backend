@@ -15,8 +15,6 @@ use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateStatusCommandTest extends TestCase
 {
     /**

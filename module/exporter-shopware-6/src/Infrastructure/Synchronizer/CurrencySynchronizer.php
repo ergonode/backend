@@ -18,8 +18,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class CurrencySynchronizer implements SynchronizerInterface
 {
     /**

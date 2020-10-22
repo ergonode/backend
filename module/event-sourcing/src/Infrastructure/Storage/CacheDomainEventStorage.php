@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Psr\Cache\InvalidArgumentException;
 
-/**
- */
 class CacheDomainEventStorage implements DomainEventStorageInterface
 {
     private const KEY = 'ev_%s';

@@ -10,8 +10,6 @@ namespace Ergonode\Reader\Infrastructure\Exception;
 
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 
-/**
- */
 class ReaderException extends ExportException
 {
     /**

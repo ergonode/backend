@@ -20,8 +20,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
-/**
- */
 class DbalProductCollectionElementQuery implements ProductCollectionElementQueryInterface
 {
     private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'product_collection_element';

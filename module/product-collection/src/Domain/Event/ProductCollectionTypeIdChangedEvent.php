@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
 {
     /**

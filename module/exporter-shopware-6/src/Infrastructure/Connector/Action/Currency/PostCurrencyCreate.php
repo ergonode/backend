@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\HeaderProviderInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostCurrencyCreate extends AbstractAction implements ActionInterface, HeaderProviderInterface
 {
     private const URI = '/api/v1/currency';

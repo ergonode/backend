@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Service;
 
-/**
- */
 class CurlDownloader implements DownloaderInterface
 {
     private const AGENT = 'Mozilla/5.0 '

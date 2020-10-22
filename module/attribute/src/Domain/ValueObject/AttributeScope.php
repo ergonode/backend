@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
-/**
- */
 class AttributeScope
 {
     public const LOCAL = 'local';

@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Infrastructure\Provider;
 
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
-/**
- */
 class AttributeProposalProvider
 {
     /**

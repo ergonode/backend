@@ -19,8 +19,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalOptionQuery implements OptionQueryInterface
 {
     private const TABLE_OPTIONS = 'attribute_option';

@@ -11,8 +11,6 @@ namespace Ergonode\Completeness\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class ProductCompletenessCalculateCommand implements DomainCommandInterface
 {
     /**

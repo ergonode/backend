@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class StatusExistsValidator extends ConstraintValidator
 {
     /**
@@ -57,7 +55,7 @@ class StatusExistsValidator extends ConstraintValidator
         $value = (string) $value;
 
         $status = null;
-        if (Statusid::isValid($value)) {
+        if (StatusId::isValid($value)) {
             $status = $this->repository->load(new StatusId($value));
         }
 
