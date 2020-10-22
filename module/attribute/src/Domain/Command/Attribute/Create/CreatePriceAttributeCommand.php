@@ -24,7 +24,7 @@ class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
     private Currency $currency;
 
     /**
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      */

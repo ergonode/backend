@@ -52,7 +52,7 @@ class Role extends AbstractAggregateRoot
     private bool $hidden;
 
     /**
-     * @param array       $privileges
+     * @param array $privileges
      *
      * @throws \Exception
      */

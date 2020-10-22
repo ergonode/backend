@@ -18,7 +18,7 @@ interface Shopware6CategoryQueryInterface
     public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime): void;
 
     /**
-     * @param array     $categoryIds
+     * @param array $categoryIds
      *
      * @return array
      */

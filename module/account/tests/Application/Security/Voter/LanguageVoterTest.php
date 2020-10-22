@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class LanguageVoterTest extends TestCase
 {
     /**
-     * @param mixed  $subject
+     * @param mixed $subject
      *
      * @dataProvider supportsDataProvider
      */

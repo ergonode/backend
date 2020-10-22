@@ -30,7 +30,7 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     private array $categories;
 
     /**
-     * @param Node[]         $categories
+     * @param Node[] $categories
      */
     public function __construct(CategoryTreeId $id, array $categories = [])
     {

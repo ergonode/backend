@@ -65,7 +65,7 @@ class ProductProcessor
     }
 
     /**
-     * @param array           $attributes
+     * @param array $attributes
      */
     private function getLanguage(AbstractProduct $product, Language $language, array $attributes): LanguageData
     {

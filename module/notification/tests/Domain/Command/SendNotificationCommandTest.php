@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class SendNotificationCommandTest extends TestCase
 {
     /**
-     * @param array                 $recipients
+     * @param array $recipients
      *
      * @dataProvider dataProvider
      */

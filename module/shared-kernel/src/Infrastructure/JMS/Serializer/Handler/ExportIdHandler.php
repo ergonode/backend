@@ -45,7 +45,7 @@ class ExportIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param array                         $type
+     * @param array $type
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -57,8 +57,8 @@ class ExportIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param mixed                           $data
-     * @param array                           $type
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

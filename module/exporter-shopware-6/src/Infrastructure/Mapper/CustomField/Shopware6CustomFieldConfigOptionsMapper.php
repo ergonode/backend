@@ -56,7 +56,7 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
     }
 
     /**
-     * @param array            $option
+     * @param array $option
      *
      * @return array
      */
@@ -69,7 +69,7 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
     }
 
     /**
-     * @param array            $option
+     * @param array $option
      *
      * @return array
      */

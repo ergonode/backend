@@ -39,7 +39,7 @@ class StorageContext implements Context
     }
 
     /**
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @Then remember param :key with value :value
      */
@@ -90,7 +90,7 @@ class StorageContext implements Context
     }
 
     /**
-     * @param mixed  $value
+     * @param mixed $value
      */
     public function addDefinition(string $key, $value): void
     {
@@ -98,7 +98,7 @@ class StorageContext implements Context
     }
 
     /**
-     * @param mixed  $value
+     * @param mixed $value
      */
     private function addTag(string $key, $value): void
     {

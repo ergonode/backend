@@ -54,8 +54,8 @@ class ProductCreatedEvent implements DomainEventInterface
     private array $attributes;
 
     /**
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      */
     public function __construct(
         ProductId $id,

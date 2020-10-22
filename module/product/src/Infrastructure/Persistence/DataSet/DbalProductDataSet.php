@@ -41,7 +41,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param ColumnInterface[]     $columns
+     * @param ColumnInterface[] $columns
      *
      *
      * @throws \Exception
@@ -86,7 +86,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param ColumnInterface[]     $columns
+     * @param ColumnInterface[] $columns
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int
     {

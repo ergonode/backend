@@ -23,7 +23,7 @@ class SendNotificationCommand implements DomainCommandInterface
     private array $recipients;
 
     /**
-     * @param UserId[]              $recipients
+     * @param UserId[] $recipients
      */
     public function __construct(NotificationInterface $notification, array $recipients)
     {

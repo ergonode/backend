@@ -25,7 +25,7 @@ class CategoryForm extends AbstractType implements CategoryFormInterface
     }
 
     /**
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

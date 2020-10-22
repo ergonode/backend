@@ -56,7 +56,7 @@ class ExceptionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param array                         $type
+     * @param array $type
      *
      * @return array
      */

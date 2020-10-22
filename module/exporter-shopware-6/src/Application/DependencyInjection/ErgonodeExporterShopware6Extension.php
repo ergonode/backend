@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class ErgonodeExporterShopware6Extension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

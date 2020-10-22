@@ -24,7 +24,7 @@ class CreateUnitAttributeCommand extends AbstractCreateAttributeCommand
     private UnitId $unitId;
 
     /**
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      */

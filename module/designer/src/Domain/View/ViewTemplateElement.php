@@ -26,7 +26,7 @@ class ViewTemplateElement
     private array $properties;
 
     /**
-     * @param array    $properties
+     * @param array $properties
      */
     public function __construct(Position $position, Size $size, string $label, string $type, array $properties = [])
     {

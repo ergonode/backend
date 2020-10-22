@@ -41,7 +41,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
     }
 
     /**
-     * @param array       $record
+     * @param array $record
      */
     private function createElement(AggregateId $id, array $record): DomainEventEnvelope
     {

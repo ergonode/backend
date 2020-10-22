@@ -98,7 +98,7 @@ class TranslatableString implements \IteratorAggregate
     }
 
     /**
-     * @param array    $array
+     * @param array $array
      *
      * @return array
      */

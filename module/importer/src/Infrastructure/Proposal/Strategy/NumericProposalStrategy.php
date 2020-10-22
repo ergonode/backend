@@ -14,7 +14,7 @@ use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface
 class NumericProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
-     * @param array  $values
+     * @param array $values
      */
     public function support(string $name, array $values): bool
     {

@@ -29,7 +29,7 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
     }
 
     /**
-     * @param UserId[]              $recipients
+     * @param UserId[] $recipients
      *
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Exception

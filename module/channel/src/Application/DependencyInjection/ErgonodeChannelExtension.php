@@ -25,7 +25,7 @@ use Ergonode\Channel\Application\DependencyInjection\CompilerPass\UpdateChannelC
 class ErgonodeChannelExtension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

@@ -50,7 +50,7 @@ class ImportConfigurationBuilder
     }
 
     /**
-     * @param array  $values
+     * @param array $values
      *
      *
      * @throws \Exception

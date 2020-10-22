@@ -37,7 +37,7 @@ class UpdateTreeCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param array              $categories
+     * @param array $categories
      */
     public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories = [])
     {

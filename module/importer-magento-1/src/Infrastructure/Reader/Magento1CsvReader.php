@@ -173,7 +173,7 @@ class Magento1CsvReader
     }
 
     /**
-     * @param array       $record
+     * @param array $record
      *
      * @return array
      */

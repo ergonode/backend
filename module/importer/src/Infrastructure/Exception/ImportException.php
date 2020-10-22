@@ -18,7 +18,7 @@ class ImportException extends ExportException
     private array $parameters;
 
     /**
-     * @param array           $parameters
+     * @param array $parameters
      */
     public function __construct(string $message, array $parameters = [], \Throwable $previous = null)
     {

@@ -23,7 +23,7 @@ class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
     private bool $richEdit;
 
     /**
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      */

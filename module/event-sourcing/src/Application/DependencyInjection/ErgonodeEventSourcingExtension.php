@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class ErgonodeEventSourcingExtension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

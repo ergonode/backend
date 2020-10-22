@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Infrastructure\Proposal;
 interface AttributeProposalStrategyInterface
 {
     /**
-     * @param array  $values
+     * @param array $values
      */
     public function support(string $name, array $values): bool;
 

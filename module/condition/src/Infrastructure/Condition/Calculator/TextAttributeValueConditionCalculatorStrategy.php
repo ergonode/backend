@@ -61,7 +61,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param array  $value
+     * @param array $value
      */
     private function calculateHasTranslatableStringValue(array $value, string $expected): bool
     {
@@ -75,7 +75,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param array  $value
+     * @param array $value
      */
     private function calculateEqualTranslatableStringValue(array $value, string $expected): bool
     {

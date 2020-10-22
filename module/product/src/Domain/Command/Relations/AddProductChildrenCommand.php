@@ -29,7 +29,7 @@ class AddProductChildrenCommand implements DomainCommandInterface
     private array $children;
 
     /**
-     * @param ProductId[]               $children
+     * @param ProductId[] $children
      */
     public function __construct(AbstractAssociatedProduct $product, array $children)
     {

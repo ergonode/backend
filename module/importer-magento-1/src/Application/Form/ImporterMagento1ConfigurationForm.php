@@ -21,7 +21,7 @@ use Ergonode\ImporterMagento1\Application\Form\Type\AttributeMapType;
 class ImporterMagento1ConfigurationForm extends AbstractType
 {
     /**
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

@@ -180,8 +180,8 @@ class AbstractProductTest extends TestCase
     }
 
     /**
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      */
     private function getClass(
         ProductId $id,

@@ -14,7 +14,7 @@ use Ergonode\Notification\Domain\NotificationInterface;
 interface NotificationStrategyInterface
 {
     /**
-     * @param UserId[]              $recipients
+     * @param UserId[] $recipients
      */
     public function send(NotificationInterface $notification, array $recipients): void;
 }

@@ -19,8 +19,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 class CreateGroupingProductCommandTest extends TestCase
 {
     /**
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      *
      * @dataProvider dataProvider
      */

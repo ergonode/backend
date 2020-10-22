@@ -14,7 +14,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 class TextProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
-     * @param array  $values
+     * @param array $values
      */
     public function support(string $name, array $values): bool
     {

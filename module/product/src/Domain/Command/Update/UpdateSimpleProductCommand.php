@@ -36,7 +36,7 @@ class UpdateSimpleProductCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param array      $categories
+     * @param array $categories
      */
     public function __construct(ProductId $productId, TemplateId $templateId, array $categories = [])
     {

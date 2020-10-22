@@ -32,7 +32,7 @@ class ConditionSet extends AbstractAggregateRoot
     private array $conditions;
 
     /**
-     * @param array          $conditions
+     * @param array $conditions
      *
      * @throws \Exception
      */

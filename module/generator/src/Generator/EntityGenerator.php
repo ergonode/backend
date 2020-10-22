@@ -28,7 +28,7 @@ class EntityGenerator
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function generate(string $module, string $entity, array $properties = []): void
     {

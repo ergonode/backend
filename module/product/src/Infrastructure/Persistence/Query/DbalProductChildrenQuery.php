@@ -76,7 +76,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     }
 
     /**
-     * @param AbstractAttribute[]       $bindingAttributes
+     * @param AbstractAttribute[] $bindingAttributes
      */
     public function getChildrenAndAvailableProductsDataSet(
         AbstractAssociatedProduct $product,

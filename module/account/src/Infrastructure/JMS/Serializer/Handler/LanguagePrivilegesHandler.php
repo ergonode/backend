@@ -46,7 +46,7 @@ class LanguagePrivilegesHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param array                         $type
+     * @param array $type
      *
      * @return array
      */
@@ -60,8 +60,8 @@ class LanguagePrivilegesHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param mixed                           $data
-     * @param array                           $type
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

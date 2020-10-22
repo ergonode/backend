@@ -18,7 +18,7 @@ use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 class ErgonodeExporterExtension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

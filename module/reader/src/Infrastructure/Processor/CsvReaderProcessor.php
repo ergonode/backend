@@ -50,8 +50,8 @@ class CsvReaderProcessor implements ReaderProcessorInterface
     private array $formatters;
 
     /**
-     * @param array  $configuration
-     * @param array  $formatters
+     * @param array $configuration
+     * @param array $formatters
      */
     public function open(string $file, array $configuration = [], array $formatters = []): void
     {

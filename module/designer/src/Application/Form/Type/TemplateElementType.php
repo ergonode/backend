@@ -29,7 +29,7 @@ class TemplateElementType extends AbstractType implements EventSubscriberInterfa
     }
 
     /**
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

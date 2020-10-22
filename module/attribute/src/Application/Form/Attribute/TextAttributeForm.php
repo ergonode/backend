@@ -27,7 +27,7 @@ class TextAttributeForm extends AbstractType implements AttributeFormInterface
     }
 
     /**
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

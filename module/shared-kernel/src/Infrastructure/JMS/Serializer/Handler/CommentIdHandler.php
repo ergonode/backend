@@ -46,7 +46,7 @@ class CommentIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param array                         $type
+     * @param array $type
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
@@ -58,8 +58,8 @@ class CommentIdHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param mixed                           $data
-     * @param array                           $type
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

@@ -62,8 +62,8 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
     abstract public static function getSupportedInterface(): string;
 
     /**
-     * @param array                           $data
-     * @param array                           $type
+     * @param array $data
+     * @param array $type
      *
      * @return object
      *

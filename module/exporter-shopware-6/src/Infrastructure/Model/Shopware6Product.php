@@ -152,10 +152,10 @@ class Shopware6Product
     private bool $modified = false;
 
     /**
-     * @param array|null  $properties
-     * @param array|null  $customFields
-     * @param array|null  $options
-     * @param array|null  $price
+     * @param array|null $properties
+     * @param array|null $customFields
+     * @param array|null $options
+     * @param array|null $price
      */
     public function __construct(
         ?string $id = null,

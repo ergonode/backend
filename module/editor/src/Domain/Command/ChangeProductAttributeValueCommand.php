@@ -40,7 +40,7 @@ class ChangeProductAttributeValueCommand implements DomainCommandInterface
     private $value;
 
     /**
-     * @param mixed          $value
+     * @param mixed $value
      */
     public function __construct(ProductDraftId $id, AttributeId $attributeId, Language $language, $value = null)
     {

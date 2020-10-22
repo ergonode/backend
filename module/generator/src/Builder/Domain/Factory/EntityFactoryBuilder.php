@@ -28,7 +28,7 @@ class EntityFactoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -53,7 +53,7 @@ class EntityFactoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     private function buildCreateMethod(string $entity, string $class, array $properties = []): Method
     {

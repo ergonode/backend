@@ -25,7 +25,7 @@ class NotificationSender
     }
 
     /**
-     * @param array                 $recipients
+     * @param array $recipients
      */
     public function send(NotificationInterface $notification, array $recipients): void
     {

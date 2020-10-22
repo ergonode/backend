@@ -23,7 +23,7 @@ class AttributeProposalProvider
     }
 
     /**
-     * @param array  $values
+     * @param array $values
      */
     public function provide(string $name, array $values): AttributeProposalStrategyInterface
     {

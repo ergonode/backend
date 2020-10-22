@@ -16,8 +16,8 @@ use PHPUnit\Framework\TestCase;
 class ExceptionMapperTest extends TestCase
 {
     /**
-     * @param array      $map
-     * @param array      $expected
+     * @param array $map
+     * @param array $expected
      *
      * @dataProvider dataProvider
      */

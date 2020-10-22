@@ -29,7 +29,7 @@ class MappingConverter implements ConverterInterface
     private array $map;
 
     /**
-     * @param array  $map
+     * @param array $map
      */
     public function __construct(string $field, array $map)
     {

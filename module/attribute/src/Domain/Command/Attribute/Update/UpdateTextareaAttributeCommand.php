@@ -23,7 +23,7 @@ class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
     private bool $richEdit;
 
     /**
-     * @param array              $groups
+     * @param array $groups
      */
     public function __construct(
         AttributeId $id,

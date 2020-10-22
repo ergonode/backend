@@ -48,8 +48,8 @@ class SimpleProductImportAction
     }
 
     /**
-     * @param array  $categories
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $attributes
      *
      * @throws \Exception
      */

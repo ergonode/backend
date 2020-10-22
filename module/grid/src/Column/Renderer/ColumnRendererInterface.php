@@ -16,7 +16,7 @@ interface ColumnRendererInterface
     public function supports(ColumnInterface $column): bool;
 
     /**
-     * @param array           $row
+     * @param array $row
      *
      * @return mixed
      */

@@ -14,7 +14,7 @@ use Ergonode\Grid\Request\FilterValueCollection;
 interface DataSetInterface
 {
     /**
-     * @param ColumnInterface[]     $columns
+     * @param ColumnInterface[] $columns
      */
     public function getItems(
         array $columns,
@@ -26,7 +26,7 @@ interface DataSetInterface
     ): \Traversable;
 
     /**
-     * @param ColumnInterface[]     $columns
+     * @param ColumnInterface[] $columns
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int;
 }

@@ -31,7 +31,7 @@ class AddProductChildrenBySegmentsCommand implements DomainCommandInterface
     private array $segments;
 
     /**
-     * @param array                     $segments
+     * @param array $segments
      */
     public function __construct(AbstractAssociatedProduct $product, array $segments)
     {

@@ -65,7 +65,7 @@ class ProductMultimediaRelation implements MultimediaRelationInterface
     }
 
     /**
-     * @param array  $parameters
+     * @param array $parameters
      */
     private function getUrl(string $name, array $parameters): string
     {

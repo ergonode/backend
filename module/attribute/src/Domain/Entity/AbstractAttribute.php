@@ -73,7 +73,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     protected array $parameters;
 
     /**
-     * @param array              $parameters
+     * @param array $parameters
      *
      * @throws \Exception
      */
@@ -239,7 +239,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @param mixed  $value
+     * @param mixed $value
      */
     protected function setParameter(string $name, $value): void
     {

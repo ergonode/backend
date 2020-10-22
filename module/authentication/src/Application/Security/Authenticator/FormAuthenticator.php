@@ -60,7 +60,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param mixed                 $credentials
+     * @param mixed $credentials
      */
     public function getUser(
         $credentials,
@@ -74,7 +74,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param mixed         $credentials
+     * @param mixed $credentials
      */
     public function checkCredentials(
         $credentials,
@@ -89,7 +89,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param string         $providerKey
+     * @param string $providerKey
      *
      *
      * @throws \Exception

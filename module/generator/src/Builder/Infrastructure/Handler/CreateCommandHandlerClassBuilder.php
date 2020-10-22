@@ -32,7 +32,7 @@ class CreateCommandHandlerClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -63,7 +63,7 @@ class CreateCommandHandlerClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     private function buildConstructor(string $module, string $entity, array $properties = []): Method
     {
@@ -82,7 +82,7 @@ class CreateCommandHandlerClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $parameters
+     * @param array $parameters
      */
     private function buildInvokeMethod(string $module, string $entity, array $parameters = []): Method
     {

@@ -147,7 +147,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param             $product
+     * @param $product
      *
      *
      * @throws Shopware6ExporterMapperException

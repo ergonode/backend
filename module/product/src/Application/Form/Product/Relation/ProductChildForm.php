@@ -18,7 +18,7 @@ use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
 class ProductChildForm extends AbstractType
 {
     /**
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

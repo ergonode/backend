@@ -55,7 +55,7 @@ class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
     }
 
     /**
-     * @param array            $categoryIds
+     * @param array $categoryIds
      */
     private function categoryDelete(ExportId $exportId, Shopware6Channel $channel, array $categoryIds): void
     {

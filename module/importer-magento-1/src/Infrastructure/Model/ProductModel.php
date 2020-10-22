@@ -47,7 +47,7 @@ class ProductModel
     }
 
     /**
-     * @param array  $version
+     * @param array $version
      */
     public function set(string $code, array $version): void
     {

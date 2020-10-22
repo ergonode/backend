@@ -16,7 +16,7 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 class ProductAttributeUpdater
 {
     /**
-     * @param array           $attributes
+     * @param array $attributes
      *
      * @throws \Exception
      */

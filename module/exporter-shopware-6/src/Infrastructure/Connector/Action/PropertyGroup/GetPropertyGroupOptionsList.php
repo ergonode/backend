@@ -26,7 +26,7 @@ class GetPropertyGroupOptionsList extends AbstractAction implements ActionInterf
     private array $query;
 
     /**
-     * @param array    $query
+     * @param array $query
      */
     public function __construct(string $propertyGroupId, array $query = [], int $limit = 500, int $page = null)
     {

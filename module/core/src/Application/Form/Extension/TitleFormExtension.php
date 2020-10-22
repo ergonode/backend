@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormInterface;
 class TitleFormExtension implements ExtensionInterface
 {
     /**
-     * @param array         $schema
+     * @param array $schema
      *
      * @return array
      */

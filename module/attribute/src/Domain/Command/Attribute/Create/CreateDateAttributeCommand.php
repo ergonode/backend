@@ -24,7 +24,7 @@ class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
     private DateFormat $format;
 
     /**
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      */

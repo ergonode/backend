@@ -30,7 +30,7 @@ class UpdateConditionSetCommand implements DomainCommandInterface
     private array $conditions;
 
     /**
-     * @param array          $conditions
+     * @param array $conditions
      */
     public function __construct(ConditionSetId $id, array $conditions = [])
     {

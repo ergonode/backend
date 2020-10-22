@@ -65,10 +65,10 @@ class VariableProductImportAction
     }
 
     /**
-     * @param array  $categories
-     * @param array  $bindings
-     * @param array  $children
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $bindings
+     * @param array $children
+     * @param array $attributes
      *
      * @throws ImportRelatedProductIncorrectTypeException
      * @throws ImportRelatedProductNotFoundException

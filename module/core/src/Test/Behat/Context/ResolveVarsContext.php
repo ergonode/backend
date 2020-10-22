@@ -78,7 +78,7 @@ class ResolveVarsContext implements Context
     }
 
     /**
-     * @param array    $value
+     * @param array $value
      *
      * @throws ReflectionException
      */

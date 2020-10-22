@@ -90,7 +90,7 @@ class TransitionCreateFormModel
     /**
      * @Assert\Callback()
      *
-     * @param mixed                     $payload
+     * @param mixed $payload
      */
     public function validate(ExecutionContextInterface $context, $payload): void
     {

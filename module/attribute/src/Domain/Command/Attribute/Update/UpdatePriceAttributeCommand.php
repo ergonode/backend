@@ -23,7 +23,7 @@ class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
     private Currency $currency;
 
     /**
-     * @param array              $groups
+     * @param array $groups
      */
     public function __construct(
         AttributeId $id,

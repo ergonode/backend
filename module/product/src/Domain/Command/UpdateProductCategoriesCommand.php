@@ -29,7 +29,7 @@ class UpdateProductCategoriesCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param array     $categories
+     * @param array $categories
      */
     public function __construct(ProductId $productId, array $categories = [])
     {

@@ -63,7 +63,7 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
     }
 
     /**
-     * @param array     $categoryIds
+     * @param array $categoryIds
      *
      * @return array
      */

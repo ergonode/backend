@@ -14,7 +14,7 @@ use Nette\PhpGenerator\PhpFile;
 interface BuilderInterface
 {
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile;
 }

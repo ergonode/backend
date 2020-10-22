@@ -18,7 +18,7 @@ use Ergonode\ExporterFile\Application\DependencyInjection\CompilerPass\FileWrite
 class ErgonodeExporterFileExtension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

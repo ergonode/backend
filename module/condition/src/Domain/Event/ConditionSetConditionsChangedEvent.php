@@ -38,8 +38,8 @@ class ConditionSetConditionsChangedEvent implements DomainEventInterface
     private array $to;
 
     /**
-     * @param array          $from
-     * @param array          $to
+     * @param array $from
+     * @param array $to
      */
     public function __construct(ConditionSetId $id, array $from, array $to)
     {

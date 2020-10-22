@@ -37,7 +37,7 @@ class TransitionRoleIdsChangedEvent implements DomainEventInterface
     private array $roleIds;
 
     /**
-     * @param RoleId[]     $roleIds
+     * @param RoleId[] $roleIds
      */
     public function __construct(WorkflowId $id, TransitionId $transitionId, array $roleIds = [])
     {

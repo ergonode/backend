@@ -64,7 +64,7 @@ class DatabaseTranslationCache implements CacheInterface
     }
 
     /**
-     * @param array         $fields
+     * @param array $fields
      *
      * @return false|mixed
      */

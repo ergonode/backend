@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class CategoryFactoryTest extends TestCase
 {
     /**
-     * @param array              $attributes
+     * @param array $attributes
      *
      * @dataProvider dataProvider
      */

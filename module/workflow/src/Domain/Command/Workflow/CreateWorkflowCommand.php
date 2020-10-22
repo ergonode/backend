@@ -35,7 +35,7 @@ class CreateWorkflowCommand implements DomainCommandInterface
     private array $statuses;
 
     /**
-     * @param array      $statuses
+     * @param array $statuses
      */
     public function __construct(WorkflowId $id, string $code, array $statuses = [])
     {

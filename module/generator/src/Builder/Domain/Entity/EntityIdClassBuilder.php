@@ -24,7 +24,7 @@ class EntityIdClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function build(string $module, string $entityName, array $properties = []): PhpFile
     {

@@ -20,7 +20,7 @@ interface ProductChildrenQueryInterface
     public function getDataSet(ProductId $productId, Language $language): DataSetInterface;
 
     /**
-     * @param AbstractAttribute[]       $bindingAttributes
+     * @param AbstractAttribute[] $bindingAttributes
      */
     public function getChildrenAndAvailableProductsDataSet(
         AbstractAssociatedProduct $product,

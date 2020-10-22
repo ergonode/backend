@@ -50,8 +50,8 @@ class CreateGroupingProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      */
     public function __construct(
         ProductId $id,

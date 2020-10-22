@@ -15,7 +15,7 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 interface DomainEventFactoryInterface
 {
     /**
-     * @param array       $records
+     * @param array $records
      *
      * @return DomainEventEnvelope[]
      */

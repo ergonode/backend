@@ -46,7 +46,7 @@ class SizeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param array                         $type
+     * @param array $type
      *
      * @return array
      */
@@ -56,8 +56,8 @@ class SizeHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param mixed                           $data
-     * @param array                           $type
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Size
     {

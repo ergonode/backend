@@ -29,7 +29,7 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     private array $conditions;
 
     /**
-     * @param array          $conditions
+     * @param array $conditions
      */
     public function __construct(ConditionSetId $id, array $conditions = [])
     {

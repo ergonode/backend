@@ -86,7 +86,7 @@ class UpdateUserFormModel
     /**
      * @Assert\Callback()
      *
-     * @param mixed                     $payload
+     * @param mixed $payload
      */
     public function validatePassword(ExecutionContextInterface $context, $payload)
     {

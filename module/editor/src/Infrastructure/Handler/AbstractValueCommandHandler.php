@@ -27,7 +27,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractCollectionAttribute;
 abstract class AbstractValueCommandHandler
 {
     /**
-     * @param mixed             $value
+     * @param mixed $value
      */
     protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ?ValueInterface
     {

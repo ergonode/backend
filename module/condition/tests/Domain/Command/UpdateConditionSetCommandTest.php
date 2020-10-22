@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 class UpdateConditionSetCommandTest extends TestCase
 {
     /**
-     * @param array          $conditions
+     * @param array $conditions
      *
      * @dataProvider dataProvider
      */

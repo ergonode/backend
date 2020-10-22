@@ -211,7 +211,7 @@ class AbstractWorkflowTest extends TestCase
     }
 
     /**
-     * @param array      $statuses
+     * @param array $statuses
      */
     private function getClass(WorkflowId $id, string $code, array $statuses): AbstractWorkflow
     {

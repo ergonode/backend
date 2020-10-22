@@ -59,7 +59,7 @@ abstract class AbstractMultimedia extends AbstractAggregateRoot
     private TranslatableString $alt;
 
     /**
-     * @param int          $size      The file size in bytes.
+     * @param int $size The file size in bytes.
      *
      * @throws \Exception
      */

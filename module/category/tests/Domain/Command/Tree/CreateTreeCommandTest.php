@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class CreateTreeCommandTest extends TestCase
 {
     /**
-     * @param array              $categories
+     * @param array $categories
      *
      * @dataProvider dataProvider
      */

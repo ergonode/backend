@@ -23,7 +23,7 @@ use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterC
 class ErgonodeTransformerExtension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

@@ -26,7 +26,7 @@ class PropertyGroupAttributeMapType extends AbstractType
         $this->query = $query;
     }
     /**
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

@@ -58,7 +58,7 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
     }
 
     /**
-     * @param                   $calculateValue
+     * @param $calculateValue
      *
      * @return string|array
      */

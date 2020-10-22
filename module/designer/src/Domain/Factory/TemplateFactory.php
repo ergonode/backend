@@ -20,7 +20,7 @@ use Webmozart\Assert\Assert;
 class TemplateFactory
 {
     /**
-     * @param array             $elements
+     * @param array $elements
      *
      *
      * @throws \Exception

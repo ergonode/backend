@@ -50,7 +50,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
     private Hash $hash;
 
     /**
-     * @param int          $size      The file size in bytes.
+     * @param int $size The file size in bytes.
      */
     public function __construct(
         MultimediaId $id,

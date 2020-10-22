@@ -46,7 +46,7 @@ class PasswordHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param array                         $type
+     * @param array $type
      *
      *
      * @throws \Exception
@@ -61,8 +61,8 @@ class PasswordHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param mixed                           $data
-     * @param array                           $type
+     * @param mixed $data
+     * @param array $type
      *
      *
      * @throws \Exception

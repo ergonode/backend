@@ -35,7 +35,7 @@ class EntityClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -64,7 +64,7 @@ class EntityClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     private function buildConstructor(string $entity, array $properties = []): Method
     {
@@ -82,7 +82,7 @@ class EntityClassBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     private function buildCreateEvent(string $module, string $entity, array $properties = []): Method
     {

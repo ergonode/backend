@@ -17,7 +17,7 @@ class User implements UserInterface
     private bool $active;
 
     /**
-     * @param array  $roles
+     * @param array $roles
      */
     public function __construct(
         string $id,

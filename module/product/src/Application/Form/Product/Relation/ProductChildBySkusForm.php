@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 class ProductChildBySkusForm extends AbstractType
 {
     /**
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

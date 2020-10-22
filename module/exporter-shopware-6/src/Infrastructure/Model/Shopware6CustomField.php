@@ -48,7 +48,7 @@ class Shopware6CustomField
     protected bool $modified = false;
 
     /**
-     * @param array|null  $config
+     * @param array|null $config
      */
     public function __construct(
         ?string $id = null,
@@ -108,7 +108,7 @@ class Shopware6CustomField
     }
 
     /**
-     * @param        $value
+     * @param $value
      */
     public function addConfig(string $key, $value): void
     {

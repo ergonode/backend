@@ -47,7 +47,7 @@ class CategoryCreatedEvent implements DomainEventInterface
     private array $attributes;
 
     /**
-     * @param ValueInterface[]   $attributes
+     * @param ValueInterface[] $attributes
      */
     public function __construct(
         CategoryId $id,

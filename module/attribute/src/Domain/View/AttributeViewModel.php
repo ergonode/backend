@@ -26,7 +26,7 @@ class AttributeViewModel
     private array $groups;
 
     /**
-     * @param array         $groups
+     * @param array $groups
      */
     public function __construct(AttributeId $id, AttributeCode $code, string $type, array $groups)
     {

@@ -21,7 +21,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     public const NAMESPACE = 'b2e8fb6d-e1ac-4322-bd54-6e78926ba365';
 
     /**
-     * @param ColumnInterface[]     $columns
+     * @param ColumnInterface[] $columns
      */
     protected function buildFilters(QueryBuilder $query, FilterValueCollection $values, array $columns = []): void
     {

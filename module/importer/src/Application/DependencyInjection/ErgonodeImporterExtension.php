@@ -28,7 +28,7 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceC
 class ErgonodeImporterExtension extends Extension
 {
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

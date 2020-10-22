@@ -46,7 +46,7 @@ class UpdateFileExportChannelCommand implements DomainCommandInterface
     protected array $languages;
 
     /**
-     * @param array     $languages
+     * @param array $languages
      */
     public function __construct(ChannelId $id, string $name, string $format, string $exportType, array $languages = [])
     {

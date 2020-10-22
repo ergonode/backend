@@ -45,7 +45,7 @@ class UnitFormValidator extends ConstraintValidator
     }
 
     /**
-     * @param            $value
+     * @param $value
      */
     private function validateName($value, Constraint $constraint)
     {
@@ -66,7 +66,7 @@ class UnitFormValidator extends ConstraintValidator
     }
 
     /**
-     * @param            $value
+     * @param $value
      */
     private function validateSymbol($value, Constraint $constraint)
     {

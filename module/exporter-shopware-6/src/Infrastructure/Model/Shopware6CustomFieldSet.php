@@ -45,8 +45,8 @@ class Shopware6CustomFieldSet
     protected bool $modified = false;
 
     /**
-     * @param array|null  $relations
-     * @param array|null  $customFields
+     * @param array|null $relations
+     * @param array|null $customFields
      */
     public function __construct(
         ?string $id = null,

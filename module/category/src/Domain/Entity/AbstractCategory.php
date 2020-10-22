@@ -48,7 +48,7 @@ abstract class AbstractCategory extends AbstractAggregateRoot
     private array $attributes;
 
     /**
-     * @param array              $attributes
+     * @param array $attributes
      *
      * @throws \Exception
      */

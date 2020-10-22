@@ -48,7 +48,7 @@ class Transition extends AbstractEntity
     private array $roleIds;
 
     /**
-     * @param RoleId[]            $roleIds
+     * @param RoleId[] $roleIds
      */
     public function __construct(
         TransitionId $id,

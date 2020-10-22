@@ -15,7 +15,7 @@ use Nette\PhpGenerator\Method;
 class MethodBuilder
 {
     /**
-     * @param array       $properties
+     * @param array $properties
      */
     public function build(
         string $methodName,

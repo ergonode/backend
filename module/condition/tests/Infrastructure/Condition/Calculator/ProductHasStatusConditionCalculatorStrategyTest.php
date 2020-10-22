@@ -45,7 +45,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param array  $searchedStatusIds
+     * @param array $searchedStatusIds
      *
      * @throws \Exception
      *
@@ -122,7 +122,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param array  $searchedStatuses
+     * @param array $searchedStatuses
      *
      * @return MockObject
      */

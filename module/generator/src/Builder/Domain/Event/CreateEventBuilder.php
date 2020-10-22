@@ -33,7 +33,7 @@ class CreateEventBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -65,7 +65,7 @@ class CreateEventBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     private function buildConstructor(string $entity, array $properties = []): Method
     {

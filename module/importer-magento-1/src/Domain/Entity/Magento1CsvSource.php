@@ -75,9 +75,9 @@ class Magento1CsvSource extends AbstractSource
     private array $import;
 
     /**
-     * @param array    $languages
-     * @param array    $attributes
-     * @param array    $imports
+     * @param array $languages
+     * @param array $attributes
+     * @param array $imports
      */
     public function __construct(
         SourceId $id,

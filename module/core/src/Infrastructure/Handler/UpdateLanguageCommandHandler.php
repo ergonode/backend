@@ -40,7 +40,7 @@ class UpdateLanguageCommandHandler
     }
 
     /**
-     * @param array    $languages
+     * @param array $languages
      */
     private function hasCode(Language $search, array $languages): bool
     {

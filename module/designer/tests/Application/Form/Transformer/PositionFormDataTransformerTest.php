@@ -24,7 +24,7 @@ class PositionFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param array|null    $array
+     * @param array|null $array
      *
      * @dataProvider dataProvider
      */
@@ -42,7 +42,7 @@ class PositionFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param array|null    $array
+     * @param array|null $array
      *
      * @dataProvider dataProvider
      */

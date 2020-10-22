@@ -25,7 +25,7 @@ class HandlerRegistry implements HandlerRegistryInterface
     private HandlerRegistryInterface $registry;
 
     /**
-     * @param iterable                      $handlers
+     * @param iterable $handlers
      */
     public function __construct(
         ContainerInterface $container,

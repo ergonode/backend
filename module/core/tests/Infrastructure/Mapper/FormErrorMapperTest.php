@@ -68,7 +68,7 @@ class FormErrorMapperTest extends TestCase
     }
 
     /**
-     * @param array  $expected
+     * @param array $expected
      *
      * @dataProvider dataProvider
      */

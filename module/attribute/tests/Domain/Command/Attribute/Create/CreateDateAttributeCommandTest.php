@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class CreateDateAttributeCommandTest extends TestCase
 {
     /**
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      *

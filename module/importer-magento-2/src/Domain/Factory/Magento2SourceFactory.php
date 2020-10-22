@@ -15,7 +15,7 @@ use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 class Magento2SourceFactory
 {
     /**
-     * @param array    $configuration
+     * @param array $configuration
      */
     public function create(SourceId $sourceId, string $name, array $configuration = []): AbstractSource
     {

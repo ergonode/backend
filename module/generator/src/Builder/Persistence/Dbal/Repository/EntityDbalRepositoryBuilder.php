@@ -35,7 +35,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile
     {
@@ -102,7 +102,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
     }
 
     /**
-     * @param array  $properties
+     * @param array $properties
      */
     private function buildConstructor(string $module, string $entity, array $properties = []): Method
     {

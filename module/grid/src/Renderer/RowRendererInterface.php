@@ -15,7 +15,7 @@ use Ergonode\Grid\GridConfigurationInterface;
 interface RowRendererInterface
 {
     /**
-     * @param array                      $row
+     * @param array $row
      *
      * @return array
      */

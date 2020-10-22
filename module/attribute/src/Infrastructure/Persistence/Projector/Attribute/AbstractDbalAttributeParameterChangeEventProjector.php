@@ -29,7 +29,7 @@ abstract class AbstractDbalAttributeParameterChangeEventProjector
     }
 
     /**
-     * @param mixed       $value
+     * @param mixed $value
      *
      * @throws DBALException
      */

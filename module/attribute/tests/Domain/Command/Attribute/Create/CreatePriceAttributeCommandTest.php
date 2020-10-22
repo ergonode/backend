@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class CreatePriceAttributeCommandTest extends TestCase
 {
     /**
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      *

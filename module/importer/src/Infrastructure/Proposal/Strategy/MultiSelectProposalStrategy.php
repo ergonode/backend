@@ -16,7 +16,7 @@ class MultiSelectProposalStrategy implements AttributeProposalStrategyInterface
     private const SEPARATOR = '|';
 
     /**
-     * @param array  $values
+     * @param array $values
      */
     public function support(string $name, array $values): bool
     {

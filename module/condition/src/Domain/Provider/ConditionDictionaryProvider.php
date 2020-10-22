@@ -28,7 +28,7 @@ class ConditionDictionaryProvider
     }
 
     /**
-     * @param array  $classes
+     * @param array $classes
      *
      * @throws \ReflectionException
      */

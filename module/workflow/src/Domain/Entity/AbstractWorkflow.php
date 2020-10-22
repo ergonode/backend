@@ -189,7 +189,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     }
 
     /**
-     * @param array    $roleIds
+     * @param array $roleIds
      *
      * @throws \Exception
      */

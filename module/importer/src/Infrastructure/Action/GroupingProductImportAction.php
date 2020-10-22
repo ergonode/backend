@@ -52,9 +52,9 @@ class GroupingProductImportAction
     }
 
     /**
-     * @param array  $categories
-     * @param array  $children
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $children
+     * @param array $attributes
      *
      * @throws ImportRelatedProductIncorrectTypeException
      * @throws ImportRelatedProductNotFoundException

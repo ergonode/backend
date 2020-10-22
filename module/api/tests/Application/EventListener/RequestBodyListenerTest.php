@@ -42,7 +42,7 @@ class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @param array  $deserialize
+     * @param array $deserialize
      *
      * @dataProvider dataProviderHappy
      */

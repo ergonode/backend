@@ -42,7 +42,7 @@ class CreateTreeCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param array              $categories
+     * @param array $categories
      *
      * @throws \Exception
      */

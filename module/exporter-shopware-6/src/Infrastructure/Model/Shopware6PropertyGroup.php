@@ -53,7 +53,7 @@ class Shopware6PropertyGroup
     protected bool $modified = false;
 
     /**
-     * @param array|null  $translations
+     * @param array|null $translations
      */
     public function __construct(
         ?string $id = null,

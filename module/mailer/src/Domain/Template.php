@@ -23,7 +23,7 @@ class Template
     private Language $language;
 
     /**
-     * @param array    $parameters
+     * @param array $parameters
      */
     public function __construct(string $path, Language $language, array $parameters = [])
     {

@@ -15,7 +15,7 @@ interface ConverterMapperInterface
     public function supported(ConverterInterface $converter): bool;
 
     /**
-     * @param array              $line
+     * @param array $line
      */
     public function map(ConverterInterface $converter, array $line, string $default = null): ?string;
 }

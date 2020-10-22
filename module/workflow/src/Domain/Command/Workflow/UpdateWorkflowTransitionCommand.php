@@ -46,7 +46,7 @@ class UpdateWorkflowTransitionCommand implements DomainCommandInterface
     private ?ConditionSetId $conditionSetId;
 
     /**
-     * @param RoleId[]            $roleIds
+     * @param RoleId[] $roleIds
      */
     public function __construct(
         WorkflowId $workflowId,

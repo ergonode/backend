@@ -20,7 +20,7 @@ class ErgonodeSegmentExtension extends Extension
     public const CONDITION_PARAMETER_NAME = 'ergonode_segment.conditions';
 
     /**
-     * @param array            $configs
+     * @param array $configs
      *
      * @throws \Exception
      */

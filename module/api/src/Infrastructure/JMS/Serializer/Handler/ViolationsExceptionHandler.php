@@ -49,7 +49,7 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param array                         $type
+     * @param array $type
      *
      * @return array
      */

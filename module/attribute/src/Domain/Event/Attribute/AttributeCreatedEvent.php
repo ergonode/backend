@@ -68,7 +68,7 @@ class AttributeCreatedEvent implements DomainEventInterface
     private bool $system;
 
     /**
-     * @param array              $parameters
+     * @param array $parameters
      */
     public function __construct(
         AttributeId $id,

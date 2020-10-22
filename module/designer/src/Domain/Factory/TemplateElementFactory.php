@@ -29,7 +29,7 @@ class TemplateElementFactory
     }
 
     /**
-     * @param array    $properties
+     * @param array $properties
      */
     public function create(Position $position, Size $size, string $type, array $properties = []): TemplateElement
     {

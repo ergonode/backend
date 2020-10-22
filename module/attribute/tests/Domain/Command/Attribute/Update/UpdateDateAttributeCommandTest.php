@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class UpdateDateAttributeCommandTest extends TestCase
 {
     /**
-     * @param array              $groups
+     * @param array $groups
      *
      * @dataProvider dataProvider
      */
