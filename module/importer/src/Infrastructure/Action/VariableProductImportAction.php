@@ -17,7 +17,6 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductNotFoundException;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductIncorrectTypeException;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
@@ -28,6 +27,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Importer\Infrastructure\Exception\ImportBindingAttributeNotFoundException;
+use Ergonode\Importer\Infrastructure\Exception\ImportIncorrectBindingAttributeException;
 
 /**
  */
@@ -120,7 +121,7 @@ class VariableProductImportAction
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
         $attributes = $this->builder->build($attributes);
-        $bindings = $this->getBindings($bindings);
+        $bindings = $this->getBindings($bindings, $sku);
         $children = $this->getChildren($sku, $children);
 
         if (!$productId) {
@@ -176,19 +177,29 @@ class VariableProductImportAction
     }
 
     /**
-     * @param AttributeCode[] $bindings
+     * @param array $bindings
+     * @param Sku   $sku
      *
-     * @return SelectAttribute[]
+     * @return array
+     *
+     * @throws ImportBindingAttributeNotFoundException
+     * @throws ImportIncorrectBindingAttributeException
      */
-    public function getBindings(array $bindings): array
+    public function getBindings(array $bindings, Sku $sku): array
     {
         $result = [];
         foreach ($bindings as $binding) {
             $attributeId = $this->attributeQuery->findAttributeIdByCode($binding);
-            Assert::notNull($attributeId);
-            $binding = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($binding, SelectAttribute::class);
-            $result[] = $binding;
+            if (null === $attributeId) {
+                throw new ImportBindingAttributeNotFoundException($binding, $sku);
+            }
+            $bindingClass = $this->attributeRepository->load($attributeId);
+
+            if (!$bindingClass instanceof SelectAttribute) {
+                throw new ImportIncorrectBindingAttributeException($binding, $sku);
+            }
+
+            $result[] = $bindingClass;
         }
 
         return $result;

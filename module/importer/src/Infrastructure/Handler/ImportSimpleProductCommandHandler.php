@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 use Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction;
+use Psr\Log\LoggerInterface;
 
 /**
  */
@@ -29,13 +30,23 @@ class ImportSimpleProductCommandHandler
     private ImportErrorRepositoryInterface $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private LoggerInterface $importLogger;
+
+    /**
      * @param SimpleProductImportAction      $action
      * @param ImportErrorRepositoryInterface $repository
+     * @param LoggerInterface                $importLogger
      */
-    public function __construct(SimpleProductImportAction $action, ImportErrorRepositoryInterface $repository)
-    {
+    public function __construct(
+        SimpleProductImportAction $action,
+        ImportErrorRepositoryInterface $repository,
+        LoggerInterface $importLogger
+    ) {
         $this->action = $action;
         $this->repository = $repository;
+        $this->importLogger = $importLogger;
     }
 
     /**
@@ -53,9 +64,12 @@ class ImportSimpleProductCommandHandler
                 $command->getAttributes()
             );
         } catch (ImportException $exception) {
-            $message = $exception->getMessage();
+            $this->repository->add(ImportError::createFromImportException($command->getImportId(), $exception));
+        } catch (\Exception $exception) {
+            $message = sprintf('Can\'t import simple product %s', $command->getSku()->getValue());
             $error = new ImportError($command->getImportId(), $message);
             $this->repository->add($error);
+            $this->importLogger->error($exception);
         }
     }
 }

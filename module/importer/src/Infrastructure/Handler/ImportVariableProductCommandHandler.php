@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\VariableProductImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
+use Psr\Log\LoggerInterface;
 
 /**
  */
@@ -29,13 +30,23 @@ class ImportVariableProductCommandHandler
     private ImportErrorRepositoryInterface $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private LoggerInterface $importLogger;
+
+    /**
      * @param VariableProductImportAction    $action
      * @param ImportErrorRepositoryInterface $repository
+     * @param LoggerInterface                $importLogger
      */
-    public function __construct(VariableProductImportAction $action, ImportErrorRepositoryInterface $repository)
-    {
+    public function __construct(
+        VariableProductImportAction $action,
+        ImportErrorRepositoryInterface $repository,
+        LoggerInterface $importLogger
+    ) {
         $this->action = $action;
         $this->repository = $repository;
+        $this->importLogger = $importLogger;
     }
 
     /**
@@ -55,9 +66,12 @@ class ImportVariableProductCommandHandler
                 $command->getAttributes()
             );
         } catch (ImportException $exception) {
-            $message = $exception->getMessage();
+            $this->repository->add(ImportError::createFromImportException($command->getImportId(), $exception));
+        } catch (\Exception $exception) {
+            $message = sprintf('Can\'t import variable product %s', $command->getSku()->getValue());
             $error = new ImportError($command->getImportId(), $message);
             $this->repository->add($error);
+            $this->importLogger->error($exception);
         }
     }
 }
