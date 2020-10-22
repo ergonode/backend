@@ -64,7 +64,8 @@ class UnitFormValidator extends ConstraintValidator
             return;
         }
         $unitIdByName = $this->query->findIdByName($value->name);
-        if (null !== $unitIdByName && $unitIdByName !== $value->getUnitId()) {
+        // phpcs::ignore
+        if (null !== $unitIdByName && $unitIdByName != $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueNameMessage)
                 ->atPath('name')
                 ->addViolation();
