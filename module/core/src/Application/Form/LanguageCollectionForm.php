@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Form;
 
-use Ergonode\Core\Application\Form\Type\LanguageConfigurationFormType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Symfony\Component\Form\AbstractType;
@@ -17,8 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class LanguageCollectionForm extends AbstractType
 {
     /**

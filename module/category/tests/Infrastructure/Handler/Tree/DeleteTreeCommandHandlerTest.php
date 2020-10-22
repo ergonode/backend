@@ -19,8 +19,6 @@ use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteTreeCommandHandlerTest extends TestCase
 {
     /**
@@ -38,8 +36,6 @@ class DeleteTreeCommandHandlerTest extends TestCase
      */
     private RelationshipsResolverInterface $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(TreeRepositoryInterface::class);
@@ -47,8 +43,6 @@ class DeleteTreeCommandHandlerTest extends TestCase
         $this->resolver = $this->createMock(RelationshipsResolverInterface::class);
     }
 
-    /**
-     */
     public function testHandlingExistsTreeWithoutRelations(): void
     {
         $collection = $this->createMock(RelationshipCollection::class);
@@ -62,8 +56,6 @@ class DeleteTreeCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testHandlingExistsTreeWithRelations(): void
     {
         $this->expectException(ExistingRelationshipsException::class);
@@ -78,8 +70,6 @@ class DeleteTreeCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testHandlingNotExistsTree(): void
     {
         $this->expectException(\InvalidArgumentException::class);

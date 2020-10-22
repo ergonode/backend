@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Channel\Application\Provider\CreateChannelCommandBuilderProvider;
 
-/**
- */
 class CreateChannelCommandBuilderCompilerPass implements CompilerPassInterface
 {
 

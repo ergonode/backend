@@ -18,8 +18,6 @@ use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 
-/**
- */
 class OptionParamConverter implements ParamConverterInterface
 {
     /**

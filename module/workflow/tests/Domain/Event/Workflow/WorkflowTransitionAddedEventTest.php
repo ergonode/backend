@@ -15,12 +15,8 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class WorkflowTransitionAddedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var WorkflowId |MockObject $id */

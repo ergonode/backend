@@ -11,8 +11,6 @@ namespace Ergonode\Notification\Infrastructure\Handler;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Notification\Infrastructure\Sender\NotificationSender;
 
-/**
- */
 class SendNotificationCommandHandler
 {
     /**

@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
-/**
- */
 class DbalProductValueAddedEventProjector
 {
     private const TABLE_WORKFLOW_PRODUCT_STATUS = 'product_workflow_status';

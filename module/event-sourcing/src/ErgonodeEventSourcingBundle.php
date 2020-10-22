@@ -11,8 +11,6 @@ namespace Ergonode\EventSourcing;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeEventSourcingBundle extends AbstractModule
 {
 }

@@ -13,8 +13,6 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface MultimediaQueryInterface
 {
     /**

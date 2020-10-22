@@ -15,8 +15,6 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\Channel\Domain\Query\SchedulerQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalSchedulerQuery implements SchedulerQueryInterface
 {
     private const TABLE = 'exporter.scheduler';

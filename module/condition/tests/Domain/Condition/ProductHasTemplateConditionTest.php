@@ -13,12 +13,8 @@ use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class ProductHasTemplateConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         $operator = 'some operator';
@@ -30,8 +26,6 @@ class ProductHasTemplateConditionTest extends TestCase
         $this->assertSame('PRODUCT_HAS_TEMPLATE_CONDITION', $condition->getType());
     }
 
-    /**
-     */
     public function testGetSupportedOperators(): void
     {
         $operators = ProductHasTemplateCondition::getSupportedOperators();

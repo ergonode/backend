@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class StatusSystemAttribute extends AbstractAttribute implements AttributeInterface
 {
     public const TYPE = 'STATUS';

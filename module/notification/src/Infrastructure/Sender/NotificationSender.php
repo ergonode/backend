@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class NotificationSender
 {
     /**

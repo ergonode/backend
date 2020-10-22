@@ -13,8 +13,6 @@ use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMessageBuilderInterface
 {
     /**

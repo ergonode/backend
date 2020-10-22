@@ -12,8 +12,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 interface ExportQueryInterface
 {
     /**

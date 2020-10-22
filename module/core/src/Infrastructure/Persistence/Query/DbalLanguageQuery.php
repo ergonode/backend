@@ -17,8 +17,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class DbalLanguageQuery implements LanguageQueryInterface
 {
     private const TABLE = 'language';

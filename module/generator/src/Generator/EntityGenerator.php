@@ -12,8 +12,6 @@ namespace Ergonode\Generator\Generator;
 use Ergonode\Generator\Builder\BuilderInterface;
 use Ergonode\Generator\Persister\FilePersister;
 
-/**
- */
 class EntityGenerator
 {
     /**

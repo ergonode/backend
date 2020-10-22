@@ -11,8 +11,6 @@ namespace Ergonode\Condition\Infrastructure\Provider;
 
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 
-/**
- */
 class ConditionConstraintProvider
 {
     /**

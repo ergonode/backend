@@ -17,8 +17,6 @@ use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExists;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class TemplateFormModel
 {
     /**
@@ -64,8 +62,6 @@ class TemplateFormModel
      */
     public ArrayCollection $elements;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = null;

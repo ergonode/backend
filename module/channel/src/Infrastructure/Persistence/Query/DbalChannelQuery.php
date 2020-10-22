@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 
-/**
- */
 class DbalChannelQuery implements ChannelQueryInterface
 {
     private const TABLE_VALUE = 'exporter.channel';

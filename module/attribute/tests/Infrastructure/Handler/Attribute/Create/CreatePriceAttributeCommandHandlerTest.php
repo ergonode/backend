@@ -16,8 +16,6 @@ use Money\Currency;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreatePriceAttributeCommandHandlerTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class CreatePriceAttributeCommandHandlerTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(CreatePriceAttributeCommand::class);
@@ -48,8 +44,6 @@ class CreatePriceAttributeCommandHandlerTest extends TestCase
         $this->attribute = $this->createMock(AbstractAttribute::class);
     }
 
-    /**
-     */
     public function testHandleCommand(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);

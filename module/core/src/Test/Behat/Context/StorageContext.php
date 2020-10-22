@@ -12,8 +12,6 @@ namespace Ergonode\Core\Test\Behat\Context;
 use Behat\Behat\Context\Context;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class StorageContext implements Context
 {
     private const SEPARATOR = '@';

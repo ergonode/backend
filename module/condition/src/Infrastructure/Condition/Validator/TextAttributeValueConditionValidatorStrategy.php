@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
-/**
- */
 class TextAttributeValueConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**

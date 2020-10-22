@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionElementTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class ProductCollectionElementTest extends TestCase
      */
     private AbstractAggregateRoot $aggregateRoot;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductCollectionElementId::class);
@@ -45,8 +41,6 @@ class ProductCollectionElementTest extends TestCase
         $this->aggregateRoot->method('getId')->willReturn($this->createMock(ProductCollectionId::class));
     }
 
-    /**
-     */
     public function testElementCreation(): void
     {
         $entity = new ProductCollectionElement($this->id, $this->productId, true, new \DateTime());
@@ -56,8 +50,6 @@ class ProductCollectionElementTest extends TestCase
         $this->assertNotNull($entity->getCreatedAt());
     }
 
-    /**
-     */
     public function testElementManipulation(): void
     {
         $this->aggregateRoot->expects($this->once())->method('apply');

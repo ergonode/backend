@@ -20,8 +20,6 @@ use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilderProvider;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalProductDataSet extends AbstractDbalDataSet
 {
     private const PRODUCT_TABLE = 'product';

@@ -13,12 +13,8 @@ use Ergonode\Designer\Infrastructure\Generator\DefaultTemplateGenerator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DefaultTemplateGeneratorTest extends TestCase
 {
-    /**
-     */
     public function testTemplateGeneration(): void
     {
         /** @var TemplateId|MockObject $templateId */

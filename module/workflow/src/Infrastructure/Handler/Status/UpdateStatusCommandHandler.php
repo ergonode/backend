@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Entity\Status;
 
-/**
- */
 class UpdateStatusCommandHandler
 {
     /**

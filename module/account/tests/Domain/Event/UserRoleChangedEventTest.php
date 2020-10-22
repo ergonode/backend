@@ -15,12 +15,8 @@ use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UserRoleChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreateEvent(): void
     {
         /** @var UserId|MockObject $id */

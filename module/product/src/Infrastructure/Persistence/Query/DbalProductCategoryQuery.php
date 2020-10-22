@@ -16,8 +16,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Product\Domain\Query\ProductCategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class DbalProductCategoryQuery implements ProductCategoryQueryInterface
 {
     private const PRODUCT_CATEGORY_TABLE = 'public.product_category';

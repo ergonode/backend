@@ -15,12 +15,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateNumericAttrib
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 
-/**
- */
 class CreateNumericAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateNumericAttributeCommandFactory();
@@ -28,8 +24,6 @@ class CreateNumericAttributeCommandFactoryTest extends AbstractCreateAttributeCo
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
 

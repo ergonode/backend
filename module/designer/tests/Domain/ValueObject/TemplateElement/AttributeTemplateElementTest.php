@@ -14,12 +14,8 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElemen
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeTemplateElementTest extends TestCase
 {
-    /**
-     */
     public function testElementCreation(): void
     {
         /** @var AttributeId|MockObject $attributeId */

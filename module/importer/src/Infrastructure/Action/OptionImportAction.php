@@ -19,8 +19,6 @@ use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class OptionImportAction
 {
     /**

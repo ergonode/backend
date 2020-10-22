@@ -17,8 +17,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class UpdateCategoryCommandFactory implements UpdateCategoryCommandFactoryInterface
 {
     /**

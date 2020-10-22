@@ -14,12 +14,8 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostCurrencyCreateTest extends TestCase
 {
-    /**
-     */
     public function testAction()
     {
         $action = new PostCurrencyCreate('RUB');

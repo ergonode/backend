@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CreateShopware6ChannelCommand implements DomainCommandInterface
 {
     /**

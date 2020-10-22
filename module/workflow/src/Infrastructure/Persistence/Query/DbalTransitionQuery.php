@@ -18,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 
-/**
- */
 class DbalTransitionQuery implements TransitionQueryInterface
 {
     private const TABLE = 'workflow_transition';

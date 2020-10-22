@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderProvider;
 
-/**
- */
 class CreateSourceCommandBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.create_source_command_builder_interface';

@@ -11,8 +11,6 @@ namespace Ergonode\Segment\Application\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class UpdateSegmentFormModel
 {
     /**
@@ -32,8 +30,6 @@ class UpdateSegmentFormModel
      */
     public array $description;
 
-    /**
-     */
     public function __construct()
     {
         $this->conditionSetId = null;

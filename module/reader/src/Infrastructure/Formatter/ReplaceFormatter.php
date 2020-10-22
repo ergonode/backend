@@ -12,8 +12,6 @@ namespace Ergonode\Reader\Infrastructure\Formatter;
 use Ergonode\Reader\Infrastructure\FormatterInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ReplaceFormatter implements FormatterInterface
 {
     public const TYPE = 'replace';

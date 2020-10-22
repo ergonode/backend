@@ -15,8 +15,6 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportCategoryCommandHandler
 {
     /**

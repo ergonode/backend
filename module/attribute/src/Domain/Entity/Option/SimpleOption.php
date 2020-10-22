@@ -10,9 +10,6 @@ namespace Ergonode\Attribute\Domain\Entity\Option;
 
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 
-/**
- *
- */
 class SimpleOption extends AbstractOption
 {
 

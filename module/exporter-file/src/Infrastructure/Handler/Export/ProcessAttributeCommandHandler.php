@@ -21,8 +21,6 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
-/**
- */
 class ProcessAttributeCommandHandler
 {
     /**

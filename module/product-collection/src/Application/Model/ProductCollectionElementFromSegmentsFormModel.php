@@ -12,8 +12,6 @@ namespace Ergonode\ProductCollection\Application\Model;
 use Ergonode\Segment\Infrastructure\Validator\ValidSegmentId;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductCollectionElementFromSegmentsFormModel
 {
     /**
@@ -28,8 +26,6 @@ class ProductCollectionElementFromSegmentsFormModel
      */
     public array $segments;
 
-    /**
-     */
     public function __construct()
     {
         $this->segments = [];

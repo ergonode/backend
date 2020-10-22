@@ -16,8 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
-/**
- */
 class AbstractWorkflowParamConverterTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class AbstractWorkflowParamConverterTest extends TestCase
      */
     private WorkflowProvider $provider;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
@@ -44,8 +40,6 @@ class AbstractWorkflowParamConverterTest extends TestCase
         $this->provider = $this->createMock(WorkflowProvider::class);
     }
 
-    /**
-     */
     public function testSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
@@ -55,8 +49,6 @@ class AbstractWorkflowParamConverterTest extends TestCase
         self::assertTrue($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testUnSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);

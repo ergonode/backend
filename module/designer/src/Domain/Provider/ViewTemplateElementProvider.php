@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Domain\Provider;
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 
-/**
- */
 class ViewTemplateElementProvider
 {
     /**

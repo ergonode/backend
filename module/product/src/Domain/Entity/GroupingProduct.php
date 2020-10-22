@@ -11,8 +11,6 @@ namespace Ergonode\Product\Domain\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class GroupingProduct extends AbstractAssociatedProduct
 {
     public const TYPE = 'GROUPING-PRODUCT';

@@ -11,8 +11,6 @@ namespace Ergonode\Reader;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeReaderBundle extends AbstractModule
 {
 }

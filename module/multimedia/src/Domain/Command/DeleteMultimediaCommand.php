@@ -12,8 +12,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DeleteMultimediaCommand implements DomainCommandInterface
 {
     /**

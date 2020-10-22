@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Attribute\Infrastructure\Provider\UpdateAttributeCommandFactoryProvider;
 
-/**
- */
 class UpdateAttributeCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.attribute.update_attribute_command_factory_interface';

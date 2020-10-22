@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterTypeProvider;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class WriterTypeDictionaryTest extends TestCase
 {
-    /**
-     */
     public function testDictionary(): void
     {
         $provider = $this->createMock(WriterTypeProvider::class);

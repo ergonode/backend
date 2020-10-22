@@ -9,8 +9,6 @@ namespace Ergonode\Grid\Filter;
 
 use Ergonode\Grid\FilterInterface;
 
-/**
- */
 class DateFilter implements FilterInterface
 {
     public const TYPE = 'DATE';

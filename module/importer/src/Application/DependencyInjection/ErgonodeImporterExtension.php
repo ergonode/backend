@@ -25,8 +25,6 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceC
 use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
 
-/**
- */
 class ErgonodeImporterExtension extends Extension
 {
     /**

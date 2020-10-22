@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

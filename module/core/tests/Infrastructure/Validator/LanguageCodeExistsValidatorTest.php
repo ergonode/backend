@@ -15,31 +15,22 @@ use Ergonode\Core\Infrastructure\Validator\LanguageCodeExistsValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class LanguageCodeExistsValidatorTest extends ConstraintValidatorTestCase
 {
     private LanguageQueryInterface $query;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         $this->query = $this->createMock(LanguageQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new LanguageCodeExists());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -48,16 +39,12 @@ class LanguageCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new LanguageCodeExists());
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->query->method('getDictionary')->willReturn(['en']);
@@ -66,8 +53,6 @@ class LanguageCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testInCorrectValueValidation(): void
     {
         $constraint = new LanguageCodeExists();

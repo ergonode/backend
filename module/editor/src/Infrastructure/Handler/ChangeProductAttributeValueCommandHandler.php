@@ -17,8 +17,6 @@ use Ergonode\Value\Domain\Service\ValueManipulationService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
     /**

@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalSegmentDescriptionChangedEventProjector
 {
     private const TABLE = 'segment';

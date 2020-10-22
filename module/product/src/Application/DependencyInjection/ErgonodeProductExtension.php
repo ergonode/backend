@@ -12,7 +12,6 @@ namespace Ergonode\Product\Application\DependencyInjection;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeColumnStrategyStrategyCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataSetQueryBuilderCompilerPass;
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
-use Ergonode\Product\Application\Form\Product\ProductTypeForm;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Symfony\Component\Config\FileLocator;

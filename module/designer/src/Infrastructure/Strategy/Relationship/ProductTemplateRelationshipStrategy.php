@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductTemplateRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

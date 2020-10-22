@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 abstract class AbstractShopware6VariantOptionMapper implements Shopware6ProductMapperInterface
 {
     /**

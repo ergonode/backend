@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\CustomField;
 
-/**
- */
 class Shopware6CustomFieldConfig
 {
 

@@ -12,8 +12,6 @@ namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Factory;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalSourceFactory
 {
     /**

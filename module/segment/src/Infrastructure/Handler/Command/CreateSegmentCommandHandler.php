@@ -13,8 +13,6 @@ use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 
-/**
- */
 class CreateSegmentCommandHandler
 {
     /**

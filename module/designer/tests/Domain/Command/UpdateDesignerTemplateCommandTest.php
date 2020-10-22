@@ -15,12 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateDesignerTemplateCommandTest extends TestCase
 {
-    /**
-     */
     public function testResultValues(): void
     {
         /** @var TemplateId $id */

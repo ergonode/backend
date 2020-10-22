@@ -26,8 +26,6 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
-/**
- */
 class TransformerController extends AbstractController
 {
     /**

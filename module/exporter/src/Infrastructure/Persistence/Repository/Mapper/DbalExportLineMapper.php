@@ -11,8 +11,6 @@ namespace Ergonode\Exporter\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 
-/**
- */
 class DbalExportLineMapper
 {
     /**

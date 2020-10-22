@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class RemoveProductChildCommandTest extends TestCase
 {
     /**

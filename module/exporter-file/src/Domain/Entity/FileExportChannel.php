@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
 use Symfony\Component\Intl\Languages;
 
-/**
- */
 class FileExportChannel extends AbstractChannel
 {
     public const TYPE = 'file';

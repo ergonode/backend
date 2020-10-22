@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
-/**
- */
 abstract class AbstractCollectionAttribute extends AbstractAttribute
 {
 }

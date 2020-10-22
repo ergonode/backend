@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Importer\Domain\Entity\ImportError;
 
-/**
- */
 class DbalImportErrorMapper
 {
     /**

@@ -13,12 +13,8 @@ use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
 use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateLanguageCommandTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         $languages = [$this->createMock(Language::class)];

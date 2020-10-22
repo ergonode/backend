@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class CompletenessManager
 {
     private const TABLE = 'product_completeness';

@@ -12,12 +12,8 @@ namespace Ergonode\Condition\Tests\Domain\Condition;
 use Ergonode\Condition\Domain\Condition\ProductHasStatusCondition;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductHasStatusConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         $operator = 'some operator';
@@ -29,8 +25,6 @@ class ProductHasStatusConditionTest extends TestCase
         $this->assertSame('PRODUCT_HAS_STATUS_CONDITION', $condition->getType());
     }
 
-    /**
-     */
     public function testGetSupportedOperators()
     {
         $operators = ProductHasStatusCondition::getSupportedOperators();

@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Domain\Command\Attribute\Create;
 
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 
-/**
- */
 class CreateMultiSelectAttributeCommand extends AbstractCreateAttributeCommand
 {
 }

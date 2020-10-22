@@ -14,12 +14,8 @@ use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StringCollectionValueUpdateStrategyTest extends TestCase
 {
-    /**
-     */
     public function testSupported(): void
     {
         $strategy = new StringCollectionValueUpdateStrategy();
@@ -30,8 +26,6 @@ class StringCollectionValueUpdateStrategyTest extends TestCase
         $this->assertFalse($strategy->isSupported($invalid));
     }
 
-    /**
-     */
     public function testCalculate(): void
     {
         $strategy = new StringCollectionValueUpdateStrategy();
@@ -45,8 +39,6 @@ class StringCollectionValueUpdateStrategyTest extends TestCase
         $this->assertEquals($calculated->getValue(), ['test2', 'test1']);
     }
 
-    /**
-     */
     public function testWrongOldValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -57,8 +49,6 @@ class StringCollectionValueUpdateStrategyTest extends TestCase
         $strategy->calculate($invalid, $newValue);
     }
 
-    /**
-     */
     public function testWrongNewValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

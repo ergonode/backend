@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StartShopware6ExportCommandTest extends TestCase
 {
     /**
@@ -22,15 +20,11 @@ class StartShopware6ExportCommandTest extends TestCase
      */
     private ExportId $exportId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exportId = $this->createMock(ExportId::class);
     }
 
-    /**
-     */
     public function testCreateCommand(): void
     {
         $command = new StartShopware6ExportCommand($this->exportId);

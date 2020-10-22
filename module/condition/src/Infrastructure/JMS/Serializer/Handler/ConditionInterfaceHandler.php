@@ -12,8 +12,6 @@ namespace Ergonode\Condition\Infrastructure\JMS\Serializer\Handler;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Core\Infrastructure\JMS\Serializer\Handler\AbstractInterfaceHandler;
 
-/**
- */
 class ConditionInterfaceHandler extends AbstractInterfaceHandler
 {
     /**

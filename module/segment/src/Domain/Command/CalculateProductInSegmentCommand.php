@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class CalculateProductInSegmentCommand implements DomainCommandInterface
 {
     /**

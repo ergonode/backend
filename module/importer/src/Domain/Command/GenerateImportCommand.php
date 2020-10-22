@@ -14,8 +14,6 @@ use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class GenerateImportCommand implements DomainCommandInterface
 {
     /**

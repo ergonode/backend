@@ -17,8 +17,6 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalWorkflowRepository implements WorkflowRepositoryInterface
 {
     /**

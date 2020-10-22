@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class IntegerColumnRenderer implements ColumnRendererInterface
 {
     /**

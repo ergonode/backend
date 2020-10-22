@@ -12,8 +12,6 @@ use Ergonode\Multimedia\Domain\Command\DeleteMultimediaCommand;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteMultimediaCommandHandler
 {
     /**

@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 
-/**
- */
 class DbalProductRemovedFromCategoryEventProjector
 {
     private const TABLE_PRODUCT_CATEGORY = 'product_category';

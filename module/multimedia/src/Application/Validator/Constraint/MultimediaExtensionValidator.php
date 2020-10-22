@@ -15,8 +15,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- */
 class MultimediaExtensionValidator extends ConstraintValidator
 {
     /**

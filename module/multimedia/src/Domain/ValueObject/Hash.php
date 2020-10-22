@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\ValueObject;
 
-/**
- */
 class Hash
 {
     private const MIN_LENGTH = 32;

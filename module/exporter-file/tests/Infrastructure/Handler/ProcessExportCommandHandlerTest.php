@@ -16,12 +16,8 @@ use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 
-/**
- */
 class ProcessExportCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $command = $this->createMock(ProcessExportCommand::class);

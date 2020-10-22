@@ -22,8 +22,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Role extends AbstractAggregateRoot
 {
     /**

@@ -10,8 +10,6 @@ namespace Ergonode\Exporter\Infrastructure\Provider;
 
 use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 
-/**
- */
 class ExportProcessorProvider
 {
     /**

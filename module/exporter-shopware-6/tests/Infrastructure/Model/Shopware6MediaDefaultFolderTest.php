@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6MediaDefaultFolder;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6MediaDefaultFolderTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class Shopware6MediaDefaultFolderTest extends TestCase
      */
     private string $mediaFolderId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -39,8 +35,6 @@ class Shopware6MediaDefaultFolderTest extends TestCase
         $this->mediaFolderId = 'any_folder_id';
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6MediaDefaultFolder($this->id, $this->entity, $this->mediaFolderId);
@@ -50,8 +44,6 @@ class Shopware6MediaDefaultFolderTest extends TestCase
         self::assertEquals($this->mediaFolderId, $model->getMediaFolderId());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6MediaDefaultFolder();

@@ -12,8 +12,6 @@ namespace Ergonode\Channel\Domain\Entity;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 abstract class AbstractChannel implements ChannelInterface
 {
     /**

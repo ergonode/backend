@@ -11,8 +11,6 @@ namespace Ergonode\Grid;
 
 use Ergonode\Grid\Request\FilterValueCollection;
 
-/**
- */
 interface DataSetInterface
 {
     /**

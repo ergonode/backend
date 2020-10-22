@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Product\Infrastructure\Provider\UpdateProductCommandFactoryProvider;
 
-/**
- */
 class ProductUpdateCommandFactoryProviderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.product.product_update_command_factory';

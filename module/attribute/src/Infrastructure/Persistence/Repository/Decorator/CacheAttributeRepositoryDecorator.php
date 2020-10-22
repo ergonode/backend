@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CacheAttributeRepositoryDecorator implements AttributeRepositoryInterface
 {
     public const KEY = 'aggregate_attribute_%s';

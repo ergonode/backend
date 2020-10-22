@@ -13,8 +13,6 @@ use Ergonode\Attribute\Application\Form\Transformer\AttributeCodeDataTransformer
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeCodeDataTransformerTest extends TestCase
 {
 
@@ -23,8 +21,6 @@ class AttributeCodeDataTransformerTest extends TestCase
      */
     protected AttributeCodeDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new AttributeCodeDataTransformer();
@@ -41,9 +37,6 @@ class AttributeCodeDataTransformerTest extends TestCase
         $this->assertSame($string, $this->transformer->transform($attributeCodeValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -63,9 +56,6 @@ class AttributeCodeDataTransformerTest extends TestCase
         $this->assertEquals($attributeCodeValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     *
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid attribute code color/col value');

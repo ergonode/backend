@@ -14,8 +14,6 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ImportSimpleProductCommand implements DomainCommandInterface
 {
     /**

@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- */
 class ConditionSetValidatorBuilder
 {
     /**

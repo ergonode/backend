@@ -19,8 +19,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6Pr
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class Shopware6ProductCustomFieldSetMultimediaMapper extends AbstractShopware6ProductCustomFieldSetMapper
 {
     /**

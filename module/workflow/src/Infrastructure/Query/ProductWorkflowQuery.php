@@ -20,8 +20,6 @@ use Ergonode\Workflow\Domain\Service\StatusCalculationService;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ProductWorkflowQuery
 {
     /**

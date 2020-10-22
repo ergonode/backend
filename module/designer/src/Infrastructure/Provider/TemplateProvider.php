@@ -14,8 +14,6 @@ use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 
-/**
- */
 class TemplateProvider
 {
     /**

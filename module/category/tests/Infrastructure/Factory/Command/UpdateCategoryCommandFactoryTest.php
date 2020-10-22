@@ -12,19 +12,14 @@ namespace Ergonode\Category\Tests\Infrastructure\Factory\Command;
 use Ergonode\Category\Application\Model\CategoryFormModel;
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Entity\Category;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Category\Infrastructure\Factory\Command\UpdateCategoryCommandFactory;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class UpdateCategoryCommandFactoryTest extends TestCase
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdateCategoryCommandFactory();
@@ -32,8 +27,6 @@ class UpdateCategoryCommandFactoryTest extends TestCase
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $name = ['pl_PL' => 'Any Name'];

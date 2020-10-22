@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Model;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class RelationshipCollection implements \Iterator
 {
     /**
@@ -80,8 +78,6 @@ class RelationshipCollection implements \Iterator
         return next($this->collection);
     }
 
-    /**
-     */
     public function rewind(): void
     {
         reset($this->collection);

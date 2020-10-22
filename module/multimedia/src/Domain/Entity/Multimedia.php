@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Entity;
 
-/**
- */
 class Multimedia extends AbstractMultimedia
 {
 

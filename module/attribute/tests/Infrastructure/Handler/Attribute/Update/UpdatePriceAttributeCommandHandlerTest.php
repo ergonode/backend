@@ -17,8 +17,6 @@ use Money\Currency;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdatePriceAttributeCommandHandlerTest extends TestCase
 {
     /**
@@ -36,8 +34,6 @@ class UpdatePriceAttributeCommandHandlerTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(UpdatePriceAttributeCommand::class);
@@ -50,8 +46,6 @@ class UpdatePriceAttributeCommandHandlerTest extends TestCase
         $this->attribute->method('getGroups')->willReturn([]);
     }
 
-    /**
-     */
     public function testAttributeNotFound(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -61,8 +55,6 @@ class UpdatePriceAttributeCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testUpdate(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);

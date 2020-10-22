@@ -15,8 +15,6 @@ use Ergonode\Importer\Infrastructure\Action\VariableProductImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportVariableProductCommandHandler
 {
     /**

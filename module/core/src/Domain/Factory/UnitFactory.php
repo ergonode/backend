@@ -12,8 +12,6 @@ namespace Ergonode\Core\Domain\Factory;
 use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 class UnitFactory
 {
     /**

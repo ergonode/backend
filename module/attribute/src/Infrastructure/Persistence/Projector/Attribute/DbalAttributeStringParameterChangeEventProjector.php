@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 
-/**
- */
 class DbalAttributeStringParameterChangeEventProjector extends AbstractDbalAttributeParameterChangeEventProjector
 {
     /**

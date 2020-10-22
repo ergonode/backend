@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalUserLanguagePrivilegesCollectionChangedEventProjector
 {
     private const TABLE = 'users';

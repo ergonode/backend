@@ -11,12 +11,8 @@ use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 
-/**
- */
 class ReaderProcessorProviderTest extends TestCase
 {
-    /**
-     */
     public function testProviderNotFoundReader(): void
     {
         $this->expectException(\LogicException::class);

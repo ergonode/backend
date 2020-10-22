@@ -13,8 +13,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Scheduler
 {
     /**
@@ -122,8 +120,6 @@ class Scheduler
         $this->minute = $minute;
     }
 
-    /**
-     */
     public function deActive(): void
     {
         $this->active = false;

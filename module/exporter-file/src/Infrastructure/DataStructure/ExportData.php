@@ -10,8 +10,6 @@ namespace Ergonode\ExporterFile\Infrastructure\DataStructure;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ExportData
 {
     /**

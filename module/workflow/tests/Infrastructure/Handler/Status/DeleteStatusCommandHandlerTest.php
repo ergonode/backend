@@ -16,8 +16,6 @@ use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 
-/**
- */
 class DeleteStatusCommandHandlerTest extends TestCase
 {
     /**

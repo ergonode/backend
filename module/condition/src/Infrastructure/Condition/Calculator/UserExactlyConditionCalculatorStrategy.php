@@ -18,8 +18,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UserExactlyConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

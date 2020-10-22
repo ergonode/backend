@@ -10,8 +10,6 @@ namespace Ergonode\Product\Application\Provider;
 
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 
-/**
- */
 class ProductFormProvider implements ProductSupportProviderInterface
 {
     /**

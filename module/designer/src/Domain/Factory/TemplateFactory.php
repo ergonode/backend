@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class TemplateFactory
 {
     /**

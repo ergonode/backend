@@ -11,8 +11,6 @@ namespace Ergonode\Comment\Application\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CreateCommentFormModel
 {
     /**
@@ -31,8 +29,6 @@ class CreateCommentFormModel
      */
     public ?string $content;
 
-    /**
-     */
     public function __construct()
     {
         $this->objectId = null;

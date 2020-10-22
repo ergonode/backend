@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AbstractAttributeTest extends TestCase
 {
     /**
@@ -46,8 +44,6 @@ class AbstractAttributeTest extends TestCase
      */
     private array $parameters;
 
-    /**
-     */
     public function setUp(): void
     {
         $this->id = $this->createMock(AttributeId::class);

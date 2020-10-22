@@ -11,8 +11,6 @@ namespace Ergonode\TranslationDeepl\Infrastructure\Provider;
 
 use Scn\DeeplApiConnector\Model\Usage;
 
-/**
- */
 interface UsageDeeplProviderInterface
 {
     /**

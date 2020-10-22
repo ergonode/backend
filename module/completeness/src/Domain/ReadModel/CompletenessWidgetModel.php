@@ -8,9 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Domain\ReadModel;
 
-/**
- *
- */
 class CompletenessWidgetModel
 {
     /**

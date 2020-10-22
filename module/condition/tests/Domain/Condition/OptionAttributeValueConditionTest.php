@@ -14,12 +14,8 @@ use Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class OptionAttributeValueConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         /** @var AttributeId | MockObject $attributeId */

@@ -18,8 +18,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class DbalCategoryQuery implements CategoryQueryInterface
 {
     private const CATEGORY_TABLE = 'category';

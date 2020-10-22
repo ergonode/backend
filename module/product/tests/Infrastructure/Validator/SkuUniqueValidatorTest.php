@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -26,24 +24,18 @@ class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     private ProductQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(ProductQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new SkuUnique());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -52,8 +44,6 @@ class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new SkuUnique());
@@ -61,8 +51,6 @@ class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testSkuNotExistsValidation(): void
     {
         $this->query->method('findProductIdBySku')->willReturn(null);
@@ -71,8 +59,6 @@ class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testSkuUniqueValidation(): void
     {
         $productId = $this->createMock(ProductId::class);

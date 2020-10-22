@@ -13,8 +13,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class ProductTemplateChangedEvent implements DomainEventInterface
 {
     /**

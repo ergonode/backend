@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Infrastructure\Factory\Command\CreateProductCommandFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class CreateGroupingProductCommandFactory implements CreateProductCommandFactoryInterface
 {
     /**

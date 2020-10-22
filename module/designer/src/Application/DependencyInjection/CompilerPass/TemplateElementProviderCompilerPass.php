@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class TemplateElementProviderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.template.view_template_element_strategy_interface';

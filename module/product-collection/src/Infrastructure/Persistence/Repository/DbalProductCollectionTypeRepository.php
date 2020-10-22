@@ -17,8 +17,6 @@ use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepository
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalProductCollectionTypeRepository implements ProductCollectionTypeRepositoryInterface
 {
     /**

@@ -18,8 +18,6 @@ use Ergonode\ExporterFile\Infrastructure\Dictionary\WriterTypeDictionary;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class ExporterFileConfigurationForm extends AbstractType
 {
     /**

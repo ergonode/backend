@@ -12,8 +12,6 @@ namespace Ergonode\Channel\Application\Provider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ChannelTypeDictionaryProvider
 {
     /**

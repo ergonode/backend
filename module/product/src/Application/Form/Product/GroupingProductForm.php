@@ -17,8 +17,6 @@ use Ergonode\Category\Application\Form\Type\CategoryType;
 use Ergonode\Product\Application\Model\Product\GroupingProductFormModel;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 
-/**
- */
 class GroupingProductForm extends AbstractType implements ProductFormInterface
 {
     /**

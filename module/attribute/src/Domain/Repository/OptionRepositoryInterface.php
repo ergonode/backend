@@ -10,8 +10,6 @@ namespace Ergonode\Attribute\Domain\Repository;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface OptionRepositoryInterface
 {
     /**

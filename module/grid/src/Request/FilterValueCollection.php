@@ -11,8 +11,6 @@ namespace Ergonode\Grid\Request;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class FilterValueCollection implements \IteratorAggregate
 {
     public const DELIMITER = ';';

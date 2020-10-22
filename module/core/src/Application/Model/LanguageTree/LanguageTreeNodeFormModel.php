@@ -33,8 +33,6 @@ class LanguageTreeNodeFormModel
      */
     public array $children;
 
-    /**
-     */
     public function __construct()
     {
         $this->languageId = null;

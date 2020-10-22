@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Projector\Group;
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
 
-/**
- */
 class DbalTemplateGroupCreatedEventProjector
 {
     private const TABLE = 'designer.template';

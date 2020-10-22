@@ -13,8 +13,6 @@ use Faker\Provider\Base as BaseProvider;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class TranslatableStringValueFaker extends BaseProvider
 {
     /**

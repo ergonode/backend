@@ -12,8 +12,6 @@ namespace Ergonode\Category\Domain\Repository;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 interface CategoryRepositoryInterface
 {
     /**

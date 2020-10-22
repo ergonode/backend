@@ -11,8 +11,6 @@ namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 
-/**
- */
 class ImageAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

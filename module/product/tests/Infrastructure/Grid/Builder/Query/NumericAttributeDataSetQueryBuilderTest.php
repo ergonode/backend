@@ -18,8 +18,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
-/**
- */
 class NumericAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
@@ -47,8 +45,6 @@ class NumericAttributeDataSetQueryBuilderTest extends TestCase
      */
     private ProductAttributeLanguageResolver $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(NumericAttribute::class);
@@ -59,24 +55,18 @@ class NumericAttributeDataSetQueryBuilderTest extends TestCase
         $this->resolver = new ProductAttributeLanguageResolver($this->query);
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $builder = new NumericAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertTrue($builder->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $builder = new NumericAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testAddQuerySelect(): void
     {
         $this->queryBuilder->expects($this->once())->method('addSelect');

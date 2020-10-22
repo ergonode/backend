@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class StopImportCommandHandler
 {
     /**

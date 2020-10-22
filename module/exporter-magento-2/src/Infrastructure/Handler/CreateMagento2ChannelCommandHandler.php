@@ -12,8 +12,6 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 use Ergonode\ExporterMagento2\Domain\Command\CreateMagento2ExportChannelCommand;
 
-/**
- */
 class CreateMagento2ChannelCommandHandler
 {
     /**

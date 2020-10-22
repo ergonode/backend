@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 class UpdateUserCommand implements DomainCommandInterface
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
 use Ergonode\Designer\Domain\View\ViewTemplateElement;
 
-/**
- */
 class SectionViewTemplateElementStrategy implements BuilderTemplateElementStrategyInterface
 {
     /**

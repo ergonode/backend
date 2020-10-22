@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInte
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_category';

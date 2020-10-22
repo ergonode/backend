@@ -10,8 +10,6 @@ namespace Ergonode\Workflow\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 interface WorkflowInterface
 {
     /**

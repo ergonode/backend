@@ -14,12 +14,8 @@ use Ergonode\TranslationDeepl\Infrastructure\Validator\DeeplLanguageValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -28,8 +24,6 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('EN', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new DeeplLanguageConstraint());
@@ -37,8 +31,6 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->validator->validate('EN', new DeeplLanguageConstraint());
@@ -46,8 +38,6 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testIncorrectValueValidation(): void
     {
         $constraint = new DeeplLanguageConstraint();

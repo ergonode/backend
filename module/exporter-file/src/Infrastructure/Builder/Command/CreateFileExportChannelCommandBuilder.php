@@ -17,8 +17,6 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuilderInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class OptionKeyDataTransformer implements DataTransformerInterface
 {
     /**

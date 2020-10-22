@@ -12,8 +12,6 @@ namespace Ergonode\Grid\Renderer;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 interface RowRendererInterface
 {
     /**

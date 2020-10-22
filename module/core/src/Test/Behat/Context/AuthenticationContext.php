@@ -12,8 +12,6 @@ namespace Ergonode\Core\Test\Behat\Context;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 
-/**
- */
 class AuthenticationContext implements Context
 {
     /**

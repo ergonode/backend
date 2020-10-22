@@ -12,8 +12,6 @@ namespace Ergonode\Core\Tests\Domain\ValueObject;
 use Ergonode\Core\Domain\ValueObject\Color;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ColorTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class ColorTest extends TestCase
         new Color($hex);
     }
 
-    /**
-     */
     public function testColorEquality():void
     {
         $color1 = new Color('#000000');

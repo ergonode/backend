@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class CreateFileExportChannelCommand implements DomainCommandInterface
 {
     /**

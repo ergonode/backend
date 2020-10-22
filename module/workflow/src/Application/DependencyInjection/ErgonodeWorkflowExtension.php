@@ -18,8 +18,6 @@ use Ergonode\Workflow\Domain\Entity\WorkflowInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
 
-/**
- */
 class ErgonodeWorkflowExtension extends Extension
 {
 

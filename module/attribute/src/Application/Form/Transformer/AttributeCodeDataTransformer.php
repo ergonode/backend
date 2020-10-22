@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class AttributeCodeDataTransformer implements DataTransformerInterface
 {
     /**

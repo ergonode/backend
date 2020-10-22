@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConf
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetConfiguratorSettings extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product/%s/configurator-settings';

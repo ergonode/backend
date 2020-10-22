@@ -18,8 +18,6 @@ use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Webmozart\Assert\Assert;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
-/**
- */
 class AttributeTemplateElementCompletenessStrategy implements TemplateElementCompletenessStrategyInterface
 {
     /**

@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class StatusTest extends TestCase
 {
     /**
@@ -45,8 +43,6 @@ class StatusTest extends TestCase
      */
     private TranslatableString $description;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(StatusId::class);

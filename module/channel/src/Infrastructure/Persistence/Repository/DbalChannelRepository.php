@@ -20,8 +20,6 @@ use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalChannelFa
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalChannelMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalChannelRepository implements ChannelRepositoryInterface
 {
     private const TABLE = 'exporter.channel';

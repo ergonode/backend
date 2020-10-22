@@ -16,8 +16,6 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 
-/**
- */
 class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
 {
     /**

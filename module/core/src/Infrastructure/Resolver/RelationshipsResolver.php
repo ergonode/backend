@@ -13,8 +13,6 @@ use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class RelationshipsResolver implements RelationshipsResolverInterface
 {
     /**

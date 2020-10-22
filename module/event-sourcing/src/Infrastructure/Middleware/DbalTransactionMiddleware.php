@@ -15,8 +15,6 @@ use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 
-/**
- */
 class DbalTransactionMiddleware implements MiddlewareInterface
 {
     /**

@@ -16,8 +16,6 @@ use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class VariableProduct extends AbstractAssociatedProduct
 {
     public const TYPE = 'VARIABLE-PRODUCT';

@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class MultimediaAltChangedEvent implements DomainEventInterface
 {
     /**

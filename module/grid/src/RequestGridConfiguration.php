@@ -16,8 +16,6 @@ use Ergonode\Grid\Request\RequestColumn;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class RequestGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;

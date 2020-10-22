@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-/**
- */
 class ConstraintPrivilegeRelationsValidatorTest extends TestCase
 {
     /**

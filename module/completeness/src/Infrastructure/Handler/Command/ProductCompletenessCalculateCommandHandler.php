@@ -17,8 +17,6 @@ use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Completeness\Infrastructure\Persistence\Manager\CompletenessManager;
 
-/**
- */
 class ProductCompletenessCalculateCommandHandler
 {
     /**

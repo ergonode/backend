@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteAttributeCommandTest extends TestCase
 {
-    /**
-     */
     public function testDeleteEvent(): void
     {
         /** @var AttributeId|MockObject $attributeId */

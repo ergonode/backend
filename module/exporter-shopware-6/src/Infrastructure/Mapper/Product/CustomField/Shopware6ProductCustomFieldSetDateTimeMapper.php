@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractDateAttribute;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
 
-/**
- */
 class Shopware6ProductCustomFieldSetDateTimeMapper extends AbstractShopware6ProductCustomFieldSetMapper
 {
     /**

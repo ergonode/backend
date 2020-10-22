@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class MarkNotificationCommand implements DomainCommandInterface
 {
     /**

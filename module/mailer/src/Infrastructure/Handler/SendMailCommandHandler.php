@@ -12,8 +12,6 @@ namespace Ergonode\Mailer\Infrastructure\Handler;
 use Ergonode\Mailer\Domain\Command\SendMailCommand;
 use Ergonode\Mailer\Infrastructure\Sender\MailerSender;
 
-/**
- */
 class SendMailCommandHandler
 {
     /**

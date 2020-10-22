@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class AbstractMultimediaTest extends TestCase
 {
     /**
@@ -50,8 +48,6 @@ class AbstractMultimediaTest extends TestCase
      */
     private int $size;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(MultimediaId::class);

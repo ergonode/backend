@@ -14,8 +14,6 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class RemoveProductChildCommand implements DomainCommandInterface
 {
     /**

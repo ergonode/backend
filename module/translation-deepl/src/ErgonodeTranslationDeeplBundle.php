@@ -11,8 +11,6 @@ namespace Ergonode\TranslationDeepl;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeTranslationDeeplBundle extends AbstractModule
 {
 }

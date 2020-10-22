@@ -16,8 +16,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInte
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 
-/**
- */
 class Magento1SimpleProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
     /**

@@ -18,8 +18,6 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalMultimediaRepository implements MultimediaRepositoryInterface
 {
     /**

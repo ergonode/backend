@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CreateCommentCommand implements DomainCommandInterface
 {
     /**

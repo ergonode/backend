@@ -12,12 +12,8 @@ use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
 use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class ExporterFileConfigurationModelTest extends TestCase
 {
-    /**
-     */
     public function testCreateWithoutProfile(): void
     {
         $model = new ExporterFileConfigurationModel();
@@ -25,8 +21,6 @@ class ExporterFileConfigurationModelTest extends TestCase
         self::assertNull($model->format);
     }
 
-    /**
-     */
     public function testCreateWithProfile(): void
     {
         $name = 'Name';

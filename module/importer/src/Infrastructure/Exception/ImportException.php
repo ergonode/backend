@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Infrastructure\Exception;
 
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 
-/**
- */
 class ImportException extends ExportException
 {
     /**

@@ -15,12 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 
-/**
- */
 class MultimediaGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         $configuration = $this->createMock(GridConfigurationInterface::class);

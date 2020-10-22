@@ -12,9 +12,6 @@ use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- *
- */
 class StartImportNotification implements NotificationInterface
 {
     private const MESSAGE = 'Import "%import%" started';

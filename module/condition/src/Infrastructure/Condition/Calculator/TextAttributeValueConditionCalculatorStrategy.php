@@ -13,12 +13,9 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\TextAttributeValueCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

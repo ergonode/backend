@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class ConditionConfiguratorCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.condition.condition_set.configurator_interface';

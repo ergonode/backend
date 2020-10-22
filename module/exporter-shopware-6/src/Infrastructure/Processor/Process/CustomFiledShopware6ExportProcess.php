@@ -22,8 +22,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use GuzzleHttp\Exception\ClientException;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class CustomFiledShopware6ExportProcess
 {
     /**

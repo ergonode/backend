@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionDeletedEvent;
 
-/**
- */
 class DbalProductCollectionDeletedEventProjector
 {
     private const TABLE = 'product_collection';

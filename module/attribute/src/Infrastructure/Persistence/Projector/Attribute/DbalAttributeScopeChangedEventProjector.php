@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeScopeChangedEvent;
 
-/**
- */
 class DbalAttributeScopeChangedEventProjector
 {
     private const TABLE = 'attribute';

@@ -12,8 +12,6 @@ use Ergonode\Core\Infrastructure\Builder\LanguageTree\NestedSetTree;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NestedSetTreeTest extends TestCase
 {
     /**

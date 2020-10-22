@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
     /**

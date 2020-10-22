@@ -12,8 +12,6 @@ use Ergonode\Category\Domain\Command\DeleteCategoryCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteCategoryCommandTest extends TestCase
 {
     /**

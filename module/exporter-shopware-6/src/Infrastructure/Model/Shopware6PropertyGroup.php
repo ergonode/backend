@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6PropertyGroup
 {
     private const DISPLAY_TYPES = ['media', 'text', 'color'];

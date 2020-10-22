@@ -16,8 +16,6 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteTransformerCommandHandler
 {
     /**

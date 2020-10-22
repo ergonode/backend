@@ -13,12 +13,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Mailer\Domain\Template;
 use PHPStan\Testing\TestCase;
 
-/**
- */
 final class TemplateTest extends TestCase
 {
-    /**
-     */
     public function testConstructor(): void
     {
         $path = 'ergonode';

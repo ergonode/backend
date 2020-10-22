@@ -21,8 +21,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
 {
     /**

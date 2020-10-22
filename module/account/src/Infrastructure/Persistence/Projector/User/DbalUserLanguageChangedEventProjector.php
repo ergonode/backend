@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 
-/**
- */
 class DbalUserLanguageChangedEventProjector
 {
     private const TABLE = 'users';

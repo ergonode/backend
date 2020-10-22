@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\AbstractId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class StringValueFaker extends BaseProvider
 {
     /**

@@ -12,13 +12,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductBelongCategoryConditionTest extends TestCase
 {
 
-    /**
-     */
     public function testConditionCreation(): void
     {
         /** @var CategoryId | MockObject $categoryId */

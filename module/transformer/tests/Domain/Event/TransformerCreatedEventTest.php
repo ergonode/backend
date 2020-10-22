@@ -13,12 +13,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TransformerCreatedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreate(): void
     {
         /** @var TransformerId $id */

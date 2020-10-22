@@ -17,8 +17,6 @@ use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalTransformerRepository implements TransformerRepositoryInterface
 {
     /**

@@ -15,8 +15,6 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- */
 class MultimediaExistsValidator extends ConstraintValidator
 {
     /**

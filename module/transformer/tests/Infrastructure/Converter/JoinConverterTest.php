@@ -10,12 +10,8 @@ namespace Ergonode\Transformer\Tests\Infrastructure\Converter;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class JoinConverterTest extends TestCase
 {
-    /**
-     */
     public function testConverterCreation(): void
     {
         $pattern = 'Joined Phrase <first> <second>';

@@ -12,8 +12,6 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageTreeMapper
 {
     /**

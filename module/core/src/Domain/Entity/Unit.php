@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Unit extends AbstractAggregateRoot
 {
     /**

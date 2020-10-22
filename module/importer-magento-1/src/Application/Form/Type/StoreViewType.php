@@ -15,8 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
 
-/**
- */
 class StoreViewType extends AbstractType
 {
     /**

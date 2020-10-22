@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Ergonode\Core\Infrastructure\Builder\LanguageTree\LanguageTreeBuilder;
 use Ergonode\Core\Infrastructure\Persistence\Repository\Factory\DbalLanguageTreeFactory;
 
-/**
- */
 class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
 {
     private const TABLE = 'language_tree';
@@ -101,8 +99,6 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
         }
     }
 
-    /**
-     */
     private function delete(): void
     {
         $qb = $this->connection->createQueryBuilder();

@@ -12,8 +12,6 @@ namespace Ergonode\Category\Application\Model\Tree;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Category\Infrastructure\Validator\UniqueCategoryTreeCode;
 
-/**
- */
 class CategoryTreeCreateFormModel
 {
     /**
@@ -45,8 +43,6 @@ class CategoryTreeCreateFormModel
      */
     public array $name;
 
-    /**
-     */
     public function __construct()
     {
         $this->code = null;

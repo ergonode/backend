@@ -18,8 +18,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class ChannelParamConverter implements ParamConverterInterface
 {
     /**

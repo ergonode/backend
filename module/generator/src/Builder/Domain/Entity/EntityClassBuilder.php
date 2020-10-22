@@ -19,8 +19,6 @@ use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class EntityClassBuilder implements BuilderInterface
 {
     /**

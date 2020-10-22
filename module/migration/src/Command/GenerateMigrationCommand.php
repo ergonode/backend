@@ -15,8 +15,6 @@ use Ergonode\Migration\Provider\MigrationConfigurationProvider;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- */
 class GenerateMigrationCommand extends AbstractCommand
 {
     private const FILENAME_TEMPLATE = '%s/Version%s.php';
@@ -68,9 +66,6 @@ class GenerateMigrationCommand extends AbstractCommand
         return $path;
     }
 
-    /**
-     *
-     */
     protected function configure(): void
     {
         parent::configure();

@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class StatusCreateFormModel
 {
     /**
@@ -69,8 +67,6 @@ class StatusCreateFormModel
      */
     public array $description;
 
-    /**
-     */
     public function __construct()
     {
         $this->code = null;

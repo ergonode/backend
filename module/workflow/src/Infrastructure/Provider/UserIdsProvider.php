@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UserIdsProvider
 {
     /**

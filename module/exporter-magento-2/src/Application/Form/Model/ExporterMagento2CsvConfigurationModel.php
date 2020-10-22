@@ -12,8 +12,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 
-/**
- */
 class ExporterMagento2CsvConfigurationModel
 {
     /**

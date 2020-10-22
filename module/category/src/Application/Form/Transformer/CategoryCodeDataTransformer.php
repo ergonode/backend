@@ -13,8 +13,6 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class CategoryCodeDataTransformer implements DataTransformerInterface
 {
     /**

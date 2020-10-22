@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
-/**
- */
 class NumericProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**

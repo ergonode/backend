@@ -20,8 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class MultimediaParamConverterTest extends TestCase
 {
     /**
@@ -44,8 +42,6 @@ class MultimediaParamConverterTest extends TestCase
      */
     private $storage;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
@@ -54,8 +50,6 @@ class MultimediaParamConverterTest extends TestCase
         $this->storage = $this->createMock(FilesystemInterface::class);
     }
 
-    /**
-     */
     public function testSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
@@ -65,8 +59,6 @@ class MultimediaParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testUnSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
@@ -76,8 +68,6 @@ class MultimediaParamConverterTest extends TestCase
         $this->assertFalse($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testEmptyParameter(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
@@ -87,8 +77,6 @@ class MultimediaParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testInvalidParameter(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
@@ -98,8 +86,6 @@ class MultimediaParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityNotExists(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
@@ -109,8 +95,6 @@ class MultimediaParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testFileNotExists(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\ConflictHttpException::class);
@@ -122,8 +106,6 @@ class MultimediaParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityExists(): void
     {
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());

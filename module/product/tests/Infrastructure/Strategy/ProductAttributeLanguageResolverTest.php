@@ -16,8 +16,6 @@ use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductAttributeLanguageResolverTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class ProductAttributeLanguageResolverTest extends TestCase
      */
     private Language $rootLanguage;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(LanguageQueryInterface::class);
@@ -40,8 +36,6 @@ class ProductAttributeLanguageResolverTest extends TestCase
         $this->query->method('getRootLanguage')->willReturn($this->rootLanguage);
     }
 
-    /**
-     */
     public function testResolveLocal(): void
     {
         $resolver = new ProductAttributeLanguageResolver($this->query);
@@ -54,8 +48,6 @@ class ProductAttributeLanguageResolverTest extends TestCase
         self::assertEquals($language, $result);
     }
 
-    /**
-     */
     public function testResolveGlobal(): void
     {
         $resolver = new ProductAttributeLanguageResolver($this->query);

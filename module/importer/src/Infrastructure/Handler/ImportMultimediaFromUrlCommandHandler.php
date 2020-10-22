@@ -15,8 +15,6 @@ use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportMultimediaFromUrlCommandHandler
 {
     /**

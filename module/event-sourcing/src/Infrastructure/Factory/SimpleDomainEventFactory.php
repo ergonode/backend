@@ -15,8 +15,6 @@ use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class SimpleDomainEventFactory implements DomainEventFactoryInterface
 {
     /**

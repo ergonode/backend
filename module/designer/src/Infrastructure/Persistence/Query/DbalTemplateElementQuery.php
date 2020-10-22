@@ -15,8 +15,6 @@ use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 
-/**
- */
 class DbalTemplateElementQuery implements TemplateElementQueryInterface
 {
     private const TABLE = 'designer.element_type';

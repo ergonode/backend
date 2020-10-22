@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreatePriceAttributeCommandTest extends TestCase
 {
     /**

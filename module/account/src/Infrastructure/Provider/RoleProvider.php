@@ -11,8 +11,6 @@ namespace Ergonode\Account\Infrastructure\Provider;
 
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 
-/**
- */
 class RoleProvider implements RoleProviderInterface
 {
     /**

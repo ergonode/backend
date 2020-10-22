@@ -17,8 +17,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ProductMultimediaRelation implements MultimediaRelationInterface
 {
     /**

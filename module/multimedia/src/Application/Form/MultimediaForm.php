@@ -16,8 +16,6 @@ use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Ergonode\Multimedia\Application\Model\MultimediaModel;
 
-/**
- */
 class MultimediaForm extends AbstractType
 {
     /**

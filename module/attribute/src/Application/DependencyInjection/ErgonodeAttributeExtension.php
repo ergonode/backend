@@ -19,8 +19,6 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFact
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 
-/**
- */
 class ErgonodeAttributeExtension extends Extension
 {
     /**

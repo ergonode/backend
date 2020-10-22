@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserExactlyCondition implements ConditionInterface
 {
     public const TYPE = 'USER_EXACTLY_CONDITION';

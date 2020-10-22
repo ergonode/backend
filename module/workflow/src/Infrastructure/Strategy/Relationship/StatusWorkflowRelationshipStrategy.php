@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
-/**
- */
 class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

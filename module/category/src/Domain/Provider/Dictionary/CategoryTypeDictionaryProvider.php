@@ -13,8 +13,6 @@ use Ergonode\Category\Application\Provider\CategoryTypeProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class CategoryTypeDictionaryProvider
 {
     /**

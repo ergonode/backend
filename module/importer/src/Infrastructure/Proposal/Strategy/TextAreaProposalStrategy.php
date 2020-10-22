@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextareaAttribute;
 
-/**
- */
 class TextAreaProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6ProductPriceTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class Shopware6ProductPriceTest extends TestCase
      */
     private bool $linked;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->currencyId = 'any_id';
@@ -45,8 +41,6 @@ class Shopware6ProductPriceTest extends TestCase
         $this->linked = true;
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6ProductPrice($this->currencyId, $this->net, $this->gross, $this->linked);
@@ -57,8 +51,6 @@ class Shopware6ProductPriceTest extends TestCase
         self::assertEquals($this->linked, $model->isLinked());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6ProductPrice($this->currencyId, $this->net, $this->gross, $this->linked);

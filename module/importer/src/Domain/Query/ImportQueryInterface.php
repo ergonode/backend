@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportErrorId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
-/**
- */
 interface ImportQueryInterface
 {
     /**

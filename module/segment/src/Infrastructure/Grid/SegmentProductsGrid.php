@@ -15,8 +15,6 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class SegmentProductsGrid extends AbstractGrid
 {
     /**

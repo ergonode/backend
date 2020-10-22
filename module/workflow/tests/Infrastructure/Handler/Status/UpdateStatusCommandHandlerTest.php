@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 
-/**
- */
 class UpdateStatusCommandHandlerTest extends TestCase
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
-/**
- */
 interface TransformerRepositoryInterface
 {
     /**

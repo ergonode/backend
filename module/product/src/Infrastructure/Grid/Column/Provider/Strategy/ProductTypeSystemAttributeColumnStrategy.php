@@ -11,8 +11,6 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
@@ -23,8 +21,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 
-/**
- */
 class ProductTypeSystemAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DeleteOptionCommand implements DomainCommandInterface
 {
     /**

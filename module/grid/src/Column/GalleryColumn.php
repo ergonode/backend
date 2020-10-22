@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
-/**
- */
 class GalleryColumn extends AbstractColumn
 {
     public const TYPE = 'GALLERY';

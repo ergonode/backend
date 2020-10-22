@@ -32,8 +32,6 @@ class AttributeElementPropertyTypeModel
      */
     public ?bool $required;
 
-    /**
-     */
     public function __construct()
     {
         $this->attributeId = null;

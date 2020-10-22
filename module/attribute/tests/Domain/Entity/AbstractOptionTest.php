@@ -16,8 +16,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class AbstractOptionTest extends TestCase
 {
     /**
@@ -41,8 +39,6 @@ class AbstractOptionTest extends TestCase
     private TranslatableString $label;
 
 
-    /**
-     */
     public function setUp(): void
     {
         $this->id = $this->createMock(AggregateId::class);

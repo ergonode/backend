@@ -15,12 +15,8 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChang
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionElementVisibleChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var ProductCollectionId |MockObject $id */

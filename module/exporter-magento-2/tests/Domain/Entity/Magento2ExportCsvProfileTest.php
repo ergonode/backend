@@ -14,8 +14,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class Magento2ExportCsvProfileTest extends TestCase
 {
     /**
@@ -37,8 +35,6 @@ class Magento2ExportCsvProfileTest extends TestCase
      */
     private Language $defaultLanguage;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -47,8 +43,6 @@ class Magento2ExportCsvProfileTest extends TestCase
         $this->defaultLanguage = $this->createMock(Language::class);
     }
 
-    /**
-     */
     public function testCreateEntity(): void
     {
         $entity = new Magento2CsvChannel(

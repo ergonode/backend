@@ -13,8 +13,6 @@ use Ergonode\Comment\Domain\Command\UpdateCommentCommand;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateCommentCommandHandler
 {
     /**

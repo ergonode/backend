@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Core\Domain\Event\UnitNameChangedEvent;
 
-/**
- */
 class DbalUnitNameChangedEventProjector
 {
     private const TABLE = 'unit';

@@ -12,8 +12,6 @@ namespace Ergonode\Segment\Domain\Repository;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
-/**
- */
 interface SegmentRepositoryInterface
 {
     /**

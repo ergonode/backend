@@ -15,8 +15,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 abstract class AbstractGridTestCase extends TestCase
 {
     /**

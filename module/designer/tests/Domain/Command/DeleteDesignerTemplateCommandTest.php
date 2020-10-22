@@ -12,12 +12,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteDesignerTemplateCommandTest extends TestCase
 {
-    /**
-     */
     public function testResultValues(): void
     {
         /** @var TemplateId|MockObject $id */

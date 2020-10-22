@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CreateUnitAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**

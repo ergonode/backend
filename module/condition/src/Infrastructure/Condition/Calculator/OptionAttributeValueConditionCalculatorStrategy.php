@@ -17,8 +17,6 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInter
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

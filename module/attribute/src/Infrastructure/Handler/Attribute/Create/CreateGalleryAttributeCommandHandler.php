@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCom
 use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
-/**
- */
 class CreateGalleryAttributeCommandHandler
 {
     /**

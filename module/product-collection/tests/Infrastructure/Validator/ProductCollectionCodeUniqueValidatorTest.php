@@ -17,8 +17,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -26,8 +24,6 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
      */
     private $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(ProductCollectionQueryInterface::class);
@@ -35,16 +31,12 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
     }
 
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new ProductCollectionCodeUnique());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -53,8 +45,6 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new ProductCollectionCodeUnique());
@@ -62,8 +52,6 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->validator->validate('code', new ProductCollectionCodeUnique());
@@ -71,8 +59,6 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCodeExistsValidation(): void
     {
         $collectionId = $this->createMock(ProductCollectionId::class);

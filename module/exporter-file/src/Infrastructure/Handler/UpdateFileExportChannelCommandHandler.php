@@ -12,8 +12,6 @@ use Ergonode\ExporterFile\Domain\Command\UpdateFileExportChannelCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class UpdateFileExportChannelCommandHandler
 {
     /**

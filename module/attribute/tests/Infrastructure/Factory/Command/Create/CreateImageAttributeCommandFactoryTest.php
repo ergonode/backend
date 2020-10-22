@@ -15,12 +15,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateImageAttribut
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 
-/**
- */
 class CreateImageAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateImageAttributeCommandFactory();
@@ -28,8 +24,6 @@ class CreateImageAttributeCommandFactoryTest extends AbstractCreateAttributeComm
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $data = $this->getAttributeFormModel(AttributeFormModel::class);

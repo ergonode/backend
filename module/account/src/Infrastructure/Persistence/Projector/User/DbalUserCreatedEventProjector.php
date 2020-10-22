@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalUserCreatedEventProjector
 {
     private const TABLE = 'users';

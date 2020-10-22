@@ -15,8 +15,6 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Filter\DateFilter;
 
-/**
- */
 class ExportErrorsGrid extends AbstractGrid
 {
     /**

@@ -18,8 +18,6 @@ use Ergonode\Exporter\Infrastructure\Persistence\Repository\Factory\DbalExportFa
 use Ergonode\Exporter\Infrastructure\Persistence\Repository\Mapper\DbalExportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class DbalExportRepository implements ExportRepositoryInterface
 {
     private const TABLE = 'exporter.export';

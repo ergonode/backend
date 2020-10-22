@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector;
 
-/**
- */
 interface HeaderProviderInterface
 {
     /**

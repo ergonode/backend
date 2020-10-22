@@ -14,12 +14,8 @@ use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\Notification\Infrastructure\Handler\MarkNotificationCommandHandler;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class MarkNotificationCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling(): void
     {
         $query = $this->createMock(NotificationQueryInterface::class);

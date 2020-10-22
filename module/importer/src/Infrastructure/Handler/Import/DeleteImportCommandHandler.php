@@ -12,8 +12,6 @@ use Ergonode\Importer\Domain\Command\Import\DeleteImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteImportCommandHandler
 {
     /**

@@ -12,8 +12,6 @@ namespace Ergonode\ProductCollection\Domain\Repository;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
-/**
- */
 interface ProductCollectionTypeRepositoryInterface
 {
     /**

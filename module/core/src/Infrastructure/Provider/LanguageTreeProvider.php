@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Mapper\LanguageTreeMapper;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- */
 class LanguageTreeProvider implements LanguageTreeProviderInterface
 {
     /**

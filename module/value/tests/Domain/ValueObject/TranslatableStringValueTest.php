@@ -14,12 +14,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TranslatableStringValueTest extends TestCase
 {
-    /**
-     */
     public function testValueCreation(): void
     {
         $array = ['en_GB' => 'english', 'pl_PL' => 'polish'];

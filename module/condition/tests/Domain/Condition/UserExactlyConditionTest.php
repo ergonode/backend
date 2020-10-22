@@ -14,12 +14,8 @@ use Ergonode\Condition\Domain\Condition\UserExactlyCondition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UserExactlyConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         /** @var UserId | MockObject $userId */

@@ -14,8 +14,6 @@ use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaR
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataReaderCompilerPass;
 
-/**
- */
 class ErgonodeMultimediaBundle extends AbstractModule
 {
     /**

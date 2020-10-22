@@ -19,8 +19,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -28,24 +26,18 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     private RoleQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(RoleQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new RoleNameUnique());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -54,8 +46,6 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $model = $this->createMock(RoleFormModel::class);
@@ -66,8 +56,6 @@ class RoleNameUniqueValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testRoleNameExistsValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();

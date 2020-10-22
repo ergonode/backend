@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class WorkflowFactoryTest extends TestCase
 {
     /**
@@ -28,16 +26,12 @@ class WorkflowFactoryTest extends TestCase
      */
     private string $code;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(WorkflowId::class);
         $this->code = 'Any code';
     }
 
-    /**
-     */
     public function testCreateObject(): void
     {
         $factory = new WorkflowFactory();

@@ -14,8 +14,6 @@ use Scn\DeeplApiConnector\DeeplClient;
 use Scn\DeeplApiConnector\Model\Translation;
 use Scn\DeeplApiConnector\Model\TranslationConfig;
 
-/**
- */
 class DeeplTranslationProvider implements TranslationProviderInterface
 {
     /**

@@ -10,10 +10,7 @@ namespace Ergonode\Notification\Infrastructure\Handler;
 
 use Ergonode\Notification\Domain\Command\MarkNotificationCommand;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
-use Ergonode\Notification\Infrastructure\Sender\NotificationMarker;
 
-/**
- */
 class MarkNotificationCommandHandler
 {
     /**

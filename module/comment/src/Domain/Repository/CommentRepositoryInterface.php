@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 
-/**
- */
 interface CommentRepositoryInterface
 {
     /**

@@ -18,8 +18,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
-/**
- */
 class ResponseFormatterListenerTest extends TestCase
 {
     /**
@@ -40,9 +38,6 @@ class ResponseFormatterListenerTest extends TestCase
         $this->event = $this->createMock(ResponseEvent::class);
     }
 
-    /**
-     *
-     */
     public function testInvokeSuccess(): void
     {
         $response = $this->createMock(AbstractResponse::class);
@@ -62,8 +57,6 @@ class ResponseFormatterListenerTest extends TestCase
         $listener($this->event);
     }
 
-    /**
-     */
     public function testInvokeWithWrongResponse(): void
     {
         $response = $this->createMock(JsonResponse::class);
@@ -73,8 +66,6 @@ class ResponseFormatterListenerTest extends TestCase
         $listener($this->event);
     }
 
-    /**
-     */
     public function testInvokeWithWrongContent(): void
     {
         $response = $this->createMock(AbstractResponse::class);

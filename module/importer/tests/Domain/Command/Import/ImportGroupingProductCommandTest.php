@@ -14,14 +14,9 @@ use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
-/**
- */
 class ImportGroupingProductCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

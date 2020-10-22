@@ -13,8 +13,6 @@ use Ergonode\Comment\Domain\Command\CreateCommentCommand;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CreateCommentCommandTest extends TestCase
 {
     /**

@@ -12,8 +12,6 @@ namespace Ergonode\EventSourcing\Infrastructure\Bus;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
-/**
- */
 class SymfonyQueryBus implements QueryBusInterface
 {
     /**

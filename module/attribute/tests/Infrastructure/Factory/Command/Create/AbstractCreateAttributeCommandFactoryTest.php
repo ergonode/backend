@@ -14,8 +14,6 @@ use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 
-/**
- */
 abstract class AbstractCreateAttributeCommandFactoryTest extends TestCase
 {
     /**

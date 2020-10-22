@@ -18,8 +18,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
     /**

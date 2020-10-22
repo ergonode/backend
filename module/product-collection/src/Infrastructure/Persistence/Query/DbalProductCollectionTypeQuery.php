@@ -18,8 +18,6 @@ use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
-/**
- */
 class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterface
 {
     private const PRODUCT_COLLECTION_TYPE_TABLE = 'product_collection_type';

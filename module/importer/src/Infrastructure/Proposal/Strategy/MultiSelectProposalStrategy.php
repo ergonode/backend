@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
-/**
- */
 class MultiSelectProposalStrategy implements AttributeProposalStrategyInterface
 {
     private const SEPARATOR = '|';

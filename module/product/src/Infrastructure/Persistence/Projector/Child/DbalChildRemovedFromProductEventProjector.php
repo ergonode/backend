@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
 
-/**
- */
 class DbalChildRemovedFromProductEventProjector
 {
     private const TABLE = 'product_children';

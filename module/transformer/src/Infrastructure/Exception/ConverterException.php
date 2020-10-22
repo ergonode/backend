@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Exception;
 
-/**
- */
 class ConverterException extends \Exception
 {
     /**

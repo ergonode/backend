@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ProvideConditionDictionaryCompilerPass implements CompilerPassInterface
 {
     /**

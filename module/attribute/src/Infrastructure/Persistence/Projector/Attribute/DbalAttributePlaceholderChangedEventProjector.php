@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalAttributePlaceholderChangedEventProjector
 {
     private const TABLE = 'value_translation';

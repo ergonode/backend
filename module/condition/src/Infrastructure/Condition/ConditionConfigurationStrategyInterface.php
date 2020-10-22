@@ -11,8 +11,6 @@ namespace Ergonode\Condition\Infrastructure\Condition;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface ConditionConfigurationStrategyInterface
 {
     /**

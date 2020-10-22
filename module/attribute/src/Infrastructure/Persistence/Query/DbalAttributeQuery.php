@@ -27,8 +27,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 class DbalAttributeQuery implements AttributeQueryInterface
 {
     private const TABLE = 'attribute';

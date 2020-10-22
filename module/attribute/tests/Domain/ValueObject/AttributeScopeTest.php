@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeScopeTest extends TestCase
 {
     /**

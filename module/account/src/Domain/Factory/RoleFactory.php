@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class RoleFactory
 {
     /**

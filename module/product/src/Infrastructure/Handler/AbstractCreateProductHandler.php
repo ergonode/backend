@@ -18,11 +18,8 @@ use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 
-/**
- */
 abstract class AbstractCreateProductHandler
 {
     /**

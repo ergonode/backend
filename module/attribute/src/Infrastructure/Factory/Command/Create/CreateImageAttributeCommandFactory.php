@@ -19,8 +19,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreateImageAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
     /**

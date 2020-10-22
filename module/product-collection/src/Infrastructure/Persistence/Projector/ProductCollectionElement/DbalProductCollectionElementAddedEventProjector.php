@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementAddedEvent;
 
-/**
- */
 class DbalProductCollectionElementAddedEventProjector
 {
     private const TABLE_ELEMENT = 'product_collection_element';

@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class CreateMagento1CsvSourceCommand implements DomainCommandInterface
 {
     /**

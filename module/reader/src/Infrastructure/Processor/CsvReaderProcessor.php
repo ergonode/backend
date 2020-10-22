@@ -13,8 +13,6 @@ use Ergonode\Reader\Infrastructure\FormatterInterface;
 use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 
-/**
- */
 class CsvReaderProcessor implements ReaderProcessorInterface
 {
     public const TYPE = 'csv';
@@ -85,8 +83,6 @@ class CsvReaderProcessor implements ReaderProcessorInterface
         }
     }
 
-    /**
-     */
     public function read(): \Traversable
     {
         while ($row = $this->getCSV()) {
@@ -105,8 +101,6 @@ class CsvReaderProcessor implements ReaderProcessorInterface
         }
     }
 
-    /**
-     */
     public function close(): void
     {
         fclose($this->file);

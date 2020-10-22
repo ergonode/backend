@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TransitionConditionSetChangedEvent implements DomainEventInterface
 {
     /**

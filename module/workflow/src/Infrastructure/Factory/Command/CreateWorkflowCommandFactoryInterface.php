@@ -11,8 +11,6 @@ namespace Ergonode\Workflow\Infrastructure\Factory\Command;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 interface CreateWorkflowCommandFactoryInterface
 {
     /**

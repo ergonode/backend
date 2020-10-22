@@ -10,8 +10,6 @@ namespace Ergonode\ExporterFile\Infrastructure\Provider;
 
 use Ergonode\ExporterFile\Infrastructure\Writer\WriterInterface;
 
-/**
- */
 class WriterTypeProvider
 {
     /**

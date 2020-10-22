@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class BoolColumnRenderer implements ColumnRendererInterface
 {
     /**

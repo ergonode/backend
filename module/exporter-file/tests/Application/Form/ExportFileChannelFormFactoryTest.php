@@ -16,8 +16,6 @@ use Ergonode\ExporterFile\Infrastructure\Dictionary\WriterTypeDictionary;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class ExportFileChannelFormFactoryTest extends TypeTestCase
 {
     /**
@@ -29,8 +27,6 @@ class ExportFileChannelFormFactoryTest extends TypeTestCase
      * @var LanguageQueryInterface|MockObject
      */
     private LanguageQueryInterface $query;
-    /**
-     */
     public function setUp(): void
     {
         $this->dictionary = $this->createMock(WriterTypeDictionary::class);
@@ -41,8 +37,6 @@ class ExportFileChannelFormFactoryTest extends TypeTestCase
         parent::setUp();
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

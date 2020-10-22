@@ -9,11 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Infrastructure\Builder\LanguageTree;
 
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 
-/**
- */
 class LanguageTreeBuilder
 {
     /**

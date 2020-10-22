@@ -13,8 +13,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
 
-/**
- */
 class UpdateSimpleProductCommandHandler extends AbstractUpdateProductHandler
 {
     /**

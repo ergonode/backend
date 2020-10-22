@@ -17,7 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Workflow\Application\Controller\Api\Status\StatusReadAction;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Status;
@@ -29,8 +28,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class ProductValueChangedEventHandler
 {
     /**

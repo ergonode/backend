@@ -16,8 +16,6 @@ use Ergonode\Comment\Infrastructure\Handler\CreateCommentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateCommentCommandHandlerTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class CreateCommentCommandHandlerTest extends TestCase
      */
     private $command;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->factory = $this->createMock(CommentFactory::class);
@@ -46,8 +42,6 @@ class CreateCommentCommandHandlerTest extends TestCase
         $this->command = $this->createMock(CreateCommentCommand::class);
     }
 
-    /**
-     */
     public function testHandling(): void
     {
         $handler = new CreateCommentCommandHandler($this->repository, $this->factory);

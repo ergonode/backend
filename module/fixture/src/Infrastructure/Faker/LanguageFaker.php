@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class LanguageFaker extends BaseProvider
 {
     private const ISO = [

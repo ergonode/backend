@@ -16,8 +16,6 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class UpdateGroupingProductCommand implements DomainCommandInterface
 {
     /**

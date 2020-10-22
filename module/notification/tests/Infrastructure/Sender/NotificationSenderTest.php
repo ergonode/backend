@@ -14,8 +14,6 @@ use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NotificationSenderTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class NotificationSenderTest extends TestCase
         $sender->send($notification, $recipients);
     }
 
-    /**
-     */
     public function testSendNotificationWithStrategy(): void
     {
         $recipients = [];

@@ -15,8 +15,6 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserPasswordChangedEvent implements DomainEventInterface
 {
     /**

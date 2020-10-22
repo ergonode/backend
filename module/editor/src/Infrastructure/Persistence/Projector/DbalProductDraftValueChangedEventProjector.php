@@ -19,8 +19,6 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalProductDraftValueChangedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';

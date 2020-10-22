@@ -11,8 +11,6 @@ namespace Ergonode\Designer\Application\Model\Form\Type\Property;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class SegmentElementPropertyTypeModel
 {
     /**
@@ -23,8 +21,6 @@ class SegmentElementPropertyTypeModel
      */
     public ?string $label;
 
-    /**
-     */
     public function __construct()
     {
         $this->label = null;

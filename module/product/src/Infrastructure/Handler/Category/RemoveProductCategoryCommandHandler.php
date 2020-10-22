@@ -12,8 +12,6 @@ use Ergonode\Product\Domain\Command\Category\RemoveProductCategoryCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class RemoveProductCategoryCommandHandler
 {
     /**

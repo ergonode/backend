@@ -15,8 +15,6 @@ use Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class PrivilegeDictionaryProvider
 {
     /**

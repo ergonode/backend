@@ -11,11 +11,8 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 
-/**
- */
 class DbalWorkflowDefaultStatusSetEventProjector
 {
     private const TABLE = 'workflow';

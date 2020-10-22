@@ -22,8 +22,6 @@ use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 
-/**
- */
 class GenerateImportCommandHandler
 {
     /**

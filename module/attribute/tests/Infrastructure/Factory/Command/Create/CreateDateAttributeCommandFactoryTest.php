@@ -16,12 +16,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateDateAttribute
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 
-/**
- */
 class CreateDateAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateDateAttributeCommandFactory();
@@ -29,8 +25,6 @@ class CreateDateAttributeCommandFactoryTest extends AbstractCreateAttributeComma
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         /** @var DateAttributeFormModel $data */

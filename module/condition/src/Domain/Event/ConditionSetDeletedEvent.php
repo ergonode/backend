@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ConditionSetDeletedEvent extends AbstractDeleteEvent
 {
     /**

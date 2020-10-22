@@ -16,12 +16,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTypeDictionaryProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingCategoryTypeDictionary(): void
     {
         /** @var TranslatorInterface | MockObject $translator */

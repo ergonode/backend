@@ -11,8 +11,6 @@ namespace Ergonode\Editor;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
-  */
 class ErgonodeEditorBundle extends AbstractModule
 {
 }

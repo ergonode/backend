@@ -10,8 +10,6 @@ namespace Ergonode\Workflow\Infrastructure\Provider;
 
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 
-/**
- */
 class CreateWorkflowCommandFactoryProvider
 {
     /**

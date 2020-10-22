@@ -10,11 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 
-/**
- */
 class DbalWorkflowTransitionAddedEventProjector
 {
     private const TABLE = 'workflow_transition';

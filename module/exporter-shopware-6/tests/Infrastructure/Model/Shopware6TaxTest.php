@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6TaxTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class Shopware6TaxTest extends TestCase
      */
     private string $name;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -39,8 +35,6 @@ class Shopware6TaxTest extends TestCase
         $this->rate = 23.3;
     }
 
-    /**
-     */
     public function testCreateModel()
     {
         $model = new Shopware6Tax($this->id, $this->rate, $this->name);
@@ -51,8 +45,6 @@ class Shopware6TaxTest extends TestCase
         $this->assertEquals($this->name, $model->getName());
     }
 
-    /**
-     */
     public function testSetModel()
     {
         $model = new Shopware6Tax();

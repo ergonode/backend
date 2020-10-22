@@ -11,8 +11,6 @@ namespace Ergonode\Category\Tests\Domain\ValueObject;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryCodeTest extends TestCase
 {
     /**

@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class OptionRemovedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var AggregateId $id */

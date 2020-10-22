@@ -11,8 +11,6 @@ namespace Ergonode\Category\Application\Model\Tree;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CategoryTreeUpdateFormModel
 {
     /**
@@ -35,8 +33,6 @@ class CategoryTreeUpdateFormModel
      */
     public array $categories;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

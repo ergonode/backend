@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class AbstractProductTest extends TestCase
 {
     /**
@@ -53,8 +51,6 @@ class AbstractProductTest extends TestCase
      */
     private TemplateId $templateId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);
@@ -66,8 +62,6 @@ class AbstractProductTest extends TestCase
         $this->templateId = $this->createMock(TemplateId::class);
     }
 
-    /**
-     */
     public function testConstruct(): void
     {
         $product = $this->getClass(
@@ -85,8 +79,6 @@ class AbstractProductTest extends TestCase
         $this::assertEquals($this->templateId, $product->getTemplateId());
     }
 
-    /**
-     */
     public function testConstructWitchBadCategoryObject(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -94,8 +86,6 @@ class AbstractProductTest extends TestCase
         $this->getClass($this->id, $this->sku, $this->templateId, $categories, []);
     }
 
-    /**
-     */
     public function testCategoryManipulation(): void
     {
         $this->category->method('isEqual')->willReturn(true);
@@ -107,8 +97,6 @@ class AbstractProductTest extends TestCase
         $this::assertEquals([$this->category], $product->getCategories());
     }
 
-    /**
-     */
     public function testAttributeManipulation(): void
     {
         $newValue = $this->createMock(ValueInterface::class);
@@ -130,8 +118,6 @@ class AbstractProductTest extends TestCase
         $this::assertEquals($this->attribute, $product->getAttribute($this->code));
     }
 
-    /**
-     */
     public function testRemoveNoteExistsAttribute(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -143,8 +129,6 @@ class AbstractProductTest extends TestCase
         $product->removeAttribute($this->code);
     }
 
-    /**
-     */
     public function testAddExistsAttribute(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -158,8 +142,6 @@ class AbstractProductTest extends TestCase
         $product->addAttribute($this->code, $this->attribute);
     }
 
-    /**
-     */
     public function testChangeNotExistsAttribute(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -173,8 +155,6 @@ class AbstractProductTest extends TestCase
         $product->changeAttribute($this->code, $this->attribute);
     }
 
-    /**
-     */
     public function testGetNotExistsAttribute(): void
     {
         $this->expectException(\RuntimeException::class);

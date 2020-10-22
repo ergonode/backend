@@ -21,8 +21,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 class CacheAttributeQueryDecorator implements AttributeQueryInterface
 {
     /**

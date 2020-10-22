@@ -10,8 +10,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Account\Domain\ValueObject\Password;
 
-/**
- */
 class PasswordFaker
 {
     /**

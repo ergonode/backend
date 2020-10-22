@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TemplateImageChangedEvent implements DomainEventInterface
 {
     /**

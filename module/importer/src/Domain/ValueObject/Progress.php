@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Domain\ValueObject;
 use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Progress
 {
     /**

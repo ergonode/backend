@@ -10,8 +10,6 @@ namespace Ergonode\Core\Application\Model\LanguageTree;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class LanguageTreeUpdateFormModel
 {
     /**
@@ -22,8 +20,6 @@ class LanguageTreeUpdateFormModel
      */
     public ?LanguageTreeNodeFormModel $languages;
 
-    /**
-     */
     public function __construct()
     {
         $this->languages = null;

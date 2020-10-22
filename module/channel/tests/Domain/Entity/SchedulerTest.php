@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class SchedulerTest extends TestCase
 {
     /**
@@ -22,8 +20,6 @@ class SchedulerTest extends TestCase
      */
     private AggregateId $id;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(AggregateId::class);

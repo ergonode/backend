@@ -13,8 +13,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 abstract class AbstractProductValueProjector
 {
     private const TABLE_PRODUCT_VALUE = 'product_value';

@@ -18,8 +18,6 @@ use Ergonode\Multimedia\Domain\Event\MultimediaAltChangedEvent;
 use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 abstract class AbstractMultimedia extends AbstractAggregateRoot
 {
     /**

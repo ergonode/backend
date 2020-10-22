@@ -15,12 +15,8 @@ use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeParametersProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingAttributeParameter(): void
     {
         $unit = $this->createMock(Unit::class);

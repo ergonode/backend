@@ -12,8 +12,6 @@ use Ergonode\Product\Domain\Command\DeleteProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteProductCommandTest extends TestCase
 {
     /**

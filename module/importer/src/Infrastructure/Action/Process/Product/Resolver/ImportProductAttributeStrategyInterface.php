@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
-/**
- */
 interface ImportProductAttributeStrategyInterface
 {
     /**

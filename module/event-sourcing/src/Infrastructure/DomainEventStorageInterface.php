@@ -12,8 +12,6 @@ namespace Ergonode\EventSourcing\Infrastructure;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface DomainEventStorageInterface
 {
     /**

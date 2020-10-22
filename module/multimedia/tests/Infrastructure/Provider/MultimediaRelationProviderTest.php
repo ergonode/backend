@@ -14,12 +14,8 @@ use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class MultimediaRelationProviderTest extends TestCase
 {
-    /**
-     */
     public function testProviderWithoutInterfaces(): void
     {
 
@@ -31,8 +27,6 @@ class MultimediaRelationProviderTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    /**
-     */
     public function testProviderWithInterfaces(): void
     {
         $interface = $this->createMock(MultimediaRelationInterface::class);

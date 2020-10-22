@@ -16,8 +16,6 @@ use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySkusFormMo
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-/**
- */
 class ProductChildBySkusForm extends AbstractType
 {
     /**

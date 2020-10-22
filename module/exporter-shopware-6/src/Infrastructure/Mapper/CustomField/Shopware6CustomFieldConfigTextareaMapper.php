@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 
-/**
- */
 class Shopware6CustomFieldConfigTextareaMapper implements Shopware6CustomFieldMapperInterface
 {
     private const TYPE = 'text';

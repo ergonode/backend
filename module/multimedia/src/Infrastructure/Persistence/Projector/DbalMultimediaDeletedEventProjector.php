@@ -12,8 +12,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
 
-/**
- */
 class DbalMultimediaDeletedEventProjector
 {
     private const TABLE = 'multimedia';

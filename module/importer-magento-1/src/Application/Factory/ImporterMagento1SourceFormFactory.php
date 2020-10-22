@@ -17,8 +17,6 @@ use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationMod
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class ImporterMagento1SourceFormFactory implements SourceFormFactoryInterface
 {
     /**

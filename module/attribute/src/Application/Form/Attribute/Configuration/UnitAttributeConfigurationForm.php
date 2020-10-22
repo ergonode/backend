@@ -14,8 +14,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Core\Application\Form\Type\UnitIdFormType;
 
-/**
- */
 class UnitAttributeConfigurationForm extends AbstractType
 {
     /**

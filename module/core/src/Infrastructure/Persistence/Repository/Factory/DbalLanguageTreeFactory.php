@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
-/**
- */
 class DbalLanguageTreeFactory
 {
     /**

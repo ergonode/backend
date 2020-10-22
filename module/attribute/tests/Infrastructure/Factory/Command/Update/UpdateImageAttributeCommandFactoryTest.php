@@ -16,12 +16,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateImageAttribut
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateImageAttributeCommand;
 
-/**
- */
 class UpdateImageAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdateImageAttributeCommandFactory();
@@ -29,8 +25,6 @@ class UpdateImageAttributeCommandFactoryTest extends AbstractUpdateAttributeComm
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $id = $this->createMock(AttributeId::class);

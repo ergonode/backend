@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductSkuExistsConditionCalculatorStrategy;
 
-/**
- */
 class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -25,9 +23,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
      */
     private ProductSkuExistsConditionCalculatorStrategy $strategy;
 
-    /**
-     *
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_SKU_EXISTS_CONDITION'));
@@ -182,9 +177,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
         ];
     }
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         $this->strategy = new ProductSkuExistsConditionCalculatorStrategy();

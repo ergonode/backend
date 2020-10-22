@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class StartShopware6ExportCommand implements DomainCommandInterface
 {
     /**

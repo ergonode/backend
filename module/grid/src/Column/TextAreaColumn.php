@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
-/**
- */
 class TextAreaColumn extends AbstractColumn
 {
     public const TYPE = 'TEXT_AREA';

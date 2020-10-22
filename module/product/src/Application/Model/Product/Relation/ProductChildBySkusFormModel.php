@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Product\Infrastructure\Validator\Sku;
 use Ergonode\Product\Infrastructure\Validator\ProductSkuExists;
 
-/**
- */
 class ProductChildBySkusFormModel
 {
     /**

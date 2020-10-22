@@ -12,8 +12,6 @@ namespace Ergonode\Api\Application\Response;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
-/**
- */
 class ExceptionResponse extends AbstractResponse
 {
     /**

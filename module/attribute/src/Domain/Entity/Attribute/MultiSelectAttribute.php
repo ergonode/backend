@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
-/**
- */
 class MultiSelectAttribute extends AbstractOptionAttribute
 {
     public const TYPE = 'MULTI_SELECT';

@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Editor\Domain\Event\ProductDraftApplied;
 
-/**
- */
 class DbalProductDraftAppliedEventProjector
 {
     private const PRODUCT_TABLE = 'product';

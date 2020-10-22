@@ -13,8 +13,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 interface AccountQueryInterface
 {
     /**

@@ -18,8 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\ImporterMagento1\Application\Form\Type\AttributeMapType;
 
-/**
- */
 class ImporterMagento1ConfigurationForm extends AbstractType
 {
     /**

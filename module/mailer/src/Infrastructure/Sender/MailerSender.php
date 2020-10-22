@@ -12,8 +12,6 @@ namespace Ergonode\Mailer\Infrastructure\Sender;
 use Ergonode\Mailer\Domain\MailInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class MailerSender
 {
     /**

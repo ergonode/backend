@@ -10,8 +10,6 @@ namespace Ergonode\Multimedia\Infrastructure\Service\Metadata\Reader;
 
 use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReaderInterface;
 
-/**
- */
 class XmpMetadataReader implements MetadataReaderInterface
 {
     /**

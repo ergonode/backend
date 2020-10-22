@@ -13,8 +13,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -22,8 +20,6 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
      */
     private $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(AttributeQueryInterface::class);
@@ -31,16 +27,12 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new AttributeCode());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -49,8 +41,6 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new AttributeCode());
@@ -58,8 +48,6 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->validator->validate('code', new AttributeCode());
@@ -67,8 +55,6 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testInCorrectValueValidation(): void
     {
         $constraint = new AttributeCode();
@@ -79,8 +65,6 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCodeExistsValidation(): void
     {
         $this->query->method('checkAttributeExistsByCode')->willReturn(true);

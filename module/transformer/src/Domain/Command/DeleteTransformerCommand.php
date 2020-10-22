@@ -12,8 +12,6 @@ namespace Ergonode\Transformer\Domain\Command;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
-/**
- */
 class DeleteTransformerCommand implements DomainCommandInterface
 {
     /**

@@ -14,8 +14,6 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6LanguageQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6LanguageQuery implements Shopware6LanguageQueryInterface
 {
     private const TABLE = 'exporter.shopware6_language';

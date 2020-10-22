@@ -12,8 +12,6 @@ use Ergonode\Product\Domain\Command\Category\AddProductCategoryCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class AddProductCategoryCommandHandler
 {
     /**

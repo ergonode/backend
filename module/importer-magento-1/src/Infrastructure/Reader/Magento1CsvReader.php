@@ -16,8 +16,6 @@ use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class Magento1CsvReader
 {
     /**
@@ -74,8 +72,6 @@ class Magento1CsvReader
         }
     }
 
-    /**
-     */
     public function close(): void
     {
         fclose($this->file);

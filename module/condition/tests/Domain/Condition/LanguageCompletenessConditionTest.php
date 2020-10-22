@@ -12,8 +12,6 @@ use Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition;
 use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class LanguageCompletenessConditionTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class LanguageCompletenessConditionTest extends TestCase
         $this->assertSame('LANGUAGE_COMPLETENESS_CONDITION', $condition->getType());
     }
 
-    /**
-     */
     public function testInvalidConditionCreation(): void
     {
         $this->expectException(\InvalidArgumentException::class);

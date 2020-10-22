@@ -11,8 +11,6 @@ namespace Ergonode\Category\Infrastructure\Provider;
 
 use Ergonode\Category\Infrastructure\Factory\Command\CreateCategoryCommandFactoryInterface;
 
-/**
- */
 class CreateCategoryCommandFactoryProvider
 {
     /**

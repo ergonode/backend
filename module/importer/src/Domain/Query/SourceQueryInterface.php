@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Domain\Query;
 
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface SourceQueryInterface
 {
     /**

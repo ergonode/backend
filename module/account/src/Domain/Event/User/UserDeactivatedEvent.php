@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserDeactivatedEvent implements DomainEventInterface
 {
     /**

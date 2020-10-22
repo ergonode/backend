@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\ValueObject;
 
-/**
- */
 class ImportStatus
 {
     public const CREATED = 'CREATED';

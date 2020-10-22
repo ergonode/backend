@@ -18,8 +18,6 @@ use Ergonode\Channel\Application\Provider\ChannelFormFactoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class ExportFileChannelFormFactory implements ChannelFormFactoryInterface
 {
     /**

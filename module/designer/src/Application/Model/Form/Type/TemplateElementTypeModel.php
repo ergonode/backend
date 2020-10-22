@@ -13,8 +13,6 @@ use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class TemplateElementTypeModel
 {
     /**
@@ -41,8 +39,6 @@ class TemplateElementTypeModel
      */
     public ?object $properties;
 
-    /**
-     */
     public function __construct()
     {
         $this->position = null;

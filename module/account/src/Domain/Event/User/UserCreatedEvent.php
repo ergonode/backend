@@ -18,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserCreatedEvent implements DomainEventInterface
 {
     /**

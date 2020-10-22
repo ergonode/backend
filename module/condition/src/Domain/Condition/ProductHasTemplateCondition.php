@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class ProductHasTemplateCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_HAS_TEMPLATE_CONDITION';

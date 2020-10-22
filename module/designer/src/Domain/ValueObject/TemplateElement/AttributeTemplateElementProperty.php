@@ -13,8 +13,6 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AttributeTemplateElementProperty implements TemplateElementPropertyInterface
 {
     public const VARIANT = 'attribute';

@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 use Money\Currency;
 
-/**
- */
 class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**

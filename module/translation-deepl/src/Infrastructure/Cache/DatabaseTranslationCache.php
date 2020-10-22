@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Infrastructure\Cache\CacheInterface;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- */
 class DatabaseTranslationCache implements CacheInterface
 {
     private const TABLE = 'translation_cache';

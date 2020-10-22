@@ -10,8 +10,6 @@ use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
-/**
- */
 interface AttributeGroupRepositoryInterface
 {
     /**

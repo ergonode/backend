@@ -9,12 +9,8 @@ namespace Ergonode\Grid\Tests\Column;
 use Ergonode\Grid\Column\ImageColumn;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ImageColumnTest extends TestCase
 {
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any id';

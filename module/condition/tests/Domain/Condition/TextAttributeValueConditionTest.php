@@ -14,12 +14,8 @@ use Ergonode\Condition\Domain\Condition\TextAttributeValueCondition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TextAttributeValueConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         /** @var AttributeId | MockObject $attributeId */

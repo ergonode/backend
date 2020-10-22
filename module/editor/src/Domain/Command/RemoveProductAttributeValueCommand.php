@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class RemoveProductAttributeValueCommand implements DomainCommandInterface
 {
     /**

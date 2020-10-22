@@ -12,8 +12,6 @@ namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalChannelMapper
 {
     /**

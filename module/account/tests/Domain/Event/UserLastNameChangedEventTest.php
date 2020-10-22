@@ -14,12 +14,8 @@ use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UserLastNameChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreateEvent(): void
     {
         /** @var UserId|MockObject $id */

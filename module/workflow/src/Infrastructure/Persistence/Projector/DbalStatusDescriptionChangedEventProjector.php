@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalStatusDescriptionChangedEventProjector
 {
     private const TABLE = 'status';

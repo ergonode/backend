@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Provider;
 
-/**
- */
 class SimpleDirectoryProvider implements DirectoryProviderInterface
 {
     public const MULTIMEDIA = 'public/multimedia';

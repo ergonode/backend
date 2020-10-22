@@ -16,8 +16,6 @@ use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- */
 class AddMultimediaCommandHandler
 {
     /**

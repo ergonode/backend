@@ -13,8 +13,6 @@ use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
 use Ergonode\Workflow\Domain\Factory\StatusFactory;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 
-/**
- */
 class CreateStatusCommandHandler
 {
     /**

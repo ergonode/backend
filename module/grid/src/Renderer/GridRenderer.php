@@ -15,8 +15,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 
-/**
- */
 class GridRenderer
 {
     /**

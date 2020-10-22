@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class StatusCreatedEvent implements DomainEventInterface
 {
     /**

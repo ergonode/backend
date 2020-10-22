@@ -15,12 +15,8 @@ use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StatusNameChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var StatusId | MockObject $id */

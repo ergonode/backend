@@ -11,8 +11,6 @@ namespace Ergonode\Designer\Domain\ValueObject;
 
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Position
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Core\Domain\ValueObject;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TranslatableString implements \IteratorAggregate
 {
     /**

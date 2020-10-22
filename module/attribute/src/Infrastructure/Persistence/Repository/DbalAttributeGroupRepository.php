@@ -18,8 +18,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
 {
     /**

@@ -12,8 +12,6 @@ namespace Ergonode\Attribute\Domain\View;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
-/**
- */
 class AttributeViewModel
 {
     /**

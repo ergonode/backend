@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductValueChangedEvent implements DomainEventInterface
 {
     /**

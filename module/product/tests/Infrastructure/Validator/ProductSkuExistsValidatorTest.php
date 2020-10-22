@@ -15,8 +15,6 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -24,32 +22,24 @@ class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
      */
     private ProductQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(ProductQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new ProductSkuExists());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate('Value', $this->createMock(Constraint::class));
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new ProductSkuExists());
@@ -57,8 +47,6 @@ class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
@@ -68,8 +56,6 @@ class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testInCorrectValueValidation(): void
     {
         $constraint = new ProductSkuExists();

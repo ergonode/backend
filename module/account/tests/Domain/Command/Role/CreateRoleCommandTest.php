@@ -13,12 +13,8 @@ use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateRoleCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         $name = 'Any name';

@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Faker\Provider\Base as BaseProvider;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
-/**
- */
 class AttributeTypeFaker extends BaseProvider
 {
     /**

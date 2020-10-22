@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 
-/**
- */
 class CreateLanguageTreeCommandHandler
 {
     /**

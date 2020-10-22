@@ -21,8 +21,6 @@ use Ergonode\ExporterFile\Infrastructure\Processor\TemplateProcessor;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Designer\Domain\Entity\Template;
 
-/**
- */
 class ProcessTemplateCommandHandler
 {
     /**

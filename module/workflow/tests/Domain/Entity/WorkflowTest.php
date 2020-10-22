@@ -12,8 +12,6 @@ use Ergonode\Workflow\Domain\Entity\Workflow;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 class WorkflowTest extends TestCase
 {
     /**

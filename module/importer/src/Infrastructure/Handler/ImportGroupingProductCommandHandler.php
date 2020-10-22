@@ -15,8 +15,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Infrastructure\Action\GroupingProductImportAction;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportGroupingProductCommandHandler
 {
     /**

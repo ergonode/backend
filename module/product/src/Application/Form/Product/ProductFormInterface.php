@@ -11,8 +11,6 @@ namespace Ergonode\Product\Application\Form\Product;
 
 use Symfony\Component\Form\FormTypeInterface;
 
-/**
- */
 interface ProductFormInterface extends FormTypeInterface
 {
     /**

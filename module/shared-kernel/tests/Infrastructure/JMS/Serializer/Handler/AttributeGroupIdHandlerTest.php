@@ -16,8 +16,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupIdHandlerTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class AttributeGroupIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new AttributeGroupIdHandler();
@@ -50,8 +46,6 @@ class AttributeGroupIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = AttributeGroupIdHandler::getSubscribingMethods();
@@ -63,8 +57,6 @@ class AttributeGroupIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = AttributeGroupId::generate();
@@ -73,8 +65,6 @@ class AttributeGroupIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = AttributeGroupId::generate();

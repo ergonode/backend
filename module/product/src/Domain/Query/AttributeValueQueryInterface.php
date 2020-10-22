@@ -10,8 +10,6 @@ namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 interface AttributeValueQueryInterface
 {
     /**

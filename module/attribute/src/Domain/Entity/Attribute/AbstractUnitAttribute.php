@@ -17,8 +17,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 abstract class AbstractUnitAttribute extends AbstractAttribute
 {
     public const TYPE = 'UNIT';

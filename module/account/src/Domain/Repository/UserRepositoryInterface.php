@@ -13,8 +13,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
-/**
- */
 interface UserRepositoryInterface
 {
     /**

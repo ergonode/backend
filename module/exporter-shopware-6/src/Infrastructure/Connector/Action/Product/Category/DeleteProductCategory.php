@@ -13,8 +13,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class DeleteProductCategory extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product/%s/categories/%s';

@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6PropertyGroupTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class Shopware6PropertyGroupTest extends TestCase
      */
     private string $sortingType;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -45,8 +41,6 @@ class Shopware6PropertyGroupTest extends TestCase
         $this->sortingType = 'numeric';
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6PropertyGroup($this->id, $this->name, $this->displayType, $this->sortingType);
@@ -58,8 +52,6 @@ class Shopware6PropertyGroupTest extends TestCase
         self::assertNotTrue($model->isModified());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6PropertyGroup(null, null);

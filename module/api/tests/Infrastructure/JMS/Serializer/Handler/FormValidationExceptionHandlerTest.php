@@ -12,12 +12,8 @@ namespace Ergonode\Api\Tests\Infrastructure\JMS\Serializer\Handler;
 use Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormValidationExceptionHandler;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class FormValidationExceptionHandlerTest extends TestCase
 {
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = FormValidationExceptionHandler::getSubscribingMethods();

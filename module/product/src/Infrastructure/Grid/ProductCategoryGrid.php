@@ -16,8 +16,6 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class ProductCategoryGrid extends AbstractGrid
 {
     /**

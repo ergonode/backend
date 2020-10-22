@@ -13,8 +13,6 @@ use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateSegmentCommandHandler
 {
     /**

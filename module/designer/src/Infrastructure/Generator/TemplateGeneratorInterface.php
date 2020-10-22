@@ -13,8 +13,6 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 interface TemplateGeneratorInterface
 {
     /**

@@ -20,8 +20,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateFileAttributeCommand;
 
-/**
- */
 class UpdateFileAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AttributeExistsCondition implements ConditionInterface
 {
     public const TYPE = 'ATTRIBUTE_EXISTS_CONDITION';

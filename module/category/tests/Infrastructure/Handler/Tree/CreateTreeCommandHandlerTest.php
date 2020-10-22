@@ -14,12 +14,8 @@ use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Infrastructure\Handler\Tree\CreateTreeCommandHandler;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateTreeCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling(): void
     {
         $repository = $this->createMock(TreeRepositoryInterface::class);

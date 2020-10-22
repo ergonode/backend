@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Loader;
 use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class FixtureLoader
 {
     private const PATH = '%s/Resources/fixtures/%s/fixture.yaml';

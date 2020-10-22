@@ -14,8 +14,6 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductOptionRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

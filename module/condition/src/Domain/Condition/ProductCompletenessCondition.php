@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductCompletenessCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_COMPLETENESS_CONDITION';

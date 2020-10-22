@@ -15,12 +15,8 @@ use Ergonode\Mailer\Domain\Sender;
 use Ergonode\Mailer\Domain\Template;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 final class MailTest extends TestCase
 {
-    /**
-     */
     public function testConstruct(): void
     {
         $recipient = $this->createMock(Recipient::class);

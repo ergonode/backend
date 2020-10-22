@@ -10,8 +10,6 @@ use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\FilterInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class LabelColumnTest extends TestCase
 {
     /**

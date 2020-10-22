@@ -12,8 +12,6 @@ namespace Ergonode\Core\Infrastructure\Persistence\Query\Builder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface;
 
-/**
- */
 class DbalDefaultLabelQueryBuilder implements DefaultLabelQueryBuilderInterface
 {
     /**

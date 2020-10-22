@@ -12,8 +12,6 @@ use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface ExportLineRepositoryInterface
 {
     /**

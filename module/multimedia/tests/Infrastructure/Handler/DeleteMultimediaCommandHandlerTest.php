@@ -14,12 +14,8 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Handler\DeleteMultimediaCommandHandler;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteMultimediaCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $command = $this->createMock(DeleteMultimediaCommand::class);

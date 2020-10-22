@@ -12,12 +12,8 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- */
 class ImportErrorTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

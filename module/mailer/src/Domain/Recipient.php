@@ -12,8 +12,6 @@ namespace Ergonode\Mailer\Domain;
 use Ergonode\SharedKernel\Domain\Collection\EmailCollection;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-/**
- */
 class Recipient
 {
     /**

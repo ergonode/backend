@@ -11,8 +11,6 @@ namespace Ergonode\SharedKernel\Domain;
 
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class AggregateId extends AbstractId
 {
     /**

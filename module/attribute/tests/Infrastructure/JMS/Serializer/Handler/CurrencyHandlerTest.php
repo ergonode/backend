@@ -15,8 +15,6 @@ use Money\Currency;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\CurrencyHandler;
 
-/**
- */
 class CurrencyHandlerTest extends TestCase
 {
     /**
@@ -38,8 +36,6 @@ class CurrencyHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new CurrencyHandler();
@@ -48,8 +44,6 @@ class CurrencyHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = CurrencyHandler::getSubscribingMethods();
@@ -61,8 +55,6 @@ class CurrencyHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = new Currency('PLN');
@@ -71,8 +63,6 @@ class CurrencyHandlerTest extends TestCase
         $this->assertEquals($id->getCode(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = new Currency('PLN');

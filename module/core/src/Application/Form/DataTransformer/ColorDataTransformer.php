@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class ColorDataTransformer implements DataTransformerInterface
 {
     /**

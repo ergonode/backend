@@ -23,8 +23,6 @@ use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Segment extends AbstractAggregateRoot
 {
     /**

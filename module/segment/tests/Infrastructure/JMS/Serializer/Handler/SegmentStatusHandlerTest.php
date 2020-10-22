@@ -16,8 +16,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SegmentStatusHandlerTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class SegmentStatusHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new SegmentStatusHandler();
@@ -50,8 +46,6 @@ class SegmentStatusHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = SegmentStatusHandler::getSubscribingMethods();
@@ -63,8 +57,6 @@ class SegmentStatusHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = SegmentStatus::OUTDATED;
@@ -74,8 +66,6 @@ class SegmentStatusHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = SegmentStatus::OUTDATED;

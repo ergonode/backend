@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class ColorFaker extends BaseProvider
 {
     /**

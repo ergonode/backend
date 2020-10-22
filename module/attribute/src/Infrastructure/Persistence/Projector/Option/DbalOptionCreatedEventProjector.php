@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalOptionCreatedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'public.attribute_option';

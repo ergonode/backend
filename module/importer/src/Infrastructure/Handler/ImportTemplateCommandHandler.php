@@ -15,8 +15,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\Importer\Infrastructure\Action\TemplateImportAction;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportTemplateCommandHandler
 {
     /**

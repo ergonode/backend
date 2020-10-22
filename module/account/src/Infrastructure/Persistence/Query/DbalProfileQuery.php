@@ -14,8 +14,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 class DbalProfileQuery implements ProfileQueryInterface
 {
     private const TABLE = 'users';

@@ -15,8 +15,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
-/**
- */
 class UpdateTextAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     /**

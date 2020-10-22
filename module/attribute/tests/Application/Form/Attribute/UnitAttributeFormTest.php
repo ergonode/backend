@@ -20,8 +20,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class UnitAttributeFormTest extends TypeTestCase
 {
     /**
@@ -34,9 +32,6 @@ class UnitAttributeFormTest extends TypeTestCase
      */
     private UnitQueryInterface $unitQuery;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         $this->groupQuery = $this->createMock(AttributeGroupQueryInterface::class);
@@ -52,8 +47,6 @@ class UnitAttributeFormTest extends TypeTestCase
         parent::setUp();
     }
 
-    /**
-     */
     public function testSupport(): void
     {
         $form = new UnitAttributeForm();
@@ -61,8 +54,6 @@ class UnitAttributeFormTest extends TypeTestCase
         $this->assertFalse($form->supported('unsupported type'));
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

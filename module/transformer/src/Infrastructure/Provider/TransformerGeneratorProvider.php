@@ -11,8 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Provider;
 
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 
-/**
- */
 class TransformerGeneratorProvider
 {
     /**

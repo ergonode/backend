@@ -15,12 +15,8 @@ use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StatusColorChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var StatusId | MockObject $id */

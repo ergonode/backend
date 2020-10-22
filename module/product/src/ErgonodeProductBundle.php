@@ -18,8 +18,6 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductUpdateC
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductTypeCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductFormCompilerPass;
 
-/**
- */
 class ErgonodeProductBundle extends AbstractModule
 {
     /**

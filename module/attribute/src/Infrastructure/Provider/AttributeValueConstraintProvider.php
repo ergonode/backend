@@ -12,8 +12,6 @@ namespace Ergonode\Attribute\Infrastructure\Provider;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Component\Validator\Constraint;
 
-/**
- */
 class AttributeValueConstraintProvider
 {
     /**

@@ -13,12 +13,8 @@ use Ergonode\Grid\Request\FilterValue;
 use Ergonode\Grid\Request\FilterValueCollection;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class FilterCollectionTest extends TestCase
 {
-    /**
-     */
     public function testCreateCollection(): void
     {
         $string = 'key1=value1;key2=value2,value3;key3:pl_PL=value4';

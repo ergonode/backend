@@ -14,8 +14,6 @@ use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateRoleCommandHandler
 {
     /**

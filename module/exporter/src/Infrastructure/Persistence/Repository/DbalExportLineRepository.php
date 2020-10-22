@@ -20,8 +20,6 @@ use Ergonode\Exporter\Infrastructure\Persistence\Repository\Mapper\DbalExportLin
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalExportLineRepository implements ExportLineRepositoryInterface
 {
     private const TABLE = 'exporter.export_line';

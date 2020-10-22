@@ -14,8 +14,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
-/**
- */
 class OptionCodeChangedEvent implements DomainEventInterface
 {
     /**

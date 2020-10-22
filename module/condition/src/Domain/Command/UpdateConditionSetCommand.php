@@ -15,8 +15,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateConditionSetCommand implements DomainCommandInterface
 {
     /**

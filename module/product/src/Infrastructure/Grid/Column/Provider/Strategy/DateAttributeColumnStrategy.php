@@ -16,8 +16,6 @@ use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\DateFilter;
 
-/**
- */
 class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

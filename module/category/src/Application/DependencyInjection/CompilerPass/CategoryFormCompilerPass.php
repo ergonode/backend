@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class CategoryFormCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'category.form.category_form_interface';

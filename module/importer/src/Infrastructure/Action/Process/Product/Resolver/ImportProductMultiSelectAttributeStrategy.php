@@ -19,8 +19,6 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 
-/**
- */
 class ImportProductMultiSelectAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
     /**

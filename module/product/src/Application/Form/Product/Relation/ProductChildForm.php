@@ -15,8 +15,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
 
-/**
- */
 class ProductChildForm extends AbstractType
 {
     /**

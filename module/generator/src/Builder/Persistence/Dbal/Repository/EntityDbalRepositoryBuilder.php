@@ -19,8 +19,6 @@ use Ergonode\Generator\Builder\PropertyBuilder;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class EntityDbalRepositoryBuilder implements BuilderInterface
 {
     /**

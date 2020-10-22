@@ -14,8 +14,6 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateProductCollectionTypeCommandHandler
 {
     /**

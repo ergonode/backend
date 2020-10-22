@@ -18,8 +18,6 @@ use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

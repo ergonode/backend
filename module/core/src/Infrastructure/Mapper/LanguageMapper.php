@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Mapper;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageMapper
 {
     /**

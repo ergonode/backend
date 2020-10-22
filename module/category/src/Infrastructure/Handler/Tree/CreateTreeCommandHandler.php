@@ -13,8 +13,6 @@ use Ergonode\Category\Domain\Command\Tree\CreateTreeCommand;
 use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 
-/**
- */
 class CreateTreeCommandHandler
 {
     /**

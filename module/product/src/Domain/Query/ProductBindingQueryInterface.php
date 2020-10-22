@@ -11,8 +11,6 @@ namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 interface ProductBindingQueryInterface
 {
     /**

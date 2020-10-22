@@ -17,8 +17,6 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -26,24 +24,18 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
      */
     private AttributeRepositoryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(AttributeRepositoryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), new AttributeTypeValid());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -52,8 +44,6 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new AttributeTypeValid());
@@ -61,8 +51,6 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testAttributeTypeValidation(): void
     {
         $value = '0ae3491f-8052-402d-b84b-b2b36f673669';
@@ -73,8 +61,6 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testAttributeIdInvalidValidation(): void
     {
         $value = 'fes//efs..';
@@ -84,8 +70,6 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testAttributeTypeNotMatchValidation(): void
     {
         $value = '0ae3491f-8052-402d-b84b-b2b36f673669';

@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Provider;
 
-/**
- */
 interface ProductSupportProviderInterface
 {
     /**

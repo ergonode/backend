@@ -14,8 +14,6 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- */
 class ProductCollectionElementCreateFormModel
 {
     /**

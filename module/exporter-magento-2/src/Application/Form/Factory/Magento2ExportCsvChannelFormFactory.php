@@ -17,8 +17,6 @@ use Ergonode\Channel\Application\Provider\ChannelFormFactoryInterface;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class Magento2ExportCsvChannelFormFactory implements ChannelFormFactoryInterface
 {
     /**

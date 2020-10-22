@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class BindAddedToProductEvent implements DomainEventInterface
 {
     /**

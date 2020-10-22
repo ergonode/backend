@@ -11,8 +11,6 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 
-/**
- */
 interface TransformerGeneratorStrategyInterface
 {
     /**

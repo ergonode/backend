@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class TransitionRoleIdsChangedEvent implements DomainEventInterface
 {
     /**

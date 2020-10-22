@@ -15,8 +15,6 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ChangeUserPasswordCommandHandler
 {
     /**

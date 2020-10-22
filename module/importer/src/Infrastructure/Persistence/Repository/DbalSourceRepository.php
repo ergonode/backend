@@ -20,8 +20,6 @@ use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalSourceFa
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalSourceMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
-/**
- */
 class DbalSourceRepository implements SourceRepositoryInterface
 {
     private const TABLE = 'importer.source';

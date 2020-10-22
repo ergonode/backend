@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent;
 
-/**
- */
 class DbalBindAddedToProductEventProjector
 {
     private const TABLE = 'product_binding';

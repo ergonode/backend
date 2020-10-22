@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 
-/**
- */
 class AddProductChildCommand implements DomainCommandInterface
 {
     /**

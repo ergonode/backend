@@ -16,8 +16,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionElementFromSegmentsFormModel;
 
-/**
- */
 class ProductCollectionElementFromSegmentsForm extends AbstractType
 {
     /**

@@ -10,8 +10,6 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 interface Shopware6TaxRepositoryInterface
 {
     /**

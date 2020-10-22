@@ -23,8 +23,6 @@ use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Filter\NumericFilter;
 
-/**
- */
 class SourceGrid extends AbstractGrid
 {
     /**

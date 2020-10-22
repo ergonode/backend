@@ -18,8 +18,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class EventStoreManager
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Multimedia\Infrastructure\Provider;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class MultimediaRelationProvider
 {
     /**

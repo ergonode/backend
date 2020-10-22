@@ -20,8 +20,6 @@ use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class TemplateCommandFactory
 {
     /**

@@ -9,8 +9,6 @@ namespace Ergonode\Channel\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 interface SchedulerQueryInterface
 {
     /**

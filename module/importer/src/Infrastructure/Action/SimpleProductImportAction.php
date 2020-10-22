@@ -21,8 +21,6 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 
-/**
- */
 class SimpleProductImportAction
 {
     /**

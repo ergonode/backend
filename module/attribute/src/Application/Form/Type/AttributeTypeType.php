@@ -16,8 +16,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
-/**
- */
 class AttributeTypeType extends AbstractType
 {
     /**

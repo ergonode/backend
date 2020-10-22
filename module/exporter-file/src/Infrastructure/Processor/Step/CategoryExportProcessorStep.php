@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class CategoryExportProcessorStep implements ExportStepProcessInterface
 {
     /**

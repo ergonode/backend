@@ -12,12 +12,8 @@ use Ergonode\Importer\Domain\Command\Import\DeleteImportCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteImportCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

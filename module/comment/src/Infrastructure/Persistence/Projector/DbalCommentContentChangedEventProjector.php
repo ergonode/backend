@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 
-/**
- */
 class DbalCommentContentChangedEventProjector
 {
     private const TABLE = 'comment';

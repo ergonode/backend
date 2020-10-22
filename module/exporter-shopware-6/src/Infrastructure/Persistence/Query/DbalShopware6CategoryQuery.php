@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
 {
     private const TABLE = 'exporter.shopware6_category';

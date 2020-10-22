@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class UnitFormValidator extends ConstraintValidator
 {
     /**
@@ -58,7 +56,7 @@ class UnitFormValidator extends ConstraintValidator
      */
     private function validateName($value, Constraint $constraint)
     {
-        if (!isset($value->name) || null == $value->name) {
+        if (!isset($value->name) || null === $value->name) {
             $this->context->buildViolation($constraint->emptyNameMessage)
                 ->atPath('name')
                 ->addViolation();
@@ -66,6 +64,7 @@ class UnitFormValidator extends ConstraintValidator
             return;
         }
         $unitIdByName = $this->query->findIdByName($value->name);
+        // phpcs:ignore
         if (null !== $unitIdByName && $unitIdByName != $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueNameMessage)
                 ->atPath('name')
@@ -87,7 +86,7 @@ class UnitFormValidator extends ConstraintValidator
             return;
         }
         $unitIdBySymbol = $this->query->findIdByCode($value->symbol);
-        if (null !== $unitIdBySymbol && $unitIdBySymbol != $value->getUnitId()) {
+        if (null !== $unitIdBySymbol && $unitIdBySymbol !== $value->getUnitId()) {
             $this->context->buildViolation($constraint->uniqueSymbolMessage)
                 ->atPath('symbol')
                 ->addViolation();

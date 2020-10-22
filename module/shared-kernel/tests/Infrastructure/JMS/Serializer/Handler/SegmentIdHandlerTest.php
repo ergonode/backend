@@ -17,8 +17,6 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class SegmentIdHandlerTest extends TestCase
 {
     /**
@@ -41,8 +39,6 @@ class SegmentIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new SegmentIdHandler();
@@ -51,8 +47,6 @@ class SegmentIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = SegmentIdHandler::getSubscribingMethods();
@@ -64,8 +58,6 @@ class SegmentIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = Uuid::uuid4()->toString();
@@ -75,8 +67,6 @@ class SegmentIdHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = Uuid::uuid4()->toString();

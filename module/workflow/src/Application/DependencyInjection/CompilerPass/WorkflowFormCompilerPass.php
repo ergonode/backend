@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class WorkflowFormCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'workflow.form.workflow_form_interface';

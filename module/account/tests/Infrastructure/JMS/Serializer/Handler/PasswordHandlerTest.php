@@ -17,8 +17,6 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PasswordHandlerTest extends TestCase
 {
     private const DECODED = 'test_value';
@@ -44,8 +42,6 @@ class PasswordHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new PasswordHandler();
@@ -54,8 +50,6 @@ class PasswordHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = PasswordHandler::getSubscribingMethods();
@@ -67,8 +61,6 @@ class PasswordHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         /** @var Password|MockObject $code */
@@ -79,8 +71,6 @@ class PasswordHandlerTest extends TestCase
         $this->assertEquals(self::ENCODED, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $result = $this->handler->deserialize($this->deserializerVisitor, self::ENCODED, [], $this->context);

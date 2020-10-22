@@ -16,8 +16,6 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 
-/**
- */
 class AddProductBindingCommandHandler
 {
     /**

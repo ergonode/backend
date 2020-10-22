@@ -13,8 +13,6 @@ use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteCommentCommandHandler
 {
     /**
