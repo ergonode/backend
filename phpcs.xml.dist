@@ -31,6 +31,10 @@
         </properties>
     </rule>
 
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation" />
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation" />
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation" />
+
     <!-- Directories to be checked -->
     <file>config/</file>
     <file>public/</file>
