@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TemplateCreatedEvent implements DomainEventInterface
 {
     /**

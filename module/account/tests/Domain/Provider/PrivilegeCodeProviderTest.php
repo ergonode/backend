@@ -14,12 +14,8 @@ use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeCodeProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingPrivilegeCode(): void
     {
         /** @var PrivilegeQueryInterface | MockObject $query */

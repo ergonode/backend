@@ -13,8 +13,6 @@ use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterMagento1\Domain\Command\UpdateMagento1CsvSourceCommand;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 
-/**
- */
 class UpdateMagento1CsvSourceCommandHandler
 {
     /**

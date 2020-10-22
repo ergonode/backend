@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ImageAttributeTest extends TestCase
 {
     /**
@@ -50,8 +48,6 @@ class ImageAttributeTest extends TestCase
      */
     private AttributeScope $scope;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(AttributeId::class);

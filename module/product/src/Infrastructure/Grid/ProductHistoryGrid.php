@@ -19,8 +19,6 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
 
-/**
- */
 class ProductHistoryGrid extends AbstractGrid
 {
     /**

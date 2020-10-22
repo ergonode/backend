@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class FileExportChannelTest extends TestCase
 {
     /**
@@ -37,8 +35,6 @@ class FileExportChannelTest extends TestCase
      */
     private string $exportType;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);

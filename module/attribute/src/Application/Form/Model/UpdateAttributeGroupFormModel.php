@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Application\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class UpdateAttributeGroupFormModel
 {
     /**
@@ -28,8 +26,6 @@ class UpdateAttributeGroupFormModel
      */
     public array $name;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

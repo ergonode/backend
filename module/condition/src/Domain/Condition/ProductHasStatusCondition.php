@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductHasStatusCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_HAS_STATUS_CONDITION';

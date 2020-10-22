@@ -18,8 +18,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
-/**
- */
 class WorkflowProviderTest extends TestCase
 {
     /**
@@ -47,9 +45,6 @@ class WorkflowProviderTest extends TestCase
      */
     private $workflowId;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(WorkflowRepositoryInterface::class);
@@ -59,8 +54,6 @@ class WorkflowProviderTest extends TestCase
         $this->workflowId = $this->createMock(WorkflowId::class);
     }
 
-    /**
-     */
     public function testProvideExistsObject(): void
     {
         $this->query->method('findWorkflowIdByCode')->willReturn($this->workflowId);
@@ -71,8 +64,6 @@ class WorkflowProviderTest extends TestCase
         $this->assertEquals($this->workflow, $workflow);
     }
 
-    /**
-     */
     public function testProvideNonExistsObject(): void
     {
         $this->query->method('findWorkflowIdByCode')->willReturn(null);

@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalConditionSetConditionsChangedEventProjector
 {
     private const TABLE = 'condition_set';

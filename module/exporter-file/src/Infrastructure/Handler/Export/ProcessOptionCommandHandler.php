@@ -21,8 +21,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand;
 use Ergonode\ExporterFile\Infrastructure\Processor\OptionProcessor;
 
-/**
- */
 class ProcessOptionCommandHandler
 {
     /**

@@ -19,8 +19,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class SegmentGrid extends AbstractGrid
 {
     /**

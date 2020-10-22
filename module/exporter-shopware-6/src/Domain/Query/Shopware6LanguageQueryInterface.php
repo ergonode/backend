@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 interface Shopware6LanguageQueryInterface
 {
     /**

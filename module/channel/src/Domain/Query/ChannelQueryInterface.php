@@ -10,8 +10,6 @@ namespace Ergonode\Channel\Domain\Query;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface ChannelQueryInterface
 {
     /**

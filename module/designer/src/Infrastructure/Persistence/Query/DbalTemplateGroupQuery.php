@@ -16,8 +16,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 
-/**
- */
 class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
 {
     private const TABLE = 'designer.template_group';

@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 
-/**
- */
 class GalleryAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

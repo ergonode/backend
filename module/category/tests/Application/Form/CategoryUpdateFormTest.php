@@ -12,12 +12,8 @@ use Ergonode\Category\Application\Form\CategoryForm;
 use Ergonode\Category\Application\Model\CategoryFormModel;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class CategoryUpdateFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

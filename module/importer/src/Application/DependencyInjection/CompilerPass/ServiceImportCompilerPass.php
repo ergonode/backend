@@ -14,9 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Importer\Infrastructure\Provider\ImportProcessorProvider;
 
-/**
- *
- */
 class ServiceImportCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.service.source_import_interface';

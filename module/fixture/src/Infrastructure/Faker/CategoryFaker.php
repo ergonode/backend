@@ -11,8 +11,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class CategoryFaker extends BaseProvider
 {
     public const CATEGORIES = [

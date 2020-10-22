@@ -12,8 +12,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface AttributeDataSetQueryBuilderInterface
 {
     /**

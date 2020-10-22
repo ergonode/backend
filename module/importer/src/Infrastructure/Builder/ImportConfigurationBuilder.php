@@ -17,8 +17,6 @@ use Ergonode\Importer\Infrastructure\Configuration\Column\ProposalColumn;
 use Ergonode\Importer\Infrastructure\Configuration\Column\AttributeColumn;
 use Ergonode\Importer\Infrastructure\Configuration\Column\ConfigurationColumnInterface;
 
-/**
- */
 class ImportConfigurationBuilder
 {
     /**

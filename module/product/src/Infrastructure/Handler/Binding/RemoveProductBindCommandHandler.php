@@ -16,8 +16,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 
-/**
- */
 class RemoveProductBindCommandHandler
 {
     /**

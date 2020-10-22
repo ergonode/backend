@@ -14,8 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-/**
- */
 class ProductCreatedEventHandler implements MessageSubscriberInterface
 {
     /**

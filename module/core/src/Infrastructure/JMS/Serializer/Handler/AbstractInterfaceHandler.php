@@ -15,8 +15,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Metadata\VirtualPropertyMetadata;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 
-/**
- */
 abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
 {
     /**

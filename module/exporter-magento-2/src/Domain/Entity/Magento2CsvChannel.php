@@ -14,8 +14,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class Magento2CsvChannel extends AbstractChannel
 {
     public const TYPE = 'magento-2-csv';

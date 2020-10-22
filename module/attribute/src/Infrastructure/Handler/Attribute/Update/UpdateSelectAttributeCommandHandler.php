@@ -15,8 +15,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateSelectAttributeCommand;
 
-/**
- */
 class UpdateSelectAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     /**
@@ -33,11 +31,11 @@ class UpdateSelectAttributeCommandHandler extends AbstractUpdateAttributeCommand
     }
 
     /**
-     * @param UpdateselectAttributeCommand $command
+     * @param UpdateSelectAttributeCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(UpdateselectAttributeCommand $command): void
+    public function __invoke(UpdateSelectAttributeCommand $command): void
     {
         /** @var SelectAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());

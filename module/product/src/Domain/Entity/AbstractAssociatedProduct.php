@@ -15,8 +15,6 @@ use Ergonode\Product\Domain\Event\Relation\ChildAddedToProductEvent;
 use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
 use Webmozart\Assert\Assert;
 
-/**
- */
 abstract class AbstractAssociatedProduct extends AbstractProduct
 {
     /**

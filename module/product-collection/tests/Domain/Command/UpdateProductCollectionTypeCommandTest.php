@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateProductCollectionTypeCommandTest extends TestCase
 {
     /**

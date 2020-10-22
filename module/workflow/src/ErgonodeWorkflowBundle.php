@@ -15,8 +15,6 @@ use Ergonode\Workflow\Application\DependencyInjection\ErgonodeWorkflowExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Workflow\Application\DependencyInjection\CompilerPass;
 
-/**
- */
 class ErgonodeWorkflowBundle extends AbstractModule
 {
     /**

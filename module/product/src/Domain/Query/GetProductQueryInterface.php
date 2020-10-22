@@ -12,8 +12,6 @@ namespace Ergonode\Product\Domain\Query;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 interface GetProductQueryInterface
 {
     /**

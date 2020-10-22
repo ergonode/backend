@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class AddProductChildrenBySegmentsCommand implements DomainCommandInterface
 {
     /**

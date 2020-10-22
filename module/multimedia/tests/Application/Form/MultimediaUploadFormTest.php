@@ -12,12 +12,8 @@ use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class MultimediaUploadFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

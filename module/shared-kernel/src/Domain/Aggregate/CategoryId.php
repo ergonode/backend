@@ -11,8 +11,6 @@ namespace Ergonode\SharedKernel\Domain\Aggregate;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class CategoryId extends AggregateId
 {
 }

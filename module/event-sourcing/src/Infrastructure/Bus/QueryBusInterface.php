@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
-/**
- */
 interface QueryBusInterface
 {
     /**

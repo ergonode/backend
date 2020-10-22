@@ -16,8 +16,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -25,15 +23,11 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
      */
     private ProductBelongCategoryConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->strategy = new ProductBelongCategoryConditionCalculatorStrategy();
     }
 
-    /**
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_BELONG_CATEGORY_CONDITION'));

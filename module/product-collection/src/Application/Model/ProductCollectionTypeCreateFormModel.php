@@ -14,8 +14,6 @@ use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductColle
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionTypeCodeValid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductCollectionTypeCreateFormModel
 {
     /**
@@ -49,8 +47,6 @@ class ProductCollectionTypeCreateFormModel
      * })
      */
     public array $name;
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

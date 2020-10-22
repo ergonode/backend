@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- */
 class ImportError
 {
     /**

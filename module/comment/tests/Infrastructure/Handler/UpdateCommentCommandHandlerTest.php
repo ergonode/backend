@@ -15,8 +15,6 @@ use Ergonode\Comment\Infrastructure\Handler\UpdateCommentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateCommentCommandHandlerTest extends TestCase
 {
     /**
@@ -29,8 +27,6 @@ class UpdateCommentCommandHandlerTest extends TestCase
      */
     private $command;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(CommentRepositoryInterface::class);
@@ -38,8 +34,6 @@ class UpdateCommentCommandHandlerTest extends TestCase
         $this->command = $this->createMock(UpdateCommentCommand::class);
     }
 
-    /**
-     */
     public function testHandlingExistsObject(): void
     {
         $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(Comment::class));
@@ -48,8 +42,6 @@ class UpdateCommentCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testHandlingCommentExistsObject(): void
     {
         $this->expectException(\InvalidArgumentException::class);

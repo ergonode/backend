@@ -16,8 +16,6 @@ use Ergonode\ProductCollection\Application\Model\ProductCollectionElementFromSku
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-/**
- */
 class ProductCollectionElementFromSkusForm extends AbstractType
 {
     /**

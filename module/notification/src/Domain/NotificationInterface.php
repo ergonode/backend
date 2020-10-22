@@ -10,8 +10,6 @@ namespace Ergonode\Notification\Domain;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 interface NotificationInterface
 {
     /**

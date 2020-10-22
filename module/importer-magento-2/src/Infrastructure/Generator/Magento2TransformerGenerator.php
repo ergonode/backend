@@ -16,8 +16,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 
-/**
- */
 class Magento2TransformerGenerator implements TransformerGeneratorStrategyInterface
 {
     /**

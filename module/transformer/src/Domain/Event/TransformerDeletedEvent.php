@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TransformerDeletedEvent extends AbstractDeleteEvent
 {
     /**

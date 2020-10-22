@@ -20,8 +20,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 
-/**
- */
 class Shopware6CustomFieldClient
 {
     /**

@@ -17,8 +17,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
-/**
- */
 class DbalConditionSetQuery implements ConditionSetQueryInterface
 {
     private const TABLE = 'condition_set';

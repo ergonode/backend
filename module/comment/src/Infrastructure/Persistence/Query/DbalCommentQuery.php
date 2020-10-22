@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 
-/**
- */
 class DbalCommentQuery implements CommentQueryInterface
 {
     private const COMMENT_TABLE = 'comment';

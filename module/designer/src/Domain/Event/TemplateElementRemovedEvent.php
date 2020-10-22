@@ -14,8 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TemplateElementRemovedEvent implements DomainEventInterface
 {
     /**

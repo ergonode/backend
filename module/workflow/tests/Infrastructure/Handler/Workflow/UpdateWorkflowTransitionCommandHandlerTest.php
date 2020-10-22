@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 
-/**
- */
 class UpdateWorkflowTransitionCommandHandlerTest extends TestCase
 {
     /**

@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
-/**
- */
 class OptionAttributeValueConstraintStrategyTest extends TestCase
 {
     /**
@@ -31,8 +29,6 @@ class OptionAttributeValueConstraintStrategyTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $query = $this->createMock(OptionQueryInterface::class);
@@ -41,22 +37,16 @@ class OptionAttributeValueConstraintStrategyTest extends TestCase
         $this->attribute = $this->createMock(AbstractOptionAttribute::class);
     }
 
-    /**
-     */
     public function testSupportValidAttribute(): void
     {
         $this->assertTrue($this->strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testNotSupportValidAttribute(): void
     {
         $this->assertFalse($this->strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testReturnConstraint(): void
     {
         $constraint = $this->strategy->get($this->attribute);

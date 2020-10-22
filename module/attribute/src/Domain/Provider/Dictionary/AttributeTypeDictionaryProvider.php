@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
-/**
- */
 class AttributeTypeDictionaryProvider
 {
     /**

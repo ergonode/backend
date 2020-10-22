@@ -20,8 +20,6 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class OptionInterfaceHandlerTest extends TestCase
 {
     /**
@@ -29,8 +27,6 @@ class OptionInterfaceHandlerTest extends TestCase
      */
     private SerializerInterface $serializer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $handler = new OptionInterfaceHandler();
@@ -44,8 +40,6 @@ class OptionInterfaceHandlerTest extends TestCase
             ->build();
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = OptionInterfaceHandler::getSubscribingMethods();
@@ -57,8 +51,6 @@ class OptionInterfaceHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testDeserializeStringOption(): void
     {
         $testValue = '{"type":"string","value":"test_value"}';
@@ -72,8 +64,6 @@ class OptionInterfaceHandlerTest extends TestCase
         $this->assertEquals('test_value', (string) $result);
     }
 
-    /**
-     */
     public function testDeserializeTranslatableMultilingualOption(): void
     {
         $testValue = '{"type":"translation","value":{"translations":{"pl_PL":"test","EN":"test"}}}';

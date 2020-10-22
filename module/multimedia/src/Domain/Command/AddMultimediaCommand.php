@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- */
 class AddMultimediaCommand implements DomainCommandInterface
 {
     /**

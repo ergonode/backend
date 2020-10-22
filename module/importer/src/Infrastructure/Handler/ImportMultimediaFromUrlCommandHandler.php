@@ -8,16 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
-use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
-use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 
-/**
- */
 class ImportMultimediaFromUrlCommandHandler
 {
     /**

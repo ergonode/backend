@@ -10,8 +10,6 @@ namespace Ergonode\ExporterShopware6\Application\Model\Type;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CustomFieldAttributeModel
 {
     /**

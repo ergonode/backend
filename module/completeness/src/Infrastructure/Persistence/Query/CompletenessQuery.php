@@ -23,8 +23,6 @@ use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
-/**
- */
 class CompletenessQuery implements CompletenessQueryInterface
 {
     private const TABLE = 'product_completeness';

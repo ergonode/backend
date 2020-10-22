@@ -11,8 +11,6 @@ namespace Ergonode\Authentication\Application\Security\User;
 
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
-/**
- */
 interface UserInterface extends BaseUserInterface
 {
     /**

@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface Shopware6PropertyGroupOptionsRepositoryInterface
 {
     /**

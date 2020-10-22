@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class SegmentIdFaker extends BaseProvider
 {
     private const NAMESPACE = '9bf0935b-95e6-4808-9e47-f9b760a5ff5b';

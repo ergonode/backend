@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ExportChannelCommand implements DomainCommandInterface
 {
     /**

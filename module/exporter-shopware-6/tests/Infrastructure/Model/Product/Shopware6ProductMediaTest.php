@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model\Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6ProductMediaTest extends TestCase
 {
     /**
@@ -25,16 +23,12 @@ class Shopware6ProductMediaTest extends TestCase
      */
     private string $mediaId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
         $this->mediaId = 'any_media_id';
     }
 
-    /**
-     */
     public function testCreateModel(): void
     {
         $model = new Shopware6ProductMedia($this->id, $this->mediaId);
@@ -43,8 +37,6 @@ class Shopware6ProductMediaTest extends TestCase
         self::assertEquals($this->mediaId, $model->getMediaId());
     }
 
-    /**
-     */
     public function testSetModel(): void
     {
         $model = new Shopware6ProductMedia();

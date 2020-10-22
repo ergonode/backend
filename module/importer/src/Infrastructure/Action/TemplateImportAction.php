@@ -15,8 +15,6 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class TemplateImportAction
 {
     /**

@@ -16,8 +16,6 @@ use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
 use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
-/**
- */
 class CalculateSegmentCommandHandler
 {
     /**

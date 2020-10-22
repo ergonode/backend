@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\Importer\Infrastructure\Action\TemplateImportAction;
 
-/**
- */
 class ImportTemplateCommandHandler
 {
     /**

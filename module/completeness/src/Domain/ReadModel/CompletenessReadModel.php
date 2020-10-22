@@ -12,8 +12,6 @@ namespace Ergonode\Completeness\Domain\ReadModel;
 use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CompletenessReadModel
 {
     /**

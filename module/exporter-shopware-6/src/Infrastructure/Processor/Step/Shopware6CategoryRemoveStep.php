@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
 {
     /**

@@ -13,10 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class UpdateSimpleProductCommandTest extends TestCase
 {
     /**

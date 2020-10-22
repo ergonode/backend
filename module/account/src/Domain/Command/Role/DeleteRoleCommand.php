@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DeleteRoleCommand implements DomainCommandInterface
 {
     /**

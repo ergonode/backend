@@ -11,8 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DateConverter implements ConverterInterface
 {
     public const TYPE = 'date';

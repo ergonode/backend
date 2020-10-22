@@ -12,8 +12,6 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Workflow;
 use Doctrine\DBAL\Connection;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 
-/**
- */
 class DbalWorkflowDeletedEventProjector
 {
     private const TABLE = 'workflow';

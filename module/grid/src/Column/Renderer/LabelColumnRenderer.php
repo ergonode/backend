@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class LabelColumnRenderer implements ColumnRendererInterface
 {
     /**

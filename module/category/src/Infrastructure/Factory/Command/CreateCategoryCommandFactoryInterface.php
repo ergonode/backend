@@ -12,8 +12,6 @@ namespace Ergonode\Category\Infrastructure\Factory\Command;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 interface CreateCategoryCommandFactoryInterface
 {
     /**

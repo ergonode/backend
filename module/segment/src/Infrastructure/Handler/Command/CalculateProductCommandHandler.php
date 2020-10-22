@@ -15,8 +15,6 @@ use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
-/**
- */
 class CalculateProductCommandHandler
 {
     /**

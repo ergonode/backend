@@ -16,8 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySegmentsFormModel;
 
-/**
- */
 class ProductChildBySegmentsForm extends AbstractType
 {
     /**

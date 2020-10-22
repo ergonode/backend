@@ -11,8 +11,6 @@ namespace Ergonode\Grid\Column\Exception;
 
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class UnsupportedColumnException extends \Exception
 {
     /**

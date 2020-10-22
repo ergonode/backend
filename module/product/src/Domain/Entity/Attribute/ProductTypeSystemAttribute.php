@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
-/**
- */
 class ProductTypeSystemAttribute extends AbstractTextAttribute
 {
     public const TYPE = 'TEXT';

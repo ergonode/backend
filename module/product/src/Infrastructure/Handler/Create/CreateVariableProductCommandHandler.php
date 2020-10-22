@@ -16,13 +16,9 @@ use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Symfony\Component\Security\Core\Security;
-use Webmozart\Assert\Assert;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
-/**
- */
 class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
 {
     /**

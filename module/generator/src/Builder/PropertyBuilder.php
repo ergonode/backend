@@ -12,8 +12,6 @@ namespace Ergonode\Generator\Builder;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Property;
 
-/**
- */
 class PropertyBuilder
 {
     /**

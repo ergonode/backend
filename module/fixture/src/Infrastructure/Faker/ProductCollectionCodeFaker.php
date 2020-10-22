@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class ProductCollectionCodeFaker extends BaseProvider
 {
     /**

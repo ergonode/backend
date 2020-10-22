@@ -20,8 +20,6 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class ChannelParamConverterTest extends TestCase
 {
     /**
@@ -39,8 +37,6 @@ class ChannelParamConverterTest extends TestCase
      */
     private $repository;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
@@ -48,8 +44,6 @@ class ChannelParamConverterTest extends TestCase
         $this->repository = $this->createMock(ChannelRepositoryInterface::class);
     }
 
-    /**
-     */
     public function testSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
@@ -59,8 +53,6 @@ class ChannelParamConverterTest extends TestCase
         self::assertTrue($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testUnSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
@@ -70,8 +62,6 @@ class ChannelParamConverterTest extends TestCase
         self::assertFalse($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testEmptyParameter(): void
     {
         $this->expectException(BadRequestHttpException::class);
@@ -81,8 +71,6 @@ class ChannelParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testInvalidParameter(): void
     {
         $this->expectException(BadRequestHttpException::class);
@@ -92,8 +80,6 @@ class ChannelParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityNotExists(): void
     {
         $this->expectException(NotFoundHttpException::class);
@@ -103,8 +89,6 @@ class ChannelParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityExists(): void
     {
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());

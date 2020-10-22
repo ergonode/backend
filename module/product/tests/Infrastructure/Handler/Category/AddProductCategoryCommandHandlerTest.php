@@ -14,8 +14,6 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Infrastructure\Handler\Category\AddProductCategoryCommandHandler;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AddProductCategoryCommandHandlerTest extends TestCase
 {
     /**

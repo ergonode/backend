@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductDeletedEvent extends AbstractDeleteEvent
 {
     /**

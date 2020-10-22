@@ -12,8 +12,6 @@ use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class Export
 {
     /**
@@ -101,8 +99,6 @@ class Export
         return $this->endedAt;
     }
 
-    /**
-     */
     public function start(): void
     {
         if (!$this->getStatus()->isCreated()) {
@@ -115,8 +111,6 @@ class Export
         $this->startedAt = new \DateTime();
     }
 
-    /**
-     */
     public function stop(): void
     {
         if ($this->getStatus()->isStopped()) {
@@ -127,8 +121,6 @@ class Export
 
         $this->status = new ExportStatus(ExportStatus::STOPPED);
     }
-    /**
-     */
     public function end(): void
     {
         if (!$this->getStatus()->isProcessed()) {

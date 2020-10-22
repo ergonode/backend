@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class LanguagePrivilegesFaker extends BaseProvider
 {
     private const ACTIVE_LANGUAGE_CODES = [

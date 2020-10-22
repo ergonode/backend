@@ -11,8 +11,6 @@ namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 interface CommandBusInterface
 {
     /**

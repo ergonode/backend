@@ -23,8 +23,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 
-/**
- */
 class Shopware6ProductNameMapperTest extends TestCase
 {
     private const NAME = 'TEST_NAME';
@@ -50,8 +48,6 @@ class Shopware6ProductNameMapperTest extends TestCase
      */
     private Shopware6Channel $channel;
 
-    /**
-     */
     protected function setUp(): void
     {
         $textAttribute = $this->createMock(TextAttribute::class);

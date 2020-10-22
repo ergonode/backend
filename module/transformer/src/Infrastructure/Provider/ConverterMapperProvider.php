@@ -11,8 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Provider;
 use Ergonode\Transformer\Infrastructure\Converter\Mapper\ConverterMapperInterface;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 
-/**
- */
 class ConverterMapperProvider
 {
     /**

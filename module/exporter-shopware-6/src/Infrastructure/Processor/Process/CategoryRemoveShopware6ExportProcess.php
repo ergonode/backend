@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CategoryClient;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class CategoryRemoveShopware6ExportProcess
 {
     /**

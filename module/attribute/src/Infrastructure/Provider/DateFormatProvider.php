@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Infrastructure\Provider;
 
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 
-/**
- */
 class DateFormatProvider
 {
     /**

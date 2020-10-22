@@ -15,8 +15,6 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class MultimediaExportProcessorStep implements ExportStepProcessInterface
 {
     /**

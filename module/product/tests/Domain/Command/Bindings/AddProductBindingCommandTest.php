@@ -14,10 +14,7 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 
-/**
- */
 class AddProductBindingCommandTest extends TestCase
 {
     /**

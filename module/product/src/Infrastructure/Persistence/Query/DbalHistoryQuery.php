@@ -16,8 +16,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Product\Domain\Query\HistoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class DbalHistoryQuery implements HistoryQueryInterface
 {
     /**

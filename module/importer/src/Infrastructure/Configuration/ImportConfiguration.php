@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Infrastructure\Configuration;
 
 use Ergonode\Importer\Infrastructure\Configuration\Column\ConfigurationColumnInterface;
 
-/**
- */
 class ImportConfiguration
 {
     /**

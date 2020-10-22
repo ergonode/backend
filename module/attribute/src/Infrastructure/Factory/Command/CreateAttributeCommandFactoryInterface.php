@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Infrastructure\Factory\Command;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 interface CreateAttributeCommandFactoryInterface
 {
     /**

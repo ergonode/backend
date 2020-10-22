@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
-use Webmozart\Assert\Assert;
 
 /**
  * @Route(

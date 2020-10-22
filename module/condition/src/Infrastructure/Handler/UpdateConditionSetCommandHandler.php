@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateConditionSetCommandHandler
 {
     /**

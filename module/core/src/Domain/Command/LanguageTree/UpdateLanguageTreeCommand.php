@@ -14,8 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateLanguageTreeCommand implements DomainCommandInterface
 {
     /**

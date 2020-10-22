@@ -12,8 +12,6 @@ namespace Ergonode\Migration\Provider;
 use Doctrine\DBAL\Connection;
 use Doctrine\Migrations\Configuration\Configuration;
 
-/**
- */
 class MigrationConfigurationProvider
 {
     private const NAMESPACE = 'Ergonode\\Migration';

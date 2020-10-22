@@ -13,12 +13,8 @@ use Ergonode\Core\Domain\Command\CreateUnitCommand;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CreateUnitCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand()
     {
         $name = 'name';

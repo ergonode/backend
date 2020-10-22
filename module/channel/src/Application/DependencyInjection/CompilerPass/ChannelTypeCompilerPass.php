@@ -12,8 +12,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Channel\Application\Provider\ChannelTypeProvider;
 
-/**
- */
 class ChannelTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'channel.channel_interface';

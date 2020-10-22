@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class Shopware6CustomFieldStep implements Shopware6ExportStepProcessInterface
 {
     /**

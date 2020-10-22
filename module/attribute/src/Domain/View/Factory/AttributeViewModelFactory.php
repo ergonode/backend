@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 
-/**
- */
 class AttributeViewModelFactory
 {
     /**

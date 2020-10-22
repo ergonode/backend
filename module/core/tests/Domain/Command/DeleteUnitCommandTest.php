@@ -13,12 +13,8 @@ use Ergonode\Core\Domain\Command\DeleteUnitCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteUnitCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand()
     {
         $id = $this->createMock(UnitId::class);

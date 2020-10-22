@@ -10,8 +10,6 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Source;
 
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 
-/**
- */
 class Magento1ImportSourceService implements ImportSourceInterface
 {
     public const TYPE = 'magento-1-csv';

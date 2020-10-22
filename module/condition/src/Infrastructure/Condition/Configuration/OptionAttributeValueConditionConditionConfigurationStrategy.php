@@ -19,8 +19,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class OptionAttributeValueConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     /**

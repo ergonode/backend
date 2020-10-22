@@ -11,8 +11,6 @@ namespace Ergonode\Condition\Application\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- */
 class ConstraintAttributeExistsCondition extends Constraint
 {
     /**

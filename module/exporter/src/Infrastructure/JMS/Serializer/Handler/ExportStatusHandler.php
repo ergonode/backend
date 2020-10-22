@@ -16,8 +16,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 
-/**
- */
 class ExportStatusHandler implements SubscribingHandlerInterface
 {
     /**

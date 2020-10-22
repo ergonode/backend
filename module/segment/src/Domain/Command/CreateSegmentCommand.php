@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CreateSegmentCommand implements DomainCommandInterface
 {
     /**

@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class UpdateMultimediaCommandTest extends TestCase
 {
     /**

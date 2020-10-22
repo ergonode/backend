@@ -15,8 +15,6 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class AttributeProcessor
 {
     /**

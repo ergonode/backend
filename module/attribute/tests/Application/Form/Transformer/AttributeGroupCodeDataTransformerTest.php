@@ -12,8 +12,6 @@ use Ergonode\Attribute\Application\Form\Transformer\AttributeGroupCodeDataTransf
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupCodeDataTransformerTest extends TestCase
 {
     /**
@@ -21,8 +19,6 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
      */
     protected AttributeGroupCodeDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new AttributeGroupCodeDataTransformer();
@@ -39,8 +35,6 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
         self::assertSame($string, $this->transformer->transform($code));
     }
 
-    /**
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);

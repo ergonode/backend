@@ -13,8 +13,6 @@ use Behat\MinkExtension\Context\RawMinkContext;
 use Behatch\Json\JsonInspector;
 use Behatch\Json\Json;
 
-/**
- */
 class StoreRestResponseParamContext extends RawMinkContext
 {
     /**

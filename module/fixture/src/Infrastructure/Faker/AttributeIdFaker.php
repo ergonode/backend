@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class AttributeIdFaker extends BaseProvider
 {
     /**

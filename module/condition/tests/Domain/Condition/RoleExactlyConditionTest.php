@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RoleExactlyConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         /** @var RoleId | MockObject $roleId */

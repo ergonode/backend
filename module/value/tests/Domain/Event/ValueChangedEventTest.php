@@ -15,12 +15,8 @@ use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ValueChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var CategoryId $id */

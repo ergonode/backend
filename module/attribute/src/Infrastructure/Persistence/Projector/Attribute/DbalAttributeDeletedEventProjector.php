@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent;
 
-/**
- */
 class DbalAttributeDeletedEventProjector
 {
     private const TABLE = 'attribute';

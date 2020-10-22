@@ -12,8 +12,6 @@ namespace Ergonode\Workflow\Domain\Query;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface StatusQueryInterface
 {
     /**
@@ -35,7 +33,7 @@ interface StatusQueryInterface
      *
      * @return array
      */
-    public function getAllStatuses(language $language): array;
+    public function getAllStatuses(Language $language): array;
 
     /**
      * @return array

@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateDateAttributeCommandTest extends TestCase
 {
     /**

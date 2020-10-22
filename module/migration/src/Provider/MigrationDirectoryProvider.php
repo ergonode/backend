@@ -11,8 +11,6 @@ namespace Ergonode\Migration\Provider;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class MigrationDirectoryProvider implements MigrationDirectoryProviderInterface
 {
     private const DIRECTORY = 'migrations';

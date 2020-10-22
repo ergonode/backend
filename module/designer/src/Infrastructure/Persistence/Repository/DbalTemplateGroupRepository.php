@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalTemplateGroupRepository implements TemplateGroupRepositoryInterface
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageCompletenessConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     /**

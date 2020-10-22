@@ -13,8 +13,6 @@ use Ergonode\Account\Application\Form\DataTransformer\PrivilegeDataTransformer;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeDataTransformerTest extends TestCase
 {
 
@@ -23,8 +21,6 @@ class PrivilegeDataTransformerTest extends TestCase
      */
     protected PrivilegeDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new PrivilegeDataTransformer();
@@ -41,9 +37,6 @@ class PrivilegeDataTransformerTest extends TestCase
         $this->assertSame($string, $this->transformer->transform($privilegeValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -64,8 +57,6 @@ class PrivilegeDataTransformerTest extends TestCase
         $this->assertEquals($privilegeValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);

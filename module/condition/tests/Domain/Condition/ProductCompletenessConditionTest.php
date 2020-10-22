@@ -11,8 +11,6 @@ namespace Ergonode\Condition\Tests\Domain\Condition;
 use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCompletenessConditionTest extends TestCase
 {
     /**
@@ -27,8 +25,6 @@ class ProductCompletenessConditionTest extends TestCase
         $this->assertSame('PRODUCT_COMPLETENESS_CONDITION', $condition->getType());
     }
 
-    /**
-     */
     public function testInvalidConditionCreation(): void
     {
         $this->expectException(\InvalidArgumentException::class);

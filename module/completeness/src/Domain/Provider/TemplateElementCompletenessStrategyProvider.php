@@ -11,8 +11,6 @@ namespace Ergonode\Completeness\Domain\Provider;
 
 use Ergonode\Completeness\Domain\Calculator\Strategy\TemplateElementCompletenessStrategyInterface;
 
-/**
- */
 class TemplateElementCompletenessStrategyProvider
 {
     /**

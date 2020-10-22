@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteTreeCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         /** @var CategoryTreeId | MockObject $id */

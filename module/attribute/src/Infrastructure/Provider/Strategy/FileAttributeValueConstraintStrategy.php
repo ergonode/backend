@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
-/**
- */
 class FileAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

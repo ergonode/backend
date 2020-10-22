@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 
-/**
- */
 class DbalPrivilegeQuery implements PrivilegeQueryInterface
 {
     public const PRIVILEGES_TABLE = 'privileges';

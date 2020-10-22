@@ -15,8 +15,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\Importer\Infrastructure\Provider\ImportProcessorProvider;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 
-/**
- */
 class StartImportCommandHandler
 {
     /**

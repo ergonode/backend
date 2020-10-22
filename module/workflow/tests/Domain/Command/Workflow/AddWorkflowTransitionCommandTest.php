@@ -17,8 +17,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class AddWorkflowTransitionCommandTest extends TestCase
 {
     /**

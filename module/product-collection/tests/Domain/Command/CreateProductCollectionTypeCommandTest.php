@@ -15,8 +15,6 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateProductCollectionTypeCommandTest extends TestCase
 {
     /**

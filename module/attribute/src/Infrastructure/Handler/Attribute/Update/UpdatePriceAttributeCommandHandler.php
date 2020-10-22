@@ -15,8 +15,6 @@ use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeC
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
 
-/**
- */
 class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     /**

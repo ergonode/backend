@@ -18,8 +18,6 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-/**
- */
 class ExceptionHandler implements SubscribingHandlerInterface
 {
     private const DEFAULT_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;

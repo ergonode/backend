@@ -12,8 +12,6 @@ use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteCommentCommandTest extends TestCase
 {
     /**

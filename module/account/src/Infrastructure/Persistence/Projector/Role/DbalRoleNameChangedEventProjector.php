@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 
-/**
- */
 class DbalRoleNameChangedEventProjector
 {
     private const TABLE = 'roles';

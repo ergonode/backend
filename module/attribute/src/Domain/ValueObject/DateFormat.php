@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
-/**
- */
 class DateFormat
 {
     public const YYYY_MM_DD = 'yyyy-MM-dd';

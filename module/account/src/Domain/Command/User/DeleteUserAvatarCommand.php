@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class DeleteUserAvatarCommand implements DomainCommandInterface
 {
     /**

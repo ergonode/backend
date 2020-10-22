@@ -12,8 +12,6 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
 
-/**
- */
 class CreateFileExportChannelCommandHandler
 {
     /**

@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateUnitCommandHandler
 {
     /**

@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Form\Workflow;
 
-/**
- */
 interface WorkflowFormInterface
 {
     /**

@@ -15,8 +15,6 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class Magento1CsvSource extends AbstractSource
 {
     public const TYPE = 'magento-1-csv';

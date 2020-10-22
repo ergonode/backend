@@ -14,12 +14,8 @@ use Ergonode\ExporterFile\Domain\Command\UpdateFileExportChannelCommand;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
-/**
- */
 class UpdateFileExportChannelCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $channel = $this->createMock(FileExportChannel::class);

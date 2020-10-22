@@ -13,8 +13,6 @@ use Doctrine\DBAL\Schema\Schema;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 final class Version20180719132703 extends AbstractErgonodeMigration
 {
     /**

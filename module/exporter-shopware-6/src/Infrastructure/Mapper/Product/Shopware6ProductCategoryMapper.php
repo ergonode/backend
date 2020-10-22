@@ -16,8 +16,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCate
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class Shopware6ProductCategoryMapper implements Shopware6ProductMapperInterface
 {
     /**

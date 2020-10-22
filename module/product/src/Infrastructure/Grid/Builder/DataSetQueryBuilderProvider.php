@@ -11,8 +11,6 @@ namespace Ergonode\Product\Infrastructure\Grid\Builder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 
-/**
- */
 class DataSetQueryBuilderProvider
 {
     /**

@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Regex;
 
-/**
- */
 class DateAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

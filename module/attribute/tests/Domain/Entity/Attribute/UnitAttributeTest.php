@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UnitAttributeTest extends TestCase
 {
     /**
@@ -56,8 +54,6 @@ class UnitAttributeTest extends TestCase
      */
     private AttributeScope $scope;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(AttributeId::class);

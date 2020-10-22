@@ -13,8 +13,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class DbalProductValueRemovedEventProjector extends AbstractProductValueProjector
 {
     /**

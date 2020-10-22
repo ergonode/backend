@@ -14,8 +14,6 @@ use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use Ergonode\Transformer\Infrastructure\Converter\Mapper\ConverterMapperInterface;
 use Ergonode\ImporterMagento1\Infrastructure\Converter\Magento1CategoryConverter;
 
-/**
- */
 class Magento1CategoryConverterMapper implements ConverterMapperInterface
 {
     /**

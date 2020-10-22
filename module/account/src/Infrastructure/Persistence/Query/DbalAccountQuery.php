@@ -17,8 +17,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 class DbalAccountQuery implements AccountQueryInterface
 {
     private const TABLE = 'users';

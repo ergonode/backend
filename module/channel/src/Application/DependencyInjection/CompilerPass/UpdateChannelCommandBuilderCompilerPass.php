@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderProvider;
 
-/**
- */
 class UpdateChannelCommandBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'channel.update_channel_builder_interface';

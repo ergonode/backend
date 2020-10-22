@@ -25,8 +25,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductCollection extends AbstractAggregateRoot
 {
     /**

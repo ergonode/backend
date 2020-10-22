@@ -12,8 +12,6 @@ namespace Ergonode\ProductCollection\Tests\Domain\ValueObject;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionTypeCodeTest extends TestCase
 {
     /**

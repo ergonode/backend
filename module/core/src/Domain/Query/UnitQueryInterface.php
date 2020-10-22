@@ -12,8 +12,6 @@ namespace Ergonode\Core\Domain\Query;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-/**
- */
 interface UnitQueryInterface
 {
     /**

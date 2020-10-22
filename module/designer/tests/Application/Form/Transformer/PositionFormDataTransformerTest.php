@@ -13,8 +13,6 @@ use Ergonode\Designer\Application\Form\Transformer\PositionFormDataTransformer;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PositionFormDataTransformerTest extends TestCase
 {
 
@@ -23,8 +21,6 @@ class PositionFormDataTransformerTest extends TestCase
      */
     protected PositionFormDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new PositionFormDataTransformer();
@@ -41,9 +37,6 @@ class PositionFormDataTransformerTest extends TestCase
         $this->assertSame($array, $this->transformer->transform($positionValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -63,9 +56,6 @@ class PositionFormDataTransformerTest extends TestCase
         $this->assertEquals($positionValueObject, $this->transformer->reverseTransform($array));
     }
 
-    /**
-     *
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid Position -1,-2 value');

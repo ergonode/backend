@@ -13,8 +13,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 interface TemplateQueryInterface
 {
     /**

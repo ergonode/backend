@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Category\DeleteProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Category\GetProductCategory;
@@ -31,8 +30,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class Shopware6ProductClient
 {
     /**

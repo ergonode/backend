@@ -16,12 +16,8 @@ use Ergonode\ExporterFile\Infrastructure\Processor\ProductProcessor;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
-/**
- */
 class ProductProcessTest extends TestCase
 {
-    /**
-     */
     public function testProcess(): void
     {
         $attributeQuery = $this->createMock(AttributeQueryInterface::class);

@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedi
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6Product
 {
     /**

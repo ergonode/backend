@@ -15,10 +15,7 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CreateVariableProductCommandTest extends TestCase
 {
     /**

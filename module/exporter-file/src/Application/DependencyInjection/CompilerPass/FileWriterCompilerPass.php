@@ -15,8 +15,6 @@ use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterTypeProvider;
 
-/**
- */
 class FileWriterCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'export.export_file.writer_interface';

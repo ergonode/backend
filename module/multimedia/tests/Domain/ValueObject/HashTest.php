@@ -11,8 +11,6 @@ namespace Ergonode\Multimedia\Tests\Domain\ValueObject;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class HashTest extends TestCase
 {
     /**
@@ -60,8 +58,6 @@ class HashTest extends TestCase
         $this->assertFalse(Hash::isValid($data));
     }
 
-    /**
-     */
     public function testObjectEquality(): void
     {
         $object1 = new Hash('da39a3ee5e6b4b0d3255bfef95601890afd80709');

@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCate
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetProductCategory extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product/%s/categories';

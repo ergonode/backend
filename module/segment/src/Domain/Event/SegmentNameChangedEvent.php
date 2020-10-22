@@ -14,8 +14,6 @@ use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEv
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class SegmentNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
     /**

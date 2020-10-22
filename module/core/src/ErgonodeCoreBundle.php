@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Core\Application\DependencyInjection\CompilerPass\RelationshipStrategyInterfaceCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ErgonodeCoreBundle extends AbstractModule
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateAttributeRelationshipStrategyTest extends TestCase
 {
 
@@ -25,16 +23,12 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
      */
     private TemplateQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(TemplateQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
@@ -42,8 +36,6 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
         $this->assertTrue($templateAttributeRelationshipStrategy->supports($attributeId));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
@@ -51,8 +43,6 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
         $this->assertFalse($templateAttributeRelationshipStrategy->supports($roleId));
     }
 
-    /**
-     */
     public function testRelationships(): void
     {
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);

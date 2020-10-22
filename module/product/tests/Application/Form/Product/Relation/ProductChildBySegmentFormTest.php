@@ -12,12 +12,8 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Ergonode\Product\Application\Form\Product\Relation\ProductChildBySegmentsForm;
 use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySegmentsFormModel;
 
-/**
- */
 class ProductChildBySegmentFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

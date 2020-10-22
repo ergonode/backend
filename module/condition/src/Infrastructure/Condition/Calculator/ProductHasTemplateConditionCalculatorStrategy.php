@@ -12,12 +12,9 @@ namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 
-/**
- */
 class TransportMessageSerializerTest extends TestCase
 {
 
@@ -35,8 +33,6 @@ class TransportMessageSerializerTest extends TestCase
      */
     private TransportMessageSerializer $messageSerializer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
@@ -44,9 +40,6 @@ class TransportMessageSerializerTest extends TestCase
         $this->messageSerializer = new TransportMessageSerializer($this->serializer, $this->format);
     }
 
-    /**
-     *
-     */
     public function testNoBodyDecode()
     {
         $this->expectExceptionMessage('Encoded envelope should have at least a `body` and some `headers`.');
@@ -54,9 +47,6 @@ class TransportMessageSerializerTest extends TestCase
         $this->messageSerializer->decode(['body' => 'example', 'headers' => '']);
     }
 
-    /**
-     *
-     */
     public function testNoTypeDecode()
     {
         $this->expectExceptionMessage('Encoded envelope does not have a `type` header.');
@@ -64,8 +54,6 @@ class TransportMessageSerializerTest extends TestCase
         $this->messageSerializer->decode(['body' => 'example1', 'headers' => 'example2']);
     }
 
-    /**
-     */
     public function testDecode()
     {
         $this
@@ -76,8 +64,6 @@ class TransportMessageSerializerTest extends TestCase
         $this->assertInstanceOf(Envelope::class, $result);
     }
 
-    /**
-     */
     public function testStampDecode()
     {
         $this->serializer->expects($this->at(0))->method('deserialize')->willReturn([]);
@@ -96,8 +82,6 @@ class TransportMessageSerializerTest extends TestCase
         $this->assertInstanceOf(Envelope::class, $result);
     }
 
-    /**
-     */
     public function testEncode()
     {
         $this->serializer->expects($this->once())->method('serialize')->willReturn('message');
@@ -109,8 +93,6 @@ class TransportMessageSerializerTest extends TestCase
         $this->assertArrayHasKey('type', $result['headers']);
     }
 
-    /**
-     */
     public function testStampsEncode()
     {
         $this->serializer->expects($this->at(0))->method('serialize')->willReturn('message');

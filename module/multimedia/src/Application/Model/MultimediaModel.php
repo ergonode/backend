@@ -11,8 +11,6 @@ namespace Ergonode\Multimedia\Application\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class MultimediaModel
 {
     /**

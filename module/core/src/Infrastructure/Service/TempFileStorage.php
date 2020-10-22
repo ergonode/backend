@@ -10,8 +10,6 @@ namespace Ergonode\Core\Infrastructure\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class TempFileStorage
 {
     /**
@@ -101,8 +99,6 @@ class TempFileStorage
         }
     }
 
-    /**
-     */
     public function close(): void
     {
         \fclose($this->file);

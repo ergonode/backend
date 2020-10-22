@@ -12,18 +12,13 @@ namespace Ergonode\Account\Tests\Domain\Command\User;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateUserCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         $firstName = 'New first name';

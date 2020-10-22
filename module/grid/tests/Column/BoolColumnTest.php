@@ -10,12 +10,8 @@ use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\FilterInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class BoolColumnTest extends TestCase
 {
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any field';

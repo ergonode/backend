@@ -11,8 +11,6 @@ namespace Ergonode\TranslationDeepl\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface TranslationProviderInterface
 {
     /**

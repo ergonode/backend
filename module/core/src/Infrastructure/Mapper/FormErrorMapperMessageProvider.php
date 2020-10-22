@@ -12,8 +12,6 @@ namespace Ergonode\Core\Infrastructure\Mapper;
 use Symfony\Component\Form\FormError;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class FormErrorMapperMessageProvider
 {
     /**

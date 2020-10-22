@@ -11,8 +11,6 @@ namespace Ergonode\Exporter\Domain\Repository;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 interface ExportRepositoryInterface
 {
     /**

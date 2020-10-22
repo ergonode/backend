@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 
-/**
- */
 class ImportOptionCommandHandler
 {
     /**

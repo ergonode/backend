@@ -21,13 +21,10 @@ use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 abstract class AbstractWorkflow extends AbstractAggregateRoot implements WorkflowInterface
 {
     public const DEFAULT = 'default';

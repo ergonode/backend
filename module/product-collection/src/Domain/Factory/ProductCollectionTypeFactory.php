@@ -14,8 +14,6 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 
-/**
- */
 class ProductCollectionTypeFactory
 {
     /**

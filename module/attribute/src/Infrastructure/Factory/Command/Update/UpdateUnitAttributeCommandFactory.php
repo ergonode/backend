@@ -20,8 +20,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class UpdateUnitAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
     /**

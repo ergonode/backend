@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

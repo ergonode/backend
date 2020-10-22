@@ -15,12 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateImageRemovedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var TemplateId | MockObject $id */

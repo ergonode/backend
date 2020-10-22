@@ -12,12 +12,8 @@ namespace Ergonode\Attribute\Tests\Domain\ValueObject\OptionValue;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StringOptionTest extends TestCase
 {
-    /**
-     */
     public function testValueCreation(): void
     {
         $value = 'value';
@@ -30,8 +26,6 @@ class StringOptionTest extends TestCase
         $this->assertFalse($valueObject->isMultilingual());
     }
 
-    /**
-     */
     public function testEqualValue(): void
     {
         $value1 = 'value1';
@@ -43,8 +37,6 @@ class StringOptionTest extends TestCase
         $this->assertTrue($valueObject1->equal($valueObject2));
     }
 
-    /**
-     */
     public function testNotEqualValue(): void
     {
         $value1 = 'value1';

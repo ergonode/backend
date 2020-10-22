@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Strategy;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface RelationshipStrategyInterface
 {
     /**

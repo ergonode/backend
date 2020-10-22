@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeBoolParameterChangeEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeBoolParameterChangeEventTest extends TestCase
 {
     /**

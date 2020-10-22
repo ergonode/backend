@@ -13,12 +13,8 @@ use Ergonode\Category\Application\Form\CategoryFormInterface;
 use Ergonode\Category\Application\Provider\CategoryFormProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryFormProviderTest extends TestCase
 {
-    /**
-     */
     public function testFormNotExist(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -26,8 +22,6 @@ class CategoryFormProviderTest extends TestCase
         $provider->provide('Any not supported form type');
     }
 
-    /**
-     */
     public function testExistForm(): void
     {
         $form = $this->createMock(CategoryFormInterface::class);

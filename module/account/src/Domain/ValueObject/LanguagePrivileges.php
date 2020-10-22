@@ -11,8 +11,6 @@ namespace Ergonode\Account\Domain\ValueObject;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class LanguagePrivileges
 {
     /**

@@ -15,8 +15,6 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_tax';

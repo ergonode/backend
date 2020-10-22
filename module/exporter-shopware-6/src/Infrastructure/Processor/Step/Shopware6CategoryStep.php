@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
-use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -19,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
 {
     /**

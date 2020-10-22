@@ -14,8 +14,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Product\Domain\Query\ProductBindingQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class DbalProductBindingQuery implements ProductBindingQueryInterface
 {
     private const ATTRIBUTE_TABLE = 'public.attribute';

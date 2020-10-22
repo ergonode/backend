@@ -11,8 +11,6 @@ namespace Ergonode\Grid\Filter;
 
 use Ergonode\Grid\FilterInterface;
 
-/**
- */
 class LabelFilter implements FilterInterface
 {
     public const TYPE = 'SELECT';

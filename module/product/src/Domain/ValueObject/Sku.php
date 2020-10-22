@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\ValueObject;
 
-/**
- */
 class Sku
 {
     private const LENGTH = 255;

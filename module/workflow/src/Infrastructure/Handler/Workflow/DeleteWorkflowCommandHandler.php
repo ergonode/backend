@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-/**
- */
 class DeleteWorkflowCommandHandler
 {
     /**

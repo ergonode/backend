@@ -15,12 +15,8 @@ use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ValueRemovedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var CategoryId $id */

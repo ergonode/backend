@@ -15,8 +15,6 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
-/**
- */
 interface TemplateElementCompletenessStrategyInterface
 {
     /**

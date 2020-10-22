@@ -23,8 +23,6 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 abstract class AbstractCategory extends AbstractAggregateRoot
 {
     /**

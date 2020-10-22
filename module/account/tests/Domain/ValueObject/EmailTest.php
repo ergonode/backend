@@ -12,8 +12,6 @@ namespace Ergonode\Account\Tests\Domain\ValueObject;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class EmailTest extends TestCase
 {
     /**
@@ -102,8 +100,6 @@ class EmailTest extends TestCase
         ];
     }
 
-    /**
-     */
     public function testEqualValues(): void
     {
         $email1 = new Email('correct@email.com');
@@ -112,8 +108,6 @@ class EmailTest extends TestCase
         $this->assertTrue($email1->isEqual($email2));
     }
 
-    /**
-     */
     public function testNotEqualValues(): void
     {
         $email1 = new Email('correct1@email.com');

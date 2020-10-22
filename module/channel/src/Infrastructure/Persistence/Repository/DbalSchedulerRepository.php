@@ -20,8 +20,6 @@ use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalScheduler
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalSchedulerMapper;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalSchedulerRepository implements SchedulerRepositoryInterface
 {
     private const TABLE = 'exporter.scheduler';

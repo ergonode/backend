@@ -11,8 +11,6 @@ namespace Ergonode\Mailer;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeMailerBundle extends AbstractModule
 {
 }

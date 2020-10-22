@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateMagento1CsvSourceCommand implements DomainCommandInterface
 {
     /**

@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\FilterInterface;
 
-/**
- */
 abstract class AbstractColumn implements ColumnInterface
 {
     /**

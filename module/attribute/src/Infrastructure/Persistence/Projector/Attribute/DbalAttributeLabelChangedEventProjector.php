@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalAttributeLabelChangedEventProjector
 {
     private const TABLE = 'value_translation';

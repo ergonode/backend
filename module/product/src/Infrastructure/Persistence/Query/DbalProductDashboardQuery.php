@@ -15,8 +15,6 @@ use Ergonode\Product\Application\Provider\ProductTypeProvider;
 use Ergonode\Product\Domain\Query\ProductDashboardQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class DbalProductDashboardQuery implements ProductDashboardQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';

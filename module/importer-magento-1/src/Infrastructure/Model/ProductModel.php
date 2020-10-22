@@ -10,8 +10,6 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Model;
 
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class ProductModel
 {
     /**

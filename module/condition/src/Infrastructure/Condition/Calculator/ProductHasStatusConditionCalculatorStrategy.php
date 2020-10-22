@@ -18,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

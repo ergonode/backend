@@ -15,8 +15,6 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateUserCommandHandler
 {
     /**

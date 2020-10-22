@@ -17,8 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\Channel\Application\Form\Model\SchedulerModel;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class SchedulerForm extends AbstractType
 {
     /**

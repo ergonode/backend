@@ -12,8 +12,6 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 interface Shopware6LanguageRepositoryInterface
 {
     /**

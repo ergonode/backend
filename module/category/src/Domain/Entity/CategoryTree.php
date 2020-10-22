@@ -21,8 +21,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CategoryTree extends AbstractAggregateRoot
 {
     public const DEFAULT = 'Default';

@@ -18,8 +18,6 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-/**
- */
 final class EmailUserProvider implements UserProviderInterface
 {
     private UserQueryInterface $query;

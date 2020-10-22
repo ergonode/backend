@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -31,16 +29,12 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
      */
     private ProductBelongCategoryTreeConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(TreeRepositoryInterface::class);
         $this->strategy = new ProductBelongCategoryTreeConditionCalculatorStrategy($this->repository);
     }
 
-    /**
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_BELONG_CATEGORY_TREE_CONDITION'));

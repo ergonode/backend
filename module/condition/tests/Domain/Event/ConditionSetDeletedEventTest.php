@@ -14,12 +14,8 @@ use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ConditionSetDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var ConditionSetId | MockObject $id */

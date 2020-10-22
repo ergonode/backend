@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Context;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 
-/**
- */
 class StatusCodeHandlerTest extends TestCase
 {
     /**
@@ -39,8 +37,6 @@ class StatusCodeHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new StatusCodeHandler();
@@ -49,8 +45,6 @@ class StatusCodeHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = StatusCodeHandler::getSubscribingMethods();
@@ -62,8 +56,6 @@ class StatusCodeHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = 'test_value';
@@ -73,8 +65,6 @@ class StatusCodeHandlerTest extends TestCase
         self::assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = 'test_value';

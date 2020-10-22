@@ -18,8 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class CategoryTreeParamConverterTest extends TestCase
 {
     /**
@@ -37,8 +35,6 @@ class CategoryTreeParamConverterTest extends TestCase
      */
     private $repository;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
@@ -46,8 +42,6 @@ class CategoryTreeParamConverterTest extends TestCase
         $this->repository = $this->createMock(TreeRepositoryInterface::class);
     }
 
-    /**
-     */
     public function testSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
@@ -57,8 +51,6 @@ class CategoryTreeParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testUnSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
@@ -68,8 +60,6 @@ class CategoryTreeParamConverterTest extends TestCase
         $this->assertFalse($paramConverter->supports($this->configuration));
     }
 
-    /**
-     */
     public function testEmptyParameter(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
@@ -79,8 +69,6 @@ class CategoryTreeParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testInvalidParameter(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
@@ -90,8 +78,6 @@ class CategoryTreeParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityNotExists(): void
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
@@ -101,8 +87,6 @@ class CategoryTreeParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 
-    /**
-     */
     public function testEntityExists(): void
     {
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());

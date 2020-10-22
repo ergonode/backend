@@ -14,8 +14,6 @@ use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 
-/**
- */
 class ImportCategoryCommandHandler
 {
     /**

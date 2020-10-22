@@ -15,12 +15,8 @@ use Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeGroupedByAreaProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingPrivilegeGroupedByArea(): void
     {
         /** @var PrivilegeQueryInterface | MockObject $query */

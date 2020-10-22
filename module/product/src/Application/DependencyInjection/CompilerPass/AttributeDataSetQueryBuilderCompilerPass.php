@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class AttributeDataSetQueryBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.product.dbal_data_set_query_builder_interface';

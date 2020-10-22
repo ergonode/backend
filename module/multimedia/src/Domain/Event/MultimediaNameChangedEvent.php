@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class MultimediaNameChangedEvent implements DomainEventInterface
 {
     /**

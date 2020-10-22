@@ -12,8 +12,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 interface UpdateChannelCommandBuilderInterface
 {
     /**

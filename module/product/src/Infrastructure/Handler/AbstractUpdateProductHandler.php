@@ -18,8 +18,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
-/**
- */
 abstract class AbstractUpdateProductHandler
 {
     /**

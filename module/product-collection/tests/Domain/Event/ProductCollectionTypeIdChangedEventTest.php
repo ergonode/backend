@@ -15,12 +15,8 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionTypeIdChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var ProductCollectionId | MockObject $id */

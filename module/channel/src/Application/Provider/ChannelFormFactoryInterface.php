@@ -11,8 +11,6 @@ namespace Ergonode\Channel\Application\Provider;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 interface ChannelFormFactoryInterface
 {
     /**

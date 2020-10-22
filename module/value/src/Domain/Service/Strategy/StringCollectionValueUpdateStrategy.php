@@ -13,8 +13,6 @@ use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class StringCollectionValueUpdateStrategy implements ValueUpdateStrategyInterface
 {
     /**

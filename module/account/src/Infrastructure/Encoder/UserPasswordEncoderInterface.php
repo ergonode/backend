@@ -12,8 +12,6 @@ namespace Ergonode\Account\Infrastructure\Encoder;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\ValueObject\Password;
 
-/**
- */
 interface UserPasswordEncoderInterface
 {
     /**

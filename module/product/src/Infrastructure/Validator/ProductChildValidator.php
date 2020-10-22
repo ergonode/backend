@@ -14,8 +14,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
 
-/**
- */
 class ProductChildValidator extends ConstraintValidator
 {
     /**

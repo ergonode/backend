@@ -18,8 +18,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\StartShopware6Ex
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StartShopware6ExportCommandHandlerTest extends TestCase
 {
     /**
@@ -37,8 +35,6 @@ class StartShopware6ExportCommandHandlerTest extends TestCase
      */
     private StartShopware6ExportProcess $processor;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exportRepository = $this->createMock(ExportRepositoryInterface::class);
@@ -55,8 +51,6 @@ class StartShopware6ExportCommandHandlerTest extends TestCase
         $this->processor->expects(self::once())->method('process');
     }
 
-    /**
-     */
     public function testHandling(): void
     {
         $command = $this->createMock(StartShopware6ExportCommand::class);

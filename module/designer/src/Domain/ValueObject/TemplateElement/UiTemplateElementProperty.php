@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Domain\ValueObject\TemplateElement;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UiTemplateElementProperty implements TemplateElementPropertyInterface
 {
     public const VARIANT = 'ui';

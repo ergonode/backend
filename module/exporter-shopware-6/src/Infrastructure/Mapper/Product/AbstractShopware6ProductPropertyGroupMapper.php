@@ -22,8 +22,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 abstract class AbstractShopware6ProductPropertyGroupMapper implements Shopware6ProductMapperInterface
 {
     /**

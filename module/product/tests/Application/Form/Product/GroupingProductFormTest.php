@@ -17,8 +17,6 @@ use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 
-/**
- */
 class GroupingProductFormTest extends TypeTestCase
 {
     /**
@@ -26,9 +24,6 @@ class GroupingProductFormTest extends TypeTestCase
      */
     private CategoryQueryInterface $query;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         $this->query = $this->createMock(CategoryQueryInterface::class);
@@ -39,8 +34,6 @@ class GroupingProductFormTest extends TypeTestCase
         parent::setUp();
     }
 
-    /**
-     */
     public function testSupported(): void
     {
         $form = new GroupingProductForm();
@@ -48,8 +41,6 @@ class GroupingProductFormTest extends TypeTestCase
         $this->assertFalse($form->supported('Any incorrect type'));
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

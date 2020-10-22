@@ -13,12 +13,8 @@ use Ergonode\ExporterShopware6\Infrastructure\Handler\CreateShopware6ChannelComm
 use PHPUnit\Framework\TestCase;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
-/**
- */
 class CreateShopware6ChannelCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $command = $this->createMock(CreateShopware6ChannelCommand::class);

@@ -16,8 +16,6 @@ use Ergonode\Importer\Domain\Entity\ImportError;
 use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportErrorMapper;
 
-/**
- */
 class DbalImportErrorRepository implements ImportErrorRepositoryInterface
 {
     private const TABLE = 'importer.import_error';

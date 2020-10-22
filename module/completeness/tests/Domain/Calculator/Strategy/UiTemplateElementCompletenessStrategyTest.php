@@ -15,12 +15,8 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UiTemplateElementCompletenessStrategyTest extends TestCase
 {
-    /**
-     */
     public function testSupport():void
     {
         $strategy = new UiTemplateElementCompletenessStrategy();
@@ -28,8 +24,6 @@ class UiTemplateElementCompletenessStrategyTest extends TestCase
         $this::assertFalse($strategy->supports('Any other variant'));
     }
 
-    /**
-     */
     public function testGetElementCompleteness(): void
     {
         $draft = $this->createMock(ProductDraft::class);

@@ -23,8 +23,6 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Importer\Infrastructure\Dictionary\ImportStatusDictionary;
 
-/**
- */
 class ImportGrid extends AbstractGrid
 {
     /**

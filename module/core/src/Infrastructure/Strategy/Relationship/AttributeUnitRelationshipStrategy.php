@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-/**
- */
 class AttributeUnitRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

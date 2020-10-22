@@ -14,12 +14,8 @@ use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreatedBySystemAttributeTest extends TestCase
 {
-    /**
-     */
     public function testEntityCreation(): void
     {
         /** @var TranslatableString | MockObject $label */

@@ -15,8 +15,6 @@ use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 
-/**
- */
 class StatusFactory
 {
     /**

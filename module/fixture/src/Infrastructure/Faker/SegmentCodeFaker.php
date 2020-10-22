@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class SegmentCodeFaker extends BaseProvider
 {
     /**

@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class OptionKeyHandlerTest extends TestCase
 {
     /**
@@ -39,8 +37,6 @@ class OptionKeyHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new OptionKeyHandler();
@@ -49,8 +45,6 @@ class OptionKeyHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = OptionKeyHandler::getSubscribingMethods();
@@ -62,8 +56,6 @@ class OptionKeyHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = 'test_value';
@@ -73,8 +65,6 @@ class OptionKeyHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = 'test_value';

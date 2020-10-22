@@ -15,12 +15,8 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetProductListTest extends TestCase
 {
-    /**
-     */
     public function testAction()
     {
         $action = new GetProductList(new Shopware6QueryBuilder());

@@ -20,8 +20,6 @@ use Ergonode\Designer\Domain\View\ViewTemplateElement;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 
-/**
- */
 class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStrategyInterface
 {
     /**

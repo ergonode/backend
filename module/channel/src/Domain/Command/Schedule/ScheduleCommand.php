@@ -10,8 +10,6 @@ namespace Ergonode\Channel\Domain\Command\Schedule;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class ScheduleCommand implements DomainCommandInterface
 {
     /**

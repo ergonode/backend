@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateUnitAttributeCommandTest extends TestCase
 {
     /**

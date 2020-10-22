@@ -15,12 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupDictionaryProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingAttributeGroupDictionary(): void
     {
         /** @var AttributeGroupQueryInterface | MockObject $attributeGroupQuery */

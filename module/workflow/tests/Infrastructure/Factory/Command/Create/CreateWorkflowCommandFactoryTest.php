@@ -16,12 +16,8 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 
-/**
- */
 class CreateWorkflowCommandFactoryTest extends TestCase
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateWorkflowCommandFactory();

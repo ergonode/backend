@@ -13,8 +13,6 @@ use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessageSerializerInterface;
 
-/**
- */
 class TransportMessageSerializer implements MessageSerializerInterface
 {
     private const STAMP_HEADER_PREFIX = 'X-Message-Stamp-';

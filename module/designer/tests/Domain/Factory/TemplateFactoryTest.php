@@ -18,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateFactoryTest extends TestCase
 {
     /**
@@ -52,8 +50,6 @@ class TemplateFactoryTest extends TestCase
      */
     private MockObject $defaultImage;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(TemplateId::class);
@@ -65,8 +61,6 @@ class TemplateFactoryTest extends TestCase
         $this->element->method('getPosition')->willReturn(new Position(0, 0));
     }
 
-    /**
-     */
     public function testFactoryCreateTemplate(): void
     {
         $factory = new TemplateFactory();

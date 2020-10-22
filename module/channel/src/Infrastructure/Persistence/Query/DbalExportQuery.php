@@ -19,8 +19,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class DbalExportQuery implements ExportQueryInterface
 {
     private const TABLE = 'exporter.export';

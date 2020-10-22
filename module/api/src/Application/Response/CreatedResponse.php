@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\Entity\AbstractCode;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- */
 class CreatedResponse extends AbstractResponse
 {
     /**

@@ -14,8 +14,6 @@ use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class TranslatableStringValueUpdateStrategy implements ValueUpdateStrategyInterface
 {
     /**

@@ -13,12 +13,8 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
 
-/**
- */
 class ExportErrorsGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var GridConfigurationInterface $configuration */

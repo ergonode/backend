@@ -18,8 +18,6 @@ use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\TextAreaAttrib
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TextAreaAttributeColumnStrategyTest extends TestCase
 {
     /**
@@ -27,32 +25,24 @@ class TextAreaAttributeColumnStrategyTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(TextareaAttribute::class);
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $strategy = new TextAreaAttributeColumnStrategy();
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $strategy = new TextAreaAttributeColumnStrategy();
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testCreateColumn(): void
     {
         $language = $this->createMock(Language::class);

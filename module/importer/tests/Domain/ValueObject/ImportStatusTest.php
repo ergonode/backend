@@ -29,8 +29,6 @@ class ImportStatusTest extends TestCase
         $this->assertEquals($status, (string) $status);
     }
 
-    /**
-     */
     public function testCreateWitchIncorrectStatus(): void
     {
         $this->expectException(\InvalidArgumentException::class);

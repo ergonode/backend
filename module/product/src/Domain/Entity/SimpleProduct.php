@@ -11,8 +11,6 @@ namespace Ergonode\Product\Domain\Entity;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class SimpleProduct extends AbstractProduct
 {
     public const TYPE = 'SIMPLE-PRODUCT';

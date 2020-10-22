@@ -9,8 +9,6 @@ namespace Ergonode\Grid;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Grid\Request\RequestColumn;
 
-/**
- */
 interface GridConfigurationInterface
 {
     public const VIEW_GRID = 'grid';

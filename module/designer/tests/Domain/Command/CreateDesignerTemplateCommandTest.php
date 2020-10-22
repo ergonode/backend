@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateDesignerTemplateCommandTest extends TestCase
 {
     /**

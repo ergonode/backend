@@ -9,8 +9,6 @@ namespace Ergonode\Designer\Tests\Domain\ValueObject;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PositionTest extends TestCase
 {
     /**

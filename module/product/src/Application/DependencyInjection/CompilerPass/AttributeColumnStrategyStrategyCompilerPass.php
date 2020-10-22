@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class AttributeColumnStrategyStrategyCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.product.attribute_column_strategy_interface';

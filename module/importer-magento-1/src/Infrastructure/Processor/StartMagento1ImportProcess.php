@@ -21,8 +21,6 @@ use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
 use Psr\Log\LoggerInterface;
 
-/**
- */
 class StartMagento1ImportProcess implements SourceImportProcessorInterface
 {
     /**

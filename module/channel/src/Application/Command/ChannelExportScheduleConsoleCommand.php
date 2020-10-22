@@ -15,8 +15,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Ergonode\Channel\Domain\Command\Schedule\ScheduleCommand;
 
-/**
- */
 class ChannelExportScheduleConsoleCommand extends Command
 {
     private const NAME = 'channel:export:schedule';

@@ -19,8 +19,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand;
 
-/**
- */
 class ProcessExportCommandHandler
 {
     /**

@@ -16,8 +16,6 @@ use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalSegmentRepository implements SegmentRepositoryInterface
 {
     /**

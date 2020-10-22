@@ -12,8 +12,6 @@ namespace Ergonode\Importer\Application\Service\Upload;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- */
 interface UploadServiceInterface
 {
     /**

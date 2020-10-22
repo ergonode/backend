@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CommentCreatedEvent implements DomainEventInterface
 {
     /**

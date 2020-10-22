@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class RemoveProductAttributeValueCommandTest extends TestCase
 {
     /**

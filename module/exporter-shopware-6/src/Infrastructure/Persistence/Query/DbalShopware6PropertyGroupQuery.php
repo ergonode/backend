@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInterface
 {
     private const TABLE = 'exporter.shopware6_property_group';

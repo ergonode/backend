@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class OptionExportProcessorStep implements ExportStepProcessInterface
 {
     /**

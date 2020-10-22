@@ -12,12 +12,8 @@ use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Channel\Application\Provider\ChannelFormFactoryInterface;
 
-/**
- */
 class ChannelFormFactoryProviderTest extends TestCase
 {
-    /**
-     */
     public function testNotExist(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -25,8 +21,6 @@ class ChannelFormFactoryProviderTest extends TestCase
         $provider->provide('Any not supported form type');
     }
 
-    /**
-     */
     public function testExist(): void
     {
         $factory = $this->createMock(ChannelFormFactoryInterface::class);

@@ -11,8 +11,6 @@ namespace Ergonode\Mailer\Domain;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class Template
 {
     /**

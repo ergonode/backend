@@ -10,8 +10,6 @@ namespace Ergonode\Importer\Infrastructure\Processor;
 
 use Ergonode\Importer\Domain\Entity\Import;
 
-/**
- */
 interface SourceImportProcessorInterface
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Domain\Entity;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface AttributeInterface
 {
     /**

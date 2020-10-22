@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Service\Decorator;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
 
-/**
- */
 class CacheDownloaderDecorator implements DownloaderInterface
 {
     /**

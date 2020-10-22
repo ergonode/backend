@@ -17,8 +17,6 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Column\TranslatableColumn;
 
-/**
- */
 class LanguageGrid extends AbstractGrid
 {
     /**

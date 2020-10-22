@@ -14,12 +14,8 @@ use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testeEventCreation(): void
     {
         /** @var ProductId | MockObject $id */

@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
 
-/**
- */
 class DbalCommentCreatedEventProjector
 {
     private const TABLE = 'comment';

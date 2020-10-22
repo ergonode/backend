@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
 
-/**
- */
 class DbalSegmentStatusChangedEventProjector
 {
     private const TABLE = 'segment';

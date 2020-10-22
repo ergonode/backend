@@ -12,8 +12,6 @@ namespace Ergonode\ProductCollection\Application\Model;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductCollectionUpdateFormModel
 {
     /**
@@ -50,8 +48,6 @@ class ProductCollectionUpdateFormModel
      */
     public ?ProductCollectionTypeId $typeId;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

@@ -15,8 +15,6 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionDescriptionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalProductCollectionDescriptionChangedEventProjector
 {
     private const TABLE = 'product_collection';

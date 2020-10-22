@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 interface ExportProcessorInterface
 {
     /**

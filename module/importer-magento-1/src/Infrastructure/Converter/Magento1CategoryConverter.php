@@ -12,8 +12,6 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Converter;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 
-/**
- */
 class Magento1CategoryConverter implements ConverterInterface
 {
     public const TYPE = 'magento-1-category-converter';

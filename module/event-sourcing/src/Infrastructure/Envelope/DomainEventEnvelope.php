@@ -12,8 +12,6 @@ namespace Ergonode\EventSourcing\Infrastructure\Envelope;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DomainEventEnvelope
 {
     /**

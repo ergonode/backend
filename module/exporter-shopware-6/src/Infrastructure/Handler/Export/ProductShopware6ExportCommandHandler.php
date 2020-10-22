@@ -18,8 +18,6 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductShopware6ExportCommandHandler
 {
     /**

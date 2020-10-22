@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Component\Validator\Constraints\Collection;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
-/**
- */
 class TextAttributeValueConstraintStrategyTest extends TestCase
 {
     /**
@@ -29,30 +27,22 @@ class TextAttributeValueConstraintStrategyTest extends TestCase
      */
     private TextAttribute $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->strategy = new TextAttributeValueConstraintStrategy();
         $this->attribute = $this->createMock(TextAttribute::class);
     }
 
-    /**
-     */
     public function testSupportValidAttribute(): void
     {
         $this->assertTrue($this->strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testNotSupportValidAttribute(): void
     {
         $this->assertFalse($this->strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testReturnConstraint(): void
     {
         $constraint = $this->strategy->get($this->attribute);

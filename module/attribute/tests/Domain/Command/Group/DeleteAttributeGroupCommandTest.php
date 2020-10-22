@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteAttributeGroupCommandTest extends TestCase
 {
     /**

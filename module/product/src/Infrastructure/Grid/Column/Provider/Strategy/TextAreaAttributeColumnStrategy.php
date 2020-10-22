@@ -16,8 +16,6 @@ use Ergonode\Grid\Column\TextAreaColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\TextFilter;
 
-/**
- */
 class TextAreaAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

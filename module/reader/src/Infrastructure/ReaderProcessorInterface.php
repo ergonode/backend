@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Infrastructure;
 
-/**
- */
 interface ReaderProcessorInterface extends \IteratorAggregate, \Countable
 {
     /**
@@ -20,11 +18,7 @@ interface ReaderProcessorInterface extends \IteratorAggregate, \Countable
      */
     public function open(string $file, array $configuration = [], array $formatters = []): void;
 
-    /**
-     */
     public function read(): \Traversable;
 
-    /**
-     */
     public function close(): void;
 }

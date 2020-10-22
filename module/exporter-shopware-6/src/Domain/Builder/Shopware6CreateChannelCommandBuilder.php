@@ -20,8 +20,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterShopware6\Domain\Command\CreateShopware6ChannelCommand;
 use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
 
-/**
- */
 class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilderInterface
 {
     /**

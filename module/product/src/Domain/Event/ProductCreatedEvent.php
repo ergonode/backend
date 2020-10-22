@@ -17,8 +17,6 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class ProductCreatedEvent implements DomainEventInterface
 {
     /**
@@ -50,7 +48,7 @@ class ProductCreatedEvent implements DomainEventInterface
     private TemplateId $templateId;
 
     /**
-     * @var Categoryid[]
+     * @var CategoryId[]
      *
      * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */

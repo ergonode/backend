@@ -12,8 +12,6 @@ namespace Ergonode\Channel\Domain\Repository;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Channel\Domain\Entity\Scheduler;
 
-/**
- */
 interface SchedulerRepositoryInterface
 {
     /**

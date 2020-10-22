@@ -13,8 +13,6 @@ use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 
-/**
- */
 class ProductDeletedEventHandler
 {
     /**

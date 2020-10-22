@@ -14,12 +14,8 @@ use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NumericAttributeValueConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         /** @var AttributeId | MockObject $attributeId */

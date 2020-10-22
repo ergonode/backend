@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalRolePrivilegesChangedEventProjector
 {
     private const TABLE = 'roles';

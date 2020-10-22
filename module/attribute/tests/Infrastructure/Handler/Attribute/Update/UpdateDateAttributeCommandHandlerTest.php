@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateDateAttributeCommandHandlerTest extends TestCase
 {
     /**
@@ -35,8 +33,6 @@ class UpdateDateAttributeCommandHandlerTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(UpdateDateAttributeCommand::class);
@@ -48,8 +44,6 @@ class UpdateDateAttributeCommandHandlerTest extends TestCase
         $this->attribute->method('getGroups')->willReturn([]);
     }
 
-    /**
-     */
     public function testAttributeNotFound(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -59,8 +53,6 @@ class UpdateDateAttributeCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testUpdate(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);

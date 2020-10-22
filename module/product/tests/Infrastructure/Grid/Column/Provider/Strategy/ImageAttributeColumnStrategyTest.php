@@ -10,7 +10,6 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
-use Ergonode\Grid\Filter\HasFilter;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\ImageColumn;
@@ -18,8 +17,6 @@ use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\ImageAttribute
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ImageAttributeColumnStrategyTest extends TestCase
 {
     /**
@@ -27,32 +24,24 @@ class ImageAttributeColumnStrategyTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(ImageAttribute::class);
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $strategy = new ImageAttributeColumnStrategy();
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $strategy = new ImageAttributeColumnStrategy();
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testCreateColumn(): void
     {
         $language = $this->createMock(Language::class);

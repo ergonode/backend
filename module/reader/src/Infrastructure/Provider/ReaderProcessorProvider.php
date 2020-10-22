@@ -11,8 +11,6 @@ namespace Ergonode\Reader\Infrastructure\Provider;
 
 use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 
-/**
- */
 class ReaderProcessorProvider
 {
     /**

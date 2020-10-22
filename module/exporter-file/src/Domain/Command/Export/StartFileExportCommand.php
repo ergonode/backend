@@ -11,8 +11,6 @@ namespace Ergonode\ExporterFile\Domain\Command\Export;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class StartFileExportCommand implements DomainCommandInterface
 {
     /**

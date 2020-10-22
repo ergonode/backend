@@ -11,8 +11,6 @@ namespace Ergonode\Core\Domain\Query\Builder;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
-/**
- */
 interface DefaultImageQueryBuilderInterface
 {
     /**

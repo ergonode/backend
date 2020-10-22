@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
-/**
- */
 class AbstractAggregateRootTest extends TestCase
 {
     /**

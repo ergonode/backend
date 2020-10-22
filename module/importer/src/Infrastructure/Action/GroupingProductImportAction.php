@@ -25,8 +25,6 @@ use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttribu
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class GroupingProductImportAction
 {
     /**

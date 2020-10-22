@@ -29,8 +29,6 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
-/**
- */
 class VariableProductImportAction
 {
     /**

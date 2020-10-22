@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
-/**
- */
 interface TreeQueryInterface
 {
     /**

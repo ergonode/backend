@@ -20,8 +20,6 @@ use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UploadFileCommandHandler
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 interface StatusRepositoryInterface
 {
     /**

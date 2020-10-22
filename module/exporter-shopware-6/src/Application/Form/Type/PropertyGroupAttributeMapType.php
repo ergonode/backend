@@ -17,8 +17,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
 
-/**
- */
 class PropertyGroupAttributeMapType extends AbstractType
 {
     /**

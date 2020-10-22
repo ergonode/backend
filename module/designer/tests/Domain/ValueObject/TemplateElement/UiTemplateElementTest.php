@@ -12,12 +12,8 @@ namespace Ergonode\Designer\Tests\Domain\ValueObject\TemplateElement;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UiTemplateElementTest extends TestCase
 {
-    /**
-     */
     public function testUITemplateCreation(): void
     {
         $label = 'Any Element label';

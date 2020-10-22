@@ -11,8 +11,6 @@ namespace Ergonode\Workflow\Infrastructure\Grid\Filter\Option;
 use Ergonode\Grid\Filter\Option\FilterOptionInterface;
 use Ergonode\Core\Domain\ValueObject\Color;
 
-/**
- */
 class StatusOption implements FilterOptionInterface
 {
     /**

@@ -21,8 +21,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use GuzzleHttp\Exception\ClientException;
 
-/**
- */
 class Shopware6CategoryClient
 {
     /**

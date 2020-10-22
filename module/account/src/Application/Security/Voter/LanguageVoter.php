@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-/**
- */
 class LanguageVoter extends Voter implements LoggerAwareInterface
 {
     public const EDIT = 'edit';

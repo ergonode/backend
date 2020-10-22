@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 
-/**
- */
 class DbalProductCollectionTypeIdChangedEventProjector
 {
     private const TABLE = 'product_collection';

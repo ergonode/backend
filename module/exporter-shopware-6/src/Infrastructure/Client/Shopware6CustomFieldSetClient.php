@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class Shopware6CustomFieldSetClient
 {
 

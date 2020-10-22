@@ -14,8 +14,6 @@ use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 
-/**
- */
 class ProductValueChangedEventHandler implements MessageSubscriberInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface AttributeGroupQueryInterface
 {
     /**

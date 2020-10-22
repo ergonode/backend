@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class LanguageNodeTest extends TestCase
 {
     public const NAMESPACE = '53db6054-f4c2-4753-a786-297009377be2';
@@ -23,23 +21,17 @@ class LanguageNodeTest extends TestCase
      */
     private $languageId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->languageId = $this->createMock(LanguageId::class);
     }
 
-    /**
-     */
     public function testCreateNode(): void
     {
         $node = new LanguageNode($this->languageId);
         self::assertEquals($this->languageId, $node->getLanguageId());
     }
 
-    /**
-     */
     public function testSettingParent(): void
     {
         /** @var LanguageNode|MockObject $parent */
@@ -49,8 +41,6 @@ class LanguageNodeTest extends TestCase
         self::assertEquals($parent, $node->getParent());
     }
 
-    /**
-     */
     public function testAddChildren(): void
     {
         $language = LanguageId::generateIdentifier(self::NAMESPACE, 'en_GB');
@@ -65,8 +55,6 @@ class LanguageNodeTest extends TestCase
         self::assertTrue($node->hasChildren());
     }
 
-    /**
-     */
     public function testHasSuccessor(): void
     {
         $languagePl = LanguageId::generateIdentifier(self::NAMESPACE, 'pl_PL');

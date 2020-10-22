@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Application\AbstractModule;
 use Nette\PhpGenerator\PhpFile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ModuleClassBuilder
 {
     /**

@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeStringParameterChangeEventTest extends TestCase
 {
     /**

@@ -10,8 +10,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class TranslatableStringFaker
 {
     /**

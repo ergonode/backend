@@ -18,8 +18,6 @@ use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
 use Ergonode\Product\Infrastructure\Factory\Command\UpdateProductCommandFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class UpdateSimpleProductCommandFactory implements UpdateProductCommandFactoryInterface
 {
     /**

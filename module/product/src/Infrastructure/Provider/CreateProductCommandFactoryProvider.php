@@ -10,8 +10,6 @@ namespace Ergonode\Product\Infrastructure\Provider;
 
 use Ergonode\Product\Infrastructure\Factory\Command\CreateProductCommandFactoryInterface;
 
-/**
- */
 class CreateProductCommandFactoryProvider
 {
     /**

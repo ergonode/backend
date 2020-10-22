@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 interface ConditionSetQueryInterface
 {
     /**

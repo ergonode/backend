@@ -12,8 +12,6 @@ namespace Ergonode\Attribute\Application\Model\Attribute;
 use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class AttributeFormModel
 {
     /**

@@ -13,12 +13,8 @@ use Ergonode\Core\Application\Model\LanguageTree\LanguageTreeNodeFormModel;
 use Ergonode\Core\Domain\Command\LanguageTree\UpdateLanguageTreeCommand;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateLanguageTreeCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $language1 = $this->createMock(LanguageTreeNodeFormModel::class);

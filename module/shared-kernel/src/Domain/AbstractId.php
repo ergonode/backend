@@ -13,8 +13,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- */
 abstract class AbstractId
 {
     /**

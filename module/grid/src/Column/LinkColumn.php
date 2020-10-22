@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
-/**
- */
 class LinkColumn extends AbstractColumn
 {
     public const TYPE = 'LINK';

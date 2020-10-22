@@ -12,12 +12,8 @@ use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderProvider;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderInterface;
 
-/**
- */
 class UpdateChannelCommandBuilderProviderTest extends TestCase
 {
-    /**
-     */
     public function testNotExist(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -25,8 +21,6 @@ class UpdateChannelCommandBuilderProviderTest extends TestCase
         $provider->provide('Any not supported form type');
     }
 
-    /**
-     */
     public function testExist(): void
     {
         $builder = $this->createMock(UpdateChannelCommandBuilderInterface::class);

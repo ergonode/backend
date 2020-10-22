@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Context;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 
-/**
- */
 class ExportStatusHandlerTest extends TestCase
 {
     /**
@@ -39,8 +37,6 @@ class ExportStatusHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new ExportStatusHandler();
@@ -49,8 +45,6 @@ class ExportStatusHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = ExportStatusHandler::getSubscribingMethods();
@@ -62,8 +56,6 @@ class ExportStatusHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = ExportStatus::STOPPED;
@@ -73,8 +65,6 @@ class ExportStatusHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = ExportStatus::STOPPED;

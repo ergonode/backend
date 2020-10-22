@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\Core\Domain\Event\UnitDeletedEvent;
 
-/**
- */
 class DbalUnitDeletedEventProjector
 {
     private const TABLE = 'unit';

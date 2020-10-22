@@ -11,8 +11,6 @@ namespace Ergonode\Value\Domain\Service;
 
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class ValueManipulationService
 {
     /**

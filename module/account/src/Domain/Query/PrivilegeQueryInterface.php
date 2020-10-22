@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Query;
 
-/**
- */
 interface PrivilegeQueryInterface
 {
     /**

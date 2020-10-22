@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Factory\StatusFactory;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
 
-/**
- */
 class CreateStatusCommandHandlerTest extends TestCase
 {
     /**

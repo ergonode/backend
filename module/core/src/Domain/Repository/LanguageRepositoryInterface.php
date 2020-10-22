@@ -11,8 +11,6 @@ namespace Ergonode\Core\Domain\Repository;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface LanguageRepositoryInterface
 {
     /**

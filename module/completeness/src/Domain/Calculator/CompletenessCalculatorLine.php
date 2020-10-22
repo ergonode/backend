@@ -10,8 +10,6 @@ namespace Ergonode\Completeness\Domain\Calculator;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CompletenessCalculatorLine
 {
     /**

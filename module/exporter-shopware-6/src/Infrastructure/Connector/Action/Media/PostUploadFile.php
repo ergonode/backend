@@ -14,8 +14,6 @@ use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostUploadFile extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v1/_action/media/%s/upload?%s';

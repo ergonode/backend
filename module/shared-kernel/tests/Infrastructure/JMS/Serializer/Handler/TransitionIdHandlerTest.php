@@ -16,8 +16,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TransitionIdHandlerTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class TransitionIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new TransitionIdHandler();
@@ -50,8 +46,6 @@ class TransitionIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = TransitionIdHandler::getSubscribingMethods();
@@ -63,8 +57,6 @@ class TransitionIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = TransitionId::generate();
@@ -73,8 +65,6 @@ class TransitionIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = TransitionId::generate();

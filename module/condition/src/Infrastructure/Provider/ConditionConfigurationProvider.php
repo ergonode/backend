@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\Exception\ConditionStrategyNotFoundException;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ConditionConfigurationProvider
 {
     /**

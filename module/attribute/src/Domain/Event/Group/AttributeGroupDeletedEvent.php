@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AttributeGroupDeletedEvent extends AbstractDeleteEvent
 {
     /**

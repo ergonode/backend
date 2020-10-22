@@ -9,8 +9,6 @@ namespace Ergonode\Channel\Domain\Service;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 interface ChannelServiceInterface
 {
     /**

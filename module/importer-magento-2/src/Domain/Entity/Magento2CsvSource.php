@@ -10,8 +10,6 @@ namespace Ergonode\ImporterMagento2\Domain\Entity;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 
-/**
- */
 class Magento2CsvSource extends AbstractSource
 {
     public const TYPE = 'magento-2-csv';

@@ -12,8 +12,6 @@ namespace Ergonode\Category\Domain\Entity;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface CategoryInterface
 {
     /**

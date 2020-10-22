@@ -11,8 +11,6 @@ namespace Ergonode\Account\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 interface ProfileQueryInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteWorkflowTransitionCommandHandler
 {
     /**

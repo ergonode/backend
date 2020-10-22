@@ -14,8 +14,6 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeHintChangedEventTest extends TestCase
 {
     /**

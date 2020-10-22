@@ -12,12 +12,8 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
 
-/**
- */
 class ProductBindFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

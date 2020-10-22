@@ -14,12 +14,8 @@ use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RoleNameChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var RoleId|MockObject $id */

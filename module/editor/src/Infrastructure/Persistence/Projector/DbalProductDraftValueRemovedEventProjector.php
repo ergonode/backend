@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class DbalProductDraftValueRemovedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';

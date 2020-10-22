@@ -13,8 +13,6 @@ use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 
-/**
- */
 class CreateConditionSetCommandHandler
 {
     /**

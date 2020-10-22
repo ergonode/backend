@@ -17,8 +17,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -27,32 +25,24 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
     private ProductBindingQueryInterface $query;
 
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(ProductBindingQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new ProductNoBindings());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate('Value', $this->createMock(Constraint::class));
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new ProductNoBindings());
@@ -60,8 +50,6 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->query->method('getBindings')->willReturn([Uuid::uuid4()->toString()]);
@@ -72,8 +60,6 @@ class ProductNoBindingsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testInCorrectValueValidation(): void
     {
         $this->query->method('getBindings')->willReturn(array());

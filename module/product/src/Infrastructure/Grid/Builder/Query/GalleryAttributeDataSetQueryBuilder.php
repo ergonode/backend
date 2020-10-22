@@ -14,8 +14,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class GalleryAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

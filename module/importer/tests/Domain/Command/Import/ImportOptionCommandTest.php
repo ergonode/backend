@@ -15,12 +15,8 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class ImportOptionCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

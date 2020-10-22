@@ -13,8 +13,6 @@ use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteChannelCommandHandler
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UnitSymbolChangedEvent implements DomainEventInterface
 {
     /**

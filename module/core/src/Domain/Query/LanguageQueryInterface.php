@@ -12,8 +12,6 @@ namespace Ergonode\Core\Domain\Query;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface LanguageQueryInterface
 {
     /**

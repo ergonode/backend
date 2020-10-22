@@ -15,8 +15,6 @@ use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-/**
- */
 class DbalUserQuery implements UserQueryInterface
 {
     public const TABLE = 'users';

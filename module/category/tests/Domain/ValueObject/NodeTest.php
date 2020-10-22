@@ -14,8 +14,6 @@ use Ergonode\Category\Domain\ValueObject\Node;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NodeTest extends TestCase
 {
     /**
@@ -23,23 +21,17 @@ class NodeTest extends TestCase
      */
     private $categoryId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->categoryId = $this->createMock(CategoryId::class);
     }
 
-    /**
-     */
     public function testCreateNode(): void
     {
         $node = new Node($this->categoryId);
         $this::assertEquals($this->categoryId, $node->getCategoryId());
     }
 
-    /**
-     */
     public function testAddChildren(): void
     {
 
@@ -55,8 +47,6 @@ class NodeTest extends TestCase
         $this->assertTrue($node->hasChild($categoryId2));
     }
 
-    /**
-     */
     public function testHasSuccessor(): void
     {
         $categoryId1 = CategoryId::generate();

@@ -13,8 +13,6 @@ use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\FileExistsException;
 
-/**
- */
 class ThumbnailGenerator
 {
     /**

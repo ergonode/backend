@@ -17,8 +17,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 
-/**
- */
 class VariableProductForm extends AbstractType implements ProductFormInterface
 {
     /**

@@ -10,8 +10,6 @@ namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeCodeTest extends TestCase
 {
     /**

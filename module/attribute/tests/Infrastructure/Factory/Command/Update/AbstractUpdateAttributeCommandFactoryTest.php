@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 abstract class AbstractUpdateAttributeCommandFactoryTest extends TestCase
 {
     /**

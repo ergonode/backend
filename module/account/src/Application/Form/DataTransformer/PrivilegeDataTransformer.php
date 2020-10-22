@@ -13,8 +13,6 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class PrivilegeDataTransformer implements DataTransformerInterface
 {
     /**

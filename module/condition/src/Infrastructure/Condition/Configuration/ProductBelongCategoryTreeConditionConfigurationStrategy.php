@@ -14,8 +14,6 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyIn
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ProductBelongCategoryTreeConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 
-/**
- */
 class ImageAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

@@ -13,8 +13,6 @@ use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
 use Ergonode\Transformer\Domain\Factory\TransformerFactory;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 
-/**
- */
 class CreateTransformerCommandHandler
 {
     /**

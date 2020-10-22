@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\View\ViewTemplateElement;
 
-/**
- */
 interface BuilderTemplateElementStrategyInterface
 {
     /**

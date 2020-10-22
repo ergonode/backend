@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 interface MultimediaRepositoryInterface
 {
     /**

@@ -11,13 +11,10 @@ namespace Ergonode\Product\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-/**
- */
 class ChildrenProductRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

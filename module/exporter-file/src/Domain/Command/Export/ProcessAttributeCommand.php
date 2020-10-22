@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class ProcessAttributeCommand implements DomainCommandInterface
 {
     /**

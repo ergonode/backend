@@ -12,8 +12,6 @@ use Ergonode\Multimedia\Domain\Command\DeleteMultimediaCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteMultimediaCommandTest extends TestCase
 {
     /**

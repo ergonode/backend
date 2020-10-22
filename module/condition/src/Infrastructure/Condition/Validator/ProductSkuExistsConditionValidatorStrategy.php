@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- */
 class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**

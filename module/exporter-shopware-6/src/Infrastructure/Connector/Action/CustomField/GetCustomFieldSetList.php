@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetCustomFieldSetList extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/custom-field-set?%s';

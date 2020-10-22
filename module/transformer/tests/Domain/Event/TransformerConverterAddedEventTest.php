@@ -14,12 +14,8 @@ use Ergonode\Transformer\Domain\Event\TransformerFieldAddedEvent;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TransformerConverterAddedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreate(): void
     {
         /** @var TransformerId $id */

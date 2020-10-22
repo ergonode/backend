@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class LanguageIdHandlerTest extends TestCase
 {
 
@@ -40,8 +38,6 @@ class LanguageIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new LanguageIdHandler();
@@ -50,8 +46,6 @@ class LanguageIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = LanguageIdHandler::getSubscribingMethods();
@@ -63,8 +57,6 @@ class LanguageIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = LanguageId::generate();
@@ -73,8 +65,6 @@ class LanguageIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = LanguageId::generate();

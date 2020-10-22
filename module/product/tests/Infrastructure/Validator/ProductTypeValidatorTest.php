@@ -15,8 +15,6 @@ use Ramsey\Uuid\Uuid;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductTypeValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -24,32 +22,24 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
      */
     private ProductRepositoryInterface $repository;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(ProductRepositoryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new ProductType());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate('Value', $this->createMock(Constraint::class));
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new ProductType());
@@ -57,8 +47,6 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectTypeValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
@@ -72,8 +60,6 @@ class ProductTypeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testIncorrectTypeValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();

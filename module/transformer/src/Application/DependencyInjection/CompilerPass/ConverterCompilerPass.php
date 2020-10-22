@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler\ConverterInterfaceHandler;
 
-/**
- */
 class ConverterCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'transformer.converter.converter_interface';

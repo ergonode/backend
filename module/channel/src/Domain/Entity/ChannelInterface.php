@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Entity;
 
-/**
- */
 interface ChannelInterface
 {
     /**

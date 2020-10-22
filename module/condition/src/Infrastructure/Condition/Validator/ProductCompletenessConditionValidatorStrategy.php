@@ -15,8 +15,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- */
 class ProductCompletenessConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**

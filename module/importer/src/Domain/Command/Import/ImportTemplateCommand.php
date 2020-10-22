@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Domain\Command\Import;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class ImportTemplateCommand implements DomainCommandInterface
 {
     /**

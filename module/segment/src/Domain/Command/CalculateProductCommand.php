@@ -12,8 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-/**
- */
 class CalculateProductCommand implements DomainCommandInterface
 {
     /**

@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class TemplateIdFaker extends BaseProvider
 {
     /**

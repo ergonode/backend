@@ -13,13 +13,9 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class HistoryColumnTest extends TestCase
 {
 
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any field';

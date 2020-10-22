@@ -15,12 +15,8 @@ use Ergonode\Designer\Domain\ValueObject\Position;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateElementRemovedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var TemplateId | MockObject $id */

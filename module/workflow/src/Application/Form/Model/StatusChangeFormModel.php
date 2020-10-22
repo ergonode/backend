@@ -12,8 +12,6 @@ namespace Ergonode\Workflow\Application\Form\Model;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class StatusChangeFormModel
 {
     /**
@@ -54,8 +52,6 @@ class StatusChangeFormModel
      */
     public array $description;
 
-    /**
-     */
     public function __construct()
     {
         $this->color = null;

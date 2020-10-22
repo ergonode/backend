@@ -16,8 +16,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class TransformerIdHandlerTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class TransformerIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new TransformerIdHandler();
@@ -50,8 +46,6 @@ class TransformerIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = TransformerIdHandler::getSubscribingMethods();

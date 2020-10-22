@@ -11,8 +11,6 @@ namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 interface ExportStepProcessInterface
 {
     /**

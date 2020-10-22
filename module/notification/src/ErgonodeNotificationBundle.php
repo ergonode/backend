@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Notification\Application\DependencyInjection\CompilerPass\NotificationStrategyInterfaceCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ErgonodeNotificationBundle extends AbstractModule
 {
     /**

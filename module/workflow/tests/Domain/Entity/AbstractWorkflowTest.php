@@ -17,8 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class AbstractWorkflowTest extends TestCase
 {
     /**
@@ -36,8 +34,6 @@ class AbstractWorkflowTest extends TestCase
      */
     private $status;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(WorkflowId::class);
@@ -191,8 +187,6 @@ class AbstractWorkflowTest extends TestCase
         $workflow->addTransition($source, $destination);
     }
 
-    /**
-     */
     public function testShouldSortTransitionStatuses(): void
     {
         $workflow = $this->getClass(

@@ -11,8 +11,6 @@ namespace Ergonode\Generator\Builder;
 
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 interface BuilderInterface
 {
     /**

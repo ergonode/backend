@@ -10,8 +10,6 @@ namespace Ergonode\ExporterFile\Infrastructure\Writer;
 
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 
-/**
- */
 class CsvWriter implements WriterInterface
 {
     public const TYPE = 'csv';

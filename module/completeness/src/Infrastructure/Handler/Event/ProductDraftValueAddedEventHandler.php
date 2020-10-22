@@ -14,8 +14,6 @@ use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 
-/**
- */
 class ProductDraftValueAddedEventHandler
 {
     /**

@@ -12,12 +12,8 @@ use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class ProductChildFormModelTest extends TestCase
 {
-    /**
-     */
     public function testModelCreation(): void
     {
         $id = $this->createMock(ProductId::class);

@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class RelationshipStrategyInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.core.relationship_strategy_interface';

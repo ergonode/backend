@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
 
-/**
- */
 class DbalCurrencyQuery implements CurrencyQueryInterface
 {
     private const TABLE = 'currency';

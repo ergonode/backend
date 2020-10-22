@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UnitDeletedEvent extends AbstractDeleteEvent
 {
     /**

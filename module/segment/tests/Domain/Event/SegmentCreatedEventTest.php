@@ -18,12 +18,8 @@ use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SegmentCreatedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var SegmentId|MockObject $id */

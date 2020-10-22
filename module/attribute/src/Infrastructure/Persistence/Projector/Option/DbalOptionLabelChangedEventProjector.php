@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalOptionLabelChangedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';

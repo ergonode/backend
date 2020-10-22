@@ -22,8 +22,6 @@ use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class TaxSynchronizer implements SynchronizerInterface
 {
     /**

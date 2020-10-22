@@ -10,8 +10,6 @@ namespace Ergonode\Core\Infrastructure\Builder\LanguageTree;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class Branch
 {
     /**

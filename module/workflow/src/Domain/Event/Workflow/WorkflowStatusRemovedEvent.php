@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class WorkflowStatusRemovedEvent implements DomainEventInterface
 {
     /**

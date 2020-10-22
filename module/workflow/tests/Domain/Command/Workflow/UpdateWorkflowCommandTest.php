@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class UpdateWorkflowCommandTest extends TestCase
 {
     /**
@@ -33,8 +31,6 @@ class UpdateWorkflowCommandTest extends TestCase
         $this->assertSame($id, $command->getId());
     }
 
-    /**
-     */
     public function testIncorrectStatusId(): void
     {
         $this->expectException(\InvalidArgumentException::class);

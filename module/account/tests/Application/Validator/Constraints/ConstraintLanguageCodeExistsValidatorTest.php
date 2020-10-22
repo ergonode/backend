@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class ConstraintLanguageCodeExistsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -25,24 +23,18 @@ class ConstraintLanguageCodeExistsValidatorTest extends ConstraintValidatorTestC
      */
     private LanguageQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(LanguageQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), new ConstraintLanguageCodeExists());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(UnexpectedTypeException::class);
@@ -51,8 +43,6 @@ class ConstraintLanguageCodeExistsValidatorTest extends ConstraintValidatorTestC
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testLanguageCodeValidation(): void
     {
         $value = ['code1' => 'code1'];
@@ -62,8 +52,6 @@ class ConstraintLanguageCodeExistsValidatorTest extends ConstraintValidatorTestC
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testLanguageCodeInvalidValidation(): void
     {
         $value = ['code1' => 'code1'];

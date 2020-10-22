@@ -13,8 +13,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as SecurityUserPasswordEncoderInterface;
 
-/**
- */
 class DomainUserPasswordEncoder implements UserPasswordEncoderInterface
 {
     /**

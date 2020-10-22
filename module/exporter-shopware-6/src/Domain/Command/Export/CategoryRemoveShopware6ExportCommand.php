@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CategoryRemoveShopware6ExportCommand implements DomainCommandInterface
 {
     /**

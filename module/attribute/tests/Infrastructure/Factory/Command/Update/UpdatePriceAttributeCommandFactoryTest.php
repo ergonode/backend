@@ -16,14 +16,9 @@ use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
 use Ergonode\Attribute\Application\Model\Attribute\Property\PriceAttributePropertyModel;
 use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
-use Ramsey\Uuid\Uuid;
 
-/**
- */
 class UpdatePriceAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdatePriceAttributeCommandFactory();
@@ -31,8 +26,6 @@ class UpdatePriceAttributeCommandFactoryTest extends AbstractUpdateAttributeComm
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         /** @var PriceAttributeFormModel $data */

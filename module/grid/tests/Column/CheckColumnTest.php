@@ -10,12 +10,8 @@ use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\FilterInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CheckColumnTest extends TestCase
 {
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any id';

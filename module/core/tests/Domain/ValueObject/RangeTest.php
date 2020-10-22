@@ -11,8 +11,6 @@ namespace Ergonode\Core\Tests\Domain\ValueObject;
 use Ergonode\Core\Domain\ValueObject\Range;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RangeTest extends TestCase
 {
     /**

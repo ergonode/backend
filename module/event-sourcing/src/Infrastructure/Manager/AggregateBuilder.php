@@ -11,8 +11,6 @@ namespace Ergonode\EventSourcing\Infrastructure\Manager;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class AggregateBuilder implements AggregateBuilderInterface
 {
     /**

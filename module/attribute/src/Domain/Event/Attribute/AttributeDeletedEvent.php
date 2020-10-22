@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AttributeDeletedEvent extends AbstractDeleteEvent
 {
     /**

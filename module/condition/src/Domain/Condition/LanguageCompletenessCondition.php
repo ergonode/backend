@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class LanguageCompletenessCondition implements ConditionInterface
 {
     public const TYPE = 'LANGUAGE_COMPLETENESS_CONDITION';

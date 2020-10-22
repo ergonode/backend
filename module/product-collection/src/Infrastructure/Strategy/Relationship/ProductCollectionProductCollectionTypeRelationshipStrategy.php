@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductCollectionProductCollectionTypeRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

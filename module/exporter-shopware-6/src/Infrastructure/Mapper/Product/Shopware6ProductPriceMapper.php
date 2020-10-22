@@ -23,8 +23,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
 {
     private const PRECISION = 2;

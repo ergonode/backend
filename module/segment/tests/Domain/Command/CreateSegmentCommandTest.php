@@ -16,8 +16,6 @@ use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateSegmentCommandTest extends TestCase
 {
     /**

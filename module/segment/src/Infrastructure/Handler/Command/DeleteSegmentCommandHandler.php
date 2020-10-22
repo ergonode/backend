@@ -16,8 +16,6 @@ use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteSegmentCommandHandler
 {
     /**

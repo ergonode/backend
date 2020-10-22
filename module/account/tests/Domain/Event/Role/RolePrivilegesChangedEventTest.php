@@ -15,12 +15,8 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RolePrivilegesChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var RoleId|MockObject $id */

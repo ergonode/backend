@@ -15,8 +15,6 @@ use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostPropertyGroupOptionsAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/property-group/%s/options?%s';

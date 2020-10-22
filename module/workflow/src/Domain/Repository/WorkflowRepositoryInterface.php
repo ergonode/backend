@@ -10,12 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-/**
- */
 interface WorkflowRepositoryInterface
 {
     /**

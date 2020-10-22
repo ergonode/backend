@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CategoryIdFaker extends BaseProvider
 {
     private const NAMESPACE = '4438d266-ec62-473b-9f46-1a767e2060d4';

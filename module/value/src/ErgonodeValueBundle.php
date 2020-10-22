@@ -11,8 +11,6 @@ namespace Ergonode\Value;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-/**
- */
 class ErgonodeValueBundle extends AbstractModule
 {
 }

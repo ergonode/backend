@@ -11,14 +11,9 @@ namespace Ergonode\Exporter\Tests\Domain\Command\Export;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class ProcessExportCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $exportId = $this->createMock(ExportId::class);

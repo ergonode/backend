@@ -13,8 +13,6 @@ use Ergonode\Category\Application\Provider\CategoryTypeProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class CategoryTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'category.domain.category_interface';

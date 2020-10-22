@@ -12,8 +12,6 @@ namespace Ergonode\EventSourcing\Infrastructure\Bus;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-/**
- */
 class SymfonyCommandBus implements CommandBusInterface
 {
     /**

@@ -19,8 +19,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
-/**
- */
 class ImportProductSelectAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
     /**

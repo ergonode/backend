@@ -13,8 +13,6 @@ use Ergonode\Attribute\Application\Form\Transformer\AttributeTypeDataTransformer
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeTypeDataTransformerTest extends TestCase
 {
     /**
@@ -22,8 +20,6 @@ class AttributeTypeDataTransformerTest extends TestCase
      */
     protected AttributeTypeDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new AttributeTypeDataTransformer();
@@ -40,9 +36,6 @@ class AttributeTypeDataTransformerTest extends TestCase
         self::assertSame($string, $this->transformer->transform($attributeTypeValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -62,8 +55,6 @@ class AttributeTypeDataTransformerTest extends TestCase
         self::assertEquals($attributeTypeValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);

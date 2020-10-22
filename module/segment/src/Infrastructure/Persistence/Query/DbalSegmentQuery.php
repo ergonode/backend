@@ -18,8 +18,6 @@ use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
-/**
- */
 class DbalSegmentQuery implements SegmentQueryInterface
 {
     private const TABLE = 'segment';

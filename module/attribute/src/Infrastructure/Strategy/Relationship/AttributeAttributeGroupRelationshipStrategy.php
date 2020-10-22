@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class AttributeAttributeGroupRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

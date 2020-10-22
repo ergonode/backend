@@ -15,12 +15,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class LanguageFakerTest extends TestCase
 {
-    /**
-     */
     public function testRandomValue(): void
     {
         /** @var Generator|MockObject $generator */
@@ -31,8 +27,6 @@ class LanguageFakerTest extends TestCase
         self::assertInstanceOf(Language::class, $result);
     }
 
-    /**
-     */
     public function testCustomValue(): void
     {
         /** @var Generator|MockObject $generator */

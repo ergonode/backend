@@ -18,8 +18,6 @@ use Ergonode\Transformer\Domain\Event\TransformerFieldAddedEvent;
 use Ergonode\Transformer\Domain\Event\TransformerAttributeAddedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Transformer extends AbstractAggregateRoot
 {
     /**

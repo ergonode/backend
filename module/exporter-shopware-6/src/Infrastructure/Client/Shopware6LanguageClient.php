@@ -16,8 +16,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Locate;
 
-/**
- */
 class Shopware6LanguageClient
 {
     /**

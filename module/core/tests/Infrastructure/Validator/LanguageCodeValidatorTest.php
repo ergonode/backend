@@ -14,20 +14,14 @@ use Ergonode\Core\Infrastructure\Validator\LanguageCodeValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new LanguageCodeConstraint());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -36,16 +30,12 @@ class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new LanguageCodeConstraint());
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->validator->validate('en_GB', new LanguageCodeConstraint());
@@ -53,8 +43,6 @@ class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testInCorrectValueValidation(): void
     {
         $constraint = new LanguageCodeConstraint();

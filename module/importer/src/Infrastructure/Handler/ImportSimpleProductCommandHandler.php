@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 use Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction;
 
-/**
- */
 class ImportSimpleProductCommandHandler
 {
     /**

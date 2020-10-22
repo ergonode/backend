@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Mapper\LanguageMapper;
 
-/**
- */
 class LanguageProvider implements LanguageProviderInterface
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\Condition\Infrastructure\Condition;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- */
 interface ConditionValidatorStrategyInterface
 {
     /**

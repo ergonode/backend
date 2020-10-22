@@ -10,8 +10,6 @@ use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
-/**
- */
 interface TreeRepositoryInterface
 {
     /**

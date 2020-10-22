@@ -10,8 +10,6 @@ namespace Ergonode\Core\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 interface LanguageTreeProviderInterface
 {
     /**

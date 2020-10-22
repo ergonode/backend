@@ -21,8 +21,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FileExistsException;
 
-/**
- */
 class MultimediaImportAction
 {
     /**

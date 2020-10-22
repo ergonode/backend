@@ -10,8 +10,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 class SkuFaker
 {
     /**

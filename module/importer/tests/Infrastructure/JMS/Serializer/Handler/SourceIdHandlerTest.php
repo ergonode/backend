@@ -16,8 +16,6 @@ use JMS\Serializer\Context;
 use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
-/**
- */
 class SourceIdHandlerTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class SourceIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new SourceIdHandler();
@@ -50,8 +46,6 @@ class SourceIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = SourceIdHandler::getSubscribingMethods();
@@ -63,8 +57,6 @@ class SourceIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = Uuid::uuid4()->toString();
@@ -74,8 +66,6 @@ class SourceIdHandlerTest extends TestCase
         self::assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = Uuid::uuid4()->toString();

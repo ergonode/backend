@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Zend\EventManager\Exception\DomainException;
 
-/**
- */
 class SegmentConditionSetChangedEvent implements DomainEventInterface
 {
     /**

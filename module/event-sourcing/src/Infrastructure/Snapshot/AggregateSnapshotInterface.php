@@ -12,8 +12,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface AggregateSnapshotInterface
 {
     /**

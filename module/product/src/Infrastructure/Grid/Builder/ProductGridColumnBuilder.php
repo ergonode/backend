@@ -28,8 +28,6 @@ use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
-/**
- */
 class ProductGridColumnBuilder
 {
     /**

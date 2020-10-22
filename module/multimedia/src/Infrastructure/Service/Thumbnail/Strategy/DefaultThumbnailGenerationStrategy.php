@@ -10,8 +10,6 @@ namespace Ergonode\Multimedia\Infrastructure\Service\Thumbnail\Strategy;
 
 use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerationStrategyInterface;
 
-/**
- */
 class DefaultThumbnailGenerationStrategy implements ThumbnailGenerationStrategyInterface
 {
     public const MAX_WIDTH = 800;

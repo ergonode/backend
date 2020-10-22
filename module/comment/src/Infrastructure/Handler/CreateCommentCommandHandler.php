@@ -13,8 +13,6 @@ use Ergonode\Comment\Domain\Command\CreateCommentCommand;
 use Ergonode\Comment\Domain\Factory\CommentFactoryInterface;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 
-/**
- */
 class CreateCommentCommandHandler
 {
     /**

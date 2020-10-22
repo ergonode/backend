@@ -15,12 +15,8 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetTaxListTest extends TestCase
 {
-    /**
-     */
     public function testAction(): void
     {
         $action = new GetTaxList(new Shopware6QueryBuilder());

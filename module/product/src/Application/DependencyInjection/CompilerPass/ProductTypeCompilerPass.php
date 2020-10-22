@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Product\Application\Provider\ProductTypeProvider;
 
-/**
- */
 class ProductTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'product.domain.product_interface';

@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 
-/**
- */
 class DbalAttributeGridQuery implements AttributeGridQueryInterface
 {
     private const ATTRIBUTE_TABLE = 'attribute';

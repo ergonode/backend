@@ -20,8 +20,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class DbalTemplateQuery implements TemplateQueryInterface
 {
     private const TEMPLATE_TABLE = 'designer.template';

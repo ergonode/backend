@@ -11,8 +11,6 @@ namespace Ergonode\Attribute\Application\Model\Attribute;
 use Ergonode\Attribute\Application\Model\Attribute\Property\PriceAttributePropertyModel;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class PriceAttributeFormModel extends AttributeFormModel
 {
     /**
@@ -22,8 +20,6 @@ class PriceAttributeFormModel extends AttributeFormModel
      */
     public PriceAttributePropertyModel $parameters;
 
-    /**
-     */
     public function __construct()
     {
         $this->parameters = new PriceAttributePropertyModel();

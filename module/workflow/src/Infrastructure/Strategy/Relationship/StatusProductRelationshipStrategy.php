@@ -22,8 +22,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

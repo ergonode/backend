@@ -15,8 +15,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
-/**
- */
 class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';

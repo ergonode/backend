@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 
-/**
- */
 class DbalProductDeletedEventProjector
 {
     private const TABLE = 'product';

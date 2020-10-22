@@ -16,8 +16,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class UpdateOptionCommandTest extends TestCase
 {
     /**

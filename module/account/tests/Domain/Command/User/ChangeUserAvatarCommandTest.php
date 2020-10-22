@@ -15,12 +15,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- */
 class ChangeUserAvatarCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         /** @var UserId|MockObject $id */

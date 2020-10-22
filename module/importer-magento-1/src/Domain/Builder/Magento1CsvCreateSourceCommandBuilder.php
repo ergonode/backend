@@ -18,8 +18,6 @@ use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
 use Ergonode\ImporterMagento1\Domain\Command\CreateMagento1CsvSourceCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class Magento1CsvCreateSourceCommandBuilder implements CreateSourceCommandBuilderInterface
 {
     /**

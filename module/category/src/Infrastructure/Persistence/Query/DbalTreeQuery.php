@@ -17,8 +17,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
-/**
- */
 class DbalTreeQuery implements TreeQueryInterface
 {
     private const TREE_TABLE = 'category_tree';

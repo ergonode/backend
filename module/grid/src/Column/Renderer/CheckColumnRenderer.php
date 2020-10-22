@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class CheckColumnRenderer implements ColumnRendererInterface
 {
     /**

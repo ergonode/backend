@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 
-/**
- */
 class DbalWorkflowQuery implements WorkflowQueryInterface
 {
     private const TABLE = 'workflow';

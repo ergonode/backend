@@ -12,10 +12,7 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreateNumericAttributeCommandHandler
 {
     /**

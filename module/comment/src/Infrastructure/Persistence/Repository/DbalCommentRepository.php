@@ -18,8 +18,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalCommentRepository implements CommentRepositoryInterface
 {
     /**

@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class AddProductChildCommandTest extends TestCase
 {
     /**

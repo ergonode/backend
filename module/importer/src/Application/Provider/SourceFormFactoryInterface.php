@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Application\Provider;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 interface SourceFormFactoryInterface
 {
     /**

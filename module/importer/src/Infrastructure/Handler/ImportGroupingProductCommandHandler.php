@@ -14,8 +14,6 @@ use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Infrastructure\Action\GroupingProductImportAction;
 
-/**
- */
 class ImportGroupingProductCommandHandler
 {
     /**

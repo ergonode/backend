@@ -13,8 +13,6 @@ use Ergonode\Generator\Builder\FileBuilder;
 use Ergonode\Generator\Builder\MethodBuilder;
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 class EntityControllerClassBuilder
 {
     /**

@@ -9,21 +9,16 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends AbstractShopware6ProductPropertyGroupMapper
 {
     /**

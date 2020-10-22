@@ -20,8 +20,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- */
 class CreateUserCommand extends Command
 {
     private const NAME = 'ergonode:user:create';
@@ -98,7 +96,7 @@ class CreateUserCommand extends Command
         $this->commandBus->dispatch($command);
 
         $output->writeln('<info>User created.</info>');
-        
+
         return 0;
     }
 }

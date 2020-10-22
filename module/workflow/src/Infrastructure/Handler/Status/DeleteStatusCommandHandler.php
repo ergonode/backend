@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteStatusCommandHandler
 {
     /**

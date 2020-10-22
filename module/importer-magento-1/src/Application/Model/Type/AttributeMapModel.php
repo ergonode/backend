@@ -10,8 +10,6 @@ namespace Ergonode\ImporterMagento1\Application\Model\Type;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class AttributeMapModel
 {
     /**

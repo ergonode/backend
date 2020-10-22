@@ -15,8 +15,6 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostCustomFieldActionTest extends TestCase
 {
     /**
@@ -24,8 +22,6 @@ class PostCustomFieldActionTest extends TestCase
      */
     private Shopware6CustomField $customField;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->customField = new Shopware6CustomField(
@@ -34,8 +30,6 @@ class PostCustomFieldActionTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testAction():void
     {
         $action = new PostCustomFieldAction($this->customField);

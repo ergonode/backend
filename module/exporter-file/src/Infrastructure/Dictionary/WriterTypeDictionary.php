@@ -12,8 +12,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterTypeProvider;
 
-/**
- */
 class WriterTypeDictionary
 {
     /**

@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-/**
- */
 class LanguageVoterTest extends TestCase
 {
     /**
@@ -33,8 +31,6 @@ class LanguageVoterTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     */
     public function testVoteOnAttributeNoUser(): void
     {
         $attribute = 'attribute';
@@ -70,8 +66,6 @@ class LanguageVoterTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    /**
-     */
     public function testVoteOnAttributeNotSupportedAttribute(): void
     {
         $this->expectException(\LogicException::class);

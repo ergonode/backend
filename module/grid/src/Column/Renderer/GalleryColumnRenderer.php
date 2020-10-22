@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Column\GalleryColumn;
 
-/**
- */
 class GalleryColumnRenderer implements ColumnRendererInterface
 {
     /**

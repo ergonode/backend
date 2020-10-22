@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
 
-/**
- */
 class ChannelFormFactoryCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'channel.channel_form_factory_interface';

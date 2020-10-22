@@ -17,12 +17,9 @@ use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 
-/**
- */
 class NumericAttributeValueConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**

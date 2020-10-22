@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class UuidFaker extends BaseProvider
 {
     /**

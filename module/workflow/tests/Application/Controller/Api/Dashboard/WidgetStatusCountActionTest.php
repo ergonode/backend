@@ -15,8 +15,6 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class WidgetStatusCountActionTest extends TestCase
 {
     /**
@@ -26,8 +24,6 @@ class WidgetStatusCountActionTest extends TestCase
 
     private WidgetStatusCountAction $controller;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->mockQuery = $this->createMock(StatusQueryInterface::class);
@@ -37,8 +33,6 @@ class WidgetStatusCountActionTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testShouldGetStatuses(): void
     {
         $this->mockQuery

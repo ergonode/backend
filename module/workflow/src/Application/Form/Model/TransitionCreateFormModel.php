@@ -16,8 +16,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-/**
- */
 class TransitionCreateFormModel
 {
     /**

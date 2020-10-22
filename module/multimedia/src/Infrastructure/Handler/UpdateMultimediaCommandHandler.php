@@ -11,12 +11,8 @@ namespace Ergonode\Multimedia\Infrastructure\Handler;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Domain\Command\UpdateMultimediaCommand;
-use League\Flysystem\FilesystemInterface;
 
-/**
- */
 class UpdateMultimediaCommandHandler
 {
     /**

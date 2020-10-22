@@ -18,8 +18,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
 {
     /**

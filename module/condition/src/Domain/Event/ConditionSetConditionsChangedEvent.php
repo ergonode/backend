@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ConditionSetConditionsChangedEvent implements DomainEventInterface
 {
     /**

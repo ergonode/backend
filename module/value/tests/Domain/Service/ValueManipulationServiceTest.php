@@ -14,12 +14,8 @@ use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ValueManipulationServiceTest extends TestCase
 {
-    /**
-     */
     public function testCalculation(): void
     {
         $strategy = $this->createMock(ValueUpdateStrategyInterface::class);
@@ -32,8 +28,6 @@ class ValueManipulationServiceTest extends TestCase
         $service->calculate($oldValue, $newValue);
     }
 
-    /**
-     */
     public function testNoStrategy(): void
     {
         $this->expectException(\RuntimeException::class);

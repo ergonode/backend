@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Component\Validator\Constraints\Collection;
 
-/**
- */
 class TextareaAttributeValueConstraintStrategyTest extends TestCase
 {
     /**
@@ -29,30 +27,22 @@ class TextareaAttributeValueConstraintStrategyTest extends TestCase
      */
     private TextareaAttribute $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->strategy = new TextareaAttributeValueConstraintStrategy();
         $this->attribute = $this->createMock(TextareaAttribute::class);
     }
 
-    /**
-     */
     public function testSupportValidAttribute(): void
     {
         $this->assertTrue($this->strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testNotSupportValidAttribute(): void
     {
         $this->assertFalse($this->strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testReturnConstraint(): void
     {
         $constraint = $this->strategy->get($this->attribute);

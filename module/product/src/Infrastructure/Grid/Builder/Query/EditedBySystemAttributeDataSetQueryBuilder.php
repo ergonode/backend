@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 
-/**
- */
 class EditedBySystemAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

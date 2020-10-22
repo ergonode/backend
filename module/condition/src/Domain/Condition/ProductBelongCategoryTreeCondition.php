@@ -12,8 +12,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductBelongCategoryTreeCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_BELONG_CATEGORY_TREE_CONDITION';

@@ -14,16 +14,10 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 
-/**
- */
 class DbalStatusQuery implements StatusQueryInterface
 {
     private const STATUS_TABLE = 'public.status';
@@ -97,7 +91,7 @@ class DbalStatusQuery implements StatusQueryInterface
      *
      * @return array
      */
-    public function getAllStatuses(language $language): array
+    public function getAllStatuses(Language $language): array
     {
         $qb = $this->connection->createQueryBuilder();
 

@@ -13,8 +13,6 @@ use Ergonode\Core\Application\Form\DataTransformer\ColorDataTransformer;
 use Ergonode\Core\Domain\ValueObject\Color;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ColorDataTransformerTest extends TestCase
 {
 
@@ -23,8 +21,6 @@ class ColorDataTransformerTest extends TestCase
      */
     protected ColorDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new ColorDataTransformer();
@@ -41,9 +37,6 @@ class ColorDataTransformerTest extends TestCase
         self::assertSame($string, $this->transformer->transform($colorValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -63,8 +56,6 @@ class ColorDataTransformerTest extends TestCase
         self::assertEquals($colorValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid Color "black" value');

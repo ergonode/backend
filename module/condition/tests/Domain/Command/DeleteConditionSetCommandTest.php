@@ -13,12 +13,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteConditionSetCommandTest extends TestCase
 {
-    /**
-     */
     public function testUpdateSetCommand(): void
     {
         /** @var ConditionSetId|MockObject $id */

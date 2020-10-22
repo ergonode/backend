@@ -18,8 +18,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateTemplateCommand implements DomainCommandInterface
 {
     /**

@@ -154,6 +154,6 @@ class UploadFileContext extends BaseContext
      */
     private function isTestFileUpload($value): bool
     {
-        return is_string($value) && substr($value, 0, 1) == '@';
+        return is_string($value) && substr($value, 0, 1) === '@';
     }
 }

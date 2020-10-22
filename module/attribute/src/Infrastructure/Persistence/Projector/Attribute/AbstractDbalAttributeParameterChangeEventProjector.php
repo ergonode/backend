@@ -14,8 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 abstract class AbstractDbalAttributeParameterChangeEventProjector
 {
     private const TABLE_PARAMETER = 'attribute_parameter';

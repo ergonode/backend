@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\ValueObject;
 
-/**
- */
 class Language
 {
     private const PATTERN = '/^[a-z]{2}_[A-Z]{2}$/';

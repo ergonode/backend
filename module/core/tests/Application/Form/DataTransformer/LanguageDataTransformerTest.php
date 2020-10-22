@@ -13,8 +13,6 @@ use Ergonode\Core\Application\Form\DataTransformer\LanguageDataTransformer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class LanguageDataTransformerTest extends TestCase
 {
 
@@ -23,8 +21,6 @@ class LanguageDataTransformerTest extends TestCase
      */
     protected LanguageDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new LanguageDataTransformer();
@@ -41,9 +37,6 @@ class LanguageDataTransformerTest extends TestCase
         self::assertSame($string, $this->transformer->transform($languageValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -63,8 +56,6 @@ class LanguageDataTransformerTest extends TestCase
         self::assertEquals($languageValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid Language "ZZ" value');

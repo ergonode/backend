@@ -15,8 +15,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ExportIdHandlerTest extends TestCase
 {
     /**
@@ -39,8 +37,6 @@ class ExportIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new ExportIdHandler();
@@ -49,8 +45,6 @@ class ExportIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = ExportIdHandler::getSubscribingMethods();
@@ -62,8 +56,6 @@ class ExportIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = ExportId::generate();
@@ -72,8 +64,6 @@ class ExportIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = ExportId::generate();

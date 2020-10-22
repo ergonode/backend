@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalCategoryTreeNameChangedEventProjector
 {
     private const TABLE = 'category_tree';

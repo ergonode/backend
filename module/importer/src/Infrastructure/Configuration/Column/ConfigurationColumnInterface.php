@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Configuration\Column;
 
-/**
- */
 interface ConfigurationColumnInterface
 {
     /**

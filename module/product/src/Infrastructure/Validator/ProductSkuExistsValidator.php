@@ -15,8 +15,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
-/**
- */
 class ProductSkuExistsValidator extends ConstraintValidator
 {
     /**

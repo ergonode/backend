@@ -15,12 +15,8 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostProductActionTest extends TestCase
 {
-    /**
-     */
     public function testAction(): void
     {
         $product = new Shopware6Product('SKU');

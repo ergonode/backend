@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Provider\ViewTemplateElementProvider;
 
-/**
- */
 class ViewTemplateBuilder
 {
     /**

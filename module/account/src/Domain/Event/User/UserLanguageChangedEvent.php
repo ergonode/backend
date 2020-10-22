@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserLanguageChangedEvent implements DomainEventInterface
 {
     /**

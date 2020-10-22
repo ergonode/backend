@@ -12,8 +12,6 @@ namespace Ergonode\Grid\Renderer;
 use Ergonode\Grid\FilterInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
 
-/**
- */
 class FilterRenderer
 {
     /**

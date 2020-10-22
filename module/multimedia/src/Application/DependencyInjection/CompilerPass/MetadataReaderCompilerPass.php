@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReader;
 
-/**
- */
 class MetadataReaderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.multimedia.metadata_reader';

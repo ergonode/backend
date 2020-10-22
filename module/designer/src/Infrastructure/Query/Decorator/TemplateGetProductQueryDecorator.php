@@ -14,8 +14,6 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class TemplateGetProductQueryDecorator implements GetProductQueryInterface
 {
     /**

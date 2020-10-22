@@ -17,8 +17,6 @@ use Ergonode\Product\Application\Model\Product\SimpleProductFormModel;
 use Ergonode\Category\Application\Form\Type\CategoryType;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 
-/**
- */
 class SimpleProductForm extends AbstractType implements ProductFormInterface
 {
     /**

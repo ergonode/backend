@@ -14,8 +14,6 @@ use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
 use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-/**
- */
 class SegmentCreatedEventHandler implements MessageSubscriberInterface
 {
     /**

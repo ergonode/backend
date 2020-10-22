@@ -13,8 +13,6 @@ use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 
-/**
- */
 class CreateWorkflowCommandHandler
 {
     /**

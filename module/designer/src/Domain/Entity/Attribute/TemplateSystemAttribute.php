@@ -14,8 +14,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class TemplateSystemAttribute extends AbstractOptionAttribute
 {
     public const TYPE = 'SELECT';

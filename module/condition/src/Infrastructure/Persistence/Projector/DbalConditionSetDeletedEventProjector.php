@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 
-/**
- */
 class DbalConditionSetDeletedEventProjector
 {
     private const TABLE = 'condition_set';

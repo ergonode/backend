@@ -17,12 +17,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateUserCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         /** @var UserId|MockObject $id */

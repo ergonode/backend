@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class AddProductCollectionElementCommand implements DomainCommandInterface
 {
     /**

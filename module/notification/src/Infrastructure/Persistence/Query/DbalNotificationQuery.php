@@ -19,8 +19,6 @@ use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalNotificationQuery implements NotificationQueryInterface
 {
     private const NOTIFICATION_TABLE = 'notification';

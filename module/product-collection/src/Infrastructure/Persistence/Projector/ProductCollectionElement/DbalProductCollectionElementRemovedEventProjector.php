@@ -15,8 +15,6 @@ use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementRemovedEvent;
 
-/**
- */
 class DbalProductCollectionElementRemovedEventProjector
 {
     private const TABLE_ELEMENT = 'product_collection_element';

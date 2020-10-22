@@ -15,12 +15,8 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ChangeUserPasswordCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         /** @var UserId|MockObject $id */

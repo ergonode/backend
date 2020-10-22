@@ -12,10 +12,7 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-/**
- */
 class CreateUnitAttributeCommandHandler
 {
     /**

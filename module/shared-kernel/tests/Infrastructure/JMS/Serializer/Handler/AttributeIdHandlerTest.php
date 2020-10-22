@@ -13,8 +13,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeIdHandlerTest extends TestCase
 {
     /**
@@ -36,8 +34,6 @@ class AttributeIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new AttributeIdHandler();
@@ -46,8 +42,6 @@ class AttributeIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = AttributeIdHandler::getSubscribingMethods();
@@ -59,8 +53,6 @@ class AttributeIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = AttributeId::generate();
@@ -69,8 +61,6 @@ class AttributeIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = AttributeId::generate();

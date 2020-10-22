@@ -12,8 +12,6 @@ namespace Ergonode\Workflow\Application\Form\Model;
 use Ergonode\Account\Infrastructure\Validator\RoleExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class TransitionChangeFormModel
 {
     /**
@@ -60,8 +58,6 @@ class TransitionChangeFormModel
      */
     public array $roles;
 
-    /**
-     */
     public function __construct()
     {
         $this->name = [];

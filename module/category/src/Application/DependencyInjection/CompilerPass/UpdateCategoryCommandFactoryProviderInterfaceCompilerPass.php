@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Category\Infrastructure\Provider\UpdateCategoryCommandFactoryProvider;
 
-/**
- */
 class UpdateCategoryCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.category.update_category_command_factory_interface';

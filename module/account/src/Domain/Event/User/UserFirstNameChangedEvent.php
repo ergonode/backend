@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserFirstNameChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**

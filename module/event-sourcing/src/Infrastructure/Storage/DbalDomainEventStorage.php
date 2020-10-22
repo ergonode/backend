@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- */
 class DbalDomainEventStorage implements DomainEventStorageInterface
 {
     private const TABLE = 'event_store';

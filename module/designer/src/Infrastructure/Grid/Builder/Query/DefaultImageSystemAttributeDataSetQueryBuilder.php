@@ -17,8 +17,6 @@ use Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 
-/**
- */
 class DefaultImageSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
     /**

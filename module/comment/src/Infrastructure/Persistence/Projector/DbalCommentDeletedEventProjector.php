@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 
-/**
- */
 class DbalCommentDeletedEventProjector
 {
     private const TABLE = 'comment';

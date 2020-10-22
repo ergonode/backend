@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- */
 class ChangeUserAvatarCommand implements DomainCommandInterface
 {
     /**

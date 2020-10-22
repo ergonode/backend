@@ -16,8 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\ImporterMagento1\Application\Model\Type\AttributeMapModel;
 
-/**
- */
 class AttributeMapType extends AbstractType
 {
     /**

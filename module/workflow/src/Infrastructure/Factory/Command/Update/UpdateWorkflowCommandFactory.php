@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 
-/**
- */
 class UpdateWorkflowCommandFactory implements UpdateWorkflowCommandFactoryInterface
 {
     /**

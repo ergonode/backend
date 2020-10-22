@@ -22,8 +22,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 
-/**
- */
 class TextAttributeValueConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -36,16 +34,12 @@ class TextAttributeValueConditionCalculatorStrategyTest extends TestCase
      */
     private TextAttributeValueConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->strategy = new TextAttributeValueConditionCalculatorStrategy($this->repository);
     }
 
-    /**
-     */
     public function testSupports(): void
     {
         self::assertTrue($this->strategy->supports('TEXT_ATTRIBUTE_VALUE_CONDITION'));

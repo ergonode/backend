@@ -12,8 +12,6 @@ namespace Ergonode\Segment\Domain\Command;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
-/**
- */
 class DeleteSegmentCommand implements DomainCommandInterface
 {
     /**

@@ -8,13 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\Command\LanguageTree;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CreateLanguageTreeCommand implements DomainCommandInterface
 {
     /**

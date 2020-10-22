@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class ProductDraftApplied implements DomainEventInterface
 {
     /**

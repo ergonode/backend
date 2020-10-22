@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 
-/**
- */
 class DbalUserFirstNameChangedEventProjector
 {
     private const TABLE = 'users';

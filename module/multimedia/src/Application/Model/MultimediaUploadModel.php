@@ -33,8 +33,6 @@ class MultimediaUploadModel
      */
     public ?UploadedFile $upload;
 
-    /**
-     */
     public function __construct()
     {
         $this->upload = null;

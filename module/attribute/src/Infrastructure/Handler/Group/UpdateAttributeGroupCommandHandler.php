@@ -12,8 +12,6 @@ use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateAttributeGroupCommandHandler
 {
     /**

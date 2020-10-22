@@ -21,12 +21,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
-/**
- */
 class CompletenessCalculatorTest extends TestCase
 {
-    /**
-     */
     public function testCalculation(): void
     {
         $model = $this->createMock(CompletenessCalculatorLine::class);

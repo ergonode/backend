@@ -18,8 +18,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class UserIdHandlerTest extends TestCase
 {
     /**
@@ -42,8 +40,6 @@ class UserIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new UserIdHandler();
@@ -52,8 +48,6 @@ class UserIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = UserIdHandler::getSubscribingMethods();
@@ -65,8 +59,6 @@ class UserIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = Uuid::uuid4()->toString();
@@ -78,8 +70,6 @@ class UserIdHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = Uuid::uuid4()->toString();

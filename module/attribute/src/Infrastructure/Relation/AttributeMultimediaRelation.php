@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 
-/**
- */
 class AttributeMultimediaRelation implements MultimediaRelationInterface
 {
     /**

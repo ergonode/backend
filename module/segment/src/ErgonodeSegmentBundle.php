@@ -14,9 +14,6 @@ use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Segment\Application\DependencyInjection\ErgonodeSegmentExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- *
- */
 class ErgonodeSegmentBundle extends AbstractModule
 {
     /**

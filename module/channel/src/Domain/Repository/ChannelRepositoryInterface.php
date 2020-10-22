@@ -12,8 +12,6 @@ namespace Ergonode\Channel\Domain\Repository;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 interface ChannelRepositoryInterface
 {
     /**

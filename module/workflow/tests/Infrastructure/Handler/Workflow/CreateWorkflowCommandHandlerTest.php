@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 
-/**
- */
 class CreateWorkflowCommandHandlerTest extends TestCase
 {
     /**

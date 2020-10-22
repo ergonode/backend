@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class PrivilegeFaker extends BaseProvider
 {
     /**

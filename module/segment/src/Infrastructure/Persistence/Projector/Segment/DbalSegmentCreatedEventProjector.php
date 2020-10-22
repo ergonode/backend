@@ -15,8 +15,6 @@ use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalSegmentCreatedEventProjector
 {
     private const TABLE = 'segment';

@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteSegmentCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         /** @var SegmentId | MockObject $id */

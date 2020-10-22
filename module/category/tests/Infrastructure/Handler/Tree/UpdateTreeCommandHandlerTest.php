@@ -16,8 +16,6 @@ use Ergonode\Category\Infrastructure\Handler\Tree\UpdateTreeCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateTreeCommandHandlerTest extends TestCase
 {
     /**
@@ -30,16 +28,12 @@ class UpdateTreeCommandHandlerTest extends TestCase
      */
     private $command;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(TreeRepositoryInterface::class);
         $this->command = $this->createMock(UpdateTreeCommand::class);
     }
 
-    /**
-     */
     public function testHandlingExistsTree(): void
     {
         $tree = $this->createMock(CategoryTree::class);
@@ -51,8 +45,6 @@ class UpdateTreeCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testHandlingNotExistsTree(): void
     {
         $this->expectException(\InvalidArgumentException::class);

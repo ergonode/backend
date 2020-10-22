@@ -19,8 +19,6 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Ergonode\Workflow\Infrastructure\Grid\Filter\Option\StatusOption;
 use Ergonode\Core\Domain\ValueObject\Color;
 
-/**
- */
 class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

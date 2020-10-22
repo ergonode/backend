@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Condition\Domain\Condition\TextAttributeValueCondition;
@@ -17,8 +16,6 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyIn
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class TextAttributeValueConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     /**

@@ -17,8 +17,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -26,24 +24,18 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
      */
     private MockObject $attributeQuery;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attributeQuery = $this->createMock(AttributeQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new ConstraintAttributeExistsCondition());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -52,8 +44,6 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
         $this->validator->validate([], $constraint);
     }
 
-    /**
-     */
     public function testAttributeExistsValidation(): void
     {
         $this
@@ -67,8 +57,6 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
     }
 
 
-    /**
-     */
     public function testConstraintAttributeNotExistsConditionValidation(): void
     {
         $constraint = new ConstraintAttributeExistsCondition();
@@ -79,8 +67,6 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testConstraintAttributeExistsConditionValidation(): void
     {
         $constraint = new ConstraintAttributeExistsCondition();

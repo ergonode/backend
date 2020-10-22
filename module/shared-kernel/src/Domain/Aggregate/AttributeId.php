@@ -11,8 +11,6 @@ namespace Ergonode\SharedKernel\Domain\Aggregate;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class AttributeId extends AggregateId
 {
     public const NAMESPACE = 'eb5fa5eb-ecda-4ff6-ac91-9ac817062635';

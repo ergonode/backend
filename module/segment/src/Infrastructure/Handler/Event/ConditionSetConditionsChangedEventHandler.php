@@ -14,8 +14,6 @@ use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 
-/**
- */
 class ConditionSetConditionsChangedEventHandler
 {
     /**

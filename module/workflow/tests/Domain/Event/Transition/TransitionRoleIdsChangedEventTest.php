@@ -16,12 +16,8 @@ use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TransitionRoleIdsChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var WorkflowId|MockObject $id */

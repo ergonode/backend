@@ -26,8 +26,6 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class DbalProductQuery implements ProductQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';

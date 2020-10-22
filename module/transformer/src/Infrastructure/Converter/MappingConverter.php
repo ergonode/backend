@@ -12,8 +12,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class MappingConverter implements ConverterInterface
 {
     public const TYPE = 'mapping';

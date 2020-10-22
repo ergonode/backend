@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 
-/**
- */
 class SegmentProductService
 {
     private const TABLE = 'segment_product';

@@ -15,8 +15,6 @@ use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalValueRemovedEventProjector
 {
     private const NAMESPACE = '0cc20207-d1b7-460b-8ef6-6898d00de4c0';

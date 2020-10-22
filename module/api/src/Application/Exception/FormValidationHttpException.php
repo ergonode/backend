@@ -13,8 +13,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-/**
- */
 class FormValidationHttpException extends HttpException
 {
     /**

@@ -13,8 +13,6 @@ use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\Api\Application\Mapper\ExceptionMapper;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ExceptionMapperTest extends TestCase
 {
     /**

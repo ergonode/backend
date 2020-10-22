@@ -12,8 +12,6 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class CategoryCodeFaker extends BaseProvider
 {
     /**

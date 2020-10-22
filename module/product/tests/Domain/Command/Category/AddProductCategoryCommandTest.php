@@ -15,12 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AddProductCategoryCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         /** @var ProductId|MockObject $product */

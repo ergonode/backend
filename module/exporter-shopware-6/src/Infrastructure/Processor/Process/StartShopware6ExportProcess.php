@@ -12,8 +12,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Synchronizer\SynchronizerInterface
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
-/**
- */
 class StartShopware6ExportProcess
 {
     /**

@@ -11,8 +11,6 @@ namespace Ergonode\SharedKernel\Domain\Aggregate;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class ChannelId extends AggregateId
 {
 }

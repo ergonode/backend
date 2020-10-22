@@ -16,8 +16,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class WorkflowIdHandlerTest extends TestCase
 {
     /**
@@ -40,8 +38,6 @@ class WorkflowIdHandlerTest extends TestCase
      */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new WorkflowIdHandler();
@@ -50,8 +46,6 @@ class WorkflowIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = WorkflowIdHandler::getSubscribingMethods();
@@ -63,8 +57,6 @@ class WorkflowIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = WorkflowId::generate();
@@ -73,8 +65,6 @@ class WorkflowIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = WorkflowId::generate();

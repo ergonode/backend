@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateGalleryAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     /**

@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalAttributeRepository implements AttributeRepositoryInterface
 {
     /**

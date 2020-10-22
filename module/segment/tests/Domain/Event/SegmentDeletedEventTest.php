@@ -14,12 +14,8 @@ use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SegmentDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var SegmentId | MockObject $id */

@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateShopware6ChannelCommandTest extends TestCase
 {
     /**
@@ -105,8 +103,6 @@ class UpdateShopware6ChannelCommandTest extends TestCase
      */
     private CategoryTreeId $categoryTreeId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -128,8 +124,6 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
     }
 
-    /**
-     */
     public function testCreateCommand(): void
     {
         $command = new UpdateShopware6ChannelCommand(

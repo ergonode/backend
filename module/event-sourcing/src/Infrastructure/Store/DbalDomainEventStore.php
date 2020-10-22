@@ -14,8 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface;
 
-/**
- */
 class DbalDomainEventStore implements DomainEventStoreInterface
 {
     /**

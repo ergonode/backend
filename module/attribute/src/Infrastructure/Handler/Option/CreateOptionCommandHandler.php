@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\Entity\Option\SimpleOption;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 
-/**
- */
 class CreateOptionCommandHandler
 {
     /**

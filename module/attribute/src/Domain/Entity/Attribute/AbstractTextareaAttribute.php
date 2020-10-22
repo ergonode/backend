@@ -16,8 +16,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 abstract class AbstractTextareaAttribute extends AbstractAttribute
 {
     public const TYPE = 'TEXT_AREA';

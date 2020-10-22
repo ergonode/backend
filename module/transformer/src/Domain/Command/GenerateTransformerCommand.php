@@ -13,8 +13,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class GenerateTransformerCommand implements DomainCommandInterface
 {
     /**

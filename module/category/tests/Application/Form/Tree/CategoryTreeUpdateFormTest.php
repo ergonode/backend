@@ -10,18 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Tests\Application\Form\Tree;
 
 use Ergonode\Category\Application\Form\Tree\CategoryTreeUpdateForm;
-use Ergonode\Category\Application\Form\Tree\TreeNodeForm;
 use Ergonode\Category\Application\Model\Tree\CategoryTreeUpdateFormModel;
 use Ergonode\Category\Application\Model\Tree\TreeNodeFormModel;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class CategoryTreeUpdateFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

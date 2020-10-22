@@ -16,8 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
 
-/**
- */
 class SimpleOptionForm extends AbstractType
 {
     /**

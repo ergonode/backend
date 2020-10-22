@@ -12,8 +12,6 @@ namespace Ergonode\Category\Infrastructure\Persistence\Projector\Tree;
 use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 
-/**
- */
 class DbalCategoryTreeDeletedEventProjector
 {
     private const TABLE = 'category_tree';

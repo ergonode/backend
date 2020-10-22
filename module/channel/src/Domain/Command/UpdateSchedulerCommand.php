@@ -14,8 +14,6 @@ use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateSchedulerCommand implements DomainCommandInterface
 {
     /**

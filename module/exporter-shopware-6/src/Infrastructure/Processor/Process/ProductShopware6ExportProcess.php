@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductShopware6ExportProcess
 {
     /**

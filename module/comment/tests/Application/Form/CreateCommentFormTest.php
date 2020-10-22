@@ -12,12 +12,8 @@ use Ergonode\Comment\Application\Form\CreateCommentForm;
 use Ergonode\Comment\Application\Form\Model\CreateCommentFormModel;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class CreateCommentFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

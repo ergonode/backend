@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
-/**
- */
 class DbalImportFactory
 {
     /**

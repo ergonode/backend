@@ -11,13 +11,10 @@ namespace Ergonode\Designer\Infrastructure\Strategy\Relationship;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-/**
- */
 class TemplateMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**

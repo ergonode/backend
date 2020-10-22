@@ -23,8 +23,6 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Column\SelectColumn;
 
-/**
- */
 class AccountGrid extends AbstractGrid
 {
     /**

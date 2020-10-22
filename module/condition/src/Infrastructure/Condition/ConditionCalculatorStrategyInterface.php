@@ -12,8 +12,6 @@ namespace Ergonode\Condition\Infrastructure\Condition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 interface ConditionCalculatorStrategyInterface
 {
     /**

@@ -17,8 +17,6 @@ use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyIn
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento1\Infrastructure\Converter\Magento1CategoryConverter;
 
-/**
- */
 class Magento1ProductTransformerGenerator implements TransformerGeneratorStrategyInterface
 {
     /**

@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\ValueObject;
 
-/**
- */
 class Privilege implements \JsonSerializable
 {
     public const LENGTH = 128;
