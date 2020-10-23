@@ -36,7 +36,7 @@ class CategoryTypeCompilerPass implements CompilerPassInterface
         $services = $container->findTaggedServiceIds(self::TAG);
 
         $arguments = [];
-        foreach ($services as $id => $service) {
+        foreach (array_keys($services) as $id) {
             $type = (new \ReflectionClass($id))->getConstant('TYPE');
             $arguments[] = $type;
             $container->removeDefinition($id);

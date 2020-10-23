@@ -30,7 +30,7 @@ class ProductTypeCompilerPass implements CompilerPassInterface
         $services = $container->findTaggedServiceIds(self::TAG);
 
         $arguments = [];
-        foreach ($services as $id => $service) {
+        foreach (array_keys($services) as $id) {
             $arguments[] = $id;
             $container->removeDefinition($id);
         }

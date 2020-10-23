@@ -51,7 +51,7 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             }
         }
 
-        foreach ($source->getLanguages() as $key => $language) {
+        foreach (array_keys($source->getLanguages()) as $key) {
             if ($product->has($key)) {
                 $version = $product->get($key);
                 if ($images = $version['image'] ?? null) {

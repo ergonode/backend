@@ -45,6 +45,8 @@
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation" />
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
 
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+
     <!-- Directories to be checked -->
     <file>config/</file>
     <file>public/</file>
