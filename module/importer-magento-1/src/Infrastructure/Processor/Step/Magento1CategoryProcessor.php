@@ -16,8 +16,8 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 {
@@ -36,11 +36,14 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         $this->categories = [];
     }
 
+    /**
+     * @param AbstractAttribute[] $attributes
+     */
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         $default = $product->get('default');
         if (array_key_exists('esa_categories', $default) && $default['esa_categories'] !== '') {

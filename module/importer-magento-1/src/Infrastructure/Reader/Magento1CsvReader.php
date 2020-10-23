@@ -8,18 +8,15 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Reader;
 
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
-use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1CsvReader
 {
-    private ConverterMapperProvider $mapper;
-
     private string $directory;
 
     /**
@@ -33,9 +30,8 @@ class Magento1CsvReader
     private array $headers;
 
 
-    public function __construct(ConverterMapperProvider $mapper, string $directory)
+    public function __construct(string $directory)
     {
-        $this->mapper = $mapper;
         $this->directory = $directory;
     }
 
@@ -65,9 +61,11 @@ class Magento1CsvReader
     }
 
     /**
+     * @param AbstractAttribute[] $attributes
+     *
      * @throws ReaderException
      */
-    public function read(Transformer $transformer): ?ProductModel
+    public function read(array $attributes): ?ProductModel
     {
         $sku = null;
         $type = null;
@@ -87,7 +85,7 @@ class Magento1CsvReader
                 $template = $line['_attribute_set'];
             }
 
-            $line = $this->process($transformer, $line);
+            $line = $this->process($attributes, $line);
 
             if (!array_key_exists($code, $product)) {
                 $product[$code] = $line;
@@ -173,26 +171,27 @@ class Magento1CsvReader
     }
 
     /**
-     * @param array $record
+     * @param AbstractAttribute[] $attributes
+     * @param array       $record
      *
      * @return array
      */
-    private function process(Transformer $transformer, array $record): array
+    private function process(array $attributes, array $record): array
     {
         $result = [];
 
-        foreach ($transformer->getAttributes() as $field => $converter) {
+        foreach ($attributes as $code => $attribute) {
             /** @var ConverterInterface $converter */
-            $mapper = $this->mapper->provide($converter);
-            $value = $mapper->map($converter, $record);
-            $result[$field] = $value;
+            $result[$attribute->getCode()->getValue()] = $record[$code];
         }
 
-        foreach ($transformer->getFields() as $field => $converter) {
-            /** @var ConverterInterface $converter */
-            $mapper = $this->mapper->provide($converter);
-            $value = $mapper->map($converter, $record);
-            $result[$field] = $value;
+        $result['bindings'] = $record['_super_attribute_code'];
+        $result['variants'] = $record['_super_products_sku'];
+        $result['relations'] = $record['_associated_sku'];
+        $result['esa_categories'] = $record['_category'];
+
+        if (array_key_exists('_category_root', $record)) {
+            $result['esa_categories'] = sprintf('%s/%s', $record['_category'], $record['_category_root']);
         }
 
         return $result;

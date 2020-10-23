@@ -13,10 +13,10 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
@@ -27,15 +27,18 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
         $this->commandBus = $commandBus;
     }
 
+    /**
+     * @param AbstractAttribute[] $attributes
+     */
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         if ($product->getType() === 'configurable') {
             $categories = $this->getCategories($product);
-            $attributes = $this->getAttributes($transformer, $source, $product);
+            $attributes = $this->getAttributes($source, $product, $attributes);
             $bindings = $this->getBindings($product);
             $variants = $this->getVariants($product);
 

@@ -12,7 +12,6 @@ use Ergonode\Importer\Domain\Entity\Import;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 
 class ImportTest extends TestCase
@@ -21,14 +20,12 @@ class ImportTest extends TestCase
     {
         $importId = $this->createMock(ImportId::class);
         $sourceId = $this->createMock(SourceId::class);
-        $transformerId = $this->createMock(TransformerId::class);
         $file = 'any file';
 
-        $entity = new Import($importId, $sourceId, $transformerId, $file);
+        $entity = new Import($importId, $sourceId, $file);
 
         self::assertEquals($importId, $entity->getId());
         self::assertEquals($sourceId, $entity->getSourceId());
-        self::assertEquals($transformerId, $entity->getTransformerId());
         self::assertEquals($file, $entity->getFile());
         self::assertEquals(new ImportStatus(ImportStatus::CREATED), $entity->getStatus());
         self::assertNull($entity->getStartedAt());

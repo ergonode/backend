@@ -10,10 +10,10 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 abstract class AbstractProductProcessor
 {
@@ -35,20 +35,22 @@ abstract class AbstractProductProcessor
     }
 
     /**
+     * @var AbstractAttribute[] $attributes
+     *
      * @return string[]
      */
     protected function getAttributes(
-        Transformer $transformer,
         Magento1CsvSource $source,
-        ProductModel $product
+        ProductModel $product,
+        array $attributes
     ): array {
         $result = [];
         $default = $product->get('default');
 
         foreach ($default as $field => $value) {
             $translation = [];
-            if ($transformer->hasAttribute($field)) {
-                $type = $transformer->getAttributeType($field);
+            if (array_key_exists($field, $attributes)) {
+                $type = $attributes[$field]->getType();
                 $value = $this->format($type, $value);
                 if ($value) {
                     $translation[$source->getDefaultLanguage()->getCode()] = $value;
