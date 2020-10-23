@@ -16,7 +16,7 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class CreateFileExportChannelCommandHandlerTest extends TestCase
 {
-    public function testHandling():void
+    public function testHandling(): void
     {
         $command = $this->createMock(CreateFileExportChannelCommand::class);
         $command->method('getExportType')->willReturn(FileExportChannel::EXPORT_INCREMENTAL);

@@ -28,7 +28,7 @@ interface CategoryQueryInterface
      */
     public function getAll(Language $language): array;
 
-    public function findIdByCode(CategoryCode $code):? CategoryId;
+    public function findIdByCode(CategoryCode $code): ?CategoryId;
 
     /**
      * @return array|null

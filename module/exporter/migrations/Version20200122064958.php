@@ -19,7 +19,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
     /**
      * @throws \Exception
      */
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->addSql('CREATE SCHEMA IF NOT EXISTS exporter');
 

@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class DeleteMultimediaCommandHandlerTest extends TestCase
 {
-    public function testHandling():void
+    public function testHandling(): void
     {
         $command = $this->createMock(DeleteMultimediaCommand::class);
         $repository = $this->createMock(MultimediaRepositoryInterface::class);

@@ -16,7 +16,7 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class UpdateShopware6ChannelCommandHandlerTest extends TestCase
 {
-    public function testHandling():void
+    public function testHandling(): void
     {
         $channel = $this->createMock(Shopware6Channel::class);
         $channel->expects(self::once())->method('setHost');

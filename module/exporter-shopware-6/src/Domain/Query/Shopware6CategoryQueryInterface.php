@@ -22,5 +22,5 @@ interface Shopware6CategoryQueryInterface
      *
      * @return array
      */
-    public function getCategoryToDelete(ChannelId $channelId, array $categoryIds):array;
+    public function getCategoryToDelete(ChannelId $channelId, array $categoryIds): array;
 }

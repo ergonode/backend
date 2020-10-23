@@ -22,7 +22,7 @@ class UpdateProductCommandFactoryProvider
         $this->factories = $factories;
     }
 
-    public function provide(string $type):UpdateProductCommandFactoryInterface
+    public function provide(string $type): UpdateProductCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {
             if ($factory->support($type)) {

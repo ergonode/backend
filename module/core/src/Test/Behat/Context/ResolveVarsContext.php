@@ -55,7 +55,7 @@ class ResolveVarsContext implements Context
         $this->setText($step, $text);
     }
 
-    private function resolveTableNode(TableNode $tableNode) : TableNode
+    private function resolveTableNode(TableNode $tableNode): TableNode
     {
         $table = $tableNode->getTable();
 
@@ -82,7 +82,7 @@ class ResolveVarsContext implements Context
      *
      * @throws ReflectionException
      */
-    private function setArguments(StepNode $stepNode, array $value) : void
+    private function setArguments(StepNode $stepNode, array $value): void
     {
         $reflection = new ReflectionClass($stepNode);
         $argProp    = $reflection->getProperty('arguments');
@@ -90,7 +90,7 @@ class ResolveVarsContext implements Context
         $argProp->setValue($stepNode, $value);
     }
 
-    private function resolveText(string $text) : string
+    private function resolveText(string $text): string
     {
         return $this->storageContext->replaceVars($text);
     }
@@ -98,7 +98,7 @@ class ResolveVarsContext implements Context
     /**
      * @throws ReflectionException
      */
-    private function setText(StepNode $stepNode, string $value) : void
+    private function setText(StepNode $stepNode, string $value): void
     {
         $reflection = new ReflectionClass($stepNode);
         $argProp    = $reflection->getProperty('text');

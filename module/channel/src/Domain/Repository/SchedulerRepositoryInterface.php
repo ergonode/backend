@@ -16,7 +16,7 @@ interface SchedulerRepositoryInterface
 {
     public function load(AggregateId $id): ?Scheduler;
 
-    public function exists(AggregateId $id) : bool;
+    public function exists(AggregateId $id): bool;
 
     public function save(Scheduler $aggregateRoot): void;
 

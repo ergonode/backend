@@ -41,7 +41,7 @@ class Shopware6ProductCustomFieldSetMultiSelectMapper extends AbstractShopware6P
     /**
      * {@inheritDoc}
      */
-    protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue):array
+    protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue): array
     {
         $options = explode(',', $calculateValue);
         $result = [];

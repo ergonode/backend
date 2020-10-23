@@ -19,7 +19,7 @@ class TemplateGeneratorProvider
      */
     private array $generators;
 
-    public function __construct(TemplateGeneratorInterface...$generators)
+    public function __construct(TemplateGeneratorInterface ...$generators)
     {
         $this->generators = $generators;
     }

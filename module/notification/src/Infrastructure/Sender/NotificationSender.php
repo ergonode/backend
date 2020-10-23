@@ -19,7 +19,7 @@ class NotificationSender
      */
     private array $strategies;
 
-    public function __construct(NotificationStrategyInterface...$strategies)
+    public function __construct(NotificationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }

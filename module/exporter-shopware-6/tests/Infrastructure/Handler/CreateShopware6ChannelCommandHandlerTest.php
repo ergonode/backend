@@ -15,7 +15,7 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class CreateShopware6ChannelCommandHandlerTest extends TestCase
 {
-    public function testHandling():void
+    public function testHandling(): void
     {
         $command = $this->createMock(CreateShopware6ChannelCommand::class);
         $repository = $this->createMock(ChannelRepositoryInterface::class);
