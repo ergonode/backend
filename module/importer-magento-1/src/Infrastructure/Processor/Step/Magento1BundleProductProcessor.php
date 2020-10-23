@@ -13,7 +13,6 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 
 class Magento1BundleProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
@@ -28,12 +27,12 @@ class Magento1BundleProductProcessor extends AbstractProductProcessor implements
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         if ($product->getType() === 'bundle') {
             $categories = $this->getCategories($product);
-            $attributes = $this->getAttributes($transformer, $source, $product);
+            $attributes = $this->getAttributes($source, $product, $attributes);
             $command = new ImportGroupingProductCommand(
                 $import->getId(),
                 $product->getSku(),

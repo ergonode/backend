@@ -13,9 +13,9 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1GroupedProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
@@ -26,16 +26,19 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
         $this->commandBus = $commandBus;
     }
 
+    /**
+     * @param AbstractAttribute[] $attributes
+     */
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         if ($product->getType() === 'grouped') {
             $categories = $this->getCategories($product);
             $children = $this->getChildren($product);
-            $attributes = $this->getAttributes($transformer, $source, $product);
+            $attributes = $this->getAttributes($source, $product, $attributes);
 
             $command = new ImportGroupingProductCommand(
                 $import->getId(),

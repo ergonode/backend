@@ -13,7 +13,6 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 class DbalImportFactory
 {
@@ -51,7 +50,6 @@ class DbalImportFactory
             'id' => new ImportId($record['id']),
             'status' => new ImportStatus($record['status']),
             'sourceId' => new SourceId($record['source_id']),
-            'transformerId' => new TransformerId($record['transformer_id']),
             'file' => $record['file'],
             'records' => $record['records'],
             'startedAt' => $record['started_at'] ? new \DateTime($record['started_at']) : null,

@@ -12,16 +12,16 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Webmozart\Assert\Assert;
-use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 class StartMagento1ImportProcess implements SourceImportProcessorInterface
 {
     private SourceRepositoryInterface $sourceRepository;
 
-    private TransformerRepositoryInterface $transformerRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     private Magento1CsvReader $reader;
 
@@ -35,12 +35,12 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
-        TransformerRepositoryInterface $transformerRepository,
+        AttributeRepositoryInterface $attributeRepository,
         Magento1CsvReader $reader,
         array $steps
     ) {
         $this->sourceRepository = $sourceRepository;
-        $this->transformerRepository = $transformerRepository;
+        $this->attributeRepository = $attributeRepository;
         $this->reader = $reader;
         $this->steps = $steps;
     }
@@ -59,15 +59,19 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
         /** @var Magento1CsvSource $source */
         $source = $this->sourceRepository->load($import->getSourceId());
         Assert::notNull($source);
-        $transformer = $this->transformerRepository->load($import->getTransformerId());
-        Assert::notNull($transformer);
+
+        $attributes = [];
+        foreach ($source->getAttributes() as $magentoCode => $attributeId) {
+            $attributes[$magentoCode] = $this->attributeRepository->load($attributeId);
+        }
 
         $this->reader->open($import);
-        while ($product = $this->reader->read($transformer)) {
+        while ($product = $this->reader->read($attributes)) {
             foreach ($this->steps as $step) {
-                $step->process($import, $product, $transformer, $source);
+                $step->process($import, $product, $source, $attributes);
             }
         }
+
         $this->reader->close();
     }
 }

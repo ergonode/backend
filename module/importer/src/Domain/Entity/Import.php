@@ -32,11 +32,10 @@ class Import
 
     private int $records;
 
-    public function __construct(ImportId $id, SourceId $sourceId, TransformerId $transformerId, string $file)
+    public function __construct(ImportId $id, SourceId $sourceId, string $file)
     {
         $this->id = $id;
         $this->sourceId = $sourceId;
-        $this->transformerId = $transformerId;
         $this->status = new ImportStatus(ImportStatus::CREATED);
         $this->file = $file;
         $this->startedAt = null;
@@ -52,11 +51,6 @@ class Import
     public function getSourceId(): SourceId
     {
         return $this->sourceId;
-    }
-
-    public function getTransformerId(): TransformerId
-    {
-        return $this->transformerId;
     }
 
     public function getStatus(): ImportStatus
