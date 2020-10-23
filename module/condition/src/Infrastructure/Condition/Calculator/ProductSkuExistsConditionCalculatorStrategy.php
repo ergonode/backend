@@ -7,7 +7,6 @@
 
 declare(strict_types=1);
 
-
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition;
