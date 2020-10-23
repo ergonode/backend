@@ -16,8 +16,6 @@ class AttributeColumn implements ConfigurationColumnInterface
 
     private string $attributeCode;
 
-    private string $type = self::TYPE;
-
     public function __construct(string $field, string $attributeCode)
     {
         $this->field = $field;

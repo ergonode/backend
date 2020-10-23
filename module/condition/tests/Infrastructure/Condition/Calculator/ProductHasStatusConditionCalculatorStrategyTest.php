@@ -17,24 +17,16 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
 {
-    /**
-     * @var StatusQueryInterface|MockObject
-     */
-    private MockObject $statusQuery;
-
     private ProductHasStatusConditionCalculatorStrategy $strategy;
 
     protected function setUp(): void
     {
-
-        $this->strategy =
-            new ProductHasStatusConditionCalculatorStrategy();
+        $this->strategy = new ProductHasStatusConditionCalculatorStrategy();
     }
 
 

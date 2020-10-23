@@ -14,7 +14,6 @@ use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 class TransitionCreateFormModel
 {
@@ -60,8 +59,6 @@ class TransitionCreateFormModel
 
     public ?string $conditionSet;
 
-    private AbstractWorkflow $workflow;
-
     /**
      * @var array
      *
@@ -75,15 +72,13 @@ class TransitionCreateFormModel
      */
     public array $roles;
 
-    public function __construct(
-        AbstractWorkflow $workflow
-    ) {
+    public function __construct()
+    {
         $this->source = null;
         $this->destination = null;
         $this->name = [];
         $this->description = [];
         $this->conditionSet = null;
-        $this->workflow = $workflow;
         $this->roles = [];
     }
 

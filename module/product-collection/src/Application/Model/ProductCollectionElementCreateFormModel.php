@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Application\Model;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -28,11 +27,8 @@ class ProductCollectionElementCreateFormModel
      */
     public ?bool $visible;
 
-    private ProductCollection $productCollection;
-
-    public function __construct(ProductCollection $productCollection)
+    public function __construct()
     {
-        $this->productCollection = $productCollection;
         $this->productId = null;
         $this->visible = null;
     }

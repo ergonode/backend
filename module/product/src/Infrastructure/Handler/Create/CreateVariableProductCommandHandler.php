@@ -9,32 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Create;
 
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
-use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Symfony\Component\Security\Core\Security;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
-use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
 {
-    private AttributeRepositoryInterface $attributeRepository;
-
-    public function __construct(
-        ProductRepositoryInterface $productRepository,
-        AttributeRepositoryInterface $attributeRepository,
-        TokenStorageInterface $tokenStorage,
-        WorkflowProvider $provider,
-        LanguageQueryInterface $query,
-        Security $security
-    ) {
-        parent::__construct($productRepository, $tokenStorage, $provider, $query, $security);
-        $this->attributeRepository = $attributeRepository;
-    }
-
     /**
      * @throws \Exception
      */

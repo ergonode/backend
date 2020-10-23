@@ -20,8 +20,6 @@ class ProposalColumn implements ConfigurationColumnInterface
 
     private string $attributeCode;
 
-    private string $type = self::TYPE;
-
     public function __construct(string $field, string $attributeCode, string $attributeType)
     {
         $this->field = $field;
