@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Category\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;

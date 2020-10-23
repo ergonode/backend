@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Transformer\Infrastructure\Generator;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
