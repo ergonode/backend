@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\ValueObject;
 
@@ -66,7 +66,7 @@ class PasswordTest extends TestCase
             ],
             [
                 // to long value
-                str_repeat('a', 33),
+                str_repeat('a', 64),
             ],
         ];
     }
