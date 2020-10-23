@@ -35,4 +35,12 @@ interface ProductCollectionQueryInterface
      * @return mixed
      */
     public function findCollectionIdsByCollectionTypeId(ProductCollectionTypeId $id);
+
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }
