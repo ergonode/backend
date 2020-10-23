@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
 namespace App;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
@@ -10,9 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
-/**
- * Class Kernel
- */
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
