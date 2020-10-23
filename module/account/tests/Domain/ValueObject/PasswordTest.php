@@ -66,7 +66,7 @@ class PasswordTest extends TestCase
             ],
             [
                 // to long value
-                str_repeat('a', 33),
+                str_repeat('a', 64),
             ],
         ];
     }

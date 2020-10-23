@@ -11,9 +11,9 @@ security:
 
     encoders:
         Ergonode\Account\Domain\Entity\User:
-            algorithm: 'sha1'
+            algorithm: 'bcrypt'
         Ergonode\Authentication\Application\Security\User\User:
-            algorithm: 'sha1'
+            algorithm: 'bcrypt'
 
     firewalls:
         dev:

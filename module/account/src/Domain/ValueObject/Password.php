@@ -12,7 +12,7 @@ namespace Ergonode\Account\Domain\ValueObject;
 class Password
 {
     public const MIN_LENGTH = 6;
-    public const MAX_LENGTH = 32;
+    public const MAX_LENGTH = 62;
 
     private string $value;
 

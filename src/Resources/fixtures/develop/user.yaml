@@ -6,7 +6,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Bravo'
             - '<userEmail(test@ergonode.com)>'
             - '<language(en_GB)>'
-            - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
             - '@superadmin_role->id'
             - '<LanguagePrivilegesCollection(true)>'
     admin:
@@ -16,7 +16,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Admin'
             - '<userEmail(admin@ergonode.com)>'
             - '<language(en_GB)>'
-            - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
             - '@admin_role->id'
             - '<LanguagePrivilegesCollection()>'
     data_inputer:
@@ -26,7 +26,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Data Inputer'
             - '<userEmail(data_inputer@ergonode.com)>'
             - '<language(en_GB)>'
-            - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
             - '@data_inputer_role->id'
             - '<LanguagePrivilegesCollection()>'
     category_manager:
@@ -36,6 +36,6 @@ Ergonode\Account\Domain\Entity\User:
             - 'Category Manager'
             - '<userEmail(category_manager@ergonode.com)>'
             - '<language(en_GB)>'
-            - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
             - '@category_manager_role->id'
             - '<LanguagePrivilegesCollection()>'
