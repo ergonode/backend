@@ -32,7 +32,7 @@ class DbalUserAvatarDeletedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'avatar_filename' => null,
+                'avatar' => 'false',
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

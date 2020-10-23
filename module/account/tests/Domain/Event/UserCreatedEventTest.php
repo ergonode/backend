@@ -30,7 +30,6 @@ class UserCreatedEventTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        $avatarFilename = 'filename.jpg';
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
@@ -46,19 +45,17 @@ class UserCreatedEventTest extends TestCase
             $password,
             $roleId,
             $languagePrivilegesCollection,
-            true,
-            $avatarFilename
+            true
         );
 
-        $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($firstName, $event->getFirstName());
-        $this->assertEquals($lastName, $event->getLastName());
-        $this->assertEquals($language, $event->getLanguage());
-        $this->assertEquals($avatarFilename, $event->getAvatarFilename());
-        $this->assertEquals($roleId, $event->getRoleId());
-        $this->assertEquals($languagePrivilegesCollection, $event->getLanguagePrivilegesCollection());
-        $this->assertEquals($email, $event->getEmail());
-        $this->assertEquals($password, $event->getPassword());
-        $this->assertTrue($event->isActive());
+        self::assertEquals($id, $event->getAggregateId());
+        self::assertEquals($firstName, $event->getFirstName());
+        self::assertEquals($lastName, $event->getLastName());
+        self::assertEquals($language, $event->getLanguage());
+        self::assertEquals($roleId, $event->getRoleId());
+        self::assertEquals($languagePrivilegesCollection, $event->getLanguagePrivilegesCollection());
+        self::assertEquals($email, $event->getEmail());
+        self::assertEquals($password, $event->getPassword());
+        self::assertTrue($event->isActive());
     }
 }

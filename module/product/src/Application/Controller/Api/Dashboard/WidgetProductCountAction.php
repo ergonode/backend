@@ -35,7 +35,7 @@ class WidgetProductCountAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_READ")
      *
      * @SWG\Tag(name="Dashboard")
      * @SWG\Parameter(

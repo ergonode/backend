@@ -51,11 +51,6 @@ class UserCreatedEvent implements DomainEventInterface
     private Language $language;
 
     /**
-     * @JMS\Type("string")
-     */
-    private ?string $avatarFilename;
-
-    /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $roleId;
@@ -84,8 +79,7 @@ class UserCreatedEvent implements DomainEventInterface
         Password $password,
         RoleId $roleId,
         array $languagePrivilegesCollection,
-        bool $isActive = true,
-        ?string $avatarFilename = null
+        bool $isActive = true
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -95,7 +89,6 @@ class UserCreatedEvent implements DomainEventInterface
         $this->language = $language;
         $this->roleId = $roleId;
         $this->languagePrivilegesCollection = $languagePrivilegesCollection;
-        $this->avatarFilename = $avatarFilename;
         $this->isActive = $isActive;
     }
 
@@ -127,11 +120,6 @@ class UserCreatedEvent implements DomainEventInterface
     public function getPassword(): Password
     {
         return $this->password;
-    }
-
-    public function getAvatarFilename(): ?string
-    {
-        return $this->avatarFilename;
     }
 
     public function getRoleId(): RoleId
