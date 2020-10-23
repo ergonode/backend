@@ -31,7 +31,6 @@ class AggregateRootParamConverter implements ParamConverterInterface
     public function apply(Request $request, ParamConverter $configuration): void
     {
         $name = $configuration->getName();
-        Assert::notNull($name);
 
         $parameter = $request->get($name);
         Assert::notNull($parameter);
