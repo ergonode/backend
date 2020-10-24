@@ -17,7 +17,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
-final class UnitAttributeFactory implements AttributeFactoryInterface
+class UnitAttributeFactory implements AttributeFactoryInterface
 {
     public function supports(string $type): bool
     {

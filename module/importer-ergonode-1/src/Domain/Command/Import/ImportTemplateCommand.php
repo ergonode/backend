@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-final class ImportTemplateCommand implements DomainCommandInterface
+class ImportTemplateCommand implements DomainCommandInterface
 {
     private ImportId $importId;
     private TemplateId $id;

@@ -16,7 +16,7 @@ use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Component\Form\FormInterface;
 
-final class ErgonodeZipCreateSourceCommandBuilder implements CreateSourceCommandBuilderInterface
+class ErgonodeZipCreateSourceCommandBuilder implements CreateSourceCommandBuilderInterface
 {
     public function supported(string $type): bool
     {

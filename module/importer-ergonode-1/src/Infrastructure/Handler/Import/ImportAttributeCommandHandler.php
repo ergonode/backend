@@ -14,7 +14,7 @@ use Ergonode\ImporterErgonode\Domain\Command\Import\ImportAttributeCommand;
 use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\ImporterErgonode\Infrastructure\Resolver\AttributeFactoryResolver;
 
-final class ImportAttributeCommandHandler
+class ImportAttributeCommandHandler
 {
     private AttributeRepositoryInterface $attributeRepository;
     private AttributeFactoryResolver $attributeFactoryResolver;

@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
 
-final class ErgonodeProductReader extends AbstractErgonodeReader
+class ErgonodeProductReader extends AbstractErgonodeReader
 {
     public function read(): ?ProductModel
     {

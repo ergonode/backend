@@ -14,7 +14,7 @@ use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\ImporterErgonode\Domain\Command\Import\ImportTemplateCommand;
 
-final class ImportTemplateCommandHandler
+class ImportTemplateCommandHandler
 {
     private TemplateRepositoryInterface $templateRepository;
     private TemplateGroupQueryInterface $templateGroupQuery;

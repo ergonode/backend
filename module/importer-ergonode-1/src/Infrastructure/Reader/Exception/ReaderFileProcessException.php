@@ -11,7 +11,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Reader\Exception;
 use Exception;
 use Throwable;
 
-final class ReaderFileProcessException extends Exception
+class ReaderFileProcessException extends Exception
 {
     public function __construct(string $file, ?Throwable $previous = null)
     {

@@ -17,7 +17,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
 
-final class PriceAttributeFactory implements AttributeFactoryInterface
+class PriceAttributeFactory implements AttributeFactoryInterface
 {
     public function supports(string $type): bool
     {

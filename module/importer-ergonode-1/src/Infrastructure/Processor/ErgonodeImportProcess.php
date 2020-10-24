@@ -15,7 +15,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeZipExtractor;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-final class ErgonodeImportProcess implements SourceImportProcessorInterface
+class ErgonodeImportProcess implements SourceImportProcessorInterface
 {
     private ErgonodeZipExtractor $extractor;
     private LoggerInterface $logger;

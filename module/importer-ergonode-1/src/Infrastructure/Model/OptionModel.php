@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Model;
 
-final class OptionModel
+class OptionModel
 {
     private string $id;
     private string $code;

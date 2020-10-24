@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\TemplateModel;
 
-final class ErgonodeTemplateReader extends AbstractErgonodeReader
+class ErgonodeTemplateReader extends AbstractErgonodeReader
 {
     public function read(): ?TemplateModel
     {

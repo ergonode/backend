@@ -13,7 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-final class ErgonodeZipSource extends AbstractSource
+class ErgonodeZipSource extends AbstractSource
 {
     public const TYPE = 'ergonode-zip';
 

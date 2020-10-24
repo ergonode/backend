@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\OptionModel;
 
-final class ErgonodeOptionReader extends AbstractErgonodeReader
+class ErgonodeOptionReader extends AbstractErgonodeReader
 {
     public function read(): ?OptionModel
     {

@@ -14,7 +14,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInte
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeProductReader;
 use Ergonode\ImporterErgonode\Infrastructure\Resolver\ProductCommandResolver;
 
-final class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
 {
     private const FILENAME = 'products.csv';
 

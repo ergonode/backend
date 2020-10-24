@@ -15,7 +15,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-final class SimpleProductCommandFactory implements ProductCommandFactoryInterface
+class SimpleProductCommandFactory implements ProductCommandFactoryInterface
 {
     public function supports(string $type): bool
     {

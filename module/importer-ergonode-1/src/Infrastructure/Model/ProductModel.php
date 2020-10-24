@@ -11,7 +11,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Model;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-final class ProductModel
+class ProductModel
 {
     private string $id;
     private string $sku;

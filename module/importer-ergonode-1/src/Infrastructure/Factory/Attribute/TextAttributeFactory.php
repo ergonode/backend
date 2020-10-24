@@ -16,7 +16,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-final class TextAttributeFactory implements AttributeFactoryInterface
+class TextAttributeFactory implements AttributeFactoryInterface
 {
     public function supports(string $type): bool
     {

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Model;
 
-final class CategoryModel
+class CategoryModel
 {
     private string $id;
     private string $code;

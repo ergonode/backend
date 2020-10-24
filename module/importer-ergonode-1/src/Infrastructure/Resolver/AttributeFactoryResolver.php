@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Resolver;
 
 use Ergonode\ImporterErgonode\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
 
-final class AttributeFactoryResolver
+class AttributeFactoryResolver
 {
     private iterable $factories;
 

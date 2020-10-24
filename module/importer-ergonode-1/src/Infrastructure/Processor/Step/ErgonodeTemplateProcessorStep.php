@@ -19,7 +19,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeTemplateReader;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\SerializerInterface;
 
-final class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 {
     private const FILENAME = 'templates.csv';
 

@@ -12,7 +12,7 @@ use Ergonode\Importer\Domain\Entity\Import;
 use League\Flysystem\FilesystemInterface;
 use ZipArchive;
 
-final class ErgonodeZipExtractor
+class ErgonodeZipExtractor
 {
     private string $directory;
     private FilesystemInterface $importStorage;

@@ -17,7 +17,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInte
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeAttributeReader;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-final class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
 {
     private const FILENAME = 'attributes.csv';
 

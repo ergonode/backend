@@ -15,7 +15,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-final class GroupingProductCommandFactory implements ProductCommandFactoryInterface
+class GroupingProductCommandFactory implements ProductCommandFactoryInterface
 {
     public function supports(string $type): bool
     {

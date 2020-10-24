@@ -14,7 +14,7 @@ use Ergonode\ImporterErgonode\Infrastructure\Factory\Product\ProductCommandFacto
 use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
 use Webmozart\Assert\Assert;
 
-final class ProductCommandResolver
+class ProductCommandResolver
 {
     private iterable $commandFactories;
 

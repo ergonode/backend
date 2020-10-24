@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ImporterErgonodeSourceFormFactory implements SourceFormFactoryInterface
+class ImporterErgonodeSourceFormFactory implements SourceFormFactoryInterface
 {
     private FormFactoryInterface $formFactory;
 

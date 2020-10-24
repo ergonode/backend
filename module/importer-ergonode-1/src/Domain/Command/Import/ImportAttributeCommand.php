@@ -12,7 +12,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-final class ImportAttributeCommand implements DomainCommandInterface
+class ImportAttributeCommand implements DomainCommandInterface
 {
     private ImportId $importId;
     private AttributeId $id;

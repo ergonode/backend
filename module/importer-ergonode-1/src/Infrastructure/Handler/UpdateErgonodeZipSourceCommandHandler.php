@@ -12,7 +12,7 @@ use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterErgonode\Domain\Command\UpdateErgonodeZipSourceCommand;
 use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 
-final class UpdateErgonodeZipSourceCommandHandler
+class UpdateErgonodeZipSourceCommandHandler
 {
     private SourceRepositoryInterface $repository;
 

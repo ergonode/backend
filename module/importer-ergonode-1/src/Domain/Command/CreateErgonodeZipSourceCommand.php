@@ -12,7 +12,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-final class CreateErgonodeZipSourceCommand implements DomainCommandInterface
+class CreateErgonodeZipSourceCommand implements DomainCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")

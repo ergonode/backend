@@ -16,7 +16,7 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeCategoryReader;
 
-final class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
 {
     private const FILENAME = 'categories.csv';
 

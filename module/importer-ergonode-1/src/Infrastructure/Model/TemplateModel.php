@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Model;
 
-final class TemplateModel
+class TemplateModel
 {
     private string $id;
     private string $name;

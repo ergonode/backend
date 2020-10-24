@@ -11,7 +11,7 @@ namespace Ergonode\ImporterErgonode\Application\Model;
 use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class ImporterErgonodeConfigurationModel
+class ImporterErgonodeConfigurationModel
 {
     /**
      * @Assert\NotBlank()

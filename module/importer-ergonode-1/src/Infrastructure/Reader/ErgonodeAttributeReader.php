@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeModel;
 
-final class ErgonodeAttributeReader extends AbstractErgonodeReader
+class ErgonodeAttributeReader extends AbstractErgonodeReader
 {
     /**
      * @throws \JsonException

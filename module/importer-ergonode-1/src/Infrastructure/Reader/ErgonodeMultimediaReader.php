@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\MultimediaModel;
 
-final class ErgonodeMultimediaReader extends AbstractErgonodeReader
+class ErgonodeMultimediaReader extends AbstractErgonodeReader
 {
     public function read(): ?MultimediaModel
     {

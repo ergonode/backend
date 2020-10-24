@@ -17,7 +17,7 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeOptionReader;
 
-final class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
 {
     private const FILENAME = 'options.csv';
 
