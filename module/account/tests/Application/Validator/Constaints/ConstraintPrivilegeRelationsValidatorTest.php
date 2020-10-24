@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Application\Validator\Constaints;
 
@@ -16,13 +16,10 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-/**
- */
 class ConstraintPrivilegeRelationsValidatorTest extends TestCase
 {
     /**
      * @param array $value
-     * @param bool  $isValid
      *
      * @dataProvider validatorDataProvider
      */

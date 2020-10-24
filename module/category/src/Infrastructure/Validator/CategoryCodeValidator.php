@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Validator;
 
@@ -14,18 +14,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 
-/**
- */
 class CategoryCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @param CategoryQueryInterface $query
-     */
     public function __construct(CategoryQueryInterface $query)
     {
         $this->query = $query;

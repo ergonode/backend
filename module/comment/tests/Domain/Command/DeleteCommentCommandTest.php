@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Tests\Domain\Command;
 
@@ -12,8 +12,6 @@ use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteCommentCommandTest extends TestCase
 {
     /**

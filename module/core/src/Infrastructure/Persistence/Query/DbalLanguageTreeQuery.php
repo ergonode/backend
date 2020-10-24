@@ -5,27 +5,19 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Query\LanguageTreeQueryInterface;
 
-/**
- */
 class DbalLanguageTreeQuery implements LanguageTreeQueryInterface
 {
     private const TABLE = 'language_tree';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

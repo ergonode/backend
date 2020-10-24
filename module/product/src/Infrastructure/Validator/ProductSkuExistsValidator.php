@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
@@ -15,18 +15,10 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
-/**
- */
 class ProductSkuExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @param ProductQueryInterface $query
-     */
     public function __construct(ProductQueryInterface $query)
     {
         $this->query = $query;

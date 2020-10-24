@@ -2,10 +2,9 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\SharedKernel\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -16,32 +15,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateGroupIdHandlerTest extends TestCase
 {
-    /**
-     * @var TemplateGroupIdHandler
-     */
     private TemplateGroupIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializationVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializationVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new TemplateGroupIdHandler();
@@ -50,8 +33,6 @@ class TemplateGroupIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = TemplateGroupIdHandler::getSubscribingMethods();
@@ -63,8 +44,6 @@ class TemplateGroupIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = TemplateGroupId::generate();
@@ -73,8 +52,6 @@ class TemplateGroupIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = TemplateGroupId::generate();

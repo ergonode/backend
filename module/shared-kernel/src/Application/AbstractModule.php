@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\SharedKernel\Application;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- */
 abstract class AbstractModule extends Bundle
 {
     /**

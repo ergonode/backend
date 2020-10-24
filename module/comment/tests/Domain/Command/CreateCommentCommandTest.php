@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Tests\Domain\Command;
 
@@ -13,8 +13,6 @@ use Ergonode\Comment\Domain\Command\CreateCommentCommand;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CreateCommentCommandTest extends TestCase
 {
     /**

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Handler;
 
@@ -14,12 +14,8 @@ use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class CreateFileExportChannelCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $command = $this->createMock(CreateFileExportChannelCommand::class);

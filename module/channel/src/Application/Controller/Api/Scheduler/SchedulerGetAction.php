@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Scheduler;
 
@@ -29,14 +29,8 @@ use Ergonode\Api\Application\Response\SuccessResponse;
  */
 class SchedulerGetAction
 {
-    /**
-     * @var SchedulerProvider
-     */
     private SchedulerProvider $provider;
 
-    /**
-     * @param SchedulerProvider $provider
-     */
     public function __construct(SchedulerProvider $provider)
     {
         $this->provider = $provider;
@@ -83,10 +77,7 @@ class SchedulerGetAction
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
-     * @param AbstractChannel $channel
-     * @param Request         $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

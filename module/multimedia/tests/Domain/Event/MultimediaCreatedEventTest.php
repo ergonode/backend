@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Domain\Event;
 
@@ -14,8 +14,6 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class MultimediaCreatedEventTest extends TestCase
 {
     /**

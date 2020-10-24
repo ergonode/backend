@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Infrastructure\Builder\LanguageTree;
 
@@ -12,8 +12,6 @@ use Ergonode\Core\Infrastructure\Builder\LanguageTree\NestedSetTree;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NestedSetTreeTest extends TestCase
 {
     /**

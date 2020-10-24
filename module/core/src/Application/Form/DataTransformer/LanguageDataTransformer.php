@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Form\DataTransformer;
 
@@ -13,14 +13,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class LanguageDataTransformer implements DataTransformerInterface
 {
     /**
      * @param Language|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -36,8 +32,6 @@ class LanguageDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return Language|null
      */
     public function reverseTransform($value): ?Language
     {

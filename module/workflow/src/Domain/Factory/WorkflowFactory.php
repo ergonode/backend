@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Factory;
 
@@ -15,16 +15,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 
-/**
- */
 class WorkflowFactory
 {
     /**
-     * @param WorkflowId $id
-     * @param string     $code
      * @param StatusId[] $statuses
      *
-     * @return AbstractWorkflow
      *
      * @throws \Exception
      */

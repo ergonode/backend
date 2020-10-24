@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Update;
 
@@ -15,26 +15,16 @@ use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateFileAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
-/**
- */
 class UpdateFileAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
     }
 
     /**
-     * @param UpdateFileAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateFileAttributeCommand $command): void

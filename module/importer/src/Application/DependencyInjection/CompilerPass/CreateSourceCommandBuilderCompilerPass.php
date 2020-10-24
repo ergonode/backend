@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\DependencyInjection\CompilerPass;
 
@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderProvider;
 
-/**
- */
 class CreateSourceCommandBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.create_source_command_builder_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateSourceCommandBuilderProvider::class)) {
@@ -30,9 +25,6 @@ class CreateSourceCommandBuilderCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Group;
 
@@ -17,8 +17,6 @@ use Ergonode\Attribute\Infrastructure\Handler\Group\DeleteAttributeGroupCommandH
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteAttributeGroupCommandHandlerTest extends TestCase
 {
     /**
@@ -41,8 +39,6 @@ class DeleteAttributeGroupCommandHandlerTest extends TestCase
      */
     private $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteAttributeGroupCommand::class);
@@ -51,8 +47,6 @@ class DeleteAttributeGroupCommandHandlerTest extends TestCase
         $this->query = $this->createMock(AttributeGroupQueryInterface::class);
     }
 
-    /**
-     */
     public function testUpdate(): void
     {
         $this->groupRepository

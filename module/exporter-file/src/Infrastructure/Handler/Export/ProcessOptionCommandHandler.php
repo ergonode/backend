@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
@@ -21,48 +21,20 @@ use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand;
 use Ergonode\ExporterFile\Infrastructure\Processor\OptionProcessor;
 
-/**
- */
 class ProcessOptionCommandHandler
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $optionRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var OptionProcessor
-     */
     private OptionProcessor $processor;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
-    /**
-     * @var WriterProvider
-     */
     private WriterProvider $provider;
 
-    /**
-     * @param OptionRepositoryInterface  $optionRepository
-     * @param ExportRepositoryInterface  $exportRepository
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param OptionProcessor            $processor
-     * @param TempFileStorage            $storage
-     * @param WriterProvider             $provider
-     */
     public function __construct(
         OptionRepositoryInterface $optionRepository,
         ExportRepositoryInterface $exportRepository,
@@ -80,8 +52,6 @@ class ProcessOptionCommandHandler
     }
 
     /**
-     * @param ProcessOptionCommand $command
-     *
      * @throws ExportException
      */
     public function __invoke(ProcessOptionCommand $command)

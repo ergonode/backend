@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection;
 
@@ -18,8 +18,6 @@ use Ergonode\Workflow\Domain\Entity\WorkflowInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
 
-/**
- */
 class ErgonodeWorkflowExtension extends Extension
 {
 
@@ -27,8 +25,7 @@ class ErgonodeWorkflowExtension extends Extension
     public const CONDITION_PARAMETER_NAME = 'ergonode_workflow.conditions';
 
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

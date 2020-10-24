@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Domain\Entity;
 
@@ -18,27 +18,19 @@ use Ergonode\Transformer\Domain\Event\TransformerFieldAddedEvent;
 use Ergonode\Transformer\Domain\Event\TransformerAttributeAddedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Transformer extends AbstractAggregateRoot
 {
     /**
-     * @var TransformerId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $key;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
@@ -72,10 +64,6 @@ class Transformer extends AbstractAggregateRoot
     private array $multilingual;
 
     /**
-     * @param TransformerId $id
-     * @param string        $name
-     * @param string        $key
-     *
      * @throws \Exception
      */
     public function __construct(TransformerId $id, string $name, string $key)
@@ -83,34 +71,22 @@ class Transformer extends AbstractAggregateRoot
         $this->apply(new TransformerCreatedEvent($id, $name, $key));
     }
 
-    /**
-     * @return TransformerId
-     */
     public function getId(): TransformerId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return $this->key;
     }
 
     /**
-     * @param string             $field
-     * @param ConverterInterface $converter
-     *
      * @return $this
      *
      * @throws \Exception
@@ -127,11 +103,6 @@ class Transformer extends AbstractAggregateRoot
     }
 
     /**
-     * @param string             $field
-     * @param string             $type
-     * @param bool               $multilingual
-     * @param ConverterInterface $converter
-     *
      * @return $this
      *
      * @throws \Exception
@@ -147,31 +118,16 @@ class Transformer extends AbstractAggregateRoot
         return $this;
     }
 
-    /**
-     * @param string $field
-     *
-     * @return bool
-     */
     public function hasField(string $field): bool
     {
         return isset($this->fields[$field]);
     }
 
-    /**
-     * @param string $field
-     *
-     * @return bool
-     */
     public function hasAttribute(string $field): bool
     {
         return isset($this->attributes[$field]);
     }
 
-    /**
-     * @param string $field
-     *
-     * @return bool
-     */
     public function isAttributeMultilingual(string $field): bool
     {
         if (!$this->hasAttribute($field)) {
@@ -181,11 +137,6 @@ class Transformer extends AbstractAggregateRoot
         return $this->multilingual[$field];
     }
 
-    /**
-     * @param string $field
-     *
-     * @return string
-     */
     public function getAttributeType(string $field): string
     {
         if (!$this->hasAttribute($field)) {
@@ -211,9 +162,6 @@ class Transformer extends AbstractAggregateRoot
         return new ArrayCollection($this->attributes);
     }
 
-    /**
-     * @param TransformerCreatedEvent $event
-     */
     protected function applyTransformerCreatedEvent(TransformerCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -225,17 +173,11 @@ class Transformer extends AbstractAggregateRoot
         $this->multilingual = [];
     }
 
-    /**
-     * @param TransformerFieldAddedEvent $event
-     */
     protected function applyTransformerFieldAddedEvent(TransformerFieldAddedEvent $event): void
     {
         $this->fields[$event->getField()] = $event->getConverter();
     }
 
-    /**
-     * @param TransformerAttributeAddedEvent $event
-     */
     protected function applyTransformerAttributeAddedEvent(TransformerAttributeAddedEvent $event): void
     {
         $this->attributes[$event->getField()] = $event->getConverter();

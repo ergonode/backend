@@ -10,24 +10,11 @@ namespace Ergonode\Attribute\Domain\Repository;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface OptionRepositoryInterface
 {
-    /**
-     * @param AggregateId $id
-     *
-     * @return AbstractOption|null
-     */
     public function load(AggregateId $id): ?AbstractOption;
 
-    /**
-     * @param AbstractOption $option
-     */
     public function save(AbstractOption $option): void;
 
-    /**
-     * @param AbstractOption $option
-     */
     public function delete(AbstractOption $option): void;
 }

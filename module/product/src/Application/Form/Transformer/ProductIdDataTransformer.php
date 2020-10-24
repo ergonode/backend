@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Form\Transformer;
 
@@ -13,14 +13,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class ProductIdDataTransformer implements DataTransformerInterface
 {
     /**
      * @param ProductId|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -36,8 +32,6 @@ class ProductIdDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return ProductId|null
      */
     public function reverseTransform($value): ?ProductId
     {

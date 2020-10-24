@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\DependencyInjection\CompilerPass;
 
@@ -14,16 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- *
- */
 class SourceFormFactoryCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.import_source_form_factory_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(SourceFormFactoryProvider::class)) {
@@ -31,9 +25,6 @@ class SourceFormFactoryCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

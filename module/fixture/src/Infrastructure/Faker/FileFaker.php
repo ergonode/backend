@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
@@ -15,25 +15,12 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class FileFaker extends BaseProvider
 {
-    /**
-     * @var KernelInterface
-     */
     private KernelInterface $kernel;
 
-    /**
-     * @var string
-     */
     private string $root;
 
-    /**
-     * @param Generator       $generator
-     * @param KernelInterface $kernel
-     * @param string          $root
-     */
     public function __construct(Generator $generator, KernelInterface $kernel, string $root)
     {
         parent::__construct($generator);
@@ -42,11 +29,6 @@ class FileFaker extends BaseProvider
         $this->root = $root;
     }
 
-    /**
-     * @param string $file
-     *
-     * @return File
-     */
     public function multimediaFile(string $file): File
     {
         $cacheDir = $this->kernel->getCacheDir();

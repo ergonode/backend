@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Persistence\Query;
 
@@ -15,27 +15,17 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\Channel\Domain\Query\SchedulerQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalSchedulerQuery implements SchedulerQueryInterface
 {
     private const TABLE = 'exporter.scheduler';
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param \DateTime $time
-     *
      * @return array
      */
     public function getReadyToRun(\DateTime $time): array
@@ -70,9 +60,6 @@ class DbalSchedulerQuery implements SchedulerQueryInterface
     }
 
     /**
-     * @param ChannelId $id
-     * @param \DateTime $time
-     *
      * @throws DBALException
      */
     public function markAsRun(ChannelId $id, \DateTime $time): void

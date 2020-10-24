@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Domain\Entity;
 
@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class SimpleProductTest extends TestCase
 {
     /**
@@ -30,12 +28,10 @@ class SimpleProductTest extends TestCase
     private Sku $sku;
 
     /**
-     * @var templateId|MockObject
+     * @var TemplateId|MockObject
      */
     private TemplateId $templateId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);

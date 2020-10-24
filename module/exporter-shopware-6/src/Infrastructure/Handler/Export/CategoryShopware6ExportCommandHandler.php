@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
@@ -18,36 +18,16 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CategoryShopware6ExportProcess;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class CategoryShopware6ExportCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var CategoryRepositoryInterface
-     */
     private CategoryRepositoryInterface $categoryRepository;
 
-    /**
-     * @var CategoryShopware6ExportProcess
-     */
     private CategoryShopware6ExportProcess $process;
 
-    /**
-     * @param ExportRepositoryInterface      $exportRepository
-     * @param ChannelRepositoryInterface     $channelRepository
-     * @param CategoryRepositoryInterface    $categoryRepository
-     * @param CategoryShopware6ExportProcess $process
-     */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
@@ -60,9 +40,6 @@ class CategoryShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    /**
-     * @param CategoryShopware6ExportCommand $command
-     */
     public function __invoke(CategoryShopware6ExportCommand $command)
     {
         $export = $this->exportRepository->load($command->getExportId());

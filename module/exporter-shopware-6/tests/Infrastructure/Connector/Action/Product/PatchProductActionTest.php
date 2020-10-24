@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Product;
 
@@ -15,12 +15,8 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PatchProductActionTest extends TestCase
 {
-    /**
-     */
     public function testAction(): void
     {
         $product = new Shopware6Product('SKU');

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class AttributeGroupParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var AttributeGroupRepositoryInterface
-     */
     private AttributeGroupRepositoryInterface $repository;
 
-    /**
-     * @param AttributeGroupRepositoryInterface $repository
-     */
     public function __construct(AttributeGroupRepositoryInterface $repository)
     {
         $this->repository = $repository;

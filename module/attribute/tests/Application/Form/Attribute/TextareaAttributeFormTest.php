@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
@@ -18,8 +18,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class TextareaAttributeFormTest extends TypeTestCase
 {
     /**
@@ -27,9 +25,6 @@ class TextareaAttributeFormTest extends TypeTestCase
      */
     private AttributeGroupQueryInterface $query;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         $this->query = $this->createMock(AttributeGroupQueryInterface::class);
@@ -40,8 +35,6 @@ class TextareaAttributeFormTest extends TypeTestCase
         parent::setUp();
     }
 
-    /**
-     */
     public function testSupport(): void
     {
         $form = new TextareaAttributeForm();
@@ -49,8 +42,6 @@ class TextareaAttributeFormTest extends TypeTestCase
         $this->assertFalse($form->supported('unsupported type'));
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollection;
 
@@ -15,26 +15,14 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalProductCollectionNameChangedEventProjector
 {
     private const TABLE = 'product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -42,8 +30,6 @@ class DbalProductCollectionNameChangedEventProjector
     }
 
     /**
-     * @param ProductCollectionNameChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCollectionNameChangedEvent $event): void

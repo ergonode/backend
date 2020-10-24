@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
@@ -33,32 +33,14 @@ use Ergonode\Workflow\Infrastructure\Provider\CreateWorkflowCommandFactoryProvid
  */
 class WorkflowCreateAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var WorkflowFormProvider
-     */
     private WorkflowFormProvider $formProvider;
 
-    /**
-     * @var CreateWorkflowCommandFactoryProvider
-     */
     private CreateWorkflowCommandFactoryProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface                 $formFactory
-     * @param WorkflowFormProvider                 $formProvider
-     * @param CreateWorkflowCommandFactoryProvider $commandProvider
-     * @param CommandBusInterface                  $commandBus
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         WorkflowFormProvider $formProvider,
@@ -99,9 +81,7 @@ class WorkflowCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

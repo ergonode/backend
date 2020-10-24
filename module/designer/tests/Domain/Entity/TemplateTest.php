@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Tests\Domain\Entity;
 
@@ -19,8 +19,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateTest extends TestCase
 {
     /**
@@ -33,9 +31,6 @@ class TemplateTest extends TestCase
      */
     private MockObject $groupId;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     /**
@@ -43,8 +38,6 @@ class TemplateTest extends TestCase
      */
     private MockObject $element;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(TemplateId::class);
@@ -54,8 +47,6 @@ class TemplateTest extends TestCase
         $this->element->method('getPosition')->willReturn(new Position(0, 0));
     }
 
-    /**
-     */
     public function testCreateTemplate(): void
     {
         $template = $this->getTemplate();
@@ -66,8 +57,6 @@ class TemplateTest extends TestCase
         $this->assertNull($template->getImageId());
     }
 
-    /**
-     */
     public function testAddedElementExists(): void
     {
         $template = $this->getTemplate();
@@ -80,8 +69,6 @@ class TemplateTest extends TestCase
         $this->assertFalse($template->hasElement($this->element->getPosition()));
     }
 
-    /**
-     */
     public function testAddExistsElement(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -91,8 +78,6 @@ class TemplateTest extends TestCase
         $template->addElement($this->element);
     }
 
-    /**
-     */
     public function testChangeElement(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -101,8 +86,6 @@ class TemplateTest extends TestCase
         $template->changeElement($this->element);
     }
 
-    /**
-     */
     public function testTemplateEdit(): void
     {
         /** @var TemplateGroupId|MockObject $groupId */
@@ -117,8 +100,6 @@ class TemplateTest extends TestCase
         $this->assertSame($name, $template->getName());
     }
 
-    /**
-     */
     public function testImageManipulation():void
     {
         /** @var MultimediaId|MockObject $imageId1 */
@@ -138,8 +119,6 @@ class TemplateTest extends TestCase
         $this->assertNull($template->getImageId());
     }
 
-    /**
-     */
     public function testAddedImageExists(): void
     {
         $template = $this->getTemplate();
@@ -152,8 +131,6 @@ class TemplateTest extends TestCase
         $this->assertEquals(null, $template->getImageId());
     }
 
-    /**
-     */
     public function testRemoveNotExistImage(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -162,8 +139,6 @@ class TemplateTest extends TestCase
         $template->removeImage();
     }
 
-    /**
-     */
     public function testDefaultTextManipulation():void
     {
         /** @var AttributeId|MockObject $defaultText1 */
@@ -183,8 +158,6 @@ class TemplateTest extends TestCase
         $this->assertNull($template->getDefaultLabel());
     }
 
-    /**
-     */
     public function testAddedDefaultTextExists(): void
     {
         $template = $this->getTemplate();
@@ -197,8 +170,6 @@ class TemplateTest extends TestCase
         $this->assertEquals(null, $template->getDefaultLabel());
     }
 
-    /**
-     */
     public function testRemoveNotExistDefaultText(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -207,8 +178,6 @@ class TemplateTest extends TestCase
         $template->removeDefaultLabel();
     }
 
-    /**
-     */
     public function testDefaultImageManipulation():void
     {
         /** @var AttributeId|MockObject $defaultImage1 */
@@ -228,8 +197,6 @@ class TemplateTest extends TestCase
         $this->assertNull($template->getDefaultImage());
     }
 
-    /**
-     */
     public function testAddedDefaultImageExists(): void
     {
         $template = $this->getTemplate();
@@ -242,8 +209,6 @@ class TemplateTest extends TestCase
         $this->assertEquals(null, $template->getDefaultImage());
     }
 
-    /**
-     */
     public function testRemoveNotExistDefaultImage(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -252,11 +217,6 @@ class TemplateTest extends TestCase
         $template->removeDefaultImage();
     }
 
-    /**
-     * @param MultimediaId|null $multimediaId
-     *
-     * @return Template
-     */
     private function getTemplate(MultimediaId $multimediaId = null): Template
     {
         return new Template(

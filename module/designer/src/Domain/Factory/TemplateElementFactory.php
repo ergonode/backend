@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Factory;
 
@@ -16,24 +16,12 @@ use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class TemplateElementFactory
 {
-    /**
-     * @var TemplateElementTypeResolver
-     */
     private TemplateElementTypeResolver $resolver;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param TemplateElementTypeResolver $resolver
-     * @param SerializerInterface         $serializer
-     */
     public function __construct(TemplateElementTypeResolver $resolver, SerializerInterface $serializer)
     {
         $this->resolver = $resolver;
@@ -41,12 +29,7 @@ class TemplateElementFactory
     }
 
     /**
-     * @param Position $position
-     * @param Size     $size
-     * @param string   $type
-     * @param array    $properties
-     *
-     * @return TemplateElement
+     * @param array $properties
      */
     public function create(Position $position, Size $size, string $type, array $properties = []): TemplateElement
     {

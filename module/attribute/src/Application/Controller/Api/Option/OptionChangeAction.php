@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
@@ -42,20 +42,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OptionChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -104,11 +94,7 @@ class OptionChangeAction
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractOption")
      *
-     * @param AbstractAttribute $attribute
-     * @param AbstractOption    $option
-     * @param Request           $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

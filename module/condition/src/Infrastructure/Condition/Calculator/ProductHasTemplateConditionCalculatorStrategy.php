@@ -5,29 +5,20 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @param TemplateQueryInterface $templateQuery
-     */
     public function __construct(TemplateQueryInterface $templateQuery)
     {
         $this->templateQuery = $templateQuery;
@@ -42,10 +33,7 @@ class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param AbstractProduct                                $product
      * @param ConditionInterface|ProductHasTemplateCondition $configuration
-     *
-     * @return bool
      */
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {

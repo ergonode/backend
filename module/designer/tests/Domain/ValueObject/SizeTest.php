@@ -10,14 +10,9 @@ namespace Ergonode\Designer\Tests\Domain\ValueObject;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SizeTest extends TestCase
 {
     /**
-     * @param int $width
-     * @param int $height
-     *
      * @dataProvider getCorrectDataProvider
      */
     public function testGreaterOrEqualThenZeroValue(int $width, int $height): void
@@ -28,9 +23,6 @@ class SizeTest extends TestCase
     }
 
     /**
-     * @param int $width
-     * @param int $height
-     *
      * @dataProvider getCorrectDataProvider
      */
     public function testGreaterThenZeroValue(int $width, int $height): void
@@ -41,11 +33,7 @@ class SizeTest extends TestCase
     }
 
     /**
-     * @param int $width
-     * @param int $height
-     *
      * @dataProvider getIncorrectDataProvider
-     *
      */
     public function testLessThenZeroValue(int $width, int $height): void
     {

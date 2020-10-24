@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\Provider;
 
@@ -15,12 +15,8 @@ use Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeGroupedByAreaProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingPrivilegeGroupedByArea(): void
     {
         /** @var PrivilegeQueryInterface | MockObject $query */

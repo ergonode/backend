@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\Command\User;
 
@@ -15,12 +15,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- */
 class ChangeUserAvatarCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         /** @var UserId|MockObject $id */

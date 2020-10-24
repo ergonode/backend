@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Security\Voter;
 
@@ -15,8 +15,6 @@ use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-/**
- */
 class UserActivityVoter extends Voter implements LoggerAwareInterface
 {
     use LoggerAwareTrait;

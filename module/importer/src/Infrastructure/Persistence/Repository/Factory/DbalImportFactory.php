@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Factory;
 
@@ -13,16 +13,12 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
-/**
- */
 class DbalImportFactory
 {
     /**
      * @param array $record
      *
-     * @return Import
      *
      * @throws \ReflectionException
      */
@@ -54,7 +50,6 @@ class DbalImportFactory
             'id' => new ImportId($record['id']),
             'status' => new ImportStatus($record['status']),
             'sourceId' => new SourceId($record['source_id']),
-            'transformerId' => new TransformerId($record['transformer_id']),
             'file' => $record['file'],
             'records' => $record['records'],
             'startedAt' => $record['started_at'] ? new \DateTime($record['started_at']) : null,

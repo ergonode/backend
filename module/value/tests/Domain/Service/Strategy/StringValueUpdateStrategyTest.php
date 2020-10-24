@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Value\Tests\Domain\Service\Strategy;
 
@@ -14,12 +14,8 @@ use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StringValueUpdateStrategyTest extends TestCase
 {
-    /**
-     */
     public function testSupported(): void
     {
         $strategy = new StringValueUpdateStrategy();
@@ -30,8 +26,6 @@ class StringValueUpdateStrategyTest extends TestCase
         $this->assertFalse($strategy->isSupported($invalid));
     }
 
-    /**
-     */
     public function testCalculate(): void
     {
         $strategy = new StringValueUpdateStrategy();
@@ -44,8 +38,6 @@ class StringValueUpdateStrategyTest extends TestCase
         $this->assertEquals($calculated->getValue(), ['test1']);
     }
 
-    /**
-     */
     public function testWrongOldValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -56,8 +48,6 @@ class StringValueUpdateStrategyTest extends TestCase
         $strategy->calculate($invalid, $newValue);
     }
 
-    /**
-     */
     public function testWrongNewValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

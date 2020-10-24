@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
@@ -26,20 +26,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SourceTypeConfigurationAction
 {
-    /**
-     * @var SourceFormFactoryProvider
-     */
     private SourceFormFactoryProvider $provider;
 
-    /**
-     * @var Liform
-     */
     private Liform $liform;
 
-    /**
-     * @param SourceFormFactoryProvider $provider
-     * @param Liform                    $liform
-     */
     public function __construct(SourceFormFactoryProvider $provider, Liform $liform)
     {
         $this->provider = $provider;
@@ -67,10 +57,6 @@ class SourceTypeConfigurationAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @param string $type
-     *
-     * @return Response
      */
     public function __invoke(string $type): Response
     {

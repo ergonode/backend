@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler;
 
@@ -19,23 +19,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand;
 
-/**
- */
 class ProcessExportCommandHandler
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
     /**
@@ -44,9 +33,6 @@ class ProcessExportCommandHandler
     private array $steps;
 
     /**
-     * @param ChannelRepositoryInterface   $channelRepository
-     * @param ExportRepositoryInterface    $exportRepository
-     * @param CommandBusInterface          $commandBus
      * @param ExportStepProcessInterface[] $steps
      */
     public function __construct(
@@ -61,9 +47,6 @@ class ProcessExportCommandHandler
         $this->steps = $steps;
     }
 
-    /**
-     * @param ProcessExportCommand $command
-     */
     public function __invoke(ProcessExportCommand $command)
     {
         $export = $this->exportRepository->load($command->getExportId());

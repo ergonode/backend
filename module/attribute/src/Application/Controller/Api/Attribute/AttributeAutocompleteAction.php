@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
@@ -22,14 +22,8 @@ use Swagger\Annotations as SWG;
  */
 class AttributeAutocompleteAction
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     */
     public function __construct(AttributeQueryInterface $attributeQuery)
     {
         $this->attributeQuery = $attributeQuery;
@@ -78,11 +72,6 @@ class AttributeAutocompleteAction
      *     response=200,
      *     description="Returns attributes",
      * )
-     *
-     * @param Language $language
-     * @param Request  $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, Request $request): Response
     {

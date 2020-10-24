@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
@@ -18,9 +18,7 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 
-/**
- */
-final class OptionProcessor
+class OptionProcessor
 {
     /**
      * @var AttributeRepositoryInterface
@@ -36,11 +34,6 @@ final class OptionProcessor
     }
 
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractOption    $option
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractOption $option): ExportData
@@ -65,14 +58,7 @@ final class OptionProcessor
         }
     }
 
-    /**
-     * @param AbstractOption    $option
-     * @param Language          $language
-     * @param AbstractAttribute $attribute
-     *
-     * @return LanguageData
-     */
-    private function getLanguage(AbstractOption $option, Language $language, AbstractAttribute $attribute): LanguageData
+    private function getLanguage(AbstractOption $option, Language $language): LanguageData
     {
         $result = new LanguageData();
         $result->set('_id', $option->getId()->getValue());

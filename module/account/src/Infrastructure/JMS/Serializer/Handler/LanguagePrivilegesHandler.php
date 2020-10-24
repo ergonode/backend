@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\JMS\Serializer\Handler;
 
@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class LanguagePrivilegesHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,10 +46,7 @@ class LanguagePrivilegesHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param LanguagePrivileges            $languagePrivilege
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */
@@ -65,12 +60,8 @@ class LanguagePrivilegesHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return LanguagePrivileges
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,

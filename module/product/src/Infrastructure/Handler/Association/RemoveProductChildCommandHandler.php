@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Association;
 
@@ -15,26 +15,16 @@ use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Command\Relations\RemoveProductChildCommand;
 
-/**
- */
 class RemoveProductChildCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @param ProductRepositoryInterface $repository
-     */
     public function __construct(ProductRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param RemoveProductChildCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(RemoveProductChildCommand $command): void

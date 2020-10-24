@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
@@ -55,10 +55,6 @@ class TemplateReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
-     *
-     * @param Template $template
-     *
-     * @return Response
      */
     public function __invoke(Template $template): Response
     {

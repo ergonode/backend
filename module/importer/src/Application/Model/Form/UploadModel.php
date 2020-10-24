@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Model\Form;
 
@@ -28,15 +28,11 @@ class UploadModel
      * @Assert\File(maxSize="500M")
      *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
-     *
-     * @var UploadedFile
      */
     public ?UploadedFile $upload = null;
 
     /**
      * @Assert\Callback
-     *
-     * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context): void
     {

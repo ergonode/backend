@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
@@ -15,13 +15,9 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class UpdateWorkflowCommand implements DomainCommandInterface
 {
     /**
-     * @var WorkflowId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private WorkflowId $id;
@@ -35,7 +31,6 @@ class UpdateWorkflowCommand implements DomainCommandInterface
 
 
     /**
-     * @param WorkflowId $id
      * @param StatusId[] $statuses
      */
     public function __construct(WorkflowId $id, array $statuses = [])
@@ -46,9 +41,6 @@ class UpdateWorkflowCommand implements DomainCommandInterface
         $this->statuses = $statuses;
     }
 
-    /**
-     * @return WorkflowId
-     */
     public function getId(): WorkflowId
     {
         return $this->id;

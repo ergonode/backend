@@ -5,21 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Domain\ValueObject;
 
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class LanguageTest extends TestCase
 {
     /**
      * @dataProvider validLanguage
-     *
-     * @param string $code
      */
     public function testValidLanguageCreation(string $code): void
     {
@@ -29,9 +25,6 @@ class LanguageTest extends TestCase
 
     /**
      * @dataProvider invalidLanguage
-     *
-     * @param string $hex
-     *
      */
     public function testInvalidLanguageCreation(string $hex): void
     {
@@ -40,8 +33,6 @@ class LanguageTest extends TestCase
         new Language($hex);
     }
 
-    /**
-     */
     public function testLanguageEquality(): void
     {
         $language1 = new Language('en_GB');
@@ -56,8 +47,6 @@ class LanguageTest extends TestCase
         self::assertFalse($language3->isEqual($language2));
     }
 
-    /**
-     */
     public function testString(): void
     {
         $code = 'en_GB';

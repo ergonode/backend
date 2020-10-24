@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Tests\Domain\Provider;
 
@@ -14,12 +14,8 @@ use Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyPro
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateElementCompletenessStrategyProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingSupportedStrategy(): void
     {
         /** @var TemplateElementCompletenessStrategyInterface|MockObject $strategy */
@@ -31,8 +27,6 @@ class TemplateElementCompletenessStrategyProviderTest extends TestCase
         $this->assertEquals($strategy, $result);
     }
 
-    /**
-     */
     public function testProvidingNotSupportedStrategy(): void
     {
         $this->expectException(\RuntimeException::class);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\DependencyInjection\CompilerPass;
 
@@ -13,16 +13,10 @@ use Ergonode\Importer\Infrastructure\Provider\SourceTypeProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- *
- */
 class SourceTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'import.source.import_source_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(SourceTypeProvider::class)) {
@@ -30,9 +24,6 @@ class SourceTypeCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(SourceTypeProvider::class);

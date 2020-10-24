@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Grid\Column\Provider\Strategy;
 
@@ -19,18 +19,10 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
-/**
- */
 class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $query;
 
-    /**
-     * @param TemplateQueryInterface $query
-     */
     public function __construct(TemplateQueryInterface $query)
     {
         $this->query = $query;

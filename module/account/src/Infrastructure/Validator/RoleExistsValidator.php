@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Validator;
 
@@ -15,18 +15,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class RoleExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $roleRepository;
 
-    /**
-     * @param RoleRepositoryInterface $roleRepository
-     */
     public function __construct(RoleRepositoryInterface $roleRepository)
     {
         $this->roleRepository = $roleRepository;

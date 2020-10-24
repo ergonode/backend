@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
@@ -14,8 +14,6 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterf
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductBelongCategoryTreeConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Form\Type;
 
@@ -15,26 +15,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class CategoryType extends AbstractType
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @param CategoryQueryInterface $query
-     */
     public function __construct(CategoryQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $language = new Language('en_GB');
@@ -51,9 +40,6 @@ class CategoryType extends AbstractType
         );
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return ChoiceType::class;

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Application\Request\ParamConverter;
 
@@ -17,18 +17,10 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class ExportParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $repository;
 
-    /**
-     * @param ExportRepositoryInterface $repository
-     */
     public function __construct(ExportRepositoryInterface $repository)
     {
         $this->repository = $repository;

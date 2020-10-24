@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Form\Type;
 
@@ -15,8 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- */
 class BooleanType extends AbstractType
 {
     /**
@@ -26,9 +24,6 @@ class BooleanType extends AbstractType
     {
         $builder->addViewTransformer(new BooleanDataTransformer());
     }
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -42,9 +37,6 @@ class BooleanType extends AbstractType
         ]);
     }
 
-    /**
-     * @return string
-     */
     public function getParent(): string
     {
         return CheckboxType::class;

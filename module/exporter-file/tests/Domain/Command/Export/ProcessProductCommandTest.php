@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Domain\Command\Export;
 
@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class ProcessProductCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $exportId = $this->createMock(ExportId::class);

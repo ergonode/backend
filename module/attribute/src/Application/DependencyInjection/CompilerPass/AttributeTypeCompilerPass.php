@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\DependencyInjection\CompilerPass;
 
@@ -13,15 +13,11 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
-/**
- */
 class AttributeTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'attribute.domain.attribute_interface';
 
     /**
-     * @param ContainerBuilder $container
-     *
      * @throws \ReflectionException
      */
     public function process(ContainerBuilder $container): void
@@ -32,8 +28,6 @@ class AttributeTypeCompilerPass implements CompilerPassInterface
     }
 
     /**
-     * @param ContainerBuilder $container
-     *
      * @throws \ReflectionException
      */
     private function processHandler(ContainerBuilder $container): void

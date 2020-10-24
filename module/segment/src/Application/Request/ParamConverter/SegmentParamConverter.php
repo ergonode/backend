@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class SegmentParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var SegmentRepositoryInterface
-     */
     private SegmentRepositoryInterface $repository;
 
-    /**
-     * @param SegmentRepositoryInterface $repository
-     */
     public function __construct(SegmentRepositoryInterface $repository)
     {
         $this->repository = $repository;

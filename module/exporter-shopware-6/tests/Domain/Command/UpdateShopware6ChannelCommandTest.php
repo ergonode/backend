@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Command;
 
@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateShopware6ChannelCommandTest extends TestCase
 {
     /**
@@ -26,23 +24,11 @@ class UpdateShopware6ChannelCommandTest extends TestCase
      */
     private ChannelId $id;
 
-    /**
-     * @var string
-     */
     private string $name;
-    /**
-     * @var string
-     */
     private string $host;
 
-    /**
-     * @var string
-     */
     private string $clientId;
 
-    /**
-     * @var string
-     */
     private string $clientKey;
 
     /**
@@ -105,8 +91,6 @@ class UpdateShopware6ChannelCommandTest extends TestCase
      */
     private CategoryTreeId $categoryTreeId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -128,8 +112,6 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
     }
 
-    /**
-     */
     public function testCreateCommand(): void
     {
         $command = new UpdateShopware6ChannelCommand(

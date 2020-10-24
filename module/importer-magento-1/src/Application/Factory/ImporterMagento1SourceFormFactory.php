@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Application\Factory;
 
@@ -17,38 +17,20 @@ use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationMod
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class ImporterMagento1SourceFormFactory implements SourceFormFactoryInterface
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return Magento1CsvSource::TYPE === $type;
     }
 
-    /**
-     * @param AbstractSource|null $source
-     *
-     * @return FormInterface
-     */
     public function create(AbstractSource $source = null): FormInterface
     {
         $model = new ImporterMagento1ConfigurationModel($source);

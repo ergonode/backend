@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInter
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class Shopware6ProductSkuMapper implements Shopware6ProductMapperInterface
 {
     /**

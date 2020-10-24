@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Persistence\Repository;
 
@@ -13,29 +13,18 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class DbalLanguageRepository implements LanguageRepositoryInterface
 {
     private const TABLE = 'language';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param Language $language
-     * @param bool     $active
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function save(Language $language, bool $active): void
@@ -56,11 +45,6 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
         }
     }
 
-    /**
-     * @param Language $language
-     *
-     * @return bool
-     */
     public function exists(Language $language): bool
     {
         $query = $this->connection->createQueryBuilder();

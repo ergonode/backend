@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Create;
 
@@ -16,28 +16,13 @@ use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Symfony\Component\Security\Core\Security;
-use Webmozart\Assert\Assert;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
-/**
- */
 class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param ProductRepositoryInterface   $productRepository
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param TokenStorageInterface        $tokenStorage
-     * @param WorkflowProvider             $provider
-     * @param LanguageQueryInterface       $query
-     * @param Security                     $security
-     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
@@ -51,8 +36,6 @@ class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
     }
 
     /**
-     * @param CreateVariableProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateVariableProductCommand $command)

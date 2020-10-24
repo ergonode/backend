@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Product\Infrastructure\Grid\Column;
 
@@ -13,13 +13,9 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class HistoryColumnTest extends TestCase
 {
 
-    /**
-     */
     public function testGetters(): void
     {
         $field = 'Any field';

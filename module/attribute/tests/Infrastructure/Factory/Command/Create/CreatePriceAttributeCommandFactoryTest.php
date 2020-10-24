@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Create;
 
@@ -15,12 +15,8 @@ use Ergonode\Attribute\Domain\Command\Attribute\Create\CreatePriceAttributeComma
 use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreatePriceAttributeCommandFactory;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 
-/**
- */
 class CreatePriceAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreatePriceAttributeCommandFactory();
@@ -28,8 +24,6 @@ class CreatePriceAttributeCommandFactoryTest extends AbstractCreateAttributeComm
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         /** @var PriceAttributeFormModel $data */

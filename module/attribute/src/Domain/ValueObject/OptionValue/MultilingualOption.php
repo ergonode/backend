@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\ValueObject\OptionValue;
 
@@ -13,22 +13,15 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class MultilingualOption implements OptionInterface
 {
     public const TYPE = 'translation';
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $value;
 
-    /**
-     * @param TranslatableString $value
-     */
     public function __construct(TranslatableString $value)
     {
         $this->value = $value;
@@ -44,9 +37,6 @@ class MultilingualOption implements OptionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getValue(): TranslatableString
     {
         return $this->value;

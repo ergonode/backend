@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
@@ -13,6 +13,7 @@ use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UpdateUserForm;
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -36,20 +37,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -93,11 +84,6 @@ class UserChangeAction
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
-     *
-     * @param User    $user
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(User $user, Request $request): Response
     {
@@ -109,7 +95,7 @@ class UserChangeAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var UpdateUserFormModel $data */
                 $data = $form->getData();
-
+                $password = $data->password ? new Password($data->password) : null;
                 $command = new UpdateUserCommand(
                     $user->getId(),
                     $data->firstName,
@@ -118,7 +104,7 @@ class UserChangeAction
                     $data->roleId,
                     $data->languagePrivilegesCollection,
                     $data->isActive,
-                    $data->password
+                    $password
                 );
                 $this->commandBus->dispatch($command);
 

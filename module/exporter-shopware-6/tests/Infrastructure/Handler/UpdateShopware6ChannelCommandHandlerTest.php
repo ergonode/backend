@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Handler;
 
@@ -14,12 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
-/**
- */
 class UpdateShopware6ChannelCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $channel = $this->createMock(Shopware6Channel::class);

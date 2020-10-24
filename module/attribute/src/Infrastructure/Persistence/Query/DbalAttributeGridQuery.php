@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Query;
 
@@ -16,8 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 
-/**
- */
 class DbalAttributeGridQuery implements AttributeGridQueryInterface
 {
     private const ATTRIBUTE_TABLE = 'attribute';
@@ -30,26 +28,13 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         'a.scope',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Language $language
-     *
-     * @param bool     $system
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language, bool $system = false): DataSetInterface
     {
         $query = $this->getQuery();
@@ -73,9 +58,6 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

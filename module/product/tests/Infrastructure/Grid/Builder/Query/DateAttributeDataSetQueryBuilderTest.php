@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Infrastructure\Grid\Builder\Query;
 
@@ -18,8 +18,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
-/**
- */
 class DateAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
@@ -42,13 +40,8 @@ class DateAttributeDataSetQueryBuilderTest extends TestCase
      */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var ProductAttributeLanguageResolver
-     */
     private ProductAttributeLanguageResolver $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(DateAttribute::class);
@@ -59,24 +52,18 @@ class DateAttributeDataSetQueryBuilderTest extends TestCase
         $this->resolver = new ProductAttributeLanguageResolver($this->query);
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $builder = new DateAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertTrue($builder->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $builder = new DateAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testAddQuerySelect(): void
     {
         $this->queryBuilder->expects($this->once())->method('addSelect');

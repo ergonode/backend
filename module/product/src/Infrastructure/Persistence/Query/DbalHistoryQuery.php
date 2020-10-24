@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
@@ -16,28 +16,15 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Product\Domain\Query\HistoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class DbalHistoryQuery implements HistoryQueryInterface
 {
-    /**
-     * @var  Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ProductId $id
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(ProductId $id): DataSetInterface
     {
         $result = $this->connection->createQueryBuilder();
@@ -50,9 +37,6 @@ class DbalHistoryQuery implements HistoryQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

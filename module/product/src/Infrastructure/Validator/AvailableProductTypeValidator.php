@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
@@ -21,9 +21,6 @@ class AvailableProductTypeValidator extends ConstraintValidator
 {
     private ProductSupportProviderInterface $productSupportProvider;
 
-    /**
-     * @param ProductSupportProviderInterface $productSupportProvider
-     */
     public function __construct(ProductSupportProviderInterface $productSupportProvider)
     {
         $this->productSupportProvider = $productSupportProvider;

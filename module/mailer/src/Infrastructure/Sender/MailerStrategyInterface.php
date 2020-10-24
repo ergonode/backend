@@ -11,12 +11,7 @@ namespace Ergonode\Mailer\Infrastructure\Sender;
 
 use Ergonode\Mailer\Domain\MailInterface;
 
-/**
- */
 interface MailerStrategyInterface
 {
-    /**
-     * @param MailInterface $mail
-     */
     public function send(MailInterface $mail): void;
 }

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Entity\Attribute;
 
@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
-/**
- */
 class StatusSystemAttributeTest extends TestCase
 {
     /**

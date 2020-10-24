@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
@@ -14,36 +14,18 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 
-/**
- */
 abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryBuilderInterface
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     protected LanguageQueryInterface $query;
 
-    /**
-     * @var ProductAttributeLanguageResolver
-     */
     protected ProductAttributeLanguageResolver $resolver;
 
-    /**
-     * @param LanguageQueryInterface           $query
-     * @param ProductAttributeLanguageResolver $resolver
-     */
     public function __construct(LanguageQueryInterface $query, ProductAttributeLanguageResolver $resolver)
     {
         $this->query = $query;
         $this->resolver = $resolver;
     }
 
-    /**
-     * @param QueryBuilder      $query
-     * @param string            $key
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($attribute, $language));

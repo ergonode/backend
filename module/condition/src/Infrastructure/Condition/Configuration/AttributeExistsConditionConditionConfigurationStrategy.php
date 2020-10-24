@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
@@ -15,24 +15,12 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyIn
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class AttributeExistsConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param AttributeQueryInterface $query
-     * @param TranslatorInterface     $translator
-     */
     public function __construct(AttributeQueryInterface $query, TranslatorInterface $translator)
     {
         $this->query = $query;

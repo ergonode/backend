@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Tests\Domain\Entity;
 
@@ -17,43 +17,20 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionTest extends TestCase
 {
-    /**
-     * @var ProductCollectionId
-     */
     private ProductCollectionId $id;
 
-    /**
-     * @var ProductCollectionCode
-     *
-     */
     private ProductCollectionCode $code;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $name;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $description;
 
-    /**
-     * @var ProductCollectionTypeId
-     */
     private ProductCollectionTypeId $typeId;
 
-    /**
-     * @var ProductId
-     */
     private ProductId $productId;
 
-    /**
-     */
     public function setUp(): void
     {
         $this->id = $this->createMock(ProductCollectionId::class);
@@ -64,8 +41,6 @@ class ProductCollectionTest extends TestCase
         $this->productId = ProductId::generate();
     }
 
-    /**
-     */
     public function testCreateEntity(): void
     {
         $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
@@ -77,8 +52,6 @@ class ProductCollectionTest extends TestCase
         self::assertNotNull($entity->getCreatedAt());
     }
 
-    /**
-     */
     public function testElementManipulation(): void
     {
         $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
@@ -101,8 +74,6 @@ class ProductCollectionTest extends TestCase
         self::assertNotNull($entity->getEditedAt());
     }
 
-    /**
-     */
     public function testRemovingElement(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -112,8 +83,6 @@ class ProductCollectionTest extends TestCase
         $entity->getElement($this->productId);
     }
 
-    /**
-     */
     public function testAddingSameElement(): void
     {
         $this->expectException(\RuntimeException::class);
@@ -122,8 +91,6 @@ class ProductCollectionTest extends TestCase
         $entity->addElement($this->productId, true);
     }
 
-    /**
-     */
     public function testNotExistingElement(): void
     {
         $this->expectException(\RuntimeException::class);

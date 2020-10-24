@@ -147,47 +147,47 @@ Feature: Workflow
 
   Scenario: Get statuses
     When I send a GET request to "/api/v1/en_GB/status"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by id)
     When I send a GET request to "/api/v1/en_GB/status?field=id"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by code)
     When I send a GET request to "/api/v1/en_GB/status?field=code"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by name)
     When I send a GET request to "/api/v1/en_GB/status?field=name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by description)
     When I send a GET request to "/api/v1/en_GB/status?field=description"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (order ASC)
     When I send a GET request to "/api/v1/en_GB/status?field=name&order=ASC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (order DESC)
     When I send a GET request to "/api/v1/en_GB/status?field=name&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by id)
     When I send a GET request to "/api/v1/en_GB/status?limit=25&offset=0&filter=id%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by name)
     When I send a GET request to "/api/v1/en_GB/status?limit=25&offset=0&filter=name%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by code)
     When I send a GET request to "/api/v1/en_GB/status?limit=25&offset=0&filter=code%3Den"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by description)
     When I send a GET request to "/api/v1/en_GB/status?limit=25&offset=0&filter=description%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Set default status
     When I send a PUT request to "/api/v1/en_GB/workflow/default/status/@workflow_first_status@/default"

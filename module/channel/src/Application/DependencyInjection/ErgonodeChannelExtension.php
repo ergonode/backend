@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\DependencyInjection;
 
@@ -22,13 +22,10 @@ use Ergonode\Channel\Application\DependencyInjection\CompilerPass\CreateChannelC
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderInterface;
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\UpdateChannelCommandBuilderCompilerPass;
 
-/**
- */
 class ErgonodeChannelExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

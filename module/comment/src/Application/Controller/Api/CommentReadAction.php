@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Application\Controller\Api;
 
@@ -53,10 +53,6 @@ class CommentReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Comment\Domain\Entity\Comment")
-     *
-     * @param Comment $comment
-     *
-     * @return Response
      */
     public function __invoke(Comment $comment): Response
     {

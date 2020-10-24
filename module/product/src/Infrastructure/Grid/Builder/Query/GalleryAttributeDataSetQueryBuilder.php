@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
@@ -14,8 +14,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class GalleryAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

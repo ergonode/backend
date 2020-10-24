@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Persistence\Repository;
 
@@ -17,18 +17,10 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalTemplateRepository implements TemplateRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
@@ -51,8 +43,6 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
     }
 
     /**
-     * @param Template $template
-     *
      * @throws DBALException
      */
     public function save(Template $template): void

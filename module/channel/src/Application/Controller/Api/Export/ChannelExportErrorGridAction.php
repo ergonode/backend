@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
@@ -35,26 +35,12 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelExportErrorGridAction
 {
-    /**
-     * @var ExportErrorsGrid
-     */
     private ExportErrorsGrid $grid;
 
-    /**
-     * @var ExportQueryInterface
-     */
     private ExportQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param ExportErrorsGrid     $grid
-     * @param ExportQueryInterface $query
-     * @param GridRenderer         $gridRenderer
-     */
     public function __construct(ExportErrorsGrid $grid, ExportQueryInterface $query, GridRenderer $gridRenderer)
     {
         $this->grid = $grid;
@@ -96,13 +82,6 @@ class ChannelExportErrorGridAction
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param AbstractChannel          $channel
-     * @param Export                   $export
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         Language $language,

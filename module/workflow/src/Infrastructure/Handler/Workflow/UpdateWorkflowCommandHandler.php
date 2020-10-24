@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
@@ -14,26 +14,16 @@ use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateWorkflowCommandHandler
 {
-    /**
-     * @var WorkflowRepositoryInterface
-     */
     private WorkflowRepositoryInterface $repository;
 
-    /**
-     * @param WorkflowRepositoryInterface $repository
-     */
     public function __construct(WorkflowRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateWorkflowCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateWorkflowCommand $command)

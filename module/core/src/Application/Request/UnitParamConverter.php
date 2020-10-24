@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Request;
 
@@ -18,19 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class UnitParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var UnitRepositoryInterface
-     */
     private UnitRepositoryInterface $unitRepository;
 
-    /**
-     *
-     * @param UnitRepositoryInterface $unitRepository
-     */
     public function __construct(UnitRepositoryInterface $unitRepository)
     {
         $this->unitRepository = $unitRepository;

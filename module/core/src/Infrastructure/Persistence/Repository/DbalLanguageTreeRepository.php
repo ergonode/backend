@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Persistence\Repository;
 
@@ -15,32 +15,16 @@ use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Ergonode\Core\Infrastructure\Builder\LanguageTree\LanguageTreeBuilder;
 use Ergonode\Core\Infrastructure\Persistence\Repository\Factory\DbalLanguageTreeFactory;
 
-/**
- */
 class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
 {
     private const TABLE = 'language_tree';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var LanguageTreeBuilder
-     */
     private LanguageTreeBuilder $builder;
 
-    /**
-     * @var DbalLanguageTreeFactory
-     */
     private DbalLanguageTreeFactory $factory;
 
-    /**
-     * @param Connection              $connection
-     * @param LanguageTreeBuilder     $builder
-     * @param DbalLanguageTreeFactory $factory
-     */
     public function __construct(Connection $connection, LanguageTreeBuilder $builder, DbalLanguageTreeFactory $factory)
     {
         $this->connection = $connection;
@@ -101,8 +85,6 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
         }
     }
 
-    /**
-     */
     private function delete(): void
     {
         $qb = $this->connection->createQueryBuilder();

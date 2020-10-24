@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute\Update;
 
@@ -16,25 +16,15 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateDateAttributeCommand extends AbstractUpdateAttributeCommand
 {
     /**
-     * @var DateFormat
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\DateFormat")
      */
     private DateFormat $format;
 
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param DateFormat         $format
-     * @param array              $groups
+     * @param array $groups
      */
     public function __construct(
         AttributeId $id,
@@ -57,9 +47,6 @@ class UpdateDateAttributeCommand extends AbstractUpdateAttributeCommand
         $this->format = $format;
     }
 
-    /**
-     * @return DateFormat
-     */
     public function getFormat(): DateFormat
     {
         return $this->format;

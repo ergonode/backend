@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
@@ -17,7 +17,6 @@ use Ergonode\Workflow\Application\Form\Model\TransitionCreateFormModel;
 use Ergonode\Workflow\Application\Form\TransitionCreateForm;
 use Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,20 +37,10 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class TransitionCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -86,10 +75,7 @@ class TransitionCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param AbstractWorkflow $workflow
-     * @param Request          $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

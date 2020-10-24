@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\TranslationDeepl\Infrastructure\Validator\Constraints;
 
@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class DeeplLanguageConstraint extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = '"{{ language }}" language is not supported';
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return DeeplLanguageValidator::class;

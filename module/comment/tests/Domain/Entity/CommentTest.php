@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Tests\Domain\Entity;
 
@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CommentTest extends TestCase
 {
     /**
@@ -34,13 +32,8 @@ class CommentTest extends TestCase
      */
     private $userId;
 
-    /**
-     * @var string
-     */
     private string $content;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(CommentId::class);

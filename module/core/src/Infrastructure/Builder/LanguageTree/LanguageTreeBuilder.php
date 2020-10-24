@@ -4,36 +4,23 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Builder\LanguageTree;
 
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 
-/**
- */
 class LanguageTreeBuilder
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @param LanguageQueryInterface $query
-     */
     public function __construct(LanguageQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * @param LanguageNode $node
-     *
-     * @return NestedSetTree
-     *
      * @throws \Exception
      */
     public function build(LanguageNode $node): NestedSetTree
@@ -54,9 +41,6 @@ class LanguageTreeBuilder
     }
 
     /**
-     * @param NestedSetTree $nestedSetTree
-     * @param LanguageNode  $node
-     *
      * @throws \Exception
      */
     private function buildBranch(NestedSetTree $nestedSetTree, LanguageNode $node): void

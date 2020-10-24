@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
@@ -15,8 +15,6 @@ use Ergonode\Segment\Infrastructure\Handler\Command\UpdateSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateSegmentCommandHandlerTest extends TestCase
 {
     /**
@@ -29,16 +27,12 @@ class UpdateSegmentCommandHandlerTest extends TestCase
      */
     private $repository;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(UpdateSegmentCommand::class);
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);
     }
 
-    /**
-     */
     public function testCommandHandlingExistsSegment(): void
     {
         $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(Segment::class));
@@ -48,8 +42,6 @@ class UpdateSegmentCommandHandlerTest extends TestCase
         $handler->__invoke($this->command);
     }
 
-    /**
-     */
     public function testCommandHandlingNotExistsSegment(): void
     {
         $this->repository->expects($this->once())->method('load')->willReturn(null);

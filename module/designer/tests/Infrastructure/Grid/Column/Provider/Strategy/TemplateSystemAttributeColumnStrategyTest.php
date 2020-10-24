@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 
@@ -16,8 +16,6 @@ use Ergonode\Designer\Infrastructure\Grid\Column\Provider\Strategy\TemplateSyste
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TemplateSystemAttributeColumnStrategyTest extends TestCase
 {
     /**
@@ -30,16 +28,12 @@ class TemplateSystemAttributeColumnStrategyTest extends TestCase
      */
     private MockObject $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(TemplateQueryInterface::class);
         $this->attribute = $this->createMock(TemplateSystemAttribute::class);
     }
 
-    /**
-     */
     public function testValidSupport(): void
     {
         $strategy = new TemplateSystemAttributeColumnStrategy($this->query);
@@ -47,8 +41,6 @@ class TemplateSystemAttributeColumnStrategyTest extends TestCase
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testInvalidSupport(): void
     {
         $strategy = new TemplateSystemAttributeColumnStrategy($this->query);
@@ -56,8 +48,6 @@ class TemplateSystemAttributeColumnStrategyTest extends TestCase
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $this->attribute->expects($this->once())->method('getCode');

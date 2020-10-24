@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Persistence\Query;
 
@@ -18,20 +18,12 @@ use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
-/**
- */
 class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterface
 {
     private const PRODUCT_COLLECTION_TYPE_TABLE = 'product_collection_type';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -51,11 +43,6 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
     }
 
 
-    /**
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
@@ -68,11 +55,6 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
         return new DbalDataSet($result);
     }
 
-    /**
-     * @param ProductCollectionTypeCode $code
-     *
-     * @return ProductCollectionTypeId|null
-     */
     public function findIdByCode(ProductCollectionTypeCode $code): ?ProductCollectionTypeId
     {
         $qb = $this->getQuery();
@@ -90,8 +72,6 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function getCollectionTypes(Language $language): array
@@ -103,9 +83,6 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
             ->fetchAll();
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Validator;
 
@@ -24,8 +24,5 @@ class RoleNameUnique extends Constraint
         return self::CLASS_CONSTRAINT;
     }
 
-    /**
-     * @var string
-     */
     public string $uniqueMessage = 'The role name should be unique.';
 }

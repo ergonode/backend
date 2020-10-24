@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
@@ -17,9 +17,7 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
-final class TemplateProcessor
+class TemplateProcessor
 {
     /**
      * @var SerializerInterface
@@ -35,11 +33,6 @@ final class TemplateProcessor
     }
 
     /**
-     * @param FileExportChannel $channel
-     * @param Template          $template
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, Template $template): ExportData
@@ -60,12 +53,6 @@ final class TemplateProcessor
         }
     }
 
-    /**
-     * @param Template        $template
-     * @param TemplateElement $element
-     *
-     * @return LanguageData
-     */
     private function getLanguage(Template $template, TemplateElement $element): LanguageData
     {
         $result = new LanguageData();

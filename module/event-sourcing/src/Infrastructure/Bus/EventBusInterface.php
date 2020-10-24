@@ -5,18 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 
-/**
- */
 interface EventBusInterface
 {
-    /**
-     * @param DomainEventInterface $event
-     */
     public function dispatch(DomainEventInterface $event): void;
 }

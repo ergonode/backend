@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Tests\Infrastructure\Grid;
 
@@ -14,12 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class ChannelGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var GridConfigurationInterface $configuration */

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Role;
 
@@ -56,10 +56,6 @@ class RoleReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
-     *
-     * @param Role $role
-     *
-     * @return Response
      */
     public function __invoke(Role $role): Response
     {

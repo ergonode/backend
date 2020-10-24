@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Provider;
 
@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterFile\Infrastructure\Writer\WriterInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class WriterProviderTest extends TestCase
 {
     /**
@@ -22,15 +20,11 @@ class WriterProviderTest extends TestCase
      */
     private WriterInterface $interface;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->interface = $this->createMock(WriterInterface::class);
     }
 
-    /**
-     */
     public function testFindWriter(): void
     {
         $this->interface->expects($this->once())->method('support')->willReturn(true);
@@ -40,8 +34,6 @@ class WriterProviderTest extends TestCase
         self::assertSame($this->interface, $result);
     }
 
-    /**
-     */
     public function testNotFindWriter(): void
     {
         $this->expectException(\RuntimeException::class);

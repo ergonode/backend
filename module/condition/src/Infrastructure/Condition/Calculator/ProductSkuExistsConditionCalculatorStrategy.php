@@ -7,7 +7,6 @@
 
 declare(strict_types=1);
 
-
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition;
@@ -15,8 +14,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductSkuExistsConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
     /**

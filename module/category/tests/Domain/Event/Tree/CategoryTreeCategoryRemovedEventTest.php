@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Event\Tree;
 
@@ -15,12 +15,8 @@ use Ergonode\Category\Domain\Event\Tree\CategoryTreeCategoryRemovedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTreeCategoryRemovedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreateEvent(): void
     {
         /** @var CategoryTreeId $id */

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
@@ -21,14 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryTypeReadAction
 {
-    /**
-     * @var CategoryTypeDictionaryProvider
-     */
     private CategoryTypeDictionaryProvider $categoryTypeDictionaryProvider;
 
-    /**
-     * @param CategoryTypeDictionaryProvider $categoryTypeDictionaryProvider
-     */
     public function __construct(CategoryTypeDictionaryProvider $categoryTypeDictionaryProvider)
     {
         $this->categoryTypeDictionaryProvider = $categoryTypeDictionaryProvider;
@@ -53,10 +47,6 @@ class CategoryTypeReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class TransformerParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $transformerRepository;
 
-    /**
-     * @param TransformerRepositoryInterface $transformerRepository
-     */
     public function __construct(TransformerRepositoryInterface $transformerRepository)
     {
         $this->transformerRepository = $transformerRepository;

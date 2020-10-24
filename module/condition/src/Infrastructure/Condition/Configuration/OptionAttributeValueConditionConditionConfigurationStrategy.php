@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
@@ -19,30 +19,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class OptionAttributeValueConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param AttributeQueryInterface $attributeQuery
-     * @param OptionQueryInterface    $optionQuery
-     * @param TranslatorInterface     $translator
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         OptionQueryInterface $optionQuery,

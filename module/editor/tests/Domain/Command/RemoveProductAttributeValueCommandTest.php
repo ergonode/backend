@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Tests\Domain\Command;
 
@@ -15,8 +15,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class RemoveProductAttributeValueCommandTest extends TestCase
 {
     /**

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
@@ -26,13 +26,9 @@ class AvatarUploadModel
      * )
      *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
-     *
-     * @var null|UploadedFile
      */
     public ?UploadedFile $upload;
 
-    /**
-     */
     public function __construct()
     {
         $this->upload = null;

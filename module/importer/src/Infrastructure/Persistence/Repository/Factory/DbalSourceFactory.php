@@ -5,25 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalSourceFactory
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
@@ -31,8 +23,6 @@ class DbalSourceFactory
 
     /**
      * @param array $record
-     *
-     * @return AbstractSource
      */
     public function create(array $record): AbstractSource
     {

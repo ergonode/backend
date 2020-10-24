@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Persistence\Query;
 
@@ -17,8 +17,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
-/**
- */
 class DbalConditionSetQuery implements ConditionSetQueryInterface
 {
     private const TABLE = 'condition_set';
@@ -27,14 +25,8 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         't.code',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -57,8 +49,6 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function findNumericConditionRelations(AttributeId $attributeId): array
@@ -82,9 +72,6 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         return $result;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

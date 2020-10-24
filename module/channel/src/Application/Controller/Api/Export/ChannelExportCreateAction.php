@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
@@ -30,14 +30,8 @@ use Ergonode\Channel\Domain\Command\ExportChannelCommand;
  */
 class ChannelExportCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -71,10 +65,7 @@ class ChannelExportCreateAction
      * )
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
-     * @param AbstractChannel $channel
-     * @param Request         $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

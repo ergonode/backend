@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Tests\Infrastructure\Grid;
 
@@ -13,12 +13,8 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
 
-/**
- */
 class ExportErrorsGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var GridConfigurationInterface $configuration */

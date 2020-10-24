@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Entity\Attribute;
 
@@ -15,26 +15,17 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class StatusSystemAttribute extends AbstractAttribute implements AttributeInterface
 {
     public const TYPE = 'STATUS';
     public const CODE = 'esa_status';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
     /**
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -49,9 +40,6 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
-    /**
-     * @return bool
-     */
     public function isSystem(): bool
     {
         return true;

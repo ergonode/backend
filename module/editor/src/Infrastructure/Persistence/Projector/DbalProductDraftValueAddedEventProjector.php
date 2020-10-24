@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Infrastructure\Persistence\Projector;
 
@@ -19,28 +19,18 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalProductDraftValueAddedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductDraftValueAdded $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductDraftValueAdded $event): void
@@ -53,10 +43,6 @@ class DbalProductDraftValueAddedEventProjector
     }
 
     /**
-     * @param string         $draftId
-     * @param string         $elementId
-     * @param ValueInterface $value
-     *
      * @throws DBALException
      */
     private function insertValue(string $draftId, string $elementId, ValueInterface $value): void
@@ -79,11 +65,6 @@ class DbalProductDraftValueAddedEventProjector
     }
 
     /**
-     * @param string      $draftId
-     * @param string      $elementId
-     * @param string|null $value
-     * @param string|null $language
-     *
      * @throws DBALException
      * @throws \Exception
      */

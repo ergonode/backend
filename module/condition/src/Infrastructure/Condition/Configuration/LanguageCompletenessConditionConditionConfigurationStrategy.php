@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
@@ -15,24 +15,12 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageCompletenessConditionConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var LanguageProviderInterface
-     */
     private LanguageProviderInterface $languageProvider;
 
-    /**
-     * @param TranslatorInterface       $translator
-     * @param LanguageProviderInterface $languageProvider
-     */
     public function __construct(
         TranslatorInterface $translator,
         LanguageProviderInterface $languageProvider

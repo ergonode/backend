@@ -5,20 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 final class Version20180618134343 extends AbstractErgonodeMigration
 {
     /**
-     * @param Schema $schema
-     *
      * @throws \Exception
      */
     public function up(Schema $schema): void
@@ -43,7 +39,6 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 status VARCHAR(16) NOT NULL,
                 source_id UUID NOT NULL,
-                transformer_id UUID NOT NULL,
                 file VARCHAR(255) NOT NULL,
                 created_at TIMESTAMP WITH TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -57,12 +52,6 @@ final class Version20180618134343 extends AbstractErgonodeMigration
             'ALTER TABLE importer.import
              ADD CONSTRAINT import_source_fk FOREIGN KEY (source_id) 
              REFERENCES importer.source(id)  ON UPDATE CASCADE ON DELETE RESTRICT'
-        );
-
-        $this->addSql(
-            'ALTER TABLE importer.import
-             ADD CONSTRAINT import_transformer_fk FOREIGN KEY (transformer_id) 
-             REFERENCES importer.transformer(id)  ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
         $this->addSql('

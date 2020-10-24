@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Generator\Builder;
 
@@ -13,28 +13,15 @@ use Ergonode\SharedKernel\Application\AbstractModule;
 use Nette\PhpGenerator\PhpFile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ModuleClassBuilder
 {
-    /**
-     * @var FileBuilder
-     */
     private FileBuilder $builder;
 
-    /**
-     * @param FileBuilder $builder
-     */
     public function __construct(FileBuilder $builder)
     {
         $this->builder = $builder;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return PhpFile
-     */
     public function build(string $module): PhpFile
     {
         $file = $this->builder->build();

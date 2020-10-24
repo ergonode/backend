@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 
-/**
- */
 class EditedBySystemAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**
@@ -25,12 +23,6 @@ class EditedBySystemAttributeDataSetQueryBuilder extends AbstractAttributeDataSe
         return $attribute instanceof EditedBySystemAttribute;
     }
 
-    /**
-     * @param QueryBuilder      $query
-     * @param string            $key
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
         $query->addSelect(sprintf(

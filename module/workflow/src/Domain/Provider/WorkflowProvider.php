@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Provider;
 
@@ -15,30 +15,14 @@ use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-/**
- */
 class WorkflowProvider
 {
-    /**
-     * @var WorkflowRepositoryInterface
-     */
     private WorkflowRepositoryInterface $repository;
 
-    /**
-     * @var WorkflowFactory
-     */
     private WorkflowFactory $factory;
 
-    /**
-     * @var WorkflowQueryInterface
-     */
     private WorkflowQueryInterface $query;
 
-    /**
-     * @param WorkflowRepositoryInterface $repository
-     * @param WorkflowFactory             $factory
-     * @param WorkflowQueryInterface      $query
-     */
     public function __construct(
         WorkflowRepositoryInterface $repository,
         WorkflowFactory $factory,
@@ -50,10 +34,6 @@ class WorkflowProvider
     }
 
     /**
-     * @param string $code
-     *
-     * @return AbstractWorkflow
-     *
      * @throws \Exception
      */
     public function provide(string $code = AbstractWorkflow::DEFAULT): AbstractWorkflow

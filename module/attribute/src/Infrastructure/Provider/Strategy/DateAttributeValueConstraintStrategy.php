@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
@@ -17,8 +17,6 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Regex;
 
-/**
- */
 class DateAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

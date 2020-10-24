@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Tests\Domain\Event;
 
@@ -17,12 +17,8 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionCreatedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var ProductCollectionId | MockObject $id */

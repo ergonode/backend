@@ -4,13 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -25,16 +24,10 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractCollectionAttribute;
 
-/**
- */
 abstract class AbstractValueCommandHandler
 {
     /**
-     * @param Language          $language
-     * @param AbstractAttribute $attribute
-     * @param mixed             $value
-     *
-     * @return ValueInterface|null
+     * @param mixed $value
      */
     protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ?ValueInterface
     {
@@ -69,10 +62,6 @@ abstract class AbstractValueCommandHandler
     }
 
     /**
-     * @param ProductDraft   $product
-     * @param AttributeCode  $code
-     * @param ValueInterface $value
-     *
      * @throws \Exception
      */
     protected function attributeUpdate(ProductDraft $product, AttributeCode $code, ValueInterface $value): void
@@ -85,9 +74,6 @@ abstract class AbstractValueCommandHandler
     }
 
     /**
-     * @param User         $user
-     * @param ProductDraft $draft
-     *
      * @throws \Exception
      */
     protected function updateAudit(User $user, ProductDraft $draft): void

@@ -5,12 +5,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Column;
 
-/**
- */
 class LinkColumn extends AbstractColumn
 {
     public const TYPE = 'LINK';
@@ -21,8 +19,7 @@ class LinkColumn extends AbstractColumn
     private array $links;
 
     /**
-     * @param string $field
-     * @param array  $links
+     * @param array $links
      */
     public function __construct(string $field, array $links = [])
     {

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Factory\Group;
 
@@ -14,27 +14,14 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupFactoryTest extends TestCase
 {
-    /**
-     * @var AttributeGroupId
-     */
     private AttributeGroupId $id;
 
-    /**
-     * @var AttributeGroupCode
-     */
     private AttributeGroupCode $code;
 
-    /**
-     * @var TranslatableString
-     */
     private TranslatableString $name;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id  = $this->createMock(AttributeGroupId::class);

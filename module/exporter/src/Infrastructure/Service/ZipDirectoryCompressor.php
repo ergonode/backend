@@ -4,21 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Service;
 
-/**
- */
 class ZipDirectoryCompressor implements DirectoryCompressorInterface
 {
-    /**
-     * @param string $sourceDirectory
-     * @param string $destinationDirectory
-     * @param string $fileName
-     *
-     * @return string
-     */
     public function compress(string $sourceDirectory, string $destinationDirectory, string $fileName): string
     {
         if (!is_dir($sourceDirectory)) {

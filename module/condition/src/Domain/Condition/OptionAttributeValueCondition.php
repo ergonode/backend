@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
@@ -13,31 +13,21 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class OptionAttributeValueCondition implements ConditionInterface
 {
     public const TYPE = 'OPTION_ATTRIBUTE_VALUE_CONDITION';
     public const PHRASE = 'OPTION_ATTRIBUTE_VALUE_CONDITION_PHRASE';
 
     /**
-     * @var AttributeId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $attribute;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $value;
 
-    /**
-     * @param AttributeId $attribute
-     * @param string      $value
-     */
     public function __construct(AttributeId $attribute, string $value)
     {
         $this->attribute = $attribute;
@@ -54,17 +44,11 @@ class OptionAttributeValueCondition implements ConditionInterface
         return self::TYPE;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getAttribute(): AttributeId
     {
         return $this->attribute;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;

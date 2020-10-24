@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Persistence\Repository\Factory;
 
@@ -13,14 +13,10 @@ use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 
-/**
- */
 class DbalLanguageTreeFactory
 {
     /**
      * @param array $data
-     *
-     * @return LanguageTree
      */
     public function create(array $data): LanguageTree
     {

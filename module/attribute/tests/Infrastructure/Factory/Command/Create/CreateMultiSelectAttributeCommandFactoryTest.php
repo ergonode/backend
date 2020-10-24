@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Create;
 
@@ -15,12 +15,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateMultiSelectAt
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 
-/**
- */
 class CreateMultiSelectAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateMultiSelectAttributeCommandFactory();
@@ -28,8 +24,6 @@ class CreateMultiSelectAttributeCommandFactoryTest extends AbstractCreateAttribu
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $data = $this->getAttributeFormModel(AttributeFormModel::class);

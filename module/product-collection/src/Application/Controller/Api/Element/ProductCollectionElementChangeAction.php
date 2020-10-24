@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
@@ -40,20 +40,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionElementChangeAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
@@ -105,12 +95,6 @@ class ProductCollectionElementChangeAction
      * )
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
-     *
-     * @param ProductCollection $productCollection
-     * @param AbstractProduct   $product
-     * @param Request           $request
-     *
-     * @return Response
      */
     public function __invoke(ProductCollection $productCollection, AbstractProduct $product, Request $request): Response
     {

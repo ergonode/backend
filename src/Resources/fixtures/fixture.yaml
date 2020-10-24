@@ -292,7 +292,7 @@ Ergonode\Account\Domain\Entity\User:
       - 'Bravo'
       - '<userEmail(test@ergonode.com)>'
       - '<language(en_GB)>'
-      - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
+      - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
       - '@superadmin_role->id'
       - '<languagePrivilegesCollection(true)>'
 

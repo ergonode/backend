@@ -5,21 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\Color;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ColorTest extends TestCase
 {
     /**
      * @dataProvider validHexColor
-     *
-     * @param string $hex
      */
     public function testValidColorCreation(string $hex): void
     {
@@ -30,9 +26,6 @@ class ColorTest extends TestCase
 
     /**
      * @dataProvider inValidHexColor
-     *
-     * @param string $hex
-     *
      */
     public function testInvalidColorCreation(string $hex): void
     {
@@ -40,8 +33,6 @@ class ColorTest extends TestCase
         new Color($hex);
     }
 
-    /**
-     */
     public function testColorEquality():void
     {
         $color1 = new Color('#000000');

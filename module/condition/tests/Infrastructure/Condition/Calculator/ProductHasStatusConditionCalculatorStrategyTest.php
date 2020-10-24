@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
@@ -21,8 +21,6 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -30,13 +28,8 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $statusQuery;
 
-    /**
-     * @var ProductHasStatusConditionCalculatorStrategy
-     */
     private ProductHasStatusConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
 
@@ -45,8 +38,6 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
 
-    /**
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_HAS_STATUS_CONDITION'));
@@ -54,10 +45,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param string $productStatusUuid
-     * @param array  $searchedStatusIds
-     * @param bool   $expectedResult
+     * @param array $searchedStatusIds
      *
      * @throws \Exception
      *
@@ -119,8 +107,6 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $productId
-     *
      * @return AbstractProduct|MockObject
      */
     private function createProductMock(string $productId)
@@ -136,8 +122,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param array  $searchedStatuses
+     * @param array $searchedStatuses
      *
      * @return MockObject
      */

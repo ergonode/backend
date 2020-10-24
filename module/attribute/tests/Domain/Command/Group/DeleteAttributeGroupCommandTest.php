@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Group;
 
@@ -13,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteAttributeGroupCommandTest extends TestCase
 {
     /**

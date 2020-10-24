@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollectionElement;
 
@@ -15,29 +15,19 @@ use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementRemovedEvent;
 
-/**
- */
 class DbalProductCollectionElementRemovedEventProjector
 {
     private const TABLE_ELEMENT = 'product_collection_element';
     private const TABLE_COLLECTION = 'product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductCollectionElementRemovedEvent $event
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */

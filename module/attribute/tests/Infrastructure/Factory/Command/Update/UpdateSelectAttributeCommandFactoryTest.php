@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Update;
 
@@ -16,12 +16,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateSelectAttribu
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateSelectAttributeCommand;
 
-/**
- */
 class UpdateSelectAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdateSelectAttributeCommandFactory();
@@ -29,8 +25,6 @@ class UpdateSelectAttributeCommandFactoryTest extends AbstractUpdateAttributeCom
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $id = $this->createMock(AttributeId::class);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection\CompilerPass;
 
@@ -14,14 +14,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Workflow\Infrastructure\Provider\CreateWorkflowCommandFactoryProvider;
 
-/**
- */
 class CreateWorkflowCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.workflow.create_workflow_command_factory';
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateWorkflowCommandFactoryProvider::class)) {
@@ -29,9 +24,6 @@ class CreateWorkflowCommandFactoryProviderInterfaceCompilerPass implements Compi
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];

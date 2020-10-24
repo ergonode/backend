@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\SharedKernel\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -16,32 +16,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupIdHandlerTest extends TestCase
 {
-    /**
-     * @var AttributeGroupIdHandler
-     */
     private AttributeGroupIdHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new AttributeGroupIdHandler();
@@ -50,8 +34,6 @@ class AttributeGroupIdHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = AttributeGroupIdHandler::getSubscribingMethods();
@@ -63,8 +45,6 @@ class AttributeGroupIdHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = AttributeGroupId::generate();
@@ -73,8 +53,6 @@ class AttributeGroupIdHandlerTest extends TestCase
         $this->assertEquals($id->getValue(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = AttributeGroupId::generate();

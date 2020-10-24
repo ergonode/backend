@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class UnitAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**

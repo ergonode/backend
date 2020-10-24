@@ -25,14 +25,8 @@ use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
  */
 class WidgetCompletenessCountAction
 {
-    /**
-     * @var CompletenessQueryInterface
-     */
     private CompletenessQueryInterface $query;
 
-    /**
-     * @param CompletenessQueryInterface $query
-     */
     public function __construct(CompletenessQueryInterface $query)
     {
         $this->query = $query;
@@ -51,11 +45,6 @@ class WidgetCompletenessCountAction
      *     response=200,
      *     description="widget completeness count information",
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
-     *
      */
     public function __invoke(Language $language): Response
     {

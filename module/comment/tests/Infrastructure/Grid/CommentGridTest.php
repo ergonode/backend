@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Tests\Infrastructure\Grid;
 
@@ -16,12 +16,8 @@ use Ergonode\Grid\GridConfigurationInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CommentGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var GridConfigurationInterface $configuration */

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Grid\Column\Provider\Strategy;
 
@@ -17,8 +17,6 @@ use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
-/**
- */
 class CreatedAtSystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
     /**

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\Provider;
 
@@ -14,12 +14,8 @@ use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeCodeProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingPrivilegeCode(): void
     {
         /** @var PrivilegeQueryInterface | MockObject $query */

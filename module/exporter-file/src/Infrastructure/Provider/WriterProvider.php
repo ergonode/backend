@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Provider;
 
 use Ergonode\ExporterFile\Infrastructure\Writer\WriterInterface;
 
-/**
- */
 class WriterProvider
 {
     /**
@@ -19,19 +17,11 @@ class WriterProvider
      */
     private array $writers;
 
-    /**
-     * @param WriterInterface ...$writers
-     */
     public function __construct(WriterInterface ...$writers)
     {
         $this->writers = $writers;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return WriterInterface
-     */
     public function provide(string $type): WriterInterface
     {
         foreach ($this->writers as $writer) {

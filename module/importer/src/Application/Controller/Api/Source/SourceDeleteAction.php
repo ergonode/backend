@@ -5,12 +5,11 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Exception\NotImplementedException;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -33,26 +32,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SourceDeleteAction
 {
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     * @param CommandBusInterface                         $commandBus
-     */
     public function __construct(
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
@@ -96,9 +81,7 @@ class SourceDeleteAction
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      *
-     * @param AbstractSource $source
      *
-     * @return Response
      *
      * @throws \Exception
      */

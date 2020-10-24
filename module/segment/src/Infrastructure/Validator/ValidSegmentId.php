@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Validator;
 
@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ValidSegmentId extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'The Segment id {{ value }} is not valid.';
 }

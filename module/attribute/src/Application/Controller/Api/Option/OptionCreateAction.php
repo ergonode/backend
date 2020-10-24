@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
@@ -40,20 +40,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OptionCreateAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
-     */
     public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
     {
         $this->formFactory = $formFactory;
@@ -96,12 +86,9 @@ class OptionCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param AbstractAttribute $attribute
-     * @param Request           $request
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      *
-     * @return Response
      *
      * @throws \Exception
      */

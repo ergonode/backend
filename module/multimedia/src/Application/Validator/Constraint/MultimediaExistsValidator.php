@@ -2,10 +2,9 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Validator\Constraint;
 
@@ -15,26 +14,17 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- */
 class MultimediaExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $multimediaRepository;
 
-    /**
-     * @param MultimediaRepositoryInterface $multimediaRepository
-     */
     public function __construct(MultimediaRepositoryInterface $multimediaRepository)
     {
         $this->multimediaRepository = $multimediaRepository;
     }
 
     /**
-     * @param mixed      $value
-     * @param Constraint $constraint
+     * @param mixed $value
      */
     public function validate($value, Constraint $constraint): void
     {

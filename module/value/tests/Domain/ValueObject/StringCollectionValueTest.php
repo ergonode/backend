@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Value\Tests\Domain\ValueObject;
 
@@ -13,12 +13,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StringCollectionValueTest extends TestCase
 {
-    /**
-     */
     public function testValueCreation(): void
     {
         $value = ['pl_PL' => 'value1', 'en_GB' => 'value2'];

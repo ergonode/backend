@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
@@ -15,8 +15,6 @@ use Ergonode\Grid\ColumnInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 use Ergonode\Grid\Column\FileColumn;
 
-/**
- */
 class FileAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**

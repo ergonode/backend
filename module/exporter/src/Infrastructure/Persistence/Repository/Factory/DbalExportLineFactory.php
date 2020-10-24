@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Persistence\Repository\Factory;
 
@@ -13,14 +13,11 @@ use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalExportLineFactory
 {
     /**
      * @param array $record
      *
-     * @return ExportLine
      *
      * @throws \ReflectionException
      * @throws \Exception

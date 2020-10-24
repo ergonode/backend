@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Strategy\Relationship;
 
@@ -15,18 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductCollectionProductCollectionTypeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var ProductCollectionQueryInterface
-     */
     private ProductCollectionQueryInterface $query;
 
-    /**
-     * @param ProductCollectionQueryInterface $query
-     */
     public function __construct(ProductCollectionQueryInterface $query)
     {
         $this->query = $query;

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Event\Attribute;
 
@@ -12,16 +12,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeStringParameterChangeEventTest extends TestCase
 {
     /**
-     * @param AttributeId $id
-     * @param string      $name
-     * @param string      $from
-     * @param string      $to
-     *
      * @dataProvider dataProvider
      */
     public function testCreateEvent(AttributeId $id, string $name, string $from, string $to): void

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
@@ -35,26 +35,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ChannelExportAction
 {
-    /**
-     * @var ExportQueryInterface
-     */
     private ExportQueryInterface  $query;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $exportStorage;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
     private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @param ExportQueryInterface  $query
-     * @param FilesystemInterface   $exportStorage
-     * @param UrlGeneratorInterface $urlGenerator
-     */
     public function __construct(
         ExportQueryInterface $query,
         FilesystemInterface $exportStorage,
@@ -98,12 +84,6 @@ class ChannelExportAction
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
-     *
-     * @param Language        $language
-     * @param AbstractChannel $channel
-     * @param Export          $export
-     *
-     * @return Response
      */
     public function __invoke(Language $language, AbstractChannel $channel, Export $export): Response
     {

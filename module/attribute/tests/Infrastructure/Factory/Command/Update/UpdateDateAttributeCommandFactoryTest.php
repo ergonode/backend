@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Update;
 
@@ -18,12 +18,8 @@ use Ergonode\Attribute\Application\Model\Attribute\Property\DateAttributePropert
 use Ergonode\Attribute\Application\Model\Attribute\DateAttributeFormModel;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 
-/**
- */
 class UpdateDateAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdateDateAttributeCommandFactory();
@@ -31,8 +27,6 @@ class UpdateDateAttributeCommandFactoryTest extends AbstractUpdateAttributeComma
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         /** @var DateAttributeFormModel $data */

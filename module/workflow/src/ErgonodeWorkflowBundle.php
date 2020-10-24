@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow;
 
@@ -15,13 +15,8 @@ use Ergonode\Workflow\Application\DependencyInjection\ErgonodeWorkflowExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Workflow\Application\DependencyInjection\CompilerPass;
 
-/**
- */
 class ErgonodeWorkflowBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         $compiler = new ProvideConditionDictionaryCompilerPass(

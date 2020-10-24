@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Application\Provider;
 
@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 
-/**
- */
 class ProductTypeProviderTest extends TestCase
 {
     /**

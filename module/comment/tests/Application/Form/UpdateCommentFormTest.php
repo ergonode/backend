@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Tests\Application\Form;
 
@@ -12,12 +12,8 @@ use Ergonode\Comment\Application\Form\Model\UpdateCommentFormModel;
 use Ergonode\Comment\Application\Form\UpdateCommentForm;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class UpdateCommentFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

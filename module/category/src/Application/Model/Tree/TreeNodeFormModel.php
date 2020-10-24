@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Model\Tree;
 
@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TreeNodeFormModel
 {
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="Category id is required")
      * @Assert\Uuid()
      *
@@ -34,8 +32,6 @@ class TreeNodeFormModel
      */
     public array $children;
 
-    /**
-     */
     public function __construct()
     {
         $this->categoryId = null;

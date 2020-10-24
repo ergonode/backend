@@ -4,12 +4,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Infrastructure\Service\Metadata;
 
-/**
- */
 class MetadataReader
 {
     /**
@@ -17,9 +15,6 @@ class MetadataReader
      */
     private array $readers;
 
-    /**
-     * @param MetadataReaderInterface ...$readers
-     */
     public function __construct(MetadataReaderInterface ...$readers)
     {
         $this->readers = $readers;

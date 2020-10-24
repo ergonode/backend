@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer;
 
@@ -14,13 +14,8 @@ use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateEleme
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ErgonodeDesignerBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

@@ -5,22 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class SegmentCodeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
-     *
-     * @return SegmentCode
-     *
      * @throws \Exception
      */
     public function segmentCode(?string $code = null): SegmentCode

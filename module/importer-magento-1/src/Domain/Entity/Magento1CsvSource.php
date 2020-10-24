@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Domain\Entity;
 
@@ -15,8 +15,6 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class Magento1CsvSource extends AbstractSource
 {
     public const TYPE = 'magento-1-csv';
@@ -60,15 +58,11 @@ class Magento1CsvSource extends AbstractSource
     private array $attributes;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      */
     private ?string $host;
 
     /**
-     * @var Language
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $defaultLanguage;
@@ -81,13 +75,9 @@ class Magento1CsvSource extends AbstractSource
     private array $import;
 
     /**
-     * @param SourceId $id
-     * @param string   $name
-     * @param Language $defaultLanguage
-     * @param array    $languages
-     * @param array    $attributes
-     * @param array    $imports
-     * @param string   $host
+     * @param array $languages
+     * @param array $attributes
+     * @param array $imports
      */
     public function __construct(
         SourceId $id,
@@ -115,49 +105,31 @@ class Magento1CsvSource extends AbstractSource
         }
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getDelimiter(): string
     {
         return self::DEFAULT[self::DELIMITER];
     }
 
-    /**
-     * @return string
-     */
     public function getEnclosure(): string
     {
         return self::DEFAULT[self::ENCLOSURE];
     }
 
-    /**
-     * @return string
-     */
     public function getEscape(): string
     {
         return self::DEFAULT[self::ESCAPE];
     }
 
-    /**
-     * @return Language
-     */
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -179,17 +151,11 @@ class Magento1CsvSource extends AbstractSource
         $this->attributes = $attributes;
     }
 
-    /**
-     * @param string|null $host
-     */
     public function setHost(?string $host): void
     {
         $this->host = $host;
     }
 
-    /**
-     * @param Language $defaultLanguage
-     */
     public function setDefaultLanguage(Language $defaultLanguage): void
     {
         $this->defaultLanguage = $defaultLanguage;
@@ -219,19 +185,11 @@ class Magento1CsvSource extends AbstractSource
         return $this->attributes;
     }
 
-    /**
-     * @return string|null
-     */
     public function getHost(): ?string
     {
         return $this->host;
     }
 
-    /**
-     * @param string $step
-     *
-     * @return bool
-     */
     public function import(string $step): bool
     {
         if (array_key_exists($step, array_flip($this->import))) {

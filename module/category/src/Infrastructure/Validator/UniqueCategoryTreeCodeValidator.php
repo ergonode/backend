@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Validator;
 
@@ -13,18 +13,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
 
-/**
- */
 class UniqueCategoryTreeCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $query;
 
-    /**
-     * @param TreeQueryInterface $query
-     */
     public function __construct(TreeQueryInterface $query)
     {
         $this->query = $query;

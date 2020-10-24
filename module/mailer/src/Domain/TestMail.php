@@ -19,10 +19,6 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
  */
 class TestMail extends Mail
 {
-    /**
-     * @param Email    $to
-     * @param Language $language
-     */
     public function __construct(Email $to, Language $language)
     {
         $recipient = new Recipient(new EmailCollection([$to]));

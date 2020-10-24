@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Infrastructure\Grid;
 
@@ -15,12 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 
-/**
- */
 class MultimediaGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         $configuration = $this->createMock(GridConfigurationInterface::class);

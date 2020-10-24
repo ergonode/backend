@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
@@ -29,14 +29,8 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class WorkflowDefaultStatusSetAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -72,12 +66,6 @@ class WorkflowDefaultStatusSetAction
      * )
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
-     *
-     * @param AbstractWorkflow $workflow
-     * @param Status           $status
-     *
-     * @return Response
-     *
      */
     public function __invoke(AbstractWorkflow $workflow, Status $status): Response
     {

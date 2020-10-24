@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Infrastructure\Handler;
 
@@ -13,24 +13,12 @@ use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
 use Ergonode\Transformer\Domain\Factory\TransformerFactory;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 
-/**
- */
 class CreateTransformerCommandHandler
 {
-    /**
-     * @var TransformerRepositoryInterface
-     */
     private TransformerRepositoryInterface $repository;
 
-    /**
-     * @var TransformerFactory
-     */
     private TransformerFactory $factory;
 
-    /**
-     * @param TransformerRepositoryInterface $repository
-     * @param TransformerFactory             $factory
-     */
     public function __construct(TransformerRepositoryInterface $repository, TransformerFactory $factory)
     {
         $this->repository = $repository;
@@ -38,8 +26,6 @@ class CreateTransformerCommandHandler
     }
 
     /**
-     * @param CreateTransformerCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateTransformerCommand $command)

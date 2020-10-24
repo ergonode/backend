@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Controller\Api\Dictionary;
 
@@ -22,14 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ConditionReadAction
 {
-    /**
-     * @var ConditionDictionaryProvider
-     */
     private ConditionDictionaryProvider $provider;
 
-    /**
-     * @param ConditionDictionaryProvider $provider
-     */
     public function __construct(ConditionDictionaryProvider $provider)
     {
         $this->provider = $provider;
@@ -62,10 +56,7 @@ class ConditionReadAction
      *     description="Not found"
      * )
      *
-     * @param Language $language
-     * @param Request  $request
      *
-     * @return Response
      *
      * @throws \ReflectionException
      */

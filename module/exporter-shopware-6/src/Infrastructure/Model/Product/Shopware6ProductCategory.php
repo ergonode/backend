@@ -4,35 +4,25 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Product;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6ProductCategory
 {
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("id")
      */
     private ?string $id;
 
-    /**
-     * @param string|null $id
-     */
     public function __construct(?string $id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;

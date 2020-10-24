@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectionType;
 
@@ -56,10 +56,6 @@ class ProductCollectionTypeReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
-     *
-     * @param ProductCollectionType $productCollectionType
-     *
-     * @return Response
      */
     public function __invoke(ProductCollectionType $productCollectionType): Response
     {

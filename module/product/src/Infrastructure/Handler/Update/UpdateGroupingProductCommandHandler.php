@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Update;
 
@@ -13,13 +13,9 @@ use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Update\UpdateGroupingProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
 
-/**
- */
 class UpdateGroupingProductCommandHandler extends AbstractUpdateProductHandler
 {
     /**
-     * @param UpdateGroupingProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateGroupingProductCommand $command)

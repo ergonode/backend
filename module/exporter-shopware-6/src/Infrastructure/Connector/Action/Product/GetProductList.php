@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product;
 
@@ -16,28 +16,17 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPric
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetProductList extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product?%s';
 
-    /**
-     * @var Shopware6QueryBuilder
-     */
     private Shopware6QueryBuilder $query;
 
-    /**
-     * @param Shopware6QueryBuilder $query
-     */
     public function __construct(Shopware6QueryBuilder $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -48,8 +37,6 @@ class GetProductList extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return array
      *
      * @throws \JsonException
@@ -114,9 +101,6 @@ class GetProductList extends AbstractAction implements ActionInterface
         return $result;
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return rtrim(sprintf(self::URI, $this->query->getQuery()), '?');

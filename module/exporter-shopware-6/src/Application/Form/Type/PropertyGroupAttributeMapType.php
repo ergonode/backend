@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Application\Form\Type;
 
@@ -17,25 +17,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
 
-/**
- */
 class PropertyGroupAttributeMapType extends AbstractType
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @param AttributeQueryInterface $query
-     */
     public function __construct(AttributeQueryInterface $query)
     {
         $this->query = $query;
     }
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -52,9 +43,6 @@ class PropertyGroupAttributeMapType extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

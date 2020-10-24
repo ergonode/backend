@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
@@ -31,26 +31,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class ConditionSetDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
@@ -91,10 +77,6 @@ class ConditionSetDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
-     *
-     * @param ConditionSet $conditionSet
-     *
-     * @return Response
      */
     public function __invoke(ConditionSet $conditionSet): Response
     {

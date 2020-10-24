@@ -5,27 +5,19 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 
-/**
- */
 class DbalWorkflowDeletedEventProjector
 {
     private const TABLE = 'workflow';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

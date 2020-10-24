@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
@@ -32,26 +32,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class AttributeGroupDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
@@ -93,11 +79,8 @@ class AttributeGroupDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @param AttributeGroup $group
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
-     *
-     * @return Response
      */
     public function __invoke(AttributeGroup $group): Response
     {

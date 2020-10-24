@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Condition\Domain\Entity;
 
@@ -17,8 +17,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ConditionSetTest extends TestCase
 {
     /**
@@ -31,8 +29,6 @@ class ConditionSetTest extends TestCase
      */
     private MockObject $conditions;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ConditionSetId::class);

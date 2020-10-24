@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInte
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_category';
@@ -26,25 +24,13 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId  $channelId
-     * @param CategoryId $categoryId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, CategoryId $categoryId): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -66,10 +52,6 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
     }
 
     /**
-     * @param ChannelId  $channelId
-     * @param CategoryId $categoryId
-     * @param string     $shopwareId
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function save(ChannelId $channelId, CategoryId $categoryId, string $shopwareId): void
@@ -81,12 +63,6 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
         }
     }
 
-    /**
-     * @param ChannelId  $channelId
-     * @param CategoryId $categoryId
-     *
-     * @return bool
-     */
     public function exists(
         ChannelId $channelId,
         CategoryId $categoryId
@@ -110,9 +86,6 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
     }
 
     /**
-     * @param ChannelId  $channelId
-     * @param CategoryId $categoryId
-     *
      * @throws \Doctrine\DBAL\DBALException
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
@@ -128,10 +101,6 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
     }
 
     /**
-     * @param ChannelId  $channelId
-     * @param CategoryId $categoryId
-     * @param string     $shopwareId
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function update(ChannelId $channelId, CategoryId $categoryId, string $shopwareId): void
@@ -154,10 +123,6 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
     }
 
     /**
-     * @param ChannelId  $channelId
-     * @param CategoryId $categoryId
-     * @param string     $shopwareId
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function insert(ChannelId $channelId, CategoryId $categoryId, string $shopwareId): void

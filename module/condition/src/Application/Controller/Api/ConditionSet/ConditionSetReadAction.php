@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
@@ -51,10 +51,6 @@ class ConditionSetReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
-     *
-     * @param ConditionSet $conditionSet
-     *
-     * @return Response
      */
     public function __invoke(ConditionSet $conditionSet): Response
     {

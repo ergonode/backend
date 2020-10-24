@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Grid;
 
@@ -23,24 +23,12 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Column\SelectColumn;
 
-/**
- */
 class AccountGrid extends AbstractGrid
 {
-    /**
-     * @var LanguageProvider
-     */
     private LanguageProvider $languageProvider;
 
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $roleQuery;
 
-    /**
-     * @param LanguageProvider   $languageProvider
-     * @param RoleQueryInterface $roleQuery
-     */
     public function __construct(LanguageProvider $languageProvider, RoleQueryInterface $roleQuery)
     {
         $this->languageProvider = $languageProvider;

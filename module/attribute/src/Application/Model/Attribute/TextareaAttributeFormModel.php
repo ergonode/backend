@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Model\Attribute;
 
@@ -13,19 +13,13 @@ use Ergonode\Attribute\Application\Model\Attribute\Property\TextareaAttributePro
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class TextareaAttributeFormModel extends AttributeFormModel
 {
     /**
-     * @var TextareaAttributePropertyModel
-     *
      * @Assert\Valid()
      */
     public TextareaAttributePropertyModel $parameters;
 
-    /**
-     */
     public function __construct()
     {
         $this->parameters = new TextareaAttributePropertyModel();

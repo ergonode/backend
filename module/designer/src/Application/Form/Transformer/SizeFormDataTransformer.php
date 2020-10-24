@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Form\Transformer;
 
@@ -39,8 +39,6 @@ class SizeFormDataTransformer implements DataTransformerInterface
 
     /**
      * @param array|null $value
-     *
-     * @return Size|null
      */
     public function reverseTransform($value): ?Size
     {

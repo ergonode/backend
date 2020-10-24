@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Provider;
 
 use Ergonode\Category\Application\Form\CategoryFormInterface;
 
-/**
- */
 class CategoryFormProvider
 {
     /**
@@ -28,11 +26,6 @@ class CategoryFormProvider
         $this->forms = $forms;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return string
-     */
     public function provide(string $type): string
     {
         foreach ($this->forms as $form) {

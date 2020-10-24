@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class RoleParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $roleRepository;
 
-    /**
-     * @param RoleRepositoryInterface $roleRepository
-     */
     public function __construct(RoleRepositoryInterface $roleRepository)
     {
         $this->roleRepository = $roleRepository;

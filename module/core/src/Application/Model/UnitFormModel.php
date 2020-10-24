@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Model;
 
@@ -18,37 +18,26 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class UnitFormModel
 {
-    /**
-     * @var UnitId|null
-     */
     private ?UnitId $unitId;
 
     /**
-     * @var null | string
-     *
      * @Assert\Length(
      *     max=255,
-     *     maxMessage="Unit name is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Unit name is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
     public ?string $name;
 
     /**
-     * @var null | string
-     *
-     *
      * @Assert\Length(
      *     max=16,
-     *     maxMessage="Unit symbol is to long, It should have {{ limit }} character or less."
+     *     maxMessage="Unit symbol is too long. It should contain {{ limit }} characters or less."
      * )
      * })
      */
     public ?string $symbol;
 
-    /**
-     * @param UnitId|null $unitId
-     */
     public function __construct(UnitId $unitId = null)
     {
         $this->unitId = $unitId;
@@ -56,9 +45,6 @@ class UnitFormModel
         $this->symbol = null;
     }
 
-    /**
-     * @return UnitId|null
-     */
     public function getUnitId(): ?UnitId
     {
         return $this->unitId;

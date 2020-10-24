@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity;
 
@@ -16,8 +16,6 @@ use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class VariableProduct extends AbstractAssociatedProduct
 {
     public const TYPE = 'VARIABLE-PRODUCT';
@@ -31,8 +29,6 @@ class VariableProduct extends AbstractAssociatedProduct
 
     /**
      * @JMS\Type("string");
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -40,8 +36,6 @@ class VariableProduct extends AbstractAssociatedProduct
     }
 
     /**
-     * @param SelectAttribute $attribute
-     *
      * @throws \Exception
      */
     public function addBind(SelectAttribute $attribute): void
@@ -52,8 +46,6 @@ class VariableProduct extends AbstractAssociatedProduct
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @throws \Exception
      */
     public function removeBind(AttributeId $attributeId): void
@@ -63,11 +55,6 @@ class VariableProduct extends AbstractAssociatedProduct
         }
     }
 
-    /**
-     * @param AttributeId $bindId
-     *
-     * @return bool
-     */
     public function hasBind(AttributeId $bindId): bool
     {
         foreach ($this->bindings as $bind) {
@@ -109,17 +96,11 @@ class VariableProduct extends AbstractAssociatedProduct
         return $this->bindings;
     }
 
-    /**
-     * @param BindAddedToProductEvent $event
-     */
     protected function applyBindAddedToProductEvent(BindAddedToProductEvent $event): void
     {
         $this->bindings[] = $event->getAttributeId();
     }
 
-    /**
-     * @param BindRemovedFromProductEvent $event
-     */
     protected function applyBindRemovedFromProductEvent(BindRemovedFromProductEvent $event): void
     {
         foreach ($this->bindings as $key => $binding) {

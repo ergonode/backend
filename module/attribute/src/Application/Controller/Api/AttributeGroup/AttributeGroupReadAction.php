@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
@@ -54,12 +54,9 @@ class AttributeGroupReadAction
      *     description="Not found",
      * )
      *
-     * @param AttributeGroup $group
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
-     *
      */
     public function __invoke(AttributeGroup $group): Response
     {

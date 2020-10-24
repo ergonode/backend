@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Core\Infrastructure\JMS\Serializer;
 
@@ -14,24 +14,15 @@ use JMS\Serializer\Handler\HandlerRegistryInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-/**
- */
 class HandlerRegistryTest extends TestCase
 {
-    /**
-     * @var HandlerRegistryInterface
-     */
     private HandlerRegistryInterface $registry;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->registry = $this->createMock(HandlerRegistryInterface::class);
     }
 
-    /**
-     */
     public function testGetHandler(): void
     {
         $direction = 2;

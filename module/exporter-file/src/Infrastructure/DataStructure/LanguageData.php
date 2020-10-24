@@ -4,12 +4,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\DataStructure;
 
-/**
- */
 class LanguageData
 {
     /**
@@ -17,10 +15,6 @@ class LanguageData
      */
     private array $values = [];
 
-    /**
-     * @param string      $key
-     * @param string|null $data
-     */
     public function set(string $key, ?string $data = null): void
     {
         $this->values[$key] = $data;

@@ -5,20 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\UpdateProductCategoriesCommand;
 
-/**
- */
 class UpdateProductCategoriesCommandHandler extends AbstractUpdateProductHandler
 {
     /**
-     * @param UpdateProductCategoriesCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateProductCategoriesCommand $command)

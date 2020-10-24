@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Category;
 
@@ -16,18 +16,10 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CategoryMapperInte
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class Shopware6CategoryParentMapper implements Shopware6CategoryMapperInterface
 {
-    /**
-     * @var Shopware6CategoryRepositoryInterface
-     */
     private Shopware6CategoryRepositoryInterface $repository;
 
-    /**
-     * @param Shopware6CategoryRepositoryInterface $repository
-     */
     public function __construct(Shopware6CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;

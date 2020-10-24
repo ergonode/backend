@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Provider;
 
@@ -15,30 +15,14 @@ use Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class PrivilegeDictionaryProvider
 {
-    /**
-     * @var PrivilegeQueryInterface
-     */
     private PrivilegeQueryInterface $query;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var PrivilegeTypeResolverInterface
-     */
     private PrivilegeTypeResolverInterface $resolver;
 
-    /**
-     * @param PrivilegeQueryInterface        $query
-     * @param TranslatorInterface            $translator
-     * @param PrivilegeTypeResolverInterface $resolver
-     */
     public function __construct(
         PrivilegeQueryInterface $query,
         TranslatorInterface $translator,
@@ -50,8 +34,6 @@ class PrivilegeDictionaryProvider
     }
 
     /**
-     * @param Language $language
-     *
      * @return array
      */
     public function provide(Language $language): array

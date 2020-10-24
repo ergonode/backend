@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Domain\Event;
 
@@ -14,12 +14,8 @@ use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductDeletedEventTest extends TestCase
 {
-    /**
-     */
     public function testeEventCreation(): void
     {
         /** @var ProductId | MockObject $id */

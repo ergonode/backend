@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Command\Export;
 
@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductShopware6ExportCommandTest extends TestCase
 {
     /**
@@ -28,16 +26,12 @@ class ProductShopware6ExportCommandTest extends TestCase
      */
     private ProductId $productId;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exportId = $this->createMock(ExportId::class);
         $this->productId = $this->createMock(ProductId::class);
     }
 
-    /**
-     */
     public function testCreateCommand(): void
     {
         $command = new ProductShopware6ExportCommand(

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\Unit;
 
@@ -32,26 +32,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UnitDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
@@ -94,10 +80,6 @@ class UnitDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\Core\Domain\Entity\Unit")
-     *
-     * @param Unit $unit
-     *
-     * @return Response
      */
     public function __invoke(Unit $unit): Response
     {

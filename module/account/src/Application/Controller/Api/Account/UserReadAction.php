@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
@@ -29,14 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserReadAction
 {
-    /**
-     * @var AccountQueryInterface
-     */
     private AccountQueryInterface $query;
 
-    /**
-     * @param AccountQueryInterface $query
-     */
     public function __construct(AccountQueryInterface $query)
     {
         $this->query = $query;
@@ -71,10 +65,6 @@ class UserReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
-     *
-     * @param User $user
-     *
-     * @return Response
      */
     public function __invoke(User $user): Response
     {

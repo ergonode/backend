@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
@@ -21,14 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AttributeGroupReadAction
 {
-    /**
-     * @var AttributeGroupQueryInterface
-     */
     private AttributeGroupQueryInterface $attributeGroupQuery;
 
-    /**
-     * @param AttributeGroupQueryInterface $attributeGroupQuery
-     */
     public function __construct(AttributeGroupQueryInterface $attributeGroupQuery)
     {
         $this->attributeGroupQuery = $attributeGroupQuery;
@@ -48,10 +42,6 @@ class AttributeGroupReadAction
      *     response=200,
      *     description="Returns collection attribute groups"
      * )
-     *
-     * @param Language $language
-     *
-     * @return Response
      */
     public function __invoke(Language $language): Response
     {

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
@@ -16,24 +16,12 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
-final class CategoryImportAction
+class CategoryImportAction
 {
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $query;
 
-    /**
-     * @var CategoryRepositoryInterface
-     */
     private CategoryRepositoryInterface $repository;
 
-    /**
-     * @param CategoryQueryInterface      $query
-     * @param CategoryRepositoryInterface $repository
-     */
     public function __construct(
         CategoryQueryInterface $query,
         CategoryRepositoryInterface $repository
@@ -43,9 +31,6 @@ final class CategoryImportAction
     }
 
     /**
-     * @param CategoryCode       $code
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function action(CategoryCode $code, TranslatableString $name): void

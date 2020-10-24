@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Tests\Domain\Command\Import;
 
@@ -16,12 +16,8 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
-/**
- */
 class ImportVariableProductCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $importId = $this->createMock(ImportId::class);

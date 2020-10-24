@@ -11,14 +11,7 @@ namespace Ergonode\Product\Application\Form\Product;
 
 use Symfony\Component\Form\FormTypeInterface;
 
-/**
- */
 interface ProductFormInterface extends FormTypeInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool;
 }

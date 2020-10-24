@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
@@ -18,24 +18,12 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UserExactlyConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $userRepository;
 
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $authenticatedUserProvider;
 
-    /**
-     * @param UserRepositoryInterface            $userRepository
-     * @param AuthenticatedUserProviderInterface $authenticatedUserProvider
-     */
     public function __construct(
         UserRepositoryInterface $userRepository,
         AuthenticatedUserProviderInterface $authenticatedUserProvider

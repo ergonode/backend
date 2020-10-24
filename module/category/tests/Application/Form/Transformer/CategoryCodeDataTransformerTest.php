@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Category\Application\Form\Transformer;
 
@@ -13,27 +13,17 @@ use Ergonode\Category\Application\Form\Transformer\CategoryCodeDataTransformer;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryCodeDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var CategoryCodeDataTransformer
-     */
     protected CategoryCodeDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new CategoryCodeDataTransformer();
     }
 
     /**
-     * @param CategoryCode|null $categoryCodeValueObject
-     * @param string|null       $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?CategoryCode $categoryCodeValueObject, ?string $string): void
@@ -41,9 +31,6 @@ class CategoryCodeDataTransformerTest extends TestCase
         $this->assertSame($string, $this->transformer->transform($categoryCodeValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -53,9 +40,6 @@ class CategoryCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @param CategoryCode|null $categoryCodeValueObject
-     * @param string|null       $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?CategoryCode $categoryCodeValueObject, ?string $string): void
@@ -63,9 +47,6 @@ class CategoryCodeDataTransformerTest extends TestCase
         $this->assertEquals($categoryCodeValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     *
-     */
     public function testReverseTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);

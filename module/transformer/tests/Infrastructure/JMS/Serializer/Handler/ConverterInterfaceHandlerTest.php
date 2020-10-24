@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Value\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -15,7 +15,6 @@ use Ergonode\Transformer\Infrastructure\Converter\DateConverter;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use Ergonode\Transformer\Infrastructure\Converter\MappingConverter;
 use Ergonode\Transformer\Infrastructure\Converter\SlugConverter;
-use Ergonode\Transformer\Infrastructure\Converter\SplitConverter;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
 use Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler\ConverterInterfaceHandler;
 use JMS\Serializer\Handler\HandlerRegistry;
@@ -23,13 +22,8 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ConverterInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
     /**
@@ -52,8 +46,6 @@ class ConverterInterfaceHandlerTest extends TestCase
             ->build();
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = ConverterInterfaceHandler::getSubscribingMethods();
@@ -65,8 +57,6 @@ class ConverterInterfaceHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testDeserializeTextConverter(): void
     {
         $testValue = '{"type":"text","field":"test_field"}';
@@ -78,8 +68,6 @@ class ConverterInterfaceHandlerTest extends TestCase
         $this->assertEquals(TextConverter::TYPE, $result->getType());
     }
 
-    /**
-     */
     public function testDeserializeSlugConverter(): void
     {
         $testValue = '{"type":"slug","field":"test_field"}';
@@ -91,8 +79,6 @@ class ConverterInterfaceHandlerTest extends TestCase
         $this->assertEquals(SlugConverter::TYPE, $result->getType());
     }
 
-    /**
-     */
     public function testDeserializeJoinConverter(): void
     {
         $testValue = '{"type":"join","pattern":"<%s>"}';
@@ -104,8 +90,6 @@ class ConverterInterfaceHandlerTest extends TestCase
         $this->assertEquals(JoinConverter::TYPE, $result->getType());
     }
 
-    /**
-     */
     public function testDeserializeDateConverter(): void
     {
         $testValue = '{"type":"date","format":"Y-m-d","field":"test_field"}';
@@ -117,8 +101,6 @@ class ConverterInterfaceHandlerTest extends TestCase
         $this->assertEquals(DateConverter::TYPE, $result->getType());
     }
 
-    /**
-     */
     public function testDeserializeConstConverter(): void
     {
         $testValue = '{"type":"const","value":"CONST"}';
@@ -130,8 +112,6 @@ class ConverterInterfaceHandlerTest extends TestCase
         $this->assertEquals(ConstConverter::TYPE, $result->getType());
     }
 
-    /**
-     */
     public function testDeserializeMappingConverter(): void
     {
         $testValue = '{"type":"mapping","map":{"field":"value"},"field":"test_field"}';

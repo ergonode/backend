@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Command;
 
@@ -12,8 +12,6 @@ use Ergonode\Category\Domain\Command\DeleteCategoryCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteCategoryCommandTest extends TestCase
 {
     /**

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Tests\Infrastructure\Envelope;
 
@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 
-/**
- */
 class DomainEventEnvelopeTest extends TestCase
 {
-    /**
-     */
     public function testCreation(): void
     {
         $id = $this->createMock(AggregateId::class);

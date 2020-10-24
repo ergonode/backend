@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Domain\Entity;
 
@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UnitTest extends TestCase
 {
     /**
@@ -23,18 +21,10 @@ class UnitTest extends TestCase
      */
     private UnitId $id;
 
-    /**
-     * @var string $name
-     */
     private string $name;
 
-    /**
-     * @var string $symbol
-     */
     private string $symbol;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(UnitId::class);
@@ -42,8 +32,6 @@ class UnitTest extends TestCase
         $this->symbol = 'symbol';
     }
 
-    /**
-     */
     public function testCreateEntity(): void
     {
         $entity = new Unit($this->id, $this->name, $this->symbol);

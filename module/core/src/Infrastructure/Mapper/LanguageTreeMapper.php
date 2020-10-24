@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Mapper;
 
@@ -12,25 +12,16 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageTreeMapper
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
     /**
-     * @param Language             $language
      * @param array                $treeLanguages
      * @param LanguagePrivileges[] $privileges
      *

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -16,32 +16,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class SegmentStatusHandlerTest extends TestCase
 {
-    /**
-     * @var SegmentStatusHandler
-     */
     private SegmentStatusHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new SegmentStatusHandler();
@@ -50,8 +34,6 @@ class SegmentStatusHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = SegmentStatusHandler::getSubscribingMethods();
@@ -63,8 +45,6 @@ class SegmentStatusHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = SegmentStatus::OUTDATED;
@@ -74,8 +54,6 @@ class SegmentStatusHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = SegmentStatus::OUTDATED;

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Handler\Schedule;
 
@@ -14,24 +14,12 @@ use Ergonode\Channel\Domain\Command\Schedule\ScheduleCommand;
 use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class ChannelExportScheduleCommandHandler
 {
-    /**
-     * @var SchedulerQueryInterface
-     */
     private SchedulerQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param SchedulerQueryInterface $query
-     * @param CommandBusInterface     $commandBus
-     */
     public function __construct(SchedulerQueryInterface $query, CommandBusInterface $commandBus)
     {
         $this->query = $query;
@@ -39,8 +27,6 @@ class ChannelExportScheduleCommandHandler
     }
 
     /**
-     * @param ScheduleCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ScheduleCommand $command)

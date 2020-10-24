@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Command\Tree;
 
@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteTreeCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         /** @var CategoryTreeId | MockObject $id */

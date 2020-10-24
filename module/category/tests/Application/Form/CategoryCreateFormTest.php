@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Application\Form;
 
@@ -13,12 +13,8 @@ use Ergonode\Category\Application\Model\CategoryFormModel;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class CategoryCreateFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

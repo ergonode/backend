@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Condition\Domain\Command;
 
@@ -14,13 +14,10 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateConditionSetCommandTest extends TestCase
 {
     /**
-     * @param ConditionSetId $id
-     * @param array          $conditions
+     * @param array $conditions
      *
      * @dataProvider dataProvider
      */

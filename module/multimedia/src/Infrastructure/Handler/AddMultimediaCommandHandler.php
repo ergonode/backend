@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Infrastructure\Handler;
 
@@ -16,30 +16,14 @@ use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- */
 class AddMultimediaCommandHandler
 {
-    /**
-     * @var HashCalculationServiceInterface
-     */
     private HashCalculationServiceInterface $hashService;
 
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $repository;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $multimediaStorage;
 
-    /**
-     * @param HashCalculationServiceInterface $hashService
-     * @param MultimediaRepositoryInterface   $repository
-     * @param FilesystemInterface             $multimediaStorage
-     */
     public function __construct(
         HashCalculationServiceInterface $hashService,
         MultimediaRepositoryInterface $repository,
@@ -51,8 +35,6 @@ class AddMultimediaCommandHandler
     }
 
     /**
-     * @param AddMultimediaCommand $command
-     *
      * @return mixed
      *
      * @throws \Exception

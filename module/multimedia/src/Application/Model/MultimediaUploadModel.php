@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Model;
 
@@ -28,13 +28,9 @@ class MultimediaUploadModel
      * @MultimediaExtension()
      *
      * @MultimediaName(max="128")
-     *
-     * @var null|UploadedFile
      */
     public ?UploadedFile $upload;
 
-    /**
-     */
     public function __construct()
     {
         $this->upload = null;

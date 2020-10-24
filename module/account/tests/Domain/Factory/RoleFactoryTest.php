@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\Factory;
 
@@ -15,12 +15,8 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RoleFactoryTest extends TestCase
 {
-    /**
-     */
     public function testCreateObject(): void
     {
         /** @var RoleId|MockObject $id */
@@ -39,8 +35,6 @@ class RoleFactoryTest extends TestCase
         $this->assertEquals($privileges, $role->getPrivileges());
     }
 
-    /**
-     */
     public function testCreateObjectWitchIncorrectPrivileges(): void
     {
         $this->expectException(\InvalidArgumentException::class);

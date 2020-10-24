@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
@@ -14,26 +14,14 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 abstract class AbstractDbalAttributeParameterChangeEventProjector
 {
     private const TABLE_PARAMETER = 'attribute_parameter';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -41,9 +29,7 @@ abstract class AbstractDbalAttributeParameterChangeEventProjector
     }
 
     /**
-     * @param AttributeId $attributeId
-     * @param string      $name
-     * @param mixed       $value
+     * @param mixed $value
      *
      * @throws DBALException
      */

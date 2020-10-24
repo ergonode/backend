@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Form\Product\Binding;
 
@@ -15,13 +15,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 
-/**
- */
 class ProductBindForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -35,9 +32,6 @@ class ProductBindForm extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -46,9 +40,6 @@ class ProductBindForm extends AbstractType
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

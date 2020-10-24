@@ -4,12 +4,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Provider;
 
-/**
- */
 class UpdateChannelCommandBuilderProvider
 {
     /**
@@ -17,19 +15,11 @@ class UpdateChannelCommandBuilderProvider
      */
     private array $builders;
 
-    /**
-     * @param UpdateChannelCommandBuilderInterface ...$builders
-     */
     public function __construct(UpdateChannelCommandBuilderInterface ...$builders)
     {
         $this->builders = $builders;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return UpdateChannelCommandBuilderInterface
-     */
     public function provide(string $type): UpdateChannelCommandBuilderInterface
     {
         foreach ($this->builders as $builder) {

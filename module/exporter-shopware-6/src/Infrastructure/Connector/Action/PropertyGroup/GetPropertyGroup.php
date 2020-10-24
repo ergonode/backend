@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup;
 
@@ -14,28 +14,17 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetPropertyGroup extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/property-group/%s';
 
-    /**
-     * @var string
-     */
     private string $propertyGroupId;
 
-    /**
-     * @param string $propertyGroupId
-     */
     public function __construct(string $propertyGroupId)
     {
         $this->propertyGroupId = $propertyGroupId;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -46,10 +35,6 @@ class GetPropertyGroup extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6PropertyGroup
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content):Shopware6PropertyGroup
@@ -64,9 +49,6 @@ class GetPropertyGroup extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->propertyGroupId);

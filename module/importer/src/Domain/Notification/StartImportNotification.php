@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Notification;
 
@@ -12,21 +12,12 @@ use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- *
- */
 class StartImportNotification implements NotificationInterface
 {
     private const MESSAGE = 'Import "%import%" started';
 
-    /**
-     * @var string
-     */
     private string $message;
 
-    /**
-     * @var UserId
-     */
     private UserId $userId;
 
     /**
@@ -34,14 +25,9 @@ class StartImportNotification implements NotificationInterface
      */
     private array $parameters;
 
-    /**
-     * @var \DateTime
-     */
     private \DateTime $createdAt;
 
     /**
-     * @param ImportId $importId
-     *
      * @throws \Exception
      */
     public function __construct(ImportId $importId)
@@ -53,17 +39,11 @@ class StartImportNotification implements NotificationInterface
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return UserId
-     */
     public function getUserId(): UserId
     {
         return $this->userId;
@@ -77,17 +57,11 @@ class StartImportNotification implements NotificationInterface
         return $this->parameters;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return UserId|null
-     */
     public function getAuthorId(): ?UserId
     {
         return $this->userId;

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Dictionary;
 
@@ -20,14 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ImageFormatReadAction
 {
-    /**
-     * @var MultimediaExtensionProvider
-     */
     private MultimediaExtensionProvider $provider;
 
-    /**
-     * @param MultimediaExtensionProvider $provider
-     */
     public function __construct(MultimediaExtensionProvider $provider)
     {
         $this->provider = $provider;
@@ -47,8 +41,6 @@ class ImageFormatReadAction
      *     response=200,
      *     description="Returns collection of available image formats",
      * )
-     *
-     * @return Response
      */
     public function __invoke(): Response
     {

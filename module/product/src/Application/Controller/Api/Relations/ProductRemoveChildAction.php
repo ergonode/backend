@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Relations;
 
@@ -33,14 +33,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductRemoveChildAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -78,11 +72,7 @@ class ProductRemoveChildAction
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct", name="product")
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct", name="child")
      *
-     * @param Language                                  $language
      * @param AbstractProduct|AbstractAssociatedProduct $product
-     * @param AbstractProduct                           $child
-     *
-     * @return Response
      */
     public function __invoke(Language $language, AbstractProduct $product, AbstractProduct $child): Response
     {

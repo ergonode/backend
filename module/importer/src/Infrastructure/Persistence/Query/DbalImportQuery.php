@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Persistence\Query;
 
@@ -20,24 +20,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class DbalImportQuery implements ImportQueryInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param Connection          $connection
-     * @param TranslatorInterface $translator
-     */
     public function __construct(Connection $connection, TranslatorInterface $translator)
     {
         $this->connection = $connection;
@@ -45,8 +33,6 @@ class DbalImportQuery implements ImportQueryInterface
     }
 
     /**
-     * @param ImportErrorId $id
-     *
      * @return array
      */
     public function getLineContent(ImportErrorId $id): array
@@ -67,11 +53,6 @@ class DbalImportQuery implements ImportQueryInterface
         return [];
     }
 
-    /**
-     * @param SourceId $id
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(SourceId $id): DataSetInterface
     {
         $qb = $this->getQuery();
@@ -81,12 +62,6 @@ class DbalImportQuery implements ImportQueryInterface
         return new DbalDataSet($qb);
     }
 
-    /**
-     * @param ImportId $id
-     * @param Language $language
-     *
-     * @return DataSetInterface
-     */
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder();
@@ -105,9 +80,6 @@ class DbalImportQuery implements ImportQueryInterface
     }
 
     /**
-     * @param ImportId $id
-     * @param Language $language
-     *
      * @return array
      */
     public function getInformation(ImportId $id, Language $language): array
@@ -125,9 +97,6 @@ class DbalImportQuery implements ImportQueryInterface
         return $result;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

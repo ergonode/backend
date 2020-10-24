@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField;
 
@@ -19,26 +19,12 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6Pr
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class Shopware6ProductCustomFieldSetMultimediaMapper extends AbstractShopware6ProductCustomFieldSetMapper
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $multimediaRepository;
 
-    /**
-     * @var Shopware6ProductMediaClient
-     */
     private Shopware6ProductMediaClient $mediaClient;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     * @param MultimediaRepositoryInterface             $multimediaRepository
-     * @param Shopware6ProductMediaClient               $mediaClient
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator,
@@ -71,11 +57,6 @@ class Shopware6ProductCustomFieldSetMultimediaMapper extends AbstractShopware6Pr
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param MultimediaId     $multimediaId
-     *
-     * @return string
-     *
      * @throws Shopware6ExporterMapperException
      */
     private function getShopware6MultimediaId(Shopware6Channel $channel, MultimediaId $multimediaId): string

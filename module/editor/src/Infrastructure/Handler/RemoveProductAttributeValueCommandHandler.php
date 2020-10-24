@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Infrastructure\Handler;
 
@@ -21,30 +21,14 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 
-/**
- */
 class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
-    /**
-     * @var ProductDraftRepositoryInterface
-     */
     private ProductDraftRepositoryInterface $repository;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var TokenStorageInterface
-     */
     private TokenStorageInterface $tokenStorage;
 
-    /**
-     * @param ProductDraftRepositoryInterface $repository
-     * @param AttributeRepositoryInterface    $attributeRepository
-     * @param TokenStorageInterface           $tokenStorage
-     */
     public function __construct(
         ProductDraftRepositoryInterface $repository,
         AttributeRepositoryInterface $attributeRepository,
@@ -57,8 +41,6 @@ class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHand
 
 
     /**
-     * @param RemoveProductAttributeValueCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(RemoveProductAttributeValueCommand $command)
@@ -94,12 +76,6 @@ class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHand
         $this->repository->save($draft);
     }
 
-    /**
-     * @param ValueInterface $value
-     * @param Language       $language
-     *
-     * @return ValueInterface|null
-     */
     public function calculate(ValueInterface $value, Language $language): ?ValueInterface
     {
         if ($value instanceof TranslatableStringValue) {

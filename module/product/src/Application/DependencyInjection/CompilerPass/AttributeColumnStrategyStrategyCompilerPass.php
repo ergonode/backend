@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\DependencyInjection\CompilerPass;
 
@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- */
 class AttributeColumnStrategyStrategyCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.product.attribute_column_strategy_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(AttributeColumnProvider::class)) {
@@ -30,9 +25,6 @@ class AttributeColumnStrategyStrategyCompilerPass implements CompilerPassInterfa
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

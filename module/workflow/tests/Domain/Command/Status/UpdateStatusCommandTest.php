@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Command\Status;
 
@@ -15,8 +15,6 @@ use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateStatusCommandTest extends TestCase
 {
     /**

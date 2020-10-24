@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
@@ -14,31 +14,19 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserFirstNameChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**
-     * @var UserId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
 
-    /**
-     * @param UserId $id
-     * @param string $from
-     * @param string $to
-     */
     public function __construct(UserId $id, string $from, string $to)
     {
         $this->id = $id;
         parent::__construct($from, $to);
     }
 
-    /**
-     * @return UserId
-     */
     public function getAggregateId(): UserId
     {
         return $this->id;

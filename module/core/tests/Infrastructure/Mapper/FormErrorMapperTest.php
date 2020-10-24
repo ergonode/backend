@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Infrastructure\Mapper;
 
@@ -16,13 +16,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class FormErrorMapperTest extends TestCase
 {
-    /**
-     * @var FormErrorMapperMessageProvider
-     */
     private FormErrorMapperMessageProvider $provider;
 
     /**
@@ -30,9 +25,6 @@ class FormErrorMapperTest extends TestCase
      */
     private $formElement;
 
-    /**
-     * @var FormErrorMapper
-     */
     private FormErrorMapper $mapper;
 
     /**
@@ -45,8 +37,6 @@ class FormErrorMapperTest extends TestCase
      */
     private $errorFormElement;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->provider = $this->createMock(FormErrorMapperMessageProvider::class);
@@ -68,8 +58,6 @@ class FormErrorMapperTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testFormValidMapper(): void
     {
         $this->formElement->method('isValid')->willReturn(true);
@@ -80,8 +68,7 @@ class FormErrorMapperTest extends TestCase
     }
 
     /**
-     * @param string $name
-     * @param array  $expected
+     * @param array $expected
      *
      * @dataProvider dataProvider
      */

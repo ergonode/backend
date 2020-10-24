@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Tests\Infrastructure\Validator;
 
@@ -14,21 +14,15 @@ use Ergonode\ProductCollection\Infrastructure\Validator\ProductCollectionCodeVal
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class ProductCollectionCodeValidValidatorTest extends ConstraintValidatorTestCase
 {
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new ProductCollectionCodeValid());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -37,8 +31,6 @@ class ProductCollectionCodeValidValidatorTest extends ConstraintValidatorTestCas
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new ProductCollectionCodeValid());
@@ -46,8 +38,6 @@ class ProductCollectionCodeValidValidatorTest extends ConstraintValidatorTestCas
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectValueValidation(): void
     {
         $this->validator->validate('code', new ProductCollectionCodeValid());
@@ -55,8 +45,6 @@ class ProductCollectionCodeValidValidatorTest extends ConstraintValidatorTestCas
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testInCorrectValueValidation(): void
     {
         $constraint = new ProductCollectionCodeValid();
@@ -67,9 +55,6 @@ class ProductCollectionCodeValidValidatorTest extends ConstraintValidatorTestCas
         $assertion->assertRaised();
     }
 
-    /**
-     * @return ProductCollectionCodeValidValidator
-     */
     protected function createValidator(): ProductCollectionCodeValidValidator
     {
         return new ProductCollectionCodeValidValidator();

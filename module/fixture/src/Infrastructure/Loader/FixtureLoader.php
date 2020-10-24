@@ -5,33 +5,21 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Fixture\Infrastructure\Loader;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class FixtureLoader
 {
     private const PATH = '%s/Resources/fixtures/%s/fixture.yaml';
 
-    /**
-     * @var KernelInterface
-     */
     private KernelInterface $kernel;
 
-    /**
-     * @var string
-     */
     private string $root;
 
-    /**
-     * @param KernelInterface $kernel
-     * @param string          $root
-     */
     public function __construct(KernelInterface $kernel, string $root)
     {
         $this->kernel = $kernel;
@@ -39,8 +27,6 @@ class FixtureLoader
     }
 
     /**
-     * @param string $group
-     *
      * @return array
      */
     public function load(string $group = null): array

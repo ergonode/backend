@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Strategy\Relationship;
 
@@ -15,18 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class AttributeAttributeGroupRelationshipStrategy implements RelationshipStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @param AttributeQueryInterface $query
-     */
     public function __construct(AttributeQueryInterface $query)
     {
         $this->query = $query;

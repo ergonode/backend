@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup;
 
@@ -14,35 +14,20 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class GetPropertyGroupOptions extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/property-group/%s/options/%s';
 
-    /**
-     * @var string
-     */
     private string $propertyGroupId;
 
-    /**
-     * @var string
-     */
     private string $propertyGroupOptionId;
 
-    /**
-     * @param string $propertyGroupId
-     * @param string $propertyGroupOptionId
-     */
     public function __construct(string $propertyGroupId, string $propertyGroupOptionId)
     {
         $this->propertyGroupId = $propertyGroupId;
         $this->propertyGroupOptionId = $propertyGroupOptionId;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -53,10 +38,6 @@ class GetPropertyGroupOptions extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
-     * @return Shopware6PropertyGroupOption
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): Shopware6PropertyGroupOption
@@ -71,9 +52,6 @@ class GetPropertyGroupOptions extends AbstractAction implements ActionInterface
         );
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         return sprintf(self::URI, $this->propertyGroupId, $this->propertyGroupOptionId);

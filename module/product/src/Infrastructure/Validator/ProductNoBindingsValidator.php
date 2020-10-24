@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
@@ -15,18 +15,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductNoBindingsValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductBindingQueryInterface
-     */
     private ProductBindingQueryInterface $query;
 
-    /**
-     * @param ProductBindingQueryInterface $query
-     */
     public function __construct(ProductBindingQueryInterface $query)
     {
         $this->query = $query;

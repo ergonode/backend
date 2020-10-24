@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
@@ -19,28 +19,15 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Symfony\Component\Validator\Constraints\Unique;
 
-/**
- */
 class OptionAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @param OptionQueryInterface $query
-     */
     public function __construct(OptionQueryInterface $query)
     {
         $this->query = $query;
     }
 
-    /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
-     */
     public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof AbstractOptionAttribute;
@@ -48,8 +35,6 @@ class OptionAttributeValueConstraintStrategy implements AttributeValueConstraint
 
     /**
      * @param AbstractAttribute|AbstractOptionAttribute $attribute
-     *
-     * @return Constraint
      */
     public function get(AbstractAttribute $attribute): Constraint
     {

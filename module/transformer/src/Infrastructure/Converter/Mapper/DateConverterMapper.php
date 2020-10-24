@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
@@ -13,15 +13,8 @@ use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\DateConverter;
 use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
 
-/**
- */
 class DateConverterMapper implements ConverterMapperInterface
 {
-    /**
-     * @param ConverterInterface $converter
-     *
-     * @return bool
-     */
     public function supported(ConverterInterface $converter): bool
     {
         return $converter instanceof DateConverter;
@@ -30,9 +23,7 @@ class DateConverterMapper implements ConverterMapperInterface
     /**
      * @param ConverterInterface|DateConverter $converter
      * @param array                            $line
-     * @param string|null                      $default
      *
-     * @return string|null
      *
      * @throws \Exception
      */

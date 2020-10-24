@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
@@ -33,32 +33,14 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class ConditionSetChangeAction
 {
-    /**
-     * @var ValidatorInterface
-     */
     private ValidatorInterface $validator;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @var ConditionSetValidatorBuilder
-     */
     private ConditionSetValidatorBuilder $conditionSetValidatorBuilder;
 
-    /**
-     * @param ValidatorInterface           $validator
-     * @param CommandBusInterface          $commandBus
-     * @param SerializerInterface          $serializer
-     * @param ConditionSetValidatorBuilder $conditionSetValidatorBuilder
-     */
     public function __construct(
         ValidatorInterface $validator,
         CommandBusInterface $commandBus,
@@ -108,11 +90,6 @@ class ConditionSetChangeAction
      * )
      *
      * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
-     *
-     * @param ConditionSet $conditionSet
-     * @param Request      $request
-     *
-     * @return Response
      */
     public function __invoke(ConditionSet $conditionSet, Request $request): Response
     {

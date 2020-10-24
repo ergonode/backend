@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Validator\Constraint;
 
@@ -17,24 +17,12 @@ use Symfony\Component\Validator\Constraint;
  */
 class UnitForm extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $uniqueNameMessage = 'The unit name should be unique.';
 
-    /**
-     * @var string
-     */
     public string $emptyNameMessage = 'The unit name should not be empty.';
 
-    /**
-     * @var string
-     */
     public string $uniqueSymbolMessage = 'The unit symbol should be unique.';
 
-    /**
-     * @var string
-     */
     public string $emptySymbolMessage = 'The unit symbol should not be empty.';
 
 
@@ -46,9 +34,6 @@ class UnitForm extends Constraint
         return self::CLASS_CONSTRAINT;
     }
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return UnitFormValidator::class;

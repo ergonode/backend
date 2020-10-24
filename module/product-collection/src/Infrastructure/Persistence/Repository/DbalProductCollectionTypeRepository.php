@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Persistence\Repository;
 
@@ -17,18 +17,10 @@ use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepository
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalProductCollectionTypeRepository implements ProductCollectionTypeRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
@@ -43,10 +35,6 @@ class DbalProductCollectionTypeRepository implements ProductCollectionTypeReposi
     }
 
     /**
-     * @param ProductCollectionTypeId $id
-     *
-     * @return AbstractAggregateRoot|null
-     *
      * @throws \ReflectionException
      */
     public function load(ProductCollectionTypeId $id): ?AbstractAggregateRoot

@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\SharedKernel\Domain\Aggregate;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class LanguageId extends AggregateId
 {
 }

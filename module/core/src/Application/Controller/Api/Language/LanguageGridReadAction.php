@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\Language;
 
@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Grid\LanguageGrid;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,26 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LanguageGridReadAction
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var LanguageGrid
-     */
     private LanguageGrid $languageGrid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer           $gridRenderer
-     * @param LanguageQueryInterface $query
-     * @param LanguageGrid           $languageGrid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         LanguageQueryInterface $query,
@@ -112,11 +97,6 @@ class LanguageGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

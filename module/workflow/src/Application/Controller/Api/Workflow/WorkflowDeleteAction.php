@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
@@ -14,7 +14,6 @@ use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInter
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -31,26 +30,12 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class WorkflowDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
@@ -92,10 +77,6 @@ class WorkflowDeleteAction
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @param AbstractWorkflow $workflow
-     *
-     * @return Response
      */
     public function __invoke(AbstractWorkflow $workflow): Response
     {

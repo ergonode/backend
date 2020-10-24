@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Domain\Command;
 
@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class UpdateMultimediaCommandTest extends TestCase
 {
     /**

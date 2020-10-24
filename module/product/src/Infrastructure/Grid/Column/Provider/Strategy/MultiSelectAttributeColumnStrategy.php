@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
@@ -20,18 +18,10 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Grid\Filter\Option\FilterOption;
 
-/**
- */
 class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @param OptionQueryInterface $query
-     */
     public function __construct(OptionQueryInterface $query)
     {
         $this->query = $query;

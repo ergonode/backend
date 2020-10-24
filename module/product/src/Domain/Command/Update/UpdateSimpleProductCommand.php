@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Update;
 
@@ -16,20 +16,14 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class UpdateSimpleProductCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
@@ -42,9 +36,7 @@ class UpdateSimpleProductCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param ProductId  $productId
-     * @param TemplateId $templateId
-     * @param array      $categories
+     * @param array $categories
      */
     public function __construct(ProductId $productId, TemplateId $templateId, array $categories = [])
     {
@@ -55,17 +47,11 @@ class UpdateSimpleProductCommand implements DomainCommandInterface
         $this->categories = $categories;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;

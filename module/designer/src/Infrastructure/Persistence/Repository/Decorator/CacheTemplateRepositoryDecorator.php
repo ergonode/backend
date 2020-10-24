@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Persistence\Repository\Decorator;
 
@@ -13,13 +13,8 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $repository;
 
     /**
@@ -27,9 +22,6 @@ class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
      */
     private array $cache = [];
 
-    /**
-     * @param TemplateRepositoryInterface $repository
-     */
     public function __construct(TemplateRepositoryInterface $repository)
     {
         $this->repository = $repository;

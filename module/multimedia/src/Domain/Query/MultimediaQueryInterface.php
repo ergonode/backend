@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Query;
 
@@ -13,29 +13,12 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Grid\DataSetInterface;
 
-/**
- */
 interface MultimediaQueryInterface
 {
-    /**
-     * @param Hash $hash
-     *
-     * @return bool
-     */
     public function fileExists(Hash $hash): bool;
 
-    /**
-     * @param Hash $hash
-     *
-     * @return MultimediaId|null
-     */
     public function findIdByHash(Hash $hash): ?MultimediaId;
 
-    /**
-     * @param string $filename
-     *
-     * @return MultimediaId|null
-     */
     public function findIdByFilename(string $filename): ?MultimediaId;
 
     /**
@@ -43,9 +26,6 @@ interface MultimediaQueryInterface
      */
     public function getAll(): array;
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface;
 
     /**

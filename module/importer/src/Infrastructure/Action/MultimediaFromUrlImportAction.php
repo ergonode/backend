@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
@@ -21,42 +21,18 @@ use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
-/**
- */
 class MultimediaFromUrlImportAction
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $repository;
 
-    /**
-     * @var DownloaderInterface
-     */
     private DownloaderInterface $downloader;
 
-    /**
-     * @var HashCalculationServiceInterface
-     */
     private HashCalculationServiceInterface $hashService;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $multimediaStorage;
 
-    /**
-     * @var MultimediaQueryInterface
-     */
     private MultimediaQueryInterface $multimediaQuery;
 
-    /**
-     * @param MultimediaRepositoryInterface   $repository
-     * @param DownloaderInterface             $downloader
-     * @param HashCalculationServiceInterface $hashService
-     * @param FilesystemInterface             $multimediaStorage
-     * @param MultimediaQueryInterface        $multimediaQuery
-     */
     public function __construct(
         MultimediaRepositoryInterface $repository,
         DownloaderInterface $downloader,
@@ -72,10 +48,6 @@ class MultimediaFromUrlImportAction
     }
 
     /**
-     * @param ImportId $importId
-     * @param string   $url
-     * @param string   $filename
-     *
      * @throws FileExistsException
      * @throws FileNotFoundException
      */

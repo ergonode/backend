@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -15,32 +15,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Context;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 
-/**
- */
 class StatusCodeHandlerTest extends TestCase
 {
-    /**
-     * @var StatusCodeHandler
-     */
     private StatusCodeHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new StatusCodeHandler();
@@ -49,8 +33,6 @@ class StatusCodeHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = StatusCodeHandler::getSubscribingMethods();
@@ -62,8 +44,6 @@ class StatusCodeHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = 'test_value';
@@ -73,8 +53,6 @@ class StatusCodeHandlerTest extends TestCase
         self::assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = 'test_value';

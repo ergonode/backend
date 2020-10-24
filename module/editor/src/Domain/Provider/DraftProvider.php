@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Domain\Provider;
 
@@ -15,24 +15,12 @@ use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class DraftProvider
 {
-    /**
-     * @var ProductDraftRepositoryInterface
-     */
     private ProductDraftRepositoryInterface $repository;
 
-    /**
-     * @var DraftQueryInterface
-     */
     private DraftQueryInterface $query;
 
-    /**
-     * @param ProductDraftRepositoryInterface $repository
-     * @param DraftQueryInterface             $query
-     */
     public function __construct(ProductDraftRepositoryInterface $repository, DraftQueryInterface $query)
     {
         $this->repository = $repository;
@@ -40,10 +28,6 @@ class DraftProvider
     }
 
     /**
-     * @param AbstractProduct $product
-     *
-     * @return ProductDraft
-     *
      * @throws \Exception
      */
     public function provide(AbstractProduct $product): ProductDraft

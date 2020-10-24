@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
@@ -15,30 +15,14 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInte
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6LanguageClient;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class LanguageSynchronizer implements SynchronizerInterface
 {
-    /**
-     * @var Shopware6LanguageClient
-     */
     private Shopware6LanguageClient  $languageClient;
 
-    /**
-     * @var Shopware6LanguageRepositoryInterface
-     */
     private Shopware6LanguageRepositoryInterface $languageShopwareRepository;
 
-    /**
-     * @var Shopware6LanguageQueryInterface
-     */
     private Shopware6LanguageQueryInterface $languageShopwareQuery;
 
-    /**
-     * @param Shopware6LanguageClient              $languageClient
-     * @param Shopware6LanguageRepositoryInterface $languageShopwareRepository
-     * @param Shopware6LanguageQueryInterface      $languageShopwareQuery
-     */
     public function __construct(
         Shopware6LanguageClient $languageClient,
         Shopware6LanguageRepositoryInterface $languageShopwareRepository,
@@ -49,18 +33,11 @@ class LanguageSynchronizer implements SynchronizerInterface
         $this->languageShopwareQuery = $languageShopwareQuery;
     }
 
-    /**
-     * @param ExportId         $id
-     * @param Shopware6Channel $channel
-     */
     public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
         $this->synchronizeShopware($channel);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     */
     private function synchronizeShopware(Shopware6Channel $channel): void
     {
         $start = new \DateTimeImmutable();

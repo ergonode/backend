@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Event\Workflow;
 
@@ -15,12 +15,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-/**
- */
 class WorkflowDefaultStatusSetEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var WorkflowId | MockObject $id */

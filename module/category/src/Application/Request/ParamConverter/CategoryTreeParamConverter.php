@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class CategoryTreeParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $repository;
 
-    /**
-     * @param TreeRepositoryInterface $repository
-     */
     public function __construct(TreeRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -59,11 +51,6 @@ class CategoryTreeParamConverter implements ParamConverterInterface
         $request->attributes->set($configuration->getName(), $entity);
     }
 
-    /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
-     */
     public function supports(ParamConverter $configuration): bool
     {
         return CategoryTree::class === $configuration->getClass();

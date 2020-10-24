@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Validator;
 
@@ -15,15 +15,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class LanguageCodeExistsValidator extends ConstraintValidator
 {
     private LanguageQueryInterface $query;
 
-    /**
-     * @param LanguageQueryInterface $query
-     */
     public function __construct(LanguageQueryInterface $query)
     {
         $this->query = $query;
@@ -31,8 +26,7 @@ class LanguageCodeExistsValidator extends ConstraintValidator
 
 
     /**
-     * @param mixed      $value
-     * @param Constraint $constraint
+     * @param mixed $value
      */
     public function validate($value, Constraint $constraint): void
     {

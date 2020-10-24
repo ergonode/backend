@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Product\Infrastructure\Validator\Sku;
 use Ergonode\Product\Infrastructure\Validator\ProductSkuExists;
 
-/**
- */
 class ProductCollectionElementFromSkusFormModel
 {
     /**

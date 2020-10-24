@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
@@ -34,26 +34,12 @@ use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderProvider;
  */
 class SourceUpdatedAction
 {
-    /**
-     * @var SourceFormFactoryProvider
-     */
     private SourceFormFactoryProvider $provider;
 
-    /**
-     * @var UpdateSourceCommandBuilderProvider
-     */
     private UpdateSourceCommandBuilderProvider $commandProvider;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param SourceFormFactoryProvider          $provider
-     * @param UpdateSourceCommandBuilderProvider $commandProvider
-     * @param CommandBusInterface                $commandBus
-     */
     public function __construct(
         SourceFormFactoryProvider $provider,
         UpdateSourceCommandBuilderProvider $commandProvider,
@@ -94,10 +80,7 @@ class SourceUpdatedAction
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      *
-     * @param AbstractSource $source
-     * @param Request        $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

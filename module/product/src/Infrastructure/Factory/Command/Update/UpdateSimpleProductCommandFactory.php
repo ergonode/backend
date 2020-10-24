@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Factory\Command\Update;
 
@@ -18,26 +18,13 @@ use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
 use Ergonode\Product\Infrastructure\Factory\Command\UpdateProductCommandFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class UpdateSimpleProductCommandFactory implements UpdateProductCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === SimpleProduct::TYPE;
     }
 
-    /**
-     * @param ProductId     $productId
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function create(ProductId $productId, FormInterface $form): DomainCommandInterface
     {
         /** @var SimpleProductFormModel $data */

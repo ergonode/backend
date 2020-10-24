@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Projector\Role;
 
@@ -14,26 +14,14 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalRolePrivilegesChangedEventProjector
 {
     private const TABLE = 'roles';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -41,8 +29,6 @@ class DbalRolePrivilegesChangedEventProjector
     }
 
     /**
-     * @param RolePrivilegesChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(RolePrivilegesChangedEvent $event): void

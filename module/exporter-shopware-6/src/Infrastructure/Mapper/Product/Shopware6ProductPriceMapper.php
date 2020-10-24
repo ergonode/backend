@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
@@ -23,38 +23,18 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
 {
     private const PRECISION = 2;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var AttributeTranslationInheritanceCalculator
-     */
     private AttributeTranslationInheritanceCalculator $calculator;
 
-    /**
-     * @var Shopware6CurrencyRepositoryInterface
-     */
     private Shopware6CurrencyRepositoryInterface $currencyRepository;
 
-    /**
-     * @var Shopware6TaxRepositoryInterface
-     */
     private Shopware6TaxRepositoryInterface $taxRepository;
 
-    /**
-     * @param AttributeRepositoryInterface              $repository
-     * @param AttributeTranslationInheritanceCalculator $calculator
-     * @param Shopware6CurrencyRepositoryInterface      $currencyRepository
-     * @param Shopware6TaxRepositoryInterface           $taxRepository
-     */
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator,
@@ -88,11 +68,6 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param AbstractProduct  $product
-     *
-     * @return \Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice
-     *
      * @throws Shopware6ExporterMapperException
      */
     public function getPrice(
@@ -121,11 +96,6 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param AbstractProduct  $product
-     *
-     * @return float
-     *
      * @throws Shopware6ExporterMapperException
      */
     public function tax(Shopware6Channel $channel, AbstractProduct $product): float
@@ -145,11 +115,6 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param PriceAttribute   $attribute
-     *
-     * @return string
-     *
      * @throws Shopware6ExporterMapperException
      */
     private function loadCurrencyId(Shopware6Channel $channel, PriceAttribute $attribute): string
@@ -166,11 +131,6 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param float            $tax
-     *
-     * @return string
-     *
      * @throws Shopware6ExporterMapperException
      */
     private function loadTaxId(Shopware6Channel $channel, float $tax): string
@@ -187,11 +147,8 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param AttributeId $productPrice
-     * @param Language    $defaultLanguage
-     * @param             $product
+     * @param $product
      *
-     * @return float
      *
      * @throws Shopware6ExporterMapperException
      */

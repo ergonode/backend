@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Association;
 
@@ -17,24 +17,12 @@ use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 
-/**
- */
 class AddProductChildrenBySegmentsCommandHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @var SegmentProductsQueryInterface
-     */
     private SegmentProductsQueryInterface $query;
 
-    /**
-     * @param ProductRepositoryInterface    $repository
-     * @param SegmentProductsQueryInterface $query
-     */
     public function __construct(
         ProductRepositoryInterface $repository,
         SegmentProductsQueryInterface $query
@@ -44,8 +32,6 @@ class AddProductChildrenBySegmentsCommandHandler
     }
 
     /**
-     * @param AddProductChildrenBySegmentsCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(AddProductChildrenBySegmentsCommand $command): void

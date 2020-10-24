@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField;
 
@@ -13,8 +13,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
 
-/**
- */
 class Shopware6ProductCustomFieldSetTextMapper extends AbstractShopware6ProductCustomFieldSetMapper
 {
     /**

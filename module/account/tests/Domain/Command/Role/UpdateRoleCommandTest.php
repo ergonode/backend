@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\Command\Role;
 
@@ -15,12 +15,8 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateRoleCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         /** @var RoleId|MockObject $id */

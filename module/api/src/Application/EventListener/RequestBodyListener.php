@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Api\Application\EventListener;
 
@@ -14,8 +14,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-/**
- */
 class RequestBodyListener
 {
     private const METHODS = [
@@ -27,22 +25,13 @@ class RequestBodyListener
 
     private const CONTENT_TYPES = ['json'];
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
-    /**
-     * @param GetResponseEvent $event
-     */
     public function __invoke(GetResponseEvent $event): void
     {
         $request = $event->getRequest();

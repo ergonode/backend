@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
@@ -17,7 +17,6 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductNotFoundException;
 use Ergonode\Importer\Infrastructure\Exception\ImportRelatedProductIncorrectTypeException;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
@@ -28,55 +27,25 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Importer\Infrastructure\Exception\ImportBindingAttributeNotFoundException;
+use Ergonode\Importer\Infrastructure\Exception\ImportIncorrectBindingAttributeException;
 
-/**
- */
 class VariableProductImportAction
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @var ImportProductAttributeBuilder
-     */
     private ImportProductAttributeBuilder $builder;
 
-    /**
-     * @param ProductQueryInterface         $productQuery
-     * @param ProductRepositoryInterface    $productRepository
-     * @param AttributeQueryInterface       $attributeQuery
-     * @param AttributeRepositoryInterface  $attributeRepository
-     * @param TemplateQueryInterface        $templateQuery
-     * @param CategoryQueryInterface        $categoryQuery
-     * @param ImportProductAttributeBuilder $builder
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
@@ -96,12 +65,10 @@ class VariableProductImportAction
     }
 
     /**
-     * @param Sku    $sku
-     * @param string $template
-     * @param array  $categories
-     * @param array  $bindings
-     * @param array  $children
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $bindings
+     * @param array $children
+     * @param array $attributes
      *
      * @throws ImportRelatedProductIncorrectTypeException
      * @throws ImportRelatedProductNotFoundException
@@ -120,7 +87,7 @@ class VariableProductImportAction
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
         $attributes = $this->builder->build($attributes);
-        $bindings = $this->getBindings($bindings);
+        $bindings = $this->getBindings($bindings, $sku);
         $children = $this->getChildren($sku, $children);
 
         if (!$productId) {
@@ -147,7 +114,6 @@ class VariableProductImportAction
     }
 
     /**
-     * @param Sku   $sku
      * @param Sku[] $children
      *
      * @return AbstractProduct[]
@@ -176,19 +142,28 @@ class VariableProductImportAction
     }
 
     /**
-     * @param AttributeCode[] $bindings
+     * @param array $bindings
      *
-     * @return SelectAttribute[]
+     * @return array
+     *
+     * @throws ImportBindingAttributeNotFoundException
+     * @throws ImportIncorrectBindingAttributeException
      */
-    public function getBindings(array $bindings): array
+    public function getBindings(array $bindings, Sku $sku): array
     {
         $result = [];
         foreach ($bindings as $binding) {
             $attributeId = $this->attributeQuery->findAttributeIdByCode($binding);
-            Assert::notNull($attributeId);
-            $binding = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($binding, SelectAttribute::class);
-            $result[] = $binding;
+            if (null === $attributeId) {
+                throw new ImportBindingAttributeNotFoundException($binding, $sku);
+            }
+            $bindingClass = $this->attributeRepository->load($attributeId);
+
+            if (!$bindingClass instanceof SelectAttribute) {
+                throw new ImportIncorrectBindingAttributeException($binding, $sku);
+            }
+
+            $result[] = $bindingClass;
         }
 
         return $result;

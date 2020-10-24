@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
@@ -16,22 +16,12 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 abstract class AbstractTextareaAttribute extends AbstractAttribute
 {
     public const TYPE = 'TEXT_AREA';
     public const RICH_EDIT = 'rich_edit';
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param bool               $richEdit
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -54,25 +44,17 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
         );
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return bool
-     */
     public function isRichEdit(): bool
     {
         return (bool) $this->getParameter(self::RICH_EDIT);
     }
 
     /**
-     * @param bool $new
-     *
      * @throws \Exception
      */
     public function changeRichEdit(bool $new): void

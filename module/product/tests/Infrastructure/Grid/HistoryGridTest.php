@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Product\Infrastructure\Grid;
 
@@ -14,12 +14,8 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Infrastructure\Grid\ProductHistoryGrid;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class HistoryGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var GridConfigurationInterface $configuration */

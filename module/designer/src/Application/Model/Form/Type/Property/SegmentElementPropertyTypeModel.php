@@ -5,26 +5,20 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Model\Form\Type\Property;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class SegmentElementPropertyTypeModel
 {
     /**
-     * @var string | null
-     *
      * @Assert\NotBlank()
-     * @Assert\Length(max="32")
+     * @Assert\Length(max="255")
      */
     public ?string $label;
 
-    /**
-     */
     public function __construct()
     {
         $this->label = null;

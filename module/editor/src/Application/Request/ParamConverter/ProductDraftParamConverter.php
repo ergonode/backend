@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class ProductDraftParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ProductDraftRepositoryInterface
-     */
     private ProductDraftRepositoryInterface $repository;
 
-    /**
-     * @param ProductDraftRepositoryInterface $repository
-     */
     public function __construct(ProductDraftRepositoryInterface $repository)
     {
         $this->repository = $repository;

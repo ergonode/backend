@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
@@ -18,27 +18,15 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-/**
- */
 class ExceptionHandler implements SubscribingHandlerInterface
 {
     private const DEFAULT_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
     private const DEFAULT_MESSAGE = 'Internal server error';
 
-    /**
-     * @var ExceptionMapperInterface
-     */
     private ExceptionMapperInterface $exceptionMapper;
 
-    /**
-     * @var ExceptionNormalizerInterface
-     */
     private ExceptionNormalizerInterface $exceptionNormalizer;
 
-    /**
-     * @param ExceptionMapperInterface     $exceptionMapper
-     * @param ExceptionNormalizerInterface $exceptionNormalizer
-     */
     public function __construct(
         ExceptionMapperInterface $exceptionMapper,
         ExceptionNormalizerInterface $exceptionNormalizer
@@ -68,10 +56,7 @@ class ExceptionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param \Exception                    $exception
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */

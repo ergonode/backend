@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Provider;
 
@@ -13,12 +13,8 @@ use Ergonode\Category\Infrastructure\Factory\Command\UpdateCategoryCommandFactor
 use Ergonode\Category\Infrastructure\Provider\UpdateCategoryCommandFactoryProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateCategoryCommandFactoryProviderTest extends TestCase
 {
-    /**
-     */
     public function testFactoryProvide(): void
     {
         $factory = $this->createMock(UpdateCategoryCommandFactoryInterface::class);
@@ -29,8 +25,6 @@ class UpdateCategoryCommandFactoryProviderTest extends TestCase
         $this->assertEquals($factory, $factoryProvided);
     }
 
-    /**
-     */
     public function testNotExistingFactory(): void
     {
         $this->expectException(\RuntimeException::class);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity;
 
@@ -15,8 +15,6 @@ use Ergonode\Product\Domain\Event\Relation\ChildAddedToProductEvent;
 use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
 use Webmozart\Assert\Assert;
 
-/**
- */
 abstract class AbstractAssociatedProduct extends AbstractProduct
 {
     /**
@@ -27,8 +25,6 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
     private array $children = [];
 
     /**
-     * @param AbstractProduct $child
-     *
      * @throws \Exception
      */
     public function addChild(AbstractProduct $child): void
@@ -39,8 +35,6 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
     }
 
     /**
-     * @param ProductId $childId
-     *
      * @throws \Exception
      */
     public function removeChild(ProductId $childId): void
@@ -50,11 +44,6 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
         }
     }
 
-    /**
-     * @param ProductId $productId
-     *
-     * @return bool
-     */
     public function hasChild(ProductId $productId): bool
     {
         foreach ($this->children as $child) {
@@ -96,17 +85,11 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
         return $this->children;
     }
 
-    /**
-     * @param ChildAddedToProductEvent $event
-     */
     protected function applyChildAddedToProductEvent(ChildAddedToProductEvent $event): void
     {
         $this->children[] = $event->getChildId();
     }
 
-    /**
-     * @param ChildRemovedFromProductEvent $event
-     */
     protected function applyChildRemovedFromProductEvent(ChildRemovedFromProductEvent $event): void
     {
         foreach ($this->children as $key => $child) {

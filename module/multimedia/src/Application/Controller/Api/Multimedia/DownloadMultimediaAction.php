@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
@@ -27,14 +27,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DownloadMultimediaAction
 {
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $multimediaStorage;
 
-    /**
-     * @param FilesystemInterface $multimediaStorage
-     */
     public function __construct(FilesystemInterface $multimediaStorage)
     {
         $this->multimediaStorage = $multimediaStorage;
@@ -57,11 +51,9 @@ class DownloadMultimediaAction
      *     description="Not found",
      * )
      *
-     * @param Multimedia $multimedia
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      *
-     * @return Response
      *
      * @throws \Exception
      */

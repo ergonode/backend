@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\JMS\Serializer;
 
@@ -13,8 +13,6 @@ use JMS\Serializer\Handler\HandlerRegistryInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use Psr\Container\ContainerInterface;
 
-/**
- */
 class HandlerRegistry implements HandlerRegistryInterface
 {
     private const MAP_KEY_TEMPLATE = '%s.%s.%s';
@@ -24,15 +22,10 @@ class HandlerRegistry implements HandlerRegistryInterface
      */
     private array $map = [];
 
-    /**
-     * @var HandlerRegistryInterface
-     */
     private HandlerRegistryInterface $registry;
 
     /**
-     * @param ContainerInterface            $container
-     * @param iterable                      $handlers
-     * @param HandlerRegistryInterface|null $registry
+     * @param iterable $handlers
      */
     public function __construct(
         ContainerInterface $container,

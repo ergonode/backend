@@ -5,34 +5,23 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- */
 interface ConditionValidatorStrategyInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool;
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint;
 
     /**
      * Returned class must implement same properties as validated object in the build
-     *
-     * @return string
      */
     public function getValidatedClass(): string;
 }

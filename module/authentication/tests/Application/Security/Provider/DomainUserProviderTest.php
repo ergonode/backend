@@ -16,8 +16,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DomainUserProviderTest extends TestCase
 {
     /**
@@ -26,8 +24,6 @@ class DomainUserProviderTest extends TestCase
     private $mockUserRepository;
     private DomainUserProvider $provider;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->mockUserRepository = $this->createMock(UserRepositoryInterface::class);
@@ -37,8 +33,6 @@ class DomainUserProviderTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testShouldProvide(): void
     {
         $user = $this->createMock(User::class);
@@ -51,8 +45,6 @@ class DomainUserProviderTest extends TestCase
         $this->assertSame($user, $result);
     }
 
-    /**
-     */
     public function testShouldThrowExceptionWhenNoSuchUser(): void
     {
         $id = (string) Uuid::uuid4();
@@ -64,8 +56,6 @@ class DomainUserProviderTest extends TestCase
         $this->provider->loadUserByUsername($id);
     }
 
-    /**
-     */
     public function testShouldThrowExceptionWhenNoUUIDGiven(): void
     {
         $this->expectExceptionMessage('Invalid uuid format');
@@ -73,8 +63,6 @@ class DomainUserProviderTest extends TestCase
         $this->provider->loadUserByUsername('name');
     }
 
-    /**
-     */
     public function testShouldThrowExceptionWhenNoStringUsernameGiven(): void
     {
         $this->expectExceptionMessage('Username has to be a string');
@@ -82,8 +70,6 @@ class DomainUserProviderTest extends TestCase
         $this->provider->loadUserByUsername(1);
     }
 
-    /**
-     */
     public function testShouldThrowExceptionWhenEmptyUsernameGiven(): void
     {
         $this->expectExceptionMessage('Empty username');

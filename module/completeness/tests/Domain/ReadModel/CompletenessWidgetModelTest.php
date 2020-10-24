@@ -4,19 +4,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Tests\Domain\ReadModel;
 
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CompletenessWidgetModelTest extends TestCase
 {
-    /**
-     */
     public function testProperCreation(): void
     {
         $code = 'Any code';

@@ -5,21 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Form\Extension;
 
 use Limenius\Liform\Transformer\ExtensionInterface;
 use Symfony\Component\Form\FormInterface;
 
-/**
- *
- */
 class DescriptionFormExtension implements ExtensionInterface
 {
     /**
-     * @param FormInterface $form
-     * @param array         $schema
+     * @param array $schema
      *
      * @return array
      */

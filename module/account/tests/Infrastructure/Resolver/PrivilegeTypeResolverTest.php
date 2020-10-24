@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Infrastructure\Resolver;
 
@@ -13,14 +13,9 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolver;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PrivilegeTypeResolverTest extends TestCase
 {
     /**
-     * @param string $input
-     * @param string $expectedResult
-     *
      * @dataProvider resolverDataProvider
      */
     public function testResolver(string $input, string $expectedResult): void
@@ -42,8 +37,6 @@ class PrivilegeTypeResolverTest extends TestCase
         ];
     }
 
-    /**
-     */
     public function testIncorrectPrivilege(): void
     {
         $this->expectException(\InvalidArgumentException::class);

@@ -5,37 +5,26 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 
-/**
- */
 class DbalWorkflowCreatedEventProjector
 {
     private const TABLE = 'workflow';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param WorkflowCreatedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(WorkflowCreatedEvent $event): void

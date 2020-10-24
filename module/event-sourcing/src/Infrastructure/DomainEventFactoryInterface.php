@@ -5,20 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Infrastructure;
 
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 interface DomainEventFactoryInterface
 {
     /**
-     * @param AggregateId $id
-     * @param array       $records
+     * @param array $records
      *
      * @return DomainEventEnvelope[]
      */

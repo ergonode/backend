@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
@@ -56,10 +56,6 @@ class CategoryReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
-     *
-     * @param AbstractCategory $category
-     *
-     * @return Response
      */
     public function __invoke(AbstractCategory $category): Response
     {

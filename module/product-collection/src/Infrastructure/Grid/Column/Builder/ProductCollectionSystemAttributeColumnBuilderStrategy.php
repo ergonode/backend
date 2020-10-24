@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Grid\Column\Builder;
 
@@ -19,18 +19,10 @@ use Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAt
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 use Ergonode\Grid\Filter\Option\FilterOption;
 
-/**
- */
 class ProductCollectionSystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var ProductCollectionQueryInterface
-     */
     private ProductCollectionQueryInterface $query;
 
-    /**
-     * @param ProductCollectionQueryInterface $query
-     */
     public function __construct(ProductCollectionQueryInterface $query)
     {
         $this->query = $query;

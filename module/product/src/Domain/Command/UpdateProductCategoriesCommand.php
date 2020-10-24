@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command;
 
@@ -14,13 +14,9 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateProductCategoriesCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
@@ -33,8 +29,7 @@ class UpdateProductCategoriesCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param ProductId $productId
-     * @param array     $categories
+     * @param array $categories
      */
     public function __construct(ProductId $productId, array $categories = [])
     {
@@ -43,9 +38,6 @@ class UpdateProductCategoriesCommand implements DomainCommandInterface
         $this->categories = $categories;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;

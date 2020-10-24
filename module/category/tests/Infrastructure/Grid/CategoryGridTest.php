@@ -4,23 +4,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Grid;
 
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class CategoryGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var GridConfigurationInterface $configuration */

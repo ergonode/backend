@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
@@ -58,14 +58,10 @@ class OptionReadAction
      *     description="Not found",
      * )
      *
-     * @param AbstractAttribute $attribute
-     * @param AbstractOption    $option
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractOption")
-     *
      */
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {

@@ -5,32 +5,22 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Mapper;
 
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class FormErrorMapper
 {
-    /**
-     * @var FormErrorMapperMessageProvider
-     */
     private FormErrorMapperMessageProvider $provider;
 
-    /**
-     * @param FormErrorMapperMessageProvider $provider
-     */
     public function __construct(FormErrorMapperMessageProvider $provider)
     {
         $this->provider = $provider;
     }
 
     /**
-     * @param FormInterface $form
-     *
      * @return array
      */
     public function map(FormInterface $form): array
@@ -50,8 +40,6 @@ class FormErrorMapper
     }
 
     /**
-     * @param FormInterface $form
-     *
      * @return array
      */
     private function getErrors(FormInterface $form): array
@@ -84,11 +72,6 @@ class FormErrorMapper
         return $result;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
     private function parseName(string $name): string
     {
         if (ctype_digit($name)) {

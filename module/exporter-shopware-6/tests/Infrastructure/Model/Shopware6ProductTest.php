@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 
@@ -13,28 +13,14 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class Shopware6ProductTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $id;
 
-    /**
-     * @var string
-     */
     private string $sku;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var string
-     */
     private string $description;
 
     /**
@@ -52,19 +38,10 @@ class Shopware6ProductTest extends TestCase
      */
     private array $customFields;
 
-    /**
-     * @var bool
-     */
     private bool $active;
 
-    /**
-     * @var int
-     */
     private int $stock;
 
-    /**
-     * @var string
-     */
     private string $taxId;
 
     /**
@@ -72,9 +49,6 @@ class Shopware6ProductTest extends TestCase
      */
     private array $price;
 
-    /**
-     * @var string
-     */
     private string $parentId;
 
     /**
@@ -87,14 +61,9 @@ class Shopware6ProductTest extends TestCase
      */
     private array $media;
 
-    /**
-     * @var string
-     */
     private string $coverId;
 
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = 'any_id';
@@ -133,8 +102,6 @@ class Shopware6ProductTest extends TestCase
         $this->coverId = 'any_product_media_id';
     }
 
-    /**
-     */
     public function testCreateModel():void
     {
         $model = new Shopware6Product(
@@ -172,8 +139,6 @@ class Shopware6ProductTest extends TestCase
         self::assertFalse($model->isModified());
     }
 
-    /**
-     */
     public function testSetModel():void
     {
         $model = new Shopware6Product();

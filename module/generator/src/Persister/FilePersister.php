@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Generator\Persister;
 
@@ -14,27 +14,15 @@ use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
 
-/**
- */
 class FilePersister
 {
-    /**
-     * @var string
-     */
     private string $directory;
 
-    /**
-     * @param string $directory
-     */
     public function __construct(string $directory)
     {
         $this->directory = $directory;
     }
 
-    /**
-     * @param PhpFile $file
-     * @param string  $module
-     */
     public function persist(PhpFile $file, string $module): void
     {
 

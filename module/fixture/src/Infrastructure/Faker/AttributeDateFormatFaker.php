@@ -5,23 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class AttributeDateFormatFaker extends BaseProvider
 {
-    /**
-     * @param string|null $format
-     *
-     * @return DateFormat
-     *
-     */
     public function dateFormat(string $format = null): DateFormat
     {
         if (null === $format) {

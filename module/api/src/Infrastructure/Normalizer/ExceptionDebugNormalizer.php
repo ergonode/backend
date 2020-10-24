@@ -5,28 +5,16 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Api\Infrastructure\Normalizer;
 
-/**
- */
 class ExceptionDebugNormalizer implements ExceptionNormalizerInterface
 {
-    /**
-     * @var bool
-     */
     private bool $debugMode;
 
-    /**
-     * @var ExceptionNormalizerInterface
-     */
     private ExceptionNormalizerInterface $exceptionNormalizer;
 
-    /**
-     * @param bool                         $debugMode
-     * @param ExceptionNormalizerInterface $exceptionNormalizer
-     */
     public function __construct(
         bool $debugMode,
         ExceptionNormalizerInterface $exceptionNormalizer
@@ -56,8 +44,6 @@ class ExceptionDebugNormalizer implements ExceptionNormalizerInterface
     }
 
     /**
-     * @param \Exception $exception
-     *
      * @return array
      */
     private function formatException(\Exception $exception): array

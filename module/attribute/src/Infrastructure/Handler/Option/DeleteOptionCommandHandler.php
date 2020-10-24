@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Handler\Option;
 
@@ -16,25 +16,12 @@ use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteOptionCommandHandler
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     *
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param OptionRepositoryInterface      $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         OptionRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -44,8 +31,6 @@ class DeleteOptionCommandHandler
     }
 
     /**
-     * @param DeleteOptionCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteOptionCommand $command): void

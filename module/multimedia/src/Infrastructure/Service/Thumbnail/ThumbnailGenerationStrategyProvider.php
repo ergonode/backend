@@ -4,12 +4,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Infrastructure\Service\Thumbnail;
 
-/**
- */
 class ThumbnailGenerationStrategyProvider
 {
     /**
@@ -17,19 +15,11 @@ class ThumbnailGenerationStrategyProvider
      */
     private array $strategies;
 
-    /**
-     * @param ThumbnailGenerationStrategyInterface ...$strategies
-     */
     public function __construct(ThumbnailGenerationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return ThumbnailGenerationStrategyInterface
-     */
     public function provide(string $type): ThumbnailGenerationStrategyInterface
     {
         foreach ($this->strategies as $strategy) {

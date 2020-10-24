@@ -5,15 +5,13 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Mailer\Application\Config\Definition;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- */
 class ErgonodeMailerConfiguration implements ConfigurationInterface
 {
     /**

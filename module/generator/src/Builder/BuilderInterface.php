@@ -5,22 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Generator\Builder;
 
 use Nette\PhpGenerator\PhpFile;
 
-/**
- */
 interface BuilderInterface
 {
     /**
-     * @param string $module
-     * @param string $entity
-     * @param array  $properties
-     *
-     * @return PhpFile
+     * @param array $properties
      */
     public function build(string $module, string $entity, array $properties = []): PhpFile;
 }

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Application\Form\Product\Binding;
 
@@ -12,12 +12,8 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
 
-/**
- */
 class ProductBindFormTest extends TypeTestCase
 {
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

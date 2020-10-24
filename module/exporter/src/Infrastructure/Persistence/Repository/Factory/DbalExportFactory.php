@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Persistence\Repository\Factory;
 
@@ -14,14 +14,11 @@ use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class DbalExportFactory
 {
     /**
      * @param array $record
      *
-     * @return Export
      *
      * @throws \ReflectionException
      */

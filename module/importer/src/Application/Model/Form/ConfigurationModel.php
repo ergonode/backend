@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Model\Form;
 
 use Ergonode\Importer\Application\Model\Form\Type\ColumnModel;
 
-/**
- */
 class ConfigurationModel
 {
     /**
@@ -20,8 +18,6 @@ class ConfigurationModel
      */
     public array $columns;
 
-    /**
-     */
     public function __construct()
     {
         $this->columns = [];

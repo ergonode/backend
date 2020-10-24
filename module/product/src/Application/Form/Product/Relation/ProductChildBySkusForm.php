@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Form\Product\Relation;
 
@@ -16,13 +16,10 @@ use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySkusFormMo
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-/**
- */
 class ProductChildBySkusForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -38,9 +35,6 @@ class ProductChildBySkusForm extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -49,9 +43,6 @@ class ProductChildBySkusForm extends AbstractType
         ]);
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Entity;
 
@@ -18,10 +18,7 @@ use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\MakerBundle\Str;
 
-/**
- */
 class AbstractCategoryTest extends TestCase
 {
     /**
@@ -44,13 +41,8 @@ class AbstractCategoryTest extends TestCase
      */
     private array $attributes;
 
-    /**
-     * @var AttributeCode
-     */
     private AttributeCode $attributeCode;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(CategoryId::class);
@@ -61,8 +53,6 @@ class AbstractCategoryTest extends TestCase
         $this->attributes = [$this->attributeCode->getValue() => $this->createMock(ValueInterface::class)];
     }
 
-    /**
-     */
     public function testCreateEntity(): void
     {
         /** @var AttributeCode|MockObject $attributeCode */
@@ -98,8 +88,6 @@ class AbstractCategoryTest extends TestCase
         self::assertEquals($name, $entity->getName());
     }
 
-    /**
-     */
     public function testAttributeNotFound(): void
     {
         $entity = $this->getClass();
@@ -109,8 +97,6 @@ class AbstractCategoryTest extends TestCase
         $entity->getAttribute($attributeCode);
     }
 
-    /**
-     */
     public function testAttributeAlreadyExist(): void
     {
         $entity = $this->getClass();
@@ -120,8 +106,6 @@ class AbstractCategoryTest extends TestCase
         $entity->addAttribute($this->attributeCode, $value);
     }
 
-    /**
-     */
     public function testChangingNotExistingAttribute(): void
     {
         $entity = $this->getClass();
@@ -132,8 +116,6 @@ class AbstractCategoryTest extends TestCase
         $entity->changeAttribute($attributeCode, $value);
     }
 
-    /**
-     */
     public function testRemovingNotExistingAttribute(): void
     {
         $entity = $this->getClass();
@@ -154,9 +136,6 @@ class AbstractCategoryTest extends TestCase
             $this->name,
             $this->attributes,
         ) extends AbstractCategory {
-            /**
-             * @return string
-             */
             public function getType(): string
             {
                 return 'TYPE';

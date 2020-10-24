@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
@@ -22,36 +22,16 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use GuzzleHttp\Exception\ClientException;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class CustomFiledShopware6ExportProcess
 {
-    /**
-     * @var Shopware6CustomFieldRepositoryInterface
-     */
     private Shopware6CustomFieldRepositoryInterface $customFieldRepository;
 
-    /**
-     * @var Shopware6CustomFieldClient
-     */
     private Shopware6CustomFieldClient $customFieldClient;
 
-    /**
-     * @var Shopware6CustomFieldBuilder
-     */
     private Shopware6CustomFieldBuilder $builder;
 
-    /**
-     * @var Shopware6CustomFieldSetClient
-     */
     private Shopware6CustomFieldSetClient $customFieldSetClient;
 
-    /**
-     * @param Shopware6CustomFieldRepositoryInterface $customFieldRepository
-     * @param Shopware6CustomFieldClient              $customFieldClient
-     * @param Shopware6CustomFieldBuilder             $builder
-     * @param Shopware6CustomFieldSetClient           $customFieldSetClient
-     */
     public function __construct(
         Shopware6CustomFieldRepositoryInterface $customFieldRepository,
         Shopware6CustomFieldClient $customFieldClient,
@@ -64,11 +44,6 @@ class CustomFiledShopware6ExportProcess
         $this->customFieldSetClient = $customFieldSetClient;
     }
 
-    /**
-     * @param ExportId          $id
-     * @param Shopware6Channel  $channel
-     * @param AbstractAttribute $attribute
-     */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
         $customField = $this->loadCustomField($channel, $attribute);
@@ -86,13 +61,6 @@ class CustomFiledShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6CustomField   $customField
-     * @param AbstractAttribute      $attribute
-     * @param Language|null          $language
-     * @param Shopware6Language|null $shopwareLanguage
-     */
     private function updateCustomField(
         Shopware6Channel $channel,
         Shopware6CustomField $customField,
@@ -107,13 +75,6 @@ class CustomFiledShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param AbstractAttribute      $attribute
-     * @param Shopware6Language|null $shopware6Language
-     *
-     * @return Shopware6CustomField|null
-     */
     private function loadCustomField(
         Shopware6Channel $channel,
         AbstractAttribute $attribute,
@@ -130,12 +91,6 @@ class CustomFiledShopware6ExportProcess
         return $this->customFieldClient->find($channel, $attribute, $shopware6Language);
     }
 
-    /**
-     * @param Shopware6Channel  $channel
-     * @param AbstractAttribute $attribute
-     *
-     * @return Shopware6CustomFieldSet
-     */
     private function loadCustomFieldSet(
         Shopware6Channel $channel,
         AbstractAttribute $attribute

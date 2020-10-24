@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
@@ -22,8 +22,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 
-/**
- */
 class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -31,21 +29,14 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
      */
     private MockObject $repository;
 
-    /**
-     * @var NumericAttributeValueConditionCalculatorStrategy
-     */
     private NumericAttributeValueConditionCalculatorStrategy $strategy;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->strategy = new NumericAttributeValueConditionCalculatorStrategy($this->repository);
     }
 
-    /**
-     */
     public function testSupports(): void
     {
         self::assertTrue($this->strategy->supports('NUMERIC_ATTRIBUTE_VALUE_CONDITION'));
@@ -53,11 +44,6 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string         $option
-     * @param float          $expected
-     * @param ValueInterface $value
-     * @param bool           $result
-     *
      * @dataProvider dataProvider
      */
     public function testCalculate(string $option, float $expected, ValueInterface $value, bool $result): void

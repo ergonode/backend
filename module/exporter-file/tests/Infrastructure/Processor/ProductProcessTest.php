@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Processor\Process;
 
@@ -19,12 +19,8 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
-final class ProductProcessTest extends TestCase
+class ProductProcessTest extends TestCase
 {
-    /**
-     */
     public function testProcess(): void
     {
         $attributeQuery = $this->createMock(AttributeQueryInterface::class);

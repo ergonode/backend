@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
@@ -17,18 +17,10 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInter
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;

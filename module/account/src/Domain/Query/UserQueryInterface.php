@@ -5,15 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-/**
- */
 interface UserQueryInterface
 {
     /**
@@ -21,10 +19,5 @@ interface UserQueryInterface
      */
     public function getDictionary(): array;
 
-    /**
-     * @param Email $email
-     *
-     * @return UserId|null
-     */
     public function findIdByEmail(Email $email): ?UserId;
 }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Persistence\Dbal\Query;
 
@@ -13,20 +13,14 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\ResultStatement;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
-use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalStatusQueryTest extends TestCase
 {
     /**
@@ -44,13 +38,8 @@ class DbalStatusQueryTest extends TestCase
      */
     private $mockStatusRepository;
 
-    /**
-     * @var DbalStatusQuery
-     */
     private DbalStatusQuery $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->mockConnection = $this->createMock(Connection::class);
@@ -64,8 +53,6 @@ class DbalStatusQueryTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testShouldGetStatusCount(): void
     {
         $statusStmt = $this->createMock(ResultStatement::class);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
@@ -14,13 +14,9 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UserLanguagePrivilegesCollectionChangedEvent implements DomainEventInterface
 {
     /**
-     * @var UserId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $id;
@@ -40,7 +36,6 @@ class UserLanguagePrivilegesCollectionChangedEvent implements DomainEventInterfa
     private array $to;
 
     /**
-     * @param UserId               $id
      * @param LanguagePrivileges[] $from
      * @param LanguagePrivileges[] $to
      */
@@ -52,9 +47,6 @@ class UserLanguagePrivilegesCollectionChangedEvent implements DomainEventInterfa
         $this->to = $to;
     }
 
-    /**
-     * @return UserId
-     */
     public function getAggregateId(): UserId
     {
         return $this->id;

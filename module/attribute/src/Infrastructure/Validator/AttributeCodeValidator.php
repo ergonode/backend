@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Validator;
 
@@ -14,18 +14,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class AttributeCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @param AttributeQueryInterface $query
-     */
     public function __construct(AttributeQueryInterface $query)
     {
         $this->query = $query;

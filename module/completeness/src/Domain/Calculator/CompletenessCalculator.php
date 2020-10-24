@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Domain\Calculator;
 
@@ -14,28 +14,16 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 
-/**
- */
 class CompletenessCalculator
 {
-    /**
-     * @var TemplateElementCompletenessStrategyProvider
-     */
     private TemplateElementCompletenessStrategyProvider $provider;
 
-    /**
-     * @param TemplateElementCompletenessStrategyProvider $provider
-     */
     public function __construct(TemplateElementCompletenessStrategyProvider $provider)
     {
         $this->provider = $provider;
     }
 
     /**
-     * @param ProductDraft $draft
-     * @param Template     $template
-     * @param Language     $language
-     *
      * @return CompletenessCalculatorLine[]
      */
     public function calculate(ProductDraft $draft, Template $template, Language $language): array

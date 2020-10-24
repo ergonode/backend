@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Infrastructure\Handler\Event;
 
@@ -13,26 +13,15 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
-/**
- */
 class ProductTemplateChangedEventHandler
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ProductTemplateChangedEvent $event
-     */
     public function __invoke(ProductTemplateChangedEvent $event): void
     {
         $command = new ProductCompletenessCalculateCommand($event->getAggregateId());

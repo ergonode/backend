@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\TranslationDeepl\Infrastructure\Provider;
 
@@ -14,18 +14,10 @@ use Scn\DeeplApiConnector\DeeplClient;
 use Scn\DeeplApiConnector\Model\Translation;
 use Scn\DeeplApiConnector\Model\TranslationConfig;
 
-/**
- */
 class DeeplTranslationProvider implements TranslationProviderInterface
 {
-    /**
-     * @var string
-     */
     private string $deeplAuthKey;
 
-    /**
-     * @param string $deeplAuthKey
-     */
     public function __construct(string $deeplAuthKey)
     {
         $this->deeplAuthKey = $deeplAuthKey;

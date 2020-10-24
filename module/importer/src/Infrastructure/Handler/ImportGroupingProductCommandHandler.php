@@ -4,45 +4,34 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Domain\Entity\ImportError;
-use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Infrastructure\Action\GroupingProductImportAction;
+use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportGroupingProductCommandHandler
 {
-    /**
-     * @var GroupingProductImportAction
-     */
     private GroupingProductImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
-    private ImportErrorRepositoryInterface $repository;
+    private ImportRepositoryInterface $repository;
 
-    /**
-     * @param GroupingProductImportAction    $action
-     * @param ImportErrorRepositoryInterface $repository
-     */
-    public function __construct(GroupingProductImportAction $action, ImportErrorRepositoryInterface $repository)
-    {
+    private LoggerInterface $logger;
+
+    public function __construct(
+        GroupingProductImportAction $action,
+        ImportRepositoryInterface $repository,
+        LoggerInterface $logger
+    ) {
         $this->action = $action;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
-    /**
-     * @param ImportGroupingProductCommand $command
-     *
-     * @throws \Exception
-     */
     public function __invoke(ImportGroupingProductCommand $command)
     {
         try {
@@ -54,9 +43,11 @@ class ImportGroupingProductCommandHandler
                 $command->getAttributes()
             );
         } catch (ImportException $exception) {
-            $message = $exception->getMessage();
-            $error = new ImportError($command->getImportId(), $message);
-            $this->repository->add($error);
+            $this->repository->addError($command->getImportId(), $exception->getMessage());
+        } catch (\Exception $exception) {
+            $message = sprintf('Can\'t import grouping product %s', $command->getSku());
+            $this->repository->addError($command->getImportId(), $message);
+            $this->logger->error($exception);
         }
     }
 }

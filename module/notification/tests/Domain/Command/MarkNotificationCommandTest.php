@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Notification\Tests\Domain\Command;
 
@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class MarkNotificationCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommandCreation(): void
     {
         $notificationId = $this->createMock(Uuid::class);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Grid;
 
@@ -23,27 +23,15 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Importer\Infrastructure\Dictionary\ImportStatusDictionary;
 
-/**
- */
 class ImportGrid extends AbstractGrid
 {
-    /**
-     * @var ImportStatusDictionary
-     */
     private ImportStatusDictionary $dictionary;
 
-    /**
-     * @param ImportStatusDictionary $dictionary
-     */
     public function __construct(ImportStatusDictionary $dictionary)
     {
         $this->dictionary = $dictionary;
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $status = [];

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Create;
 
@@ -13,13 +13,9 @@ use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractCreateProductHandler;
 
-/**
- */
 class CreateSimpleProductCommandHandler extends AbstractCreateProductHandler
 {
     /**
-     * @param CreateSimpleProductCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateSimpleProductCommand $command)

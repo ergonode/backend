@@ -428,7 +428,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?field=code&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should contain "TEXT_"
 
@@ -437,7 +437,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?field=name&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And print last JSON response
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].name" should exist
@@ -447,7 +447,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?field=description&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].description" should exist
 
@@ -456,7 +456,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?field=type_id&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].type_id" should exist
 
@@ -465,7 +465,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?field=elements_count&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].elements_count" should exist
 
@@ -474,7 +474,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?&filter=code=TEXT"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "collection[0].code" should contain "TEXT_"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -484,7 +484,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?&filter=name=Name"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].name" should exist
 
@@ -493,7 +493,7 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products/@product@/collections?&filter=description=Description"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].description" should exist
 
@@ -527,56 +527,56 @@ Feature: Product module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?field=id"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order by index)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?field=index"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order by sku)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?field=sku"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?field=index&order=ASC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?field=index&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (filter by index)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?limit=25&offset=0&filter=index%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (filter by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?limit=25&offset=0&filter=id%3DCAT"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (filter by sku)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en_GB/products?limit=25&offset=0&filter=sku%3D1"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
 
   Scenario: Get products (not authorized)
     When I send a GET request to "/api/v1/en_GB/products"

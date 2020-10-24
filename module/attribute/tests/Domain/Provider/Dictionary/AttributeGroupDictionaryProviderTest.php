@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Provider\Dictionary;
 
@@ -15,12 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupDictionaryProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingAttributeGroupDictionary(): void
     {
         /** @var AttributeGroupQueryInterface | MockObject $attributeGroupQuery */

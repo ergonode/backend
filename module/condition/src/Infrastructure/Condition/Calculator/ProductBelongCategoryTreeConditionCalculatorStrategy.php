@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
@@ -15,18 +15,10 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInter
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductBelongCategoryTreeConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var TreeRepositoryInterface
-     */
     private TreeRepositoryInterface $repository;
 
-    /**
-     * @param TreeRepositoryInterface $repository
-     */
     public function __construct(TreeRepositoryInterface $repository)
     {
         $this->repository = $repository;

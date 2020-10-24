@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Handler\Export;
 
@@ -20,8 +20,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CustomFiledShopw
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CustomFieldShopware6ExportCommandHandlerTest extends TestCase
 {
     /**
@@ -44,8 +42,6 @@ class CustomFieldShopware6ExportCommandHandlerTest extends TestCase
      */
     private CustomFiledShopware6ExportProcess $process;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->exportRepository = $this->createMock(ExportRepositoryInterface::class);
@@ -67,8 +63,6 @@ class CustomFieldShopware6ExportCommandHandlerTest extends TestCase
         $this->process->expects(self::once())->method('process');
     }
 
-    /**
-     */
     public function testHandling(): void
     {
         $command = $this->createMock(CustomFieldShopware6ExportCommand::class);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Validator;
 
@@ -17,43 +17,30 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(TreeQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(ValidatorException::class);
         $this->validator->validate(new \stdClass(), new UniqueCategoryTreeCode());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(ValidatorException::class);
-        /** @var constraint $constrain */
+        /** @var Constraint $constrain */
         $constraint = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new UniqueCategoryTreeCode());
@@ -61,8 +48,6 @@ class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testTreeUniqueValidation(): void
     {
         $this->query->method('findTreeIdByCode')->willReturn(null);
@@ -71,8 +56,6 @@ class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testTreeNotUniqueValidation(): void
     {
         $value = CategoryTreeId::generate();
@@ -84,9 +67,6 @@ class UniqueCategoryTreeCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return UniqueCategoryTreeCodeValidator
-     */
     protected function createValidator(): UniqueCategoryTreeCodeValidator
     {
         return new UniqueCategoryTreeCodeValidator($this->query);

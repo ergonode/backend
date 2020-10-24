@@ -5,21 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Ergonode\Attribute\Tests\Domain\Event;
+namespace Ergonode\Attribute\Tests\Domain\Event\Option;
 
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-/**
- */
 class OptionChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         /** @var AggregateId $id */

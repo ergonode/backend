@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Handler;
 
@@ -13,24 +13,12 @@ use Ergonode\Core\Domain\Command\CreateUnitCommand;
 use Ergonode\Core\Domain\Factory\UnitFactory;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 
-/**
- */
 class CreateUnitCommandHandler
 {
-    /**
-     * @var UnitRepositoryInterface
-     */
     private UnitRepositoryInterface $repository;
 
-    /**
-     * @var UnitFactory
-     */
     private UnitFactory $factory;
 
-    /**
-     * @param UnitRepositoryInterface $repository
-     * @param UnitFactory             $factory
-     */
     public function __construct(UnitRepositoryInterface $repository, UnitFactory $factory)
     {
         $this->repository = $repository;
@@ -38,8 +26,6 @@ class CreateUnitCommandHandler
     }
 
     /**
-     * @param CreateUnitCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(CreateUnitCommand $command)

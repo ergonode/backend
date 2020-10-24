@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
@@ -16,30 +16,14 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 
-/**
- */
 class ProductExportProcessStep implements ExportStepProcessInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var ExportQueryInterface
-     */
     private ExportQueryInterface $exportQuery;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param ProductQueryInterface $productQuery
-     * @param ExportQueryInterface  $exportQuery
-     * @param CommandBusInterface   $commandBus
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         ExportQueryInterface $exportQuery,
@@ -50,10 +34,6 @@ class ProductExportProcessStep implements ExportStepProcessInterface
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId          $exportId
-     * @param FileExportChannel $channel
-     */
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $products = [];

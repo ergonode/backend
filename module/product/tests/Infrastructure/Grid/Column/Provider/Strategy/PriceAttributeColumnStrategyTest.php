@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 
@@ -19,8 +19,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\Filter\NumericFilter;
 
-/**
- */
 class PriceAttributeColumnStrategyTest extends TestCase
 {
     /**
@@ -28,8 +26,6 @@ class PriceAttributeColumnStrategyTest extends TestCase
      */
     private $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->attribute = $this->createMock(PriceAttribute::class);
@@ -37,24 +33,18 @@ class PriceAttributeColumnStrategyTest extends TestCase
         $this->attribute->method('getCurrency')->willReturn(new Currency('PLN'));
     }
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $strategy = new PriceAttributeColumnStrategy();
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testIsNotSupported(): void
     {
         $strategy = new PriceAttributeColumnStrategy();
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testCreateColumn(): void
     {
         $language = $this->createMock(Language::class);

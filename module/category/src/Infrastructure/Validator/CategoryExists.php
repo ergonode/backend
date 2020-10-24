@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Validator;
 
@@ -16,8 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class CategoryExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Category {{ value }} not exists.';
 }

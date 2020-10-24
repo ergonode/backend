@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Builder;
 
@@ -23,8 +23,6 @@ class PasswordValidationBuilder
 {
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function create(array $data): Constraint
     {

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class CommentParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var CommentRepositoryInterface
-     */
     private CommentRepositoryInterface $repository;
 
-    /**
-     * @param CommentRepositoryInterface $repository
-     */
     public function __construct(CommentRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
@@ -15,26 +15,17 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-/**
- */
 class ConstraintPrivilegeRelationsValidator extends ConstraintValidator
 {
-    /**
-     * @var PrivilegeGroupedByAreaProvider
-     */
     private PrivilegeGroupedByAreaProvider $privilegeGroupedByAreaProvider;
 
-    /**
-     * @param PrivilegeGroupedByAreaProvider $privilegeGroupedByAreaProvider
-     */
     public function __construct(PrivilegeGroupedByAreaProvider $privilegeGroupedByAreaProvider)
     {
         $this->privilegeGroupedByAreaProvider = $privilegeGroupedByAreaProvider;
     }
 
     /**
-     * @param mixed      $value
-     * @param Constraint $constraint
+     * @param mixed $value
      */
     public function validate($value, Constraint $constraint): void
     {

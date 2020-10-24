@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Product;
 
@@ -29,14 +29,8 @@ use Ergonode\Workflow\Infrastructure\Query\ProductWorkflowQuery;
  */
 class ProductWorkflowAction
 {
-    /**
-     * @var ProductWorkflowQuery $query
-     */
     private ProductWorkflowQuery $query;
 
-    /**
-     * @param ProductWorkflowQuery $query
-     */
     public function __construct(ProductWorkflowQuery $query)
     {
         $this->query = $query;
@@ -78,13 +72,9 @@ class ProductWorkflowAction
      *     description="Not found",
      * )
      *
-     * @param AbstractProduct $product
-     * @param Language        $language
-     * @param string          $productLanguage
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
-     * @return Response
      *
      * @throws \ReflectionException
      */

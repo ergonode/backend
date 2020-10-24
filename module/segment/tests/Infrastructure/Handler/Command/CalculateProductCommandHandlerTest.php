@@ -4,23 +4,18 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Segment\Domain\Command\CalculateProductCommand;
-use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
-use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\Segment\Infrastructure\Handler\Command\CalculateProductCommandHandler;
-use Ergonode\Segment\Infrastructure\Handler\Command\CreateSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CalculateProductCommandHandlerTest extends TestCase
 {
     /**
@@ -38,8 +33,6 @@ class CalculateProductCommandHandlerTest extends TestCase
      */
     private $commandBus;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(CalculateProductCommand::class);

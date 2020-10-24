@@ -48,10 +48,10 @@ default:
                     request: '@Behatch\HttpCall\Request'
                 - Ergonode\Core\Test\Behat\Context\UploadFileContext
                 - behatch:context:rest
-                - behatch:context:json
                 - behatch:context:debug
                 - Behat\MinkExtension\Context\MinkContext
                 - Ergonode\Core\Test\Behat\Context\StorageContext:
+                - Ergonode\Core\Test\Behat\Context\ExtendJsonContext
                 - Ergonode\Core\Test\Behat\Context\AuthenticationContext:
                     username: 'test@ergonode.com'
                     password: 'abcd1234'

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Tests\Infrastructure\Action\Process\Product\Resolver;
 
@@ -17,25 +17,16 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 
-/**
- */
 class ImportProductSelectAttributeStrategyTest extends TestCase
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(OptionQueryInterface::class);
     }
 
 
-    /**
-     */
     public function testIsSupported(): void
     {
         $strategy = new ImportProductSelectAttributeStrategy($this->query);
@@ -44,8 +35,6 @@ class ImportProductSelectAttributeStrategyTest extends TestCase
         self::assertFalse($strategy->supported(new AttributeType('any other type')));
     }
 
-    /**
-     */
     public function testEmptyValue(): void
     {
         $id = $this->createMock(AttributeId::class);
@@ -58,8 +47,6 @@ class ImportProductSelectAttributeStrategyTest extends TestCase
         self::assertEmpty($result->getValue());
     }
 
-    /**
-     */
     public function testNotEmptyWithoutOptionValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

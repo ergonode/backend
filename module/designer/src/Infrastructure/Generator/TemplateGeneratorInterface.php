@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Generator;
 
@@ -13,20 +13,9 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-/**
- */
 interface TemplateGeneratorInterface
 {
-    /**
-     * @param TemplateId      $id
-     * @param TemplateGroupId $groupId
-     *
-     * @return Template
-     */
     public function getTemplate(TemplateId $id, TemplateGroupId $groupId): Template;
 
-    /**
-     * @return string
-     */
     public function getCode(): string;
 }

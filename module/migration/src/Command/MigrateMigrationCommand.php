@@ -5,29 +5,21 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration\Command;
 
 use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 use Ergonode\Migration\Provider\MigrationConfigurationProvider;
 
-/**
- */
 class MigrateMigrationCommand extends MigrateCommand
 {
-     /**
-     * @param MigrationConfigurationProvider $configurationService
-     */
     public function __construct(MigrationConfigurationProvider $configurationService)
     {
         $this->setMigrationConfiguration($configurationService->configure());
         parent::__construct();
     }
 
-    /**
-     *
-     */
     protected function configure(): void
     {
         parent::configure();

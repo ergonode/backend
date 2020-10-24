@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
@@ -13,29 +13,19 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class DbalAttributeValueQuery implements AttributeValueQueryInterface
 {
     private const TABLE_PRODUCT_VALUE = 'product_value';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
      * @return array
      */
     public function getUniqueValue(AttributeId $attributeId): array

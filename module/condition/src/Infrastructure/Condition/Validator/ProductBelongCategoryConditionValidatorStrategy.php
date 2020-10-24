@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  *  See LICENSE.txt for license details.
- *
  */
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
@@ -13,8 +12,6 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterf
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductBelongCategoryConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**

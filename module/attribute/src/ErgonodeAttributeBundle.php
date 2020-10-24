@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute;
 
@@ -13,13 +13,8 @@ use Ergonode\Attribute\Application\DependencyInjection\CompilerPass as CompilerP
 use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- */
 class ErgonodeAttributeBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

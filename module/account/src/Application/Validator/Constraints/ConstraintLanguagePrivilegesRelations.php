@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
@@ -16,14 +16,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class ConstraintLanguagePrivilegesRelations extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Read language privilege for {{ value }} must be set when edit is activated';
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return ConstraintLanguagePrivilegesRelationsValidator::class;

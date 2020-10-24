@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
@@ -25,26 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TemplateGridReadAction
 {
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $designerTemplateQuery;
 
-    /**
-     * @var TemplateGrid
-     */
     private TemplateGrid $templateGrid;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer           $gridRenderer
-     * @param TemplateQueryInterface $designerTemplateQuery
-     * @param TemplateGrid           $templateGrid
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         TemplateQueryInterface $designerTemplateQuery,
@@ -118,11 +104,6 @@ class TemplateGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

@@ -5,9 +5,9 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Ergonode\Account\Tests\Domain\Command;
+namespace Ergonode\Account\Tests\Domain\Command\User;
 
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\ValueObject\Password;
@@ -17,12 +17,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateUserCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         /** @var UserId|MockObject $id */

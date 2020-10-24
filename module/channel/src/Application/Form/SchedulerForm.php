@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Form;
 
@@ -17,13 +17,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\Channel\Application\Form\Model\SchedulerModel;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class SchedulerForm extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -53,9 +50,6 @@ class SchedulerForm extends AbstractType
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
 
@@ -76,9 +70,6 @@ class SchedulerForm extends AbstractType
         );
     }
 
-    /**
-     * @return null|string
-     */
     public function getBlockPrefix(): ?string
     {
         return null;

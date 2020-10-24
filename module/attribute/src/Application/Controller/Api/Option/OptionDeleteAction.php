@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
@@ -36,26 +36,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class OptionDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
-    /**
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
@@ -102,14 +88,10 @@ class OptionDeleteAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param AbstractAttribute $attribute
-     * @param AbstractOption    $option
      *
-     * @return Response
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractOption")
-     *
      */
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {

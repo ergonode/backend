@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Persistence\Repository;
 
@@ -17,26 +17,16 @@ use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalStatusRepository implements StatusRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param StatusId $id
-     *
      * @return Status|null
      *
      * @throws \ReflectionException
@@ -49,19 +39,11 @@ class DbalStatusRepository implements StatusRepositoryInterface
         return $aggregate;
     }
 
-    /**
-     * @param StatusId $id
-     *
-     * @return bool
-     */
     public function exists(StatusId $id) : bool
     {
         return $this->manager->exists($id);
     }
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);

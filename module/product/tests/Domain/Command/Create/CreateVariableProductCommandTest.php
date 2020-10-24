@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Domain\Command\Create;
 
@@ -15,18 +15,12 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CreateVariableProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param array $categories
+     * @param array $attributes
      *
      * @dataProvider dataProvider
      */

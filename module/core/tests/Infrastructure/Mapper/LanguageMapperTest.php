@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Infrastructure\Mapper;
 
@@ -14,8 +14,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageMapperTest extends TestCase
 {
     /**
@@ -28,8 +26,6 @@ class LanguageMapperTest extends TestCase
      */
     private Language $language;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->translator = $this->createMock(TranslatorInterface::class);

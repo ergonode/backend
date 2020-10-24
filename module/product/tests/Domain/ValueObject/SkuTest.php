@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Domain\ValueObject;
 
@@ -19,8 +19,6 @@ class SkuTest extends TestCase
 {
     /**
      * @dataProvider data
-     *
-     * @param string $sku
      */
     public function testGetValue(string $sku): void
     {
@@ -29,8 +27,6 @@ class SkuTest extends TestCase
         $this->assertEquals($sku, $sku->getValue());
     }
 
-    /**
-     */
     public function testInvalidValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

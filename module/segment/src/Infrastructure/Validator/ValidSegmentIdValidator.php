@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Validator;
 
@@ -15,18 +15,10 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- */
 class ValidSegmentIdValidator extends ConstraintValidator
 {
-    /**
-     * @var SegmentRepositoryInterface
-     */
     private SegmentRepositoryInterface $repository;
 
-    /**
-     * @param SegmentRepositoryInterface $repository
-     */
     public function __construct(SegmentRepositoryInterface $repository)
     {
         $this->repository = $repository;

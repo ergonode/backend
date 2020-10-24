@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Validator;
 
@@ -16,18 +16,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class StatusExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @param StatusRepositoryInterface $repository
-     */
     public function __construct(StatusRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -57,7 +49,7 @@ class StatusExistsValidator extends ConstraintValidator
         $value = (string) $value;
 
         $status = null;
-        if (Statusid::isValid($value)) {
+        if (StatusId::isValid($value)) {
             $status = $this->repository->load(new StatusId($value));
         }
 

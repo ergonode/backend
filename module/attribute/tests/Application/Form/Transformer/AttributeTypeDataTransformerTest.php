@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Application\Form\Transformer;
 
@@ -13,26 +13,16 @@ use Ergonode\Attribute\Application\Form\Transformer\AttributeTypeDataTransformer
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeTypeDataTransformerTest extends TestCase
 {
-    /**
-     * @var AttributeTypeDataTransformer
-     */
     protected AttributeTypeDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new AttributeTypeDataTransformer();
     }
 
     /**
-     * @param AttributeType|null $attributeTypeValueObject
-     * @param string|null        $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?AttributeType $attributeTypeValueObject, ?string $string): void
@@ -40,9 +30,6 @@ class AttributeTypeDataTransformerTest extends TestCase
         self::assertSame($string, $this->transformer->transform($attributeTypeValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -52,9 +39,6 @@ class AttributeTypeDataTransformerTest extends TestCase
     }
 
     /**
-     * @param AttributeType|null $attributeTypeValueObject
-     * @param string|null        $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?AttributeType $attributeTypeValueObject, ?string $string): void
@@ -62,8 +46,6 @@ class AttributeTypeDataTransformerTest extends TestCase
         self::assertEquals($attributeTypeValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);

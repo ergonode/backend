@@ -41,6 +41,9 @@
     "container-interop/container-interop": {
         "version": "1.2.0"
     },
+    "dealerdirect/phpcodesniffer-composer-installer": {
+        "version": "v0.7.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -108,7 +111,7 @@
         "version": "2.1.7"
     },
     "escapestudios/symfony2-coding-standard": {
-        "version": "3.4.1"
+        "version": "3.10.0"
     },
     "exsyst/swagger": {
         "version": "v0.4.0"
@@ -374,7 +377,7 @@
         "version": "v1.10.3"
     },
     "phpstan/phpdoc-parser": {
-        "version": "0.3.5"
+        "version": "0.4.9"
     },
     "phpstan/phpstan": {
         "version": "0.11.12"
@@ -506,6 +509,9 @@
     },
     "sensiolabs-de/deptrac-shim": {
         "version": "0.6.0"
+    },
+    "slevomat/coding-standard": {
+        "version": "6.4.1"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.3.0"

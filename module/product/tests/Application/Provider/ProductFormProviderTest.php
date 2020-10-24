@@ -4,17 +4,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Application\Provider;
 
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
-use Ergonode\Product\Application\Form\Product\ProductTypeForm;
 use Ergonode\Product\Application\Provider\ProductFormProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductFormProviderTest extends TestCase
 {
     /**

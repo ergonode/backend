@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Persistence\Projector;
 
@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalCategoryCreatedEventProjector
 {
     private const TABLE = 'category';
@@ -25,20 +23,10 @@ class DbalCategoryCreatedEventProjector
     private const RELATION_TABLE = 'entity_attribute_value';
     private const NAMESPACE = '0cc20207-d1b7-460b-8ef6-6898d00de4c0';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;

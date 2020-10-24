@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\DependencyInjection\CompilerPass;
 
@@ -12,15 +12,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Channel\Application\Provider\ChannelTypeProvider;
 
-/**
- */
 class ChannelTypeCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'channel.channel_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ChannelTypeProvider::class)) {
@@ -28,9 +23,6 @@ class ChannelTypeCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processHandler(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(ChannelTypeProvider::class);

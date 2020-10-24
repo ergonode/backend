@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Persistence\Repository;
 
@@ -17,28 +17,16 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalConditionSetRepository implements ConditionSetRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param ConditionSetId $id
-     *
-     * @return AbstractAggregateRoot|null
-     *
      * @throws \ReflectionException
      */
     public function load(ConditionSetId $id): ?AbstractAggregateRoot
@@ -49,19 +37,11 @@ class DbalConditionSetRepository implements ConditionSetRepositoryInterface
         return $aggregate;
     }
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }
 
-    /**
-     * @param ConditionSetId $id
-     *
-     * @return bool
-     */
     public function exists(ConditionSetId $id): bool
     {
 
@@ -69,8 +49,6 @@ class DbalConditionSetRepository implements ConditionSetRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws \Exception
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void

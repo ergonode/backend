@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
@@ -14,24 +14,12 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyIn
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ProductBelongCategoryTreeConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var TreeQueryInterface
-     */
     private TreeQueryInterface $query;
 
-    /**
-     * @param TranslatorInterface $translator
-     * @param TreeQueryInterface  $query
-     */
     public function __construct(TranslatorInterface $translator, TreeQueryInterface $query)
     {
         $this->translator = $translator;

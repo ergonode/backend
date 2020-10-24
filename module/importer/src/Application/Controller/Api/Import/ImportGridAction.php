@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Import;
 
@@ -32,26 +32,12 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
  */
 class ImportGridAction
 {
-    /**
-     * @var ImportGrid
-     */
     private ImportGrid $grid;
 
-    /**
-     * @var ImportQueryInterface
-     */
     private ImportQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $renderer;
 
-    /**
-     * @param ImportGrid           $grid
-     * @param ImportQueryInterface $query
-     * @param GridRenderer         $renderer
-     */
     public function __construct(ImportGrid $grid, ImportQueryInterface $query, GridRenderer $renderer)
     {
         $this->grid = $grid;
@@ -130,12 +116,6 @@ class ImportGridAction
      *
      * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param AbstractSource           $source
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractSource $source,

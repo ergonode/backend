@@ -5,19 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Value\Tests\Domain\ValueObject;
 
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StringValueTest extends TestCase
 {
-    /**
-     */
     public function testValueCreation(): void
     {
         $value = 'string';
@@ -31,8 +27,6 @@ class StringValueTest extends TestCase
         $this->assertTrue($valueObject1->isEqual($valueObject2));
     }
 
-    /**
-     */
     public function testNullValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

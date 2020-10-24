@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Factory;
 
@@ -15,18 +15,9 @@ use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 
-/**
- */
 class StatusFactory
 {
     /**
-     * @param StatusCode         $code
-     * @param Color              $color
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     *
-     * @return Status
-     *
      * @throws \Exception
      */
     public function create(

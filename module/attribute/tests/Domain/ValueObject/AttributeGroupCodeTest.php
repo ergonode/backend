@@ -5,19 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AttributeGroupCodeTest extends TestCase
 {
-    /**
-     */
     public function testValueCreation(): void
     {
         $value = 'vaLue ';
@@ -29,8 +25,6 @@ class AttributeGroupCodeTest extends TestCase
         $this->assertSame($check, (string) $valueObject);
     }
 
-    /**
-     */
     public function testInvalidValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);

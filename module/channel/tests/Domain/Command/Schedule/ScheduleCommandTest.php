@@ -4,19 +4,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Tests\Domain\Command\Schedule;
 
 use Ergonode\Channel\Domain\Command\Schedule\ScheduleCommand;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ScheduleCommandTest extends TestCase
 {
-    /**
-     */
     public function testCreateCommand(): void
     {
         $date = $this->createMock(\DateTime::class);

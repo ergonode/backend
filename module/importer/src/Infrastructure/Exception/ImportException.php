@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Exception;
 
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 
-/**
- */
 class ImportException extends ExportException
 {
     /**
@@ -20,9 +18,7 @@ class ImportException extends ExportException
     private array $parameters;
 
     /**
-     * @param string          $message
-     * @param array           $parameters
-     * @param \Throwable|null $previous
+     * @param array $parameters
      */
     public function __construct(string $message, array $parameters = [], \Throwable $previous = null)
     {

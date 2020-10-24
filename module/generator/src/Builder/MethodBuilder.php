@@ -5,24 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Generator\Builder;
 
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 
-/**
- */
 class MethodBuilder
 {
     /**
-     * @param string      $methodName
-     * @param array       $properties
-     * @param string|null $returnType
-     * @param bool        $nullable
-     *
-     * @return Method
+     * @param array $properties
      */
     public function build(
         string $methodName,

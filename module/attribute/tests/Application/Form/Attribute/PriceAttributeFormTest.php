@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
@@ -20,8 +20,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class PriceAttributeFormTest extends TypeTestCase
 {
     /**
@@ -29,14 +27,8 @@ class PriceAttributeFormTest extends TypeTestCase
      */
     private AttributeGroupQueryInterface $groupQuery;
 
-    /**
-     * @var CurrencyQueryInterface
-     */
     private CurrencyQueryInterface $currencyQuery;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         $this->groupQuery = $this->createMock(AttributeGroupQueryInterface::class);
@@ -52,8 +44,6 @@ class PriceAttributeFormTest extends TypeTestCase
         parent::setUp();
     }
 
-    /**
-     */
     public function testSupport(): void
     {
         $form = new PriceAttributeForm();
@@ -61,8 +51,6 @@ class PriceAttributeFormTest extends TypeTestCase
         $this->assertFalse($form->supported('unsupported type'));
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

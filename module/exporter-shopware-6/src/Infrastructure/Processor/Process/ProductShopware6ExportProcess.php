@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
@@ -19,30 +19,14 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductShopware6ExportProcess
 {
-    /**
-     * @var Shopware6ProductBuilder
-     */
     private Shopware6ProductBuilder $builder;
 
-    /**
-     * @var Shopware6ProductClient
-     */
     private Shopware6ProductClient $productClient;
 
-    /**
-     * @var Shopware6LanguageRepositoryInterface
-     */
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
-    /**
-     * @param Shopware6ProductBuilder              $builder
-     * @param Shopware6ProductClient               $productClient
-     * @param Shopware6LanguageRepositoryInterface $languageRepository
-     */
     public function __construct(
         Shopware6ProductBuilder $builder,
         Shopware6ProductClient $productClient,
@@ -54,10 +38,6 @@ class ProductShopware6ExportProcess
     }
 
     /**
-     * @param ExportId         $id
-     * @param Shopware6Channel $channel
-     * @param AbstractProduct  $product
-     *
      * @throws \Exception
      */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractProduct $product): void
@@ -79,13 +59,6 @@ class ProductShopware6ExportProcess
         }
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6Product       $shopwareProduct
-     * @param AbstractProduct        $product
-     * @param Language|null          $language
-     * @param Shopware6Language|null $shopwareLanguage
-     */
     private function updateProduct(
         Shopware6Channel $channel,
         Shopware6Product $shopwareProduct,
@@ -101,10 +74,6 @@ class ProductShopware6ExportProcess
     }
 
     /**
-     * @param Shopware6Channel $channel
-     * @param Language         $language
-     * @param AbstractProduct  $product
-     *
      * @throws \Exception
      */
     private function updateProductWithLanguage(

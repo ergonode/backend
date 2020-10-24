@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Provider;
 
@@ -12,18 +12,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UserIdsProvider
 {
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $query;
 
-    /**
-     * @param RoleQueryInterface $query
-     */
     public function __construct(RoleQueryInterface $query)
     {
         $this->query = $query;

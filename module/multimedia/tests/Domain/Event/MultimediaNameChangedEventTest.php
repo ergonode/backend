@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Domain\Event;
 
@@ -12,12 +12,8 @@ use Ergonode\Multimedia\Domain\Event\MultimediaNameChangedEvent;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-/**
- */
 class MultimediaNameChangedEventTest extends TestCase
 {
-    /**
-     */
     public function testCreationEvent(): void
     {
         $id = $this->createMock(MultimediaId::class);

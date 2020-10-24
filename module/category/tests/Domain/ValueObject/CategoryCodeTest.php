@@ -4,20 +4,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\ValueObject;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryCodeTest extends TestCase
 {
     /**
-     * @param string $code
-     *
      * @dataProvider validDataProvider
      */
     public function testCreationValidCode(string $code): void
@@ -28,10 +24,7 @@ class CategoryCodeTest extends TestCase
     }
 
     /**
-     * @param string $code
-     *
      * @dataProvider invalidDataProvider
-     *
      */
     public function testCreationInValidCode(string $code): void
     {

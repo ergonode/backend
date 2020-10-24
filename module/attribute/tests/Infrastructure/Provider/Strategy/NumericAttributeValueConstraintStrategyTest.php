@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Provider\Strategy;
 
@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Component\Validator\Constraints\Collection;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class NumericAttributeValueConstraintStrategyTest extends TestCase
 {
     /**
@@ -29,30 +27,22 @@ class NumericAttributeValueConstraintStrategyTest extends TestCase
      */
     private NumericAttribute $attribute;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->strategy = new NumericAttributeValueConstraintStrategy();
         $this->attribute = $this->createMock(NumericAttribute::class);
     }
 
-    /**
-     */
     public function testSupportValidAttribute(): void
     {
         $this->assertTrue($this->strategy->supports($this->attribute));
     }
 
-    /**
-     */
     public function testNotSupportValidAttribute(): void
     {
         $this->assertFalse($this->strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
-    /**
-     */
     public function testReturnConstraint(): void
     {
         $constraint = $this->strategy->get($this->attribute);

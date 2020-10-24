@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
@@ -13,22 +13,13 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\TextAttributeValueCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
     public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -70,10 +61,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param array  $value
-     * @param string $expected
-     *
-     * @return bool
+     * @param array $value
      */
     private function calculateHasTranslatableStringValue(array $value, string $expected): bool
     {
@@ -87,10 +75,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param array  $value
-     * @param string $expected
-     *
-     * @return bool
+     * @param array $value
      */
     private function calculateEqualTranslatableStringValue(array $value, string $expected): bool
     {

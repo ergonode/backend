@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
@@ -21,14 +21,8 @@ use Swagger\Annotations as SWG;
  */
 class ProductAutocompleteAction
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @param ProductQueryInterface $attributeQuery
-     */
     public function __construct(ProductQueryInterface $attributeQuery)
     {
         $this->productQuery = $attributeQuery;
@@ -77,10 +71,6 @@ class ProductAutocompleteAction
      *     response=200,
      *     description="Return products",
      * )
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(Request $request): Response
     {

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -15,32 +15,16 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Context;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
-/**
- */
 class HashHandlerTest extends TestCase
 {
-    /**
-     * @var HashHandler
-     */
     private HashHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializationVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializationVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new HashHandler();
@@ -49,8 +33,6 @@ class HashHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = HashHandler::getSubscribingMethods();
@@ -62,8 +44,6 @@ class HashHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $testValue = 'abcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh';
@@ -74,8 +54,6 @@ class HashHandlerTest extends TestCase
         $this->assertEquals($testValue, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $testValue = 'abcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh';

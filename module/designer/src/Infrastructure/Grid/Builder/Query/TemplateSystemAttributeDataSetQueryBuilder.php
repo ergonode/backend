@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Grid\Builder\Query;
 
@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 
-/**
- */
 class TemplateSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
     /**

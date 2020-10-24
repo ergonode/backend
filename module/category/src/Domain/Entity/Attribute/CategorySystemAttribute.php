@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Domain\Entity\Attribute;
 
@@ -14,26 +14,17 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CategorySystemAttribute extends AbstractOptionAttribute
 {
     public const TYPE = 'MULTI_SELECT';
     public const CODE = 'esa_category';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
     /**
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -48,25 +39,16 @@ class CategorySystemAttribute extends AbstractOptionAttribute
         parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
-    /**
-     * @return bool
-     */
     public function isSystem(): bool
     {
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isEditable(): bool
     {
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function isMultilingual(): bool
     {
         return false;

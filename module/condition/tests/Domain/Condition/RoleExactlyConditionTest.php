@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class RoleExactlyConditionTest extends TestCase
 {
-    /**
-     */
     public function testConditionCreation(): void
     {
         /** @var RoleId | MockObject $roleId */

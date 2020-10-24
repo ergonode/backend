@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Query\Decorator;
 
@@ -14,24 +14,12 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class TemplateGetProductQueryDecorator implements GetProductQueryInterface
 {
-    /**
-     * @var GetProductQueryInterface
-     */
     private GetProductQueryInterface $query;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @param GetProductQueryInterface $query
-     * @param TemplateQueryInterface   $templateQuery
-     */
     public function __construct(GetProductQueryInterface $query, TemplateQueryInterface $templateQuery)
     {
         $this->query = $query;
@@ -39,9 +27,6 @@ class TemplateGetProductQueryDecorator implements GetProductQueryInterface
     }
 
     /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
      * @return array
      *
      * @throws \Exception

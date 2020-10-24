@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute\Create;
 
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 
-/**
- */
 class CreateImageAttributeCommand extends AbstractCreateAttributeCommand
 {
 }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Application\Form\DataTransformer;
 
@@ -13,27 +13,17 @@ use Ergonode\Core\Application\Form\DataTransformer\ColorDataTransformer;
 use Ergonode\Core\Domain\ValueObject\Color;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ColorDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var ColorDataTransformer
-     */
     protected ColorDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new ColorDataTransformer();
     }
 
     /**
-     * @param Color|null  $colorValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testTransform(?Color $colorValueObject, ?string $string): void
@@ -41,9 +31,6 @@ class ColorDataTransformerTest extends TestCase
         self::assertSame($string, $this->transformer->transform($colorValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -53,9 +40,6 @@ class ColorDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Color|null  $colorValueObject
-     * @param string|null $string
-     *
      * @dataProvider dataProvider
      */
     public function testReverseTransform(?Color $colorValueObject, ?string $string): void
@@ -63,8 +47,6 @@ class ColorDataTransformerTest extends TestCase
         self::assertEquals($colorValueObject, $this->transformer->reverseTransform($string));
     }
 
-    /**
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid Color "black" value');

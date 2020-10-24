@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento2\Domain\Entity;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 
-/**
- */
 class Magento2CsvSource extends AbstractSource
 {
     public const TYPE = 'magento-2-csv';
@@ -26,9 +24,6 @@ class Magento2CsvSource extends AbstractSource
         self::ESCAPE => '\\',
     ];
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;

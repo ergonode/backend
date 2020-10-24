@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Builder;
 
@@ -17,12 +17,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 
-/**
- */
 class Shopware6CreateChannelCommandBuilderTest extends TestCase
 {
-    /**
-     */
     public function testSupport(): void
     {
         $builder = new Shopware6CreateChannelCommandBuilder();
@@ -30,8 +26,6 @@ class Shopware6CreateChannelCommandBuilderTest extends TestCase
         self::assertFalse($builder->supported('any other'));
     }
 
-    /**
-     */
     public function testBuild(): void
     {
         $model = new Shopware6ChannelFormModel();

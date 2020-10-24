@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
@@ -21,42 +21,18 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class SimpleProductImportAction
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @var TemplateQueryInterface
-     */
     private TemplateQueryInterface $templateQuery;
 
-    /**
-     * @var CategoryQueryInterface
-     */
     private CategoryQueryInterface $categoryQuery;
 
-    /**
-     * @var ImportProductAttributeBuilder
-     */
     private ImportProductAttributeBuilder $builder;
 
-    /**
-     * @param ProductQueryInterface         $productQuery
-     * @param ProductRepositoryInterface    $repository
-     * @param TemplateQueryInterface        $templateQuery
-     * @param CategoryQueryInterface        $categoryQuery
-     * @param ImportProductAttributeBuilder $builder
-     */
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $repository,
@@ -72,10 +48,8 @@ class SimpleProductImportAction
     }
 
     /**
-     * @param Sku    $sku
-     * @param string $template
-     * @param array  $categories
-     * @param array  $attributes
+     * @param array $categories
+     * @param array $attributes
      *
      * @throws \Exception
      */

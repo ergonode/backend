@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Domain\Query;
 
@@ -14,29 +14,15 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
-/**
- */
 interface SegmentQueryInterface
 {
-    /**
-     * @param Language $language
-     *
-     * @return DbalDataSet
-     */
     public function getDataSet(Language $language): DbalDataSet;
 
     /**
-     * @param ConditionSetId $conditionSetId
-     *
      * @return array
      */
     public function findIdByConditionSetId(ConditionSetId $conditionSetId): array;
 
-    /**
-     * @param SegmentCode $segmentCode
-     *
-     * @return bool
-     */
     public function isExistsByCode(SegmentCode $segmentCode): bool;
 
     /**
@@ -50,12 +36,6 @@ interface SegmentQueryInterface
     public function getDictionary(): array;
 
     /**
-     * @param Language    $language
-     * @param string|null $search
-     * @param int|null    $limit
-     * @param string|null $field
-     * @param string|null $order
-     *
      * @return array
      */
     public function autocomplete(

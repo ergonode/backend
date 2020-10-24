@@ -4,16 +4,11 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Entity;
 
-/**
- */
 interface ChannelInterface
 {
-    /**
-     * @return string
-     */
     public static function getType():string;
 }

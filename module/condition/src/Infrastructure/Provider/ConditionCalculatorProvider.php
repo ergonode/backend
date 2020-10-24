@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Provider;
 
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 
-/**
- */
 class ConditionCalculatorProvider
 {
     /**
@@ -20,19 +18,11 @@ class ConditionCalculatorProvider
      */
     private array $strategies;
 
-    /**
-     * @param ConditionCalculatorStrategyInterface ...$strategies
-     */
     public function __construct(ConditionCalculatorStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return ConditionCalculatorStrategyInterface
-     */
     public function provide(string $type): ConditionCalculatorStrategyInterface
     {
         foreach ($this->strategies as $strategy) {

@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Handler;
 
@@ -14,8 +14,6 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class UpdateLanguageCommandHandler
 {
     /**
@@ -23,24 +21,14 @@ class UpdateLanguageCommandHandler
      */
     private LanguageRepositoryInterface $repository;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @param LanguageRepositoryInterface $repository
-     * @param LanguageQueryInterface      $query
-     */
     public function __construct(LanguageRepositoryInterface $repository, LanguageQueryInterface $query)
     {
         $this->repository = $repository;
         $this->query = $query;
     }
 
-    /**
-     * @param UpdateLanguageCommand $command
-     */
     public function __invoke(UpdateLanguageCommand $command)
     {
         $activeLanguages = $command->getLanguages();
@@ -52,10 +40,7 @@ class UpdateLanguageCommandHandler
     }
 
     /**
-     * @param Language $search
-     * @param array    $languages
-     *
-     * @return bool
+     * @param array $languages
      */
     private function hasCode(Language $search, array $languages): bool
     {

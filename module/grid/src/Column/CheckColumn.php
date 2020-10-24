@@ -5,12 +5,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Column;
 
-/**
- */
 class CheckColumn extends AbstractColumn
 {
     public const TYPE = 'CHECK';

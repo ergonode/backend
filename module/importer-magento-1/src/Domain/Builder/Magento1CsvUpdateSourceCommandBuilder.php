@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Domain\Builder;
 
@@ -18,26 +18,15 @@ use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\ImporterMagento1\Domain\Command\UpdateMagento1CsvSourceCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class Magento1CsvUpdateSourceCommandBuilder implements UpdateSourceCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return $type === Magento1CsvSource::TYPE;
     }
 
     /**
-     * @param SourceId                                        $id
      * @param FormInterface|ImporterMagento1ConfigurationForm $form
-     *
-     * @return DomainCommandInterface
-     *
      */
     public function build(SourceId $id, FormInterface $form): DomainCommandInterface
     {

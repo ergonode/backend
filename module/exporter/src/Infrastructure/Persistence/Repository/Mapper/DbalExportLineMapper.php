@@ -5,19 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 
-/**
- */
 class DbalExportLineMapper
 {
     /**
-     * @param ExportLine $line
-     *
      * @return array
      */
     public function map(ExportLine $line): array

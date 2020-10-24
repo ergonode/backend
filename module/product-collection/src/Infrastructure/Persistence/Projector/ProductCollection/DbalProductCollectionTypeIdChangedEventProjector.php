@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\ProductCollection;
 
@@ -14,28 +14,18 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 
-/**
- */
 class DbalProductCollectionTypeIdChangedEventProjector
 {
     private const TABLE = 'product_collection';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param ProductCollectionTypeIdChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(ProductCollectionTypeIdChangedEvent $event): void

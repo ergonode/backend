@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
@@ -17,8 +17,6 @@ use Ergonode\Segment\Infrastructure\Handler\Command\DeleteSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteSegmentCommandHandlerTest extends TestCase
 {
     /**
@@ -36,8 +34,6 @@ class DeleteSegmentCommandHandlerTest extends TestCase
      */
     private $resolver;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteSegmentCommand::class);

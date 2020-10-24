@@ -9,12 +9,7 @@ namespace Ergonode\Channel\Domain\Service;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 interface ChannelServiceInterface
 {
-    /**
-     * @param AbstractProduct $product
-     */
     public function process(AbstractProduct $product): void;
 }

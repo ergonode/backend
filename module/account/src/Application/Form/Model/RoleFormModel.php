@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
@@ -20,31 +20,23 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class RoleFormModel
 {
-    /**
-     * @var RoleId|null
-     */
     private ?RoleId $roleId;
 
     /**
-     * @var string
-     *
      * @Assert\NotBlank(message="Role name is required")
      * @Assert\Length(
      *     max="100",
-     *     maxMessage="Role name is too long, should have at least {{ limit }} characters"
+     *     maxMessage="Role name is too long. It should contain {{ limit }} characters or less."
      * )
-     *
      */
     public ?string $name;
 
     /**
-     * @var string
-     *
      * @Assert\Length(
      *     min="3",
      *     max="500",
-     *     minMessage="Role description is too short, should have at least {{ limit }} characters",
-     *     maxMessage="Role description is too long, should have at most {{ limit }} characters"
+     *     minMessage="Role description is too short. It should have at least {{ limit }} characters.",
+     *     maxMessage="Role description is too long. It should contain {{ limit }} characters or less."
      * )
      */
     public ?string $description;
@@ -56,9 +48,6 @@ class RoleFormModel
      */
     public array $privileges;
 
-    /**
-     * @param RoleId|null $roleId
-     */
     public function __construct(RoleId $roleId = null)
     {
         $this->roleId = $roleId;
@@ -67,9 +56,6 @@ class RoleFormModel
         $this->privileges = [];
     }
 
-    /**
-     * @return RoleId|null
-     */
     public function getRoleId(): ?RoleId
     {
         return $this->roleId;

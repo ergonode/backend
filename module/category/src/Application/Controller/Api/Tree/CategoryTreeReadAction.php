@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
@@ -64,11 +64,6 @@ class CategoryTreeReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Category\Domain\Entity\CategoryTree")
-     *
-     * @param CategoryTree $tree
-     * @param Language     $language
-     *
-     * @return Response
      */
     public function __invoke(CategoryTree $tree, Language $language): Response
     {

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
@@ -27,26 +27,12 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
  */
 class OptionGridAction
 {
-    /**
-     * @var OptionGrid
-     */
     private OptionGrid $grid;
 
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param OptionGrid           $grid
-     * @param OptionQueryInterface $query
-     * @param GridRenderer         $gridRenderer
-     */
     public function __construct(OptionGrid $grid, OptionQueryInterface $query, GridRenderer $gridRenderer)
     {
         $this->grid = $grid;
@@ -119,12 +105,6 @@ class OptionGridAction
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param AbstractAttribute        $attribute
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(
         AbstractAttribute $attribute,

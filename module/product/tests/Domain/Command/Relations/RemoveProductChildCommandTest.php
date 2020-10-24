@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Domain\Command\Relations;
 
@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class RemoveProductChildCommandTest extends TestCase
 {
     /**

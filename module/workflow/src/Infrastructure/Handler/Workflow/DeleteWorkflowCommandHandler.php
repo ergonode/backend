@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
@@ -16,24 +16,12 @@ use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-/**
- */
 class DeleteWorkflowCommandHandler
 {
-    /**
-     * @var WorkflowRepositoryInterface
-     */
     private WorkflowRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param WorkflowRepositoryInterface    $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         WorkflowRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -43,8 +31,6 @@ class DeleteWorkflowCommandHandler
     }
 
     /**
-     * @param DeleteWorkflowCommand $command
-     *
      * @throws ExistingRelationshipsException
      */
     public function __invoke(DeleteWorkflowCommand $command)

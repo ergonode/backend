@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
@@ -15,16 +15,9 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 
-/**
- */
 class AttributeProcessor
 {
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractAttribute $attribute
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractAttribute $attribute): ExportData
@@ -45,12 +38,6 @@ class AttributeProcessor
         }
     }
 
-    /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     *
-     * @return LanguageData
-     */
     private function getLanguage(AbstractAttribute $attribute, Language $language): LanguageData
     {
         $result = new LanguageData();

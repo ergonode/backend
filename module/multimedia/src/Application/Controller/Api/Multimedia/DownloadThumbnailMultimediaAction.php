@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
@@ -31,20 +31,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class DownloadThumbnailMultimediaAction
 {
-    /**
-     * @var ThumbnailGenerator
-     */
     private ThumbnailGenerator $generator;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $thumbnailStorage;
 
-    /**
-     * @param ThumbnailGenerator  $generator
-     * @param FilesystemInterface $thumbnailStorage
-     */
     public function __construct(ThumbnailGenerator $generator, FilesystemInterface $thumbnailStorage)
     {
         $this->generator = $generator;
@@ -68,14 +58,9 @@ class DownloadThumbnailMultimediaAction
      *     description="Not found",
      * )
      *
-     * @param Multimedia $multimedia
      *
-     * @param string     $thumbnail
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
-     *
-     * @return Response
-     *
      */
     public function __invoke(Multimedia $multimedia, string $thumbnail): Response
     {

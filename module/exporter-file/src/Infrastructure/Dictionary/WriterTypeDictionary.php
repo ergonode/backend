@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Dictionary;
 
@@ -12,24 +12,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterTypeProvider;
 
-/**
- */
 class WriterTypeDictionary
 {
-    /**
-     * @var WriterTypeProvider
-     */
     private WriterTypeProvider $provider;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param WriterTypeProvider  $provider
-     * @param TranslatorInterface $translator
-     */
     public function __construct(WriterTypeProvider $provider, TranslatorInterface $translator)
     {
         $this->provider = $provider;
@@ -37,8 +25,6 @@ class WriterTypeDictionary
     }
 
     /**
-     * @param Language|null $language
-     *
      * @return string[]
      */
     public function dictionary(?Language $language = null): array

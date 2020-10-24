@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Relation;
 
@@ -17,36 +17,16 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class ProductMultimediaRelation implements MultimediaRelationInterface
 {
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $query;
 
-    /**
-     * @var Security
-     */
     private Security $security;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
     private UrlGeneratorInterface $generator;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @param ProductQueryInterface $query
-     * @param Security              $security
-     * @param UrlGeneratorInterface $generator
-     * @param TranslatorInterface   $translator
-     */
     public function __construct(
         ProductQueryInterface $query,
         Security $security,
@@ -60,9 +40,6 @@ class ProductMultimediaRelation implements MultimediaRelationInterface
     }
 
     /**
-     * @param MultimediaId $multimediaId
-     * @param Language     $language
-     *
      * @return array
      */
     public function getRelation(MultimediaId $multimediaId, Language $language): array
@@ -88,10 +65,7 @@ class ProductMultimediaRelation implements MultimediaRelationInterface
     }
 
     /**
-     * @param string $name
-     * @param array  $parameters
-     *
-     * @return string
+     * @param array $parameters
      */
     private function getUrl(string $name, array $parameters): string
     {

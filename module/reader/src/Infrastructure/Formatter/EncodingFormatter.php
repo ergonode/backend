@@ -5,15 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Reader\Infrastructure\Formatter;
 
 use Ergonode\Reader\Infrastructure\FormatterInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class EncodingFormatter implements FormatterInterface
 {
     public const TYPE = 'encoding';
@@ -21,15 +19,10 @@ class EncodingFormatter implements FormatterInterface
     private const ENCODING = 'UTF-8//IGNORE';
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $encoding;
 
-    /**
-     * @param string $encoding
-     */
     public function __construct(string $encoding)
     {
         $this->encoding = $encoding;

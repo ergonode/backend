@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
@@ -69,10 +69,7 @@ class ProductCollectionElementReadAction
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
-     * @param ProductCollection $productCollection
-     * @param AbstractProduct   $product
      *
-     * @return Response
      *
      * @throws \Exception
      */

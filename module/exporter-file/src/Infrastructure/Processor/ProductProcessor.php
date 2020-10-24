@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
@@ -25,36 +25,16 @@ use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class ProductProcessor
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $attributeQuery;
 
-    /**
-     * @var TranslationInheritanceCalculator
-     */
     private TranslationInheritanceCalculator $calculator;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @param AttributeQueryInterface          $attributeQuery
-     * @param TranslationInheritanceCalculator $calculator
-     * @param AttributeRepositoryInterface     $attributeRepository
-     * @param TemplateRepositoryInterface      $templateRepository
-     */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         TranslationInheritanceCalculator $calculator,
@@ -68,11 +48,6 @@ class ProductProcessor
     }
 
     /**
-     * @param FileExportChannel $channel
-     * @param AbstractProduct   $product
-     *
-     * @return ExportData
-     *
      * @throws ExportException
      */
     public function process(FileExportChannel $channel, AbstractProduct $product): ExportData
@@ -100,14 +75,6 @@ class ProductProcessor
         }
     }
 
-    /**
-     * @param AbstractProduct $product
-     * @param Language        $language
-     * @param array           $attributes
-     * @param Template        $template
-     *
-     * @return LanguageData
-     */
     private function getLanguage(
         AbstractProduct $product,
         Language $language,

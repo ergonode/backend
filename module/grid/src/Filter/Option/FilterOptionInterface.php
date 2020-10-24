@@ -4,17 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Filter\Option;
 
-/**
- */
 interface FilterOptionInterface
 {
-    /**
-     * @return string
-     */
     public function getKey(): string;
 
     /**

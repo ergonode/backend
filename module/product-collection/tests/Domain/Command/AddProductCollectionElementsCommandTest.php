@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Tests\Domain\Command;
 
@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class AddProductCollectionElementsCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $productCollectionId = $this->createMock(ProductCollectionId::class);

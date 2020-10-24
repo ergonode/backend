@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Request;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class FilterValueCollection implements \IteratorAggregate
 {
     public const DELIMITER = ';';
@@ -39,9 +37,6 @@ class FilterValueCollection implements \IteratorAggregate
      */
     private array $filters;
 
-    /**
-     * @param string|null $string
-     */
     public function __construct(string $string = null)
     {
         $this->filters = [];

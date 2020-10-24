@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Domain\Provider;
 
 use Ergonode\Completeness\Domain\Calculator\Strategy\TemplateElementCompletenessStrategyInterface;
 
-/**
- */
 class TemplateElementCompletenessStrategyProvider
 {
     /**
@@ -20,19 +18,11 @@ class TemplateElementCompletenessStrategyProvider
      */
     private array $strategies;
 
-    /**
-     * @param TemplateElementCompletenessStrategyInterface ...$strategies
-     */
     public function __construct(TemplateElementCompletenessStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param string $variant
-     *
-     * @return TemplateElementCompletenessStrategyInterface
-     */
     public function provide(string $variant): TemplateElementCompletenessStrategyInterface
     {
         foreach ($this->strategies as $strategy) {

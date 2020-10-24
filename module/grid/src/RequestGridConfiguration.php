@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid;
 
@@ -16,8 +16,6 @@ use Ergonode\Grid\Request\RequestColumn;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class RequestGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;
@@ -32,29 +30,14 @@ class RequestGridConfiguration implements GridConfigurationInterface
         self::DESC,
     ];
 
-    /**
-     * @var int
-     */
     private int $offset;
 
-    /**
-     * @var int
-     */
     private int $limit;
 
-    /**
-     * @var string|null
-     */
     private ?string $field;
 
-    /**
-     * @var string
-     */
     private string $order;
 
-    /**
-     * @var FilterValueCollection
-     */
     private FilterValueCollection $filters;
 
     /**
@@ -62,19 +45,10 @@ class RequestGridConfiguration implements GridConfigurationInterface
      */
     private array $columns;
 
-    /**
-     * @var string
-     */
     private string $view;
 
-    /**
-     * @var bool
-     */
     private bool $extended;
 
-    /**
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->columns = [];
@@ -116,41 +90,26 @@ class RequestGridConfiguration implements GridConfigurationInterface
         Assert::oneOf($this->order, self::ORDER);
     }
 
-    /**
-     * @return int
-     */
     public function getOffset(): int
     {
         return $this->offset;
     }
 
-    /**
-     * @return int
-     */
     public function getLimit(): int
     {
         return $this->limit;
     }
 
-    /**
-     * @return string|null
-     */
     public function getField(): ?string
     {
         return $this->field;
     }
 
-    /**
-     * @return string
-     */
     public function getOrder(): string
     {
         return $this->order;
     }
 
-    /**
-     * @return FilterValueCollection
-     */
     public function getFilters(): FilterValueCollection
     {
         return $this->filters;
@@ -164,17 +123,11 @@ class RequestGridConfiguration implements GridConfigurationInterface
         return $this->columns;
     }
 
-    /**
-     * @return string
-     */
     public function getView(): string
     {
         return $this->view;
     }
 
-    /**
-     * @return bool
-     */
     public function isExtended(): bool
     {
         return $this->extended;

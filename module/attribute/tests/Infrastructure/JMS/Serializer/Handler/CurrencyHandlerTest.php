@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -15,31 +15,15 @@ use Money\Currency;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\CurrencyHandler;
 
-/**
- */
 class CurrencyHandlerTest extends TestCase
 {
-    /**
-     * @var CurrencyHandler
-     */
     private CurrencyHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new CurrencyHandler();
@@ -48,8 +32,6 @@ class CurrencyHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = CurrencyHandler::getSubscribingMethods();
@@ -61,8 +43,6 @@ class CurrencyHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         $id = new Currency('PLN');
@@ -71,8 +51,6 @@ class CurrencyHandlerTest extends TestCase
         $this->assertEquals($id->getCode(), $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $id = new Currency('PLN');

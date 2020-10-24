@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Value\Tests\Domain\ValueObject;
 
@@ -14,12 +14,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TranslatableStringValueTest extends TestCase
 {
-    /**
-     */
     public function testValueCreation(): void
     {
         $array = ['en_GB' => 'english', 'pl_PL' => 'polish'];

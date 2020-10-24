@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Tests\Domain\Entity;
 
@@ -13,8 +13,6 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class SchedulerTest extends TestCase
 {
     /**
@@ -22,8 +20,6 @@ class SchedulerTest extends TestCase
      */
     private AggregateId $id;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(AggregateId::class);

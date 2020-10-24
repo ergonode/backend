@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -17,35 +17,19 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PasswordHandlerTest extends TestCase
 {
     private const DECODED = 'test_value';
     private const ENCODED = 'dGVzdF92YWx1ZQ==';
 
-    /**
-     * @var PasswordHandler
-     */
     private PasswordHandler $handler;
 
-    /**
-     * @var SerializationVisitorInterface
-     */
     private SerializationVisitorInterface $serializerVisitor;
 
-    /**
-     * @var DeserializationVisitorInterface
-     */
     private DeserializationVisitorInterface $deserializerVisitor;
 
-    /**
-     * @var Context
-     */
     private Context $context;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->handler = new PasswordHandler();
@@ -54,8 +38,6 @@ class PasswordHandlerTest extends TestCase
         $this->context = $this->createMock(Context::class);
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = PasswordHandler::getSubscribingMethods();
@@ -67,8 +49,6 @@ class PasswordHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testSerialize(): void
     {
         /** @var Password|MockObject $code */
@@ -79,8 +59,6 @@ class PasswordHandlerTest extends TestCase
         $this->assertEquals(self::ENCODED, $result);
     }
 
-    /**
-     */
     public function testDeserialize(): void
     {
         $result = $this->handler->deserialize($this->deserializerVisitor, self::ENCODED, [], $this->context);

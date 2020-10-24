@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute\Update;
 
@@ -15,25 +15,15 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
 
-/**
- */
 class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
 {
     /**
-     * @var Currency
-     *
      * @JMS\Type("Money\Currency")
      */
     private Currency $currency;
 
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param Currency           $currency
-     * @param array              $groups
+     * @param array $groups
      */
     public function __construct(
         AttributeId $id,
@@ -56,9 +46,6 @@ class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
         $this->currency = $currency;
     }
 
-    /**
-     * @return Currency
-     */
     public function getCurrency(): Currency
     {
         return $this->currency;

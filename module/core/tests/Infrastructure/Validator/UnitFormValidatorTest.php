@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Infrastructure\Validator;
 
@@ -19,8 +19,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class UnitFormValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -28,24 +26,18 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
      */
     private UnitQueryInterface $query;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(UnitQueryInterface::class);
         parent::setUp();
     }
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new UnitForm());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -54,8 +46,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constraint);
     }
 
-    /**
-     */
     public function testCorrectValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -68,8 +58,6 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testCorrectNullNameValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -80,12 +68,11 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $constraint = new UnitForm();
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->emptyNameMessage);
+        $assertion = $this->buildViolation($constraint->emptyNameMessage)
+        ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedEmptyNameValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -96,12 +83,11 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $constraint = new UnitForm();
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->emptyNameMessage);
+        $assertion = $this->buildViolation($constraint->emptyNameMessage)
+            ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedEmptySymbolValidation(): void
     {
         $model = $this->createMock(UnitFormModel::class);
@@ -112,12 +98,11 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
         $constraint = new UnitForm();
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->emptySymbolMessage);
+        $assertion = $this->buildViolation($constraint->emptySymbolMessage)
+            ->atPath('property.path.symbol');
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedUniqueNameValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
@@ -131,12 +116,11 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
 
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->uniqueNameMessage);
+        $assertion = $this->buildViolation($constraint->uniqueNameMessage)
+            ->atPath('property.path.name');
         $assertion->assertRaised();
     }
 
-    /**
-     */
     public function testCorrectRaisedUniqueSymbolValidation(): void
     {
         $uuid = Uuid::uuid4()->toString();
@@ -150,13 +134,11 @@ class UnitFormValidatorTest extends ConstraintValidatorTestCase
 
         $this->validator->validate($model, $constraint);
 
-        $assertion = $this->buildViolation($constraint->uniqueSymbolMessage);
+        $assertion = $this->buildViolation($constraint->uniqueSymbolMessage)
+            ->atPath('property.path.symbol');
         $assertion->assertRaised();
     }
 
-    /**
-     * @return UnitFormValidator
-     */
     protected function createValidator(): UnitFormValidator
     {
         return new UnitFormValidator($this->query);

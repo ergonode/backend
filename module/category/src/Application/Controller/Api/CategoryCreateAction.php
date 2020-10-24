@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
@@ -29,32 +29,14 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class CategoryCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CategoryFormProvider
-     */
     private CategoryFormProvider $formProvider;
 
-    /**
-     * @var CreateCategoryCommandFactoryProvider
-     */
     private CreateCategoryCommandFactoryProvider $factoryProvider;
 
-    /**
-     * @param CommandBusInterface                  $commandBus
-     * @param FormFactoryInterface                 $formFactory
-     * @param CategoryFormProvider                 $formProvider
-     * @param CreateCategoryCommandFactoryProvider $factoryProvider
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
@@ -98,9 +80,7 @@ class CategoryCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

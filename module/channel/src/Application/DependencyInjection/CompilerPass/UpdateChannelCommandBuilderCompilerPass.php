@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\DependencyInjection\CompilerPass;
 
@@ -13,15 +13,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderProvider;
 
-/**
- */
 class UpdateChannelCommandBuilderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'channel.update_channel_builder_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         if ($container->has(UpdateChannelCommandBuilderProvider::class)) {
@@ -29,9 +24,6 @@ class UpdateChannelCommandBuilderCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\DependencyInjection;
 
@@ -25,13 +25,10 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceC
 use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
 
-/**
- */
 class ErgonodeImporterExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

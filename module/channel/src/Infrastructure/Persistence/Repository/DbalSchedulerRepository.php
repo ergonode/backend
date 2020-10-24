@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Persistence\Repository;
 
@@ -20,8 +20,6 @@ use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalScheduler
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalSchedulerMapper;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-/**
- */
 class DbalSchedulerRepository implements SchedulerRepositoryInterface
 {
     private const TABLE = 'exporter.scheduler';
@@ -33,26 +31,12 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
         'minute',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DbalSchedulerFactory
-     */
     private DbalSchedulerFactory $factory;
 
-    /**
-     * @var DbalSchedulerMapper
-     */
     private DbalSchedulerMapper $mapper;
 
-    /**
-     * @param Connection           $connection
-     * @param DbalSchedulerFactory $factory
-     * @param DbalSchedulerMapper  $mapper
-     */
     public function __construct(Connection $connection, DbalSchedulerFactory $factory, DbalSchedulerMapper $mapper)
     {
         $this->connection = $connection;
@@ -60,11 +44,6 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
         $this->mapper = $mapper;
     }
 
-    /**
-     * @param AggregateId $id
-     *
-     * @return Scheduler|null
-     */
     public function load(AggregateId $id): ?Scheduler
     {
         $qb = $this->getQuery();
@@ -81,8 +60,6 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
     }
 
     /**
-     * @param Scheduler $channel
-     *
      * @throws DBALException
      */
     public function save(Scheduler $channel): void
@@ -94,11 +71,6 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
         }
     }
 
-    /**
-     * @param AggregateId $id
-     *
-     * @return bool
-     */
     public function exists(AggregateId $id): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -117,8 +89,6 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
     }
 
     /**
-     * @param Scheduler $channel
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -134,8 +104,6 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
 
 
     /**
-     * @param Scheduler $channel
-     *
      * @throws DBALException
      */
     private function update(Scheduler $channel): void
@@ -156,8 +124,6 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
     }
 
     /**
-     * @param Scheduler $channel
-     *
      * @throws DBALException
      */
     private function insert(Scheduler $channel): void
@@ -174,9 +140,6 @@ class DbalSchedulerRepository implements SchedulerRepositoryInterface
         );
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

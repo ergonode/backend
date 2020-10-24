@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Query;
 
@@ -15,20 +15,12 @@ use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-/**
- */
 class DbalUserQuery implements UserQueryInterface
 {
     public const TABLE = 'users';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -47,11 +39,6 @@ class DbalUserQuery implements UserQueryInterface
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
-    /**
-     * @param Email $email
-     *
-     * @return UserId|null
-     */
     public function findIdByEmail(Email $email): ?UserId
     {
         $qb = $this->getQuery();
@@ -68,9 +55,6 @@ class DbalUserQuery implements UserQueryInterface
         return null;
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

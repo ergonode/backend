@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
-/**
- */
 abstract class AbstractOptionAttribute extends AbstractAttribute
 {
 

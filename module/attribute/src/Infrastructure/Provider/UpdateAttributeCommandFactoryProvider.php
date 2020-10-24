@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Provider;
 
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 
-/**
- */
 class UpdateAttributeCommandFactoryProvider
 {
     /**
@@ -19,19 +17,11 @@ class UpdateAttributeCommandFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param UpdateAttributeCommandFactoryInterface ...$factories
-     */
     public function __construct(UpdateAttributeCommandFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return UpdateAttributeCommandFactoryInterface
-     */
     public function provide(string $type): UpdateAttributeCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {

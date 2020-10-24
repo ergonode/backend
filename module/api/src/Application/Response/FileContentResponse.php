@@ -5,22 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Api\Application\Response;
 
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- */
 class FileContentResponse extends AbstractResponse
 {
 
     /**
-     * @param string              $filename
-     * @param FilesystemInterface $storage
-     *
      * @throws \League\Flysystem\FileNotFoundException
      */
     public function __construct(string $filename, FilesystemInterface $storage)

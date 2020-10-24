@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Persistence\Repository;
 
@@ -20,8 +20,6 @@ use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalChannelFa
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalChannelMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalChannelRepository implements ChannelRepositoryInterface
 {
     private const TABLE = 'exporter.channel';
@@ -33,26 +31,12 @@ class DbalChannelRepository implements ChannelRepositoryInterface
         'configuration',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var DbalChannelFactory
-     */
     private DbalChannelFactory $factory;
 
-    /**
-     * @var DbalChannelMapper
-     */
     private DbalChannelMapper $mapper;
 
-    /**
-     * @param Connection         $connection
-     * @param DbalChannelFactory $factory
-     * @param DbalChannelMapper  $mapper
-     */
     public function __construct(Connection $connection, DbalChannelFactory $factory, DbalChannelMapper $mapper)
     {
         $this->connection = $connection;
@@ -60,11 +44,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
         $this->mapper = $mapper;
     }
 
-    /**
-     * @param ChannelId $id
-     *
-     * @return AbstractChannel|null
-     */
     public function load(ChannelId $id): ?AbstractChannel
     {
         $qb = $this->getQuery();
@@ -81,8 +60,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     }
 
     /**
-     * @param AbstractChannel $channel
-     *
      * @throws DBALException
      */
     public function save(AbstractChannel $channel): void
@@ -94,11 +71,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
         }
     }
 
-    /**
-     * @param ChannelId $id
-     *
-     * @return bool
-     */
     public function exists(ChannelId $id): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -117,8 +89,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     }
 
     /**
-     * @param AbstractChannel $channel
-     *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
@@ -134,8 +104,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
 
 
     /**
-     * @param AbstractChannel $channel
-     *
      * @throws DBALException
      */
     private function update(AbstractChannel $channel): void
@@ -156,8 +124,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     }
 
     /**
-     * @param AbstractChannel $channel
-     *
      * @throws DBALException
      */
     private function insert(AbstractChannel $channel): void
@@ -175,9 +141,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
         );
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

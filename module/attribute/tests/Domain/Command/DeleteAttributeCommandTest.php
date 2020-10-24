@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command;
 
@@ -14,12 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteAttributeCommandTest extends TestCase
 {
-    /**
-     */
     public function testDeleteEvent(): void
     {
         /** @var AttributeId|MockObject $attributeId */

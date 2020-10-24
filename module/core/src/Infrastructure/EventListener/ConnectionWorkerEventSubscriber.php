@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\EventListener;
 
@@ -14,26 +14,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
-/**
- */
 class ConnectionWorkerEventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var Connection
-     */
     private Connection  $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param WorkerMessageFailedEvent $event
-     *
      * @throws \Throwable
      */
     public function onMessageFailed(WorkerMessageFailedEvent $event): void
@@ -60,8 +50,6 @@ class ConnectionWorkerEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     */
     private function reconnect(): void
     {
         if (!$this->connection->ping()) {

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\TranslationDeepl\Infrastructure\Cache;
 
@@ -13,23 +13,16 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Infrastructure\Cache\CacheInterface;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- */
 class DatabaseTranslationCache implements CacheInterface
 {
     private const TABLE = 'translation_cache';
     private const TRANSLATION_FIELD = 'a.translation';
     private const ID_FIELD = 'a.id';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
     /**
      * TranslationDeeplProviderDecorator constructor.
-     *
-     * @param Connection $connection
      */
     public function __construct(Connection $connection)
     {
@@ -71,8 +64,7 @@ class DatabaseTranslationCache implements CacheInterface
     }
 
     /**
-     * @param array         $fields
-     * @param UuidInterface $key
+     * @param array $fields
      *
      * @return false|mixed
      */

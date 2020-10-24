@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Domain\Builder;
 
@@ -20,26 +20,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterShopware6\Domain\Command\UpdateShopware6ChannelCommand;
 use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
 
-/**
- */
 class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return Shopware6Channel::TYPE === $type;
     }
 
-    /**
-     * @param ChannelId     $id
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function build(ChannelId $id, FormInterface $form): DomainCommandInterface
     {
         /** @var Shopware6ChannelFormModel $data */

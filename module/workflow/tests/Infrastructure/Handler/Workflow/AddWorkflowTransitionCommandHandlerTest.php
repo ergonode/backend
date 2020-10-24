@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Infrastructure\Handler\Workflow;
 
@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
-/**
- */
 class AddWorkflowTransitionCommandHandlerTest extends TestCase
 {
     /**

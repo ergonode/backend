@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\Language;
 
@@ -21,14 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LanguageAutocompleteAction
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @param LanguageQueryInterface $query
-     */
     public function __construct(LanguageQueryInterface $query)
     {
         $this->query = $query;
@@ -79,10 +73,6 @@ class LanguageAutocompleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(Request $request): Response
     {

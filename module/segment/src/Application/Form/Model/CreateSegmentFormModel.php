@@ -5,28 +5,22 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Form\Model;
 
 use Ergonode\Segment\Infrastructure\Validator\UniqueSegmentCode;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class CreateSegmentFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\Uuid()
      */
     public ?string $conditionSetId;
 
     /**
-     * @var string|null
-     *
-     * @Assert\NotBlank(message="Segment code is required")
+     * @Assert\NotBlank(message="System name is required")
      * @Assert\Length(max=100)
      *
      * @UniqueSegmentCode()
@@ -43,8 +37,6 @@ class CreateSegmentFormModel
      */
     public array $description;
 
-    /**
-     */
     public function __construct()
     {
         $this->conditionSetId = null;

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Infrastructure\Persistence\Query;
 
@@ -23,44 +23,20 @@ use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
-/**
- */
 class CompletenessQuery implements CompletenessQueryInterface
 {
     private const TABLE = 'product_completeness';
 
-    /**
-     * @var Connection $connection
-     */
     private Connection $connection;
 
-    /**
-     * @var TranslatorInterface
-     */
     private TranslatorInterface $translator;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $repository;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $query;
 
-    /**
-     * @var ProductQueryInterface
-     */
     private ProductQueryInterface $productQuery;
 
-    /**
-     * @param Connection                   $connection
-     * @param TranslatorInterface          $translator
-     * @param AttributeRepositoryInterface $repository
-     * @param LanguageQueryInterface       $query
-     * @param ProductQueryInterface        $productQuery
-     */
     public function __construct(
         Connection $connection,
         TranslatorInterface $translator,
@@ -75,12 +51,6 @@ class CompletenessQuery implements CompletenessQueryInterface
         $this->productQuery = $productQuery;
     }
 
-    /**
-     * @param ProductId $productId
-     * @param Language  $language
-     *
-     * @return CompletenessReadModel
-     */
     public function getCompleteness(ProductId $productId, Language $language): CompletenessReadModel
     {
         $qb = $this->connection->createQueryBuilder();
@@ -162,12 +132,6 @@ class CompletenessQuery implements CompletenessQueryInterface
         return array_values($result);
     }
 
-    /**
-     * @param AttributeId $attributeId
-     * @param Language    $language
-     *
-     * @return string
-     */
     private function getLabel(AttributeId $attributeId, Language $language): string
     {
         $attribute = $this->repository->load($attributeId);

@@ -5,20 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\ValueObject;
 
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class EmailTest extends TestCase
 {
     /**
-     * @param string $value
-     *
      * @dataProvider validDataProvider
      */
     public function testValidaValue(string $value): void
@@ -44,9 +40,6 @@ class EmailTest extends TestCase
     }
 
     /**
-     * @param string $value
-     *
-     *
      * @dataProvider invalidDataProvider
      */
     public function testInvalidValue(string $value): void
@@ -69,9 +62,6 @@ class EmailTest extends TestCase
     }
 
     /**
-     * @param string $input
-     * @param string $expected
-     *
      * @dataProvider formatDataProvider
      */
     public function testFormat(string $input, string $expected): void
@@ -102,8 +92,6 @@ class EmailTest extends TestCase
         ];
     }
 
-    /**
-     */
     public function testEqualValues(): void
     {
         $email1 = new Email('correct@email.com');
@@ -112,8 +100,6 @@ class EmailTest extends TestCase
         $this->assertTrue($email1->isEqual($email2));
     }
 
-    /**
-     */
     public function testNotEqualValues(): void
     {
         $email1 = new Email('correct1@email.com');

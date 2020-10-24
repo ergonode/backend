@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
@@ -20,14 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DateFormatReadAction
 {
-    /**
-     * @var DateFormatProvider
-     */
     private DateFormatProvider $dateFormatProvider;
 
-    /**
-     * @param DateFormatProvider $dateFormatProvider
-     */
     public function __construct(DateFormatProvider $dateFormatProvider)
     {
         $this->dateFormatProvider = $dateFormatProvider;
@@ -47,8 +41,6 @@ class DateFormatReadAction
      *     response=200,
      *     description="Returns collection of available date formats",
      * )
-     *
-     * @return Response
      */
     public function __invoke(): Response
     {

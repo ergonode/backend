@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
@@ -28,14 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class GetMultimediaMetadataAction
 {
-    /**
-     * @var MetadataService
-     */
     private MetadataService $service;
 
-    /**
-     * @param MetadataService $service
-     */
     public function __construct(MetadataService $service)
     {
         $this->service = $service;
@@ -69,12 +63,6 @@ class GetMultimediaMetadataAction
      * )
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
-     *
-     * @param Multimedia $multimedia
-     * @param Request    $request
-     *
-     * @return Response
-     *
      */
     public function __invoke(Multimedia $multimedia, Request $request): Response
     {

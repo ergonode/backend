@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Query;
 
@@ -16,28 +16,15 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 class DbalLogQuery implements LogQueryInterface
 {
-    /**
-     * @var  Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param UserId|null $id
-     *
-     * @return DataSetInterface
-     */
     public function getDataSet(?UserId $id = null): DataSetInterface
     {
         $result = $this->connection->createQueryBuilder();
@@ -54,9 +41,6 @@ class DbalLogQuery implements LogQueryInterface
         return new DbalDataSet($result);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Command;
 
@@ -18,41 +18,29 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class CreateTemplateCommand implements DomainCommandInterface
 {
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @var MultimediaId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private ?MultimediaId $imageId;
 
     /**
-     * @var AttributeId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultLabel;
 
     /**
-     * @var AttributeId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private ?AttributeId $defaultImage;
@@ -67,11 +55,6 @@ class CreateTemplateCommand implements DomainCommandInterface
     /**
      * CreateTemplateCommand constructor.
      *
-     * @param string            $name
-     * @param ArrayCollection   $elements
-     * @param AttributeId|null  $defaultLabel
-     * @param AttributeId|null  $defaultImage
-     * @param MultimediaId|null $imageId
      *
      * @throws \Exception
      */
@@ -96,41 +79,26 @@ class CreateTemplateCommand implements DomainCommandInterface
         $this->imageId = $imageId;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getId(): TemplateId
     {
         return $this->templateId;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return AttributeId|null
-     */
     public function getDefaultLabel(): ?AttributeId
     {
         return $this->defaultLabel;
     }
 
-    /**
-     * @return AttributeId|null
-     */
     public function getDefaultImage(): ?AttributeId
     {
         return $this->defaultImage;
     }
 
-    /**
-     * @return MultimediaId|null
-     */
     public function getImageId(): ?MultimediaId
     {
         return $this->imageId;

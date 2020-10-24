@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Command;
 
@@ -20,26 +20,14 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- */
 class CreateUserCommand extends Command
 {
     private const NAME = 'ergonode:user:create';
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RoleQueryInterface
-     */
     private RoleQueryInterface $query;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     * @param RoleQueryInterface  $query
-     */
     public function __construct(CommandBusInterface $commandBus, RoleQueryInterface $query)
     {
         parent::__construct(static::NAME);
@@ -63,11 +51,6 @@ class CreateUserCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return int
-     *
      * @throws \Exception
      */
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -81,22 +64,24 @@ class CreateUserCommand extends Command
 
         $roleId = array_search($role, $this->query->getDictionary(), true);
 
-        if ($roleId) {
-            $command = new \Ergonode\Account\Domain\Command\User\CreateUserCommand(
-                $firstName,
-                $lastName,
-                $email,
-                $language,
-                $password,
-                new RoleId($roleId)
-            );
-            $this->commandBus->dispatch($command);
-
-            $output->writeln('<info>User created.</info>');
-        } else {
+        if (false === $roleId) {
             $output->writeln(sprintf('<error>Can\'t find role %s</error>', $role));
+
+            return 1;
         }
 
-        return 1;
+        $command = new \Ergonode\Account\Domain\Command\User\CreateUserCommand(
+            $firstName,
+            $lastName,
+            $email,
+            $language,
+            $password,
+            new RoleId($roleId)
+        );
+        $this->commandBus->dispatch($command);
+
+        $output->writeln('<info>User created.</info>');
+
+        return 0;
     }
 }

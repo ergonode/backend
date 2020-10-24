@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
@@ -38,20 +38,10 @@ use Ergonode\Api\Application\Response\CreatedResponse;
  */
 class AddProductAttributeBindingsAction extends AbstractController
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
-     */
     public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
@@ -89,13 +79,6 @@ class AddProductAttributeBindingsAction extends AbstractController
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     *
-     * @param Language        $language
-     * @param AbstractProduct $product
-     * @param Request         $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {

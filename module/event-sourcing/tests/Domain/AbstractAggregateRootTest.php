@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Tests\Domain;
 
@@ -16,8 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
-/**
- */
 class AbstractAggregateRootTest extends TestCase
 {
     /**
@@ -67,18 +65,12 @@ class AbstractAggregateRootTest extends TestCase
 
         return new class($id) extends AbstractAggregateRoot {
 
-            /**
-             * @param AggregateId $id
-             */
             public function __construct(AggregateId $id)
             {
                 $this->id = $id;
             }
 
 
-            /**
-             * @return AggregateId
-             */
             public function getId(): AggregateId
             {
                 return $this->id;

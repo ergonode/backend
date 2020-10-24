@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Builder;
 
@@ -16,18 +16,10 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-/**
- */
 class ConditionSetValidatorBuilder
 {
-    /**
-     * @var ConditionConstraintProvider
-     */
     private ConditionConstraintProvider $provider;
 
-    /**
-     * @param ConditionConstraintProvider $provider
-     */
     public function __construct(ConditionConstraintProvider $provider)
     {
         $this->provider = $provider;
@@ -35,8 +27,6 @@ class ConditionSetValidatorBuilder
 
     /**
      * @param array $data
-     *
-     * @return Constraint
      */
     public function build(array $data): Constraint
     {

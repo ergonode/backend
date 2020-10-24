@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Application\Form\Type;
 
@@ -15,13 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
 
-/**
- */
 class StoreViewType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -52,9 +49,6 @@ class StoreViewType extends AbstractType
             );
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

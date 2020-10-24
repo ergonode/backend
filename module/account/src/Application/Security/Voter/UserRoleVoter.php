@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Security\Voter;
 
@@ -19,26 +19,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 
-/**
- */
 class UserRoleVoter extends Voter implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $repository;
 
-    /**
-     * @var PrivilegeQueryInterface
-     */
     private PrivilegeQueryInterface $query;
 
-    /**
-     * @param RoleRepositoryInterface $repository
-     * @param PrivilegeQueryInterface $query
-     */
     public function __construct(RoleRepositoryInterface $repository, PrivilegeQueryInterface $query)
     {
         $this->repository = $repository;

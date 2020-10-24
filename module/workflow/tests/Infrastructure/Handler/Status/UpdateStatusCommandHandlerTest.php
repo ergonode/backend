@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Infrastructure\Handler\Status;
 
@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 
-/**
- */
 class UpdateStatusCommandHandlerTest extends TestCase
 {
     /**

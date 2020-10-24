@@ -4,12 +4,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Provider;
 
-/**
- */
 class ChannelFormFactoryProvider
 {
     /**
@@ -17,19 +15,11 @@ class ChannelFormFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param ChannelFormFactoryInterface ...$factories
-     */
     public function __construct(ChannelFormFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return ChannelFormFactoryInterface
-     */
     public function provide(string $type): ChannelFormFactoryInterface
     {
         foreach ($this->factories as $factory) {

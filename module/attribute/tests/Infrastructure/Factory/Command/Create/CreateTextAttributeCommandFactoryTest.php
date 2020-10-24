@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Create;
 
@@ -15,12 +15,8 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateTextAttribute
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
-/**
- */
 class CreateTextAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new CreateTextAttributeCommandFactory();
@@ -28,8 +24,6 @@ class CreateTextAttributeCommandFactoryTest extends AbstractCreateAttributeComma
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         $data = $this->getAttributeFormModel(AttributeFormModel::class);

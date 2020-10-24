@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
@@ -14,36 +14,26 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedi
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Shopware6Product
 {
     /**
-     * @var string|null
-     *
      * @JMS\Exclude()
      */
     private ?string $id;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("productNumber")
      */
     private ?string $sku;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     private ?string $name;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("description")
      */
@@ -74,24 +64,18 @@ class Shopware6Product
     private ?array $customFields;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("bool")
      * @JMS\SerializedName("active")
      */
     private bool $active;
 
     /**
-     * @var int|null
-     *
      * @JMS\Type("int")
      * @JMS\SerializedName("stock")
      */
     private ?int $stock;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("taxId")
      */
@@ -106,8 +90,6 @@ class Shopware6Product
     private ?array $price;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("parentId")
      */
@@ -138,8 +120,6 @@ class Shopware6Product
     private ?array $configuratorSettings = null;
 
     /**
-     * @var string|null
-     *
      * @JMS\Type("string")
      * @JMS\SerializedName("coverId")
      */
@@ -167,26 +147,15 @@ class Shopware6Product
     private array $mediaToRemove = [];
 
     /**
-     * @var bool
-     *
      * @JMS\Exclude()
      */
     private bool $modified = false;
 
     /**
-     * @param string|null $id
-     * @param string|null $sku
-     * @param string|null $name
-     * @param string|null $description
-     * @param array|null  $properties
-     * @param array|null  $customFields
-     * @param string|null $parentId
-     * @param array|null  $options
-     * @param bool        $active
-     * @param int|null    $stock
-     * @param string|null $taxId
-     * @param array|null  $price
-     * @param string|null $coverId
+     * @param array|null $properties
+     * @param array|null $customFields
+     * @param array|null $options
+     * @param array|null $price
      */
     public function __construct(
         ?string $id = null,
@@ -219,25 +188,16 @@ class Shopware6Product
         $this->setPropertyToRemove($properties);
     }
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         return $this->sku;
     }
 
-    /**
-     * @param string $sku
-     */
     public function setSku(string $sku): void
     {
         if ($sku !== $this->sku) {
@@ -246,17 +206,11 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         if ($name !== $this->name) {
@@ -265,17 +219,11 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string|null $description
-     */
     public function setDescription(?string $description): void
     {
         if ($description !== $this->description) {
@@ -305,9 +253,6 @@ class Shopware6Product
         return [];
     }
 
-    /**
-     * @param Shopware6ProductCategory $category
-     */
     public function addCategory(Shopware6ProductCategory $category): void
     {
         if (!$this->hasCategory($category)) {
@@ -317,11 +262,6 @@ class Shopware6Product
         unset($this->categoryToRemove[$category->getId()]);
     }
 
-    /**
-     * @param Shopware6ProductCategory $category
-     *
-     * @return bool
-     */
     public function hasCategory(Shopware6ProductCategory $category): bool
     {
         foreach ($this->getCategories() as $productCategory) {
@@ -353,9 +293,6 @@ class Shopware6Product
         return [];
     }
 
-    /**
-     * @param string $propertyId
-     */
     public function addProperty(string $propertyId): void
     {
         if (!$this->hasProperty($propertyId)) {
@@ -367,11 +304,6 @@ class Shopware6Product
         unset($this->propertyToRemove[$propertyId]);
     }
 
-    /**
-     * @param string $propertyId
-     *
-     * @return bool
-     */
     public function hasProperty(string $propertyId): bool
     {
         foreach ($this->getProperties() as $property) {
@@ -404,7 +336,6 @@ class Shopware6Product
     }
 
     /**
-     * @param string       $customFieldId
      * @param string|array $value
      */
     public function addCustomField(string $customFieldId, $value): void
@@ -415,11 +346,6 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @param string $customFieldId
-     *
-     * @return bool
-     */
     public function hasCustomField(string $customFieldId): bool
     {
         foreach ($this->getCustomFields() as $key => $customField) {
@@ -431,17 +357,11 @@ class Shopware6Product
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->active;
     }
 
-    /**
-     * @param bool $active
-     */
     public function setActive(bool $active): void
     {
         if ($active !== $this->active) {
@@ -450,17 +370,11 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @return int
-     */
     public function getStock(): int
     {
         return $this->stock;
     }
 
-    /**
-     * @param int $stock
-     */
     public function setStock(int $stock): void
     {
         if ($stock !== $this->stock) {
@@ -469,17 +383,11 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @return string
-     */
     public function getTaxId(): string
     {
         return $this->taxId;
     }
 
-    /**
-     * @param string $taxId
-     */
     public function setTaxId(string $taxId): void
     {
         if ($taxId !== $this->taxId) {
@@ -500,9 +408,6 @@ class Shopware6Product
         return [];
     }
 
-    /**
-     * @param Shopware6ProductPrice $price
-     */
     public function addPrice(Shopware6ProductPrice $price): void
     {
         if (!$this->hasPrice($price)) {
@@ -512,11 +417,6 @@ class Shopware6Product
         $this->changePrice($price);
     }
 
-    /**
-     * @param Shopware6ProductPrice $price
-     *
-     * @return bool
-     */
     public function hasPrice(Shopware6ProductPrice $price): bool
     {
         foreach ($this->getPrice() as $item) {
@@ -528,17 +428,11 @@ class Shopware6Product
         return false;
     }
 
-    /**
-     * @return string|null
-     */
     public function getParentId(): ?string
     {
         return $this->parentId;
     }
 
-    /**
-     * @param string|null $parentId
-     */
     public function setParentId(?string $parentId): void
     {
         if ($parentId !== $this->parentId) {
@@ -559,9 +453,6 @@ class Shopware6Product
         return [];
     }
 
-    /**
-     * @param string $option
-     */
     public function addOptions(string $option): void
     {
         if (!$this->hasOption($option)) {
@@ -572,11 +463,6 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @param string $optionId
-     *
-     * @return bool
-     */
     public function hasOption(string $optionId): bool
     {
         foreach ($this->getOptions() as $option) {
@@ -609,9 +495,6 @@ class Shopware6Product
         return [];
     }
 
-    /**
-     * @param Shopware6ProductMedia $media
-     */
     public function addMedia(Shopware6ProductMedia $media): void
     {
         if (!$this->hasMedia($media)) {
@@ -621,11 +504,6 @@ class Shopware6Product
         unset($this->mediaToRemove[$media->getMediaId()]);
     }
 
-    /**
-     * @param Shopware6ProductMedia $media
-     *
-     * @return bool
-     */
     public function hasMedia(Shopware6ProductMedia $media): bool
     {
         foreach ($this->getMedia() as $productMedia) {
@@ -665,9 +543,6 @@ class Shopware6Product
         return [];
     }
 
-    /**
-     * @param Shopware6ProductConfiguratorSettings $configuratorSetting
-     */
     public function addConfiguratorSettings(Shopware6ProductConfiguratorSettings $configuratorSetting): void
     {
         if (!$this->hasConfiguratorSettings($configuratorSetting)) {
@@ -676,11 +551,6 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @param Shopware6ProductConfiguratorSettings $value
-     *
-     * @return bool
-     */
     public function hasConfiguratorSettings(Shopware6ProductConfiguratorSettings $value): bool
     {
         foreach ($this->getConfiguratorSettings() as $configuratorSetting) {
@@ -692,17 +562,11 @@ class Shopware6Product
         return false;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCoverId(): ?string
     {
         return $this->coverId;
     }
 
-    /**
-     * @param string|null $coverId
-     */
     public function setCoverId(?string $coverId): void
     {
         if ($this->coverId !== $coverId) {
@@ -712,25 +576,16 @@ class Shopware6Product
     }
 
 
-    /**
-     * @return bool
-     */
     public function isNew(): bool
     {
         return null === $this->id;
     }
 
-    /**
-     * @return bool
-     */
     public function isModified(): bool
     {
         return $this->modified;
     }
 
-    /**
-     * @return bool
-     */
     public function hasItemToRemoved(): bool
     {
         return count($this->propertyToRemove) > 0
@@ -774,9 +629,6 @@ class Shopware6Product
         }
     }
 
-    /**
-     * @param Shopware6ProductPrice $price
-     */
     private function changePrice(Shopware6ProductPrice $price): void
     {
         foreach ($this->getPrice() as $item) {

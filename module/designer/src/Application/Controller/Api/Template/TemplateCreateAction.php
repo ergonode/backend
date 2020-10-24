@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
@@ -27,26 +27,12 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class TemplateCreateAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var TemplateCommandFactory
-     */
     private TemplateCommandFactory $commandFactory;
 
-    /**
-     * @param CommandBusInterface    $commandBus
-     * @param FormFactoryInterface   $formFactory
-     * @param TemplateCommandFactory $commandFactory
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
@@ -86,9 +72,7 @@ class TemplateCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
      *
-     * @return Response
      *
      * @throws \Exception
      */

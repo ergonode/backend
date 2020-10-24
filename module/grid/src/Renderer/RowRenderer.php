@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Renderer;
 
@@ -13,8 +13,6 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 
-/**
- */
 class RowRenderer implements RowRendererInterface
 {
     /**
@@ -22,9 +20,6 @@ class RowRenderer implements RowRendererInterface
      */
     private array $rendererCollection;
 
-    /**
-     * @param ColumnRendererInterface ...$collection
-     */
     public function __construct(ColumnRendererInterface ...$collection)
     {
         $this->rendererCollection = $collection;

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Group;
 
@@ -15,8 +15,6 @@ use Ergonode\Attribute\Infrastructure\Handler\Group\CreateAttributeGroupCommandH
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateAttributeGroupCommandHandlerTest extends TestCase
 {
     /**
@@ -34,8 +32,6 @@ class CreateAttributeGroupCommandHandlerTest extends TestCase
      */
     private $factory;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->command = $this->createMock(CreateAttributeGroupCommand::class);
@@ -43,8 +39,6 @@ class CreateAttributeGroupCommandHandlerTest extends TestCase
         $this->factory = $this->createMock(AttributeGroupFactory::class);
     }
 
-    /**
-     */
     public function testUpdate(): void
     {
         $this->factory->expects($this->once())->method('create');

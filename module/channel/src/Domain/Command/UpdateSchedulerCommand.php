@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Command;
 
@@ -14,52 +14,33 @@ use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class UpdateSchedulerCommand implements DomainCommandInterface
 {
     /**
-     * @var AggregateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
     private AggregateId $id;
 
     /**
-     * @var bool
-     *
      * @JMS\Type("boolean")
      */
     private bool $active;
 
     /**
-     * @var \DateTime|null
-     *
      * @JMS\Type("DateTime")
      */
     private ?\DateTime $start;
 
     /**
-     * @var int|null
-     *
      * @JMS\Type("integer")
      */
     private ?int $hour;
 
     /**
-     * @var int|null
-     *
      * @JMS\Type("integer")
      */
     private ?int $minute;
 
-    /**
-     * @param AggregateId    $id
-     * @param bool           $active
-     * @param \DateTime|null $start
-     * @param int | null     $hour
-     * @param int | null     $minute
-     */
     public function __construct(AggregateId $id, bool $active, ?\DateTime $start, ?int $hour, ?int $minute)
     {
         if ($active) {
@@ -77,41 +58,26 @@ class UpdateSchedulerCommand implements DomainCommandInterface
         $this->minute = $minute;
     }
 
-    /**
-     * @return AggregateId
-     */
     public function getId(): AggregateId
     {
         return $this->id;
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->active;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getStart(): \DateTime
     {
         return $this->start;
     }
 
-    /**
-     * @return int
-     */
     public function getHour(): int
     {
         return $this->hour;
     }
 
-    /**
-     * @return int
-     */
     public function getMinute(): int
     {
         return $this->minute;

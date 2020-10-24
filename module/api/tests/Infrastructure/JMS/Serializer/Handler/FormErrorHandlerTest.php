@@ -5,20 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Api\Tests\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormErrorHandler;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class FormErrorHandlerTest extends TestCase
 {
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = FormErrorHandler::getSubscribingMethods();

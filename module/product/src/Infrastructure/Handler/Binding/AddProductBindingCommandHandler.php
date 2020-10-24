@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Binding;
 
@@ -16,24 +16,12 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 
-/**
- */
 class AddProductBindingCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param ProductRepositoryInterface   $productRepository
-     */
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         ProductRepositoryInterface $productRepository
@@ -43,8 +31,6 @@ class AddProductBindingCommandHandler
     }
 
     /**
-     * @param AddProductBindingCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(AddProductBindingCommand $command): void

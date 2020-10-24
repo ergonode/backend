@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
@@ -13,43 +13,32 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
-/**
- */
 class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
+     * @param AbstractAttribute[] $attributes
      */
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         if ($product->getType() === 'configurable') {
             $categories = $this->getCategories($product);
-            $attributes = $this->getAttributes($transformer, $source, $product);
+            $attributes = $this->getAttributes($source, $product, $attributes);
             $bindings = $this->getBindings($product);
             $variants = $this->getVariants($product);
 
@@ -67,8 +56,6 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     }
 
     /**
-     * @param ProductModel $product
-     *
      * @return AttributeCode[]
      */
     private function getBindings(ProductModel $product): array
@@ -86,8 +73,6 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     }
 
     /**
-     * @param ProductModel $product
-     *
      * @return Sku[]
      */
     private function getVariants(ProductModel $product): ?array

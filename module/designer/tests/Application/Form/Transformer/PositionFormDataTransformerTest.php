@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Designer\Application\Form\Transformer;
 
@@ -13,26 +13,18 @@ use Ergonode\Designer\Application\Form\Transformer\PositionFormDataTransformer;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class PositionFormDataTransformerTest extends TestCase
 {
 
-    /**
-     * @var PositionFormDataTransformer
-     */
     protected PositionFormDataTransformer $transformer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->transformer = new PositionFormDataTransformer();
     }
 
     /**
-     * @param Position|null $positionValueObject
-     * @param array|null    $array
+     * @param array|null $array
      *
      * @dataProvider dataProvider
      */
@@ -41,9 +33,6 @@ class PositionFormDataTransformerTest extends TestCase
         $this->assertSame($array, $this->transformer->transform($positionValueObject));
     }
 
-    /**
-     *
-     */
     public function testTransformException(): void
     {
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
@@ -53,8 +42,7 @@ class PositionFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @param Position|null $positionValueObject
-     * @param array|null    $array
+     * @param array|null $array
      *
      * @dataProvider dataProvider
      */
@@ -63,9 +51,6 @@ class PositionFormDataTransformerTest extends TestCase
         $this->assertEquals($positionValueObject, $this->transformer->reverseTransform($array));
     }
 
-    /**
-     *
-     */
     public function testReverseTransformException(): void
     {
         $this->expectExceptionMessage('Invalid Position -1,-2 value');

@@ -4,20 +4,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
 use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCompletenessConditionTest extends TestCase
 {
     /**
-     * @param string $completeness
-     *
      * @dataProvider dataProvider
      */
     public function testConditionCreation(string $completeness): void
@@ -27,8 +23,6 @@ class ProductCompletenessConditionTest extends TestCase
         $this->assertSame('PRODUCT_COMPLETENESS_CONDITION', $condition->getType());
     }
 
-    /**
-     */
     public function testInvalidConditionCreation(): void
     {
         $this->expectException(\InvalidArgumentException::class);

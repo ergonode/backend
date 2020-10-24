@@ -5,19 +5,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- */
 class ConstraintAttributeExistsCondition extends Constraint
 {
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return ConstraintAttributeExistsConditionValidator::class;

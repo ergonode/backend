@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
@@ -13,28 +13,18 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 
-/**
- */
 class DbalAttributeGroupRemovedEventProjector
 {
     private const TABLE = 'attribute_group_attribute';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param AttributeGroupRemovedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(AttributeGroupRemovedEvent $event): void

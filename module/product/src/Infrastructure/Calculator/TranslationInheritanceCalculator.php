@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Calculator;
 
@@ -16,28 +16,16 @@ use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class TranslationInheritanceCalculator
 {
-    /**
-     * @var LanguageQueryInterface
-     */
     private LanguageQueryInterface $languageQuery;
 
-    /**
-     * @param LanguageQueryInterface $languageQuery
-     */
     public function __construct(LanguageQueryInterface $languageQuery)
     {
         $this->languageQuery = $languageQuery;
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     * @param ValueInterface    $value
-     * @param Language          $language
-     *
      * @return string|array|null
      */
     public function calculate(AbstractAttribute $attribute, ValueInterface $value, Language $language)

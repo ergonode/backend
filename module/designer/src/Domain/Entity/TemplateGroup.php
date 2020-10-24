@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Entity;
 
@@ -14,28 +14,19 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class TemplateGroup extends AbstractAggregateRoot
 {
     /**
-     * @var TemplateGroupId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
     private TemplateGroupId $id;
 
     /**
-     * @var string
-     *
      * @JMS\Type("string")
      */
     private string $name;
 
     /**
-     * @param TemplateGroupId $id
-     * @param string          $name
-     *
      * @throws \Exception
      */
     public function __construct(TemplateGroupId $id, string $name)
@@ -43,25 +34,16 @@ class TemplateGroup extends AbstractAggregateRoot
         $this->apply(new TemplateGroupCreatedEvent($id, $name));
     }
 
-    /**
-     * @return TemplateGroupId
-     */
     public function getId(): TemplateGroupId
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param TemplateGroupCreatedEvent $event
-     */
     protected function applyTemplateGroupCreatedEvent(TemplateGroupCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();

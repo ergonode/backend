@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration\Provider;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
-/**
- */
 class MigrationDirectoryProvider implements MigrationDirectoryProviderInterface
 {
     private const DIRECTORY = 'migrations';
@@ -22,10 +20,6 @@ class MigrationDirectoryProvider implements MigrationDirectoryProviderInterface
      */
     private array $directories = [];
 
-    /**
-     * @param string          $path
-     * @param KernelInterface $kernel
-     */
     public function __construct(string $path, KernelInterface $kernel)
     {
         $mainDirectory = realpath(sprintf('%s%s', $path, self::DIRECTORY));
@@ -51,9 +45,6 @@ class MigrationDirectoryProvider implements MigrationDirectoryProviderInterface
         return $this->directories;
     }
 
-    /**
-     * @return string
-     */
     public function getMainDirectory(): string
     {
         return reset($this->directories);

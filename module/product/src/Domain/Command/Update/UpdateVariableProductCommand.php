@@ -5,33 +5,25 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Update;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class UpdateVariableProductCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
@@ -44,9 +36,7 @@ class UpdateVariableProductCommand implements DomainCommandInterface
     private array $categories;
 
     /**
-     * @param ProductId  $productId
-     * @param TemplateId $templateId
-     * @param array      $categories
+     * @param array $categories
      */
     public function __construct(
         ProductId $productId,
@@ -60,17 +50,11 @@ class UpdateVariableProductCommand implements DomainCommandInterface
         $this->categories = $categories;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;

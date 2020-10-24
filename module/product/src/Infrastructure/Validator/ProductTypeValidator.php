@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
@@ -15,18 +15,10 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class ProductTypeValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $repository;
 
-    /**
-     * @param ProductRepositoryInterface $repository
-     */
     public function __construct(ProductRepositoryInterface $repository)
     {
         $this->repository = $repository;

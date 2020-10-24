@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\Currency;
 
@@ -14,12 +14,8 @@ use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostCurrencyCreateTest extends TestCase
 {
-    /**
-     */
     public function testAction()
     {
         $action = new PostCurrencyCreate('RUB');

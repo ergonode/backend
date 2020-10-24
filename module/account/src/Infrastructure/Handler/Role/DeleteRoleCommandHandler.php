@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler\Role;
 
@@ -16,24 +16,12 @@ use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteRoleCommandHandler
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
     private RoleRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param RoleRepositoryInterface        $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         RoleRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -43,8 +31,6 @@ class DeleteRoleCommandHandler
     }
 
     /**
-     * @param DeleteRoleCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteRoleCommand $command)

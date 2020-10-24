@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver;
 
@@ -19,40 +19,20 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 
-/**
- */
 class ImportProductMultiSelectAttributeStrategy implements ImportProductAttributeStrategyInterface
 {
-    /**
-     * @var OptionQueryInterface
-     */
     private OptionQueryInterface $optionQuery;
 
-    /**
-     * @param OptionQueryInterface $optionQuery
-     */
     public function __construct(OptionQueryInterface $optionQuery)
     {
         $this->optionQuery = $optionQuery;
     }
 
-    /**
-     * @param AttributeType $type
-     *
-     * @return bool
-     */
     public function supported(AttributeType $type): bool
     {
         return MultiSelectAttribute::TYPE === $type->getValue();
     }
 
-    /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
-     * @param TranslatableString $value
-     *
-     * @return ValueInterface
-     */
     public function build(AttributeId $id, AttributeCode $code, TranslatableString $value): ValueInterface
     {
         $result = [];

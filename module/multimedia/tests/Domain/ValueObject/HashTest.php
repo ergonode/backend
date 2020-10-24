@@ -4,20 +4,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Domain\ValueObject;
 
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class HashTest extends TestCase
 {
     /**
-     * @param string $data
-     *
      * @dataProvider validDataProvider
      */
     public function testValidHashCreation(string $data): void
@@ -29,8 +25,6 @@ class HashTest extends TestCase
     }
 
     /**
-     * @param string $data
-     *
      * @dataProvider validDataProvider
      */
     public function testValidDataValidationMethod(string $data): void
@@ -39,9 +33,6 @@ class HashTest extends TestCase
     }
 
     /**
-     *
-     * @param string $data
-     *
      * @dataProvider invalidDataProvider
      */
     public function testNotValidHashCreation(string $data): void
@@ -51,8 +42,6 @@ class HashTest extends TestCase
     }
 
     /**
-     * @param string $data
-     *
      * @dataProvider invalidDataProvider
      */
     public function testInvalidDataValidationMethod(string $data): void
@@ -60,8 +49,6 @@ class HashTest extends TestCase
         $this->assertFalse(Hash::isValid($data));
     }
 
-    /**
-     */
     public function testObjectEquality(): void
     {
         $object1 = new Hash('da39a3ee5e6b4b0d3255bfef95601890afd80709');

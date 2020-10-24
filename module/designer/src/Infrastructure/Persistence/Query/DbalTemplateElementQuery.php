@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Persistence\Query;
 
@@ -15,36 +15,22 @@ use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 
-/**
- */
 class DbalTemplateElementQuery implements TemplateElementQueryInterface
 {
     private const TABLE = 'designer.element_type';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @return DataSetInterface
-     */
     public function getDataSet(): DataSetInterface
     {
         return new DbalDataSet($this->getQuery());
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

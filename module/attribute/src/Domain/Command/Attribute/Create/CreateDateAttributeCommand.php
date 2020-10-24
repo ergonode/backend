@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute\Create;
 
@@ -16,25 +16,15 @@ use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
 {
     /**
-     * @var DateFormat
-     *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\DateFormat")
      */
     private DateFormat $format;
 
     /**
-     * @param AttributeCode      $code
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param DateFormat         $format
-     * @param array              $groups
+     * @param array $groups
      *
      * @throws \Exception
      */
@@ -59,9 +49,6 @@ class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
         $this->format = $format;
     }
 
-    /**
-     * @return DateFormat
-     */
     public function getFormat(): DateFormat
     {
         return $this->format;

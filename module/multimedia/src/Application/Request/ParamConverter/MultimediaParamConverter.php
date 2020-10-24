@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Request\ParamConverter;
 
@@ -20,24 +20,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class MultimediaParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $repository;
 
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $multimediaStorage;
 
-    /**
-     * @param MultimediaRepositoryInterface $repository
-     * @param FilesystemInterface           $multimediaStorage
-     */
     public function __construct(
         MultimediaRepositoryInterface $repository,
         FilesystemInterface $multimediaStorage

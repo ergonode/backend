@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Domain\Command;
 
@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class UpdateFileExportChannelCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $id = $this->createMock(ChannelId::class);

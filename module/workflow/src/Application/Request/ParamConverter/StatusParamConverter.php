@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Request\ParamConverter;
 
@@ -19,18 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class StatusParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @param StatusRepositoryInterface $repository
-     */
     public function __construct(StatusRepositoryInterface $repository)
     {
         $this->repository = $repository;

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\JMS\Serializer\Handler;
 
@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class SkuHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,12 +46,7 @@ class SkuHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Sku                           $sku
-     * @param array                         $type
-     * @param Context                       $context
-     *
-     * @return string
+     * @param array $type
      */
     public function serialize(SerializationVisitorInterface $visitor, Sku $sku, array $type, Context $context): string
     {
@@ -61,12 +54,8 @@ class SkuHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
-     *
-     * @return Sku
+     * @param mixed $data
+     * @param array $type
      */
     public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Sku
     {

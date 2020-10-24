@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
@@ -19,8 +19,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-/**
- */
 class GalleryAttributeFormTest extends TypeTestCase
 {
     /**
@@ -28,9 +26,6 @@ class GalleryAttributeFormTest extends TypeTestCase
      */
     private AttributeGroupQueryInterface $query;
 
-    /**
-     *
-     */
     public function setUp(): void
     {
         $this->query = $this->createMock(AttributeGroupQueryInterface::class);
@@ -41,8 +36,6 @@ class GalleryAttributeFormTest extends TypeTestCase
         parent::setUp();
     }
 
-    /**
-     */
     public function testSupport(): void
     {
         $form = new GalleryAttributeForm();
@@ -50,8 +43,6 @@ class GalleryAttributeFormTest extends TypeTestCase
         $this->assertFalse($form->supported('unsupported type'));
     }
 
-    /**
-     */
     public function testSubmitValidData(): void
     {
         $formData = [

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Query;
 
@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 
-/**
- */
 class DbalPrivilegeQuery implements PrivilegeQueryInterface
 {
     public const PRIVILEGES_TABLE = 'privileges';
@@ -26,22 +24,14 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
         'g.description',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param bool $hidden
-     *
      * @return array
      */
     public function getPrivileges(bool $hidden = false): array
@@ -56,9 +46,6 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
         return $qb->execute()->fetchAll();
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

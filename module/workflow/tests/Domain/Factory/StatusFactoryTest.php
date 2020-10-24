@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Factory;
 
@@ -17,13 +17,8 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class StatusFactoryTest extends TestCase
 {
-    /**
-     * @var StatusCode
-     */
     private StatusCode $code;
 
     /**
@@ -41,8 +36,6 @@ class StatusFactoryTest extends TestCase
      */
     private $description;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->color = $this->createMock(Color::class);

@@ -5,24 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Generator\Builder;
 
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Property;
 
-/**
- */
 class PropertyBuilder
 {
-    /**
-     * @param string      $propertyName
-     * @param string|null $type
-     * @param bool        $nullable
-     *
-     * @return Property
-     */
     public function build(string $propertyName, string $type = null, bool $nullable = false): Property
     {
         $property = new Property($propertyName);

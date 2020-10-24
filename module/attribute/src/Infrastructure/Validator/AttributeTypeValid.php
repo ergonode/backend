@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Validator;
 
@@ -16,13 +16,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class AttributeTypeValid extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Attribute {{ value }} not valid.';
 
-    /**
-     * @var string|null
-     */
     public ?string $type = null;
 }

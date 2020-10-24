@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Provider;
 
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 
-/**
- */
 class CreateWorkflowCommandFactoryProvider
 {
     /**
@@ -19,19 +17,11 @@ class CreateWorkflowCommandFactoryProvider
      */
     private array $factories;
 
-    /**
-     * @param CreateWorkflowCommandFactoryInterface ...$factories
-     */
     public function __construct(CreateWorkflowCommandFactoryInterface ...$factories)
     {
         $this->factories = $factories;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return CreateWorkflowCommandFactoryInterface
-     */
     public function provide(string $type): CreateWorkflowCommandFactoryInterface
     {
         foreach ($this->factories as $factory) {

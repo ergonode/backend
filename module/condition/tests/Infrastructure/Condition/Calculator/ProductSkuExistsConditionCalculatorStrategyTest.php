@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
@@ -16,18 +16,10 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductSkuExistsConditionCalculatorStrategy;
 
-/**
- */
 class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 {
-    /**
-     * @var ProductSkuExistsConditionCalculatorStrategy
-     */
     private ProductSkuExistsConditionCalculatorStrategy $strategy;
 
-    /**
-     *
-     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_SKU_EXISTS_CONDITION'));
@@ -36,11 +28,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 
 
     /**
-     * @param string $sku
-     * @param string $operator
-     * @param string $value
-     * @param bool   $result
-     *
      * @dataProvider calculateProvider
      */
     public function testCalculate(string $sku, string $operator, string $value, bool $result)
@@ -182,9 +169,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
         ];
     }
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         $this->strategy = new ProductSkuExistsConditionCalculatorStrategy();
@@ -192,8 +176,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 
 
     /**
-     * @param string $sku
-     *
      * @return AbstractProduct|MockObject
      */
     private function createProductMock(string $sku)
@@ -209,9 +191,6 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param string $value
-     *
      * @return ProductSkuExistsCondition|MockObject
      */
     private function createProductSkuExistsConditionMock(string $operator, string $value)

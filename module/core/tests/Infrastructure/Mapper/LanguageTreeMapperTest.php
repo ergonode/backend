@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Infrastructure\Mapper;
 
@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class LanguageTreeMapperTest extends TestCase
 {
     /**
@@ -30,8 +28,6 @@ class LanguageTreeMapperTest extends TestCase
      */
     private Language $language;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->translator = $this->createMock(TranslatorInterface::class);

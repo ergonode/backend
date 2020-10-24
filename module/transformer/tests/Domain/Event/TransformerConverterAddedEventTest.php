@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Tests\Domain\Event;
 
@@ -14,12 +14,8 @@ use Ergonode\Transformer\Domain\Event\TransformerFieldAddedEvent;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class TransformerConverterAddedEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreate(): void
     {
         /** @var TransformerId $id */

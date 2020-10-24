@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\TranslationDeepl\Infrastructure\Validator;
 
@@ -15,13 +15,10 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- */
 class DeeplLanguageValidator extends ConstraintValidator
 {
     /**
-     * @param mixed      $value
-     * @param Constraint $constraint
+     * @param mixed $value
      *
      * @throws \ReflectionException
      */

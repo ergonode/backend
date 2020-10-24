@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Create;
 
@@ -17,29 +17,20 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 class CreateVariableProductCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
     /**
-     * @var Sku
-     *
      * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
      */
     private Sku $sku;
 
     /**
-     * @var TemplateId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
@@ -59,9 +50,6 @@ class CreateVariableProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ProductId    $id
-     * @param Sku          $sku
-     * @param TemplateId   $templateId
      * @param CategoryId[] $categories
      * @param array        $attributes
      */
@@ -82,25 +70,16 @@ class CreateVariableProductCommand implements DomainCommandInterface
         $this->attributes = $attributes;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getId(): ProductId
     {
         return $this->id;
     }
 
-    /**
-     * @return Sku
-     */
     public function getSku(): Sku
     {
         return $this->sku;
     }
 
-    /**
-     * @return TemplateId
-     */
     public function getTemplateId(): TemplateId
     {
         return $this->templateId;

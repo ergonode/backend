@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Domain\Command\LanguageTree;
 
@@ -13,12 +13,8 @@ use Ergonode\Core\Domain\Command\LanguageTree\CreateLanguageTreeCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreateLanguageTreeCommandTest extends TestCase
 {
-    /**
-     */
     public function testCommand(): void
     {
         $rootLanguage = $this->createMock(LanguageId::class);

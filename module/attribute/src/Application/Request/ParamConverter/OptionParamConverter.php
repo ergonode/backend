@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 
-/**
- */
 class OptionParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var OptionRepositoryInterface
-     */
     private OptionRepositoryInterface $repository;
 
-    /**
-     * @param OptionRepositoryInterface $repository
-     */
     public function __construct(OptionRepositoryInterface $repository)
     {
         $this->repository = $repository;

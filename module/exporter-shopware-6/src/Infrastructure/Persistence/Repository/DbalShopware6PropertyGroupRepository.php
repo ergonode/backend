@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
@@ -16,8 +16,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositor
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_property_group';
@@ -27,25 +25,13 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, AttributeId $attributeId): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -67,11 +53,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     * @param string      $type
-     *
      * @throws DBALException
      */
     public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void
@@ -83,12 +64,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
         }
     }
 
-    /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, AttributeId $attributeId): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -109,10 +84,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     *
      * @throws DBALException
      */
     private function update(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void
@@ -134,11 +105,6 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ChannelId   $channelId
-     * @param AttributeId $attributeId
-     * @param string      $shopwareId
-     * @param string      $type
-     *
      * @throws DBALException
      */
     private function insert(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void

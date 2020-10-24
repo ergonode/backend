@@ -5,15 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Mailer\Infrastructure\Sender;
 
 use Ergonode\Mailer\Domain\MailInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class MailerSender
 {
     /**
@@ -30,9 +28,6 @@ class MailerSender
         $this->strategies = $strategies;
     }
 
-    /**
-     * @param MailInterface $message
-     */
     public function send(MailInterface $message): void
     {
         foreach ($this->strategies as $strategy) {

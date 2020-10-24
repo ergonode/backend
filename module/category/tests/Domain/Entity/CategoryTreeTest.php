@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Entity;
 
@@ -17,8 +17,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTreeTest extends TestCase
 {
     /**
@@ -26,9 +24,6 @@ class CategoryTreeTest extends TestCase
      */
     private $id;
 
-    /**
-     * @var string
-     */
     private string $code;
 
     /**
@@ -36,8 +31,6 @@ class CategoryTreeTest extends TestCase
      */
     private $name;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(CategoryTreeId::class);
@@ -45,8 +38,6 @@ class CategoryTreeTest extends TestCase
         $this->name = $this->createMock(TranslatableString::class);
     }
 
-    /**
-     */
     public function testCreateCategoryTree(): void
     {
         $tree = new CategoryTree($this->id, $this->code, $this->name);
@@ -55,8 +46,6 @@ class CategoryTreeTest extends TestCase
         self::assertEquals($this->name, $tree->getName());
     }
 
-    /**
-     */
     public function testAddingCategory(): void
     {
         $root = CategoryId::generate();
@@ -72,8 +61,6 @@ class CategoryTreeTest extends TestCase
         self::assertTrue($tree->hasCategory($category2));
     }
 
-    /**
-     */
     public function testAddingExistingCategory(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -85,8 +72,6 @@ class CategoryTreeTest extends TestCase
         $tree->addCategory($category);
     }
 
-    /**
-     */
     public function testRenamingCategory(): void
     {
         $tree = new CategoryTree($this->id, $this->code, $this->name);
@@ -96,8 +81,6 @@ class CategoryTreeTest extends TestCase
         self::assertEquals($name2, $tree->getName());
     }
 
-    /**
-     */
     public function testUpdatingCategories(): void
     {
         $categoryId = CategoryId::generate();

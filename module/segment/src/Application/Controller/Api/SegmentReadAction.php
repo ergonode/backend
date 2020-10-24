@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
@@ -54,10 +54,6 @@ class SegmentReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
-     *
-     * @param Segment $segment
-     *
-     * @return Response
      */
     public function __invoke(Segment $segment): Response
     {

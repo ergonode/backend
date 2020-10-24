@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Model\Product;
 
@@ -15,13 +15,9 @@ use Ergonode\Product\Infrastructure\Validator\SkuUnique;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class SimpleProductFormModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Sku is required", groups={"Create"})
      *
      * @Sku(groups={"Create"})
@@ -36,8 +32,6 @@ class SimpleProductFormModel
     public array $categories = [];
 
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank(message="Template is required")
      * @Assert\Uuid()
      *

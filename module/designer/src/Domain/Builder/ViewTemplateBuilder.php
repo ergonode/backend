@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Builder;
 
@@ -13,27 +13,16 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Provider\ViewTemplateElementProvider;
 
-/**
- */
 class ViewTemplateBuilder
 {
-    /**
-     * @var  ViewTemplateElementProvider
-     */
     private ViewTemplateElementProvider $provider;
 
-    /**
-     * @param ViewTemplateElementProvider $provider
-     */
     public function __construct(ViewTemplateElementProvider $provider)
     {
         $this->provider = $provider;
     }
 
     /**
-     * @param Template $template
-     * @param Language $language
-     *
      * @return array
      */
     public function build(Template $template, Language $language): array

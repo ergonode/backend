@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Infrastructure\Persistence\Repository;
 
@@ -16,29 +16,16 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalProductDraftRepository implements ProductDraftRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param ProductDraftId $id
-     * @param bool           $draft
-     *
-     * @return ProductDraft
-     *
      * @throws \ReflectionException
      */
     public function load(ProductDraftId $id, bool $draft = false): ProductDraft
@@ -51,8 +38,6 @@ class DbalProductDraftRepository implements ProductDraftRepositoryInterface
     }
 
     /**
-     * @param ProductDraft $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(ProductDraft $aggregateRoot): void

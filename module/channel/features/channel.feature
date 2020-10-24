@@ -11,20 +11,20 @@ Feature: channel module
 
   Scenario: Get channels (order ASC)
     When I send a GET request to "/api/v1/en_GB/channels?field=name&order=ASC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the response status code should be 200
 
   Scenario: Get channels (order DESC)
     When I send a GET request to "/api/v1/en_GB/channels?field=name&order=DESC"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the response status code should be 200
 
   Scenario: Get channels (filter by name)
     When I send a GET request to "/api/v1/en_GB/channels?limit=25&offset=0&filter=name%3Dasd"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the response status code should be 200
 
   Scenario: Get channels (filter by code)
     When I send a GET request to "/api/v1/en_GB/channels?limit=25&offset=0&filter=code%3DCAT"
-    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
     And the response status code should be 200

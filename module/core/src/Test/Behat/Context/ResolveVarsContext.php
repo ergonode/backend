@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Test\Behat\Context;
 
@@ -17,26 +17,16 @@ use Behat\Gherkin\Node\TableNode;
 use ReflectionClass;
 use ReflectionException;
 
-/**
- */
 class ResolveVarsContext implements Context
 {
-    /**
-     * @var StorageContext
-     */
     private StorageContext $storageContext;
 
-    /**
-     * @param StorageContext $storageContext
-     */
     public function __construct(StorageContext $storageContext)
     {
         $this->storageContext = $storageContext;
     }
 
     /**
-     * @param BeforeStepScope $event
-     *
      * @throws ReflectionException
      *
      * @BeforeStep
@@ -65,11 +55,6 @@ class ResolveVarsContext implements Context
         $this->setText($step, $text);
     }
 
-    /**
-     * @param TableNode $tableNode
-     *
-     * @return TableNode
-     */
     private function resolveTableNode(TableNode $tableNode) : TableNode
     {
         $table = $tableNode->getTable();
@@ -85,11 +70,6 @@ class ResolveVarsContext implements Context
         return new TableNode($table);
     }
 
-    /**
-     * @param PyStringNode $stringNode
-     *
-     * @return PyStringNode
-     */
     private function resolvePyStringNode(PyStringNode $stringNode): PyStringNode
     {
         $newStringNode = $this->resolveText($stringNode->getRaw());
@@ -98,8 +78,7 @@ class ResolveVarsContext implements Context
     }
 
     /**
-     * @param StepNode $stepNode
-     * @param array    $value
+     * @param array $value
      *
      * @throws ReflectionException
      */
@@ -111,20 +90,12 @@ class ResolveVarsContext implements Context
         $argProp->setValue($stepNode, $value);
     }
 
-    /**
-     * @param string $text
-     *
-     * @return string
-     */
     private function resolveText(string $text) : string
     {
         return $this->storageContext->replaceVars($text);
     }
 
     /**
-     * @param StepNode $stepNode
-     * @param string   $value
-     *
      * @throws ReflectionException
      */
     private function setText(StepNode $stepNode, string $value) : void

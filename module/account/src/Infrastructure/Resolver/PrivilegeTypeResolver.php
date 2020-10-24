@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Resolver;
 
 use Ergonode\Account\Domain\ValueObject\Privilege;
 
-/**
- */
 class PrivilegeTypeResolver implements PrivilegeTypeResolverInterface
 {
     private const SEPARATOR = '_';

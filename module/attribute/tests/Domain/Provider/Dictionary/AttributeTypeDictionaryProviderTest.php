@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Provider\Dictionary;
 
@@ -16,12 +16,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
-/**
- */
 class AttributeTypeDictionaryProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingAttributeTypeDictionary(): void
     {
         /** @var TranslatorInterface | MockObject $translator */

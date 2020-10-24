@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Test\Behat\Context;
 
@@ -19,24 +19,12 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Exception;
 use InvalidArgumentException;
 
-/**
- */
 class UserContext implements Context
 {
-    /**
-     * @var UserRepositoryInterface
-     */
     private UserRepositoryInterface $repository;
 
-    /**
-     * @var UserQueryInterface
-     */
     private UserQueryInterface $query;
 
-    /**
-     * @param UserRepositoryInterface $repository
-     * @param UserQueryInterface      $query
-     */
     public function __construct(UserRepositoryInterface $repository, UserQueryInterface $query)
     {
         $this->repository = $repository;
@@ -44,10 +32,6 @@ class UserContext implements Context
     }
 
     /**
-     * @param string $userEmail
-     *
-     * @return SecurityUser
-     *
      * @throws Exception
      *
      * @Transform :user

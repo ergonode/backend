@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Builder\Command;
 
@@ -16,12 +16,8 @@ use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
 use Ergonode\ExporterFile\Domain\Command\UpdateFileExportChannelCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class UpdateFileExportChannelCommandBuilderTest extends TestCase
 {
-    /**
-     */
     public function testSupport(): void
     {
         $builder = new UpdateFileExportChannelCommandBuilder();
@@ -29,8 +25,6 @@ class UpdateFileExportChannelCommandBuilderTest extends TestCase
         self::assertFalse($builder->supported('any other'));
     }
 
-    /**
-     */
     public function testBuild(): void
     {
         $id = $this->createMock(ChannelId::class);

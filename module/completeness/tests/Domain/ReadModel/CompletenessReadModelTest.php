@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Tests\Domain\ReadModel;
 
@@ -15,12 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CompletenessReadModelTest extends TestCase
 {
-    /**
-     */
     public function testModelCreation(): void
     {
         /** @var Language|MockObject $attributeId */
@@ -35,8 +31,6 @@ class CompletenessReadModelTest extends TestCase
         $this->assertEquals(100, $model->getPercent());
     }
 
-    /**
-     */
     public function testModelAddNotRequiredElementModel(): void
     {
         $element = $this->createMock(CompletenessElementReadModel::class);
@@ -53,8 +47,6 @@ class CompletenessReadModelTest extends TestCase
         $this->assertEquals(100, $model->getPercent());
     }
 
-    /**
-     */
     public function testModelAddRequiredElementModel(): void
     {
         $element = $this->createMock(CompletenessElementReadModel::class);
@@ -72,8 +64,6 @@ class CompletenessReadModelTest extends TestCase
         $this->assertEquals(0, $model->getPercent());
     }
 
-    /**
-     */
     public function testModelAddRequiredAndFilledElementModel(): void
     {
         $element = $this->createMock(CompletenessElementReadModel::class);

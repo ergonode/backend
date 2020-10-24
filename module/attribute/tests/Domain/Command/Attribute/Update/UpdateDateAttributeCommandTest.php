@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Update;
 
@@ -16,18 +16,10 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateDateAttributeCommandTest extends TestCase
 {
     /**
-     * @param AttributeId        $id
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param AttributeScope     $scope
-     * @param DateFormat         $format
-     * @param array              $groups
+     * @param array $groups
      *
      * @dataProvider dataProvider
      */

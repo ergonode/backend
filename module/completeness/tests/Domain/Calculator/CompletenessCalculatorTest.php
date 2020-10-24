@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Tests\Domain\Calculator;
 
@@ -21,12 +21,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 
-/**
- */
 class CompletenessCalculatorTest extends TestCase
 {
-    /**
-     */
     public function testCalculation(): void
     {
         $model = $this->createMock(CompletenessCalculatorLine::class);

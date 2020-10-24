@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Tests\Domain\Event;
 
@@ -14,8 +14,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class CommentCreatedEventTest extends TestCase
 {
     /**

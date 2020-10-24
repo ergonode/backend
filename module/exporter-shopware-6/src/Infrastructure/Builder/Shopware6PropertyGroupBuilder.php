@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Builder;
 
@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 
-/**
- */
 class Shopware6PropertyGroupBuilder
 {
     /**
@@ -23,22 +21,11 @@ class Shopware6PropertyGroupBuilder
      */
     private array $collection;
 
-    /**
-     * @param Shopware6PropertyGroupMapperInterface ...$collection
-     */
     public function __construct(Shopware6PropertyGroupMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
 
-    /**
-     * @param Shopware6Channel       $channel
-     * @param Shopware6PropertyGroup $shopware6PropertyGroup
-     * @param AbstractAttribute      $attribute
-     * @param Language|null          $language
-     *
-     * @return Shopware6PropertyGroup
-     */
     public function build(
         Shopware6Channel $channel,
         Shopware6PropertyGroup $shopware6PropertyGroup,

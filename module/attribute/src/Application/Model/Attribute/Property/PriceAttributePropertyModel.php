@@ -4,19 +4,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Model\Attribute\Property;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class PriceAttributePropertyModel
 {
     /**
-     * @var string|null
-     *
      * @Assert\NotBlank()
      */
     public ?string $currency = null;

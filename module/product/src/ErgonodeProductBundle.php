@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product;
 
@@ -18,13 +18,8 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductUpdateC
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductTypeCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductFormCompilerPass;
 
-/**
- */
 class ErgonodeProductBundle extends AbstractModule
 {
-    /**
-     * @param ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

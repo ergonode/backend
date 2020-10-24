@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\JMS\Serializer\Handler;
 
@@ -16,8 +16,6 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
-/**
- */
 class PasswordHandler implements SubscribingHandlerInterface
 {
     /**
@@ -48,12 +46,8 @@ class PasswordHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param Password                      $password
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
-     * @return string
      *
      * @throws \Exception
      */
@@ -67,12 +61,9 @@ class PasswordHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param DeserializationVisitorInterface $visitor
-     * @param mixed                           $data
-     * @param array                           $type
-     * @param Context                         $context
+     * @param mixed $data
+     * @param array $type
      *
-     * @return Password
      *
      * @throws \Exception
      */

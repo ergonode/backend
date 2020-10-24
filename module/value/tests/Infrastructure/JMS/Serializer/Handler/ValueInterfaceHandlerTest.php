@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Value\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -19,17 +19,10 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ValueInterfaceHandlerTest extends TestCase
 {
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     */
     protected function setUp(): void
     {
         $handler = new ValueInterfaceHandler();
@@ -44,8 +37,6 @@ class ValueInterfaceHandlerTest extends TestCase
             ->build();
     }
 
-    /**
-     */
     public function testConfiguration(): void
     {
         $configurations = ValueInterfaceHandler::getSubscribingMethods();
@@ -57,8 +48,6 @@ class ValueInterfaceHandlerTest extends TestCase
         }
     }
 
-    /**
-     */
     public function testDeserializeStringValue(): void
     {
         $testValue = '{"type":"string","value":"test_value"}';
@@ -71,8 +60,6 @@ class ValueInterfaceHandlerTest extends TestCase
         self::assertEquals([null => 'test_value'], $result->getValue());
     }
 
-    /**
-     */
     public function testDeserializeTranslatableStringValue(): void
     {
         $testValue = '{"type":"translation","value":{"translations":{"pl_PL":"test","en_GB":"test"}}}';
@@ -85,8 +72,6 @@ class ValueInterfaceHandlerTest extends TestCase
         self::assertEquals(['pl_PL' => 'test', 'en_GB' => 'test'], $result->getValue());
     }
 
-    /**
-     */
     public function testDeserializeCollectionValue(): void
     {
         $testValue = '{"type":"collection","value":{"pl_PL":"test","en_GB":"test"}}';

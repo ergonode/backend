@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class ConditionSetParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ConditionSetRepositoryInterface
-     */
     private ConditionSetRepositoryInterface $conditionSetRepository;
 
-    /**
-     * @param ConditionSetRepositoryInterface $conditionSetRepository
-     */
     public function __construct(ConditionSetRepositoryInterface $conditionSetRepository)
     {
         $this->conditionSetRepository = $conditionSetRepository;

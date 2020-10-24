@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
@@ -12,25 +12,19 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
-/**
- */
 class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 {
     private const NAMESPACE = 'fee77612-b07d-4eea-af71-d4e1e6c3ea1a';
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
     /**
@@ -38,9 +32,6 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
      */
     private array $options;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
@@ -48,16 +39,13 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param Import            $import
-     * @param ProductModel      $product
-     * @param Transformer       $transformer
-     * @param Magento1CsvSource $source
+     * @param AbstractAttribute[] $attributes
      */
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         $columns = [];
 
@@ -80,14 +68,14 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
             $columns[$key] = array_unique($array);
         }
 
-        foreach ($transformer->getAttributes() as $field => $converter) {
-            $type = $transformer->getAttributeType($field);
+        foreach ($attributes as $attribute) {
+            $type = $attribute->getType();
             if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
-                $attributeCode = new AttributeCode($field);
-                if (!array_key_exists($field, $columns)) {
-                    $columns[$field] = [];
+                $attributeCode = $attribute->getCode();
+                if (!array_key_exists($attributeCode->getValue(), $columns)) {
+                    $columns[$attributeCode->getValue()] = [];
                 }
-                $options = $this->getOptions($columns[$field]);
+                $options = $this->getOptions($columns[$attributeCode->getValue()]);
                 foreach ($options as $key => $option) {
                     $uuid = Uuid::uuid5(self::NAMESPACE, sprintf('%s/%s', $attributeCode->getValue(), $key));
                     if (!array_key_exists($uuid->toString(), $this->options)) {

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Application\Validator\Constraint;
 
@@ -13,12 +13,8 @@ use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaNameValidator
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class MultimediaNameValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate(null, new MultimediaName());
@@ -26,8 +22,6 @@ class MultimediaNameValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testMultimediaNameValidation(): void
     {
         $value = $this->createMock(UploadedFile::class);
@@ -37,8 +31,6 @@ class MultimediaNameValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testMultimediaNotNameValidation(): void
     {
         $constraint = new MultimediaName(['max' => 16]);
@@ -50,9 +42,6 @@ class MultimediaNameValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return MultimediaNameValidator
-     */
     protected function createValidator(): MultimediaNameValidator
     {
         return new MultimediaNameValidator();

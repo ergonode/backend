@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
-/**
- */
 class ChannelParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $repository;
 
-    /**
-     * @param ChannelRepositoryInterface $repository
-     */
     public function __construct(ChannelRepositoryInterface $repository)
     {
         $this->repository = $repository;

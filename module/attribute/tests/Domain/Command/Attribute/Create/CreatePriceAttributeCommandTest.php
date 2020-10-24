@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Create;
 
@@ -16,18 +16,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CreatePriceAttributeCommandTest extends TestCase
 {
     /**
-     * @param AttributeCode      $attributeCode
-     * @param TranslatableString $label
-     * @param TranslatableString $hint
-     * @param TranslatableString $placeholder
-     * @param array              $groups
-     * @param Currency           $currency
-     * @param AttributeScope     $scope
+     * @param array $groups
      *
      * @throws \Exception
      *

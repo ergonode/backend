@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Application\DependencyInjection\CompilerPass;
 
@@ -15,15 +15,10 @@ use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterTypeProvider;
 
-/**
- */
 class FileWriterCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'export.export_file.writer_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(WriterProvider::class)) {
@@ -35,9 +30,6 @@ class FileWriterCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];
@@ -51,9 +43,6 @@ class FileWriterCompilerPass implements CompilerPassInterface
         $definition->setArguments($arguments);
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processType(ContainerBuilder $container): void
     {
         $arguments = [];

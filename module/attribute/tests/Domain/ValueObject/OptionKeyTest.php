@@ -10,13 +10,9 @@ namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class OptionKeyTest extends TestCase
 {
     /**
-     * @param string $value
-     *
      * @dataProvider validDataProvider
      */
     public function testValidCharactersValue(string $value): void
@@ -26,8 +22,6 @@ class OptionKeyTest extends TestCase
         $this->assertEquals($value, (string) $key);
     }
 
-    /**
-     */
     public function testInvalidValueLength(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -37,9 +31,6 @@ class OptionKeyTest extends TestCase
         $this->assertEquals($value, $key->getValue());
     }
 
-    /**
-     * @return \Generator
-     */
     public function validDataProvider(): \Generator
     {
         $collection = str_split('abcdefghijklmnopqrstuvwxyz1234567890_');

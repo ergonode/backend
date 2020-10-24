@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Notification\Tests\Infrastructure\Grid;
 
@@ -15,12 +15,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class NotificationGridTest extends TestCase
 {
-    /**
-     */
     public function testGridInit(): void
     {
         /** @var TranslatorInterface|MockObject $translator */

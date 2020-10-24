@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Status;
 
@@ -16,24 +16,12 @@ use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteStatusCommandHandler
 {
-    /**
-     * @var StatusRepositoryInterface
-     */
     private StatusRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param StatusRepositoryInterface      $repository
-     * @param RelationshipsResolverInterface $relationshipsResolver
-     */
     public function __construct(
         StatusRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -43,8 +31,6 @@ class DeleteStatusCommandHandler
     }
 
     /**
-     * @param DeleteStatusCommand $command
-     *
      * @throws ExistingRelationshipsException
      * @throws \ReflectionException
      */

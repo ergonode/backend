@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Column\Renderer;
 
@@ -13,8 +13,6 @@ use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
 
-/**
- */
 class NumericColumnRenderer implements ColumnRendererInterface
 {
     /**

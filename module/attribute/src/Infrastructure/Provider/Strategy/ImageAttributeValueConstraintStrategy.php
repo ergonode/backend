@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
@@ -15,8 +15,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 
-/**
- */
 class ImageAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**

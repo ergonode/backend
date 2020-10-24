@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
@@ -15,34 +15,18 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-/**
- */
 class AttributeExportProcessorStep implements ExportStepProcessInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
     private AttributeQueryInterface $query;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param AttributeQueryInterface $query
-     * @param CommandBusInterface     $commandBus
-     */
     public function __construct(AttributeQueryInterface $query, CommandBusInterface $commandBus)
     {
         $this->query = $query;
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param ExportId          $exportId
-     * @param FileExportChannel $channel
-     */
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $attributes = $this->query->getDictionary();

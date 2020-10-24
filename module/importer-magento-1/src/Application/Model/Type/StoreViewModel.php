@@ -4,20 +4,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Application\Model\Type;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class StoreViewModel
 {
-    /**
-     * @var Language|null
-     */
     public ?Language $defaultLanguage = null;
 
     /**

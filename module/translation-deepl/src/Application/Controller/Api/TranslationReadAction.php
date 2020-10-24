@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\TranslationDeepl\Application\Controller\Api;
 
@@ -27,20 +27,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TranslationReadAction
 {
-    /**
-     * @var TranslationProviderInterface
-     */
     private TranslationProviderInterface $translationProvider;
 
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @param TranslationProviderInterface $translationProvider
-     * @param FormFactoryInterface         $formFactory
-     */
     public function __construct(
         TranslationProviderInterface $translationProvider,
         FormFactoryInterface $formFactory
@@ -80,10 +70,6 @@ class TranslationReadAction
      *     response=400,
      *     description="Bad request"
      * )
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function __invoke(Request $request): Response
     {

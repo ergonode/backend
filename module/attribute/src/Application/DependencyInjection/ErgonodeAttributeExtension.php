@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\DependencyInjection;
 
@@ -19,13 +19,10 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFact
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 
-/**
- */
 class ErgonodeAttributeExtension extends Extension
 {
     /**
-     * @param array            $configs
-     * @param ContainerBuilder $container
+     * @param array $configs
      *
      * @throws \Exception
      */

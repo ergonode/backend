@@ -5,20 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Form\Model;
 
 use Ergonode\Core\Domain\ValueObject\Color;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class StatusChangeFormModel
 {
     /**
-     * @var Color|null
-     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *     min=4,
@@ -35,7 +31,7 @@ class StatusChangeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=100,
-     *      maxMessage="Status name is to long, It should have {{ limit }} character or less."
+     *      maxMessage="Status name is too long. It should contain {{ limit }} characters or less."
      *  )
      * })
      */
@@ -48,14 +44,12 @@ class StatusChangeFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Length(
      *      max=500,
-     *      maxMessage="Status description is to long,. It should have {{ limit }} character or less."
+     *      maxMessage="Status description is too long. It should contain {{ limit }} characters or less."
      *  )
      * })
      */
     public array $description;
 
-    /**
-     */
     public function __construct()
     {
         $this->color = null;

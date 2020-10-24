@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Infrastructure\Handler;
 
@@ -14,12 +14,8 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Handler\DeleteMultimediaCommandHandler;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class DeleteMultimediaCommandHandlerTest extends TestCase
 {
-    /**
-     */
     public function testHandling():void
     {
         $command = $this->createMock(DeleteMultimediaCommand::class);

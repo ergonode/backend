@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\Unit;
 
@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Grid\UnitGrid;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,27 +25,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UnitGridReadAction
 {
-    /**
-     * @var UnitGrid
-     */
     private UnitGrid $unitGrid;
 
-    /**
-     * @var UnitQueryInterface
-     */
     private UnitQueryInterface $unitQuery;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
     /**
      * UnitGridReadAction constructor.
-     *
-     * @param UnitGrid           $unitGrid
-     * @param UnitQueryInterface $unitQuery
-     * @param GridRenderer       $gridRenderer
      */
     public function __construct(
         UnitGrid $unitGrid,
@@ -120,11 +106,6 @@ class UnitGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

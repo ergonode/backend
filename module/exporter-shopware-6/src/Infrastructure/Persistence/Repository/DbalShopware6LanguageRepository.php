@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
@@ -15,8 +15,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInte
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_language';
@@ -28,25 +26,13 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
         'iso',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param string    $iso
-     *
-     * @return Shopware6Language|null
-     */
     public function load(ChannelId $channelId, string $iso): ?Shopware6Language
     {
         $query = $this->connection->createQueryBuilder();
@@ -74,9 +60,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     }
 
     /**
-     * @param ChannelId         $channelId
-     * @param Shopware6Language $shopware6Language
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function save(ChannelId $channelId, Shopware6Language $shopware6Language): void
@@ -88,12 +71,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
         }
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param string    $iso
-     *
-     * @return bool
-     */
     public function exists(ChannelId $channelId, string $iso): bool
     {
         $query = $this->connection->createQueryBuilder();
@@ -114,9 +91,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     }
 
     /**
-     * @param ChannelId         $channelId
-     * @param Shopware6Language $shopware6Language
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function update(ChannelId $channelId, Shopware6Language $shopware6Language): void
@@ -140,9 +114,6 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
     }
 
     /**
-     * @param ChannelId         $channelId
-     * @param Shopware6Language $shopware6Language
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     private function insert(ChannelId $channelId, Shopware6Language $shopware6Language): void

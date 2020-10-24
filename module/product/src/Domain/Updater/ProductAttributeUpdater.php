@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Updater;
 
@@ -13,13 +13,10 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
-/**
- */
 class ProductAttributeUpdater
 {
     /**
-     * @param AbstractProduct $product
-     * @param array           $attributes
+     * @param array $attributes
      *
      * @throws \Exception
      */

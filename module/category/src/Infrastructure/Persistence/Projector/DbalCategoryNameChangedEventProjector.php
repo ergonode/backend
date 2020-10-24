@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Persistence\Projector;
 
@@ -14,26 +14,14 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalCategoryNameChangedEventProjector
 {
     private const TABLE = 'category';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -41,8 +29,6 @@ class DbalCategoryNameChangedEventProjector
     }
 
     /**
-     * @param CategoryNameChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(CategoryNameChangedEvent $event): void

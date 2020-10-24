@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Request\ParamConverter;
 
@@ -18,18 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- */
 class SourceParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var SourceRepositoryInterface
-     */
     private SourceRepositoryInterface $sourceRepository;
 
-    /**
-     * @param SourceRepositoryInterface $sourceRepository
-     */
     public function __construct(SourceRepositoryInterface $sourceRepository)
     {
         $this->sourceRepository = $sourceRepository;

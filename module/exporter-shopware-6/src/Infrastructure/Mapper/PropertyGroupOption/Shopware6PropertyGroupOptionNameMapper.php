@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupOption;
 
@@ -14,8 +14,6 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupOptionMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 
-/**
- */
 class Shopware6PropertyGroupOptionNameMapper implements Shopware6PropertyGroupOptionMapperInterface
 {
     /**

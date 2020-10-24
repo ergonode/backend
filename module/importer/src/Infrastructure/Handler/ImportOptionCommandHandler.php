@@ -4,45 +4,34 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Domain\Entity\ImportError;
-use Ergonode\Importer\Domain\Repository\ImportErrorRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
+use Psr\Log\LoggerInterface;
 
-/**
- */
 class ImportOptionCommandHandler
 {
-    /**
-     * @var OptionImportAction
-     */
     private OptionImportAction $action;
 
-    /**
-     * @var ImportErrorRepositoryInterface
-     */
-    private ImportErrorRepositoryInterface $repository;
+    private ImportRepositoryInterface $repository;
 
-    /**
-     * @param OptionImportAction             $action
-     * @param ImportErrorRepositoryInterface $repository
-     */
-    public function __construct(OptionImportAction $action, ImportErrorRepositoryInterface $repository)
-    {
+    private LoggerInterface $logger;
+
+    public function __construct(
+        OptionImportAction $action,
+        ImportRepositoryInterface $repository,
+        LoggerInterface $logger
+    ) {
         $this->action = $action;
         $this->repository = $repository;
+        $this->logger = $logger;
     }
 
-    /**
-     * @param ImportOptionCommand $command
-     *
-     * @throws \Exception
-     */
     public function __invoke(ImportOptionCommand $command)
     {
         try {
@@ -52,9 +41,15 @@ class ImportOptionCommandHandler
                 $command->getTranslation()
             );
         } catch (ImportException $exception) {
-            $message = $exception->getMessage();
-            $error = new ImportError($command->getImportId(), $message);
-            $this->repository->add($error);
+            $this->repository->addError($command->getImportId(), $exception->getMessage());
+        } catch (\Exception $exception) {
+            $message = sprintf(
+                'Can\'t import options %s for attribute %s',
+                $command->getKey()->getValue(),
+                $command->getCode()->getValue()
+            );
+            $this->repository->addError($command->getImportId(), $message);
+            $this->logger->error($exception);
         }
     }
 }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
@@ -15,8 +15,6 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-/**
- */
 class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_tax';
@@ -26,25 +24,13 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
         'shopware6_id',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param float     $tax
-     *
-     * @return string|null
-     */
     public function load(ChannelId $channelId, float $tax): ?string
     {
         $query = $this->connection->createQueryBuilder();
@@ -66,10 +52,6 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param float     $tax
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     public function save(ChannelId $channelId, float $tax, string $shopwareId): void
@@ -81,12 +63,6 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
         }
     }
 
-    /**
-     * @param ChannelId $channelId
-     * @param float     $tax
-     *
-     * @return bool
-     */
     public function exists(
         ChannelId $channelId,
         float $tax
@@ -110,10 +86,6 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param float     $tax
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     private function update(ChannelId $channelId, float $tax, string $shopwareId): void
@@ -135,10 +107,6 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
     }
 
     /**
-     * @param ChannelId $channelId
-     * @param float     $tax
-     * @param string    $shopwareId
-     *
      * @throws DBALException
      */
     private function insert(ChannelId $channelId, float $tax, string $shopwareId): void

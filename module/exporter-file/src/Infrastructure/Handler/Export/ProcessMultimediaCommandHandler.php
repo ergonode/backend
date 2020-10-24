@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
@@ -21,48 +21,20 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 use Ergonode\ExporterFile\Infrastructure\Processor\MultimediaProcessor;
 
-/**
- */
 class ProcessMultimediaCommandHandler
 {
-    /**
-     * @var MultimediaRepositoryInterface
-     */
     private MultimediaRepositoryInterface $multimediaRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var MultimediaProcessor
-     */
     private MultimediaProcessor $processor;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
-    /**
-     * @var WriterProvider
-     */
     private WriterProvider $provider;
 
-    /**
-     * @param MultimediaRepositoryInterface $multimediaRepository
-     * @param ExportRepositoryInterface     $exportRepository
-     * @param ChannelRepositoryInterface    $channelRepository
-     * @param MultimediaProcessor           $processor
-     * @param TempFileStorage               $storage
-     * @param WriterProvider                $provider
-     */
     public function __construct(
         MultimediaRepositoryInterface $multimediaRepository,
         ExportRepositoryInterface $exportRepository,
@@ -80,8 +52,6 @@ class ProcessMultimediaCommandHandler
     }
 
     /**
-     * @param ProcessMultimediaCommand $command
-     *
      * @throws ExportException
      */
     public function __invoke(ProcessMultimediaCommand $command)

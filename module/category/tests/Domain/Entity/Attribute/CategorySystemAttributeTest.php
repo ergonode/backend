@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Entity\Attribute;
 
@@ -12,8 +12,6 @@ use Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategorySystemAttributeTest extends TestCase
 {
     /**

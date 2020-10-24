@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Model\Form;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class SourceTypeFormModel
 {
     /**

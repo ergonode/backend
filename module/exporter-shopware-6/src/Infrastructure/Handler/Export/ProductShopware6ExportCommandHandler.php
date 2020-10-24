@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
@@ -18,36 +18,16 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class ProductShopware6ExportCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
     private ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var ProductShopware6ExportProcess
-     */
     private ProductShopware6ExportProcess $process;
 
-    /**
-     * @param ExportRepositoryInterface     $exportRepository
-     * @param ChannelRepositoryInterface    $channelRepository
-     * @param ProductRepositoryInterface    $productRepository
-     * @param ProductShopware6ExportProcess $process
-     */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
@@ -60,9 +40,6 @@ class ProductShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    /**
-     * @param ProductShopware6ExportCommand $command
-     */
     public function __invoke(ProductShopware6ExportCommand $command)
     {
         $export  = $this->exportRepository->load($command->getExportId());

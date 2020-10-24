@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Application\DependencyInjection\CompilerPass;
 
@@ -14,16 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-/**
- *
- */
 class ConditionConstraintCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.condition.condition_set.constraint_interface';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConditionConstraintProvider::class)) {
@@ -31,9 +25,6 @@ class ConditionConstraintCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processCalculators(ContainerBuilder $container): void
     {
         $arguments = [];

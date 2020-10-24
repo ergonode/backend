@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\DependencyInjection\CompilerPass;
 
@@ -14,15 +14,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Ergonode\Product\Infrastructure\Provider\CreateProductCommandFactoryProvider;
 
-/**
- */
 class ProductCreateCommandFactoryProviderCompilerPass implements CompilerPassInterface
 {
     public const TAG = 'component.product.product_create_command_factory';
 
-    /**
-     * @param ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateProductCommandFactoryProvider::class)) {
@@ -30,9 +25,6 @@ class ProductCreateCommandFactoryProviderCompilerPass implements CompilerPassInt
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     */
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];

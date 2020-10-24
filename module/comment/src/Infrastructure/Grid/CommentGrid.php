@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Infrastructure\Grid;
 
@@ -21,27 +21,15 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- */
 class CommentGrid extends AbstractGrid
 {
-    /**
-     * @var AuthenticatedUserProviderInterface
-     */
     private AuthenticatedUserProviderInterface $userProvider;
 
-    /**
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
     public function __construct(AuthenticatedUserProviderInterface $userProvider)
     {
         $this->userProvider = $userProvider;
     }
 
-    /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
-     */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $userId = $this->userProvider->provide()->getId();

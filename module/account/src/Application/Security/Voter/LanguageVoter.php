@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Security\Voter;
 
@@ -15,8 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-/**
- */
 class LanguageVoter extends Voter implements LoggerAwareInterface
 {
     public const EDIT = 'edit';
@@ -27,8 +25,6 @@ class LanguageVoter extends Voter implements LoggerAwareInterface
     /**
      * @param string $attribute
      * @param mixed  $subject
-     *
-     * @return bool
      */
     public function supports($attribute, $subject): bool
     {
@@ -45,11 +41,8 @@ class LanguageVoter extends Voter implements LoggerAwareInterface
     }
 
     /**
-     * @param string         $attribute
-     * @param mixed          $subject
-     * @param TokenInterface $token
-     *
-     * @return bool
+     * @param string $attribute
+     * @param mixed  $subject
      */
     public function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {

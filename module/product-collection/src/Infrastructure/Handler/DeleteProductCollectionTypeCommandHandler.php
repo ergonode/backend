@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
@@ -16,24 +16,12 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DeleteProductCollectionTypeCommandHandler
 {
-    /**
-     * @var ProductCollectionTypeRepositoryInterface
-     */
     private ProductCollectionTypeRepositoryInterface $repository;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @param ProductCollectionTypeRepositoryInterface $repository
-     * @param RelationshipsResolverInterface           $relationshipsResolver
-     */
     public function __construct(
         ProductCollectionTypeRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
@@ -44,8 +32,6 @@ class DeleteProductCollectionTypeCommandHandler
 
 
     /**
-     * @param DeleteProductCollectionTypeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(DeleteProductCollectionTypeCommand $command): void

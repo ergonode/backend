@@ -5,15 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Provider;
 
 use Ergonode\Designer\Infrastructure\Exception\TemplateGeneratorException;
 use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
 
-/**
- */
 class TemplateGeneratorProvider
 {
     /**
@@ -21,19 +19,12 @@ class TemplateGeneratorProvider
      */
     private array $generators;
 
-    /**
-     * @param TemplateGeneratorInterface ...$generators
-     */
     public function __construct(TemplateGeneratorInterface...$generators)
     {
         $this->generators = $generators;
     }
 
     /**
-     * @param string $code
-     *
-     * @return TemplateGeneratorInterface
-     *
      * @throws TemplateGeneratorException
      */
     public function provide(string $code): TemplateGeneratorInterface

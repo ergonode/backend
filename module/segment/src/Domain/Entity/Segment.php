@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Domain\Entity;
 
@@ -23,59 +23,39 @@ use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
-/**
- */
 class Segment extends AbstractAggregateRoot
 {
     /**
-     * @var SegmentId
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $id;
 
     /**
-     * @var SegmentStatus
-     *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      */
     private SegmentStatus $status;
 
     /**
-     * @var SegmentCode
-     *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
      */
     private SegmentCode $code;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $name;
 
     /**
-     * @var TranslatableString
-     *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private TranslatableString $description;
 
     /**
-     * @var ConditionSetId|null
-     *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ?ConditionSetId $conditionSetId;
 
     /**
-     * @param SegmentId           $id
-     * @param SegmentCode         $code
-     * @param TranslatableString  $name
-     * @param TranslatableString  $description
-     * @param ConditionSetId|null $conditionSetId
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -89,57 +69,37 @@ class Segment extends AbstractAggregateRoot
         $this->apply(new SegmentCreatedEvent($id, $code, $name, $description, $this->status, $conditionSetId));
     }
 
-    /**
-     * @return SegmentId
-     */
     public function getId(): SegmentId
     {
         return $this->id;
     }
 
-    /**
-     * @return SegmentCode
-     */
     public function getCode(): SegmentCode
     {
         return $this->code;
     }
 
-    /**
-     * @return ConditionSetId|null
-     */
     public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getName(): TranslatableString
     {
         return $this->name;
     }
 
-    /**
-     * @return TranslatableString
-     */
     public function getDescription(): TranslatableString
     {
         return $this->description;
     }
 
-    /**
-     * @return SegmentStatus
-     */
     public function getStatus(): SegmentStatus
     {
         return $this->status;
     }
 
     /**
-     * @param SegmentStatus $status
-     *
      * @throws \Exception
      */
     public function changeStatus(SegmentStatus $status): void
@@ -150,8 +110,6 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
-     * @param TranslatableString $name
-     *
      * @throws \Exception
      */
     public function changeName(TranslatableString $name): void
@@ -162,8 +120,6 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
-     * @param TranslatableString $description
-     *
      * @throws \Exception
      */
     public function changeDescription(TranslatableString $description): void
@@ -173,17 +129,12 @@ class Segment extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @return bool
-     */
     public function hasConditionSet(): bool
     {
         return null !== $this->conditionSetId;
     }
 
     /**
-     * @param ConditionSetId $conditionSetId
-     *
      * @throws \Exception
      */
     public function changeConditionSet(?ConditionSetId $conditionSetId = null): void
@@ -193,9 +144,6 @@ class Segment extends AbstractAggregateRoot
         }
     }
 
-    /**
-     * @param SegmentCreatedEvent $event
-     */
     protected function applySegmentCreatedEvent(SegmentCreatedEvent $event): void
     {
         $this->id = $event->getAggregateId();
@@ -206,33 +154,21 @@ class Segment extends AbstractAggregateRoot
         $this->status = $event->getStatus();
     }
 
-    /**
-     * @param SegmentStatusChangedEvent $event
-     */
     protected function applySegmentStatusChangedEvent(SegmentStatusChangedEvent $event): void
     {
         $this->status = $event->getTo();
     }
 
-    /**
-     * @param SegmentNameChangedEvent $event
-     */
     protected function applySegmentNameChangedEvent(SegmentNameChangedEvent $event): void
     {
         $this->name = $event->getTo();
     }
 
-    /**
-     * @param SegmentDescriptionChangedEvent $event
-     */
     protected function applySegmentDescriptionChangedEvent(SegmentDescriptionChangedEvent $event): void
     {
         $this->description = $event->getTo();
     }
 
-    /**
-     * @param SegmentConditionSetChangedEvent $event
-     */
     protected function applySegmentConditionSetChangedEvent(SegmentConditionSetChangedEvent $event): void
     {
         $this->conditionSetId = $event->getTo();

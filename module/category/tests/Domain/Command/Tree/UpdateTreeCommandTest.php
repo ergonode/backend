@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Tests\Category\Domain\Command\Tree;
 
@@ -15,14 +15,10 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class UpdateTreeCommandTest extends TestCase
 {
     /**
-     * @param CategoryTreeId     $id
-     * @param TranslatableString $name
-     * @param array              $categories
+     * @param array $categories
      *
      * @dataProvider dataProvider
      */

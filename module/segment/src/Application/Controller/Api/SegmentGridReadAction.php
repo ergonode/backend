@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
@@ -26,26 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SegmentGridReadAction
 {
-    /**
-     * @var SegmentGrid
-     */
     private SegmentGrid $grid;
 
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $query;
 
-    /**
-     * @var GridRenderer
-     */
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param GridRenderer          $gridRenderer
-     * @param SegmentGrid           $grid
-     * @param SegmentQueryInterface $query
-     */
     public function __construct(
         GridRenderer $gridRenderer,
         SegmentGrid $grid,
@@ -120,11 +106,6 @@ class SegmentGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

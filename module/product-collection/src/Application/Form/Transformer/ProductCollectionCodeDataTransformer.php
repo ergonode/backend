@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Form\Transformer;
 
@@ -13,14 +13,10 @@ use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- */
 class ProductCollectionCodeDataTransformer implements DataTransformerInterface
 {
     /**
      * @param ProductCollectionCode|null $value
-     *
-     * @return null|string
      */
     public function transform($value): ?string
     {
@@ -36,8 +32,6 @@ class ProductCollectionCodeDataTransformer implements DataTransformerInterface
 
     /**
      * @param string|null $value
-     *
-     * @return ProductCollectionCode|null
      */
     public function reverseTransform($value): ?ProductCollectionCode
     {

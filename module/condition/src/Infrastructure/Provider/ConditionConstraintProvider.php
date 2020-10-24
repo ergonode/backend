@@ -5,14 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Provider;
 
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 
-/**
- */
 class ConditionConstraintProvider
 {
     /**
@@ -20,19 +18,12 @@ class ConditionConstraintProvider
      */
     private array $strategies;
 
-    /**
-     * @param ConditionValidatorStrategyInterface ...$strategies
-     */
     public function __construct(ConditionValidatorStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
 
     /**
-     * @param string $type
-     *
-     * @return ConditionValidatorStrategyInterface
-     *
      * @throws \OutOfBoundsException
      */
     public function resolve(string $type): ConditionValidatorStrategyInterface

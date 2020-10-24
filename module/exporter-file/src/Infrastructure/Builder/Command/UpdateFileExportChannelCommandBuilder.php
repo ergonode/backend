@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Command;
 
@@ -17,26 +17,13 @@ use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class UpdateFileExportChannelCommandBuilder implements UpdateChannelCommandBuilderInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supported(string $type): bool
     {
         return FileExportChannel::TYPE === $type;
     }
 
-    /**
-     * @param ChannelId     $channelId
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     */
     public function build(ChannelId $channelId, FormInterface $form): DomainCommandInterface
     {
         /** @var ExporterFileConfigurationModel $data */

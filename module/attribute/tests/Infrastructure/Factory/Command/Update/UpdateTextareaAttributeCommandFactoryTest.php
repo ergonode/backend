@@ -5,11 +5,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Update;
 
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateTextareaAttributeCommandFactory;
@@ -18,12 +17,8 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCo
 use Ergonode\Attribute\Application\Model\Attribute\Property\TextareaAttributePropertyModel;
 use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 
-/**
- */
 class UpdateTextareaAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
-    /**
-     */
     public function testSupported(): void
     {
         $commandFactory = new UpdateTextareaAttributeCommandFactory();
@@ -31,8 +26,6 @@ class UpdateTextareaAttributeCommandFactoryTest extends AbstractUpdateAttributeC
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
-    /**
-     */
     public function testCreation(): void
     {
         /** @var TextareaAttributeFormModel $data */

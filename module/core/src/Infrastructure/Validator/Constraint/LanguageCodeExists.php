@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Validator\Constraint;
 
@@ -17,14 +17,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class LanguageCodeExists extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Language code {{ value }} does not exists.';
 
-    /**
-     * @return string
-     */
     public function validatedBy(): string
     {
         return LanguageCodeExistsValidator::class;

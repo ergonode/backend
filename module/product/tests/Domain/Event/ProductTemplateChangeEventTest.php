@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Domain\Event;
 
@@ -14,12 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
-/**
- */
 class ProductTemplateChangeEventTest extends TestCase
 {
-    /**
-     */
     public function testEventCreation(): void
     {
         $id = $this->createMock(ProductId::class);

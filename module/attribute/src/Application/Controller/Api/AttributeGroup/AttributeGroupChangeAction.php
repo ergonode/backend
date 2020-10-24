@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
@@ -37,20 +37,10 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  */
 class AttributeGroupChangeAction
 {
-    /**
-     * @var FormFactoryInterface
-     */
     private FormFactoryInterface $formFactory;
 
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
-     */
     public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
     {
         $this->formFactory = $formFactory;
@@ -97,11 +87,6 @@ class AttributeGroupChangeAction
      * )
      *
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
-     *
-     * @param AttributeGroup $attributeGroup
-     * @param Request        $request
-     *
-     * @return Response
      */
     public function __invoke(
         AttributeGroup $attributeGroup,

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
@@ -16,31 +16,17 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Product\Domain\Query\ProductCategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-/**
- */
 class DbalProductCategoryQuery implements ProductCategoryQueryInterface
 {
     private const PRODUCT_CATEGORY_TABLE = 'public.product_category';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param Language  $language
-     * @param ProductId $productId
-     *
-     * @return DataSetInterface
-     */
     public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
     {
         $qb = $this->connection->createQueryBuilder()

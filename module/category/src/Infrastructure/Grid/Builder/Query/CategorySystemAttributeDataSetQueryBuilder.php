@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Grid\Builder\Query;
 
@@ -14,8 +14,6 @@ use Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 
-/**
- */
 class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
     /**

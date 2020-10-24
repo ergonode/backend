@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api;
 
@@ -29,20 +29,10 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class ChannelReadAction
 {
-    /**
-     * @var ChannelFormFactoryProvider
-     */
     private ChannelFormFactoryProvider $provider;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param ChannelFormFactoryProvider $provider
-     * @param SerializerInterface        $serializer
-     */
     public function __construct(ChannelFormFactoryProvider $provider, SerializerInterface $serializer)
     {
         $this->provider = $provider;
@@ -76,11 +66,8 @@ class ChannelReadAction
      *     description="Not found",
      * )
      *
-     * @param AbstractChannel $channel
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     *
-     * @return Response
      */
     public function __invoke(AbstractChannel $channel): Response
     {

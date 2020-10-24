@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
@@ -19,18 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-/**
- */
 class ViolationsExceptionHandler implements SubscribingHandlerInterface
 {
-    /**
-     * @var ExceptionNormalizerInterface
-     */
     private ExceptionNormalizerInterface $exceptionNormalizer;
 
-    /**
-     * @param ExceptionNormalizerInterface $exceptionNormalizer
-     */
     public function __construct(ExceptionNormalizerInterface $exceptionNormalizer)
     {
         $this->exceptionNormalizer = $exceptionNormalizer;
@@ -57,10 +49,7 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param SerializationVisitorInterface $visitor
-     * @param ViolationsHttpException       $exception
-     * @param array                         $type
-     * @param Context                       $context
+     * @param array $type
      *
      * @return array
      */
@@ -79,8 +68,6 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
     }
 
     /**
-     * @param ConstraintViolationListInterface $violations
-     *
      * @return array
      */
     private function mapViolations(ConstraintViolationListInterface $violations): array

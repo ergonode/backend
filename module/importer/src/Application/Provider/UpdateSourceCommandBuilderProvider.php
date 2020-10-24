@@ -4,12 +4,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Provider;
 
-/**
- */
 class UpdateSourceCommandBuilderProvider
 {
     /**
@@ -17,19 +15,11 @@ class UpdateSourceCommandBuilderProvider
      */
     private array $builders;
 
-    /**
-     * @param UpdateSourceCommandBuilderInterface ...$builders
-     */
     public function __construct(UpdateSourceCommandBuilderInterface ...$builders)
     {
         $this->builders = $builders;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return UpdateSourceCommandBuilderInterface
-     */
     public function provide(string $type): UpdateSourceCommandBuilderInterface
     {
         foreach ($this->builders as $builder) {

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectionType;
 
@@ -33,27 +33,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionTypeDeleteAction
 {
-    /**
-     * @var CommandBusInterface
-     */
     private CommandBusInterface $commandBus;
 
-    /**
-     * @var RelationshipsResolverInterface
-     */
     private RelationshipsResolverInterface $relationshipsResolver;
 
-    /**
-     * @var ExistingRelationshipMessageBuilderInterface
-     */
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
      * ProductCollectionTypeDeleteAction constructor.
-     *
-     * @param CommandBusInterface                         $commandBus
-     * @param RelationshipsResolverInterface              $relationshipsResolver
-     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         CommandBusInterface $commandBus,
@@ -97,11 +84,6 @@ class ProductCollectionTypeDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
-     *
-     * @param ProductCollectionType $productCollection
-     * @param Request               $request
-     *
-     * @return Response
      */
     public function __invoke(ProductCollectionType $productCollection, Request $request): Response
     {

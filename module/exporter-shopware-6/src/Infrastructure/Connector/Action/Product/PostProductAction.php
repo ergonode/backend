@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product;
 
@@ -15,35 +15,20 @@ use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-/**
- */
 class PostProductAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product?%s';
 
-    /**
-     * @var Shopware6Product
-     */
     private Shopware6Product $product;
 
-    /**
-     * @var bool
-     */
     private bool $response;
 
-    /**
-     * @param Shopware6Product $product
-     * @param bool             $response
-     */
     public function __construct(Shopware6Product $product, bool $response = false)
     {
         $this->product = $product;
         $this->response = $response;
     }
 
-    /**
-     * @return Request
-     */
     public function getRequest(): Request
     {
         return new Request(
@@ -55,8 +40,6 @@ class PostProductAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @param string|null $content
-     *
      * @return array|mixed|object|string|null
      *
      * @throws \JsonException
@@ -72,9 +55,6 @@ class PostProductAction extends AbstractAction implements ActionInterface
         return $data['data']['id'];
     }
 
-    /**
-     * @return string
-     */
     private function buildBody(): string
     {
         $serializer = SerializerBuilder::create()->build();
@@ -82,9 +62,6 @@ class PostProductAction extends AbstractAction implements ActionInterface
         return $serializer->serialize($this->product, 'json');
     }
 
-    /**
-     * @return string
-     */
     private function getUri(): string
     {
         $query = [];

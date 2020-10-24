@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
@@ -21,48 +21,20 @@ use Ergonode\ExporterFile\Infrastructure\Processor\TemplateProcessor;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Designer\Domain\Entity\Template;
 
-/**
- */
 class ProcessTemplateCommandHandler
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
 
-    /**
-     * @var ExportRepositoryInterface
-     */
     private ExportRepositoryInterface $exportRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
     private ChannelRepositoryInterface $channelRepository;
 
-    /**
-     * @var TemplateProcessor
-     */
     private TemplateProcessor $processor;
 
-    /**
-     * @var TempFileStorage
-     */
     private TempFileStorage $storage;
 
-    /**
-     * @var WriterProvider
-     */
     private WriterProvider $provider;
 
-    /**
-     * @param TemplateRepositoryInterface $templateRepository
-     * @param ExportRepositoryInterface   $exportRepository
-     * @param ChannelRepositoryInterface  $channelRepository
-     * @param TemplateProcessor           $processor
-     * @param TempFileStorage             $storage
-     * @param WriterProvider              $provider
-     */
     public function __construct(
         TemplateRepositoryInterface $templateRepository,
         ExportRepositoryInterface $exportRepository,
@@ -81,8 +53,6 @@ class ProcessTemplateCommandHandler
 
 
     /**
-     * @param ProcessTemplateCommand $command
-     *
      * @throws ExportException
      */
     public function __invoke(ProcessTemplateCommand $command)

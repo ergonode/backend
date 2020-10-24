@@ -5,15 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Faker\Provider\Base as BaseProvider;
 
-/**
- */
 class LanguageFaker extends BaseProvider
 {
     private const ISO = [
@@ -23,12 +21,6 @@ class LanguageFaker extends BaseProvider
         'es_ES',
     ];
 
-    /**
-     * @param string|null $code
-     *
-     * @return Language
-     *
-     */
     public function language(string $code = null): Language
     {
         if (null === $code) {

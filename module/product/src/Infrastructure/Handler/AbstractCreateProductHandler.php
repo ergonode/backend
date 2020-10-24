@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
@@ -18,45 +18,20 @@ use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 
-/**
- */
 abstract class AbstractCreateProductHandler
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
     protected ProductRepositoryInterface $productRepository;
 
-    /**
-     * @var TokenStorageInterface
-     */
     protected TokenStorageInterface   $tokenStorage;
 
-    /**
-     * @var WorkflowProvider
-     */
     protected WorkflowProvider $provider;
 
-    /**
-     * @var LanguageQueryInterface
-     */
     protected LanguageQueryInterface $query;
 
-    /**
-     * @var Security
-     */
     private Security $security;
 
-    /**
-     * @param ProductRepositoryInterface $productRepository
-     * @param TokenStorageInterface      $tokenStorage
-     * @param WorkflowProvider           $provider
-     * @param LanguageQueryInterface     $query
-     * @param Security                   $security
-     */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         TokenStorageInterface $tokenStorage,

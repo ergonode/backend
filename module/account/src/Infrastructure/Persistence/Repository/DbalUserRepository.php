@@ -14,26 +14,16 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalUserRepository implements UserRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param UserId $id
-     *
      * @return User|null
      *
      * @throws \ReflectionException
@@ -46,9 +36,6 @@ class DbalUserRepository implements UserRepositoryInterface
         return $aggregate;
     }
 
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);

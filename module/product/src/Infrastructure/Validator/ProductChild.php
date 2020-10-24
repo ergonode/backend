@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
@@ -16,9 +16,6 @@ use Symfony\Component\Validator\Constraint;
  */
 class ProductChild extends Constraint
 {
-    /**
-     * @var string
-     */
     public string $message = 'Can\'t add parent as children.';
 
     /**

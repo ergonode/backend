@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Handler;
 
@@ -13,26 +13,16 @@ use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class UpdateCategoryCommandHandler
 {
-    /**
-     * @var CategoryRepositoryInterface
-     */
     private CategoryRepositoryInterface $repository;
 
-    /**
-     * @param CategoryRepositoryInterface $repository
-     */
     public function __construct(CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param UpdateCategoryCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateCategoryCommand $command): void

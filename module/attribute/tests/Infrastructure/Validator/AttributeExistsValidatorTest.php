@@ -15,8 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-/**
- */
 class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
@@ -24,8 +22,6 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
      */
     private $repository;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
@@ -33,16 +29,12 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
     }
 
 
-    /**
-     */
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new AttributeExists());
     }
 
-    /**
-     */
     public function testWrongConstraintProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
@@ -51,8 +43,6 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('Value', $constrain);
     }
 
-    /**
-     */
     public function testCorrectEmptyValidation(): void
     {
         $this->validator->validate('', new AttributeExists());
@@ -60,8 +50,6 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testAttributeExistsValidation(): void
     {
         $this->repository->method('load')->willReturn($this->createMock(AbstractAttribute::class));
@@ -70,8 +58,6 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     */
     public function testAttributeNotExistsValidation(): void
     {
         $this->repository->method('load')->willReturn(null);
@@ -83,9 +69,6 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    /**
-     * @return AttributeExistsValidator
-     */
     protected function createValidator(): AttributeExistsValidator
     {
         return new AttributeExistsValidator($this->repository);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Query;
 
@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
 
-/**
- */
 class DbalCurrencyQuery implements CurrencyQueryInterface
 {
     private const TABLE = 'currency';
@@ -23,14 +21,8 @@ class DbalCurrencyQuery implements CurrencyQueryInterface
         'name AS label',
     ];
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -46,9 +38,6 @@ class DbalCurrencyQuery implements CurrencyQueryInterface
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
-    /**
-     * @return QueryBuilder
-     */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

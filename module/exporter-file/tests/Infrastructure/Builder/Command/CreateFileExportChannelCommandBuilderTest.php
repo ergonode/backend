@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Builder\Command;
 
@@ -15,12 +15,8 @@ use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
 use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
 
-/**
- */
 class CreateFileExportChannelCommandBuilderTest extends TestCase
 {
-    /**
-     */
     public function testSupport(): void
     {
         $builder = new CreateFileExportChannelCommandBuilder();
@@ -28,8 +24,6 @@ class CreateFileExportChannelCommandBuilderTest extends TestCase
         self::assertFalse($builder->supported('any other'));
     }
 
-    /**
-     */
     public function testBuild(): void
     {
         $model = new ExporterFileConfigurationModel();

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Repository;
 
@@ -18,26 +18,16 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param AttributeGroupId $id
-     *
      * @return AbstractAggregateRoot|AttributeGroup
      *
      * @throws \ReflectionException
@@ -51,8 +41,6 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void

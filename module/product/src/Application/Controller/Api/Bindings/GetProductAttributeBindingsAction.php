@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
@@ -29,14 +29,8 @@ use Ergonode\Api\Application\Response\SuccessResponse;
  */
 class GetProductAttributeBindingsAction extends AbstractController
 {
-    /**
-     * @var ProductBindingQueryInterface
-     */
     private ProductBindingQueryInterface $query;
 
-    /**
-     * @param ProductBindingQueryInterface $query
-     */
     public function __construct(ProductBindingQueryInterface $query)
     {
         $this->query = $query;
@@ -66,12 +60,6 @@ class GetProductAttributeBindingsAction extends AbstractController
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     *
-     * @param Language        $language
-     * @param AbstractProduct $product
-     *
-     * @return Response
      */
     public function __invoke(Language $language, AbstractProduct $product): Response
     {

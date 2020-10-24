@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\ValueObject\OptionValue;
 
@@ -13,12 +13,8 @@ use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class MultilingualOptionTest extends TestCase
 {
-    /**
-     */
     public function testValueCreation(): void
     {
         $value = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
@@ -31,8 +27,6 @@ class MultilingualOptionTest extends TestCase
         self::assertTrue($valueObject->isMultilingual());
     }
 
-    /**
-     */
     public function testEqualValue(): void
     {
         $value1 = new TranslatableString(['en_GB' => 'english', 'pl_PL' => 'polish']);
@@ -44,8 +38,6 @@ class MultilingualOptionTest extends TestCase
         self::assertTrue($valueObject1->equal($valueObject2));
     }
 
-    /**
-     */
     public function testNotEqualValue(): void
     {
         $value1 = new TranslatableString(['en_GB' => 'english', 'fr_FR' => 'franch']);

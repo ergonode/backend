@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Decorator;
 
@@ -15,31 +15,15 @@ use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInter
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-/**
- */
 class Shopware6NewProductStockMapperDecorator implements Shopware6ProductMapperInterface
 {
-    /**
-     * @var Shopware6ProductStockMapper
-     */
     private Shopware6ProductStockMapper  $productStockMapper;
 
-    /**
-     * @param Shopware6ProductStockMapper $productStockMapper
-     */
     public function __construct(Shopware6ProductStockMapper $productStockMapper)
     {
         $this->productStockMapper = $productStockMapper;
     }
 
-    /**
-     * @param Shopware6Product $shopware6Product
-     * @param AbstractProduct  $product
-     * @param Shopware6Channel $channel
-     * @param Language|null    $language
-     *
-     * @return Shopware6Product
-     */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,

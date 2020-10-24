@@ -5,15 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Model\Product;
 
 use Ergonode\Product\Infrastructure\Validator\AvailableProductType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- */
 class ProductTypeFormModel
 {
     /**

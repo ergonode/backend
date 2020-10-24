@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Provider\Dictionary;
 
@@ -16,12 +16,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class CategoryTypeDictionaryProviderTest extends TestCase
 {
-    /**
-     */
     public function testProvidingCategoryTypeDictionary(): void
     {
         /** @var TranslatorInterface | MockObject $translator */

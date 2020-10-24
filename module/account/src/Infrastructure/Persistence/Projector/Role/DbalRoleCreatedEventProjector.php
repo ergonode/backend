@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Projector\Role;
 
@@ -13,26 +13,14 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 class DbalRoleCreatedEventProjector
 {
     private const TABLE = 'roles';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @var SerializerInterface
-     */
     private SerializerInterface $serializer;
 
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
@@ -40,8 +28,6 @@ class DbalRoleCreatedEventProjector
     }
 
     /**
-     * @param RoleCreatedEvent $event
-     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function __invoke(RoleCreatedEvent $event): void

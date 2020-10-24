@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Notification;
 
@@ -17,8 +17,6 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-/**
- */
 class StatusChangedNotificationTest extends TestCase
 {
     /**
@@ -46,8 +44,6 @@ class StatusChangedNotificationTest extends TestCase
      */
     private Language $language;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->sku = $this->createMock(Sku::class);

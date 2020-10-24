@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Configuration;
 
 use Ergonode\Importer\Infrastructure\Configuration\Column\ConfigurationColumnInterface;
 
-/**
- */
 class ImportConfiguration
 {
     /**
@@ -19,17 +17,12 @@ class ImportConfiguration
      */
     private array $columns;
 
-    /**
-     * @param ConfigurationColumnInterface ...$columns
-     */
     public function __construct(ConfigurationColumnInterface ...$columns)
     {
         $this->columns = $columns;
     }
 
     /**
-     * @param ConfigurationColumnInterface $column
-     *
      * @return $this
      */
     public function add(ConfigurationColumnInterface $column): self

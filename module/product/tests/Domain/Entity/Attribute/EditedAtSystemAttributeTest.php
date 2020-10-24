@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Tests\Domain\Entity\Attribute;
 
@@ -14,12 +14,8 @@ use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class EditedAtSystemAttributeTest extends TestCase
 {
-    /**
-     */
     public function testEntityCreation(): void
     {
         /** @var TranslatableString | MockObject $label */

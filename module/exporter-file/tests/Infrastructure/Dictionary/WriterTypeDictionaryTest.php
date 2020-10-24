@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Dictionary;
 
@@ -13,12 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterTypeProvider;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- */
 class WriterTypeDictionaryTest extends TestCase
 {
-    /**
-     */
     public function testDictionary(): void
     {
         $provider = $this->createMock(WriterTypeProvider::class);

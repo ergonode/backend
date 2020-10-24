@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
@@ -46,11 +46,9 @@ class GetMultimediaAction
      *     description="Not found",
      * )
      *
-     * @param Multimedia $multimedia
      *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      *
-     * @return Response
      *
      * @throws \Exception
      */

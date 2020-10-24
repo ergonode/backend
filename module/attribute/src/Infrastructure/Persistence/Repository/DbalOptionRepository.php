@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Repository;
 
@@ -17,28 +17,16 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 
-/**
- */
 class DbalOptionRepository implements OptionRepositoryInterface
 {
-    /**
-     * @var EventStoreManager
-     */
     private EventStoreManager $manager;
 
-    /**
-     * @param EventStoreManager $manager
-     */
     public function __construct(EventStoreManager $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @param AggregateId $id
-     *
-     * @return AbstractOption|null
-     *
      * @throws \ReflectionException
      */
     public function load(AggregateId $id): ?AbstractOption
@@ -50,8 +38,6 @@ class DbalOptionRepository implements OptionRepositoryInterface
     }
 
     /**
-     * @param AbstractOption $aggregateRoot
-     *
      * @throws DBALException
      */
     public function save(AbstractOption $aggregateRoot): void

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
@@ -15,28 +15,18 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
 
-/**
- */
 class DbalAttributePlaceholderChangedEventProjector
 {
     private const TABLE = 'value_translation';
 
-    /**
-     * @var Connection
-     */
     private Connection $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
     /**
-     * @param AttributePlaceholderChangedEvent $event
-     *
      * @throws DBALException
      */
     public function __invoke(AttributePlaceholderChangedEvent $event): void
@@ -84,12 +74,6 @@ class DbalAttributePlaceholderChangedEventProjector
         }
     }
 
-    /**
-     * @param string      $field
-     * @param AttributeId $attributeId
-     *
-     * @return string
-     */
     private function getTranslationId(string $field, AttributeId $attributeId): string
     {
         $qb = $this->connection->createQueryBuilder();

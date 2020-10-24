@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
@@ -12,14 +12,9 @@ use Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition;
 use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class LanguageCompletenessConditionTest extends TestCase
 {
     /**
-     * @param string   $completeness
-     * @param Language $language
-     *
      * @dataProvider dataProvider
      */
     public function testConditionCreation(string $completeness, Language $language): void
@@ -30,8 +25,6 @@ class LanguageCompletenessConditionTest extends TestCase
         $this->assertSame('LANGUAGE_COMPLETENESS_CONDITION', $condition->getType());
     }
 
-    /**
-     */
     public function testInvalidConditionCreation(): void
     {
         $this->expectException(\InvalidArgumentException::class);

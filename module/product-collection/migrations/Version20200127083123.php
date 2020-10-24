@@ -1,6 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
@@ -12,9 +17,6 @@ use Ramsey\Uuid\Uuid;
  */
 final class Version20200127083123 extends AbstractErgonodeMigration
 {
-    /**
-     * @param Schema $schema
-     */
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');

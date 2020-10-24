@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
@@ -22,14 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SegmentAutocompleteAction
 {
-    /**
-     * @var SegmentQueryInterface
-     */
     private SegmentQueryInterface $segmentQuery;
 
-    /**
-     * @param SegmentQueryInterface $segmentQuery
-     */
     public function __construct(SegmentQueryInterface $segmentQuery)
     {
         $this->segmentQuery = $segmentQuery;
@@ -78,11 +72,6 @@ class SegmentAutocompleteAction
      *     response=200,
      *     description="Return segments",
      * )
-     *
-     * @param Language $language
-     * @param Request  $request
-     *
-     * @return Response
      */
     public function __invoke(Language $language, Request $request): Response
     {

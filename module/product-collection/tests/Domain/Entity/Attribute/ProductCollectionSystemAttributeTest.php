@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Tests\Domain\Entity\Attribute;
 
@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute;
 use PHPUnit\Framework\TestCase;
 
-/**
- */
 class ProductCollectionSystemAttributeTest extends TestCase
 {
     /**

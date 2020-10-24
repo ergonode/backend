@@ -158,15 +158,7 @@
 
     <!-- PHP code style check -->
     <target name="check:cs" description="PHPCS checker">
-        <exec command="bin/phpcs -n"
-              checkreturn="true"
-              logoutput="true">
-        </exec>
-    </target>
-
-    <!-- PHP code style check -->
-    <target name="check:cs:warning" description="PHPCS checker - warnings">
-        <exec command="bin/phpcs -p"
+        <exec command="bin/phpcs"
               checkreturn="true"
               logoutput="true">
         </exec>

@@ -4,14 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Provider;
 
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 
-/**
- */
 class ImportProcessorProvider
 {
     /**
@@ -19,19 +17,11 @@ class ImportProcessorProvider
      */
     private array $processors;
 
-    /**
-     * @param SourceImportProcessorInterface ...$processors
-     */
     public function __construct(SourceImportProcessorInterface ...$processors)
     {
         $this->processors = $processors;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return SourceImportProcessorInterface
-     */
     public function provide(string $type): SourceImportProcessorInterface
     {
         foreach ($this->processors as $processor) {

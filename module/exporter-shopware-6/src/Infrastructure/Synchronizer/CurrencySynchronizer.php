@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
@@ -18,30 +18,14 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-/**
- */
 class CurrencySynchronizer implements SynchronizerInterface
 {
-    /**
-     * @var Shopware6Connector
-     */
     private Shopware6Connector $connector;
 
-    /**
-     * @var Shopware6CurrencyRepositoryInterface
-     */
     private Shopware6CurrencyRepositoryInterface $currencyRepository;
 
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param Shopware6Connector                   $connector
-     * @param Shopware6CurrencyRepositoryInterface $currencyRepository
-     * @param AttributeRepositoryInterface         $attributeRepository
-     */
     public function __construct(
         Shopware6Connector $connector,
         Shopware6CurrencyRepositoryInterface $currencyRepository,
@@ -52,19 +36,12 @@ class CurrencySynchronizer implements SynchronizerInterface
         $this->attributeRepository = $attributeRepository;
     }
 
-    /**
-     * @param ExportId         $id
-     * @param Shopware6Channel $channel
-     */
     public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
         $this->synchronizeShopware($channel);
         $this->checkExistOrCreate($channel);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     */
     private function synchronizeShopware(Shopware6Channel $channel): void
     {
         $currencyList = $this->getShopwareCurrency($channel);
@@ -74,8 +51,6 @@ class CurrencySynchronizer implements SynchronizerInterface
     }
 
     /**
-     * @param Shopware6Channel $channel
-     *
      * @return array
      */
     private function getShopwareCurrency(Shopware6Channel $channel): array
@@ -87,9 +62,6 @@ class CurrencySynchronizer implements SynchronizerInterface
         return $this->connector->execute($channel, $action);
     }
 
-    /**
-     * @param Shopware6Channel $channel
-     */
     private function checkExistOrCreate(Shopware6Channel $channel): void
     {
         /** @var PriceAttribute $attribute */

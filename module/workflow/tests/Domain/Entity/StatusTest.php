@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Entity;
 
@@ -16,8 +16,6 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- */
 class StatusTest extends TestCase
 {
     /**
@@ -45,8 +43,6 @@ class StatusTest extends TestCase
      */
     private TranslatableString $description;
 
-    /**
-     */
     protected function setUp(): void
     {
         $this->id = $this->createMock(StatusId::class);
@@ -156,8 +152,6 @@ class StatusTest extends TestCase
     }
 
     /**
-     * @return Status
-     *
      * @throws \Exception
      */
     private function getClass(): Status

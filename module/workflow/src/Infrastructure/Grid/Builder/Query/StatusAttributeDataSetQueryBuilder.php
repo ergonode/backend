@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Grid\Builder\Query;
 
@@ -14,8 +14,6 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 
-/**
- */
 class StatusAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**
@@ -26,12 +24,6 @@ class StatusAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
         return $attribute instanceof StatusSystemAttribute;
     }
 
-    /**
-     * @param QueryBuilder      $query
-     * @param string            $key
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
         $query->addSelect(sprintf(

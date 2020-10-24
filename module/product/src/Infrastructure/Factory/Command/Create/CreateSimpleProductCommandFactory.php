@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Factory\Command\Create;
 
@@ -19,24 +19,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Infrastructure\Factory\Command\CreateProductCommandFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-/**
- */
 class CreateSimpleProductCommandFactory implements CreateProductCommandFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function support(string $type): bool
     {
         return $type === SimpleProduct::TYPE;
     }
     /**
-     * @param FormInterface $form
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface
