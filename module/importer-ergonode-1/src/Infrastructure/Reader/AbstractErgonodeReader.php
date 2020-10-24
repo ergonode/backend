@@ -22,8 +22,10 @@ abstract class AbstractErgonodeReader
      */
     public function __construct(string $directory, string $file)
     {
+        $filepath = sprintf('%s%s%s', $directory, DIRECTORY_SEPARATOR, $file);
+
         try {
-            $reader = Reader::createFromPath($directory.DIRECTORY_SEPARATOR.$file);
+            $reader = Reader::createFromPath($filepath);
             $reader->setHeaderOffset(0);
             $reader->skipEmptyRecords();
             $reader->skipInputBOM();
@@ -31,7 +33,7 @@ abstract class AbstractErgonodeReader
             $this->records = $reader->getRecords();
             $this->records->rewind();
         } catch (\Exception $exception) {
-            throw new ReaderFileProcessException($directory.DIRECTORY_SEPARATOR.$file, $exception);
+            throw new ReaderFileProcessException($filepath);
         }
     }
 }

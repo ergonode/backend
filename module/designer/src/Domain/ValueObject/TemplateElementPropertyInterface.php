@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -12,11 +11,5 @@ namespace Ergonode\Designer\Domain\ValueObject;
 interface TemplateElementPropertyInterface
 {
     public function getVariant(): string;
-
-    /**
-     * @param TemplateElementPropertyInterface $property
-     *
-     * @return bool
-     */
     public function isEqual(TemplateElementPropertyInterface $property): bool;
 }

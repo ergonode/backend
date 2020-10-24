@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -20,14 +19,8 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 
 class OptionProcessor
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     */
     public function __construct(AttributeRepositoryInterface $attributeRepository)
     {
         $this->attributeRepository = $attributeRepository;
@@ -58,7 +51,7 @@ class OptionProcessor
         }
     }
 
-    private function getLanguage(AbstractOption $option, Language $language): LanguageData
+    private function getLanguage(AbstractOption $option, Language $language, AbstractAttribute $attribute): LanguageData
     {
         $result = new LanguageData();
         $result->set('_id', $option->getId()->getValue());
