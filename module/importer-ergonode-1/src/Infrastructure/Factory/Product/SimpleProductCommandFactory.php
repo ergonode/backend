@@ -1,9 +1,10 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
+declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Factory\Product;
 
@@ -14,21 +15,13 @@ use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
-/**
- */
 final class SimpleProductCommandFactory implements ProductCommandFactoryInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(string $type): bool
     {
         return SimpleProduct::TYPE === $type;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function create(Import $import, ProductModel $model): DomainCommandInterface
     {
         return new ImportSimpleProductCommand(

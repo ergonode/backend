@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -16,28 +15,10 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 interface AttributeFactoryInterface
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
     public function supports(string $type): bool;
 
-    /**
-     * @param AttributeId              $id
-     * @param AttributeCode            $code
-     * @param AttributeScope           $scope
-     * @param TranslatableString       $label
-     * @param TranslatableString       $hint
-     * @param TranslatableString       $placeholder
-     * @param AttributeParametersModel $parameters
-     *
-     * @return AbstractAttribute
-     */
     public function create(
         AttributeId $id,
         AttributeCode $code,

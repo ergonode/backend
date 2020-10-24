@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -18,21 +17,14 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 final class DateAttributeFactory implements AttributeFactoryInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(string $type): bool
     {
         return DateAttribute::TYPE === $type;
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @throws \Exception
      */
     public function create(

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -15,18 +14,10 @@ use Ergonode\ImporterErgonode\Infrastructure\Factory\Product\ProductCommandFacto
 use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
 use Webmozart\Assert\Assert;
 
-/**
- */
 final class ProductCommandResolver
 {
-    /**
-     * @var iterable|ProductCommandFactoryInterface[]
-     */
     private iterable $commandFactories;
 
-    /**
-     * @param iterable|ProductCommandFactoryInterface[] $commandFactories
-     */
     public function __construct(iterable $commandFactories)
     {
         Assert::allIsInstanceOf($commandFactories, ProductCommandFactoryInterface::class);
@@ -34,11 +25,6 @@ final class ProductCommandResolver
     }
 
     /**
-     * @param Import       $import
-     * @param ProductModel $model
-     *
-     * @return DomainCommandInterface
-     *
      * @throws \RuntimeException
      */
     public function resolve(Import $import, ProductModel $model): DomainCommandInterface

@@ -1,11 +1,10 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Domain\Entity;
 
@@ -14,8 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-/**
- */
 final class ErgonodeZipSource extends AbstractSource
 {
     public const TYPE = 'ergonode-zip';
@@ -39,17 +36,10 @@ final class ErgonodeZipSource extends AbstractSource
     ];
 
     /**
-     * @var array
-     *
      * @JMS\Type("array<string>")
      */
     private array $import;
 
-    /**
-     * @param SourceId $id
-     * @param string   $name
-     * @param array    $imports
-     */
     public function __construct(
         SourceId $id,
         string $name,
@@ -64,59 +54,36 @@ final class ErgonodeZipSource extends AbstractSource
         }
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return self::TYPE;
     }
 
-    /**
-     * @return string
-     */
     public function getDelimiter(): string
     {
         return self::DELIMITER;
     }
 
-    /**
-     * @return string
-     */
     public function getEnclosure(): string
     {
         return self::ENCLOSURE;
     }
 
-    /**
-     * @return string
-     */
     public function getEscape(): string
     {
         return self::ESCAPE;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @param array $import
-     */
     public function setImport(array $import): void
     {
         $this->import = $import;
     }
 
-    /**
-     * @param string $step
-     *
-     * @return bool
-     */
     public function import(string $step): bool
     {
         if (array_key_exists($step, array_flip($this->import))) {

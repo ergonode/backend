@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -20,24 +19,13 @@ use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeTemplateReader;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\SerializerInterface;
 
-/**
- */
 final class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
-    private CommandBusInterface $commandBus;
+    private const FILENAME = 'templates.csv';
 
-    /**
-     * @var SerializerInterface
-     */
+    private CommandBusInterface $commandBus;
     private SerializerInterface $serializer;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     * @param SerializerInterface $serializer
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         SerializerInterface $serializer
@@ -46,12 +34,9 @@ final class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterf
         $this->serializer = $serializer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(Import $import, string $directory): void
     {
-        $reader = new ErgonodeTemplateReader($directory, 'templates.csv');
+        $reader = new ErgonodeTemplateReader($directory, self::FILENAME);
 
         while ($template = $reader->read()) {
             $command = new ImportTemplateCommand(

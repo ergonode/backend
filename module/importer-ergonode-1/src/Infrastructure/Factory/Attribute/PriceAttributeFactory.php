@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -18,21 +17,14 @@ use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
 
-/**
- */
 final class PriceAttributeFactory implements AttributeFactoryInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function supports(string $type): bool
     {
         return PriceAttribute::TYPE === $type;
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @throws \Exception
      */
     public function create(

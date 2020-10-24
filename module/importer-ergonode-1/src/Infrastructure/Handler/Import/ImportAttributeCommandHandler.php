@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -15,24 +14,11 @@ use Ergonode\ImporterErgonode\Domain\Command\Import\ImportAttributeCommand;
 use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\ImporterErgonode\Infrastructure\Resolver\AttributeFactoryResolver;
 
-/**
- */
 final class ImportAttributeCommandHandler
 {
-    /**
-     * @var AttributeRepositoryInterface
-     */
     private AttributeRepositoryInterface $attributeRepository;
-
-    /**
-     * @var AttributeFactoryResolver
-     */
     private AttributeFactoryResolver $attributeFactoryResolver;
 
-    /**
-     * @param AttributeRepositoryInterface $attributeRepository
-     * @param AttributeFactoryResolver     $attributeFactoryResolver
-     */
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         AttributeFactoryResolver $attributeFactoryResolver
@@ -42,8 +28,6 @@ final class ImportAttributeCommandHandler
     }
 
     /**
-     * @param ImportAttributeCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ImportAttributeCommand $command): void

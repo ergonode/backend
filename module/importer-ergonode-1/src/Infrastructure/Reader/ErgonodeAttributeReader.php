@@ -1,23 +1,18 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeModel;
 
-/**
- */
 final class ErgonodeAttributeReader extends AbstractErgonodeReader
 {
     /**
-     * @return AttributeModel|null
-     *
      * @throws \JsonException
      */
     public function read(): ?AttributeModel
@@ -50,9 +45,6 @@ final class ErgonodeAttributeReader extends AbstractErgonodeReader
     }
 
     /**
-     * @param AttributeModel $model
-     * @param string         $parameters
-     *
      * @throws \JsonException
      */
     private function mapParameters(AttributeModel $model, string $parameters): void

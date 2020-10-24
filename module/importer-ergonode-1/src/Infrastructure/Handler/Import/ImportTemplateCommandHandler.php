@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -15,24 +14,11 @@ use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\ImporterErgonode\Domain\Command\Import\ImportTemplateCommand;
 
-/**
- */
 final class ImportTemplateCommandHandler
 {
-    /**
-     * @var TemplateRepositoryInterface
-     */
     private TemplateRepositoryInterface $templateRepository;
-
-    /**
-     * @var TemplateGroupQueryInterface
-     */
     private TemplateGroupQueryInterface $templateGroupQuery;
 
-    /**
-     * @param TemplateRepositoryInterface $templateRepository
-     * @param TemplateGroupQueryInterface $templateGroupQuery
-     */
     public function __construct(
         TemplateRepositoryInterface $templateRepository,
         TemplateGroupQueryInterface $templateGroupQuery
@@ -42,8 +28,6 @@ final class ImportTemplateCommandHandler
     }
 
     /**
-     * @param ImportTemplateCommand $command
-     *
      * @throws \Exception
      */
     public function __invoke(ImportTemplateCommand $command): void

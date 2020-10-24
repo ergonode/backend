@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -18,29 +17,20 @@ use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInte
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeAttributeReader;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-/**
- */
 final class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
+    private const FILENAME = 'attributes.csv';
+
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(Import $import, string $directory): void
     {
-        $reader = new ErgonodeAttributeReader($directory, 'attributes.csv');
+        $reader = new ErgonodeAttributeReader($directory, self::FILENAME);
 
         while ($attribute = $reader->read()) {
             $command = new ImportAttributeCommand(

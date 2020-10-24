@@ -1,23 +1,17 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
 
-/**
- */
 final class ErgonodeProductReader extends AbstractErgonodeReader
 {
-    /**
-     * @return ProductModel|null
-     */
     public function read(): ?ProductModel
     {
         $item = null;
@@ -47,9 +41,6 @@ final class ErgonodeProductReader extends AbstractErgonodeReader
         return $item;
     }
 
-    /**
-     * @return array
-     */
     private function prepareAttributes(): array
     {
         return array_filter($this->headers, static function ($item) {

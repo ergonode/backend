@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -13,23 +12,11 @@ use Ergonode\Importer\Domain\Entity\Import;
 use League\Flysystem\FilesystemInterface;
 use ZipArchive;
 
-/**
- */
 final class ErgonodeZipExtractor
 {
-    /**
-     * @var string
-     */
     private string $directory;
-
-    /**
-     * @var FilesystemInterface
-     */
     private FilesystemInterface $importStorage;
 
-    /**
-     * @param FilesystemInterface $importStorage
-     */
     public function __construct(FilesystemInterface $importStorage)
     {
         $this->directory = $importStorage->getAdapter()->getPathPrefix();
@@ -37,10 +24,6 @@ final class ErgonodeZipExtractor
     }
 
     /**
-     * @param Import $import
-     *
-     * @return string
-     *
      * @throws \Exception
      */
     public function extract(Import $import): string
@@ -67,9 +50,6 @@ final class ErgonodeZipExtractor
         return $extractDirectory;
     }
 
-    /**
-     * @param Import $import
-     */
     public function cleanup(Import $import): void
     {
         if (!$this->importStorage->deleteDir($import->getFileHash())) {

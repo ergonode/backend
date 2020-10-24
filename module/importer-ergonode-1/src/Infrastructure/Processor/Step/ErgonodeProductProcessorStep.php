@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -15,24 +14,13 @@ use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInte
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeProductReader;
 use Ergonode\ImporterErgonode\Infrastructure\Resolver\ProductCommandResolver;
 
-/**
- */
 final class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
-    private CommandBusInterface $commandBus;
+    private const FILENAME = 'products.csv';
 
-    /**
-     * @var ProductCommandResolver
-     */
+    private CommandBusInterface $commandBus;
     private ProductCommandResolver $commandResolver;
 
-    /**
-     * @param CommandBusInterface    $commandBus
-     * @param ProductCommandResolver $commandResolver
-     */
     public function __construct(
         CommandBusInterface $commandBus,
         ProductCommandResolver $commandResolver
@@ -41,12 +29,9 @@ final class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterfa
         $this->commandResolver = $commandResolver;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(Import $import, string $directory): void
     {
-        $reader = new ErgonodeProductReader($directory, 'products.csv');
+        $reader = new ErgonodeProductReader($directory, self::FILENAME);
 
         while ($product = $reader->read()) {
             $command = $this->commandResolver->resolve($import, $product);

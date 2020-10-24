@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -13,66 +12,18 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
-/**
- */
 final class ImportAttributeCommand implements DomainCommandInterface
 {
-    /**
-     * @var ImportId
-     */
     private ImportId $importId;
-
-    /**
-     * @var AttributeId
-     */
     private AttributeId $id;
-
-    /**
-     * @var AttributeCode
-     */
     private AttributeCode $code;
-
-    /**
-     * @var string
-     */
     private string $type;
-
-    /**
-     * @var AttributeScope
-     */
     private AttributeScope $scope;
-
-    /**
-     * @var array
-     */
     private array $parameters;
-
-    /**
-     * @var array
-     */
     private array $label;
-
-    /**
-     * @var array
-     */
     private array $hint;
-
-    /**
-     * @var array
-     */
     private array $placeholder;
 
-    /**
-     * @param ImportId       $importId
-     * @param AttributeId    $id
-     * @param AttributeCode  $code
-     * @param string         $type
-     * @param AttributeScope $scope
-     * @param array          $parameters
-     * @param array          $label
-     * @param array          $hint
-     * @param array          $placeholder
-     */
     public function __construct(
         ImportId $importId,
         AttributeId $id,
@@ -95,59 +46,36 @@ final class ImportAttributeCommand implements DomainCommandInterface
         $this->placeholder = $placeholder;
     }
 
-    /**
-     * @return ImportId
-     */
     public function getImportId(): ImportId
     {
         return $this->importId;
     }
 
-    /**
-     * @return AttributeId
-     */
     public function getId(): AttributeId
     {
         return $this->id;
     }
 
-    /**
-     * @return AttributeCode
-     */
     public function getCode(): AttributeCode
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return AttributeScope
-     */
     public function getScope(): AttributeScope
     {
         return $this->scope;
     }
 
-    /**
-     * @return array
-     */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string|null
-     */
     public function getParameter(string $name): ?string
     {
         if (!array_key_exists($name, $this->parameters)) {
@@ -157,25 +85,16 @@ final class ImportAttributeCommand implements DomainCommandInterface
         return $this->parameters[$name];
     }
 
-    /**
-     * @return array
-     */
     public function getLabel(): array
     {
         return $this->label;
     }
 
-    /**
-     * @return array
-     */
     public function getHint(): array
     {
         return $this->hint;
     }
 
-    /**
-     * @return array
-     */
     public function getPlaceholder(): array
     {
         return $this->placeholder;

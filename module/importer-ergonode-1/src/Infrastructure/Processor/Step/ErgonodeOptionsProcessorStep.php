@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -18,29 +17,20 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeOptionReader;
 
-/**
- */
 final class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
 {
-    /**
-     * @var CommandBusInterface
-     */
+    private const FILENAME = 'options.csv';
+
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param CommandBusInterface $commandBus
-     */
     public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(Import $import, string $directory): void
     {
-        $reader = new ErgonodeOptionReader($directory, 'options.csv');
+        $reader = new ErgonodeOptionReader($directory, self::FILENAME);
 
         while ($option = $reader->read()) {
             $command = new ImportOptionCommand(

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -11,28 +10,16 @@ namespace Ergonode\ImporterErgonode\Infrastructure\Resolver;
 
 use Ergonode\ImporterErgonode\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
 
-/**
- */
 final class AttributeFactoryResolver
 {
-    /**
-     * @var iterable|AttributeFactoryInterface
-     */
     private iterable $factories;
 
-    /**
-     * @param iterable|AttributeFactoryInterface $factories
-     */
     public function __construct(iterable $factories)
     {
         $this->factories = $factories;
     }
 
     /**
-     * @param string $type
-     *
-     * @return AttributeFactoryInterface
-     *
      * @throws \RuntimeException
      */
     public function resolve(string $type): AttributeFactoryInterface

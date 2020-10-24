@@ -1,23 +1,17 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\ImporterErgonode\Infrastructure\Model\CategoryModel;
 
-/**
- */
 final class ErgonodeCategoryReader extends AbstractErgonodeReader
 {
-    /**
-     * @return CategoryModel|null
-     */
     public function read(): ?CategoryModel
     {
         $item = null;
