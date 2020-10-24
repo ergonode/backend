@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -35,8 +34,6 @@ class AttributeTemplateElementProperty implements TemplateElementPropertyInterfa
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @JMS\VirtualProperty()
      */
     public function getVariant(): string
@@ -54,9 +51,6 @@ class AttributeTemplateElementProperty implements TemplateElementPropertyInterfa
         return $this->required;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function isEqual(TemplateElementPropertyInterface $property): bool
     {
         return
