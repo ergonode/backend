@@ -27,7 +27,7 @@ class ErgonodeProductReader extends AbstractErgonodeReader
                     $record['_type'],
                     $record['_template']
                 );
-            } else if ($item->getId() !== $record['_id']) {
+            } elseif ($item->getId() !== $record['_id']) {
                 break;
             }
 

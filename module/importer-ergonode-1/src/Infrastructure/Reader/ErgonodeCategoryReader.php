@@ -21,7 +21,7 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
 
             if (null === $item) {
                 $item = new CategoryModel($record['_id'], $record['_code']);
-            } else if ($item->getId() !== $record['_id']) {
+            } elseif ($item->getId() !== $record['_id']) {
                 break;
             }
 

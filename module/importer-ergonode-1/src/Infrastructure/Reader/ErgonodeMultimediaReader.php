@@ -27,7 +27,7 @@ class ErgonodeMultimediaReader extends AbstractErgonodeReader
                     $record['_mime'],
                     $record['_size'],
                 );
-            } else if ($item->getId() !== $record['_id']) {
+            } elseif ($item->getId() !== $record['_id']) {
                 break;
             }
 
