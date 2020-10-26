@@ -4,6 +4,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Editor\Domain\Repository;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;

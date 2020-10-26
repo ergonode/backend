@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Designer\Tests\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
