@@ -21,7 +21,7 @@ class EntityGenerator
      */
     private array $builders;
 
-    public function __construct(FilePersister $persister, BuilderInterface...$builders)
+    public function __construct(FilePersister $persister, BuilderInterface ...$builders)
     {
         $this->persister = $persister;
         $this->builders = $builders;

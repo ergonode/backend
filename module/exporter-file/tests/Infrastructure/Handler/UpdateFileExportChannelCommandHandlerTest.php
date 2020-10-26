@@ -16,7 +16,7 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class UpdateFileExportChannelCommandHandlerTest extends TestCase
 {
-    public function testHandling():void
+    public function testHandling(): void
     {
         $channel = $this->createMock(FileExportChannel::class);
         $channel->expects(self::once())->method('setName');

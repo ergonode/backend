@@ -28,7 +28,7 @@ class UpdateDateAttributeCommandTest extends TestCase
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        AttributeScope     $scope,
+        AttributeScope $scope,
         DateFormat $format,
         array $groups
     ): void {

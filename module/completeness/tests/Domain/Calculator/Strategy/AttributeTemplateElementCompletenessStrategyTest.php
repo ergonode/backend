@@ -36,7 +36,7 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
         $this->calculator = $this->createMock(TranslationInheritanceCalculator::class);
     }
 
-    public function testSupport():void
+    public function testSupport(): void
     {
         $strategy = new AttributeTemplateElementCompletenessStrategy($this->repository, $this->calculator);
         $this::assertTrue($strategy->supports(AttributeTemplateElementProperty::VARIANT));

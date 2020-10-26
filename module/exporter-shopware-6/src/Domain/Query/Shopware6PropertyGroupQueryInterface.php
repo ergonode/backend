@@ -15,5 +15,5 @@ interface Shopware6PropertyGroupQueryInterface
 {
     public function loadByShopwareId(ChannelId $channelId, string $shopwareId): ?AttributeId;
 
-    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime, string  $type): void;
+    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime, string $type): void;
 }

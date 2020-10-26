@@ -43,7 +43,7 @@ class DbalTreeRepository implements TreeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function exists(CategoryTreeId $id) : bool
+    public function exists(CategoryTreeId $id): bool
     {
         return $this->manager->exists($id);
     }

@@ -16,7 +16,7 @@ interface ChannelRepositoryInterface
 {
     public function load(ChannelId $id): ?AbstractChannel;
 
-    public function exists(ChannelId $id) : bool;
+    public function exists(ChannelId $id): bool;
 
     public function save(AbstractChannel $aggregateRoot): void;
 

@@ -17,7 +17,7 @@ interface Shopware6ProductMapperInterface
 {
     public function map(
         Shopware6Product $shopware6Product,
-        AbstractProduct$product,
+        AbstractProduct $product,
         Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product;
