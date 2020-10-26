@@ -49,8 +49,9 @@ abstract class AbstractProductProcessor
 
         foreach ($default as $field => $value) {
             $translation = [];
-            if (array_key_exists($field, $attributes)) {
-                $type = $attributes[$field]->getType();
+            $attribute = $this->getAttribute($field, $attributes);
+            if ($attribute) {
+                $type = $attribute->getType();
                 $value = $this->format($type, $value);
                 if ($value) {
                     $translation[$source->getDefaultLanguage()->getCode()] = $value;
@@ -85,5 +86,19 @@ abstract class AbstractProductProcessor
         }
 
         return $value;
+    }
+
+    /**
+     * @param AbstractAttribute[] $attributes
+     */
+    private function getAttribute(string $code, array $attributes): ?AbstractAttribute
+    {
+        foreach ($attributes as $attribute) {
+            if ($code === $attribute->getCode()->getValue()) {
+                return $attribute;
+            }
+        }
+
+        return null;
     }
 }
