@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Value\Domain\Service;
 
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
