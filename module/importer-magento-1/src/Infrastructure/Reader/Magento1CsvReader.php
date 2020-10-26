@@ -92,14 +92,10 @@ class Magento1CsvReader
             } else {
                 foreach ($line as $field => $value) {
                     if ('' !== $value && null !== $value) {
-                        if ($product[$code][$field] !== '') {
-                            if ('default' === $code) {
-                                $product[$code][$field] = $value;
-                            } else {
-                                $product[$code][$field] .= ','.$value;
-                            }
-                        } else {
+                        if (null === $product[$code][$field] || '' === $product[$code][$field]) {
                             $product[$code][$field] = $value;
+                        } else {
+                            $product[$code][$field] .= ','.$value;
                         }
                     }
                 }
@@ -172,7 +168,6 @@ class Magento1CsvReader
 
     /**
      * @param AbstractAttribute[] $attributes
-     * @param array       $record
      *
      * @return array
      */
@@ -185,13 +180,17 @@ class Magento1CsvReader
             $result[$attribute->getCode()->getValue()] = $record[$code];
         }
 
-        $result['bindings'] = $record['_super_attribute_code'];
         $result['variants'] = $record['_super_products_sku'];
         $result['relations'] = $record['_associated_sku'];
         $result['esa_categories'] = $record['_category'];
 
         if (array_key_exists('_category_root', $record)) {
             $result['esa_categories'] = sprintf('%s/%s', $record['_category'], $record['_category_root']);
+        }
+
+        $result['bindings'] = $record['_super_attribute_code'];
+        if (!empty($result['bindings'])) {
+            $result['bindings'] = $attributes[$result['bindings']]->getCode()->getValue();
         }
 
         return $result;
