@@ -90,7 +90,7 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
         $object = $reflection->newInstanceWithoutConstructor();
 
         $visitor->startVisitingObject($metadata, $object, ['name' => $class]);
-        foreach ($metadata->propertyMetadata as $name => $property) {
+        foreach ($metadata->propertyMetadata as $property) {
             if (!$property instanceof VirtualPropertyMetadata) {
                 $value = $visitor->visitProperty($property, $data);
 

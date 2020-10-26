@@ -29,7 +29,7 @@ class ConverterCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(ConverterInterfaceHandler::class);
         $services = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($services as $id => $service) {
+        foreach (array_keys($services) as $id) {
             $arguments = [$id];
             $definition->addMethodCall('set', $arguments);
             $container->removeDefinition($id);

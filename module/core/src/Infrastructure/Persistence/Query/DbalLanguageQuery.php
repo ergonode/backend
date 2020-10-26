@@ -233,7 +233,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
             ->execute()
             ->fetchAll();
 
-        foreach ($records as $key => $record) {
+        foreach (array_keys($records) as $key) {
             $records[$key]['label'] = $this->translator->trans($records[$key]['label'], [], 'language');
         }
 

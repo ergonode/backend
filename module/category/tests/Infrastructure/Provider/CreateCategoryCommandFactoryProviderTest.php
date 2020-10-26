@@ -32,6 +32,6 @@ class CreateCategoryCommandFactoryProviderTest extends TestCase
         $factory->method('support')->willReturn(false);
         $provider = new CreateCategoryCommandFactoryProvider(...[$factory]);
 
-        $factoryProvided = $provider->provide('type');
+        $provider->provide('type');
     }
 }

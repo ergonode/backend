@@ -54,7 +54,7 @@ class OptionAttributeValueConditionConditionConfigurationStrategy implements Con
         $codes = $this->attributeQuery->getDictionary([SelectAttribute::TYPE, MultiSelectAttribute::TYPE]);
         asort($codes);
         $complexOptions = [];
-        foreach ($codes as $attributeId => $code) {
+        foreach (array_keys($codes) as $attributeId) {
             $options = $this->optionQuery->getList(new AttributeId($attributeId), $language);
             if ($options) {
                 $complexOptions[$attributeId] = $options;

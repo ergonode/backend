@@ -348,7 +348,7 @@ class Shopware6Product
 
     public function hasCustomField(string $customFieldId): bool
     {
-        foreach ($this->getCustomFields() as $key => $customField) {
+        foreach (array_keys($this->getCustomFields()) as $key) {
             if ($key === $customFieldId) {
                 return true;
             }

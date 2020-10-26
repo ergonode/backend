@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Condition\Domain\Condition\ProductHasStatusCondition;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductHasStatusConditionCalculatorStrategy;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -50,7 +48,6 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
         bool $expectedResult
     ): void {
         $product = $this->createProductMock('some-id');
-        $statusAttributeCode = new AttributeCode(StatusSystemAttribute::CODE);
 
         $product
             ->method('hasAttribute')

@@ -31,7 +31,7 @@ class CategoryFormCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(CategoryFormProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 

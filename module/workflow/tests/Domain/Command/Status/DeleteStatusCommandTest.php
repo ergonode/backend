@@ -22,7 +22,6 @@ class DeleteStatusCommandTest extends TestCase
     {
         /** @var StatusId $id */
         $id = $this->createMock(StatusId::class);
-        $code = 'Any code';
 
         $command = new DeleteStatusCommand($id);
         $this->assertSame($id, $command->getId());

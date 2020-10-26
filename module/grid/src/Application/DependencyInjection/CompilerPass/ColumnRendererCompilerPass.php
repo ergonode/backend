@@ -28,7 +28,7 @@ class ColumnRendererCompilerPass implements CompilerPassInterface
     private function processRenderers(ContainerBuilder $container): void
     {
         $arguments = [];
-        foreach ($container->findTaggedServiceIds(self::TAG) as $id => $renderer) {
+        foreach (array_keys($container->findTaggedServiceIds(self::TAG)) as $id) {
             $arguments[] = new Reference($id);
         }
 

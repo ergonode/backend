@@ -62,7 +62,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
             $phpClass->addMember($this->propertyBuilder->build($name, $type));
         }
 
-        $phpClass->addMember($this->buildConstructor($module, $entity, $properties));
+        $phpClass->addMember($this->buildConstructor($properties));
 
         $property = $this->methodBuilder->build('load', ['id' => $entityIdClass], AbstractAggregateRoot::class);
 
@@ -104,10 +104,10 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
     /**
      * @param array $properties
      */
-    private function buildConstructor(string $module, string $entity, array $properties = []): Method
+    private function buildConstructor(array $properties = []): Method
     {
         $method = $this->methodBuilder->build('__construct', $properties);
-        foreach ($properties as $name => $property) {
+        foreach (array_keys($properties) as $name) {
             $method->addBody(sprintf('$this->%s = $%s;', $name, $name));
         }
 

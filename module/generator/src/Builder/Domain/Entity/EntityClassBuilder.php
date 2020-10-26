@@ -95,7 +95,7 @@ class EntityClassBuilder implements BuilderInterface
                 'void'
             );
         $method->setVisibility(ClassType::VISIBILITY_PROTECTED);
-        foreach ($properties as $name => $property) {
+        foreach (array_keys($properties) as $name) {
             $method->addBody(sprintf('$this->%s = $event->get%s();', $name, ucfirst($name)));
         }
 
