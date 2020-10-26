@@ -45,6 +45,8 @@ default:
                 - Ergonode\Core\Test\Behat\Context\ApiAuthContext:
                     JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
                     request: '@Behatch\HttpCall\Request'
+                - Ergonode\Core\Test\Behat\Context\ApiAuthTokenContext:
+                    request: '@Behatch\HttpCall\Request'
                 - Ergonode\Core\Test\Behat\Context\UploadFileContext
                 - behatch:context:rest
                 - behatch:context:debug
