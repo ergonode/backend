@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Form\Model;
 
 use Ergonode\Account\Infrastructure\Validator\RoleExists;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -59,6 +60,8 @@ class TransitionCreateFormModel
 
     public ?string $conditionSet;
 
+    private AbstractWorkflow $workflow;
+
     /**
      * @var array
      *
@@ -72,13 +75,15 @@ class TransitionCreateFormModel
      */
     public array $roles;
 
-    public function __construct()
-    {
+    public function __construct(
+        AbstractWorkflow $workflow
+    ) {
         $this->source = null;
         $this->destination = null;
         $this->name = [];
         $this->description = [];
         $this->conditionSet = null;
+        $this->workflow = $workflow;
         $this->roles = [];
     }
 
@@ -100,9 +105,14 @@ class TransitionCreateFormModel
             $source = new StatusId($data->source);
             $destination = new StatusId($data->destination);
 
-            if ($data->workflow->hasTransition($source, $destination)) {
+            if ($data->getWorkflow()->hasTransition($source, $destination)) {
                 $context->addViolation('Transition exists');
             }
         }
+    }
+
+    public function getWorkflow(): AbstractWorkflow
+    {
+        return $this->workflow;
     }
 }

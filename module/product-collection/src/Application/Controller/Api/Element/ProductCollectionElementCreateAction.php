@@ -92,7 +92,7 @@ class ProductCollectionElementCreateAction
     public function __invoke(ProductCollection $productCollection, Request $request): Response
     {
         try {
-            $model = new ProductCollectionElementCreateFormModel();
+            $model = new ProductCollectionElementCreateFormModel($productCollection);
             $form = $this->formFactory->create(ProductCollectionElementCreateForm::class, $model);
             $form->handleRequest($request);
 

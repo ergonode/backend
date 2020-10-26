@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
+use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -27,8 +28,11 @@ class ProductCollectionElementCreateFormModel
      */
     public ?bool $visible;
 
-    public function __construct()
+    private ProductCollection $productCollection;
+
+    public function __construct(ProductCollection $productCollection)
     {
+        $this->productCollection = $productCollection;
         $this->productId = null;
         $this->visible = null;
     }
@@ -40,8 +44,13 @@ class ProductCollectionElementCreateFormModel
     {
         /** @var ProductCollectionElementCreateFormModel $data */
         $data = $context->getValue();
-        if (($data->productId instanceof ProductId) && $data->productCollection->hasElement($data->productId)) {
+        if (($data->productId instanceof ProductId) && $data->getProductCollection()->hasElement($data->productId)) {
             $context->addViolation('Element exists');
         }
+    }
+
+    public function getProductCollection(): ProductCollection
+    {
+        return $this->productCollection;
     }
 }
