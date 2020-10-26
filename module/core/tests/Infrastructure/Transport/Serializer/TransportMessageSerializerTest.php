@@ -34,21 +34,21 @@ class TransportMessageSerializerTest extends TestCase
         $this->messageSerializer = new TransportMessageSerializer($this->serializer, $this->format);
     }
 
-    public function testNoBodyDecode()
+    public function testNoBodyDecode(): void
     {
         $this->expectExceptionMessage('Encoded envelope should have at least a `body` and some `headers`.');
         $this->expectException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example', 'headers' => '']);
     }
 
-    public function testNoTypeDecode()
+    public function testNoTypeDecode(): void
     {
         $this->expectExceptionMessage('Encoded envelope does not have a `type` header.');
         $this->expectException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example1', 'headers' => 'example2']);
     }
 
-    public function testDecode()
+    public function testDecode(): void
     {
         $this
             ->serializer
@@ -58,7 +58,7 @@ class TransportMessageSerializerTest extends TestCase
         $this->assertInstanceOf(Envelope::class, $result);
     }
 
-    public function testStampDecode()
+    public function testStampDecode(): void
     {
         $this->serializer->expects($this->at(0))->method('deserialize')->willReturn([]);
         $this
@@ -76,7 +76,7 @@ class TransportMessageSerializerTest extends TestCase
         $this->assertInstanceOf(Envelope::class, $result);
     }
 
-    public function testEncode()
+    public function testEncode(): void
     {
         $this->serializer->expects($this->once())->method('serialize')->willReturn('message');
         $message = $this->createMock(\stdClass::class);
@@ -87,7 +87,7 @@ class TransportMessageSerializerTest extends TestCase
         $this->assertArrayHasKey('type', $result['headers']);
     }
 
-    public function testStampsEncode()
+    public function testStampsEncode(): void
     {
         $this->serializer->expects($this->at(0))->method('serialize')->willReturn('message');
         $this->serializer->expects($this->at(1))->method('serialize')->willReturn('stamp');

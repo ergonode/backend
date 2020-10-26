@@ -23,7 +23,7 @@ class ProductAddedToCategoryEventHandler implements MessageSubscriberInterface
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(ProductAddedToCategoryEvent $event)
+    public function __invoke(ProductAddedToCategoryEvent $event): void
     {
         $command = new CalculateProductCommand($event->getAggregateId());
         $this->commandBus->dispatch($command);

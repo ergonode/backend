@@ -40,7 +40,7 @@ class ProductShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    public function __invoke(ProductShopware6ExportCommand $command)
+    public function __invoke(ProductShopware6ExportCommand $command): void
     {
         $export  = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

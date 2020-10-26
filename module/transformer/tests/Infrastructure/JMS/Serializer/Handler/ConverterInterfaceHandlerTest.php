@@ -40,7 +40,7 @@ class ConverterInterfaceHandlerTest extends TestCase
         $handler->set(MappingConverter::class);
 
         $this->serializer = SerializerBuilder::create()
-            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler) {
+            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler): void {
                 $handlerRegistry->registerSubscribingHandler($handler);
             })
             ->build();

@@ -27,7 +27,7 @@ class LanguageIdValidator extends ConstraintValidator
      * @param mixed                       $value
      * @param Constraint|LanguageIdExists $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof LanguageIdExists) {
             throw new UnexpectedTypeException($constraint, LanguageIdExists::class);

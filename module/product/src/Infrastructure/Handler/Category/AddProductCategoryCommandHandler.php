@@ -24,7 +24,7 @@ class AddProductCategoryCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(AddProductCategoryCommand $command)
+    public function __invoke(AddProductCategoryCommand $command): void
     {
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);

@@ -54,7 +54,7 @@ class ProcessCategoryCommandHandler
     /**
      * @throws ExportException
      */
-    public function __invoke(ProcessCategoryCommand $command)
+    public function __invoke(ProcessCategoryCommand $command): void
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());

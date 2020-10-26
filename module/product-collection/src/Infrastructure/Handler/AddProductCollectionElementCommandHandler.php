@@ -26,7 +26,7 @@ class AddProductCollectionElementCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(AddProductCollectionElementCommand $command)
+    public function __invoke(AddProductCollectionElementCommand $command): void
     {
         /** @var ProductCollection $productCollection */
         $productCollection = $this->repository->load($command->getProductCollectionId());

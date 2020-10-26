@@ -47,7 +47,7 @@ class ProcessExportCommandHandler
         $this->steps = $steps;
     }
 
-    public function __invoke(ProcessExportCommand $command)
+    public function __invoke(ProcessExportCommand $command): void
     {
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

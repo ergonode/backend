@@ -18,7 +18,7 @@ class UpdateGroupingProductCommandHandler extends AbstractUpdateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateGroupingProductCommand $command)
+    public function __invoke(UpdateGroupingProductCommand $command): void
     {
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);

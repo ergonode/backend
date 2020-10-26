@@ -43,7 +43,7 @@ class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHand
     /**
      * @throws \Exception
      */
-    public function __invoke(RemoveProductAttributeValueCommand $command)
+    public function __invoke(RemoveProductAttributeValueCommand $command): void
     {
         $language = $command->getLanguage();
         $draft = $this->repository->load($command->getId());

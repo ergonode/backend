@@ -115,10 +115,8 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
 
     /**
      * @param array $searchedStatuses
-     *
-     * @return MockObject
      */
-    private function createProductHasStatusConditionMock(string $operator, array $searchedStatuses)
+    private function createProductHasStatusConditionMock(string $operator, array $searchedStatuses): MockObject
     {
         $mock = $this->createMock(ProductHasStatusCondition::class);
         $mock->method('getOperator')->willReturn($operator);

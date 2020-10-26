@@ -32,7 +32,7 @@ class ImportCategoryCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportCategoryCommand $command)
+    public function __invoke(ImportCategoryCommand $command): void
     {
         try {
             $this->action->action(

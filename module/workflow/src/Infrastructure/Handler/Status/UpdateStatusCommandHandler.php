@@ -26,7 +26,7 @@ class UpdateStatusCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateStatusCommand $command)
+    public function __invoke(UpdateStatusCommand $command): void
     {
         $status = $this->repository->load($command->getId());
 

@@ -32,7 +32,7 @@ class ImportGroupingProductCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportGroupingProductCommand $command)
+    public function __invoke(ImportGroupingProductCommand $command): void
     {
         try {
             $this->action->action(

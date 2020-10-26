@@ -30,7 +30,7 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
     /**
      * @dataProvider calculateProvider
      */
-    public function testCalculate(string $sku, string $operator, string $value, bool $result)
+    public function testCalculate(string $sku, string $operator, string $value, bool $result): void
     {
         $product = $this->createProductMock($sku);
         $condition = $this->createProductSkuExistsConditionMock($operator, $value);

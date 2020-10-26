@@ -25,7 +25,7 @@ class CreateConditionSetCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateConditionSetCommand $command)
+    public function __invoke(CreateConditionSetCommand $command): void
     {
         $segment = new ConditionSet($command->getId(), $command->getConditions());
 

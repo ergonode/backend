@@ -36,7 +36,7 @@ class DbalValueChangedEventProjector
      */
     public function __invoke(ValueChangedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
             $type = get_class($event->getTo());
             $newValue = $this->serializer->serialize($event->getTo(), 'json');

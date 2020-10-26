@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class DeleteUnitCommandTest extends TestCase
 {
-    public function testCommand()
+    public function testCommand(): void
     {
         $id = $this->createMock(UnitId::class);
 

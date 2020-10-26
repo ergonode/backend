@@ -24,7 +24,7 @@ class DeleteSourceCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteSourceCommand $command)
+    public function __invoke(DeleteSourceCommand $command): void
     {
         $source = $this->sourceRepository->load($command->getId());
 

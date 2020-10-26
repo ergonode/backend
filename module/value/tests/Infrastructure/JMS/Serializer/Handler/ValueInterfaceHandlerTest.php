@@ -31,7 +31,7 @@ class ValueInterfaceHandlerTest extends TestCase
         $handler->set(StringCollectionValue::class);
 
         $this->serializer = SerializerBuilder::create()
-            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler) {
+            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler): void {
                 $handlerRegistry->registerSubscribingHandler($handler);
             })
             ->build();

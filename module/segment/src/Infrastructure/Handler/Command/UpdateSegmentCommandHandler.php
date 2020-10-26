@@ -25,7 +25,7 @@ class UpdateSegmentCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateSegmentCommand $command)
+    public function __invoke(UpdateSegmentCommand $command): void
     {
         $segment = $this->repository->load($command->getId());
 

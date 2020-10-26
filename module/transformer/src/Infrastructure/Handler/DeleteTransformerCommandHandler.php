@@ -33,7 +33,7 @@ class DeleteTransformerCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteTransformerCommand $command)
+    public function __invoke(DeleteTransformerCommand $command): void
     {
         $transformer = $this->repository->load($command->getId());
         Assert::isInstanceOf(

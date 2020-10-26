@@ -18,7 +18,7 @@ class CreateChannelCommandBuilderCompilerPass implements CompilerPassInterface
 
     public const TAG = 'channel.create_channel_builder_interface';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateChannelCommandBuilderProvider::class)) {
             $this->processServices($container);

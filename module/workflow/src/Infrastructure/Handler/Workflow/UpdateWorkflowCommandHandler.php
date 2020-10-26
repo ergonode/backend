@@ -26,7 +26,7 @@ class UpdateWorkflowCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateWorkflowCommand $command)
+    public function __invoke(UpdateWorkflowCommand $command): void
     {
         $workflow = $this->repository->load($command->getId());
 

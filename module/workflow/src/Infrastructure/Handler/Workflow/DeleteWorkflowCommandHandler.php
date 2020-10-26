@@ -33,7 +33,7 @@ class DeleteWorkflowCommandHandler
     /**
      * @throws ExistingRelationshipsException
      */
-    public function __invoke(DeleteWorkflowCommand $command)
+    public function __invoke(DeleteWorkflowCommand $command): void
     {
         $workflow = $this->repository->load($command->getId());
         Assert::isInstanceOf(

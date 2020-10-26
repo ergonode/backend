@@ -32,7 +32,7 @@ class ChangeUserPasswordCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(ChangeUserPasswordCommand $command)
+    public function __invoke(ChangeUserPasswordCommand $command): void
     {
         $user = $this->repository->load($command->getId());
         Assert::notNull($user);

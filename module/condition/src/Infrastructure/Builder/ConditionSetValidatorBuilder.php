@@ -30,7 +30,7 @@ class ConditionSetValidatorBuilder
      */
     public function build(array $data): Constraint
     {
-        $resolver = function ($data, ExecutionContextInterface $context, $payload) {
+        $resolver = function ($data, ExecutionContextInterface $context, $payload): void {
             foreach ($data as $index => $condition) {
                 if (!is_array($condition)) {
                     throw new \InvalidArgumentException('Condition in condition set must be array type');

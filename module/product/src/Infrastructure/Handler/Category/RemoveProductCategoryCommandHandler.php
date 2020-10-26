@@ -24,7 +24,7 @@ class RemoveProductCategoryCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(RemoveProductCategoryCommand $command)
+    public function __invoke(RemoveProductCategoryCommand $command): void
     {
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);

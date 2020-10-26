@@ -24,7 +24,7 @@ class DeleteImportCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteImportCommand $command)
+    public function __invoke(DeleteImportCommand $command): void
     {
         $import = $this->importRepository->load($command->getId());
 

@@ -25,7 +25,7 @@ class CreateSegmentCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateSegmentCommand $command)
+    public function __invoke(CreateSegmentCommand $command): void
     {
         $segment = new Segment(
             $command->getId(),

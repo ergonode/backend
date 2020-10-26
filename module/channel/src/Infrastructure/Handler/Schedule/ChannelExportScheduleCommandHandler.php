@@ -29,7 +29,7 @@ class ChannelExportScheduleCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(ScheduleCommand $command)
+    public function __invoke(ScheduleCommand $command): void
     {
         $date = $command->getDate();
         $channels = $this->query->getReadyToRun($date);

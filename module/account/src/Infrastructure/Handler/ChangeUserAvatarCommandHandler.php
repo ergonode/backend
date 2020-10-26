@@ -32,7 +32,7 @@ class ChangeUserAvatarCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(ChangeUserAvatarCommand $command)
+    public function __invoke(ChangeUserAvatarCommand $command): void
     {
         $user = $this->repository->load($command->getId());
         Assert::notNull($user);

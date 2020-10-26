@@ -38,7 +38,7 @@ class UploadFileCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UploadFileCommand $command)
+    public function __invoke(UploadFileCommand $command): void
     {
         $source = $this->sourceRepository->load($command->getSourceId());
         Assert::notNull($source);
