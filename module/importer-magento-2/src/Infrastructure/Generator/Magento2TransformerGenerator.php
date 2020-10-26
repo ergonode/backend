@@ -12,13 +12,12 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
-use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 
 class Magento2TransformerGenerator implements TransformerGeneratorStrategyInterface
 {
-    private AttributeRepositoryInterface $repository;
+//    private AttributeRepositoryInterface $repository;
 
     public function getType(): string
     {

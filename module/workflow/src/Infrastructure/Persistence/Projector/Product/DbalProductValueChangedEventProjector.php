@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector\Product;
 use Doctrine\DBAL\Connection;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use JMS\Serializer\SerializerInterface;
 
 class DbalProductValueChangedEventProjector
 {
@@ -20,12 +19,9 @@ class DbalProductValueChangedEventProjector
 
     private Connection $connection;
 
-    private SerializerInterface $serializer;
-
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->serializer = $serializer;
     }
 
     /**

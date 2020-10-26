@@ -23,6 +23,8 @@
          <type>error</type>
     </rule>
 
+    <rule ref="SlevomatCodingStandard.Classes.UnusedPrivateElements"/>
+
     <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
 
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">

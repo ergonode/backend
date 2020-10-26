@@ -35,8 +35,6 @@ class UserTest extends TestCase
      */
     private $email;
 
-    private string $filename;
-
     /**
      * @var Language|MockObject
      */

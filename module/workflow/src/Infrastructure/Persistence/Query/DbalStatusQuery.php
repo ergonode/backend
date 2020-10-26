@@ -16,7 +16,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 
 class DbalStatusQuery implements StatusQueryInterface
 {
@@ -26,16 +25,12 @@ class DbalStatusQuery implements StatusQueryInterface
 
     private WorkflowProvider $workflowProvider;
 
-    private StatusRepositoryInterface $statusRepository;
-
     public function __construct(
         Connection $connection,
-        WorkflowProvider $workflowProvider,
-        StatusRepositoryInterface $statusRepository
+        WorkflowProvider $workflowProvider
     ) {
         $this->connection = $connection;
         $this->workflowProvider = $workflowProvider;
-        $this->statusRepository = $statusRepository;
     }
 
     public function getDataSet(Language $language): DataSetInterface
