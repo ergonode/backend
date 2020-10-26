@@ -83,6 +83,35 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
             ->fetchAll();
     }
 
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, code, COALESCE(name->>:language, null) as label')
+            ->from(self::PRODUCT_COLLECTION_TYPE_TABLE, 'pct')
+            ->setParameter(':language', $language->getCode());
+
+        if ($search) {
+            $query->orWhere('code ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
