@@ -168,7 +168,6 @@ class Magento1CsvReader
 
     /**
      * @param AbstractAttribute[] $attributes
-     * @param array               $record
      *
      * @return array
      */

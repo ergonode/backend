@@ -74,7 +74,6 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
             $children[$key] = $child->getId();
         }
 
-
         foreach ($this->children as $child) {
             if (!in_array($child, $children, false)) {
                 $this->removeChild($child);
