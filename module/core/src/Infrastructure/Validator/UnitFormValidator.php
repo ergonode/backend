@@ -47,7 +47,7 @@ class UnitFormValidator extends ConstraintValidator
     /**
      * @param $value
      */
-    private function validateName($value, Constraint $constraint)
+    private function validateName($value, Constraint $constraint): void
     {
         if (!isset($value->name) || null === $value->name) {
             $this->context->buildViolation($constraint->emptyNameMessage)
@@ -68,7 +68,7 @@ class UnitFormValidator extends ConstraintValidator
     /**
      * @param $value
      */
-    private function validateSymbol($value, Constraint $constraint)
+    private function validateSymbol($value, Constraint $constraint): void
     {
         if (!isset($value->symbol) || null === $value->symbol) {
             $this->context->buildViolation($constraint->emptySymbolMessage)

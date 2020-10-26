@@ -40,7 +40,7 @@ class ProcessExportCommandHandler
     /**
      * @throws DBALException
      */
-    public function __invoke(ProcessExportCommand $command)
+    public function __invoke(ProcessExportCommand $command): void
     {
 //        $export = $this->exportRepository->load($command->getExportId());
 //        Assert::notNull($export);

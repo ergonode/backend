@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class UpdateUnitCommandTest extends TestCase
 {
-    public function testCommand()
+    public function testCommand(): void
     {
         $id = $this->createMock(UnitId::class);
         $name = 'name';

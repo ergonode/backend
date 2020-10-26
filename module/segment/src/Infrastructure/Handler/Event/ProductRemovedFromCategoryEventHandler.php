@@ -23,7 +23,7 @@ class ProductRemovedFromCategoryEventHandler implements MessageSubscriberInterfa
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(ProductRemovedFromCategoryEvent $event)
+    public function __invoke(ProductRemovedFromCategoryEvent $event): void
     {
         $command = new CalculateProductCommand($event->getAggregateId());
         $this->commandBus->dispatch($command);

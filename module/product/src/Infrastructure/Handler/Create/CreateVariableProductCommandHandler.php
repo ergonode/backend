@@ -18,7 +18,7 @@ class CreateVariableProductCommandHandler extends AbstractCreateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateVariableProductCommand $command)
+    public function __invoke(CreateVariableProductCommand $command): void
     {
         $attributes = $command->getAttributes();
 

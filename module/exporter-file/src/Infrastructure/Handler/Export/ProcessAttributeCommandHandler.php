@@ -54,7 +54,7 @@ class ProcessAttributeCommandHandler
     /**
      * @throws ExportException
      */
-    public function __invoke(ProcessAttributeCommand $command)
+    public function __invoke(ProcessAttributeCommand $command): void
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());

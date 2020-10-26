@@ -82,7 +82,7 @@ class UploadFileContext extends BaseContext
     /**
      * @BeforeScenario
      */
-    public function beforeScenario(BeforeScenarioScope $scope)
+    public function beforeScenario(BeforeScenarioScope $scope): void
     {
         $this->currentFeature = $scope->getFeature();
     }

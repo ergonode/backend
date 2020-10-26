@@ -22,7 +22,7 @@ class UpdateScheduleCommandHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(UpdateSchedulerCommand $command)
+    public function __invoke(UpdateSchedulerCommand $command): void
     {
         $scheduler = $this->repository->load($command->getId());
 

@@ -32,7 +32,7 @@ class UpdateUserCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateUserCommand $command)
+    public function __invoke(UpdateUserCommand $command): void
     {
         $user = $this->repository->load($command->getId());
         Assert::notNull($user);

@@ -23,7 +23,7 @@ class MarkNotificationCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(MarkNotificationCommand $command)
+    public function __invoke(MarkNotificationCommand $command): void
     {
         $this->query->mark($command->getNotificationId(), $command->getUserId(), $command->getReadAt());
     }

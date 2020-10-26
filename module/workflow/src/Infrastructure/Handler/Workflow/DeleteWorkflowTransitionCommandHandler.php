@@ -25,7 +25,7 @@ class DeleteWorkflowTransitionCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteWorkflowTransitionCommand $command)
+    public function __invoke(DeleteWorkflowTransitionCommand $command): void
     {
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);

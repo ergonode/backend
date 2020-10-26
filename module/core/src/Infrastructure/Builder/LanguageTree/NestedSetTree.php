@@ -25,7 +25,7 @@ class NestedSetTree
         return $this->data;
     }
 
-    public function addRoot(AggregateId $id, string $code)
+    public function addRoot(AggregateId $id, string $code): void
     {
         $this->data[] = new Branch(
             $id,
@@ -38,7 +38,7 @@ class NestedSetTree
     /**
      * @throws \Exception
      */
-    public function addNode(AggregateId $id, string $code, AggregateId $parentId)
+    public function addNode(AggregateId $id, string $code, AggregateId $parentId): void
     {
         $parentData = $this->findParent($parentId);
         $child = $this->findChildrenMaxLevel($parentId);
@@ -50,7 +50,7 @@ class NestedSetTree
         }
     }
 
-    private function addChild(AggregateId $id, string $code, Branch $child)
+    private function addChild(AggregateId $id, string $code, Branch $child): void
     {
         $right = $child->getRight();
         $this->updateLeftRight($child->getRight(), $child->getRight() + 1);
@@ -64,7 +64,7 @@ class NestedSetTree
         );
     }
 
-    private function add(AggregateId $id, string $code, Branch $parent)
+    private function add(AggregateId $id, string $code, Branch $parent): void
     {
         $right = $parent->getRight();
         $this->updateLeftRight($parent->getLeft(), $parent->getRight());

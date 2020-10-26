@@ -32,7 +32,7 @@ class CreateTemplateHandler
         $this->templateGroupQuery = $templateGroupQuery;
     }
 
-    public function __invoke(CreateTemplateCommand $command)
+    public function __invoke(CreateTemplateCommand $command): void
     {
         $groupId = $this->templateGroupQuery->getDefaultId();
 

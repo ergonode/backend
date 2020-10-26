@@ -23,7 +23,7 @@ class ProductCreatedEventHandler implements MessageSubscriberInterface
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(ProductCreatedEvent $event)
+    public function __invoke(ProductCreatedEvent $event): void
     {
         $command = new CalculateProductCommand($event->getAggregateId());
         $this->commandBus->dispatch($command);

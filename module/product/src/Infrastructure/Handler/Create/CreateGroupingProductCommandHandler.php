@@ -18,7 +18,7 @@ class CreateGroupingProductCommandHandler extends AbstractCreateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateGroupingProductCommand $command)
+    public function __invoke(CreateGroupingProductCommand $command): void
     {
         $attributes = $command->getAttributes();
 

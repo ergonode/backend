@@ -26,7 +26,7 @@ class UpdateProductCollectionCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateProductCollectionCommand $command)
+    public function __invoke(UpdateProductCollectionCommand $command): void
     {
         /** @var ProductCollection $productCollection */
         $productCollection = $this->repository->load($command->getId());

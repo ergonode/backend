@@ -69,7 +69,7 @@ class Kernel extends BaseKernel
     /**
      * @throws \Symfony\Component\Config\Exception\LoaderLoadException
      */
-    protected function configureRoutes(RouteCollectionBuilder $routes)
+    protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
         $confDir = $this->getProjectDir().'/config';
 

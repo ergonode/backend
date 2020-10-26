@@ -24,7 +24,7 @@ class CreateFileExportChannelCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateFileExportChannelCommand $command)
+    public function __invoke(CreateFileExportChannelCommand $command): void
     {
         $exportChannel = new FileExportChannel(
             $command->getId(),

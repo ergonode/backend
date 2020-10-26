@@ -29,7 +29,7 @@ class DbalTemplateRemovedEventProjector
      */
     public function __invoke(TemplateRemovedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $this->connection->delete(
                 self::ELEMENT_TABLE,
                 [

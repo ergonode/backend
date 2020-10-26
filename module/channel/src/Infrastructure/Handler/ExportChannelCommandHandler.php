@@ -39,7 +39,7 @@ class ExportChannelCommandHandler
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(ExportChannelCommand $command)
+    public function __invoke(ExportChannelCommand $command): void
     {
         $channel = $this->channelRepository->exists($command->getChannelId());
         Assert::true($channel);

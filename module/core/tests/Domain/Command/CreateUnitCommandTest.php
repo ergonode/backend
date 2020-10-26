@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 
 class CreateUnitCommandTest extends TestCase
 {
-    public function testCommand()
+    public function testCommand(): void
     {
         $name = 'name';
         $symbol = 'symbol';

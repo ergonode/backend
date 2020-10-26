@@ -25,7 +25,7 @@ class UpdateMagento1CsvSourceCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateMagento1CsvSourceCommand $command)
+    public function __invoke(UpdateMagento1CsvSourceCommand $command): void
     {
         /** @var Magento1CsvSource $source */
         $source = $this->repository->load($command->getId());

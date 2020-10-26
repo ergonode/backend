@@ -25,7 +25,7 @@ class AddWorkflowTransitionCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(AddWorkflowTransitionCommand $command)
+    public function __invoke(AddWorkflowTransitionCommand $command): void
     {
         $roleIds = $command->getRoleIds();
         $conditionSetId = $command->getConditionSetId();

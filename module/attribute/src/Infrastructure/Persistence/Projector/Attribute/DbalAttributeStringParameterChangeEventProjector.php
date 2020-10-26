@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEven
 
 class DbalAttributeStringParameterChangeEventProjector extends AbstractDbalAttributeParameterChangeEventProjector
 {
-    public function __invoke(AttributeStringParameterChangeEvent $event)
+    public function __invoke(AttributeStringParameterChangeEvent $event): void
     {
         $this->projection($event->getAggregateId(), $event->getName(), $event->getTo());
     }

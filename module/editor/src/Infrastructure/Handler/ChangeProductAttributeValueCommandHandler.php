@@ -43,7 +43,7 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
     /**
      * @throws \Exception
      */
-    public function __invoke(ChangeProductAttributeValueCommand $command)
+    public function __invoke(ChangeProductAttributeValueCommand $command): void
     {
         $language = $command->getLanguage();
         $draft = $this->repository->load($command->getId());

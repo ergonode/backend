@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProductCollectionTypeFactoryTest extends TestCase
 {
-    public function testEventCreation()
+    public function testEventCreation(): void
     {
         /** @var ProductCollectionTypeId | MockObject $id */
         $id = $this->createMock(ProductCollectionTypeId::class);

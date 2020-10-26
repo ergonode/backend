@@ -28,7 +28,7 @@ class CreateWorkflowCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateWorkflowCommand $command)
+    public function __invoke(CreateWorkflowCommand $command): void
     {
         $workflow = $this->factory->create($command->getId(), $command->getCode(), $command->getStatuses());
 

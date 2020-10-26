@@ -28,7 +28,7 @@ class CreateRoleCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateRoleCommand $command)
+    public function __invoke(CreateRoleCommand $command): void
     {
         $role = $this->factory->create(
             $command->getId(),

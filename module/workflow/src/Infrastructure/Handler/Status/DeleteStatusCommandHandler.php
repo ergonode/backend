@@ -34,7 +34,7 @@ class DeleteStatusCommandHandler
      * @throws ExistingRelationshipsException
      * @throws \ReflectionException
      */
-    public function __invoke(DeleteStatusCommand $command)
+    public function __invoke(DeleteStatusCommand $command): void
     {
         $status = $this->repository->load($command->getId());
         Assert::isInstanceOf($status, Status::class, sprintf('Can\'t find status with ID "%s"', $command->getId()));

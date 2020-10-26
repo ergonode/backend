@@ -65,12 +65,14 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
      * @param array $data
      * @param array $type
      *
-     * @return object
-     *
      * @throws \ReflectionException
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, array $data, array $type, Context $context)
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        array $data,
+        array $type,
+        Context $context
+    ): object {
         $typeField = strtolower($this->constant);
 
         $data = $this->prepareData($data);

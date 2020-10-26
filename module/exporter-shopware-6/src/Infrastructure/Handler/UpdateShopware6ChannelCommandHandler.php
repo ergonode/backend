@@ -24,7 +24,7 @@ class UpdateShopware6ChannelCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateShopware6ChannelCommand $command)
+    public function __invoke(UpdateShopware6ChannelCommand $command): void
     {
         /** @var Shopware6Channel $channel */
         $channel = $this->repository->load($command->getId());

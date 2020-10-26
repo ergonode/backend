@@ -19,7 +19,7 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateVariableProductCommand $command)
+    public function __invoke(UpdateVariableProductCommand $command): void
     {
         /** @var VariableProduct $product */
         $product = $this->productRepository->load($command->getId());

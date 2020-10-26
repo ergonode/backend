@@ -31,7 +31,7 @@ class PersistProductDraftCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(PersistProductDraftCommand $command)
+    public function __invoke(PersistProductDraftCommand $command): void
     {
         /** @var ProductDraft $draft */
         $draft = $this->draftRepository->load($command->getId());

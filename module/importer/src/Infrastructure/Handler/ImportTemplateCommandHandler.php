@@ -32,7 +32,7 @@ class ImportTemplateCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportTemplateCommand $command)
+    public function __invoke(ImportTemplateCommand $command): void
     {
         try {
             $this->action->action($command->getCode());

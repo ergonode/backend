@@ -25,7 +25,7 @@ class CreateMagento1CsvSourceCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateMagento1CsvSourceCommand $command)
+    public function __invoke(CreateMagento1CsvSourceCommand $command): void
     {
         $source = new Magento1CsvSource(
             $command->getId(),

@@ -125,10 +125,7 @@ class AbstractCategoryTest extends TestCase
         $entity->removeAttribute($attributeCode);
     }
 
-    /**
-     * @return AbstractCategory
-     */
-    private function getClass()
+    private function getClass(): AbstractCategory
     {
         return new class(
             $this->id,

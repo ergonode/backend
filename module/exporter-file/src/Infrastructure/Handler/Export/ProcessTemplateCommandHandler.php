@@ -55,7 +55,7 @@ class ProcessTemplateCommandHandler
     /**
      * @throws ExportException
      */
-    public function __invoke(ProcessTemplateCommand $command)
+    public function __invoke(ProcessTemplateCommand $command): void
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());

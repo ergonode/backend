@@ -26,7 +26,7 @@ class ConditionSetConditionsChangedEventHandler
         $this->query = $query;
     }
 
-    public function __invoke(ConditionSetConditionsChangedEvent $event)
+    public function __invoke(ConditionSetConditionsChangedEvent $event): void
     {
         if ($event->getTo()) {
             $segmentIds = $this->query->findIdByConditionSetId($event->getAggregateId());

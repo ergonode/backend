@@ -68,7 +68,7 @@ class TemplateElementType extends AbstractType implements EventSubscriberInterfa
         ];
     }
 
-    public function onPreSubmit(FormEvent $event)
+    public function onPreSubmit(FormEvent $event): void
     {
         $data = $event->getData();
 

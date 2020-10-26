@@ -26,7 +26,7 @@ class StopImportCommandHandler
     /**
      * @throws \ReflectionException
      */
-    public function __invoke(StopImportCommand $command)
+    public function __invoke(StopImportCommand $command): void
     {
         $import = $this->repository->load($command->getId());
 

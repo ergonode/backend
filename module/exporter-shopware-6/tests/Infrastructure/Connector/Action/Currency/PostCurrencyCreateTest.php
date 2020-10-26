@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class PostCurrencyCreateTest extends TestCase
 {
-    public function testAction()
+    public function testAction(): void
     {
         $action = new PostCurrencyCreate('RUB');
         $request = $action->getRequest();

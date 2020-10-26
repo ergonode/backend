@@ -32,7 +32,7 @@ class ImportSimpleProductCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportSimpleProductCommand $command)
+    public function __invoke(ImportSimpleProductCommand $command): void
     {
         try {
             $this->action->action(

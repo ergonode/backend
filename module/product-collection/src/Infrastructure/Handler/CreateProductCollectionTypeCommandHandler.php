@@ -30,7 +30,7 @@ class CreateProductCollectionTypeCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateProductCollectionTypeCommand $command)
+    public function __invoke(CreateProductCollectionTypeCommand $command): void
     {
         $productCollectionType = $this->factory->create(
             $command->getId(),

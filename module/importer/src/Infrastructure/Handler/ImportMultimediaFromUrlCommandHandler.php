@@ -32,7 +32,7 @@ class ImportMultimediaFromUrlCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportMultimediaFromWebCommand $command)
+    public function __invoke(ImportMultimediaFromWebCommand $command): void
     {
         try {
             $this->action->action(

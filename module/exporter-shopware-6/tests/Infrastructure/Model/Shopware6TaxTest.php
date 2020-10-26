@@ -26,7 +26,7 @@ class Shopware6TaxTest extends TestCase
         $this->rate = 23.3;
     }
 
-    public function testCreateModel()
+    public function testCreateModel(): void
     {
         $model = new Shopware6Tax($this->id, $this->rate, $this->name);
 
@@ -36,7 +36,7 @@ class Shopware6TaxTest extends TestCase
         $this->assertEquals($this->name, $model->getName());
     }
 
-    public function testSetModel()
+    public function testSetModel(): void
     {
         $model = new Shopware6Tax();
 

@@ -32,7 +32,7 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
         $handler->set(UiTemplateElementProperty::class);
 
         $this->serializer = SerializerBuilder::create()
-            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler) {
+            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler): void {
                 $handlerRegistry->registerSubscribingHandler($handler);
             })
             ->build();

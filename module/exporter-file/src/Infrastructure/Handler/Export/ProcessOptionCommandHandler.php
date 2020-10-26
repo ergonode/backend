@@ -54,7 +54,7 @@ class ProcessOptionCommandHandler
     /**
      * @throws ExportException
      */
-    public function __invoke(ProcessOptionCommand $command)
+    public function __invoke(ProcessOptionCommand $command): void
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());

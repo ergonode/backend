@@ -21,7 +21,7 @@ class CreateShopware6ChannelCommandHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(CreateShopware6ChannelCommand $command)
+    public function __invoke(CreateShopware6ChannelCommand $command): void
     {
         $channel = new Shopware6Channel(
             $command->getId(),
