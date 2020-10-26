@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver\ImportProductAttributeStrategyInterface;
+use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductAttributeStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
 class ImportProductAttributeBuilder
