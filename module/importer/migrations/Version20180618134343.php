@@ -66,8 +66,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 id SERIAL, 
                 import_id UUID NOT NULL,
                 created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-                message TEXT DEFAULT NULL,     
-                parameters jsonb DEFAULT NULL,              
+                message TEXT DEFAULT NULL,                    
                 PRIMARY KEY(id)
             )
         ');

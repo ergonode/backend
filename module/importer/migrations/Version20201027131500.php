@@ -20,5 +20,6 @@ final class Version20201027131500 extends AbstractErgonodeMigration
     {
         $this->addSql('ALTER TABLE importer.import DROP CONSTRAINT import_transformer_fk');
         $this->addSql('ALTER TABLE importer.import DROP COLUMN transformer_id');
+        $this->addSql('ALTER TABLE importer.import_error ADD COLUMN parameters jsonb DEFAULT NULL');
     }
 }
