@@ -46,7 +46,6 @@ class DbalUserCreatedEventProjector
                 'language' => $event->getLanguage()->getCode(),
                 'password' => $event->getPassword()->getValue(),
                 'is_active' => $event->isActive(),
-                'avatar_filename' => $event->getAvatarFilename(),
             ],
             [
                 'is_active' => \PDO::PARAM_BOOL,
