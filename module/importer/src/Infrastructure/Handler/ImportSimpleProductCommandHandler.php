@@ -44,7 +44,7 @@ class ImportSimpleProductCommandHandler
         } catch (ImportException $exception) {
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = 'Can\'t import simple product {sku}}';
+            $message = 'Can\'t import simple product {sku}';
             $this->repository->addError($command->getImportId(), $message, ['{sku}' => $command->getSku()->getValue()]);
             $this->logger->error($exception);
         }
