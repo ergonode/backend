@@ -49,6 +49,7 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
                 $attributes
             );
             $this->commandBus->dispatch($command, true);
+            $import->addRecords(1);
         }
     }
 

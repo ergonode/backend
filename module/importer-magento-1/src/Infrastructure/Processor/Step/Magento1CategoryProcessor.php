@@ -67,6 +67,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                         );
 
                         $this->commandBus->dispatch($command, true);
+                        $import->addRecords(1);
                         $this->categories[$categoryCode] = $categoryCode;
                     }
 

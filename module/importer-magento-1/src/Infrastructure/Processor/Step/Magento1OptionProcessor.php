@@ -88,7 +88,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                             $label
                         );
                         $this->commandBus->dispatch($command, true);
-
+                        $import->addRecords(1);
                         $this->options[$uuid->toString()] = $uuid;
                     }
                 }

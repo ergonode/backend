@@ -188,9 +188,10 @@ class Magento1CsvReader
             $result['esa_categories'] = sprintf('%s/%s', $record['_category'], $record['_category_root']);
         }
 
-        $result['bindings'] = $record['_super_attribute_code'];
-        if (!empty($result['bindings'])) {
-            $result['bindings'] = $attributes[$result['bindings']]->getCode()->getValue();
+        $result['bindings'] = null;
+        if (!empty($record['_super_attribute_code'])
+            && array_key_exists($record['_super_attribute_code'], $attributes)) {
+            $result['bindings'] = $attributes[$record['_super_attribute_code']]->getCode()->getValue();
         }
 
         return $result;
