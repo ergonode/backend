@@ -32,7 +32,7 @@ class DbalUserAvatarChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'avatar_filename' => $event->getAvatarFilename(),
+                'avatar' => true,
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

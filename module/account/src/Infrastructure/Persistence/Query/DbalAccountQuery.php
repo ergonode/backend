@@ -16,6 +16,7 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use League\Flysystem\FilesystemInterface;
 
 class DbalAccountQuery implements AccountQueryInterface
 {
@@ -26,7 +27,6 @@ class DbalAccountQuery implements AccountQueryInterface
         'a.last_name',
         'a.username AS email',
         'a.language',
-        'a.avatar_filename',
         'a.role_id',
         'a.is_active',
         'a.language_privileges_collection',
@@ -34,9 +34,12 @@ class DbalAccountQuery implements AccountQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilesystemInterface $avatarStorage;
+
+    public function __construct(Connection $connection, FilesystemInterface $avatarStorage)
     {
         $this->connection = $connection;
+        $this->avatarStorage = $avatarStorage;
     }
 
     public function getDataSet(): DataSetInterface
@@ -67,6 +70,9 @@ class DbalAccountQuery implements AccountQueryInterface
             ->fetch();
 
         if ($result) {
+            $filename = sprintf('%s.%s', $result['id'], 'png');
+            $result['avatar_filename'] = $this->avatarStorage->has($filename) ? $filename : null;
+
             $result['language_privileges_collection'] = json_decode($result['language_privileges_collection'], true);
 
             return $result;

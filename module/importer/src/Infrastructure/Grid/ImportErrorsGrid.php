@@ -13,8 +13,8 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\DateFilter;
-use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\Column\TranslatableColumn;
 
 class ImportErrorsGrid extends AbstractGrid
 {
@@ -25,7 +25,7 @@ class ImportErrorsGrid extends AbstractGrid
         $this->addColumn('id', $id);
 
         $this->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
-        $this->addColumn('message', new TextColumn('message', 'Error description', new TextFilter()));
+        $this->addColumn('message', new TranslatableColumn('message', 'Error description', 'parameters', 'importer'));
 
         $this->orderBy('id', 'ASC');
     }

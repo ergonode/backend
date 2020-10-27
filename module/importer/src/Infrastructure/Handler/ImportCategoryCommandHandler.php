@@ -40,10 +40,10 @@ class ImportCategoryCommandHandler
                 $command->getName(),
             );
         } catch (ImportException $exception) {
-            $this->repository->addError($command->getImportId(), $exception->getMessage());
+            $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = sprintf('Can\'t import category product %s', $command->getName());
-            $this->repository->addError($command->getImportId(), $message);
+            $message = 'Can\'t import category product {name}';
+            $this->repository->addError($command->getImportId(), $message, ['{name}' => $command->getName()]);
             $this->logger->error($exception);
         }
     }
