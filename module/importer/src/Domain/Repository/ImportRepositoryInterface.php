@@ -25,5 +25,8 @@ interface ImportRepositoryInterface
 
     public function delete(Import $import): void;
 
-    public function addError(ImportId $importId, string $message): void;
+    /**
+     * @param string[] $parameters
+     */
+    public function addError(ImportId $importId, string $message, array $parameters = []): void;
 }

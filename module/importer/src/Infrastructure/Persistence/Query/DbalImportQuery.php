@@ -66,7 +66,7 @@ class DbalImportQuery implements ImportQueryInterface
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->select('il.import_id AS id, il.created_at, il.message')
+        $query->select('il.import_id AS id, il.created_at, il.message, il.parameters')
             ->from('importer.import_error', 'il')
             ->where($query->expr()->eq('il.import_id', ':importId'))
             ->andWhere($query->expr()->isNotNull('il.message'));
