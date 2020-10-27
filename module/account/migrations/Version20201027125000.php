@@ -16,5 +16,9 @@ final class Version20201027125000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE users ALTER COLUMN password TYPE VARCHAR(128)');
+        $this->addSql('ALTER TABLE users ALTER COLUMN username TYPE VARCHAR(255)');
+        $this->addSql('ALTER TABLE users ADD COLUMN avatar BOOLEAN NOT NULL DEFAULT false');
+        $this->addSql('UPDATE users SET avatar = true WHERE avatar_filename <> null');
+        $this->addSql('ALTER TABLE users DROP COLUMN avatar_filename');
     }
 }
