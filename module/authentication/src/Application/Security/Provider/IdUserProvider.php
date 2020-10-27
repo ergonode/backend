@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class RefreshUserProvider implements UserProviderInterface
+class IdUserProvider implements UserProviderInterface
 {
     private UserRepositoryInterface $repository;
 

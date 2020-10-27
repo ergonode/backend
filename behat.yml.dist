@@ -47,6 +47,7 @@ default:
                     request: '@Behatch\HttpCall\Request'
                 - Ergonode\Core\Test\Behat\Context\ApiAuthTokenContext:
                     request: '@Behatch\HttpCall\Request'
+                    authHeader: 'JWTAuthorization'
                 - Ergonode\Core\Test\Behat\Context\UploadFileContext
                 - behatch:context:rest
                 - behatch:context:debug

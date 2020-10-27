@@ -15,16 +15,19 @@ class ApiAuthTokenContext implements Context
 {
     private Request $request;
 
-    public function __construct(Request $request)
+    private string $authHeader;
+
+    public function __construct(Request $request, string $authHeader)
     {
         $this->request = $request;
+        $this->authHeader = $authHeader;
     }
 
     /**
      * @Given I use Authenticated token :token
      */
-    public function iAmAuthenticatedAsUser(string $token): void
+    public function iAmAuthenticatedAsToken(string $token): void
     {
-        $this->request->setHttpHeader('JWTAuthorization', 'Bearer '.$token);
+        $this->request->setHttpHeader($this->authHeader, 'Bearer '.$token);
     }
 }

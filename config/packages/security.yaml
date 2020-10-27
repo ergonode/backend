@@ -8,8 +8,8 @@ security:
             id: 'Ergonode\Authentication\Application\Security\Provider\DomainUserProvider'
         email_user_provider:
             id: 'Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
-        refresh_user_provider:
-            id: 'Ergonode\Authentication\Application\Security\Provider\RefreshUserProvider'
+        id_user_provider:
+            id: 'Ergonode\Authentication\Application\Security\Provider\IdUserProvider'
 
     encoders:
         Ergonode\Account\Domain\Entity\User:

@@ -19,10 +19,10 @@ final class Version20201026073142 extends AbstractErgonodeMigration
     {
         $this->addSql('
             CREATE TABLE refresh_tokens (
-                    id bigserial NOT NULL, 
-                    refresh_token VARCHAR(128) NOT NULL, 
-                    username VARCHAR(255) NOT NULL, 
-                    valid timestamp with time zone NOT NULL,,       
+                id bigserial NOT NULL, 
+                refresh_token VARCHAR(128) NOT NULL, 
+                username VARCHAR(255) NOT NULL, 
+                valid timestamp with time zone NOT NULL,       
                 PRIMARY KEY(id)
             )
         ');
