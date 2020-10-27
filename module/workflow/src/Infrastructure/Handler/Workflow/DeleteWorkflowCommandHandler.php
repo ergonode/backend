@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
@@ -33,7 +33,7 @@ class DeleteWorkflowCommandHandler
     /**
      * @throws ExistingRelationshipsException
      */
-    public function __invoke(DeleteWorkflowCommand $command)
+    public function __invoke(DeleteWorkflowCommand $command): void
     {
         $workflow = $this->repository->load($command->getId());
         Assert::isInstanceOf(

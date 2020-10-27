@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity;
 
@@ -120,7 +120,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
             }
         }
 
-        foreach ($this->getAttributes() as $code => $attributes) {
+        foreach (array_keys($this->getAttributes()) as $code) {
             $attributeCode = new AttributeCode((string) $code);
             if (!$draft->hasAttribute($attributeCode)) {
                 $this->removeAttribute($attributeCode);
@@ -244,7 +244,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
             }
         }
 
-        foreach ($this->attributes as $code => $value) {
+        foreach (array_keys($this->attributes) as $code) {
             $attributeCode = new AttributeCode($code);
             if (!array_key_exists($code, $attributes)) {
                 $this->removeAttribute($attributeCode);

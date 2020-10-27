@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
@@ -222,7 +222,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
 
     public function getTransition(StatusId $from, StatusId $to): Transition
     {
-        foreach ($this->transitions as $key => $transition) {
+        foreach ($this->transitions as $transition) {
             if ($from->isEqual($transition->getFrom()) && $to->isEqual($transition->getTo())) {
                 return $transition;
             }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Persistence\Query;
 
@@ -116,6 +116,35 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
         }
 
         return $result;
+    }
+
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, code, COALESCE(name->>:language, null) as label')
+            ->from(self::PRODUCT_COLLECTION_TABLE, 'pc')
+            ->setParameter(':language', $language->getCode());
+
+        if ($search) {
+            $query->orWhere('code ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
     }
 
     private function getQuery(): QueryBuilder

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection\CompilerPass;
 
@@ -30,7 +30,7 @@ class CreateWorkflowCommandFactoryProviderInterfaceCompilerPass implements Compi
         $definition = $container->findDefinition(CreateWorkflowCommandFactoryProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 

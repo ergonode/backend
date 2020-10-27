@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Provider;
 
@@ -32,6 +32,6 @@ class CreateCategoryCommandFactoryProviderTest extends TestCase
         $factory->method('support')->willReturn(false);
         $provider = new CreateCategoryCommandFactoryProvider(...[$factory]);
 
-        $factoryProvided = $provider->provide('type');
+        $provider->provide('type');
     }
 }

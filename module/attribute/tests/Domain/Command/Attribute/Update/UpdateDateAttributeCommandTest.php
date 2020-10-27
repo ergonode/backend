@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Update;
 
@@ -28,7 +28,7 @@ class UpdateDateAttributeCommandTest extends TestCase
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        AttributeScope     $scope,
+        AttributeScope $scope,
         DateFormat $format,
         array $groups
     ): void {

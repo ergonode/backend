@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler;
 
@@ -47,7 +47,7 @@ class ProcessExportCommandHandler
         $this->steps = $steps;
     }
 
-    public function __invoke(ProcessExportCommand $command)
+    public function __invoke(ProcessExportCommand $command): void
     {
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

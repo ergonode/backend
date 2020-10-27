@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Handler\Schedule;
 
@@ -29,7 +29,7 @@ class ChannelExportScheduleCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(ScheduleCommand $command)
+    public function __invoke(ScheduleCommand $command): void
     {
         $date = $command->getDate();
         $channels = $this->query->getReadyToRun($date);

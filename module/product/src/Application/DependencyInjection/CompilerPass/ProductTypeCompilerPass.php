@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\DependencyInjection\CompilerPass;
 
@@ -30,7 +30,7 @@ class ProductTypeCompilerPass implements CompilerPassInterface
         $services = $container->findTaggedServiceIds(self::TAG);
 
         $arguments = [];
-        foreach ($services as $id => $service) {
+        foreach (array_keys($services) as $id) {
             $arguments[] = $id;
             $container->removeDefinition($id);
         }

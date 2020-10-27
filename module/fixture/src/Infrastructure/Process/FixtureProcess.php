@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Fixture\Infrastructure\Process;
 
@@ -59,7 +59,7 @@ class FixtureProcess
 
             $objectSet = $loader->loadFiles($files);
 
-            foreach ($objectSet->getObjects() as $key => $object) {
+            foreach ($objectSet->getObjects() as $object) {
                 if ($object instanceof DomainCommandInterface) {
                     $this->commandBus->dispatch($object);
                 }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Reader\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -29,7 +29,7 @@ class FormatterInterfaceHandlerTest extends TestCase
         $handler->set(ReplaceFormatter::class);
 
         $this->serializer = SerializerBuilder::create()
-            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler) {
+            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler): void {
                 $handlerRegistry->registerSubscribingHandler($handler);
             })
             ->build();

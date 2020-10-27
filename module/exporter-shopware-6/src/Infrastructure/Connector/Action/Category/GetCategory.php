@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category;
 
@@ -36,7 +36,7 @@ class GetCategory extends AbstractAction implements ActionInterface
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content):Shopware6Category
+    public function parseContent(?string $content): Shopware6Category
     {
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 

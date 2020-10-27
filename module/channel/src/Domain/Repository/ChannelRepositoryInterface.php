@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Repository;
 
@@ -16,7 +16,7 @@ interface ChannelRepositoryInterface
 {
     public function load(ChannelId $id): ?AbstractChannel;
 
-    public function exists(ChannelId $id) : bool;
+    public function exists(ChannelId $id): bool;
 
     public function save(AbstractChannel $aggregateRoot): void;
 

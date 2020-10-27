@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Handler;
 
@@ -32,7 +32,7 @@ class CreateTemplateHandler
         $this->templateGroupQuery = $templateGroupQuery;
     }
 
-    public function __invoke(CreateTemplateCommand $command)
+    public function __invoke(CreateTemplateCommand $command): void
     {
         $groupId = $this->templateGroupQuery->getDefaultId();
 

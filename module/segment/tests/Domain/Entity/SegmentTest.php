@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Domain\Entity;
 
@@ -57,7 +57,7 @@ class SegmentTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testSegmentCreation():void
+    public function testSegmentCreation(): void
     {
         $segment = new Segment($this->id, $this->code, $this->name, $this->description, $this->conditionSetId);
 
@@ -72,7 +72,7 @@ class SegmentTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testSegmentManipulation():void
+    public function testSegmentManipulation(): void
     {
         /** @var TranslatableString|MockObject $name */
         $name = $this->createMock(TranslatableString::class);

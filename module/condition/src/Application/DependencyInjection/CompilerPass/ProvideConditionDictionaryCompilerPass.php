@@ -25,7 +25,7 @@ class ProvideConditionDictionaryCompilerPass implements CompilerPassInterface
         $this->sourceParameterName = $sourceParameterName;
     }
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(ConditionDictionaryProvider::class);
 

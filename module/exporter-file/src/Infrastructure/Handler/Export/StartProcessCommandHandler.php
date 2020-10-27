@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
@@ -33,7 +33,7 @@ class StartProcessCommandHandler
         $this->attributeQuery = $attributeQuery;
     }
 
-    public function __invoke(StartFileExportCommand $command)
+    public function __invoke(StartFileExportCommand $command): void
     {
         $export = $this->repository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Domain\Query;
 
@@ -29,4 +29,12 @@ interface ProductCollectionTypeQueryInterface
      * @return array
      */
     public function getCollectionTypes(Language $language): array;
+
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }

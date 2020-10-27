@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Handler;
 
@@ -25,7 +25,7 @@ class UpdateConditionSetCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateConditionSetCommand $command)
+    public function __invoke(UpdateConditionSetCommand $command): void
     {
         $conditionSet = $this->repository->load($command->getId());
         Assert::notNull($conditionSet);

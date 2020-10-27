@@ -4,9 +4,9 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver;
+namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;

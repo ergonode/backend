@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Builder;
 
@@ -33,7 +33,7 @@ class PasswordValidationBuilder
             ],
             'password_repeat' => [
                 new NotBlank(),
-                new Callback(function ($value, ExecutionContextInterface $context, $payload) use ($data) {
+                new Callback(function ($value, ExecutionContextInterface $context, $payload) use ($data): void {
                     if ($data['password'] !== $value) {
                         $context->addViolation('Password repeat must be identical');
                     }

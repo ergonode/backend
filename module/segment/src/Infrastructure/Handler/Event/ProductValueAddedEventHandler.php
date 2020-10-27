@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
@@ -23,7 +23,7 @@ class ProductValueAddedEventHandler implements MessageSubscriberInterface
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(ProductValueAddedEvent $event)
+    public function __invoke(ProductValueAddedEvent $event): void
     {
         $command = new CalculateProductCommand($event->getAggregateId());
         $this->commandBus->dispatch($command);

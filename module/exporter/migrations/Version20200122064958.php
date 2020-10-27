@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
@@ -19,7 +19,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
     /**
      * @throws \Exception
      */
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->addSql('CREATE SCHEMA IF NOT EXISTS exporter');
 

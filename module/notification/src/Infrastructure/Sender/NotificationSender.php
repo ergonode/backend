@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Notification\Infrastructure\Sender;
 
@@ -19,7 +19,7 @@ class NotificationSender
      */
     private array $strategies;
 
-    public function __construct(NotificationStrategyInterface...$strategies)
+    public function __construct(NotificationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }

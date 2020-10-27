@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Comment\Infrastructure\Persistence\Projector;
 
@@ -29,7 +29,7 @@ class DbalCommentContentChangedEventProjector
      */
     public function __invoke(CommentContentChangedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $this->connection->update(
                 self::TABLE,
                 [

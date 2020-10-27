@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
@@ -26,7 +26,7 @@ class StopImportCommandHandler
     /**
      * @throws \ReflectionException
      */
-    public function __invoke(StopImportCommand $command)
+    public function __invoke(StopImportCommand $command): void
     {
         $import = $this->repository->load($command->getId());
 

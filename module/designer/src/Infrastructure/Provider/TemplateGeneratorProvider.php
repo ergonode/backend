@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Provider;
 
@@ -19,7 +19,7 @@ class TemplateGeneratorProvider
      */
     private array $generators;
 
-    public function __construct(TemplateGeneratorInterface...$generators)
+    public function __construct(TemplateGeneratorInterface ...$generators)
     {
         $this->generators = $generators;
     }

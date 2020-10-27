@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
@@ -30,7 +30,7 @@ class AttributeExportProcessorStep implements ExportStepProcessInterface
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $attributes = $this->query->getDictionary();
-        foreach ($attributes as $id => $code) {
+        foreach (array_keys($attributes) as $id) {
             $command = new ProcessAttributeCommand($exportId, new AttributeId($id));
             $this->commandBus->dispatch($command, true);
         }

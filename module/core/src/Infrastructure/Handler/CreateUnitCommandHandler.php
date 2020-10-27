@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Handler;
 
@@ -28,7 +28,7 @@ class CreateUnitCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateUnitCommand $command)
+    public function __invoke(CreateUnitCommand $command): void
     {
         $unit = $this->factory->create(
             $command->getId(),

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
@@ -23,7 +23,7 @@ class SegmentConditionSetChangedEventHandler implements MessageSubscriberInterfa
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(SegmentConditionSetChangedEvent $event)
+    public function __invoke(SegmentConditionSetChangedEvent $event): void
     {
         if ($event->getTo()) {
             $command = new CalculateSegmentCommand($event->getAggregateId());

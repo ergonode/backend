@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
@@ -26,7 +26,7 @@ class AddProductCollectionElementsCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(AddProductCollectionElementsCommand $command)
+    public function __invoke(AddProductCollectionElementsCommand $command): void
     {
         /** @var ProductCollection $productCollection */
         $productCollection = $this->repository->load($command->getProductCollectionId());

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
@@ -25,7 +25,7 @@ class AddWorkflowTransitionCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(AddWorkflowTransitionCommand $command)
+    public function __invoke(AddWorkflowTransitionCommand $command): void
     {
         $roleIds = $command->getRoleIds();
         $conditionSetId = $command->getConditionSetId();

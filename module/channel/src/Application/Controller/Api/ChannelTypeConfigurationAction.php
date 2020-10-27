@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api;
 
@@ -57,11 +57,9 @@ class ChannelTypeConfigurationAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @return Response
-     *
      * @throws \JsonException
      */
-    public function __invoke(string $type)
+    public function __invoke(string $type): Response
     {
         $form = $this->provider->provide($type)->create();
 

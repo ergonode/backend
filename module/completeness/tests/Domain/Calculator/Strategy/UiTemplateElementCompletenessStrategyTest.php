@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Tests\Domain\Calculator\Strategy;
 
@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class UiTemplateElementCompletenessStrategyTest extends TestCase
 {
-    public function testSupport():void
+    public function testSupport(): void
     {
         $strategy = new UiTemplateElementCompletenessStrategy();
         $this::assertTrue($strategy->supports(UiTemplateElementProperty::VARIANT));

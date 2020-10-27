@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Persistence\Repository;
 
@@ -39,7 +39,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
         return $aggregate;
     }
 
-    public function exists(StatusId $id) : bool
+    public function exists(StatusId $id): bool
     {
         return $this->manager->exists($id);
     }

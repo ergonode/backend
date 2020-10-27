@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
@@ -25,7 +25,7 @@ class EndImportCommandHandler
     /**
      * @throws \ReflectionException
      */
-    public function __invoke(EndImportCommand $command)
+    public function __invoke(EndImportCommand $command): void
     {
         $import = $this->repository->load($command->getId());
         Assert::notNull($import);

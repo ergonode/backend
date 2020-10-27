@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterMagento2\Infrastructure\Handler;
 
@@ -20,7 +20,7 @@ class UpdateMagento2ChannelCommandHandler
     {
         $this->repository = $repository;
     }
-    public function __invoke(UpdateMagento2ExportChannelCommand $command)
+    public function __invoke(UpdateMagento2ExportChannelCommand $command): void
     {
         /** @var Magento2CsvChannel $channel */
         $channel = $this->repository->load($command->getId());

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
@@ -30,7 +30,7 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
     /**
      * @dataProvider calculateProvider
      */
-    public function testCalculate(string $sku, string $operator, string $value, bool $result)
+    public function testCalculate(string $sku, string $operator, string $value, bool $result): void
     {
         $product = $this->createProductMock($sku);
         $condition = $this->createProductSkuExistsConditionMock($operator, $value);

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField;
 
@@ -41,7 +41,7 @@ class Shopware6ProductCustomFieldSetMultiSelectMapper extends AbstractShopware6P
     /**
      * {@inheritDoc}
      */
-    protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue):array
+    protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue): array
     {
         $options = explode(',', $calculateValue);
         $result = [];

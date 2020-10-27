@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
@@ -40,7 +40,7 @@ class CustomFieldShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    public function __invoke(CustomFieldShopware6ExportCommand $command)
+    public function __invoke(CustomFieldShopware6ExportCommand $command): void
     {
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Domain\Query;
 
@@ -15,5 +15,5 @@ interface Shopware6PropertyGroupQueryInterface
 {
     public function loadByShopwareId(ChannelId $channelId, string $shopwareId): ?AttributeId;
 
-    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime, string  $type): void;
+    public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime, string $type): void;
 }

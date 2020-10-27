@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Handler;
 
@@ -29,7 +29,7 @@ class UpdateLanguageCommandHandler
         $this->query = $query;
     }
 
-    public function __invoke(UpdateLanguageCommand $command)
+    public function __invoke(UpdateLanguageCommand $command): void
     {
         $activeLanguages = $command->getLanguages();
         $allLanguages = $this->query->getAll();

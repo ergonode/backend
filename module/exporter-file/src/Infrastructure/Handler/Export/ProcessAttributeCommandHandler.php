@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
@@ -54,7 +54,7 @@ class ProcessAttributeCommandHandler
     /**
      * @throws ExportException
      */
-    public function __invoke(ProcessAttributeCommand $command)
+    public function __invoke(ProcessAttributeCommand $command): void
     {
         /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());

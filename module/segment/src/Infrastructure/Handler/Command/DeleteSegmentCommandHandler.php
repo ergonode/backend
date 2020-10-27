@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
@@ -33,7 +33,7 @@ class DeleteSegmentCommandHandler
     /**
      * @throws ExistingRelationshipsException
      */
-    public function __invoke(DeleteSegmentCommand $command)
+    public function __invoke(DeleteSegmentCommand $command): void
     {
         $segment = $this->repository->load($command->getId());
         Assert::isInstanceOf($segment, Segment::class, sprintf('Can\'t find segment with ID "%s"', $command->getId()));

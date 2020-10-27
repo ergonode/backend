@@ -4,48 +4,43 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class ProcessExportCommandHandler
 {
-    private ExportRepositoryInterface $exportRepository;
-
-    private ExportLineRepositoryInterface $lineRepository;
-
-    private ChannelRepositoryInterface $channelRepository;
-
-    private ProductRepositoryInterface $productRepository;
-
-    private ExportProcessorProvider $provider;
-
-    public function __construct(
-        ExportRepositoryInterface $exportRepository,
-        ExportLineRepositoryInterface $lineRepository,
-        ChannelRepositoryInterface $channelRepository,
-        ProductRepositoryInterface $productRepository,
-        ExportProcessorProvider $provider
-    ) {
-        $this->exportRepository = $exportRepository;
-        $this->lineRepository = $lineRepository;
-        $this->channelRepository = $channelRepository;
-        $this->productRepository = $productRepository;
-        $this->provider = $provider;
-    }
+//    private ExportRepositoryInterface $exportRepository;
+//
+//    private ExportLineRepositoryInterface $lineRepository;
+//
+//    private ChannelRepositoryInterface $channelRepository;
+//
+//    private ProductRepositoryInterface $productRepository;
+//
+//    private ExportProcessorProvider $provider;
+//
+//    public function __construct(
+//        ExportRepositoryInterface $exportRepository,
+//        ExportLineRepositoryInterface $lineRepository,
+//        ChannelRepositoryInterface $channelRepository,
+//        ProductRepositoryInterface $productRepository,
+//        ExportProcessorProvider $provider
+//    ) {
+//        $this->exportRepository = $exportRepository;
+//        $this->lineRepository = $lineRepository;
+//        $this->channelRepository = $channelRepository;
+//        $this->productRepository = $productRepository;
+//        $this->provider = $provider;
+//    }
 
     /**
      * @throws DBALException
      */
-    public function __invoke(ProcessExportCommand $command)
+    public function __invoke(ProcessExportCommand $command): void
     {
 //        $export = $this->exportRepository->load($command->getExportId());
 //        Assert::notNull($export);

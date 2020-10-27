@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Test\Behat\Context;
 
@@ -82,7 +82,7 @@ class UploadFileContext extends BaseContext
     /**
      * @BeforeScenario
      */
-    public function beforeScenario(BeforeScenarioScope $scope)
+    public function beforeScenario(BeforeScenarioScope $scope): void
     {
         $this->currentFeature = $scope->getFeature();
     }

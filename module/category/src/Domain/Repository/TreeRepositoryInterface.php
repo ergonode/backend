@@ -4,6 +4,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Category\Domain\Repository;
 
 use Ergonode\Category\Domain\Entity\CategoryTree;

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Persistence\Query;
 
@@ -233,7 +233,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
             ->execute()
             ->fetchAll();
 
-        foreach ($records as $key => $record) {
+        foreach (array_keys($records) as $key) {
             $records[$key]['label'] = $this->translator->trans($records[$key]['label'], [], 'language');
         }
 

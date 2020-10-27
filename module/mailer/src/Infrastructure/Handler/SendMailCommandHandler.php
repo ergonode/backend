@@ -24,7 +24,7 @@ class SendMailCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(SendMailCommand $command)
+    public function __invoke(SendMailCommand $command): void
     {
         $this->mailerSender->send($command->getMail());
     }

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Controller\Api;
 
@@ -44,10 +44,8 @@ class ChannelTypeDictionaryAction
      *     response=200,
      *     description="Returns export profile dictionary",
      * )
-     *
-     * @return Response
      */
-    public function __invoke(Language $language)
+    public function __invoke(Language $language): Response
     {
         $dictionary = $this->provider->provide($language);
 

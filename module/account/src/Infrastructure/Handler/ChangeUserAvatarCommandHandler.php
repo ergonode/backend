@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler;
 
@@ -32,7 +32,7 @@ class ChangeUserAvatarCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(ChangeUserAvatarCommand $command)
+    public function __invoke(ChangeUserAvatarCommand $command): void
     {
         $user = $this->repository->load($command->getId());
         Assert::notNull($user);

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
@@ -28,7 +28,7 @@ class CreateWorkflowCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateWorkflowCommand $command)
+    public function __invoke(CreateWorkflowCommand $command): void
     {
         $workflow = $this->factory->create($command->getId(), $command->getCode(), $command->getStatuses());
 

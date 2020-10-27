@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Persistence\Repository;
 
@@ -28,7 +28,6 @@ class DbalImportRepository implements ImportRepositoryInterface
         'id',
         'status',
         'source_id',
-        'transformer_id',
         'file',
         'started_at',
         'ended_at',

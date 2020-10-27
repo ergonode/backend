@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Storage;
 
@@ -76,7 +76,7 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
      */
     public function append(AggregateId $id, DomainEventStream $stream, string $name = null): void
     {
-        $this->connection->transactional(function () use ($id, $stream, $name) {
+        $this->connection->transactional(function () use ($id, $stream, $name): void {
             $table = $name ?: self::TABLE;
             $token = $this->tokenStorage->getToken();
             $userId = $token ? $token->getUser()->getId()->getValue() : null;
@@ -108,7 +108,7 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
         $table = $name ?: self::TABLE;
         $historyTable = sprintf('%s_history', $table);
 
-        $this->connection->transactional(function () use ($id, $table, $historyTable) {
+        $this->connection->transactional(function () use ($id, $table, $historyTable): void {
             $queryBuilder = $this->connection->createQueryBuilder()
                 ->from($historyTable)
                 ->select('variant')

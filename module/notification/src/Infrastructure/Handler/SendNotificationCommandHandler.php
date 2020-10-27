@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Notification\Infrastructure\Handler;
 
@@ -23,7 +23,7 @@ class SendNotificationCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(SendNotificationCommand $command)
+    public function __invoke(SendNotificationCommand $command): void
     {
         $this->notificationService->send($command->getNotification(), $command->getRecipients());
     }

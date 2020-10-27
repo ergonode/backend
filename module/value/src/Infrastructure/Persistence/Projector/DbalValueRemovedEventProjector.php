@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Value\Infrastructure\Persistence\Projector;
 
@@ -35,7 +35,7 @@ class DbalValueRemovedEventProjector
      */
     public function __invoke(ValueRemovedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
             $oldValue = $this->serializer->serialize($event->getOld(), 'json');
             $oldValueId = Uuid::uuid5(self::NAMESPACE, $oldValue);

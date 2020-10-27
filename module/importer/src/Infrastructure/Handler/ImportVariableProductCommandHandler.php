@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
@@ -32,7 +32,7 @@ class ImportVariableProductCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportVariableProductCommand $command)
+    public function __invoke(ImportVariableProductCommand $command): void
     {
         try {
             $this->action->action(

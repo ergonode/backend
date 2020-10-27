@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\Entity;
 
@@ -34,8 +34,6 @@ class UserTest extends TestCase
      * @var Email|MockObject
      */
     private $email;
-
-    private string $filename;
 
     /**
      * @var Language|MockObject

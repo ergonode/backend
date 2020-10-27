@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler;
 
@@ -37,7 +37,7 @@ class CreateUserCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateUserCommand $command)
+    public function __invoke(CreateUserCommand $command): void
     {
         $languagePrivilegesCollection = [];
         $activeLanguages = $this->languageQuery->getActive();

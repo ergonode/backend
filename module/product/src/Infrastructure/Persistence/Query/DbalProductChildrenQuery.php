@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
@@ -164,7 +164,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
             ->innerJoin('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
     }
 
-    private function addBinding(QueryBuilder $qb, AbstractAttribute $bindingAttribute, Language $language)
+    private function addBinding(QueryBuilder $qb, AbstractAttribute $bindingAttribute, Language $language): void
     {
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($bindingAttribute, $language));
 

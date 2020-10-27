@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Grid;
 
@@ -16,15 +16,12 @@ use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use Symfony\Component\HttpFoundation\Request;
 
 class SegmentGrid extends AbstractGrid
 {
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $statuses = array_combine(SegmentStatus::AVAILABLE, SegmentStatus::AVAILABLE);
-
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);

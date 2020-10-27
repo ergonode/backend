@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler\Role;
 
@@ -26,7 +26,7 @@ class UpdateRoleCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateRoleCommand $command)
+    public function __invoke(UpdateRoleCommand $command): void
     {
         $role = $this->repository->load($command->getId());
         Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role with id %s', $command->getId()));

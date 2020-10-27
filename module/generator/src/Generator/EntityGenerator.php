@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Generator\Generator;
 
@@ -21,7 +21,7 @@ class EntityGenerator
      */
     private array $builders;
 
-    public function __construct(FilePersister $persister, BuilderInterface...$builders)
+    public function __construct(FilePersister $persister, BuilderInterface ...$builders)
     {
         $this->persister = $persister;
         $this->builders = $builders;

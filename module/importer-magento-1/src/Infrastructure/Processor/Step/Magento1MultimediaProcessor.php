@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
@@ -12,9 +12,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
@@ -31,11 +31,14 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         $this->media = [];
     }
 
+    /**
+     * @param AbstractAttribute[] $attributes
+     */
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         if (!$source->import(Magento1CsvSource::MULTIMEDIA)) {
             return;
@@ -48,7 +51,7 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             }
         }
 
-        foreach ($source->getLanguages() as $key => $language) {
+        foreach (array_keys($source->getLanguages()) as $key) {
             if ($product->has($key)) {
                 $version = $product->get($key);
                 if ($images = $version['image'] ?? null) {

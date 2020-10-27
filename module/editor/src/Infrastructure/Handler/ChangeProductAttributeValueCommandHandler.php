@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Infrastructure\Handler;
 
@@ -43,7 +43,7 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
     /**
      * @throws \Exception
      */
-    public function __invoke(ChangeProductAttributeValueCommand $command)
+    public function __invoke(ChangeProductAttributeValueCommand $command): void
     {
         $language = $command->getLanguage();
         $draft = $this->repository->load($command->getId());

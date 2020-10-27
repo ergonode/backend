@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Attribute\Create;
 
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand;

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
@@ -29,7 +29,7 @@ class DbalTemplateRemovedEventProjector
      */
     public function __invoke(TemplateRemovedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $this->connection->delete(
                 self::ELEMENT_TABLE,
                 [

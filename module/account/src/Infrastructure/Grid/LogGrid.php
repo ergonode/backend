@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Grid;
 
@@ -23,8 +23,6 @@ class LogGrid extends AbstractGrid
 {
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);

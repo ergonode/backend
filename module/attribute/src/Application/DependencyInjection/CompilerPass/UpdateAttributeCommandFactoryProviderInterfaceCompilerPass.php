@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\DependencyInjection\CompilerPass;
 
@@ -31,7 +31,7 @@ class UpdateAttributeCommandFactoryProviderInterfaceCompilerPass implements Comp
         $definition = $container->findDefinition(UpdateAttributeCommandFactoryProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 

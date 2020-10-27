@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Option;
 
@@ -16,7 +16,6 @@ use Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent;
 class DbalOptionRemovedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';
-    private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
     private Connection $connection;
 

@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
