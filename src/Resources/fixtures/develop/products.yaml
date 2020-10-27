@@ -41,7 +41,7 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         en_GB: '@multiselect_option_*->id'
 
 Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
-  product_{1..50}:
+  product_{1..1000}:
     __construct:
       - '<productId(SKU_<current()>)>'
       - '<sku(SKU_<current()>)>'
