@@ -41,14 +41,16 @@ class ImportOptionCommandHandler
                 $command->getTranslation()
             );
         } catch (ImportException $exception) {
-            $this->repository->addError($command->getImportId(), $exception->getMessage());
+            $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = sprintf(
-                'Can\'t import options %s for attribute %s',
-                $command->getKey()->getValue(),
-                $command->getCode()->getValue()
-            );
-            $this->repository->addError($command->getImportId(), $message);
+            $message = 'Can\'t import options {option} for attribute {attribute}';
+
+            $parameters = [
+                '{option}' => $command->getKey()->getValue(),
+                '{attribute}' => $command->getCode()->getValue(),
+            ];
+
+            $this->repository->addError($command->getImportId(), $message, $parameters);
             $this->logger->error($exception);
         }
     }

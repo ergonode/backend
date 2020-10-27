@@ -43,10 +43,10 @@ class ImportGroupingProductCommandHandler
                 $command->getAttributes()
             );
         } catch (ImportException $exception) {
-            $this->repository->addError($command->getImportId(), $exception->getMessage());
+            $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = sprintf('Can\'t import grouping product %s', $command->getSku());
-            $this->repository->addError($command->getImportId(), $message);
+            $message = 'Can\'t import grouping product {sku}';
+            $this->repository->addError($command->getImportId(), $message, ['{sku}' => $command->getSku()]);
             $this->logger->error($exception);
         }
     }
