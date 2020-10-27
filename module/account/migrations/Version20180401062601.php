@@ -35,9 +35,9 @@ final class Version20180401062601 extends AbstractErgonodeMigration
                 id UUID NOT NULL, 
                 first_name VARCHAR(128) NOT NULL,
                 last_name VARCHAR(128) NOT NULL,
-                avatar bool NOT NULL DEFAULT false,
-                username VARCHAR(255) NOT NULL,  
-                password VARCHAR(61) NOT NULL, 
+                avatar_filename VARCHAR(128) DEFAULT NULL,
+                username VARCHAR(128) NOT NULL, 
+                password VARCHAR(41) NOT NULL, 
                 role_id UUID NOT NULL,
                 language VARCHAR(5) NOT NULL,
                 PRIMARY KEY(id)

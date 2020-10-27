@@ -39,6 +39,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 status VARCHAR(16) NOT NULL,
                 source_id UUID NOT NULL,
+                transformer_id UUID NOT NULL,
                 file VARCHAR(255) NOT NULL,
                 created_at TIMESTAMP WITH TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -54,13 +55,18 @@ final class Version20180618134343 extends AbstractErgonodeMigration
              REFERENCES importer.source(id)  ON UPDATE CASCADE ON DELETE RESTRICT'
         );
 
+        $this->addSql(
+            'ALTER TABLE importer.import
+             ADD CONSTRAINT import_transformer_fk FOREIGN KEY (transformer_id) 
+             REFERENCES importer.transformer(id)  ON UPDATE CASCADE ON DELETE CASCADE'
+        );
+
         $this->addSql('
             CREATE TABLE importer.import_error (
                 id SERIAL, 
                 import_id UUID NOT NULL,
                 created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-                message TEXT DEFAULT NULL,     
-                parameters jsonb DEFAULT NULL,              
+                message TEXT DEFAULT NULL,                    
                 PRIMARY KEY(id)
             )
         ');
