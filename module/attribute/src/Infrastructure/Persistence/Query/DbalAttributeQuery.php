@@ -364,13 +364,11 @@ class DbalAttributeQuery implements AttributeQueryInterface
     {
         $qb = $this->getTranslationsQuery();
 
-        $result = $qb
+        return $qb
             ->where($qb->expr()->eq('value_id', ':id'))
             ->setParameter(':id', $valueId)
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
-
-        return $result;
     }
 
     /**
