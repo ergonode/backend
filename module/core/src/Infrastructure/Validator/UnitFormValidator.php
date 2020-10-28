@@ -26,8 +26,7 @@ class UnitFormValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed               $value
-     * @param UnitForm|Constraint $constraint
+     * {@inheritDoc}
      *
      * @throws \Exception
      */
@@ -45,7 +44,7 @@ class UnitFormValidator extends ConstraintValidator
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      */
     private function validateName($value, Constraint $constraint): void
     {
@@ -66,7 +65,7 @@ class UnitFormValidator extends ConstraintValidator
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      */
     private function validateSymbol($value, Constraint $constraint): void
     {

@@ -16,9 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class TranslationDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param TranslatableString|null $value
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function transform($value): array
     {
@@ -33,7 +31,7 @@ class TranslationDataTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param array|null $value
+     * {@inheritDoc}
      */
     public function reverseTransform($value): TranslatableString
     {

@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class ProductIdDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param ProductId|null $value
+     * {@inheritDoc}
      */
     public function transform($value): ?string
     {
@@ -31,6 +31,8 @@ class ProductIdDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param string|null $value
      */
     public function reverseTransform($value): ?ProductId

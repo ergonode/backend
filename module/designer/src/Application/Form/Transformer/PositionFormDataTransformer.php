@@ -18,9 +18,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class PositionFormDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param Position|null $value
-     *
-     * @return array|null
+     * {@inheritDoc}
      */
     public function transform($value): ?array
     {
@@ -38,6 +36,8 @@ class PositionFormDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param array|null $value
      */
     public function reverseTransform($value): ?Position

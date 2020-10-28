@@ -57,13 +57,9 @@ class ImportIdHandler implements SubscribingHandlerInterface
         return $id->getValue();
     }
 
-    /**
-     * @param string $data
-     * @param array  $type
-     */
     public function deserialize(
         DeserializationVisitorInterface $visitor,
-        $data,
+        string $data,
         array $type,
         Context $context
     ): ImportId {

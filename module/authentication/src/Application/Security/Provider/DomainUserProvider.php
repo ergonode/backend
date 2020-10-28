@@ -26,10 +26,7 @@ class DomainUserProvider implements UserProviderInterface
     }
 
     /**
-     * @param string $username
-     *
-     *
-     * @throws \Exception
+     * {@inheritDoc}
      */
     public function loadUserByUsername($username): UserInterface
     {
@@ -58,7 +55,7 @@ class DomainUserProvider implements UserProviderInterface
     }
 
     /**
-     * @throws \Exception
+     * @throws UsernameNotFoundException
      */
     public function refreshUser(UserInterface $user): UserInterface
     {
@@ -66,7 +63,7 @@ class DomainUserProvider implements UserProviderInterface
     }
 
     /**
-     * @param string $class
+     * {@inheritDoc}
      */
     public function supportsClass($class): bool
     {

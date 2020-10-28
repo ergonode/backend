@@ -29,9 +29,9 @@ class AddProductCollectionElementsCommand implements DomainCommandInterface
     private array $productIds;
 
     /**
-     * @param array|ProductId[] $productIds
+     * @param ProductId[] $productIds
      */
-    public function __construct(ProductCollectionId $productCollectionId, $productIds)
+    public function __construct(ProductCollectionId $productCollectionId, array $productIds)
     {
         $this->productCollectionId = $productCollectionId;
         $this->productIds = $productIds;
