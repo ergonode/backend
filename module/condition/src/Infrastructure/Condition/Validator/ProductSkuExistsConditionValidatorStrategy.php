@@ -49,7 +49,7 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
      * @param mixed $value
      * @param mixed $payload
      */
-    public function wildcardValidate($value, ExecutionContextInterface $context, $payload)
+    public function wildcardValidate($value, ExecutionContextInterface $context, $payload): void
     {
         $operator = $context->getRoot()['operator'] ?? null;
         if (ProductSkuExistsCondition::WILDCARD !== $operator) {
@@ -68,7 +68,7 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
      * @param mixed $value
      * @param mixed $payload
      */
-    public function regexpValidate($value, ExecutionContextInterface $context, $payload)
+    public function regexpValidate($value, ExecutionContextInterface $context, $payload): void
     {
         $operator = $context->getRoot()['operator'] ?? null;
         if (ProductSkuExistsCondition::REGEXP !== $operator) {

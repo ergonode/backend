@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
@@ -26,8 +28,8 @@ return [
     Ergonode\ImporterErgonode\ErgonodeImporterErgonodeBundle::class => ['all' => true],
     Ergonode\ImporterMagento1\ErgonodeImporterMagento1Bundle::class => ['all' => true],
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
-    Ergonode\Migration\ErgonodeMigrationBundle::class => ['all' => true],
     Ergonode\Mailer\ErgonodeMailerBundle::class => ['all' => true],
+    Ergonode\Migration\ErgonodeMigrationBundle::class => ['all' => true],
     Ergonode\Multimedia\ErgonodeMultimediaBundle::class => ['all' => true],
     Ergonode\Notification\ErgonodeNotificationBundle::class => ['all' => true],
     Ergonode\ProductCollection\ErgonodeProductCollectionBundle::class => ['all' => true],
@@ -40,6 +42,7 @@ return [
     Ergonode\Value\ErgonodeValueBundle::class => ['all' => true],
     Ergonode\Workflow\ErgonodeWorkflowBundle::class => ['all' => true],
     FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle::class => ['test' => true],
+    Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle::class => ['all' => true],
     JMS\SerializerBundle\JMSSerializerBundle::class => ['all' => true],
     League\FlysystemBundle\FlysystemBundle::class => ['all' => true],
     Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],

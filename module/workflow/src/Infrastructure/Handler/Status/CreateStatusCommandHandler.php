@@ -28,7 +28,7 @@ class CreateStatusCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateStatusCommand $command)
+    public function __invoke(CreateStatusCommand $command): void
     {
         $status = $this->factory->create(
             $command->getCode(),

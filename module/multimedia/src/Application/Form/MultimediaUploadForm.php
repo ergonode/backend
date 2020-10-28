@@ -25,7 +25,7 @@ class MultimediaUploadForm extends AbstractType
         $builder->add('upload', FileType::class);
     }
 
-    public function getBlockPrefix() :?string
+    public function getBlockPrefix(): ?string
     {
         return null;
     }

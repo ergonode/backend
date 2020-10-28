@@ -23,7 +23,7 @@ class SegmentCreatedEventHandler implements MessageSubscriberInterface
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(SegmentCreatedEvent $event)
+    public function __invoke(SegmentCreatedEvent $event): void
     {
         if ($event->getConditionSetId()) {
             $command = new CalculateSegmentCommand($event->getAggregateId());

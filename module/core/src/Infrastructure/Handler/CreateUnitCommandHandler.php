@@ -28,7 +28,7 @@ class CreateUnitCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateUnitCommand $command)
+    public function __invoke(CreateUnitCommand $command): void
     {
         $unit = $this->factory->create(
             $command->getId(),

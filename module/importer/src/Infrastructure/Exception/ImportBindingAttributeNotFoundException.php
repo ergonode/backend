@@ -13,10 +13,10 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 class ImportBindingAttributeNotFoundException extends ImportException
 {
-    private const MESSAGE  = 'Can\'t find attribute {{code}} new to bind product {{sku}}';
+    private const MESSAGE  = 'Can\'t find attribute {code} new to bind product {sku}';
 
     public function __construct(AttributeCode $code, Sku $sku, \Throwable $previous = null)
     {
-        parent::__construct(self::MESSAGE, ['code' => $code->getValue(), 'sku' => $sku->getValue()], $previous);
+        parent::__construct(self::MESSAGE, ['{code}' => $code->getValue(), '{sku}' => $sku->getValue()], $previous);
     }
 }

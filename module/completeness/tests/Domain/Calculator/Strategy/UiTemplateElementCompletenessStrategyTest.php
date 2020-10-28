@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class UiTemplateElementCompletenessStrategyTest extends TestCase
 {
-    public function testSupport():void
+    public function testSupport(): void
     {
         $strategy = new UiTemplateElementCompletenessStrategy();
         $this::assertTrue($strategy->supports(UiTemplateElementProperty::VARIANT));

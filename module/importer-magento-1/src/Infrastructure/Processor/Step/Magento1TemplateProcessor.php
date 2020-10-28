@@ -48,6 +48,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
                 $template
             );
             $this->commandBus->dispatch($command, true);
+            $import->addRecords(1);
         }
     }
 }

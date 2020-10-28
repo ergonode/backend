@@ -5,6 +5,8 @@
  * See license.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Channel\Domain\Service;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;

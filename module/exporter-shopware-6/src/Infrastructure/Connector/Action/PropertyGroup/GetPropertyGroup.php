@@ -37,7 +37,7 @@ class GetPropertyGroup extends AbstractAction implements ActionInterface
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content):Shopware6PropertyGroup
+    public function parseContent(?string $content): Shopware6PropertyGroup
     {
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 

@@ -58,7 +58,7 @@ class ExceptionListenerTest extends TestCase
             ->method('getThrowable')->willReturn($this->authenticationCredentialNotFoundException);
         $this->event
             ->expects($this->once())
-            ->method('setResponse')->willreturnCallback(function ($response) {
+            ->method('setResponse')->willreturnCallback(function ($response): void {
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(500, $response->getStatusCode());
             });
@@ -77,7 +77,7 @@ class ExceptionListenerTest extends TestCase
             ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
         $this->event
             ->expects($this->once())
-            ->method('setResponse')->willreturnCallback(function ($response) {
+            ->method('setResponse')->willreturnCallback(function ($response): void {
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(500, $response->getStatusCode());
             });
@@ -105,7 +105,7 @@ class ExceptionListenerTest extends TestCase
             ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
         $this->event
             ->expects($this->once())
-            ->method('setResponse')->willreturnCallback(function ($response) {
+            ->method('setResponse')->willreturnCallback(function ($response): void {
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(403, $response->getStatusCode());
             });
@@ -130,7 +130,7 @@ class ExceptionListenerTest extends TestCase
             ->method('getThrowable')->willReturn($this->authenticationCredentialNotFoundException);
         $this->event
             ->expects($this->once())
-            ->method('setResponse')->willreturnCallback(function ($response) {
+            ->method('setResponse')->willreturnCallback(function ($response): void {
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(403, $response->getStatusCode());
             });

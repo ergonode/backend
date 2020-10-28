@@ -32,7 +32,7 @@ class PostCategoryActionTest extends TestCase
         );
     }
 
-    public function testAction():void
+    public function testAction(): void
     {
         $action = new PostCategoryAction($this->category);
         $request = $action->getRequest();

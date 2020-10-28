@@ -41,7 +41,7 @@ class DbalCategoryCreatedEventProjector
      */
     public function __invoke(CategoryCreatedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $this->connection->insert(
                 self::TABLE,
                 [

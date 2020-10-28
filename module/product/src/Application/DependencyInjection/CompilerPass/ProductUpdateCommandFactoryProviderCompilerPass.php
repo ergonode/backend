@@ -31,7 +31,7 @@ class ProductUpdateCommandFactoryProviderCompilerPass implements CompilerPassInt
         $definition = $container->findDefinition(UpdateProductCommandFactoryProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 

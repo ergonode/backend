@@ -23,7 +23,7 @@ class SendNotificationCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(SendNotificationCommand $command)
+    public function __invoke(SendNotificationCommand $command): void
     {
         $this->notificationService->send($command->getNotification(), $command->getRecipients());
     }

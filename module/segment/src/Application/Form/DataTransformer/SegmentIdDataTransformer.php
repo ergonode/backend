@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class SegmentIdDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param SegmentId|null $value
+     * {@inheritDoc}
      */
     public function transform($value): ?string
     {
@@ -31,6 +31,8 @@ class SegmentIdDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param string|null $value
      */
     public function reverseTransform($value): ?SegmentId

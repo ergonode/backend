@@ -25,7 +25,7 @@ class EndImportCommandHandler
     /**
      * @throws \ReflectionException
      */
-    public function __invoke(EndImportCommand $command)
+    public function __invoke(EndImportCommand $command): void
     {
         $import = $this->repository->load($command->getId());
         Assert::notNull($import);

@@ -54,7 +54,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                 $columns[$key][] = $item;
             }
         }
-        foreach ($source->getLanguages() as $store => $language) {
+        foreach (array_keys($source->getLanguages()) as $store) {
             if ($product->has($store)) {
                 foreach ($product->get($store) as $key => $item) {
                     if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
@@ -88,7 +88,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                             $label
                         );
                         $this->commandBus->dispatch($command, true);
-
+                        $import->addRecords(1);
                         $this->options[$uuid->toString()] = $uuid;
                     }
                 }

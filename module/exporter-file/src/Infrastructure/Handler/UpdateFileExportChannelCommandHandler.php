@@ -24,7 +24,7 @@ class UpdateFileExportChannelCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateFileExportChannelCommand $command)
+    public function __invoke(UpdateFileExportChannelCommand $command): void
     {
         /** @var FileExportChannel $channel */
         $channel = $this->repository->load($command->getId());

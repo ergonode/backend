@@ -23,8 +23,6 @@ class LogGrid extends AbstractGrid
 {
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);

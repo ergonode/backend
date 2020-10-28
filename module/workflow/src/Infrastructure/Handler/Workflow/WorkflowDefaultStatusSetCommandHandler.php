@@ -25,7 +25,7 @@ class WorkflowDefaultStatusSetCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(SetDefaultStatusCommand $command)
+    public function __invoke(SetDefaultStatusCommand $command): void
     {
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);

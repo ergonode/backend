@@ -60,7 +60,7 @@ class DbalAttributeLabelChangedEventProjector
             }
         }
 
-        foreach ($from as $language => $value) {
+        foreach (array_keys($from) as $language) {
             if (!isset($to[$language])) {
                 $this->connection->delete(
                     self::TABLE,

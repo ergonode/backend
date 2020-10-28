@@ -28,7 +28,7 @@ class NotificationStrategyInterfaceCompilerPass implements CompilerPassInterface
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];
-        foreach ($container->findTaggedServiceIds(self::TAG) as $id => $strategy) {
+        foreach (array_keys($container->findTaggedServiceIds(self::TAG)) as $id) {
             $arguments[] = new Reference($id);
         }
 

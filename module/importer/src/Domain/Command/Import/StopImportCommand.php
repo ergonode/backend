@@ -23,12 +23,20 @@ class StopImportCommand implements DomainCommandInterface
     /**
      * @JMS\Type("string")
      */
-    private ?string $reason;
+    private ?string $message;
 
-    public function __construct(ImportId $id, ?string $reason = null)
+    /**
+     * @var string[];
+     *
+     * @JMS\Type(array<string, string>)
+     */
+    private array $parameters;
+
+    public function __construct(ImportId $id, ?string $message = null, array $parameters = [])
     {
         $this->id = $id;
-        $this->reason = $reason;
+        $this->message = $message;
+        $this->parameters = $parameters;
     }
 
     public function getId(): ImportId
@@ -36,8 +44,16 @@ class StopImportCommand implements DomainCommandInterface
         return $this->id;
     }
 
-    public function getReason(): ?string
+    public function getMessage(): ?string
     {
-        return $this->reason;
+        return $this->message;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 }

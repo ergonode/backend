@@ -28,7 +28,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function exists(CategoryId $id) : bool
+    public function exists(CategoryId $id): bool
     {
         return $this->manager->exists($id);
     }

@@ -59,7 +59,7 @@ class EntityFactoryBuilder implements BuilderInterface
     {
         $method = $this->methodBuilder->build('create', $properties, $class);
         $method->addBody(sprintf('return new %s(', ucfirst($entity)));
-        foreach ($properties as $name => $type) {
+        foreach (array_keys($properties) as $name) {
             $keys = array_keys($properties);
             $last = end($keys);
             if ($last !== $name) {

@@ -50,7 +50,7 @@ class StartImportCommandHandler
     /**
      * @throws \ReflectionException
      */
-    public function __invoke(StartImportCommand $command)
+    public function __invoke(StartImportCommand $command): void
     {
         $message = null;
         $import = $this->importRepository->load($command->getId());
@@ -65,6 +65,7 @@ class StartImportCommandHandler
 
         try {
             $processor->start($import);
+            $this->importRepository->save($import);
         } catch (ImportException|ReaderException $exception) {
             $message = $exception->getMessage();
         } catch (\Throwable $exception) {

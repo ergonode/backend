@@ -33,7 +33,7 @@ class ColorTest extends TestCase
         new Color($hex);
     }
 
-    public function testColorEquality():void
+    public function testColorEquality(): void
     {
         $color1 = new Color('#000000');
         $color2 = new Color('#000000');

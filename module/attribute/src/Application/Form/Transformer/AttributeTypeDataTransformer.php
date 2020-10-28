@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class AttributeTypeDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param AttributeType|null $value
+     * {@inheritDoc}
      */
     public function transform($value): ?string
     {
@@ -32,6 +32,8 @@ class AttributeTypeDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param string|null $value
      */
     public function reverseTransform($value): ?AttributeType

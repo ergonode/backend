@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Category\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
@@ -26,7 +28,7 @@ interface CategoryQueryInterface
      */
     public function getAll(Language $language): array;
 
-    public function findIdByCode(CategoryCode $code):? CategoryId;
+    public function findIdByCode(CategoryCode $code): ?CategoryId;
 
     /**
      * @return array|null

@@ -39,7 +39,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
         return $aggregate;
     }
 
-    public function exists(StatusId $id) : bool
+    public function exists(StatusId $id): bool
     {
         return $this->manager->exists($id);
     }

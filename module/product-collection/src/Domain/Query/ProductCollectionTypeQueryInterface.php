@@ -29,4 +29,12 @@ interface ProductCollectionTypeQueryInterface
      * @return array
      */
     public function getCollectionTypes(Language $language): array;
+
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }

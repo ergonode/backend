@@ -27,7 +27,7 @@ class PostCustomFieldSetActionTest extends TestCase
         );
     }
 
-    public function testAction():void
+    public function testAction(): void
     {
         $action = new PostCustomFieldSetAction($this->customFieldSet);
         $request = $action->getRequest();

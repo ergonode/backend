@@ -107,10 +107,7 @@ class Shopware6CustomField
         return [];
     }
 
-    /**
-     * @param $value
-     */
-    public function addConfig(string $key, $value): void
+    public function addConfig(string $key, string $value): void
     {
         if (isset($this->config[$key]) && $this->config[$key] === $value) {
             return;

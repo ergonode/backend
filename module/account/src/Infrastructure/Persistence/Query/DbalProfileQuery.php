@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use League\Flysystem\FilesystemInterface;
 
 class DbalProfileQuery implements ProfileQueryInterface
 {
@@ -20,9 +21,12 @@ class DbalProfileQuery implements ProfileQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilesystemInterface $avatarStorage;
+
+    public function __construct(Connection $connection, FilesystemInterface $avatarStorage)
     {
         $this->connection = $connection;
+        $this->avatarStorage = $avatarStorage;
     }
 
     /**
@@ -35,6 +39,9 @@ class DbalProfileQuery implements ProfileQueryInterface
             ->setParameter('userId', $userId->getValue())
             ->execute()
             ->fetch();
+
+        $filename = sprintf('%s.%s', $result['id'], 'png');
+        $result['avatar_filename'] = $this->avatarStorage->has($filename) ? $filename : null;
 
         if (null !== $result['privileges']) {
             $result['privileges'] = json_decode($result['privileges'], true);
@@ -55,7 +62,6 @@ class DbalProfileQuery implements ProfileQueryInterface
                  u.last_name, 
                  u.username AS email,
                  u.language,
-                 u.avatar_filename,
                  u.language_privileges_collection AS language_privileges,
                  r.name AS role, 
                  r.privileges'

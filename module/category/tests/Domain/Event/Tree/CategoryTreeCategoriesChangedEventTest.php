@@ -12,21 +12,10 @@ namespace Ergonode\Category\Tests\Domain\Event\Tree;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeCategoriesChangedEvent;
 use Ergonode\Category\Domain\ValueObject\Node;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class CategoryTreeCategoriesChangedEventTest extends TestCase
 {
-    /**
-     * @var Node|MockObject
-     */
-    private $node;
-
-    protected function setUp(): void
-    {
-        $this->node = $this->createMock(Node::class);
-    }
-
     public function testCreateWithIncorrectTypeInserted(): void
     {
         $this->expectException(\InvalidArgumentException::class);

@@ -29,7 +29,7 @@ class DbalNotificationQuery implements NotificationQueryInterface
         'n.*',
         'un.read_at',
         'u.id AS user_id',
-        'u.avatar_filename',
+        'CASE WHEN u.avatar THEN u.id ELSE null END as avatar_filename',
         'COALESCE(u.first_name || \' \' || u.last_name, \'Deleted\') AS author',
     ];
 

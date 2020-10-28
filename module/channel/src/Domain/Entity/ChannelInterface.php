@@ -10,5 +10,5 @@ namespace Ergonode\Channel\Domain\Entity;
 
 interface ChannelInterface
 {
-    public static function getType():string;
+    public static function getType(): string;
 }

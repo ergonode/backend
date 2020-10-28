@@ -37,7 +37,7 @@ class CreateUserCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateUserCommand $command)
+    public function __invoke(CreateUserCommand $command): void
     {
         $languagePrivilegesCollection = [];
         $activeLanguages = $this->languageQuery->getActive();

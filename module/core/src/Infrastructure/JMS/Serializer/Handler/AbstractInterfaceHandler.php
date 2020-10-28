@@ -65,12 +65,14 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
      * @param array $data
      * @param array $type
      *
-     * @return object
-     *
      * @throws \ReflectionException
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, array $data, array $type, Context $context)
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        array $data,
+        array $type,
+        Context $context
+    ): object {
         $typeField = strtolower($this->constant);
 
         $data = $this->prepareData($data);
@@ -90,7 +92,7 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
         $object = $reflection->newInstanceWithoutConstructor();
 
         $visitor->startVisitingObject($metadata, $object, ['name' => $class]);
-        foreach ($metadata->propertyMetadata as $name => $property) {
+        foreach ($metadata->propertyMetadata as $property) {
             if (!$property instanceof VirtualPropertyMetadata) {
                 $value = $visitor->visitProperty($property, $data);
 

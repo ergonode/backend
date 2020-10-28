@@ -16,18 +16,15 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class PostUploadFile extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v1/_action/media/%s/upload?%s';
+    private const URI = '/api/v2/_action/media/%s/upload?%s';
 
     private string $multimediaId;
 
-    private $content;
+    private string $content;
 
     private Multimedia $multimedia;
 
-    /**
-     * @param $content
-     */
-    public function __construct(string $multimediaId, $content, Multimedia $multimedia)
+    public function __construct(string $multimediaId, string $content, Multimedia $multimedia)
     {
         $this->multimediaId = $multimediaId;
         $this->content = $content;

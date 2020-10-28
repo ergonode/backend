@@ -27,7 +27,7 @@ class CategoryTreeExistsValidator extends ConstraintValidator
      * @param mixed                         $value
      * @param CategoryTreeExists|Constraint $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof CategoryTreeExists) {
             throw new UnexpectedTypeException($constraint, CategoryTreeExists::class);

@@ -32,6 +32,6 @@ class UpdateCategoryCommandFactoryProviderTest extends TestCase
         $factory->method('support')->willReturn(false);
         $provider = new UpdateCategoryCommandFactoryProvider(...[$factory]);
 
-        $factoryProvided = $provider->provide('type');
+        $provider->provide('type');
     }
 }

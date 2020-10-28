@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class GetCurrencyListTest extends TestCase
 {
-    public function testAction()
+    public function testAction(): void
     {
         $action = new GetCurrencyList(new Shopware6QueryBuilder());
         $request = $action->getRequest();

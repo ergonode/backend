@@ -15,5 +15,5 @@ interface Shopware6CustomFieldQueryInterface
 {
     public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?AttributeId;
 
-    public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime, string  $type): void;
+    public function cleanData(ChannelId $channel, \DateTimeImmutable $dateTime, string $type): void;
 }

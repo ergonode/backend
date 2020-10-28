@@ -18,7 +18,7 @@ class UpdateSimpleProductCommandHandler extends AbstractUpdateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateSimpleProductCommand $command)
+    public function __invoke(UpdateSimpleProductCommand $command): void
     {
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);

@@ -102,7 +102,7 @@ class Shopware6ProductTest extends TestCase
         $this->coverId = 'any_product_media_id';
     }
 
-    public function testCreateModel():void
+    public function testCreateModel(): void
     {
         $model = new Shopware6Product(
             $this->id,
@@ -139,7 +139,7 @@ class Shopware6ProductTest extends TestCase
         self::assertFalse($model->isModified());
     }
 
-    public function testSetModel():void
+    public function testSetModel(): void
     {
         $model = new Shopware6Product();
         $model->setSku($this->sku);

@@ -115,7 +115,7 @@ class LinkColumnRenderer implements ColumnRendererInterface
         if (!array_key_exists('parameters', $link)) {
             $link['parameters'] = [];
         } else {
-            foreach ($link['parameters'] as $key => &$field) {
+            foreach ($link['parameters'] as &$field) {
                 $field = str_replace($keys, $values, $field);
             }
         }

@@ -26,7 +26,7 @@ class UpdateUnitCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateUnitCommand $command)
+    public function __invoke(UpdateUnitCommand $command): void
     {
         /** @var Unit $unit */
         $unit = $this->repository->load($command->getId());

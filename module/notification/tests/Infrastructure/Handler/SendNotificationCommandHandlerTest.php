@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Notification\Tests\Infrastructure\Handler;
 
-use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Notification\Infrastructure\Handler\SendNotificationCommandHandler;
 use Ergonode\Notification\Infrastructure\Sender\NotificationSender;
@@ -21,11 +20,6 @@ class SendNotificationCommandHandlerTest extends TestCase
      * @var NotificationSender|MockObject
      */
     private $service;
-
-    /**
-     * @var RoleQueryInterface|MockObject
-     */
-    private $query;
 
     /**
      * @var SendNotificationCommand|MockObject

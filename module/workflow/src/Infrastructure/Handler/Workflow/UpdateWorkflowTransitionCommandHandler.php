@@ -25,7 +25,7 @@ class UpdateWorkflowTransitionCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateWorkflowTransitionCommand $command)
+    public function __invoke(UpdateWorkflowTransitionCommand $command): void
     {
         $conditionSetId = $command->getConditionSetId();
         $workflow = $this->repository->load($command->getWorkflowId());

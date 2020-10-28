@@ -29,7 +29,7 @@ class DbalCommentContentChangedEventProjector
      */
     public function __invoke(CommentContentChangedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $this->connection->update(
                 self::TABLE,
                 [

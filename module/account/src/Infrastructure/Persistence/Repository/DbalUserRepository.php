@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Account\Infrastructure\Persistence\Repository;
 
 use Ergonode\Account\Domain\Entity\User;

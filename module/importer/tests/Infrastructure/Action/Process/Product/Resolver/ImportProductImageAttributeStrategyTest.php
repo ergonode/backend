@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Tests\Infrastructure\Action\Process\Product\Resolver;
 
-use Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver\ImportProductImageAttributeStrategy;
+use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductImageAttributeStrategy;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;

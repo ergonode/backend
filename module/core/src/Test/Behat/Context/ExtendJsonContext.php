@@ -28,7 +28,7 @@ class ExtendJsonContext extends JsonContext
     /**
      * @override @Then the JSON should be valid according to the schema :filename
      *
-     * @param string $filename
+     * {@inheritDoc}
      */
     public function theJsonShouldBeValidAccordingToTheSchema($filename): void
     {

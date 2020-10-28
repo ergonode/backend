@@ -45,6 +45,7 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
                 $attributes
             );
             $this->commandBus->dispatch($command, true);
+            $import->addRecords(1);
         }
     }
 }

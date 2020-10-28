@@ -61,10 +61,8 @@ class CategoryTypeConfigurationAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @return Response
      */
-    public function __invoke(string $type)
+    public function __invoke(string $type): Response
     {
         $class = $this->formProvider->provide($type);
         $form = $this->formFactory->create($class);

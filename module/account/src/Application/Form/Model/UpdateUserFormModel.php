@@ -88,7 +88,7 @@ class UpdateUserFormModel
      *
      * @param mixed $payload
      */
-    public function validatePassword(ExecutionContextInterface $context, $payload)
+    public function validatePassword(ExecutionContextInterface $context, $payload): void
     {
         /** @var UpdateUserFormModel $data */
         $data = $context->getValue();

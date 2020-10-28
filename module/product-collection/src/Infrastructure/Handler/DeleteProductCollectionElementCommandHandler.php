@@ -29,7 +29,7 @@ class DeleteProductCollectionElementCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteProductCollectionElementCommand $command)
+    public function __invoke(DeleteProductCollectionElementCommand $command): void
     {
         /** @var ProductCollection $productCollection */
         $productCollection = $this->repository->load($command->getProductCollectionId());

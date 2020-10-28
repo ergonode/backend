@@ -32,7 +32,7 @@ class ImportVariableProductCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportVariableProductCommand $command)
+    public function __invoke(ImportVariableProductCommand $command): void
     {
         try {
             $this->action->action(
@@ -44,10 +44,10 @@ class ImportVariableProductCommandHandler
                 $command->getAttributes()
             );
         } catch (ImportException $exception) {
-            $this->repository->addError($command->getImportId(), $exception->getMessage());
+            $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = sprintf('Can\'t import variable product %s', $command->getSku()->getValue());
-            $this->repository->addError($command->getImportId(), $message);
+            $message = 'Can\'t import variable product {sku}';
+            $this->repository->addError($command->getImportId(), $message, ['{sku}' => $command->getSku()->getValue()]);
             $this->logger->error($exception);
         }
     }

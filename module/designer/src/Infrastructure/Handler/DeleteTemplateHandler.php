@@ -33,7 +33,7 @@ class DeleteTemplateHandler
     /**
      * @throws ExistingRelationshipsException
      */
-    public function __invoke(DeleteTemplateCommand $command)
+    public function __invoke(DeleteTemplateCommand $command): void
     {
         $template = $this->repository->load($command->getId());
         Assert::isInstanceOf(

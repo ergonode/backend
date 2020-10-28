@@ -25,7 +25,7 @@ class DeleteChannelCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteChannelCommand $command)
+    public function __invoke(DeleteChannelCommand $command): void
     {
         $channel = $this->repository->load($command->getId());
 

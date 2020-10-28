@@ -28,7 +28,7 @@ class CreateTransformerCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateTransformerCommand $command)
+    public function __invoke(CreateTransformerCommand $command): void
     {
         $transformer = $this->factory->create($command->getId(), $command->getName(), $command->getKey());
 

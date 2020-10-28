@@ -44,7 +44,7 @@ class EndProcessCommandHandler
     /**
      * @throws FileExistsException
      */
-    public function __invoke(EndFileExportCommand $command)
+    public function __invoke(EndFileExportCommand $command): void
     {
         $export  = $this->repository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

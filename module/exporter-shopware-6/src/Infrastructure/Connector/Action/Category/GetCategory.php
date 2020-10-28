@@ -36,7 +36,7 @@ class GetCategory extends AbstractAction implements ActionInterface
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content):Shopware6Category
+    public function parseContent(?string $content): Shopware6Category
     {
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 

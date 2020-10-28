@@ -23,7 +23,7 @@ class UpdateTemplateHandler
         $this->designerTemplateRepository = $designerTemplateRepository;
     }
 
-    public function __invoke(UpdateTemplateCommand $command)
+    public function __invoke(UpdateTemplateCommand $command): void
     {
         $current = [];
         /** @var Template $template */

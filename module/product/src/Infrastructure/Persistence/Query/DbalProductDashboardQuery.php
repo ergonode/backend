@@ -35,7 +35,7 @@ class DbalProductDashboardQuery implements ProductDashboardQueryInterface
     /**
      * @return array
      */
-    public function getProductCount(Language  $language): array
+    public function getProductCount(Language $language): array
     {
         $result = [];
         $types = $this->provider->provide();

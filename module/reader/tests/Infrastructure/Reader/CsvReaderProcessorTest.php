@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Reader\Tests\Infrastructure\Reader;
 
 use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;

@@ -30,7 +30,7 @@ class SourceTypeCompilerPass implements CompilerPassInterface
         $services = $container->findTaggedServiceIds(self::TAG);
         $types = [];
 
-        foreach ($services as $id => $service) {
+        foreach (array_keys($services) as $id) {
             $types[] = $container->getDefinition($id)->getClass()::getType();
         }
 

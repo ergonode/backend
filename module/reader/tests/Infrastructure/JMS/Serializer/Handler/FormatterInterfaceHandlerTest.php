@@ -29,7 +29,7 @@ class FormatterInterfaceHandlerTest extends TestCase
         $handler->set(ReplaceFormatter::class);
 
         $this->serializer = SerializerBuilder::create()
-            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler) {
+            ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler): void {
                 $handlerRegistry->registerSubscribingHandler($handler);
             })
             ->build();

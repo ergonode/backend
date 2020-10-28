@@ -28,7 +28,7 @@ class CategoryRemoveShopware6ExportProcess
         $this->categoryClient = $categoryClient;
     }
 
-    public function process(ExportId $exportId, Shopware6Channel $channel, CategoryId $categoryId):void
+    public function process(ExportId $exportId, Shopware6Channel $channel, CategoryId $categoryId): void
     {
         $shopwareId = $this->shopwareCategoryRepository->load($channel->getId(), $categoryId);
         if ($shopwareId) {

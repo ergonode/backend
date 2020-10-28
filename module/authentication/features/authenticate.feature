@@ -58,6 +58,8 @@ Feature: Authentication module
       }
       """
     Then the response status code should be 200
+    And the JSON node "token" should exist
+    And the JSON node "refresh_token" should exist
 
   Scenario: Authenticate without credentials (active user)
     Given I add "Content-Type" header equal to "application/json"
