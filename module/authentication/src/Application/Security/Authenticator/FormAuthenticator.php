@@ -89,8 +89,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param string $providerKey
-     *
+     * {@inheritDoc}
      *
      * @throws \Exception
      */

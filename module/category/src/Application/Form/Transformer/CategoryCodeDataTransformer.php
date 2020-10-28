@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class CategoryCodeDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param CategoryCode|null $value
+     * {@inheritDoc}
      */
     public function transform($value): ?string
     {
@@ -32,6 +32,8 @@ class CategoryCodeDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param string|null $value
      */
     public function reverseTransform($value): ?CategoryCode

@@ -152,8 +152,11 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
      *
      * @throws Shopware6ExporterMapperException
      */
-    private function getPriceValue(AttributeId $productPrice, Language $defaultLanguage, $product): float
-    {
+    private function getPriceValue(
+        AttributeId $productPrice,
+        Language $defaultLanguage,
+        AbstractProduct $product
+    ): float {
         /** @var PriceAttribute $attribute */
         $attribute = $this->repository->load($productPrice);
 

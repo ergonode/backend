@@ -20,14 +20,11 @@ class PostUploadFile extends AbstractAction implements ActionInterface
 
     private string $multimediaId;
 
-    private $content;
+    private string $content;
 
     private Multimedia $multimedia;
 
-    /**
-     * @param $content
-     */
-    public function __construct(string $multimediaId, $content, Multimedia $multimedia)
+    public function __construct(string $multimediaId, string $content, Multimedia $multimedia)
     {
         $this->multimediaId = $multimediaId;
         $this->content = $content;

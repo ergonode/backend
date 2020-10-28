@@ -43,7 +43,7 @@ class ErgoPrinter extends Printer
     }
 
     /**
-     * @param $var
+     * @param mixed $var
      */
     protected function dump($var): string
     {

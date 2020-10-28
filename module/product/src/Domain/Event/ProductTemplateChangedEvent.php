@@ -27,10 +27,7 @@ class ProductTemplateChangedEvent implements DomainEventInterface
      */
     private TemplateId $templateId;
 
-    /**
-     * @param TemplateId $templateId
-     */
-    public function __construct(ProductId $id, $templateId)
+    public function __construct(ProductId $id, TemplateId $templateId)
     {
         $this->id = $id;
         $this->templateId = $templateId;
