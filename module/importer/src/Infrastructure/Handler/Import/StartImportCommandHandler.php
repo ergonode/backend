@@ -65,6 +65,7 @@ class StartImportCommandHandler
 
         try {
             $processor->start($import);
+            $this->importRepository->save($import);
         } catch (ImportException|ReaderException $exception) {
             $message = $exception->getMessage();
         } catch (\Throwable $exception) {

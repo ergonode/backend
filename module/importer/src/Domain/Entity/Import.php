@@ -12,15 +12,12 @@ namespace Ergonode\Importer\Domain\Entity;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 class Import
 {
     protected ImportId $id;
 
     protected SourceId $sourceId;
-
-    protected TransformerId $transformerId;
 
     protected ImportStatus $status;
 

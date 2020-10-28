@@ -52,6 +52,7 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
                 $attributes
             );
             $this->commandBus->dispatch($command, true);
+            $import->addRecords(1);
         }
     }
 
