@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -26,6 +27,8 @@ class UiTemplateElementProperty implements TemplateElementPropertyInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @JMS\VirtualProperty()
      */
     public function getVariant(): string
