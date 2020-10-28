@@ -41,10 +41,7 @@ class Shopware6ChannelFormModel
      */
     public ?string $clientKey = null;
 
-    /**
-     * @var string |null
-     */
-    public $segment = null;
+    public ?string $segment = null;
 
     /**
      * @Assert\NotBlank(),
