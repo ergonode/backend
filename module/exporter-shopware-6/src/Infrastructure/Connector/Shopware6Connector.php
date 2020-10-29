@@ -21,10 +21,7 @@ class Shopware6Connector
 
     private ?string $token;
 
-    /**
-     * @var \DateTimeInterface
-     */
-    private $expiresAt;
+    private \DateTimeInterface $expiresAt;
 
     public function __construct(Configurator $configurator)
     {
