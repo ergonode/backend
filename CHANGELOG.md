@@ -2,8 +2,8 @@
 - feature [#882](https://github.com/ergonode/backend/issues/882) Adding JWT refresh (wfajczyk)
 - feature change static check code(piotrkreft)
 - feature #885 Add translated import error mesages (rprzedzik)
-- bug #866 Changing endcoding for user password(wiewiurdp )
-- bugfix #887 import process rprzedzik
+- bug #866 Changing endcoding for user password(wiewiurdp)
+- bugfix #887 import process (rprzedzik)
 - configuration #855 Extend JSONContext to work with modules(rprzedzik)
 
 ## CHANGELOG FOR 1.0.0-beta
