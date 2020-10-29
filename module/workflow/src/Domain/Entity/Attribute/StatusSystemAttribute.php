@@ -9,13 +9,12 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-class StatusSystemAttribute extends AbstractAttribute implements AttributeInterface
+class StatusSystemAttribute extends AbstractAttribute
 {
     public const TYPE = 'STATUS';
     public const CODE = 'esa_status';
