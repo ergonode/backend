@@ -11,7 +11,7 @@ namespace Ergonode\Mailer\Tests\Domain;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Mailer\Domain\Template;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 final class TemplateTest extends TestCase
 {
@@ -22,8 +22,8 @@ final class TemplateTest extends TestCase
         $parameters = ['param' => 'value'];
         $template = new Template($path, $language, $parameters);
 
-        $this->assertSame($path, $template->getPath());
-        $this->assertSame($language, $template->getLanguage());
-        $this->assertSame($parameters, $template->getParameters());
+        self::assertSame($path, $template->getPath());
+        self::assertSame($language, $template->getLanguage());
+        self::assertSame($parameters, $template->getParameters());
     }
 }
