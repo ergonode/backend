@@ -21,7 +21,7 @@ class AttributeValueMapper
     private array $strategies;
 
     /**
-     * @param array $strategies
+     * @param AttributeMapperStrategyInterface[] $strategies
      */
     public function __construct(AttributeMapperStrategyInterface ...$strategies)
     {

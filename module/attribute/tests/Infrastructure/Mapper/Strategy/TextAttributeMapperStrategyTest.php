@@ -58,8 +58,8 @@ class TextAttributeMapperStrategyTest extends TestCase
                 new TranslatableStringValue(new TranslatableString(['pl_PL' => null])),
             ],
             [
-                ['pl_PL' => str_repeat('a', 256)],
-                new TranslatableStringValue(new TranslatableString(['pl_PL' => str_repeat('a', 256)])),
+                ['pl_PL' => str_repeat('a', 255)],
+                new TranslatableStringValue(new TranslatableString(['pl_PL' => str_repeat('a', 255)])),
             ],
         ];
     }
@@ -73,7 +73,7 @@ class TextAttributeMapperStrategyTest extends TestCase
             [['pl_PL' => 0.0]],
             [['pl_PL' => 0]],
             [['pl_PL' => []]],
-            [['pl_pl' => str_repeat('a', 257) ]],
+            [['pl_pl' => str_repeat('a', 256) ]],
         ];
     }
 }

@@ -28,7 +28,7 @@ class TextAttributeMapperStrategy implements AttributeMapperStrategyInterface
         foreach ($values as $value) {
             if (null !== $value) {
                 Assert::stringNotEmpty($value);
-                Assert::maxLength($value, 256);
+                Assert::maxLength($value, 255);
             }
         }
 
