@@ -11,7 +11,7 @@ namespace Ergonode\Mailer\Tests\Domain;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Mailer\Domain\Template;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 final class TemplateTest extends TestCase
 {

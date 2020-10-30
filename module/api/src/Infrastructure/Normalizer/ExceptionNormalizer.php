@@ -25,11 +25,9 @@ class ExceptionNormalizer implements ExceptionNormalizerInterface
      */
     public function normalize(\Exception $exception, ?string $code = null, ?string $message = null): array
     {
-        $result = [
+        return [
             'code' => $code ?? $exception->getCode(),
             'message' => null !== $message ? $this->translator->trans($message, [], 'api') : null,
         ];
-
-        return $result;
     }
 }

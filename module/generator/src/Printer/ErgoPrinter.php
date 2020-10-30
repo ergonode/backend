@@ -17,11 +17,15 @@ use Nette\Utils\Strings;
 class ErgoPrinter extends Printer
 {
     /**
+     * {@inheritdoc}
+     *
      * @var string
      */
     protected $indentation = '    ';
 
     /**
+     * {@inheritdoc}
+     *
      * @var int
      */
     protected $linesBetweenMethods = 1;
