@@ -16,6 +16,7 @@ use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Value\Domain\Service\ValueManipulationService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper;
 
 class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
@@ -27,18 +28,21 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
 
     private TokenStorageInterface $tokenStorage;
 
+    private AttributeValueMapper $mapper;
+
     public function __construct(
         ProductDraftRepositoryInterface $repository,
         ValueManipulationService $service,
         AttributeRepositoryInterface $attributeRepository,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        AttributeValueMapper $mapper
     ) {
         $this->repository = $repository;
         $this->service = $service;
         $this->attributeRepository = $attributeRepository;
         $this->tokenStorage = $tokenStorage;
+        $this->mapper = $mapper;
     }
-
 
     /**
      * @throws \Exception
@@ -53,7 +57,7 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
         Assert::notNull($draft);
         Assert::notNull($attribute);
 
-        $newValue = $this->createValue($language, $attribute, $command->getValue());
+        $newValue = $this->mapper->map($attribute, [$language->getCode() => $command->getValue()]);
 
         if ($draft->hasAttribute($attribute->getCode())) {
             if (null === $newValue) {
