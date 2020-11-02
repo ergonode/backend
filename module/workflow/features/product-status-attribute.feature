@@ -31,12 +31,11 @@ Feature: Workflow
   Scenario Outline: Get status for product in <language> language
     When I send a GET request to "/api/v1/en_GB/products/@product_id@/workflow/<language>"
     Then the response status code should be 200
-    And the JSON nodes should contain:
-      | status.code | <result> |
+    And the JSON node "status.code" should exist
     Examples:
-      | language | result |
-      | en_GB    | new    |
-      | pl_PL    | new    |
-      | fr_FR    | new    |
-      | de_DE    | new    |
+      | language |
+      | en_GB    |
+      | pl_PL    |
+      | fr_FR    |
+      | de_DE    |
 
