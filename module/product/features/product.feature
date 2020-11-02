@@ -141,6 +141,21 @@ Feature: Product module
     Then the response status code should be 201
     And store response param "id" as "product_2"
 
+  Scenario: Create product with 255 char long sku
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/products" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",
+        "type": "SIMPLE-PRODUCT",
+        "templateId": "@product_template@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "product_3"
+
   Scenario: Add children product to simple product
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
