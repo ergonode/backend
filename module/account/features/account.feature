@@ -810,7 +810,7 @@ Feature: Account module
       """
     Then the response status code should be 201
 
-  Scenario: Create user (to long mail)
+  Scenario: Create user (too long mail)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
