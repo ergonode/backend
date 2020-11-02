@@ -232,6 +232,18 @@ Feature: Segment module
       """
     Then the response status code should be 400
 
+  Scenario: Create segment (too long code)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en_GB/segments" with body:
+      """
+      {
+        "code": "r6mph1idphxrfzmxfig8s4qkrjthwna3d5dhmd1zyhx2pgqind7uzm2z2o33unptminnrbtbel9a75xiqhxd2kusog1fi6g9t0tf1"
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Create segment (without name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
