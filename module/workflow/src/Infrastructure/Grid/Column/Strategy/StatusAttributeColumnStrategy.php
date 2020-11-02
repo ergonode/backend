@@ -45,7 +45,7 @@ class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
 
         $options = [];
         foreach ($statuses as $code => $status) {
-            $options[] = new StatusOption($code, $code, new Color($status['color']), $status['name']);
+            $options[] = new StatusOption($code, $status['code'], new Color($status['color']), $status['name']);
         }
 
         return new LabelColumn(
