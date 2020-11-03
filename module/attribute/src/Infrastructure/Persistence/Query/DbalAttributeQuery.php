@@ -321,7 +321,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->setParameter(':language', $language->getCode());
 
         if ($search) {
-            $query->orWhere('code ILIKE :search');
+            $query->andWhere('code ILIKE :search');
             $query->setParameter(':search', '%'.$search.'%');
         }
         if ($type) {
