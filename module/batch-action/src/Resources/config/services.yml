@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    Ergonode\BatchAction\Application\:
+        resource: '../../Application/*'

@@ -9,6 +9,7 @@ return [
     Ergonode\Api\ErgonodeApiBundle::class => ['all' => true],
     Ergonode\Attribute\ErgonodeAttributeBundle::class => ['all' => true],
     Ergonode\Authentication\ErgonodeAuthenticationBundle::class => ['all' => true],
+    Ergonode\BatchAction\ErgonodeBatchActionBundle::class => ['all' => true],
     Ergonode\Category\ErgonodeCategoryBundle::class => ['all' => true],
     Ergonode\Channel\ErgonodeChannelBundle::class => ['all' => true],
     Ergonode\Comment\ErgonodeCommentBundle::class => ['all' => true],
