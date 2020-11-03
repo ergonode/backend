@@ -14,26 +14,22 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Service\StatusCalculationService;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 class ProductWorkflowQuery
 {
-    private WorkflowProvider $workflowProvider;
-
     private StatusRepositoryInterface $statusRepository;
 
     private StatusCalculationService $service;
 
     public function __construct(
-        WorkflowProvider $workflowProvider,
         StatusRepositoryInterface $statusRepository,
         StatusCalculationService $service
     ) {
-        $this->workflowProvider = $workflowProvider;
         $this->statusRepository = $statusRepository;
         $this->service = $service;
     }
@@ -43,12 +39,15 @@ class ProductWorkflowQuery
      *
      * @throws \ReflectionException
      */
-    public function getQuery(AbstractProduct $product, Language $language, Language $productLanguage): array
-    {
+    public function getQuery(
+        AbstractProduct $product,
+        AbstractWorkflow $workflow,
+        Language $language,
+        Language $productLanguage
+    ): array {
         $code = new AttributeCode(StatusSystemAttribute::CODE);
         $result = [];
         if ($product->hasAttribute($code)) {
-            $workflow = $this->workflowProvider->provide();
             /** @var StringValue $value */
             $value = $product->getAttribute($code)->getValue();
             $statusId = new StatusId($value[$productLanguage->getCode()]);
