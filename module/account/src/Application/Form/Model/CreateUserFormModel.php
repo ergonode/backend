@@ -18,19 +18,35 @@ class CreateUserFormModel
 {
     /**
      * @Assert\NotBlank(message="User first name is required")
-     * @Assert\Length(min="1", max="128")
+     * @Assert\Length(
+     *     min="1",
+     *     max="128",
+     *     minMessage="User first name is too short. It should have at least {{ limit }} characters.",
+     *     maxMessage="User first name is too long. It should contain {{ limit }} characters or less."
+     * )
      */
     public ?string $firstName;
 
     /**
      * @Assert\NotBlank(message="User last name is required")
-     * @Assert\Length(min="3", max="128")
+     * @Assert\Length(
+     *     min="3",
+     *     max="128",
+     *     minMessage="User last name is too short. It should have at least {{ limit }} characters.",
+     *     maxMessage="User last name is too long. It should contain {{ limit }} characters or less."
+     * )
      */
     public ?string $lastName;
 
     /**
      * @Assert\NotBlank(message="User email is required")
      * @Assert\Email(mode="strict")
+     * @Assert\Length(
+     *     min="5",
+     *     max="255",
+     *     minMessage="User email is too short. It should have at least {{ limit }} characters.",
+     *     maxMessage="User email is too long. It should contain {{ limit }} characters or less."
+     * )
      *
      * @UserUnique()
      */
