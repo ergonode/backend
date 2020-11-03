@@ -12,18 +12,10 @@ namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    private TemplateQueryInterface $templateQuery;
-
-    public function __construct(TemplateQueryInterface $templateQuery)
-    {
-        $this->templateQuery = $templateQuery;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -37,7 +29,7 @@ class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculat
      */
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {
-        $productTemplateId = $this->templateQuery->findProductTemplateId($product->getId());
+        $productTemplateId = $product->getTemplateId();
         $searchedTemplateId = $configuration->getTemplateId();
 
         switch ($configuration->getOperator()) {

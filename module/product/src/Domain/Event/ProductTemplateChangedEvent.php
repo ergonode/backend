@@ -23,7 +23,7 @@ class ProductTemplateChangedEvent implements DomainEventInterface
     /**
      * @var TemplateId $templateId;
      *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\TemplateId>")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
 
