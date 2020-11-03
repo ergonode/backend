@@ -79,5 +79,4 @@ class ProductWorkflowQuery
 
         return $result;
     }
-
 }

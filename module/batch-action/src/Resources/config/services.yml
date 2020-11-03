@@ -3,3 +3,7 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+
+    Ergonode\BatchAction\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
