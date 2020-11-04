@@ -14,7 +14,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
-use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Factory\DbalBatchActionFactory;
 use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
@@ -32,14 +31,11 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
 
     private Connection $connection;
 
-    private DbalBatchActionFactory $factory;
-
     private DbalBatchActionMapper $mapper;
 
-    public function __construct(Connection $connection, DbalBatchActionFactory $factory, DbalBatchActionMapper $mapper)
+    public function __construct(Connection $connection, DbalBatchActionMapper $mapper)
     {
         $this->connection = $connection;
-        $this->factory = $factory;
         $this->mapper = $mapper;
     }
 
@@ -55,7 +51,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
             ->fetch();
 
         if ($record) {
-            return $this->factory->create($record);
+            return $this->mapper->create($record);
         }
 
         return null;
@@ -99,7 +95,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
             self::TABLE_ENTRY,
             [
                 'batch_action_id' => $id->getValue(),
-                'entry_id' => $entryId->getValue(),
+                'resource_id' => $entryId->getValue(),
             ],
         );
     }

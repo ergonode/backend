@@ -14,6 +14,7 @@ use Ergonode\BatchAction\Domain\ValueObject\BatchActionAction;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class DbalBatchActionMapperTest extends TestCase
 {
@@ -37,5 +38,19 @@ class DbalBatchActionMapperTest extends TestCase
         $this::assertEquals($id->getValue(), $result['id']);
         $this::assertEquals($type->getValue(), $result['resource_type']);
         $this::assertEquals($action->getValue(), $result['action']);
+    }
+
+    public function testCreation(): void
+    {
+        $record['id'] = Uuid::uuid4()->toString();
+        $record['resource_type'] = 'test resource_type';
+        $record['action'] = 'test action';
+
+        $mapper = new DbalBatchActionMapper();
+        $result = $mapper->create($record);
+
+        $this::assertEquals($record['id'], $result->getId()->getValue());
+        $this::assertEquals($record['resource_type'], $result->getType()->getValue());
+        $this::assertEquals($record['action'], $result->getAction()->getValue());
     }
 }

@@ -33,9 +33,9 @@ class BatchActionType
         return $this->value;
     }
 
-    public function isEqual(self $code): bool
+    public function isEqual(self $type): bool
     {
-        return $code->value === $this->value;
+        return $type->value === $this->value;
     }
 
     public static function isValid(string $value): bool
