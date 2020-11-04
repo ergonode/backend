@@ -30,12 +30,12 @@ final class Version20201102124000 extends AbstractErgonodeMigration
 
         $this->addSql(
             'CREATE TABLE batch_action_entry (
-                      id UUID NOT NULL, 
                       batch_action_id UUID NOT NULL,
+                      resource_id UUID NOT NULL, 
                       success BOOLEAN DEFAULT NULL,
                       fail_reason JSONB DEFAULT NULL, 
                       processed_at TIMESTAMP WITH TIME ZONE DEFAULT NULL, 
-                      PRIMARY KEY(id)
+                      PRIMARY KEY(batch_action_id, resource_id)
               )'
         );
 
