@@ -17,7 +17,7 @@ use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
-use Ergonode\SharedKernel\Domain\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface
 {
@@ -89,15 +89,32 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     /**
      * @throws DBALException
      */
-    public function addEntry(BatchActionId $id, AbstractId $entryId): void
+    public function addEntry(BatchActionId $id, AggregateId $resourceId): void
     {
         $this->connection->insert(
             self::TABLE_ENTRY,
             [
                 'batch_action_id' => $id->getValue(),
-                'resource_id' => $entryId->getValue(),
+                'resource_id' => $resourceId->getValue(),
             ],
         );
+    }
+
+    /**
+     * @throws DBALException
+     */
+    public function markEntryAsSuccess(BatchActionId $id, AggregateId $resourceId): void
+    {
+        $this->updateEntry($id, $resourceId, true);
+    }
+
+    /**
+     * @throws DBALException
+     * @throws \JsonException
+     */
+    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, string $message): void
+    {
+        $this->updateEntry($id, $resourceId, false, $message);
     }
 
     /**
@@ -113,6 +130,39 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
             [
                 'id' => $bachAction->getId()->getValue(),
             ],
+        );
+    }
+
+    /**
+     * @throws DBALException
+     * @throws \JsonException
+     */
+    private function updateEntry(
+        BatchActionId $id,
+        AggregateId $resourceId,
+        bool $success,
+        string $message = null
+    ): void {
+        $json = null;
+        if ($message) {
+            $json = json_encode(['message' => $message, 'parameters' => []], JSON_THROW_ON_ERROR);
+        }
+
+        $this->connection->update(
+            self::TABLE_ENTRY,
+            [
+                'success' => $success,
+                'processed_at' => new \DateTime(),
+                'fail_reason' => $json,
+            ],
+            [
+                'batch_action_id' => $id->getValue(),
+                'resource_id' => $resourceId->getValue(),
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
+                'success' => Types::BOOLEAN,
+            ]
         );
     }
 

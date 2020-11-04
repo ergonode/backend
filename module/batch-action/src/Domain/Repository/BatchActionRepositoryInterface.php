@@ -10,7 +10,7 @@ namespace Ergonode\BatchAction\Domain\Repository;
 
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
-use Ergonode\SharedKernel\Domain\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 interface BatchActionRepositoryInterface
 {
@@ -18,5 +18,9 @@ interface BatchActionRepositoryInterface
 
     public function save(BatchAction $batchAction): void;
 
-    public function addEntry(BatchActionId $id, AbstractId $entryId): void;
+    public function addEntry(BatchActionId $id, AggregateId $resourceId): void;
+
+    public function markEntryAsSuccess(BatchActionId $id, AggregateId $resourceId): void;
+
+    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, string $message): void;
 }
