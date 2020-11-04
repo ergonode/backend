@@ -17,7 +17,6 @@ use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
-use Ergonode\SharedKernel\Domain\AbstractId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface

@@ -12,7 +12,6 @@ use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Ergonode\BatchAction\Domain\Command\ProcessBatchActionResourceCommand;
 use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
 
 class CreateBatchActionCommandHandler
