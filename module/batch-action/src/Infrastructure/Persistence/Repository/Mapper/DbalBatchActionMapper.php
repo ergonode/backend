@@ -16,9 +16,6 @@ use Ergonode\BatchAction\Domain\ValueObject\BatchActionAction;
 
 class DbalBatchActionMapper
 {
-    /**
-     * @return array
-     */
     public function map(BatchAction $batchAction): array
     {
         return [
@@ -28,27 +25,12 @@ class DbalBatchActionMapper
         ];
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function create(array $record): BatchAction
     {
-        $reflector = new \ReflectionClass(BatchAction::class);
-        /** @var BatchAction $object */
-        $object = $reflector->newInstanceWithoutConstructor();
+        $id = new BatchActionId($record['id']);
+        $type = new BatchActionType($record['resource_type']);
+        $action = new BatchActionAction($record['action']);
 
-        $map = [
-            'id' => new BatchActionId($record['id']),
-            'type' => new BatchActionType($record['resource_type']),
-            'action' => new BatchActionAction($record['action']),
-        ];
-
-        foreach ($map as $key => $value) {
-            $property = $reflector->getProperty($key);
-            $property->setAccessible(true);
-            $property->setValue($object, $value);
-        }
-
-        return $object;
+        return new BatchAction($id, $type, $action);
     }
 }
