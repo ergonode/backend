@@ -303,6 +303,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
     public function autocomplete(
         Language $language,
         string $search = null,
+        string $type = null,
         int $limit = null,
         string $field = null,
         ?string $order = 'ASC'
@@ -320,8 +321,12 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->setParameter(':language', $language->getCode());
 
         if ($search) {
-            $query->orWhere('code ILIKE :search');
+            $query->andWhere('code ILIKE :search');
             $query->setParameter(':search', '%'.$search.'%');
+        }
+        if ($type) {
+            $query->andWhere('type=:type');
+            $query->setParameter(':type', $type);
         }
         if ($field) {
             $query->orderBy($field, $order);
