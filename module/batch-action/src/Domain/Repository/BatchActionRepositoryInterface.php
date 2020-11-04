@@ -21,7 +21,7 @@ interface BatchActionRepositoryInterface
 
     public function addResource(BatchActionId $id, AbstractId $entryId): void;
 
-    public function markResourceAsSuccess(BatchActionId $id, AggregateId $resourceId): void;
+    public function markEntryAsSuccess(BatchActionId $id, AggregateId $resourceId): void;
 
-    public function markResourceAsUnsuccess(BatchActionId $id, AggregateId $resourceId, string $message): void;
+    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, string $message): void;
 }

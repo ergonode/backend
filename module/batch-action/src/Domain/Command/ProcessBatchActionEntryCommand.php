@@ -12,7 +12,7 @@ use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class ProcessBatchActionResourceCommand implements DomainCommandInterface
+class ProcessBatchActionEntryCommand implements DomainCommandInterface
 {
     private BatchActionId $id;
 

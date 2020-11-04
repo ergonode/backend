@@ -13,6 +13,7 @@ use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Ergonode\BatchAction\Domain\Command\ProcessBatchActionResourceCommand;
+use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
 
 class CreateBatchActionCommandHandler
 {
@@ -34,7 +35,7 @@ class CreateBatchActionCommandHandler
         foreach ($command->getIds() as $resourceId) {
             $batchActionId = $batchAction->getId();
             $this->repository->addResource($batchActionId, $resourceId);
-            $this->messageBus->dispatch(new ProcessBatchActionResourceCommand($batchActionId, $resourceId));
+            $this->messageBus->dispatch(new ProcessBatchActionEntryCommand($batchActionId, $resourceId));
         }
     }
 }

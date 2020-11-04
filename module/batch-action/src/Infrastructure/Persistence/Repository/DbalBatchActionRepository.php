@@ -104,7 +104,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     /**
      * @throws DBALException
      */
-    public function markResourceAsSuccess(BatchActionId $id, AggregateId $resourceId): void
+    public function markEntryAsSuccess(BatchActionId $id, AggregateId $resourceId): void
     {
         $this->updateResource($id, $resourceId, true);
     }
@@ -113,7 +113,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
      * @throws DBALException
      * @throws \JsonException
      */
-    public function markResourceAsUnsuccess(BatchActionId $id, AggregateId $resourceId, string $message): void
+    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, string $message): void
     {
         $this->updateResource($id, $resourceId, false, $message);
     }

@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Infrastructure\Handler;
 
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
-use Ergonode\BatchAction\Domain\Command\ProcessBatchActionResourceCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
+use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
 
-class ProcessBatchActionResourceCommandHandler
+class ProcessBatchActionEntryCommandHandler
 {
     private BatchActionRepositoryInterface $batchActionRepository;
 
@@ -32,7 +32,7 @@ class ProcessBatchActionResourceCommandHandler
         $this->relationshipsResolver = $relationshipsResolver;
     }
 
-    public function __invoke(ProcessBatchActionResourceCommand $command): void
+    public function __invoke(ProcessBatchActionEntryCommand $command): void
     {
         $batchActionId = $command->getId();
         $resourceId = $command->getResourceId();
@@ -42,10 +42,10 @@ class ProcessBatchActionResourceCommandHandler
             $relationships = $this->relationshipsResolver->resolve($product->getId());
             if (!$relationships->isEmpty()) {
                 $message = '';
-                $this->batchActionRepository->markResourceAsUnsuccess($batchActionId, $resourceId, $message);
+                $this->batchActionRepository->markEntryAsUnsuccess($batchActionId, $resourceId, $message);
             } else {
                 $this->productRepository->delete($product);
-                $this->batchActionRepository->markResourceAsSuccess($batchActionId, $resourceId);
+                $this->batchActionRepository->markEntryAsSuccess($batchActionId, $resourceId);
             }
         }
     }
