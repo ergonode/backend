@@ -35,7 +35,7 @@ class BatchActionAction
 
     public function isEqual(self $action): bool
     {
-        return $action->value === $this->value;
+        return $action->getValue() === $this->value;
     }
 
     public static function isValid(string $value): bool
