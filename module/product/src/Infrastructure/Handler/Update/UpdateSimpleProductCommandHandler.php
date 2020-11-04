@@ -23,6 +23,7 @@ class UpdateSimpleProductCommandHandler extends AbstractUpdateProductHandler
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);
 
+        $product->changeTemplate($command->getTemplateId());
         $product->changeCategories($command->getCategories());
         $product = $this->updateAudit($product);
 
