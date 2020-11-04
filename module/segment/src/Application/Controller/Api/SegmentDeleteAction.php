@@ -84,7 +84,7 @@ class SegmentDeleteAction
     public function __invoke(Segment $segment): Response
     {
         $relationships = $this->relationshipsResolver->resolve($segment->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipTypeMessageBuilder->build($relationships));
         }
 

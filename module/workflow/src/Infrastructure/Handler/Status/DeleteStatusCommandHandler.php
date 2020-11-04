@@ -40,7 +40,7 @@ class DeleteStatusCommandHandler
         Assert::isInstanceOf($status, Status::class, sprintf('Can\'t find status with ID "%s"', $command->getId()));
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
 

@@ -39,7 +39,7 @@ class ProcessBatchActionEntryCommandHandlerTest extends TestCase
     public function testCommandHandlingWithoutRelation(): void
     {
         $this->productRepository->method('load')->willReturn($this->createMock(AbstractProduct::class));
-        $this->productRepository->expects(self::never())->method('delete');
+        $this->productRepository->expects(self::once())->method('delete');
         $handler = new ProcessBatchActionEntryCommandHandler(
             $this->batchActionRepository,
             $this->productRepository,

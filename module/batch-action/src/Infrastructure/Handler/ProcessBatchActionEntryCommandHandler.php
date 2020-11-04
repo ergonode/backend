@@ -40,7 +40,7 @@ class ProcessBatchActionEntryCommandHandler
         $product = $this->productRepository->load($productId);
         if ($product) {
             $relationships = $this->relationshipsResolver->resolve($product->getId());
-            if (!$relationships->isEmpty()) {
+            if (null !== $relationships) {
                 $message = '';
                 $this->batchActionRepository->markEntryAsUnsuccess($batchActionId, $resourceId, $message);
             } else {

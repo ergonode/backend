@@ -13,10 +13,13 @@ use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
+use Webmozart\Assert\Assert;
 
 class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private AccountQueryInterface $query;
 
     public function __construct(AccountQueryInterface $query)
@@ -35,12 +38,10 @@ class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            new UnexpectedTypeException($id, RoleId::class);
-        }
+        Assert::isInstanceOf($id, RoleId::class);
 
-        return $this->query->findUserIdByRoleId($id);
+        return new RelationshipGroup(self::MESSAGE, $this->query->findUserIdByRoleId($id));
     }
 }

@@ -85,7 +85,7 @@ class CategoryTreeDeleteAction
     public function __invoke(CategoryTree $tree): Response
     {
         $relationships = $this->relationshipsResolver->resolve($tree->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

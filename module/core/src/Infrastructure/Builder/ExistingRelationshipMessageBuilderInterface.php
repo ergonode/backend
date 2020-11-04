@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Builder;
 
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
+use Ergonode\Core\Infrastructure\Model\Relationship;
 
 interface ExistingRelationshipMessageBuilderInterface
 {
-    public function build(RelationshipCollection $relationshipCollection): string;
+    public function build(Relationship $relationship): string;
 }

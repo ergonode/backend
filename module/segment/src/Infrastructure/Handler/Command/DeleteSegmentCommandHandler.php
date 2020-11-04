@@ -39,7 +39,7 @@ class DeleteSegmentCommandHandler
         Assert::isInstanceOf($segment, Segment::class, sprintf('Can\'t find segment with ID "%s"', $command->getId()));
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
 

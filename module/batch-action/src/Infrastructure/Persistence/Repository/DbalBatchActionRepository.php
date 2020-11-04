@@ -18,6 +18,7 @@ use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchA
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Core\Infrastructure\Model\Relationship;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface
 {
@@ -112,9 +113,17 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
      * @throws DBALException
      * @throws \JsonException
      */
-    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, string $message): void
+    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, Relationship $relationship): void
     {
-        $this->updateEntry($id, $resourceId, false, $message);
+        $message = [];
+        foreach ($relationship as $group) {
+            $message[] = [
+                'message' => $group->getMessage(),
+                '{relations}' => $group->getRelations(),
+            ];
+        }
+
+        $this->updateEntry($id, $resourceId, false, json_encode($message, JSON_THROW_ON_ERROR));
     }
 
     /**

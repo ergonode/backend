@@ -85,7 +85,7 @@ class AttributeDeleteAction
     public function __invoke(AbstractAttribute $attribute): Response
     {
         $relationships = $this->relationshipsResolver->resolve($attribute->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
