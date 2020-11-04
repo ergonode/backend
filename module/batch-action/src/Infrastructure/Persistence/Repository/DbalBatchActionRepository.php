@@ -90,7 +90,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     /**
      * @throws DBALException
      */
-    public function addResource(BatchActionId $id, AbstractId $resourceId): void
+    public function addResource(BatchActionId $id, AggregateId $resourceId): void
     {
         $this->connection->insert(
             self::TABLE_ENTRY,
