@@ -133,7 +133,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
      */
     public function changeTemplate(TemplateId $templateId): void
     {
-        if (!$this->templateId->isEqual($this->templateId)) {
+        if (!$templateId->isEqual($this->templateId)) {
             $this->apply(new ProductTemplateChangedEvent($this->id, $templateId));
         }
     }

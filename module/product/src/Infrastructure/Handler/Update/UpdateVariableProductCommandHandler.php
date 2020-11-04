@@ -25,6 +25,7 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
         $product = $this->productRepository->load($command->getId());
         Assert::isInstanceOf($product, VariableProduct::class);
 
+        $product->changeTemplate($command->getTemplateId());
         $product->changeCategories($command->getCategories());
         $product = $this->updateAudit($product);
 
