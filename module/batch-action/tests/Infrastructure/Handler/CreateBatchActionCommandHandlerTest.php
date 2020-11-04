@@ -36,7 +36,7 @@ class CreateBatchActionCommandHandlerTest extends TestCase
         $mockEnvelope = new Envelope(new \stdClass());
         $this->command->method('getIds')->willReturn([AggregateId::generate()]);
         $this->repository->expects(self::once())->method('save');
-        $this->repository->expects(self::once())->method('addResource');
+        $this->repository->expects(self::once())->method('addEntry');
         $this->messageBus->expects(self::once())->method('dispatch')->willReturn($mockEnvelope);
         $handler = new CreateBatchActionCommandHandler($this->repository, $this->messageBus);
         $handler->__invoke($this->command);

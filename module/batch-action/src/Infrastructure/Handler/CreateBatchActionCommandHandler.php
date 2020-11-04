@@ -34,7 +34,7 @@ class CreateBatchActionCommandHandler
 
         foreach ($command->getIds() as $resourceId) {
             $batchActionId = $batchAction->getId();
-            $this->repository->addResource($batchActionId, $resourceId);
+            $this->repository->addEntry($batchActionId, $resourceId);
             $this->messageBus->dispatch(new ProcessBatchActionEntryCommand($batchActionId, $resourceId));
         }
     }
