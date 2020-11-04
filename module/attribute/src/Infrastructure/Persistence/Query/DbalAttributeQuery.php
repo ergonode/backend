@@ -223,6 +223,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
         }
 
         return $qb
+            ->orderBy('code', 'ASC')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }

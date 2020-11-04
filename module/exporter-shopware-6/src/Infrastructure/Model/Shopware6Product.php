@@ -340,7 +340,12 @@ class Shopware6Product
      */
     public function addCustomField(string $customFieldId, $value): void
     {
-        if (!$this->hasCustomField($customFieldId)) {
+        if ($this->hasCustomField($customFieldId)) {
+            if ($this->customFields[$customFieldId] !== $value) {
+                $this->customFields[$customFieldId] = $value;
+                $this->modified = true;
+            }
+        } else {
             $this->customFields[$customFieldId] = $value;
             $this->modified = true;
         }
