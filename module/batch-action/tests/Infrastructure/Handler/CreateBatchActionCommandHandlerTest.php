@@ -29,8 +29,8 @@ class CreateBatchActionCommandHandlerTest extends TestCase
     public function testCommandHandling(): void
     {
         $this->command->method('getIds')->willReturn([AggregateId::generate()]);
-        $this->repository->expects($this::once())->method('save');
-        $this->repository->expects($this::once())->method('addEntry');
+        $this->repository->expects(self::once())->method('save');
+        $this->repository->expects(self::once())->method('addEntry');
         $handler = new CreateBatchActionCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }

@@ -24,8 +24,8 @@ class BatchActionTest extends TestCase
 
         $entity = new BatchAction($id, $type, $action);
 
-        $this::assertEquals($id, $entity->getId());
-        $this::assertEquals($type, $entity->getType());
-        $this::assertEquals($action, $entity->getAction());
+        self::assertEquals($id, $entity->getId());
+        self::assertEquals($type, $entity->getType());
+        self::assertEquals($action, $entity->getAction());
     }
 }

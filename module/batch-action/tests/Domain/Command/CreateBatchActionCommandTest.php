@@ -36,10 +36,10 @@ class CreateBatchActionCommandTest extends TestCase
 
         $command = new CreateBatchActionCommand($this->id, $this->type, $this->action, $ids);
 
-        $this::assertEquals($this->id, $command->getId());
-        $this::assertEquals($this->type, $command->getType());
-        $this::assertEquals($this->action, $command->getAction());
-        $this::assertEquals($ids, $command->getIds());
+        self::assertEquals($this->id, $command->getId());
+        self::assertEquals($this->type, $command->getType());
+        self::assertEquals($this->action, $command->getAction());
+        self::assertEquals($ids, $command->getIds());
     }
 
     public function testCreationEmptyIds(): void

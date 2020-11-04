@@ -19,8 +19,8 @@ class BatchActionTypeTest extends TestCase
     public function testValidCharactersValue(string $value): void
     {
         $valueObject = new BatchActionType($value);
-        $this::assertEquals($value, $valueObject->getValue());
-        $this::assertEquals($value, (string) $valueObject);
+        self::assertEquals($value, $valueObject->getValue());
+        self::assertEquals($value, (string) $valueObject);
     }
 
     /**
@@ -30,7 +30,7 @@ class BatchActionTypeTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $valueObject = new BatchActionType($value);
-        $this::assertEquals($value, $valueObject->getValue());
+        self::assertEquals($value, $valueObject->getValue());
     }
 
     public function testObjectEqual(): void
@@ -38,8 +38,8 @@ class BatchActionTypeTest extends TestCase
         $valueObject1 = new BatchActionType('voa');
         $valueObject2 = new BatchActionType('voa');
 
-        $this::assertTrue($valueObject1->isEqual($valueObject2));
-        $this::assertTrue($valueObject2->isEqual($valueObject1));
+        self::assertTrue($valueObject1->isEqual($valueObject2));
+        self::assertTrue($valueObject2->isEqual($valueObject1));
     }
 
     public function testNotObjectEqual(): void
@@ -47,8 +47,8 @@ class BatchActionTypeTest extends TestCase
         $valueObject1 = new BatchActionType('voa');
         $valueObject2 = new BatchActionType('vob');
 
-        $this::assertFalse($valueObject1->isEqual($valueObject2));
-        $this::assertFalse($valueObject2->isEqual($valueObject1));
+        self::assertFalse($valueObject1->isEqual($valueObject2));
+        self::assertFalse($valueObject2->isEqual($valueObject1));
     }
 
     /**

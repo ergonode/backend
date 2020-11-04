@@ -32,12 +32,12 @@ class DbalBatchActionMapperTest extends TestCase
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->map($batchAction);
 
-        $this::assertArrayHasKey('id', $result);
-        $this::assertArrayHasKey('resource_type', $result);
-        $this::assertArrayHasKey('action', $result);
-        $this::assertEquals($id->getValue(), $result['id']);
-        $this::assertEquals($type->getValue(), $result['resource_type']);
-        $this::assertEquals($action->getValue(), $result['action']);
+        self::assertArrayHasKey('id', $result);
+        self::assertArrayHasKey('resource_type', $result);
+        self::assertArrayHasKey('action', $result);
+        self::assertEquals($id->getValue(), $result['id']);
+        self::assertEquals($type->getValue(), $result['resource_type']);
+        self::assertEquals($action->getValue(), $result['action']);
     }
 
     public function testCreation(): void
@@ -49,8 +49,8 @@ class DbalBatchActionMapperTest extends TestCase
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->create($record);
 
-        $this::assertEquals($record['id'], $result->getId()->getValue());
-        $this::assertEquals($record['resource_type'], $result->getType()->getValue());
-        $this::assertEquals($record['action'], $result->getAction()->getValue());
+        self::assertEquals($record['id'], $result->getId()->getValue());
+        self::assertEquals($record['resource_type'], $result->getType()->getValue());
+        self::assertEquals($record['action'], $result->getAction()->getValue());
     }
 }

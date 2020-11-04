@@ -37,10 +37,10 @@ class BatchActionIdHandlerTest extends TestCase
     {
         $configurations = BatchActionIdHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
-            $this::assertArrayHasKey('direction', $configuration);
-            $this::assertArrayHasKey('type', $configuration);
-            $this::assertArrayHasKey('format', $configuration);
-            $this::assertArrayHasKey('method', $configuration);
+            self::assertArrayHasKey('direction', $configuration);
+            self::assertArrayHasKey('type', $configuration);
+            self::assertArrayHasKey('format', $configuration);
+            self::assertArrayHasKey('method', $configuration);
         }
     }
 
@@ -49,7 +49,7 @@ class BatchActionIdHandlerTest extends TestCase
         $valueObject = BatchActionId::generate();
         $result = $this->handler->serialize($this->serializerVisitor, $valueObject, [], $this->context);
 
-        $this::assertEquals($valueObject->getValue(), $result);
+        self::assertEquals($valueObject->getValue(), $result);
     }
 
     public function testDeserialize(): void
@@ -57,6 +57,6 @@ class BatchActionIdHandlerTest extends TestCase
         $valueObject = BatchActionId::generate();
         $result = $this->handler->deserialize($this->deserializerVisitor, $valueObject->getValue(), [], $this->context);
 
-        $this::assertEquals($valueObject, $result);
+        self::assertEquals($valueObject, $result);
     }
 }
