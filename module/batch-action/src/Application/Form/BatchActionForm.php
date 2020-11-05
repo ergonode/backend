@@ -24,7 +24,7 @@ class BatchActionForm extends AbstractType
     {
         $builder
             ->add(
-                'action',
+                'type',
                 TextType::class
             )
             ->add(

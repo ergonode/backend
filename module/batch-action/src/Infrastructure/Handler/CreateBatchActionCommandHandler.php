@@ -20,21 +20,25 @@ class CreateBatchActionCommandHandler
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(BatchActionRepositoryInterface $repository, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        BatchActionRepositoryInterface $repository,
+        CommandBusInterface $commandBus
+    ) {
         $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
 
     public function __invoke(CreateBatchActionCommand $command): void
     {
-        $batchAction = new BatchAction($command->getId(), $command->getType(), $command->getAction());
+        $type = $command->getType();
+        $id = $command->getId();
+        $batchAction = new BatchAction($id, $type);
         $this->repository->save($batchAction);
 
         foreach ($command->getIds() as $resourceId) {
-            $batchActionId = $batchAction->getId();
-            $this->repository->addEntry($batchActionId, $resourceId);
-            $this->commandBus->dispatch(new ProcessBatchActionEntryCommand($batchActionId, $resourceId), true);
+            $this->repository->addEntry($id, $resourceId);
+            $entryCommand = new ProcessBatchActionEntryCommand($id, $type, $resourceId);
+            $this->commandBus->dispatch($entryCommand, true);
         }
     }
 }

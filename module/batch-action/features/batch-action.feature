@@ -16,20 +16,8 @@ Feature: Text attribute manipulation
     Then the response status code should be 400
     And the JSON node "errors.<error_column>" should exist
     Examples:
-      | action | ids | error_column |
-      | | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | action |
-      | to_long_code_12345678901234567890 | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | action |
-      | action | ["not uuid"] | ids |
-      | action | [] | ids |
-
-  Scenario: Create batch action
-    And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
-      """
-      {
-          "action": "Test action",
-          "ids": ["@@random_uuid@@"]
-      }
-      """
-    And print last response
-    Then the response status code should be 400
-    And the JSON node "errors.<error_column>" should exist
+      | type | ids | error_column |
+      | | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type |
+      | to_long_code_12345678901234567890 | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type |
+      | type | ["not uuid"] | ids |
+      | type | [] | ids |

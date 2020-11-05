@@ -23,7 +23,6 @@ final class Version20201102124000 extends AbstractErgonodeMigration
                       id UUID NOT NULL, 
                       created_at TIMESTAMP WITH TIME ZONE NOT NULL,
                       resource_type VARCHAR(20) NOT NULL, 
-                      action VARCHAR(20) NOT NULL, 
                       PRIMARY KEY(id)
               )'
         );

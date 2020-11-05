@@ -19,7 +19,6 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionAction;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
@@ -68,9 +67,6 @@ class CreateBatchAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     *
-     *
      * @throws \Exception
      */
     public function __invoke(Request $request): Response
@@ -91,8 +87,7 @@ class CreateBatchAction
 
                 $command = new CreateBatchActionCommand(
                     BatchActionId::generate(),
-                    new BatchActionType('type'),
-                    new BatchActionAction($data->action),
+                    new BatchActionType($data->type),
                     $ids
                 );
 

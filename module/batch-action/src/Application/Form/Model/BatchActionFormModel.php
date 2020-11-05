@@ -19,7 +19,7 @@ class BatchActionFormModel
      *     maxMessage="Batch action type is too long. It should contain {{ limit }} characters or less."
      * )
      */
-    public string $action;
+    public string $type;
 
     /**
      * @var array

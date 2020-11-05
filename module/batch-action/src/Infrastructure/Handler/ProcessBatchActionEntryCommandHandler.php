@@ -8,45 +8,30 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Infrastructure\Handler;
 
-use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
+use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
+use Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider;
 
 class ProcessBatchActionEntryCommandHandler
 {
-    private BatchActionRepositoryInterface $batchActionRepository;
+    private BatchActionProcessorProvider $provider;
 
-    private ProductRepositoryInterface $productRepository;
+    private BatchActionRepositoryInterface $repository;
 
-    private RelationshipsResolverInterface $relationshipsResolver;
-
-    public function __construct(
-        BatchActionRepositoryInterface $batchActionRepository,
-        ProductRepositoryInterface $productRepository,
-        RelationshipsResolverInterface $relationshipsResolver
-    ) {
-        $this->batchActionRepository = $batchActionRepository;
-        $this->productRepository = $productRepository;
-        $this->relationshipsResolver = $relationshipsResolver;
+    public function __construct(BatchActionProcessorProvider $provider, BatchActionRepositoryInterface $repository)
+    {
+        $this->provider = $provider;
+        $this->repository = $repository;
     }
 
     public function __invoke(ProcessBatchActionEntryCommand $command): void
     {
-        $batchActionId = $command->getId();
+        $id = $command->getId();
+        $type = $command->getType();
         $resourceId = $command->getResourceId();
-        $productId = new ProductId($resourceId->getValue());
-        $product = $this->productRepository->load($productId);
-        if ($product) {
-            $relationships = $this->relationshipsResolver->resolve($product->getId());
-            if (null !== $relationships) {
-                $message = '';
-                $this->batchActionRepository->markEntryAsUnsuccess($batchActionId, $resourceId, $message);
-            } else {
-                $this->productRepository->delete($product);
-                $this->batchActionRepository->markEntryAsSuccess($batchActionId, $resourceId);
-            }
-        }
+
+        $processor = $this->provider->provide($type);
+        $message = $processor->process($id, $resourceId);
+        $this->repository->markEntry($id, $resourceId, $message);
     }
 }
