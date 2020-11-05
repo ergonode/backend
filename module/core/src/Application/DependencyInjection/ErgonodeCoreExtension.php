@@ -11,6 +11,7 @@ namespace Ergonode\Core\Application\DependencyInjection;
 
 use Ergonode\Core\Application\DependencyInjection\CompilerPass\RelationshipStrategyInterfaceCompilerPass;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -43,6 +44,9 @@ class ErgonodeCoreExtension extends Extension implements PrependExtensionInterfa
      */
     public function prepend(ContainerBuilder $container): void
     {
+        if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            return;
+        }
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');

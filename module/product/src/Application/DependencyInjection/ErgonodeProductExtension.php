@@ -14,6 +14,7 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataS
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -76,6 +77,9 @@ class ErgonodeProductExtension extends Extension implements PrependExtensionInte
      */
     public function prepend(ContainerBuilder $container): void
     {
+        if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            return;
+        }
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');

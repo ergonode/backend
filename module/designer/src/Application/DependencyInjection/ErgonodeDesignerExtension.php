@@ -13,6 +13,7 @@ use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateEleme
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
 use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -49,6 +50,9 @@ class ErgonodeDesignerExtension extends Extension implements PrependExtensionInt
      */
     public function prepend(ContainerBuilder $container): void
     {
+        if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            return;
+        }
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');

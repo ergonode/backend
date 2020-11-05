@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\DependencyInjection;
 
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -37,6 +38,9 @@ class ErgonodeAuthenticationExtension extends Extension implements PrependExtens
      */
     public function prepend(ContainerBuilder $container): void
     {
+        if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            return;
+        }
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');
