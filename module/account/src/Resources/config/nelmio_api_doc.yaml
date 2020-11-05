@@ -1,0 +1,120 @@
+nelmio_api_doc:
+    documentation:
+        account_definitions:
+            account:
+                type: object
+                properties:
+                    email:
+                        type: string
+                        required: true
+                        description: User email/login
+                        example: any-unique-email@test-email.com
+                    firstName:
+                        type: string
+                        required: true
+                        description: User first name
+                        example: Jon
+                    lastName:
+                        type: string
+                        required: true
+                        description: User last name
+                        example: Dove
+                    language:
+                        type: string
+                        required: true
+                        description: User language
+                        example: en_GB
+                    password:
+                        type: string
+                        required: true
+                        example: 12345678
+                    passwordRepeat:
+                        type: string
+                        equired: true
+                        example: 12345678
+                    roleId:
+                        type: string
+                        required: true
+                        example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    isActive:
+                        type: boolean
+                        required: true
+                        example: true
+            account_update:
+                type: object
+                properties:
+                    firstName:
+                        type: string
+                        required: true
+                        description: User first name
+                        example: Jon
+                    lastName:
+                        type: string
+                        required: true
+                        description: User last name
+                        example: Dove
+                    language:
+                        type: string
+                        required: true
+                        description: User language
+                        example: en_GB
+                    password:
+                        type: string
+                        required: true
+                        example: 12345678
+                    passwordRepeat:
+                        type: string
+                        equired: true
+                        example: 12345678
+                    roleId:
+                        type: string
+                        required: true
+                        example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    languagePrivilegesCollection:
+                        type: array
+                        items:
+                            type: array
+                        required: false
+                        description: Language privileges collection
+                        example:
+                                {
+                                    "en_GB": {"read": true, "edit":true}
+                                }
+                    isActive:
+                        type: boolean
+                        required: true
+                        example: true
+            account_change_password:
+                type: 'object'
+                properties:
+                    password:
+                        type: 'string'
+                        required: true
+                        description: 'New password'
+                        example: 'new_password'
+                    password_repeat:
+                        type: 'string'
+                        required: true
+                        description: 'Password repeat'
+                        example: 'new_password'
+            role:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Role name
+                        example: Role name
+                    description:
+                        type: string
+                        required: true
+                        description: Role description
+                        example: Role Description
+                    privileges:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: List of role privileges
+                        example:
+                          [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
