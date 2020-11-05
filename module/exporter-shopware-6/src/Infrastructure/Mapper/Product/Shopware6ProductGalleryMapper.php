@@ -67,9 +67,10 @@ class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
         $calculateValue = $this->calculator->calculate($attribute, $value, $language ?: $channel->getDefaultLanguage());
         if ($calculateValue) {
             $gallery = explode(',', $calculateValue);
+            $position = 0;
             foreach ($gallery as $galleryValue) {
                 $multimediaId = new MultimediaId($galleryValue);
-                $this->getShopware6MultimediaId($multimediaId, $shopware6Product, $channel);
+                $this->getShopware6MultimediaId($multimediaId, $shopware6Product, $channel, $position++);
             }
         }
 
@@ -79,13 +80,14 @@ class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
     private function getShopware6MultimediaId(
         MultimediaId $multimediaId,
         Shopware6Product $shopware6Product,
-        Shopware6Channel $channel
+        Shopware6Channel $channel,
+        int $position
     ): Shopware6Product {
         $multimedia = $this->multimediaRepository->load($multimediaId);
         if ($multimedia) {
             $shopwareId = $this->mediaClient->findOrCreateMedia($channel, $multimedia);
             if ($shopwareId) {
-                $shopware6Product->addMedia(new Shopware6ProductMedia(null, $shopwareId));
+                $shopware6Product->addMedia(new Shopware6ProductMedia(null, $shopwareId, $position));
             }
         }
 
