@@ -28,9 +28,9 @@ class Shopware6ProductMedia
      * @JMS\Type("int")
      * @JMS\SerializedName("position")
      */
-    private ?int $position;
+    private int $position;
 
-    public function __construct(?string $id = null, ?string $mediaId = null, int $position = null)
+    public function __construct(?string $id = null, ?string $mediaId = null, int $position = 1)
     {
         $this->id = $id;
         $this->mediaId = $mediaId;
@@ -57,7 +57,7 @@ class Shopware6ProductMedia
         return $this->position;
     }
 
-    public function setPosition(?int $position): void
+    public function setPosition(int $position): void
     {
         $this->position = $position;
     }
