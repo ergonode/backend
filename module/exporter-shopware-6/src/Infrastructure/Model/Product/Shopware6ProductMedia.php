@@ -52,7 +52,7 @@ class Shopware6ProductMedia
         $this->mediaId = $mediaId;
     }
 
-    public function getPosition(): ?int
+    public function getPosition(): int
     {
         return $this->position;
     }
