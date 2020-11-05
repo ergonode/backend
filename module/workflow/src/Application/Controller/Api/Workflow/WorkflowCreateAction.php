@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Workflow\Application\Provider\WorkflowFormProvider;
 use Ergonode\Workflow\Infrastructure\Provider\CreateWorkflowCommandFactoryProvider;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * @Route(
@@ -97,6 +99,9 @@ class WorkflowCreateAction
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $command = $this->commandProvider->provide($type)->create($form);
+                if (!$command instanceof CreateWorkflowCommand) {
+                    throw new UnexpectedTypeException($command, CreateWorkflowCommand::class);
+                }
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

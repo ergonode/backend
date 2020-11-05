@@ -56,10 +56,10 @@ class ProcessAttributeCommandHandler
      */
     public function __invoke(ProcessAttributeCommand $command): void
     {
-        /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
+        /** @var FileExportChannel $channel */
         Assert::isInstanceOf($channel, FileExportChannel::class);
         $attribute = $this->attributeRepository->load($command->getAttributeId());
         Assert::isInstanceOf($attribute, AbstractAttribute::class);

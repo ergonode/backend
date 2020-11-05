@@ -12,6 +12,7 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\DateConverter;
 use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class DateConverterMapper implements ConverterMapperInterface
 {
@@ -29,6 +30,9 @@ class DateConverterMapper implements ConverterMapperInterface
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
+        if (!$converter instanceof DateConverter) {
+            throw new UnexpectedTypeException($converter, DateConverter::class);
+        }
         $field = $converter->getField();
 
         $result = strtotime($line[$field]);

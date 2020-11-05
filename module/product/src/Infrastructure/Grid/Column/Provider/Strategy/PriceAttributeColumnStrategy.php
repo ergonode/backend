@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\NumericFilter;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class PriceAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
@@ -31,6 +32,9 @@ class PriceAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
+        if (!$attribute instanceof PriceAttribute) {
+            throw new UnexpectedTypeException($attribute, PriceAttribute::class);
+        }
         $columnKey = $attribute->getCode()->getValue();
         $columnFilter = new NumericFilter();
 

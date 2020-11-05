@@ -62,9 +62,6 @@ class ImportProductAttributeBuilder
         return $result;
     }
 
-    /**
-     * @param $value
-     */
     public function buildDefault(TranslatableString $value): TranslatableStringValue
     {
         $translation = [];

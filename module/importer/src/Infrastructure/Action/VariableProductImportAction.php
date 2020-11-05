@@ -12,6 +12,7 @@ namespace Ergonode\Importer\Infrastructure\Action;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
@@ -101,9 +102,10 @@ class VariableProductImportAction
             );
         } else {
             $product = $this->productRepository->load($productId);
-            Assert::isInstanceOf($product, VariableProduct::class);
         }
-
+        if (!$product instanceof VariableProduct) {
+            throw new UnexpectedTypeException($product, VariableProduct::class);
+        }
         $product->changeTemplate($templateId);
         $product->changeCategories($categories);
         $product->changeAttributes($attributes);

@@ -56,9 +56,9 @@ class ProcessProductCommandHandler
      */
     public function __invoke(ProcessProductCommand $command): void
     {
-        /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
+        /** @var FileExportChannel $channel */
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, FileExportChannel::class);
         $product = $this->productRepository->load($command->getProductId());

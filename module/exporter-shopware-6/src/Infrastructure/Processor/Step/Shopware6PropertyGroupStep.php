@@ -19,7 +19,7 @@ use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Webmozart\Assert\Assert;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
 {
@@ -63,7 +63,9 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
         foreach ($products as $product) {
             $productId = new ProductId($product);
             $domainProduct = $this->productRepository->load($productId);
-            Assert::isInstanceOf($domainProduct, VariableProduct::class);
+            if (!$domainProduct instanceof  VariableProduct) {
+                throw new UnexpectedTypeException($domainProduct, VariableProduct::class);
+            }
             $bindings = $domainProduct->getBindings();
             $attribute = array_unique(array_merge($attribute, $bindings));
         }

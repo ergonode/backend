@@ -11,6 +11,7 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\MappingConverter;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class MappingConverterMapper implements ConverterMapperInterface
 {
@@ -25,6 +26,9 @@ class MappingConverterMapper implements ConverterMapperInterface
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
+        if (!$converter instanceof MappingConverter) {
+            throw new UnexpectedTypeException($converter, MappingConverter::class);
+        }
         $field = $converter->getField();
         $map = $converter->getMap();
         $value = $line[$field];
