@@ -21,3 +21,7 @@ Feature: Text attribute manipulation
       | to_long_code_12345678901234567890 | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type |
       | type | ["not uuid"] | ids |
       | type | [] | ids |
+
+  Scenario: Get not exists batch action
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@@random_uuid@@"
+    Then the response status code should be 404

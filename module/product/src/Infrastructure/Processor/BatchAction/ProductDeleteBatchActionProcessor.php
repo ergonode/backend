@@ -53,7 +53,7 @@ class ProductDeleteBatchActionProcessor implements BatchActionProcessorInterface
                 }
             }
         } else {
-            $messages[] = new BatchActionMessage('Product {id} not found', ['{id}' => $productId->getValue()]);
+            $messages[] = new BatchActionMessage('Product not found', []);
         }
 
         if (empty($messages)) {

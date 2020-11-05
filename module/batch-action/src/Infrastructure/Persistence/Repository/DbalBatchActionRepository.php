@@ -28,8 +28,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     private const TABLE_ENTRY = 'batch_action_entry';
     private const FIELDS = [
         'id',
-        'resource_type',
-        'action',
+        'type',
     ];
 
     private Connection $connection;

@@ -30,20 +30,20 @@ class DbalBatchActionMapperTest extends TestCase
         $result = $mapper->map($batchAction);
 
         self::assertArrayHasKey('id', $result);
-        self::assertArrayHasKey('resource_type', $result);
+        self::assertArrayHasKey('type', $result);
         self::assertEquals($id->getValue(), $result['id']);
-        self::assertEquals($type->getValue(), $result['resource_type']);
+        self::assertEquals($type->getValue(), $result['type']);
     }
 
     public function testCreation(): void
     {
         $record['id'] = Uuid::uuid4()->toString();
-        $record['resource_type'] = 'test resource_type';
+        $record['type'] = 'test type';
 
         $mapper = new DbalBatchActionMapper();
         $result = $mapper->create($record);
 
         self::assertEquals($record['id'], $result->getId()->getValue());
-        self::assertEquals($record['resource_type'], $result->getType()->getValue());
+        self::assertEquals($record['type'], $result->getType()->getValue());
     }
 }

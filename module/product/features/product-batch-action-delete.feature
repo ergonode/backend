@@ -38,6 +38,10 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 
+  Scenario: Get not exists batch action
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@"
+    Then the response status code should be 200
+
   Scenario: Delete product alredy deleted
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 400
@@ -52,3 +56,7 @@ Feature: batch action product deletion
           """
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
+
+  Scenario: Get not exists batch action
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@"
+    Then the response status code should be 200
