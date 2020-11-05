@@ -12,7 +12,6 @@ use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use PHPUnit\Framework\TestCase;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionAction;
 
 class BatchActionTest extends TestCase
 {
@@ -20,12 +19,10 @@ class BatchActionTest extends TestCase
     {
         $id = $this->createMock(BatchActionId::class);
         $type = $this->createMock(BatchActionType::class);
-        $action = $this->createMock(BatchActionAction::class);
 
-        $entity = new BatchAction($id, $type, $action);
+        $entity = new BatchAction($id, $type);
 
         self::assertEquals($id, $entity->getId());
         self::assertEquals($type, $entity->getType());
-        self::assertEquals($action, $entity->getAction());
     }
 }

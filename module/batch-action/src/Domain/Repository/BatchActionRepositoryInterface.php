@@ -11,7 +11,7 @@ namespace Ergonode\BatchAction\Domain\Repository;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\Core\Infrastructure\Model\Relationship;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionMessage;
 
 interface BatchActionRepositoryInterface
 {
@@ -21,7 +21,8 @@ interface BatchActionRepositoryInterface
 
     public function addEntry(BatchActionId $id, AggregateId $resourceId): void;
 
-    public function markEntryAsSuccess(BatchActionId $id, AggregateId $resourceId): void;
-
-    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, Relationship $relationship): void;
+    /**
+     * @param BatchActionMessage[] $messages
+     */
+    public function markEntry(BatchActionId $id, AggregateId $resourceId, array $messages): void;
 }

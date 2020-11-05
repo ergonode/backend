@@ -18,7 +18,9 @@ use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchA
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\Core\Infrastructure\Model\Relationship;
+use Webmozart\Assert\Assert;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionMessage;
+use JMS\Serializer\SerializerInterface;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface
 {
@@ -34,10 +36,13 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
 
     private DbalBatchActionMapper $mapper;
 
-    public function __construct(Connection $connection, DbalBatchActionMapper $mapper)
+    private SerializerInterface $serializer;
+
+    public function __construct(Connection $connection, DbalBatchActionMapper $mapper, SerializerInterface $serializer)
     {
         $this->connection = $connection;
         $this->mapper = $mapper;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -102,59 +107,20 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
     }
 
     /**
-     * @throws DBALException
-     */
-    public function markEntryAsSuccess(BatchActionId $id, AggregateId $resourceId): void
-    {
-        $this->updateEntry($id, $resourceId, true);
-    }
-
-    /**
+     * @param BatchActionMessage[] $messages
+     *
      * @throws DBALException
      * @throws \JsonException
      */
-    public function markEntryAsUnsuccess(BatchActionId $id, AggregateId $resourceId, Relationship $relationship): void
+    public function markEntry(BatchActionId $id, AggregateId $resourceId, array $messages): void
     {
-        $message = [];
-        foreach ($relationship as $group) {
-            $message[] = [
-                'message' => $group->getMessage(),
-                '{relations}' => $group->getRelations(),
-            ];
-        }
+        Assert::allIsInstanceOf($messages, BatchActionMessage::class);
 
-        $this->updateEntry($id, $resourceId, false, json_encode($message, JSON_THROW_ON_ERROR));
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function update(BatchAction $bachAction): void
-    {
-        $bachActionArray = $this->mapper->map($bachAction);
-
-        $this->connection->update(
-            self::TABLE,
-            $bachActionArray,
-            [
-                'id' => $bachAction->getId()->getValue(),
-            ],
-        );
-    }
-
-    /**
-     * @throws DBALException
-     * @throws \JsonException
-     */
-    private function updateEntry(
-        BatchActionId $id,
-        AggregateId $resourceId,
-        bool $success,
-        string $message = null
-    ): void {
+        $success = true;
         $json = null;
-        if ($message) {
-            $json = json_encode(['message' => $message, 'parameters' => []], JSON_THROW_ON_ERROR);
+        if (!empty($messages)) {
+            $json = $this->serializer->serialize($messages, 'json');
+            $success = false;
         }
 
         $this->connection->update(
@@ -172,6 +138,22 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
                 'processed_at' => Types::DATETIMETZ_MUTABLE,
                 'success' => Types::BOOLEAN,
             ]
+        );
+    }
+
+    /**
+     * @throws DBALException
+     */
+    private function update(BatchAction $bachAction): void
+    {
+        $bachActionArray = $this->mapper->map($bachAction);
+
+        $this->connection->update(
+            self::TABLE,
+            $bachActionArray,
+            [
+                'id' => $bachAction->getId()->getValue(),
+            ],
         );
     }
 

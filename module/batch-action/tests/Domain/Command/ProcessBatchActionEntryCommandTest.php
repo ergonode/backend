@@ -12,17 +12,20 @@ use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 
 class ProcessBatchActionEntryCommandTest extends TestCase
 {
     public function testCreation(): void
     {
+        $type = $this->createMock(BatchActionType::class);
         $batchActionId = $this->createMock(BatchActionId::class);
         $resourceId = $this->createMock(AggregateId::class);
 
-        $command = new ProcessBatchActionEntryCommand($batchActionId, $resourceId);
+        $command = new ProcessBatchActionEntryCommand($batchActionId, $type, $resourceId);
 
         self::assertEquals($batchActionId, $command->getId());
+        self::assertEquals($type, $command->getType());
         self::assertEquals($resourceId, $command->getResourceId());
     }
 }

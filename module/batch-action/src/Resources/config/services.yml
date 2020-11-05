@@ -4,6 +4,41 @@ services:
         autoconfigure: false
         public: false
 
+    _instanceof:
+        Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorInterface:
+            tags: ['batch_action.processor_provider.interface']
+
+    Ergonode\BatchAction\Application\Controller\Api\CreateBatchAction:
+        tags: ['controller.service_arguments']
+        arguments:
+           - '@form.factory'
+           - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper:
+    Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository:
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper'
+            - '@jms_serializer'
+
+    Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
+    Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
+
+
+    Ergonode\BatchAction\Infrastructure\Handler\ProcessBatchActionEntryCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+
+    Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider:
+        arguments:
+            $strategies: !tagged_iterator 'batch_action.processor_provider.interface'
+
     Ergonode\BatchAction\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
