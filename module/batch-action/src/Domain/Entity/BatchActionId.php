@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Domain\Entity;
 
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\AbstractId;
 
-class BatchActionId extends AggregateId
+class BatchActionId extends AbstractId
 {
 }

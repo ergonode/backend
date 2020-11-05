@@ -15,12 +15,12 @@ class BatchActionMessage
     private string $message;
 
     /**
-     * @var array
+     * @var string[]
      */
     private array $properties;
 
     /**
-     * @param array  $properties
+     * @param string[] $properties
      */
     public function __construct(string $message, array $properties)
     {
