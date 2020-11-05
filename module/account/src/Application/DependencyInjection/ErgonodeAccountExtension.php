@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\DependencyInjection;
 
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;

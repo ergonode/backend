@@ -11,7 +11,10 @@ namespace Ergonode\Core\Application\Nelmio;
 
 class ExternalDocDescriber extends \Nelmio\ApiDocBundle\Describer\ExternalDocDescriber
 {
-    public function __construct($externalDoc, bool $overwrite = false)
+    /**
+     * @param mixed[] $externalDoc
+     */
+    public function __construct(array $externalDoc, bool $overwrite = false)
     {
         foreach ($externalDoc as $name => $doc) {
             if (substr($name, -strlen('_definitions')) !== '_definitions') {
