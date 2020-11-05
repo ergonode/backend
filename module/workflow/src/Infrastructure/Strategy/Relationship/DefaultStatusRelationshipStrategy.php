@@ -13,17 +13,19 @@ use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class DefaultStatusRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private WorkflowQueryInterface $query;
 
     public function __construct(WorkflowQueryInterface $query)
     {
         $this->query = $query;
     }
-
 
     /**
      * {@inheritDoc}
@@ -36,12 +38,10 @@ class DefaultStatusRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, StatusId::class);
-        }
+        Assert::isInstanceOf($id, StatusId::class);
 
-        return $this->query->getWorkflowIdsWithDefaultStatus($id);
+         return new RelationshipGroup(self::MESSAGE, $this->query->getWorkflowIdsWithDefaultStatus($id));
     }
 }

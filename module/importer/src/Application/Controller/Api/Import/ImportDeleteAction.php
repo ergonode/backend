@@ -101,7 +101,7 @@ class ImportDeleteAction
     ): Response {
 
         $relationships = $this->relationshipsResolver->resolve($import->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
         $command = new DeleteImportCommand($import->getId());

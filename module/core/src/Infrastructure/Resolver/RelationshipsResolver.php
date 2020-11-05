@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Resolver;
 
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
+use Ergonode\Core\Infrastructure\Model\Relationship;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
@@ -28,20 +28,23 @@ class RelationshipsResolver implements RelationshipsResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function resolve(AggregateId $id): RelationshipCollection
+    public function resolve(AggregateId $id): ?Relationship
     {
-        $collection = new RelationshipCollection();
+        $result = [];
 
-        /** @var RelationshipStrategyInterface $strategy */
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($id)) {
-                $relationships = $strategy->getRelationships($id);
-                foreach ($relationships as $relationship) {
-                    $collection->add($relationship);
+                $group = $strategy->getRelationshipGroup($id);
+                if (!empty($group->getRelations())) {
+                    $result[] = $group;
                 }
             }
         }
 
-        return $collection;
+        if (!empty($result)) {
+            return new Relationship($result);
+        }
+
+        return null;
     }
 }

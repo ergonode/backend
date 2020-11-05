@@ -85,7 +85,7 @@ class AttributeGroupDeleteAction
     public function __invoke(AttributeGroup $group): Response
     {
         $relationships = $this->relationshipsResolver->resolve($group->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

@@ -12,11 +12,14 @@ namespace Ergonode\Condition\Infrastructure\Strategy\Relationship;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private ConditionSetQueryInterface $query;
 
     public function __construct(ConditionSetQueryInterface $query)
@@ -35,12 +38,10 @@ class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterf
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, AttributeId::class);
-        }
+        Assert::isInstanceOf($id, AttributeId::class);
 
-        return $this->query->findNumericConditionRelations($id);
+        return new RelationshipGroup(self::MESSAGE, $this->query->findNumericConditionRelations($id));
     }
 }

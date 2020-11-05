@@ -88,7 +88,7 @@ class SourceDeleteAction
     public function __invoke(AbstractSource $source): Response
     {
         $relationships = $this->relationshipsResolver->resolve($source->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

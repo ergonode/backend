@@ -14,7 +14,7 @@ use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Infrastructure\Handler\Tree\DeleteTreeCommandHandler;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
+use Ergonode\Core\Infrastructure\Model\Relationship;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -42,9 +42,6 @@ class DeleteTreeCommandHandlerTest extends TestCase
 
     public function testHandlingExistsTreeWithoutRelations(): void
     {
-        $collection = $this->createMock(RelationshipCollection::class);
-        $collection->method('isEmpty')->willReturn(true);
-        $this->resolver->expects($this->once())->method('resolve')->willReturn($collection);
         $tree = $this->createMock(CategoryTree::class);
         $this->repository->expects($this->once())->method('load')->willReturn($tree);
         $this->repository->expects($this->once())->method('delete');
@@ -56,8 +53,7 @@ class DeleteTreeCommandHandlerTest extends TestCase
     public function testHandlingExistsTreeWithRelations(): void
     {
         $this->expectException(ExistingRelationshipsException::class);
-        $collection = $this->createMock(RelationshipCollection::class);
-        $collection->method('isEmpty')->willReturn(false);
+        $collection = $this->createMock(Relationship::class);
         $this->resolver->expects($this->once())->method('resolve')->willReturn($collection);
         $tree = $this->createMock(CategoryTree::class);
         $this->repository->expects($this->once())->method('load')->willReturn($tree);
