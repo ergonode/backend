@@ -1,0 +1,38 @@
+nelmio_api_doc:
+    documentation:
+        api_definitions:
+            error_response:
+                type: 'object'
+                properties:
+                    code:
+                        type: 'integer'
+                        required: true
+                        description: 'Error code'
+                        example: 401
+                    message:
+                        type: 'string'
+                        required: true
+                        description: 'Error message'
+                        example: 'Bad credentials'
+            validation_error_response:
+                type: 'object'
+                properties:
+                    code:
+                        type: 'integer'
+                        description: 'Error code'
+                        example: 400
+                    message:
+                        type: 'string'
+                        description: 'Error message'
+                        example: 'Validation errors'
+                    errors:
+                        type: 'array'
+                        description: 'Fields messages'
+                        items:
+                            type: 'object'
+                            properties:
+                                field_key:
+                                    type: 'array'
+                                    items:
+                                        type: 'string'
+                                        example: 'Error message'

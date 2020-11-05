@@ -1,0 +1,24 @@
+nelmio_api_doc:
+    documentation:
+        comment_definitions:
+            comment_create:
+                type: object
+                properties:
+                    content:
+                        type: string
+                        required: true
+                        description: comment text
+                        example: example comment
+                    object_id:
+                        type: string
+                        required: true
+                        description: commented object id
+                        example: d48a1e58-4bf1-5014-9cc6-b879e5f044d0
+            comment_update:
+                type: object
+                properties:
+                    content:
+                        type: string
+                        required: true
+                        description: comment text
+                        example: example comment

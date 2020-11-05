@@ -13,9 +13,10 @@ use Ergonode\Api\Application\Config\Definition\ErgonodeApiConfiguration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class ErgonodeApiExtension extends Extension
+class ErgonodeApiExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritDoc}
@@ -41,5 +42,16 @@ class ErgonodeApiExtension extends Extension
     public function getAlias(): string
     {
         return 'ergonode_api';
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepend(ContainerBuilder $container): void
+    {
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('nelmio_api_doc.yaml');
     }
 }

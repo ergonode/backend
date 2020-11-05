@@ -1,0 +1,9 @@
+nelmio_api_doc:
+    documentation:
+        condition_definitions:
+            conditionset:
+                type: 'object'
+                properties:
+                    conditions:
+                        type: 'array'
+                        example: [{"type":"OPTION_ATTRIBUTE_VALUE_CONDITION","attribute":"e45ec75b-44e2-5dd2-a558-51ed3d0af06f","value":"test"}]

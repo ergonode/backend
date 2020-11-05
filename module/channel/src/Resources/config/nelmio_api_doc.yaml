@@ -1,0 +1,11 @@
+nelmio_api_doc:
+    documentation:
+        channel_definitions:
+            channel:
+                type: 'object'
+                properties:
+                    type:
+                        type: string
+                        required: true
+                        description: name
+                        example: channel1

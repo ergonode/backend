@@ -1,0 +1,75 @@
+nelmio_api_doc:
+    documentation:
+        designer_definitions:
+            point:
+                type: object
+                properties:
+                    x:
+                        type: int
+                        required: true
+                        description: X posion
+                        example: 0
+                    y:
+                        type: int
+                        required: true
+                        description: Y posion
+                        example: 0
+            size:
+                type: object
+                properties:
+                    width:
+                        type: int
+                        required: true
+                        description: Width
+                        example: 2
+                    height:
+                        type: int
+                        required: true
+                        description: Height
+                        example: 1
+            template_element:
+                type: object
+                properties:
+                    position:
+                        $ref: "#/definitions/point"
+                    size:
+                        $ref: "#/definitions/size"
+                    variant:
+                        type: string
+                        example: attribute
+                    type:
+                        type: string
+                        example: text
+                    properties:
+                        type: array
+                        items:
+                            type: string
+                        example:
+                            attribute_id: attribute_id
+                            required: true
+            template:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Template name
+                        example: Name
+                    defaultLabel:
+                        type: string
+                        required: true
+                        description: Attribute Id of default Label
+                        example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
+                    defaultImage:
+                        type: string
+                        required: true
+                        description: Attribute Id of default Image
+                        example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
+                    image:
+                        type: string
+                        required: false
+                        description: Multimedia Id
+                    elements:
+                        type: array
+                        items:
+                            $ref: "#/definitions/template_element"
