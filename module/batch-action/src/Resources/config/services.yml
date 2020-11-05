@@ -4,6 +4,32 @@ services:
         autoconfigure: false
         public: false
 
+    Ergonode\BatchAction\Application\Controller\Api\CreateBatchAction:
+        tags: ['controller.service_arguments']
+        arguments:
+           - '@form.factory'
+           - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper:
+    Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository:
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper'
+
+    Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
+    Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\ProcessBatchActionEntryCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\Product\Domain\Repository\ProductRepositoryInterface'
+            - '@Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface'
+
     Ergonode\BatchAction\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
