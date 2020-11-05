@@ -28,6 +28,9 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof ProductBelongCategoryCondition) {
+            throw new \LogicException('Object of wrong class');
+        }
         $belong = $configuration->getOperator() === ProductBelongCategoryCondition::BELONG_TO;
 
         if ($belong) {

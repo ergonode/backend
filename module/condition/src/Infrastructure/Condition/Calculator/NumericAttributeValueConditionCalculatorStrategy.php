@@ -38,6 +38,9 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
      */
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof NumericAttributeValueCondition) {
+            throw new \LogicException('Object of wrong class');
+        }
         $attributeId = $configuration->getAttribute();
         $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);

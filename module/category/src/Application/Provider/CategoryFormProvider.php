@@ -18,9 +18,6 @@ class CategoryFormProvider
      */
     private array $forms;
 
-    /**
-     * @param array|CategoryFormInterface ...$forms
-     */
     public function __construct(CategoryFormInterface ...$forms)
     {
         $this->forms = $forms;

@@ -38,6 +38,9 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof TextAttributeValueCondition) {
+            throw new \LogicException('Object of wrong class');
+        }
         $attributeId = $configuration->getAttribute();
         $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);

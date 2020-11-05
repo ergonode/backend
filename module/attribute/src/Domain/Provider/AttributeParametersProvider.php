@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Domain\Provider;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
@@ -35,6 +36,9 @@ class AttributeParametersProvider
         if (isset($parameters['unit'])) {
             $unit = $this->unitRepository->load(new UnitId($parameters['unit']));
             if ($unit) {
+                if (!$unit instanceof Unit) {
+                    throw new \LogicException('Object of wrong class');
+                }
                 $parameters['unit'] = $unit->getSymbol();
             }
         }

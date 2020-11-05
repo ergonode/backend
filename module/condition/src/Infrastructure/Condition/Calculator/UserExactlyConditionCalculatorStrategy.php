@@ -47,6 +47,9 @@ class UserExactlyConditionCalculatorStrategy implements ConditionCalculatorStrat
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof UserExactlyCondition) {
+            throw new \LogicException('Object of wrong class');
+        }
         $user = $this->userRepository->load($configuration->getUser());
         Assert::notNull($user);
 

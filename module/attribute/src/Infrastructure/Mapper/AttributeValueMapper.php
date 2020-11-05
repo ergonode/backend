@@ -20,9 +20,6 @@ class AttributeValueMapper
      */
     private array $strategies;
 
-    /**
-     * @param AttributeMapperStrategyInterface[] $strategies
-     */
     public function __construct(AttributeMapperStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;

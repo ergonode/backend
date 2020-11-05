@@ -31,9 +31,12 @@ class UpdateDateAttributeCommandHandler extends AbstractUpdateAttributeCommandHa
     {
         /** @var DateAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
-
         Assert::isInstanceOf($attribute, DateAttribute::class);
         $attribute = $this->update($command, $attribute);
+
+        if (!$attribute instanceof DateAttribute) {
+            throw new \LogicException('Object of wrong class');
+        }
         $attribute->changeFormat($command->getFormat());
 
         $this->attributeRepository->save($attribute);

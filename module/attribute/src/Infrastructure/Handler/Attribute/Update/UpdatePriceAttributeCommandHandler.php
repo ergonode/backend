@@ -31,9 +31,12 @@ class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandH
     {
         /** @var PriceAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
-
         Assert::isInstanceOf($attribute, PriceAttribute::class);
         $attribute = $this->update($command, $attribute);
+
+        if (!$attribute instanceof PriceAttribute) {
+            throw new \LogicException('Object of wrong class');
+        }
         $attribute->changeCurrency($command->getCurrency());
 
         $this->attributeRepository->save($attribute);

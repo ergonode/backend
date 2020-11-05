@@ -19,7 +19,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Shopware6CustomFieldClient
 {
@@ -91,7 +90,7 @@ class Shopware6CustomFieldClient
         $shopwareCustomField = $this->connector->execute($channel, $action);
 
         if (!$shopwareCustomField instanceof Shopware6CustomField) {
-            throw new UnexpectedTypeException($shopwareCustomField, Shopware6CustomField::class);
+            throw new \LogicException('Object of wrong class');
         }
         $this->repository->save(
             $channel->getId(),

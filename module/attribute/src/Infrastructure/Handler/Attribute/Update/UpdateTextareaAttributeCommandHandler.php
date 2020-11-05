@@ -12,8 +12,8 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Update;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
-use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
+use Webmozart\Assert\Assert;
 
 class UpdateTextareaAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
@@ -31,9 +31,12 @@ class UpdateTextareaAttributeCommandHandler extends AbstractUpdateAttributeComma
     {
         /** @var TextareaAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
-
         Assert::isInstanceOf($attribute, TextareaAttribute::class);
         $attribute = $this->update($command, $attribute);
+
+        if (!$attribute instanceof TextareaAttribute) {
+            throw new \LogicException('Object of wrong class');
+        }
         $attribute->changeRichEdit($command->isRichEdit());
 
         $this->attributeRepository->save($attribute);

@@ -85,11 +85,6 @@ class CompletenessQuery implements CompletenessQueryInterface
         return $result;
     }
 
-    /**
-     * @param $language
-     *
-     * @return CompletenessWidgetModel[]
-     */
     public function getCompletenessCount(Language $language): array
     {
         $products = $this->productQuery->getCount();

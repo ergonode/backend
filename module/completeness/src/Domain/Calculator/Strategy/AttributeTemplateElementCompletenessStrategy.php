@@ -48,8 +48,9 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
         Language $language,
         TemplateElementPropertyInterface $properties
     ): ?CompletenessCalculatorLine {
-        Assert::isInstanceOf($properties, AttributeTemplateElementProperty::class);
-
+        if (!$properties instanceof AttributeTemplateElementProperty) {
+            throw new \LogicException('Object of wrong class');
+        }
         $attribute = $this->repository->load($properties->getAttributeId());
         Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $properties->getAttributeId()->getValue()));
         $value = $draft->hasAttribute($attribute->getCode()) ? $draft->getAttribute($attribute->getCode()) : null;

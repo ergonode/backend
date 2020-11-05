@@ -11,7 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\SlugConverter;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class SlugConverterMapper implements ConverterMapperInterface
 {
@@ -27,7 +26,7 @@ class SlugConverterMapper implements ConverterMapperInterface
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
         if (!$converter instanceof SlugConverter) {
-            throw new UnexpectedTypeException($converter, SlugConverter::class);
+            throw new \LogicException('Object of wrong class');
         }
         $field = $converter->getField();
 

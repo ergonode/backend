@@ -11,7 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class JoinConverterMapper implements ConverterMapperInterface
 {
@@ -32,7 +31,7 @@ class JoinConverterMapper implements ConverterMapperInterface
         }
 
         if (!$converter instanceof JoinConverter) {
-            throw new UnexpectedTypeException($converter, JoinConverter::class);
+            throw new \LogicException('Object of wrong class');
         }
 
         return str_replace(array_keys($fields), $fields, $converter->getPattern());

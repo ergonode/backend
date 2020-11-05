@@ -12,7 +12,6 @@ namespace Ergonode\Account\Infrastructure\Handler\Role;
 use Ergonode\Account\Domain\Command\Role\UpdateRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Webmozart\Assert\Assert;
 
 class UpdateRoleCommandHandler
 {
@@ -29,7 +28,10 @@ class UpdateRoleCommandHandler
     public function __invoke(UpdateRoleCommand $command): void
     {
         $role = $this->repository->load($command->getId());
-        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role with id %s', $command->getId()));
+
+        if (!$role instanceof Role) {
+            throw new \LogicException('Object of wrong class');
+        }
         $role->changeName($command->getName());
         $role->changeDescription($command->getDescription());
         $role->changesPrivileges($command->getPrivileges());

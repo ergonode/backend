@@ -11,7 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\ConstConverter;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ConstConverterMapper implements ConverterMapperInterface
 {
@@ -27,7 +26,7 @@ class ConstConverterMapper implements ConverterMapperInterface
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
         if (!$converter instanceof ConstConverter) {
-            throw new UnexpectedTypeException($converter, ConstConverter::class);
+            throw new \LogicException('Object of wrong class');
         }
 
         return $converter->getValue();

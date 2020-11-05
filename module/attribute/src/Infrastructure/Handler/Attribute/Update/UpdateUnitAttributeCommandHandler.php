@@ -31,9 +31,11 @@ class UpdateUnitAttributeCommandHandler extends AbstractUpdateAttributeCommandHa
     {
         /** @var UnitAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
-
         Assert::isInstanceOf($attribute, UnitAttribute::class);
         $attribute = $this->update($command, $attribute);
+        if (!$attribute instanceof UnitAttribute) {
+            throw new \LogicException('Object of wrong class');
+        }
         $attribute->changeUnit($command->getUnitId());
 
         $this->attributeRepository->save($attribute);

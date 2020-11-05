@@ -19,7 +19,6 @@ use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
 {
@@ -64,7 +63,7 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
             $productId = new ProductId($product);
             $domainProduct = $this->productRepository->load($productId);
             if (!$domainProduct instanceof  VariableProduct) {
-                throw new UnexpectedTypeException($domainProduct, VariableProduct::class);
+                throw new \LogicException('Object of wrong class');
             }
             $bindings = $domainProduct->getBindings();
             $attribute = array_unique(array_merge($attribute, $bindings));

@@ -45,6 +45,9 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof ProductCompletenessCondition) {
+            throw new \LogicException('Object of wrong class');
+        }
         $result = true;
 
         foreach ($this->query->getActive() as $code) {

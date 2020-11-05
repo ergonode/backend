@@ -20,7 +20,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use GuzzleHttp\Exception\ClientException;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Shopware6CategoryClient
 {
@@ -57,7 +56,7 @@ class Shopware6CategoryClient
         $newShopwareCategory = $this->connector->execute($channel, $action);
 
         if (!$newShopwareCategory instanceof Shopware6Category) {
-            throw new UnexpectedTypeException($newShopwareCategory, Shopware6Category::class);
+            throw new \LogicException('Object of wrong class');
         }
         $this->repository->save(
             $channel->getId(),

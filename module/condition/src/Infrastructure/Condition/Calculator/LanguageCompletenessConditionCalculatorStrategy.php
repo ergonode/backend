@@ -34,13 +34,13 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
     }
 
     /**
-     * @param ConditionInterface|LanguageCompletenessCondition $configuration
-     *
-     *
      * @throws \Exception
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof LanguageCompletenessCondition) {
+            throw new \LogicException('Object of wrong class');
+        }
         $calculation = $this->completenessQuery->getCompleteness($object->getId(), $configuration->getLanguage());
 
         $result = true;

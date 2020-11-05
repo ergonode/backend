@@ -94,7 +94,7 @@ interface ProductQueryInterface
 
     /**
      *
-     * @return array
+     * @return ProductId[]
      */
     public function findProductIdByCategoryId(CategoryId $categoryId): array;
 

@@ -17,7 +17,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class Shopware6PropertyGroupOptionClient
 {
@@ -60,7 +59,7 @@ class Shopware6PropertyGroupOptionClient
         $shopwarePropertyGroupOptions = $this->connector->execute($channel, $action);
 
         if (!$shopwarePropertyGroupOptions instanceof Shopware6PropertyGroupOption) {
-            throw new UnexpectedTypeException($shopwarePropertyGroupOptions, Shopware6PropertyGroupOption::class);
+            throw new \LogicException('Object of wrong class');
         }
         $this->propertyGroupOptionsRepository->save(
             $channel->getId(),
