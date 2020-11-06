@@ -47,6 +47,7 @@ class ProductDeleteBatchActionProcessor implements BatchActionProcessorInterface
         $product = $this->repository->load($productId);
         if ($product) {
             $relationships = $this->resolver->resolve($product->getId());
+
             if (null !== $relationships) {
                 foreach ($relationships as $group) {
                     $messages[] = $this->createMessage($group);
@@ -70,6 +71,6 @@ class ProductDeleteBatchActionProcessor implements BatchActionProcessorInterface
             $relations[] = $relation->getValue();
         }
 
-        return new BatchActionMessage($group->getMessage(), ['relations' => $relations]);
+        return new BatchActionMessage($group->getMessage(), ['{relations}' => implode(',', $relations)]);
     }
 }
