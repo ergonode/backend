@@ -1,3 +1,6 @@
+## CHANGELOG FOR 1.0.0-beta.3
+- feature [#902](https://github.com/ergonode/backend/issues/882)  Batch product remove action(rprzedzik)
+ 
 ## CHANGELOG FOR 1.0.0-beta.2
 - feature [#882](https://github.com/ergonode/backend/issues/882) Adding JWT refresh (wfajczyk)
 - feature change static check code(piotrkreft)
