@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Factory\Command\Update;
 
+use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Application\Model\Product\VariableProductFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
@@ -25,7 +25,7 @@ class UpdateVariableProductCommandFactory implements UpdateProductCommandFactory
         return $type === VariableProduct::TYPE;
     }
 
-    public function create(ProductId $productId, FormInterface $form): DomainCommandInterface
+    public function create(ProductId $productId, FormInterface $form): ProductCommandInterface
     {
         /** @var VariableProductFormModel $data */
         $data = $form->getData();
