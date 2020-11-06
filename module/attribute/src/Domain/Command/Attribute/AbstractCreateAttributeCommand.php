@@ -12,13 +12,12 @@ namespace Ergonode\Attribute\Domain\Command\Attribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
-abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
+abstract class AbstractCreateAttributeCommand implements CreateAttributeCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")

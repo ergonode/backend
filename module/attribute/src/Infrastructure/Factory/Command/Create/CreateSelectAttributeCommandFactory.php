@@ -10,12 +10,12 @@ namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand;
+use Ergonode\Attribute\Domain\Command\Attribute\CreateAttributeCommandInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
@@ -29,7 +29,7 @@ class CreateSelectAttributeCommandFactory implements CreateAttributeCommandFacto
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface
+    public function create(FormInterface $form): CreateAttributeCommandInterface
     {
         /** @var AttributeFormModel $data */
         $data = $form->getData();
