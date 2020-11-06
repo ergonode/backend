@@ -2,7 +2,7 @@
 - feature [#902](https://github.com/ergonode/backend/issues/882)  Batch product remove action(rprzedzik)
 - feature #913 Moved Nelmio configuration to appropriate modules (piotrkreft)
 - bugfix #900 Fixing template field in grid of associated products (wiewiurdp)
-- bugfix #895 calculate completanse strategy (wfajczyk)
+- bugfix #895 calculate completeness strategy (wfajczyk)
 - bugfix export shopware6 multimedia and unit mapper (wfajczyk)
   
 ## CHANGELOG FOR 1.0.0-beta.2
