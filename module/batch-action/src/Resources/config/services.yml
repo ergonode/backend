@@ -8,11 +8,21 @@ services:
         Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorInterface:
             tags: ['batch_action.processor_provider.interface']
 
+    Ergonode\BatchAction\Application\Request\ParamConverter\BatchActionParamConverter:
+        tags: ['request.param_converter']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+
     Ergonode\BatchAction\Application\Controller\Api\CreateBatchAction:
         tags: ['controller.service_arguments']
         arguments:
            - '@form.factory'
            - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Application\Controller\Api\GetBatchAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface'
 
     Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper:
     Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository:
@@ -21,13 +31,19 @@ services:
             - '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper'
             - '@jms_serializer'
 
+    Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery:
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@translator'
+
+    Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery'
+
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
     Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
-
 
     Ergonode\BatchAction\Infrastructure\Handler\ProcessBatchActionEntryCommandHandler:
         tags: ['messenger.message_handler']

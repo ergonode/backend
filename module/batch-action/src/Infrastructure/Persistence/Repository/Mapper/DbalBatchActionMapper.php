@@ -19,14 +19,14 @@ class DbalBatchActionMapper
     {
         return [
             'id' => $batchAction->getId(),
-            'resource_type' => $batchAction->getType()->getValue(),
+            'type' => $batchAction->getType()->getValue(),
         ];
     }
 
     public function create(array $record): BatchAction
     {
         $id = new BatchActionId($record['id']);
-        $type = new BatchActionType($record['resource_type']);
+        $type = new BatchActionType($record['type']);
 
         return new BatchAction($id, $type);
     }
