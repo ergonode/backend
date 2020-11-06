@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Factory\Command\Create;
 
+use Ergonode\Product\Domain\Command\Create\CreateProductCommandInterface;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -28,7 +29,7 @@ class CreateSimpleProductCommandFactory implements CreateProductCommandFactoryIn
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface
+    public function create(FormInterface $form): CreateProductCommandInterface
     {
         /** @var SimpleProductFormModel $data */
         $data = $form->getData();

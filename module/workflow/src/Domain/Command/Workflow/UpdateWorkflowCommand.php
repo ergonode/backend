@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-class UpdateWorkflowCommand implements DomainCommandInterface
+class UpdateWorkflowCommand implements UpdateWorkflowCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")

@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-class CreateGroupingProductCommand implements DomainCommandInterface
+class CreateGroupingProductCommand implements CreateProductCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
