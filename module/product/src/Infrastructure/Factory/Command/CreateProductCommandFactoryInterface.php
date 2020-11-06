@@ -10,7 +10,6 @@ namespace Ergonode\Product\Infrastructure\Factory\Command;
 
 use Ergonode\Product\Domain\Command\Create\CreateProductCommandInterface;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 interface CreateProductCommandFactoryInterface
 {

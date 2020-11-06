@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Factory\Command\Create;
 use Ergonode\Product\Domain\Command\Create\CreateProductCommandInterface;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Application\Model\Product\SimpleProductFormModel;
 use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;

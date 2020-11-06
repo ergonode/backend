@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Factory\Command\Create;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;

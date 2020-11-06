@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Factory\Command\Create;
 use Ergonode\Product\Domain\Command\Create\CreateProductCommandInterface;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Application\Model\Product\GroupingProductFormModel;
 use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;

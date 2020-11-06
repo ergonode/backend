@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Domain\Command\Create;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Bindings;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
