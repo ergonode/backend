@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f921f60e832e626eafb8269b84c4b37e",
+    "content-hash": "75f784855bd1fc74ce9610826ef282a6",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1532,6 +1532,7 @@
             "keywords": [
                 "reflection"
             ],
+            "abandoned": "roave/better-reflection",
             "time": "2018-06-14T14:45:07+00:00"
         },
         {
