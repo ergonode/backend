@@ -24,7 +24,7 @@ class UpdateErgonodeZipSourceCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateErgonodeZipSourceCommand $command)
+    public function __invoke(UpdateErgonodeZipSourceCommand $command): void
     {
         /** @var ErgonodeZipSource $source */
         $source = $this->repository->load($command->getId());

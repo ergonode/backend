@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Application\DependencyInjection;
 
-use Ergonode\ImporterErgonode\Application\DependencyInjection\CompilerPass\AttributeFactoryCompilerPass;
-use Ergonode\ImporterErgonode\Application\DependencyInjection\CompilerPass\ProductCommandFactoryCompilerPass;
 use Ergonode\ImporterErgonode\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
 use Ergonode\ImporterErgonode\Infrastructure\Factory\Product\ProductCommandFactoryInterface;
 use Symfony\Component\Config\FileLocator;
@@ -31,11 +29,11 @@ class ErgonodeImporterErgonodeExtension extends Extension
 
         $container
             ->registerForAutoconfiguration(ProductCommandFactoryInterface::class)
-            ->addTag(ProductCommandFactoryCompilerPass::TAG);
+            ->addTag('component.ergonode-importer.product_command_factory_interface');
 
         $container
             ->registerForAutoconfiguration(AttributeFactoryInterface::class)
-            ->addTag(AttributeFactoryCompilerPass::TAG);
+            ->addTag('component.ergonode-importer.attribute_factory_interface');
 
         $loader->load('services.yml');
     }

@@ -43,7 +43,9 @@ class ErgonodeZipExtractor
         $result = $archive->extractTo($extractDirectory);
 
         if (!$result) {
-            throw new ErgonodeZipExtractorException("Can't extract files from ZIP file \"$file\" into \"$extractDirectory\"");
+            throw new ErgonodeZipExtractorException(
+                "Can't extract files from ZIP file \"$file\" into \"$extractDirectory\""
+            );
         }
 
         $archive->close();

@@ -24,7 +24,7 @@ class CreateErgonodeZipSourceCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateErgonodeZipSourceCommand $command)
+    public function __invoke(CreateErgonodeZipSourceCommand $command): void
     {
         $source = new ErgonodeZipSource(
             $command->getId(),

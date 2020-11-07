@@ -4,6 +4,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\ImporterErgonode\Domain\Command\Import;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
