@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
 
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterErgonode\Infrastructure\Reader\Exception\ErgonodeZipExtractorException;
 use League\Flysystem\FilesystemInterface;
 use ZipArchive;
 
@@ -24,7 +25,7 @@ class ErgonodeZipExtractor
     }
 
     /**
-     * @throws \Exception
+     * @throws ErgonodeZipExtractorException
      */
     public function extract(Import $import): string
     {
@@ -34,7 +35,7 @@ class ErgonodeZipExtractor
         $resource = $archive->open($file);
 
         if (true !== $resource) {
-            throw new \Exception("Can't open file \"$file\"");
+            throw new ErgonodeZipExtractorException("Can't open file \"$file\"");
         }
 
         $extractDirectory = $this->directory.$import->getFileHash();
@@ -42,7 +43,7 @@ class ErgonodeZipExtractor
         $result = $archive->extractTo($extractDirectory);
 
         if (!$result) {
-            throw new \Exception("Can't extract files from ZIP file \"$file\" into \"$extractDirectory\"");
+            throw new ErgonodeZipExtractorException("Can't extract files from ZIP file \"$file\" into \"$extractDirectory\"");
         }
 
         $archive->close();
@@ -50,10 +51,13 @@ class ErgonodeZipExtractor
         return $extractDirectory;
     }
 
+    /**
+     * @throws ErgonodeZipExtractorException
+     */
     public function cleanup(Import $import): void
     {
         if (!$this->importStorage->deleteDir($import->getFileHash())) {
-            throw new \RuntimeException(sprintf('Can\'t remove "%s" directory', $import->getFileHash()));
+            throw new ErgonodeZipExtractorException(sprintf('Can\'t remove "%s" directory', $import->getFileHash()));
         }
     }
 }
