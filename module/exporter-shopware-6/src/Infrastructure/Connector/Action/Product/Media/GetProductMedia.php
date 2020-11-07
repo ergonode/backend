@@ -47,7 +47,8 @@ class GetProductMedia extends AbstractAction implements ActionInterface
             foreach ($data['data'] as $row) {
                 $result[] = new Shopware6ProductMedia(
                     $row['id'],
-                    $row['attributes']['mediaId']
+                    $row['attributes']['mediaId'],
+                    $row['attributes']['position']
                 );
             }
         }

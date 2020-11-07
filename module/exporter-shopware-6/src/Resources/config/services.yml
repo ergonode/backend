@@ -68,6 +68,7 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigSelectMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigMultiSelectMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigOptionsMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigUnitMapper'
 
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CategoryBuilder:
         arguments:
@@ -93,6 +94,7 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetSelectMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultiSelectMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetMultimediaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField\Shopware6ProductCustomFieldSetUnitMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantChildMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCoverMapper'

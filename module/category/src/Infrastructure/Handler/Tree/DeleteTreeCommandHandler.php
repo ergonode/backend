@@ -46,7 +46,7 @@ class DeleteTreeCommandHandler
         );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
 

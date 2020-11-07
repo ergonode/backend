@@ -84,7 +84,7 @@ class UnitDeleteAction
     public function __invoke(Unit $unit): Response
     {
         $relations = $this->relationshipsResolver->resolve($unit->getId());
-        if (!$relations->isEmpty()) {
+        if (null !== $relations) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
 

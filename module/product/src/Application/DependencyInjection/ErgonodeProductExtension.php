@@ -14,9 +14,11 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataS
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductCreateCommandFactoryProviderCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductUpdateCommandFactoryProviderCompilerPass;
@@ -29,7 +31,7 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductFormCom
 /**
  * Class ErgonodeProductExtension
  */
-class ErgonodeProductExtension extends Extension
+class ErgonodeProductExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * @param array $configs
@@ -68,5 +70,18 @@ class ErgonodeProductExtension extends Extension
             ->addTag(ProductUpdateCommandFactoryProviderCompilerPass::TAG);
 
         $loader->load('services.yml');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepend(ContainerBuilder $container): void
+    {
+        if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            return;
+        }
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('nelmio_api_doc.yaml');
     }
 }

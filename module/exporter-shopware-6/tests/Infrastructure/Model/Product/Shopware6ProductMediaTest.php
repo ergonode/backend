@@ -17,18 +17,23 @@ class Shopware6ProductMediaTest extends TestCase
 
     private string $mediaId;
 
+    private int $position;
+
     protected function setUp(): void
     {
         $this->id = 'any_id';
         $this->mediaId = 'any_media_id';
+        $this->position = 0;
     }
 
     public function testCreateModel(): void
     {
-        $model = new Shopware6ProductMedia($this->id, $this->mediaId);
+        $model = new Shopware6ProductMedia($this->id, $this->mediaId, $this->position);
 
         self::assertEquals($this->id, $model->getId());
         self::assertEquals($this->mediaId, $model->getMediaId());
+        self::assertEquals($this->position, $model->getPosition());
+        self::assertGreaterThanOrEqual(0, $model->getPosition());
     }
 
     public function testSetModel(): void
@@ -36,7 +41,9 @@ class Shopware6ProductMediaTest extends TestCase
         $model = new Shopware6ProductMedia();
 
         $model->setMediaId($this->mediaId);
+        $model->setPosition($this->position);
 
         self::assertEquals($this->mediaId, $model->getMediaId());
+        self::assertEquals($this->position, $model->getPosition());
     }
 }

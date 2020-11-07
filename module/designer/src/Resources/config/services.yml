@@ -47,8 +47,3 @@ services:
     Ergonode\Designer\Domain\Query\TemplateElementQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateElementQuery'
     Ergonode\Designer\Domain\Query\TemplateQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateQuery'
     Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateGroupQuery'
-
-    Ergonode\Designer\Infrastructure\Query\Decorator\TemplateGetProductQueryDecorator:
-        decorates: Ergonode\Product\Domain\Query\GetProductQueryInterface
-        arguments:
-            - '@Ergonode\Designer\Infrastructure\Query\Decorator\TemplateGetProductQueryDecorator.inner'

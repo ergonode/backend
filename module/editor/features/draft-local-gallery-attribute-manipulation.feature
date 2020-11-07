@@ -149,7 +149,7 @@ Feature: Draft edit and inheritance value for product draft with gallery attribu
     When I send a PUT request to "api/v1/de_DE/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": null
+        "value": []
       }
       """
     Then the response status code should be 200

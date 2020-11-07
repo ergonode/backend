@@ -39,8 +39,6 @@ interface TemplateQueryInterface
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array;
 
-    public function findProductTemplateId(ProductId $productId): TemplateId;
-
     public function findTemplateIdByCode(string $code): ?TemplateId;
 
     /**

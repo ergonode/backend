@@ -91,7 +91,7 @@ class StatusDeleteAction
     public function __invoke(Status $status): Response
     {
         $relationships = $this->relationshipsResolver->resolve($status->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

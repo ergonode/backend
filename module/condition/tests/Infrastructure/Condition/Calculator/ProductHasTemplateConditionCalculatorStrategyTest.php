@@ -15,26 +15,16 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductHasTemplateConditionCalculatorStrategy;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
 {
-    /**
-     * @var TemplateQueryInterface|MockObject
-     */
-    private MockObject $templateQuery;
-
     private ProductHasTemplateConditionCalculatorStrategy $strategy;
 
     protected function setUp(): void
     {
-        $this->templateQuery = $this->createMock(TemplateQueryInterface::class);
-
-        $this->strategy =
-            new ProductHasTemplateConditionCalculatorStrategy($this->templateQuery);
+        $this->strategy = new ProductHasTemplateConditionCalculatorStrategy();
     }
-
 
     public function testSupports(): void
     {
@@ -54,13 +44,8 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
         bool $expectedResult
     ): void {
         $product = $this->createProductMock('some-id');
+        $product->method('getTemplateId')->willReturn($productTemplateId);
         $condition = $this->createProductHasTemplateConditionMock($operator, $searchedTemplateId);
-
-        $this
-            ->templateQuery
-            ->method('findProductTemplateId')
-            ->withConsecutive([$product->getId()])
-            ->willReturn($productTemplateId);
 
         $result = $this->strategy->calculate($product, $condition);
         $this->assertSame($expectedResult, $result);

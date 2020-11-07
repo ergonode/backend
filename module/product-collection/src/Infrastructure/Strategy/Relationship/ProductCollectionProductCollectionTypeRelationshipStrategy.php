@@ -13,10 +13,13 @@ use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductCollectionProductCollectionTypeRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private ProductCollectionQueryInterface $query;
 
     public function __construct(ProductCollectionQueryInterface $query)
@@ -35,12 +38,10 @@ class ProductCollectionProductCollectionTypeRelationshipStrategy implements Rela
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, ProductCollectionTypeId::class);
-        }
+        Assert::isInstanceOf($id, ProductCollectionTypeId::class);
 
-        return $this->query->findCollectionIdsByCollectionTypeId($id);
+        return new RelationshipGroup(self::MESSAGE, $this->query->findCollectionIdsByCollectionTypeId($id));
     }
 }

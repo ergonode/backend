@@ -52,6 +52,9 @@ class GetProductQuery implements GetProductQueryInterface
             'type' => $product->getType(),
             'attributes' => $attributes,
             'categories' => $product->getCategories(),
+            'template_id' => $product->getTemplateId()->getValue(),
+            //@todo [legacy] remove after changes on frontend application
+            'design_template_id' => $product->getTemplateId()->getValue(),
             '_links' => [
                 'edit' => [
                     'href' =>  $this->router->generate(

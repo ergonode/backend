@@ -13,10 +13,13 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private ProductQueryInterface $productQuery;
 
     public function __construct(ProductQueryInterface $productQuery)
@@ -35,11 +38,10 @@ class ProductMultimediaRelationshipStrategy implements RelationshipStrategyInter
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, MultimediaId::class);
-        }
+        Assert::isInstanceOf($id, MultimediaId::class);
+
         $result = [];
 
         $list = $this->productQuery->getMultimediaRelation($id);
@@ -47,6 +49,6 @@ class ProductMultimediaRelationshipStrategy implements RelationshipStrategyInter
             $result[] = new ProductId($productId);
         }
 
-        return $result;
+        return new RelationshipGroup(self::MESSAGE, $result);
     }
 }

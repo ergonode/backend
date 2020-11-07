@@ -9,9 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\DependencyInjection;
 
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Channel\Application\Provider\ChannelFormFactoryInterface;
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\ChannelFormFactoryCompilerPass;
@@ -22,7 +24,7 @@ use Ergonode\Channel\Application\DependencyInjection\CompilerPass\CreateChannelC
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderInterface;
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\UpdateChannelCommandBuilderCompilerPass;
 
-class ErgonodeChannelExtension extends Extension
+class ErgonodeChannelExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * @param array $configs
@@ -53,5 +55,18 @@ class ErgonodeChannelExtension extends Extension
             ->addTag(UpdateChannelCommandBuilderCompilerPass::TAG);
 
         $loader->load('services.yml');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepend(ContainerBuilder $container): void
+    {
+        if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            return;
+        }
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('nelmio_api_doc.yaml');
     }
 }

@@ -40,6 +40,13 @@ class AttributeAutocompleteAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
+     *     name="type",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     description="filtered type"
+     * )
+     * @SWG\Parameter(
      *     name="search",
      *     in="query",
      *     required=false,
@@ -76,11 +83,12 @@ class AttributeAutocompleteAction
     public function __invoke(Language $language, Request $request): Response
     {
         $search = $request->query->get('search');
+        $type = $request->query->get('type');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
         $order = $request->query->get('order');
 
-        $data = $this->attributeQuery->autocomplete($language, $search, $limit, $field, $order);
+        $data = $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $order);
 
         return new SuccessResponse($data);
     }

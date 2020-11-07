@@ -12,7 +12,6 @@ use Ergonode\Workflow\Infrastructure\Handler\Workflow\DeleteWorkflowCommandHandl
 use PHPUnit\Framework\TestCase;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 
@@ -27,14 +26,11 @@ class DeleteWorkflowCommandHandlerTest extends TestCase
 
         $workflow = $this->createMock(Workflow::class);
 
-        $relations = $this->createMock(RelationshipCollection::class);
-        $relations->method('isEmpty')->willReturn(true);
 
         $repository = $this->createMock(WorkflowRepositoryInterface::class);
         $repository->expects(self::once())->method('delete');
         $repository->expects(self::once())->method('load')->willReturn($workflow);
         $resolver = $this->createMock(RelationshipsResolverInterface::class);
-        $resolver->method('resolve')->willReturn($relations);
 
         $handler = new DeleteWorkflowCommandHandler($repository, $resolver);
         $handler->__invoke($command);

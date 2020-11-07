@@ -13,11 +13,14 @@ use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private TransitionQueryInterface $query;
 
     private WorkflowProvider $provider;
@@ -37,23 +40,20 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
     }
 
     /**
-     * @return array
-     *
      * @throws \Exception
      */
-    public function getRelationships(AggregateId $statusId): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($statusId)) {
-            throw new UnexpectedTypeException($statusId, StatusId::class);
-        }
+        Assert::isInstanceOf($id, StatusId::class);
 
         $workflow = $this->provider->provide();
         $workflowId = $workflow->getId();
 
-        if ($this->query->hasStatus($workflowId, $statusId)) {
-            return [$workflowId];
+        $result = [];
+        if ($this->query->hasStatus($workflowId, $id)) {
+            $result[] = $workflowId;
         }
 
-        return [];
+        return new RelationshipGroup(self::MESSAGE, $result);
     }
 }

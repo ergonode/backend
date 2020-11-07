@@ -57,3 +57,18 @@ services:
             - ['set', ['PRICE','Ergonode\Attribute\Application\Form\Attribute\Configuration\PriceAttributeConfigurationForm']]
             - ['set', ['DATE','Ergonode\Attribute\Application\Form\Attribute\Configuration\DateAttributeConfigurationForm']]
             - ['set', ['UNIT','Ergonode\Attribute\Application\Form\Attribute\Configuration\UnitAttributeConfigurationForm']]
+
+    Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper:
+        arguments:
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\NumericAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\SelectAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\MultiSelectAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\PriceAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\UnitAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\TextAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\TextareaAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\GalleryAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\FileAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\ImageAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\DateAttributeMapperStrategy'
+            - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\StatusAttributeMapperStrategy'

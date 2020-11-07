@@ -57,3 +57,6 @@ framework:
             'Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand': export
             'Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand': export
             'Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand': export
+            'Ergonode\ExporterShopware6\Domain\Command\Export\CustomFieldShopware6ExportCommand': export
+            'Ergonode\ExporterShopware6\Domain\Command\Export\CategoryShopware6ExportCommand': export
+            'Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand': export

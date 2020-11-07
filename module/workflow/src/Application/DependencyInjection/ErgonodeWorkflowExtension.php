@@ -9,16 +9,18 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\DependencyInjection;
 
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Workflow\Application\Form\Workflow\WorkflowFormInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\CreateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
 
-class ErgonodeWorkflowExtension extends Extension
+class ErgonodeWorkflowExtension extends Extension implements PrependExtensionInterface
 {
 
     public const CONDITION_GROUP_NAME = 'workflow';
@@ -58,5 +60,19 @@ class ErgonodeWorkflowExtension extends Extension
         $processedConfig = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter(self::CONDITION_PARAMETER_NAME, $processedConfig['conditions']);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepend(ContainerBuilder $container): void
+    {
+        if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
+            return;
+        }
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('nelmio_api_doc.yaml');
     }
 }

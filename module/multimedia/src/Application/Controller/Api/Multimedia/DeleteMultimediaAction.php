@@ -76,7 +76,7 @@ class DeleteMultimediaAction
     public function __invoke(Multimedia $multimedia): Response
     {
         $relationships = $this->relationshipsResolver->resolve($multimedia->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

@@ -96,7 +96,7 @@ class OptionDeleteAction
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {
         $relations = $this->relationshipsResolver->resolve($option->getId());
-        if (!$relations->isEmpty()) {
+        if (null !== $relations) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
         $command = new DeleteOptionCommand($option->getId(), $attribute->getId());
