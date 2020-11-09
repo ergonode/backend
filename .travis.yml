@@ -5,6 +5,7 @@ php:
 before_install:
   - pecl channel-update pecl.php.net
   - yes | pecl install imagick
+  - composer self-update 1.10.17
 
 install:
   - composer install

@@ -32,10 +32,10 @@ class Relationship implements \Iterator, \Countable
 
     public function add(RelationshipGroup $group): void
     {
-            $this->collection[$group->getGroup()] = $group;
+        $this->collection[] = $group;
     }
 
-    public function get(string $key): AggregateId
+    public function get(string $key): RelationshipGroup
     {
         return $this->collection[$key];
     }
@@ -73,7 +73,7 @@ class Relationship implements \Iterator, \Countable
 
     public function valid(): bool
     {
-        return $this->current() instanceof AggregateId;
+        return $this->current() instanceof RelationshipGroup;
     }
 
     public function count(): int
