@@ -63,7 +63,13 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
             $productId = new ProductId($product);
             $domainProduct = $this->productRepository->load($productId);
             if (!$domainProduct instanceof  VariableProduct) {
-                throw new \LogicException('Object of wrong class');
+                throw new \LogicException(
+                    sprintf(
+                        'Expected an instance of %s. %s received.',
+                        VariableProduct::class,
+                        get_debug_type($domainProduct)
+                    )
+                );
             }
             $bindings = $domainProduct->getBindings();
             $attribute = array_unique(array_merge($attribute, $bindings));

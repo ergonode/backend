@@ -103,7 +103,13 @@ class VariableProductImportAction
             $product = $this->productRepository->load($productId);
         }
         if (!$product instanceof VariableProduct) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    VariableProduct::class,
+                    get_debug_type($product)
+                )
+            );
         }
         $product->changeTemplate($templateId);
         $product->changeCategories($categories);

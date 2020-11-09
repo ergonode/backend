@@ -30,7 +30,13 @@ class DateConverterMapper implements ConverterMapperInterface
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
         if (!$converter instanceof DateConverter) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    DateConverter::class,
+                    get_debug_type($converter)
+                )
+            );
         }
         $field = $converter->getField();
 

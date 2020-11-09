@@ -39,7 +39,13 @@ class AttributeExistsConditionCalculatorStrategy implements ConditionCalculatorS
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         if (!$configuration instanceof AttributeExistsCondition) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    AttributeExistsCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
         }
         $attributeId = $configuration->getAttribute();
         $attribute = $this->repository->load($attributeId);

@@ -32,7 +32,13 @@ class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandH
         $attribute = $this->attributeRepository->load($command->getId());
 
         if (!$attribute instanceof PriceAttribute) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    PriceAttribute::class,
+                    get_debug_type($attribute)
+                )
+            );
         }
         $this->update($command, $attribute);
         $attribute->changeCurrency($command->getCurrency());

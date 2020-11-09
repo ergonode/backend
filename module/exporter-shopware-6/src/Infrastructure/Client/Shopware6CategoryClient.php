@@ -56,7 +56,13 @@ class Shopware6CategoryClient
         $newShopwareCategory = $this->connector->execute($channel, $action);
 
         if (!$newShopwareCategory instanceof Shopware6Category) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    Shopware6Category::class,
+                    get_debug_type($newShopwareCategory)
+                )
+            );
         }
         $this->repository->save(
             $channel->getId(),

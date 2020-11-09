@@ -59,7 +59,13 @@ class Shopware6PropertyGroupOptionClient
         $shopwarePropertyGroupOptions = $this->connector->execute($channel, $action);
 
         if (!$shopwarePropertyGroupOptions instanceof Shopware6PropertyGroupOption) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    Shopware6PropertyGroupOption::class,
+                    get_debug_type($shopwarePropertyGroupOptions)
+                )
+            );
         }
         $this->propertyGroupOptionsRepository->save(
             $channel->getId(),

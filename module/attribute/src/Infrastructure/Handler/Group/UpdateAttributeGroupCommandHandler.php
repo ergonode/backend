@@ -30,7 +30,13 @@ class UpdateAttributeGroupCommandHandler
         $attributeGroup = $this->repository->load($command->getId());
         Assert::notNull($attributeGroup);
         if (!$attributeGroup instanceof AttributeGroup) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    AttributeGroup::class,
+                    get_debug_type($attributeGroup)
+                )
+            );
         }
 
         $attributeGroup->changeName($command->getName());

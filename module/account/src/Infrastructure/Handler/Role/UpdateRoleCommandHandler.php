@@ -30,7 +30,13 @@ class UpdateRoleCommandHandler
         $role = $this->repository->load($command->getId());
 
         if (!$role instanceof Role) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    Role::class,
+                    get_debug_type($role)
+                )
+            );
         }
         $role->changeName($command->getName());
         $role->changeDescription($command->getDescription());

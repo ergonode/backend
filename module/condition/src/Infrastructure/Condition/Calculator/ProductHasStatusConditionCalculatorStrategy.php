@@ -34,7 +34,13 @@ class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculator
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {
         if (!$configuration instanceof ProductHasStatusCondition) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductHasStatusCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
         }
         $statusAttributeCode = new AttributeCode(StatusSystemAttribute::CODE);
 

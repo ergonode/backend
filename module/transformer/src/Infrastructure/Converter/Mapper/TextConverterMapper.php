@@ -26,7 +26,13 @@ class TextConverterMapper implements ConverterMapperInterface
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
         if (!$converter instanceof TextConverter) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    TextConverter::class,
+                    get_debug_type($converter)
+                )
+            );
         }
         $field = $converter->getField();
         $value = $line[$field];

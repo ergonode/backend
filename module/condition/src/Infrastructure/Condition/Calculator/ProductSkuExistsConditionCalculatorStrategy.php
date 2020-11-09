@@ -30,7 +30,13 @@ class ProductSkuExistsConditionCalculatorStrategy implements ConditionCalculator
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         if (!$configuration instanceof ProductSkuExistsCondition) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductSkuExistsCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
         }
         $operator = $configuration->getOperator();
         $pattern = $value = strtolower($configuration->getValue());

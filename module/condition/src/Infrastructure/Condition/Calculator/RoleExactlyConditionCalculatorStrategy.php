@@ -48,7 +48,13 @@ class RoleExactlyConditionCalculatorStrategy implements ConditionCalculatorStrat
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         if (!$configuration instanceof RoleExactlyCondition) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    RoleExactlyCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
         }
         $role = $this->roleRepository->load($configuration->getRole());
         Assert::notNull($role);

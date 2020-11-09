@@ -32,7 +32,13 @@ class UpdateTextareaAttributeCommandHandler extends AbstractUpdateAttributeComma
         $attribute = $this->attributeRepository->load($command->getId());
 
         if (!$attribute instanceof TextareaAttribute) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    TextareaAttribute::class,
+                    get_debug_type($attribute)
+                )
+            );
         }
         $this->update($command, $attribute);
         $attribute->changeRichEdit($command->isRichEdit());

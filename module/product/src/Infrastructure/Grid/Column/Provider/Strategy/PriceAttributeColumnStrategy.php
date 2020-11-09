@@ -32,7 +32,13 @@ class PriceAttributeColumnStrategy implements AttributeColumnStrategyInterface
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         if (!$attribute instanceof PriceAttribute) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    PriceAttribute::class,
+                    get_debug_type($attribute)
+                )
+            );
         }
         $columnKey = $attribute->getCode()->getValue();
         $columnFilter = new NumericFilter();

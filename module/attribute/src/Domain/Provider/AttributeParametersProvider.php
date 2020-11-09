@@ -36,7 +36,13 @@ class AttributeParametersProvider
         if (isset($parameters['unit'])) {
             $unit = $this->unitRepository->load(new UnitId($parameters['unit']));
             if (!$unit instanceof Unit) {
-                throw new \LogicException('Object of wrong class');
+                throw new \LogicException(
+                    sprintf(
+                        'Expected an instance of %s. %s received.',
+                        Unit::class,
+                        get_debug_type($unit)
+                    )
+                );
             }
             $parameters['unit'] = $unit->getSymbol();
         }

@@ -49,7 +49,13 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
         TemplateElementPropertyInterface $properties
     ): ?CompletenessCalculatorLine {
         if (!$properties instanceof AttributeTemplateElementProperty) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    AttributeTemplateElementProperty::class,
+                    get_debug_type($properties)
+                )
+            );
         }
         $attribute = $this->repository->load($properties->getAttributeId());
         Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $properties->getAttributeId()->getValue()));

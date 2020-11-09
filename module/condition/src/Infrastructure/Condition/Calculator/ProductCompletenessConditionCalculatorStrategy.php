@@ -46,7 +46,13 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         if (!$configuration instanceof ProductCompletenessCondition) {
-            throw new \LogicException('Object of wrong class');
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductCompletenessCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
         }
         $result = true;
 
