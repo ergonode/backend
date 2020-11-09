@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateDateAttributeComman
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
-use Webmozart\Assert\Assert;
 
 class UpdateDateAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
@@ -31,12 +30,11 @@ class UpdateDateAttributeCommandHandler extends AbstractUpdateAttributeCommandHa
     {
         /** @var DateAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
-        Assert::isInstanceOf($attribute, DateAttribute::class);
-        $attribute = $this->update($command, $attribute);
 
         if (!$attribute instanceof DateAttribute) {
             throw new \LogicException('Object of wrong class');
         }
+        $this->update($command, $attribute);
         $attribute->changeFormat($command->getFormat());
 
         $this->attributeRepository->save($attribute);
