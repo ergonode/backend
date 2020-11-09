@@ -39,7 +39,7 @@ class DeleteRoleCommandHandler
         Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find role with ID "%s"', $command->getId()));
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
 

@@ -14,7 +14,6 @@ use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 
 class DeleteStatusCommandHandlerTest extends TestCase
 {
@@ -27,14 +26,10 @@ class DeleteStatusCommandHandlerTest extends TestCase
 
         $status = $this->createMock(Status::class);
 
-        $relations = $this->createMock(RelationshipCollection::class);
-        $relations->method('isEmpty')->willReturn(true);
-
         $repository = $this->createMock(StatusRepositoryInterface::class);
         $repository->expects(self::once())->method('delete');
         $repository->expects(self::once())->method('load')->willReturn($status);
         $resolver = $this->createMock(RelationshipsResolverInterface::class);
-        $resolver->method('resolve')->willReturn($relations);
 
         $handler = new DeleteStatusCommandHandler($repository, $resolver);
         $handler->__invoke($command);

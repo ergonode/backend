@@ -12,10 +12,13 @@ use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductDraftAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private DraftQueryInterface $query;
 
     public function __construct(DraftQueryInterface $query)
@@ -34,12 +37,10 @@ class ProductDraftAttributeRelationshipStrategy implements RelationshipStrategyI
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, AttributeId::class);
-        }
+        Assert::isInstanceOf($id, AttributeId::class);
 
-        return $this->query->getNotAppliedWithAttribute($id);
+        return new RelationshipGroup(self::MESSAGE, $this->query->getNotAppliedWithAttribute($id));
     }
 }

@@ -1,26 +1,26 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\BatchAction\Domain\ValueObject;
+namespace Ergonode\Account\Domain\ValueObject;
 
-class BatchActionAction
+class ResetToken
 {
-    public const MAX_LENGTH = 20;
+    public const MAX_LENGTH = 255;
 
     private string $value;
 
     public function __construct(string $value)
     {
-        $this->value = strtolower(trim($value));
-
-        if (!self::isValid($this->value)) {
-            throw new \InvalidArgumentException(\sprintf('Value "%s" is not valid batch action', $value));
+        if (!self::isValid($value)) {
+            throw new \InvalidArgumentException('Value is not token');
         }
+
+        $this->value = $value;
     }
 
     public function getValue(): string
@@ -30,7 +30,7 @@ class BatchActionAction
 
     public function __toString(): string
     {
-        return $this->value;
+        return $this->getValue();
     }
 
     public function isEqual(self $action): bool

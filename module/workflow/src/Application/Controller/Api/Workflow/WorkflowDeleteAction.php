@@ -81,7 +81,7 @@ class WorkflowDeleteAction
     public function __invoke(AbstractWorkflow $workflow): Response
     {
         $relationships = $this->relationshipsResolver->resolve($workflow->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

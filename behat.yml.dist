@@ -6,6 +6,7 @@ default:
                 - module/api/features
                 - module/attribute/features
                 - module/authentication/features
+                - module/batch-action/features
                 - module/category/features
                 - module/channel/features
                 - module/comment/features

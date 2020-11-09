@@ -1,0 +1,24 @@
+nelmio_api_doc:
+    documentation:
+        authentication_definitions:
+            credentials:
+                type: object
+                properties:
+                    username:
+                        type: string
+                        required: true
+                        description: username
+                        example: test@ergonode.com
+                    password:
+                        type: string
+                        required: true
+                        description: password
+                        example: abcd1234
+            authentication:
+                type: object
+                properties:
+                    token:
+                        type: string
+                        required: true
+                        description: JWT token
+                        example: eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6W10sInVzZXJuYW1lIjoidGVzdEBib2xkLm5ldC5wbCIsImlhdCI6MTUyODQ2MzAwOCwiZXhwIjoxNTI4NTQ5NDA4fQ

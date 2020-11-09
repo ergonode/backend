@@ -1,0 +1,68 @@
+nelmio_api_doc:
+    documentation:
+        core_definitions:
+            unit:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Unit name
+                        example: Metre
+                    symbol:
+                        type: string
+                        required: true
+                        description: Unit symbol
+                        example: m
+            languages_request:
+                type: object
+                properties:
+                    collection:
+                        type: array
+                        items:
+                            type: string
+                        description: Collection of languages
+                        example:
+                          [ pl_PL, en_GB ]
+            language_response:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        description: Language Id
+                        required: true
+                        example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
+                    code:
+                        type: string
+                        required: true
+                        description: Language code
+                        example: en_GB
+                    name:
+                        type: string
+                        required: true
+                        description: Language name
+                        example: English
+                    active:
+                        type: bool
+                        required: true
+                        description: Show if language is enabled in the system
+                        example: true
+            language_tree:
+                type: object
+                properties:
+                    languages:
+                        type: array
+                        items:
+                            $ref: "#/definitions/language_tree_node"
+            language_tree_node:
+                type: object
+                properties:
+                    language:
+                        type: string
+                        description: Language Code
+                        required: true
+                        example: en_GB
+                    children:
+                        type: array
+                        items:
+                            $ref: "#/definitions/language_tree_node"

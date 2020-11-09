@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Domain\Entity;
 
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionAction;
 
 class BatchAction
 {
@@ -17,13 +16,10 @@ class BatchAction
 
     private BatchActionType $type;
 
-    private BatchActionAction $action;
-
-    public function __construct(BatchActionId $id, BatchActionType $type, BatchActionAction $action)
+    public function __construct(BatchActionId $id, BatchActionType $type)
     {
         $this->id = $id;
         $this->type = $type;
-        $this->action = $action;
     }
 
     public function getId(): BatchActionId
@@ -34,10 +30,5 @@ class BatchAction
     public function getType(): BatchActionType
     {
         return $this->type;
-    }
-
-    public function getAction(): BatchActionAction
-    {
-        return $this->action;
     }
 }

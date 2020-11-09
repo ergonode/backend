@@ -13,10 +13,13 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class AttributeUnitRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private AttributeQueryInterface $query;
 
     public function __construct(AttributeQueryInterface $query)
@@ -35,12 +38,10 @@ class AttributeUnitRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, UnitId::class);
-        }
+        Assert::isInstanceOf($id, UnitId::class);
 
-        return $this->query->findAttributeIdsByUnitId($id);
+        return new RelationshipGroup(self::MESSAGE, $this->query->findAttributeIdsByUnitId($id));
     }
 }

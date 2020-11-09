@@ -29,8 +29,8 @@ class BatchActionTypeTest extends TestCase
     public function testInvalidCharactersValue(string $value): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $valueObject = new BatchActionType($value);
-        self::assertEquals($value, $valueObject->getValue());
+
+        new BatchActionType($value);
     }
 
     public function testObjectEqual(): void

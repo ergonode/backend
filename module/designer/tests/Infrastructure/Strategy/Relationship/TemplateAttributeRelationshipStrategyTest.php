@@ -39,11 +39,4 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
         $roleId = $this->createMock(AggregateId::class);
         $this->assertFalse($templateAttributeRelationshipStrategy->supports($roleId));
     }
-
-    public function testRelationships(): void
-    {
-        $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
-        $attributeId = $this->createMock(AttributeId::class);
-        $this->assertIsArray($templateAttributeRelationshipStrategy->getRelationships($attributeId));
-    }
 }

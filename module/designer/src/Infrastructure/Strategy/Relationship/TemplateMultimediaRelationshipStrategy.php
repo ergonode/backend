@@ -13,17 +13,19 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class TemplateMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private TemplateQueryInterface $templateQuery;
 
     public function __construct(TemplateQueryInterface $templateQuery)
     {
         $this->templateQuery = $templateQuery;
     }
-
 
     /**
      * {@inheritDoc}
@@ -36,11 +38,10 @@ class TemplateMultimediaRelationshipStrategy implements RelationshipStrategyInte
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, MultimediaId::class);
-        }
+        Assert::isInstanceOf($id, MultimediaId::class);
+
         $result = [];
 
         $list = $this->templateQuery->getMultimediaRelation($id);
@@ -48,6 +49,6 @@ class TemplateMultimediaRelationshipStrategy implements RelationshipStrategyInte
             $result[] = new TemplateId($templateId);
         }
 
-        return $result;
+        return new RelationshipGroup(self::MESSAGE, $result);
     }
 }

@@ -81,7 +81,7 @@ class ConditionSetDeleteAction
     public function __invoke(ConditionSet $conditionSet): Response
     {
         $relationships = $this->relationshipsResolver->resolve($conditionSet->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

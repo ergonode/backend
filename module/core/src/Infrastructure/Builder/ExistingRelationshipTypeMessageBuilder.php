@@ -9,8 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Builder;
 
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Core\Infrastructure\Model\Relationship;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMessageBuilderInterface
@@ -25,44 +24,17 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
     /**
      * {@inheritDoc}
      */
-    public function build(RelationshipCollection $relationshipCollection): string
+    public function build(Relationship $relationship): string
     {
-        $relationships = $this->groupByClass($relationshipCollection);
-        foreach ($relationships as &$relationship) {
-            $relationship = $this->convertClassToTranslation($relationship);
+        $messages = [];
+
+        foreach ($relationship as $group) {
+            $messages[] = $this->translator->trans(
+                $group->getMessage(),
+                ['%relations%' => implode(', ', $group->getRelations())]
+            );
         }
 
-        return $this->translator->trans(
-            'Element has active relationships with %relationships%',
-            ['%relationships%' => implode(', ', $relationships)]
-        );
-    }
-
-    /**
-     * @return array
-     */
-    private function groupByClass(RelationshipCollection $relationshipCollection): array
-    {
-        $classCollection = [];
-        /** @var AggregateId $item */
-        foreach ($relationshipCollection as $item) {
-            $class = get_class($item);
-            if (!in_array($class, $classCollection, true)) {
-                $classCollection[] = $class;
-            }
-        }
-
-        return $classCollection;
-    }
-
-    /**
-     * @todo This is evil! rprzedzik, we need to discuss it, because this very bad hax
-     */
-    private function convertClassToTranslation(string $class): string
-    {
-        $key = substr($class, strrpos($class, '\\') + 1, strlen($class));
-        $key = str_replace('Id', '', $key);
-
-        return $this->translator->trans(strtolower($key));
+        return implode(',', $messages);
     }
 }

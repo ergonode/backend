@@ -19,11 +19,13 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with %relations%';
+
     private ProductQueryInterface $query;
 
     private StatusRepositoryInterface $repository;
@@ -47,11 +49,9 @@ class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
      *
      * @throws \ReflectionException
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, StatusId::class);
-        }
+        Assert::isInstanceOf($id, StatusId::class);
 
         $status = $this->repository->load($id);
         Assert::notNull($status);
@@ -60,6 +60,8 @@ class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
         /** @var Uuid $valueId */
         $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$status->getCode()->getValue(), null]));
 
-        return $this->query->findProductIdByAttributeId($attributeId, $valueId);
+        $relations = $this->query->findProductIdByAttributeId($attributeId, $valueId);
+
+        return new RelationshipGroup(self::MESSAGE, $relations);
     }
 }

@@ -10,14 +10,14 @@ declare(strict_types=1);
 namespace Ergonode\Api\Application\Response;
 
 use Ergonode\Core\Domain\Entity\AbstractCode;
-use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\HttpFoundation\Response;
+use Ergonode\SharedKernel\Domain\AbstractId;
 
 class CreatedResponse extends AbstractResponse
 {
     public function __construct(object $data)
     {
-        if ($data instanceof AggregateId || $data instanceof AbstractCode) {
+        if ($data instanceof AbstractId || $data instanceof AbstractCode) {
             $data = ['id' => $data->getValue()];
         }
 

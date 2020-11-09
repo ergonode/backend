@@ -1,0 +1,99 @@
+nelmio_api_doc:
+    documentation:
+        workflow_definitions:
+            status:
+                type: object
+                properties:
+                    color:
+                        type: string
+                        requied: true
+                        description: Color in hexadecimal
+                        example: '#ff0000'
+                    code:
+                        type: string
+                        requied: true
+                        description: Unique status code
+                        example: 'in progress'
+                    name:
+                        $ref: "#/definitions/translation"
+                        example:
+                            pl_PL: Name PL
+                            en_GB: Name EN
+                    description:
+                        $ref: "#/definitions/translation"
+                        example:
+                            pl_PL: Description PL
+                            en_GB: Description EN
+            transition_create:
+                type: object
+                properties:
+                    source:
+                        type: string
+                        requied: true
+                        description: id of source status
+                        example: 9b0ceb29-26ac-4852-a602-6e5680a3a029
+                    destination:
+                        type: string
+                        requied: true
+                        description: id of destination status
+                        example: b54f1c5a-5891-4b74-a3c2-18c55af42070
+                    condition_set:
+                        type: string
+                        requied: false
+                        description: id of condition set
+                        example: 5f513032-c263-4d38-a4b6-a6b53b05735a
+                    roles:
+                        type: array
+                        items:
+                            type: string
+                            description: Collection of role Ids
+                            example:
+                                1143a5e9-11ec-5b47-b881-4099d5d066a2
+            transition_update:
+                type: object
+                properties:
+                    condition_set:
+                        type: string
+                        requied: false
+                        description: id of condition set
+                        example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    roles:
+                        type: array
+                        items:
+                            type: string
+                            description: Collection of role Ids
+                            example:
+                                1143a5e9-11ec-5b47-b881-4099d5d066a2
+            workflow:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Workflow unique code
+                        required: true
+                        example: Default
+                    statuses:
+                        type: array
+                        items:
+                            type: string
+                        description: list of related ids of statuses
+                        example: []
+                    transitions:
+                        type: array
+                        items:
+                            $ref: "#/definitions/transition"
+                            description: list of transisiotn between statuses
+                        example: []
+            translation:
+                type: object
+                properties:
+                    pl_PL:
+                        type: string
+                        required: false
+                        description: PL Translation
+                        example: Translated phase PL
+                    en_GB:
+                        type: string
+                        required: false
+                        description: EN Translation
+                        example: Translated phase EN

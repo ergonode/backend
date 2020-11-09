@@ -84,7 +84,7 @@ class ProductDeleteAction
     public function __invoke(AbstractProduct $product): Response
     {
         $relationships = $this->relationshipsResolver->resolve($product->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

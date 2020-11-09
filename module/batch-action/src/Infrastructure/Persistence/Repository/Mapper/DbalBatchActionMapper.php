@@ -12,7 +12,6 @@ namespace Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionAction;
 
 class DbalBatchActionMapper
 {
@@ -20,17 +19,15 @@ class DbalBatchActionMapper
     {
         return [
             'id' => $batchAction->getId(),
-            'resource_type' => $batchAction->getType()->getValue(),
-            'action' => $batchAction->getAction()->getValue(),
+            'type' => $batchAction->getType()->getValue(),
         ];
     }
 
     public function create(array $record): BatchAction
     {
         $id = new BatchActionId($record['id']);
-        $type = new BatchActionType($record['resource_type']);
-        $action = new BatchActionAction($record['action']);
+        $type = new BatchActionType($record['type']);
 
-        return new BatchAction($id, $type, $action);
+        return new BatchAction($id, $type);
     }
 }

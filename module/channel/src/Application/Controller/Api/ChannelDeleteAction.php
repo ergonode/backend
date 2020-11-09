@@ -88,7 +88,7 @@ class ChannelDeleteAction
     public function __invoke(AbstractChannel $channel): Response
     {
         $relationships = $this->relationshipsResolver->resolve($channel->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

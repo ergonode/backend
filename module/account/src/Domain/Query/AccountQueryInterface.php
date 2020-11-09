@@ -23,7 +23,7 @@ interface AccountQueryInterface
     public function getUser(UserId $userId): ?array;
 
     /**
-     * @return array
+     * @return UserId[]
      */
     public function findUserIdByRoleId(RoleId $roleId): array;
 }
