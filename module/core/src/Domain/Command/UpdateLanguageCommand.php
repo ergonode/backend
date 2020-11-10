@@ -10,11 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Core\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-class UpdateLanguageCommand implements DomainCommandInterface
+class UpdateLanguageCommand implements CoreCommandInterface
 {
     /**
      * @var array<Language>
