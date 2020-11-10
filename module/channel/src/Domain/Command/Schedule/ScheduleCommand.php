@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Command\Schedule;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 
-class ScheduleCommand implements DomainCommandInterface
+class ScheduleCommand implements ChannelCommandInterface
 {
     private \DateTime $date;
 
