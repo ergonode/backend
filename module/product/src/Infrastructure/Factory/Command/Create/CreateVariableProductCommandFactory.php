@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Factory\Command\Create;
 
+use Ergonode\Product\Domain\Command\Create\CreateProductCommandInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Application\Model\Product\VariableProductFormModel;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -28,7 +28,7 @@ class CreateVariableProductCommandFactory implements CreateProductCommandFactory
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface
+    public function create(FormInterface $form): CreateProductCommandInterface
     {
         /** @var VariableProductFormModel $data */
         $data = $form->getData();

@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Relations;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use JMS\Serializer\Annotation as JMS;
 
-class RemoveProductChildCommand implements DomainCommandInterface
+class RemoveProductChildCommand implements ProductCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

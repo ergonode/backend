@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Relations;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-class AddProductChildrenCommand implements DomainCommandInterface
+class AddProductChildrenCommand implements ProductCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

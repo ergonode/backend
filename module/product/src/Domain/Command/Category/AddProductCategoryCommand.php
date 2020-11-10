@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Category;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
-class AddProductCategoryCommand implements DomainCommandInterface
+class AddProductCategoryCommand implements ProductCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
