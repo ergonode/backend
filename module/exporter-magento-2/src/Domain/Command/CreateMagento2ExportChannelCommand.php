@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterMagento2\Domain\Command;
 
+use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use JMS\Serializer\Annotation as JMS;
 
-class CreateMagento2ExportChannelCommand implements DomainCommandInterface
+class CreateMagento2ExportChannelCommand implements CreateChannelCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")

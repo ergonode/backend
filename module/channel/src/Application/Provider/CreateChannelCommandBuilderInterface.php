@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Provider;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
 use Symfony\Component\Form\FormInterface;
 
 interface CreateChannelCommandBuilderInterface
 {
     public function supported(string $type): bool;
 
-    public function build(FormInterface $form): DomainCommandInterface;
+    public function build(FormInterface $form): CreateChannelCommandInterface;
 }
