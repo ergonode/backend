@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Command\Option;
 
+use Ergonode\Attribute\Domain\Command\AttributeCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-class DeleteOptionCommand implements DomainCommandInterface
+class DeleteOptionCommand implements AttributeCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")

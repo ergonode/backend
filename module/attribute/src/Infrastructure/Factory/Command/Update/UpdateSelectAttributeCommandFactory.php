@@ -10,11 +10,11 @@ namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateSelectAttributeCommand;
+use Ergonode\Attribute\Domain\Command\AttributeCommandInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
@@ -26,7 +26,7 @@ class UpdateSelectAttributeCommandFactory implements UpdateAttributeCommandFacto
         return $type === SelectAttribute::TYPE;
     }
 
-    public function create(AttributeId $id, FormInterface $form): DomainCommandInterface
+    public function create(AttributeId $id, FormInterface $form): AttributeCommandInterface
     {
         /** @var AttributeFormModel $data */
         $data = $form->getData();
