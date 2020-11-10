@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
+use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class ImportTemplateCommand implements DomainCommandInterface
+class ImportTemplateCommand implements ImporterCommandInterface
 {
     private ImportId $importId;
 

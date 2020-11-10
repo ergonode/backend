@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-class UploadFileCommand implements DomainCommandInterface
+class UploadFileCommand implements ImporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
