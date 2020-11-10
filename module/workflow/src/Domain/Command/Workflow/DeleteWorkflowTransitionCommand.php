@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-class DeleteWorkflowTransitionCommand implements DomainCommandInterface
+class DeleteWorkflowTransitionCommand implements WorkflowCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
