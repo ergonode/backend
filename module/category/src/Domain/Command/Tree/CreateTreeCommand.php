@@ -9,15 +9,15 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Domain\Command\Tree;
 
+use Ergonode\Category\Domain\Command\CategoryCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Application\Model\Tree\TreeNodeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class CreateTreeCommand implements DomainCommandInterface
+class CreateTreeCommand implements CategoryCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")

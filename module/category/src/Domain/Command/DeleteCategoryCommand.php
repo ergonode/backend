@@ -10,10 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Category\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteCategoryCommand implements DomainCommandInterface
+class DeleteCategoryCommand implements CategoryCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
