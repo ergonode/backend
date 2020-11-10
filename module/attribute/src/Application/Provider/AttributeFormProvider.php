@@ -17,9 +17,6 @@ class AttributeFormProvider
      */
     private array $forms;
 
-    /**
-     * @param array|AttributeFormInterface ...$forms
-     */
     public function __construct(AttributeFormInterface ...$forms)
     {
         $this->forms = $forms;

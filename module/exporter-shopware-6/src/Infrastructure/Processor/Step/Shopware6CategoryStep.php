@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
+use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -34,9 +35,9 @@ class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
     {
         $categoryTreeId = $channel->getCategoryTree();
         if ($categoryTreeId) {
+            /** @var CategoryTree $tree */
             $tree = $this->treeRepository->load($categoryTreeId);
             Assert::notNull($tree, sprintf('Tree %s not exists', $categoryTreeId));
-            /** @var $tree CategoryTree */
             foreach ($tree->getCategories() as $node) {
                 $this->buildStep($exportId, $node);
             }

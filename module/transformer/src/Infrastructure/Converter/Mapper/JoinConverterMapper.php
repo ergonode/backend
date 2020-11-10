@@ -30,6 +30,16 @@ class JoinConverterMapper implements ConverterMapperInterface
             $fields[sprintf('<%s>', $key)] = $value;
         }
 
+        if (!$converter instanceof JoinConverter) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    JoinConverter::class,
+                    get_debug_type($converter)
+                )
+            );
+        }
+
         return str_replace(array_keys($fields), $fields, $converter->getPattern());
     }
 }

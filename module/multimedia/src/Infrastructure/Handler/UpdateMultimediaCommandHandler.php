@@ -24,8 +24,6 @@ class UpdateMultimediaCommandHandler
     }
 
     /**
-     * @return mixed
-     *
      * @throws \Exception
      */
     public function __invoke(UpdateMultimediaCommand $command): void

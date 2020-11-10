@@ -25,6 +25,16 @@ class ConstConverterMapper implements ConverterMapperInterface
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
+        if (!$converter instanceof ConstConverter) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ConstConverter::class,
+                    get_debug_type($converter)
+                )
+            );
+        }
+
         return $converter->getValue();
     }
 }

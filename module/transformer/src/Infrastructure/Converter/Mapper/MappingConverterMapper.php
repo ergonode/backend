@@ -25,6 +25,15 @@ class MappingConverterMapper implements ConverterMapperInterface
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
+        if (!$converter instanceof MappingConverter) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    MappingConverter::class,
+                    get_debug_type($converter)
+                )
+            );
+        }
         $field = $converter->getField();
         $map = $converter->getMap();
         $value = $line[$field];

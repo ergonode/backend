@@ -29,6 +29,15 @@ class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculat
      */
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof ProductHasTemplateCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductHasTemplateCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
         $productTemplateId = $product->getTemplateId();
         $searchedTemplateId = $configuration->getTemplateId();
 

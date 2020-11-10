@@ -13,7 +13,6 @@ use Symfony\Component\Form\FormInterface;
 use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
-use Ergonode\ImporterMagento1\Application\Form\ImporterMagento1ConfigurationForm;
 use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
 use Ergonode\ImporterMagento1\Domain\Command\CreateMagento1CsvSourceCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -26,9 +25,6 @@ class Magento1CsvCreateSourceCommandBuilder implements CreateSourceCommandBuilde
     }
 
     /**
-     * @param FormInterface|ImporterMagento1ConfigurationForm $form
-     *
-     *
      * @throws \Exception
      */
     public function build(FormInterface $form): DomainCommandInterface

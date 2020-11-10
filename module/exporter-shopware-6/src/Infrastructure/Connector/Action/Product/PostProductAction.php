@@ -40,8 +40,6 @@ class PostProductAction extends AbstractAction implements ActionInterface
     }
 
     /**
-     * @return array|mixed|object|string|null
-     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?string

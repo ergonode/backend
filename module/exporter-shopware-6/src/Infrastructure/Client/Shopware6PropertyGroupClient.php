@@ -63,8 +63,17 @@ class Shopware6PropertyGroupClient
         AbstractAttribute $attribute
     ): ?Shopware6PropertyGroup {
         $action = new PostPropertyGroupAction($propertyGroup, true);
-
         $shopwarePropertyGroup = $this->connector->execute($channel, $action);
+
+        if (!$shopwarePropertyGroup instanceof Shopware6PropertyGroup) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    Shopware6PropertyGroup::class,
+                    get_debug_type($shopwarePropertyGroup)
+                )
+            );
+        }
         $this->repository->save(
             $channel->getId(),
             $attribute->getId(),

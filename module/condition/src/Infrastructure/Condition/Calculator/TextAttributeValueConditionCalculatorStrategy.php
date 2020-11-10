@@ -38,6 +38,15 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof TextAttributeValueCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    TextAttributeValueCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
         $attributeId = $configuration->getAttribute();
         $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);

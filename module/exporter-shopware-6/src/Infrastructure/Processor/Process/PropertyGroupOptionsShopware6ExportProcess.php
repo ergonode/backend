@@ -20,7 +20,6 @@ use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositor
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupOptionBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -150,9 +149,6 @@ class PropertyGroupOptionsShopware6ExportProcess
         );
     }
 
-    /**
-     * @return Shopware6PropertyGroup|null
-     */
     private function loadPropertyGroupOption(
         Shopware6Channel $channel,
         AttributeId $attributeId,
