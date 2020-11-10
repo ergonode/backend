@@ -84,7 +84,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                         $command = new ImportOptionCommand(
                             $import->getId(),
                             $attributeCode,
-                            new OptionKey($key),
+                            new OptionKey((string) $key),
                             $label
                         );
                         $this->commandBus->dispatch($command, true);
