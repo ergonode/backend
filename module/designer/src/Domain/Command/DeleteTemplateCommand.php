@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteTemplateCommand implements DomainCommandInterface
+class DeleteTemplateCommand implements TemplateCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
