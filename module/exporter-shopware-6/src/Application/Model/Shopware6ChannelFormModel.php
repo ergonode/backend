@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Application\Model;
 
@@ -41,10 +41,7 @@ class Shopware6ChannelFormModel
      */
     public ?string $clientKey = null;
 
-    /**
-     * @var string |null
-     */
-    public $segment = null;
+    public ?string $segment = null;
 
     /**
      * @Assert\NotBlank(),

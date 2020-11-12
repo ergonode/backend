@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Domain\Entity;
 
@@ -125,10 +125,7 @@ class AbstractCategoryTest extends TestCase
         $entity->removeAttribute($attributeCode);
     }
 
-    /**
-     * @return AbstractCategory
-     */
-    private function getClass()
+    private function getClass(): AbstractCategory
     {
         return new class(
             $this->id,

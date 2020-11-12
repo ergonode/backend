@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\SharedKernel\Infrastructure\JMS\Serializer\Handler;
 
@@ -57,13 +57,9 @@ class ImportIdHandler implements SubscribingHandlerInterface
         return $id->getValue();
     }
 
-    /**
-     * @param string $data
-     * @param array  $type
-     */
     public function deserialize(
         DeserializationVisitorInterface $visitor,
-        $data,
+        string $data,
         array $type,
         Context $context
     ): ImportId {

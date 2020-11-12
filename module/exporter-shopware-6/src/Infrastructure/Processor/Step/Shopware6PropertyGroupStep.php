@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
@@ -19,7 +19,6 @@ use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Webmozart\Assert\Assert;
 
 class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
 {
@@ -63,7 +62,15 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
         foreach ($products as $product) {
             $productId = new ProductId($product);
             $domainProduct = $this->productRepository->load($productId);
-            Assert::isInstanceOf($domainProduct, VariableProduct::class);
+            if (!$domainProduct instanceof  VariableProduct) {
+                throw new \LogicException(
+                    sprintf(
+                        'Expected an instance of %s. %s received.',
+                        VariableProduct::class,
+                        get_debug_type($domainProduct)
+                    )
+                );
+            }
             $bindings = $domainProduct->getBindings();
             $attribute = array_unique(array_merge($attribute, $bindings));
         }

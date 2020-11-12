@@ -5,16 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
-class UpdateProductCategoriesCommand implements DomainCommandInterface
+class UpdateProductCategoriesCommand implements ProductCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

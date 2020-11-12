@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
@@ -25,6 +25,15 @@ class SlugConverterMapper implements ConverterMapperInterface
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
+        if (!$converter instanceof SlugConverter) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    SlugConverter::class,
+                    get_debug_type($converter)
+                )
+            );
+        }
         $field = $converter->getField();
 
         if ($field && '' !== $field) {

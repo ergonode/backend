@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Tests\Domain\Command\Status;
 
@@ -22,7 +22,6 @@ class DeleteStatusCommandTest extends TestCase
     {
         /** @var StatusId $id */
         $id = $this->createMock(StatusId::class);
-        $code = 'Any code';
 
         $command = new DeleteStatusCommand($id);
         $this->assertSame($id, $command->getId());

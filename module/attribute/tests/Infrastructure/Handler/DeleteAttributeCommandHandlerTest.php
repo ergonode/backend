@@ -5,13 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler;
 
 use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\DeleteAttributeCommandHandler;
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -29,11 +29,6 @@ class DeleteAttributeCommandHandlerTest extends TestCase
     private $repository;
 
     /**
-     * @var AbstractAttribute|MockObject
-     */
-    private $attribute;
-
-    /**
      * @var RelationshipsResolver|MockObject
      */
     private $relationshipResolver;
@@ -42,9 +37,7 @@ class DeleteAttributeCommandHandlerTest extends TestCase
     {
         $this->command = $this->createMock(DeleteAttributeCommand::class);
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
-        $this->attribute = $this->createMock(AbstractAttribute::class);
         $this->relationshipResolver = $this->createMock(RelationshipsResolver::class);
-        $this->relationshipResolver->method('resolve')->willReturn(new RelationshipCollection());
     }
 
     public function testAttributeNotFound(): void

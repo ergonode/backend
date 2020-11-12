@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
@@ -31,6 +31,15 @@ class PriceAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
+        if (!$attribute instanceof PriceAttribute) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    PriceAttribute::class,
+                    get_debug_type($attribute)
+                )
+            );
+        }
         $columnKey = $attribute->getCode()->getValue();
         $columnFilter = new NumericFilter();
 

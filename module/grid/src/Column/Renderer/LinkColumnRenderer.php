@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Column\Renderer;
 
@@ -43,7 +43,7 @@ class LinkColumnRenderer implements ColumnRendererInterface
      */
     public function render(ColumnInterface $column, string $id, array $row): array
     {
-        if (!$this->supports($column)) {
+        if (!$column instanceof LinkColumn) {
             throw new UnsupportedColumnException($column);
         }
 
@@ -115,7 +115,7 @@ class LinkColumnRenderer implements ColumnRendererInterface
         if (!array_key_exists('parameters', $link)) {
             $link['parameters'] = [];
         } else {
-            foreach ($link['parameters'] as $key => &$field) {
+            foreach ($link['parameters'] as &$field) {
                 $field = str_replace($keys, $values, $field);
             }
         }

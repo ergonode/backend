@@ -5,17 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class CreateCategoryCommand implements DomainCommandInterface
+class CreateCategoryCommand implements CreateCategoryCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")

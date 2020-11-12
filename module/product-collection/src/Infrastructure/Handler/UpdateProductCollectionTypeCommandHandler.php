@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
@@ -26,7 +26,7 @@ class UpdateProductCollectionTypeCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateProductCollectionTypeCommand $command)
+    public function __invoke(UpdateProductCollectionTypeCommand $command): void
     {
         /** @var ProductCollectionType $productCollectionType */
         $productCollectionType = $this->repository->load($command->getId());

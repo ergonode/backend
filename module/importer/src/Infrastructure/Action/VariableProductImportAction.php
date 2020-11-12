@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
@@ -101,9 +101,16 @@ class VariableProductImportAction
             );
         } else {
             $product = $this->productRepository->load($productId);
-            Assert::isInstanceOf($product, VariableProduct::class);
         }
-
+        if (!$product instanceof VariableProduct) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    VariableProduct::class,
+                    get_debug_type($product)
+                )
+            );
+        }
         $product->changeTemplate($templateId);
         $product->changeCategories($categories);
         $product->changeAttributes($attributes);

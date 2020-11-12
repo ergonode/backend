@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\SharedKernel\Tests\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;

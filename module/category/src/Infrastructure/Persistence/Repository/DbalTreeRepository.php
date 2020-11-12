@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Persistence\Repository;
 
@@ -43,7 +43,7 @@ class DbalTreeRepository implements TreeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function exists(CategoryTreeId $id) : bool
+    public function exists(CategoryTreeId $id): bool
     {
         return $this->manager->exists($id);
     }

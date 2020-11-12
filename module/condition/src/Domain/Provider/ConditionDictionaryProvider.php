@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Domain\Provider;
 
@@ -70,7 +70,7 @@ class ConditionDictionaryProvider
     {
         $result = [];
         if (array_key_exists($group, $this->groups)) {
-            foreach ($this->groups[$group] as $type => $class) {
+            foreach (array_keys($this->groups[$group]) as $type) {
                 $result[$type] = $this->translator->trans($type, [], 'condition', $language->getCode());
             }
         }

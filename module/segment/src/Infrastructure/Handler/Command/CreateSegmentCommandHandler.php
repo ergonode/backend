@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
@@ -25,7 +25,7 @@ class CreateSegmentCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateSegmentCommand $command)
+    public function __invoke(CreateSegmentCommand $command): void
     {
         $segment = new Segment(
             $command->getId(),

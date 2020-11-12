@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Attribute\Update;
 
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
@@ -48,7 +50,7 @@ class UpdatePriceAttributeCommandHandlerTest extends TestCase
 
     public function testAttributeNotFound(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\LogicException::class);
         $this->repository->method('load')->willReturn(null);
 
         $handler = new UpdatePriceAttributeCommandHandler($this->repository);

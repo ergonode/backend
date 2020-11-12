@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
@@ -85,7 +85,7 @@ class AttributeDeleteAction
     public function __invoke(AbstractAttribute $attribute): Response
     {
         $relationships = $this->relationshipsResolver->resolve($attribute->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectionType;
 
@@ -88,7 +88,7 @@ class ProductCollectionTypeDeleteAction
     public function __invoke(ProductCollectionType $productCollectionType, Request $request): Response
     {
         $relations = $this->relationshipsResolver->resolve($productCollectionType->getId());
-        if (!$relations->isEmpty()) {
+        if (null !== $relations) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
         $command = new DeleteProductCollectionTypeCommand($productCollectionType->getId());

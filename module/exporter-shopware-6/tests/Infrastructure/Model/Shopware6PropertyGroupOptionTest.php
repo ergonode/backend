@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 
@@ -28,7 +28,7 @@ class Shopware6PropertyGroupOptionTest extends TestCase
         $this->mediaId = 'any_media_id';
         $this->position = 0;
     }
-    public function testCreateModel()
+    public function testCreateModel(): void
     {
         $model = new Shopware6PropertyGroupOption($this->id, $this->name, $this->mediaId, $this->position);
 
@@ -40,7 +40,7 @@ class Shopware6PropertyGroupOptionTest extends TestCase
         $this->assertNotTrue($model->isModified());
     }
 
-    public function testSetModel()
+    public function testSetModel(): void
     {
         $model = new Shopware6PropertyGroupOption();
 

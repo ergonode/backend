@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Handler;
 
@@ -16,7 +16,7 @@ use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class UpdateFileExportChannelCommandHandlerTest extends TestCase
 {
-    public function testHandling():void
+    public function testHandling(): void
     {
         $channel = $this->createMock(FileExportChannel::class);
         $channel->expects(self::once())->method('setName');

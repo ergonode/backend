@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
@@ -88,7 +88,7 @@ class SourceDeleteAction
     public function __invoke(AbstractSource $source): Response
     {
         $relationships = $this->relationshipsResolver->resolve($source->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

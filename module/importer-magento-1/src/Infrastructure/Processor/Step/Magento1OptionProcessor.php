@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
@@ -12,15 +12,14 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 {
@@ -39,11 +38,14 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
         $this->options = [];
     }
 
+    /**
+     * @param AbstractAttribute[] $attributes
+     */
     public function process(
         Import $import,
         ProductModel $product,
-        Transformer $transformer,
-        Magento1CsvSource $source
+        Magento1CsvSource $source,
+        array $attributes
     ): void {
         $columns = [];
 
@@ -52,7 +54,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                 $columns[$key][] = $item;
             }
         }
-        foreach ($source->getLanguages() as $store => $language) {
+        foreach (array_keys($source->getLanguages()) as $store) {
             if ($product->has($store)) {
                 foreach ($product->get($store) as $key => $item) {
                     if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
@@ -66,14 +68,14 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
             $columns[$key] = array_unique($array);
         }
 
-        foreach ($transformer->getAttributes() as $field => $converter) {
-            $type = $transformer->getAttributeType($field);
+        foreach ($attributes as $attribute) {
+            $type = $attribute->getType();
             if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
-                $attributeCode = new AttributeCode($field);
-                if (!array_key_exists($field, $columns)) {
-                    $columns[$field] = [];
+                $attributeCode = $attribute->getCode();
+                if (!array_key_exists($attributeCode->getValue(), $columns)) {
+                    $columns[$attributeCode->getValue()] = [];
                 }
-                $options = $this->getOptions($columns[$field]);
+                $options = $this->getOptions($columns[$attributeCode->getValue()]);
                 foreach ($options as $key => $option) {
                     $uuid = Uuid::uuid5(self::NAMESPACE, sprintf('%s/%s', $attributeCode->getValue(), $key));
                     if (!array_key_exists($uuid->toString(), $this->options)) {
@@ -82,11 +84,11 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                         $command = new ImportOptionCommand(
                             $import->getId(),
                             $attributeCode,
-                            new OptionKey($key),
+                            new OptionKey((string) $key),
                             $label
                         );
                         $this->commandBus->dispatch($command, true);
-
+                        $import->addRecords(1);
                         $this->options[$uuid->toString()] = $uuid;
                     }
                 }

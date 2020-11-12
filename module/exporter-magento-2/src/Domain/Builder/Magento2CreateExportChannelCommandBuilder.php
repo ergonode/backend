@@ -4,11 +4,11 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterMagento2\Domain\Builder;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
 use Ergonode\ExporterMagento2\Application\Form\Model\ExporterMagento2CsvConfigurationModel;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Channel\Application\Provider\CreateChannelCommandBuilderInterface;
@@ -26,7 +26,7 @@ class Magento2CreateExportChannelCommandBuilder implements CreateChannelCommandB
     /**
      * @throws \Exception
      */
-    public function build(FormInterface $form): DomainCommandInterface
+    public function build(FormInterface $form): CreateChannelCommandInterface
     {
         /** @var ExporterMagento2CsvConfigurationModel $data */
         $data = $form->getData();

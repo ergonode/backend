@@ -1,3 +1,18 @@
+## CHANGELOG FOR 1.0.0-beta.3
+- feature [#902](https://github.com/ergonode/backend/issues/882)  Batch product remove action(rprzedzik)
+- feature #913 Moved Nelmio configuration to appropriate modules (piotrkreft)
+- bugfix #900 Fixing template field in grid of associated products (wiewiurdp)
+- bugfix #895 calculate completeness strategy (wfajczyk)
+- bugfix export shopware6 multimedia and unit mapper (wfajczyk)
+  
+## CHANGELOG FOR 1.0.0-beta.2
+- feature [#882](https://github.com/ergonode/backend/issues/882) Adding JWT refresh (wfajczyk)
+- feature change static check code(piotrkreft)
+- feature #885 Add translated import error mesages (rprzedzik)
+- bug #866 Changing endcoding for user password(wiewiurdp)
+- bugfix #887 import process (rprzedzik)
+- configuration #855 Extend JSONContext to work with modules(rprzedzik)
+
 ## CHANGELOG FOR 1.0.0-beta
 - feature [#803](https://github.com/ergonode/backend/issues/688) Multilingual workflow (rprzedzik) (wiewiurdp) (wfajczyk)
 - refactor [#776](https://github.com/ergonode/backend/issues/775) Moved persistence directory into infrastructure (BastekBielawski)
@@ -8,8 +23,8 @@
 - feature [#688](https://github.com/ergonode/backend/issues/688) Cyclical launch of exports per channel (rprzedzik)
 - feature #758 Add mailer module (BastekBielawski)
 - feature #765 Serializing dates using ISO8601 standard (piotrkreft)
-- feature #747 Introduced mutation testing (#747)(piotrkreft)
-- feature #748 Formatted behat output with progress (#748)(piotrkreft)
+- feature #747 Introduced mutation testing (piotrkreft)
+- feature #748 Formatted behat output with progress (piotrkreft)
 - feature #757 Adding role name unique validation (wiewiurdp)
 - feature #755 Adding behat test for textarea attribute (wiewiurdp)
 - feature #761 Fixed Phing PHPUnit targets (piotrkreft) 

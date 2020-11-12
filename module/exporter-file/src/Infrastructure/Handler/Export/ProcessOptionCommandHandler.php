@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
@@ -54,12 +54,12 @@ class ProcessOptionCommandHandler
     /**
      * @throws ExportException
      */
-    public function __invoke(ProcessOptionCommand $command)
+    public function __invoke(ProcessOptionCommand $command): void
     {
-        /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
+        /** @var FileExportChannel $channel */
         Assert::isInstanceOf($channel, FileExportChannel::class);
         $option = $this->optionRepository->load($command->getOptionId());
         Assert::isInstanceOf($option, AbstractOption::class);

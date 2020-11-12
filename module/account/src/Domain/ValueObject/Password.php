@@ -5,14 +5,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\ValueObject;
 
 class Password
 {
     public const MIN_LENGTH = 6;
-    public const MAX_LENGTH = 32;
+    public const MAX_LENGTH = 62;
 
     private string $value;
 

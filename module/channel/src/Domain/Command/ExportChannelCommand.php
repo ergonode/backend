@@ -4,16 +4,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 
-class ExportChannelCommand implements DomainCommandInterface
+class ExportChannelCommand implements ChannelCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")

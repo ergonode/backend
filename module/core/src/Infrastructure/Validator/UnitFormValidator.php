@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Validator;
 
@@ -26,8 +26,7 @@ class UnitFormValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed               $value
-     * @param UnitForm|Constraint $constraint
+     * {@inheritDoc}
      *
      * @throws \Exception
      */
@@ -44,10 +43,7 @@ class UnitFormValidator extends ConstraintValidator
         $this->validateSymbol($value, $constraint);
     }
 
-    /**
-     * @param $value
-     */
-    private function validateName($value, Constraint $constraint)
+    private function validateName(UnitFormModel $value, UnitForm $constraint): void
     {
         if (!isset($value->name) || null === $value->name) {
             $this->context->buildViolation($constraint->emptyNameMessage)
@@ -65,10 +61,7 @@ class UnitFormValidator extends ConstraintValidator
         }
     }
 
-    /**
-     * @param $value
-     */
-    private function validateSymbol($value, Constraint $constraint)
+    private function validateSymbol(UnitFormModel $value, UnitForm $constraint): void
     {
         if (!isset($value->symbol) || null === $value->symbol) {
             $this->context->buildViolation($constraint->emptySymbolMessage)

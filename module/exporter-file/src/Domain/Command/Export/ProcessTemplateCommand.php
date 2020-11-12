@@ -4,16 +4,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Domain\Command\Export;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-class ProcessTemplateCommand implements DomainCommandInterface
+class ProcessTemplateCommand implements ExporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")

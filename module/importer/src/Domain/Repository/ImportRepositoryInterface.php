@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Importer\Domain\Repository;
 
 use Ergonode\Importer\Domain\Entity\Import;
@@ -23,5 +25,8 @@ interface ImportRepositoryInterface
 
     public function delete(Import $import): void;
 
-    public function addError(ImportId $importId, string $message): void;
+    /**
+     * @param string[] $parameters
+     */
+    public function addError(ImportId $importId, string $message, array $parameters = []): void;
 }

@@ -5,18 +5,18 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand;
+use Ergonode\Attribute\Domain\Command\Attribute\CreateAttributeCommandInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
@@ -30,7 +30,7 @@ class CreateGalleryAttributeCommandFactory implements CreateAttributeCommandFact
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface
+    public function create(FormInterface $form): CreateAttributeCommandInterface
     {
         /** @var AttributeFormModel $data */
         $data = $form->getData();

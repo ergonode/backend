@@ -5,14 +5,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Resolver;
 
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
+use Ergonode\Core\Infrastructure\Model\Relationship;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
 interface RelationshipsResolverInterface
 {
-    public function resolve(AggregateId $id): RelationshipCollection;
+    public function resolve(AggregateId $id): ?Relationship;
 }

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product;
 
@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver\ImportProductAttributeStrategyInterface;
+use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductAttributeStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
 class ImportProductAttributeBuilder
@@ -62,9 +62,6 @@ class ImportProductAttributeBuilder
         return $result;
     }
 
-    /**
-     * @param $value
-     */
     public function buildDefault(TranslatableString $value): TranslatableStringValue
     {
         $translation = [];

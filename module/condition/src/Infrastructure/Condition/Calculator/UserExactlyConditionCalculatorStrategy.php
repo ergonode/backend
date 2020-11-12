@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
@@ -47,6 +47,15 @@ class UserExactlyConditionCalculatorStrategy implements ConditionCalculatorStrat
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof UserExactlyCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    UserExactlyCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
         $user = $this->userRepository->load($configuration->getUser());
         Assert::notNull($user);
 

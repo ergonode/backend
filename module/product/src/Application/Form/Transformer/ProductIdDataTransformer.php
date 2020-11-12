@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Form\Transformer;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class ProductIdDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param ProductId|null $value
+     * {@inheritDoc}
      */
     public function transform($value): ?string
     {
@@ -31,6 +31,8 @@ class ProductIdDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param string|null $value
      */
     public function reverseTransform($value): ?ProductId

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
@@ -32,7 +32,7 @@ class ImportCategoryCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportCategoryCommand $command)
+    public function __invoke(ImportCategoryCommand $command): void
     {
         try {
             $this->action->action(
@@ -40,10 +40,10 @@ class ImportCategoryCommandHandler
                 $command->getName(),
             );
         } catch (ImportException $exception) {
-            $this->repository->addError($command->getImportId(), $exception->getMessage());
+            $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = sprintf('Can\'t import category product %s', $command->getName());
-            $this->repository->addError($command->getImportId(), $message);
+            $message = 'Can\'t import category product {name}';
+            $this->repository->addError($command->getImportId(), $message, ['{name}' => $command->getName()]);
             $this->logger->error($exception);
         }
     }

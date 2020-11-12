@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
@@ -28,7 +28,7 @@ class CreateProductCollectionCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateProductCollectionCommand $command)
+    public function __invoke(CreateProductCollectionCommand $command): void
     {
         $productCollection = $this->factory->create(
             $command->getId(),

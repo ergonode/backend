@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Grid\Column\Renderer;
 
@@ -42,7 +42,7 @@ class LogColumnRenderer implements ColumnRendererInterface
      */
     public function render(ColumnInterface $column, string $id, array $row): string
     {
-        if (!$this->supports($column)) {
+        if (!$column instanceof LogColumn) {
             throw new UnsupportedColumnException($column);
         }
 

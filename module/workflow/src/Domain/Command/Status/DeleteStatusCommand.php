@@ -5,15 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Command\Status;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteStatusCommand implements DomainCommandInterface
+class DeleteStatusCommand implements WorkflowCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")

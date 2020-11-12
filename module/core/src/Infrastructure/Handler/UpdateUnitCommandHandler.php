@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Handler;
 
@@ -26,7 +26,7 @@ class UpdateUnitCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateUnitCommand $command)
+    public function __invoke(UpdateUnitCommand $command): void
     {
         /** @var Unit $unit */
         $unit = $this->repository->load($command->getId());

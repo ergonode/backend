@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator;
 
@@ -141,10 +141,11 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function autocomplete(
         Language $language,
         string $search = null,
+        string $type = null,
         int $limit = null,
         string $field = null,
         ?string $order = 'ASC'
     ): array {
-        return $this->attributeQuery->autocomplete($language, $search, $limit, $field, $order);
+        return $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $order);
     }
 }

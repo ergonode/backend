@@ -4,12 +4,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Factory\Command;
 
+use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommandInterface;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 interface CreateWorkflowCommandFactoryInterface
 {
@@ -18,5 +18,5 @@ interface CreateWorkflowCommandFactoryInterface
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface;
+    public function create(FormInterface $form): CreateWorkflowCommandInterface;
 }

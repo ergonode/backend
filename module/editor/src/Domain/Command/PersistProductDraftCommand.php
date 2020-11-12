@@ -5,15 +5,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class PersistProductDraftCommand implements DomainCommandInterface
+class PersistProductDraftCommand implements EditorCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Handler;
 
@@ -44,7 +44,7 @@ class DeleteUnitCommandHandler
         );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
 

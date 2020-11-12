@@ -5,18 +5,18 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
+use Ergonode\Account\Domain\Command\AccountCommandInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-class CreateUserCommand implements DomainCommandInterface
+class CreateUserCommand implements AccountCommandInterface
 {
     private UserId $id;
 

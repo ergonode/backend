@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
@@ -28,6 +28,16 @@ class JoinConverterMapper implements ConverterMapperInterface
         $fields = [];
         foreach ($line as $key => $value) {
             $fields[sprintf('<%s>', $key)] = $value;
+        }
+
+        if (!$converter instanceof JoinConverter) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    JoinConverter::class,
+                    get_debug_type($converter)
+                )
+            );
         }
 
         return str_replace(array_keys($fields), $fields, $converter->getPattern());

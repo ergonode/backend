@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler\Role;
 
@@ -28,7 +28,7 @@ class CreateRoleCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateRoleCommand $command)
+    public function __invoke(CreateRoleCommand $command): void
     {
         $role = $this->factory->create(
             $command->getId(),

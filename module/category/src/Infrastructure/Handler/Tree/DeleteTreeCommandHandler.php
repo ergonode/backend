@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Handler\Tree;
 
@@ -46,7 +46,7 @@ class DeleteTreeCommandHandler
         );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
 

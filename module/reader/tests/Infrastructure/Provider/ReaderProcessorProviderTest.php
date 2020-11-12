@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Reader\Tests\Infrastructure\Provider;
 
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;

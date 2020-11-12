@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Update;
 
@@ -19,12 +19,13 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateVariableProductCommand $command)
+    public function __invoke(UpdateVariableProductCommand $command): void
     {
         /** @var VariableProduct $product */
         $product = $this->productRepository->load($command->getId());
         Assert::isInstanceOf($product, VariableProduct::class);
 
+        $product->changeTemplate($command->getTemplateId());
         $product->changeCategories($command->getCategories());
         $product = $this->updateAudit($product);
 

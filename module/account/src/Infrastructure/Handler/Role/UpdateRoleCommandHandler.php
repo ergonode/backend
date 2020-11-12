@@ -5,14 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler\Role;
 
 use Ergonode\Account\Domain\Command\Role\UpdateRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Webmozart\Assert\Assert;
 
 class UpdateRoleCommandHandler
 {
@@ -26,10 +25,19 @@ class UpdateRoleCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateRoleCommand $command)
+    public function __invoke(UpdateRoleCommand $command): void
     {
         $role = $this->repository->load($command->getId());
-        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role with id %s', $command->getId()));
+
+        if (!$role instanceof Role) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    Role::class,
+                    get_debug_type($role)
+                )
+            );
+        }
         $role->changeName($command->getName());
         $role->changeDescription($command->getDescription());
         $role->changesPrivileges($command->getPrivileges());

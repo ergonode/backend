@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
@@ -26,7 +26,7 @@ class ConditionSetConditionsChangedEventHandler
         $this->query = $query;
     }
 
-    public function __invoke(ConditionSetConditionsChangedEvent $event)
+    public function __invoke(ConditionSetConditionsChangedEvent $event): void
     {
         if ($event->getTo()) {
             $segmentIds = $this->query->findIdByConditionSetId($event->getAggregateId());

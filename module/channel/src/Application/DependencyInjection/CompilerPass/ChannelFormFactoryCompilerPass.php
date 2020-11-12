@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\DependencyInjection\CompilerPass;
 
@@ -30,7 +30,7 @@ class ChannelFormFactoryCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(ChannelFormFactoryProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 

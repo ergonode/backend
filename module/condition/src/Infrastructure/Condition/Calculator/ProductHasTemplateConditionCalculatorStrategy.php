@@ -5,25 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    private TemplateQueryInterface $templateQuery;
-
-    public function __construct(TemplateQueryInterface $templateQuery)
-    {
-        $this->templateQuery = $templateQuery;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -37,7 +29,16 @@ class ProductHasTemplateConditionCalculatorStrategy implements ConditionCalculat
      */
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {
-        $productTemplateId = $this->templateQuery->findProductTemplateId($product->getId());
+        if (!$configuration instanceof ProductHasTemplateCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductHasTemplateCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
+        $productTemplateId = $product->getTemplateId();
         $searchedTemplateId = $configuration->getTemplateId();
 
         switch ($configuration->getOperator()) {

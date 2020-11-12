@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Application\Request\ParamConverter;
 
@@ -29,7 +29,7 @@ class ExportParamConverter implements ParamConverterInterface
     /**
      * {@inheritDoc}
      */
-    public function apply(Request $request, ParamConverter $configuration):void
+    public function apply(Request $request, ParamConverter $configuration): void
     {
         $parameter = $request->get('export');
 

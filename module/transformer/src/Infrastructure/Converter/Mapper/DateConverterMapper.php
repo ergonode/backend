@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
@@ -29,6 +29,15 @@ class DateConverterMapper implements ConverterMapperInterface
      */
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
+        if (!$converter instanceof DateConverter) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    DateConverter::class,
+                    get_debug_type($converter)
+                )
+            );
+        }
         $field = $converter->getField();
 
         $result = strtotime($line[$field]);

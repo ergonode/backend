@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
@@ -57,6 +57,15 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+
+        $this->addSql('
+            CREATE TABLE value (               
+                id UUID NOT NULL, 
+                key TEXT,                                                                       
+                PRIMARY KEY(id)
+            )
+        ');
+        $this->addSql('CREATE UNIQUE INDEX attribute_value_key_key ON value USING btree (key)');
 
         $this->addSql('
             CREATE TABLE value_translation (      

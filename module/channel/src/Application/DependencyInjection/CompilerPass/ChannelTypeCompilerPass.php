@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\DependencyInjection\CompilerPass;
 
@@ -29,7 +29,7 @@ class ChannelTypeCompilerPass implements CompilerPassInterface
         $services = $container->findTaggedServiceIds(self::TAG);
         $types = [];
 
-        foreach ($services as $id => $service) {
+        foreach (array_keys($services) as $id) {
             $types[] = $container->getDefinition($id)->getClass()::getType();
         }
 

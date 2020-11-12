@@ -5,17 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use JMS\Serializer\Annotation as JMS;
 
-class UpdateProductCollectionCommand implements DomainCommandInterface
+class UpdateProductCollectionCommand implements ProductCollectionCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")

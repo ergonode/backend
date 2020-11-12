@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Event;
 
@@ -23,14 +23,11 @@ class ProductTemplateChangedEvent implements DomainEventInterface
     /**
      * @var TemplateId $templateId;
      *
-     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\TemplateId>")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private TemplateId $templateId;
 
-    /**
-     * @param TemplateId $templateId
-     */
-    public function __construct(ProductId $id, $templateId)
+    public function __construct(ProductId $id, TemplateId $templateId)
     {
         $this->id = $id;
         $this->templateId = $templateId;

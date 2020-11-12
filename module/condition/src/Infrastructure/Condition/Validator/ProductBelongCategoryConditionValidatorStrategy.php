@@ -4,6 +4,8 @@
  *  See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
 use Ergonode\Category\Infrastructure\Validator\CategoryExists;

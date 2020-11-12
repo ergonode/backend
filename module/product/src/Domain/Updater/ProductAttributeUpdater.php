@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Updater;
 
@@ -33,7 +33,7 @@ class ProductAttributeUpdater
             }
         }
 
-        foreach ($product->getAttributes() as $code => $value) {
+        foreach (array_keys($product->getAttributes()) as $code) {
             $attributeCode = new AttributeCode($code);
             if (!array_key_exists($code, $attributes)) {
                 $product->removeAttribute($attributeCode);

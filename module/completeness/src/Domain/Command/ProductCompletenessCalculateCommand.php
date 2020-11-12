@@ -4,14 +4,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class ProductCompletenessCalculateCommand implements DomainCommandInterface
+class ProductCompletenessCalculateCommand implements CompletenessCommandInterface
 {
     private ProductId $productId;
 

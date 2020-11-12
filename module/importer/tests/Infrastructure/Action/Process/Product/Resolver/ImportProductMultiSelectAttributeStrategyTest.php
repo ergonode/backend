@@ -4,11 +4,11 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Tests\Infrastructure\Action\Process\Product\Resolver;
 
-use Ergonode\Importer\Infrastructure\Action\Process\Product\Resolver\ImportProductMultiSelectAttributeStrategy;
+use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductMultiSelectAttributeStrategy;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;

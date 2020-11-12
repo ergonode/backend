@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Persistence\Projector;
 
@@ -41,7 +41,7 @@ class DbalCategoryCreatedEventProjector
      */
     public function __invoke(CategoryCreatedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
+        $this->connection->transactional(function () use ($event): void {
             $this->connection->insert(
                 self::TABLE,
                 [

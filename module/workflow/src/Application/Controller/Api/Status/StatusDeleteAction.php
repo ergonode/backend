@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Status;
 
@@ -91,7 +91,7 @@ class StatusDeleteAction
     public function __invoke(Status $status): Response
     {
         $relationships = $this->relationshipsResolver->resolve($status->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

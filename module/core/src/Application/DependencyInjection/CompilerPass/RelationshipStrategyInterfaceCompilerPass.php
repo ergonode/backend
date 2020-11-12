@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\DependencyInjection\CompilerPass;
 
@@ -28,7 +28,7 @@ class RelationshipStrategyInterfaceCompilerPass implements CompilerPassInterface
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];
-        foreach ($container->findTaggedServiceIds(self::TAG) as $id => $strategy) {
+        foreach (array_keys($container->findTaggedServiceIds(self::TAG)) as $id) {
             $arguments[] = new Reference($id);
         }
 

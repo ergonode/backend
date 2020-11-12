@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
@@ -84,7 +84,7 @@ class AttributeGroupDeleteAction
     public function __invoke(AttributeGroup $attributeGroup): Response
     {
         $relationships = $this->relationshipsResolver->resolve($attributeGroup->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

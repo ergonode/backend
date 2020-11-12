@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler;
 
@@ -24,7 +24,7 @@ class UpdateShopware6ChannelCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateShopware6ChannelCommand $command)
+    public function __invoke(UpdateShopware6ChannelCommand $command): void
     {
         /** @var Shopware6Channel $channel */
         $channel = $this->repository->load($command->getId());

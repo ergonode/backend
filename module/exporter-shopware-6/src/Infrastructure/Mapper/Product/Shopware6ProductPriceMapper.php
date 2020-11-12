@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
@@ -147,13 +147,13 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param $product
-     *
-     *
      * @throws Shopware6ExporterMapperException
      */
-    private function getPriceValue(AttributeId $productPrice, Language $defaultLanguage, $product): float
-    {
+    private function getPriceValue(
+        AttributeId $productPrice,
+        Language $defaultLanguage,
+        AbstractProduct $product
+    ): float {
         /** @var PriceAttribute $attribute */
         $attribute = $this->repository->load($productPrice);
 

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
@@ -107,10 +107,7 @@ class Shopware6CustomField
         return [];
     }
 
-    /**
-     * @param $value
-     */
-    public function addConfig(string $key, $value): void
+    public function addConfig(string $key, string $value): void
     {
         if (isset($this->config[$key]) && $this->config[$key] === $value) {
             return;

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
@@ -38,6 +38,15 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof TextAttributeValueCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    TextAttributeValueCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
         $attributeId = $configuration->getAttribute();
         $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);
@@ -65,7 +74,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
      */
     private function calculateHasTranslatableStringValue(array $value, string $expected): bool
     {
-        foreach ($value as $key => $translation) {
+        foreach ($value as $translation) {
             if (false !== mb_strpos($translation, $expected)) {
                 return true;
             }
@@ -79,7 +88,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
      */
     private function calculateEqualTranslatableStringValue(array $value, string $expected): bool
     {
-        foreach ($value as $key => $translation) {
+        foreach ($value as $translation) {
             if ($translation === $expected) {
                 return true;
             }

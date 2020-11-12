@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Generator\Printer;
 
@@ -17,11 +17,15 @@ use Nette\Utils\Strings;
 class ErgoPrinter extends Printer
 {
     /**
+     * {@inheritdoc}
+     *
      * @var string
      */
     protected $indentation = '    ';
 
     /**
+     * {@inheritdoc}
+     *
      * @var int
      */
     protected $linesBetweenMethods = 1;
@@ -43,7 +47,7 @@ class ErgoPrinter extends Printer
     }
 
     /**
-     * @param $var
+     * @param mixed $var
      */
     protected function dump($var): string
     {

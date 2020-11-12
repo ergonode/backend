@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
@@ -35,7 +35,7 @@ class DbalProductDashboardQuery implements ProductDashboardQueryInterface
     /**
      * @return array
      */
-    public function getProductCount(Language  $language): array
+    public function getProductCount(Language $language): array
     {
         $result = [];
         $types = $this->provider->provide();

@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Validator;
 
@@ -27,7 +27,7 @@ class LanguageIdValidator extends ConstraintValidator
      * @param mixed                       $value
      * @param Constraint|LanguageIdExists $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof LanguageIdExists) {
             throw new UnexpectedTypeException($constraint, LanguageIdExists::class);

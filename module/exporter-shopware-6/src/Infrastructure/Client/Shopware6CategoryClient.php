@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
@@ -54,6 +54,16 @@ class Shopware6CategoryClient
         $action = new PostCategoryAction($shopwareCategory, true);
 
         $newShopwareCategory = $this->connector->execute($channel, $action);
+
+        if (!$newShopwareCategory instanceof Shopware6Category) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    Shopware6Category::class,
+                    get_debug_type($newShopwareCategory)
+                )
+            );
+        }
         $this->repository->save(
             $channel->getId(),
             $category->getId(),

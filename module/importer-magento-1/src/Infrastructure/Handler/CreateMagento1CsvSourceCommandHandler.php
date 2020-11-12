@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Handler;
 
@@ -25,7 +25,7 @@ class CreateMagento1CsvSourceCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateMagento1CsvSourceCommand $command)
+    public function __invoke(CreateMagento1CsvSourceCommand $command): void
     {
         $source = new Magento1CsvSource(
             $command->getId(),

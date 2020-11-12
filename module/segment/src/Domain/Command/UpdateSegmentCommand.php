@@ -5,17 +5,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
-class UpdateSegmentCommand implements DomainCommandInterface
+class UpdateSegmentCommand implements SegmentCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")

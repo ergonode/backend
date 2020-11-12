@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Infrastructure\Persistence\Query;
 
@@ -85,11 +85,6 @@ class CompletenessQuery implements CompletenessQueryInterface
         return $result;
     }
 
-    /**
-     * @param $language
-     *
-     * @return CompletenessWidgetModel[]
-     */
     public function getCompletenessCount(Language $language): array
     {
         $products = $this->productQuery->getCount();

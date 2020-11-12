@@ -4,15 +4,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteChannelCommand implements DomainCommandInterface
+class DeleteChannelCommand implements ChannelCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")

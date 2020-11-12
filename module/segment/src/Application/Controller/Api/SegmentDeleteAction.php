@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
@@ -84,7 +84,7 @@ class SegmentDeleteAction
     public function __invoke(Segment $segment): Response
     {
         $relationships = $this->relationshipsResolver->resolve($segment->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipTypeMessageBuilder->build($relationships));
         }
 

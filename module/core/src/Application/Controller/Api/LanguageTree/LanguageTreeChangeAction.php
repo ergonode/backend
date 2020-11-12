@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\LanguageTree;
 
@@ -86,7 +86,7 @@ class LanguageTreeChangeAction
 
             if ($form->isSubmitted() && $form->isValid()) {
 
-                /** @var LanguageTreeUpdateForm $data */
+                /** @var LanguageTreeUpdateFormModel $data */
                 $data = $form->getData();
 
                 $command = new UpdateLanguageTreeCommand($data->languages);

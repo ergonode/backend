@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
@@ -17,7 +17,7 @@ class UpdateProductCategoriesCommandHandler extends AbstractUpdateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateProductCategoriesCommand $command)
+    public function __invoke(UpdateProductCategoriesCommand $command): void
     {
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);

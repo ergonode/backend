@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 
@@ -30,6 +30,6 @@ class AttributeGroupCodeTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $value = 'f//.,ef';
 
-        $valueObject = new AttributeGroupCode($value);
+        new AttributeGroupCode($value);
     }
 }

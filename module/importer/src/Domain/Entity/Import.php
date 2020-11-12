@@ -5,22 +5,19 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 class Import
 {
     protected ImportId $id;
 
     protected SourceId $sourceId;
-
-    protected TransformerId $transformerId;
 
     protected ImportStatus $status;
 
@@ -32,11 +29,10 @@ class Import
 
     private int $records;
 
-    public function __construct(ImportId $id, SourceId $sourceId, TransformerId $transformerId, string $file)
+    public function __construct(ImportId $id, SourceId $sourceId, string $file)
     {
         $this->id = $id;
         $this->sourceId = $sourceId;
-        $this->transformerId = $transformerId;
         $this->status = new ImportStatus(ImportStatus::CREATED);
         $this->file = $file;
         $this->startedAt = null;
@@ -52,11 +48,6 @@ class Import
     public function getSourceId(): SourceId
     {
         return $this->sourceId;
-    }
-
-    public function getTransformerId(): TransformerId
-    {
-        return $this->transformerId;
     }
 
     public function getStatus(): ImportStatus

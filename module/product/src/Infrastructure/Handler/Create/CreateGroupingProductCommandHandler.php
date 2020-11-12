@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Create;
 
@@ -18,7 +18,7 @@ class CreateGroupingProductCommandHandler extends AbstractCreateProductHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(CreateGroupingProductCommand $command)
+    public function __invoke(CreateGroupingProductCommand $command): void
     {
         $attributes = $command->getAttributes();
 

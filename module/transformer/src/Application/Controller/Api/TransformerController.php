@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Transformer\Application\Controller\Api;
 
@@ -134,7 +134,7 @@ class TransformerController extends AbstractController
     public function deleteTransformer(Transformer $transformer): Response
     {
         $relationships = $this->relationshipsResolver->resolve($transformer->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

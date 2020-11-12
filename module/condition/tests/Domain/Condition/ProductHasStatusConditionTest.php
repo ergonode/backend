@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
@@ -25,7 +25,7 @@ class ProductHasStatusConditionTest extends TestCase
         $this->assertSame('PRODUCT_HAS_STATUS_CONDITION', $condition->getType());
     }
 
-    public function testGetSupportedOperators()
+    public function testGetSupportedOperators(): void
     {
         $operators = ProductHasStatusCondition::getSupportedOperators();
         $this->assertIsArray($operators);

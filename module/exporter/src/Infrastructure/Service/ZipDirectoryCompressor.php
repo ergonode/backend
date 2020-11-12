@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Service;
 
@@ -30,7 +30,7 @@ class ZipDirectoryCompressor implements DirectoryCompressorInterface
             \RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        foreach ($files as $name => $file) {
+        foreach ($files as $file) {
             if (!$file->isDir()) {
                 $filePath = $file->getRealPath();
                 $relativePath = substr($filePath, strlen($sourceDirectory) + 1);

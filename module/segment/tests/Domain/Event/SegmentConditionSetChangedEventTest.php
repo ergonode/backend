@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Domain\Event;
 
@@ -47,6 +47,6 @@ class SegmentConditionSetChangedEventTest extends TestCase
         $this->expectException(\Zend\EventManager\Exception\DomainException::class);
         $from = null;
         $to = null;
-        $event = new SegmentConditionSetChangedEvent($this->id, $from, $to);
+        new SegmentConditionSetChangedEvent($this->id, $from, $to);
     }
 }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Domain\Command;
 
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class UpdateUnitCommandTest extends TestCase
 {
-    public function testCommand()
+    public function testCommand(): void
     {
         $id = $this->createMock(UnitId::class);
         $name = 'name';

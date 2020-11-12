@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
@@ -242,7 +242,7 @@ class Shopware6Product
     }
 
     /**
-     * @return Shopware6ProductCategory[]|
+     * @return Shopware6ProductCategory[]
      */
     public function getCategories(): array
     {
@@ -340,7 +340,12 @@ class Shopware6Product
      */
     public function addCustomField(string $customFieldId, $value): void
     {
-        if (!$this->hasCustomField($customFieldId)) {
+        if ($this->hasCustomField($customFieldId)) {
+            if ($this->customFields[$customFieldId] !== $value) {
+                $this->customFields[$customFieldId] = $value;
+                $this->modified = true;
+            }
+        } else {
             $this->customFields[$customFieldId] = $value;
             $this->modified = true;
         }
@@ -348,7 +353,7 @@ class Shopware6Product
 
     public function hasCustomField(string $customFieldId): bool
     {
-        foreach ($this->getCustomFields() as $key => $customField) {
+        foreach (array_keys($this->getCustomFields()) as $key) {
             if ($key === $customFieldId) {
                 return true;
             }

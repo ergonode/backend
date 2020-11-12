@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Form;
 
@@ -25,7 +25,7 @@ class MultimediaUploadForm extends AbstractType
         $builder->add('upload', FileType::class);
     }
 
-    public function getBlockPrefix() :?string
+    public function getBlockPrefix(): ?string
     {
         return null;
     }

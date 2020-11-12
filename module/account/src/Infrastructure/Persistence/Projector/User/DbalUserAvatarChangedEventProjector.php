@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
@@ -32,7 +32,7 @@ class DbalUserAvatarChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'avatar_filename' => $event->getAvatarFilename(),
+                'avatar' => true,
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

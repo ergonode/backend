@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid;
 
@@ -59,7 +59,7 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
-        $this->addColumn('template', new SelectColumn('template', 'Template', new MultiSelectFilter($templates)));
+        $this->addColumn('template_id', new SelectColumn('template_id', 'Template', new MultiSelectFilter($templates)));
         $this->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
         $this->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
         $attached = new BoolColumn('attached', 'Attached', new TextFilter());

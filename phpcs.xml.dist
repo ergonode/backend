@@ -23,6 +23,8 @@
          <type>error</type>
     </rule>
 
+    <rule ref="SlevomatCodingStandard.Classes.UnusedPrivateElements"/>
+
     <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
 
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
@@ -31,9 +33,26 @@
         </properties>
     </rule>
 
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation" />
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation" />
-    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation" />
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="newlinesCountBetweenOpenTagAndDeclare" value="2"/>
+            <property name="spacesCountAroundEqualsSign" value="0"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
+
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+    <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
 
     <!-- Directories to be checked -->
     <file>config/</file>

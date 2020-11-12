@@ -5,16 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class CreateConditionSetCommand implements DomainCommandInterface
+class CreateConditionSetCommand implements ConditionCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")

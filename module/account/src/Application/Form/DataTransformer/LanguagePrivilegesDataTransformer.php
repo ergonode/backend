@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\DataTransformer;
 
@@ -16,9 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class LanguagePrivilegesDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param LanguagePrivileges|null $value
-     *
-     * @return array|null
+     * {@inheritDoc}
      */
     public function transform($value): ?array
     {
@@ -36,6 +34,8 @@ class LanguagePrivilegesDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param array|null $value
      */
     public function reverseTransform($value): ?LanguagePrivileges

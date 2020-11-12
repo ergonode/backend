@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Form\Model;
 
@@ -21,7 +21,12 @@ class CreateSegmentFormModel
 
     /**
      * @Assert\NotBlank(message="System name is required")
-     * @Assert\Length(max=100)
+     * @Assert\Length(
+     *     min="3",
+     *     max="100",
+     *     minMessage="System name is too short. It should have at least {{ limit }} characters.",
+     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
+     * )
      *
      * @UniqueSegmentCode()
      */

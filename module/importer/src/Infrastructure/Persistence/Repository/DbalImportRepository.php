@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Persistence\Repository;
 
@@ -28,7 +28,6 @@ class DbalImportRepository implements ImportRepositoryInterface
         'id',
         'status',
         'source_id',
-        'transformer_id',
         'file',
         'started_at',
         'ended_at',
@@ -110,9 +109,12 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
+     * @param string[] $parameters
+     *
      * @throws DBALException
+     * @throws \JsonException
      */
-    public function addError(ImportId $importId, string $message): void
+    public function addError(ImportId $importId, string $message, array $parameters = []): void
     {
         $this->connection->insert(
             self::TABLE_ERROR,
@@ -120,6 +122,7 @@ class DbalImportRepository implements ImportRepositoryInterface
                 'import_id' => $importId,
                 'created_at' => new \DateTime(),
                 'message' => $message,
+                'parameters' => json_encode($parameters, JSON_THROW_ON_ERROR),
             ],
             [
                 'created_at' => Types::DATETIMETZ_MUTABLE,

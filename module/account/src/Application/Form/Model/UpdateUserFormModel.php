@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
@@ -88,7 +88,7 @@ class UpdateUserFormModel
      *
      * @param mixed $payload
      */
-    public function validatePassword(ExecutionContextInterface $context, $payload)
+    public function validatePassword(ExecutionContextInterface $context, $payload): void
     {
         /** @var UpdateUserFormModel $data */
         $data = $context->getValue();

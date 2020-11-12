@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Editor\Infrastructure\Handler;
 
@@ -31,7 +31,7 @@ class PersistProductDraftCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(PersistProductDraftCommand $command)
+    public function __invoke(PersistProductDraftCommand $command): void
     {
         /** @var ProductDraft $draft */
         $draft = $this->draftRepository->load($command->getId());

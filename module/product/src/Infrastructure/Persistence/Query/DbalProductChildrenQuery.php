@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Query;
 
@@ -30,7 +30,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     private const PRODUCT_TABLE = 'public.product';
     private const PRODUCT_CHILDREN_TABLE = 'public.product_children';
     private const PRODUCT_VALUE_TABLE = 'public.product_value';
-    private const TEMPLATE_TABLE = 'designer.template';
     private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
     private const LANGUAGE_TREE_TABLE = 'public.language_tree';
 
@@ -88,12 +87,11 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         $bindingValues = [];
 
         $qb = $this->connection->createQueryBuilder();
-        $qb->select('p.id, p.sku, dt.name as template')
+        $qb->select('p.id, p.sku, p.template_id')
             ->from(self::PRODUCT_TABLE, 'p')
             ->join('p', self::PRODUCT_VALUE_TABLE, 'pv', 'p.id = pv.product_id')
-            ->join('p', self::TEMPLATE_TABLE, 'dt', 'p.template_id = dt.id')
             ->where('p.type = :type')
-            ->groupBy('p.id, p.sku, dt.name')
+            ->groupBy('p.id, p.sku, p.template_id')
             ->having($qb->expr()->gt('count(*)', ':count'));
 
         if ($product instanceof VariableProduct) {
@@ -164,7 +162,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
             ->innerJoin('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
     }
 
-    private function addBinding(QueryBuilder $qb, AbstractAttribute $bindingAttribute, Language $language)
+    private function addBinding(QueryBuilder $qb, AbstractAttribute $bindingAttribute, Language $language): void
     {
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($bindingAttribute, $language));
 

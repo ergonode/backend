@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Strategy\Relationship;
 
@@ -13,10 +13,13 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInterface
 {
+    private const MESSAGE = 'Object has active relationships with {relations}';
+
     private SegmentQueryInterface $query;
 
     public function __construct(SegmentQueryInterface $query)
@@ -35,12 +38,10 @@ class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInt
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
-        if (!$this->supports($id)) {
-            new UnexpectedTypeException($id, ConditionSetId::class);
-        }
+        Assert::isInstanceOf($id, ConditionSetId::class);
 
-        return $this->query->findIdByConditionSetId($id);
+        return new RelationshipGroup(self::MESSAGE, $this->query->findIdByConditionSetId($id));
     }
 }

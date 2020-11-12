@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Provider;
 
@@ -18,9 +18,6 @@ class CategoryFormProvider
      */
     private array $forms;
 
-    /**
-     * @param array|CategoryFormInterface ...$forms
-     */
     public function __construct(CategoryFormInterface ...$forms)
     {
         $this->forms = $forms;

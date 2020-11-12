@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Persistence\Query;
 
@@ -125,20 +125,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
         }
 
         return $result;
-    }
-
-    public function findProductTemplateId(ProductId $productId): TemplateId
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $result = $queryBuilder
-            ->select('p.template_id')
-            ->from(self::PRODUCT_TABLE, 'p')
-            ->where($queryBuilder->expr()->eq('p.product_id', ':productId'))
-            ->setParameter(':productId', $productId->getValue())
-            ->execute()
-            ->fetch(\PDO::FETCH_COLUMN);
-
-        return new TemplateId($result);
     }
 
     public function findTemplateIdByCode(string $code): ?TemplateId

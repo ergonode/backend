@@ -4,6 +4,8 @@
  *  See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
@@ -26,6 +28,15 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof ProductBelongCategoryCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductBelongCategoryCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
         $belong = $configuration->getOperator() === ProductBelongCategoryCondition::BELONG_TO;
 
         if ($belong) {

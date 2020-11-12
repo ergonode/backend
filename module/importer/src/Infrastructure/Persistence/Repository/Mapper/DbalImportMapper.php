@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper;
 
@@ -22,7 +22,6 @@ class DbalImportMapper
             'id' => $import->getId(),
             'status' => $import->getStatus(),
             'source_id' => $import->getSourceId()->getValue(),
-            'transformer_id' => $import->getTransformerId()->getValue(),
             'file' => $import->getFile(),
             'started_at' => $import->getStartedAt(),
             'ended_at' => $import->getEndedAt(),

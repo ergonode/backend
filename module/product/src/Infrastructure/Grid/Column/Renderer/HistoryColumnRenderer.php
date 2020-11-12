@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Column\Renderer;
 
@@ -42,10 +42,9 @@ class HistoryColumnRenderer implements ColumnRendererInterface
      */
     public function render(ColumnInterface $column, string $id, array $row): string
     {
-        if (!$this->supports($column)) {
+        if (!$column instanceof HistoryColumn) {
             throw new UnsupportedColumnException($column);
         }
-
         $parameters = [];
         foreach (json_decode($row[$column->getParameterField()], true) as $key => $parameter) {
             if (is_string($parameter)) {

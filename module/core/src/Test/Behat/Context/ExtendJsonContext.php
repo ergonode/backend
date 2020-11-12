@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Test\Behat\Context;
 
@@ -28,7 +28,7 @@ class ExtendJsonContext extends JsonContext
     /**
      * @override @Then the JSON should be valid according to the schema :filename
      *
-     * @param string $filename
+     * {@inheritDoc}
      */
     public function theJsonShouldBeValidAccordingToTheSchema($filename): void
     {

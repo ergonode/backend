@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\Authenticator;
 
@@ -89,8 +89,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param string $providerKey
-     *
+     * {@inheritDoc}
      *
      * @throws \Exception
      */

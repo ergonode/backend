@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 
@@ -46,7 +46,6 @@ class DbalUserCreatedEventProjector
                 'language' => $event->getLanguage()->getCode(),
                 'password' => $event->getPassword()->getValue(),
                 'is_active' => $event->isActive(),
-                'avatar_filename' => $event->getAvatarFilename(),
             ],
             [
                 'is_active' => \PDO::PARAM_BOOL,

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
@@ -84,7 +84,7 @@ class ProductDeleteAction
     public function __invoke(AbstractProduct $product): Response
     {
         $relationships = $this->relationshipsResolver->resolve($product->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

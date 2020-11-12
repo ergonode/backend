@@ -5,35 +5,24 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
-use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
+use Ergonode\Completeness\Infrastructure\Persistence\Query\CompletenessQuery;
 use Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Webmozart\Assert\Assert;
 
 class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    private CompletenessCalculator $calculator;
-
-    private TemplateRepositoryInterface $repository;
-
-    private DraftProvider $provider;
+    private CompletenessQuery $completenessQuery;
 
     public function __construct(
-        CompletenessCalculator $calculator,
-        TemplateRepositoryInterface $repository,
-        DraftProvider $provider
+        CompletenessQuery $completenessQuery
     ) {
-        $this->calculator = $calculator;
-        $this->repository = $repository;
-        $this->provider = $provider;
+        $this->completenessQuery = $completenessQuery;
     }
 
     /**
@@ -45,21 +34,20 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
     }
 
     /**
-     * @param ConditionInterface|LanguageCompletenessCondition $configuration
-     *
-     *
      * @throws \Exception
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
-        $draft = $this->provider->provide($object);
-
-        $templateId = $object->getTemplateId();
-
-        $template = $this->repository->load($templateId);
-        Assert::notNull($template, sprintf('Can\'t find template "%s"', $templateId->getValue()));
-
-        $calculation = $this->calculator->calculate($draft, $template, $configuration->getLanguage());
+        if (!$configuration instanceof LanguageCompletenessCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    LanguageCompletenessCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
+        $calculation = $this->completenessQuery->getCompleteness($object->getId(), $configuration->getLanguage());
 
         $result = true;
 

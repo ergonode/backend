@@ -8,12 +8,14 @@ security:
             id: 'Ergonode\Authentication\Application\Security\Provider\DomainUserProvider'
         email_user_provider:
             id: 'Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
+        id_user_provider:
+            id: 'Ergonode\Authentication\Application\Security\Provider\IdUserProvider'
 
     encoders:
         Ergonode\Account\Domain\Entity\User:
-            algorithm: 'sha1'
+            algorithm: 'bcrypt'
         Ergonode\Authentication\Application\Security\User\User:
-            algorithm: 'sha1'
+            algorithm: 'bcrypt'
 
     firewalls:
         dev:
@@ -30,6 +32,10 @@ security:
                 provider: 'email_user_provider'
                 authenticators:
                     - 'Ergonode\Authentication\Application\Security\Authenticator\FormAuthenticator'
+        refresh:
+            pattern: '^/api/v1/token/refresh'
+            stateless: true
+            anonymous: true
         api:
             pattern: '^/api'
             stateless: true
@@ -46,4 +52,5 @@ security:
 
     access_control:
         - { path: '^/api/v1/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/api/v1/token/refresh', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/api', roles: IS_AUTHENTICATED_FULLY }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Query;
 
@@ -23,7 +23,7 @@ interface AccountQueryInterface
     public function getUser(UserId $userId): ?array;
 
     /**
-     * @return array
+     * @return UserId[]
      */
     public function findUserIdByRoleId(RoleId $roleId): array;
 }

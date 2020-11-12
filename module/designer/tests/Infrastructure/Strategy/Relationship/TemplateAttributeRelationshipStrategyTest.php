@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Tests\Infrastructure\Strategy\Relationship;
 
@@ -38,12 +38,5 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
         $roleId = $this->createMock(AggregateId::class);
         $this->assertFalse($templateAttributeRelationshipStrategy->supports($roleId));
-    }
-
-    public function testRelationships(): void
-    {
-        $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
-        $attributeId = $this->createMock(AttributeId::class);
-        $this->assertIsArray($templateAttributeRelationshipStrategy->getRelationships($attributeId));
     }
 }

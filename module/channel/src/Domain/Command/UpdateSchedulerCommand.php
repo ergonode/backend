@@ -5,16 +5,15 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class UpdateSchedulerCommand implements DomainCommandInterface
+class UpdateSchedulerCommand implements ChannelCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")

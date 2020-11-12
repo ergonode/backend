@@ -5,11 +5,12 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Provider;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
@@ -34,9 +35,16 @@ class AttributeParametersProvider
         }
         if (isset($parameters['unit'])) {
             $unit = $this->unitRepository->load(new UnitId($parameters['unit']));
-            if ($unit) {
-                $parameters['unit'] = $unit->getSymbol();
+            if (!$unit instanceof Unit) {
+                throw new \LogicException(
+                    sprintf(
+                        'Expected an instance of %s. %s received.',
+                        Unit::class,
+                        get_debug_type($unit)
+                    )
+                );
             }
+            $parameters['unit'] = $unit->getSymbol();
         }
 
         return $parameters;

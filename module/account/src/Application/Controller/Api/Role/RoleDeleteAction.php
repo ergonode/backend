@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Role;
 
@@ -89,7 +89,7 @@ class RoleDeleteAction
         }
 
         $relationships = $this->relationshipsResolver->resolve($role->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

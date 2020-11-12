@@ -5,18 +5,18 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Command\Update;
 
+use Ergonode\Product\Domain\Command\ProductCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-class UpdateVariableProductCommand implements DomainCommandInterface
+class UpdateVariableProductCommand implements ProductCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

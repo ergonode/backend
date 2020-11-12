@@ -5,18 +5,18 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class CreateFileExportChannelCommand implements DomainCommandInterface
+class CreateFileExportChannelCommand implements CreateChannelCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")

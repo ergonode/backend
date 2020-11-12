@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Workflow;
 
@@ -25,7 +25,7 @@ class DeleteWorkflowTransitionCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteWorkflowTransitionCommand $command)
+    public function __invoke(DeleteWorkflowTransitionCommand $command): void
     {
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);

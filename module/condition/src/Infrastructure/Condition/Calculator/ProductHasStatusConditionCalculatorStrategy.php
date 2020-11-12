@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
@@ -33,6 +33,15 @@ class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculator
      */
     public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof ProductHasStatusCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductHasStatusCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
         $statusAttributeCode = new AttributeCode(StatusSystemAttribute::CODE);
 
         Assert::true($product->hasAttribute($statusAttributeCode));

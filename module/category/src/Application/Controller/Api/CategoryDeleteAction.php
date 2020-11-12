@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
@@ -77,7 +77,7 @@ class CategoryDeleteAction
     public function __invoke(AbstractCategory $category): Response
     {
         $relations = $this->relationshipsResolver->resolve($category->getId());
-        if (!$relations->isEmpty()) {
+        if (null !== $relations) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
 

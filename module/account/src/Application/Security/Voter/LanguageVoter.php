@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Security\Voter;
 
@@ -23,8 +23,7 @@ class LanguageVoter extends Voter implements LoggerAwareInterface
     use LoggerAwareTrait;
 
     /**
-     * @param string $attribute
-     * @param mixed  $subject
+     * {@inheritDoc}
      */
     public function supports($attribute, $subject): bool
     {
@@ -41,8 +40,7 @@ class LanguageVoter extends Voter implements LoggerAwareInterface
     }
 
     /**
-     * @param string $attribute
-     * @param mixed  $subject
+     * {@inheritDoc}
      */
     public function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {

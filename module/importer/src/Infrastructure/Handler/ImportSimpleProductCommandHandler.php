@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
@@ -32,7 +32,7 @@ class ImportSimpleProductCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportSimpleProductCommand $command)
+    public function __invoke(ImportSimpleProductCommand $command): void
     {
         try {
             $this->action->action(
@@ -42,10 +42,10 @@ class ImportSimpleProductCommandHandler
                 $command->getAttributes()
             );
         } catch (ImportException $exception) {
-            $this->repository->addError($command->getImportId(), $exception->getMessage());
+            $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = sprintf('Can\'t import simple product %s', $command->getSku()->getValue());
-            $this->repository->addError($command->getImportId(), $message);
+            $message = 'Can\'t import simple product {sku}';
+            $this->repository->addError($command->getImportId(), $message, ['{sku}' => $command->getSku()->getValue()]);
             $this->logger->error($exception);
         }
     }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Completeness\Domain\Calculator\Strategy;
 
@@ -48,8 +48,15 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
         Language $language,
         TemplateElementPropertyInterface $properties
     ): ?CompletenessCalculatorLine {
-        Assert::isInstanceOf($properties, AttributeTemplateElementProperty::class);
-
+        if (!$properties instanceof AttributeTemplateElementProperty) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    AttributeTemplateElementProperty::class,
+                    get_debug_type($properties)
+                )
+            );
+        }
         $attribute = $this->repository->load($properties->getAttributeId());
         Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $properties->getAttributeId()->getValue()));
         $value = $draft->hasAttribute($attribute->getCode()) ? $draft->getAttribute($attribute->getCode()) : null;

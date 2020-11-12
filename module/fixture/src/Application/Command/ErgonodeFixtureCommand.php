@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Fixture\Application\Command;
 
@@ -49,7 +49,7 @@ class ErgonodeFixtureCommand extends Command
         $this->endFixtureLoad($event, $output);
     }
 
-    private function endFixtureLoad(StopwatchEvent $stopwatchEvent, OutputInterface $output)
+    private function endFixtureLoad(StopwatchEvent $stopwatchEvent, OutputInterface $output): void
     {
         $output->write("\n  <comment>------------------------</comment>\n");
 

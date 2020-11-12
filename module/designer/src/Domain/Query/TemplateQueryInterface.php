@@ -4,6 +4,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Designer\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -36,8 +38,6 @@ interface TemplateQueryInterface
      * @return ProductId[]
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array;
-
-    public function findProductTemplateId(ProductId $productId): TemplateId;
 
     public function findTemplateIdByCode(string $code): ?TemplateId;
 

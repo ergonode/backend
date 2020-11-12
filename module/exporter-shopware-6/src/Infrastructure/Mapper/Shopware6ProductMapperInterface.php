@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper;
 
@@ -17,7 +17,7 @@ interface Shopware6ProductMapperInterface
 {
     public function map(
         Shopware6Product $shopware6Product,
-        AbstractProduct$product,
+        AbstractProduct $product,
         Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product;

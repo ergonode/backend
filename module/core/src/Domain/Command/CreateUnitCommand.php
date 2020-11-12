@@ -5,15 +5,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-class CreateUnitCommand implements DomainCommandInterface
+class CreateUnitCommand implements CoreCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")

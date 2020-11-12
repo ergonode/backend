@@ -4,11 +4,11 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterFile\Domain\Command\CreateFileExportChannelCommand;
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
@@ -27,7 +27,7 @@ class CreateFileExportChannelCommandBuilder implements CreateChannelCommandBuild
     /**
      * @throws \Exception
      */
-    public function build(FormInterface $form): DomainCommandInterface
+    public function build(FormInterface $form): CreateChannelCommandInterface
     {
         /** @var ExporterFileConfigurationModel $data */
         $data = $form->getData();

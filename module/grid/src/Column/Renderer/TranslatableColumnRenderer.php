@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Grid\Column\Renderer;
 
@@ -40,7 +40,7 @@ class TranslatableColumnRenderer implements ColumnRendererInterface
      */
     public function render(ColumnInterface $column, string $id, array $row): ?string
     {
-        if (!$this->supports($column)) {
+        if (!$column instanceof TranslatableColumn) {
             throw new UnsupportedColumnException($column);
         }
 

@@ -4,11 +4,10 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
-use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Segment\Domain\Command\DeleteSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
@@ -39,7 +38,6 @@ class DeleteSegmentCommandHandlerTest extends TestCase
         $this->command = $this->createMock(DeleteSegmentCommand::class);
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);
         $this->resolver = $this->createMock(RelationshipsResolverInterface::class);
-        $this->resolver->method('resolve')->willReturn(new RelationshipCollection());
     }
 
     /**

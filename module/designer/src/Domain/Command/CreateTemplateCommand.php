@@ -5,20 +5,19 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-class CreateTemplateCommand implements DomainCommandInterface
+class CreateTemplateCommand implements TemplateCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")

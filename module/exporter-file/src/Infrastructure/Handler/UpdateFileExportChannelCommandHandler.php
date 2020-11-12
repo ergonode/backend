@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler;
 
@@ -24,7 +24,7 @@ class UpdateFileExportChannelCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateFileExportChannelCommand $command)
+    public function __invoke(UpdateFileExportChannelCommand $command): void
     {
         /** @var FileExportChannel $channel */
         $channel = $this->repository->load($command->getId());

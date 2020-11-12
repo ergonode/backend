@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Persistence\Query;
 
@@ -104,10 +104,12 @@ class DbalRoleQuery implements RoleQueryInterface
     ): array {
         $query = $this->connection->createQueryBuilder()
             ->select('id, name as label')
-            ->from(self::TABLE);
+            ->from(self::TABLE)
+            ->where('hidden = false')
+        ;
 
         if ($search) {
-            $query->orWhere('name ILIKE :search');
+            $query->andWhere('name ILIKE :search');
             $query->setParameter(':search', '%'.$search.'%');
         }
 

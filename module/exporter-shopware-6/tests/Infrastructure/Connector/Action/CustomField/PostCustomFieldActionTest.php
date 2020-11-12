@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action\CustomField;
 
@@ -27,7 +27,7 @@ class PostCustomFieldActionTest extends TestCase
         );
     }
 
-    public function testAction():void
+    public function testAction(): void
     {
         $action = new PostCustomFieldAction($this->customField);
         $request = $action->getRequest();

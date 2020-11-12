@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
@@ -37,7 +37,7 @@ class ConstraintPrivilegeRelationsValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'array');
         }
 
-        array_walk($value, function (&$item) {
+        array_walk($value, function (&$item): void {
             $item = (string) $item;
         });
 

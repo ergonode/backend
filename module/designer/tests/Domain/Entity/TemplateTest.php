@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Tests\Domain\Entity;
 
@@ -100,7 +100,7 @@ class TemplateTest extends TestCase
         $this->assertSame($name, $template->getName());
     }
 
-    public function testImageManipulation():void
+    public function testImageManipulation(): void
     {
         /** @var MultimediaId|MockObject $imageId1 */
         $imageId1 = $this->createMock(MultimediaId::class);
@@ -139,7 +139,7 @@ class TemplateTest extends TestCase
         $template->removeImage();
     }
 
-    public function testDefaultTextManipulation():void
+    public function testDefaultTextManipulation(): void
     {
         /** @var AttributeId|MockObject $defaultText1 */
         $defaultText1 = $this->createMock(AttributeId::class);
@@ -178,7 +178,7 @@ class TemplateTest extends TestCase
         $template->removeDefaultLabel();
     }
 
-    public function testDefaultImageManipulation():void
+    public function testDefaultImageManipulation(): void
     {
         /** @var AttributeId|MockObject $defaultImage1 */
         $defaultImage1 = $this->createMock(AttributeId::class);

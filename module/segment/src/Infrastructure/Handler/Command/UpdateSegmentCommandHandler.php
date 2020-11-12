@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
@@ -25,7 +25,7 @@ class UpdateSegmentCommandHandler
     /**
      * @throws \Exception
      */
-    public function __invoke(UpdateSegmentCommand $command)
+    public function __invoke(UpdateSegmentCommand $command): void
     {
         $segment = $this->repository->load($command->getId());
 

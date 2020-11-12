@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action;
 
@@ -37,11 +37,9 @@ class PostAccessToken extends AbstractAction implements ActionInterface, HeaderP
     }
 
     /**
-     * @param $content
-     *
      * @return array
      */
-    public function parseContent($content): array
+    public function parseContent(?string $content): array
     {
         return json_decode($content, true);
     }

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Persistence\Repository;
 
@@ -28,7 +28,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function exists(CategoryId $id) : bool
+    public function exists(CategoryId $id): bool
     {
         return $this->manager->exists($id);
     }

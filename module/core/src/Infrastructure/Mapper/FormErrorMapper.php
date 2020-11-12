@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Mapper;
 
@@ -27,7 +27,11 @@ class FormErrorMapper
     {
         $result = [];
         foreach ($form->getErrors() as $error) {
-            $result['form'][] = $this->provider->getMessage($error);
+            if ($error->getOrigin()) {
+                $result[$error->getOrigin()->getName()] = $this->provider->getMessage($error);
+            } else {
+                $result['form'][] = $this->provider->getMessage($error);
+            }
         }
 
         foreach ($form->all() as $element) {

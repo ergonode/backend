@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
@@ -76,7 +76,7 @@ class DeleteMultimediaAction
     public function __invoke(Multimedia $multimedia): Response
     {
         $relationships = $this->relationshipsResolver->resolve($multimedia->getId());
-        if (!$relationships->isEmpty()) {
+        if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 

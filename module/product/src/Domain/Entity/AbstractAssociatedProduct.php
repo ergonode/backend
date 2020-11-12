@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Entity;
 
@@ -68,6 +68,10 @@ abstract class AbstractAssociatedProduct extends AbstractProduct
             if (!$this->hasChild($child->getId()) && !$child->getId()->isEqual($this->id)) {
                 $this->addChild($child);
             }
+        }
+
+        foreach ($children as $key => $child) {
+            $children[$key] = $child->getId();
         }
 
         foreach ($this->children as $child) {

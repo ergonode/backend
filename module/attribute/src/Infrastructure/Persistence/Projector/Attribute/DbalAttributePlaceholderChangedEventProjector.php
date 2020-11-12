@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
@@ -61,7 +61,7 @@ class DbalAttributePlaceholderChangedEventProjector
             }
         }
 
-        foreach ($from as $language => $value) {
+        foreach (array_keys($from) as $language) {
             if (!isset($to[$language])) {
                 $this->connection->delete(
                     self::TABLE,

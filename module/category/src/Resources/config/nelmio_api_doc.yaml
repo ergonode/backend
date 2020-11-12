@@ -1,0 +1,71 @@
+nelmio_api_doc:
+    documentation:
+        category_definitions:
+            tree_request:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Category tree code
+                        required: true
+                        example: Default
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            de_DE: Name DE
+                            en_GB: Name EN
+
+            tree:
+                type: object
+                properties:
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            de_DE: Name DE
+                            en_GB: Name EN
+                    categories:
+                        type: array
+                        items:
+                            $ref: "#/definitions/tree_node"
+            tree_node:
+                type: object
+                properties:
+                    category_id:
+                        type: string
+                        description: Category id
+                        required: true
+                        example: category id
+                    children:
+                        type: array
+                        items:
+                            $ref: "#/definitions/tree_node"
+            category:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Category code (use only when create)
+                        required: true
+                        example: category_code_1
+                    type:
+                        type: string
+                        required: true
+                        description: category type
+                        example: CATEGORY
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            de_DE: Name DE
+                            en_GB: Name EN
+            category_update:
+                type: object
+                properties:
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            de_DE: Name DE
+                            en_GB: Name EN

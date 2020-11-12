@@ -4,14 +4,14 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Command\Group;
 
+use Ergonode\Attribute\Domain\Command\AttributeCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class DeleteAttributeGroupCommand implements DomainCommandInterface
+class DeleteAttributeGroupCommand implements AttributeCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")

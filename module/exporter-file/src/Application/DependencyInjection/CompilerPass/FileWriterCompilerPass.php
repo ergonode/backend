@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Application\DependencyInjection\CompilerPass;
 
@@ -36,7 +36,7 @@ class FileWriterCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(WriterProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 
@@ -49,7 +49,7 @@ class FileWriterCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(WriterTypeProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 

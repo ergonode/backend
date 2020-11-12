@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\Validator;
 
@@ -27,7 +27,7 @@ class TemplateExistsValidator extends ConstraintValidator
     /**
      * @param mixed $value
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof TemplateExists) {
             throw new UnexpectedTypeException($constraint, TemplateExists::class);

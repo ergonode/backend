@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
@@ -32,7 +32,7 @@ class ImportMultimediaFromUrlCommandHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ImportMultimediaFromWebCommand $command)
+    public function __invoke(ImportMultimediaFromWebCommand $command): void
     {
         try {
             $this->action->action(
@@ -41,10 +41,17 @@ class ImportMultimediaFromUrlCommandHandler
                 $command->getName()
             );
         } catch (ImportException $exception) {
-            $this->repository->addError($command->getImportId(), $exception->getMessage());
+            $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
-            $message = sprintf('Can\'t import multimedia %s from url %s', $command->getName(), $command->getUrl());
-            $this->repository->addError($command->getImportId(), $message);
+            $message = 'Can\'t import multimedia {name} from url {url}';
+            $this->repository->addError(
+                $command->getImportId(),
+                $message,
+                [
+                    '{name}' => $command->getName(),
+                    '{url}' => $command->getUrl(),
+                ]
+            );
             $this->logger->error($exception);
         }
     }

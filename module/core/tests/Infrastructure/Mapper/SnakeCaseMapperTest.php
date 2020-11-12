@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Core\Tests\Infrastructure\Mapper;
 
 use Ergonode\Core\Infrastructure\Mapper\SnakeCaseMapper;

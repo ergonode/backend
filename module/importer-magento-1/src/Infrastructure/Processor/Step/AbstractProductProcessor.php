@@ -4,16 +4,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 abstract class AbstractProductProcessor
 {
@@ -35,20 +35,23 @@ abstract class AbstractProductProcessor
     }
 
     /**
+     * @var AbstractAttribute[] $attributes
+     *
      * @return string[]
      */
     protected function getAttributes(
-        Transformer $transformer,
         Magento1CsvSource $source,
-        ProductModel $product
+        ProductModel $product,
+        array $attributes
     ): array {
         $result = [];
         $default = $product->get('default');
 
         foreach ($default as $field => $value) {
             $translation = [];
-            if ($transformer->hasAttribute($field)) {
-                $type = $transformer->getAttributeType($field);
+            $attribute = $this->getAttribute($field, $attributes);
+            if ($attribute) {
+                $type = $attribute->getType();
                 $value = $this->format($type, $value);
                 if ($value) {
                     $translation[$source->getDefaultLanguage()->getCode()] = $value;
@@ -83,5 +86,19 @@ abstract class AbstractProductProcessor
         }
 
         return $value;
+    }
+
+    /**
+     * @param AbstractAttribute[] $attributes
+     */
+    private function getAttribute(string $code, array $attributes): ?AbstractAttribute
+    {
+        foreach ($attributes as $attribute) {
+            if ($code === $attribute->getCode()->getValue()) {
+                return $attribute;
+            }
+        }
+
+        return null;
     }
 }

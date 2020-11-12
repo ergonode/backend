@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form\Transformer;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class AttributeCodeDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param AttributeCode|null $value
+     * {@inheritDoc}
      */
     public function transform($value): ?string
     {
@@ -32,6 +32,8 @@ class AttributeCodeDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param string|null $value
      */
     public function reverseTransform($value): ?AttributeCode

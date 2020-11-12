@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Form\Transformer;
 
@@ -18,9 +18,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class PositionFormDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param Position|null $value
-     *
-     * @return array|null
+     * {@inheritDoc}
      */
     public function transform($value): ?array
     {
@@ -38,6 +36,8 @@ class PositionFormDataTransformer implements DataTransformerInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param array|null $value
      */
     public function reverseTransform($value): ?Position

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Controller\Api\Unit;
 
@@ -84,7 +84,7 @@ class UnitDeleteAction
     public function __invoke(Unit $unit): Response
     {
         $relations = $this->relationshipsResolver->resolve($unit->getId());
-        if (!$relations->isEmpty()) {
+        if (null !== $relations) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
 

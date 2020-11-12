@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\DependencyInjection\CompilerPass;
 
@@ -18,7 +18,7 @@ class CreateChannelCommandBuilderCompilerPass implements CompilerPassInterface
 
     public const TAG = 'channel.create_channel_builder_interface';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if ($container->has(CreateChannelCommandBuilderProvider::class)) {
             $this->processServices($container);
@@ -30,7 +30,7 @@ class CreateChannelCommandBuilderCompilerPass implements CompilerPassInterface
         $definition = $container->findDefinition(CreateChannelCommandBuilderProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
-        foreach ($strategies as $id => $strategy) {
+        foreach (array_keys($strategies) as $id) {
             $arguments[] = new Reference($id);
         }
 
