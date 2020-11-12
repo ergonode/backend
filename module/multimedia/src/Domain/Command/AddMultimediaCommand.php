@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Symfony\Component\HttpFoundation\File\File;
 
-class AddMultimediaCommand implements DomainCommandInterface
+class AddMultimediaCommand implements MultimediaCommandInterface
 {
     private MultimediaId $id;
 
