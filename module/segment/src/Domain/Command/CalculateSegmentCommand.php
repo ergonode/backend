@@ -10,9 +10,8 @@ namespace Ergonode\Segment\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class CalculateSegmentCommand implements DomainCommandInterface
+class CalculateSegmentCommand implements SegmentCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
