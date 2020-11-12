@@ -10,10 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Notification\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Notification\Domain\NotificationInterface;
 
-class SendNotificationCommand implements DomainCommandInterface
+class SendNotificationCommand implements NotificationCommandInterface
 {
     private NotificationInterface $notification;
 
