@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Mailer\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Mailer\Domain\MailInterface;
 
-class SendMailCommand implements DomainCommandInterface
+class SendMailCommand implements MailerCommandInterface
 {
     private MailInterface $mail;
 
