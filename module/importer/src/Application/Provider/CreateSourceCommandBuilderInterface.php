@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Application\Provider;
 
+use Ergonode\Importer\Domain\Command\CreateSourceCommandInterface;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 interface CreateSourceCommandBuilderInterface
 {
     public function supported(string $type): bool;
 
-    public function build(FormInterface $form): DomainCommandInterface;
+    public function build(FormInterface $form): CreateSourceCommandInterface;
 }
