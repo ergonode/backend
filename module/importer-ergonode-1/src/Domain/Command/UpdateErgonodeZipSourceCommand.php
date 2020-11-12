@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\Command\UpdateSourceCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-class UpdateErgonodeZipSourceCommand implements DomainCommandInterface
+class UpdateErgonodeZipSourceCommand implements UpdateSourceCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")

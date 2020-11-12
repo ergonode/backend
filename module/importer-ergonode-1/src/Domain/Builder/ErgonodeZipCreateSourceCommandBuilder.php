@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode\Domain\Builder;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
+use Ergonode\Importer\Domain\Command\CreateSourceCommandInterface;
 use Ergonode\ImporterErgonode\Application\Model\ImporterErgonodeConfigurationModel;
 use Ergonode\ImporterErgonode\Domain\Command\CreateErgonodeZipSourceCommand;
 use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
@@ -26,7 +26,7 @@ class ErgonodeZipCreateSourceCommandBuilder implements CreateSourceCommandBuilde
     /**
      * @throws \Exception
      */
-    public function build(FormInterface $form): DomainCommandInterface
+    public function build(FormInterface $form): CreateSourceCommandInterface
     {
         /** @var ImporterErgonodeConfigurationModel $data */
         $data = $form->getData();
