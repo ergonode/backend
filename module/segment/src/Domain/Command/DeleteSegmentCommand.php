@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
-class DeleteSegmentCommand implements DomainCommandInterface
+class DeleteSegmentCommand implements SegmentCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")

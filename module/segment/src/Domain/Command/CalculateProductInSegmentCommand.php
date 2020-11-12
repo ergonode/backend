@@ -11,9 +11,8 @@ namespace Ergonode\Segment\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class CalculateProductInSegmentCommand implements DomainCommandInterface
+class CalculateProductInSegmentCommand implements SegmentCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")

@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteProductCollectionTypeCommand implements DomainCommandInterface
+class DeleteProductCollectionTypeCommand implements ProductCollectionCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
