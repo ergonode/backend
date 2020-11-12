@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-class UpdateMultimediaCommand implements DomainCommandInterface
+class UpdateMultimediaCommand implements MultimediaCommandInterface
 {
     private MultimediaId $id;
 

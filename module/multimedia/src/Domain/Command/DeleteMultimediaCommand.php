@@ -8,11 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteMultimediaCommand implements DomainCommandInterface
+class DeleteMultimediaCommand implements MultimediaCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\MultimediaId")

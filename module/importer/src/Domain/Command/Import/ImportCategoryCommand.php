@@ -10,10 +10,10 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class ImportCategoryCommand implements DomainCommandInterface
+class ImportCategoryCommand implements ImporterCommandInterface
 {
     private ImportId $importId;
 

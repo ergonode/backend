@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Domain\Builder;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\Command\UpdateSourceCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
@@ -24,7 +24,7 @@ class Magento1CsvUpdateSourceCommandBuilder implements UpdateSourceCommandBuilde
         return $type === Magento1CsvSource::TYPE;
     }
 
-    public function build(SourceId $id, FormInterface $form): DomainCommandInterface
+    public function build(SourceId $id, FormInterface $form): UpdateSourceCommandInterface
     {
         /** @var ImporterMagento1ConfigurationModel $data */
         $data = $form->getData();

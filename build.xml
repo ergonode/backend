@@ -22,7 +22,6 @@
         <mkdir dir="${dir.build}"/>
         <mkdir dir="${dir.docs}"/>
         <mkdir dir="${dir.reports}"/>
-        <mkdir dir="${dir.reports}/pmd"/>
         <mkdir dir="${dir.reports}/coverage"/>
     </target>
 
@@ -120,32 +119,6 @@
 
     <!-- Code style check -->
     <target name="check:style" depends="check:cs, check:phpstan" description="Check code style"/>
-
-    <!-- Mess detector -->
-    <target name="check:md" description="Check PHP Mess Detector">
-        <phpmd >
-            <fileset dir="${dir.src}">
-                <include name="**/*.php" />
-            </fileset>
-            <fileset dir="${dir.module}">
-                <include name="**/*.php" />
-            </fileset>
-            <formatter type="html" outfile="${dir.reports}/pmd.html"/>
-        </phpmd>
-    </target>
-
-    <!-- Copy paste detector -->
-    <target name="check:cpd" description="Copy Paste Detector.">
-        <phpcpd>
-            <fileset dir="${dir.src}">
-                <include name="**/*.php"/>
-            </fileset>
-            <fileset dir="${dir.module}">
-                <include name="**/*.php"/>
-            </fileset>
-<!--            <formatter type="pmd" outfile="${dir.reports}/pmd-cpd.xml"/>-->
-        </phpcpd>
-    </target>
 
     <!-- PHP Stan check -->
     <target name="check:phpstan" description="Executes unit tests.">
