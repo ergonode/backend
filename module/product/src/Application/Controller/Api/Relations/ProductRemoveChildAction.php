@@ -15,7 +15,6 @@ use Ergonode\Product\Domain\Command\Relations\RemoveProductChildCommand;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -68,10 +67,6 @@ class ProductRemoveChildAction
      *     response=204,
      *     description="Child removed",
      * )
-     *
-     * @ParamConverter(name="product")
-     * @ParamConverter(name="child")
-     *
      * @param AbstractProduct|AbstractAssociatedProduct $product
      */
     public function __invoke(Language $language, AbstractProduct $product, AbstractProduct $child): Response

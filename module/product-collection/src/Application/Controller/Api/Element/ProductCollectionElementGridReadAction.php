@@ -109,8 +109,6 @@ class ProductCollectionElementGridReadAction
      *     response=200,
      *     description="Returns import",
      * )
-     *
-     * @ParamConverter(name="productCollection")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(

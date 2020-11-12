@@ -15,7 +15,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,9 +76,6 @@ class ProductCollectionElementDeleteAction
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @ParamConverter(name="productCollection")
-     * @ParamConverter(name="product")
      */
     public function __invoke(ProductCollection $productCollection, AbstractProduct $product): Response
     {

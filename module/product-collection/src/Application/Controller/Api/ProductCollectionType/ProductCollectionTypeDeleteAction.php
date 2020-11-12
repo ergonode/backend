@@ -16,7 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,8 +81,6 @@ class ProductCollectionTypeDeleteAction
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @ParamConverter(name="productCollectionType")
      */
     public function __invoke(ProductCollectionType $productCollectionType, Request $request): Response
     {

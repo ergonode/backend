@@ -124,7 +124,6 @@ class ProductChildGridAction
      *     description="Returns import",
      * )
      *
-     * @ParamConverter(name="product")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(

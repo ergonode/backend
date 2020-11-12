@@ -18,7 +18,6 @@ use Ergonode\ProductCollection\Application\Model\ProductCollectionElementUpdateF
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,8 +92,6 @@ class ProductCollectionElementChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     * @ParamConverter(name="product")
-     * @ParamConverter(name="productCollection")
      */
     public function __invoke(ProductCollection $productCollection, AbstractProduct $product, Request $request): Response
     {

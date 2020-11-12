@@ -17,7 +17,6 @@ use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInter
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -87,11 +86,6 @@ class OptionDeleteAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     *
-     *
-     * @ParamConverter(name="attribute")
-     * @ParamConverter(name="option")
      */
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {

@@ -16,7 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -78,8 +77,6 @@ class ProductCollectionDeleteAction
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @ParamConverter(name="productCollection")
      */
     public function __invoke(ProductCollection $productCollection): Response
     {

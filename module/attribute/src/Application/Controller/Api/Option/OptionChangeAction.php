@@ -20,7 +20,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,11 +89,6 @@ class OptionChangeAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(name="attribute")
-     * @ParamConverter(name="option")
-     *
-     *
      *
      * @throws \Exception
      */

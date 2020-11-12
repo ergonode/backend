@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,10 +56,6 @@ class CompletenessReadAction
      *     response=200,
      *     description="Get draft grid",
      * )
-     *
-     *
-     *
-     * @ParamConverter(name="product")
      *
      * @throws \Exception
      */

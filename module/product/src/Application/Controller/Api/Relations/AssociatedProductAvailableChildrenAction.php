@@ -131,7 +131,6 @@ class AssociatedProductAvailableChildrenAction
      *     description="Returns products",
      * )
      *
-     * @ParamConverter(name="product")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(

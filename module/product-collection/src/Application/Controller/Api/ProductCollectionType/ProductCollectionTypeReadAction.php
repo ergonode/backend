@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,8 +53,6 @@ class ProductCollectionTypeReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(name="productCollectionType")
      */
     public function __invoke(ProductCollectionType $productCollectionType): Response
     {

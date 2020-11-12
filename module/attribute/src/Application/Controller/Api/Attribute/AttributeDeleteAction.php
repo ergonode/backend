@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -78,9 +77,6 @@ class AttributeDeleteAction
      *     response=409,
      *     description="Existing relationships"
      * )
-     *
-     *
-     * @ParamConverter(name="attribute")
      */
     public function __invoke(AbstractAttribute $attribute): Response
     {

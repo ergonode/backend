@@ -18,7 +18,6 @@ use Ergonode\ProductCollection\Application\Model\ProductCollectionTypeUpdateForm
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,10 +84,6 @@ class ProductCollectionTypeChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(name="productCollectionType")
-     *
-     *
      *
      * @throws \Exception
      */

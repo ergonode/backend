@@ -17,7 +17,6 @@ use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,8 +84,6 @@ class AttributeGroupChangeAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(name="attributeGroup")
      */
     public function __invoke(
         AttributeGroup $attributeGroup,
