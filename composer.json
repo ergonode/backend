@@ -128,7 +128,6 @@
             "Ergonode\\Reader\\": "module/reader/src",
             "Ergonode\\Segment\\": "module/segment/src",
             "Ergonode\\SharedKernel\\": "module/shared-kernel/src",
-            "Ergonode\\Transformer\\": "module/transformer/src",
             "Ergonode\\TranslationDeepl\\": "module/translation-deepl/src",
             "Ergonode\\Value\\": "module/value/src",
             "Ergonode\\Workflow\\": "module/workflow/src"
@@ -169,7 +168,6 @@
             "Ergonode\\Reader\\Tests\\": "module/reader/tests",
             "Ergonode\\Segment\\Tests\\": "module/segment/tests",
             "Ergonode\\SharedKernel\\Tests\\": "module/shared-kernel/tests",
-            "Ergonode\\Transformer\\Tests\\": "module/transformer/tests",
             "Ergonode\\TranslationDeepl\\Tests\\": "module/translation-deepl/tests",
             "Ergonode\\Value\\Tests\\": "module/value/tests",
             "Ergonode\\Workflow\\Tests\\": "module/workflow/tests"

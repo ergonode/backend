@@ -83,14 +83,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ImporterMagento1\\.*
-  - name: Importer-Magento-2
-    collectors:
-      - type: className
-        regex: .*Ergonode\\ImporterMagento2\\.*
-  - name: Transformer
-    collectors:
-      - type: className
-        regex: .*Ergonode\\Transformer\\.*
   - name: TranslationDeepl
     collectors:
       - type: className
@@ -111,10 +103,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ExporterFile\\.*
-  - name: ExporterMagento2
-    collectors:
-      - type: className
-        regex: .*Ergonode\\ExporterMagento2\\.*
 ruleset:
   Grid:
     - Core
@@ -211,32 +199,14 @@ ruleset:
     - Grid
     - EventSourcing
     - Reader
-    - Transformer
   Importer-Magento-1:
     - Core
     - Importer
-    - Transformer
     - Reader
     - Multimedia
     - Attribute
     - Value
     - EventSourcing
-  Importer-Magento-2:
-    - Core
-    - Importer
-    - Transformer
-    - Reader
-    - Multimedia
-    - Attribute
-  Transformer:
-    - Core
-    - EventSourcing
-    - Api
-    - Category
-    - Designer
-    - Product
-    - Value
-    - Attribute
   Reader:
     - Core
     - EventSourcing
@@ -283,15 +253,6 @@ ruleset:
     - Category
     - Value
   ExporterFile:
-    - Api
-    - Core
-    - Grid
-    - EventSourcing
-    - Exporter
-    - Product
-    - Attribute
-    - Value
-  ExporterMagento2:
     - Api
     - Core
     - Grid
