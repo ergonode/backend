@@ -57,9 +57,9 @@ class ProcessTemplateCommandHandler
      */
     public function __invoke(ProcessTemplateCommand $command): void
     {
-        /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
+        /** @var FileExportChannel $channel */
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, FileExportChannel::class);
         $template = $this->templateRepository->load($command->getTemplateId());

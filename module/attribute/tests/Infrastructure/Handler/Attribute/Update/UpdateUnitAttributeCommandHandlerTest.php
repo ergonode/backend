@@ -48,7 +48,7 @@ class UpdateUnitAttributeCommandHandlerTest extends TestCase
 
     public function testAttributeNotFound(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\LogicException::class);
         $this->repository->method('load')->willReturn(null);
 
         $handler = new UpdateUnitAttributeCommandHandler($this->repository);

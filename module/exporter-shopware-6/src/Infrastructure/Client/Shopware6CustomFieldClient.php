@@ -88,6 +88,16 @@ class Shopware6CustomFieldClient
         $action = new PostCustomFieldAction($customField, true);
 
         $shopwareCustomField = $this->connector->execute($channel, $action);
+
+        if (!$shopwareCustomField instanceof Shopware6CustomField) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    Shopware6CustomField::class,
+                    get_debug_type($shopwareCustomField)
+                )
+            );
+        }
         $this->repository->save(
             $channel->getId(),
             $attribute->getId(),

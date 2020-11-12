@@ -42,7 +42,7 @@ class LogColumnRenderer implements ColumnRendererInterface
      */
     public function render(ColumnInterface $column, string $id, array $row): string
     {
-        if (!$this->supports($column)) {
+        if (!$column instanceof LogColumn) {
             throw new UnsupportedColumnException($column);
         }
 

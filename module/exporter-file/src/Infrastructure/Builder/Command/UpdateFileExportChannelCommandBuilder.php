@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterFile\Domain\Command\UpdateFileExportChannelCommand;
 use Ergonode\ExporterFile\Application\Model\ExporterFileConfigurationModel;
@@ -24,7 +24,7 @@ class UpdateFileExportChannelCommandBuilder implements UpdateChannelCommandBuild
         return FileExportChannel::TYPE === $type;
     }
 
-    public function build(ChannelId $channelId, FormInterface $form): DomainCommandInterface
+    public function build(ChannelId $channelId, FormInterface $form): ChannelCommandInterface
     {
         /** @var ExporterFileConfigurationModel $data */
         $data = $form->getData();

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Domain\Builder;
 
+use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
@@ -27,7 +27,7 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
         return Shopware6Channel::TYPE === $type;
     }
 
-    public function build(ChannelId $id, FormInterface $form): DomainCommandInterface
+    public function build(ChannelId $id, FormInterface $form): ChannelCommandInterface
     {
         /** @var Shopware6ChannelFormModel $data */
         $data = $form->getData();

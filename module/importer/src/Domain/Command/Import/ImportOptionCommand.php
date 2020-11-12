@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
+use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
-class ImportOptionCommand implements DomainCommandInterface
+class ImportOptionCommand implements ImporterCommandInterface
 {
     private ImportId $importId;
 

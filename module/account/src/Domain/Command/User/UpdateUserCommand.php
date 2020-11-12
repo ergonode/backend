@@ -9,14 +9,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
+use Ergonode\Account\Domain\Command\AccountCommandInterface;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-class UpdateUserCommand implements DomainCommandInterface
+class UpdateUserCommand implements AccountCommandInterface
 {
     private UserId $id;
 

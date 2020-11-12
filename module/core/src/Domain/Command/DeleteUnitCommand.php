@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteUnitCommand implements DomainCommandInterface
+class DeleteUnitCommand implements CoreCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")

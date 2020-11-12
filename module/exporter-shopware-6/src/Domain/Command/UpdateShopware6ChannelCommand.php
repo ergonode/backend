@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Domain\Command;
 
+use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-class UpdateShopware6ChannelCommand implements DomainCommandInterface
+class UpdateShopware6ChannelCommand implements ChannelCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")

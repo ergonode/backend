@@ -11,14 +11,13 @@ namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-class UpdateTemplateCommand implements DomainCommandInterface
+class UpdateTemplateCommand implements TemplateCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")

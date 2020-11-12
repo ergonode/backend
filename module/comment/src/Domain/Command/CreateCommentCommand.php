@@ -10,12 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Comment\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
-class CreateCommentCommand implements DomainCommandInterface
+class CreateCommentCommand implements CommentCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")

@@ -9,13 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-class UpdateWorkflowCommand implements DomainCommandInterface
+class UpdateWorkflowCommand implements UpdateWorkflowCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")

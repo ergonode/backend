@@ -10,10 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteConditionSetCommand implements DomainCommandInterface
+class DeleteConditionSetCommand implements ConditionCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")

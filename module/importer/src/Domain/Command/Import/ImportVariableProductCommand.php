@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
+use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
-class ImportVariableProductCommand implements DomainCommandInterface
+class ImportVariableProductCommand implements ImporterCommandInterface
 {
     private ImportId $importId;
 

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Infrastructure\Factory\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Category\Domain\Command\CreateCategoryCommandInterface;
 use Symfony\Component\Form\FormInterface;
 
 interface CreateCategoryCommandFactoryInterface
@@ -19,5 +19,5 @@ interface CreateCategoryCommandFactoryInterface
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface;
+    public function create(FormInterface $form): CreateCategoryCommandInterface;
 }

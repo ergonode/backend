@@ -8,11 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteSourceCommand implements DomainCommandInterface
+class DeleteSourceCommand implements ImporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")

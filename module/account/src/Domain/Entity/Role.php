@@ -18,7 +18,6 @@ use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -68,9 +67,6 @@ class Role extends AbstractAggregateRoot
         $this->apply(new RoleCreatedEvent($id, $name, $description, $privileges, $hidden));
     }
 
-    /**
-     * @return RoleId|AggregateId
-     */
     public function getId(): RoleId
     {
         return $this->id;

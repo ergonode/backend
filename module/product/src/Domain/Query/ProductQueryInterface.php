@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
@@ -90,6 +91,12 @@ interface ProductQueryInterface
     public function findProductIdByType(string $type): array;
 
     public function getCount(): int;
+
+    /**
+     *
+     * @return ProductId[]
+     */
+    public function findProductIdByCategoryId(CategoryId $categoryId): array;
 
     /**
      * @return array

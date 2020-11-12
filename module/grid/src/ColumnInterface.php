@@ -30,6 +30,8 @@ interface ColumnInterface
 
     public function hasLanguage(): bool;
 
+    public function setDeletable(bool $deletable): void;
+
     public function setVisible(bool $visible): void;
 
     public function setLanguage(Language $language): void;

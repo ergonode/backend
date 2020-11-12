@@ -17,6 +17,9 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompil
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceImportCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\TransformerGeneratorProviderStrategyCompilerPass;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ConverterMapperCompilerPass;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ConverterCompilerPass;
 
 class ErgonodeImporterBundle extends AbstractModule
 {
@@ -30,5 +33,8 @@ class ErgonodeImporterBundle extends AbstractModule
         $container->addCompilerPass(new ServiceImportCompilerPass());
         $container->addCompilerPass(new CreateSourceCommandBuilderCompilerPass());
         $container->addCompilerPass(new UpdateSourceCommandBuilderCompilerPass());
+        $container->addCompilerPass(new TransformerGeneratorProviderStrategyCompilerPass());
+        $container->addCompilerPass(new ConverterMapperCompilerPass());
+        $container->addCompilerPass(new ConverterCompilerPass());
     }
 }

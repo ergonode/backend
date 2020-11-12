@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\Workflow\Domain\Command\WorkflowCommandInterface;
 
-class DeleteWorkflowCommand implements DomainCommandInterface
+class DeleteWorkflowCommand implements WorkflowCommandInterface
 {
     private WorkflowId $id;
 

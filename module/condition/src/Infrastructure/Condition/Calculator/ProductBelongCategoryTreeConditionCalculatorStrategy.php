@@ -37,6 +37,15 @@ class ProductBelongCategoryTreeConditionCalculatorStrategy implements ConditionC
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
+        if (!$configuration instanceof ProductBelongCategoryTreeCondition) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    ProductBelongCategoryTreeCondition::class,
+                    get_debug_type($configuration)
+                )
+            );
+        }
         $belong = $configuration->getOperator() === ProductBelongCategoryTreeCondition::BELONG_TO;
         $isset = false;
 

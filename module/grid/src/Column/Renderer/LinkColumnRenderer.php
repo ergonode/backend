@@ -43,7 +43,7 @@ class LinkColumnRenderer implements ColumnRendererInterface
      */
     public function render(ColumnInterface $column, string $id, array $row): array
     {
-        if (!$this->supports($column)) {
+        if (!$column instanceof LinkColumn) {
             throw new UnsupportedColumnException($column);
         }
 

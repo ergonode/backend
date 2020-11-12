@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Factory\Command;
 
+use Ergonode\Product\Domain\Command\Create\CreateProductCommandInterface;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 interface CreateProductCommandFactoryInterface
 {
@@ -18,5 +18,5 @@ interface CreateProductCommandFactoryInterface
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface;
+    public function create(FormInterface $form): CreateProductCommandInterface;
 }

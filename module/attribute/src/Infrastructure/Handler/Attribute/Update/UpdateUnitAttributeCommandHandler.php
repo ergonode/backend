@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateUnitAttributeComman
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
-use Webmozart\Assert\Assert;
 
 class UpdateUnitAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
@@ -32,8 +31,16 @@ class UpdateUnitAttributeCommandHandler extends AbstractUpdateAttributeCommandHa
         /** @var UnitAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
 
-        Assert::isInstanceOf($attribute, UnitAttribute::class);
-        $attribute = $this->update($command, $attribute);
+        if (!$attribute instanceof UnitAttribute) {
+            throw new \LogicException(
+                sprintf(
+                    'Expected an instance of %s. %s received.',
+                    UnitAttribute::class,
+                    get_debug_type($attribute)
+                )
+            );
+        }
+        $this->update($command, $attribute);
         $attribute->changeUnit($command->getUnitId());
 
         $this->attributeRepository->save($attribute);

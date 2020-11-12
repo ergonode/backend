@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
+use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class StartShopware6ExportCommand implements DomainCommandInterface
+class StartShopware6ExportCommand implements ExporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")

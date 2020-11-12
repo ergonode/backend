@@ -56,10 +56,10 @@ class ProcessMultimediaCommandHandler
      */
     public function __invoke(ProcessMultimediaCommand $command): void
     {
-        /** @var FileExportChannel $channel */
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);
         $channel = $this->channelRepository->load($export->getChannelId());
+        /** @var FileExportChannel $channel */
         Assert::isInstanceOf($channel, FileExportChannel::class);
         $multimedia = $this->multimediaRepository->load($command->getMultimediaId());
         Assert::isInstanceOf($multimedia, AbstractMultimedia::class);

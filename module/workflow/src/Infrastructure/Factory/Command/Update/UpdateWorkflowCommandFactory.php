@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Factory\Command\Update;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Workflow\Infrastructure\Factory\Command\UpdateWorkflowCommandFactoryInterface;
 use Ergonode\Workflow\Domain\Entity\Workflow;
@@ -24,7 +24,7 @@ class UpdateWorkflowCommandFactory implements UpdateWorkflowCommandFactoryInterf
         return $type === Workflow::TYPE;
     }
 
-    public function create(WorkflowId $id, FormInterface $form): DomainCommandInterface
+    public function create(WorkflowId $id, FormInterface $form): UpdateWorkflowCommandInterface
     {
         /** @var WorkflowFormModel $data */
         $data = $form->getData();

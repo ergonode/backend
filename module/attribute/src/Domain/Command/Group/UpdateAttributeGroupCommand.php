@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\Command\Group;
 
+use Ergonode\Attribute\Domain\Command\AttributeCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
-class UpdateAttributeGroupCommand implements DomainCommandInterface
+class UpdateAttributeGroupCommand implements AttributeCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")

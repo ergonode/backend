@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Account\Domain\Command\AccountCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use JMS\Serializer\Annotation as JMS;
 
-class DeleteUserAvatarCommand implements DomainCommandInterface
+class DeleteUserAvatarCommand implements AccountCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")

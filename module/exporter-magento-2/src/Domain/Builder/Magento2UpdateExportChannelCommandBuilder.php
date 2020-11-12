@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterMagento2\Domain\Builder;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\ExporterMagento2\Application\Form\Model\ExporterMagento2CsvConfigurationModel;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderInterface;
@@ -23,7 +23,7 @@ class Magento2UpdateExportChannelCommandBuilder implements UpdateChannelCommandB
         return Magento2CsvChannel::TYPE === $type;
     }
 
-    public function build(ChannelId $channelId, FormInterface $form): DomainCommandInterface
+    public function build(ChannelId $channelId, FormInterface $form): ChannelCommandInterface
     {
         /** @var ExporterMagento2CsvConfigurationModel $data */
         $data = $form->getData();

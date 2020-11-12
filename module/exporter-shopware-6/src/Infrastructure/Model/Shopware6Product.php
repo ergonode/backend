@@ -242,7 +242,7 @@ class Shopware6Product
     }
 
     /**
-     * @return Shopware6ProductCategory[]|
+     * @return Shopware6ProductCategory[]
      */
     public function getCategories(): array
     {

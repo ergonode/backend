@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Factory\Command\Create;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Application\Form\Model\Workflow\WorkflowFormModel;
@@ -27,7 +27,7 @@ class CreateWorkflowCommandFactory implements CreateWorkflowCommandFactoryInterf
     /**
      * @throws \Exception
      */
-    public function create(FormInterface $form): DomainCommandInterface
+    public function create(FormInterface $form): CreateWorkflowCommandInterface
     {
         /** @var WorkflowFormModel $data */
         $data = $form->getData();

@@ -10,12 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Product\Domain\ValueObject\Sku;
 use Webmozart\Assert\Assert;
 
-class ImportSimpleProductCommand implements DomainCommandInterface
+class ImportSimpleProductCommand implements ImporterCommandInterface
 {
     private ImportId $importId;
 

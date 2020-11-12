@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use JMS\Serializer\Annotation as JMS;
 
-class StartImportCommand implements DomainCommandInterface
+class StartImportCommand implements ImporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")

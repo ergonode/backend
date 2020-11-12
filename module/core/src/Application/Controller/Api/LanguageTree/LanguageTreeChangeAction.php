@@ -86,7 +86,7 @@ class LanguageTreeChangeAction
 
             if ($form->isSubmitted() && $form->isValid()) {
 
-                /** @var LanguageTreeUpdateForm $data */
+                /** @var LanguageTreeUpdateFormModel $data */
                 $data = $form->getData();
 
                 $command = new UpdateLanguageTreeCommand($data->languages);
