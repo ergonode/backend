@@ -23,28 +23,17 @@ class AttributeScopeChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
-    private AttributeScope $from;
-
-    /**
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
-     */
     private AttributeScope $to;
 
-    public function __construct(AttributeId $id, AttributeScope $from, AttributeScope $to)
+    public function __construct(AttributeId $id, AttributeScope $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): AttributeId
     {
         return $this->id;
-    }
-
-    public function getFrom(): AttributeScope
-    {
-        return $this->from;
     }
 
     public function getTo(): AttributeScope

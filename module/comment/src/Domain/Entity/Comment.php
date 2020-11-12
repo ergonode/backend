@@ -63,7 +63,7 @@ class Comment extends AbstractAggregateRoot
     public function changeContent(string $contend): void
     {
         if ($contend !== $this->content) {
-            $this->apply(new CommentContentChangedEvent($this->id, $this->content, $contend, new \DateTime()));
+            $this->apply(new CommentContentChangedEvent($this->id, $contend, new \DateTime()));
         }
     }
 

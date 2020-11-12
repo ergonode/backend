@@ -18,12 +18,11 @@ class AttributeBoolParameterChangeEventTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testCreateEvent(AttributeId $id, string $name, bool $from, bool $to): void
+    public function testCreateEvent(AttributeId $id, string $name, bool $to): void
     {
-        $event = new AttributeBoolParameterChangeEvent($id, $name, $from, $to);
+        $event = new AttributeBoolParameterChangeEvent($id, $name, $to);
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($name, $event->getName());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 
@@ -38,7 +37,6 @@ class AttributeBoolParameterChangeEventTest extends TestCase
             [
                 $this->createMock(AttributeId::class),
                 'name',
-                true,
                 false,
             ],
         ];

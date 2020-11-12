@@ -88,7 +88,7 @@ abstract class AbstractCategory extends AbstractAggregateRoot
     public function changeName(TranslatableString $title): void
     {
         if ($this->name->getTranslations() !== $title->getTranslations()) {
-            $this->apply(new CategoryNameChangedEvent($this->id, $this->name, $title));
+            $this->apply(new CategoryNameChangedEvent($this->id, $title));
         }
     }
 
@@ -140,7 +140,6 @@ abstract class AbstractCategory extends AbstractAggregateRoot
                 new ValueChangedEvent(
                     $this->id,
                     $attributeCode,
-                    $this->attributes[$attributeCode->getValue()],
                     $value
                 )
             );

@@ -19,11 +19,10 @@ class AttributePlaceholderChangedEventTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testCreateEvent(AttributeId $id, TranslatableString $from, TranslatableString $to): void
+    public function testCreateEvent(AttributeId $id, TranslatableString $to): void
     {
-        $event = new AttributePlaceholderChangedEvent($id, $from, $to);
+        $event = new AttributePlaceholderChangedEvent($id, $to);
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 
@@ -37,7 +36,6 @@ class AttributePlaceholderChangedEventTest extends TestCase
         return [
             [
                 $this->createMock(AttributeId::class),
-                $this->createMock(TranslatableString::class),
                 $this->createMock(TranslatableString::class),
             ],
         ];

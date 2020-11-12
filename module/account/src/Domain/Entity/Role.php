@@ -98,7 +98,7 @@ class Role extends AbstractAggregateRoot
     public function changeName(string $name): void
     {
         if ($name !== $this->name) {
-            $this->apply(new RoleNameChangedEvent($this->id, $this->name, $name));
+            $this->apply(new RoleNameChangedEvent($this->id, $name));
         }
     }
 
@@ -109,13 +109,13 @@ class Role extends AbstractAggregateRoot
     {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
-        $this->apply(new RolePrivilegesChangedEvent($this->id, $this->privileges, $privileges));
+        $this->apply(new RolePrivilegesChangedEvent($this->id, $privileges));
     }
 
     public function changeDescription(?string $description): void
     {
         if ($description !== $this->description) {
-            $this->apply(new RoleDescriptionChangedEvent($this->id, $this->description, $description));
+            $this->apply(new RoleDescriptionChangedEvent($this->id, $description));
         }
     }
 

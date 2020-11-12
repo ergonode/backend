@@ -64,7 +64,6 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
             $event = new AttributeStringParameterChangeEvent(
                 $this->id,
                 self::UNIT,
-                $this->getUnitId()->getValue(),
                 $new->getValue()
             );
             $this->apply($event);

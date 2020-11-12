@@ -24,28 +24,17 @@ class TemplateGroupChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
-    private TemplateGroupId $from;
-
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
-     */
     private TemplateGroupId $to;
 
-    public function __construct(TemplateId $id, TemplateGroupId $from, TemplateGroupId $to)
+    public function __construct(TemplateId $id, TemplateGroupId $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): TemplateId
     {
         return $this->id;
-    }
-
-    public function getOld(): TemplateGroupId
-    {
-        return $this->from;
     }
 
     public function getNew(): TemplateGroupId

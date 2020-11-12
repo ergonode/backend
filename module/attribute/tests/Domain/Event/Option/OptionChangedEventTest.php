@@ -20,13 +20,10 @@ class OptionChangedEventTest extends TestCase
     {
         /** @var AggregateId $id */
         $id = $this->createMock(AggregateId::class);
-        /** @var TranslatableString $from */
-        $from = $this->createMock(TranslatableString::class);
         /** @var TranslatableString $to */
         $to = $this->createMock(TranslatableString::class);
-        $event = new OptionLabelChangedEvent($id, $from, $to);
+        $event = new OptionLabelChangedEvent($id, $to);
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

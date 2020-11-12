@@ -21,13 +21,11 @@ class UserRoleChangedEventTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        $from = $this->createMock(RoleId::class);
         $to = $this->createMock(RoleId::class);
 
-        $event = new UserRoleChangedEvent($id, $from, $to);
+        $event = new UserRoleChangedEvent($id, $to);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

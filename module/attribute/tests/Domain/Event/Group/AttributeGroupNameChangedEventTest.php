@@ -22,15 +22,11 @@ class AttributeGroupNameChangedEventTest extends TestCase
         /** @var AttributeGroupId | MockObject $id */
         $id = $this->createMock(AttributeGroupId::class);
 
-        /** @var TranslatableString | MockObject $from */
-        $from = $this->createMock(TranslatableString::class);
-
         /** @var TranslatableString | MockObject $to */
         $to = $this->createMock(TranslatableString::class);
 
-        $event = new AttributeGroupNameChangedEvent($id, $from, $to);
+        $event = new AttributeGroupNameChangedEvent($id, $to);
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

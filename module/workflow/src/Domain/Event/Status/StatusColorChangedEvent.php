@@ -24,28 +24,17 @@ class StatusColorChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
-    private Color $from;
-
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
-     */
     private Color $to;
 
-    public function __construct(StatusId $id, Color $from, Color $to)
+    public function __construct(StatusId $id, Color $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): StatusId
     {
         return $this->id;
-    }
-
-    public function getFrom(): Color
-    {
-        return $this->from;
     }
 
     public function getTo(): Color

@@ -21,9 +21,9 @@ class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChange
      */
     private CategoryTreeId $id;
 
-    public function __construct(CategoryTreeId $id, TranslatableString $from, TranslatableString $to)
+    public function __construct(CategoryTreeId $id, TranslatableString $to)
     {
-        parent::__construct($from, $to);
+        parent::__construct($to);
 
         $this->id = $id;
     }

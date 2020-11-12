@@ -22,16 +22,12 @@ class CategoryTreeNameChangedEventTest extends TestCase
         /** @var CategoryTreeId | MockObject $id */
         $id = $this->createMock(CategoryTreeId::class);
 
-        /** @var TranslatableString | MockObject $from */
-        $from = $this->createMock(TranslatableString::class);
-
         /** @var TranslatableString | MockObject $to */
         $to = $this->createMock(TranslatableString::class);
 
-        $event = new CategoryTreeNameChangedEvent($id, $from, $to);
+        $event = new CategoryTreeNameChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }
