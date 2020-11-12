@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Transformer\Domain\Command;
+namespace Ergonode\Importer\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
