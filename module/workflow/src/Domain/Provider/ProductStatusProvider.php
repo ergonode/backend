@@ -32,12 +32,21 @@ class ProductStatusProvider
         Language $language
     ): AbstractProduct {
         $code = new AttributeCode(StatusSystemAttribute::CODE);
-        $value = $product->getAttribute($code)->getValue();
+
+        $value = [];
+        if ($product->hasAttribute($code)) {
+            $value = $product->getAttribute($code)->getValue();
+        }
+
         if (!array_key_exists($language->getCode(), $value)) {
             $status = $workflow->getDefaultStatus();
             $value[$language->getCode()] = $status->getValue();
             $attribute = new TranslatableStringValue(new TranslatableString($value));
-            $product->changeAttribute($code, $attribute);
+            if ($product->hasAttribute($code)) {
+                $product->changeAttribute($code, $attribute);
+            } else {
+                $product->addAttribute($code, $attribute);
+            }
             $this->repository->save($product);
         }
 
