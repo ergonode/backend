@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Reader;
 
-use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
+use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;

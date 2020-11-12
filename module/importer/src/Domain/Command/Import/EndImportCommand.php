@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 class EndImportCommand implements ImporterCommandInterface
 {
     /**
-     * @JMS\Type("Ergonode\Transformer\Domain\Entity\ImportId")
+     * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
      */
     private ImportId $id;
 
