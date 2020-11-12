@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Transformer\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
-class GenerateTransformerCommand implements DomainCommandInterface
+class GenerateTransformerCommand implements TransformerCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")

@@ -10,10 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Notification\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ramsey\Uuid\Uuid;
 
-class MarkNotificationCommand implements DomainCommandInterface
+class MarkNotificationCommand implements NotificationCommandInterface
 {
     private Uuid $notificationId;
 
