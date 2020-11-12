@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Domain\Builder;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\Command\CreateSourceCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
@@ -27,7 +27,7 @@ class Magento1CsvCreateSourceCommandBuilder implements CreateSourceCommandBuilde
     /**
      * @throws \Exception
      */
-    public function build(FormInterface $form): DomainCommandInterface
+    public function build(FormInterface $form): CreateSourceCommandInterface
     {
         /** @var ImporterMagento1ConfigurationModel $data */
         $data = $form->getData();

@@ -346,9 +346,6 @@
     "paragonie/random_compat": {
         "version": "v2.0.14"
     },
-    "pdepend/pdepend": {
-        "version": "2.5.2"
-    },
     "phar-io/manifest": {
         "version": "1.0.3"
     },
@@ -369,9 +366,6 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
-    },
-    "phpmd/phpmd": {
-        "version": "2.6.0"
     },
     "phpspec/prophecy": {
         "version": "v1.10.3"
@@ -468,9 +462,6 @@
     "sebastian/exporter": {
         "version": "4.0.0"
     },
-    "sebastian/finder-facade": {
-        "version": "2.0.0"
-    },
     "sebastian/global-state": {
         "version": "4.0.0"
     },
@@ -479,9 +470,6 @@
     },
     "sebastian/object-reflector": {
         "version": "2.0.0"
-    },
-    "sebastian/phpcpd": {
-        "version": "5.0.2"
     },
     "sebastian/recursion-context": {
         "version": "4.0.0"
@@ -809,9 +797,6 @@
     },
     "thecodingmachine/safe": {
         "version": "v1.2.0"
-    },
-    "theseer/fdomdocument": {
-        "version": "1.6.6"
     },
     "theseer/tokenizer": {
         "version": "1.1.3"

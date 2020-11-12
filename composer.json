@@ -70,11 +70,9 @@
         "friends-of-behat/symfony-extension": "^2.0",
         "infection/infection": "^0.17.5",
         "nelmio/alice": "^3.6",
-        "phpmd/phpmd": "^2.7",
         "phpstan/phpstan": "^0.12",
         "phpunit/phpunit": "^9.0",
         "roave/security-advisories": "dev-master",
-        "sebastian/phpcpd": "^5.0",
         "sensiolabs-de/deptrac-shim": "^0.6.0",
         "slevomat/coding-standard": "^6.4",
         "squizlabs/php_codesniffer": "^3.5",
@@ -128,7 +126,6 @@
             "Ergonode\\Reader\\": "module/reader/src",
             "Ergonode\\Segment\\": "module/segment/src",
             "Ergonode\\SharedKernel\\": "module/shared-kernel/src",
-            "Ergonode\\Transformer\\": "module/transformer/src",
             "Ergonode\\TranslationDeepl\\": "module/translation-deepl/src",
             "Ergonode\\Value\\": "module/value/src",
             "Ergonode\\Workflow\\": "module/workflow/src"
@@ -169,7 +166,6 @@
             "Ergonode\\Reader\\Tests\\": "module/reader/tests",
             "Ergonode\\Segment\\Tests\\": "module/segment/tests",
             "Ergonode\\SharedKernel\\Tests\\": "module/shared-kernel/tests",
-            "Ergonode\\Transformer\\Tests\\": "module/transformer/tests",
             "Ergonode\\TranslationDeepl\\Tests\\": "module/translation-deepl/tests",
             "Ergonode\\Value\\Tests\\": "module/value/tests",
             "Ergonode\\Workflow\\Tests\\": "module/workflow/tests"

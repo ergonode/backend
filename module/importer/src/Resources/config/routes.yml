@@ -1,4 +1,14 @@
-ergonode_importer_api:
-    resource: '../../Application/Controller/Api/*/*'
+ergonode_import_api:
+    resource: '../../Application/Controller/Api/Import/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
+
+ergonode_source_api:
+    resource: '../../Application/Controller/Api/Source/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
+
+ergonode_transformer_api:
+    resource: '../../Application/Controller/Api/Transformer/*'
+    type: annotation
+    prefix: '/api/v1'

@@ -9,14 +9,14 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\Command\UpdateSourceCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
 
-class UpdateMagento1CsvSourceCommand implements DomainCommandInterface
+class UpdateMagento1CsvSourceCommand implements UpdateSourceCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
