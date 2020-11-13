@@ -14,6 +14,7 @@ use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
 class CalculateProductCommandHandler
 {
@@ -21,12 +22,16 @@ class CalculateProductCommandHandler
 
     private CommandBusInterface $commandBus;
 
+    private SegmentProductService $service;
+
     public function __construct(
         SegmentQueryInterface $query,
-        CommandBusInterface $commandBus
+        CommandBusInterface $commandBus,
+        SegmentProductService $service
     ) {
         $this->query = $query;
         $this->commandBus = $commandBus;
+        $this->service = $service;
     }
 
     /**
@@ -36,11 +41,11 @@ class CalculateProductCommandHandler
     {
         $productId = $command->getProductId();
         $segmentIds = $this->query->getAllSegmentIds();
-        if (!empty($segmentIds)) {
-            foreach ($segmentIds as $segmentId) {
-                $segmentId = new SegmentId($segmentId);
-                $this->commandBus->dispatch(new CalculateProductInSegmentCommand($segmentId, $productId));
-            }
+
+        foreach ($segmentIds as $segmentId) {
+            $segmentId = new SegmentId($segmentId);
+            $this->service->add($segmentId, $productId);
+            $this->commandBus->dispatch(new CalculateProductInSegmentCommand($segmentId, $productId), true);
         }
     }
 }

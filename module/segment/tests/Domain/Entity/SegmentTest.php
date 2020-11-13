@@ -14,7 +14,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
-use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -66,7 +65,6 @@ class SegmentTest extends TestCase
         $this->assertEquals($this->name, $segment->getName());
         $this->assertEquals($this->description, $segment->getDescription());
         $this->assertEquals($this->conditionSetId, $segment->getConditionSetId());
-        $this->assertEquals(new SegmentStatus(SegmentStatus::NEW), $segment->getStatus());
     }
 
     /**
@@ -82,23 +80,18 @@ class SegmentTest extends TestCase
         $description = $this->createMock(TranslatableString::class);
         $description->method('isEqual')->willReturn(false);
 
-        /** @var SegmentStatus|MockObject $status */
-        $status = $this->createMock(SegmentStatus::class);
-        $status->method('isEqual')->willReturn(false);
 
         /** @var ConditionSetId|MockObject $conditionSet */
         $conditionSetId = $this->createMock(ConditionSetId::class);
         $conditionSetId->method('isEqual')->willReturn(false);
 
         $segment = new Segment($this->id, $this->code, $this->name, $this->description, $this->conditionSetId);
-        $segment->changeStatus($status);
         $segment->changeName($name);
         $segment->changeDescription($description);
         $segment->changeConditionSet($conditionSetId);
 
         $this->assertSame($name, $segment->getName());
         $this->assertSame($description, $segment->getDescription());
-        $this->assertSame($status, $segment->getStatus());
         $this->assertSame($conditionSetId, $segment->getConditionSetId());
     }
 }

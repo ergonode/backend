@@ -14,7 +14,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
-use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -32,16 +31,13 @@ class SegmentCreatedEventTest extends TestCase
         $code = $this->createMock(SegmentCode::class);
         /** @var ConditionSetId|MockObject $conditionSetId */
         $conditionSetId = $this->createMock(ConditionSetId::class);
-        /** @var SegmentStatus|MockObject $status */
-        $status = $this->createMock(SegmentStatus::class);
 
-        $event = new SegmentCreatedEvent($id, $code, $name, $description, $status, $conditionSetId);
+        $event = new SegmentCreatedEvent($id, $code, $name, $description, $conditionSetId);
 
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($code, $event->getCode());
         $this->assertSame($name, $event->getName());
         $this->assertSame($description, $event->getDescription());
         $this->assertSame($conditionSetId, $event->getConditionSetId());
-        $this->assertSame($status, $event->getStatus());
     }
 }
