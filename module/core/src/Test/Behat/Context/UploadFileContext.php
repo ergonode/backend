@@ -70,9 +70,8 @@ class UploadFileContext extends BaseContext
                 $parameters[$row['key']] = $row['value'];
             }
         }
-        /** @phpstan-ignore-next-line */
 
-        return $this->request->send(
+        return $this->request->send(/* @phpstan-ignore-line */
             $method,
             $this->locatePath($url),
             $parameters,
