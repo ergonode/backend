@@ -11,10 +11,10 @@ namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use FriendsOfBehat\SymfonyExtension\Context\Environment\InitializedSymfonyExtensionEnvironment;
 
 class AuthenticationContext implements Context
 {
-    private StorageContext $storageContext;
 
     private string $username;
 
@@ -31,11 +31,12 @@ class AuthenticationContext implements Context
      */
     public function gatherContexts(BeforeScenarioScope $scope): void
     {
+        /** @var InitializedSymfonyExtensionEnvironment $environment */
         $environment = $scope->getEnvironment();
+        /** @var StorageContext $storageContext */
+        $storageContext = $environment->getContext(StorageContext::class);
 
-        $this->storageContext = $environment->getContext('Ergonode\Core\Test\Behat\Context\StorageContext');
-
-        $this->storageContext->addDefinition('default_user_username', $this->username);
-        $this->storageContext->addDefinition('default_user_password', $this->password);
+        $storageContext->addDefinition('default_user_username', $this->username);
+        $storageContext->addDefinition('default_user_password', $this->password);
     }
 }

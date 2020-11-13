@@ -39,6 +39,9 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
+    Ergonode\Account\Infrastructure\Subscriber\LocaleSubscriber:
+        $localeAware: '@translator.data_collector'
+    
     Ergonode\Account\Domain\Repository\UserRepositoryInterface: '@Ergonode\Account\Infrastructure\Persistence\Repository\DbalUserRepository'
     Ergonode\Account\Domain\Repository\RoleRepositoryInterface: '@Ergonode\Account\Infrastructure\Persistence\Repository\DbalRoleRepository'
     Ergonode\Account\Domain\Query\AccountQueryInterface: '@Ergonode\Account\Infrastructure\Persistence\Query\DbalAccountQuery'

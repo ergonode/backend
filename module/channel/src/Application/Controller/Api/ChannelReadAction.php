@@ -17,7 +17,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route(
@@ -31,12 +31,12 @@ class ChannelReadAction
 {
     private ChannelFormFactoryProvider $provider;
 
-    private SerializerInterface $serializer;
+    private NormalizerInterface $normalizer;
 
-    public function __construct(ChannelFormFactoryProvider $provider, SerializerInterface $serializer)
+    public function __construct(ChannelFormFactoryProvider $provider, NormalizerInterface $normalizer)
     {
         $this->provider = $provider;
-        $this->serializer = $serializer;
+        $this->normalizer = $normalizer;
     }
 
     /**
@@ -72,7 +72,7 @@ class ChannelReadAction
     public function __invoke(AbstractChannel $channel): Response
     {
         $form = $this->provider->provide($channel->getType())->create($channel);
-        $result = $this->serializer->normalize($form);
+        $result = $this->normalizer->normalize($form);
         $result['type'] = $channel->getType();
         $result['id'] = $channel->getId();
 
