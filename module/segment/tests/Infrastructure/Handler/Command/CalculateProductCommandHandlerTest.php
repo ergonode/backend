@@ -19,10 +19,19 @@ use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
 class CalculateProductCommandHandlerTest extends TestCase
 {
+    /**
+     * @var CalculateProductCommand|MockObject
+     */
     private CalculateProductCommand $command;
 
+    /**
+     * @var SegmentQueryInterface|MockObject
+     */
     private SegmentQueryInterface $query;
 
+    /**
+     * @var SegmentProductService|MockObject
+     */
     private SegmentProductService $service;
 
     /**
