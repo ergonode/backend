@@ -71,6 +71,7 @@ class UploadFileContext extends BaseContext
             }
         }
         /** @phpstan-ignore-next-line */
+
         return $this->request->send(
             $method,
             $this->locatePath($url),
