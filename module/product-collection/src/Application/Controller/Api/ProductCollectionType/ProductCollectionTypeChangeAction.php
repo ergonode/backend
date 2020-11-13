@@ -18,7 +18,6 @@ use Ergonode\ProductCollection\Application\Model\ProductCollectionTypeUpdateForm
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +29,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_type_change",
- *     path="/collections/type/{type}",
+ *     path="/collections/type/{productCollectionType}",
  *     methods={"PUT"},
- *     requirements={"type"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"productCollectionType"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductCollectionTypeChangeAction
@@ -63,7 +62,7 @@ class ProductCollectionTypeChangeAction
      * )
      *
      * @SWG\Parameter(
-     *     name="type",
+     *     name="productCollectionType",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -86,13 +85,9 @@ class ProductCollectionTypeChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
-     *
-     *
-     *
      * @throws \Exception
      */
-    public function __invoke(ProductCollectionType $productCollection, Request $request): Response
+    public function __invoke(ProductCollectionType $productCollectionType, Request $request): Response
     {
         try {
             $model = new ProductCollectionTypeUpdateFormModel();
@@ -107,7 +102,7 @@ class ProductCollectionTypeChangeAction
                 /** @var ProductCollectionTypeUpdateFormModel $data */
                 $data = $form->getData();
                 $command = new UpdateProductCollectionTypeCommand(
-                    $productCollection->getId(),
+                    $productCollectionType->getId(),
                     new TranslatableString($data->name),
                 );
                 $this->commandBus->dispatch($command);

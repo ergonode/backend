@@ -19,7 +19,6 @@ use Ergonode\Product\Domain\Command\Relations\AddProductChildrenCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -77,8 +76,6 @@ class ProductAddChildFromSkusAction extends AbstractController
      *     response=200,
      *     description="Returns import",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {

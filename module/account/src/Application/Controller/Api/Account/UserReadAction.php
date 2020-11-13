@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -63,8 +62,6 @@ class UserReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
      */
     public function __invoke(User $user): Response
     {

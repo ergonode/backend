@@ -17,7 +17,6 @@ use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +29,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 /**
  * @Route(
  *     name="ergonode_attribute_group_change",
- *     path="/attributes/groups/{group}",
+ *     path="/attributes/groups/{attributeGroup}",
  *     methods={"PUT"},
- *     requirements={"group" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"attributeGroup" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class AttributeGroupChangeAction
@@ -52,7 +51,7 @@ class AttributeGroupChangeAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="group",
+     *     name="attributeGroup",
      *     in="path",
      *     type="string",
      *     description="Attribute Group id",
@@ -85,8 +84,6 @@ class AttributeGroupChangeAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
      */
     public function __invoke(
         AttributeGroup $attributeGroup,

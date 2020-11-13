@@ -17,7 +17,6 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,8 +93,6 @@ class PasswordChangeAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
      */
     public function __invoke(User $user, Request $request): Response
     {

@@ -15,7 +15,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -79,8 +78,6 @@ class RoleDeleteAction
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
      */
     public function __invoke(Role $role): Response
     {

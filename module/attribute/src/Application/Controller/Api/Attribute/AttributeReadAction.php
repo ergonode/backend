@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -62,9 +61,6 @@ class AttributeReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      */
     public function __invoke(AbstractAttribute $attribute): Response
     {

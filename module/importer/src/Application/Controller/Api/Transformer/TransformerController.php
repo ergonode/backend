@@ -17,7 +17,6 @@ use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Importer\Domain\Command\CreateTransformerCommand;
 use Ergonode\Importer\Domain\Command\DeleteTransformerCommand;
 use Ergonode\Importer\Domain\Entity\Transformer;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,9 +61,6 @@ class TransformerController extends AbstractController
      *     response=404,
      *     description="Transformer not found"
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Transformer")
      */
     public function getTransformer(Transformer $transformer): Response
     {
@@ -128,8 +124,6 @@ class TransformerController extends AbstractController
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Transformer")
      */
     public function deleteTransformer(Transformer $transformer): Response
     {

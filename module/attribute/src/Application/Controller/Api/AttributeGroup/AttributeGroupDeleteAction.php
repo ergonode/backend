@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -25,9 +24,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 /**
  * @Route(
  *     name="ergonode_attribute_group_delete",
- *     path="/attributes/groups/{group}",
+ *     path="/attributes/groups/{attributeGroup}",
  *     methods={"DELETE"},
- *     requirements={"group" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"attributeGroup" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class AttributeGroupDeleteAction
@@ -53,7 +52,7 @@ class AttributeGroupDeleteAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="group",
+     *     name="attributeGroup",
      *     in="path",
      *     type="string",
      *     description="Attribute group id"
@@ -78,18 +77,15 @@ class AttributeGroupDeleteAction
      *     response=409,
      *     description="Existing relationships"
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
      */
-    public function __invoke(AttributeGroup $group): Response
+    public function __invoke(AttributeGroup $attributeGroup): Response
     {
-        $relationships = $this->relationshipsResolver->resolve($group->getId());
+        $relationships = $this->relationshipsResolver->resolve($attributeGroup->getId());
         if (null !== $relationships) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
-        $command = new DeleteAttributeGroupCommand($group->getId());
+        $command = new DeleteAttributeGroupCommand($attributeGroup->getId());
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

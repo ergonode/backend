@@ -133,7 +133,7 @@ Feature: Workflow
         "color": "#ff00ff"
       }
       """
-    Then the response status code should be 404
+    Then the response status code should be 400
 
   Scenario: Get first status
     When I send a GET request to "/api/v1/en_GB/status/@workflow_first_status@"
@@ -202,9 +202,9 @@ Feature: Workflow
     Then the response status code should be 404
 
   Scenario: Delete first status
-    When I send a DELETE request to "/api/v1/en_GB/status/@workflow_first_status_code@"
+    When I send a DELETE request to "/api/v1/en_GB/status/@workflow_first_status@"
     Then the response status code should be 409
 
   Scenario: Delete second status
-    When I send a DELETE request to "/api/v1/en_GB/status/@workflow_second_status_code@"
+    When I send a DELETE request to "/api/v1/en_GB/status/@workflow_second_status@"
     Then the response status code should be 204

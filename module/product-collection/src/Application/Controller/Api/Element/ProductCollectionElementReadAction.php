@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,10 +20,10 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_element_read",
- *     path="/collections/{collection}/elements/{product}",
+ *     path="/collections/{productCollection}/elements/{product}",
  *     methods={"GET"},
  *     requirements={
- *     "collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *     "productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
  *      "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     },
  * )
@@ -44,7 +43,7 @@ class ProductCollectionElementReadAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="collection",
+     *     name="productCollection",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -65,11 +64,6 @@ class ProductCollectionElementReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     *
      *
      * @throws \Exception
      */

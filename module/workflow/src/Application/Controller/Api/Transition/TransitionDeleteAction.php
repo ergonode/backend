@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,9 +72,6 @@ class TransitionDeleteAction
      *     response=404,
      *     description="Status not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      */
     public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
     {

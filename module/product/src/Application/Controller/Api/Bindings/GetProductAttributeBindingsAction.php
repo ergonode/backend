@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,8 +57,6 @@ class GetProductAttributeBindingsAction extends AbstractController
      *     response=200,
      *     description="Returns list of binded attributes",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
     public function __invoke(Language $language, AbstractProduct $product): Response
     {

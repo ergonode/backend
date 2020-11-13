@@ -16,7 +16,6 @@ use Ergonode\Product\Application\Provider\ProductFormProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Provider\UpdateProductCommandFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,10 +85,6 @@ class ProductChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     *
      *
      * @throws \Exception
      */

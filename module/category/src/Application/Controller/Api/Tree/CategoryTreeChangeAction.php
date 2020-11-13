@@ -17,7 +17,6 @@ use Ergonode\Category\Domain\Command\Tree\UpdateTreeCommand;
 use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,8 +81,6 @@ class CategoryTreeChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\CategoryTree")
      */
     public function __invoke(CategoryTree $tree, Request $request): Response
     {

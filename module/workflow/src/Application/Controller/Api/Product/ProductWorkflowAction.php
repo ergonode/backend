@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Controller\Api\Product;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,10 +81,6 @@ class ProductWorkflowAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
      *
      * @throws \ReflectionException
      * @throws \Exception

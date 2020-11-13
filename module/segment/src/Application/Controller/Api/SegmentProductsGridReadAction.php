@@ -109,8 +109,6 @@ class SegmentProductsGridReadAction
      *     response=200,
      *     description="Returns import",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(

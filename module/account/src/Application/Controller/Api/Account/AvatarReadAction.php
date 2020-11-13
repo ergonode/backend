@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Response\FileContentResponse;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -62,8 +61,6 @@ class AvatarReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
      */
     public function __invoke(User $user, Request $request): Response
     {

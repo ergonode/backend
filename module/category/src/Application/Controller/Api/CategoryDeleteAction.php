@@ -15,7 +15,6 @@ use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -71,8 +70,6 @@ class CategoryDeleteAction
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      */
     public function __invoke(AbstractCategory $category): Response
     {

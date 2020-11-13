@@ -15,7 +15,6 @@ use Ergonode\Category\Application\Provider\CategoryFormProvider;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Infrastructure\Provider\UpdateCategoryCommandFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,10 +91,6 @@ class CategoryChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
-     *
-     *
      *
      * @throws \Exception
      */

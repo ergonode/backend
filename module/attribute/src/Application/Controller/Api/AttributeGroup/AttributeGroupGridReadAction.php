@@ -15,7 +15,6 @@ use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -101,8 +100,6 @@ class AttributeGroupGridReadAction
      *     response=200,
      *     description="Returns attribute group collection"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {

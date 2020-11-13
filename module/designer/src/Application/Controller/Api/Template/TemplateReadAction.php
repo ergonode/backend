@@ -12,7 +12,6 @@ namespace Ergonode\Designer\Application\Controller\Api\Template;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Designer\Domain\Entity\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,8 +52,6 @@ class TemplateReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
      */
     public function __invoke(Template $template): Response
     {
