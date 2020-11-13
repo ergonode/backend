@@ -17,7 +17,6 @@ use Ergonode\Comment\Application\Form\Model\UpdateCommentFormModel;
 use Ergonode\Comment\Application\Form\UpdateCommentForm;
 use Ergonode\Comment\Domain\Command\UpdateCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,7 +88,6 @@ class CommentChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Comment\Domain\Entity\Comment")
      *
      *
      *

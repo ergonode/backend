@@ -11,7 +11,6 @@ namespace Ergonode\Core\Application\Controller\Api\Unit;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Entity\Unit;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,8 +50,6 @@ class UnitReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Core\Domain\Entity\Unit")
      */
     public function __invoke(Unit $unit): Response
     {

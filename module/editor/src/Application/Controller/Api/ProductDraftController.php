@@ -28,7 +28,6 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -110,10 +109,6 @@ class ProductDraftController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
-     *
      * @throws \Exception
      */
     public function applyDraft(AbstractProduct $product): Response
@@ -176,11 +171,6 @@ class ProductDraftController extends AbstractController
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
-     *
      *
      * @throws \Exception
      */
@@ -252,11 +242,6 @@ class ProductDraftController extends AbstractController
      *     description="Change product attribute Value",
      * )
      *
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
-     *
-     *
      * @throws \Exception
      */
     public function removeDraftAttribute(
@@ -305,10 +290,6 @@ class ProductDraftController extends AbstractController
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     *
      *
      * @throws \Exception
      */
@@ -359,11 +340,7 @@ class ProductDraftController extends AbstractController
      *     description="Not found",
      * )
      *
-     *
-     *
      * @throws \Exception
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
     public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {

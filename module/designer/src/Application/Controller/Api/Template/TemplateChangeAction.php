@@ -16,7 +16,6 @@ use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Infrastructure\Factory\TemplateCommandFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,9 +83,6 @@ class TemplateChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
      */
     public function __invoke(Template $template, Request $request): Response
     {

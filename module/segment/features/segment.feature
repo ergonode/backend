@@ -451,47 +451,31 @@ Feature: Segment module
     When I send a GET request to "/api/v1/en_GB/segments"
     Then the response status code should be 401
 
-  Scenario: Get segments (order by code)
+  Scenario Outline: Get segments (order by <field>)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/segments?field=code"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    When I send a GET request to "/api/v1/en_GB/segments?field=<field>"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    Examples:
+      | field       |
+      | code        |
+      | name        |
+      | description |
 
-  Scenario: Get segments (order by name)
+  Scenario Outline: Get segments (filter by <field>)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/segments?field=name"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get segments (order by description)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/segments?field=description"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get segments (filter by code)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/segments?limit=25&offset=0&filter=code%3Dsuper"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get segments (filter by name)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/segments?limit=25&offset=0&filter=name%3Dsuper"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-
-  Scenario: Get segments (filter by description)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en_GB/segments?limit=25&offset=0&filter=description%3Dsuper"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    When I send a GET request to "/api/v1/en_GB/segments?limit=25&offset=0&filter=<field>>%3D<value>"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "grid/features/gridSchema.json"
+    Examples:
+      | field       | value |
+      | code        | super |
+      | name        | super |
+      | description | super |
 
   Scenario: Get products based on segment (not authorized)
     When I send a GET request to "/api/v1/en_GB/segments/@segment_3@/products"

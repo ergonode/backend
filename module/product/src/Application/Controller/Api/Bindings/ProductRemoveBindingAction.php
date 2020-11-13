@@ -14,7 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -69,10 +68,6 @@ class ProductRemoveBindingAction
      *     response=200,
      *     description="Returns import",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct", name="product")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute", name="binding")
-     *
      * @param AbstractProduct|AbstractAssociatedProduct $product
      */
     public function __invoke(Language $language, AbstractProduct $product, AbstractAttribute $binding): Response

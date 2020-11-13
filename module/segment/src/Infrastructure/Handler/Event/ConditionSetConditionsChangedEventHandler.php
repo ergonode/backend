@@ -31,8 +31,7 @@ class ConditionSetConditionsChangedEventHandler
         if ($event->getTo()) {
             $segmentIds = $this->query->findIdByConditionSetId($event->getAggregateId());
             foreach ($segmentIds as $segmentId) {
-                $command = new CalculateSegmentCommand($segmentId);
-                $this->commandBus->dispatch($command);
+                $this->commandBus->dispatch(new CalculateSegmentCommand($segmentId), true);
             }
         }
     }

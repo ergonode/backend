@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,9 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_attribute_group_read",
- *     path="/attributes/groups/{group}",
+ *     path="/attributes/groups/{attributeGroup}",
  *     methods={"GET"},
- *     requirements={"group" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"attributeGroup" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class AttributeGroupReadAction
@@ -32,7 +31,7 @@ class AttributeGroupReadAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="group",
+     *     name="attributeGroup",
      *     in="path",
      *     type="string",
      *     description="Attribute Group id",
@@ -53,13 +52,9 @@ class AttributeGroupReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AttributeGroup")
      */
-    public function __invoke(AttributeGroup $group): Response
+    public function __invoke(AttributeGroup $attributeGroup): Response
     {
-        return new SuccessResponse($group);
+        return new SuccessResponse($attributeGroup);
     }
 }

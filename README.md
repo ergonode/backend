@@ -3,7 +3,7 @@
     <img width="300" src="https://ergonode.com/img/logo.svg" alt="Egronode logo">
   </a>
 </p>
-<p align="center">Modern Product Information Management Platform/p>
+<p align="center">Modern Product Information Management Platform</p>
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">

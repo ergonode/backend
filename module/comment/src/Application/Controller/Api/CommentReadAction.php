@@ -11,7 +11,6 @@ namespace Ergonode\Comment\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,8 +50,6 @@ class CommentReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Comment\Domain\Entity\Comment")
      */
     public function __invoke(Comment $comment): Response
     {

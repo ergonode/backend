@@ -17,7 +17,6 @@ use Ergonode\ProductCollection\Application\Model\ProductCollectionElementCreateF
 use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,9 +28,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_element_create",
- *     path="/collections/{collection}/elements",
+ *     path="/collections/{productCollection}/elements",
  *     methods={"POST"},
- *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
+ *     requirements={"productCollection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  * )
  */
 class ProductCollectionElementCreateAction
@@ -60,7 +59,7 @@ class ProductCollectionElementCreateAction
      *     default="en_GB"
      * )
      * @SWG\Parameter(
-     *     name="collection",
+     *     name="productCollection",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -82,10 +81,6 @@ class ProductCollectionElementCreateAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
-     *
-     *
      *
      * @throws \Exception
      */

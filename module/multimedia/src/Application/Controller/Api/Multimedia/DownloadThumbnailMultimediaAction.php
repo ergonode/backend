@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use League\Flysystem\FilesystemInterface;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -57,10 +56,6 @@ class DownloadThumbnailMultimediaAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      */
     public function __invoke(Multimedia $multimedia, string $thumbnail): Response
     {

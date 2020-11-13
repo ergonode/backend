@@ -18,7 +18,6 @@ use Ergonode\Workflow\Application\Form\TransitionChangeForm;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,9 +88,6 @@ class TransitionChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      */
     public function __invoke(
         AbstractWorkflow $workflow,

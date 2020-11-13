@@ -11,7 +11,6 @@ namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,8 +48,6 @@ class ConditionSetReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
      */
     public function __invoke(ConditionSet $conditionSet): Response
     {

@@ -43,7 +43,7 @@ class ProductCollectionElementGrid extends AbstractGrid
                 'route' => 'ergonode_product_collection_element_read',
                 'parameters' => [
                     'language' => $language->getCode(),
-                    'collection' => '{product_collection_id}',
+                    'productCollection' => '{product_collection_id}',
                     'product' => '{id}',
                 ],
             ],
@@ -51,7 +51,7 @@ class ProductCollectionElementGrid extends AbstractGrid
                 'route' => 'ergonode_product_collection_element_delete',
                 'parameters' => [
                     'language' => $language->getCode(),
-                    'collection' => '{product_collection_id}',
+                    'productCollection' => '{product_collection_id}',
                     'product' => '{id}',
                 ],
                 'method' => Request::METHOD_DELETE,

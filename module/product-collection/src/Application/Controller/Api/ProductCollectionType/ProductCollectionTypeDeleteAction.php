@@ -16,7 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,9 +25,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_type_delete",
- *     path="/collections/type/{type}",
+ *     path="/collections/type/{productCollectionType}",
  *     methods={"DELETE"},
- *     requirements={"type"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"productCollectionType"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductCollectionTypeDeleteAction
@@ -64,7 +63,7 @@ class ProductCollectionTypeDeleteAction
      *     default="en_GB"
      * )
      * @SWG\Parameter(
-     *     name="type",
+     *     name="productCollectionType",
      *     in="path",
      *     type="string",
      *     required=true,
@@ -82,16 +81,14 @@ class ProductCollectionTypeDeleteAction
      *     response="409",
      *     description="Existing relationships"
      * )
-     *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollectionType")
      */
-    public function __invoke(ProductCollectionType $productCollection, Request $request): Response
+    public function __invoke(ProductCollectionType $productCollectionType, Request $request): Response
     {
-        $relations = $this->relationshipsResolver->resolve($productCollection->getId());
+        $relations = $this->relationshipsResolver->resolve($productCollectionType->getId());
         if (null !== $relations) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
-        $command = new DeleteProductCollectionTypeCommand($productCollection->getId());
+        $command = new DeleteProductCollectionTypeCommand($productCollectionType->getId());
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

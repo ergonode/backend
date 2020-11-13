@@ -24,7 +24,6 @@ class DbalSegmentQuery implements SegmentQueryInterface
     private const FIELDS = [
         't.id',
         't.code',
-        't.status',
     ];
 
     private Connection $connection;
@@ -45,14 +44,14 @@ class DbalSegmentQuery implements SegmentQueryInterface
         $query->addSelect(
             '(SELECT count(*) FROM segment_product 
             WHERE segment_id = t.id 
-            AND available = true) 
+            AND available = true AND calculated_at IS NOT NULL) 
             AS products_count'
         );
         $query->addSelect(
             '(SELECT 
             CASE
                 WHEN count(*) = 0 THEN \'new\'
-                WHEN round(count(calculated_at)::NUMERIC/count(*)::NUMERIC*100, 2) = 100  THEN \'calculated\' 
+                WHEN count(calculated_at) = count(*)  THEN \'calculated\' 
                 ELSE \'processed\' 
             END 
             FROM segment_product WHERE segment_id = t.id) as status'

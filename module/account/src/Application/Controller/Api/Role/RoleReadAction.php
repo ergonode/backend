@@ -12,7 +12,6 @@ namespace Ergonode\Account\Application\Controller\Api\Role;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,8 +53,6 @@ class RoleReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
      */
     public function __invoke(Role $role): Response
     {

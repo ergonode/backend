@@ -260,7 +260,7 @@ Feature: Product module
 
   Scenario: Update product (not found)
     When I send a PUT request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Update product (no content)
     When I send a PUT request to "/api/v1/en_GB/products/@product@" with body:
@@ -294,11 +294,11 @@ Feature: Product module
 
   Scenario: Get product (not found)
     When I send a GET request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Delete product (not found)
     When I send a DELETE request to "/api/v1/en_GB/products/@@static_uuid@@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Delete product
     When I send a DELETE request to "/api/v1/en_GB/products/@product_2@"
