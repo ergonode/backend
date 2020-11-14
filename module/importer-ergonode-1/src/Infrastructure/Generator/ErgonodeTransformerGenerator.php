@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode\Infrastructure\Generator;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Ergonode\Importer\Domain\Entity\Transformer;
+use Ergonode\Importer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
-use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 
 /**
  * @deprecated Transformers will be removed from system
