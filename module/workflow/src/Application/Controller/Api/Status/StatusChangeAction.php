@@ -17,7 +17,6 @@ use Ergonode\Workflow\Application\Form\StatusChangeForm;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,10 +79,6 @@ class StatusChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
-     *
-     *
      *
      * @throws \Exception
      */

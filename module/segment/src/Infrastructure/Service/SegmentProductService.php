@@ -48,21 +48,20 @@ class SegmentProductService
      */
     public function mark(SegmentId $segmentId, ProductId $productId): void
     {
-        $sql = 'INSERT INTO '.self::TABLE.' (segment_id, product_id, available, calculated_at)
-            VALUES (:segmentId, :productId, true, :calculatedAt)
-            ON CONFLICT ON CONSTRAINT segment_product_pkey
-                DO UPDATE SET available = true
-        ';
-        $this->connection->executeQuery(
-            $sql,
+        $this->connection->update(
+            self::TABLE,
             [
-                'segmentId' => $segmentId->getValue(),
-                'productId' => $productId->getValue(),
-                'calculatedAt' => new \DateTime(),
+                'available' => true,
+                'calculated_at' => new \DateTime(),
             ],
             [
-                'calculatedAt' => Types::DATETIMETZ_MUTABLE,
+                'segment_id' => $segmentId->getValue(),
+                'product_id' => $productId->getValue(),
             ],
+            [
+                'available' => \PDO::PARAM_BOOL,
+                'calculated_at' => Types::DATETIMETZ_MUTABLE,
+            ]
         );
     }
 

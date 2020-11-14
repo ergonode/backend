@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,10 +92,6 @@ class AttributeChangeAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
-     *
-     *
      *
      * @throws \Exception
      */

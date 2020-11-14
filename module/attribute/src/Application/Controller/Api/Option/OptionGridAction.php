@@ -102,8 +102,6 @@ class OptionGridAction
      *     response=200,
      *     description="Returns attribute collection",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(

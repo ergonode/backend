@@ -19,7 +19,6 @@ use Ergonode\Segment\Application\Form\UpdateSegmentForm;
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,8 +78,6 @@ class SegmentChangeAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
      */
     public function __invoke(Segment $segment, Request $request): Response
     {

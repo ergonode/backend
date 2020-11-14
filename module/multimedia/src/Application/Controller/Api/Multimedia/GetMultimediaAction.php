@@ -11,7 +11,6 @@ namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,10 +44,6 @@ class GetMultimediaAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
-     *
      *
      * @throws \Exception
      */

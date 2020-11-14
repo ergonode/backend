@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Application\Controller\Api\Option;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,11 +56,6 @@ class OptionReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractOption")
      */
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {

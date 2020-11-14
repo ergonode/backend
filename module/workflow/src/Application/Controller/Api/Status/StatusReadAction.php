@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Application\Controller\Api\Status;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,8 +53,6 @@ class StatusReadAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
      */
     public function __invoke(Status $status): Response
     {

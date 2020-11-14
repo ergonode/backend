@@ -126,7 +126,6 @@ class ProductProductCollectionGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
     public function __invoke(
         Language $language,

@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,8 +76,6 @@ class AddProductAttributeBindingsAction extends AbstractController
      *     response=200,
      *     description="Returns import",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {

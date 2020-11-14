@@ -12,7 +12,6 @@ namespace Ergonode\Category\Application\Controller\Api;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,8 +53,6 @@ class CategoryReadAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      */
     public function __invoke(AbstractCategory $category): Response
     {

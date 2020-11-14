@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,10 +62,6 @@ class GetMultimediaRelationAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     *
-     *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      */
     public function __invoke(Language $language, Multimedia $multimedia): Response
     {

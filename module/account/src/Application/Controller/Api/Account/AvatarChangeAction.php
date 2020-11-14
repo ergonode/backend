@@ -16,7 +16,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,8 +72,6 @@ class AvatarChangeAction
      *     response=204,
      *     description="Success"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
      */
     public function __invoke(User $user, Request $request): Response
     {

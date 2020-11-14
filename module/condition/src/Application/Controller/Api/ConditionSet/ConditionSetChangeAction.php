@@ -15,7 +15,6 @@ use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -88,8 +87,6 @@ class ConditionSetChangeAction
      *     response=404,
      *     description="Not found"
      * )
-     *
-     * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
      */
     public function __invoke(ConditionSet $conditionSet, Request $request): Response
     {

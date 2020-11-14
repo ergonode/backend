@@ -88,7 +88,7 @@
 
     <target name="database:migrate" description="Migrate migrations">
         <echo msg="Executing database migrations..."/>
-        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:migrations:migrate --no-interaction --allow-no-migration" logoutput="true" checkreturn="true" />
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:migrations:migrate --no-interaction --allow-no-migration --quiet" logoutput="true" checkreturn="true" />
     </target>
 
     <target name="database:create" description="Create database">

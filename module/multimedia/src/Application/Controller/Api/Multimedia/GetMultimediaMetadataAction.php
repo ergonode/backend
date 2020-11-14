@@ -12,7 +12,6 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,8 +60,6 @@ class GetMultimediaMetadataAction
      *     response=404,
      *     description="Not found",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
      */
     public function __invoke(Multimedia $multimedia, Request $request): Response
     {

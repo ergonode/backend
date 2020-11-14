@@ -44,7 +44,7 @@ Feature: batch action product deletion
 
   Scenario: Delete product alredy deleted
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Create batch action with not exists product
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:

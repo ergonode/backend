@@ -32,16 +32,16 @@ class ProductCollectionTypeGrid extends AbstractGrid
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_collection_type_read',
-                'parameters' => ['language' => $language->getCode(), 'type' => '{id}'],
+                'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
             ],
             'edit' => [
                 'route' => 'ergonode_product_collection_type_change',
-                'parameters' => ['language' => $language->getCode(), 'type' => '{id}'],
+                'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_product_collection_type_delete',
-                'parameters' => ['language' => $language->getCode(), 'type' => '{id}'],
+                'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
                 'method' => Request::METHOD_DELETE,
             ],
         ]));

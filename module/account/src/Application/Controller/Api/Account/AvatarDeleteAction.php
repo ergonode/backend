@@ -14,7 +14,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,8 +61,6 @@ class AvatarDeleteAction
      *     response=204,
      *     description="Success",
      * )
-     *
-     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
      */
     public function __invoke(User $user, Request $request): Response
     {

@@ -81,8 +81,6 @@ class WorkflowChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     *
      * @throws \Exception
      */
     public function __invoke(AbstractWorkflow $workflow, Request $request): Response

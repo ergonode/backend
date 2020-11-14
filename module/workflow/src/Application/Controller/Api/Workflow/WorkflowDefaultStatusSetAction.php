@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Workflow\Domain\Command\Status\SetDefaultStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,8 +63,6 @@ class WorkflowDefaultStatusSetAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
      */
     public function __invoke(AbstractWorkflow $workflow, Status $status): Response
     {

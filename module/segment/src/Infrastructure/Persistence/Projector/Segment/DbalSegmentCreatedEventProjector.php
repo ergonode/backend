@@ -12,7 +12,6 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
-use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\SerializerInterface;
 
 class DbalSegmentCreatedEventProjector
@@ -41,7 +40,6 @@ class DbalSegmentCreatedEventProjector
                 'code' => $event->getCode(),
                 'name' => $this->serializer->serialize($event->getName(), 'json'),
                 'description' => $this->serializer->serialize($event->getDescription(), 'json'),
-                'status' => SegmentStatus::NEW,
                 'condition_set_id' => $event->getConditionSetId() ? $event->getConditionSetId()->getValue() : null,
             ]
         );
