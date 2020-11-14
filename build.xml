@@ -172,5 +172,6 @@
 
     <target name="override:property:APP_ENV" description="Overrides APP_ENV property with test value">
         <property name="APP_ENV" value="test" override="true" />
+        <property name="BEHAT_MEMORY_LIMIT" value="1G" override="true" />
     </target>
 </project>
