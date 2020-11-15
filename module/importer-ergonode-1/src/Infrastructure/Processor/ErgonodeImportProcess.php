@@ -12,22 +12,20 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
 use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeZipExtractor;
-use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Throwable;
 
-class ErgonodeImportProcess implements SourceImportProcessorInterface
+class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private ErgonodeZipExtractor $extractor;
-    private LoggerInterface $logger;
     private array $steps;
 
-    public function __construct(
-        ErgonodeZipExtractor $extractor,
-        LoggerInterface $logger,
-        array $steps
-    ) {
+    public function __construct(ErgonodeZipExtractor $extractor, array $steps)
+    {
         $this->extractor = $extractor;
-        $this->logger = $logger;
         $this->steps = $steps;
     }
 
@@ -36,6 +34,9 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface
         return $type === ErgonodeZipSource::TYPE;
     }
 
+    /**
+     * @throws \Ergonode\ImporterErgonode\Infrastructure\Reader\Exception\ErgonodeZipExtractorException
+     */
     public function start(Import $import): void
     {
         try {
