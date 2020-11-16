@@ -185,7 +185,12 @@ class ProductDraftController extends AbstractController
 
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
-            $command = new ChangeProductAttributeValueCommand($product->getId(), $attribute->getId(), $language, $value);
+            $command = new ChangeProductAttributeValueCommand(
+                $product->getId(),
+                $attribute->getId(),
+                $language,
+                $value
+            );
             $this->commandBus->dispatch($command);
 
             return new SuccessResponse(['value' => $value]);
