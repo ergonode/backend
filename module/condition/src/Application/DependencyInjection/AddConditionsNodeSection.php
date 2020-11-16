@@ -17,6 +17,7 @@ class AddConditionsNodeSection
 {
     public static function addSection(ArrayNodeDefinition $node): void
     {
+        /** @phpstan-ignore-next-line */
         $node
             ->children()
                 ->arrayNode('conditions')

@@ -13,13 +13,13 @@ use Ergonode\Mailer\Domain\MailInterface;
 use Ergonode\Mailer\Infrastructure\Sender\MailerStrategyInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
 
 class SymfonyMailerStrategy implements MailerStrategyInterface
 {
     private MailerInterface $mailer;
 
-    private TranslatorInterface $translator;
+    private LocaleAwareInterface $localeAware;
 
     private ?string $defaultFrom;
 
@@ -27,12 +27,12 @@ class SymfonyMailerStrategy implements MailerStrategyInterface
 
     public function __construct(
         MailerInterface $mailer,
-        TranslatorInterface $translator,
+        LocaleAwareInterface $localeAware,
         ?string $defaultFrom = null,
         ?string $defaultReplyTo = null
     ) {
         $this->mailer = $mailer;
-        $this->translator = $translator;
+        $this->localeAware = $localeAware;
         $this->defaultFrom = $defaultFrom;
         $this->defaultReplyTo = $defaultReplyTo;
     }
@@ -45,8 +45,8 @@ class SymfonyMailerStrategy implements MailerStrategyInterface
      */
     public function send(MailInterface $mail): void
     {
-        $previousLocale = $this->translator->getLocale();
-        $this->translator->setLocale($mail->getTemplate()->getLanguage()->getLanguageCode());
+        $previousLocale = $this->localeAware->getLocale();
+        $this->localeAware->setLocale($mail->getTemplate()->getLanguage()->getLanguageCode());
 
         try {
             $email = (new TemplatedEmail())
@@ -77,7 +77,7 @@ class SymfonyMailerStrategy implements MailerStrategyInterface
 
             $this->mailer->send($email);
         } finally {
-            $this->translator->setLocale($previousLocale);
+            $this->localeAware->setLocale($previousLocale);
         }
     }
 }

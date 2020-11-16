@@ -21,6 +21,7 @@ class ErgonodeMailerConfiguration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('ergonode_mailer');
 
+        /** @phpstan-ignore-next-line */
         $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('default')

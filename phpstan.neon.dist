@@ -1,5 +1,6 @@
 parameters:
-	excludes_analyse:
-		- %currentWorkingDirectory%/module/*/migrations/*
-		- %currentWorkingDirectory%/module/*/tests/*
-		- %currentWorkingDirectory%/module/core/src/Infrastructure\JMS\Serializer\HandlerRegistry*
+    level: 2
+    excludes_analyse:
+        - %currentWorkingDirectory%/module/*/migrations/*
+        - %currentWorkingDirectory%/module/*/tests/*
+        - %currentWorkingDirectory%/module/core/src/Infrastructure\JMS\Serializer\HandlerRegistry*

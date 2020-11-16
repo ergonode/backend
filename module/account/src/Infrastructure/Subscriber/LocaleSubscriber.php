@@ -14,19 +14,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Webmozart\Assert\Assert;
 
 class LocaleSubscriber implements EventSubscriberInterface
 {
     private Security $security;
 
-    private TranslatorInterface $translator;
+    private LocaleAwareInterface $localeAware;
 
-    public function __construct(Security $security, TranslatorInterface $translator)
+    public function __construct(Security $security, LocaleAwareInterface $localeAware)
     {
         $this->security = $security;
-        $this->translator = $translator;
+        $this->localeAware = $localeAware;
     }
 
     /**
@@ -40,7 +40,7 @@ class LocaleSubscriber implements EventSubscriberInterface
             $user = $this->security->getUser();
             Assert::notNull($user, 'Cannot find user %s');
             $locale = strtolower($user->getLanguage()->getCode());
-            $this->translator->setLocale($locale);
+            $this->localeAware->setLocale($locale);
             $request->setLocale($locale);
         }
     }
