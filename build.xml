@@ -122,8 +122,8 @@
 
     <!-- PHP Stan check -->
     <target name="check:phpstan" description="Executes unit tests.">
-        <echo msg="phpstan analyse level 2 ..."/>
-        <exec command="bin/phpstan analyse module --level 2"
+        <echo msg="phpstan analyse ..."/>
+        <exec command="bin/phpstan analyse module"
               checkreturn="true"
               logoutput="true">
         </exec>
