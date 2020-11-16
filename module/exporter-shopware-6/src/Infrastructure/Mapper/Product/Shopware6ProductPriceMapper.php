@@ -15,7 +15,9 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
-use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterNoMapperException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterNumericAttributeException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductAttributeException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductPrice;
@@ -51,7 +53,9 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     /**
      * {@inheritDoc}
      *
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterNoMapperException
+     * @throws Shopware6ExporterNumericAttributeException
+     * @throws Shopware6ExporterProductAttributeException
      */
     public function map(
         Shopware6Product $shopware6Product,
@@ -68,7 +72,9 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterNoMapperException
+     * @throws Shopware6ExporterNumericAttributeException
+     * @throws Shopware6ExporterProductAttributeException
      */
     public function getPrice(
         Shopware6Channel $channel,
@@ -96,7 +102,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterProductAttributeException
      */
     public function tax(Shopware6Channel $channel, AbstractProduct $product): float
     {
@@ -105,9 +111,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         Assert::notNull($attribute);
 
         if (false === $product->hasAttribute($attribute->getCode())) {
-            throw new Shopware6ExporterMapperException(
-                sprintf('Attribute %s tax value not found %s ', $attribute->getCode()->getValue(), $product->getSku())
-            );
+            throw new Shopware6ExporterProductAttributeException($attribute->getCode(), $product->getSku());
         }
         $value = $product->getAttribute($attribute->getCode());
 
@@ -115,39 +119,36 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterNoMapperException
      */
     private function loadCurrencyId(Shopware6Channel $channel, PriceAttribute $attribute): string
     {
         $shopwareId = $this->currencyRepository->load($channel->getId(), $attribute->getCurrency()->getCode());
 
         if (is_null($shopwareId)) {
-            throw new Shopware6ExporterMapperException(
-                sprintf('No mapped currency %s ', $attribute->getCurrency()->getCode())
-            );
+            throw new Shopware6ExporterNoMapperException('currency', $attribute->getCurrency()->getCode());
         }
 
         return $shopwareId;
     }
 
     /**
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterNoMapperException
      */
     private function loadTaxId(Shopware6Channel $channel, float $tax): string
     {
         $shopwareId = $this->taxRepository->load($channel->getId(), $tax);
 
         if (is_null($shopwareId)) {
-            throw new Shopware6ExporterMapperException(
-                sprintf('No mapped tax value %s ', $tax)
-            );
+            throw new Shopware6ExporterNoMapperException('tax', (string) $tax);
         }
 
         return $shopwareId;
     }
 
     /**
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterNumericAttributeException
+     * @throws Shopware6ExporterProductAttributeException
      */
     private function getPriceValue(
         AttributeId $productPrice,
@@ -158,9 +159,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         $attribute = $this->repository->load($productPrice);
 
         if (false === $product->hasAttribute($attribute->getCode())) {
-            throw new Shopware6ExporterMapperException(
-                sprintf('Attribute %s price not found ', $attribute->getCode()->getValue())
-            );
+            throw new Shopware6ExporterProductAttributeException($attribute->getCode(), $product->getSku());
         }
 
         $value = $product->getAttribute($attribute->getCode());
@@ -171,8 +170,10 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         );
 
         if (!is_numeric($price)) {
-            throw new Shopware6ExporterMapperException(
-                sprintf('Attribute %s value "%s" is not valid price', $attribute->getCode()->getValue(), $price)
+            throw new Shopware6ExporterNumericAttributeException(
+                $attribute->getCode(),
+                $product->getSku(),
+                $price
             );
         }
 

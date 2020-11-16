@@ -11,7 +11,7 @@ namespace Ergonode\Channel\Infrastructure\Grid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\TextFilter;
+use Ergonode\Grid\Column\TranslatableColumn;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Filter\DateFilter;
 
@@ -23,7 +23,7 @@ class ExportErrorsGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $this->addColumn('message', new TextColumn('message', 'Message', new TextFilter()));
+        $this->addColumn('message', new TranslatableColumn('message', 'Message', 'parameters', 'channel'));
         $this->addColumn('processed_at', new TextColumn('processed_at', 'Processed at', new DateFilter()));
     }
 }
