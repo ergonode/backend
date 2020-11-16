@@ -10,11 +10,14 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\ExportLine;
+use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CustomFieldBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldClient;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldSetClient;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
@@ -32,33 +35,49 @@ class CustomFiledShopware6ExportProcess
 
     private Shopware6CustomFieldSetClient $customFieldSetClient;
 
+    private ExportLineRepositoryInterface $exportLineRepository;
+
     public function __construct(
         Shopware6CustomFieldRepositoryInterface $customFieldRepository,
         Shopware6CustomFieldClient $customFieldClient,
         Shopware6CustomFieldBuilder $builder,
-        Shopware6CustomFieldSetClient $customFieldSetClient
+        Shopware6CustomFieldSetClient $customFieldSetClient,
+        ExportLineRepositoryInterface $exportLineRepository
     ) {
         $this->customFieldRepository = $customFieldRepository;
         $this->customFieldClient = $customFieldClient;
         $this->builder = $builder;
         $this->customFieldSetClient = $customFieldSetClient;
+        $this->exportLineRepository = $exportLineRepository;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
+        $exportLine = new ExportLine($id, $attribute->getId());
         $customField = $this->loadCustomField($channel, $attribute);
-
-        if ($customField) {
-            $this->updateCustomField($channel, $customField, $attribute);
-        } else {
-            $customField = new Shopware6CustomField();
-            $this->builder->build($channel, $customField, $attribute);
-            if ($customField->getCustomFieldSetId() === null) {
-                $customFieldSet = $this->loadCustomFieldSet($channel, $attribute);
-                $customField->setCustomFieldSetId($customFieldSet->getId());
+        try {
+            if ($customField) {
+                $this->updateCustomField($channel, $customField, $attribute);
+            } else {
+                $customField = new Shopware6CustomField();
+                $this->builder->build($channel, $customField, $attribute);
+                if ($customField->getCustomFieldSetId() === null) {
+                    $customFieldSet = $this->loadCustomFieldSet($channel, $attribute);
+                    $customField->setCustomFieldSetId($customFieldSet->getId());
+                }
+                $this->customFieldClient->insert($channel, $customField, $attribute);
             }
-            $this->customFieldClient->insert($channel, $customField, $attribute);
+        } catch (Shopware6ExporterException $exception) {
+            $exportLine->process();
+            $exportLine->addError($exception->getMessage(), $exception->getParameters());
+            $this->exportLineRepository->save($exportLine);
+            throw $exception;
         }
+        $exportLine->process();
+        $this->exportLineRepository->save($exportLine);
     }
 
     private function updateCustomField(

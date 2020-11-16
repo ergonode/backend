@@ -20,6 +20,8 @@ class ExportLine
 
     private ?string $error;
 
+    private array $parameters;
+
     private ?\DateTime $processedAt;
 
     public function __construct(ExportId $exportId, AggregateId $objectId)
@@ -28,6 +30,7 @@ class ExportLine
         $this->objectId = $objectId;
         $this->processedAt = null;
         $this->error = null;
+        $this->parameters = [];
     }
 
     public function getExportId(): ExportId
@@ -53,9 +56,10 @@ class ExportLine
         return null !== $this->processedAt;
     }
 
-    public function addError(string $error): void
+    public function addError(string $error, array $parameters = []): void
     {
         $this->error = $error;
+        $this->parameters = $parameters;
     }
 
     public function getError(): ?string
@@ -66,6 +70,11 @@ class ExportLine
     public function hasError(): bool
     {
         return null !== $this->error;
+    }
+
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 
     public function getProcessedAt(): ?\DateTime

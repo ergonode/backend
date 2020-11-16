@@ -49,9 +49,10 @@ class DbalExportQuery implements ExportQueryInterface
     public function getErrorDataSet(ExportId $exportId, Language $language): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('object_id AS id, processed_at, message')
+        $query->select('object_id AS id, processed_at, message, parameters')
             ->from(self::TABLE_LINE)
-            ->where($query->expr()->eq('export_id', ':exportId'));
+            ->where($query->expr()->eq('export_id', ':exportId'))
+            ->andWhere($query->expr()->isNotNull('message'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');

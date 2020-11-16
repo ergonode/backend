@@ -15,7 +15,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\PostCreateM
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\PostUploadFile;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
-use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6DefaultFolderException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Media;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6MediaDefaultFolder;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
@@ -41,7 +41,7 @@ class Shopware6ProductMediaClient
     }
 
     /**
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6DefaultFolderException
      */
     public function findOrCreateMedia(Shopware6Channel $channel, Multimedia $multimedia): string
     {
@@ -50,7 +50,7 @@ class Shopware6ProductMediaClient
         }
         $folder = $this->getProductFolderId($channel);
         if (null === $folder) {
-            throw new Shopware6ExporterMapperException('The default folder for product media was not found');
+            throw new Shopware6DefaultFolderException();
         }
         $media = $this->createMediaResource($channel, $folder);
         Assert::notNull($media);
