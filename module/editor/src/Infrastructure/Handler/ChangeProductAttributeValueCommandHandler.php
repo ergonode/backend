@@ -12,15 +12,15 @@ namespace Ergonode\Editor\Infrastructure\Handler;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
-use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Value\Domain\Service\ValueManipulationService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 
 class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
-    private ProductDraftRepositoryInterface $repository;
+    private ProductRepositoryInterface $repository;
 
     private ValueManipulationService $service;
 
@@ -31,7 +31,7 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
     private AttributeValueMapper $mapper;
 
     public function __construct(
-        ProductDraftRepositoryInterface $repository,
+        ProductRepositoryInterface $repository,
         ValueManipulationService $service,
         AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage,
@@ -50,34 +50,34 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
     public function __invoke(ChangeProductAttributeValueCommand $command): void
     {
         $language = $command->getLanguage();
-        $draft = $this->repository->load($command->getId());
+        $product = $this->repository->load($command->getId());
         $attributeId = $command->getAttributeId();
         $attribute = $this->attributeRepository->load($attributeId);
 
-        Assert::notNull($draft);
+        Assert::notNull($product);
         Assert::notNull($attribute);
 
         $newValue = $this->mapper->map($attribute, [$language->getCode() => $command->getValue()]);
 
-        if ($draft->hasAttribute($attribute->getCode())) {
+        if ($product->hasAttribute($attribute->getCode())) {
             if (null === $newValue) {
-                $draft->removeAttribute($attribute->getCode());
+                $product->removeAttribute($attribute->getCode());
             } else {
-                $oldValue = $draft->getAttribute($attribute->getCode());
+                $oldValue = $product->getAttribute($attribute->getCode());
                 $calculatedValue = $this->service->calculate($oldValue, $newValue);
-                $draft->changeAttribute($attribute->getCode(), $calculatedValue);
+                $product->changeAttribute($attribute->getCode(), $calculatedValue);
             }
         } else {
-            $draft->addAttribute($attribute->getCode(), $newValue);
+            $product->addAttribute($attribute->getCode(), $newValue);
         }
 
         $token = $this->tokenStorage->getToken();
         if ($token) {
             /** @var User $user */
             $user = $token->getUser();
-            $this->updateAudit($user, $draft);
+            $this->updateAudit($user, $product);
         }
 
-        $this->repository->save($draft);
+        $this->repository->save($product);
     }
 }
