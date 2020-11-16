@@ -17,7 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 class ChangeProductAttributeValueCommand implements EditorCommandInterface
 {
     /**
-     * @JMS\Type(" Ergonode\SharedKernel\Domain\Aggregate\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
 
