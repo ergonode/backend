@@ -23,9 +23,5 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Editor\Infrastructure\Persistence\Projector\:
-        resource: '../../Infrastructure/Persistence/Projector/*'
-        tags: ['messenger.message_handler']
 
-    Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface: '@Ergonode\Editor\Infrastructure\Persistence\Repository\DbalProductDraftRepository'
-    Ergonode\Editor\Domain\Query\DraftQueryInterface: '@Ergonode\Editor\Infrastructure\Persistence\Query\DbalDraftQuery'
+
