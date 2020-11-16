@@ -20,9 +20,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
-use Ergonode\Editor\Domain\Command\PersistProductDraftCommand;
 use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
-use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
@@ -36,14 +34,13 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
+use Ramsey\Uuid\Uuid;
 
 class ProductDraftController extends AbstractController
 {
     private CommandBusInterface $commandBus;
 
     private AttributeValueConstraintProvider $provider;
-
-    private DraftProvider $draftProvider;
 
     private ViewTemplateBuilder $builder;
 
@@ -60,7 +57,6 @@ class ProductDraftController extends AbstractController
     public function __construct(
         CommandBusInterface $commandBus,
         AttributeValueConstraintProvider $provider,
-        DraftProvider $draftProvider,
         ViewTemplateBuilder $builder,
         ValidatorInterface $validator,
         TemplateRepositoryInterface $templateRepository,
@@ -70,7 +66,6 @@ class ProductDraftController extends AbstractController
     ) {
         $this->commandBus = $commandBus;
         $this->provider = $provider;
-        $this->draftProvider = $draftProvider;
         $this->builder = $builder;
         $this->validator = $validator;
         $this->templateRepository = $templateRepository;
@@ -113,10 +108,7 @@ class ProductDraftController extends AbstractController
      */
     public function applyDraft(AbstractProduct $product): Response
     {
-        $draft = $this->draftProvider->provide($product);
-
-        $command = new PersistProductDraftCommand($draft->getId());
-        $this->commandBus->dispatch($command);
+        //@todo remove after frontend changes
 
         return new EmptyResponse();
     }
@@ -180,7 +172,6 @@ class ProductDraftController extends AbstractController
         AbstractAttribute $attribute,
         Request $request
     ): Response {
-        $draft = $this->draftProvider->provide($product);
         $value = $request->request->get('value');
         $value = $value !== '' ? $value : null;
 
@@ -194,7 +185,7 @@ class ProductDraftController extends AbstractController
 
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
-            $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
+            $command = new ChangeProductAttributeValueCommand($product->getId(), $attribute->getId(), $language, $value);
             $this->commandBus->dispatch($command);
 
             return new SuccessResponse(['value' => $value]);
@@ -249,14 +240,13 @@ class ProductDraftController extends AbstractController
         Language $language,
         AbstractAttribute $attribute
     ): Response {
-        $draft = $this->draftProvider->provide($product);
         if ($attribute->getScope()->isGlobal()) {
             $root = $this->query->getRootLanguage();
             if (!$root->isEqual($language)) {
                 throw new AccessDeniedHttpException();
             }
         }
-        $command = new RemoveProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language);
+        $command = new RemoveProductAttributeValueCommand($product->getId(), $attribute->getId(), $language);
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
@@ -295,14 +285,12 @@ class ProductDraftController extends AbstractController
      */
     public function getProductDraft(Language $language, AbstractProduct $product): Response
     {
-        $draft = $this->draftProvider->provide($product);
-
         $result = [
-            'id' => $draft->getId()->getValue(),
-            'product_id' => $draft->getProductId()->getValue(),
+            'id' => Uuid::uuid4()->toString(), //@todo remove after frontend changes
+            'product_id' => $product->getId()->getValue(),
         ];
         $value = null;
-        foreach ($draft->getAttributes() as $key => $value) {
+        foreach ($product->getAttributes() as $key => $value) {
             $attributeId = AttributeId::fromKey($key);
             $attribute = $this->attributeRepository->load($attributeId);
             $result['attributes'][$key] = $this->calculator->calculate($attribute, $value, $language);

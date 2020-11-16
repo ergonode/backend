@@ -11,15 +11,15 @@ namespace Ergonode\Editor\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class RemoveProductAttributeValueCommand implements EditorCommandInterface
 {
     /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private ProductDraftId $id;
+    private ProductId $id;
 
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
@@ -31,14 +31,14 @@ class RemoveProductAttributeValueCommand implements EditorCommandInterface
      */
     private Language $language;
 
-    public function __construct(ProductDraftId $id, AttributeId $attributeId, Language $language)
+    public function __construct(ProductId $id, AttributeId $attributeId, Language $language)
     {
         $this->id = $id;
         $this->attributeId = $attributeId;
         $this->language = $language;
     }
 
-    public function getId(): ProductDraftId
+    public function getId(): ProductId
     {
         return $this->id;
     }

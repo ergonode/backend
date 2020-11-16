@@ -11,15 +11,15 @@ namespace Ergonode\Editor\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ChangeProductAttributeValueCommand implements EditorCommandInterface
 {
     /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
+     * @JMS\Type(" Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private ProductDraftId $id;
+    private ProductId $id;
 
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
@@ -41,7 +41,7 @@ class ChangeProductAttributeValueCommand implements EditorCommandInterface
     /**
      * @param mixed $value
      */
-    public function __construct(ProductDraftId $id, AttributeId $attributeId, Language $language, $value = null)
+    public function __construct(ProductId $id, AttributeId $attributeId, Language $language, $value = null)
     {
         $this->id = $id;
         $this->attributeId = $attributeId;
@@ -49,7 +49,7 @@ class ChangeProductAttributeValueCommand implements EditorCommandInterface
         $this->value = $value;
     }
 
-    public function getId(): ProductDraftId
+    public function getId(): ProductId
     {
         return $this->id;
     }

@@ -11,7 +11,6 @@ namespace Ergonode\Editor\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -20,17 +19,18 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 
 class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
-    private ProductDraftRepositoryInterface $repository;
+    private ProductRepositoryInterface $repository;
 
     private AttributeRepositoryInterface $attributeRepository;
 
     private TokenStorageInterface $tokenStorage;
 
     public function __construct(
-        ProductDraftRepositoryInterface $repository,
+        ProductRepositoryInterface $repository,
         AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage
     ) {
@@ -39,41 +39,40 @@ class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHand
         $this->tokenStorage = $tokenStorage;
     }
 
-
     /**
      * @throws \Exception
      */
     public function __invoke(RemoveProductAttributeValueCommand $command): void
     {
         $language = $command->getLanguage();
-        $draft = $this->repository->load($command->getId());
+        $product = $this->repository->load($command->getId());
         $attributeId = $command->getAttributeId();
         $attribute = $this->attributeRepository->load($attributeId);
 
-        Assert::notNull($draft);
+        Assert::notNull($product);
         Assert::notNull($attribute);
 
-        if (!$draft->hasAttribute($attribute->getCode())) {
+        if (!$product->hasAttribute($attribute->getCode())) {
             return;
         }
 
-        $oldValue = $draft->getAttribute($attribute->getCode());
+        $oldValue = $product->getAttribute($attribute->getCode());
         $newValue = $this->calculate($oldValue, $language);
 
         if ($newValue && !empty($newValue->getValue())) {
-            $draft->changeAttribute($attribute->getCode(), $newValue);
+            $product->changeAttribute($attribute->getCode(), $newValue);
         } else {
-            $draft->removeAttribute($attribute->getCode());
+            $product->removeAttribute($attribute->getCode());
         }
 
         $token = $this->tokenStorage->getToken();
         if ($token) {
             /** @var User $user */
             $user = $token->getUser();
-            $this->updateAudit($user, $draft);
+            $this->updateAudit($user, $product);
         }
 
-        $this->repository->save($draft);
+        $this->repository->save($product);
     }
 
     public function calculate(ValueInterface $value, Language $language): ?ValueInterface

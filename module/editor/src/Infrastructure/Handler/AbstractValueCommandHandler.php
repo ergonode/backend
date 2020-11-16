@@ -11,17 +11,17 @@ namespace Ergonode\Editor\Infrastructure\Handler;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 abstract class AbstractValueCommandHandler
 {
     /**
      * @throws \Exception
      */
-    protected function attributeUpdate(ProductDraft $product, AttributeCode $code, ValueInterface $value): void
+    protected function attributeUpdate(AbstractProduct $product, AttributeCode $code, ValueInterface $value): void
     {
         if (!$product->hasAttribute($code)) {
             $product->addAttribute($code, $value);
@@ -33,14 +33,14 @@ abstract class AbstractValueCommandHandler
     /**
      * @throws \Exception
      */
-    protected function updateAudit(User $user, ProductDraft $draft): void
+    protected function updateAudit(User $user, AbstractProduct $product): void
     {
         $updatedAt = new \DateTime();
         $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
         $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
         $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
         $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:sO'));
-        $this->attributeUpdate($draft, $editedByCode, $editedByValue);
-        $this->attributeUpdate($draft, $editedAtCode, $editedAtValue);
+        $this->attributeUpdate($product, $editedByCode, $editedByValue);
+        $this->attributeUpdate($product, $editedAtCode, $editedAtValue);
     }
 }
