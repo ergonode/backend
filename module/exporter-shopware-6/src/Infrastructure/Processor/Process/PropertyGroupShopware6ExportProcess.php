@@ -10,11 +10,14 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\ExportLine;
+use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupClient;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -33,37 +36,54 @@ class PropertyGroupShopware6ExportProcess
 
     private PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess;
 
+    private ExportLineRepositoryInterface $exportLineRepository;
+
     public function __construct(
         Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
         Shopware6PropertyGroupClient $propertyGroupClient,
         Shopware6PropertyGroupBuilder $builder,
         Shopware6LanguageRepositoryInterface $languageRepository,
-        PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess
+        PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess,
+        ExportLineRepositoryInterface $exportLineRepository
     ) {
         $this->propertyGroupRepository = $propertyGroupRepository;
         $this->propertyGroupClient = $propertyGroupClient;
         $this->builder = $builder;
         $this->languageRepository = $languageRepository;
         $this->propertyGroupOptionsProcess = $propertyGroupOptionsProcess;
+        $this->exportLineRepository = $exportLineRepository;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
+        $exportLine = new ExportLine($id, $attribute->getId());
         $propertyGroup = $this->loadPropertyGroup($channel, $attribute);
-        if ($propertyGroup) {
-            $this->updatePropertyGroup($channel, $propertyGroup, $attribute);
-        } else {
-            $propertyGroup = new Shopware6PropertyGroup();
-            $this->builder->build($channel, $propertyGroup, $attribute);
-            $this->propertyGroupClient->insert($channel, $propertyGroup, $attribute);
-        }
-
-        foreach ($channel->getLanguages() as $language) {
-            if ($this->languageRepository->exists($channel->getId(), $language->getCode())) {
-                $this->updatePropertyGroupWithLanguage($channel, $language, $attribute);
+        try {
+            if ($propertyGroup) {
+                $this->updatePropertyGroup($channel, $propertyGroup, $attribute);
+            } else {
+                $propertyGroup = new Shopware6PropertyGroup();
+                $this->builder->build($channel, $propertyGroup, $attribute);
+                $this->propertyGroupClient->insert($channel, $propertyGroup, $attribute);
             }
+
+            foreach ($channel->getLanguages() as $language) {
+                if ($this->languageRepository->exists($channel->getId(), $language->getCode())) {
+                    $this->updatePropertyGroupWithLanguage($channel, $language, $attribute);
+                }
+            }
+            $this->propertyGroupOptionsProcess->process($id, $channel, $attribute);
+        } catch (Shopware6ExporterException $exception) {
+            $exportLine->process();
+            $exportLine->addError($exception->getMessage(), $exception->getParameters());
+            $this->exportLineRepository->save($exportLine);
+            throw $exception;
         }
-        $this->propertyGroupOptionsProcess->process($id, $channel, $attribute);
+        $exportLine->process();
+        $this->exportLineRepository->save($exportLine);
     }
 
     private function updatePropertyGroup(

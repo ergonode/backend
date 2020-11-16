@@ -66,6 +66,7 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
 
     /**
      * @throws DBALException
+     * @throws \JsonException
      */
     public function save(ExportLine $line): void
     {
@@ -97,6 +98,7 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
 
     /**
      * @throws DBALException
+     * @throws \JsonException
      */
     public function update(ExportLine $line): void
     {
@@ -117,6 +119,7 @@ class DbalExportLineRepository implements ExportLineRepositoryInterface
 
     /**
      * @throws DBALException
+     * @throws \JsonException
      */
     public function insert(ExportLine $line): void
     {

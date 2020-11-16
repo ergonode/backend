@@ -10,6 +10,9 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Decorator;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterNoMapperException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterNumericAttributeException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductAttributeException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductPriceMapper;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
@@ -25,7 +28,9 @@ class Shopware6NewProductPriceMapperDecorator implements Shopware6ProductMapperI
     }
 
     /**
-     * @throws \Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException
+     * @throws Shopware6ExporterNoMapperException
+     * @throws Shopware6ExporterNumericAttributeException
+     * @throws Shopware6ExporterProductAttributeException
      */
     public function map(
         Shopware6Product $shopware6Product,
