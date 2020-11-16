@@ -40,7 +40,7 @@ services:
         tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Account\Infrastructure\Subscriber\LocaleSubscriber:
-        $localeAware: '@translator.data_collector'
+        $localeAware: '@translator'
     
     Ergonode\Account\Domain\Repository\UserRepositoryInterface: '@Ergonode\Account\Infrastructure\Persistence\Repository\DbalUserRepository'
     Ergonode\Account\Domain\Repository\RoleRepositoryInterface: '@Ergonode\Account\Infrastructure\Persistence\Repository\DbalRoleRepository'
