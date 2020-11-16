@@ -12,7 +12,6 @@ namespace Ergonode\Completeness\Domain\Calculator;
 use Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class CompletenessCalculator
