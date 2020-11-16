@@ -12,8 +12,8 @@ namespace Ergonode\Completeness\Domain\Calculator\Strategy;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class UiTemplateElementCompletenessStrategy implements TemplateElementCompletenessStrategyInterface
 {
@@ -29,7 +29,7 @@ class UiTemplateElementCompletenessStrategy implements TemplateElementCompletene
      * {@inheritDoc}
      */
     public function getElementCompleteness(
-        ProductDraft $draft,
+        AbstractProduct $product,
         Language $language,
         TemplateElementPropertyInterface $properties
     ): ?CompletenessCalculatorLine {

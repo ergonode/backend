@@ -12,7 +12,7 @@ namespace Ergonode\Completeness\Domain\Calculator;
 use Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class CompletenessCalculator
 {
@@ -26,13 +26,13 @@ class CompletenessCalculator
     /**
      * @return CompletenessCalculatorLine[]
      */
-    public function calculate(ProductDraft $draft, Template $template, Language $language): array
+    public function calculate(AbstractProduct $product, Template $template, Language $language): array
     {
         $result = [];
         foreach ($template->getElements() as $element) {
             $properties = $element->getProperties();
             $strategy = $this->provider->provide($properties->getVariant());
-            $elementCompleteness = $strategy->getElementCompleteness($draft, $language, $properties);
+            $elementCompleteness = $strategy->getElementCompleteness($product, $language, $properties);
             if ($elementCompleteness) {
                 $result[] = $elementCompleteness;
             }
