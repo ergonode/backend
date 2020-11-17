@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Editor\Infrastructure\Handler;
+namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
@@ -17,11 +17,11 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Product\Domain\Command\Attribute\RemoveProductAttributeCommand;
 
-class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHandler
+class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
 {
     private ProductRepositoryInterface $repository;
 
@@ -42,7 +42,7 @@ class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHand
     /**
      * @throws \Exception
      */
-    public function __invoke(RemoveProductAttributeValueCommand $command): void
+    public function __invoke(RemoveProductAttributeCommand $command): void
     {
         $language = $command->getLanguage();
         $product = $this->repository->load($command->getId());

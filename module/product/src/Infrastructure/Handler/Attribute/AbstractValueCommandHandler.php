@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Editor\Infrastructure\Handler;
+namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;

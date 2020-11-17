@@ -9,35 +9,42 @@ declare(strict_types=1);
 namespace Ergonode\Product\Domain\Updater;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Webmozart\Assert\Assert;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper;
+use Ergonode\Value\Domain\Service\ValueManipulationService;
+use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
 class ProductAttributeUpdater
 {
-    /**
-     * @param array $attributes
-     *
-     * @throws \Exception
-     */
-    public function update(AbstractProduct $product, array $attributes): void
+    private AttributeValueMapper $mapper;
+
+    private ValueManipulationService $service;
+
+    public function __construct(AttributeValueMapper $mapper, ValueManipulationService $service)
     {
-        Assert::allIsInstanceOf($attributes, ValueInterface::class);
+        $this->mapper = $mapper;
+        $this->service = $service;
+    }
 
-        foreach ($attributes as $code => $attribute) {
-            $attributeCode = new AttributeCode($code);
-            if ($product->hasAttribute($attributeCode)) {
-                $product->changeAttribute($attributeCode, $attribute);
+    public function update(AbstractProduct $product, AbstractAttribute $attribute, array $value): AbstractProduct
+    {
+        $type = new AttributeType($attribute->getType());
+        $code = $attribute->getCode();
+
+        $newValue = $this->mapper->map($type, $value);
+
+        if ($product->hasAttribute($code)) {
+            if (null === $newValue) {
+                $product->removeAttribute($code);
             } else {
-                $product->addAttribute($attributeCode, $attribute);
+                $oldValue = $product->getAttribute($code);
+                $calculatedValue = $this->service->calculate($oldValue, $newValue);
+                $product->changeAttribute($code, $calculatedValue);
             }
+        } else {
+            $product->addAttribute($code, $newValue);
         }
 
-        foreach (array_keys($product->getAttributes()) as $code) {
-            $attributeCode = new AttributeCode($code);
-            if (!array_key_exists($code, $attributes)) {
-                $product->removeAttribute($attributeCode);
-            }
-        }
+        return $product;
     }
 }
