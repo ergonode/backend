@@ -58,11 +58,6 @@ class ProductBelongCategoryTreeConditionConfigurationStrategy implements Conditi
             ),
             'parameters' => [
                 [
-                    'name' => 'tree',
-                    'type' => 'MULTI_SELECT',
-                    'options' => $tree,
-                ],
-                [
                     'name' => 'operator',
                     'type' => 'SELECT',
                     'options' => [
@@ -83,6 +78,11 @@ class ProductBelongCategoryTreeConditionConfigurationStrategy implements Conditi
                                 $language->getCode()
                             ),
                     ],
+                ],
+                [
+                    'name' => 'tree',
+                    'type' => 'MULTI_SELECT',
+                    'options' => $tree,
                 ],
             ],
         ];
