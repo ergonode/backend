@@ -7,47 +7,42 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Editor\Infrastructure\Handler;
+namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
-use Ergonode\Value\Domain\Service\ValueManipulationService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Product\Domain\Updater\ProductAttributeUpdater;
+use Ergonode\Product\Domain\Command\Attribute\ChangeProductAttributeCommand;
 
-class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHandler
+class ChangeProductAttributeCommandHandler extends AbstractValueCommandHandler
 {
     private ProductRepositoryInterface $repository;
-
-    private ValueManipulationService $service;
 
     private AttributeRepositoryInterface $attributeRepository;
 
     private TokenStorageInterface $tokenStorage;
 
-    private AttributeValueMapper $mapper;
+    private ProductAttributeUpdater $updater;
 
     public function __construct(
         ProductRepositoryInterface $repository,
-        ValueManipulationService $service,
         AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage,
-        AttributeValueMapper $mapper
+        ProductAttributeUpdater $updater
     ) {
         $this->repository = $repository;
-        $this->service = $service;
         $this->attributeRepository = $attributeRepository;
         $this->tokenStorage = $tokenStorage;
-        $this->mapper = $mapper;
+        $this->updater = $updater;
     }
 
     /**
      * @throws \Exception
      */
-    public function __invoke(ChangeProductAttributeValueCommand $command): void
+    public function __invoke(ChangeProductAttributeCommand $command): void
     {
         $language = $command->getLanguage();
         $product = $this->repository->load($command->getId());
@@ -57,19 +52,7 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
         Assert::notNull($product);
         Assert::notNull($attribute);
 
-        $newValue = $this->mapper->map($attribute, [$language->getCode() => $command->getValue()]);
-
-        if ($product->hasAttribute($attribute->getCode())) {
-            if (null === $newValue) {
-                $product->removeAttribute($attribute->getCode());
-            } else {
-                $oldValue = $product->getAttribute($attribute->getCode());
-                $calculatedValue = $this->service->calculate($oldValue, $newValue);
-                $product->changeAttribute($attribute->getCode(), $calculatedValue);
-            }
-        } else {
-            $product->addAttribute($attribute->getCode(), $newValue);
-        }
+        $this->updater->update($product, $attribute, [$language->getCode() => $command->getValue()]);
 
         $token = $this->tokenStorage->getToken();
         if ($token) {

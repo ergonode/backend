@@ -7,21 +7,10 @@ services:
     Ergonode\Editor\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Editor\Domain\:
-        resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity, ValueObject}'
-
-    Ergonode\Editor\Infrastructure\:
-        resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Message}'
-
     Ergonode\Editor\Application\Controller\:
         resource: '../../Application/Controller/*'
         tags: ['controller.service_arguments']
 
-    Ergonode\Editor\Infrastructure\Handler\:
-        resource: '../../Infrastructure/Handler/*'
-        tags: ['messenger.message_handler']
 
 
 

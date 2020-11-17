@@ -7,14 +7,15 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Editor\Domain\Command;
+namespace Ergonode\Product\Domain\Command\Attribute;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Product\Domain\Command\ProductCommandInterface;
 
-class ChangeProductAttributeValueCommand implements EditorCommandInterface
+class ChangeProductAttributeCommand implements ProductCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

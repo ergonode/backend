@@ -19,8 +19,6 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
-use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
@@ -35,6 +33,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Product\Domain\Command\Attribute\ChangeProductAttributeCommand;
+use Ergonode\Product\Domain\Command\Attribute\RemoveProductAttributeCommand;
 
 class ProductDraftController extends AbstractController
 {
@@ -185,7 +185,7 @@ class ProductDraftController extends AbstractController
 
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
-            $command = new ChangeProductAttributeValueCommand(
+            $command = new ChangeProductAttributeCommand(
                 $product->getId(),
                 $attribute->getId(),
                 $language,
@@ -251,7 +251,7 @@ class ProductDraftController extends AbstractController
                 throw new AccessDeniedHttpException();
             }
         }
-        $command = new RemoveProductAttributeValueCommand($product->getId(), $attribute->getId(), $language);
+        $command = new RemoveProductAttributeCommand($product->getId(), $attribute->getId(), $language);
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

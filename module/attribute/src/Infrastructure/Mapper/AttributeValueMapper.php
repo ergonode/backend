@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Infrastructure\Mapper;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Infrastructure\Mapper\Strategy\AttributeMapperStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
@@ -25,16 +24,16 @@ class AttributeValueMapper
         $this->strategies = $strategies;
     }
 
-    public function map(AbstractAttribute $attribute, array $values): ValueInterface
+    public function map(AttributeType $type, array $values): ValueInterface
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->supported(new AttributeType($attribute->getType()))) {
+            if ($strategy->supported($type)) {
                 return $strategy->map($values);
             }
         }
 
         throw new \RuntimeException(
-            sprintf('Can\'t find mapping strategy for attribute "%s" type', $attribute->getType())
+            sprintf('Can\'t find mapping strategy for attribute "%s" type', $type->getValue())
         );
     }
 }
