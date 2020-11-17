@@ -35,7 +35,7 @@ class AttributeTranslationInheritanceCalculator
             if ($attribute->getScope()->isGlobal()) {
                 $inheritance = $this->languageQuery->getRootLanguage();
 
-                return $translations[$inheritance->getCode()];
+                return $translations[$inheritance->getCode()] ?? null;
             }
 
             return $translations[$language->getCode()] ?? null;
