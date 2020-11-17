@@ -18,7 +18,8 @@ class ProductHasStatusConditionTest extends TestCase
     {
         $operator = 'some operator';
         $value = ['some value'];
-        $condition = new ProductHasStatusCondition($operator, $value);
+        $language = ['some_language'];
+        $condition = new ProductHasStatusCondition($operator, $value, $language);
 
         $this->assertSame($operator, $condition->getOperator());
         $this->assertSame($value, $condition->getValue());

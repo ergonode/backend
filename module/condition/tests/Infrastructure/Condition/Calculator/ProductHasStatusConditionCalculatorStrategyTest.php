@@ -11,10 +11,12 @@ namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductHasStatusCondition;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductHasStatusConditionCalculatorStrategy;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -45,6 +47,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
         string $operator,
         string $productStatusUuid,
         array $searchedStatusIds,
+        string $languages,
         bool $expectedResult
     ): void {
         $product = $this->createProductMock('some-id');
@@ -55,9 +58,13 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
 
         $product
             ->method('getAttribute')
-            ->willReturn(new StringValue($productStatusUuid));
+            ->willReturn(new TranslatableStringValue(new TranslatableString([$languages => $productStatusUuid])));
 
-        $condition = $this->createProductHasStatusConditionMock($operator, $searchedStatusIds);
+        $condition = $this->createProductHasStatusConditionMock(
+            $operator,
+            $searchedStatusIds,
+            new Language($languages)
+        );
         $result = $this->strategy->calculate($product, $condition);
         $this->assertSame($expectedResult, $result);
     }
@@ -72,24 +79,28 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
                 'HAS',
                 '21657757-ab97-4f04-b930-e243d19dae82',
                 ['21657757-ab97-4f04-b930-e243d19dae82', '1a71c295-55a2-4ab7-9b77-ebffecc8776d'],
+                'en_GB',
                 true,
             ],
             'HAS false' => [
                 'HAS',
                 '21657757-ab97-4f04-b930-e243d19dae82',
                 ['1a71c295-55a2-4ab7-9b77-ebffecc8776d', '0f8a1750-5491-4532-bbfa-12cc7406694b'],
+                'en_GB',
                 false,
             ],
             'NOT_HAS false' => [
                 'NOT_HAS',
                 '21657757-ab97-4f04-b930-e243d19dae82',
                 ['21657757-ab97-4f04-b930-e243d19dae82', '1a71c295-55a2-4ab7-9b77-ebffecc8776d'],
+                'en_GB',
                 false,
             ],
             'NOT_HAS true' => [
                 'NOT_HAS',
                 '21657757-ab97-4f04-b930-e243d19dae82',
                 ['1a71c295-55a2-4ab7-9b77-ebffecc8776d', '0f8a1750-5491-4532-bbfa-12cc7406694b'],
+                'en_EN',
                 true,
             ],
         ];
@@ -110,17 +121,18 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
         return $productMock;
     }
 
-    /**
-     * @param array $searchedStatuses
-     */
-    private function createProductHasStatusConditionMock(string $operator, array $searchedStatuses): MockObject
-    {
+    private function createProductHasStatusConditionMock(
+        string $operator,
+        array $searchedStatuses,
+        Language $language
+    ): MockObject {
         $mock = $this->createMock(ProductHasStatusCondition::class);
         $mock->method('getOperator')->willReturn($operator);
         foreach ($searchedStatuses as $searchedStatus) {
             $searchedStatusIds[] = new StatusId($searchedStatus);
         }
         $mock->method('getValue')->willReturn($searchedStatusIds);
+        $mock->method('getLanguage')->willReturn([$language]);
 
         return $mock;
     }
