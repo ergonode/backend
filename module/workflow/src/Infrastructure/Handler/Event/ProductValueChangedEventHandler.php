@@ -21,6 +21,7 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
+use Ergonode\Workflow\Domain\Repository\ProductWorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Provider\UserIdsProvider;
@@ -42,13 +43,16 @@ class ProductValueChangedEventHandler
 
     private CommandBusInterface $commandBus;
 
+    private ProductWorkflowRepositoryInterface $productWorkflowRepository;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         WorkflowProvider $workflowProvider,
         UserIdsProvider $userIdsProvider,
         AuthenticatedUserProviderInterface $userProvider,
         StatusRepositoryInterface $statusRepository,
-        CommandBusInterface $commandBus
+        CommandBusInterface $commandBus,
+        ProductWorkflowRepositoryInterface $productWorkflowRepository
     ) {
         $this->productRepository = $productRepository;
         $this->workflowProvider = $workflowProvider;
@@ -56,6 +60,7 @@ class ProductValueChangedEventHandler
         $this->userProvider = $userProvider;
         $this->statusRepository = $statusRepository;
         $this->commandBus = $commandBus;
+        $this->productWorkflowRepository = $productWorkflowRepository;
     }
 
     /**
@@ -67,9 +72,10 @@ class ProductValueChangedEventHandler
         if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
             $workflow = $this->workflowProvider->provide();
 
-            $languages = $this->getLanguages($event->getFrom(), $event->getTo());
+            $statuses = $this->productWorkflowRepository->loadStatuses($event->getAggregateId());
+            $languages = $this->getLanguages($statuses, $event->getTo());
             foreach ($languages as $language) {
-                $from = $event->getFrom()->getValue()[$language->getCode()];
+                $from = $statuses[$language->getCode()];
                 $to = $event->getTo()->getValue()[$language->getCode()];
                 $source = new StatusId($from);
                 $destination = new StatusId($to);
@@ -132,9 +138,9 @@ class ProductValueChangedEventHandler
     /**
      * @return Language[]
      */
-    private function getLanguages(ValueInterface $from, ValueInterface $to): array
+    private function getLanguages(array $from, ValueInterface $to): array
     {
-        $languages = array_keys(array_diff($to->getValue(), $from->getValue()));
+        $languages = array_keys(array_diff($to->getValue(), $from));
 
         foreach ($languages as &$language) {
             $language = new Language($language);
