@@ -51,6 +51,7 @@ class DbalExportLineFactory
             'objectId' => new AggregateId($record['object_id']),
             'processedAt' => $record['processed_at'] ? new \DateTime($record['processed_at']) : null,
             'error' => $record['message'],
+            'parameters' => json_decode($record['parameters']),
         ];
     }
 }

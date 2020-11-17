@@ -9,9 +9,12 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\ExportLine;
+use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductClient;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -27,14 +30,18 @@ class ProductShopware6ExportProcess
 
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
+    private ExportLineRepositoryInterface $exportLineRepository;
+
     public function __construct(
         Shopware6ProductBuilder $builder,
         Shopware6ProductClient $productClient,
-        Shopware6LanguageRepositoryInterface $languageRepository
+        Shopware6LanguageRepositoryInterface $languageRepository,
+        ExportLineRepositoryInterface $exportLineRepository
     ) {
         $this->builder = $builder;
         $this->productClient = $productClient;
         $this->languageRepository = $languageRepository;
+        $this->exportLineRepository = $exportLineRepository;
     }
 
     /**
@@ -42,21 +49,31 @@ class ProductShopware6ExportProcess
      */
     public function process(ExportId $id, Shopware6Channel $channel, AbstractProduct $product): void
     {
+        $exportLine = new ExportLine($id, $product->getId());
         $shopwareProduct = $this->productClient->find($channel, $product);
 
-        if ($shopwareProduct) {
-            $this->updateProduct($channel, $shopwareProduct, $product);
-        } else {
-            $shopwareProduct = new Shopware6Product();
-            $this->builder->build($shopwareProduct, $product, $channel);
-            $this->productClient->insert($channel, $shopwareProduct, $product->getId());
-        }
-
-        foreach ($channel->getLanguages() as $language) {
-            if ($this->languageRepository->exists($channel->getId(), $language->getCode())) {
-                $this->updateProductWithLanguage($channel, $language, $product);
+        try {
+            if ($shopwareProduct) {
+                $this->updateProduct($channel, $shopwareProduct, $product);
+            } else {
+                $shopwareProduct = new Shopware6Product();
+                $this->builder->build($shopwareProduct, $product, $channel);
+                $this->productClient->insert($channel, $shopwareProduct, $product->getId());
             }
+
+            foreach ($channel->getLanguages() as $language) {
+                if ($this->languageRepository->exists($channel->getId(), $language->getCode())) {
+                    $this->updateProductWithLanguage($channel, $language, $product);
+                }
+            }
+        } catch (Shopware6ExporterException $exception) {
+            $exportLine->process();
+            $exportLine->addError($exception->getMessage(), $exception->getParameters());
+            $this->exportLineRepository->save($exportLine);
+            throw $exception;
         }
+        $exportLine->process();
+        $this->exportLineRepository->save($exportLine);
     }
 
     private function updateProduct(

@@ -11,6 +11,7 @@ namespace Ergonode\EventSourcing\Infrastructure\Storage;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface;
 use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
@@ -79,7 +80,12 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
         $this->connection->transactional(function () use ($id, $stream, $name): void {
             $table = $name ?: self::TABLE;
             $token = $this->tokenStorage->getToken();
-            $userId = $token ? $token->getUser()->getId()->getValue() : null;
+            $userId = null;
+            if ($token) {
+                /** @var User $user */
+                $user = $token->getUser();
+                $userId = $user->getId()->getValue();
+            }
             foreach ($stream as $envelope) {
                 $payload = $this->serializer->serialize($envelope->getEvent(), 'json');
                 $this->connection->insert(

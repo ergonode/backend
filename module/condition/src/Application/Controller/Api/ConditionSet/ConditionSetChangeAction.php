@@ -14,7 +14,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
-use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\ArrayTransformerInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,19 +36,19 @@ class ConditionSetChangeAction
 
     private CommandBusInterface $commandBus;
 
-    private SerializerInterface $serializer;
+    private ArrayTransformerInterface $transformer;
 
     private ConditionSetValidatorBuilder $conditionSetValidatorBuilder;
 
     public function __construct(
         ValidatorInterface $validator,
         CommandBusInterface $commandBus,
-        SerializerInterface $serializer,
+        ArrayTransformerInterface $transformer,
         ConditionSetValidatorBuilder $conditionSetValidatorBuilder
     ) {
         $this->validator = $validator;
         $this->commandBus = $commandBus;
-        $this->serializer = $serializer;
+        $this->transformer = $transformer;
         $this->conditionSetValidatorBuilder = $conditionSetValidatorBuilder;
     }
 
@@ -97,7 +97,7 @@ class ConditionSetChangeAction
             $data['id'] = $conditionSet->getId()->getValue();
 
             /** @var UpdateConditionSetCommand $command */
-            $command = $this->serializer->fromArray($data, UpdateConditionSetCommand::class);
+            $command = $this->transformer->fromArray($data, UpdateConditionSetCommand::class);
             $this->commandBus->dispatch($command);
 
             return new EmptyResponse();

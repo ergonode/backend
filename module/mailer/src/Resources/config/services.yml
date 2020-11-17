@@ -21,5 +21,6 @@ services:
 
     Ergonode\Mailer\Infrastructure\Sender\Strategy\SymfonyMailerStrategy:
         arguments:
+            $localeAware: '@translator'
             $defaultFrom: '%ergonode_mailer.from%'
             $defaultReplyTo: '%ergonode_mailer.replyTo%'

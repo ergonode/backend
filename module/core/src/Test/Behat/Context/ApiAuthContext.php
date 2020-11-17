@@ -34,6 +34,7 @@ class ApiAuthContext implements Context
     public function iAmAuthenticatedAsUser(User $user): void
     {
         $token = $this->JWTTokenManager->create($user);
+        /** @phpstan-ignore-next-line */
         $this->request->setHttpHeader('JWTAuthorization', 'Bearer '.$token);
     }
 }
