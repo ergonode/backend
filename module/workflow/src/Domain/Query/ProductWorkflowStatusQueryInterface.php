@@ -7,14 +7,14 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Workflow\Domain\Repository;
+namespace Ergonode\Workflow\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-interface ProductWorkflowRepositoryInterface
+interface ProductWorkflowStatusQueryInterface
 {
     /**
      * @return string[]
      */
-    public function loadStatuses(ProductId $productId): array;
+    public function getStatuses(ProductId $productId): array;
 }

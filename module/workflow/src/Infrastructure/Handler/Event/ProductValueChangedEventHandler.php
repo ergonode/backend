@@ -21,7 +21,7 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
-use Ergonode\Workflow\Domain\Repository\ProductWorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Query\ProductWorkflowStatusQueryInterface;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Provider\UserIdsProvider;
@@ -43,7 +43,7 @@ class ProductValueChangedEventHandler
 
     private CommandBusInterface $commandBus;
 
-    private ProductWorkflowRepositoryInterface $productWorkflowRepository;
+    private ProductWorkflowStatusQueryInterface $productWorkflowQuery;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -52,7 +52,7 @@ class ProductValueChangedEventHandler
         AuthenticatedUserProviderInterface $userProvider,
         StatusRepositoryInterface $statusRepository,
         CommandBusInterface $commandBus,
-        ProductWorkflowRepositoryInterface $productWorkflowRepository
+        ProductWorkflowStatusQueryInterface $productWorkflowQuery
     ) {
         $this->productRepository = $productRepository;
         $this->workflowProvider = $workflowProvider;
@@ -60,7 +60,7 @@ class ProductValueChangedEventHandler
         $this->userProvider = $userProvider;
         $this->statusRepository = $statusRepository;
         $this->commandBus = $commandBus;
-        $this->productWorkflowRepository = $productWorkflowRepository;
+        $this->productWorkflowQuery = $productWorkflowQuery;
     }
 
     /**
@@ -72,7 +72,7 @@ class ProductValueChangedEventHandler
         if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
             $workflow = $this->workflowProvider->provide();
 
-            $statuses = $this->productWorkflowRepository->loadStatuses($event->getAggregateId());
+            $statuses = $this->productWorkflowQuery->getStatuses($event->getAggregateId());
             $languages = $this->getLanguages($statuses, $event->getTo());
             foreach ($languages as $language) {
                 $from = $statuses[$language->getCode()];
