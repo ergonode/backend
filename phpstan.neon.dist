@@ -4,3 +4,5 @@ parameters:
         - %currentWorkingDirectory%/module/*/migrations/*
         - %currentWorkingDirectory%/module/*/tests/*
         - %currentWorkingDirectory%/module/core/src/Infrastructure\JMS\Serializer\HandlerRegistry*
+    ignoreErrors:
+        - '#Call to an undefined method League\\Flysystem\\FilesystemInterface#' # Method getAdapter is not in interface
