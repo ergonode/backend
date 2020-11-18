@@ -53,12 +53,6 @@ class Shopware6ProductVariantChildMapper extends AbstractShopware6VariantOptionM
     ): Shopware6Product {
         $parentsIds = $this->childQuery->findProductIdByProductChildrenId($product->getId());
         if (!empty($parentsIds)) {
-//            if($product->getSku()->getValue()==='408406') {
-//                dump($parentsIds);
-//                $parentProductId = reset($parentsIds);
-//                dump($parentProductId);
-//                die;
-//            }
             $parentProductId = reset($parentsIds);
             $this->parentMap($shopware6Product, $parentProductId, $product, $channel);
         }
