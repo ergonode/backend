@@ -54,7 +54,7 @@ class AttributeTemplateElementProperty implements TemplateElementPropertyInterfa
         return $this->required;
     }
 
-    public function isEqual(TemplateElementPropertyInterface $property): bool
+    public function isEqual(object $property): bool
     {
         return
             $this->getVariant() === $property->getVariant() &&
