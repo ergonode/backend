@@ -28,6 +28,7 @@ class ApiAuthTokenContext implements Context
      */
     public function iAmAuthenticatedAsToken(string $token): void
     {
+        /** @phpstan-ignore-next-line */
         $this->request->setHttpHeader($this->authHeader, 'Bearer '.$token);
     }
 }

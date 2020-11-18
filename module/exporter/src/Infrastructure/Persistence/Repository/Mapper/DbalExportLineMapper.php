@@ -14,7 +14,7 @@ use Ergonode\Exporter\Domain\Entity\ExportLine;
 class DbalExportLineMapper
 {
     /**
-     * @return array
+     * @throws \JsonException
      */
     public function map(ExportLine $line): array
     {
@@ -23,6 +23,7 @@ class DbalExportLineMapper
             'object_id' => $line->getObjectId()->getValue(),
             'processed_at' => $line->getProcessedAt(),
             'message' => $line->getError(),
+            'parameters' => json_encode($line->getParameters(), JSON_THROW_ON_ERROR),
         ];
     }
 }

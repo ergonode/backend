@@ -21,7 +21,7 @@ class RelationshipGroup
     private array $relations;
 
     /**
-     * @param AggregateId[] $collection
+     * @param AggregateId[] $relations
      */
     public function __construct(string $message, array $relations)
     {

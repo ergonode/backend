@@ -14,7 +14,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
-use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterOptionValueException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
@@ -42,7 +42,7 @@ class Shopware6ProductCustomFieldSetSelectMapper extends AbstractShopware6Produc
     /**
      * {@inheritDoc}
      *
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterOptionValueException
      */
     protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue): string
     {
@@ -55,6 +55,7 @@ class Shopware6ProductCustomFieldSetSelectMapper extends AbstractShopware6Produc
                 return $option->getCode()->getValue();
             }
         }
-        throw new Shopware6ExporterMapperException('Value not found');
+
+        throw new Shopware6ExporterOptionValueException($attribute->getCode());
     }
 }

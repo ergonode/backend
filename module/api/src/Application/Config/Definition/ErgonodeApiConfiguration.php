@@ -20,7 +20,7 @@ class ErgonodeApiConfiguration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('ergonode_api');
-
+        /** @phpstan-ignore-next-line */
         $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('exceptions')

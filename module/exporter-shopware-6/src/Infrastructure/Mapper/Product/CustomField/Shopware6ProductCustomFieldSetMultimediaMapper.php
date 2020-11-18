@@ -14,7 +14,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductMediaClient;
-use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterMultimediaException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -47,7 +47,7 @@ class Shopware6ProductCustomFieldSetMultimediaMapper extends AbstractShopware6Pr
     /**
      * {@inheritDoc}
      *
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterMultimediaException
      */
     protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue): string
     {
@@ -57,7 +57,7 @@ class Shopware6ProductCustomFieldSetMultimediaMapper extends AbstractShopware6Pr
     }
 
     /**
-     * @throws Shopware6ExporterMapperException
+     * @throws Shopware6ExporterMultimediaException
      */
     private function getShopware6MultimediaId(Shopware6Channel $channel, MultimediaId $multimediaId): string
     {
@@ -65,6 +65,6 @@ class Shopware6ProductCustomFieldSetMultimediaMapper extends AbstractShopware6Pr
         if ($multimedia) {
             return $this->mediaClient->findOrCreateMedia($channel, $multimedia);
         }
-        throw new Shopware6ExporterMapperException('Multimedia not found');
+        throw new Shopware6ExporterMultimediaException($multimediaId);
     }
 }

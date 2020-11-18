@@ -77,7 +77,6 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
                 $filename
             );
             $this->commandBus->dispatch($command, true);
-            $import->addRecords(1);
         }
     }
 }

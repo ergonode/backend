@@ -17,7 +17,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route(
@@ -31,12 +31,12 @@ class SourceReadAction
 {
     private SourceFormFactoryProvider $provider;
 
-    private SerializerInterface $serializer;
+    private NormalizerInterface $normalizer;
 
-    public function __construct(SourceFormFactoryProvider $provider, SerializerInterface $serializer)
+    public function __construct(SourceFormFactoryProvider $provider, NormalizerInterface $normalizer)
     {
         $this->provider = $provider;
-        $this->serializer = $serializer;
+        $this->normalizer = $normalizer;
     }
 
     /**
@@ -66,7 +66,7 @@ class SourceReadAction
     public function __invoke(AbstractSource $source): Response
     {
         $form = $this->provider->provide($source->getType())->create($source);
-        $result = $this->serializer->normalize($form);
+        $result = $this->normalizer->normalize($form);
         $result['type'] = $source->getType();
 
         return new SuccessResponse($result);
