@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\ExporterShopware6\Domain\Query\Shopware6CurrencyQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\GetCurrencyList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\PostCurrencyCreate;
@@ -26,14 +27,18 @@ class CurrencySynchronizer implements SynchronizerInterface
 
     private AttributeRepositoryInterface $attributeRepository;
 
+    private Shopware6CurrencyQueryInterface $currencyQuery;
+
     public function __construct(
         Shopware6Connector $connector,
         Shopware6CurrencyRepositoryInterface $currencyRepository,
-        AttributeRepositoryInterface $attributeRepository
+        AttributeRepositoryInterface $attributeRepository,
+        Shopware6CurrencyQueryInterface $currencyQuery
     ) {
         $this->connector = $connector;
         $this->currencyRepository = $currencyRepository;
         $this->attributeRepository = $attributeRepository;
+        $this->currencyQuery = $currencyQuery;
     }
 
     public function synchronize(ExportId $id, Shopware6Channel $channel): void
@@ -44,10 +49,12 @@ class CurrencySynchronizer implements SynchronizerInterface
 
     private function synchronizeShopware(Shopware6Channel $channel): void
     {
+        $start = new \DateTimeImmutable();
         $currencyList = $this->getShopwareCurrency($channel);
         foreach ($currencyList as $currency) {
             $this->currencyRepository->save($channel->getId(), $currency['iso'], $currency['id']);
         }
+        $this->currencyQuery->cleanData($channel->getId(), $start);
     }
 
     /**

@@ -70,26 +70,26 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
         return [
             'HAS true' => [
                 'HAS',
-                'code1',
-                ['code1', 'code2'],
+                '21657757-ab97-4f04-b930-e243d19dae82',
+                ['21657757-ab97-4f04-b930-e243d19dae82', '1a71c295-55a2-4ab7-9b77-ebffecc8776d'],
                 true,
             ],
             'HAS false' => [
                 'HAS',
-                'code1',
-                ['code2', 'code3'],
+                '21657757-ab97-4f04-b930-e243d19dae82',
+                ['1a71c295-55a2-4ab7-9b77-ebffecc8776d', '0f8a1750-5491-4532-bbfa-12cc7406694b'],
                 false,
             ],
             'NOT_HAS false' => [
                 'NOT_HAS',
-                'code1',
-                ['code1', 'code2'],
+                '21657757-ab97-4f04-b930-e243d19dae82',
+                ['21657757-ab97-4f04-b930-e243d19dae82', '1a71c295-55a2-4ab7-9b77-ebffecc8776d'],
                 false,
             ],
             'NOT_HAS true' => [
                 'NOT_HAS',
-                'code1',
-                ['code2', 'code3'],
+                '21657757-ab97-4f04-b930-e243d19dae82',
+                ['1a71c295-55a2-4ab7-9b77-ebffecc8776d', '0f8a1750-5491-4532-bbfa-12cc7406694b'],
                 true,
             ],
         ];
@@ -118,7 +118,7 @@ class ProductHasStatusConditionCalculatorStrategyTest extends TestCase
         $mock = $this->createMock(ProductHasStatusCondition::class);
         $mock->method('getOperator')->willReturn($operator);
         foreach ($searchedStatuses as $searchedStatus) {
-            $searchedStatusIds[] = StatusId::fromCode($searchedStatus);
+            $searchedStatusIds[] = new StatusId($searchedStatus);
         }
         $mock->method('getValue')->willReturn($searchedStatusIds);
 

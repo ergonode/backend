@@ -12,6 +12,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\Shopware6TaxQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\GetTaxList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\PostTaxCreate;
@@ -34,18 +35,22 @@ class TaxSynchronizer implements SynchronizerInterface
 
     private OptionQueryInterface $optionQuery;
 
+    private Shopware6TaxQueryInterface $taxQueryInterface;
+
     public function __construct(
         Shopware6Connector $connector,
         Shopware6TaxRepositoryInterface $taxRepository,
         AttributeRepositoryInterface $attributeRepository,
         AttributeValueQueryInterface $attributeValueQuery,
-        OptionQueryInterface $optionQuery
+        OptionQueryInterface $optionQuery,
+        Shopware6TaxQueryInterface $taxQueryInterface
     ) {
         $this->connector = $connector;
         $this->taxRepository = $taxRepository;
         $this->attributeRepository = $attributeRepository;
         $this->attributeValueQuery = $attributeValueQuery;
         $this->optionQuery = $optionQuery;
+        $this->taxQueryInterface = $taxQueryInterface;
     }
 
 
@@ -57,10 +62,12 @@ class TaxSynchronizer implements SynchronizerInterface
 
     private function synchronizeShopware(Shopware6Channel $channel): void
     {
+        $start = new \DateTimeImmutable();
         $taxList = $this->getShopwareTax($channel);
         foreach ($taxList as $taxRow) {
             $this->taxRepository->save($channel->getId(), $taxRow->getRate(), $taxRow->getId());
         }
+        $this->taxQueryInterface->cleanData($channel->getId(), $start);
     }
 
     /**
