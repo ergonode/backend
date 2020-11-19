@@ -12,6 +12,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6TaxQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\GetTaxList;
@@ -20,7 +21,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 class TaxSynchronizer implements SynchronizerInterface
@@ -54,7 +54,7 @@ class TaxSynchronizer implements SynchronizerInterface
     }
 
 
-    public function synchronize(ExportId $id, Shopware6Channel $channel): void
+    public function synchronize(Export $export, Shopware6Channel $channel): void
     {
         $this->synchronizeShopware($channel);
         $this->checkExistOrCreate($channel);

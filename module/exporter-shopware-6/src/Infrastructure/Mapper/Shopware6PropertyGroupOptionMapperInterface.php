@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper;
 
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 
@@ -17,6 +18,7 @@ interface Shopware6PropertyGroupOptionMapperInterface
 {
     public function map(
         Shopware6Channel $channel,
+        Export $export,
         Shopware6PropertyGroupOption $propertyGroupOption,
         AbstractOption $option,
         ?Language $language = null

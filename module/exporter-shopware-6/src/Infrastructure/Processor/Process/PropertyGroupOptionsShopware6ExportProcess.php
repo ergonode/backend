@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
@@ -22,7 +23,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptio
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use GuzzleHttp\Exception\ClientException;
 use Webmozart\Assert\Assert;
@@ -61,7 +61,7 @@ class PropertyGroupOptionsShopware6ExportProcess
         $this->languageRepository = $languageRepository;
     }
 
-    public function process(ExportId $id, Shopware6Channel $channel, AbstractAttribute $attribute): void
+    public function process(Export $export, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
         $propertyGroupId = $this->propertyGroupRepository->load($channel->getId(), $attribute->getId());
         Assert::notNull($propertyGroupId);
@@ -71,12 +71,13 @@ class PropertyGroupOptionsShopware6ExportProcess
             $optionId = new AggregateId($option);
             $option = $this->optionRepository->load($optionId);
             Assert::notNull($option);
-            $this->processOptions($channel, $propertyGroupId, $attribute, $option);
+            $this->processOptions($channel, $export, $propertyGroupId, $attribute, $option);
         }
     }
 
     private function processOptions(
         Shopware6Channel $channel,
+        Export $export,
         string $propertyGroupId,
         AbstractAttribute $attribute,
         AbstractOption $option
@@ -89,28 +90,29 @@ class PropertyGroupOptionsShopware6ExportProcess
         );
 
         if ($propertyGroupOption) {
-            $this->updatePropertyGroupOption($channel, $propertyGroupOption, $propertyGroupId, $option);
+            $this->updatePropertyGroupOption($channel, $export, $propertyGroupOption, $propertyGroupId, $option);
         } else {
             $propertyGroupOption = new Shopware6PropertyGroupOption();
-            $this->builder->build($channel, $propertyGroupOption, $option);
+            $this->builder->build($channel, $export, $propertyGroupOption, $option);
             $this->propertyGroupOptionClient->insert($channel, $propertyGroupId, $propertyGroupOption, $option);
         }
         foreach ($channel->getLanguages() as $language) {
             if ($this->languageRepository->exists($channel->getId(), $language->getCode())) {
-                $this->updatePropertyGroupOptionWithLanguage($channel, $language, $propertyGroupId, $option);
+                $this->updatePropertyGroupOptionWithLanguage($channel, $export, $language, $propertyGroupId, $option);
             }
         }
     }
 
     private function updatePropertyGroupOption(
         Shopware6Channel $channel,
+        Export $export,
         Shopware6PropertyGroupOption $propertyGroupOption,
         string $propertyGroupId,
         AbstractOption $option,
         ?Language $language = null,
         ?Shopware6Language $shopwareLanguage = null
     ): void {
-        $this->builder->build($channel, $propertyGroupOption, $option, $language);
+        $this->builder->build($channel, $export, $propertyGroupOption, $option, $language);
         if ($propertyGroupOption->isModified()) {
             $this->propertyGroupOptionClient->update(
                 $channel,
@@ -123,6 +125,7 @@ class PropertyGroupOptionsShopware6ExportProcess
 
     private function updatePropertyGroupOptionWithLanguage(
         Shopware6Channel $channel,
+        Export $export,
         Language $language,
         string $propertyGroupId,
         AbstractOption $option
@@ -141,6 +144,7 @@ class PropertyGroupOptionsShopware6ExportProcess
 
         $this->updatePropertyGroupOption(
             $channel,
+            $export,
             $shopwarePropertyGroupOption,
             $propertyGroupId,
             $option,

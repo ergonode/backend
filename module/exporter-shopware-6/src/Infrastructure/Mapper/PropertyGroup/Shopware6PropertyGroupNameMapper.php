@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroup;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
@@ -21,6 +22,7 @@ class Shopware6PropertyGroupNameMapper implements Shopware6PropertyGroupMapperIn
      */
     public function map(
         Shopware6Channel $channel,
+        Export $export,
         Shopware6PropertyGroup $shopware6PropertyGroup,
         AbstractAttribute $attribute,
         ?Language $language = null

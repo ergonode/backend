@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Builder;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -27,14 +28,15 @@ class Shopware6ProductBuilder
     }
 
     public function build(
+        Shopware6Channel $channel,
+        Export $export,
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
 
         foreach ($this->collection as $mapper) {
-            $shopware6Product = $mapper->map($shopware6Product, $product, $channel, $language);
+            $shopware6Product = $mapper->map($channel, $export, $shopware6Product, $product, $language);
         }
 
         return $shopware6Product;

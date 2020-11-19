@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
@@ -26,6 +27,7 @@ class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInter
 
     public function map(
         Shopware6Channel $channel,
+        Export $export,
         Shopware6CustomField $shopware6CustomField,
         AbstractAttribute $attribute,
         ?Language $language = null

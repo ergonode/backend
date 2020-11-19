@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 interface SynchronizerInterface
 {
-    public function synchronize(ExportId $id, Shopware6Channel $channel): void;
+    public function synchronize(Export $export, Shopware6Channel $channel): void;
 }
