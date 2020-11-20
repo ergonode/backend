@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 class ProductDraftValueRemoved implements DomainEventInterface
@@ -28,16 +27,10 @@ class ProductDraftValueRemoved implements DomainEventInterface
      */
     private AttributeCode $attributeCode;
 
-    /**
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
-     */
-    private ValueInterface $old;
-
-    public function __construct(ProductDraftId $id, AttributeCode $attributeCode, ValueInterface $old)
+    public function __construct(ProductDraftId $id, AttributeCode $attributeCode)
     {
         $this->id = $id;
         $this->attributeCode = $attributeCode;
-        $this->old = $old;
     }
 
     public function getAggregateId(): ProductDraftId
@@ -48,10 +41,5 @@ class ProductDraftValueRemoved implements DomainEventInterface
     public function getAttributeCode(): AttributeCode
     {
         return $this->attributeCode;
-    }
-
-    public function getOld(): ValueInterface
-    {
-        return $this->old;
     }
 }

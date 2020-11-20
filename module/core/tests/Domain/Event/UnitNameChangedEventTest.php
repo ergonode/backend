@@ -18,13 +18,11 @@ class UnitNameChangedEventTest extends TestCase
     public function testEventCreation(): void
     {
         $id = $this->createMock(UnitId::class);
-        $from = 'name';
         $to = 'to';
 
-        $event = new UnitNameChangedEvent($id, $from, $to);
+        $event = new UnitNameChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

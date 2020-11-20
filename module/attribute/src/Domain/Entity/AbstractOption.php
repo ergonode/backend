@@ -54,7 +54,7 @@ abstract class AbstractOption extends AbstractAggregateRoot
     public function changeLabel(TranslatableString $label): void
     {
         if (!$label->isEqual($this->label)) {
-            $this->apply(new OptionLabelChangedEvent($this->id, $this->label, $label));
+            $this->apply(new OptionLabelChangedEvent($this->id, $label));
         }
     }
 

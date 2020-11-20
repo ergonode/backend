@@ -20,12 +20,10 @@ class RoleNameChangedEventTest extends TestCase
     {
         /** @var RoleId|MockObject $id */
         $id = $this->createMock(RoleId::class);
-        $from = 'Old Description';
         $to = 'New Description';
 
-        $event = new RoleNameChangedEvent($id, $from, $to);
+        $event = new RoleNameChangedEvent($id, $to);
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

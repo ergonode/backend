@@ -33,6 +33,7 @@ class Shopware6Connector
 
     /**
      * @return array|object|string|null
+     *
      * @throws \Exception
      */
     public function execute(Shopware6Channel $channel, ActionInterface $action)
@@ -46,6 +47,7 @@ class Shopware6Connector
 
     /**
      * @return array|object|string|null
+     *
      * @throws \Exception
      */
     private function request(Shopware6Channel $channel, ActionInterface $action)

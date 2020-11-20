@@ -21,14 +21,11 @@ class SegmentNameChangedEventTest extends TestCase
     {
         /** @var SegmentId|MockObject $id */
         $id = $this->createMock(SegmentId::class);
-        /** @var TranslatableString $from */
-        $from = $this->createMock(TranslatableString::class);
         /** @var TranslatableString $to */
         $to = $this->createMock(TranslatableString::class);
 
-        $event = new SegmentNameChangedEvent($id, $from, $to);
+        $event = new SegmentNameChangedEvent($id, $to);
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

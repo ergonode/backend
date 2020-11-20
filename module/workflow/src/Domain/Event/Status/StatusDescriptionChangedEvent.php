@@ -21,9 +21,9 @@ class StatusDescriptionChangedEvent extends AbstractTranslatableStringBasedChang
      */
     private StatusId $id;
 
-    public function __construct(StatusId $id, TranslatableString $from, TranslatableString $to)
+    public function __construct(StatusId $id, TranslatableString $to)
     {
-        parent::__construct($from, $to);
+        parent::__construct($to);
         $this->id = $id;
     }
 

@@ -116,7 +116,7 @@ class ProductDraft extends AbstractAggregateRoot
         $old = $this->attributes[$attributeCode->getValue()];
 
         if (!$new->isEqual($old)) {
-            $this->apply(new ProductDraftValueChanged($this->id, $attributeCode, $old, $new));
+            $this->apply(new ProductDraftValueChanged($this->id, $attributeCode, $new));
         }
     }
 
@@ -131,7 +131,6 @@ class ProductDraft extends AbstractAggregateRoot
                 new ProductDraftValueRemoved(
                     $this->id,
                     $attributeCode,
-                    $this->attributes[$attributeCode->getValue()]
                 )
             );
     }
