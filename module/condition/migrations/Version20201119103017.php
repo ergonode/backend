@@ -16,55 +16,37 @@ class Version20201119103017 extends AbstractErgonodeMigration
 
     public function up(Schema $schema): void
     {
-        $languages = $this->getDictionaryActive();
 
-        $this->addSql(sprintf(
-            'WITH conditions_list as (
-                SELECT id, (\'{\'|| arr.position -1 || \',language}\')::text[] as path
-                FROM condition_set,
-                    jsonb_array_elements(conditions) with ordinality arr(item_object, position)
-                where arr.item_object::jsonb ->> \'type\' = \'PRODUCT_HAS_STATUS_CONDITION\')
-            UPDATE condition_set
-            set conditions = jsonb_set(conditions, conditions_list.path, \'%s\')
-            from conditions_list
-            where condition_set.id = conditions_list.id',
-            $languages
-        ));
+        $this->addSql(
+            'WITH conditions_list AS (
+                    SELECT id, 
+                            (\'{\'|| arr.position -1 || \',language}\')::text[] AS path,
+                            (SELECT jsonb_agg(iso) FROM language WHERE active = true) AS languages
+                    FROM condition_set,
+                         jsonb_array_elements(conditions) WITH ORDINALITY arr(item_object, position)
+                    WHERE arr.item_object::jsonb ->> \'type\' = \'PRODUCT_HAS_STATUS_CONDITION\')
+                UPDATE condition_set
+                SET conditions = jsonb_set(conditions, conditions_list.path, conditions_list.languages)
+                FROM conditions_list
+                WHERE condition_set.id = conditions_list.id'
+        );
 
-        $this->addSql(sprintf(
-            'WITH conditions_list as (
-                SELECT id, (\'{\'|| arr.position -1 || \',language}\')::text[] as path
-                FROM event_store,
-                     jsonb_array_elements(payload->\'conditions\') with ordinality arr(item_object, position)
-                where arr.item_object::jsonb ->> \'type\' = \'PRODUCT_HAS_STATUS_CONDITION\')
-            UPDATE event_store
-            set payload = jsonb_set(
-            payload, \'{conditions}\', jsonb_set(payload->\'conditions\', conditions_list.path, \'%s\')
-            )
-            from conditions_list
-            where event_store.id = conditions_list.id',
-            $languages
-        ));
-    }
-
-    /**
-     * @return array
-     */
-    public function getDictionaryActive(): string
-    {
-        $qb = $this->connection->createQueryBuilder()
-            ->select(
-                'iso',
-                'iso as name'
-            )
-            ->from('language');
-
-        $result = $qb
-            ->where($qb->expr()->eq('active', ':active'))
-            ->setParameter(':active', true, \PDO::PARAM_BOOL)
-            ->execute()
-            ->fetchAll(\PDO::FETCH_KEY_PAIR);
-
-        return json_encode(array_keys($result));
+        $this->addSql(
+            'WITH conditions_list AS (
+                    SELECT id,
+                            (\'{\'|| arr.position -1 || \',language}\')::text[] AS path,
+                            (SELECT jsonb_agg(iso) FROM language WHERE active = true) AS languages
+                    FROM event_store,
+                        jsonb_array_elements(payload->\'conditions\') WITH ORDINALITY arr(item_object, position)
+                    WHERE arr.item_object::jsonb ->> \'type\' = \'PRODUCT_HAS_STATUS_CONDITION\')
+                UPDATE event_store
+                SET payload = jsonb_set(
+                            payload,
+                             \'{conditions}\',
+                             jsonb_set(payload->\'conditions\', conditions_list.path, conditions_list.languages)
+                        )
+                FROM conditions_list
+                WHERE event_store.id = conditions_list.id'
+        );
     }
 }

@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Condition\Domain\Condition\ProductHasStatusCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
@@ -47,12 +46,14 @@ class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculator
 
         Assert::true($product->hasAttribute($statusAttributeCode));
         $productStatuses = $product->getAttribute($statusAttributeCode)->getValue();
-        $filteredProductStatuses = $this->getStatusIdsByLanguages($configuration->getLanguage(), $productStatuses);
 
         $result = [];
-        foreach ($filteredProductStatuses as $filteredProductStatus) {
-            foreach ($configuration->getValue() as $searchedStatusId) {
-                $result[] = $filteredProductStatus->isEqual($searchedStatusId);
+        foreach ($configuration->getLanguage() as $language) {
+            if (array_key_exists($language->getCode(), $productStatuses)) {
+                $statusId = new StatusId($productStatuses[$language->getCode()]);
+                foreach ($configuration->getValue() as $searchedStatusId) {
+                    $result[] = $statusId->isEqual($searchedStatusId);
+                }
             }
         }
         switch ($configuration->getOperator()) {
@@ -69,20 +70,5 @@ class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculator
         }
 
         return false;
-    }
-
-    /**
-     * @param Language[] $languages
-     */
-    private function getStatusIdsByLanguages(array $languages, array $statuses): array
-    {
-        $filteredProductStatuses = [];
-        foreach ($languages as $language) {
-            if (array_key_exists($language->getCode(), $statuses)) {
-                $filteredProductStatuses[] = new StatusId($statuses[$language->getCode()]);
-            }
-        }
-
-        return $filteredProductStatuses;
     }
 }
