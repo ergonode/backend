@@ -15,6 +15,13 @@ use Ergonode\Grid\ColumnInterface;
 
 class DateColumnRenderer implements ColumnRendererInterface
 {
+    private string $dateFormat;
+
+    public function __construct(string $dateFormat)
+    {
+        $this->dateFormat = $dateFormat;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -28,12 +35,14 @@ class DateColumnRenderer implements ColumnRendererInterface
      *
      * @throws UnsupportedColumnException
      */
-    public function render(ColumnInterface $column, string $id, array $row): ?string
+    public function render(ColumnInterface $column, string $id, array $row): ?\DateTimeInterface
     {
         if (!$this->supports($column)) {
             throw new UnsupportedColumnException($column);
         }
 
-        return $row[$id];
+        return null === $row[$id] ?
+            null :
+            \DateTime::createFromFormat($this->dateFormat, $row[$id]);
     }
 }
