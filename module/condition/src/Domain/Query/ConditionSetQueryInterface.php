@@ -20,5 +20,5 @@ interface ConditionSetQueryInterface
     /**
      * @return array
      */
-    public function findNumericConditionRelations(AttributeId $attributeId): array;
+    public function findAttributeIdConditionRelations(AttributeId $attributeId): array;
 }
