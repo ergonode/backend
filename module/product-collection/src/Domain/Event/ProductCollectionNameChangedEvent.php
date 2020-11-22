@@ -24,11 +24,6 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private TranslatableString $from;
-
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $to;
 
     /**
@@ -41,12 +36,10 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
      */
     public function __construct(
         ProductCollectionId $id,
-        TranslatableString $from,
         TranslatableString $to,
         \DateTime $editedAt
     ) {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
         $this->editedAt = $editedAt;
     }
@@ -60,11 +53,6 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
-    }
-
-    public function getFrom(): TranslatableString
-    {
-        return $this->from;
     }
 
     public function getTo(): TranslatableString

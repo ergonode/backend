@@ -1,3 +1,18 @@
+## CHANGELOG FOR 1.0.0-beta.4
+- bugfix #965 clear old data currency and tax in db (wfajczyk)
+- bugfix #961 Empty root value (wfajczyk)
+- bugfix #959 Fixing product has status condition (wiewiurdp)
+- feature #954 Shopware 6 error list (wfajczyk)
+- bugfix #953 Record calculation in import process (rprzedzik)
+- refactoring #946 Param converter refactoring (wiewiurdp)
+- bugfix #949 Readme type (piotrkreft)
+- configuration #946 Switched to GitHub actions (piotrkreft)
+- refactoring #943 Remove transformer module (rprzedzik)
+- bugfix #944  fix create status for imported, product on edit page (rprzedzik)
+- bugfix #929 Remove CPD and MD (BastekBielawski)
+- refactoring #895 Refactor(all)Changes to be compliant with Phpstan level 2  (wiewiurdp)
+- bugfix #930 fix OptionKey value type cast in magento1 import (rprzedzik)
+
 ## CHANGELOG FOR 1.0.0-beta.3
 - feature [#902](https://github.com/ergonode/backend/issues/882)  Batch product remove action(rprzedzik)
 - feature #913 Moved Nelmio configuration to appropriate modules (piotrkreft)

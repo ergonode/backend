@@ -20,10 +20,10 @@ class RoleNameChangedEvent extends AbstractStringBasedChangedEvent
      */
     private RoleId $id;
 
-    public function __construct(RoleId $id, string $from, string $to)
+    public function __construct(RoleId $id, string $to)
     {
         $this->id = $id;
-        parent::__construct($from, $to);
+        parent::__construct($to);
     }
 
     public function getAggregateId(): RoleId

@@ -22,16 +22,12 @@ class ProductCollectionTypeNameChangedEventTest extends TestCase
         /** @var ProductCollectionTypeId | MockObject $id */
         $id = $this->createMock(ProductCollectionTypeId::class);
 
-        /** @var TranslatableString | MockObject $from */
-        $from = $this->createMock(TranslatableString::class);
-
         /** @var TranslatableString | MockObject $to */
         $to = $this->createMock(TranslatableString::class);
 
-        $event = new ProductCollectionTypeNameChangedEvent($id, $from, $to);
+        $event = new ProductCollectionTypeNameChangedEvent($id, $to);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

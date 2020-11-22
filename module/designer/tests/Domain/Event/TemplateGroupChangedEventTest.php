@@ -22,16 +22,12 @@ class TemplateGroupChangedEventTest extends TestCase
         /** @var TemplateId | MockObject $id */
         $id = $this->createMock(TemplateId::class);
 
-        /** @var TemplateGroupId | MockObject $from */
-        $from = $this->createMock(TemplateGroupId::class);
-
         /** @var TemplateGroupId | MockObject $to */
         $to = $this->createMock(TemplateGroupId::class);
 
-        $event = new TemplateGroupChangedEvent($id, $from, $to);
+        $event = new TemplateGroupChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getOld());
         $this->assertSame($to, $event->getNew());
     }
 }

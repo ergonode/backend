@@ -24,27 +24,16 @@ class TemplateDefaultLabelChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $from;
-
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
-     */
     private AttributeId $to;
 
-    public function __construct(TemplateId $id, AttributeId $from, AttributeId $to)
+    public function __construct(TemplateId $id, AttributeId $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
     public function getAggregateId(): TemplateId
     {
         return $this->id;
-    }
-
-    public function getFrom(): AttributeId
-    {
-        return $this->from;
     }
 
     public function getTo(): AttributeId

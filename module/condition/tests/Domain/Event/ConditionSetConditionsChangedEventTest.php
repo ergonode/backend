@@ -21,13 +21,11 @@ class ConditionSetConditionsChangedEventTest extends TestCase
     {
         /** @var ConditionSetId | MockObject $id */
         $id = $this->createMock(ConditionSetId::class);
-        $from = [$this->createMock(ConditionInterface::class)];
         $to = [$this->createMock(ConditionInterface::class)];
 
-        $event = new ConditionSetConditionsChangedEvent($id, $from, $to);
+        $event = new ConditionSetConditionsChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

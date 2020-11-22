@@ -28,18 +28,12 @@ class AttributeBoolParameterChangeEvent implements DomainEventInterface
     /**
      * @JMS\Type("bool")
      */
-    private bool $from;
-
-    /**
-     * @JMS\Type("bool")
-     */
     private bool $to;
 
-    public function __construct(AttributeId $id, string $name, bool $from, bool $to)
+    public function __construct(AttributeId $id, string $name, bool $to)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->from = $from;
         $this->to = $to;
     }
 
@@ -51,11 +45,6 @@ class AttributeBoolParameterChangeEvent implements DomainEventInterface
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getFrom(): bool
-    {
-        return $this->from;
     }
 
     public function getTo(): bool

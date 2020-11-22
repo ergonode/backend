@@ -66,7 +66,6 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
                     new AttributeStringParameterChangeEvent(
                         $this->id,
                         self::CURRENCY,
-                        $this->getCurrency()->getCode(),
                         $new->getCode()
                     )
                 );

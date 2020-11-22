@@ -31,45 +31,26 @@ class DbalAttributeHintChangedEventProjector
      */
     public function __invoke(AttributeHintChangedEvent $event): void
     {
-        $from = $event->getFrom()->getTranslations();
         $to = $event->getTo()->getTranslations();
         $aggregateId = $event->getAggregateId();
 
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'value_id' => $this->getTranslationId('hint', $aggregateId),
+            ]
+        );
+
         foreach ($to as $language => $value) {
-            $result = $this->connection->update(
+            $this->connection->insert(
                 self::TABLE,
                 [
-                    'language' => $language,
-                    'value' => $value,
-                ],
-                [
+                    'id' => Uuid::uuid4()->toString(),
                     'value_id' => $this->getTranslationId('hint', $aggregateId),
                     'language' => $language,
+                    'value' => $value,
                 ]
             );
-            if (!$result) {
-                $this->connection->insert(
-                    self::TABLE,
-                    [
-                        'id' => Uuid::uuid4()->toString(),
-                        'value_id' => $this->getTranslationId('hint', $aggregateId),
-                        'language' => $language,
-                        'value' => $value,
-                    ]
-                );
-            }
-        }
-
-        foreach (array_keys($from) as $language) {
-            if (!isset($to[$language])) {
-                $this->connection->delete(
-                    self::TABLE,
-                    [
-                        'value_id' => $this->getTranslationId('hint', $aggregateId),
-                        'language' => $language,
-                    ]
-                );
-            }
         }
     }
 
