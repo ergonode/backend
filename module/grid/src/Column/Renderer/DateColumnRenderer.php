@@ -33,12 +33,13 @@ class DateColumnRenderer implements ColumnRendererInterface
         if (!$this->supports($column)) {
             throw new UnsupportedColumnException($column);
         }
-        $time = strtotime($row[$id]);
-
-        if (false === $time) {
+        if (null === $row[$id]) {
             return null;
         }
+        $time = strtotime($row[$id]);
 
-        return (new \DateTimeImmutable())->setTimestamp($time);
+        return false === $time ?
+            null :
+            (new \DateTimeImmutable())->setTimestamp($time);
     }
 }
