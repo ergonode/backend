@@ -27,6 +27,12 @@ class DeleteProductAttributeAction
 
     private LanguageQueryInterface $query;
 
+    public function __construct(CommandBusInterface $commandBus, LanguageQueryInterface $query)
+    {
+        $this->commandBus = $commandBus;
+        $this->query = $query;
+    }
+
     /**
      * @Route(
      *     name="ergonode_product_attribute_delete",

@@ -23,7 +23,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
- *     name="ergonode_product_category_add",
+ *     name="ergonode_products_attributes_update",
  *     path="products/attributes",
  *     methods={"POST"},
  *     requirements={
