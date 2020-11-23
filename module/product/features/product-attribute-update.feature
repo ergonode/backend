@@ -17,6 +17,11 @@ Feature: Product module
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Get attribute
+    And I send a "GET" request to "/api/v1/en_GB/attributes/@attribute_id@"
+    Then the response status code should be 200
+    And store response param "code" as "attribute_code"
+
   Scenario: Create template
     When I send a POST request to "/api/v1/en_GB/templates" with body:
       """
@@ -40,16 +45,105 @@ Feature: Product module
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Update attribute
-    When I send a POST request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@" with body:
+  Scenario Outline: Update product attributes with product
+    When I send a POST request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "sku": "SKU_@@random_code@@",
-        "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template_1@",
-        "categoryIds": []
+        {
+          "data": [
+           {
+              "id": <product_id>,
+              "payload": [
+                {
+                  "id": <attribute_id>,
+                  "values" : [
+                    {
+                      "language": <language>,
+                      "value": "test"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      """
+    Then the response status code should be 400
+    And the JSON node <error> should exist
+    Examples:
+      | product_id     | attribute_id     | language | error                         |
+      | null           | "@attribute_id@" | "en_EN"  | "errors.data.element-0.id"                   |
+      | "NOT UUID"     | "@attribute_id@" | "en_EN"  | "errors.data.element-0.id"                   |
+      | "@product_id@" | null             | "en_EN"  | "errors.data.element-0.payload.element-0.id" |
+      | "@product_id@" | "NOT UUID"       | "en_EN"  | "errors.data.element-0.payload.element-0.id" |
+      | "@product_id@" | "@attribute_id@" | null     | "errors.data.element-0.payload.element-0.values.element-0.language" |
+      | "@product_id@" | "@attribute_id@" | "BAD"    | "errors.data.element-0.payload.element-0.values.element-0.language" |
+
+  Scenario: Update attributes
+    When I send a POST request to "/api/v1/en_GB/products/attributes" with body:
+      """
+       {
+          "data": [
+          {
+            "id": "@product_id@",
+            "payload": [
+              {
+                "id": "@attribute_id@",
+                "values" : [
+                  {
+                    "language": "pl_PL",
+                    "value": "test_PL"
+                  },
+                  {
+                    "language": "en_GB",
+                    "value": "test_GB"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
-    And print last response
-    Then the response status code should be 201
-    And store response param "id" as "product"
+    Then the response status code should be 200
+
+  Scenario: Get product
+    When I send a GET request to "/api/v1/en_GB/products/@product_id@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+    | attributes.@attribute_code@.pl_PL | test_PL |
+    | attributes.@attribute_code@.en_GB | test_GB |
+
+  Scenario: Update attributes with null value
+    When I send a POST request to "/api/v1/en_GB/products/attributes" with body:
+      """
+       {
+          "data": [
+          {
+            "id": "@product_id@",
+            "payload": [
+              {
+                "id": "@attribute_id@",
+                "values" : [
+                  {
+                    "language": "pl_PL",
+                    "value": "test_PL"
+                  },
+                  {
+                    "language": "en_GB",
+                    "value": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Get product
+    When I send a GET request to "/api/v1/en_GB/products/@product_id@"
+    Then the response status code should be 200
+    And the JSON node "attributes.@attribute_code@.en_GB" should be null
+    And the JSON nodes should contain:
+      | attributes.@attribute_code@.pl_PL | test_PL |

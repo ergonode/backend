@@ -5,18 +5,17 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Form\Product\Attribute;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Ergonode\Product\Application\Model\Product\Attribute\ProductAttributeFormModel;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Ergonode\Product\Application\Model\Product\Attribute\ProductAttributeCollectionFormModel;
 
-class ProductAttributeForm extends AbstractType
+class ProductAttributeCollectionForm extends AbstractType
 {
     /**
      * @param array $options
@@ -25,16 +24,12 @@ class ProductAttributeForm extends AbstractType
     {
         $builder
             ->add(
-                'id',
-                TextType::class,
-            )
-            ->add(
-                'payload',
+                'data',
                 CollectionType::class,
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => AttributeValueForm::class,
+                    'entry_type' => ProductAttributeForm::class,
                 ]
             );
     }
@@ -42,7 +37,7 @@ class ProductAttributeForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProductAttributeFormModel::class,
+            'data_class' => ProductAttributeCollectionFormModel::class,
             'translation_domain' => 'product',
         ]);
     }

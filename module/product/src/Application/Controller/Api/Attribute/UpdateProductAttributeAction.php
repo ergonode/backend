@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Attribute;
 
@@ -34,6 +34,18 @@ class UpdateProductAttributeAction
     private ValidatorInterface $validator;
 
     private LanguageQueryInterface $query;
+
+    public function __construct(
+        CommandBusInterface $commandBus,
+        AttributeValueConstraintProvider $provider,
+        ValidatorInterface $validator,
+        LanguageQueryInterface $query
+    ) {
+        $this->commandBus = $commandBus;
+        $this->provider = $provider;
+        $this->validator = $validator;
+        $this->query = $query;
+    }
 
     /**
      * @Route(

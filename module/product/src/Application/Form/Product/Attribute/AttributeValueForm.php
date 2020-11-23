@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Product\Application\Model\Product\Attribute\AttributeValueFormModel;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AttributeValueForm extends AbstractType
 {
@@ -23,15 +24,19 @@ class AttributeValueForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add(
-            'values',
-            CollectionType::class,
-            [
-                'allow_add' => true,
-                'allow_delete' => true,
-                'entry_type' => AttributeValueTranslationForm::class
-            ]
-        );
+            ->add(
+                'id',
+                TextType::class,
+            )
+            ->add(
+                'values',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => AttributeValueTranslationForm::class,
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

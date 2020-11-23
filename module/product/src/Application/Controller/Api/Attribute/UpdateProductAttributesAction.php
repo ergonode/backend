@@ -14,20 +14,20 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Product\Application\Model\Product\Attribute\AttributeValueFormModel;
-use Ergonode\Product\Application\Form\Product\Attribute\ProductAttributeForm;
 use Symfony\Component\Form\FormFactoryInterface;
+use Ergonode\Product\Application\Form\Product\Attribute\ProductAttributeCollectionForm;
+use Ergonode\Product\Application\Model\Product\Attribute\ProductAttributeCollectionFormModel;
+use Ergonode\Product\Application\Factory\Command\ChangeProductAttributeCommandFactory;
+use Ergonode\Api\Application\Response\SuccessResponse;
 
 /**
  * @Route(
  *     name="ergonode_product_category_add",
- *     path="products/{product}/attribute",
+ *     path="products/attributes",
  *     methods={"POST"},
  *     requirements={
  *         "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
- *         "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     }
  * )
  */
@@ -37,15 +37,18 @@ class UpdateProductAttributesAction
 
     private CommandBusInterface $commandBus;
 
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
-     */
-    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
-    {
+    private ChangeProductAttributeCommandFactory $commandFactory;
+
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        CommandBusInterface $commandBus,
+        ChangeProductAttributeCommandFactory $commandFactory
+    ) {
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
+        $this->commandFactory = $commandFactory;
     }
+
 
     /**
      * @IsGranted("PRODUCT_UPDATE")
@@ -86,21 +89,19 @@ class UpdateProductAttributesAction
      */
     public function __invoke(Request $request): Response
     {
-//        if ($attribute->getScope()->isGlobal()) {
-//            $root = $this->query->getRootLanguage();
-//            if (!$root->isEqual($language)) {
-//                throw new AccessDeniedHttpException();
-//            }
-//        }
-
-        $data = new AttributeValueFormModel();
-
-        $form = $this->formFactory->create(ProductAttributeForm::class, $data);
+        $form = $this->formFactory->create(ProductAttributeCollectionForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            var_dump($form->getData());
-            die;
+            /** @var ProductAttributeCollectionFormModel $data */
+            $data = $form->getData();
+            foreach ($data->data as $product) {
+                $command = $this->commandFactory->create($product);
+                $this->commandBus->dispatch($command);
+            }
+
+            return new SuccessResponse();
         }
+
 
         throw new FormValidationHttpException($form);
     }

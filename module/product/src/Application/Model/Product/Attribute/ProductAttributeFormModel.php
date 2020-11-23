@@ -4,17 +4,29 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Model\Product\Attribute;
 
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductAttributeFormModel
 {
-    private ?string $id = null;
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Uuid(strict=true)
+     */
+    public ?string $id = null;
 
     /**
+     * @Assert\Valid()
+     *
      * @var AttributeValueFormModel[]
      */
-    private array $payload = [];
+    public array $payload;
+
+    public function __construct()
+    {
+        $this->payload = [];
+    }
 }
