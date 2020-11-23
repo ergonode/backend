@@ -18,4 +18,6 @@ interface Shopware6MultimediaRepositoryInterface
     public function save(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void;
 
     public function exists(ChannelId $channelId, MultimediaId $multimediaId): bool;
+
+    public function delete(ChannelId $channelId, MultimediaId $multimediaId): void;
 }

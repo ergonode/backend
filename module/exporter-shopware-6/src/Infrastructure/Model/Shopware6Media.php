@@ -17,13 +17,30 @@ class Shopware6Media
      */
     private ?string $id;
 
-    public function __construct(?string $id)
+    /**
+     * @JMS\Type("string")
+     * @JMS\SerializedName("fileName")
+     */
+    protected ?string $fileName;
+
+    public function __construct(?string $id, ?string $fileName)
     {
         $this->id = $id;
+        $this->fileName = $fileName;
     }
 
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(string $fileName): void
+    {
+        $this->fileName = $fileName;
     }
 }
