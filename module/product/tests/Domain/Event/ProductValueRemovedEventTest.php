@@ -11,7 +11,6 @@ namespace Ergonode\Product\Tests\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -24,11 +23,8 @@ class ProductValueRemovedEventTest extends TestCase
         $id = $this->createMock(ProductId::class);
         /** @var AttributeCode|MockObject $code */
         $code = $this->createMock(AttributeCode::class);
-        /** @var ValueInterface|MockObject $old */
-        $old = $this->createMock(ValueInterface::class);
-        $event = new ProductValueRemovedEvent($id, $code, $old);
+        $event = new ProductValueRemovedEvent($id, $code);
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getAttributeCode());
-        $this->assertEquals($old, $event->getOld());
     }
 }

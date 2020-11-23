@@ -18,13 +18,11 @@ class UnitSymbolChangedEventTest extends TestCase
     public function testEventCreation(): void
     {
         $id = $this->createMock(UnitId::class);
-        $from = 'name';
         $to = 'to';
 
-        $event = new UnitSymbolChangedEvent($id, $from, $to);
+        $event = new UnitSymbolChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

@@ -44,6 +44,6 @@ class StartShopware6ExportCommandHandler
         $export->start();
         $this->exportRepository->save($export);
 
-        $this->processor->process($export->getId(), $channel);
+        $this->processor->process($export, $channel);
     }
 }

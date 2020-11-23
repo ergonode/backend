@@ -28,40 +28,22 @@ class ConditionSetConditionsChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
-    private array $from;
-
-    /**
-     * @var ConditionInterface[]
-     *
-     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
-     */
     private array $to;
 
     /**
-     * @param array $from
      * @param array $to
      */
-    public function __construct(ConditionSetId $id, array $from, array $to)
+    public function __construct(ConditionSetId $id, array $to)
     {
-        Assert::allIsInstanceOf($from, ConditionInterface::class);
         Assert::allIsInstanceOf($to, ConditionInterface::class);
 
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): ConditionSetId
     {
         return $this->id;
-    }
-
-    /**
-     * @return ConditionInterface[]
-     */
-    public function getFrom(): array
-    {
-        return $this->from;
     }
 
     /**

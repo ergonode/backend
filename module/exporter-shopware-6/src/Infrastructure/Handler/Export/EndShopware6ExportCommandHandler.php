@@ -41,7 +41,7 @@ class EndShopware6ExportCommandHandler
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, Shopware6Channel::class);
 
-        $this->process->process($export->getId(), $channel);
+        $this->process->process($export, $channel);
         $export->end();
         $this->exportRepository->save($export);
     }

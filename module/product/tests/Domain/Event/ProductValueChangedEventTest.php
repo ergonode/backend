@@ -24,14 +24,11 @@ class ProductValueChangedEventTest extends TestCase
         $id = $this->createMock(ProductId::class);
         /** @var AttributeCode|MockObject $code */
         $code = $this->createMock(AttributeCode::class);
-        /** @var ValueInterface|MockObject $from */
-        $from = $this->createMock(ValueInterface::class);
         /** @var ValueInterface|MockObject $to */
         $to = $this->createMock(ValueInterface::class);
-        $event = new ProductValueChangedEvent($id, $code, $from, $to);
+        $event = new ProductValueChangedEvent($id, $code, $to);
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getAttributeCode());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

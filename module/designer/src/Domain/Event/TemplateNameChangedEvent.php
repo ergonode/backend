@@ -23,28 +23,17 @@ class TemplateNameChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("string")
      */
-    private string $from;
-
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
-    public function __construct(TemplateId $id, string $from, string $to)
+    public function __construct(TemplateId $id, string $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): TemplateId
     {
         return $this->id;
-    }
-
-    public function getFrom(): string
-    {
-        return $this->from;
     }
 
     public function getTo(): string

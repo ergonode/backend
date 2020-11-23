@@ -31,18 +31,12 @@ class ValueChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
-    private ValueInterface $from;
-
-    /**
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
-     */
     private ValueInterface $to;
 
-    public function __construct(CategoryId $id, AttributeCode $code, ValueInterface $from, ValueInterface $to)
+    public function __construct(CategoryId $id, AttributeCode $code, ValueInterface $to)
     {
         $this->id = $id;
         $this->code = $code;
-        $this->from = $from;
         $this->to = $to;
     }
 
@@ -57,11 +51,6 @@ class ValueChangedEvent implements DomainEventInterface
     public function getAttributeCode(): AttributeCode
     {
         return $this->code;
-    }
-
-    public function getFrom(): ValueInterface
-    {
-        return $this->from;
     }
 
     public function getTo(): ValueInterface

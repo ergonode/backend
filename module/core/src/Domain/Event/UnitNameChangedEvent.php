@@ -23,31 +23,17 @@ class UnitNameChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("string")
      */
-    private string $from;
-
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
-    /**
-     * UnitNameChangedEvent constructor.
-     */
-    public function __construct(UnitId $id, string $from, string $to)
+    public function __construct(UnitId $id, string $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): UnitId
     {
         return $this->id;
-    }
-
-    public function getFrom(): string
-    {
-        return $this->from;
     }
 
     public function getTo(): string

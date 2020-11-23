@@ -17,26 +17,11 @@ abstract class AbstractStringBasedChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("string")
      */
-    private ?string $from;
-
-    /**
-     * @JMS\Type("string")
-     */
     private ?string $to;
 
-    /**
-     * @param ?string $from
-     * @param ?string $to
-     */
-    public function __construct(?string $from, ?string $to)
+    public function __construct(?string $to)
     {
-        $this->from = $from;
         $this->to = $to;
-    }
-
-    public function getFrom(): ?string
-    {
-        return $this->from;
     }
 
     public function getTo(): ?string
