@@ -57,8 +57,9 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
 
         $records = $qb->select('id')
             ->from(self::TABLE)
-            ->where('conditions::text ILIKE :attribute_id')
-            ->setParameter(':attribute_id', '%'.$attributeId->getValue().'%')
+            ->from('jsonb_array_elements(conditions) AS condition')
+            ->where($qb->expr()->eq('condition::jsonb->>\'attribute\'', ':attribute_id'))
+            ->setParameter(':attribute_id', $attributeId->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
