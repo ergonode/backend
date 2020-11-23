@@ -1,6 +1,3 @@
-parameters:
-    ergonode_grid_db_date_format: '!Y-m-d H:i:sO'
-
 services:
     _defaults:
         autowire: true
