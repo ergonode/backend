@@ -52,7 +52,7 @@ class PostCreateMediaAction extends AbstractAction implements ActionInterface
 
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        return new Shopware6Media($data['data']['id']);
+        return new Shopware6Media($data['data']['id'], $data['data']['attributes']['fileName'] ?: null);
     }
 
     /**

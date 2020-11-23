@@ -84,6 +84,21 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
     }
 
     /**
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     */
+    public function delete(ChannelId $channelId, MultimediaId $multimediaId): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'multimedia_id' => $multimediaId->getValue(),
+                'channel_id' => $channelId->getValue(),
+            ]
+        );
+    }
+
+    /**
      * @throws DBALException
      */
     private function update(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void
