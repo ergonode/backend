@@ -116,7 +116,7 @@ class UpdateProductAttributeAction
         Request $request
     ): Response {
         $value = $request->request->get('value');
-        $value = $value !== '' ? $value : null;
+        $value = $value === '' ? null : $value;
 
         $constraint = $this->provider->provide($attribute);
         if ($attribute->getScope()->isGlobal()) {
