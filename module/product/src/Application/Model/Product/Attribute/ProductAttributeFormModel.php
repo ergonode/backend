@@ -23,7 +23,7 @@ class ProductAttributeFormModel
      *
      * @var AttributeValueFormModel[]
      */
-    public array $payload;
+    public array $payload = [];
 
     public function __construct()
     {
