@@ -28,7 +28,7 @@ class Version20201119103017 extends AbstractErgonodeMigration
                 UPDATE condition_set
                 SET conditions = jsonb_set(
                                     conditions,
-                                     (\'{\'|| conditions_list.position -1 || \',testtest}\')::text[], 
+                                     (\'{\'|| conditions_list.position -1 || \',language}\')::text[], 
                                      conditions_list.languages
                                 )
                 FROM conditions_list
@@ -49,7 +49,7 @@ class Version20201119103017 extends AbstractErgonodeMigration
                              \'{conditions}\',
                              jsonb_set(
                                     payload->\'conditions\',
-                                    (\'{\'|| conditions_list.position -1 || \',testtest}\')::text[],
+                                    (\'{\'|| conditions_list.position -1 || \',language}\')::text[],
                                      conditions_list.languages
                              )
                          )
