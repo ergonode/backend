@@ -51,15 +51,14 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
     /**
      * @return array
      */
-    public function findNumericConditionRelations(AttributeId $attributeId): array
+    public function findAttributeIdConditionRelations(AttributeId $attributeId): array
     {
         $qb = $this->connection->createQueryBuilder();
 
-        $records = $qb->select('id')
+        $records = $qb->select('DISTINCT id')
             ->from(self::TABLE)
-            ->where($qb->expr()->eq('conditions->0->>\'type\'', ':type'))
-            ->where($qb->expr()->eq('conditions->0->>\'attribute\'', ':attribute_id'))
-            ->setParameter(':type', 'NUMERIC_ATTRIBUTE_VALUE_CONDITION')
+            ->from('jsonb_array_elements(conditions) AS condition')
+            ->where($qb->expr()->eq('condition::jsonb->>\'attribute\'', ':attribute_id'))
             ->setParameter(':attribute_id', $attributeId->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);

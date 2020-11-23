@@ -42,6 +42,6 @@ class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterf
     {
         Assert::isInstanceOf($id, AttributeId::class);
 
-        return new RelationshipGroup(self::MESSAGE, $this->query->findNumericConditionRelations($id));
+        return new RelationshipGroup(self::MESSAGE, $this->query->findAttributeIdConditionRelations($id));
     }
 }
