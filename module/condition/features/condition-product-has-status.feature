@@ -75,7 +75,7 @@ Feature: Condition Product has status
     Then the response status code should be 201
     Examples:
       | operator   | value | language |
-      | "NOT_HAS" | ["@status_1@", "@status_2@" ]   | ["en_GB"] |
+      | "NOT_HAS" | ["@status_1@", "@status_2@" ]   | ["en_GB", "pl_PL"] |
       | "HAS" | ["@status_1@", "@status_2@" ]   |  ["en_GB"] |
 
 
@@ -99,11 +99,11 @@ Feature: Condition Product has status
     Then the response status code should be 400
     Examples:
       | operator   | value | language |
-      | "HAS"      |  ""   | ["en_GB"] |
+      | "HAS"      |  ""   | ["en_GB", "pl_PL"] |
       | "HAS"      | null  |["en_GB"] |
-      | null       | 1     |["en_GB"] |
+      | null       | 1     | ["en_GB", "pl_PL"] |
       | "INVALID"  | 2     |["en_GB"] |
-      | ""         | 1     |["en_GB"] |
+      | ""         | 1     | ["en_GB", "pl_PL"]|
 
 
   Scenario Outline: Post new invalid product has status condition set
