@@ -31,22 +31,15 @@ class ProductDraftValueChanged implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
-    private ValueInterface $from;
-
-    /**
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
-     */
     private ValueInterface $to;
 
     public function __construct(
         ProductDraftId $id,
         AttributeCode $attributeCode,
-        ValueInterface $from,
         ValueInterface $to
     ) {
         $this->id = $id;
         $this->attributeCode = $attributeCode;
-        $this->from = $from;
         $this->to = $to;
     }
 
@@ -58,11 +51,6 @@ class ProductDraftValueChanged implements DomainEventInterface
     public function getAttributeCode(): AttributeCode
     {
         return $this->attributeCode;
-    }
-
-    public function getFrom(): ValueInterface
-    {
-        return $this->from;
     }
 
     public function getTo(): ValueInterface

@@ -17,12 +17,11 @@ class AttributeStringParameterChangeEventTest extends TestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testCreateEvent(AttributeId $id, string $name, string $from, string $to): void
+    public function testCreateEvent(AttributeId $id, string $name, string $to): void
     {
-        $event = new AttributeStringParameterChangeEvent($id, $name, $from, $to);
+        $event = new AttributeStringParameterChangeEvent($id, $name, $to);
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($name, $event->getName());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 
@@ -37,7 +36,6 @@ class AttributeStringParameterChangeEventTest extends TestCase
             [
                 $this->createMock(AttributeId::class),
                 'name',
-                'from',
                 'to',
             ],
         ];

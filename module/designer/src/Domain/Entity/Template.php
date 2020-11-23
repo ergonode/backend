@@ -132,7 +132,6 @@ class Template extends AbstractAggregateRoot
         if (!$this->defaultLabel->isEqual($newDefaultLabel)) {
             $this->apply(new TemplateDefaultLabelChangedEvent(
                 $this->id,
-                $this->getDefaultLabel(),
                 $newDefaultLabel,
             ));
         }
@@ -164,7 +163,6 @@ class Template extends AbstractAggregateRoot
         if (!$this->defaultImage->isEqual($newDefaultImage)) {
             $this->apply(new TemplateDefaultImageChangedEvent(
                 $this->id,
-                $this->getDefaultImage(),
                 $newDefaultImage,
             ));
         }
@@ -217,7 +215,7 @@ class Template extends AbstractAggregateRoot
     public function changeName(string $name): void
     {
         if ($name !== $this->name) {
-            $this->apply(new TemplateNameChangedEvent($this->id, $this->name, $name));
+            $this->apply(new TemplateNameChangedEvent($this->id, $name));
         }
     }
 
@@ -239,7 +237,7 @@ class Template extends AbstractAggregateRoot
     public function changeImage(MultimediaId $imageId): void
     {
         if (!$imageId->isEqual($this->imageId)) {
-            $this->apply(new TemplateImageChangedEvent($this->id, $this->imageId, $imageId));
+            $this->apply(new TemplateImageChangedEvent($this->id, $imageId));
         }
     }
 
@@ -258,7 +256,7 @@ class Template extends AbstractAggregateRoot
     public function changeGroup(TemplateGroupId $groupId): void
     {
         if (!$groupId->isEqual($this->groupId)) {
-            $this->apply(new TemplateGroupChangedEvent($this->id, $this->groupId, $groupId));
+            $this->apply(new TemplateGroupChangedEvent($this->id, $groupId));
         }
     }
 

@@ -21,13 +21,11 @@ class UserLanguageChangedEventTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        $from = $this->createMock(Language::class);
         $to = $this->createMock(Language::class);
 
-        $event = new UserLanguageChangedEvent($id, $from, $to);
+        $event = new UserLanguageChangedEvent($id, $to);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

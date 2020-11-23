@@ -19,12 +19,10 @@ class CategoryNameChangedEventTest extends TestCase
     public function testEvent(): void
     {
         $id = $this->createMock(CategoryId::class);
-        $from = $this->createMock(TranslatableString::class);
         $to = $this->createMock(TranslatableString::class);
 
-        $command = new CategoryNameChangedEvent($id, $from, $to);
+        $command = new CategoryNameChangedEvent($id, $to);
         $this->assertEquals($id, $command->getAggregateId());
-        $this->assertEquals($from, $command->getFrom());
         $this->assertEquals($to, $command->getTo());
     }
 }

@@ -24,33 +24,21 @@ class ProductCollectionTypeNameChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private TranslatableString $from;
-
-    /**
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
     private TranslatableString $to;
 
     /**
      * ProductCollectionTypeNameChangedEvent constructor.
      */
-    public function __construct(ProductCollectionTypeId $id, TranslatableString $from, TranslatableString $to)
+    public function __construct(ProductCollectionTypeId $id, TranslatableString $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
-    }
-
-    public function getFrom(): TranslatableString
-    {
-        return $this->from;
     }
 
     public function getTo(): TranslatableString
     {
         return $this->to;
     }
-
 
     public function getAggregateId(): ProductCollectionTypeId
     {

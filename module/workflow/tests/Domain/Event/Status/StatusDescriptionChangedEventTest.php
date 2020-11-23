@@ -22,16 +22,12 @@ class StatusDescriptionChangedEventTest extends TestCase
         /** @var StatusId | MockObject $id */
         $id = $this->createMock(StatusId::class);
 
-        /** @var TranslatableString | MockObject $from */
-        $from = $this->createMock(TranslatableString::class);
-
         /** @var TranslatableString | MockObject $to */
         $to = $this->createMock(TranslatableString::class);
 
-        $event = new StatusDescriptionChangedEvent($id, $from, $to);
+        $event = new StatusDescriptionChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

@@ -24,11 +24,6 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
-    private ProductCollectionTypeId $oldTypeId;
-
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
-     */
     private ProductCollectionTypeId $newTypeId;
 
     /**
@@ -41,12 +36,10 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
      */
     public function __construct(
         ProductCollectionId $id,
-        ProductCollectionTypeId $oldTypeId,
         ProductCollectionTypeId $newTypeId,
         \DateTime $editedAt
     ) {
         $this->id = $id;
-        $this->oldTypeId = $oldTypeId;
         $this->newTypeId = $newTypeId;
         $this->editedAt = $editedAt;
     }
@@ -60,11 +53,6 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
     public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
-    }
-
-    public function getOldTypeId(): ProductCollectionTypeId
-    {
-        return $this->oldTypeId;
     }
 
     public function getNewTypeId(): ProductCollectionTypeId

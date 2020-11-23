@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductAttributeException;
@@ -42,6 +43,11 @@ class Shopware6ProductNameMapperTest extends TestCase
      */
     private Shopware6Channel $channel;
 
+    /**
+     * @var Export|MockObject
+     */
+    private Export $export;
+
     protected function setUp(): void
     {
         $textAttribute = $this->createMock(TextAttribute::class);
@@ -59,6 +65,8 @@ class Shopware6ProductNameMapperTest extends TestCase
             ->willReturn(AttributeId::fromKey(self::CODE));
         $this->channel->method('getDefaultLanguage')
             ->willReturn(new Language('en_GB'));
+
+        $this->export = $this->createMock(Export::class);
 
         $this->calculator = $this->createMock(AttributeTranslationInheritanceCalculator::class);
         $this->calculator->method('calculate')
@@ -80,7 +88,7 @@ class Shopware6ProductNameMapperTest extends TestCase
         );
 
         $shopware6Product = new Shopware6Product();
-        $mapper->map($shopware6Product, $this->product, $this->channel);
+        $mapper->map($this->channel, $this->export, $shopware6Product, $this->product);
 
         self::assertEquals(self::NAME, $shopware6Product->getName());
     }

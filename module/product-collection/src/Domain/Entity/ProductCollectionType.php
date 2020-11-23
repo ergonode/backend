@@ -60,7 +60,7 @@ class ProductCollectionType extends AbstractAggregateRoot
     public function changeName(TranslatableString $newName): void
     {
         if ($this->name->getTranslations() !== $newName->getTranslations()) {
-            $this->apply(new ProductCollectionTypeNameChangedEvent($this->id, $this->name, $newName));
+            $this->apply(new ProductCollectionTypeNameChangedEvent($this->id, $newName));
         }
     }
 

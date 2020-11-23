@@ -12,6 +12,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
@@ -43,9 +44,10 @@ class Shopware6ProductVariantMapper extends AbstractShopware6VariantOptionMapper
     }
 
     public function map(
+        Shopware6Channel $channel,
+        Export $export,
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
         if ($product instanceof VariableProduct) {

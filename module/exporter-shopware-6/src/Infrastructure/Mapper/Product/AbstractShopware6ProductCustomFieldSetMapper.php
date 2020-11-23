@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
@@ -37,9 +38,10 @@ abstract class AbstractShopware6ProductCustomFieldSetMapper implements Shopware6
      * {@inheritDoc}
      */
     public function map(
+        Shopware6Channel $channel,
+        Export $export,
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
 

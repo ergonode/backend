@@ -120,7 +120,7 @@ class ProductCollection extends AbstractAggregateRoot
     public function changeName(TranslatableString $newName): void
     {
         if (!$this->name->isEqual($newName)) {
-            $this->apply(new ProductCollectionNameChangedEvent($this->id, $this->name, $newName, new \DateTime()));
+            $this->apply(new ProductCollectionNameChangedEvent($this->id, $newName, new \DateTime()));
         }
     }
 
@@ -132,7 +132,6 @@ class ProductCollection extends AbstractAggregateRoot
         if (!$this->description->isEqual($newDescription)) {
             $this->apply(new ProductCollectionDescriptionChangedEvent(
                 $this->id,
-                $this->description,
                 $newDescription,
                 new \DateTime()
             ));
@@ -147,7 +146,6 @@ class ProductCollection extends AbstractAggregateRoot
         if (!$this->typeId->isEqual($newType)) {
             $this->apply(new ProductCollectionTypeIdChangedEvent(
                 $this->id,
-                $this->getTypeId(),
                 $newType,
                 new \DateTime()
             ));

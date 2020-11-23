@@ -63,7 +63,6 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
             $event = new AttributeBoolParameterChangeEvent(
                 $this->id,
                 self::RICH_EDIT,
-                $this->isRichEdit(),
                 $new
             );
             $this->apply($event);

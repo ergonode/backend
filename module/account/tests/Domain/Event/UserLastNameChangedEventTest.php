@@ -20,13 +20,11 @@ class UserLastNameChangedEventTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        $from = 'Old last Name';
         $to = 'New last Name';
 
-        $event = new UserLastNameChangedEvent($id, $from, $to);
+        $event = new UserLastNameChangedEvent($id, $to);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

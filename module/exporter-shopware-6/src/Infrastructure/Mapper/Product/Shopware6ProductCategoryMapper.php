@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
@@ -29,9 +30,10 @@ class Shopware6ProductCategoryMapper implements Shopware6ProductMapperInterface
      * {@inheritDoc}
      */
     public function map(
+        Shopware6Channel $channel,
+        Export $export,
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
         $categoryList = $product->getCategories();

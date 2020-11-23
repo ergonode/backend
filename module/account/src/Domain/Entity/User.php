@@ -172,7 +172,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeFirstName(string $firstName): void
     {
         if ($this->firstName !== $firstName) {
-            $this->apply(new UserFirstNameChangedEvent($this->id, $this->firstName, $firstName));
+            $this->apply(new UserFirstNameChangedEvent($this->id, $firstName));
         }
     }
 
@@ -182,7 +182,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeRole(RoleId $roleId): void
     {
         if (!$roleId->isEqual($this->roleId)) {
-            $this->apply(new UserRoleChangedEvent($this->id, $this->roleId, $roleId));
+            $this->apply(new UserRoleChangedEvent($this->id, $roleId));
         }
     }
 
@@ -209,7 +209,6 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->apply(
             new UserLanguagePrivilegesCollectionChangedEvent(
                 $this->id,
-                $this->languagePrivilegesCollection,
                 $languagePrivilegesCollection
             )
         );
@@ -221,7 +220,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeLastName(string $lastName): void
     {
         if ($this->lastName !== $lastName) {
-            $this->apply(new UserLastNameChangedEvent($this->id, $this->lastName, $lastName));
+            $this->apply(new UserLastNameChangedEvent($this->id, $lastName));
         }
     }
 
@@ -231,7 +230,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeLanguage(Language $language): void
     {
         if (!$language->isEqual($this->language)) {
-            $this->apply(new UserLanguageChangedEvent($this->id, $this->language, $language));
+            $this->apply(new UserLanguageChangedEvent($this->id, $language));
         }
     }
 

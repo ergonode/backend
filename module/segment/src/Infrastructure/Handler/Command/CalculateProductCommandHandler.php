@@ -42,9 +42,9 @@ class CalculateProductCommandHandler
         $productId = $command->getProductId();
         $segmentIds = $this->query->getAllSegmentIds();
 
+        $this->service->addByProduct($productId);
         foreach ($segmentIds as $segmentId) {
             $segmentId = new SegmentId($segmentId);
-            $this->service->add($segmentId, $productId);
             $this->commandBus->dispatch(new CalculateProductInSegmentCommand($segmentId, $productId), true);
         }
     }

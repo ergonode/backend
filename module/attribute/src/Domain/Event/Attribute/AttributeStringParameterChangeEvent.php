@@ -29,18 +29,12 @@ class AttributeStringParameterChangeEvent implements DomainEventInterface
     /**
      * @JMS\Type("string")
      */
-    private string $from;
-
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
-    public function __construct(AttributeId $id, string $name, string $from, string $to)
+    public function __construct(AttributeId $id, string $name, string $to)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->from = $from;
         $this->to = $to;
     }
 
@@ -52,11 +46,6 @@ class AttributeStringParameterChangeEvent implements DomainEventInterface
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getFrom(): string
-    {
-        return $this->from;
     }
 
     public function getTo(): string

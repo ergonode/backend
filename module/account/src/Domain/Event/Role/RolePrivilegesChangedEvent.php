@@ -28,40 +28,19 @@ class RolePrivilegesChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
-    private array $from;
-
-    /**
-     * @var Privilege[]
-     *
-     * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
-     */
     private array $to;
 
-    /**
-     * @param Privilege[] $from
-     * @param Privilege[] $to
-     */
-    public function __construct(RoleId $id, array $from, array $to)
+    public function __construct(RoleId $id, array $to)
     {
-        Assert::allIsInstanceOf($from, Privilege::class);
         Assert::allIsInstanceOf($to, Privilege::class);
 
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): RoleId
     {
         return $this->id;
-    }
-
-    /**
-     * @return Privilege[]
-     */
-    public function getFrom(): array
-    {
-        return $this->from;
     }
 
     /**

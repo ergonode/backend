@@ -62,7 +62,7 @@ class Unit extends AbstractAggregateRoot
     public function changeName(string $newName): void
     {
         if ($newName !== $this->name) {
-            $this->apply(new UnitNameChangedEvent($this->id, $this->name, $newName));
+            $this->apply(new UnitNameChangedEvent($this->id, $newName));
         }
     }
 
@@ -72,7 +72,7 @@ class Unit extends AbstractAggregateRoot
     public function changeSymbol(string $newSymbol): void
     {
         if ($newSymbol !== $this->symbol) {
-            $this->apply(new UnitSymbolChangedEvent($this->id, $this->symbol, $newSymbol));
+            $this->apply(new UnitSymbolChangedEvent($this->id, $newSymbol));
         }
     }
 

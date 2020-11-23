@@ -26,38 +26,21 @@ class UserLanguagePrivilegesCollectionChangedEvent implements DomainEventInterfa
      *
      * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
      */
-    private array $from;
-
-    /**
-     * @var LanguagePrivileges[]
-     *
-     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
-     */
     private array $to;
 
     /**
-     * @param LanguagePrivileges[] $from
      * @param LanguagePrivileges[] $to
      */
-    public function __construct(UserId $id, array $from, array $to)
+    public function __construct(UserId $id, array $to)
     {
 
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): UserId
     {
         return $this->id;
-    }
-
-    /**
-     * @return LanguagePrivileges[]
-     */
-    public function getFrom(): array
-    {
-        return $this->from;
     }
 
     /**
