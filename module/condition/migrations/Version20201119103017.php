@@ -20,13 +20,17 @@ class Version20201119103017 extends AbstractErgonodeMigration
         $this->addSql(
             'WITH conditions_list AS (
                     SELECT id, 
-                            (\'{\'|| arr.position -1 || \',language}\')::text[] AS path,
+                            arr.position AS position,
                             (SELECT jsonb_agg(iso) FROM language WHERE active = true) AS languages
                     FROM condition_set,
                          jsonb_array_elements(conditions) WITH ORDINALITY arr(item_object, position)
                     WHERE arr.item_object::jsonb ->> \'type\' = \'PRODUCT_HAS_STATUS_CONDITION\')
                 UPDATE condition_set
-                SET conditions = jsonb_set(conditions, conditions_list.path, conditions_list.languages)
+                SET conditions = jsonb_set(
+                                    conditions,
+                                     (\'{\'|| conditions_list.position -1 || \',testtest}\')::text[], 
+                                     conditions_list.languages
+                                )
                 FROM conditions_list
                 WHERE condition_set.id = conditions_list.id'
         );
@@ -34,7 +38,7 @@ class Version20201119103017 extends AbstractErgonodeMigration
         $this->addSql(
             'WITH conditions_list AS (
                     SELECT id,
-                            (\'{\'|| arr.position -1 || \',language}\')::text[] AS path,
+                            arr.position AS position,
                             (SELECT jsonb_agg(iso) FROM language WHERE active = true) AS languages
                     FROM event_store,
                         jsonb_array_elements(payload->\'conditions\') WITH ORDINALITY arr(item_object, position)
@@ -43,8 +47,12 @@ class Version20201119103017 extends AbstractErgonodeMigration
                 SET payload = jsonb_set(
                             payload,
                              \'{conditions}\',
-                             jsonb_set(payload->\'conditions\', conditions_list.path, conditions_list.languages)
-                        )
+                             jsonb_set(
+                                    payload->\'conditions\',
+                                    (\'{\'|| conditions_list.position -1 || \',testtest}\')::text[],
+                                     conditions_list.languages
+                             )
+                         )
                 FROM conditions_list
                 WHERE event_store.id = conditions_list.id'
         );
