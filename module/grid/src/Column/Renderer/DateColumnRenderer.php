@@ -39,8 +39,6 @@ class DateColumnRenderer implements ColumnRendererInterface
             return null;
         }
 
-        $dateTime = new \DateTimeImmutable();
-
-        return $dateTime->setTimestamp($time);
+        return (new \DateTimeImmutable())->setTimestamp($time);
     }
 }
