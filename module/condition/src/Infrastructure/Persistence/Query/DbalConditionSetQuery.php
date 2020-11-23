@@ -55,7 +55,7 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        $records = $qb->select('id')
+        $records = $qb->select('DISTINCT id')
             ->from(self::TABLE)
             ->from('jsonb_array_elements(conditions) AS condition')
             ->where($qb->expr()->eq('condition::jsonb->>\'attribute\'', ':attribute_id'))
