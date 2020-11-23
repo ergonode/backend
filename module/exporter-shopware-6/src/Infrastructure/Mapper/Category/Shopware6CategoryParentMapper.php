@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Category;
 
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CategoryMapperInterface;
@@ -30,6 +31,7 @@ class Shopware6CategoryParentMapper implements Shopware6CategoryMapperInterface
      */
     public function map(
         Shopware6Channel $channel,
+        Export $export,
         Shopware6Category $shopware6Category,
         AbstractCategory $category,
         ?CategoryId $parentCategoryId = null,

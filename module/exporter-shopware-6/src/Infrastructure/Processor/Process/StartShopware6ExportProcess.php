@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Infrastructure\Synchronizer\SynchronizerInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 class StartShopware6ExportProcess
@@ -24,10 +24,10 @@ class StartShopware6ExportProcess
         $this->synchronizerCollection = $synchronizerCollection;
     }
 
-    public function process(ExportId $id, Shopware6Channel $channel): void
+    public function process(Export $export, Shopware6Channel $channel): void
     {
         foreach ($this->synchronizerCollection as $synchronizer) {
-            $synchronizer->synchronize($id, $channel);
+            $synchronizer->synchronize($export, $channel);
         }
     }
 }

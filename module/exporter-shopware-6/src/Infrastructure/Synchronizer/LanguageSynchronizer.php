@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6LanguageQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6LanguageClient;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class LanguageSynchronizer implements SynchronizerInterface
 {
@@ -33,7 +33,7 @@ class LanguageSynchronizer implements SynchronizerInterface
         $this->languageShopwareQuery = $languageShopwareQuery;
     }
 
-    public function synchronize(ExportId $id, Shopware6Channel $channel): void
+    public function synchronize(Export $export, Shopware6Channel $channel): void
     {
         $this->synchronizeShopware($channel);
     }
