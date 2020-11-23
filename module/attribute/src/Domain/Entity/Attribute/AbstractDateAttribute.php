@@ -69,7 +69,6 @@ abstract class AbstractDateAttribute extends AbstractAttribute
             $event = new AttributeStringParameterChangeEvent(
                 $this->id,
                 self::FORMAT,
-                $this->getFormat()->getFormat(),
                 $new->getFormat()
             );
             $this->apply($event);

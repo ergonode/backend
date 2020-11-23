@@ -23,15 +23,12 @@ class ValueChangedEventTest extends TestCase
         $id = $this->createMock(CategoryId::class);
         /** @var AttributeCode $code */
         $code = $this->createMock(AttributeCode::class);
-        /** @var ValueInterface $from */
-        $from = $this->createMock(ValueInterface::class);
         /** @var ValueInterface $to */
         $to = $this->createMock(ValueInterface::class);
 
-        $event = new ValueChangedEvent($id, $code, $from, $to);
+        $event = new ValueChangedEvent($id, $code, $to);
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($code, $event->getAttributeCode());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

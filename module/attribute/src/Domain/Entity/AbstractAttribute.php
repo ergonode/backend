@@ -148,7 +148,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     public function changeLabel(TranslatableString $label): void
     {
         if (!$label->isEqual($this->label)) {
-            $this->apply(new AttributeLabelChangedEvent($this->id, $this->label, $label));
+            $this->apply(new AttributeLabelChangedEvent($this->id, $label));
         }
     }
 
@@ -158,7 +158,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     public function changeHint(TranslatableString $hint): void
     {
         if (!$hint->isEqual($this->hint)) {
-            $this->apply(new AttributeHintChangedEvent($this->id, $this->hint, $hint));
+            $this->apply(new AttributeHintChangedEvent($this->id, $hint));
         }
     }
 
@@ -168,7 +168,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     public function changePlaceholder(TranslatableString $placeholder): void
     {
         if (!$placeholder->isEqual($this->placeholder)) {
-            $this->apply(new AttributePlaceholderChangedEvent($this->id, $this->placeholder, $placeholder));
+            $this->apply(new AttributePlaceholderChangedEvent($this->id, $placeholder));
         }
     }
 
@@ -178,7 +178,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     public function changeScope(AttributeScope $scope): void
     {
         if (!$scope->isEqual($this->scope)) {
-            $this->apply(new AttributeScopeChangedEvent($this->id, $this->scope, $scope));
+            $this->apply(new AttributeScopeChangedEvent($this->id, $scope));
         }
     }
 

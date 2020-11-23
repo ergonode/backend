@@ -20,13 +20,11 @@ class TemplateNameChangedEventTest extends TestCase
     {
         /** @var TemplateId | MockObject $id */
         $id = $this->createMock(TemplateId::class);
-        $from = 'from';
         $to = 'to';
 
-        $event = new TemplateNameChangedEvent($id, $from, $to);
+        $event = new TemplateNameChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

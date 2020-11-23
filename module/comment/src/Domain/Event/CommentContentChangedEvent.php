@@ -24,11 +24,6 @@ class CommentContentChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("string")
      */
-    private string $from;
-
-    /**
-     * @JMS\Type("string")
-     */
     private string $to;
 
     /**
@@ -36,10 +31,9 @@ class CommentContentChangedEvent implements DomainEventInterface
      */
     private \DateTime $editedAt;
 
-    public function __construct(CommentId $id, string $from, string $to, \DateTime $editedAt)
+    public function __construct(CommentId $id, string $to, \DateTime $editedAt)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
         $this->editedAt = $editedAt;
     }
@@ -50,11 +44,6 @@ class CommentContentChangedEvent implements DomainEventInterface
     public function getAggregateId(): AggregateId
     {
         return $this->id;
-    }
-
-    public function getFrom(): string
-    {
-        return $this->from;
     }
 
     public function getTo(): string

@@ -25,28 +25,17 @@ class UserRoleChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private RoleId $from;
-
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
-     */
     private RoleId $to;
 
-    public function __construct(UserId $id, RoleId $from, RoleId $to)
+    public function __construct(UserId $id, RoleId $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): UserId
     {
         return $this->id;
-    }
-
-    public function getFrom(): RoleId
-    {
-        return $this->from;
     }
 
     public function getTo(): RoleId

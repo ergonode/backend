@@ -28,6 +28,9 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
+    Ergonode\Workflow\Infrastructure\Handler\Event\ProductValueChangedEventHandler:
+        tags: [{name: 'messenger.message_handler', priority: 10}]
+
     Ergonode\Workflow\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']

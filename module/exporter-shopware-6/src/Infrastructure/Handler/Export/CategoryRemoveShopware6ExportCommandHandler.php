@@ -41,6 +41,6 @@ class CategoryRemoveShopware6ExportCommandHandler
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, Shopware6Channel::class);
 
-        $this->process->process($export->getId(), $channel, $command->getCategoryId());
+        $this->process->process($export, $channel, $command->getCategoryId());
     }
 }

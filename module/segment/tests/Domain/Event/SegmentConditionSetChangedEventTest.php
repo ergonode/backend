@@ -29,24 +29,12 @@ class SegmentConditionSetChangedEventTest extends TestCase
 
     public function testEventCreation(): void
     {
-        /** @var ConditionSetId | MockObject $from */
-        $from = $this->createMock(ConditionSetId::class);
-
         /** @var ConditionSetId | MockObject $to */
         $to = $this->createMock(ConditionSetId::class);
 
-        $event = new SegmentConditionSetChangedEvent($this->id, $from, $to);
+        $event = new SegmentConditionSetChangedEvent($this->id, $to);
 
         $this->assertSame($this->id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
-    }
-
-    public function testNullException(): void
-    {
-        $this->expectException(\Zend\EventManager\Exception\DomainException::class);
-        $from = null;
-        $to = null;
-        new SegmentConditionSetChangedEvent($this->id, $from, $to);
     }
 }

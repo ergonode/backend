@@ -66,7 +66,7 @@ class ConditionSet extends AbstractAggregateRoot
     public function changeConditions(array $conditions): void
     {
         if (sha1(serialize($this->conditions)) !== sha1(serialize($conditions))) {
-            $this->apply(new ConditionSetConditionsChangedEvent($this->id, $this->conditions, $conditions));
+            $this->apply(new ConditionSetConditionsChangedEvent($this->id, $conditions));
         }
     }
 

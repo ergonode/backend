@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
@@ -46,9 +47,10 @@ class Shopware6ProductVariantChildMapper extends AbstractShopware6VariantOptionM
     }
 
     public function map(
+        Shopware6Channel $channel,
+        Export $export,
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
         $parentsIds = $this->childQuery->findProductIdByProductChildrenId($product->getId());

@@ -21,13 +21,10 @@ class RolePrivilegesChangedEventTest extends TestCase
     {
         /** @var RoleId|MockObject $id */
         $id = $this->createMock(RoleId::class);
-        /** @var Privilege|MockObject $privilege */
-        $from = [$this->createMock(Privilege::class)];
         $to = [$this->createMock(Privilege::class)];
 
-        $event = new RolePrivilegesChangedEvent($id, $from, $to);
+        $event = new RolePrivilegesChangedEvent($id, $to);
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }

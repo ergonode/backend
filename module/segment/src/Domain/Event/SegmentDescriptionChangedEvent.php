@@ -21,9 +21,9 @@ class SegmentDescriptionChangedEvent extends AbstractTranslatableStringBasedChan
      */
     private SegmentId $id;
 
-    public function __construct(SegmentId $id, TranslatableString $from, TranslatableString $to)
+    public function __construct(SegmentId $id, TranslatableString $to)
     {
-        parent::__construct($from, $to);
+        parent::__construct($to);
         $this->id = $id;
     }
 

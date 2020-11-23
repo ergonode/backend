@@ -22,16 +22,12 @@ class TemplateImageChangedEventTest extends TestCase
         /** @var TemplateId | MockObject $id */
         $id = $this->createMock(TemplateId::class);
 
-        /** @var MultimediaId | MockObject $from */
-        $from = $this->createMock(MultimediaId::class);
-
         /** @var MultimediaId | MockObject $to */
         $to = $this->createMock(MultimediaId::class);
 
-        $event = new TemplateImageChangedEvent($id, $from, $to);
+        $event = new TemplateImageChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

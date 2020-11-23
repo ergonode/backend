@@ -21,10 +21,10 @@ class UserLastNameChangedEvent extends AbstractStringBasedChangedEvent
      */
     private UserId $id;
 
-    public function __construct(UserId $id, string $from, string $to)
+    public function __construct(UserId $id, string $to)
     {
         $this->id = $id;
-        parent::__construct($from, $to);
+        parent::__construct($to);
     }
 
     public function getAggregateId(): UserId

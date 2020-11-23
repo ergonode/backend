@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CurrencyQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
@@ -17,7 +18,6 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\GetCurre
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\PostCurrencyCreate;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class CurrencySynchronizer implements SynchronizerInterface
 {
@@ -41,7 +41,7 @@ class CurrencySynchronizer implements SynchronizerInterface
         $this->currencyQuery = $currencyQuery;
     }
 
-    public function synchronize(ExportId $id, Shopware6Channel $channel): void
+    public function synchronize(Export $export, Shopware6Channel $channel): void
     {
         $this->synchronizeShopware($channel);
         $this->checkExistOrCreate($channel);

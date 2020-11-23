@@ -19,33 +19,22 @@ class TemplateImageChangedEvent implements DomainEventInterface
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private TemplateId$id;
-
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
-     */
-    private MultimediaId $from;
+    private TemplateId $id;
 
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private MultimediaId $to;
 
-    public function __construct(TemplateId $id, MultimediaId $from, MultimediaId $to)
+    public function __construct(TemplateId $id, MultimediaId $to)
     {
         $this->id = $id;
-        $this->from = $from;
         $this->to = $to;
     }
 
     public function getAggregateId(): TemplateId
     {
         return $this->id;
-    }
-
-    public function getFrom(): MultimediaId
-    {
-        return $this->from;
     }
 
     public function getTo(): MultimediaId

@@ -22,16 +22,12 @@ class StatusColorChangedEventTest extends TestCase
         /** @var StatusId | MockObject $id */
         $id = $this->createMock(StatusId::class);
 
-        /** @var Color |MockObject $from */
-        $from = $this->createMock(Color::class);
-
         /** @var Color |MockObject $to */
         $to = $this->createMock(Color::class);
 
-        $event = new StatusColorChangedEvent($id, $from, $to);
+        $event = new StatusColorChangedEvent($id, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }
 }

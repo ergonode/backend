@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Decorator;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductActiveMapper;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
@@ -25,13 +26,14 @@ class Shopware6NewProductActiveMapperDecorator implements Shopware6ProductMapper
     }
 
     public function map(
+        Shopware6Channel $channel,
+        Export $export,
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6Channel $channel,
         ?Language $language = null
     ): Shopware6Product {
         if ($shopware6Product->isNew()) {
-            return $this->productActiveMapper->map($shopware6Product, $product, $channel, $language);
+            return $this->productActiveMapper->map($channel, $export, $shopware6Product, $product, $language);
         }
 
         return $shopware6Product;
