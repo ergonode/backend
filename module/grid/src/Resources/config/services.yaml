@@ -20,6 +20,3 @@ services:
         resource: '../../Request/*'
 
     Ergonode\Grid\Renderer\RowRendererInterface: '@Ergonode\Grid\Renderer\RowRenderer'
-
-    Ergonode\Grid\Column\Renderer\DateColumnRenderer:
-        $dateFormat: '%ergonode_grid_db_date_format%'
