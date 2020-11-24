@@ -16,10 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Symfony\Component\Form\FormFactoryInterface;
-use Ergonode\Product\Application\Form\Product\Attribute\ProductAttributeCollectionForm;
-use Ergonode\Product\Application\Model\Product\Attribute\ProductAttributeCollectionFormModel;
 use Ergonode\Product\Application\Factory\Command\ChangeProductAttributeCommandFactory;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Product\Application\Form\Product\Attribute\Update\UpdateProductAttributeCollectionForm;
+use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateProductAttributeCollectionFormModel;
 
 /**
  * @Route(
@@ -31,7 +31,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
  *     }
  * )
  */
-class UpdateProductAttributesAction
+class UpdateProductsAttributesAction
 {
     private FormFactoryInterface $formFactory;
 
@@ -72,14 +72,13 @@ class UpdateProductAttributesAction
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Add category ID",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product_category")
+     *     @SWG\Schema(ref="#/definitions/attribute")
      * )
      *
      * @SWG\Response(
      *     response=204,
-     *     description="Update mass pproducts attribtes",
+     *     description="Update mass products attribtes",
      * )
      * @SWG\Response(
      *     response=400,
@@ -89,10 +88,10 @@ class UpdateProductAttributesAction
      */
     public function __invoke(Request $request): Response
     {
-        $form = $this->formFactory->create(ProductAttributeCollectionForm::class);
+        $form = $this->formFactory->create(UpdateProductAttributeCollectionForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ProductAttributeCollectionFormModel $data */
+            /** @var UpdateProductAttributeCollectionFormModel $data */
             $data = $form->getData();
             foreach ($data->data as $product) {
                 $command = $this->commandFactory->create($product);
@@ -101,7 +100,6 @@ class UpdateProductAttributesAction
 
             return new SuccessResponse();
         }
-
 
         throw new FormValidationHttpException($form);
     }

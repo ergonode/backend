@@ -147,3 +147,52 @@ Feature: Product module
     And the JSON node "attributes.@attribute_code@.en_GB" should be null
     And the JSON nodes should contain:
       | attributes.@attribute_code@.pl_PL | test_PL |
+
+  Scenario: Delete product attributes pl_PL language
+    When I send a DELETE request to "/api/v1/en_GB/products/attributes" with body:
+      """
+       {
+          "data": [
+          {
+            "id": "@product_id@",
+            "payload": [
+              {
+                "id": "@attribute_id@",
+                "languages": ["pl_PL"]
+              }
+            ]
+          }
+        ]
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Get product
+    When I send a GET request to "/api/v1/en_GB/products/@product_id@"
+    Then the response status code should be 200
+    And the JSON node "attributes.@attribute_code@.en_GB" should be null
+    And the JSON node "attributes.@attribute_code@.pl_PL" should not exist
+
+  Scenario: Delete product attributes en_GB language
+    When I send a DELETE request to "/api/v1/en_GB/products/attributes" with body:
+      """
+       {
+          "data": [
+          {
+            "id": "@product_id@",
+            "payload": [
+              {
+                "id": "@attribute_id@",
+                "languages": ["en_GB"]
+              }
+            ]
+          }
+        ]
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Get product
+    When I send a GET request to "/api/v1/en_GB/products/@product_id@"
+    Then the response status code should be 200
+    And the JSON node "attributes.@attribute_code@" should not exist
