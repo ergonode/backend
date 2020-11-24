@@ -1,0 +1,6 @@
+services:
+    ergonode.new_relic.event_subscriber.command:
+        class: Ergonode\NewRelic\Application\EventSubscriber\ConsoleEventSubscriber
+        arguments:
+            $newRelic: '@ergonode.new_relic.new_relic'
+        tags: ['kernel.event_subscriber']
