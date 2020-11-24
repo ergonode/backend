@@ -6,9 +6,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
+namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model\Basic;
 
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
 use PHPUnit\Framework\TestCase;
 
 class Shopware6CustomFieldTest extends TestCase
@@ -19,10 +20,7 @@ class Shopware6CustomFieldTest extends TestCase
 
     private string $type;
 
-    /**
-     * @var array
-     */
-    private array $config;
+    private Shopware6CustomFieldConfig $config;
 
     private string $customFieldSetId;
 
@@ -31,7 +29,7 @@ class Shopware6CustomFieldTest extends TestCase
         $this->id = 'any_id';
         $this->name = 'any_name';
         $this->type = 'text';
-        $this->config = [];
+        $this->config = new Shopware6CustomFieldConfig();
         $this->customFieldSetId = 'any_set_id';
     }
 
@@ -45,7 +43,7 @@ class Shopware6CustomFieldTest extends TestCase
         self::assertEquals($this->config, $model->getConfig());
         self::assertEquals($this->customFieldSetId, $model->getCustomFieldSetId());
 
-        self::assertIsArray($model->getConfig());
+        self::assertInstanceOf(Shopware6CustomFieldConfig::class, $model->getConfig());
         self::assertNotTrue($model->isModified());
     }
 
@@ -62,7 +60,7 @@ class Shopware6CustomFieldTest extends TestCase
         self::assertEquals($this->config, $model->getConfig());
         self::assertEquals($this->customFieldSetId, $model->getCustomFieldSetId());
 
-        self::assertIsArray($model->getConfig());
+        self::assertInstanceOf(Shopware6CustomFieldConfig::class, $model->getConfig());
         self::assertTrue($model->isModified());
     }
 }

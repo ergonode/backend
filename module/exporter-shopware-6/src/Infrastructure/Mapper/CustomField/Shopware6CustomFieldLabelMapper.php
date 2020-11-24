@@ -14,7 +14,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 
 class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInterface
 {
@@ -28,10 +28,10 @@ class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInter
     public function map(
         Shopware6Channel $channel,
         Export $export,
-        Shopware6CustomField $shopware6CustomField,
+        AbstractShopware6CustomField $shopware6CustomField,
         AbstractAttribute $attribute,
         ?Language $language = null
-    ): Shopware6CustomField {
+    ): AbstractShopware6CustomField {
 
         $label = [
             str_replace('_', '-', $channel->getDefaultLanguage()->getCode()) => $attribute
@@ -53,7 +53,7 @@ class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInter
                 );
         }
 
-        $shopware6CustomField->setLabel($label);
+        $shopware6CustomField->getConfig()->setLabel($label);
 
         return $shopware6CustomField;
     }

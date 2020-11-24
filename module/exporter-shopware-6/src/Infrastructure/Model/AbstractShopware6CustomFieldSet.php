@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-class Shopware6CustomFieldSet
+abstract class AbstractShopware6CustomFieldSet
 {
     /**
      * @JMS\Exclude()
@@ -24,20 +24,18 @@ class Shopware6CustomFieldSet
     protected ?string $name;
 
     /**
-     * @var array
+     * @JMS\Type("Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomFieldSetConfig")
+     * @JMS\SerializedName("config")
+     */
+    protected ?AbstractShopware6CustomFieldSetConfig $config;
+
+    /**
+     * @var ?array
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("relations")
      */
     protected ?array $relations;
-
-    /**
-     * @var array
-     *
-     * @JMS\Type("array")
-     * @JMS\SerializedName("customFields")
-     */
-    protected ?array $customFields;
 
     /**
      * @JMS\Exclude()
@@ -46,20 +44,18 @@ class Shopware6CustomFieldSet
 
     /**
      * @param array|null $relations
-     * @param array|null $customFields
      */
     public function __construct(
         ?string $id = null,
         ?string $name = null,
-        ?array $relations = null,
-        ?array $customFields = null
+        ?AbstractShopware6CustomFieldSetConfig $config = null,
+        ?array $relations = null
     ) {
         $this->id = $id;
         $this->name = $name;
+        $this->config = $config;
         $this->relations = $relations;
-        $this->customFields = $customFields;
     }
-
 
     public function getId(): ?string
     {
@@ -79,6 +75,11 @@ class Shopware6CustomFieldSet
         }
     }
 
+    public function getConfig(): ?AbstractShopware6CustomFieldSetConfig
+    {
+        return $this->config;
+    }
+
     /**
      * @return array
      */
@@ -93,22 +94,6 @@ class Shopware6CustomFieldSet
     public function addRelation(array $relations): void
     {
         $this->relations[] = $relations;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCustomFields(): array
-    {
-        return $this->customFields;
-    }
-
-    /**
-     * @param array $customField
-     */
-    public function addCustomField(array $customField): void
-    {
-        $this->customFields[] = $customField;
     }
 
     public function isModified(): bool

@@ -14,7 +14,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
 
 class Shopware6CustomFieldConfigDateMapper implements Shopware6CustomFieldMapperInterface
 {
@@ -24,16 +25,18 @@ class Shopware6CustomFieldConfigDateMapper implements Shopware6CustomFieldMapper
     public function map(
         Shopware6Channel $channel,
         Export $export,
-        Shopware6CustomField $shopware6CustomField,
+        AbstractShopware6CustomField $shopware6CustomField,
         AbstractAttribute $attribute,
         ?Language $language = null
-    ): Shopware6CustomField {
+    ): AbstractShopware6CustomField {
 
         if ($attribute->getType() === AbstractDateAttribute::TYPE) {
             $shopware6CustomField->setType(self::TYPE);
-            $shopware6CustomField->addConfig('type', self::CONFIG_TYPE);
-            $shopware6CustomField->addConfig('customFieldType', self::CONFIG_TYPE);
-            $shopware6CustomField->addConfig('dateType', self::TYPE);
+            $shopware6CustomField->getConfig()->setType(self::CONFIG_TYPE);
+            $shopware6CustomField->getConfig()->setCustomFieldType(self::CONFIG_TYPE);
+            if ($shopware6CustomField->getConfig() instanceof Shopware6CustomFieldConfig) {
+                $shopware6CustomField->getConfig()->setDateType(self::TYPE);
+            }
         }
 
         return $shopware6CustomField;
