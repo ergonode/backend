@@ -78,7 +78,7 @@ class UpdateProductsAttributesAction
      *
      * @SWG\Response(
      *     response=204,
-     *     description="Update mas products attribtes",
+     *     description="Update mass products attribtes",
      * )
      * @SWG\Response(
      *     response=400,
