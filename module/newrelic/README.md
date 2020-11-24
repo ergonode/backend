@@ -1,4 +1,4 @@
-# Ergonode - Authentication
+# Ergonode - New Relic
 
 ## Documentation
 
