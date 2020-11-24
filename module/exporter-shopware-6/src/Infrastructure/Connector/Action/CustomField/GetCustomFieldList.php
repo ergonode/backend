@@ -11,7 +11,8 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
@@ -46,7 +47,16 @@ class GetCustomFieldList extends AbstractAction implements ActionInterface
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         if (count($data['data']) > 0) {
             foreach ($data['data'] as $row) {
-                $config = $row['attributes']['config'] ?: null;
+                $config = new Shopware6CustomFieldConfig(
+                    $row['attributes']['config']['type'] ?? null,
+                    $row['attributes']['config']['customFieldType'] ?? null,
+                    $row['attributes']['config']['label'] ?? null,
+                    $row['attributes']['config']['componentName'] ?? null,
+                    $row['attributes']['config']['dateType'] ?? null,
+                    $row['attributes']['config']['numberType'] ?? null,
+                    $row['attributes']['config']['options'] ?? null
+                );
+
                 $result[] = new Shopware6CustomField(
                     $row['id'],
                     $row['attributes']['name'],

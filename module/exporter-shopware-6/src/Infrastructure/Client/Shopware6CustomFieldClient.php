@@ -17,7 +17,8 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\Patch
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\PostCustomFieldAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6InstanceOfException;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 
 class Shopware6CustomFieldClient
@@ -36,7 +37,7 @@ class Shopware6CustomFieldClient
         Shopware6Channel $channel,
         AbstractAttribute $attribute,
         ?Shopware6Language $shopware6Language = null
-    ): ?Shopware6CustomField {
+    ): ?AbstractShopware6CustomField {
 
         $query = new Shopware6QueryBuilder();
         $query
@@ -71,7 +72,7 @@ class Shopware6CustomFieldClient
         Shopware6Channel $channel,
         string $shopwareId,
         ?Shopware6Language $shopware6Language = null
-    ): ?Shopware6CustomField {
+    ): ?AbstractShopware6CustomField {
         $action = new GetCustomField($shopwareId);
         if ($shopware6Language) {
             $action->addHeader('sw-language-id', $shopware6Language->getId());
@@ -80,23 +81,20 @@ class Shopware6CustomFieldClient
         return $this->connector->execute($channel, $action);
     }
 
+    /**
+     * @throws Shopware6InstanceOfException
+     */
     public function insert(
         Shopware6Channel $channel,
-        Shopware6CustomField $customField,
+        AbstractShopware6CustomField $customField,
         AbstractAttribute $attribute
-    ): ?Shopware6CustomField {
+    ): ?AbstractShopware6CustomField {
         $action = new PostCustomFieldAction($customField, true);
 
         $shopwareCustomField = $this->connector->execute($channel, $action);
 
-        if (!$shopwareCustomField instanceof Shopware6CustomField) {
-            throw new \LogicException(
-                sprintf(
-                    'Expected an instance of %s. %s received.',
-                    Shopware6CustomField::class,
-                    get_debug_type($shopwareCustomField)
-                )
-            );
+        if (!$shopwareCustomField instanceof AbstractShopware6CustomField) {
+            throw new Shopware6InstanceOfException(AbstractShopware6CustomField::class);
         }
         $this->repository->save(
             $channel->getId(),
@@ -110,7 +108,7 @@ class Shopware6CustomFieldClient
 
     public function update(
         Shopware6Channel $channel,
-        Shopware6CustomField $customField,
+        AbstractShopware6CustomField $customField,
         ?Shopware6Language $shopware6Language = null
     ): void {
         $action = new PatchCustomFieldAction($customField);

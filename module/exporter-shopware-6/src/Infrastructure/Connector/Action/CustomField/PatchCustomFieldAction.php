@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
@@ -19,9 +19,9 @@ class PatchCustomFieldAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/custom-field/';
 
-    private Shopware6CustomField $customField;
+    private AbstractShopware6CustomField $customField;
 
-    public function __construct(Shopware6CustomField $customField)
+    public function __construct(AbstractShopware6CustomField $customField)
     {
         $this->customField = $customField;
     }
