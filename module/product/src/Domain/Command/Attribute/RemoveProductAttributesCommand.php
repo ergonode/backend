@@ -21,7 +21,7 @@ class RemoveProductAttributesCommand implements ProductCommandInterface
     private array $attributes;
 
     /**
-     * @param array     $attributes
+     * @param mixed[] $attributes
      */
     public function __construct(ProductId $id, array $attributes)
     {
