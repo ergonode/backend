@@ -7,15 +7,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Form\Product\Attribute;
+namespace Ergonode\Product\Application\Form\Product\Attribute\Update;
 
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Ergonode\Product\Application\Model\Product\Attribute\ProductAttributeCollectionFormModel;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateAttributeValueFormModel;
 
-class ProductAttributeCollectionForm extends AbstractType
+class UpdateAttributeValueForm extends AbstractType
 {
     /**
      * @param array $options
@@ -24,12 +25,16 @@ class ProductAttributeCollectionForm extends AbstractType
     {
         $builder
             ->add(
-                'data',
+                'id',
+                TextType::class,
+            )
+            ->add(
+                'values',
                 CollectionType::class,
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => ProductAttributeForm::class,
+                    'entry_type' => UpdateAttributeValueTranslationForm::class,
                 ]
             );
     }
@@ -37,7 +42,7 @@ class ProductAttributeCollectionForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProductAttributeCollectionFormModel::class,
+            'data_class' => UpdateAttributeValueFormModel::class,
             'translation_domain' => 'product',
         ]);
     }

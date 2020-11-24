@@ -6,16 +6,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Model\Product\Attribute;
+namespace Ergonode\Product\Application\Model\Product\Attribute\Update;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ProductAttributeCollectionFormModel
+class UpdateProductAttributeCollectionFormModel
 {
     /**
      * @Assert\Valid()
      *
-     * @var ProductAttributeFormModel[]
+     * @var UpdateProductAttributeFormModel[]
      */
     public array $data = [];
 }

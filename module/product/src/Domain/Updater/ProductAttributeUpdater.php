@@ -34,15 +34,38 @@ class ProductAttributeUpdater
         $newValue = $this->mapper->map($type, $value);
 
         if ($product->hasAttribute($code)) {
-            if (null === $newValue) {
-                $product->removeAttribute($code);
-            } else {
-                $oldValue = $product->getAttribute($code);
-                $calculatedValue = $this->service->calculate($oldValue, $newValue);
-                $product->changeAttribute($code, $calculatedValue);
-            }
+            $oldValue = $product->getAttribute($code);
+            $calculatedValue = $this->service->calculate($oldValue, $newValue);
+            $product->changeAttribute($code, $calculatedValue);
         } else {
             $product->addAttribute($code, $newValue);
+        }
+
+        return $product;
+    }
+
+    public function remove(AbstractProduct $product, AbstractAttribute $attribute, array $value): AbstractProduct
+    {
+        $type = new AttributeType($attribute->getType());
+        $code = $attribute->getCode();
+        if (!$product->hasAttribute($code)) {
+            return $product;
+        }
+
+        $oldValue = $product->getAttribute($code);
+        $translation = $oldValue->getValue();
+
+        foreach (array_keys($value) as $language) {
+            if (array_key_exists($language, $translation)) {
+                unset($translation[$language]);
+            }
+        }
+
+        if (!empty($translation)) {
+            $newValue = $this->mapper->map($type, $translation);
+            $product->changeAttribute($code, $newValue);
+        } else {
+            $product->removeAttribute($code);
         }
 
         return $product;

@@ -7,18 +7,18 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Form\Product\Attribute;
+namespace Ergonode\Product\Application\Form\Product\Attribute\Update;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Product\Application\Model\Product\Attribute\AttributeValueTranslationFormModel;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateAttributeValueTranslationFormModel;
 
-class AttributeValueTranslationForm extends AbstractType
+class UpdateAttributeValueTranslationForm extends AbstractType
 {
     /**
      * @param array $options
@@ -55,7 +55,7 @@ class AttributeValueTranslationForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => AttributeValueTranslationFormModel::class,
+            'data_class' => UpdateAttributeValueTranslationFormModel::class,
             'translation_domain' => 'product',
         ]);
     }

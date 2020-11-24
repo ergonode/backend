@@ -6,11 +6,11 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Model\Product\Attribute;
+namespace Ergonode\Product\Application\Model\Product\Attribute\Delete;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AttributeValueFormModel
+class DeleteProductAttributeFormModel
 {
     /**
      * @Assert\NotBlank()
@@ -21,7 +21,7 @@ class AttributeValueFormModel
     /**
      * @Assert\Valid()
      *
-     * @var AttributeValueTranslationFormModel[]
+     * @var DeleteAttributeValueFormModel[]
      */
-    public array $values = [];
+    public array $payload = [];
 }

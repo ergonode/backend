@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Factory\Command;
 
-use Ergonode\Product\Application\Model\Product\Attribute\ProductAttributeFormModel;
 use Ergonode\Product\Domain\Command\Attribute\ChangeProductAttributesCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateProductAttributeFormModel;
 
 class ChangeProductAttributeCommandFactory
 {
-    public function create(ProductAttributeFormModel $model): ChangeProductAttributesCommand
+    public function create(UpdateProductAttributeFormModel $model): ChangeProductAttributesCommand
     {
         $attributes = [];
         foreach ($model->payload as $attribute) {

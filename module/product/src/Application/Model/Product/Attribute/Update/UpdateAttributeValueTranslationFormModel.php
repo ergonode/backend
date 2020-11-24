@@ -6,11 +6,11 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Model\Product\Attribute;
+namespace Ergonode\Product\Application\Model\Product\Attribute\Update;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AttributeValueTranslationFormModel
+class UpdateAttributeValueTranslationFormModel
 {
     /**
      * @Assert\NotBlank()

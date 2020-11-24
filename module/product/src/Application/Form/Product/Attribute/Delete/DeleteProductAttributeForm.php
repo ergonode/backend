@@ -7,16 +7,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Form\Product\Attribute;
+namespace Ergonode\Product\Application\Form\Product\Attribute\Delete;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Ergonode\Product\Application\Model\Product\Attribute\AttributeValueFormModel;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Ergonode\Product\Application\Model\Product\Attribute\Delete\DeleteProductAttributeFormModel;
 
-class AttributeValueForm extends AbstractType
+class DeleteProductAttributeForm extends AbstractType
 {
     /**
      * @param array $options
@@ -29,12 +29,12 @@ class AttributeValueForm extends AbstractType
                 TextType::class,
             )
             ->add(
-                'values',
+                'payload',
                 CollectionType::class,
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => AttributeValueTranslationForm::class,
+                    'entry_type' => DeleteAttributeValueForm::class,
                 ]
             );
     }
@@ -42,7 +42,7 @@ class AttributeValueForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => AttributeValueFormModel::class,
+            'data_class' => DeleteProductAttributeFormModel::class,
             'translation_domain' => 'product',
         ]);
     }
