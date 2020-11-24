@@ -9,12 +9,14 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Model\Product\Attribute\Update;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Core\Infrastructure\Validator\Constraint as LanguageAssert;
 
 class UpdateAttributeValueTranslationFormModel
 {
     /**
      * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-z]{2}_[A-Z]{2}$/")
+     * @LanguageAssert\LanguageCodeConstraint()
+     * @LanguageAssert\LanguageCodeActive()
      */
     public ?string $language = null;
 

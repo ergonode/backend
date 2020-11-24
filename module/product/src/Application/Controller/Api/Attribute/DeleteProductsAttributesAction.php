@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Application\Factory\Command\RemoveProductAttributeCommandFactory;
 use Ergonode\Product\Application\Form\Product\Attribute\Delete\DeleteProductAttributeCollectionForm;
@@ -20,6 +19,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Api\Application\Response\EmptyResponse;
 
 /**
  * @Route(
@@ -103,10 +103,8 @@ class DeleteProductsAttributesAction
                 $this->commandBus->dispatch($command);
             }
 
-            return new SuccessResponse();
+            return new EmptyResponse();
         }
-
-
 
         throw new FormValidationHttpException($form);
     }

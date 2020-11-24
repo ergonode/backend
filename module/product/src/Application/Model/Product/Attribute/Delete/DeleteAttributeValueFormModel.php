@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Model\Product\Attribute\Delete;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Core\Infrastructure\Validator\Constraint as LanguageAssert;
 
 class DeleteAttributeValueFormModel
 {
@@ -21,7 +22,8 @@ class DeleteAttributeValueFormModel
     /**
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Regex("/^[a-z]{2}_[A-Z]{2}$/")
+     *     @LanguageAssert\LanguageCodeConstraint(),
+     *     @LanguageAssert\LanguageCodeActive()
      * })
      *
      * @var string[]

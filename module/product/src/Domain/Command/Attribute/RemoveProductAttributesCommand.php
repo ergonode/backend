@@ -15,6 +15,9 @@ class RemoveProductAttributesCommand implements ProductCommandInterface
 {
     private ProductId $id;
 
+    /**
+     * @var mixed[]
+     */
     private array $attributes;
 
     /**
@@ -32,7 +35,7 @@ class RemoveProductAttributesCommand implements ProductCommandInterface
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function getAttributes(): array
     {

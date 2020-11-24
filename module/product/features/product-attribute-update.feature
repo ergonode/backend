@@ -165,7 +165,7 @@ Feature: Product module
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get product
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
@@ -190,7 +190,7 @@ Feature: Product module
         ]
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 204
 
   Scenario: Get product
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
