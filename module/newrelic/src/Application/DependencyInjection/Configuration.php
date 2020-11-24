@@ -18,6 +18,7 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('ergonode_new_relic');
 
+        /** @phpstan-ignore-next-line */
         $treeBuilder
             ->getRootNode()
                 ->children()
