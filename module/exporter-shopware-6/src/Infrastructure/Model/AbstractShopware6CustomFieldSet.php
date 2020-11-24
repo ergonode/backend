@@ -75,6 +75,11 @@ abstract class AbstractShopware6CustomFieldSet
         }
     }
 
+    public function getConfig(): ?AbstractShopware6CustomFieldSetConfig
+    {
+        return $this->config;
+    }
+
     /**
      * @return array
      */

@@ -53,6 +53,11 @@ abstract class AbstractShopware6CustomFieldConfig
         $this->componentName = $componentName;
     }
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
     public function setType(?string $type): void
     {
         if ($this->type !== $type) {
@@ -61,12 +66,22 @@ abstract class AbstractShopware6CustomFieldConfig
         }
     }
 
+    public function getCustomFieldType(): ?string
+    {
+        return $this->customFieldType;
+    }
+
     public function setCustomFieldType(?string $customFieldType): void
     {
         if ($this->customFieldType !== $customFieldType) {
             $this->customFieldType = $customFieldType;
             $this->modified = true;
         }
+    }
+
+    public function getLabel(): ?array
+    {
+        return $this->label;
     }
 
     public function setLabel(?array $label): void
@@ -80,6 +95,11 @@ abstract class AbstractShopware6CustomFieldConfig
             $this->label = $label;
             $this->modified = true;
         }
+    }
+
+    public function getComponentName(): ?string
+    {
+        return $this->componentName;
     }
 
     public function setComponentName(string $componentName): void

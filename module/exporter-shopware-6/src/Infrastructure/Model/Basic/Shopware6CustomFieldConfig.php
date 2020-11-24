@@ -46,6 +46,11 @@ class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
         $this->options = $options;
     }
 
+    public function getDateType(): ?string
+    {
+        return $this->dateType;
+    }
+
     public function setDateType(?string $dateType): void
     {
         if ($this->dateType !== $dateType) {
@@ -54,12 +59,22 @@ class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
         }
     }
 
+    public function getNumberType(): ?string
+    {
+        return $this->numberType;
+    }
+
     public function setNumberType(?string $numberType): void
     {
         if ($this->numberType !== $numberType) {
             $this->numberType = $numberType;
             $this->modified = true;
         }
+    }
+
+    public function getOptions(): ?array
+    {
+        return $this->options;
     }
 
     public function addOptions(array $option): void

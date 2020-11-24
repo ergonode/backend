@@ -29,4 +29,14 @@ abstract class AbstractShopware6CustomFieldSetConfig
         $this->translated = $translated;
         $this->label = $label;
     }
+
+    public function isTranslated(): bool
+    {
+        return $this->translated;
+    }
+
+    public function getLabel(): ?array
+    {
+        return $this->label;
+    }
 }
