@@ -10,7 +10,7 @@ namespace Ergonode\SharedKernel\Domain;
 
 use JMS\Serializer\Annotation as JMS;
 
-class AbstractCode
+abstract class AbstractCode
 {
     public const MIN_LENGTH = 1;
     public const MAX_LENGTH = 128;
