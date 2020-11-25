@@ -55,11 +55,6 @@ class ProductCollectionCodeTest extends TestCase
         return [
             [''],
             [' '],
-//            [' a'],
-//            ['a '],
-//            [' &'],
-//            ['!'],
-//            ['['],
             [str_repeat(' ', 255)],
             [PHP_EOL],
             [str_repeat('a', 256)],

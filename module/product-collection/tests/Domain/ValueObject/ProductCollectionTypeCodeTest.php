@@ -53,13 +53,8 @@ class ProductCollectionTypeCodeTest extends TestCase
     public function invalidDataProvider(): array
     {
         return [
-//            ['fees&gdr '],
             [' '],
             ['  '],
-//            ['a a'],
-//            [' &'],
-//            ['!'],
-//            ['['],
             [str_repeat(' ', 255)],
             [PHP_EOL],
             [str_repeat('a', 256)],
