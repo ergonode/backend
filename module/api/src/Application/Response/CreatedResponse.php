@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Api\Application\Response;
 
-use Ergonode\Core\Domain\Entity\AbstractCode;
+use Ergonode\SharedKernel\Domain\AbstractCode;
 use Symfony\Component\HttpFoundation\Response;
 use Ergonode\SharedKernel\Domain\AbstractId;
 
