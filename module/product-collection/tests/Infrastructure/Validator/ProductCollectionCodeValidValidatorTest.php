@@ -48,7 +48,7 @@ class ProductCollectionCodeValidValidatorTest extends ConstraintValidatorTestCas
     public function testInCorrectValueValidation(): void
     {
         $constraint = new ProductCollectionCodeValid();
-        $value = 'SKU!!';
+        $value = 'CODE_NOT_VALID_'.str_repeat('a', 114) ;
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value);

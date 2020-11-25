@@ -9,35 +9,25 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
-class AttributeCode
+use Ergonode\SharedKernel\Domain\AbstractCode;
+
+class AttributeCode extends AbstractCode
 {
     private const PATTERN = '/^([a-zA-Z0-9_]+)$/';
-    private const LENGTH = 128;
-
-    private string $value;
 
     public function __construct(string $value)
     {
-        $this->value = strtolower(trim($value));
+        $value = strtolower(trim($value));
 
-        if (!self::isValid($this->value)) {
+        if (!self::isValid($value)) {
             throw new \InvalidArgumentException(\sprintf('Value "%s" is not valid attribute code', $value));
         }
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    public function __toString(): string
-    {
-        return $this->value;
+        parent::__construct($value);
     }
 
     public static function isValid(string $value): bool
     {
-        return preg_match(self::PATTERN, $value)
-            && strlen($value) <= self::LENGTH;
+        return parent::isValid($value)
+            && preg_match(self::PATTERN, $value);
     }
 }

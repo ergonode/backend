@@ -1,29 +1,28 @@
 <?php
-
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Domain\Entity;
+namespace Ergonode\SharedKernel\Domain;
 
 use JMS\Serializer\Annotation as JMS;
 
-abstract class AbstractCode
+class AbstractCode
 {
     public const MIN_LENGTH = 1;
-    public const MAX_LENGTH = 255;
-    public const PATTERN = '/^[a-zA-Z0-9-_ ]+$\b/i';
+    public const MAX_LENGTH = 128;
 
     /**
      * @JMS\Type("string")
      */
-    private string $value;
+    protected string $value;
 
     public function __construct(string $value)
     {
+        $value = trim($value);
         if (!self::isValid($value)) {
             throw new \InvalidArgumentException(sprintf(
                 '"%s" should be valid code, given value "%s"',
@@ -35,12 +34,11 @@ abstract class AbstractCode
         $this->value = $value;
     }
 
-
     public static function isValid(string $value): bool
     {
-        return preg_match(self::PATTERN, $value, $matches) !== 0
-            && mb_strlen($value) <= self::MAX_LENGTH
-            && mb_strlen($value) >= self::MIN_LENGTH;
+        return  mb_strlen($value) <= self::MAX_LENGTH
+            && mb_strlen($value) >= self::MIN_LENGTH
+            && '' !== $value;
     }
 
     public function getValue(): string
