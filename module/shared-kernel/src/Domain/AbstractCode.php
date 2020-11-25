@@ -23,7 +23,7 @@ abstract class AbstractCode
     public function __construct(string $value)
     {
         $value = trim($value);
-        if (!self::isValid($value)) {
+        if (!static::isValid($value)) {
             throw new \InvalidArgumentException(sprintf(
                 '"%s" should be valid code, given value "%s"',
                 static::class,
@@ -36,9 +36,10 @@ abstract class AbstractCode
 
     public static function isValid(string $value): bool
     {
-        return  mb_strlen($value) <= self::MAX_LENGTH
-            && mb_strlen($value) >= self::MIN_LENGTH
-            && '' !== $value;
+        $value = trim($value);
+
+        return mb_strlen($value) <= self::MAX_LENGTH
+            && mb_strlen($value) >= self::MIN_LENGTH;
     }
 
     public function getValue(): string

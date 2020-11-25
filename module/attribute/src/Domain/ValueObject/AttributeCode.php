@@ -17,12 +17,7 @@ class AttributeCode extends AbstractCode
 
     public function __construct(string $value)
     {
-        $value = strtolower(trim($value));
-
-        if (!self::isValid($value)) {
-            throw new \InvalidArgumentException(\sprintf('Value "%s" is not valid attribute code', $value));
-        }
-        parent::__construct($value);
+        parent::__construct(strtolower($value));
     }
 
     public static function isValid(string $value): bool

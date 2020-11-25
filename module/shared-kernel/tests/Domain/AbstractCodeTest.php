@@ -6,21 +6,21 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\SharedKernel\Tests\Domain\ValueObject;
+namespace Ergonode\SharedKernel\Tests\Domain;
 
-use Ergonode\SharedKernel\Domain\ValueObject\Code;
+use Ergonode\SharedKernel\Domain\AbstractCode;
 use PHPUnit\Framework\TestCase;
 
-class CodeTest extends TestCase
+class AbstractCodeTest extends TestCase
 {
     /**
      * @dataProvider validDataProvider
      */
     public function testValidCreation(string $string): void
     {
-        $code = new Code($string);
+        $code = $this->getClass($string);
         self::assertEquals($string, $code->getValue());
-        self::assertTrue(Code::isValid($string));
+        self::assertTrue(AbstractCode::isValid($string));
     }
 
     /**
@@ -28,7 +28,7 @@ class CodeTest extends TestCase
      */
     public function testPositiveValidation(string $code): void
     {
-        self::assertTrue(Code::isValid($code));
+        self::assertTrue(AbstractCode::isValid($code));
     }
 
     /**
@@ -36,7 +36,7 @@ class CodeTest extends TestCase
      */
     public function testNegativeValidation(string $code): void
     {
-        self::assertFalse(Code::isValid($code));
+        self::assertFalse(AbstractCode::isValid($code));
     }
 
     /**
@@ -45,7 +45,7 @@ class CodeTest extends TestCase
     public function testInvalidData(string $code): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        new Code($code);
+        $this->getClass($code);
     }
 
     /**
@@ -53,8 +53,8 @@ class CodeTest extends TestCase
      */
     public function testEqual(string $string, string $value): void
     {
-        $code1 = new Code($string);
-        $code2 = new Code($value);
+        $code1 = $this->getClass($string);
+        $code2 = $this->getClass($value);
 
         self::assertTrue($code1->isEqual($code2));
     }
@@ -64,8 +64,8 @@ class CodeTest extends TestCase
      */
     public function testInEqual(string $string, string $value): void
     {
-        $code1 = new Code($string);
-        $code2 = new Code($value);
+        $code1 = $this->getClass($string);
+        $code2 = $this->getClass($value);
 
         self::assertFalse($code1->isEqual($code2));
     }
@@ -73,7 +73,7 @@ class CodeTest extends TestCase
     public function testString(): void
     {
         $string = 'test';
-        $code = new Code($string);
+        $code = $this->getClass($string);
         self::assertSame($code->__toString(), $string);
     }
 
@@ -96,6 +96,8 @@ class CodeTest extends TestCase
     {
         return [
             [''],
+            [PHP_EOL],
+            [str_repeat(' ', 129)],
             [str_repeat('a', 129)],
         ];
     }
@@ -114,5 +116,13 @@ class CodeTest extends TestCase
             ['equal', 'no equal'],
             [str_repeat('a', 128), str_repeat('b', 128)],
         ];
+    }
+
+    private function getClass(string $code): AbstractCode
+    {
+        return new class(
+            $code,
+        ) extends AbstractCode {
+        };
     }
 }

@@ -55,7 +55,6 @@ class CategoryCodeTest extends TestCase
         return [
             ['aa&aa '],
             [' '],
-            [' a'],
             ['a a'],
             [' &'],
             ['!'],
