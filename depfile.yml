@@ -11,10 +11,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Attribute\\.*
-  - name: Category
-    collectors:
-      - type: className
-        regex: .*Ergonode\\Category\\.*
   - name: Comment
     collectors:
       - type: className
