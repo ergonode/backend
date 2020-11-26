@@ -26,7 +26,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
-
     /**
      * @param ColumnInterface[] $columns
      */

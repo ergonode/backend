@@ -15,8 +15,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
@@ -27,12 +26,12 @@ class DbalOptionQuery implements OptionQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
@@ -133,7 +132,7 @@ class DbalOptionQuery implements OptionQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

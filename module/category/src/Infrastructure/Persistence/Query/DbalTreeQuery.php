@@ -14,8 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 class DbalTreeQuery implements TreeQueryInterface
@@ -25,12 +24,12 @@ class DbalTreeQuery implements TreeQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(Language $language): DataSetInterface
@@ -42,7 +41,7 @@ class DbalTreeQuery implements TreeQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()));
 
-        return new DbalDataSet($query, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($query);
     }
 
     /**

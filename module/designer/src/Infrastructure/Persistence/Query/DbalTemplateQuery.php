@@ -14,8 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -37,12 +36,12 @@ class DbalTemplateQuery implements TemplateQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
@@ -56,7 +55,7 @@ class DbalTemplateQuery implements TemplateQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

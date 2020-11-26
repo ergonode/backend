@@ -13,8 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 class DbalTemplateElementQuery implements TemplateElementQueryInterface
 {
@@ -22,17 +21,17 @@ class DbalTemplateElementQuery implements TemplateElementQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
     {
-        return new DbalDataSet($this->getQuery(), $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($this->getQuery());
     }
 
     private function getQuery(): QueryBuilder

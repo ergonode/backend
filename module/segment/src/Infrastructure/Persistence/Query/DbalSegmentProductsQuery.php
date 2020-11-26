@@ -11,8 +11,8 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
@@ -23,18 +23,18 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDataSet(SegmentId $segmentId): DbalDataSet
+    public function getDataSet(SegmentId $segmentId): DataSetInterface
     {
         $query = $this->getQuery();
 
@@ -48,7 +48,7 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

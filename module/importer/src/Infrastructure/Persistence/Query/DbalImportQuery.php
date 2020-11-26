@@ -13,8 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportErrorId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
@@ -27,16 +26,16 @@ class DbalImportQuery implements ImportQueryInterface
 
     private TranslatorInterface $translator;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
     public function __construct(
         Connection $connection,
         TranslatorInterface $translator,
-        FilterBuilderProvider $filterBuilderProvider
+        DbalDataSetFactory $dataSetFactory
     ) {
         $this->connection = $connection;
         $this->translator = $translator;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
@@ -62,11 +61,11 @@ class DbalImportQuery implements ImportQueryInterface
 
     public function getDataSet(SourceId $id): DataSetInterface
     {
-        $qb = $this->getQuery();
-        $qb->andWhere($qb->expr()->eq('source_id', ':sourceId'))
+        $query = $this->getQuery();
+        $query->andWhere($query->expr()->eq('source_id', ':sourceId'))
             ->setParameter('sourceId', $id->getValue());
 
-        return new DbalDataSet($qb, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($query);
     }
 
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface
@@ -83,7 +82,7 @@ class DbalImportQuery implements ImportQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't')
             ->setParameter(':importId', $id->getValue());
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

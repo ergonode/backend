@@ -18,10 +18,12 @@ class DbalDataSet extends AbstractDbalDataSet
 {
     protected QueryBuilder $queryBuilder;
 
-    public function __construct(QueryBuilder $queryBuilderProvider, FilterBuilderProvider $filterBuilderProvider)
-    {
+    public function __construct(
+        QueryBuilder $queryBuilderProvider,
+        FilterBuilderProvider $filterBuilderQueryBuilderProvider
+    ) {
         $this->queryBuilder = clone $queryBuilderProvider;
-        parent::__construct($filterBuilderProvider);
+        parent::__construct($filterBuilderQueryBuilderProvider);
     }
 
     /**

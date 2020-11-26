@@ -12,8 +12,8 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
@@ -29,42 +29,42 @@ class DbalSegmentQuery implements SegmentQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDataSet(Language $language): DbalDataSet
+    public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
         $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
         $query->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
         $query->addSelect(
-            '(SELECT count(*) FROM segment_product 
-            WHERE segment_id = t.id 
-            AND available = true AND calculated_at IS NOT NULL) 
+            '(SELECT count(*) FROM segment_product
+            WHERE segment_id = t.id
+            AND available = true AND calculated_at IS NOT NULL)
             AS products_count'
         );
         $query->addSelect(
-            '(SELECT 
+            '(SELECT
             CASE
                 WHEN count(*) = 0 THEN \'new\'
-                WHEN count(calculated_at) = count(*)  THEN \'calculated\' 
-                ELSE \'processed\' 
-            END 
+                WHEN count(calculated_at) = count(*)  THEN \'calculated\'
+                ELSE \'processed\'
+            END
             FROM segment_product WHERE segment_id = t.id) as status'
         );
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

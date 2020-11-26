@@ -13,8 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 
 class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
@@ -28,12 +27,12 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
@@ -62,7 +61,7 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
 
     public function getDataSet(): DataSetInterface
     {
-        return new DbalDataSet($this->getQuery(), $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($this->getQuery());
     }
 
     private function getQuery(): QueryBuilder

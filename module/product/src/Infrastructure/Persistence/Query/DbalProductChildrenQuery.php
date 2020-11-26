@@ -17,8 +17,7 @@ use Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
@@ -44,7 +43,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
 
     protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
     public function __construct(
         Connection $connection,
@@ -52,14 +51,14 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
         DefaultImageQueryBuilderInterface $defaultImageQueryBuilder,
         ProductAttributeLanguageResolver $resolver,
-        FilterBuilderProvider $filterBuilderProvider
+        DbalDataSetFactory $dataSetFactory
     ) {
         $this->connection = $connection;
         $this->query = $query;
         $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
         $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
         $this->resolver = $resolver;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
 
@@ -76,7 +75,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**
@@ -129,7 +128,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         }
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
 

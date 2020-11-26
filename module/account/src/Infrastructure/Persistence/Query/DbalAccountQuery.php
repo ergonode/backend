@@ -13,8 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use League\Flysystem\FilesystemInterface;
@@ -37,16 +36,16 @@ class DbalAccountQuery implements AccountQueryInterface
 
     private FilesystemInterface $avatarStorage;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
     public function __construct(
         Connection $connection,
         FilesystemInterface $avatarStorage,
-        FilterBuilderProvider $filterBuilderProvider
+        DbalDataSetFactory $dataSetFactory
     ) {
         $this->connection = $connection;
         $this->avatarStorage = $avatarStorage;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
@@ -60,7 +59,7 @@ class DbalAccountQuery implements AccountQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
         $result->setParameter(':hidden', false, \PDO::PARAM_BOOL);
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

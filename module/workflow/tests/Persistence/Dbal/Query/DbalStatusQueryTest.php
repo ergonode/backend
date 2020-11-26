@@ -12,11 +12,10 @@ namespace Ergonode\Workflow\Tests\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\ResultStatement;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
-use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -35,9 +34,9 @@ class DbalStatusQueryTest extends TestCase
     private $mockWorkflowProvider;
 
     /**
-     * @var StatusRepositoryInterface|MockObject
+     * @var DbalDataSetFactory|MockObject
      */
-    private $mockfilterBuilderProvider;
+    private $mockDbalDataSetFactory;
 
     private DbalStatusQuery $query;
 
@@ -45,12 +44,12 @@ class DbalStatusQueryTest extends TestCase
     {
         $this->mockConnection = $this->createMock(Connection::class);
         $this->mockWorkflowProvider = $this->createMock(WorkflowProvider::class);
-        $this->mockfilterBuilderProvider = $this->createMock(FilterBuilderProvider::class);
+        $this->mockDbalDataSetFactory = $this->createMock(DbalDataSetFactory::class);
 
         $this->query = new DbalStatusQuery(
             $this->mockConnection,
             $this->mockWorkflowProvider,
-            $this->mockfilterBuilderProvider,
+            $this->mockDbalDataSetFactory,
         );
     }
 

@@ -18,5 +18,8 @@ services:
 
     Ergonode\Grid\Request\:
         resource: '../../Request/*'
+        
+    Ergonode\Grid\Factory\:
+        resource: '../../Factory/*'
 
     Ergonode\Grid\Renderer\RowRendererInterface: '@Ergonode\Grid\Renderer\RowRenderer'

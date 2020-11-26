@@ -15,8 +15,7 @@ use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
@@ -28,12 +27,12 @@ class DbalExportQuery implements ExportQueryInterface
 
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface
@@ -47,7 +46,7 @@ class DbalExportQuery implements ExportQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't')
             ->setParameter(':channelId', $channelId->getValue());
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     public function getErrorDataSet(ExportId $exportId, Language $language): DataSetInterface
@@ -63,7 +62,7 @@ class DbalExportQuery implements ExportQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't')
             ->setParameter(':exportId', $exportId->getValue());
 
-        return new DbalDataSet($result, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

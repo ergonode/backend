@@ -12,27 +12,26 @@ namespace Ergonode\Importer\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
-use Ergonode\Grid\Filter\FilterBuilderProvider;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Importer\Domain\Query\SourceQueryInterface;
 
 class DbalSourceQuery implements SourceQueryInterface
 {
     private Connection $connection;
 
-    private FilterBuilderProvider $filterBuilderProvider;
+    private DbalDataSetFactory $dataSetFactory;
 
-    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-        $this->filterBuilderProvider = $filterBuilderProvider;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
     {
-        $qb = $this->getQuery();
+        $query = $this->getQuery();
 
-        return new DbalDataSet($qb, $this->filterBuilderProvider);
+        return $this->dataSetFactory->create($query);
     }
 
     private function getQuery(): QueryBuilder

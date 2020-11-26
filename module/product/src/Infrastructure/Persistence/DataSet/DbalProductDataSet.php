@@ -36,11 +36,11 @@ class DbalProductDataSet extends AbstractDbalDataSet
 
     public function __construct(
         Connection $connection,
-        DataSetQueryBuilderProvider $provider,
+        DataSetQueryBuilderProvider $queryBuilderProvider,
         FilterBuilderProvider $filterBuilderProvider
     ) {
         $this->connection = $connection;
-        $this->provider = $provider;
+        $this->provider = $queryBuilderProvider;
         $this->names = [];
         parent::__construct($filterBuilderProvider);
     }
