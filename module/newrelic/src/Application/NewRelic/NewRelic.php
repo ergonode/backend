@@ -13,7 +13,7 @@ final class NewRelic implements NewRelicInterface
 {
     public function startTransaction(?string $license = null): bool
     {
-        if (!extension_loaded('newrelic')) {
+        if (!$this->isEnabled()) {
             return false;
         }
 
@@ -22,7 +22,7 @@ final class NewRelic implements NewRelicInterface
 
     public function endTransaction(bool $ignore = false): bool
     {
-        if (!extension_loaded('newrelic')) {
+        if (!$this->isEnabled()) {
             return false;
         }
 
@@ -31,10 +31,15 @@ final class NewRelic implements NewRelicInterface
 
     public function nameTransaction(string $name): bool
     {
-        if (!extension_loaded('newrelic')) {
+        if (!$this->isEnabled()) {
             return false;
         }
 
         return newrelic_name_transaction($name);
+    }
+
+    private function isEnabled(): bool
+    {
+        return extension_loaded('newrelic');
     }
 }
