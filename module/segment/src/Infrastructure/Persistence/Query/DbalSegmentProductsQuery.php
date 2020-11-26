@@ -12,6 +12,7 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
@@ -22,9 +23,12 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     /**
@@ -44,7 +48,7 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     /**

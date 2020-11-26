@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 
 class DbalTemplateElementQuery implements TemplateElementQueryInterface
 {
@@ -21,14 +22,17 @@ class DbalTemplateElementQuery implements TemplateElementQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(): DataSetInterface
     {
-        return new DbalDataSet($this->getQuery());
+        return new DbalDataSet($this->getQuery(), $this->filterBuilderProvider);
     }
 
     private function getQuery(): QueryBuilder

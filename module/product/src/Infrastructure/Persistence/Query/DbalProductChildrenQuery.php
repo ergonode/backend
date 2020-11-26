@@ -18,6 +18,7 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
@@ -43,18 +44,22 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
 
     protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
 
+    private FilterBuilderProvider $filterBuilderProvider;
+
     public function __construct(
         Connection $connection,
         LanguageQueryInterface $query,
         DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
         DefaultImageQueryBuilderInterface $defaultImageQueryBuilder,
-        ProductAttributeLanguageResolver $resolver
+        ProductAttributeLanguageResolver $resolver,
+        FilterBuilderProvider $filterBuilderProvider
     ) {
         $this->connection = $connection;
         $this->query = $query;
         $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
         $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
         $this->resolver = $resolver;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
 
@@ -71,7 +76,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     /**
@@ -124,7 +129,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         }
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
 

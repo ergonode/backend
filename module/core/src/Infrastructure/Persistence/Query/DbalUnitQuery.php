@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 class DbalUnitQuery implements UnitQueryInterface
@@ -27,9 +28,12 @@ class DbalUnitQuery implements UnitQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(): DataSetInterface
@@ -40,7 +44,7 @@ class DbalUnitQuery implements UnitQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     /**

@@ -13,22 +13,26 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Importer\Domain\Query\SourceQueryInterface;
 
 class DbalSourceQuery implements SourceQueryInterface
 {
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
 
-        return new DbalDataSet($qb);
+        return new DbalDataSet($qb, $this->filterBuilderProvider);
     }
 
     private function getQuery(): QueryBuilder

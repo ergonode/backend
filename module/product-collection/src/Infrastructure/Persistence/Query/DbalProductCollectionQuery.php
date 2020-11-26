@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
@@ -25,9 +26,12 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     /**
@@ -72,7 +76,7 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId

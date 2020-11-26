@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportErrorId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
@@ -26,10 +27,16 @@ class DbalImportQuery implements ImportQueryInterface
 
     private TranslatorInterface $translator;
 
-    public function __construct(Connection $connection, TranslatorInterface $translator)
-    {
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(
+        Connection $connection,
+        TranslatorInterface $translator,
+        FilterBuilderProvider $filterBuilderProvider
+    ) {
         $this->connection = $connection;
         $this->translator = $translator;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     /**
@@ -59,7 +66,7 @@ class DbalImportQuery implements ImportQueryInterface
         $qb->andWhere($qb->expr()->eq('source_id', ':sourceId'))
             ->setParameter('sourceId', $id->getValue());
 
-        return new DbalDataSet($qb);
+        return new DbalDataSet($qb, $this->filterBuilderProvider);
     }
 
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface
@@ -76,7 +83,7 @@ class DbalImportQuery implements ImportQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't')
             ->setParameter(':importId', $id->getValue());
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     /**

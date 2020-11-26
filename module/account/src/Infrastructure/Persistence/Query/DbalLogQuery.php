@@ -14,15 +14,19 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 class DbalLogQuery implements LogQueryInterface
 {
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(?UserId $id = null): DataSetInterface
@@ -38,7 +42,7 @@ class DbalLogQuery implements LogQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     private function getQuery(): QueryBuilder

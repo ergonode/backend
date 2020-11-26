@@ -11,15 +11,17 @@ namespace Ergonode\Grid;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Grid\Request\FilterValueCollection;
 
 class DbalDataSet extends AbstractDbalDataSet
 {
     protected QueryBuilder $queryBuilder;
 
-    public function __construct(QueryBuilder $queryBuilder)
+    public function __construct(QueryBuilder $queryBuilderProvider, FilterBuilderProvider $filterBuilderProvider)
     {
-        $this->queryBuilder = clone $queryBuilder;
+        $this->queryBuilder = clone $queryBuilderProvider;
+        parent::__construct($filterBuilderProvider);
     }
 
     /**

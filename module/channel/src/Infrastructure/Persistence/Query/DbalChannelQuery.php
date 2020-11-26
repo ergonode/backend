@@ -15,6 +15,7 @@ use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 
 class DbalChannelQuery implements ChannelQueryInterface
 {
@@ -22,14 +23,17 @@ class DbalChannelQuery implements ChannelQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(Language $language): DataSetInterface
     {
-        return new DbalDataSet($this->getQuery());
+        return new DbalDataSet($this->getQuery(), $this->filterBuilderProvider);
     }
 
     private function getQuery(): QueryBuilder

@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DbalLanguageQuery implements LanguageQueryInterface
@@ -41,10 +42,16 @@ class DbalLanguageQuery implements LanguageQueryInterface
 
     private TranslatorInterface $translator;
 
-    public function __construct(Connection $connection, TranslatorInterface $translator)
-    {
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(
+        Connection $connection,
+        TranslatorInterface $translator,
+        FilterBuilderProvider $filterBuilderProvider
+    ) {
         $this->connection = $connection;
         $this->translator = $translator;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(): DataSetInterface
@@ -61,7 +68,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     /**

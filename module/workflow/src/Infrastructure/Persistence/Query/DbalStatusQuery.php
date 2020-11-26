@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
@@ -25,12 +26,16 @@ class DbalStatusQuery implements StatusQueryInterface
 
     private WorkflowProvider $workflowProvider;
 
+    private FilterBuilderProvider $filterBuilderProvider;
+
     public function __construct(
         Connection $connection,
-        WorkflowProvider $workflowProvider
+        WorkflowProvider $workflowProvider,
+        FilterBuilderProvider $filterBuilderProvider
     ) {
         $this->connection = $connection;
         $this->workflowProvider = $workflowProvider;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(Language $language): DataSetInterface
@@ -45,7 +50,7 @@ class DbalStatusQuery implements StatusQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     /**

@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
@@ -24,9 +25,12 @@ class DbalTransitionQuery implements TransitionQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private FilterBuilderProvider $filterBuilderProvider;
+
+    public function __construct(Connection $connection, FilterBuilderProvider $filterBuilderProvider)
     {
         $this->connection = $connection;
+        $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
     public function getDataSet(WorkflowId $workflowId, Language $language): DataSetInterface
@@ -39,7 +43,7 @@ class DbalTransitionQuery implements TransitionQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
         $result->setParameter(':workflowId', $workflowId->getValue());
 
-        return new DbalDataSet($result);
+        return new DbalDataSet($result, $this->filterBuilderProvider);
     }
 
     public function hasStatus(WorkflowId $workflowId, StatusId $statusId): bool

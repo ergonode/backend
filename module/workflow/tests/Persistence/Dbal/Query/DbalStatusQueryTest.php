@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Tests\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\ResultStatement;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
@@ -36,7 +37,7 @@ class DbalStatusQueryTest extends TestCase
     /**
      * @var StatusRepositoryInterface|MockObject
      */
-    private $mockStatusRepository;
+    private $mockfilterBuilderProvider;
 
     private DbalStatusQuery $query;
 
@@ -44,12 +45,12 @@ class DbalStatusQueryTest extends TestCase
     {
         $this->mockConnection = $this->createMock(Connection::class);
         $this->mockWorkflowProvider = $this->createMock(WorkflowProvider::class);
-        $this->mockStatusRepository = $this->createMock(StatusRepositoryInterface::class);
+        $this->mockfilterBuilderProvider = $this->createMock(FilterBuilderProvider::class);
 
         $this->query = new DbalStatusQuery(
             $this->mockConnection,
             $this->mockWorkflowProvider,
-            $this->mockStatusRepository,
+            $this->mockfilterBuilderProvider,
         );
     }
 

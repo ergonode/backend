@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Grid\Application\DependencyInjection;
 
 use Ergonode\Grid\Application\DependencyInjection\CompilerPass\ColumnRendererCompilerPass;
+use Ergonode\Grid\Application\DependencyInjection\CompilerPass\FilterBuilderCompilerPass;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
+use Ergonode\Grid\Filter\Builder\FilterBuilderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -33,6 +35,10 @@ class ErgonodeGridExtension extends Extension
         $container
             ->registerForAutoconfiguration(ColumnRendererInterface::class)
             ->addTag(ColumnRendererCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(FilterBuilderInterface::class)
+            ->addTag(FilterBuilderCompilerPass::TAG);
 
         $loader->load('services.yaml');
     }
