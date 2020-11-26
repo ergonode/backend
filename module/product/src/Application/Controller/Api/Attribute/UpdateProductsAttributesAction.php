@@ -92,7 +92,6 @@ class UpdateProductsAttributesAction
             UpdateProductAttributeCollectionForm::class,
             null,
             ['method' => Request::METHOD_PATCH]
-
         );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
