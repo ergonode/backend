@@ -87,8 +87,9 @@ abstract class AbstractShopware6CustomFieldConfig
     public function setLabel(?array $label): void
     {
         if ($this->label) {
-            if (!empty(array_diff($this->label, $label))) {
-                $this->label = $label;
+            $newLabel = array_merge($this->label, $label);
+            if (!empty(array_diff($this->label, $newLabel))) {
+                $this->label = $newLabel;
                 $this->modified = true;
             }
         } else {
