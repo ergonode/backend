@@ -46,7 +46,7 @@ Feature: Product module
     And store response param "id" as "product_id"
 
   Scenario Outline: Update product attributes with product
-    When I send a POST request to "/api/v1/en_GB/products/attributes" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
           "data": [
@@ -79,7 +79,7 @@ Feature: Product module
       | "@product_id@" | "@attribute_id@" | "BAD"    | "errors.data.element-0.payload.element-0.values.element-0.language" |
 
   Scenario: Update attributes
-    When I send a POST request to "/api/v1/en_GB/products/attributes" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
        {
           "data": [
@@ -114,7 +114,7 @@ Feature: Product module
     | attributes.@attribute_code@.en_GB | test_GB |
 
   Scenario: Update attributes with null value
-    When I send a POST request to "/api/v1/en_GB/products/attributes" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
        {
           "data": [
