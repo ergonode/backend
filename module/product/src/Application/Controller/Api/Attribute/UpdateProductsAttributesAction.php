@@ -25,7 +25,7 @@ use Ergonode\Product\Application\Model\Product\Attribute\Update\UpdateProductAtt
  * @Route(
  *     name="ergonode_products_attributes_update",
  *     path="products/attributes",
- *     methods={"POST"},
+ *     methods={"PATCH"},
  *     requirements={
  *         "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
  *     }
@@ -88,7 +88,11 @@ class UpdateProductsAttributesAction
      */
     public function __invoke(Request $request): Response
     {
-        $form = $this->formFactory->create(UpdateProductAttributeCollectionForm::class);
+        $form = $this->formFactory->create(
+            UpdateProductAttributeCollectionForm::class,
+            null,
+            ['method' => Request::METHOD_PATCH]
+        );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UpdateProductAttributeCollectionFormModel $data */
