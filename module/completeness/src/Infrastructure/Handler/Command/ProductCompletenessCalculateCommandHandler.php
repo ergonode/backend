@@ -52,12 +52,14 @@ class ProductCompletenessCalculateCommandHandler
      */
     public function __invoke(ProductCompletenessCalculateCommand $command): void
     {
-        $product = $this->productRepository->load($command->getProductId());
+        $productId = $command->getProductId();
+        $product = $this->productRepository->load($productId);
+
         if ($product) {
             $template = $this->templateRepository->load($product->getTemplateId());
             if ($template) {
-                $this->manager->delete($product->getId());
                 $draft = $this->provider->provide($product);
+                $this->manager->delete($productId);
                 $languages = $this->query->getActive();
                 foreach ($languages as $language) {
                     $result = $this->calculator->calculate($draft, $template, $language);
@@ -73,6 +75,8 @@ class ProductCompletenessCalculateCommandHandler
                     }
                 }
             }
+        } else {
+            $this->manager->delete($productId);
         }
     }
 }
