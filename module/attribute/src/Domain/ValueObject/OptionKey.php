@@ -15,6 +15,6 @@ class OptionKey extends AbstractCode
 {
     public function __construct(string $value)
     {
-        parent::__construct(strtolower(trim($value)));
+        parent::__construct(strtolower($value));
     }
 }

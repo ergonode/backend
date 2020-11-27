@@ -14,6 +14,7 @@ use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductColle
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+
 /**
  * @deprecated
  */

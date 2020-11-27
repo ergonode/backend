@@ -22,6 +22,8 @@ class AttributeCode extends AbstractCode
 
     public static function isValid(string $value): bool
     {
+        $value = strtolower($value);
+
         return parent::isValid($value)
             && preg_match(self::PATTERN, $value);
     }

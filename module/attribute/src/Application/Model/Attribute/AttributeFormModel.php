@@ -9,8 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Model\Attribute;
 
-use Ergonode\Attribute\Application\Validator\AttributeCodeConstraint;
-use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
+use Ergonode\Attribute\Application\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AttributeFormModel
@@ -21,10 +20,10 @@ class AttributeFormModel
      *     groups={"Create"}
      *     )
      *
-     * @AttributeCodeConstraint(
+     * @AppAssert\AttributeCodeConstraint(
      *     groups={"Create"}
      * )
-     * @AppAssert\AttributeCode(
+     * @AppAssert\UniqueAttributeCodeConstraint(
      *     groups={"Create"}
      *     )
      */

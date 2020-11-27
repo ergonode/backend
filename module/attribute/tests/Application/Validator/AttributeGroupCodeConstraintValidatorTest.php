@@ -6,19 +6,19 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\SharedKernel\Tests\Application\Validator;
+namespace Ergonode\Attribute\Tests\Application\Validator;
 
-use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
-use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraintValidator;
+use Ergonode\Attribute\Application\Validator\AttributeGroupCodeConstraint;
+use Ergonode\Attribute\Application\Validator\AttributeGroupCodeConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class SystemCodeConstraintValidatorTest extends ConstraintValidatorTestCase
+class AttributeGroupCodeConstraintValidatorTest extends ConstraintValidatorTestCase
 {
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\UnexpectedTypeException::class);
-        $this->validator->validate(new \stdClass(), new SystemCodeConstraint());
+        $this->validator->validate(new \stdClass(), new AttributeGroupCodeConstraint());
     }
 
     public function testWrongConstraintProvided(): void
@@ -31,21 +31,21 @@ class SystemCodeConstraintValidatorTest extends ConstraintValidatorTestCase
 
     public function testCorrectEmptyValidation(): void
     {
-        $this->validator->validate('', new SystemCodeConstraint());
+        $this->validator->validate('', new AttributeGroupCodeConstraint());
 
         $this->assertNoViolation();
     }
 
     public function testCorrectValueValidation(): void
     {
-        $this->validator->validate('code', new SystemCodeConstraint());
+        $this->validator->validate('code', new AttributeGroupCodeConstraint());
 
         $this->assertNoViolation();
     }
 
     public function testInCorrectLongValueValidation(): void
     {
-        $constraint = new SystemCodeConstraint();
+        $constraint = new AttributeGroupCodeConstraint();
         $value = 'CODE_NOT_VALID_'.str_repeat('a', 114);
         $this->validator->validate($value, $constraint);
 
@@ -55,7 +55,7 @@ class SystemCodeConstraintValidatorTest extends ConstraintValidatorTestCase
 
     public function testInCorrectShortValueValidation(): void
     {
-        $constraint = new SystemCodeConstraint();
+        $constraint = new AttributeGroupCodeConstraint();
         $value = ' ';
         $this->validator->validate($value, $constraint);
 
@@ -63,8 +63,17 @@ class SystemCodeConstraintValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    protected function createValidator(): SystemCodeConstraintValidator
+    public function testAttributeGroupCodeInvalidValidation(): void
     {
-        return new SystemCodeConstraintValidator();
+        $value = 'fes//efs..';
+        $this->validator->validate($value, new AttributeGroupCodeConstraint());
+        $constraint = new AttributeGroupCodeConstraint();
+        $assertion = $this->buildViolation($constraint->regexMessage);
+        $assertion->assertRaised();
+    }
+
+    protected function createValidator(): AttributeGroupCodeConstraintValidator
+    {
+        return new AttributeGroupCodeConstraintValidator();
     }
 }

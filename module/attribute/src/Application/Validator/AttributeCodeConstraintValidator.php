@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Validator;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class AttributeCodeConstraintValidator  extends ConstraintValidator
+class AttributeCodeConstraintValidator extends ConstraintValidator
 {
     /**
      * @param mixed                        $value
@@ -33,7 +33,7 @@ class AttributeCodeConstraintValidator  extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        $value = (string)trim($value);
+        $value = trim((string) $value);
         if (!AttributeCode::isValid($value)) {
             if (mb_strlen($value) >= $constraint->max) {
                 $this->context->buildViolation($constraint->maxMessage)
@@ -50,7 +50,7 @@ class AttributeCodeConstraintValidator  extends ConstraintValidator
 
                 return;
             }
-            if( preg_match($constraint->pattern, $value)){
+            if (!preg_match($constraint->pattern, $value)) {
                 $this->context->buildViolation($constraint->regexMessage)
                     ->addViolation();
 

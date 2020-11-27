@@ -13,7 +13,7 @@ use Ergonode\SharedKernel\Domain\AbstractCode;
 
 class AttributeGroupCode extends AbstractCode
 {
-    private const PATTERN = '/^([a-z0-9_]+)$/';
+    public const PATTERN = '/^([a-z0-9_]+)$/';
 
     public function __construct(string $value)
     {
@@ -22,6 +22,8 @@ class AttributeGroupCode extends AbstractCode
 
     public static function isValid(string $value): bool
     {
+        $value = strtolower($value);
+
         return parent::isValid($value)
             && preg_match(self::PATTERN, $value);
     }

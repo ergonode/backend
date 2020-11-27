@@ -6,23 +6,23 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\SharedKernel\Application\Validator;
+namespace Ergonode\Attribute\Application\Validator;
 
-use Ergonode\SharedKernel\Domain\AbstractCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class SystemCodeConstraintValidator extends ConstraintValidator
+class AttributeGroupCodeConstraintValidator extends ConstraintValidator
 {
     /**
-     * @param mixed                        $value
-     * @param SystemCodeConstraint|Constraint $constraint
+     * @param mixed                              $value
+     * @param AttributeCodeConstraint|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof SystemCodeConstraint) {
-            throw new UnexpectedTypeException($constraint, SystemCodeConstraint::class);
+        if (!$constraint instanceof AttributeGroupCodeConstraint) {
+            throw new UnexpectedTypeException($constraint, AttributeGroupCodeConstraint::class);
         }
 
         if (null === $value || '' === $value) {
@@ -34,7 +34,7 @@ class SystemCodeConstraintValidator extends ConstraintValidator
         }
 
         $value = trim((string) $value);
-        if (!AbstractCode::isValid($value)) {
+        if (!AttributeGroupCode::isValid($value)) {
             if (mb_strlen($value) >= $constraint->max) {
                 $this->context->buildViolation($constraint->maxMessage)
                     ->setParameter('{{ limit }}', $constraint->max)
@@ -46,6 +46,12 @@ class SystemCodeConstraintValidator extends ConstraintValidator
             if (mb_strlen($value) <= $constraint->min) {
                 $this->context->buildViolation($constraint->minMessage)
                     ->setParameter('{{ limit }}', $constraint->min)
+                    ->addViolation();
+
+                return;
+            }
+            if (!preg_match($constraint->pattern, $value)) {
+                $this->context->buildViolation($constraint->regexMessage)
                     ->addViolation();
 
                 return;

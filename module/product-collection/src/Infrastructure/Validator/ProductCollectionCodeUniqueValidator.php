@@ -46,8 +46,7 @@ class ProductCollectionCodeUniqueValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
-
-        if(!ProductCollectionCode::isValid($value)){
+        if (!ProductCollectionCode::isValid($value)) {
             return;
         }
 

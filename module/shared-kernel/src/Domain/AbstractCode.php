@@ -18,7 +18,7 @@ abstract class AbstractCode
     /**
      * @JMS\Type("string")
      */
-    protected string $value;
+    private string $value;
 
     public function __construct(string $value)
     {

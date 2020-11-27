@@ -13,7 +13,7 @@ use Ergonode\SharedKernel\Domain\AbstractCode;
 
 class CategoryCode extends AbstractCode
 {
-    private const PATTERN = '/^[a-zA-Z0-9-_]+$\b/i';
+    public const PATTERN = '/^[a-zA-Z0-9-_]+$\b/i';
 
     public static function isValid(string $value): bool
     {

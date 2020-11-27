@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
+ * @deprecated
  */
 class AttributeCode extends Constraint
 {

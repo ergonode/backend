@@ -1,23 +1,20 @@
 <?php
-
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Infrastructure\Validator;
+namespace Ergonode\Attribute\Application\Validator;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-/**
- * * @deprecated
- */
-class AttributeCodeValidator extends ConstraintValidator
+class UniqueAttributeCodeConstraintValidator extends ConstraintValidator
 {
     private AttributeQueryInterface $query;
 
@@ -27,13 +24,13 @@ class AttributeCodeValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed                    $value
-     * @param AttributeCode|Constraint $constraint
+     * @param mixed                                    $value
+     * @param UniqueAttributeCodeConstraint|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof AttributeCode) {
-            throw new UnexpectedTypeException($constraint, AttributeCode::class);
+        if (!$constraint instanceof UniqueAttributeCodeConstraint) {
+            throw new UnexpectedTypeException($constraint, UniqueAttributeCodeConstraint::class);
         }
 
         if (null === $value || '' === $value) {
@@ -45,21 +42,13 @@ class AttributeCodeValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
-
-        if (!\Ergonode\Attribute\Domain\ValueObject\AttributeCode::isValid($value)) {
-            $this->context->buildViolation($constraint->validMessage)
-                ->setParameter('{{ value }}', $value)
-                ->addViolation();
-
+        if (!AttributeCode::isValid($value)) {
             return;
         }
 
-        // @todo split into two different validators if possible
-        $attribute = $this->query->checkAttributeExistsByCode(
-            new \Ergonode\Attribute\Domain\ValueObject\AttributeCode($value)
-        );
-
-        if ($attribute) {
+        if ($this->query->checkAttributeExistsByCode(
+            new AttributeCode($value)
+        )) {
             $this->context->buildViolation($constraint->uniqueMessage)
                 ->addViolation();
         }
