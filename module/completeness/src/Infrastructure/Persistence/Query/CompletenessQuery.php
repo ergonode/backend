@@ -100,8 +100,8 @@ class CompletenessQuery implements CompletenessQueryInterface
         $sqba = $this->connection->createQueryBuilder();
         $sqba->select('c.product_id, c.language')
             ->addSelect('(CASE WHEN c.required <= c.filled THEN true ELSE false END) AS completed')
-            ->join('c', 'product', 'p' ,' p.id = c.product_id')
-            ->from(self::TABLE,'c');
+            ->join('c', 'product', 'p', ' p.id = c.product_id')
+            ->from(self::TABLE, 'c');
 
         $sqbb = $this->connection->createQueryBuilder()
             ->select('product_id, language')
