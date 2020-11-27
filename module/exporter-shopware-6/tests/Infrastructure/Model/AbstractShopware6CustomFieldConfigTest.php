@@ -46,7 +46,7 @@ class AbstractShopware6CustomFieldConfigTest extends TestCase
 
         $model->setType($this->type);
         $model->setCustomFieldType($this->customFieldType);
-        $model->setLabel($this->label);
+        $model->mergeLabel($this->label);
         $model->setComponentName($this->componentName);
 
 

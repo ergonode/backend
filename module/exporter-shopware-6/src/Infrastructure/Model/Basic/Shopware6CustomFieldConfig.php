@@ -92,8 +92,9 @@ class Shopware6CustomFieldConfig extends AbstractShopware6CustomFieldConfig
     {
         foreach ($this->options as &$currentOption) {
             if ($currentOption['value'] === $option['value']) {
-                if (!empty(array_diff($currentOption['label'], $option['label']))) {
-                    $currentOption['label'] = $option['label'];
+                $newLabel = array_merge($currentOption['label'], $option['label']);
+                if (!empty(array_diff_assoc($currentOption['label'], $newLabel))) {
+                    $currentOption['label'] = $newLabel;
                     $this->modified = true;
                 }
 
