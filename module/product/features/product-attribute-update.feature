@@ -70,13 +70,15 @@ Feature: Product module
     Then the response status code should be 400
     And the JSON node <error> should exist
     Examples:
-      | product_id     | attribute_id     | language | error                         |
-      | null           | "@attribute_id@" | "en_EN"  | "errors.data.element-0.id"                   |
-      | "NOT UUID"     | "@attribute_id@" | "en_EN"  | "errors.data.element-0.id"                   |
-      | "@product_id@" | null             | "en_EN"  | "errors.data.element-0.payload.element-0.id" |
-      | "@product_id@" | "NOT UUID"       | "en_EN"  | "errors.data.element-0.payload.element-0.id" |
-      | "@product_id@" | "@attribute_id@" | null     | "errors.data.element-0.payload.element-0.values.element-0.language" |
-      | "@product_id@" | "@attribute_id@" | "BAD"    | "errors.data.element-0.payload.element-0.values.element-0.language" |
+      | product_id        | attribute_id      | language | error                                                               |
+      | null              | "@attribute_id@"  | "en_EN"  | "errors.data.element-0.id"                                          |
+      | "NOT UUID"        | "@attribute_id@"  | "en_EN"  | "errors.data.element-0.id"                                          |
+      | "@@random_uuid@@" | "@attribute_id@"  | "en_EN"  | "errors.data.element-0.id"                                          |
+      | "@product_id@"    | null              | "en_EN"  | "errors.data.element-0.payload.element-0.id"                        |
+      | "@product_id@"    | "NOT UUID"        | "en_EN"  | "errors.data.element-0.payload.element-0.id"                        |
+      | "@product_id@"    | "@@random_uuid@@" | "en_EN"  | "errors.data.element-0.payload.element-0.id"                        |
+      | "@product_id@"    | "@attribute_id@"  | null     | "errors.data.element-0.payload.element-0.values.element-0.language" |
+      | "@product_id@"    | "@attribute_id@"  | "BAD"    | "errors.data.element-0.payload.element-0.values.element-0.language" |
 
   Scenario: Update attributes
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -110,8 +112,8 @@ Feature: Product module
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 200
     And the JSON nodes should contain:
-    | attributes.@attribute_code@.pl_PL | test_PL |
-    | attributes.@attribute_code@.en_GB | test_GB |
+      | attributes.@attribute_code@.pl_PL | test_PL |
+      | attributes.@attribute_code@.en_GB | test_GB |
 
   Scenario: Update attributes with null value
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
@@ -196,3 +198,33 @@ Feature: Product module
     When I send a GET request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 200
     And the JSON node "attributes.@attribute_code@" should not exist
+
+  Scenario Outline: Delete product attributes with product
+    When I send a DELETE request to "/api/v1/en_GB/products/attributes" with body:
+      """
+        {
+          "data": [
+           {
+              "id": <product_id>,
+              "payload": [
+                {
+                  "id": <attribute_id>,
+                  "languages" : [<language>]
+                }
+              ]
+            }
+          ]
+        }
+      """
+    Then the response status code should be 400
+    And the JSON node <error> should exist
+    Examples:
+      | product_id        | attribute_id      | language | error                                                         |
+      | null              | "@attribute_id@"  | "en_EN"  | "errors.data.element-0.id"                                    |
+      | "NOT UUID"        | "@attribute_id@"  | "en_EN"  | "errors.data.element-0.id"                                    |
+      | "@@random_uuid@@" | "@attribute_id@"  | "en_EN"  | "errors.data.element-0.id"                                    |
+      | "@product_id@"    | null              | "en_EN"  | "errors.data.element-0.payload.element-0.id"                  |
+      | "@product_id@"    | "NOT UUID"        | "en_EN"  | "errors.data.element-0.payload.element-0.id"                  |
+      | "@product_id@"    | "@@random_uuid@@" | "en_EN"  | "errors.data.element-0.payload.element-0.id"                  |
+      | "@product_id@"    | "@attribute_id@"  | null     | "errors.data.element-0.payload.element-0.languages.element-0" |
+      | "@product_id@"    | "@attribute_id@"  | "BAD"    | "errors.data.element-0.payload.element-0.languages.element-0" |
