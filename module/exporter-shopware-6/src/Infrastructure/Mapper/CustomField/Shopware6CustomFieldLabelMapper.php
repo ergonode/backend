@@ -53,7 +53,7 @@ class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInter
                 );
         }
 
-        $shopware6CustomField->getConfig()->setLabel($label);
+        $shopware6CustomField->getConfig()->mergeLabel($label);
 
         return $shopware6CustomField;
     }

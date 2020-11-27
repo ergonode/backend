@@ -84,7 +84,7 @@ abstract class AbstractShopware6CustomFieldConfig
         return $this->label;
     }
 
-    public function setLabel(?array $label): void
+    public function mergeLabel(?array $label): void
     {
         if ($this->label) {
             $newLabel = array_merge($this->label, $label);
