@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
+ * @deprecated
  */
 class ProductCollectionCodeValid extends Constraint
 {
