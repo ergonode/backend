@@ -91,7 +91,11 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                     VALUES (
                         :aggregateId,
                          COALESCE(
-                            ((SELECT sequence FROM event_store WHERE aggregate_id = :aggregateId ORDER BY sequence DESC LIMIT 1) + 1),
+                            (
+                                (SELECT sequence FROM event_store WHERE aggregate_id = :aggregateId
+                                    ORDER BY sequence DESC LIMIT 1
+                                ) + 1
+                            ),
                             1
                         ),
                         :eventId,
