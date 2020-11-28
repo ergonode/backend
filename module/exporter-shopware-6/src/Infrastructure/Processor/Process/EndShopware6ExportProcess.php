@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 class EndShopware6ExportProcess
 {
-    public function process(ExportId $id, AbstractChannel $channel): void
+    public function process(Export $export, AbstractChannel $channel): void
     {
     }
 }

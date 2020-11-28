@@ -49,6 +49,6 @@ class ProductShopware6ExportCommandHandler
         $product = $this->productRepository->load($command->getProductId());
         Assert::isInstanceOf($product, AbstractProduct::class);
 
-        $this->process->process($export->getId(), $channel, $product);
+        $this->process->process($export, $channel, $product);
     }
 }

@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -18,15 +19,18 @@ use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CustomFieldBuilde
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldClient;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldSetClient;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomFieldSet;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldSetConfig;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldSet;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use GuzzleHttp\Exception\ClientException;
 use Webmozart\Assert\Assert;
 
 class CustomFiledShopware6ExportProcess
 {
+    private const CUSTOM_FIELD_SET_NAME = 'ergonode';
+
     private Shopware6CustomFieldRepositoryInterface $customFieldRepository;
 
     private Shopware6CustomFieldClient $customFieldClient;
@@ -54,16 +58,16 @@ class CustomFiledShopware6ExportProcess
     /**
      * @throws \Exception
      */
-    public function process(ExportId $id, Shopware6Channel $channel, AbstractAttribute $attribute): void
+    public function process(Export $export, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
-        $exportLine = new ExportLine($id, $attribute->getId());
+        $exportLine = new ExportLine($export->getId(), $attribute->getId());
         $customField = $this->loadCustomField($channel, $attribute);
         try {
             if ($customField) {
-                $this->updateCustomField($channel, $customField, $attribute);
+                $this->updateCustomField($channel, $export, $customField, $attribute);
             } else {
                 $customField = new Shopware6CustomField();
-                $this->builder->build($channel, $customField, $attribute);
+                $this->builder->build($channel, $export, $customField, $attribute);
                 if ($customField->getCustomFieldSetId() === null) {
                     $customFieldSet = $this->loadCustomFieldSet($channel, $attribute);
                     $customField->setCustomFieldSetId($customFieldSet->getId());
@@ -82,12 +86,13 @@ class CustomFiledShopware6ExportProcess
 
     private function updateCustomField(
         Shopware6Channel $channel,
+        Export $export,
         Shopware6CustomField $customField,
         AbstractAttribute $attribute,
         ?Language $language = null,
         ?Shopware6Language $shopwareLanguage = null
     ): void {
-        $this->builder->build($channel, $customField, $attribute, $language);
+        $this->builder->build($channel, $export, $customField, $attribute, $language);
 
         if ($customField->isModified()) {
             $this->customFieldClient->update($channel, $customField, $shopwareLanguage);
@@ -113,15 +118,24 @@ class CustomFiledShopware6ExportProcess
     private function loadCustomFieldSet(
         Shopware6Channel $channel,
         AbstractAttribute $attribute
-    ): Shopware6CustomFieldSet {
-        $customFieldSet = $this->customFieldSetClient->findByCode($channel, 'ergonode');
+    ): AbstractShopware6CustomFieldSet {
+        $customFieldSet = $this->customFieldSetClient->findByCode($channel, self::CUSTOM_FIELD_SET_NAME);
         if ($customFieldSet) {
             return $customFieldSet;
         }
+        $label = [
+            str_replace('_', '-', $channel->getDefaultLanguage()->getCode()) => self::CUSTOM_FIELD_SET_NAME,
+        ];
+
+        $config = new Shopware6CustomFieldSetConfig(
+            true,
+            $label
+        );
 
         $customFieldSet = new Shopware6CustomFieldSet(
             null,
-            'ergonode',
+            self::CUSTOM_FIELD_SET_NAME,
+            $config,
             [
                 [
                     'entityName' => 'product',

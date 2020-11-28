@@ -28,7 +28,7 @@
         "mhujer/jms-serializer-uuid": "^3.1",
         "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.6",
-        "nelmio/cors-bundle": "^1.5",
+        "nelmio/cors-bundle": "^2.0",
         "nette/php-generator": "^3.2",
         "phing/phing": "^2.16",
         "ramsey/collection": "^1.1",

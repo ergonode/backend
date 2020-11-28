@@ -49,6 +49,6 @@ class CustomFieldShopware6ExportCommandHandler
         $attribute = $this->attributeRepository->load($command->getAttributeId());
         Assert::isInstanceOf($attribute, AbstractAttribute::class);
 
-        $this->process->process($export->getId(), $channel, $attribute);
+        $this->process->process($export, $channel, $attribute);
     }
 }

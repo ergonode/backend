@@ -11,6 +11,7 @@ namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
 use Ergonode\Condition\Domain\Condition\ProductHasStatusCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
+use Ergonode\Core\Infrastructure\Validator\Constraint\LanguageCodeExists;
 use Ergonode\Workflow\Infrastructure\Validator\StatusIdNotExists;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -40,6 +41,14 @@ class ProductHasStatusConditionValidatorStrategy implements ConditionValidatorSt
                     new Assert\Count(['min' => 1]),
                     new Assert\All([
                         new StatusIdNotExists(),
+                    ]),
+                ],
+                'language' => [
+                    new Assert\NotBlank(),
+                    new Assert\Type('array'),
+                    new Assert\Count(['min' => 1]),
+                    new Assert\All([
+                        new LanguageCodeExists(),
                     ]),
                 ],
             ]
