@@ -144,6 +144,8 @@ class EventStoreManagerTest extends TestCase
 
     /**
      * @dataProvider queryResult
+     *
+     * @param mixed $result
      */
     public function testShouldCheckIfClassExists($result, bool $expected): void
     {
@@ -169,7 +171,7 @@ class EventStoreManagerTest extends TestCase
         return [
             [[], false],
             [null, false],
-            ['column', true]
+            ['column', true],
         ];
     }
 
