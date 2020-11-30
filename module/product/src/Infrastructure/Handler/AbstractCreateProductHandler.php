@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Handler;
 
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -24,8 +23,6 @@ abstract class AbstractCreateProductHandler
 {
     protected ProductRepositoryInterface $productRepository;
 
-    protected TokenStorageInterface   $tokenStorage;
-
     protected WorkflowProvider $provider;
 
     protected LanguageQueryInterface $query;
@@ -34,13 +31,11 @@ abstract class AbstractCreateProductHandler
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        TokenStorageInterface $tokenStorage,
         WorkflowProvider $provider,
         LanguageQueryInterface $query,
         Security $security
     ) {
         $this->productRepository = $productRepository;
-        $this->tokenStorage = $tokenStorage;
         $this->provider = $provider;
         $this->query = $query;
         $this->security = $security;
