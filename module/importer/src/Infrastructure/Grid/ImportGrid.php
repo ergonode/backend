@@ -66,6 +66,6 @@ class ImportGrid extends AbstractGrid
                 ],
             ],
         ]));
-        $this->orderBy('created_at', 'ASC');
+        $this->orderBy('created_at', 'DESC');
     }
 }
