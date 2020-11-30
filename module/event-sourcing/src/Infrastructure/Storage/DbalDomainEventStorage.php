@@ -77,6 +77,10 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
      */
     public function append(AggregateId $id, DomainEventStream $stream, string $name = null): int
     {
+        if (0 === $stream->count()) {
+            throw new \DomainException('Cannot append empty events stream.');
+        }
+
         return $this->connection->transactional(function () use ($id, $stream, $name): int {
             $table = $name ?: self::TABLE;
             $token = $this->tokenStorage->getToken();
@@ -119,7 +123,8 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                 $sequence = $stmt->fetchColumn();
             }
 
-            return $sequence ?? 0;
+            /** @phpstan-ignore-next-line */
+            return $sequence;
         });
     }
 
