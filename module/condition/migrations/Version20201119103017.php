@@ -13,7 +13,6 @@ use Doctrine\DBAL\Schema\Schema;
 
 class Version20201119103017 extends AbstractErgonodeMigration
 {
-
     public function up(Schema $schema): void
     {
 
@@ -42,7 +41,9 @@ class Version20201119103017 extends AbstractErgonodeMigration
                             (SELECT jsonb_agg(iso) FROM language WHERE active = true) AS languages
                     FROM event_store,
                         jsonb_array_elements(payload->\'conditions\') WITH ORDINALITY arr(item_object, position)
-                    WHERE arr.item_object::jsonb ->> \'type\' = \'PRODUCT_HAS_STATUS_CONDITION\')
+                    WHERE event_id = (SELECT id FROM event_store_event 
+                        WHERE event_class = \'Ergonode\Condition\Domain\Event\ConditionCreateEvent\')
+                    AND arr.item_object::jsonb ->> \'type\' = \'PRODUCT_HAS_STATUS_CONDITION\')
                 UPDATE event_store
                 SET payload = jsonb_set(
                             payload,
