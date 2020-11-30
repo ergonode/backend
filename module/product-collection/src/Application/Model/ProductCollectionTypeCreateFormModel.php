@@ -23,7 +23,7 @@ class ProductCollectionTypeCreateFormModel
      *     message="Product collection type can have only letters, digits or underscore symbol"
      *  )
      *
-     * @SystemCodeConstraint()
+     * @SystemCodeConstraint(max=64)
      *
      * @ProductCollectionCodeUnique()
      */

@@ -16,8 +16,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class AttributeGroupCodeConstraintValidator extends ConstraintValidator
 {
     /**
-     * @param mixed                              $value
-     * @param AttributeCodeConstraint|Constraint $constraint
+     * @param mixed                                   $value
+     * @param AttributeGroupCodeConstraint|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {

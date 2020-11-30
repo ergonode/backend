@@ -20,7 +20,7 @@ class StatusCreateFormModel
      * @Assert\NotBlank()
      * @Assert\Regex(pattern="/^[a-zA-Z0-9-_ ]+$\b/i")
      *
-     * @SystemCodeConstraint()
+     * @SystemCodeConstraint(max=100)
      * @ErgoAssert\StatusCodeUnique()
      */
     public ?string $code;

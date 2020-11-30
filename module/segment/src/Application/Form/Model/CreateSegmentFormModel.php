@@ -23,7 +23,7 @@ class CreateSegmentFormModel
     /**
      * @Assert\NotBlank(message="System name is required")
      *
-     * @SystemCodeConstraint()
+     * @SystemCodeConstraint(max="100")
      * @UniqueSegmentCode()
      */
     public ?string $code;
