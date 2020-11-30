@@ -8,16 +8,15 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
+use Ergonode\Account\Application\Security\Security;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Symfony\Component\Security\Core\Security;
 
 abstract class AbstractCreateProductHandler
 {
@@ -68,7 +67,6 @@ abstract class AbstractCreateProductHandler
      */
     protected function addAudit(array $attributes): array
     {
-        /** @var User $user */
         $user = $this->security->getUser();
         if ($user) {
             $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));

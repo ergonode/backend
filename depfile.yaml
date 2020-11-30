@@ -94,7 +94,7 @@ ruleset:
   Core:
     - Api
     - Attribute # todo to remove
-    - EventSourcing # todo to remove
+    - EventSourcing
     - Product # todo to remove
   Importer:
     - Api
@@ -110,8 +110,7 @@ ruleset:
     - Importer
     - Product
   EventSourcing:
-    - Account # todo to remove
-    - Core
+    - Core # todo to remove
   Exporter:
     - Core
     - EventSourcing
