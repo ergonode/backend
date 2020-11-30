@@ -123,8 +123,7 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                 $sequence = $stmt->fetchColumn();
             }
 
-            /** @phpstan-ignore-next-line */
-            return $sequence;
+            return $sequence; /** @phpstan-ignore-line */
         });
     }
 
