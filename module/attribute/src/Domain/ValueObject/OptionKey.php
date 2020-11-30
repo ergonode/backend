@@ -17,4 +17,9 @@ class OptionKey extends AbstractCode
     {
         parent::__construct(strtolower($value));
     }
+
+    public static function isValid(string $value): bool
+    {
+        return parent::isValid(strtolower($value));
+    }
 }

@@ -34,23 +34,22 @@ class SystemCodeConstraintValidator extends ConstraintValidator
         }
 
         $value = trim((string) $value);
+        if (mb_strlen($value) >= $constraint->max) {
+            $this->context->buildViolation($constraint->maxMessage)
+                ->setParameter('{{ limit }}', $constraint->max)
+                ->addViolation();
+
+            return;
+        }
+
+        if (mb_strlen($value) <= $constraint->min) {
+            $this->context->buildViolation($constraint->minMessage)
+                ->setParameter('{{ limit }}', $constraint->min)
+                ->addViolation();
+
+            return;
+        }
         if (!AbstractCode::isValid($value)) {
-            if (mb_strlen($value) >= $constraint->max) {
-                $this->context->buildViolation($constraint->maxMessage)
-                    ->setParameter('{{ limit }}', $constraint->max)
-                    ->addViolation();
-
-                return;
-            }
-
-            if (mb_strlen($value) <= $constraint->min) {
-                $this->context->buildViolation($constraint->minMessage)
-                    ->setParameter('{{ limit }}', $constraint->min)
-                    ->addViolation();
-
-                return;
-            }
-
             $this->context->buildViolation($constraint->validMessage)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

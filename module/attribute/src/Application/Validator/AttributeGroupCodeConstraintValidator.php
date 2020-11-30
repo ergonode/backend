@@ -34,29 +34,30 @@ class AttributeGroupCodeConstraintValidator extends ConstraintValidator
         }
 
         $value = trim((string) $value);
+        if (mb_strlen($value) >= $constraint->max) {
+            $this->context->buildViolation($constraint->maxMessage)
+                ->setParameter('{{ limit }}', $constraint->max)
+                ->addViolation();
+
+            return;
+        }
+
+        if (mb_strlen($value) <= $constraint->min) {
+            $this->context->buildViolation($constraint->minMessage)
+                ->setParameter('{{ limit }}', $constraint->min)
+                ->addViolation();
+
+            return;
+        }
+
+        if (!preg_match($constraint->pattern, $value)) {
+            $this->context->buildViolation($constraint->regexMessage)
+                ->addViolation();
+
+            return;
+        }
+
         if (!AttributeGroupCode::isValid($value)) {
-            if (mb_strlen($value) >= $constraint->max) {
-                $this->context->buildViolation($constraint->maxMessage)
-                    ->setParameter('{{ limit }}', $constraint->max)
-                    ->addViolation();
-
-                return;
-            }
-
-            if (mb_strlen($value) <= $constraint->min) {
-                $this->context->buildViolation($constraint->minMessage)
-                    ->setParameter('{{ limit }}', $constraint->min)
-                    ->addViolation();
-
-                return;
-            }
-            if (!preg_match($constraint->pattern, $value)) {
-                $this->context->buildViolation($constraint->regexMessage)
-                    ->addViolation();
-
-                return;
-            }
-
             $this->context->buildViolation($constraint->validMessage)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

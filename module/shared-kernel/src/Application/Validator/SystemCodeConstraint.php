@@ -20,7 +20,7 @@ class SystemCodeConstraint extends Constraint
 
     public string $maxMessage = 'System name is too long. It should contain {{ limit }} characters or less.';
 
-    public string $validMessage = 'Is not valid code';
+    public string $validMessage = 'Is not valid code - {{ value }}';
 
     public int $min = AbstractCode::MIN_LENGTH;
 
