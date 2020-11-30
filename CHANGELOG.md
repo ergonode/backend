@@ -1,3 +1,20 @@
+## CHANGELOG FOR 1.0.0-beta.5
+- feature #974 Update Symfony packages (piotrkreft)
+- feature #980 Update nelmio cors-bundle (wfajczyk)
+- refactor #951 Removed from field from events (piotrkreft)
+- refactor #970 Change interface in shopware6 export (wfajczyk)
+- refactor #972 Standardized date formatting on grid (piotrkreft)
+- refactor #977 Shopware6 customfield (wfajczyk)
+- improvement #960 Add mass product (wfajczyk)
+- bugfix #964 Adding langauge to product has status condition (wiewiurdp)
+- bugfix #975 Shopware6 multimedia create/duplicate name problem (wfajczyk)
+- bugfix #973 Fixing ProductAttribute Relationshop streategy (wiewiurdp)
+- bugfix #981 Remove unnecesery "has status" condition from workflow (rprzedzik)
+- bugfix #983 Add missing DeleteProductEventProjector (rprzedzik)
+- bugfix #984 Fix remove completness information after product deletion (rprzedzik)
+- bugfix #987 Shopware6 Customfield Translate (wfajczyk)
+- bugfix #991 Fix completnes query (rprzedzik)
+
 ## CHANGELOG FOR 1.0.0-beta.4
 - bugfix #965 clear old data currency and tax in db (wfajczyk)
 - bugfix #961 Empty root value (wfajczyk)
