@@ -8,9 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Exception;
 
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
-
-class ImportException extends ExportException
+class ImportException extends \Exception
 {
     /**
      * @var string[]

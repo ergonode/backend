@@ -1,0 +1,102 @@
+paths:
+  - ./module
+exclude_files:
+  - .*test.*
+layers:
+  - name: Api
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Api\\.*
+  - name: Attribute
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Attribute\\.*
+  - name: Comment
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Comment\\.*
+  - name: Completeness
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Completeness\\.*
+  - name: EventSourcing
+    collectors:
+      - type: className
+        regex: .*Ergonode\\EventSourcing\\.*
+  - name: Importer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Importer\\.*
+  - name: Importer-Magento-1
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterMagento1\\.*
+  - name: Exporter
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Exporter\\.*
+  - name: ExporterFile
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ExporterFile\\.*
+  - name: Notification
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Notification\\.*
+  - name: Product
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Product\\.*
+  - name: ProductCollection
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ProductCollection\\.*
+  - name: TranslationDeepl
+    collectors:
+      - type: className
+        regex: .*Ergonode\\TranslationDeepl\\.*
+ruleset:
+  Attribute:
+    - Api
+    - EventSourcing
+  Comment:
+    - Api
+    - EventSourcing
+  Completeness:
+    - Api
+    - Attribute
+    - EventSourcing
+    - Product
+  Importer:
+    - Api
+    - Attribute
+    - EventSourcing
+    - Notification
+    - Product
+  Importer-Magento-1:
+    - Attribute
+    - EventSourcing
+    - Importer
+    - Product
+  Exporter:
+    - EventSourcing
+    - Product
+  ExporterFile:
+    - Attribute
+    - Exporter
+    - EventSourcing
+    - Product
+  Notification:
+    - Api
+    - EventSourcing
+  Product:
+    - Api
+    - Attribute
+    - EventSourcing
+  ProductCollection:
+    - Api
+    - Attribute
+    - EventSourcing
+    - Product
+  TranslationDeepl:
+    - Api
