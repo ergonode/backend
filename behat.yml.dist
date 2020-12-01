@@ -44,7 +44,7 @@ default:
                     userProvider: '@Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
                 - Ergonode\Core\Test\Behat\Context\ResolveVarsContext
                 - Ergonode\Core\Test\Behat\Context\ApiAuthContext:
-                    authenticator: '@Ergonode\Core\Test\Behat\Service\RequestAuthenticatorInterface'
+                    authenticator: '@Ergonode\Authentication\Test\Behat\Service\RequestAuthenticator'
                     request: '@Behatch\HttpCall\Request'
                 - Ergonode\Core\Test\Behat\Context\ApiAuthTokenContext:
                     request: '@Behatch\HttpCall\Request'
