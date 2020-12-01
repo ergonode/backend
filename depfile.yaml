@@ -1,7 +1,5 @@
 paths:
   - ./module
-exclude_files:
-  - .*test.*
 layers:
   - name: Account
     collectors:
