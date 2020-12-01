@@ -39,7 +39,8 @@ default:
                 - module/workflow/features
 
             contexts:
-                - Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext
+                - Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext:
+                    storageContext: '@Ergonode\Core\Test\Behat\Context\StorageContext'
                 - Ergonode\Core\Test\Behat\Context\UserContext:
                     userProvider: '@Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
                 - Ergonode\Core\Test\Behat\Context\ResolveVarsContext
