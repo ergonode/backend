@@ -9,11 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\User;
 
-use Ergonode\Account\Domain\Entity\UserInterface;
+use Ergonode\Core\Domain\User\UserInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 class User implements UserInterface
 {
-    private string $id;
+    private UserId $id;
     private string $password;
     private array $roles;
     private bool $active;
@@ -22,7 +23,7 @@ class User implements UserInterface
      * @param array $roles
      */
     public function __construct(
-        string $id,
+        UserId $id,
         string $password,
         array $roles,
         bool $active
@@ -33,7 +34,7 @@ class User implements UserInterface
         $this->active = $active;
     }
 
-    public function getId(): string
+    public function getId(): UserId
     {
         return $this->id;
     }
@@ -83,5 +84,10 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    public function getLanguagePrivilegesCollection(): array
+    {
+        throw new \BadMethodCallException('Not implemented method.');
     }
 }

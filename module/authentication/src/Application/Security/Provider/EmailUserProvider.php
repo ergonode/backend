@@ -53,7 +53,7 @@ final class EmailUserProvider implements UserProviderInterface
         }
 
         return new User(
-            $user->getId()->getValue(),
+            $user->getId(),
             $user->getPassword(),
             $user->getRoles(),
             $user->isActive(),

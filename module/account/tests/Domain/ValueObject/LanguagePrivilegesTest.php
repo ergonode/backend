@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Tests\Domain\ValueObject;
 
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use PHPUnit\Framework\TestCase;
 
 class LanguagePrivilegesTest extends TestCase

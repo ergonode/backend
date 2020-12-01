@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Account\Tests\Domain\Entity;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;

@@ -12,9 +12,9 @@ namespace Ergonode\Account\Infrastructure\Handler;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 
 class CreateUserCommandHandler
 {

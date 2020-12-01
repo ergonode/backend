@@ -92,7 +92,6 @@ ruleset:
     - EventSourcing
     - Product
   Core:
-    - Account # todo to remove
     - Api
     - Attribute # todo to remove
     - EventSourcing # todo to remove

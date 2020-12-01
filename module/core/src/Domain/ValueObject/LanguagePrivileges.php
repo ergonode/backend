@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Account\Domain\ValueObject;
+namespace Ergonode\Core\Domain\ValueObject;
 
 use JMS\Serializer\Annotation as JMS;
 
