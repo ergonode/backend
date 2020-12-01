@@ -17,6 +17,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Authentication\\.*
+  - name: BatchAction
+    collectors:
+      - type: className
+        regex: .*Ergonode\\BatchAction\\.*
   - name: Comment
     collectors:
       - type: className
@@ -33,6 +37,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\EventSourcing\\.*
+  - name: Generator
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Generator\\.*
   - name: Importer
     collectors:
       - type: className
@@ -49,6 +57,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ExporterFile\\.*
+  - name: Mailer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Mailer\\.*
   - name: Notification
     collectors:
       - type: className
@@ -61,6 +73,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ProductCollection\\.*
+  - name: SharedKernel
+    collectors:
+      - type: className
+        regex: .*Ergonode\\SharedKernel\\.*
   - name: TranslationDeepl
     collectors:
       - type: className
@@ -71,31 +87,47 @@ ruleset:
     - Attribute
     - Core
     - EventSourcing
+    - SharedKernel
   Api:
     - Core
+    - SharedKernel
   Attribute:
     - Api
     - Core
     - EventSourcing
+    - SharedKernel
   Authentication:
     - Account
     - Core
+    - SharedKernel
+  BatchAction:
+    - Api
+    - Core
+    - EventSourcing
+    - SharedKernel
   Comment:
     - Account
     - Api
     - Core
     - EventSourcing
+    - SharedKernel
   Completeness:
     - Api
     - Attribute
     - Core
     - EventSourcing
     - Product
+    - SharedKernel
   Core:
     - Api
     - Attribute # todo to remove
     - EventSourcing
     - Product # todo to remove
+    - SharedKernel
+  Generator:
+    - Core
+    - EventSourcing
+    - SharedKernel
   Importer:
     - Api
     - Attribute
@@ -103,41 +135,55 @@ ruleset:
     - EventSourcing
     - Notification
     - Product
+    - SharedKernel
   Importer-Magento-1:
     - Attribute
     - Core
     - EventSourcing
     - Importer
     - Product
+    - SharedKernel
   EventSourcing:
     - Core # todo to remove
+    - SharedKernel
   Exporter:
     - Core
     - EventSourcing
     - Product
+    - SharedKernel
   ExporterFile:
     - Attribute
     - Core
     - Exporter
     - EventSourcing
     - Product
+    - SharedKernel
+  Mailer:
+    - Core
+    - EventSourcing
+    - SharedKernel
   Notification:
     - Account
     - Api
     - Core
     - EventSourcing
+    - SharedKernel
   Product:
     - Account
     - Api
+    - BatchAction
     - Core
     - Attribute
     - EventSourcing
+    - SharedKernel
   ProductCollection:
     - Api
     - Attribute
     - Core
     - EventSourcing
     - Product
+    - SharedKernel
   TranslationDeepl:
     - Api
     - Core
+    - SharedKernel
