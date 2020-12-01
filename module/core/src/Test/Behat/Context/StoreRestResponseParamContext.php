@@ -30,6 +30,7 @@ class StoreRestResponseParamContext extends RawMinkContext
     {
         $environment = $scope->getEnvironment();
 
+        /** @phpstan-ignore-next-line */
         $this->storageContext = $environment->getContext(StorageContext::class);
     }
 
