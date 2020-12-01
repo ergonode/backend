@@ -48,7 +48,7 @@ default:
                     request: '@Behatch\HttpCall\Request'
                 - Ergonode\Core\Test\Behat\Context\ApiAuthTokenContext:
                     request: '@Behatch\HttpCall\Request'
-                    authHeader: '%authorization_header%'
+                    authHeader: '%%authorization_header%%'
                 - Ergonode\Core\Test\Behat\Context\UploadFileContext
                 - behatch:context:rest
                 - behatch:context:debug
