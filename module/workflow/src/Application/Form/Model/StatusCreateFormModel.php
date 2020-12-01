@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Form\Model;
 
 use Ergonode\Core\Domain\ValueObject\Color;
+use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
 use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,12 +18,9 @@ class StatusCreateFormModel
 {
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(
-     *     max=100,
-     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
-     * )
      * @Assert\Regex(pattern="/^[a-zA-Z0-9-_ ]+$\b/i")
      *
+     * @SystemCodeConstraint(max=100)
      * @ErgoAssert\StatusCodeUnique()
      */
     public ?string $code;

@@ -43,7 +43,7 @@ class CategoryCodeTest extends TestCase
             ['valida_code_12'],
             ['a'],
             ['a'],
-            [str_repeat('a', 255)],
+            [str_repeat('a', 128)],
         ];
     }
 
@@ -55,7 +55,6 @@ class CategoryCodeTest extends TestCase
         return [
             ['aa&aa '],
             [' '],
-            [' a'],
             ['a a'],
             [' &'],
             ['!'],

@@ -1,20 +1,20 @@
 <?php
-
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\Category\Infrastructure\Validator;
+namespace Ergonode\Category\Application\Validator;
 
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 
-class CategoryCodeValidator extends ConstraintValidator
+class UniqueCategoryCodeConstraintValidator extends ConstraintValidator
 {
     private CategoryQueryInterface $query;
 
@@ -24,15 +24,13 @@ class CategoryCodeValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed                   $value
-     * @param CategoryCode|Constraint $constraint
-     *
-     * @throws \Exception
+     * @param mixed                                   $value
+     * @param UniqueCategoryCodeConstraint|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof CategoryCode) {
-            throw new UnexpectedTypeException($constraint, CategoryCode::class);
+        if (!$constraint instanceof UniqueCategoryCodeConstraint) {
+            throw new UnexpectedTypeException($constraint, UniqueCategoryCodeConstraint::class);
         }
 
         if (null === $value || '' === $value) {
@@ -44,20 +42,11 @@ class CategoryCodeValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
-
-        if (!\Ergonode\Category\Domain\ValueObject\CategoryCode::isValid($value)) {
-            $this->context->buildViolation($constraint->validMessage)
-                ->setParameter('{{ value }}', $value)
-                ->addViolation();
-
+        if (!CategoryCode::isValid($value)) {
             return;
         }
 
-        $code = new \Ergonode\Category\Domain\ValueObject\CategoryCode($value);
-        // @todo split into two different validators if possible
-
-        $categoryId = $this->query->findIdByCode($code);
-
+        $categoryId = $this->query->findIdByCode(new CategoryCode($value));
         if ($categoryId) {
             $this->context->buildViolation($constraint->uniqueMessage)
                 ->addViolation();

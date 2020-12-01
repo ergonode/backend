@@ -26,7 +26,7 @@ class AttributeTypeValidValidator extends ConstraintValidator
 
     /**
      * @param mixed                    $value
-     * @param AttributeCode|Constraint $constraint
+     * @param AttributeTypeValid|Constraint $constraint
      *
      * @throws \ReflectionException
      */

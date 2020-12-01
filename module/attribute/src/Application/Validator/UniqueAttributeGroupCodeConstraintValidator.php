@@ -1,20 +1,20 @@
 <?php
-
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Infrastructure\Validator;
+namespace Ergonode\Attribute\Application\Validator;
 
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class AttributeGroupCodeValidator extends ConstraintValidator
+class UniqueAttributeGroupCodeConstraintValidator extends ConstraintValidator
 {
     private AttributeGroupQueryInterface $query;
 
@@ -24,13 +24,13 @@ class AttributeGroupCodeValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed                         $value
-     * @param AttributeGroupCode|Constraint $constraint
+     * @param mixed                                    $value
+     * @param UniqueAttributeGroupCodeConstraint|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof AttributeGroupCode) {
-            throw new UnexpectedTypeException($constraint, AttributeGroupCode::class);
+        if (!$constraint instanceof UniqueAttributeGroupCodeConstraint) {
+            throw new UnexpectedTypeException($constraint, UniqueAttributeGroupCodeConstraint::class);
         }
 
         if (null === $value || '' === $value) {
@@ -42,23 +42,13 @@ class AttributeGroupCodeValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
-
-        if (!\Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode::isValid($value)) {
-            $this->context->buildViolation($constraint->validMessage)
-                ->setParameter('{{ value }}', $value)
-                ->addViolation();
-
+        if (!AttributeGroupCode::isValid($value)) {
             return;
         }
 
-        // @todo split into two different validators if possible
-        $attribute = $this
-            ->query
-            ->checkAttributeGroupExistsByCode(
-                new \Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode($value)
-            );
-
-        if ($attribute) {
+        if ($this->query->checkAttributeGroupExistsByCode(
+            new AttributeGroupCode($value)
+        )) {
             $this->context->buildViolation($constraint->uniqueMessage)
                 ->addViolation();
         }

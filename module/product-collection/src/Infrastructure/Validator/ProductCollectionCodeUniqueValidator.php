@@ -46,6 +46,9 @@ class ProductCollectionCodeUniqueValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
+        if (!ProductCollectionCode::isValid($value)) {
+            return;
+        }
 
         $code = new ProductCollectionCode($value);
         $collectionId = $this->query->findIdByCode($code);

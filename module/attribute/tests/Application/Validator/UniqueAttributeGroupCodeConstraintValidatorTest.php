@@ -1,39 +1,37 @@
 <?php
-
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Tests\Infrastructure\Validator;
+namespace Ergonode\Attribute\Tests\Application\Validator;
 
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeCode;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeCodeValidator;
+use Ergonode\Attribute\Application\Validator\UniqueAttributeGroupCodeConstraint;
+use Ergonode\Attribute\Application\Validator\UniqueAttributeGroupCodeConstraintValidator;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
+class UniqueAttributeGroupCodeConstraintValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var AttributeQueryInterface|MockObject
+     * @var AttributeGroupQueryInterface|MockObject
      */
     private $query;
 
     protected function setUp(): void
     {
-        $this->query = $this->createMock(AttributeQueryInterface::class);
+        $this->query = $this->createMock(AttributeGroupQueryInterface::class);
         parent::setUp();
     }
-
 
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
-        $this->validator->validate(new \stdClass(), new AttributeCode());
+        $this->validator->validate(new \stdClass(), new UniqueAttributeGroupCodeConstraint());
     }
 
     public function testWrongConstraintProvided(): void
@@ -46,32 +44,22 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
 
     public function testCorrectEmptyValidation(): void
     {
-        $this->validator->validate('', new AttributeCode());
+        $this->validator->validate('', new UniqueAttributeGroupCodeConstraint());
 
         $this->assertNoViolation();
     }
 
     public function testCorrectValueValidation(): void
     {
-        $this->validator->validate('code', new AttributeCode());
+        $this->validator->validate('code', new UniqueAttributeGroupCodeConstraint());
 
         $this->assertNoViolation();
     }
 
-    public function testInCorrectValueValidation(): void
-    {
-        $constraint = new AttributeCode();
-        $value = 'SKU!!';
-        $this->validator->validate($value, $constraint);
-
-        $assertion = $this->buildViolation($constraint->validMessage)->setParameter('{{ value }}', $value);
-        $assertion->assertRaised();
-    }
-
     public function testCodeExistsValidation(): void
     {
-        $this->query->method('checkAttributeExistsByCode')->willReturn(true);
-        $constraint = new AttributeCode();
+        $this->query->method('checkAttributeGroupExistsByCode')->willReturn(true);
+        $constraint = new UniqueAttributeGroupCodeConstraint();
         $value = 'code';
         $this->validator->validate($value, $constraint);
 
@@ -79,8 +67,8 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
-    protected function createValidator(): AttributeCodeValidator
+    protected function createValidator(): UniqueAttributeGroupCodeConstraintValidator
     {
-        return new AttributeCodeValidator($this->query);
+        return new UniqueAttributeGroupCodeConstraintValidator($this->query);
     }
 }
