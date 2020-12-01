@@ -41,9 +41,10 @@ default:
             contexts:
                 - Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext
                 - Ergonode\Core\Test\Behat\Context\UserContext
+                    userProvider: '@Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
                 - Ergonode\Core\Test\Behat\Context\ResolveVarsContext
                 - Ergonode\Core\Test\Behat\Context\ApiAuthContext:
-                    JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
+                    authenticator: '@Ergonode\Core\Test\Behat\Service\RequestAuthenticatorInterface'
                     request: '@Behatch\HttpCall\Request'
                 - Ergonode\Core\Test\Behat\Context\ApiAuthTokenContext:
                     request: '@Behatch\HttpCall\Request'
