@@ -18,26 +18,14 @@ interface CategoryQueryInterface
 {
     public function getDataSet(Language $language): DataSetInterface;
 
-    /**
-     * @return array
-     */
     public function getDictionary(Language $language): array;
 
-    /**
-     * @return array
-     */
     public function getAll(Language $language): array;
 
     public function findIdByCode(CategoryCode $code): ?CategoryId;
 
-    /**
-     * @return array|null
-     */
     public function getCategory(CategoryId $categoryId): ?array;
 
-    /**
-     * @return array
-     */
     public function autocomplete(
         Language $language,
         string $search = null,
