@@ -40,7 +40,7 @@ default:
 
             contexts:
                 - Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext
-                - Ergonode\Core\Test\Behat\Context\UserContext
+                - Ergonode\Core\Test\Behat\Context\UserContext:
                     userProvider: '@Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
                 - Ergonode\Core\Test\Behat\Context\ResolveVarsContext
                 - Ergonode\Core\Test\Behat\Context\ApiAuthContext:
