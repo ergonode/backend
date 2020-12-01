@@ -5,3 +5,16 @@ services:
     Ergonode\Authentication\Test\Behat\Service\RequestAuthenticator:
         $JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
         $authorizationHeader: '%authorization_header%'
+
+#    #Behat
+#    Ergonode\Core\Test\Behat\Context\ResolveVarsContext:
+#        public: true
+#
+#    Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext:
+#        public: true
+#
+#    Ergonode\Core\Test\Behat\Context\UserContext:
+#        public: true
+#
+#    Ergonode\Core\Test\Behat\Context\StorageContext:
+#        public: true
