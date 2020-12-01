@@ -1,4 +1,4 @@
-parameter:
+parameters:
     authorization_header: 'JWTAuthorization'
 
 lexik_jwt_authentication:
