@@ -19,6 +19,12 @@ class ApiAuthContext implements Context
     private Request $request;
     private RequestAuthenticatorInterface $authenticator;
 
+    public function __construct(Request $request, RequestAuthenticatorInterface $authenticator)
+    {
+        $this->request = $request;
+        $this->authenticator = $authenticator;
+    }
+
     /**
      * @Given I am Authenticated as :user
      */
