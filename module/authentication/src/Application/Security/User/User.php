@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\User;
 
+use Ergonode\Account\Domain\Entity\UserInterface;
+
 class User implements UserInterface
 {
     private string $id;

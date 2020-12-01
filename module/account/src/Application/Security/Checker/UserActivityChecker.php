@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Security\Checker;
 
-use Ergonode\Authentication\Application\Security\User\UserInterface as DomainUserInterface;
+use Ergonode\Account\Domain\Entity\UserInterface as DomainUserInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
