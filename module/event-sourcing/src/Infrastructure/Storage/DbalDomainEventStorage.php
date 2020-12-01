@@ -11,7 +11,7 @@ namespace Ergonode\EventSourcing\Infrastructure\Storage;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Core\Domain\User\AggregateUserInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface;
 use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
@@ -86,9 +86,10 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
             $token = $this->tokenStorage->getToken();
             $userId = null;
             if ($token) {
-                /** @var User $user */
                 $user = $token->getUser();
-                $userId = $user->getId()->getValue();
+                if ($user instanceof AggregateUserInterface) {
+                    $userId = $user->getId()->getValue();
+                }
             }
             $sql = "
                 INSERT INTO $table (aggregate_id, sequence, event_id, payload, recorded_at, recorded_by)

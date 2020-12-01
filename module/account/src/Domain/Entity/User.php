@@ -20,7 +20,7 @@ use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEv
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
-use Ergonode\Core\Domain\User\UserInterface;
+use Ergonode\Core\Domain\User\AggregateUserInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
@@ -30,7 +30,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use JMS\Serializer\Annotation as JMS;
 
-class User extends AbstractAggregateRoot implements UserInterface
+class User extends AbstractAggregateRoot implements AggregateUserInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
