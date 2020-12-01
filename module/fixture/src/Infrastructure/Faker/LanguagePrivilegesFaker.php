@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Faker\Provider\Base as BaseProvider;
 
 class LanguagePrivilegesFaker extends BaseProvider

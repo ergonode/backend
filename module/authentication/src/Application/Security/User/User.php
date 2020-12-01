@@ -9,10 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\User;
 
-use Ergonode\Account\Domain\Entity\UserInterface;
+use Ergonode\Core\Domain\User\UserInterface;
 
 class User implements UserInterface
 {
+    /**
+     * Allows easy serialization into token.
+     */
     private string $id;
     private string $password;
     private array $roles;
@@ -83,5 +86,10 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
+    }
+
+    public function getLanguagePrivilegesCollection(): array
+    {
+        throw new \BadMethodCallException('Not implemented method.');
     }
 }
