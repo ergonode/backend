@@ -87,16 +87,10 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
             ->addSelect('(left(m.mime, strpos(m.mime, \'/\')-1)) AS type')
             ->addSelect('(m.size / 1024.00)::NUMERIC(10,2) AS size')
             ->addSelect('m.id AS image')
-            ->addSelect('(SELECT sum(calc.count) FROM (
-                                    SELECT count(*) FROM product_value pv
-                                    JOIN Value_translation vt ON vt.value_id = pv.value_id
-                                    WHERE vt.value = m.id::TEXT
-                                UNION
-                                    SELECT count(*) FROM designer."template" te
-                                    WHERE te.image_id = m.id
-                                ) AS calc
+            ->addSelect('(SELECT COUNT(DISTINCT pv.product_id) FROM product_value pv
+                                    JOIN value_translation vt ON vt.value_id = pv.value_id
+                                    WHERE vt.value ILIKE CONCAT(\'%\', m.id::TEXT, \'%\')
                                 ) AS relations');
-
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
