@@ -10,11 +10,13 @@ declare(strict_types=1);
 namespace Ergonode\Authentication\Application\Security\User;
 
 use Ergonode\Core\Domain\User\UserInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 class User implements UserInterface
 {
-    private UserId $id;
+    /**
+     * Allows easy serialization into token.
+     */
+    private string $id;
     private string $password;
     private array $roles;
     private bool $active;
@@ -23,7 +25,7 @@ class User implements UserInterface
      * @param array $roles
      */
     public function __construct(
-        UserId $id,
+        string $id,
         string $password,
         array $roles,
         bool $active
@@ -34,7 +36,7 @@ class User implements UserInterface
         $this->active = $active;
     }
 
-    public function getId(): UserId
+    public function getId(): string
     {
         return $this->id;
     }

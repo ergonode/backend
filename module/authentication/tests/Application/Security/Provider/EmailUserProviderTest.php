@@ -68,7 +68,7 @@ class EmailUserProviderTest extends TestCase
 
         $this->assertEquals(
             new SecurityUser(
-                $userId,
+                $userId->getValue(),
                 'password',
                 ['roles'],
                 true,

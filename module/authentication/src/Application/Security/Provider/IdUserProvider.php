@@ -47,7 +47,7 @@ class IdUserProvider implements UserProviderInterface
         }
 
         return new User(
-            $user->getId(),
+            $user->getId()->getValue(),
             $user->getPassword(),
             $user->getRoles(),
             $user->isActive(),
