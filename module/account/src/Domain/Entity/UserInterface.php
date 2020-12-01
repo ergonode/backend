@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Application\Security\User;
+namespace Ergonode\Account\Domain\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 

@@ -22,7 +22,6 @@ use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Ergonode\Authentication\Application\Security\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;

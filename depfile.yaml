@@ -3,6 +3,10 @@ paths:
 exclude_files:
   - .*test.*
 layers:
+  - name: Account
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Account\\.*
   - name: Api
     collectors:
       - type: className
@@ -64,6 +68,11 @@ layers:
       - type: className
         regex: .*Ergonode\\TranslationDeepl\\.*
 ruleset:
+  Account:
+    - Api
+    - Attribute
+    - Core
+    - EventSourcing
   Api:
     - Core
   Attribute:
@@ -71,8 +80,10 @@ ruleset:
     - Core
     - EventSourcing
   Authentication:
+    - Account
     - Core
   Comment:
+    - Account
     - Api
     - Core
     - EventSourcing
@@ -83,6 +94,7 @@ ruleset:
     - EventSourcing
     - Product
   Core:
+    - Account # todo to remove
     - Api
     - Attribute # todo to remove
     - EventSourcing # todo to remove
@@ -101,6 +113,7 @@ ruleset:
     - Importer
     - Product
   EventSourcing:
+    - Account # todo to remove
     - Core
   Exporter:
     - Core
@@ -113,10 +126,12 @@ ruleset:
     - EventSourcing
     - Product
   Notification:
+    - Account
     - Api
     - Core
     - EventSourcing
   Product:
+    - Account
     - Api
     - Core
     - Attribute
