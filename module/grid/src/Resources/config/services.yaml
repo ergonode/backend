@@ -23,3 +23,11 @@ services:
         resource: '../../Factory/*'
 
     Ergonode\Grid\Renderer\RowRendererInterface: '@Ergonode\Grid\Renderer\RowRenderer'
+
+    _instanceof:
+        Ergonode\Grid\Filter\Builder\FilterBuilderInterface:
+            tags: [ 'grid.filter_builder_provider.interface' ]
+
+    Ergonode\Grid\Filter\FilterBuilderProvider:
+        arguments:
+            $builderCollection: !tagged_iterator 'grid.filter_builder_provider.interface'

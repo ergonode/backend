@@ -11,16 +11,19 @@ namespace Ergonode\Grid\Filter;
 
 use Ergonode\Grid\Filter\Builder\FilterBuilderInterface;
 use Ergonode\Grid\FilterInterface;
+use Webmozart\Assert\Assert;
 
 class FilterBuilderProvider
 {
     /**
      * @var FilterBuilderInterface[]
      */
-    private array $builderCollection;
+    private iterable $builderCollection;
 
-    public function __construct(FilterBuilderInterface ...$builderCollection)
+    public function __construct(iterable $builderCollection)
     {
+        Assert::allIsInstanceOf($builderCollection, FilterBuilderInterface::class);
+
         $this->builderCollection = $builderCollection;
     }
 
