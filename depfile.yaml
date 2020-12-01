@@ -11,6 +11,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Attribute\\.*
+  - name: Authentication
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Authentication\\.*
   - name: Comment
     collectors:
       - type: className
@@ -19,6 +23,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Completeness\\.*
+  - name: Core
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Core\\.*
   - name: EventSourcing
     collectors:
       - type: className
@@ -56,47 +64,69 @@ layers:
       - type: className
         regex: .*Ergonode\\TranslationDeepl\\.*
 ruleset:
+  Api:
+    - Core
   Attribute:
     - Api
+    - Core
     - EventSourcing
+  Authentication:
+    - Core
   Comment:
     - Api
+    - Core
     - EventSourcing
   Completeness:
     - Api
     - Attribute
+    - Core
     - EventSourcing
     - Product
+  Core:
+    - Api
+    - Attribute # todo to remove
+    - EventSourcing # todo to remove
+    - Product # todo to remove
   Importer:
     - Api
     - Attribute
+    - Core
     - EventSourcing
     - Notification
     - Product
   Importer-Magento-1:
     - Attribute
+    - Core
     - EventSourcing
     - Importer
     - Product
+  EventSourcing:
+    - Core
   Exporter:
+    - Core
     - EventSourcing
     - Product
   ExporterFile:
     - Attribute
+    - Core
     - Exporter
     - EventSourcing
     - Product
   Notification:
     - Api
+    - Core
     - EventSourcing
   Product:
     - Api
+    - Core
     - Attribute
     - EventSourcing
   ProductCollection:
     - Api
     - Attribute
+    - Core
     - EventSourcing
     - Product
   TranslationDeepl:
     - Api
+    - Core
