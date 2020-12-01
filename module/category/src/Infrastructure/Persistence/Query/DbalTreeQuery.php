@@ -83,7 +83,7 @@ class DbalTreeQuery implements TreeQueryInterface
             ->setParameter(':language', $language->getCode());
 
         if ($search) {
-            $query->orWhere('code ILIKE :search');
+            $query->Where('code ILIKE :search');
             $query->setParameter(':search', '%'.$search.'%');
         }
         if ($field) {
