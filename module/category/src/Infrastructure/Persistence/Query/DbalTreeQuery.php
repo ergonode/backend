@@ -78,12 +78,12 @@ class DbalTreeQuery implements TreeQueryInterface
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
-            ->select('id, code, COALESCE(name->>:language, null) as label')
+            ->select('id, code, name->>:language as label')
             ->from(self::TREE_TABLE, 'c')
             ->setParameter(':language', $language->getCode());
 
         if ($search) {
-            $query->Where('code ILIKE :search');
+            $query->where('code ILIKE :search');
             $query->setParameter(':search', '%'.$search.'%');
         }
         if ($field) {
