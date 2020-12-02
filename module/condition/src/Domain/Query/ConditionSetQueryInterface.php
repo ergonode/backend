@@ -10,12 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 interface ConditionSetQueryInterface
 {
-    public function getDataSet(Language $language): DbalDataSet;
+    public function getDataSet(Language $language): DataSetInterface;
 
     /**
      * @return array
