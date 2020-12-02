@@ -307,6 +307,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
         string $type = null,
         int $limit = null,
         string $field = null,
+        string $system = null,
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
@@ -328,6 +329,10 @@ class DbalAttributeQuery implements AttributeQueryInterface
         if ($type) {
             $query->andWhere('type=:type');
             $query->setParameter(':type', $type);
+        }
+        if (null !== $system) {
+            $query->andWhere('a.system =:system');
+            $query->setParameter(':system', $system);
         }
         if ($field) {
             $query->orderBy($field, $order);

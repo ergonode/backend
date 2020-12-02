@@ -68,6 +68,13 @@ class AttributeAutocompleteAction
      *     description="Order field",
      * )
      * @SWG\Parameter(
+     *     name="system",
+     *     in="query",
+     *     required=false,
+     *     type="boolean",
+     *     description="True - only system attributes, False - only not system attributes",
+     * )
+     * @SWG\Parameter(
      *     name="order",
      *     in="query",
      *     required=false,
@@ -86,9 +93,10 @@ class AttributeAutocompleteAction
         $type = $request->query->get('type');
         $limit = $request->query->getInt('limit', null);
         $field = $request->query->get('field');
+        $system = $request->query->get('system');
         $order = $request->query->get('order');
 
-        $data = $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $order);
+        $data = $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $system, $order);
 
         return new SuccessResponse($data);
     }
