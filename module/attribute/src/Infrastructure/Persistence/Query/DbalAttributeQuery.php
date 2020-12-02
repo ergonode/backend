@@ -319,6 +319,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
                 AND vt.language = :language 
                 ) AS label',
             )
+            ->where('a.system = false')
             ->setParameter(':language', $language->getCode());
 
         if ($search) {
