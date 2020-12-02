@@ -16,7 +16,10 @@ interface DomainEventStoreInterface
 {
     public function load(AggregateId $id, int $sequence = 0, ?string $table = null): DomainEventStream;
 
-    public function append(AggregateId $id, DomainEventStream $stream, ?string $table = null): void;
+    /**
+     * Returns actual sequence for given aggregate
+     */
+    public function append(AggregateId $id, DomainEventStream $stream, ?string $table = null): int;
 
     public function delete(AggregateId $id, ?string $table = null): void;
 }

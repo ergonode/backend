@@ -22,7 +22,7 @@ interface AggregateSnapshotInterface
     /**
      * @throws DBALException
      */
-    public function save(AbstractAggregateRoot $aggregate): void;
+    public function save(AbstractAggregateRoot $aggregate, int $sequence): void;
 
     public function delete(AggregateId $id): void;
 }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\ValueObject;
 
-use Ergonode\Core\Domain\Entity\AbstractCode;
+use Ergonode\SharedKernel\Domain\AbstractCode;
 
 class StatusCode extends AbstractCode
 {

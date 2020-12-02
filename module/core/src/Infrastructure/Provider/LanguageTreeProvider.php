@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Provider;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Core\Domain\Query\LanguageTreeQueryInterface;
+use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Mapper\LanguageTreeMapper;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -38,15 +38,18 @@ class LanguageTreeProvider implements LanguageTreeProviderInterface
     public function getActiveLanguages(Language $language): array
     {
         $token = $this->tokenStorage->getToken();
-        if ($token) {
-            /** @var User $user */
-            $user = $token->getUser();
-            $privileges = $user->getLanguagePrivilegesCollection();
-            $tree = $this->query->getTree();
 
-            return $this->mapper->map($language, $tree, $privileges);
+        if (!$token) {
+            return [];
         }
+        $user = $token->getUser();
 
-        return [];
+        if (!$user instanceof UserInterface) {
+            return [];
+        }
+        $privileges = $user->getLanguagePrivilegesCollection();
+        $tree = $this->query->getTree();
+
+        return $this->mapper->map($language, $tree, $privileges);
     }
 }

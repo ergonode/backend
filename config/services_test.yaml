@@ -1,0 +1,6 @@
+services:
+    Ergonode\Authentication\Test\Behat\Service\RequestAuthenticator:
+        arguments:
+            $JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
+            $authorizationHeader: '%authorization_header%'
+        public: true

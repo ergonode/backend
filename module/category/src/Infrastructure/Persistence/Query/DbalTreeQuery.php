@@ -70,6 +70,35 @@ class DbalTreeQuery implements TreeQueryInterface
         return null;
     }
 
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, code, name->>:language as label')
+            ->from(self::TREE_TABLE, 'c')
+            ->setParameter(':language', $language->getCode());
+
+        if ($search) {
+            $query->where('code ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

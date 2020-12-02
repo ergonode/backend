@@ -45,10 +45,6 @@ class UniqueSegmentCodeValidator extends ConstraintValidator
         $value = (string) $value;
 
         if (!SegmentCode::isValid($value)) {
-            $this->context->buildViolation($constraint->validMessage)
-                ->setParameter('{{ value }}', $value)
-                ->addViolation();
-
             return;
         }
 
