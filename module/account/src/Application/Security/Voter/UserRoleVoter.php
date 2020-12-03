@@ -39,9 +39,9 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
      */
     public function supports($attribute, $subject): bool
     {
-        $privileges = $this->query->getPrivileges();
+        $privileges = $this->query->getPrivilegesEndPoint();
 
-        return in_array($attribute, array_column($privileges, 'code'), true);
+        return in_array($attribute, array_column($privileges, 'name'), true);
     }
 
     /**
@@ -60,16 +60,18 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
             throw new \RuntimeException(sprintf('Role by id "%s" not found', $user->getRoleId()->getValue()));
         }
 
-        $result = false;
+        $privileges = $this->query->getPrivilegesEndPointByBusiness($role->getPrivileges());
+
+
         $attributePrivilege = new Privilege($attribute);
-        /** @var Privilege $privilege */
-        foreach ($role->getPrivileges() as $privilege) {
-            if ($privilege->isEqual($attributePrivilege)) {
-                $result = true;
-                break;
+
+        foreach ($privileges as $privilege) {
+            $privilegeObject = new Privilege($privilege);
+            if ($privilegeObject->isEqual($attributePrivilege)) {
+                return true;
             }
         }
 
-        return $result;
+        return false;
     }
 }

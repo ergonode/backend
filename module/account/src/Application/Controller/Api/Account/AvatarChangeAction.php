@@ -44,7 +44,7 @@ class AvatarChangeAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
+     * @IsGranted("ACCOUNT_POST_AVATAR")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

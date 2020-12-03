@@ -42,7 +42,7 @@ class UserCreateAction
     }
 
     /**
-     * @IsGranted("USER_CREATE")
+     * @IsGranted("ACCOUNT_POST")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
