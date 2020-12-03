@@ -147,7 +147,7 @@
 
     <!-- PHP config files yaml check -->
     <target name="check:configs" description="SF Yaml linter">
-        <exec command="APP_ENV=${APP_ENV} ${dir.console} lint:yaml config --parse-tags"
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} lint:yaml config module --parse-tags"
               checkreturn="true"
               logoutput="true">
         </exec>
