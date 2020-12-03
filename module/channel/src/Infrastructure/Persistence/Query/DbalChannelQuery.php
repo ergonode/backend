@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 class DbalChannelQuery implements ChannelQueryInterface
 {
@@ -22,14 +22,17 @@ class DbalChannelQuery implements ChannelQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(Language $language): DataSetInterface
     {
-        return new DbalDataSet($this->getQuery());
+        return $this->dataSetFactory->create($this->getQuery());
     }
 
     private function getQuery(): QueryBuilder

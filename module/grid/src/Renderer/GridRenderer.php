@@ -44,8 +44,13 @@ class GridRenderer
     ): array {
         $grid->init($configuration, $language);
 
-        $field = $configuration->getField() ?: $grid->getField();
-        $order = $configuration->getOrder() ?: $grid->getOrder();
+        $field = $grid->getField();
+        $order = $grid->getOrder();
+        if ($configuration->getField()) {
+            $field = $configuration->getField();
+            $order = $configuration->getOrder();
+        }
+
         $records = $dataSet->getItems(
             $grid->getColumns(),
             $configuration->getFilters(),

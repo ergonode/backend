@@ -28,9 +28,9 @@ class DbalDomainEventStore implements DomainEventStoreInterface
         return new DomainEventStream($this->storage->load($id, $sequence, $name));
     }
 
-    public function append(AggregateId $id, DomainEventStream $stream, string $name = null): void
+    public function append(AggregateId $id, DomainEventStream $stream, string $name = null): int
     {
-        $this->storage->append($id, $stream, $name);
+        return $this->storage->append($id, $stream, $name);
     }
 
     public function delete(AggregateId $id, string $name = null): void

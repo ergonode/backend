@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder;
 
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Application\Security\Security;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -24,7 +24,6 @@ use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
@@ -63,7 +62,6 @@ class ProductGridColumnBuilder
     {
         $codes = $this->attributeQuery->getAllAttributeCodes();
 
-        /** @var User $user */
         $user = $this->security->getUser();
         if (!$user) {
             throw new AuthenticationException();

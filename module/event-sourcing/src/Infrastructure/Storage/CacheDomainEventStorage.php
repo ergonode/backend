@@ -56,9 +56,9 @@ class CacheDomainEventStorage implements DomainEventStorageInterface
         return $result;
     }
 
-    public function append(AggregateId $id, DomainEventStream $stream, string $name = null): void
+    public function append(AggregateId $id, DomainEventStream $stream, string $name = null): int
     {
-        $this->storage->append($id, $stream);
+        return $this->storage->append($id, $stream);
     }
 
     /**

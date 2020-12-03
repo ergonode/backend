@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
@@ -24,9 +24,12 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
@@ -52,7 +55,7 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     public function findIdByCode(ProductCollectionTypeCode $code): ?ProductCollectionTypeId

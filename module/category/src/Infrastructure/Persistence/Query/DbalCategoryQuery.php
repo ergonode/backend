@@ -15,7 +15,7 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class DbalCategoryQuery implements CategoryQueryInterface
@@ -24,9 +24,12 @@ class DbalCategoryQuery implements CategoryQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(Language $language): DataSetInterface
@@ -41,7 +44,7 @@ class DbalCategoryQuery implements CategoryQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     public function findIdByCode(CategoryCode $code): ?CategoryId

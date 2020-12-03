@@ -41,5 +41,6 @@ class ExportGrid extends AbstractGrid
                 ],
             ],
         ]));
+        $this->orderBy('started_at', 'DESC');
     }
 }

@@ -10,7 +10,6 @@ namespace Ergonode\EventSourcing\Tests\Domain;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
@@ -55,10 +54,6 @@ class AbstractAggregateRootTest extends TestCase
         $this->assertSame(1, $aggregate->getSequence());
     }
 
-
-    /**
-     * @return AbstractAttribute
-     */
     private function getClass(): AbstractAggregateRoot
     {
         $id = $this->createMock(AggregateId::class);

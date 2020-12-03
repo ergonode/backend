@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Category\Application\Model;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Category\Infrastructure\Validator as CategoryAssert;
+use Ergonode\Category\Application\Validator as CategoryAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CategoryFormModel
@@ -31,7 +31,12 @@ class CategoryFormModel
      *     groups={"Create"}
      *  )
      *
-     * @CategoryAssert\CategoryCode();
+     * @CategoryAssert\CategoryCodeConstraint(
+     *     groups={"Create"}
+     * )
+     * @CategoryAssert\UniqueCategoryCodeConstraint(
+     *     groups={"Create"}
+     * )
      */
     public ?CategoryCode $code = null;
 

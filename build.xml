@@ -144,32 +144,13 @@
               logoutput="true">
         </exec>
     </target>
-
-    <target name="check:dependencies:report-png" description="Deptrac dump to png image">
-        <exec command="./bin/deptrac analyze --formatter-graphviz=1 --formatter-graphviz-dump-image=${dir.reports}/deptrac.png"
-              checkreturn="true"
-              logoutput="true">
-        </exec>
-    </target>
-    <target name="check:dependencies:report-dot" description="Deptrac dump to dot file">
-        <exec command="./bin/deptrac analyze --formatter-graphviz=1  --formatter-graphviz-dump-dot=${dir.reports}/deptrac.dot"
-              checkreturn="false"
-              logoutput="true">
-        </exec>
-    </target>
-    <target name="check:dependencies:report-svg"  depends="check:dependencies:report-dot"  description="Deptrac dump to svg image">
-        <exec command="dot '${dir.reports}/deptrac.dot' -Tsvg  -o ${dir.reports}/deptrac.svg"
-              checkreturn="true"
-              logoutput="true">
-        </exec>
-    </target>
-    <target name="check:dependencies" description="Deptrac check dependencies">
+    <target name="check:dependencies" depends="check:dependencies:module" description="Check dependencies"/>
+    <target name="check:dependencies:module" description="Deptrac check dependencies">
         <exec command="./bin/deptrac"
               checkreturn="true"
               logoutput="true">
         </exec>
     </target>
-
     <target name="override:property:APP_ENV" description="Overrides APP_ENV property with test value">
         <property name="APP_ENV" value="test" override="true" />
     </target>

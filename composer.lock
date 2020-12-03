@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d24c574701f56b84c9f16fd2e69438b",
+    "content-hash": "3ad85bb95dbadaddb34742a2e64ce6a1",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -12985,27 +12985,30 @@
         },
         {
             "name": "sensiolabs-de/deptrac-shim",
-            "version": "0.6.0",
+            "version": "0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs-de/deptrac-shim.git",
-                "reference": "12d6c938317f2fdb84e30676830e51ae0953b920"
+                "reference": "103d48dc443aa724e09a2f88f4bf1964038d77ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs-de/deptrac-shim/zipball/12d6c938317f2fdb84e30676830e51ae0953b920",
-                "reference": "12d6c938317f2fdb84e30676830e51ae0953b920",
+                "url": "https://api.github.com/repos/sensiolabs-de/deptrac-shim/zipball/103d48dc443aa724e09a2f88f4bf1964038d77ea",
+                "reference": "103d48dc443aa724e09a2f88f4bf1964038d77ea",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-tokenizer": "*",
                 "ext-zlib": "*",
-                "php": "^7.1"
+                "php": "^7.2 || 8.0.*"
             },
             "replace": {
                 "sensiolabs-de/astrunner": "^1.0",
                 "sensiolabs-de/deptrac": "self.version"
+            },
+            "suggest": {
+                "ext-dom": "For using the JUnit output formatter"
             },
             "bin": [
                 "deptrac"
@@ -13023,7 +13026,7 @@
                 }
             ],
             "description": "deptrac phar distribution",
-            "time": "2019-10-18T14:03:03+00:00"
+            "time": "2020-11-20T15:59:05+00:00"
         },
         {
             "name": "slevomat/coding-standard",

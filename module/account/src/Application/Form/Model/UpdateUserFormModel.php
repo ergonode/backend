@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
