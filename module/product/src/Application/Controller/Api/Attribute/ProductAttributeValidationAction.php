@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -8,27 +9,23 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Controller\Api\Attribute;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Ergonode\Product\Domain\Command\Attribute\ChangeProductAttributeCommand;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Swagger\Annotations as SWG;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UpdateProductAttributeAction
+class ProductAttributeValidationAction
 {
-    private CommandBusInterface $commandBus;
-
     private AttributeValueConstraintProvider $provider;
 
     private ValidatorInterface $validator;
@@ -36,24 +33,32 @@ class UpdateProductAttributeAction
     private LanguageQueryInterface $query;
 
     public function __construct(
-        CommandBusInterface $commandBus,
         AttributeValueConstraintProvider $provider,
         ValidatorInterface $validator,
         LanguageQueryInterface $query
     ) {
-        $this->commandBus = $commandBus;
         $this->provider = $provider;
         $this->validator = $validator;
         $this->query = $query;
     }
 
     /**
+     *  @Route(
+     *     name="ergonode_product_attribute_update",
+     *     path="products/{product}/attribute/{attribute}",
+     *     methods={"POST"},
+     *     requirements={
+     *         "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+     *         "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+     *     }
+     * )
      * @Route(
-     *     "/products/{product}/draft/{attribute}/value",
-     *     methods={"PUT"},
-     *     requirements = {
-     *        "product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-     *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+     *     name="ergonode_product_attribute_validation",
+     *     path="products/{product}/attribute/{attribute}/validate",
+     *     methods={"POST"},
+     *     requirements={
+     *         "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+     *         "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
      *     }
      * )
      *
@@ -119,14 +124,6 @@ class UpdateProductAttributeAction
 
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
-            $command = new ChangeProductAttributeCommand(
-                $product->getId(),
-                $attribute->getId(),
-                $language,
-                $value
-            );
-            $this->commandBus->dispatch($command);
-
             return new SuccessResponse(['value' => $value]);
         }
 
