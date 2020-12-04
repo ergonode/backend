@@ -111,8 +111,7 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                     RETURNING sequence
                 ";
 
-            $this->connection->exec("LOCK TABLE $table IN EXCLUSIVE MODE");
-
+            $stmts = [];
             foreach ($stream as $envelope) {
                 $payload = $this->serializer->serialize($envelope->getEvent(), 'json');
                 $stmt = $this->connection->prepare($sql);
@@ -123,6 +122,12 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                 $stmt->bindValue('recorderAt', $envelope->getRecordedAt(), Types::DATETIMETZ_MUTABLE);
                 $stmt->bindValue('recordedBy', $userId);
 
+                $stmts[] = $stmt;
+            }
+
+            $this->connection->exec("LOCK TABLE $table IN EXCLUSIVE MODE");
+
+            foreach ($stmts as $stmt) {
                 $stmt->execute();
                 $sequence = $stmt->fetchColumn();
             }
