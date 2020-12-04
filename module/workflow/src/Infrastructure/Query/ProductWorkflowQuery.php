@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Infrastructure\Query;
 
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Webmozart\Assert\Assert;
@@ -48,7 +47,6 @@ class ProductWorkflowQuery
         $code = new AttributeCode(StatusSystemAttribute::CODE);
         $result = [];
         if ($product->hasAttribute($code)) {
-            /** @var StringValue $value */
             $value = $product->getAttribute($code)->getValue();
             $statusId = new StatusId($value[$productLanguage->getCode()]);
             $status = $this->statusRepository->load($statusId);

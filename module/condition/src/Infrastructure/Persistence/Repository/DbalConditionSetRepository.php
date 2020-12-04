@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Infrastructure\Persistence\Repository;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Webmozart\Assert\Assert;
@@ -29,15 +28,16 @@ class DbalConditionSetRepository implements ConditionSetRepositoryInterface
     /**
      * @throws \ReflectionException
      */
-    public function load(ConditionSetId $id): ?AbstractAggregateRoot
+    public function load(ConditionSetId $id): ?ConditionSet
     {
+        /** @var ConditionSet|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, ConditionSet::class);
 
         return $aggregate;
     }
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(ConditionSet $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }
@@ -51,7 +51,7 @@ class DbalConditionSetRepository implements ConditionSetRepositoryInterface
     /**
      * @throws \Exception
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(ConditionSet $aggregateRoot): void
     {
         $aggregateRoot->apply(new ConditionSetDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);

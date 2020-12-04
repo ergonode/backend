@@ -53,7 +53,7 @@ class CommentCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return CommentId|AggregateId
+     * @return CommentId
      */
     public function getAggregateId(): AggregateId
     {

@@ -9,20 +9,16 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 
 interface MultimediaRepositoryInterface
 {
-    /**
-     * @return Multimedia|null
-     */
-    public function load(MultimediaId $id): ?AbstractAggregateRoot;
+    public function load(MultimediaId $id): ?AbstractMultimedia;
 
-    public function save(Multimedia $multimedia): void;
+    public function save(AbstractMultimedia $multimedia): void;
 
     public function exists(MultimediaId $id): bool;
 
-    public function delete(Multimedia $id): void;
+    public function delete(AbstractMultimedia $id): void;
 }
