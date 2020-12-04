@@ -22,3 +22,8 @@ ergonode_profile_api:
     resource: '../../Application/Controller/Api/ProfileReadAction.php'
     type: 'annotation'
     prefix: '/api/v1/'
+
+ergonode_account_token_api:
+    resource: '../../Application/Controller/Api/UserResetPasswordTokenAction.php'
+    type: 'annotation'
+    prefix: '/api/v1/'

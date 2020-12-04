@@ -20,17 +20,22 @@ class GenerateUserResetPasswordTokenCommandTest extends TestCase
      */
     private UserId $userId;
 
+    private string $path;
+
     protected function setUp(): void
     {
         $this->userId = $this->createMock(UserId::class);
+        $this->path = 'http://path/';
     }
 
     public function testCreateCommand(): void
     {
         $command = new GenerateUserResetPasswordTokenCommand(
-            $this->userId
+            $this->userId,
+            $this->path
         );
 
         self::assertEquals($this->userId, $command->getId());
+        self::assertEquals($this->path, $command->getPath());
     }
 }

@@ -84,6 +84,14 @@ nelmio_api_doc:
                         type: boolean
                         required: true
                         example: true
+            account_token_generate:
+                type: object
+                properties:
+                    email:
+                        type: string
+                        required: true
+                        description: User email/login
+                        example: any-email@test-email.com
             account_change_password:
                 type: 'object'
                 properties:
