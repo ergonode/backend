@@ -43,6 +43,15 @@ class ProductAttributeValidationAction
     }
 
     /**
+     *  @Route(
+     *     name="ergonode_product_attribute_update",
+     *     path="products/{product}/attribute/{attribute}",
+     *     methods={"POST"},
+     *     requirements={
+     *         "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+     *         "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+     *     }
+     * )
      * @Route(
      *     name="ergonode_product_attribute_validation",
      *     path="products/{product}/attribute/{attribute}/validate",
