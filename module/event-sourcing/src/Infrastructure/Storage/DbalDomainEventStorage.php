@@ -97,7 +97,7 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                         :aggregateId,
                          COALESCE(
                             (
-                                (SELECT sequence FROM event_store WHERE aggregate_id = :aggregateId
+                                (SELECT sequence FROM $table WHERE aggregate_id = :aggregateId
                                     ORDER BY sequence DESC LIMIT 1
                                 ) + 1
                             ),
@@ -110,6 +110,9 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
                     )
                     RETURNING sequence
                 ";
+
+            $this->connection->exec("LOCK TABLE $table IN EXCLUSIVE MODE");
+
             foreach ($stream as $envelope) {
                 $payload = $this->serializer->serialize($envelope->getEvent(), 'json');
                 $stmt = $this->connection->prepare($sql);
