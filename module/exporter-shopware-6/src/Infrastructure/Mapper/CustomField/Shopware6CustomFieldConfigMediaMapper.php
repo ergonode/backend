@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 
 class Shopware6CustomFieldConfigMediaMapper implements Shopware6CustomFieldMapperInterface
 {
@@ -25,15 +25,15 @@ class Shopware6CustomFieldConfigMediaMapper implements Shopware6CustomFieldMappe
     public function map(
         Shopware6Channel $channel,
         Export $export,
-        Shopware6CustomField $shopware6CustomField,
+        AbstractShopware6CustomField $shopware6CustomField,
         AbstractAttribute $attribute,
         ?Language $language = null
-    ): Shopware6CustomField {
+    ): AbstractShopware6CustomField {
 
         if ($attribute->getType() === AbstractImageAttribute::TYPE) {
             $shopware6CustomField->setType(self::TYPE);
-            $shopware6CustomField->addConfig('customFieldType', self::CUSTOM_FIELD_TYPE);
-            $shopware6CustomField->addConfig('componentName', self::COMPONENT_NAME);
+            $shopware6CustomField->getConfig()->setCustomFieldType(self::CUSTOM_FIELD_TYPE);
+            $shopware6CustomField->getConfig()->setComponentName(self::COMPONENT_NAME);
         }
 
         return $shopware6CustomField;

@@ -62,16 +62,3 @@ services:
         decorates: Ergonode\Core\Infrastructure\Service\DownloaderInterface
         arguments:
             - '@Ergonode\Core\Infrastructure\Service\Decorator\CacheDownloaderDecorator.inner'
-
-    #Behat
-    Ergonode\Core\Test\Behat\Context\ResolveVarsContext:
-        public: true
-
-    Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext:
-        public: true
-
-    Ergonode\Core\Test\Behat\Context\UserContext:
-        public: true
-
-    Ergonode\Core\Test\Behat\Context\StorageContext:
-        public: true

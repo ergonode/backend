@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Tests\Infrastructure\Mapper;
 
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Core\Infrastructure\Mapper\LanguageTreeMapper;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

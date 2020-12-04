@@ -17,10 +17,15 @@ interface TreeQueryInterface
 {
     public function getDataSet(Language $language): DataSetInterface;
 
-    /**
-     * @return array
-     */
     public function getDictionary(Language $language): array;
 
     public function findTreeIdByCode(string $code): ?CategoryTreeId;
+
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }

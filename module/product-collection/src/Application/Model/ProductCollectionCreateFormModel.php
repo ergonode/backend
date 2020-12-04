@@ -11,7 +11,7 @@ namespace Ergonode\ProductCollection\Application\Model;
 
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeValid;
+use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -19,16 +19,12 @@ class ProductCollectionCreateFormModel
 {
     /**
      * @Assert\NotBlank(message="System name is required")
-     * @Assert\Length(
-     *     max=64,
-     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
-     *     )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
      *     message="Product collection System Name can have only letters, digits or underscore symbol"
      *  )
      *
-     * @ProductCollectionCodeValid()
+     * @SystemCodeConstraint(max=64)
      *
      * @ProductCollectionCodeUnique()
      */

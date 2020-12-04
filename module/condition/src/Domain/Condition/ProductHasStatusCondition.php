@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
@@ -34,12 +35,21 @@ class ProductHasStatusCondition implements ConditionInterface
     private array $value;
 
     /**
-     * @param StatusId[] $value
+     * @var Language[]
+     *
+     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
-    public function __construct(string $operator, array $value)
+    private array $language;
+
+    /**
+     * @param StatusId[] $value
+     * @param Language[] $language
+     */
+    public function __construct(string $operator, array $value, array $language)
     {
         $this->operator = $operator;
         $this->value = $value;
+        $this->language = $language;
     }
 
     /**
@@ -63,6 +73,14 @@ class ProductHasStatusCondition implements ConditionInterface
     public function getValue(): array
     {
         return $this->value;
+    }
+
+    /**
+     * @return Language[]
+     */
+    public function getLanguage(): array
+    {
+        return $this->language;
     }
 
     /**

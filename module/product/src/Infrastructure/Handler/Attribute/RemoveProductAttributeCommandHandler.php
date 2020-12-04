@@ -9,9 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Application\Security\Security;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -27,16 +26,16 @@ class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
 
     private AttributeRepositoryInterface $attributeRepository;
 
-    private TokenStorageInterface $tokenStorage;
+    private Security $security;
 
     public function __construct(
         ProductRepositoryInterface $repository,
         AttributeRepositoryInterface $attributeRepository,
-        TokenStorageInterface $tokenStorage
+        Security $security
     ) {
         $this->repository = $repository;
         $this->attributeRepository = $attributeRepository;
-        $this->tokenStorage = $tokenStorage;
+        $this->security = $security;
     }
 
     /**
@@ -65,10 +64,8 @@ class RemoveProductAttributeCommandHandler extends AbstractValueCommandHandler
             $product->removeAttribute($attribute->getCode());
         }
 
-        $token = $this->tokenStorage->getToken();
-        if ($token) {
-            /** @var User $user */
-            $user = $token->getUser();
+        $user = $this->security->getUser();
+        if ($user) {
             $this->updateAudit($user, $product);
         }
 

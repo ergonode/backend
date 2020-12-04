@@ -10,7 +10,9 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
@@ -19,11 +21,11 @@ class PostCustomFieldAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/custom-field?%s';
 
-    private Shopware6CustomField $customField;
+    private AbstractShopware6CustomField $customField;
 
     private bool $response;
 
-    public function __construct(Shopware6CustomField $customField, bool $response = false)
+    public function __construct(AbstractShopware6CustomField $customField, bool $response = false)
     {
         $this->customField = $customField;
         $this->response = $response;
@@ -42,7 +44,7 @@ class PostCustomFieldAction extends AbstractAction implements ActionInterface
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content): ?Shopware6CustomField
+    public function parseContent(?string $content): ?AbstractShopware6CustomField
     {
         if (null === $content) {
             return null;
@@ -50,7 +52,15 @@ class PostCustomFieldAction extends AbstractAction implements ActionInterface
 
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        $config = $data['data']['attributes']['config'] ?: null;
+        $config = new Shopware6CustomFieldConfig(
+            $data['data']['attributes']['config']['type'] ?? null,
+            $data['data']['attributes']['config']['customFieldType'] ?? null,
+            $data['data']['attributes']['config']['label'] ?? null,
+            $data['data']['attributes']['config']['componentName'] ?? null,
+            $data['data']['attributes']['config']['dateType'] ?? null,
+            $data['data']['attributes']['config']['numberType'] ?? null,
+            $data['data']['attributes']['config']['options'] ?? null
+        );
 
         return new Shopware6CustomField(
             $data['data']['id'],

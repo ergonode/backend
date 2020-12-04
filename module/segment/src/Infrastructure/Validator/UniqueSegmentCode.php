@@ -16,7 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class UniqueSegmentCode extends Constraint
 {
-    public string $validMessage = 'Given value {{ value }} is not valid segment code';
-
     public string $uniqueMessage = 'Given value is not unique';
 }

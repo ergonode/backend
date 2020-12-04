@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
@@ -58,7 +58,7 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @var LanguagePrivileges[]
      *
-     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\LanguagePrivileges>")
      */
     private array $languagePrivilegesCollection;
 

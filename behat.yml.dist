@@ -40,14 +40,15 @@ default:
 
             contexts:
                 - Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext
-                - Ergonode\Core\Test\Behat\Context\UserContext
+                - Ergonode\Core\Test\Behat\Context\UserContext:
+                    userProvider: '@Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
                 - Ergonode\Core\Test\Behat\Context\ResolveVarsContext
                 - Ergonode\Core\Test\Behat\Context\ApiAuthContext:
-                    JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
+                    authenticator: '@Ergonode\Authentication\Test\Behat\Service\RequestAuthenticator'
                     request: '@Behatch\HttpCall\Request'
                 - Ergonode\Core\Test\Behat\Context\ApiAuthTokenContext:
                     request: '@Behatch\HttpCall\Request'
-                    authHeader: 'JWTAuthorization'
+                    authHeader: '%%authorization_header%%'
                 - Ergonode\Core\Test\Behat\Context\UploadFileContext
                 - behatch:context:rest
                 - behatch:context:debug

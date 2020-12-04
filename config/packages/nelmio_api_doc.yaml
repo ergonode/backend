@@ -8,7 +8,7 @@ nelmio_api_doc:
             api_key:
                 type: apiKey
                 description: Your Json Web Token (Bearer {TOKEN})
-                name: JWTAuthorization
+                name: '%authorization_header%'
                 in: header
         security:
             -   api_key: []
