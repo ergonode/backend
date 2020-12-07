@@ -15,7 +15,7 @@ use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
@@ -26,12 +26,13 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
-    }
-
-    /**
+        $this->dataSetFactory = $dataSetFactory;
+    }/**
      * @return array
      */
     public function getAttributeGroups(Language $language): array
@@ -88,7 +89,7 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
             ->select('*')
             ->from(sprintf('(%s)', $this->getQuery($language)->getSQL()), 't');
 
-        return new DbalDataSet($query);
+        return $this->dataSetFactory->create($query);
     }
 
     public function checkAttributeGroupExistsByCode(AttributeGroupCode $code): bool

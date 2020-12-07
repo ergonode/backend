@@ -12,7 +12,7 @@ namespace Ergonode\Multimedia\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -23,9 +23,12 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function fileExists(Hash $hash): bool
@@ -95,7 +98,7 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

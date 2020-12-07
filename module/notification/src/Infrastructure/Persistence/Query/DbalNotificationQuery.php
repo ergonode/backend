@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ramsey\Uuid\Uuid;
@@ -35,9 +35,12 @@ class DbalNotificationQuery implements NotificationQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(UserId $id, Language $language): DataSetInterface
@@ -50,7 +53,7 @@ class DbalNotificationQuery implements NotificationQueryInterface
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
         $result->setParameter('user_id', $id->getValue());
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

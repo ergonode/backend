@@ -81,9 +81,11 @@ class EventStoreManager
             if (($events->count() - $aggregateRoot->getSequence()) === 0) {
                 $this->addClass($aggregateRoot);
             }
-            if ($sequence !== $aggregateRoot->getSequence()) {
+            if ($sequence === $aggregateRoot->getSequence()) {
+                $this->snapshot->save($aggregateRoot);
+            } else {
                 $this->logger->notice(
-                    'Desynchronized sequence for aggregate on persistence.',
+                    'Desynchronized sequence for aggregate on persistence. Skipping snapshot.',
                     [
                         'aggregate_id' => $aggregateRoot->getId(),
                         'events_amount' => $events->count(),
@@ -92,7 +94,6 @@ class EventStoreManager
                     ],
                 );
             }
-            $this->snapshot->save($aggregateRoot, $sequence);
 
             foreach ($events as $envelope) {
                 $this->eventBus->dispatch($envelope->getEvent());

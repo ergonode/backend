@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 class DbalAttributeGridQuery implements AttributeGridQueryInterface
 {
@@ -30,9 +30,12 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(Language $language, bool $system = false): DataSetInterface
@@ -55,7 +58,7 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     private function getQuery(): QueryBuilder

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Infrastructure\Grid\Column\Provider\Strategy;
+namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -15,7 +15,6 @@ use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
-use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
 class EditedAtSystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {

@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Comment\Domain\Query\CommentQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 class DbalCommentQuery implements CommentQueryInterface
 {
@@ -23,9 +23,12 @@ class DbalCommentQuery implements CommentQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(Language $language): DataSetInterface
@@ -36,7 +39,7 @@ class DbalCommentQuery implements CommentQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     private function getQuery(): QueryBuilder

@@ -13,7 +13,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
@@ -27,15 +28,18 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDataSet(Language $language): DbalDataSet
+    public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
         $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
@@ -45,7 +49,7 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

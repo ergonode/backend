@@ -16,7 +16,7 @@ use Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
@@ -33,16 +33,20 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
 
     protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
 
+    private DbalDataSetFactory $dataSetFactory;
+
     public function __construct(
         Connection $connection,
         LanguageQueryInterface $query,
         DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
-        DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
+        DefaultImageQueryBuilderInterface $defaultImageQueryBuilder,
+        DbalDataSetFactory $dataSetFactory
     ) {
         $this->connection = $connection;
         $this->query = $query;
         $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
         $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(ProductCollectionId $productCollectionId, Language $language): DataSetInterface
@@ -57,7 +61,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
         $result->setParameter(':productCollectionId', $productCollectionId->getValue());
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     private function getQuery(): QueryBuilder

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Infrastructure\Strategy\Relationship;
+namespace Ergonode\Attribute\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;

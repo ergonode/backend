@@ -13,8 +13,8 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
-use Ergonode\Product\Infrastructure\Persistence\DataSet\DbalProductDataSet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductGridReadAction
 {
-    private DbalProductDataSet $dataSet;
+    private DbalProductDataSetFactory $dataSetFactory;
 
     private ProductGrid $productGrid;
 
@@ -34,10 +34,10 @@ class ProductGridReadAction
 
     public function __construct(
         GridRenderer $gridRenderer,
-        DbalProductDataSet $dataSet,
+        DbalProductDataSetFactory $dataSetFactory,
         ProductGrid $productGrid
     ) {
-        $this->dataSet = $dataSet;
+        $this->dataSetFactory = $dataSetFactory;
         $this->productGrid = $productGrid;
         $this->gridRenderer = $gridRenderer;
     }
@@ -120,7 +120,7 @@ class ProductGridReadAction
         $data = $this->gridRenderer->render(
             $this->productGrid,
             $configuration,
-            $this->dataSet,
+            $this->dataSetFactory->create(),
             $language
         );
 

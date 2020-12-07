@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
@@ -23,9 +23,12 @@ class DbalRoleQuery implements RoleQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
@@ -38,7 +41,7 @@ class DbalRoleQuery implements RoleQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
         $result->setParameter(':hidden', false, \PDO::PARAM_BOOL);
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     public function getRoleUsersCount(RoleId $id): int
