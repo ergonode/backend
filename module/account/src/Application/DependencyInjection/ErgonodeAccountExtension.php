@@ -31,6 +31,11 @@ class ErgonodeAccountExtension extends Extension implements PrependExtensionInte
         );
 
         $loader->load('services.yml');
+
+        $configuration = $this->processConfiguration(new Configuration(), $configs);
+        if (array_key_exists('host', $configuration)) {
+            $container->setParameter('ergonode_account.host', $configuration['host']);
+        }
     }
 
 

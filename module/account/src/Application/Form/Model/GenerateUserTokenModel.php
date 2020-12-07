@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
+use Ergonode\Account\Application\Validator\Constraints\AvailableHostConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class GenerateUserTokenModel
@@ -21,6 +22,8 @@ class GenerateUserTokenModel
     /**
      * @Assert\NotBlank()
      * @Assert\Url()
+     *
+     * @AvailableHostConstraint(site="path")
      */
     public ?string $path;
 }

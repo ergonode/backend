@@ -32,7 +32,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 class UserResetPasswordTokenGenerateAction
 {
     private CommandBusInterface $commandBus;
+
     private FormFactoryInterface $formFactory;
+
     private UserQueryInterface $query;
 
 
