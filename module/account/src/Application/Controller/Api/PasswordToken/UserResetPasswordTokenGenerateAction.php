@@ -4,9 +4,9 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1 );
+declare(strict_types=1);
 
-namespace Ergonode\Account\Application\Controller\Api;
+namespace Ergonode\Account\Application\Controller\Api\PasswordToken;
 
 use Ergonode\Account\Application\Form\GenerateUserTokenForm;
 use Ergonode\Account\Application\Form\Model\GenerateUserTokenModel;
@@ -29,7 +29,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
  *     methods={"POST"},
  *     )
  */
-class UserResetPasswordTokenAction
+class UserResetPasswordTokenGenerateAction
 {
     private CommandBusInterface $commandBus;
     private FormFactoryInterface $formFactory;
