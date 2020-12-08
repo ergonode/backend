@@ -9,17 +9,15 @@ declare(strict_types=1);
 namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\Account\Domain\ValueObject\ResetToken;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 
-class UserResetTokenGeneratedEvent implements DomainEventInterface
+class UserResetTokenGeneratedEvent
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private UserId $id;
+    private UserId $userId;
 
     /**
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\ResetToken")
@@ -29,23 +27,18 @@ class UserResetTokenGeneratedEvent implements DomainEventInterface
     /**
      * @JMS\Type("string")
      */
-    private string $path;
+    private string $url;
 
-    public function __construct(UserId $id, ResetToken $token, string $path)
+    public function __construct(UserId $id, ResetToken $token, string $url)
     {
-        $this->id = $id;
+        $this->userId = $id;
         $this->token = $token;
-        $this->path = $path;
+        $this->url = $url;
     }
 
-    public function getAggregateId(): AggregateId
+    public function getUserId(): UserId
     {
-        return $this->id;
-    }
-
-    public function getId(): UserId
-    {
-        return $this->id;
+        return $this->userId;
     }
 
     public function getToken(): ResetToken
@@ -53,8 +46,8 @@ class UserResetTokenGeneratedEvent implements DomainEventInterface
         return $this->token;
     }
 
-    public function getPath(): string
+    public function getUrl(): string
     {
-        return $this->path;
+        return $this->url;
     }
 }

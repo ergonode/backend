@@ -39,8 +39,8 @@ class UserResetTokenGeneratedEventTest extends TestCase
     {
         $event = new UserResetTokenGeneratedEvent($this->userId, $this->token, $this->path);
 
-        self::assertEquals($this->userId, $event->getId());
+        self::assertEquals($this->userId, $event->getUserId());
         self::assertEquals($this->token, $event->getToken());
-        self::assertEquals($this->path, $event->getPath());
+        self::assertEquals($this->path, $event->getUrl());
     }
 }

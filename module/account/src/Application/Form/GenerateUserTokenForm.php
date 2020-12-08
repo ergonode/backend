@@ -27,7 +27,7 @@ class GenerateUserTokenForm extends AbstractType
                 TextType::class
             )
             ->add(
-                'path',
+                'url',
                 TextType::class
             );
     }

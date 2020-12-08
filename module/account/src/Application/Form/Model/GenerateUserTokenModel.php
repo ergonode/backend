@@ -20,10 +20,10 @@ class GenerateUserTokenModel
     public ?string $email;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="URL is required")
      * @Assert\Url()
      *
-     * @AvailableHostConstraint(site="path")
+     * @AvailableHostConstraint(host="path")
      */
-    public ?string $path;
+    public ?string $url;
 }

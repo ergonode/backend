@@ -1,2 +1,2 @@
 ergonode_account:
-    host: '%env(json:APP_HOSTS)%'
+    hosts: '%env(json:APP_HOSTS)%'

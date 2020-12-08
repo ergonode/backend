@@ -35,7 +35,7 @@ class ErgonodeAccountExtension extends Extension implements PrependExtensionInte
 
         $configuration = $this->processConfiguration(new Configuration(), $configs);
 
-        $container->setParameter('ergonode_account.host', $configuration['host']);
+        $container->setParameter('ergonode_account.hosts', $configuration['hosts']);
     }
 
     /**

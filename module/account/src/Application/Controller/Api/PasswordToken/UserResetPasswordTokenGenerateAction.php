@@ -78,7 +78,7 @@ class UserResetPasswordTokenGenerateAction
             /** @var GenerateUserTokenModel $data */
             $data = $form->getData();
             $userId = $this->query->findIdByEmail(new Email($data->email));
-            $path = $data->path;
+            $path = $data->url;
             if ($userId) {
                 $this->commandBus->dispatch(new GenerateUserResetPasswordTokenCommand($userId, $path));
             }

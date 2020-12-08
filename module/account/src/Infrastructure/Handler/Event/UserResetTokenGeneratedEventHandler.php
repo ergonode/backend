@@ -28,9 +28,9 @@ class UserResetTokenGeneratedEventHandler
 
     public function __invoke(UserResetTokenGeneratedEvent $event): void
     {
-        $user = $this->userRepository->load($event->getId());
+        $user = $this->userRepository->load($event->getUserId());
         if ($user) {
-            $mail = new ResetTokenMail($user->getEmail(), $user->getLanguage(), $event->getToken(), $event->getPath());
+            $mail = new ResetTokenMail($user->getEmail(), $user->getLanguage(), $event->getToken(), $event->getUrl());
             $command = new SendMailCommand($mail);
             $this->commandBus->dispatch($command);
         }

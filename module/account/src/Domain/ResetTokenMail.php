@@ -19,14 +19,14 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
 class ResetTokenMail extends Mail
 {
-    public function __construct(Email $to, Language $language, ResetToken $token, string $path)
+    public function __construct(Email $to, Language $language, ResetToken $token, string $url)
     {
         $recipient = new Recipient(new EmailCollection([$to]));
         $template = new Template(
             '@ErgonodeAccount/message/token.html.twig',
             $language,
             [
-                'path' => $path,
+                'url' => $url,
                 'token' => $token->getValue(),
             ]
         );

@@ -75,7 +75,7 @@ class AvailableHostConstraintValidatorTest extends ConstraintValidatorTestCase
         $value = 'site';
         $this->validator->validate($value, $constraint);
 
-        $assertion = $this->buildViolation($constraint->validMessage)->setParameter('{{ site }}', $constraint->site);
+        $assertion = $this->buildViolation($constraint->validMessage)->setParameter('{{ host }}', $constraint->host);
         $assertion->assertRaised();
     }
 

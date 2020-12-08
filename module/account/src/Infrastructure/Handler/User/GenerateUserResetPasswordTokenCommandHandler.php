@@ -13,7 +13,7 @@ use Ergonode\Account\Domain\Entity\UserResetPasswordToken;
 use Ergonode\Account\Domain\Event\User\UserResetTokenGeneratedEvent;
 use Ergonode\Account\Domain\Repository\UserResetPasswordTokenRepositoryInterface;
 use Ergonode\Account\Infrastructure\Generator\ResetTokenGeneratorInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class GenerateUserResetPasswordTokenCommandHandler
 {
@@ -23,12 +23,12 @@ class GenerateUserResetPasswordTokenCommandHandler
 
     private ResetTokenGeneratorInterface $generator;
 
-    private EventBusInterface $eventBus;
+    private MessageBusInterface $eventBus;
 
     public function __construct(
         UserResetPasswordTokenRepositoryInterface $repository,
         ResetTokenGeneratorInterface $generator,
-        EventBusInterface $eventBus
+        MessageBusInterface $eventBus
     ) {
         $this->repository = $repository;
         $this->generator = $generator;
@@ -44,6 +44,6 @@ class GenerateUserResetPasswordTokenCommandHandler
 
         $this->repository->save($userResetPasswordToken);
 
-        $this->eventBus->dispatch(new UserResetTokenGeneratedEvent($command->getId(), $token, $command->getPath()));
+        $this->eventBus->dispatch(new UserResetTokenGeneratedEvent($command->getId(), $token, $command->getUrl()));
     }
 }

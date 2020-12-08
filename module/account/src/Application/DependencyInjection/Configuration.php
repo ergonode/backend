@@ -22,7 +22,7 @@ final class Configuration implements ConfigurationInterface
                 ->children()
                     // TODO workaround for not being able to set json array from env variables
                     // see https://github.com/symfony/symfony/issues/27683
-                    ->variableNode('host')
+                    ->variableNode('hosts')
                         ->isRequired()
                     ->end()
                 ->end()

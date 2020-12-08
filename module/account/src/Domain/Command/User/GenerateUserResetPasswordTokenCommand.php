@@ -22,12 +22,12 @@ class GenerateUserResetPasswordTokenCommand implements AccountCommandInterface
     /**
      * @JMS\Type("string")
      */
-    private string $path;
+    private string $url;
 
-    public function __construct(UserId $id, string $path)
+    public function __construct(UserId $id, string $url)
     {
         $this->id = $id;
-        $this->path = $path;
+        $this->url = $url;
     }
 
     public function getId(): UserId
@@ -35,8 +35,8 @@ class GenerateUserResetPasswordTokenCommand implements AccountCommandInterface
         return $this->id;
     }
 
-    public function getPath(): string
+    public function getUrl(): string
     {
-        return $this->path;
+        return $this->url;
     }
 }

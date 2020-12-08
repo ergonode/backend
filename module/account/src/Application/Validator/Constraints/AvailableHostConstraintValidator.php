@@ -15,12 +15,12 @@ use Webmozart\Assert\Assert;
 
 class AvailableHostConstraintValidator extends ConstraintValidator
 {
-    private array $sites;
+    private array $hosts;
 
-    public function __construct(array $sites)
+    public function __construct(array $hosts)
     {
-        Assert::allString($sites);
-        $this->sites = $sites;
+        Assert::allString($hosts);
+        $this->hosts = $hosts;
     }
 
     /**
@@ -44,10 +44,10 @@ class AvailableHostConstraintValidator extends ConstraintValidator
         $hostname = parse_url($value, PHP_URL_HOST);
 
         $isset = false;
-        foreach ($this->sites as $site) {
+        foreach ($this->hosts as $host) {
             $siteHost = parse_url($value, PHP_URL_HOST);
             if (!$siteHost) {
-                $siteHost = $site;
+                $siteHost = $host;
             }
             if ($hostname === $siteHost) {
                 $isset = true;
@@ -57,7 +57,7 @@ class AvailableHostConstraintValidator extends ConstraintValidator
 
         if (!$isset) {
             $this->context->buildViolation($constraint->validMessage)
-                ->setParameter('{{ site }}', $constraint->site)
+                ->setParameter('{{ host }}', $constraint->host)
                 ->addViolation();
         }
     }
