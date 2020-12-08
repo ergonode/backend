@@ -41,7 +41,11 @@ services:
 
     Ergonode\Account\Infrastructure\Subscriber\LocaleSubscriber:
         $localeAware: '@translator'
-    
+
+    Ergonode\Account\Application\Validator\Constraints\AvailableHostConstraintValidator:
+        arguments:
+            $hosts: '%ergonode_account.hosts%'
+
     Ergonode\Account\Domain\Repository\UserRepositoryInterface: '@Ergonode\Account\Infrastructure\Persistence\Repository\DbalUserRepository'
     Ergonode\Account\Domain\Repository\RoleRepositoryInterface: '@Ergonode\Account\Infrastructure\Persistence\Repository\DbalRoleRepository'
     Ergonode\Account\Domain\Query\AccountQueryInterface: '@Ergonode\Account\Infrastructure\Persistence\Query\DbalAccountQuery'

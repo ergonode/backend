@@ -19,13 +19,24 @@ class GenerateUserResetPasswordTokenCommand implements AccountCommandInterface
      */
     private UserId $id;
 
-    public function __construct(UserId $id)
+    /**
+     * @JMS\Type("string")
+     */
+    private string $url;
+
+    public function __construct(UserId $id, string $url)
     {
         $this->id = $id;
+        $this->url = $url;
     }
 
     public function getId(): UserId
     {
         return $this->id;
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
     }
 }

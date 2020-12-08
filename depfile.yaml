@@ -87,6 +87,7 @@ ruleset:
     - Attribute
     - Core
     - EventSourcing
+    - Mailer
     - SharedKernel
   Api:
     - Core
