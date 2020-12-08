@@ -1,5 +1,2 @@
 ergonode_account:
-    host:
-        - localhost
-        - 127.0.0.1
-        - '%env(APP_HOST)%'
+    host: '%env(json:APP_HOSTS)%'

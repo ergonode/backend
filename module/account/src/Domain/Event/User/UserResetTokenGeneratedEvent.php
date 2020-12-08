@@ -22,7 +22,7 @@ class UserResetTokenGeneratedEvent implements DomainEventInterface
     private UserId $id;
 
     /**
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\ResetToken)
+     * @JMS\Type("Ergonode\Account\Domain\ValueObject\ResetToken")
      */
     private ResetToken $token;
 

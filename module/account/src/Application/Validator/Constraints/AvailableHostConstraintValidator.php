@@ -11,6 +11,7 @@ namespace Ergonode\Account\Application\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Webmozart\Assert\Assert;
 
 class AvailableHostConstraintValidator extends ConstraintValidator
 {
@@ -18,10 +19,12 @@ class AvailableHostConstraintValidator extends ConstraintValidator
 
     public function __construct(array $sites)
     {
+        Assert::allString($sites);
         $this->sites = $sites;
     }
+
     /**
-     * @param mixed                        $value
+     * @param mixed                              $value
      * @param AvailableHostConstraint|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
@@ -42,7 +45,11 @@ class AvailableHostConstraintValidator extends ConstraintValidator
 
         $isset = false;
         foreach ($this->sites as $site) {
-            if ($hostname === $site) {
+            $siteHost = parse_url($value, PHP_URL_HOST);
+            if (!$siteHost) {
+                $siteHost = $site;
+            }
+            if ($hostname === $siteHost) {
                 $isset = true;
                 break;
             }

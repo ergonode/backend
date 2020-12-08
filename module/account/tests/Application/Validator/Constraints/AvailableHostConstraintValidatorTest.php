@@ -19,7 +19,11 @@ class AvailableHostConstraintValidatorTest extends ConstraintValidatorTestCase
 
     public function setUp(): void
     {
-        $this->sites = ['localhost', '127.0.0.1'];
+        $this->sites = [
+            'localhost',
+            '127.0.0.1',
+            'https://ergonode.com/',
+        ];
         parent::setUp();
     }
 
@@ -54,6 +58,13 @@ class AvailableHostConstraintValidatorTest extends ConstraintValidatorTestCase
     public function testCorrectIpValueValidation(): void
     {
         $this->validator->validate('http://127.0.0.1/test', new AvailableHostConstraint());
+
+        $this->assertNoViolation();
+    }
+
+    public function testCorrectErgonodeHostValueValidation(): void
+    {
+        $this->validator->validate('https://ergonode.com/test', new AvailableHostConstraint());
 
         $this->assertNoViolation();
     }
