@@ -7,7 +7,7 @@ Feature: Account Token
       """
       {
           "email": "test@ergonode.com",
-          "path": "http://localhost/rest?token="
+          "url": "http://localhost/rest?token="
       }
       """
     Then the response status code should be 204
