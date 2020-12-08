@@ -15,7 +15,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class AvailableHostConstraint extends Constraint
 {
-    public string $host = 'host';
-
-    public string $validMessage = 'This {{ host }} is not available';
+    public string $validMessage = 'This host is not available';
 }

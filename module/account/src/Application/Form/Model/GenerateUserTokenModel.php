@@ -23,7 +23,7 @@ class GenerateUserTokenModel
      * @Assert\NotBlank(message="URL is required")
      * @Assert\Url()
      *
-     * @AvailableHostConstraint(host="path")
+     * @AvailableHostConstraint()
      */
     public ?string $url;
 }

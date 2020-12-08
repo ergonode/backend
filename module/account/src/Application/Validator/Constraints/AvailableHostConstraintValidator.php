@@ -57,7 +57,6 @@ class AvailableHostConstraintValidator extends ConstraintValidator
 
         if (!$isset) {
             $this->context->buildViolation($constraint->validMessage)
-                ->setParameter('{{ host }}', $constraint->host)
                 ->addViolation();
         }
     }

@@ -10,23 +10,13 @@ namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\Account\Domain\ValueObject\ResetToken;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use JMS\Serializer\Annotation as JMS;
 
 class UserResetTokenGeneratedEvent
 {
-    /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
-     */
     private UserId $userId;
 
-    /**
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\ResetToken")
-     */
     private ResetToken $token;
 
-    /**
-     * @JMS\Type("string")
-     */
     private string $url;
 
     public function __construct(UserId $id, ResetToken $token, string $url)
