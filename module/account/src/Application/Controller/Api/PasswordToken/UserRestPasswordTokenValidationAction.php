@@ -8,15 +8,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\PasswordToken;
 
-use Ergonode\Account\Application\Form\Model\UserTokenModel;
-use Ergonode\Account\Application\Form\UserTokenForm;
-use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraint;
+use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route(
@@ -27,11 +26,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserRestPasswordTokenValidationAction
 {
-    private FormFactoryInterface $formFactory;
+    private ValidatorInterface $validator;
 
-    public function __construct(FormFactoryInterface $formFactory)
+    public function __construct(ValidatorInterface $validator)
     {
-        $this->formFactory = $formFactory;
+        $this->validator = $validator;
     }
 
     /**
@@ -56,13 +55,15 @@ class UserRestPasswordTokenValidationAction
      */
     public function __invoke(Request $request): Response
     {
-        $model = new UserTokenModel();
-        $form = $this->formFactory->create(UserTokenForm::class, $model);
-        $form->handleRequest($request);
+        $value = $request->request->get('token');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $constraint = new AvailableTokenConstraint();
+
+        $violations = $this->validator->validate($value, $constraint);
+        if (0 === $violations->count()) {
             return new EmptyResponse();
         }
-        throw new FormValidationHttpException($form);
+
+        throw new ViolationsHttpException($violations);
     }
 }
