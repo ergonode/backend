@@ -21,8 +21,6 @@ class ErgonodeAccountExtension extends Extension implements PrependExtensionInte
     /**
      * @throws \Exception
      *
-     * @param array $configs
-     *
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
