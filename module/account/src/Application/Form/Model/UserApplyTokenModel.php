@@ -22,11 +22,13 @@ class UserApplyTokenModel
     public ?string $token;
 
     /**
+     * @Assert\NotBlank()
      * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
     public ?string $passwordRepeat;
 
     /**
+     * @Assert\NotBlank()
      * @Assert\Length(
      *     min="6",
      *     max="32",
