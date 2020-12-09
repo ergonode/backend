@@ -84,7 +84,6 @@ class ProductReadInheritedValuesByLanguageAction
         $result = [
             'id' => $product->getId()->getValue(),
         ];
-        $value = null;
         foreach ($product->getAttributes() as $key => $value) {
             $attributeId = AttributeId::fromKey($key);
             $attribute = $this->attributeRepository->load($attributeId);
