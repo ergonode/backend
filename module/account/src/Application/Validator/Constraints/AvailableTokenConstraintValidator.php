@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
-use Ergonode\Account\Application\Validator\TokenValidator;
+use Ergonode\Account\Domain\Validator\TokenValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

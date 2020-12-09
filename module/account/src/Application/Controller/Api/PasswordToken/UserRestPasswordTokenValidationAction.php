@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\PasswordToken;
 
-use Ergonode\Account\Application\Validator\TokenValidator;
+use Ergonode\Account\Domain\Validator\TokenValidator;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;

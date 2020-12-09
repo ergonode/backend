@@ -10,9 +10,9 @@ namespace Ergonode\Account\Tests\Application\Validator\Constraints;
 
 use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraint;
 use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraintValidator;
-use Ergonode\Account\Application\Validator\TokenValidator;
 use Ergonode\Account\Domain\Entity\UserResetPasswordToken;
 use Ergonode\Account\Domain\Repository\UserResetPasswordTokenRepositoryInterface;
+use Ergonode\Account\Domain\Validator\TokenValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;

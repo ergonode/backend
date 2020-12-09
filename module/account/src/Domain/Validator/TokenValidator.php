@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Account\Application\Validator;
+namespace Ergonode\Account\Domain\Validator;
 
 use Ergonode\Account\Domain\Repository\UserResetPasswordTokenRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\ResetToken;
