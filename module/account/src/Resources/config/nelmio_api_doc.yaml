@@ -92,11 +92,19 @@ nelmio_api_doc:
                         required: true
                         description: User email/login
                         example: any-email@test-email.com
-                    path:
+                    url:
                         type: string
                         required: true
-                        description: Path to frontend reset site
-                        example: https://ergonode.com/password-reset?hash=
+                        description: 'Path to frontend reset site'
+                        example: 'https://ergonode.com/password-reset?hash='
+            account_token_apply:
+                type: 'object'
+                properties:
+                    token:
+                        type: 'string'
+                        required: true
+                        description: 'Token from reset mail'
+                        example: 'EwLSx4oRwG'
             account_change_password:
                 type: 'object'
                 properties:
