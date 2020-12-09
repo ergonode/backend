@@ -83,8 +83,7 @@ class ProductReadInheritedValuesByLanguageAction
     public function __invoke(Language $language, AbstractProduct $product, Language $productLanguage): Response
     {
         $result = [
-            'id' => Uuid::uuid4()->toString(),
-            'product_id' => $product->getId()->getValue(),
+            'id' => $product->getId()->getValue(),
         ];
         $value = null;
         foreach ($product->getAttributes() as $key => $value) {
