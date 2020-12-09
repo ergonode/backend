@@ -10,6 +10,7 @@ namespace Ergonode\Account\Tests\Application\Validator\Constraints;
 
 use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraint;
 use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraintValidator;
+use Ergonode\Account\Application\Validator\TokenValidator;
 use Ergonode\Account\Domain\Entity\UserResetPasswordToken;
 use Ergonode\Account\Domain\Repository\UserResetPasswordTokenRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -23,9 +24,12 @@ class AvailableTokenConstraintValidatorTest extends ConstraintValidatorTestCase
      */
     private UserResetPasswordTokenRepositoryInterface $repository;
 
+    private TokenValidator $tokenValidator;
+
     public function setUp(): void
     {
         $this->repository = $this->createMock(UserResetPasswordTokenRepositoryInterface::class);
+        $this->tokenValidator = new TokenValidator($this->repository);
 
         parent::setUp();
     }
@@ -135,6 +139,6 @@ class AvailableTokenConstraintValidatorTest extends ConstraintValidatorTestCase
 
     protected function createValidator(): AvailableTokenConstraintValidator
     {
-        return new AvailableTokenConstraintValidator($this->repository);
+        return new AvailableTokenConstraintValidator($this->tokenValidator);
     }
 }

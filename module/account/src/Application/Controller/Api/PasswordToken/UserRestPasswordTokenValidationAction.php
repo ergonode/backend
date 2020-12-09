@@ -8,27 +8,26 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\PasswordToken;
 
-use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraint;
-use Ergonode\Api\Application\Exception\ViolationsHttpException;
+use Ergonode\Account\Application\Validator\TokenValidator;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route(
  *     name="ergonode_reset_token_validation",
  *     path="accounts/token/validation",
- *     methods={"POST"},
+ *     methods={"GET"},
  *     )
  */
 class UserRestPasswordTokenValidationAction
 {
-    private ValidatorInterface $validator;
+    private TokenValidator $validator;
 
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(TokenValidator $validator)
     {
         $this->validator = $validator;
     }
@@ -37,11 +36,11 @@ class UserRestPasswordTokenValidationAction
      * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
-     *     name="body",
-     *     in="body",
-     *     description="User email",
+     *     name="token",
+     *     in="path",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/account_token_validation")
+     *     type="string",
+     *     description="Token"
      * )
      * @SWG\Response(
      *     response=204,
@@ -55,15 +54,14 @@ class UserRestPasswordTokenValidationAction
      */
     public function __invoke(Request $request): Response
     {
-        $value = $request->request->get('token');
+        $value = $request->query->get('token');
 
-        $constraint = new AvailableTokenConstraint();
+        $this->validator->validate($value);
 
-        $violations = $this->validator->validate($value, $constraint);
-        if (0 === $violations->count()) {
+        if ($this->validator->validate($value)) {
             return new EmptyResponse();
         }
 
-        throw new ViolationsHttpException($violations);
+        throw new BadRequestHttpException('Validation error');
     }
 }

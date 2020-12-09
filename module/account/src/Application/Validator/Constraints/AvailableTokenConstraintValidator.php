@@ -8,19 +8,18 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
-use Ergonode\Account\Domain\Repository\UserResetPasswordTokenRepositoryInterface;
-use Ergonode\Account\Domain\ValueObject\ResetToken;
+use Ergonode\Account\Application\Validator\TokenValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class AvailableTokenConstraintValidator extends ConstraintValidator
 {
-    private UserResetPasswordTokenRepositoryInterface $repository;
+    private TokenValidator $validator;
 
-    public function __construct(UserResetPasswordTokenRepositoryInterface $repository)
+    public function __construct(TokenValidator $validator)
     {
-        $this->repository = $repository;
+        $this->validator = $validator;
     }
 
     /**
@@ -41,25 +40,7 @@ class AvailableTokenConstraintValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        if (!ResetToken::isValid($value)) {
-            $this->context->buildViolation($constraint->validMessage)
-                ->addViolation();
-
-            return;
-        }
-
-        $userToken = $this->repository->load(new ResetToken($value));
-        if (!$userToken) {
-            $this->context->buildViolation($constraint->validMessage)
-                ->addViolation();
-
-            return;
-        }
-        $now = new \DateTime();
-
-        if (null !== $userToken->getConsumed()
-            || $userToken->getExpiresAt() <= $now
-        ) {
+        if (!$this->validator->validate($value)) {
             $this->context->buildViolation($constraint->validMessage)
                 ->addViolation();
 
