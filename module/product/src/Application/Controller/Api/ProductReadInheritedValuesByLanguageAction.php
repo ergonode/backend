@@ -79,7 +79,7 @@ class ProductReadInheritedValuesByLanguageAction
      *
      * @throws \Exception
      */
-    public function __invoke(Language $language, AbstractProduct $product, Language $productLanguage): Response
+    public function __invoke(AbstractProduct $product, Language $productLanguage): Response
     {
         $result = [
             'id' => $product->getId()->getValue(),
