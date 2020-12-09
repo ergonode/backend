@@ -10,8 +10,6 @@ namespace Ergonode\Account\Tests\Application\Validator\Constraints;
 
 use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraint;
 use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraintValidator;
-use Ergonode\Account\Domain\Entity\UserResetPasswordToken;
-use Ergonode\Account\Domain\Repository\UserResetPasswordTokenRepositoryInterface;
 use Ergonode\Account\Domain\Validator\TokenValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
@@ -20,16 +18,13 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 class AvailableTokenConstraintValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var UserResetPasswordTokenRepositoryInterface|MockObject
+     * @var TokenValidator|MockObject
      */
-    private UserResetPasswordTokenRepositoryInterface $repository;
-
     private TokenValidator $tokenValidator;
 
     public function setUp(): void
     {
-        $this->repository = $this->createMock(UserResetPasswordTokenRepositoryInterface::class);
-        $this->tokenValidator = new TokenValidator($this->repository);
+        $this->tokenValidator =  $this->createMock(TokenValidator::class);
 
         parent::setUp();
     }
@@ -57,15 +52,8 @@ class AvailableTokenConstraintValidatorTest extends ConstraintValidatorTestCase
 
     public function testCorrectValueValidation(): void
     {
-        $expiresAt = new \DateTime();
-        $expiresAt->add(new \DateInterval('PT1H'));
-
-        $userToken = $this->createMock(UserResetPasswordToken::class);
-        $userToken->method('getExpiresAt')
-            ->willReturn($expiresAt);
-
-        $this->repository->method('load')
-            ->willReturn($userToken);
+        $this->tokenValidator->method('validate')
+            ->willReturn(true);
 
         $this->validator->validate('test', new AvailableTokenConstraint());
 
@@ -74,63 +62,11 @@ class AvailableTokenConstraintValidatorTest extends ConstraintValidatorTestCase
 
     public function testInCorrectTimeValueValidation(): void
     {
-        $expiresAt = new \DateTime();
-
-        $userToken = $this->createMock(UserResetPasswordToken::class);
-        $userToken->method('getExpiresAt')
-            ->willReturn($expiresAt);
-
-        $this->repository->method('load')
-            ->willReturn($userToken);
+        $this->tokenValidator->method('validate')
+            ->willReturn(false);
 
         $constraint = new AvailableTokenConstraint();
         $value = 'test';
-        $this->validator->validate($value, $constraint);
-
-        $assertion = $this->buildViolation($constraint->validMessage);
-        $assertion->assertRaised();
-    }
-
-    public function testInCorrectConsumedValueValidation(): void
-    {
-        $expiresAt = new \DateTime();
-        $expiresAt->add(new \DateInterval('PT1H'));
-        $now = new \DateTime();
-
-        $userToken = $this->createMock(UserResetPasswordToken::class);
-        $userToken->method('getExpiresAt')
-            ->willReturn($expiresAt);
-        $userToken->method('getConsumed')
-            ->willReturn($now);
-
-        $this->repository->method('load')
-            ->willReturn($userToken);
-
-        $constraint = new AvailableTokenConstraint();
-        $value = 'test';
-        $this->validator->validate($value, $constraint);
-
-        $assertion = $this->buildViolation($constraint->validMessage);
-        $assertion->assertRaised();
-    }
-
-    public function testInCorrectNoTokenValueValidation(): void
-    {
-        $this->repository->method('load')
-            ->willReturn(null);
-
-        $constraint = new AvailableTokenConstraint();
-        $value = 'test';
-        $this->validator->validate($value, $constraint);
-
-        $assertion = $this->buildViolation($constraint->validMessage);
-        $assertion->assertRaised();
-    }
-
-    public function testInCorrectTokenValueValidation(): void
-    {
-        $constraint = new AvailableTokenConstraint();
-        $value = str_repeat('a', 256);
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->validMessage);

@@ -105,6 +105,16 @@ nelmio_api_doc:
                         required: true
                         description: 'Token from reset mail'
                         example: 'EwLSx4oRwG'
+                    password:
+                        type: 'string'
+                        required: true
+                        description: 'New password'
+                        example: 'new_password'
+                    password_repeat:
+                        type: 'string'
+                        required: true
+                        description: 'Password repeat'
+                        example: 'new_password'
             account_change_password:
                 type: 'object'
                 properties:
