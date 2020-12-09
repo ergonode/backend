@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with unit attribute
+Feature: Product edit and inheritance value for product product with text attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -19,6 +19,17 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
     When I send a GET request to "/api/v1/en_GB/languages/fr_FR"
     Then the response status code should be 200
     And store response param "id" as "language_id_fr"
+
+  Scenario: Activate languages
+    When I send a PUT request to "api/v1/en_GB/languages" with body:
+      """
+      {
+        "collection": [
+          "en_GB","pl_PL", "fr_FR", "de_DE"
+        ]
+      }
+      """
+    Then the response status code should be 204
 
   Scenario: Update Tree
     Given I am Authenticated as "test@ergonode.com"
@@ -46,30 +57,15 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
       """
     Then the response status code should be 204
 
-  Scenario: Create unit object 1
-    And I send a "POST" request to "/api/v1/en_GB/units" with body:
-      """
-      {
-        "name": "@@random_md5@@",
-        "symbol": "@@random_symbol@@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "unit_id"
-
-  Scenario: Create unit attribute
-    Given remember param "attribute_code" with value "unit_@@random_code@@"
+  Scenario: Create text attribute
+    Given remember param "attribute_code" with value "text_@@random_code@@"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "@attribute_code@",
-        "type": "UNIT",
+        "type": "TEXT",
         "scope": "global",
-        "groups": [],
-        "parameters":
-        {
-          "unit": "@unit_id@"
-        }
+        "groups": []
       }
       """
     Then the response status code should be 201
@@ -99,78 +95,84 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product unit value in "en_GB" language
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
+  Scenario: Edit product text value in "en_GB" language
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": 100.99
-      }
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "text attribute value in english"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product unit value in "pl_PL" language
-    When I send a PUT request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id@/value" with body:
-      """
-      {
-        "value": 200.99
-      }
-      """
-    Then the response status code should be 403
-
-  Scenario: Get draft values in "pl_PL" language
-    When I send a GET request to "api/v1/pl_PL/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100.99 |
-
-  Scenario: Get draft values in "en_GB" language
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100.99 |
-
-  Scenario: Get draft values in "fr_FR" language
-    When I send a GET request to "api/v1/fr_FR/products/@product_id@/draft"
+  Scenario: Get product values in "pl_PL" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 100.99 |
+      | attributes.@attribute_code@ | text attribute value in english |
+
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@ | text attribute value in english |
+
+  Scenario: Get product values in "fr_FR" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@ | text attribute value in english |
 
   Scenario: Remove value for "pl_PL" language
-    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id@/value"
+    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
     Then the response status code should be 403
 
-  Scenario: Edit product unit value in "en_GB" language
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
+  Scenario: Edit product text value in "en_GB" language
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": 200.99
-      }
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "text attribute value in polish"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       """
     Then the response status code should be 200
 
-  Scenario: Get draft values in "en_GB" language
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/draft"
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 200.99 |
+      | attributes.@attribute_code@ | text attribute value in polish |
 
-  Scenario: Get draft values in "fr_FR" language
-    When I send a GET request to "api/v1/fr_FR/products/@product_id@/draft"
+  Scenario: Get product values in "fr_FR" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 200.99 |
-
-  Scenario: Edit product unit value in "en_GB" language
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
-      """
-      {
-        "value": 0
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Get draft values in "en_GB" language
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | 0 |
+      | attributes.@attribute_code@ | text attribute value in polish |

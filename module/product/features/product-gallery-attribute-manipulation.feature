@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with gallery attribute
+Feature: Product edit and inheritance value for product product with gallery attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -19,6 +19,17 @@ Feature: Draft edit and inheritance value for product draft with gallery attribu
     When I send a GET request to "/api/v1/en_GB/languages/fr_FR"
     Then the response status code should be 200
     And store response param "id" as "language_id_fr"
+
+  Scenario: Activate languages
+    When I send a PUT request to "api/v1/en_GB/languages" with body:
+      """
+      {
+        "collection": [
+          "en_GB","pl_PL", "fr_FR", "de_DE"
+        ]
+      }
+      """
+    Then the response status code should be 204
 
   Scenario: Update Tree
     When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
@@ -43,19 +54,19 @@ Feature: Draft edit and inheritance value for product draft with gallery attribu
       """
     Then the response status code should be 204
 
-#  Scenario: Create gallery attribute
-#    Given remember param "attribute_code" with value "gallery_@@random_code@@"
-#    When I send a POST request to "/api/v1/en_GB/attributes" with body:
-#      """
-#      {
-#        "code": "@attribute_code@",
-#        "type": "GALLERY",
-#        "scope": "local",
-#        "groups": []
-#      }
-#      """
-#    Then the response status code should be 201
-#    And store response param "id" as "attribute_id"
+  Scenario: Create gallery attribute
+    Given remember param "attribute_code" with value "gallery_@@random_code@@"
+    When I send a POST request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+        "code": "@attribute_code@",
+        "type": "GALLERY",
+        "scope": "local",
+        "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_id"
 
 
   Scenario: Create template
@@ -98,55 +109,53 @@ Feature: Draft edit and inheritance value for product draft with gallery attribu
     And the JSON node "id" should exist
     And store response param "id" as "multimedia_2_id"
 
-#  Scenario: Edit product gallery value in "en_GB" language
-#    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
-#      """
-#      {
-#        "value": ["@multimedia_1_id@"]
-#      }
-#      """
-#    Then the response status code should be 200
-#
-#  Scenario: Edit product multi-select value in "pl_PL" language
-#    When I send a PUT request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id@/value" with body:
-#      """
-#      {
-#        "value": ["@multimedia_2_id@"]
-#      }
-#      """
-#    Then the response status code should be 200
-#
-#  Scenario: Edit product multi-select value in "pl_PL" language (wrong uuid - validation error)
-#    When I send a PUT request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id@/value" with body:
-#      """
-#      {
-#        "value": ["@@random_uuid@@"]
-#      }
-#      """
-#    Then the response status code should be 400
-#
-#  Scenario: Get draft values in "pl_PL" language
-#    When I send a GET request to "api/v1/pl_PL/products/@product_id@/draft"
-#    Then the response status code should be 200
-#    And the JSON nodes should be equal to:
-#      | attributes.@attribute_code@[0] | @multimedia_2_id@ |
-#
-#  Scenario: Get draft values in "en_GB" language
-#    When I send a GET request to "api/v1/en_GB/products/@product_id@/draft"
-#    Then the response status code should be 200
-#    And the JSON nodes should be equal to:
-#      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
-#
-#  Scenario: Get draft values in "fr_FR" language
-#    When I send a GET request to "api/v1/fr_FR/products/@product_id@/draft"
-#    Then the response status code should be 200
-#    And the JSON nodes should be equal to:
-#      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
+  Scenario: Edit product gallery value in "en_GB" and "pl_PL" language
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
+      """
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                    {
+                      "language": "pl_PL",
+                      "value": ["@multimedia_2_id@"]
+                    },
+                     {
+                      "language": "en_GB",
+                       "value": ["@multimedia_1_id@"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      """
+    Then the response status code should be 200
 
-#  Scenario: Remove value for "pl_PL" language
-#    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id@/value"
-#    Then the response status code should be 204
 
-  Scenario: Apply product draft
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/persist"
+  Scenario: Get product values in "pl_PL" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @multimedia_2_id@ |
+
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
+
+  Scenario: Get product values in "fr_FR" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
+
+  Scenario: Remove value for "pl_PL" language
+    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
     Then the response status code should be 204

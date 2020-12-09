@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with text area attribute
+Feature: Product edit and inheritance value for product product with textarea attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -24,6 +24,17 @@ Feature: Draft edit and inheritance value for product draft with text area attri
     When I send a GET request to "/api/v1/en_GB/languages/de_DE"
     Then the response status code should be 200
     And store response param "id" as "language_id_de"
+
+  Scenario: Activate languages
+    When I send a PUT request to "api/v1/en_GB/languages" with body:
+      """
+      {
+        "collection": [
+          "en_GB","pl_PL", "fr_FR", "de_DE"
+        ]
+      }
+      """
+    Then the response status code should be 204
 
   Scenario: Update Tree
     When I send a PUT request to "/api/v1/en_GB/language/tree" with body:
@@ -112,98 +123,108 @@ Feature: Draft edit and inheritance value for product draft with text area attri
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product text value in "en_GB" language (rte)
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id_rte@/value" with body:
+  Scenario: Edit product textarea value in "en_GB", "pl_PL" and "de_DE" language (rte)
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "text attribute value rte in english"
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product text value in "pl_PL" language (rte)
-    When I send a PUT request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id_rte@/value" with body:
-      """
-      {
-        "value": "text attribute value rte in polish"
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product text value in "de_DE" language (rte)
-    When I send a PUT request to "api/v1/de_DE/products/@product_id@/draft/@attribute_id_rte@/value" with body:
-      """
-      {
-        "value": null
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product text value in "en_GB" language (no rte)
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id_norte@/value" with body:
-      """
-      {
-        "value": "text attribute value norte in english"
-      }
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id_rte@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "textarea attribute value rte in english"
+                    },
+                     {
+                      "language": "pl_PL",
+                       "value": "textarea attribute value rte in polish"
+                    },
+                    {
+                      "language": "de_DE",
+                       "value": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product text value in "pl_PL" language (no rte)
-    When I send a PUT request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id_norte@/value" with body:
+  Scenario: Edit product textarea value in "en_GB", "pl_PL" and "de_DE" language (no rte)
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "text attribute value norte in polish"
-      }
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id_norte@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "textarea attribute value norte in english"
+                    },
+                     {
+                      "language": "pl_PL",
+                       "value": "textarea attribute value norte in polish"
+                    },
+                    {
+                      "language": "de_DE",
+                       "value": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product text value in "de_DE" language (no rte)
-    When I send a PUT request to "api/v1/de_DE/products/@product_id@/draft/@attribute_id_norte@/value" with body:
-      """
-      {
-        "value": null
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Get draft values in "de_DE" language
-    When I send a GET request to "api/v1/de_DE/products/@product_id@/draft"
+  Scenario: Get product values in "de_DE" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/de_DE"
     Then the response status code should be 200
     And the JSON node "attributes.@attribute_code_rte@" should be null
     And the JSON node "attributes.@attribute_code_norte@" should be null
 
-  Scenario: Get draft values in "pl_PL" language
-    When I send a GET request to "api/v1/pl_PL/products/@product_id@/draft"
+  Scenario: Get product values in "pl_PL" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | text attribute value rte in polish |
-      | attributes.@attribute_code_norte@ | text attribute value norte in polish |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in polish |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in polish |
 
-  Scenario: Get draft values in "en_GB" language
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/draft"
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | text attribute value rte in english |
-      | attributes.@attribute_code_norte@ | text attribute value norte in english |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in english |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in english |
 
-  Scenario: Get draft values in "fr_FR" language
-    When I send a GET request to "api/v1/fr_FR/products/@product_id@/draft"
+  Scenario: Get product values in "fr_FR" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | text attribute value rte in english |
-      | attributes.@attribute_code_norte@ | text attribute value norte in english |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in english |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in english |
 
   Scenario: Remove value for "pl_PL" language (rte)
-    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id_rte@/value"
+    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id_rte@"
     Then the response status code should be 204
 
   Scenario: Remove value for "pl_PL" language (norte)
-    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id_norte@/value"
+    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id_norte@"
     Then the response status code should be 204
 
-  Scenario: Get draft values in "pl_PL" language after remove pl value (get inheritance value)
-    When I send a GET request to "api/v1/pl_PL/products/@product_id@/draft"
+  Scenario: Get product values in "pl_PL" language after remove pl value (get inheritance value)
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | text attribute value rte in english |
-      | attributes.@attribute_code_norte@ | text attribute value norte in english |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in english |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in english |

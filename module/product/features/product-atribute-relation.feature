@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with text attribute
+Feature: Product edit and inheritance value with text attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -44,11 +44,26 @@ Feature: Draft edit and inheritance value for product draft with text attribute
     And store response param "id" as "product_id"
 
   Scenario: Edit product text value in "en_GB" language
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "text attribute value in english"
-      }
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "text attribute value in english"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       """
     Then the response status code should be 200
 
