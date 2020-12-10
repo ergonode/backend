@@ -1,13 +1,13 @@
 <p align="center" style="padding: 20px; background: #252832">
   <a href="https://ergonode.com" rel="noopener noreferrer">
-    <img width="300" src="https://ergonode.com/img/logo.svg" alt="Egronode logo">
+    <img width="300" src="./ergonode.svg" alt="Egronode logo">
   </a>
 </p>
 <p align="center">Modern Product Information Management Platform</p>
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-1.0.0--beta.5-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-1.0.0--beta.6-4c9aff.svg" alt="Version">
   </a>
   <a href="https://join.slack.com/t/ergonode-community/shared_invite/zt-ibppxnyc-4Ykac1Gh64Qkk5SWy3sg3w">
      <img src="https://img.shields.io/badge/chat-on%20slack-e51670.svg" alt="Chat">

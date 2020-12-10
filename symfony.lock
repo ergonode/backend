@@ -230,6 +230,9 @@
     "lcobucci/jwt": {
         "version": "3.2.2"
     },
+    "league/csv": {
+        "version": "9.6.1"
+    },
     "league/flysystem": {
         "version": "1.0.69"
     },

@@ -17,13 +17,14 @@ default:
                 - module/editor/features
                 - module/event-sourcing/features
                 - module/exporter/features
+                - module/exporter-file/features
                 - module/exporter-magento-2/features
                 - module/exporter-shopware-6/features
-                - module/exporter-file/features
                 - module/fixture/features
                 - module/generator/features
                 - module/grid/features
                 - module/importer/features
+                - module/importer-ergonode-1/features
                 - module/importer-magento-1/features
                 - module/migration/features
                 - module/multimedia/features

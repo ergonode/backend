@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\EventSourcing\Domain\Event;
+namespace Ergonode\Core\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
