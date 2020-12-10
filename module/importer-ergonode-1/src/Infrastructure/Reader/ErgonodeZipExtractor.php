@@ -40,7 +40,7 @@ class ErgonodeZipExtractor
 
         $extractDirectory = $this->directory.$import->getFileHash();
         $this->importStorage->createDir($import->getFileHash());
-        @chmod($extractDirectory, 0666);
+        @chmod($extractDirectory, 0766);
         $result = $archive->extractTo($extractDirectory);
 
         if (!$result) {
