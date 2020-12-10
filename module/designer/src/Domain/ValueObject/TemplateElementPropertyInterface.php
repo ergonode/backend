@@ -12,5 +12,5 @@ namespace Ergonode\Designer\Domain\ValueObject;
 interface TemplateElementPropertyInterface
 {
     public function getVariant(): string;
-    public function isEqual(object $property): bool;
+    public function isEqual(TemplateElementPropertyInterface $property): bool;
 }
