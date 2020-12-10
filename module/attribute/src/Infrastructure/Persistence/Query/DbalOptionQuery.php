@@ -122,6 +122,22 @@ class DbalOptionQuery implements OptionQueryInterface
         return null;
     }
 
+    public function findKey(AggregateId $id): ?OptionKey
+    {
+        $qb = $this->getQuery();
+
+        $key = $qb
+            ->select('o.key')
+            ->where($qb->expr()->eq('o.id', ':id'))
+            ->setParameter('id', $id->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        return $key ?
+            new OptionKey($key) :
+            null;
+    }
+
     public function getDataSet(AttributeId $attributeId, Language $language): DataSetInterface
     {
         $qb = $this->getQuery();
