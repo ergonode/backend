@@ -80,16 +80,16 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     /**
      * @throws DBALException
      */
-    public function save(AbstractAggregateRoot $aggregate, int $sequence): void
+    public function save(AbstractAggregateRoot $aggregate): void
     {
-        if (0 === ($sequence % $this->snapshotEvents)) {
+        if (0 === ($aggregate->getSequence() % $this->snapshotEvents)) {
             $payload = $this->serializer->serialize($aggregate, 'json');
 
             $this->connection->insert(
                 self::TABLE,
                 [
                     'aggregate_id' => $aggregate->getId()->getValue(),
-                    'sequence' => $sequence,
+                    'sequence' => $aggregate->getSequence(),
                     'payload' => $payload,
                     'recorded_by' => Uuid::uuid4()->toString(),
                     'recorded_at' => new \DateTime(),

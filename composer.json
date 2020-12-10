@@ -21,6 +21,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer": "^3.4",
         "jms/serializer-bundle": "^3.4",
+        "league/csv": "^9.6",
         "league/flysystem-bundle": "^1.5",
         "lexik/jwt-authentication-bundle": "^2.6",
         "limenius/liform-bundle": "^0.15.0",
@@ -80,6 +81,7 @@
         "symfony/maker-bundle": "^1.13",
         "symfony/phpunit-bridge": "^4.4",
         "symfony/profiler-pack": "^1.0",
+        "symfony/var-dumper": "^4.4",
         "symfony/web-server-bundle": "^4.4"
     },
     "config": {
@@ -115,6 +117,7 @@
             "Ergonode\\Generator\\": "module/generator/src",
             "Ergonode\\Grid\\": "module/grid/src",
             "Ergonode\\Importer\\": "module/importer/src",
+            "Ergonode\\ImporterErgonode1\\": "module/importer-ergonode-1/src",
             "Ergonode\\ImporterMagento1\\": "module/importer-magento-1/src",
             "Ergonode\\ImporterMagento2\\": "module/importer-magento-2/src",
             "Ergonode\\Mailer\\": "module/mailer/src",
@@ -154,8 +157,8 @@
             "Ergonode\\Generator\\Tests\\": "module/generator/tests",
             "Ergonode\\Grid\\Tests\\": "module/grid/tests",
             "Ergonode\\Importer\\Tests\\": "module/importer/tests",
+            "Ergonode\\ImporterErgonode1\\Tests\\": "module/importer-ergonode-1/tests",
             "Ergonode\\ImporterMagento1\\Tests\\": "module/importer-magento-1/tests",
-            "Ergonode\\ImporterMagento2\\Tests\\": "module/importer-magento-2/tests",
             "Ergonode\\Mailer\\Tests\\": "module/mailer/tests",
             "Ergonode\\Migration\\Tests\\": "module/migration/src",
             "Ergonode\\Multimedia\\Tests\\": "module/multimedia/tests",
@@ -189,7 +192,7 @@
             "@auto-scripts"
         ],
         "behat": [
-            "php -d error_reporting='E_ALL & ~E_DEPRECATED'  ./bin/behat --colors --stop-on-failure"
+            "php -d error_reporting='E_ALL & ~E_DEPRECATED' ./bin/behat --colors --stop-on-failure"
         ]
     },
     "conflict": {

@@ -9,19 +9,19 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Symfony\Component\HttpFoundation\File\File;
 use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use League\Flysystem\FilesystemInterface;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
+use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FileExistsException;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\FilesystemInterface;
+use Symfony\Component\HttpFoundation\File\File;
 
-class MultimediaImportAction
+class MultimediaFromUrlImportAction
 {
     private MultimediaRepositoryInterface $repository;
 
