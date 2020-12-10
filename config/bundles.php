@@ -17,7 +17,6 @@ return [
     Ergonode\Condition\ErgonodeConditionBundle::class => ['all' => true],
     Ergonode\Core\ErgonodeCoreBundle::class => ['all' => true],
     Ergonode\Designer\ErgonodeDesignerBundle::class => ['all' => true],
-    Ergonode\Editor\ErgonodeEditorBundle::class => ['all' => true],
     Ergonode\EventSourcing\ErgonodeEventSourcingBundle::class => ['all' => true],
     Ergonode\ExporterFile\ErgonodeExporterFileBundle::class => ['all' => true],
     Ergonode\ExporterMagento2\ErgonodeExporterMagento2Bundle::class => ['all' => true],

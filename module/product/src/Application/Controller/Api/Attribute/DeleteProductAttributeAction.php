@@ -43,14 +43,6 @@ class DeleteProductAttributeAction
      *         "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
      *     }
      * )
-     * @Route(
-     *     "/products/{product}/draft/{attribute}/value",
-     *     methods={"DELETE"},
-     *     requirements = {
-     *        "product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-     *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-     *     }
-     * )
      *
      * @IsGranted("PRODUCT_UPDATE")
      * @IsGranted("edit", subject="language")

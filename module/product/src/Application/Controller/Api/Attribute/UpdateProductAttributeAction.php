@@ -49,7 +49,7 @@ class UpdateProductAttributeAction
 
     /**
      * @Route(
-     *     "/products/{product}/draft/{attribute}/value",
+     *     "/products/{product}/attribute",
      *     methods={"PUT"},
      *     requirements = {
      *        "product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",

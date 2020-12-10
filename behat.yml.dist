@@ -14,7 +14,6 @@ default:
                 - module/condition/features
                 - module/core/features
                 - module/designer/features
-                - module/editor/features
                 - module/event-sourcing/features
                 - module/exporter/features
                 - module/exporter-magento-2/features
