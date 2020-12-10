@@ -69,7 +69,7 @@
     <!-- Behat -->
     <target name="test:behat" depends="override:property:APP_ENV, database:drop, database:create, database:migrate, cache:clear, database:fixture" description="Executes behat tests." >
         <echo msg="Running behat tests..."/>
-        <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 php -d error_reporting='E_ALL &amp; ~E_DEPRECATED' -d memory_limit=${BEHAT_MEMORY_LIMIT} bin/behat --colors --stop-on-failure --format=progress"
+        <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 php -d error_reporting='E_ALL &amp; ~E_DEPRECATED' bin/behat --colors --stop-on-failure --format=progress"
               checkreturn="true"
               logoutput="true"
               passthru="true"
@@ -111,7 +111,7 @@
 
     <target name="database:fixture:dev" description="Fill database with development data">
         <echo msg="Fill database with dev fixtures ..."/>
-        <exec command="APP_ENV=${APP_ENV} php -d memory_limit=512M ${dir.console} ergonode:fixture:load -g develop --no-interaction"
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load -g develop --no-interaction"
               checkreturn="true"
               logoutput="true">
         </exec>
@@ -162,6 +162,5 @@
     </target>
     <target name="override:property:APP_ENV" description="Overrides APP_ENV property with test value">
         <property name="APP_ENV" value="test" override="true" />
-        <property name="BEHAT_MEMORY_LIMIT" value="1G" override="false" />
     </target>
 </project>
