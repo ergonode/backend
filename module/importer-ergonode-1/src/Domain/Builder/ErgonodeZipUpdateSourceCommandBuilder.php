@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Domain\Builder;
+namespace Ergonode\ImporterErgonode1\Domain\Builder;
 
 use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\Importer\Domain\Command\UpdateSourceCommandInterface;
-use Ergonode\ImporterErgonode\Application\Model\ImporterErgonodeConfigurationModel;
-use Ergonode\ImporterErgonode\Domain\Command\UpdateErgonodeZipSourceCommand;
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
+use Ergonode\ImporterErgonode1\Application\Model\ImporterErgonodeConfigurationModel;
+use Ergonode\ImporterErgonode1\Domain\Command\UpdateErgonodeZipSourceCommand;
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Component\Form\FormInterface;
 

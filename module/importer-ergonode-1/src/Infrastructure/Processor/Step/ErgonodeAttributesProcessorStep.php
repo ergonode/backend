@@ -6,15 +6,15 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Processor\Step;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Domain\Command\Import\ImportAttributeCommand;
-use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
-use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeAttributeReader;
+use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportAttributeCommand;
+use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeAttributeReader;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface

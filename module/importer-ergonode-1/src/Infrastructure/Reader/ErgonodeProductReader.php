@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Reader;
 
-use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 
 class ErgonodeProductReader extends AbstractErgonodeReader
 {

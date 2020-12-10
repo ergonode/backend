@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Model;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
 class MultimediaModel
 {

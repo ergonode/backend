@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Handler\Import;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Handler\Import;
 
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\ImporterErgonode\Domain\Command\Import\ImportTemplateCommand;
+use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 
 class ImportTemplateCommandHandler
 {

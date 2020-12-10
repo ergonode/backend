@@ -48,7 +48,7 @@ layers:
   - name: Importer-Ergonode-1
     collectors:
       - type: className
-        regex: .*Ergonode\\ImporterErgonode\\.*
+        regex: .*Ergonode\\ImporterErgonode1\\.*
   - name: Importer-Magento-1
     collectors:
       - type: className

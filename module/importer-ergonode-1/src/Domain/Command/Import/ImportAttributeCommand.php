@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Domain\Command\Import;
+namespace Ergonode\ImporterErgonode1\Domain\Command\Import;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;

@@ -6,10 +6,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Reader;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Reader;
 
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Infrastructure\Reader\Exception\ErgonodeZipExtractorException;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\ErgonodeZipExtractorException;
 use League\Flysystem\FilesystemInterface;
 use ZipArchive;
 

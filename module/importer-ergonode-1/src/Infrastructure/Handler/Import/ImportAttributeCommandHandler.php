@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Handler\Import;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Handler\Import;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\ImporterErgonode\Domain\Command\Import\ImportAttributeCommand;
-use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
-use Ergonode\ImporterErgonode\Infrastructure\Resolver\AttributeFactoryResolver;
+use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportAttributeCommand;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\AttributeParametersModel;
+use Ergonode\ImporterErgonode1\Infrastructure\Resolver\AttributeFactoryResolver;
 
 class ImportAttributeCommandHandler
 {

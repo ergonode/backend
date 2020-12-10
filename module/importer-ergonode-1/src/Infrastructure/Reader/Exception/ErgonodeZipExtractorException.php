@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Reader\Exception;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception;
 
 use Exception;
 

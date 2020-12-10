@@ -6,10 +6,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode;
+namespace Ergonode\ImporterErgonode1;
 
 use Ergonode\SharedKernel\Application\AbstractModule;
 
-class ErgonodeImporterErgonodeBundle extends AbstractModule
+class ErgonodeImporterErgonode1Bundle extends AbstractModule
 {
 }

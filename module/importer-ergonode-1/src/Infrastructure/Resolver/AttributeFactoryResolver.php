@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Resolver;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Resolver;
 
-use Ergonode\ImporterErgonode\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
 
 class AttributeFactoryResolver
 {

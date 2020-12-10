@@ -6,11 +6,11 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Handler;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\ImporterErgonode\Domain\Command\UpdateErgonodeZipSourceCommand;
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
+use Ergonode\ImporterErgonode1\Domain\Command\UpdateErgonodeZipSourceCommand;
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 
 class UpdateErgonodeZipSourceCommandHandler
 {

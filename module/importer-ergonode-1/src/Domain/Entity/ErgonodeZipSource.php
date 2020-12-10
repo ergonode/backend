@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Domain\Entity;
+namespace Ergonode\ImporterErgonode1\Domain\Entity;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;

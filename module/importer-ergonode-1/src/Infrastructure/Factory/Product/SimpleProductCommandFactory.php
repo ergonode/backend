@@ -6,12 +6,12 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Factory\Product;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Factory\Product;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
 

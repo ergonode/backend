@@ -6,15 +6,15 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Processor\Step;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
-use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeCategoryReader;
+use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeCategoryReader;
 
 class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
 {

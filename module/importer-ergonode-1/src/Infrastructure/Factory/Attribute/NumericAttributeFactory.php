@@ -6,14 +6,14 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Factory\Attribute;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\ImporterErgonode\Infrastructure\Model\AttributeParametersModel;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class NumericAttributeFactory implements AttributeFactoryInterface

@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Processor\Step;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
-use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeProductReader;
-use Ergonode\ImporterErgonode\Infrastructure\Resolver\ProductCommandResolver;
+use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeProductReader;
+use Ergonode\ImporterErgonode1\Infrastructure\Resolver\ProductCommandResolver;
 
 class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
 {

@@ -6,10 +6,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Application\Form;
+namespace Ergonode\ImporterErgonode1\Application\Form;
 
-use Ergonode\ImporterErgonode\Application\Model\ImporterErgonodeConfigurationModel;
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
+use Ergonode\ImporterErgonode1\Application\Model\ImporterErgonodeConfigurationModel;
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

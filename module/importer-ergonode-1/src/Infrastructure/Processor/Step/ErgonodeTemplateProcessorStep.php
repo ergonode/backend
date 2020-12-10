@@ -6,16 +6,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Processor\Step;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Domain\Command\Import\ImportTemplateCommand;
-use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
-use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeTemplateReader;
+use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
+use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\SerializerInterface;
 

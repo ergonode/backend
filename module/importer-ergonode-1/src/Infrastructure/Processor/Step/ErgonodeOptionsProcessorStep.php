@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Processor\Step;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
@@ -14,8 +14,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Infrastructure\Processor\ErgonodeProcessorStepInterface;
-use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeOptionReader;
+use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeOptionReader;
 
 class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
 {

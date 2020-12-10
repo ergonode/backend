@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Tests\Domain\Command;
+namespace Ergonode\ImporterErgonode1\Tests\Domain\Command;
 
-use Ergonode\ImporterErgonode\Domain\Command\CreateErgonodeZipSourceCommand;
+use Ergonode\ImporterErgonode1\Domain\Command\CreateErgonodeZipSourceCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use PHPUnit\Framework\TestCase;
 

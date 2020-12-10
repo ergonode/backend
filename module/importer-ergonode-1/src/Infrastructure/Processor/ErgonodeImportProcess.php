@@ -6,12 +6,12 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Processor;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Processor;
 
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
-use Ergonode\ImporterErgonode\Infrastructure\Reader\ErgonodeZipExtractor;
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeZipExtractor;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Throwable;
@@ -35,7 +35,7 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
     }
 
     /**
-     * @throws \Ergonode\ImporterErgonode\Infrastructure\Reader\Exception\ErgonodeZipExtractorException
+     * @throws \Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\ErgonodeZipExtractorException
      */
     public function start(Import $import): void
     {

@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Application\Model;
+namespace Ergonode\ImporterErgonode1\Application\Model;
 
-use Ergonode\ImporterErgonode\Domain\Entity\ErgonodeZipSource;
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ImporterErgonodeConfigurationModel

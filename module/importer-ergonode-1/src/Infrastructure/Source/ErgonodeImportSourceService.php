@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Source;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Source;
 
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 

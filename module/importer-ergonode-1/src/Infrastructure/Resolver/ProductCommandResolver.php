@@ -6,12 +6,12 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Resolver;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Resolver;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode\Infrastructure\Factory\Product\ProductCommandFactoryInterface;
-use Ergonode\ImporterErgonode\Infrastructure\Model\ProductModel;
+use Ergonode\ImporterErgonode1\Infrastructure\Factory\Product\ProductCommandFactoryInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 use Webmozart\Assert\Assert;
 
 class ProductCommandResolver

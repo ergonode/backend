@@ -6,16 +6,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Application\DependencyInjection;
+namespace Ergonode\ImporterErgonode1\Application\DependencyInjection;
 
-use Ergonode\ImporterErgonode\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
-use Ergonode\ImporterErgonode\Infrastructure\Factory\Product\ProductCommandFactoryInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Factory\Product\ProductCommandFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class ErgonodeImporterErgonodeExtension extends Extension
+class ErgonodeImporterErgonode1Extension extends Extension
 {
     /**
      * @throws \Exception

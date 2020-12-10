@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode\Infrastructure\Processor;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Processor;
 
 use Ergonode\Importer\Domain\Entity\Import;
 

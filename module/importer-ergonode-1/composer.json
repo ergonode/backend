@@ -1,5 +1,5 @@
 {
-  "name": "ergonode/importer-ergonode",
+  "name": "ergonode/importer-ergonode-1",
   "type": "ergonode-module",
   "description": "Ergonode - Importer Ergonode",
   "homepage": "https://ergonode.com",
@@ -31,12 +31,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Ergonode\\ImporterErgonode\\": "src/"
+      "Ergonode\\ImporterErgonode1\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Ergonode\\ImporterErgonode\\Tests\\": "tests/"
+      "Ergonode\\ImporterErgonode1\\Tests\\": "tests/"
     }
   }
 }
