@@ -20,6 +20,11 @@ Feature: Product edit and inheritance value for product product with gallery att
     Then the response status code should be 200
     And store response param "id" as "language_id_fr"
 
+  Scenario: Get language de
+    When I send a GET request to "/api/v1/en_GB/languages/de_DE"
+    Then the response status code should be 200
+    And store response param "id" as "language_id_de"
+
   Scenario: Activate languages
     When I send a PUT request to "api/v1/en_GB/languages" with body:
       """
@@ -45,6 +50,10 @@ Feature: Product edit and inheritance value for product product with gallery att
                 },
                 {
                   "language_id":"@language_id_fr@",
+                  "children":[]
+                },
+                {
+                  "language_id":"@language_id_de@",
                   "children":[]
                 }
               ]
