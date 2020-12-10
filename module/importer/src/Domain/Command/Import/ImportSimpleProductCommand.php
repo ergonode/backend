@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -8,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Webmozart\Assert\Assert;
 
 class ImportSimpleProductCommand implements ImporterCommandInterface
@@ -40,7 +41,7 @@ class ImportSimpleProductCommand implements ImporterCommandInterface
         ImportId $importId,
         Sku $sku,
         string $template,
-        array $categories,
+        array $categories = [],
         array $attributes = []
     ) {
         Assert::allIsInstanceOf($categories, CategoryCode::class);

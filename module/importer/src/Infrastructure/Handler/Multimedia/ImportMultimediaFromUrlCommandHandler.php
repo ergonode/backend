@@ -6,24 +6,24 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Importer\Infrastructure\Handler;
+namespace Ergonode\Importer\Infrastructure\Handler\Multimedia;
 
-use Ergonode\Importer\Infrastructure\Exception\ImportException;
-use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\Importer\Infrastructure\Action\MultimediaFromUrlImportAction;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Psr\Log\LoggerInterface;
 
 class ImportMultimediaFromUrlCommandHandler
 {
-    private MultimediaImportAction $action;
+    private MultimediaFromUrlImportAction $action;
 
     private ImportRepositoryInterface $repository;
 
     private LoggerInterface $logger;
 
     public function __construct(
-        MultimediaImportAction $action,
+        MultimediaFromUrlImportAction $action,
         ImportRepositoryInterface $repository,
         LoggerInterface $logger
     ) {
