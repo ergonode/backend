@@ -15,7 +15,6 @@ use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Webmozart\Assert\Assert;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
@@ -52,7 +51,7 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
                 );
                 $options[] = $optionId;
             }
-            if (empty($options)) {
+            if (!$options) {
                 continue;
             }
             $result[$language] = implode(',', $options);
