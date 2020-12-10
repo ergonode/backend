@@ -62,6 +62,6 @@ class ProductModel
             $this->attributes[$code] = new TranslatableString([]);
         }
 
-        $this->attributes[$code]->add(new Language($language), $value);
+        $this->attributes[$code] = $this->attributes[$code]->add(new Language($language), $value);
     }
 }

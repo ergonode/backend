@@ -11,6 +11,7 @@ namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Webmozart\Assert\Assert;
@@ -37,6 +38,9 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
     {
         $result = [];
         foreach ($value->getTranslations() as $language => $version) {
+            if (empty($item)) {
+                continue;
+            }
             $options = [];
             foreach (explode(',', $version) as $item) {
                 $key = new OptionKey($item);
@@ -51,6 +55,6 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
             $result[$language] = implode(',', $options);
         }
 
-        return new TranslatableStringValue(new TranslatableString($result));
+        return new StringCollectionValue($result);
     }
 }
