@@ -18,8 +18,10 @@ class ErgonodeZipExtractor
     private string $directory;
     private FilesystemInterface $importStorage;
 
+
     public function __construct(FilesystemInterface $importStorage)
     {
+        /** @phpstan-ignore-next-line */
         $this->directory = $importStorage->getAdapter()->getPathPrefix();
         $this->importStorage = $importStorage;
     }
