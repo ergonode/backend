@@ -38,11 +38,11 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
     {
         $result = [];
         foreach ($value->getTranslations() as $language => $version) {
-            if (empty($item)) {
-                continue;
-            }
             $options = [];
             foreach (explode(',', $version) as $item) {
+                if (!$item) {
+                    continue;
+                }
                 $key = new OptionKey($item);
                 $optionId = $this->optionQuery->findIdByAttributeIdAndCode($id, $key);
 
@@ -51,6 +51,9 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
                     sprintf('Can\'t find id for %s option in %s attribute', $key->getValue(), $code->getValue())
                 );
                 $options[] = $optionId;
+            }
+            if (empty($options)) {
+                continue;
             }
             $result[$language] = implode(',', $options);
         }
