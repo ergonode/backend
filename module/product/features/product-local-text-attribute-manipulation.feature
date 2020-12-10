@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with file attribute
+Feature: Product edit and inheritance value for product product with text attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -24,6 +24,17 @@ Feature: Draft edit and inheritance value for product draft with file attribute
     When I send a GET request to "/api/v1/en_GB/languages/de_DE"
     Then the response status code should be 200
     And store response param "id" as "language_id_de"
+
+  Scenario: Activate languages
+    When I send a PUT request to "api/v1/en_GB/languages" with body:
+      """
+      {
+        "collection": [
+          "en_GB","pl_PL", "fr_FR", "de_DE"
+        ]
+      }
+      """
+    Then the response status code should be 204
 
   Scenario: Update Tree
     Given I am Authenticated as "test@ergonode.com"
@@ -55,35 +66,19 @@ Feature: Draft edit and inheritance value for product draft with file attribute
       """
     Then the response status code should be 204
 
-  Scenario: Create file attribute
-    Given remember param "attribute_code" with value "file_@@random_code@@"
+  Scenario: Create text attribute
+    Given remember param "attribute_code" with value "text_@@random_code@@"
     When I send a POST request to "/api/v1/en_GB/attributes" with body:
       """
       {
         "code": "@attribute_code@",
-        "type": "FILE",
+        "type": "TEXT",
         "scope": "local",
         "groups": []
       }
       """
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
-
-  Scenario: Upload new first multimedia file
-    When I send a POST request to "/api/v1/multimedia/upload" with params:
-      | key    | value                      |
-      | upload | @multimedia.png |
-    Then the response status code should be 201
-    And the JSON node "id" should exist
-    And store response param "id" as "multimedia_1_id"
-
-  Scenario: Upload new first multimedia file
-    When I send a POST request to "/api/v1/multimedia/upload" with params:
-      | key    | value                      |
-      | upload | @multimedia.jpg |
-    Then the response status code should be 201
-    And the JSON node "id" should exist
-    And store response param "id" as "multimedia_2_id"
 
   Scenario: Create template
     When I send a POST request to "/api/v1/en_GB/templates" with body:
@@ -109,57 +104,67 @@ Feature: Draft edit and inheritance value for product draft with file attribute
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product file value in "en_GB" language
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
+  Scenario: Edit product text value in "en_GB", "pl_PL" and "de_DE" language
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": ["@multimedia_1_id@"]
-      }
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "text attribute value in english"
+                    },
+                     {
+                      "language": "pl_PL",
+                       "value": "text attribute value in polish"
+                    },
+                    {
+                      "language": "de_DE",
+                       "value": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product file value in "pl_PL" language
-    When I send a PUT request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id@/value" with body:
-      """
-      {
-        "value": ["@multimedia_2_id@"]
-      }
-      """
+  Scenario: Get product values in "de_DE" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/de_DE"
     Then the response status code should be 200
+    And the JSON node "attributes.@attribute_code@" should be null
 
-  Scenario: Get draft values in "pl_PL" language
-    When I send a GET request to "api/v1/pl_PL/products/@product_id@/draft"
+  Scenario: Get product values in "pl_PL" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @multimedia_2_id@ |
+      | attributes.@attribute_code@ | text attribute value in polish |
 
-  Scenario: Get draft values in "en_GB" language
-    When I send a GET request to "api/v1/en_GB/products/@product_id@/draft"
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
+      | attributes.@attribute_code@ | text attribute value in english |
 
-  Scenario: Get draft values in "fr_FR" language
-    When I send a GET request to "api/v1/fr_FR/products/@product_id@/draft"
+  Scenario: Get product values in "fr_FR" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
-
-  Scenario: Edit product file value in "de_DE" language
-    When I send a PUT request to "api/v1/de_DE/products/@product_id@/draft/@attribute_id@/value" with body:
-      """
-      {
-        "value": []
-      }
-      """
-    Then the response status code should be 200
+      | attributes.@attribute_code@ | text attribute value in english |
 
   Scenario: Remove value for "pl_PL" language
-    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/draft/@attribute_id@/value"
+    When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
     Then the response status code should be 204
 
-  Scenario: Get draft values in "pl_PL" language after remove pl value (get inheritance value)
-    When I send a GET request to "api/v1/pl_PL/products/@product_id@/draft"
+  Scenario: Get product values in "pl_PL" language after remove pl value (get inheritance value)
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
+      | attributes.@attribute_code@ | text attribute value in english |

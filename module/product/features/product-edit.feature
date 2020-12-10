@@ -243,99 +243,222 @@ Feature: Product edit feature
     Then the response status code should be 200
     And store response param "collection[0].id" as "esa_status_id"
 
+
   Scenario: Edit product text value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_text_attribute@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "text attribute value"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@product_edit_text_attribute@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "text attribute value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product textarea value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_textarea_attribute@/value" with body:
+  Scenario: Assign select attribute to product
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "textarea attribute value"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@product_edit_textarea_attribute@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "textarea attribute value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Edit product select value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_select_attribute@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "@select_option_1@"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@product_edit_select_attribute@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "@select_option_1@"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Edit product multi select value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": ["@multi_select_option_1@", "@multi_select_option_4@"]
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@product_edit_multi_select_attribute@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": ["@multi_select_option_1@", "@multi_select_option_4@"]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product multi select with the duplicated value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
-      """
-      {
-        "value": ["@multi_select_option_1@", "@multi_select_option_1@"]
-      }
-      """
-    Then the response status code should be 400
-
   Scenario: Edit product unit value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_unit_attribute@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "102030"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@product_edit_unit_attribute@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "102030"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Edit product price value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_price_attribute@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "9999.99"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@product_edit_price_attribute@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                     "value": "9999.99"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Edit product date value
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@product_edit_date_attribute@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "2019-12-30"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@product_edit_date_attribute@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "2019-12-30"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Edit status in pl_PL
-    When I send a PUT request to "api/v1/pl_PL/products/@edit_product@/draft/@esa_status_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "@destination_status_id@"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@esa_status_id@",
+                "values" : [
+                  {
+                    "language": "pl_PL",
+                    "value": "@destination_status_id@"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Edit status in en_GB
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/@esa_status_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "@source_status_id@"
+       {
+          "data": [
+          {
+            "id": "@edit_product@",
+            "payload": [
+              {
+                "id": "@esa_status_id@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "@source_status_id@"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
-
-  Scenario: Apply product draft
-    When I send a PUT request to "api/v1/en_GB/products/@edit_product@/draft/persist"
-    Then the response status code should be 204
 
   Scenario: Get status product status
     When I send a GET request to "api/v1/en_GB/products/@edit_product@"
