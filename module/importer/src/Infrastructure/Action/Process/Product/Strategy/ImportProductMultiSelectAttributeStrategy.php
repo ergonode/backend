@@ -11,10 +11,10 @@ namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Webmozart\Assert\Assert;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
@@ -39,6 +39,9 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
         foreach ($value->getTranslations() as $language => $version) {
             $options = [];
             foreach (explode(',', $version) as $item) {
+                if (!$item) {
+                    continue;
+                }
                 $key = new OptionKey($item);
                 $optionId = $this->optionQuery->findIdByAttributeIdAndCode($id, $key);
 
@@ -48,9 +51,12 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
                 );
                 $options[] = $optionId;
             }
+            if (!$options) {
+                continue;
+            }
             $result[$language] = implode(',', $options);
         }
 
-        return new TranslatableStringValue(new TranslatableString($result));
+        return new StringCollectionValue($result);
     }
 }
