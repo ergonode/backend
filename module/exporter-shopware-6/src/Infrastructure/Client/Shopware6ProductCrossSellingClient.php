@@ -9,21 +9,28 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductCrossSellingRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\GetProductCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\PostProductCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6InstanceOfException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class Shopware6ProductCrossSellingClient
 {
     private Shopware6Connector $connector;
 
-    public function __construct(Shopware6Connector $connector)
-    {
+    private Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
+
+    public function __construct(
+        Shopware6Connector $connector,
+        Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository
+    ) {
         $this->connector = $connector;
+        $this->productCrossSellingRepository = $productCrossSellingRepository;
     }
 
     public function get(
@@ -47,6 +54,7 @@ class Shopware6ProductCrossSellingClient
     public function insert(
         Shopware6Channel $channel,
         AbstractShopware6ProductCrossSelling $productCrossSelling,
+        ProductCollectionId $productCollectionId,
         ProductId $productId
     ): ?AbstractShopware6ProductCrossSelling {
         $action = new PostProductCrossSellingAction($productCrossSelling, true);
@@ -56,7 +64,13 @@ class Shopware6ProductCrossSellingClient
             throw new Shopware6InstanceOfException(AbstractShopware6ProductCrossSelling::class);
         }
 
-        //todo save id to repository
+        $this->productCrossSellingRepository->save(
+            $channel->getId(),
+            $productCollectionId,
+            $productId,
+            $shopwareProductCrossSelling->getId()
+        );
+
         return $shopwareProductCrossSelling;
     }
 }

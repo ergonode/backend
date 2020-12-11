@@ -34,6 +34,8 @@ services:
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6TaxRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6PropertyGroupRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CustomFieldRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6ProductRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductCrossSellingRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6ProductCrossSellingRepository'
 
     # Query
     Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalShopware6CategoryQuery'
