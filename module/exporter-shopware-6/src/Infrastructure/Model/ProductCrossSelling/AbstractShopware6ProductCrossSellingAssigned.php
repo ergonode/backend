@@ -13,7 +13,8 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractShopware6ProductCrossSellingAssigned
 {
     /**
-     * @JMS\Exclude()
+     * @JMS\Type("string")
+     * @JMS\SerializedName("id")
      */
     private ?string $id;
 
@@ -70,6 +71,11 @@ abstract class AbstractShopware6ProductCrossSellingAssigned
             $this->position = $position;
             $this->modified = true;
         }
+    }
+
+    public function isEqual(AbstractShopware6ProductCrossSellingAssigned $assigned): bool
+    {
+        return $this->productId === $assigned->getProductId();
     }
 
     public function isModified(): bool

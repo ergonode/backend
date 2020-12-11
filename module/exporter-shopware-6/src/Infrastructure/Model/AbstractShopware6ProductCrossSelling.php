@@ -43,11 +43,6 @@ abstract class AbstractShopware6ProductCrossSelling
     protected ?string $type;
 
     /**
-     *
-     * @JMS\Type("Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomFieldConfig")
-     * @JMS\SerializedName("assignedProducts")
-     */
-    /**
      * @var AbstractShopware6ProductCrossSellingAssigned[]|null
      *
      * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractShopware6ProductCrossSellingAssigned>")
@@ -158,8 +153,21 @@ abstract class AbstractShopware6ProductCrossSelling
 
     public function addAssignedProducts(AbstractShopware6ProductCrossSellingAssigned $assignedProduct): void
     {
-        $this->assignedProducts[] = $assignedProduct;
-        //todo check modified
+        if (!$this->hasAssignedProducts($assignedProduct)) {
+            $this->assignedProducts[] = $assignedProduct;
+            $this->modified = true;
+        }
+    }
+
+    public function hasAssignedProducts(AbstractShopware6ProductCrossSellingAssigned $assignedProduct): bool
+    {
+        foreach ($this->getAssignedProducts() as $assigned) {
+            if ($assignedProduct->isEqual($assigned)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function isModified(): bool

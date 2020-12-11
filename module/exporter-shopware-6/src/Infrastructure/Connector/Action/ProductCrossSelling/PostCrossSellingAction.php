@@ -10,35 +10,44 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCros
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6ProductCrossSelling;
 use GuzzleHttp\Psr7\Request;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
-class GetProductCrossSellingAction extends AbstractAction implements ActionInterface
+class PostCrossSellingAction extends AbstractAction implements ActionInterface
 {
-    private const URI = '/api/v2/product-cross-selling/%s';
+    private const URI = '/api/v2/product-cross-selling?%s';
 
-    private string $productCrossSelling;
+    private AbstractShopware6ProductCrossSelling $productCrossSelling;
 
-    public function __construct(string $productCrossSelling)
+    private bool $response;
+
+    public function __construct(AbstractShopware6ProductCrossSelling $productCrossSelling, bool $response = false)
     {
         $this->productCrossSelling = $productCrossSelling;
+        $this->response = $response;
     }
 
     public function getRequest(): Request
     {
         return new Request(
-            HttpRequest::METHOD_GET,
+            HttpRequest::METHOD_POST,
             $this->getUri(),
-            $this->buildHeaders()
+            $this->buildHeaders(),
+            $this->buildBody()
         );
     }
 
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content): Shopware6ProductCrossSelling
+    public function parseContent(?string $content): ?AbstractShopware6ProductCrossSelling
     {
+        if (null === $content) {
+            return null;
+        }
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         return new Shopware6ProductCrossSelling(
@@ -50,8 +59,21 @@ class GetProductCrossSellingAction extends AbstractAction implements ActionInter
         );
     }
 
+
+    private function buildBody(): string
+    {
+        $serializer = SerializerBuilder::create()->build();
+
+        return $serializer->serialize($this->productCrossSelling, 'json');
+    }
+
     private function getUri(): string
     {
-        return sprintf(self::URI, $this->productCrossSelling);
+        $query = [];
+        if ($this->response) {
+            $query['_response'] = 'true';
+        }
+
+        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
     }
 }

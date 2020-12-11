@@ -35,7 +35,7 @@ class Shopware6ProductCrossSellingChildrenMapper implements Shopware6ProductCros
         ProductCollectionElement $collectionElement,
         ?Language $language = null
     ): AbstractShopware6ProductCrossSelling {
-        $position = 1; //todo check start position
+        $position = $this->getStartPosition($shopware6ProductCrossSelling);
         foreach ($productCollection->getElements() as $element) {
             if ($element === $collectionElement) {
                 continue;
@@ -69,5 +69,17 @@ class Shopware6ProductCrossSellingChildrenMapper implements Shopware6ProductCros
         }
 
         return $shopware6ProductCrossSelling;
+    }
+
+    private function getStartPosition(AbstractShopware6ProductCrossSelling $shopware6ProductCrossSelling): int
+    {
+        $position = 1;
+        foreach ($shopware6ProductCrossSelling->getAssignedProducts() as $assigned) {
+            if ($assigned->getPosition() > $position) {
+                $position = $assigned->getPosition();
+            }
+        }
+
+        return $position;
     }
 }
