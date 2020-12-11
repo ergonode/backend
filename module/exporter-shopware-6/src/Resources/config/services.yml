@@ -98,3 +98,9 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantChildMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCoverMapper'
+
+    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductCrossSellingBuilder:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling\Shopware6ProductCrossSellingRootProductIdMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling\Shopware6ProductCrossSellingNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling\Shopware6ProductCrossSellingChildrenMapper'
