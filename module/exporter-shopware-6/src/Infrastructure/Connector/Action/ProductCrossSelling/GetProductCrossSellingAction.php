@@ -37,7 +37,7 @@ class GetProductCrossSellingAction extends AbstractAction implements ActionInter
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content):Shopware6ProductCrossSelling
+    public function parseContent(?string $content): Shopware6ProductCrossSelling
     {
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
