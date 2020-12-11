@@ -12,13 +12,13 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductCrossSellingMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6ProductCrossSellingAssigned;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSellingMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\AssignedProduct;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 
-class Shopware6ProductCrossSellingChildrenMapper implements Shopware6ProductCrossSellingMapperInterface
+class ProductCrossSellingChildrenMapper implements ProductCrossSellingMapperInterface
 {
     private Shopware6ProductRepositoryInterface $shopware6ProductRepository;
 
@@ -30,11 +30,11 @@ class Shopware6ProductCrossSellingChildrenMapper implements Shopware6ProductCros
     public function map(
         Shopware6Channel $channel,
         Export $export,
-        AbstractShopware6ProductCrossSelling $shopware6ProductCrossSelling,
+        AbstractProductCrossSelling $shopware6ProductCrossSelling,
         ProductCollection $productCollection,
         ProductCollectionElement $collectionElement,
         ?Language $language = null
-    ): AbstractShopware6ProductCrossSelling {
+    ): AbstractProductCrossSelling {
         $position = $this->getStartPosition($shopware6ProductCrossSelling);
         foreach ($productCollection->getElements() as $element) {
             if ($element === $collectionElement) {
@@ -54,13 +54,13 @@ class Shopware6ProductCrossSellingChildrenMapper implements Shopware6ProductCros
 
     private function mapElement(
         Shopware6Channel $channel,
-        AbstractShopware6ProductCrossSelling $shopware6ProductCrossSelling,
+        AbstractProductCrossSelling $shopware6ProductCrossSelling,
         ProductCollectionElement $collectionElement,
         int $position = 1
-    ): AbstractShopware6ProductCrossSelling {
+    ): AbstractProductCrossSelling {
         $shopwareId = $this->shopware6ProductRepository->load($channel->getId(), $collectionElement->getProductId());
         if ($shopwareId) {
-            $element = new Shopware6ProductCrossSellingAssigned(
+            $element = new AssignedProduct(
                 null,
                 $shopwareId,
                 $position
@@ -71,7 +71,7 @@ class Shopware6ProductCrossSellingChildrenMapper implements Shopware6ProductCros
         return $shopware6ProductCrossSelling;
     }
 
-    private function getStartPosition(AbstractShopware6ProductCrossSelling $shopware6ProductCrossSelling): int
+    private function getStartPosition(AbstractProductCrossSelling $shopware6ProductCrossSelling): int
     {
         $position = 1;
         foreach ($shopware6ProductCrossSelling->getAssignedProducts() as $assigned) {

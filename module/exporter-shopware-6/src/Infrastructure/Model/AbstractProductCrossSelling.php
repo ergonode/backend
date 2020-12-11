@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model;
 
-use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractShopware6ProductCrossSellingAssigned;
+use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct;
 use JMS\Serializer\Annotation as JMS;
 
-abstract class AbstractShopware6ProductCrossSelling
+abstract class AbstractProductCrossSelling
 {
     /**
      * @JMS\Exclude()
@@ -43,9 +43,9 @@ abstract class AbstractShopware6ProductCrossSelling
     protected ?string $type;
 
     /**
-     * @var AbstractShopware6ProductCrossSellingAssigned[]|null
+     * @var AbstractAssignedProduct[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractShopware6ProductCrossSellingAssigned>")
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractProductCrossSelling>")
      * @JMS\SerializedName("assignedProducts")
      */
     protected ?array $assignedProducts;
@@ -56,7 +56,7 @@ abstract class AbstractShopware6ProductCrossSelling
     protected bool $modified = false;
 
     /**
-     * @param AbstractShopware6ProductCrossSellingAssigned[]|null $assignedProducts
+     * @param AbstractAssignedProduct[]|null $assignedProducts
      */
     public function __construct(
         ?string $id = null,
@@ -132,7 +132,7 @@ abstract class AbstractShopware6ProductCrossSelling
     }
 
     /**
-     * @return AbstractShopware6ProductCrossSellingAssigned[]
+     * @return AbstractAssignedProduct[]
      */
     public function getAssignedProducts(): array
     {
@@ -144,14 +144,14 @@ abstract class AbstractShopware6ProductCrossSelling
     }
 
     /**
-     * @param AbstractShopware6ProductCrossSellingAssigned[]|null $assignedProducts
+     * @param AbstractAssignedProduct[]|null $assignedProducts
      */
     public function setAssignedProducts(?array $assignedProducts): void
     {
         $this->assignedProducts = $assignedProducts;
     }
 
-    public function addAssignedProducts(AbstractShopware6ProductCrossSellingAssigned $assignedProduct): void
+    public function addAssignedProducts(AbstractAssignedProduct $assignedProduct): void
     {
         if (!$this->hasAssignedProducts($assignedProduct)) {
             $this->assignedProducts[] = $assignedProduct;
@@ -159,7 +159,7 @@ abstract class AbstractShopware6ProductCrossSelling
         }
     }
 
-    public function hasAssignedProducts(AbstractShopware6ProductCrossSellingAssigned $assignedProduct): bool
+    public function hasAssignedProducts(AbstractAssignedProduct $assignedProduct): bool
     {
         foreach ($this->getAssignedProducts() as $assigned) {
             if ($assignedProduct->isEqual($assigned)) {

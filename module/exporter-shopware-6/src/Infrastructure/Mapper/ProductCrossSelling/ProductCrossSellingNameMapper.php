@@ -11,21 +11,21 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductCrossSellingMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSellingMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 
-class Shopware6ProductCrossSellingNameMapper implements Shopware6ProductCrossSellingMapperInterface
+class ProductCrossSellingNameMapper implements ProductCrossSellingMapperInterface
 {
     public function map(
         Shopware6Channel $channel,
         Export $export,
-        AbstractShopware6ProductCrossSelling $shopware6ProductCrossSelling,
+        AbstractProductCrossSelling $shopware6ProductCrossSelling,
         ProductCollection $productCollection,
         ProductCollectionElement $collectionElement,
         ?Language $language = null
-    ): AbstractShopware6ProductCrossSelling {
+    ): AbstractProductCrossSelling {
         $name = $productCollection->getName()->get($language ?: $channel->getDefaultLanguage());
         if ($name) {
             $shopware6ProductCrossSelling->setName($name);

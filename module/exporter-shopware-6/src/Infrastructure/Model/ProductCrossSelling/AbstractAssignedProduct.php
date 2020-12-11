@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling;
 
 use JMS\Serializer\Annotation as JMS;
 
-abstract class AbstractShopware6ProductCrossSellingAssigned
+abstract class AbstractAssignedProduct
 {
     /**
      * @JMS\Type("string")
@@ -73,7 +73,7 @@ abstract class AbstractShopware6ProductCrossSellingAssigned
         }
     }
 
-    public function isEqual(AbstractShopware6ProductCrossSellingAssigned $assigned): bool
+    public function isEqual(AbstractAssignedProduct $assigned): bool
     {
         return $this->productId === $assigned->getProductId();
     }

@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCros
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\ProductCrossSelling;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
@@ -37,11 +37,11 @@ class GetCrossSellingAction extends AbstractAction implements ActionInterface
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content): Shopware6ProductCrossSelling
+    public function parseContent(?string $content): ProductCrossSelling
     {
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
-        return new Shopware6ProductCrossSelling(
+        return new ProductCrossSelling(
             $data['data']['id'],
             $data['data']['attributes']['name'],
             $data['data']['attributes']['productId'],

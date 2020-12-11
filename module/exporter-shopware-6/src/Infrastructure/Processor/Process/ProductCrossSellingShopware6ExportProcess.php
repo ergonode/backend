@@ -12,11 +12,11 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductCrossSellingRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductCrossSellingBuilder;
-use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductCrossSellingClient;
+use Ergonode\ExporterShopware6\Infrastructure\Builder\ProductCrossSellingBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Client\ProductCrossSellingClient;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\ProductCrossSelling;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
@@ -26,15 +26,15 @@ use GuzzleHttp\Exception\ClientException;
 
 class ProductCrossSellingShopware6ExportProcess
 {
-    private Shopware6ProductCrossSellingBuilder $builder;
+    private ProductCrossSellingBuilder $builder;
 
-    private Shopware6ProductCrossSellingClient $productCrossSellingClient;
+    private ProductCrossSellingClient $productCrossSellingClient;
 
     private Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
 
     public function __construct(
-        Shopware6ProductCrossSellingBuilder $builder,
-        Shopware6ProductCrossSellingClient $productCrossSellingClient,
+        ProductCrossSellingBuilder $builder,
+        ProductCrossSellingClient $productCrossSellingClient,
         Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository
     ) {
         $this->builder = $builder;
@@ -70,7 +70,7 @@ class ProductCrossSellingShopware6ExportProcess
                     $collectionElement
                 );
             } else {
-                $productCrossSelling = new Shopware6ProductCrossSelling();
+                $productCrossSelling = new ProductCrossSelling();
                 $productCrossSelling = $this->builder->build(
                     $channel,
                     $export,
@@ -94,7 +94,7 @@ class ProductCrossSellingShopware6ExportProcess
     private function updateProductCrossSelling(
         Shopware6Channel $channel,
         Export $export,
-        AbstractShopware6ProductCrossSelling $productCrossSelling,
+        AbstractProductCrossSelling $productCrossSelling,
         ProductCollection $productCollection,
         ProductCollectionElement $collectionElement,
         ?Language $language = null,
@@ -123,7 +123,7 @@ class ProductCrossSellingShopware6ExportProcess
         Shopware6Channel $channel,
         ProductCollectionId $productCollectionId,
         ProductId $productId
-    ): ?AbstractShopware6ProductCrossSelling {
+    ): ?AbstractProductCrossSelling {
         $shopwareId = $this->productCrossSellingRepository->load($channel->getId(), $productCollectionId, $productId);
         if ($shopwareId) {
             try {

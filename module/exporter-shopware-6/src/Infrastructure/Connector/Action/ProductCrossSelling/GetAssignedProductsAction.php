@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCros
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6ProductCrossSellingAssigned;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\AssignedProduct;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
@@ -44,7 +44,7 @@ class GetAssignedProductsAction extends AbstractAction implements ActionInterfac
         if (count($data['data']) > 0) {
             $result = [];
             foreach ($data['data'] as $row) {
-                $result[] = new Shopware6ProductCrossSellingAssigned(
+                $result[] = new AssignedProduct(
                     $row['id'],
                     $row['attributes']['productId'],
                     $row['attributes']['position']

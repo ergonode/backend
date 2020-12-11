@@ -13,12 +13,12 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductNoFoundException;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductCrossSellingMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSellingMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 
-class Shopware6ProductCrossSellingRootProductIdMapper implements Shopware6ProductCrossSellingMapperInterface
+class ProductCrossSellingRootProductIdMapper implements ProductCrossSellingMapperInterface
 {
     private Shopware6ProductRepositoryInterface $shopware6ProductRepository;
 
@@ -33,11 +33,11 @@ class Shopware6ProductCrossSellingRootProductIdMapper implements Shopware6Produc
     public function map(
         Shopware6Channel $channel,
         Export $export,
-        AbstractShopware6ProductCrossSelling $shopware6ProductCrossSelling,
+        AbstractProductCrossSelling $shopware6ProductCrossSelling,
         ProductCollection $productCollection,
         ProductCollectionElement $collectionElement,
         ?Language $language = null
-    ): AbstractShopware6ProductCrossSelling {
+    ): AbstractProductCrossSelling {
         $shopwareId = $this->shopware6ProductRepository->load($channel->getId(), $collectionElement->getProductId());
         if (null === $shopwareId) {
             throw new Shopware6ExporterProductNoFoundException($collectionElement->getProductId());

@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCros
 
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
@@ -19,9 +19,9 @@ class PatchCrossSellingAction extends AbstractAction implements ActionInterface
 {
     private const URI = '/api/v2/product-cross-selling/%s';
 
-    private AbstractShopware6ProductCrossSelling $productCrossSelling;
+    private AbstractProductCrossSelling $productCrossSelling;
 
-    public function __construct(AbstractShopware6ProductCrossSelling $productCrossSelling)
+    public function __construct(AbstractProductCrossSelling $productCrossSelling)
     {
         $this->productCrossSelling = $productCrossSelling;
     }

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Model\Basic;
 
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct;
 
-class Shopware6ProductCrossSelling extends AbstractShopware6ProductCrossSelling
+class AssignedProduct extends AbstractAssignedProduct
 {
 }

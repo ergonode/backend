@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Model;
 
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use PHPUnit\Framework\TestCase;
 
-class AbstractShopware6ProductCrossSellingTest extends TestCase
+class AbstractProductCrossSellingTest extends TestCase
 {
     private string $id;
     private string $name;
@@ -69,7 +69,7 @@ class AbstractShopware6ProductCrossSellingTest extends TestCase
         self::assertTrue($model->isModified());
     }
 
-    private function getClass(): AbstractShopware6ProductCrossSelling
+    private function getClass(): AbstractProductCrossSelling
     {
         return new class(
             $this->id,
@@ -78,7 +78,7 @@ class AbstractShopware6ProductCrossSellingTest extends TestCase
             $this->active,
             $this->type,
             $this->assignedProducts
-        ) extends AbstractShopware6ProductCrossSelling {
+        ) extends AbstractProductCrossSelling {
         };
     }
 }

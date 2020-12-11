@@ -11,19 +11,19 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Builder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductCrossSellingMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSellingMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 
-class Shopware6ProductCrossSellingBuilder
+class ProductCrossSellingBuilder
 {
     /**
-     * @var Shopware6ProductCrossSellingMapperInterface[]
+     * @var ProductCrossSellingMapperInterface[]
      */
     private array $collection;
 
-    public function __construct(Shopware6ProductCrossSellingMapperInterface ...$collection)
+    public function __construct(ProductCrossSellingMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
@@ -31,11 +31,11 @@ class Shopware6ProductCrossSellingBuilder
     public function build(
         Shopware6Channel $channel,
         Export $export,
-        AbstractShopware6ProductCrossSelling $shopware6ProductCrossSelling,
+        AbstractProductCrossSelling $shopware6ProductCrossSelling,
         ProductCollection $productCollection,
         ProductCollectionElement $collectionElement,
         ?Language $language = null
-    ): AbstractShopware6ProductCrossSelling {
+    ): AbstractProductCrossSelling {
         foreach ($this->collection as $mapper) {
             $shopware6ProductCrossSelling = $mapper->map(
                 $channel,

@@ -16,12 +16,12 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelli
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\PostCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6InstanceOfException;
-use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class Shopware6ProductCrossSellingClient
+class ProductCrossSellingClient
 {
     private Shopware6Connector $connector;
 
@@ -39,14 +39,14 @@ class Shopware6ProductCrossSellingClient
         Shopware6Channel $channel,
         string $shopwareId,
         ?Shopware6Language $shopware6Language = null
-    ): ?AbstractShopware6ProductCrossSelling {
+    ): ?AbstractProductCrossSelling {
 
         $action = new GetCrossSellingAction($shopwareId);
         if ($shopware6Language) {
             $action->addHeader('sw-language-id', $shopware6Language->getId());
         }
         $shopwareProductCrossSelling = $this->connector->execute($channel, $action);
-        if (!$shopwareProductCrossSelling instanceof AbstractShopware6ProductCrossSelling) {
+        if (!$shopwareProductCrossSelling instanceof AbstractProductCrossSelling) {
             return null;
         }
         $shopwareProductCrossSelling->setAssignedProducts(
@@ -58,15 +58,15 @@ class Shopware6ProductCrossSellingClient
 
     public function insert(
         Shopware6Channel $channel,
-        AbstractShopware6ProductCrossSelling $productCrossSelling,
+        AbstractProductCrossSelling $productCrossSelling,
         ProductCollectionId $productCollectionId,
         ProductId $productId
-    ): ?AbstractShopware6ProductCrossSelling {
+    ): ?AbstractProductCrossSelling {
         $action = new PostCrossSellingAction($productCrossSelling, true);
 
         $shopwareProductCrossSelling = $this->connector->execute($channel, $action);
-        if (!$shopwareProductCrossSelling instanceof AbstractShopware6ProductCrossSelling) {
-            throw new Shopware6InstanceOfException(AbstractShopware6ProductCrossSelling::class);
+        if (!$shopwareProductCrossSelling instanceof AbstractProductCrossSelling) {
+            throw new Shopware6InstanceOfException(AbstractProductCrossSelling::class);
         }
 
         $this->productCrossSellingRepository->save(
@@ -81,7 +81,7 @@ class Shopware6ProductCrossSellingClient
 
     public function update(
         Shopware6Channel $channel,
-        AbstractShopware6ProductCrossSelling $productCrossSelling,
+        AbstractProductCrossSelling $productCrossSelling,
         ProductCollectionId $productCollectionId,
         ProductId $productId,
         ?Shopware6Language $shopware6Language = null
