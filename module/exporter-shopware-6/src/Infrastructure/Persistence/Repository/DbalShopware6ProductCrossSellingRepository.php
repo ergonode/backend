@@ -82,7 +82,6 @@ class DbalShopware6ProductCrossSellingRepository implements Shopware6ProductCros
             ->execute()
             ->rowCount();
 
-
         if ($result) {
             return true;
         }

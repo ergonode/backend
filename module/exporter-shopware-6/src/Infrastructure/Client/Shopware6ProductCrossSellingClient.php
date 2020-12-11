@@ -10,6 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductCrossSellingRepositoryInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\AssignedProducts\GetAssignedProductsAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\GetProductCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\PostProductCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
@@ -47,6 +48,9 @@ class Shopware6ProductCrossSellingClient
         if (!$shopwareProductCrossSelling instanceof AbstractShopware6ProductCrossSelling) {
             return null;
         }
+        $shopwareProductCrossSelling->setAssignedProducts(
+            $this->loadAssignedProducts($channel, $shopwareProductCrossSelling->getId())
+        );
 
         return $shopwareProductCrossSelling;
     }
@@ -72,5 +76,12 @@ class Shopware6ProductCrossSellingClient
         );
 
         return $shopwareProductCrossSelling;
+    }
+
+    private function loadAssignedProducts(Shopware6Channel $channel, string $shopwareId): ?array
+    {
+        $action = new GetAssignedProductsAction($shopwareId);
+
+        return $this->connector->execute($channel, $action);
     }
 }
