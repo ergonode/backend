@@ -12,7 +12,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-interface Shopware6ProductCrossSellingRepositoryInterface
+interface ProductCrossSellingRepositoryInterface
 {
     public function load(ChannelId $channelId, ProductCollectionId $productCollectionId, ProductId $productId): ?string;
 

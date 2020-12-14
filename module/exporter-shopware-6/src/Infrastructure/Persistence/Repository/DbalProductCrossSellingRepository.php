@@ -11,12 +11,12 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductCrossSellingRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class DbalShopware6ProductCrossSellingRepository implements Shopware6ProductCrossSellingRepositoryInterface
+class DbalProductCrossSellingRepository implements ProductCrossSellingRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_product_collection';
     private const FIELDS = [

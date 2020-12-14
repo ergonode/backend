@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductCrossSellingRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\GetAssignedProductsAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\GetCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\PatchCrossSellingAction;
@@ -25,11 +25,11 @@ class ProductCrossSellingClient
 {
     private Shopware6Connector $connector;
 
-    private Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
+    private ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
 
     public function __construct(
         Shopware6Connector $connector,
-        Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository
+        ProductCrossSellingRepositoryInterface $productCrossSellingRepository
     ) {
         $this->connector = $connector;
         $this->productCrossSellingRepository = $productCrossSellingRepository;

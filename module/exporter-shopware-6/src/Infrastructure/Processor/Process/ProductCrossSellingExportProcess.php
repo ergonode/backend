@@ -10,9 +10,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Exporter\Domain\Entity\ExportLine;
+use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductCrossSellingRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\ProductCrossSellingBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\ProductCrossSellingClient;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
@@ -26,42 +28,52 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use GuzzleHttp\Exception\ClientException;
 use Webmozart\Assert\Assert;
 
-class ProductCrossSellingShopware6ExportProcess
+class ProductCrossSellingExportProcess
 {
     private ProductCrossSellingBuilder $builder;
 
     private ProductCrossSellingClient $productCrossSellingClient;
 
-    private Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
+    private ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
 
     private Shopware6LanguageRepositoryInterface $languageRepository;
+
+    private ExportLineRepositoryInterface $exportLineRepository;
 
     public function __construct(
         ProductCrossSellingBuilder $builder,
         ProductCrossSellingClient $productCrossSellingClient,
-        Shopware6ProductCrossSellingRepositoryInterface $productCrossSellingRepository,
-        Shopware6LanguageRepositoryInterface $languageRepository
+        ProductCrossSellingRepositoryInterface $productCrossSellingRepository,
+        Shopware6LanguageRepositoryInterface $languageRepository,
+        ExportLineRepositoryInterface $exportLineRepository
     ) {
         $this->builder = $builder;
         $this->productCrossSellingClient = $productCrossSellingClient;
         $this->productCrossSellingRepository = $productCrossSellingRepository;
         $this->languageRepository = $languageRepository;
+        $this->exportLineRepository = $exportLineRepository;
     }
 
     public function process(Export $export, Shopware6Channel $channel, ProductCollection $productCollection): void
     {
+        $exportLine = new ExportLine($export->getId(), $productCollection->getId());
+
         foreach ($productCollection->getElements() as $productCollectionElement) {
             if ($productCollectionElement->isVisible()) {
-                $this->processElement($export, $channel, $productCollection, $productCollectionElement);
+                $this->processElement($export, $channel, $productCollection, $productCollectionElement, $exportLine);
             }
         }
+
+        $exportLine->process();
+        $this->exportLineRepository->save($exportLine);
     }
 
     public function processElement(
         Export $export,
         Shopware6Channel $channel,
         ProductCollection $productCollection,
-        ProductCollectionElement $collectionElement
+        ProductCollectionElement $collectionElement,
+        ExportLine $exportLine
     ): void {
         $productCrossSelling = $this->loadProductCrossSelling(
             $channel,
@@ -107,8 +119,9 @@ class ProductCrossSellingShopware6ExportProcess
                 }
             }
         } catch (Shopware6ExporterException $exception) {
-            //todo log for user
-            throw $exception;
+            $exportLine->process();
+            $exportLine->addError($exception->getMessage(), $exception->getParameters());
+            $this->exportLineRepository->save($exportLine);
         }
     }
 

@@ -13,7 +13,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\ProductCrossSellingShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\ProductCrossSellingShopware6ExportProcess;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\ProductCrossSellingExportProcess;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Webmozart\Assert\Assert;
@@ -26,13 +26,13 @@ class ProductCrossSellingShopware6ExportCommandHandler
 
     private ProductCollectionRepositoryInterface $productCollectionRepository;
 
-    private ProductCrossSellingShopware6ExportProcess $process;
+    private ProductCrossSellingExportProcess $process;
 
     public function __construct(
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
         ProductCollectionRepositoryInterface $productCollectionRepository,
-        ProductCrossSellingShopware6ExportProcess $process
+        ProductCrossSellingExportProcess $process
     ) {
         $this->exportRepository = $exportRepository;
         $this->channelRepository = $channelRepository;
