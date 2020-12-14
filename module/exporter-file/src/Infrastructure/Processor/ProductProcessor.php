@@ -10,9 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -23,6 +26,7 @@ use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 
 class ProductProcessor
@@ -35,16 +39,20 @@ class ProductProcessor
 
     private TemplateRepositoryInterface $templateRepository;
 
+    private OptionQueryInterface $optionQuery;
+
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         TranslationInheritanceCalculator $calculator,
         AttributeRepositoryInterface $attributeRepository,
-        TemplateRepositoryInterface $templateRepository
+        TemplateRepositoryInterface $templateRepository,
+        OptionQueryInterface $optionQuery
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->calculator = $calculator;
         $this->attributeRepository = $attributeRepository;
         $this->templateRepository = $templateRepository;
+        $this->optionQuery = $optionQuery;
     }
 
     /**
@@ -94,6 +102,9 @@ class ProductProcessor
                 Assert::isInstanceOf($attribute, AbstractAttribute::class);
                 $value = $product->getAttribute($code);
                 $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
+                if ($attribute instanceof AbstractOptionAttribute && $calculatedValue) {
+                    $calculatedValue = $this->resolveOptionKey($calculatedValue, $attribute->getCode());
+                }
                 if (is_array($calculatedValue)) {
                     $calculatedValue = implode(',', $calculatedValue);
                 }
@@ -105,5 +116,32 @@ class ProductProcessor
         }
 
         return $result;
+    }
+
+    /**
+     * @param string|string[]$value
+     *
+     * @return string|string[]
+     */
+    private function resolveOptionKey($value, AttributeCode $code)
+    {
+        if (is_string($value)) {
+            return $this->findKey($value, $code)->getValue();
+        }
+
+        return array_map(
+            fn (string $id) => $this->findKey($id, $code)->getValue(),
+            $value,
+        );
+    }
+
+    private function findKey(string $value, AttributeCode $code): OptionKey
+    {
+        $key = $this->optionQuery->findKey(new AggregateId($value));
+        if (!$key) {
+            throw new \RuntimeException("There's no option [$value] for '{$code->getValue()}' attribute.");
+        }
+
+        return $key;
     }
 }
