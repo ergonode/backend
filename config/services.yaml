@@ -19,7 +19,3 @@ services:
         class: Mhujer\JmsSerializer\Uuid\UuidSerializerHandler
         tags:
             - { name: jms_serializer.subscribing_handler }
-
-    Ergonode\EventSourcing\Infrastructure\Snapshot\DbalAggregateSnapshot:
-        arguments:
-            $snapshotEvents: 1
