@@ -45,7 +45,7 @@ abstract class AbstractProductCrossSelling
     /**
      * @var AbstractAssignedProduct[]|null
      *
-     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractProductCrossSelling>")
+     * @JMS\Type("array<Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct>")
      * @JMS\SerializedName("assignedProducts")
      */
     protected ?array $assignedProducts;

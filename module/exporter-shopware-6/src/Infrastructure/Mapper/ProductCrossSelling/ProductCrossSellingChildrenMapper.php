@@ -35,7 +35,7 @@ class ProductCrossSellingChildrenMapper implements ProductCrossSellingMapperInte
         ProductCollectionElement $collectionElement,
         ?Language $language = null
     ): AbstractProductCrossSelling {
-        $position = $this->getStartPosition($shopware6ProductCrossSelling);
+
         foreach ($productCollection->getElements() as $element) {
             if ($element === $collectionElement) {
                 continue;
@@ -45,7 +45,7 @@ class ProductCrossSellingChildrenMapper implements ProductCrossSellingMapperInte
                 $channel,
                 $shopware6ProductCrossSelling,
                 $element,
-                $position++
+                $this->getCurrentPosition($shopware6ProductCrossSelling)
             );
         }
 
@@ -71,7 +71,7 @@ class ProductCrossSellingChildrenMapper implements ProductCrossSellingMapperInte
         return $shopware6ProductCrossSelling;
     }
 
-    private function getStartPosition(AbstractProductCrossSelling $shopware6ProductCrossSelling): int
+    private function getCurrentPosition(AbstractProductCrossSelling $shopware6ProductCrossSelling): int
     {
         $position = 1;
         foreach ($shopware6ProductCrossSelling->getAssignedProducts() as $assigned) {
