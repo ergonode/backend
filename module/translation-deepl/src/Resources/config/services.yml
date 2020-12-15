@@ -17,11 +17,11 @@ services:
 
     Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider:
         arguments:
-            $deeplAuthKey: "%deepl_auth_key%"
+            $deeplAuthKey: "%ergonode.translation_deepl.authentication_key%"
 
     Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProvider:
         arguments:
-            $deeplAuthKey: "%deepl_auth_key%"
+            $deeplAuthKey: "%ergonode.translation_deepl.authentication_key%"
 
     Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider'
     Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\CacheTranslationProviderDecorator:
