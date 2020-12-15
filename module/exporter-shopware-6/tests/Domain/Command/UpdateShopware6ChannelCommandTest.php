@@ -13,6 +13,7 @@ use Ergonode\ExporterShopware6\Domain\Command\UpdateShopware6ChannelCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,7 @@ class UpdateShopware6ChannelCommandTest extends TestCase
     private ChannelId $id;
 
     private string $name;
+
     private string $host;
 
     private string $clientId;
@@ -91,6 +93,11 @@ class UpdateShopware6ChannelCommandTest extends TestCase
      */
     private CategoryTreeId $categoryTreeId;
 
+    /**
+     * @var ProductCollectionId|MockObject
+     */
+    private ProductCollectionId $crossSelling;
+
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -110,6 +117,7 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->productGallery = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
+        $this->crossSelling = $this->createMock(ProductCollectionId::class);
     }
 
     public function testCreateCommand(): void
@@ -133,7 +141,8 @@ class UpdateShopware6ChannelCommandTest extends TestCase
             $this->productGallery,
             $this->categoryTreeId,
             [],
-            []
+            [],
+            [$this->crossSelling]
         );
 
         self::assertEquals($this->id, $command->getId());
@@ -155,5 +164,7 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->categoryTreeId, $command->getCategoryTree());
         self::assertIsArray($command->getPropertyGroup());
         self::assertIsArray($command->getCustomField());
+        self::assertIsArray($command->getCrossSelling());
+        self::assertContains($this->crossSelling, $command->getCrossSelling());
     }
 }

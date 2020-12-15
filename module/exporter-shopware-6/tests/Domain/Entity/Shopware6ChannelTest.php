@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Tests\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -91,6 +92,11 @@ class Shopware6ChannelTest extends TestCase
      */
     private CategoryTreeId $categoryTreeId;
 
+    /**
+     * @var ProductCollectionId|MockObject
+     */
+    private ProductCollectionId $crossSelling;
+
     protected function setUp(): void
     {
         $this->id = $this->createMock(ChannelId::class);
@@ -110,6 +116,7 @@ class Shopware6ChannelTest extends TestCase
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->productGallery = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
+        $this->crossSelling = $this->createMock(ProductCollectionId::class);
     }
 
     public function testCreateEntity(): void
@@ -133,7 +140,8 @@ class Shopware6ChannelTest extends TestCase
             $this->productGallery,
             $this->categoryTreeId,
             [],
-            []
+            [],
+            [$this->crossSelling]
         );
 
         self::assertEquals($this->id, $entity->getId());
@@ -156,6 +164,8 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($this->categoryTreeId, $entity->getCategoryTree());
         self::assertIsArray($entity->getPropertyGroup());
         self::assertIsArray($entity->getCustomField());
+        self::assertIsArray($entity->getCrossSelling());
+        self::assertContains($this->crossSelling, $entity->getCrossSelling());
     }
 
     /**
@@ -182,7 +192,8 @@ class Shopware6ChannelTest extends TestCase
             $this->productGallery,
             $this->categoryTreeId,
             [],
-            []
+            [],
+            [$this->crossSelling]
         );
 
         $id = $this->createMock(ChannelId::class);
@@ -222,6 +233,7 @@ class Shopware6ChannelTest extends TestCase
         $entity->setCategoryTree($categoryTreeId);
         $entity->setPropertyGroup([]);
         $entity->setCustomField([]);
+        $entity->setCrossSelling([]);
 
 
         self::assertEquals($id, $entity->getId());
@@ -243,5 +255,6 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($categoryTreeId, $entity->getCategoryTree());
         self::assertIsArray($entity->getPropertyGroup());
         self::assertIsArray($entity->getCustomField());
+        self::assertIsArray($entity->getCrossSelling());
     }
 }

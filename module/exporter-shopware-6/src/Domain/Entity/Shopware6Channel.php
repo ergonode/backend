@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
@@ -112,9 +113,17 @@ class Shopware6Channel extends AbstractChannel
     private array $customField;
 
     /**
-     * @param Language[]          $languages
-     * @param array|AttributeId[] $propertyGroup
-     * @param array|AttributeId[] $customField
+     * @var ProductCollectionId[]
+     *
+     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId>")
+     */
+    private array $crossSelling;
+
+    /**
+     * @param Language[]                  $languages
+     * @param array|AttributeId[]         $propertyGroup
+     * @param array|AttributeId[]         $customField
+     * @param array|ProductCollectionId[] $crossSelling
      */
     public function __construct(
         ChannelId $id,
@@ -135,7 +144,8 @@ class Shopware6Channel extends AbstractChannel
         ?AttributeId $attributeProductGallery,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
-        array $customField
+        array $customField,
+        array $crossSelling
     ) {
         parent::__construct($id, $name);
 
@@ -156,6 +166,7 @@ class Shopware6Channel extends AbstractChannel
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
+        $this->crossSelling = $crossSelling;
     }
 
     public static function getType(): string
@@ -257,6 +268,14 @@ class Shopware6Channel extends AbstractChannel
         return $this->customField;
     }
 
+    /**
+     * @return ProductCollectionId[]
+     */
+    public function getCrossSelling(): array
+    {
+        return $this->crossSelling;
+    }
+
     public function setHost(string $host): void
     {
         $this->host = $host;
@@ -349,5 +368,13 @@ class Shopware6Channel extends AbstractChannel
     public function setCustomField(array $customField): void
     {
         $this->customField = $customField;
+    }
+
+    /**
+     * @param ProductCollectionId[] $crossSelling
+     */
+    public function setCrossSelling(array $crossSelling): void
+    {
+        $this->crossSelling = $crossSelling;
     }
 }
