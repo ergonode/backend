@@ -14,7 +14,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Length;
 
 class TextareaAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
@@ -26,9 +25,7 @@ class TextareaAttributeValueConstraintStrategy implements AttributeValueConstrai
     public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
-            'value' => [
-                new Length(['max' => 5000]),
-            ],
+            'value' => [],
         ]);
     }
 }
