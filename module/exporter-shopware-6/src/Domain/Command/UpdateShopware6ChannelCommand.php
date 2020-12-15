@@ -12,6 +12,7 @@ use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
@@ -119,9 +120,17 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
     private array $customField;
 
     /**
-     * @param Language[]          $languages
-     * @param array|AttributeId[] $propertyGroup
-     * @param array|AttributeId[] $customField
+     * @var ProductCollectionId[]
+     *
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId>")
+     */
+    private array $crossSelling;
+
+    /**
+     * @param Language[]                  $languages
+     * @param array|AttributeId[]         $propertyGroup
+     * @param array|AttributeId[]         $customField
+     * @param array|ProductCollectionId[] $crossSelling
      */
     public function __construct(
         ChannelId $id,
@@ -142,7 +151,8 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
         ?AttributeId $productGallery,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
-        array $customField
+        array $customField,
+        array $crossSelling
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -163,6 +173,7 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
+        $this->crossSelling = $crossSelling;
     }
 
     public function getId(): ChannelId
@@ -267,5 +278,13 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
     public function getCustomField(): array
     {
         return $this->customField;
+    }
+
+    /**
+     * @return ProductCollectionId[]
+     */
+    public function getCrossSelling(): array
+    {
+        return $this->crossSelling;
     }
 }

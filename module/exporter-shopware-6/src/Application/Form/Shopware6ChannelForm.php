@@ -21,6 +21,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Application\Form\Type\CustomFieldAttributeMapType;
 use Ergonode\ExporterShopware6\Application\Form\Type\PropertyGroupAttributeMapType;
 use Ergonode\ExporterShopware6\Application\Model\Shopware6ChannelFormModel;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -39,17 +40,22 @@ class Shopware6ChannelForm extends AbstractType
 
     private SegmentQueryInterface $segmentQuery;
 
+    private ProductCollectionQueryInterface $productCollectionQuery;
+
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         LanguageQueryInterface $languageQuery,
         TreeQueryInterface $categoryTreeQuery,
-        SegmentQueryInterface $segmentQuery
+        SegmentQueryInterface $segmentQuery,
+        ProductCollectionQueryInterface $productCollectionQuery
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->languageQuery = $languageQuery;
         $this->categoryTreeQuery = $categoryTreeQuery;
         $this->segmentQuery = $segmentQuery;
+        $this->productCollectionQuery = $productCollectionQuery;
     }
+
 
     /**
      * @param array $options
@@ -64,6 +70,7 @@ class Shopware6ChannelForm extends AbstractType
         $languages = $this->languageQuery->getDictionaryActive();
         $categoryTrees = $this->categoryTreeQuery->getDictionary(new Language('en_GB'));
         $segmentDictionary = $this->segmentQuery->getDictionary();
+        $productCollectionDictionary = $this->productCollectionQuery->getDictionary();
 
         $builder
             ->add(
@@ -232,6 +239,17 @@ class Shopware6ChannelForm extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_type' => CustomFieldAttributeMapType::class,
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'cross_selling',
+                ChoiceType::class,
+                [
+                    'label' => 'List of Product Collections',
+                    'choices' => array_flip($productCollectionDictionary),
+                    'multiple' => true,
+                    'property_path' => 'crossSelling',
                     'required' => false,
                 ]
             );

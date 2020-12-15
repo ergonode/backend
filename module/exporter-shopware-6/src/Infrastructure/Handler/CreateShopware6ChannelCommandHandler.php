@@ -42,7 +42,8 @@ class CreateShopware6ChannelCommandHandler
             $command->getProductGallery(),
             $command->getCategoryTree(),
             $command->getPropertyGroup(),
-            $command->getCustomField()
+            $command->getCustomField(),
+            $command->getCrossSelling()
         );
 
         $this->repository->save($channel);

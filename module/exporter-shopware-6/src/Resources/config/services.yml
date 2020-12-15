@@ -28,6 +28,7 @@ services:
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryRemoveStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\ProductCrossSellingStep'
     # Repository
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CategoryRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CurrencyRepository'
