@@ -113,9 +113,9 @@ class Shopware6ChannelFormModel
     public array $customField = [];
 
     /**
-     * @var array|null
+     * @var array
      */
-    public ?array $crossSelling = [];
+    public array $crossSelling = [];
 
     public function __construct(Shopware6Channel $channel = null)
     {
