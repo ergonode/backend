@@ -11,11 +11,11 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-interface Shopware6CustomFieldRepositoryInterface
+interface CustomFieldRepositoryInterface
 {
-    public function load(ChannelId $channel, AttributeId $attributeId): ?string;
+    public function load(ChannelId $channelId, AttributeId $attributeId): ?string;
 
-    public function save(ChannelId $channel, AttributeId $attributeId, string $shopwareId, string $type): void;
+    public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId, string $type): void;
 
-    public function exists(ChannelId $channel, AttributeId $attributeId): bool;
+    public function exists(ChannelId $channelId, AttributeId $attributeId): bool;
 }

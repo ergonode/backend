@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CustomFieldRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\GetCustomField;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\GetCustomFieldList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\PatchCustomFieldAction;
@@ -25,9 +25,9 @@ class Shopware6CustomFieldClient
 {
     private Shopware6Connector $connector;
 
-    private Shopware6CustomFieldRepositoryInterface $repository;
+    private CustomFieldRepositoryInterface $repository;
 
-    public function __construct(Shopware6Connector $connector, Shopware6CustomFieldRepositoryInterface $repository)
+    public function __construct(Shopware6Connector $connector, CustomFieldRepositoryInterface $repository)
     {
         $this->connector = $connector;
         $this->repository = $repository;

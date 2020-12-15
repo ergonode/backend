@@ -11,11 +11,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInterface
+class DbalCategoryRepository implements CategoryRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_category';
     private const FIELDS = [
@@ -56,11 +56,24 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
      */
     public function save(ChannelId $channelId, CategoryId $categoryId, string $shopwareId): void
     {
-        if ($this->exists($channelId, $categoryId)) {
-            $this->update($channelId, $categoryId, $shopwareId);
-        } else {
-            $this->insert($channelId, $categoryId, $shopwareId);
-        }
+        $sql = 'INSERT INTO '.self::TABLE.' (channel_id, category_id, shopware6_id, update_at) 
+        VALUES (:channelId, :categoryId, :shopware6Id, :updatedAt)
+            ON CONFLICT ON CONSTRAINT shopware6_category_pkey
+                DO UPDATE SET shopware6_id = :shopware6Id, update_at = :updatedAt
+        ';
+
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'channelId' => $channelId->getValue(),
+                'categoryId' => $categoryId->getValue(),
+                'shopware6Id' => $shopwareId,
+                'updatedAt' => new \DateTimeImmutable(),
+            ],
+            [
+                'updatedAt' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
     }
 
     public function exists(
@@ -97,47 +110,6 @@ class DbalShopware6CategoryRepository implements Shopware6CategoryRepositoryInte
                 'category_id' => $categoryId->getValue(),
                 'channel_id' => $channelId->getValue(),
             ]
-        );
-    }
-
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    private function update(ChannelId $channelId, CategoryId $categoryId, string $shopwareId): void
-    {
-        $now = new \DateTimeImmutable();
-        $this->connection->update(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'update_at' => $now,
-            ],
-            [
-                'category_id' => $categoryId->getValue(),
-                'channel_id' => $channelId->getValue(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
-    }
-
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    private function insert(ChannelId $channelId, CategoryId $categoryId, string $shopwareId): void
-    {
-        $this->connection->insert(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'category_id' => $categoryId->getValue(),
-                'channel_id' => $channelId->getValue(),
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
         );
     }
 }

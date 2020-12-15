@@ -10,11 +10,11 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-interface Shopware6CurrencyRepositoryInterface
+interface CurrencyRepositoryInterface
 {
-    public function load(ChannelId $channel, string $iso): ?string;
+    public function load(ChannelId $channelId, string $iso): ?string;
 
-    public function save(ChannelId $channel, string $iso, string $shopwareId): void;
+    public function save(ChannelId $channelId, string $iso, string $shopwareId): void;
 
-    public function exists(ChannelId $channel, string $iso): bool;
+    public function exists(ChannelId $channelId, string $iso): bool;
 }

@@ -30,11 +30,11 @@ services:
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryRemoveStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\ProductCrossSellingStep'
     # Repository
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CategoryRepository'
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CurrencyRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalCategoryRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalCurrencyRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6TaxRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6PropertyGroupRepository'
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CustomFieldRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\CustomFieldRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalCustomFieldRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6ProductRepository'
     Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalProductCrossSellingRepository'
 

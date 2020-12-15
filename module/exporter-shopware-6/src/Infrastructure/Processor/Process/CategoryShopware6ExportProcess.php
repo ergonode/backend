@@ -12,7 +12,7 @@ use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CategoryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CategoryClient;
@@ -24,7 +24,7 @@ use Webmozart\Assert\Assert;
 
 class CategoryShopware6ExportProcess
 {
-    private Shopware6CategoryRepositoryInterface $shopware6CategoryRepository;
+    private CategoryRepositoryInterface $shopware6CategoryRepository;
 
     private Shopware6CategoryClient $categoryClient;
 
@@ -33,7 +33,7 @@ class CategoryShopware6ExportProcess
     private Shopware6LanguageRepositoryInterface  $languageRepository;
 
     public function __construct(
-        Shopware6CategoryRepositoryInterface $shopware6CategoryRepository,
+        CategoryRepositoryInterface $shopware6CategoryRepository,
         Shopware6CategoryClient $categoryClient,
         Shopware6CategoryBuilder $builder,
         Shopware6LanguageRepositoryInterface $languageRepository

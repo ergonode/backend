@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CurrencyRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterNoMapperException;
@@ -34,14 +34,14 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
 
     private AttributeTranslationInheritanceCalculator $calculator;
 
-    private Shopware6CurrencyRepositoryInterface $currencyRepository;
+    private CurrencyRepositoryInterface $currencyRepository;
 
     private Shopware6TaxRepositoryInterface $taxRepository;
 
     public function __construct(
         AttributeRepositoryInterface $repository,
         AttributeTranslationInheritanceCalculator $calculator,
-        Shopware6CurrencyRepositoryInterface $currencyRepository,
+        CurrencyRepositoryInterface $currencyRepository,
         Shopware6TaxRepositoryInterface $taxRepository
     ) {
         $this->repository = $repository;
