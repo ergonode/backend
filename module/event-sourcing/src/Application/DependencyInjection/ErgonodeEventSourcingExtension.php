@@ -37,7 +37,7 @@ class ErgonodeEventSourcingExtension extends Extension
         $container
             ->getDefinition(DbalAggregateSnapshot::class)
             ->setArgument(
-                'snapshotEvents',
+                '$snapshotEvents',
                 $config['snapshot_frequency'],
             );
     }
