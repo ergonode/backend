@@ -34,11 +34,14 @@ services:
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6TaxRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6PropertyGroupRepository'
     Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CustomFieldRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6ProductRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalProductCrossSellingRepository'
 
     # Query
     Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalShopware6CategoryQuery'
     Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalShopware6PropertyGroupQuery'
     Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalShopware6CustomFiledQuery'
+    Ergonode\ExporterShopware6\Domain\Query\ProductCrossSellingQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalProductCrossSellingQuery'
 
     # Synchronizer
     Ergonode\ExporterShopware6\Infrastructure\Processor\Process\StartShopware6ExportProcess:
@@ -98,3 +101,9 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantChildMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCoverMapper'
+
+    Ergonode\ExporterShopware6\Infrastructure\Builder\ProductCrossSellingBuilder:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling\ProductCrossSellingRootProductIdMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling\ProductCrossSellingNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling\ProductCrossSellingChildrenMapper'
