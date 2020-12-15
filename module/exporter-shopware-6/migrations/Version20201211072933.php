@@ -23,7 +23,7 @@ final class Version20201211072933 extends AbstractErgonodeMigration
                     product_collection_id uuid NOT NULL,
                     product_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
-                    update_at timestamp with time zone NOT NULL,
+                    updated_at timestamp with time zone NOT NULL,
                     PRIMARY KEY (channel_id, product_collection_id, product_id)
                 )'
         );

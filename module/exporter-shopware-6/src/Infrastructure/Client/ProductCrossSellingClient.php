@@ -17,6 +17,8 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelli
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6InstanceOfException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\ProductCrossSelling;
+use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -49,11 +51,15 @@ class ProductCrossSellingClient
         if (!$shopwareProductCrossSelling instanceof AbstractProductCrossSelling) {
             return null;
         }
-        $shopwareProductCrossSelling->setAssignedProducts(
+
+        return new ProductCrossSelling(
+            $shopwareProductCrossSelling->getId(),
+            $shopwareProductCrossSelling->getName(),
+            $shopwareProductCrossSelling->getProductId(),
+            $shopwareProductCrossSelling->isActive(),
+            $shopwareProductCrossSelling->getType(),
             $this->loadAssignedProducts($channel, $shopwareProductCrossSelling->getId())
         );
-
-        return $shopwareProductCrossSelling;
     }
 
     public function insert(
@@ -92,7 +98,9 @@ class ProductCrossSellingClient
         }
         $this->connector->execute($channel, $action);
     }
-
+    /**
+     * @return AbstractAssignedProduct[]|null
+     */
     private function loadAssignedProducts(Shopware6Channel $channel, string $shopwareId): ?array
     {
         $action = new GetAssignedProductsAction($shopwareId);

@@ -151,15 +151,15 @@ abstract class AbstractProductCrossSelling
         $this->assignedProducts = $assignedProducts;
     }
 
-    public function addAssignedProducts(AbstractAssignedProduct $assignedProduct): void
+    public function addAssignedProduct(AbstractAssignedProduct $assignedProduct): void
     {
-        if (!$this->hasAssignedProducts($assignedProduct)) {
+        if (!$this->hasAssignedProduct($assignedProduct)) {
             $this->assignedProducts[] = $assignedProduct;
             $this->modified = true;
         }
     }
 
-    public function hasAssignedProducts(AbstractAssignedProduct $assignedProduct): bool
+    public function hasAssignedProduct(AbstractAssignedProduct $assignedProduct): bool
     {
         foreach ($this->getAssignedProducts() as $assigned) {
             if ($assignedProduct->isEqual($assigned)) {

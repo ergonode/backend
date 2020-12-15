@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCros
 use Ergonode\ExporterShopware6\Infrastructure\Connector\AbstractAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\ActionInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\AssignedProduct;
+use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\AbstractAssignedProduct;
 use GuzzleHttp\Psr7\Request;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
@@ -35,10 +36,15 @@ class GetAssignedProductsAction extends AbstractAction implements ActionInterfac
     }
 
     /**
+     * @return null|AbstractAssignedProduct[]
+     *
      * @throws \JsonException
      */
     public function parseContent(?string $content): ?array
     {
+        if (null === $content) {
+            return null;
+        }
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         if (count($data['data']) > 0) {

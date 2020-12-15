@@ -102,7 +102,7 @@ class DbalProductCrossSellingRepository implements ProductCrossSellingRepository
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
-                'update_at' => new \DateTimeImmutable(),
+                'updated_at' => new \DateTimeImmutable(),
             ],
             [
                 'product_collection_id' => $productCollectionId->getValue(),
@@ -110,7 +110,7 @@ class DbalProductCrossSellingRepository implements ProductCrossSellingRepository
                 'channel_id' => $channelId->getValue(),
             ],
             [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
             ],
         );
     }
@@ -131,10 +131,10 @@ class DbalProductCrossSellingRepository implements ProductCrossSellingRepository
                 'product_collection_id' => $productCollectionId->getValue(),
                 'product_id' => $productId->getValue(),
                 'channel_id' => $channelId->getValue(),
-                'update_at' => new \DateTimeImmutable(),
+                'updated_at' => new \DateTimeImmutable(),
             ],
             [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
+                'updated_at' => Types::DATETIMETZ_MUTABLE,
             ],
         );
     }

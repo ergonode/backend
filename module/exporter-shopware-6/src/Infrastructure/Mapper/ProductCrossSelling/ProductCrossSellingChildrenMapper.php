@@ -65,7 +65,7 @@ class ProductCrossSellingChildrenMapper implements ProductCrossSellingMapperInte
                 $shopwareId,
                 $position
             );
-            $shopware6ProductCrossSelling->addAssignedProducts($element);
+            $shopware6ProductCrossSelling->addAssignedProduct($element);
         }
 
         return $shopware6ProductCrossSelling;

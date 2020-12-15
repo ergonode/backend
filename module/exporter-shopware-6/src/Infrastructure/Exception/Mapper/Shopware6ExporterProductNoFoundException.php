@@ -13,7 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class Shopware6ExporterProductNoFoundException extends Shopware6ExporterException
 {
-    private const MESSAGE = 'No fount in shopware product {product_id}';
+    private const MESSAGE = 'No found in shopware product {product_id}';
 
     public function __construct(ProductId $productId, \Throwable $previous = null)
     {

@@ -37,8 +37,11 @@ class GetCrossSellingAction extends AbstractAction implements ActionInterface
     /**
      * @throws \JsonException
      */
-    public function parseContent(?string $content): ProductCrossSelling
+    public function parseContent(?string $content): ?ProductCrossSelling
     {
+        if (null === $content) {
+            return null;
+        }
         $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         return new ProductCrossSelling(
