@@ -28,6 +28,7 @@ class TextareaAttributeMapperStrategy implements AttributeMapperStrategyInterfac
         foreach ($values as $value) {
             if (null !== $value) {
                 Assert::stringNotEmpty($value);
+                Assert::maxLength($value, 5000);
             }
         }
 
