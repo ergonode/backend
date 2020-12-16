@@ -1,0 +1,4 @@
+framework:
+    messenger:
+        transports:
+            notification: '%ergonode.notification.messenger_transport%'
