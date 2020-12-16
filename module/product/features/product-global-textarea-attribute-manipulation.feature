@@ -117,7 +117,7 @@ Feature: Product edit and inheritance value for product product with textarea at
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product textarea value in "en_GB" language (norte)
+  Scenario: Edit product textarea value in "en_GB" language (norte) (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
          {
@@ -130,7 +130,7 @@ Feature: Product edit and inheritance value for product product with textarea at
                   "values" : [
                     {
                       "language": "en_GB",
-                       "value": "textarea attribute value norte in english"
+                       "value": "textarea attribute value norte in english (batch)"
                     }
                   ]
                 },
@@ -139,7 +139,7 @@ Feature: Product edit and inheritance value for product product with textarea at
                   "values" : [
                     {
                       "language": "en_GB",
-                       "value": "textarea attribute value rte in english"
+                       "value": "textarea attribute value rte in english (batch)"
                     }
                   ]
                 }
@@ -154,22 +154,22 @@ Feature: Product edit and inheritance value for product product with textarea at
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | textarea attribute value rte in english |
-      | attributes.@attribute_code_norte@ | textarea attribute value norte in english |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in english (batch) |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in english (batch) |
 
   Scenario: Get product values in "en_GB" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | textarea attribute value rte in english |
-      | attributes.@attribute_code_norte@ | textarea attribute value norte in english |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in english (batch) |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in english (batch) |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | textarea attribute value rte in english |
-      | attributes.@attribute_code_norte@ | textarea attribute value norte in english |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in english (batch) |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in english (batch) |
 
   Scenario: Remove value for "pl_PL" language (rte)
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id_rte@"
@@ -179,7 +179,7 @@ Feature: Product edit and inheritance value for product product with textarea at
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id_norte@"
     Then the response status code should be 403
 
-  Scenario: Edit product textarea value in "en_GB" language (norte)
+  Scenario: Edit product textarea value in "en_GB" language (norte) (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
@@ -192,7 +192,7 @@ Feature: Product edit and inheritance value for product product with textarea at
                   "values" : [
                     {
                       "language": "en_GB",
-                       "value": "textarea attribute value norte in polish"
+                       "value": "textarea attribute value norte in polish (batch)"
                     }
                   ]
                 },
@@ -201,7 +201,7 @@ Feature: Product edit and inheritance value for product product with textarea at
                   "values" : [
                     {
                       "language": "en_GB",
-                       "value": "textarea attribute value rte in polish"
+                       "value": "textarea attribute value rte in polish (batch)"
                     }
                   ]
                 }
@@ -216,12 +216,12 @@ Feature: Product edit and inheritance value for product product with textarea at
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | textarea attribute value rte in polish |
-      | attributes.@attribute_code_norte@ | textarea attribute value norte in polish |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in polish (batch) |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in polish (batch) |
 
   Scenario: Get product values in "fr_FR" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/fr_FR"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code_rte@ | textarea attribute value rte in polish |
-      | attributes.@attribute_code_norte@ | textarea attribute value norte in polish |
+      | attributes.@attribute_code_rte@ | textarea attribute value rte in polish (batch) |
+      | attributes.@attribute_code_norte@ | textarea attribute value norte in polish (batch) |

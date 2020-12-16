@@ -120,7 +120,7 @@ Feature: Product edit and inheritance value for product product with gallery att
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product gallery value in "en_GB" and "pl_PL" language
+  Scenario: Edit product gallery value in "en_GB" and "pl_PL" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
@@ -148,6 +148,56 @@ Feature: Product edit and inheritance value for product product with gallery att
       """
     Then the response status code should be 200
 
+  Scenario: Edit product gallery value in "en_GB" language (batch endpoint) (value not an array)
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
+      """
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                     {
+                      "language": "en_GB",
+                       "value": "@multimedia_1_id@"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      """
+    Then the response status code should be 500
+    And the JSON node "exception.current.message" should contain "Expected an array. Got: string"
+
+  Scenario: Edit product gallery value in "en_GB" language (batch endpoint) (value not uuid)
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
+      """
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                     {
+                      "language": "en_GB",
+                       "value": ["test"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      """
+    Then the response status code should be 500
+    And the JSON node "exception.current.message" should contain "is not a valid UUID."
+
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
     Then the response status code should be 200
@@ -166,7 +216,7 @@ Feature: Product edit and inheritance value for product product with gallery att
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@[0] | @multimedia_1_id@ |
 
-  Scenario: Edit product gallery value in "de_DE" language
+  Scenario: Edit product gallery value in "de_DE" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
