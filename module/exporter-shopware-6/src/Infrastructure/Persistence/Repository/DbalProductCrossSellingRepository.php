@@ -55,17 +55,34 @@ class DbalProductCrossSellingRepository implements ProductCrossSellingRepository
         return null;
     }
 
+    /**
+     * @throws DBALException
+     */
     public function save(
         ChannelId $channelId,
         ProductCollectionId $productCollectionId,
         ProductId $productId,
         string $shopwareId
     ): void {
-        if ($this->exists($channelId, $productCollectionId, $productId)) {
-            $this->update($channelId, $productCollectionId, $productId, $shopwareId);
-        } else {
-            $this->insert($channelId, $productCollectionId, $productId, $shopwareId);
-        }
+        $sql = 'INSERT INTO '.self::TABLE.' (channel_id, product_collection_id, product_id, shopware6_id, updated_at) 
+        VALUES (:channelId, :productCollectionId, :productId, :shopware6Id, :updatedAt)
+            ON CONFLICT ON CONSTRAINT shopware6_product_collection_pkey
+                DO UPDATE SET shopware6_id = :shopware6Id, updated_at = :updatedAt
+        ';
+
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'channelId' => $channelId->getValue(),
+                'productCollectionId' => $productCollectionId->getValue(),
+                'productId' => $productId->getValue(),
+                'shopware6Id' => $shopwareId,
+                'updatedAt' => new \DateTimeImmutable(),
+            ],
+            [
+                'updatedAt' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
     }
 
     public function exists(ChannelId $channelId, ProductCollectionId $productCollectionId, ProductId $productId): bool
@@ -87,55 +104,5 @@ class DbalProductCrossSellingRepository implements ProductCrossSellingRepository
         }
 
         return false;
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function update(
-        ChannelId $channelId,
-        ProductCollectionId $productCollectionId,
-        ProductId $productId,
-        string $shopwareId
-    ): void {
-        $this->connection->update(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'updated_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'product_collection_id' => $productCollectionId->getValue(),
-                'product_id' => $productId->getValue(),
-                'channel_id' => $channelId->getValue(),
-            ],
-            [
-                'updated_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function insert(
-        ChannelId $channelId,
-        ProductCollectionId $productCollectionId,
-        ProductId $productId,
-        string $shopwareId
-    ): void {
-        $this->connection->insert(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'product_collection_id' => $productCollectionId->getValue(),
-                'product_id' => $productId->getValue(),
-                'channel_id' => $channelId->getValue(),
-                'updated_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'updated_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
     }
 }

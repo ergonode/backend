@@ -13,7 +13,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\ProductCrossSellingBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\ProductCrossSellingClient;
@@ -36,7 +36,7 @@ class ProductCrossSellingExportProcess
 
     private ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
 
-    private Shopware6LanguageRepositoryInterface $languageRepository;
+    private LanguageRepositoryInterface $languageRepository;
 
     private ExportLineRepositoryInterface $exportLineRepository;
 
@@ -44,7 +44,7 @@ class ProductCrossSellingExportProcess
         ProductCrossSellingBuilder $builder,
         ProductCrossSellingClient $productCrossSellingClient,
         ProductCrossSellingRepositoryInterface $productCrossSellingRepository,
-        Shopware6LanguageRepositoryInterface $languageRepository,
+        LanguageRepositoryInterface $languageRepository,
         ExportLineRepositoryInterface $exportLineRepository
     ) {
         $this->builder = $builder;

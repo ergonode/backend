@@ -12,16 +12,16 @@ use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CategoryMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class Shopware6CategoryParentMapper implements Shopware6CategoryMapperInterface
 {
-    private Shopware6CategoryRepositoryInterface $repository;
+    private CategoryRepositoryInterface $repository;
 
-    public function __construct(Shopware6CategoryRepositoryInterface $repository)
+    public function __construct(CategoryRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

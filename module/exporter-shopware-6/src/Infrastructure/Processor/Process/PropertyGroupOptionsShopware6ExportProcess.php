@@ -15,9 +15,9 @@ use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupOptionBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
@@ -29,11 +29,11 @@ use Webmozart\Assert\Assert;
 
 class PropertyGroupOptionsShopware6ExportProcess
 {
-    protected Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository;
+    protected PropertyGroupRepositoryInterface $propertyGroupRepository;
 
     protected OptionQueryInterface  $optionQuery;
 
-    private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
+    private PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
     private Shopware6PropertyGroupOptionClient $propertyGroupOptionClient;
 
@@ -41,16 +41,16 @@ class PropertyGroupOptionsShopware6ExportProcess
 
     private OptionRepositoryInterface $optionRepository;
 
-    private Shopware6LanguageRepositoryInterface  $languageRepository;
+    private LanguageRepositoryInterface  $languageRepository;
 
     public function __construct(
-        Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
+        PropertyGroupRepositoryInterface $propertyGroupRepository,
         OptionQueryInterface $optionQuery,
-        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository,
+        PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository,
         Shopware6PropertyGroupOptionClient $propertyGroupOptionClient,
         Shopware6PropertyGroupOptionBuilder $builder,
         OptionRepositoryInterface $optionRepository,
-        Shopware6LanguageRepositoryInterface $languageRepository
+        LanguageRepositoryInterface $languageRepository
     ) {
         $this->propertyGroupRepository = $propertyGroupRepository;
         $this->optionQuery = $optionQuery;

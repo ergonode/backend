@@ -30,18 +30,26 @@ services:
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryRemoveStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\ProductCrossSellingStep'
     # Repository
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CategoryRepository'
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CurrencyRepository'
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6TaxRepository'
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6PropertyGroupRepository'
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6CustomFieldRepository'
-    Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalShopware6ProductRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalCategoryRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalCurrencyRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\TaxRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalTaxRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalPropertyGroupRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\CustomFieldRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalCustomFieldRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\ProductRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalProductRepository'
     Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalProductCrossSellingRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalLanguageRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalMultimediaRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalPropertyGroupOptionsRepository'
+
 
     # Query
-    Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalShopware6CategoryQuery'
-    Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalShopware6PropertyGroupQuery'
-    Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalShopware6CustomFiledQuery'
+    Ergonode\ExporterShopware6\Domain\Query\CategoryQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalCategoryQuery'
+    Ergonode\ExporterShopware6\Domain\Query\PropertyGroupQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalPropertyGroupQuery'
+    Ergonode\ExporterShopware6\Domain\Query\CustomFieldQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalCustomFiledQuery'
+    Ergonode\ExporterShopware6\Domain\Query\CurrencyQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalCurrencyQuery'
+    Ergonode\ExporterShopware6\Domain\Query\LanguageQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalLanguageQuery'
+    Ergonode\ExporterShopware6\Domain\Query\MultimediaQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalMultimediaQuery'
+    Ergonode\ExporterShopware6\Domain\Query\TaxQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalTaxQuery'
     Ergonode\ExporterShopware6\Domain\Query\ProductCrossSellingQueryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Query\DbalProductCrossSellingQuery'
 
     # Synchronizer
