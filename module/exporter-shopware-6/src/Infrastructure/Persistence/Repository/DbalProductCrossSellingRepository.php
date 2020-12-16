@@ -105,4 +105,18 @@ class DbalProductCrossSellingRepository implements ProductCrossSellingRepository
 
         return false;
     }
+
+    /**
+     * @throws DBALException
+     */
+    public function delete(ChannelId $channelId, string $shopwareId): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'shopware6_id' => $shopwareId,
+                'channel_id' => $channelId->getValue(),
+            ]
+        );
+    }
 }

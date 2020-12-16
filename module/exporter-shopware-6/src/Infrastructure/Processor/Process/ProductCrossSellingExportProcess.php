@@ -40,22 +40,28 @@ class ProductCrossSellingExportProcess
 
     private ExportLineRepositoryInterface $exportLineRepository;
 
+    private ProductCrossSellingRemoveExportProcess $productCrossSellingRemoveExportProcess;
+
     public function __construct(
         ProductCrossSellingBuilder $builder,
         ProductCrossSellingClient $productCrossSellingClient,
         ProductCrossSellingRepositoryInterface $productCrossSellingRepository,
         LanguageRepositoryInterface $languageRepository,
-        ExportLineRepositoryInterface $exportLineRepository
+        ExportLineRepositoryInterface $exportLineRepository,
+        ProductCrossSellingRemoveExportProcess $productCrossSellingRemoveExportProcess
     ) {
         $this->builder = $builder;
         $this->productCrossSellingClient = $productCrossSellingClient;
         $this->productCrossSellingRepository = $productCrossSellingRepository;
         $this->languageRepository = $languageRepository;
         $this->exportLineRepository = $exportLineRepository;
+        $this->productCrossSellingRemoveExportProcess = $productCrossSellingRemoveExportProcess;
     }
 
     public function process(Export $export, Shopware6Channel $channel, ProductCollection $productCollection): void
     {
+        $this->productCrossSellingRemoveExportProcess->process($export, $channel, $productCollection);
+
         $exportLine = new ExportLine($export->getId(), $productCollection->getId());
 
         foreach ($productCollection->getElements() as $productCollectionElement) {
