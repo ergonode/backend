@@ -19,7 +19,7 @@ interface ProductCrossSellingQueryInterface
      *
      * @return array
      */
-    public function getRemoveElement(
+    public function getOthersElements(
         ChannelId $channelId,
         ProductCollectionId $productCollectionId,
         array $productIds

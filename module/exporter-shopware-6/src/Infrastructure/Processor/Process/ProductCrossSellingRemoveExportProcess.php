@@ -12,7 +12,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\ProductCrossSellingQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Client\ProductCrossSellingClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
@@ -29,13 +29,13 @@ class ProductCrossSellingRemoveExportProcess
 
     private ProductCrossSellingQueryInterface $productCrossSellingQuery;
 
-    private Shopware6ProductRepositoryInterface $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     public function __construct(
         ProductCrossSellingClient $productCrossSellingClient,
         ProductCrossSellingRepositoryInterface $productCrossSellingRepository,
         ProductCrossSellingQueryInterface $productCrossSellingQuery,
-        Shopware6ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository
     ) {
         $this->productCrossSellingClient = $productCrossSellingClient;
         $this->productCrossSellingRepository = $productCrossSellingRepository;
@@ -109,7 +109,7 @@ class ProductCrossSellingRemoveExportProcess
             $productIds[] = $collectionElement->getProductId();
         }
 
-        return $this->productCrossSellingQuery->getRemoveElement(
+        return $this->productCrossSellingQuery->getOthersElements(
             $channel->getId(),
             $productCollection->getId(),
             $productIds

@@ -24,7 +24,7 @@ class DbalProductCrossSellingQuery implements ProductCrossSellingQueryInterface
         $this->connection = $connection;
     }
 
-    public function getRemoveElement(
+    public function getOthersElements(
         ChannelId $channelId,
         ProductCollectionId $productCollectionId,
         array $productIds

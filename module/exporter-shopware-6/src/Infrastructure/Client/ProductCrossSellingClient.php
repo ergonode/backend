@@ -110,10 +110,9 @@ class ProductCrossSellingClient
         try {
             $action = new DeleteCrossSellingAction($productCrossSellingId);
             $this->connector->execute($channel, $action);
+            $this->productCrossSellingRepository->delete($channel->getId(), $productCrossSellingId);
         } catch (ServerException $exception) {
         }
-
-        $this->productCrossSellingRepository->delete($channel->getId(), $productCrossSellingId);
     }
 
     public function deleteAssignedProducts(
