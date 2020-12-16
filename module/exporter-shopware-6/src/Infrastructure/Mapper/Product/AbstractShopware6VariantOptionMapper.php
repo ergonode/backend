@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -27,13 +27,13 @@ abstract class AbstractShopware6VariantOptionMapper implements Shopware6ProductM
 
     protected AttributeTranslationInheritanceCalculator $calculator;
 
-    protected Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
+    protected PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
         OptionRepositoryInterface $optionRepository,
         AttributeTranslationInheritanceCalculator $calculator,
-        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
+        PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
     ) {
         $this->attributeRepository = $attributeRepository;
         $this->optionRepository = $optionRepository;

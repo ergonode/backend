@@ -1,5 +1,6 @@
 <?php
-/*
+
+/**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -10,12 +11,12 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6CurrencyQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\LanguageQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-class DbalShopware6CurrencyQuery implements Shopware6CurrencyQueryInterface
+class DbalLanguageQuery implements LanguageQueryInterface
 {
-    private const TABLE = 'exporter.shopware6_currency';
+    private const TABLE = 'exporter.shopware6_language';
 
     private Connection $connection;
 
@@ -27,10 +28,10 @@ class DbalShopware6CurrencyQuery implements Shopware6CurrencyQueryInterface
     public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query->delete(self::TABLE, 'c')
-            ->where($query->expr()->eq('c.channel_id', ':channelId'))
+        $query->delete(self::TABLE, 'cf')
+            ->where($query->expr()->eq('channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->andWhere($query->expr()->lt('c.update_at', ':updateAt'))
+            ->andWhere($query->expr()->lt('cf.update_at', ':updateAt'))
             ->setParameter(':updateAt', $dateTime, Types::DATETIMETZ_MUTABLE)
             ->execute();
     }

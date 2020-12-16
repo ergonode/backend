@@ -11,11 +11,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\CategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
+class DbalCategoryQuery implements CategoryQueryInterface
 {
     private const TABLE = 'exporter.shopware6_category';
     private const FIELDS = [

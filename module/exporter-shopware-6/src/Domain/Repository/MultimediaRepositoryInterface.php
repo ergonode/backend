@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-interface Shopware6MultimediaRepositoryInterface
+interface MultimediaRepositoryInterface
 {
     public function load(ChannelId $channelId, MultimediaId $multimediaId): ?string;
 

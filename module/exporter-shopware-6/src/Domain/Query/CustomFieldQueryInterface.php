@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-interface Shopware6CustomFieldQueryInterface
+interface CustomFieldQueryInterface
 {
     public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?AttributeId;
 

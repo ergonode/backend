@@ -12,10 +12,10 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\TaxRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
+class DbalTaxRepository implements TaxRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_tax';
     private const FIELDS = [
@@ -56,11 +56,24 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
      */
     public function save(ChannelId $channelId, float $tax, string $shopwareId): void
     {
-        if ($this->exists($channelId, $tax)) {
-            $this->update($channelId, $tax, $shopwareId);
-        } else {
-            $this->insert($channelId, $tax, $shopwareId);
-        }
+        $sql = 'INSERT INTO '.self::TABLE.' (channel_id, tax, shopware6_id, update_at) 
+        VALUES (:channelId, :tax, :shopware6Id, :updatedAt)
+            ON CONFLICT ON CONSTRAINT shopware6_tax_pkey
+                DO UPDATE SET shopware6_id = :shopware6Id, update_at = :updatedAt
+        ';
+
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'channelId' => $channelId->getValue(),
+                'tax' => $tax,
+                'shopware6Id' => $shopwareId,
+                'updatedAt' => new \DateTimeImmutable(),
+            ],
+            [
+                'updatedAt' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
     }
 
     public function exists(
@@ -83,45 +96,5 @@ class DbalShopware6TaxRepository implements Shopware6TaxRepositoryInterface
         }
 
         return false;
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function update(ChannelId $channelId, float $tax, string $shopwareId): void
-    {
-        $this->connection->update(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'tax' => $tax,
-                'channel_id' => $channelId->getValue(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function insert(ChannelId $channelId, float $tax, string $shopwareId): void
-    {
-        $this->connection->insert(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'tax' => $tax,
-                'channel_id' => $channelId->getValue(),
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
     }
 }

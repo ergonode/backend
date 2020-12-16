@@ -12,12 +12,12 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGroupOptionsRepositoryInterface
+class DbalPropertyGroupOptionsRepository implements PropertyGroupOptionsRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_property_group_options';
     private const FIELDS = [
@@ -64,11 +64,26 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
         AggregateId $optionId,
         string $shopwareId
     ): void {
-        if ($this->exists($channelId, $attributeId, $optionId)) {
-            $this->update($channelId, $attributeId, $optionId, $shopwareId);
-        } else {
-            $this->insert($channelId, $attributeId, $optionId, $shopwareId);
-        }
+
+        $sql = 'INSERT INTO '.self::TABLE.' (channel_id, attribute_id, option_id, shopware6_id, update_at) 
+        VALUES (:channelId, :attributeId, :optionId, :shopware6Id, :updatedAt)
+            ON CONFLICT ON CONSTRAINT shopware6_property_group_options_pkey
+                DO UPDATE SET shopware6_id = :shopware6Id, update_at = :updatedAt
+        ';
+
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'channelId' => $channelId->getValue(),
+                'attributeId' => $attributeId->getValue(),
+                'optionId' => $optionId->getValue(),
+                'shopware6Id' => $shopwareId,
+                'updatedAt' => new \DateTimeImmutable(),
+            ],
+            [
+                'updatedAt' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
     }
 
     public function exists(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): bool
@@ -91,55 +106,5 @@ class DbalShopware6PropertyGroupOptionsRepository implements Shopware6PropertyGr
         }
 
         return false;
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function update(
-        ChannelId $channelId,
-        AttributeId $attributeId,
-        AggregateId $optionId,
-        string $shopwareId
-    ): void {
-        $this->connection->update(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'attribute_id' => $attributeId->getValue(),
-                'channel_id' => $channelId->getValue(),
-                'option_id' => $optionId->getValue(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function insert(
-        ChannelId $channelId,
-        AttributeId $attributeId,
-        AggregateId $optionId,
-        string $shopwareId
-    ): void {
-        $this->connection->insert(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'attribute_id' => $attributeId->getValue(),
-                'option_id' => $optionId->getValue(),
-                'channel_id' => $channelId->getValue(),
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
     }
 }

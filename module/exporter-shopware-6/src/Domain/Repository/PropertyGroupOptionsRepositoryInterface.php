@@ -12,7 +12,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-interface Shopware6PropertyGroupOptionsRepositoryInterface
+interface PropertyGroupOptionsRepositoryInterface
 {
     public function load(ChannelId $channelId, AttributeId $attributeId, AggregateId $optionId): ?string;
 

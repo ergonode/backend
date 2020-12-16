@@ -11,11 +11,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6MultimediaQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\MultimediaQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-class DbalShopware6MultimediaQuery implements Shopware6MultimediaQueryInterface
+class DbalMultimediaQuery implements MultimediaQueryInterface
 {
     private const TABLE = 'exporter.shopware6_multimedia';
     private const FIELDS = [

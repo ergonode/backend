@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSelling;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductNoFoundException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSellingMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
@@ -20,9 +20,9 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 
 class ProductCrossSellingRootProductIdMapper implements ProductCrossSellingMapperInterface
 {
-    private Shopware6ProductRepositoryInterface $shopware6ProductRepository;
+    private ProductRepositoryInterface $shopware6ProductRepository;
 
-    public function __construct(Shopware6ProductRepositoryInterface $shopware6ProductRepository)
+    public function __construct(ProductRepositoryInterface $shopware6ProductRepository)
     {
         $this->shopware6ProductRepository = $shopware6ProductRepository;
     }

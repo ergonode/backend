@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-interface Shopware6PropertyGroupRepositoryInterface
+interface PropertyGroupRepositoryInterface
 {
     public function load(ChannelId $channelId, AttributeId $attributeId): ?string;
 

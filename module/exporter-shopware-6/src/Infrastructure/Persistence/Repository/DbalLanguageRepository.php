@@ -11,11 +11,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInterface
+class DbalLanguageRepository implements LanguageRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_language';
     private const FIELDS = [
@@ -64,11 +64,30 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
      */
     public function save(ChannelId $channelId, Shopware6Language $shopware6Language): void
     {
-        if ($this->exists($channelId, $shopware6Language->getIso())) {
-            $this->update($channelId, $shopware6Language);
-        } else {
-            $this->insert($channelId, $shopware6Language);
-        }
+        $sql = 'INSERT INTO '.self::TABLE.' (channel_id, iso, locale_id, translation_code_id, shopware6_id, update_at) 
+        VALUES (:channelId, :iso, :localeId, :translationCodeId, :shopware6Id, :updatedAt)
+            ON CONFLICT ON CONSTRAINT shopware6_language_pkey
+                DO UPDATE SET 
+                    shopware6_id = :shopware6Id,
+                    locale_id = :localeId,
+                    translation_code_id = :translationCodeId,
+                    update_at = :updatedAt
+        ';
+
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'channelId' => $channelId->getValue(),
+                'iso' => $shopware6Language->getIso(),
+                'localeId' => $shopware6Language->getLocaleId(),
+                'translationCodeId' => $shopware6Language->getTranslationCodeId(),
+                'shopware6Id' => $shopware6Language->getId(),
+                'updatedAt' => new \DateTimeImmutable(),
+            ],
+            [
+                'updatedAt' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
     }
 
     public function exists(ChannelId $channelId, string $iso): bool
@@ -88,49 +107,5 @@ class DbalShopware6LanguageRepository implements Shopware6LanguageRepositoryInte
         }
 
         return false;
-    }
-
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    private function update(ChannelId $channelId, Shopware6Language $shopware6Language): void
-    {
-        $this->connection->update(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopware6Language->getId(),
-                'update_at' => new \DateTimeImmutable(),
-                'locale_id' => $shopware6Language->getLocaleId(),
-                'translation_code_id' => $shopware6Language->getTranslationCodeId(),
-            ],
-            [
-                'iso' => $shopware6Language->getIso(),
-                'channel_id' => $channelId->getValue(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
-    }
-
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    private function insert(ChannelId $channelId, Shopware6Language $shopware6Language): void
-    {
-        $this->connection->insert(
-            self::TABLE,
-            [
-                'channel_id' => $channelId->getValue(),
-                'shopware6_id' => $shopware6Language->getId(),
-                'iso' => $shopware6Language->getIso(),
-                'locale_id' => $shopware6Language->getLocaleId(),
-                'translation_code_id' => $shopware6Language->getTranslationCodeId(),
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
     }
 }

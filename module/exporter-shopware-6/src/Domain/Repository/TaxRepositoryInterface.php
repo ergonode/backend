@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-interface Shopware6TaxRepositoryInterface
+interface TaxRepositoryInterface
 {
     public function load(ChannelId $channelId, float $tax): ?string;
 

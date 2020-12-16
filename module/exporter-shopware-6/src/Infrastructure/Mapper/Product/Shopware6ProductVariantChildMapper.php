@@ -13,8 +13,8 @@ use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductRepositoryInterface as Shopware6ProductRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -38,7 +38,7 @@ class Shopware6ProductVariantChildMapper extends AbstractShopware6VariantOptionM
         AttributeRepositoryInterface $attributeRepository,
         OptionRepositoryInterface $optionRepository,
         AttributeTranslationInheritanceCalculator $calculator,
-        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
+        PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
     ) {
         parent::__construct($attributeRepository, $optionRepository, $calculator, $propertyGroupOptionsRepository);
         $this->childQuery = $childQuery;

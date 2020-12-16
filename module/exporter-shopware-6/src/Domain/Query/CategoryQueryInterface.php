@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-interface Shopware6CategoryQueryInterface
+interface CategoryQueryInterface
 {
     public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?CategoryId;
 

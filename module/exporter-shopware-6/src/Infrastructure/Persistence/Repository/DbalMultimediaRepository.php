@@ -12,11 +12,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6MultimediaRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepositoryInterface
+class DbalMultimediaRepository implements MultimediaRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_multimedia';
     private const FIELDS = [
@@ -57,11 +57,24 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
      */
     public function save(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void
     {
-        if ($this->exists($channelId, $multimediaId)) {
-            $this->update($channelId, $multimediaId, $shopwareId);
-        } else {
-            $this->insert($channelId, $multimediaId, $shopwareId);
-        }
+        $sql = 'INSERT INTO '.self::TABLE.' (channel_id, multimedia_id, shopware6_id, update_at) 
+        VALUES (:channelId, :multimediaId, :shopware6Id, :updatedAt)
+            ON CONFLICT ON CONSTRAINT shopware6_multimedia_pkey
+                DO UPDATE SET shopware6_id = :shopware6Id, update_at = :updatedAt
+        ';
+
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'channelId' => $channelId->getValue(),
+                'multimediaId' => $multimediaId->getValue(),
+                'shopware6Id' => $shopwareId,
+                'updatedAt' => new \DateTimeImmutable(),
+            ],
+            [
+                'updatedAt' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
     }
 
     public function exists(ChannelId $channelId, MultimediaId $multimediaId): bool
@@ -95,46 +108,6 @@ class DbalShopware6MultimediaRepository implements Shopware6MultimediaRepository
                 'multimedia_id' => $multimediaId->getValue(),
                 'channel_id' => $channelId->getValue(),
             ]
-        );
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function update(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void
-    {
-        $this->connection->update(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'multimedia_id' => $multimediaId->getValue(),
-                'channel_id' => $channelId->getValue(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function insert(ChannelId $channelId, MultimediaId $multimediaId, string $shopwareId): void
-    {
-        $this->connection->insert(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'multimedia_id' => $multimediaId->getValue(),
-                'channel_id' => $channelId->getValue(),
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
         );
     }
 }

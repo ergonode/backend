@@ -13,7 +13,7 @@ use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\CategoryQueryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -23,13 +23,13 @@ class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
 {
     private TreeRepositoryInterface $treeRepository;
 
-    private Shopware6CategoryQueryInterface $shopwareCategoryQuery;
+    private CategoryQueryInterface $shopwareCategoryQuery;
 
     private CommandBusInterface $commandBus;
 
     public function __construct(
         TreeRepositoryInterface $treeRepository,
-        Shopware6CategoryQueryInterface $shopwareCategoryQuery,
+        CategoryQueryInterface $shopwareCategoryQuery,
         CommandBusInterface $commandBus
     ) {
         $this->treeRepository = $treeRepository;

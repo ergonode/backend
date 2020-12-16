@@ -11,11 +11,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6PropertyGroupQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\PropertyGroupQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-class DbalShopware6PropertyGroupQuery implements Shopware6PropertyGroupQueryInterface
+class DbalPropertyGroupQuery implements PropertyGroupQueryInterface
 {
     private const TABLE = 'exporter.shopware6_property_group';
     private const FIELDS = [

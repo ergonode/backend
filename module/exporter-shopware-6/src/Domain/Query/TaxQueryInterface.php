@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
-interface Shopware6TaxQueryInterface
+interface TaxQueryInterface
 {
     public function cleanData(ChannelId $channelId, \DateTimeImmutable $dateTime): void;
 }

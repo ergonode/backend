@@ -12,11 +12,11 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterface
+class DbalProductRepository implements ProductRepositoryInterface
 {
     private const TABLE = 'exporter.shopware6_product';
     private const FIELDS = [
@@ -57,11 +57,24 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
      */
     public function save(ChannelId $channelId, ProductId $productId, string $shopwareId): void
     {
-        if ($this->exists($channelId, $productId)) {
-            $this->update($channelId, $productId, $shopwareId);
-        } else {
-            $this->insert($channelId, $productId, $shopwareId);
-        }
+        $sql = 'INSERT INTO '.self::TABLE.' (channel_id, product_id, shopware6_id, update_at) 
+        VALUES (:channelId, :productId, :shopware6Id, :updatedAt)
+            ON CONFLICT ON CONSTRAINT shopware6_product_pkey
+                DO UPDATE SET shopware6_id = :shopware6Id, update_at = :updatedAt
+        ';
+
+        $this->connection->executeQuery(
+            $sql,
+            [
+                'channelId' => $channelId->getValue(),
+                'productId' => $productId->getValue(),
+                'shopware6Id' => $shopwareId,
+                'updatedAt' => new \DateTimeImmutable(),
+            ],
+            [
+                'updatedAt' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
     }
 
     public function exists(ChannelId $channelId, ProductId $productId): bool
@@ -82,45 +95,5 @@ class DbalShopware6ProductRepository implements Shopware6ProductRepositoryInterf
         }
 
         return false;
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function update(ChannelId $channelId, ProductId $productId, string $shopwareId): void
-    {
-        $this->connection->update(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'product_id' => $productId->getValue(),
-                'channel_id' => $channelId->getValue(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
-    }
-
-    /**
-     * @throws DBALException
-     */
-    private function insert(ChannelId $channelId, ProductId $productId, string $shopwareId): void
-    {
-        $this->connection->insert(
-            self::TABLE,
-            [
-                'shopware6_id' => $shopwareId,
-                'product_id' => $productId->getValue(),
-                'channel_id' => $channelId->getValue(),
-                'update_at' => new \DateTimeImmutable(),
-            ],
-            [
-                'update_at' => Types::DATETIMETZ_MUTABLE,
-            ],
-        );
     }
 }
