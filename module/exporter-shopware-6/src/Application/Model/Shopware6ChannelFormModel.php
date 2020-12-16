@@ -112,6 +112,11 @@ class Shopware6ChannelFormModel
      */
     public array $customField = [];
 
+    /**
+     * @var array
+     */
+    public array $crossSelling = [];
+
     public function __construct(Shopware6Channel $channel = null)
     {
         if ($channel) {
@@ -131,6 +136,7 @@ class Shopware6ChannelFormModel
             $this->attributeProductDescription = $channel->getAttributeProductDescription();
             $this->attributeProductGallery = $channel->getAttributeProductGallery();
             $this->categoryTree = $channel->getCategoryTree() ? $channel->getCategoryTree()->getValue() : null;
+            $this->crossSelling = $channel->getCrossSelling();
 
             foreach ($channel->getPropertyGroup() as $attributeId) {
                 $this->propertyGroup[] = new PropertyGroupAttributeModel($attributeId->getValue());

@@ -15,7 +15,7 @@ class WriterTypeProvider
     /**
      * @var string[]
      */
-    private array $types;
+    private array $types = [];
 
     public function __construct(WriterInterface ...$writers)
     {

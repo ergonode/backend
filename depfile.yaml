@@ -45,6 +45,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Importer\\.*
+  - name: Importer-Ergonode-1
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterErgonode1\\.*
   - name: Importer-Magento-1
     collectors:
       - type: className
@@ -135,6 +139,13 @@ ruleset:
     - Core
     - EventSourcing
     - Notification
+    - Product
+    - SharedKernel
+  Importer-Ergonode-1:
+    - Attribute
+    - Core
+    - EventSourcing
+    - Importer
     - Product
     - SharedKernel
   Importer-Magento-1:

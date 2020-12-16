@@ -70,6 +70,11 @@ class Import
         return $this->file;
     }
 
+    public function getFileHash(): string
+    {
+        return sha1($this->file);
+    }
+
     public function start(): void
     {
         if (!$this->getStatus()->isCreated()) {

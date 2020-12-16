@@ -57,4 +57,16 @@ class ImportProductMultiSelectAttributeStrategyTest extends TestCase
         $strategy = new ImportProductMultiSelectAttributeStrategy($this->query);
         $strategy->build($id, $code, $value);
     }
+
+    public function testReturnEmptyForEmptyTranslation(): void
+    {
+        $id = $this->createMock(AttributeId::class);
+        $code = $this->createMock(AttributeCode::class);
+        $value = new TranslatableString(['pl_PL' => '']);
+
+        $strategy = new ImportProductMultiSelectAttributeStrategy($this->query);
+        $result = $strategy->build($id, $code, $value);
+
+        $this->assertEquals([], $result->getValue());
+    }
 }

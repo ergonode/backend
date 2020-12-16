@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Category\Domain\Query\CategoryQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class CategoryImportAction
 {
