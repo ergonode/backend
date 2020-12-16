@@ -3,4 +3,4 @@ framework:
         transports:
             export: '%ergonode.exporter.messenger_transport%'
         routing:
-            'Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand': export
+            Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand: export
