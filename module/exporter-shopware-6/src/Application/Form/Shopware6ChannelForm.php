@@ -209,6 +209,36 @@ class Shopware6ChannelForm extends AbstractType
                 ]
             )
             ->add(
+                'attribute_product_meta_title',
+                AttributeIdType::class,
+                [
+                    'label' => 'Attribute Product Meta Title',
+                    'choices' => array_flip($textareaAttributeDictionary),
+                    'property_path' => 'attributeProductMetaTitle',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'attribute_product_meta_description',
+                AttributeIdType::class,
+                [
+                    'label' => 'Attribute Product Meta Description',
+                    'choices' => array_flip($textareaAttributeDictionary),
+                    'property_path' => 'attributeProductMetaDescription',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'attribute_product_keywords',
+                AttributeIdType::class,
+                [
+                    'label' => 'Attribute Product Keywords',
+                    'choices' => array_flip($textareaAttributeDictionary),
+                    'property_path' => 'attributeProductKeywords',
+                    'required' => false,
+                ]
+            )
+            ->add(
                 'category_tree',
                 ChoiceType::class,
                 [

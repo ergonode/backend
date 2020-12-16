@@ -110,6 +110,9 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductVariantChildMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCoverMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductSEOMetaTitleMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductSEOMetaDescriptionMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductSEOKeywordsMapper'
 
     Ergonode\ExporterShopware6\Infrastructure\Builder\ProductCrossSellingBuilder:
         arguments:
