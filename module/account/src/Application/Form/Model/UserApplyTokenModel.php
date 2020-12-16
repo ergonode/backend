@@ -19,13 +19,13 @@ class UserApplyTokenModel
      *
      * @AvailableTokenConstraint()
      */
-    public ?string $token;
+    public ?string $token = null;
 
     /**
      * @Assert\NotBlank()
      * @Assert\EqualTo(propertyPath="password", message="This value should be the same as password")
      */
-    public ?string $passwordRepeat;
+    public ?string $passwordRepeat = null;
 
     /**
      * @Assert\NotBlank()
@@ -36,7 +36,7 @@ class UserApplyTokenModel
      *     maxMessage="User password is too long. It should contain {{ limit }} characters or less."
      * )
      */
-    public ?string $password;
+    public ?string $password = null;
 
     /**
      * @Assert\Callback()

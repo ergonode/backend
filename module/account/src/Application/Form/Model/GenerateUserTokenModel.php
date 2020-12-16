@@ -17,7 +17,7 @@ class GenerateUserTokenModel
      * @Assert\NotBlank(message="Email is required")
      * @Assert\Email(mode="strict")
      */
-    public ?string $email;
+    public ?string $email = null;
 
     /**
      * @Assert\NotBlank(message="URL is required")
@@ -25,5 +25,5 @@ class GenerateUserTokenModel
      *
      * @AvailableHostConstraint()
      */
-    public ?string $url;
+    public ?string $url = null;
 }
