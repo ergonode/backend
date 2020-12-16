@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\GetPropertyGroup;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\GetPropertyGroupList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\PatchPropertyGroupAction;
@@ -24,9 +24,9 @@ class Shopware6PropertyGroupClient
 {
     private Shopware6Connector $connector;
 
-    private Shopware6PropertyGroupRepositoryInterface $repository;
+    private PropertyGroupRepositoryInterface $repository;
 
-    public function __construct(Shopware6Connector $connector, Shopware6PropertyGroupRepositoryInterface $repository)
+    public function __construct(Shopware6Connector $connector, PropertyGroupRepositoryInterface $repository)
     {
         $this->connector = $connector;
         $this->repository = $repository;

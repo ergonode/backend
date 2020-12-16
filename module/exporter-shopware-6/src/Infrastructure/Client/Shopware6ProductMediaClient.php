@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6MultimediaRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\DeleteMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\GetMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Media\GetMediaDefaultFolderList;
@@ -33,12 +33,12 @@ class Shopware6ProductMediaClient
 
     private FilesystemInterface $multimediaStorage;
 
-    private Shopware6MultimediaRepositoryInterface $multimediaRepository;
+    private MultimediaRepositoryInterface $multimediaRepository;
 
     public function __construct(
         Shopware6Connector $connector,
         FilesystemInterface $multimediaStorage,
-        Shopware6MultimediaRepositoryInterface $multimediaRepository
+        MultimediaRepositoryInterface $multimediaRepository
     ) {
         $this->connector = $connector;
         $this->multimediaStorage = $multimediaStorage;

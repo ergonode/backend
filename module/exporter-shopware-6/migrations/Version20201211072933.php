@@ -27,5 +27,11 @@ final class Version20201211072933 extends AbstractErgonodeMigration
                     PRIMARY KEY (channel_id, product_collection_id, product_id)
                 )'
         );
+
+        $this->addSql(
+            'UPDATE exporter.channel
+                    SET "configuration" = jsonb_set("configuration",\'{cross_selling}\',\'{}\',true)
+                    WHERE type = \'shopware-6-api\''
+        );
     }
 }

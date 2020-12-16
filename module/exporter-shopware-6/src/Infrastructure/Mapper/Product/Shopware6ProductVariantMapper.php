@@ -14,8 +14,8 @@ use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductConfiguratorSettings;
@@ -26,16 +26,16 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 class Shopware6ProductVariantMapper extends AbstractShopware6VariantOptionMapper
 {
-    private Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository;
+    private PropertyGroupRepositoryInterface $propertyGroupRepository;
     private OptionQueryInterface  $optionQuery;
 
     public function __construct(
-        Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
+        PropertyGroupRepositoryInterface $propertyGroupRepository,
         OptionQueryInterface $optionQuery,
         AttributeRepositoryInterface $attributeRepository,
         OptionRepositoryInterface $optionRepository,
         AttributeTranslationInheritanceCalculator $calculator,
-        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
+        PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
     ) {
         parent::__construct($attributeRepository, $optionRepository, $calculator, $propertyGroupOptionsRepository);
 

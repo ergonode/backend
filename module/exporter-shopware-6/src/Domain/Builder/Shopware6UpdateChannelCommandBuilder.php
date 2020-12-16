@@ -12,6 +12,7 @@ use Ergonode\Channel\Domain\Command\ChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -48,6 +49,7 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
         $attributeProductDescription = $data->attributeProductDescription;
         $attributeProductGallery = $data->attributeProductGallery;
         $categoryTree = $data->categoryTree;
+        $crossSelling = $data->crossSelling;
 
         $propertyGroup = [];
         foreach ($data->propertyGroup as $attribute) {
@@ -62,6 +64,10 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
         $languageObjects = [];
         foreach ($languages as $language) {
             $languageObjects[] = new Language($language);
+        }
+        $crossSellingObjects = [];
+        foreach ($crossSelling as $crossSell) {
+            $crossSellingObjects[] = new ProductCollectionId($crossSell);
         }
 
         return new UpdateShopware6ChannelCommand(
@@ -83,7 +89,8 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
             $attributeProductGallery,
             $categoryTree ? new CategoryTreeId($categoryTree) : null,
             $propertyGroup,
-            $customField
+            $customField,
+            $crossSellingObjects
         );
     }
 }
