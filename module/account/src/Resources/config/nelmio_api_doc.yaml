@@ -110,7 +110,7 @@ nelmio_api_doc:
                         required: true
                         description: 'New password'
                         example: 'new_password'
-                    password_repeat:
+                    passwordRepeat:
                         type: 'string'
                         required: true
                         description: 'Password repeat'
