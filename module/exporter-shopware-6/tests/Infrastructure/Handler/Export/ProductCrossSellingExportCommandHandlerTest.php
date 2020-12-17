@@ -61,7 +61,6 @@ class ProductCrossSellingExportCommandHandlerTest extends TestCase
 
         $this->process = $this->createMock(ProductCrossSellingExportProcess::class);
         $this->process->expects(self::once())->method('process');
-
     }
 
     public function testHandling(): void
