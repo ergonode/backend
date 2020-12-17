@@ -96,6 +96,12 @@ class Shopware6ChannelFormModel
 
     public ?AttributeId $attributeProductGallery = null;
 
+    public ?AttributeId $attributeProductMetaTitle = null;
+
+    public ?AttributeId $attributeProductMetaDescription = null;
+
+    public ?AttributeId $attributeProductKeywords = null;
+
     public ?string $categoryTree = null;
 
     /**
@@ -135,6 +141,9 @@ class Shopware6ChannelFormModel
             $this->attributeProductTax = $channel->getAttributeProductTax();
             $this->attributeProductDescription = $channel->getAttributeProductDescription();
             $this->attributeProductGallery = $channel->getAttributeProductGallery();
+            $this->attributeProductMetaTitle = $channel->getAttributeProductMetaTitle();
+            $this->attributeProductMetaDescription = $channel->getAttributeProductMetaDescription();
+            $this->attributeProductKeywords = $channel->getAttributeProductKeywords();
             $this->categoryTree = $channel->getCategoryTree() ? $channel->getCategoryTree()->getValue() : null;
             $this->crossSelling = $channel->getCrossSelling();
 

@@ -89,6 +89,21 @@ class UpdateShopware6ChannelCommandTest extends TestCase
     private AttributeId $productGallery;
 
     /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productMetaTitle;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productMetaDescription;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productKeywords;
+
+    /**
      * @var CategoryTreeId|MockObject
      */
     private CategoryTreeId $categoryTreeId;
@@ -116,6 +131,9 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->productGallery = $this->createMock(AttributeId::class);
+        $this->productMetaTitle = $this->createMock(AttributeId::class);
+        $this->productMetaDescription = $this->createMock(AttributeId::class);
+        $this->productKeywords = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
         $this->crossSelling = $this->createMock(ProductCollectionId::class);
     }
@@ -139,6 +157,9 @@ class UpdateShopware6ChannelCommandTest extends TestCase
             $this->productTax,
             $this->productDescription,
             $this->productGallery,
+            $this->productMetaTitle,
+            $this->productMetaDescription,
+            $this->productKeywords,
             $this->categoryTreeId,
             [],
             [],
@@ -161,6 +182,9 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->productTax, $command->getProductTax());
         self::assertEquals($this->productDescription, $command->getProductDescription());
         self::assertEquals($this->productGallery, $command->getProductGallery());
+        self::assertEquals($this->productMetaTitle, $command->getProductMetaTitle());
+        self::assertEquals($this->productMetaDescription, $command->getProductMetaDescription());
+        self::assertEquals($this->productKeywords, $command->getProductKeywords());
         self::assertEquals($this->categoryTreeId, $command->getCategoryTree());
         self::assertIsArray($command->getPropertyGroup());
         self::assertIsArray($command->getCustomField());
