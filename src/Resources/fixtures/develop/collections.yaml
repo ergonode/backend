@@ -5,6 +5,9 @@ parameters:
     name_product_collection_type_cross-sell:
         'pl_PL': 'Cross-sell'
         'en_GB': 'Cross-sell'
+    name_product_collection_type_other:
+        'pl_PL': 'Inny'
+        'en_GB': 'Other'
 
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
     product_collection_type_up-sell:
@@ -17,6 +20,11 @@ Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
             - '<productCollectionTypeId("cross-sell")>'
             - '<productCollectionTypeCode("cross-sell")>'
             - '<translation(<{name_product_collection_type_cross-sell}>)>'
+    product_collection_type_other:
+        __construct:
+            - '<productCollectionTypeId("other")>'
+            - '<productCollectionTypeCode("other")>'
+            - '<translation(<{name_product_collection_type_other}>)>'
 
 Ergonode\ProductCollection\Domain\Entity\ProductCollection:
     product_collection_{1..50}:
