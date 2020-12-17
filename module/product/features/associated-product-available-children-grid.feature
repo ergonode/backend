@@ -132,40 +132,76 @@ Feature: Variable product available children grid feature
       | @select_attribute_2_id@ |
 
   Scenario: Add product 1 option value
-    When I send a PUT request to "api/v1/en_GB/products/@product_1_id@/draft/@select_attribute_1_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-       "value": "@select_1_option_1_id@"
+       {
+          "data": [
+          {
+            "id": "@product_1_id@",
+            "payload": [
+              {
+                "id": "@select_attribute_1_id@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "@select_1_option_1_id@"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Add product 1 option value
-    When I send a PUT request to "api/v1/en_GB/products/@product_1_id@/draft/@select_attribute_2_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-       "value": "@select_2_option_1_id@"
+       {
+          "data": [
+          {
+            "id": "@product_1_id@",
+            "payload": [
+              {
+                "id": "@select_attribute_2_id@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                     "value": "@select_2_option_1_id@"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
   Scenario: Add product 2 option value
-    When I send a PUT request to "api/v1/en_GB/products/@product_2_id@/draft/@select_attribute_1_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-       "value": "@select_1_option_2_id@"
+       {
+          "data": [
+          {
+            "id": "@product_2_id@",
+            "payload": [
+              {
+                "id": "@select_attribute_1_id@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                     "value": "@select_1_option_2_id@"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
-
-  Scenario Outline: Apply edit <product>> draft
-    When I send a PUT request to "api/v1/en_GB/products/<product>/draft/persist"
-    Then the response status code should be 204
-    Examples:
-      | product        |
-      | @product_1_id@ |
-      | @product_2_id@ |
-      | @product_3_id@ |
 
   Scenario: Add children to variable product 1
     When I send a POST request to "/api/v1/en_GB/products/@variable_product_1_id@/children" with body:

@@ -22,3 +22,8 @@ ergonode_product_dashboard_api:
     resource: '../../Application/Controller/Api/Dashboard/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
+
+ergonode_attribute_dashboard_api:
+    resource: '../../Application/Controller/Api/Attribute/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'

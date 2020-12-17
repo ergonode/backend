@@ -20,7 +20,7 @@ use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
 
 /**
  * @Route(
- *     "/products/{product}/draft/completeness",
+ *     "/products/{product}/completeness",
  *     methods={"GET"},
  *     requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
@@ -37,7 +37,7 @@ class CompletenessReadAction
     /**
      * @IsGranted("PRODUCT_READ")
      *
-     * @SWG\Tag(name="Editor")
+     * @SWG\Tag(name="Product")
      * @SWG\Parameter(
      *     name="product",
      *     in="path",
@@ -54,7 +54,7 @@ class CompletenessReadAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Get draft grid",
+     *     description="Get product completenes information",
      * )
      *
      * @throws \Exception
