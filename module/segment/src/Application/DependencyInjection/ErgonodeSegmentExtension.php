@@ -70,7 +70,7 @@ class ErgonodeSegmentExtension extends Extension implements PrependExtensionInte
             return;
         }
 
-        $container->setParameter('ergonode.segment.messenger_transport', $config['messenger']['transport']);
+        $container->setParameter('ergonode.segment.messenger_transport_name', $config['messenger']['transport_name']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
