@@ -1,0 +1,8 @@
+framework:
+    messenger:
+        routing:
+            Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand: '%ergonode.exporter_shopware_6.messenger_transport_name%'
+            Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand: '%ergonode.exporter_shopware_6.messenger_transport_name%'
+            Ergonode\ExporterShopware6\Domain\Command\Export\CustomFieldShopware6ExportCommand: '%ergonode.exporter_shopware_6.messenger_transport_name%'
+            Ergonode\ExporterShopware6\Domain\Command\Export\CategoryShopware6ExportCommand: '%ergonode.exporter_shopware_6.messenger_transport_name%'
+            Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand: '%ergonode.exporter_shopware_6.messenger_transport_name%'

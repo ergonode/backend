@@ -1,0 +1,4 @@
+framework:
+    messenger:
+        transports:
+            core: '%ergonode.core.messenger_transport%'

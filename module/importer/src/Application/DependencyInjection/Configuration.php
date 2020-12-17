@@ -7,22 +7,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Segment\Application\DependencyInjection;
+namespace Ergonode\Importer\Application\DependencyInjection;
 
-use Ergonode\Condition\Application\DependencyInjection\AddConditionsNodeSection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('ergonode_segment');
-        $rootNode = $treeBuilder->getRootNode();
-        AddConditionsNodeSection::addSection($rootNode);
+        $treeBuilder = new TreeBuilder('ergonode_importer');
 
         /** @phpstan-ignore-next-line */
         $treeBuilder

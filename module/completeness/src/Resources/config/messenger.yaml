@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        transports:
+            completeness: '%ergonode.completeness.messenger_transport%'
+        routing:
+            Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand: completeness

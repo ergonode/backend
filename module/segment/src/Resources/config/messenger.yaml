@@ -1,0 +1,8 @@
+framework:
+    messenger:
+        transports:
+            segment: '%ergonode.segment.messenger_transport%'
+        routing:
+            Ergonode\Segment\Domain\Command\CalculateProductCommand: segment
+            Ergonode\Segment\Domain\Command\CalculateSegmentCommand: segment
+            Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand: segment
