@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
 use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
-class ProductCrossSellingShopware6ExportCommand implements ExporterCommandInterface
+class PropertyGroupExportCommand implements ExporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
@@ -21,14 +21,14 @@ class ProductCrossSellingShopware6ExportCommand implements ExporterCommandInterf
     private ExportId $exportId;
 
     /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private ProductCollectionId $productCollectionId;
+    private AttributeId $attributeId;
 
-    public function __construct(ExportId $exportId, ProductCollectionId $productCollectionId)
+    public function __construct(ExportId $exportId, AttributeId $attributeId)
     {
         $this->exportId = $exportId;
-        $this->productCollectionId = $productCollectionId;
+        $this->attributeId = $attributeId;
     }
 
     public function getExportId(): ExportId
@@ -36,8 +36,8 @@ class ProductCrossSellingShopware6ExportCommand implements ExporterCommandInterf
         return $this->exportId;
     }
 
-    public function getProductCollectionId(): ProductCollectionId
+    public function getAttributeId(): AttributeId
     {
-        return $this->productCollectionId;
+        return $this->attributeId;
     }
 }

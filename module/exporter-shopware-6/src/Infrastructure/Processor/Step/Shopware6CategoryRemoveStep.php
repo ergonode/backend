@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\Node;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\CategoryQueryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
@@ -63,7 +63,7 @@ class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
 
         foreach ($categoryList as $category) {
             $categoryId = new CategoryId($category);
-            $processCommand = new CategoryRemoveShopware6ExportCommand($exportId, $categoryId);
+            $processCommand = new CategoryRemoveExportCommand($exportId, $categoryId);
             $this->commandBus->dispatch($processCommand, true);
         }
     }

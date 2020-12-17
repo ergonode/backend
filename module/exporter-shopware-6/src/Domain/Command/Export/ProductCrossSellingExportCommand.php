@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -10,10 +10,10 @@ namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
 use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
-class ProductShopware6ExportCommand implements ExporterCommandInterface
+class ProductCrossSellingExportCommand implements ExporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
@@ -21,14 +21,14 @@ class ProductShopware6ExportCommand implements ExporterCommandInterface
     private ExportId $exportId;
 
     /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
-    private ProductId $productId;
+    private ProductCollectionId $productCollectionId;
 
-    public function __construct(ExportId $exportId, ProductId $productId)
+    public function __construct(ExportId $exportId, ProductCollectionId $productCollectionId)
     {
         $this->exportId = $exportId;
-        $this->productId = $productId;
+        $this->productCollectionId = $productCollectionId;
     }
 
     public function getExportId(): ExportId
@@ -36,8 +36,8 @@ class ProductShopware6ExportCommand implements ExporterCommandInterface
         return $this->exportId;
     }
 
-    public function getProductId(): ProductId
+    public function getProductCollectionId(): ProductCollectionId
     {
-        return $this->productId;
+        return $this->productCollectionId;
     }
 }

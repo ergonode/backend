@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Command\Export;
 
-use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CustomFieldExportCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class PropertyGroupShopware6ExportCommandTest extends TestCase
+class CustomFieldExportCommandTest extends TestCase
 {
     /**
      * @var ExportId|MockObject
@@ -34,7 +34,7 @@ class PropertyGroupShopware6ExportCommandTest extends TestCase
 
     public function testCreateCommand(): void
     {
-        $command = new PropertyGroupShopware6ExportCommand(
+        $command = new CustomFieldExportCommand(
             $this->exportId,
             $this->attributeId
         );
