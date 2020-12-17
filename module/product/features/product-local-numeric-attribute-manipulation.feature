@@ -101,7 +101,31 @@ Feature: Product edit and inheritance value for product product with numeric att
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product numeric value in "en_GB", "pl_PL" and "de_DE" language
+  Scenario: Edit product numeric value in "en_GB" language
+    When I send a PUT request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@" with body:
+      """
+        {
+          "value": "300"
+        }
+      """
+    Then the response status code should be 200
+
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@ | 300 |
+
+  Scenario: Delete product  numeric value in "en_GB" language
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_id@/attribute/@attribute_id@"
+    Then the response status code should be 204
+
+  Scenario: Get product values in "en_GB" language
+    When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/en_GB"
+    Then the response status code should be 200
+    And the JSON node "attributes.@attribute_code@" should not exist
+
+  Scenario: Edit product numeric value in "en_GB", "pl_PL" and "de_DE" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
@@ -132,6 +156,32 @@ Feature: Product edit and inheritance value for product product with numeric att
         }
       """
     Then the response status code should be 200
+
+  Scenario: Edit product numeric value in "en_GB" language (batch endpoint) - wrong value
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
+      """
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "text"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      """
+    Then the response status code should be 500
+    And the JSON node "exception.current.message" should contain "Expected a numeric. Got: string"
+
 
   Scenario: Get product values in "de_DE" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/de_DE"

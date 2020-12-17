@@ -110,7 +110,7 @@ Feature: Product edit and inheritance value for product product with unit attrib
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product unit value in "en_GB" language
+  Scenario: Edit product unit value in "en_GB" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
@@ -156,7 +156,7 @@ Feature: Product edit and inheritance value for product product with unit attrib
     When I send a DELETE request to "api/v1/pl_PL/products/@product_id@/attribute/@attribute_id@"
     Then the response status code should be 403
 
-  Scenario: Edit product unit value in "en_GB" language
+  Scenario: Edit product unit value in "en_GB" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
@@ -192,7 +192,7 @@ Feature: Product edit and inheritance value for product product with unit attrib
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@ | 200.99 |
 
-  Scenario: Edit product unit value in "en_GB" language
+  Scenario: Edit product unit value in "en_GB" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {

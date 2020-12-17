@@ -118,7 +118,7 @@ Feature: Product edit and inheritance value for product product with gallery att
     And the JSON node "id" should exist
     And store response param "id" as "multimedia_2_id"
 
-  Scenario: Edit product gallery value in "en_GB" and "pl_PL" language
+  Scenario: Edit product gallery value in "en_GB" and "pl_PL" language (batch endpoint)
     When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
         {
@@ -145,7 +145,6 @@ Feature: Product edit and inheritance value for product product with gallery att
         }
       """
     Then the response status code should be 200
-
 
   Scenario: Get product values in "pl_PL" language
     When I send a GET request to "api/v1/en_GB/products/@product_id@/inherited/pl_PL"
