@@ -51,8 +51,8 @@ class ErgonodeCompletenessExtension extends Extension implements PrependExtensio
         }
 
         $container->setParameter(
-            'ergonode.completeness.messenger_transport',
-            $config['messenger']['transport'],
+            'ergonode.completeness.messenger_transport_name',
+            $config['messenger']['transport_name'],
         );
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));

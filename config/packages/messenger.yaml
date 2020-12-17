@@ -15,30 +15,50 @@ framework:
                     - 'send_message'
                     - 'handle_message'
         default_bus: messenger.bus.sync
+        transports:
+            import: "%env(MESSENGER_TRANSPORT_IMPORT_DSN)%"
+            export: "%env(MESSENGER_TRANSPORT_EXPORT_DSN)%"
+            core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
+            segment: "%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%"
+            completeness: "%env(MESSENGER_TRANSPORT_COMPLETENESS_DSN)%"
+            notification: "%env(MESSENGER_TRANSPORT_NOTIFICATION_DSN)%"
         routing:
 #            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
 #            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
 
+ergonode_category:
+    messenger:
+        transport_name: 'core'
+
 ergonode_completeness:
     messenger:
-        transport: '%env(MESSENGER_TRANSPORT_COMPLETENESS_DSN)%'
+        transport_name: 'completeness'
 
-ergonode_core:
+ergonode_designer:
     messenger:
-        transport: '%env(MESSENGER_TRANSPORT_CORE_DSN)%'
-
-ergonode_notification:
-    messenger:
-        transport: '%env(MESSENGER_TRANSPORT_NOTIFICATION_DSN)%'
-
-ergonode_importer:
-    messenger:
-        transport: '%env(MESSENGER_TRANSPORT_IMPORT_DSN)%'
-
-ergonode_segment:
-    messenger:
-        transport: '%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%'
+        transport_name: 'core'
 
 ergonode_exporter:
     messenger:
-        transport: '%env(MESSENGER_TRANSPORT_EXPORT_DSN)%'
+        transport_name: 'export'
+
+ergonode_exporter_file:
+    messenger:
+        transport_name: 'export'
+
+ergonode_exporter_shopware6:
+    messenger:
+        transport_name: 'export'
+
+ergonode_mailer:
+    messenger:
+        transport_name: 'notification'
+
+ergonode_importer:
+    messenger:
+        transport_name: 'import'
+
+ergonode_segment:
+    messenger:
+        transport_name: 'segment'
+
