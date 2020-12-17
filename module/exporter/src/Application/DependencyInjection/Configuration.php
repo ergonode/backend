@@ -25,14 +25,15 @@ final class Configuration implements ConfigurationInterface
                     ->arrayNode('messenger')
                         ->validate()
                             ->ifTrue(
-                                fn (array $messenger): bool => $messenger['enabled'] && !isset($messenger['transport'])
+                                fn (array $messenger): bool =>
+                                    $messenger['enabled'] && !isset($messenger['transport_name'])
                             )
-                            ->thenInvalid('transport has to be defined for enabled messenger.')
+                            ->thenInvalid('transport_name has to be defined for enabled messenger.')
                         ->end()
                         ->isRequired()
                         ->canBeDisabled()
                         ->children()
-                            ->scalarNode('transport')->end()
+                            ->scalarNode('transport_name')->end()
                         ->end()
                     ->end()
                 ->end()

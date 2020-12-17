@@ -55,7 +55,7 @@ class ErgonodeExporterExtension extends Extension implements PrependExtensionInt
             return;
         }
 
-        $container->setParameter('ergonode.exporter.messenger_transport', $config['messenger']['transport']);
+        $container->setParameter('ergonode.exporter.messenger_transport_name', $config['messenger']['transport_name']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
