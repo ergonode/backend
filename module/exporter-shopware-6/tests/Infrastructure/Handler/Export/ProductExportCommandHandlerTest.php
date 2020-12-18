@@ -11,16 +11,16 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Handler\Export;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\ProductExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\ProductShopware6ExportCommandHandler;
+use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\ProductExportCommandHandler;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\ProductShopware6ExportProcess;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class ProductShopware6ExportCommandHandlerTest extends TestCase
+class ProductExportCommandHandlerTest extends TestCase
 {
     /**
      * @var ExportRepositoryInterface|MockObject
@@ -65,9 +65,9 @@ class ProductShopware6ExportCommandHandlerTest extends TestCase
 
     public function testHandling(): void
     {
-        $command = $this->createMock(ProductShopware6ExportCommand::class);
+        $command = $this->createMock(ProductExportCommand::class);
 
-        $handler = new ProductShopware6ExportCommandHandler(
+        $handler = new ProductExportCommandHandler(
             $this->exportRepository,
             $this->channelRepository,
             $this->productRepository,

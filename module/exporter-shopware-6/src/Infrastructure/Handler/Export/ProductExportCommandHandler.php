@@ -12,13 +12,13 @@ use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\ProductExportCommand;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\ProductShopware6ExportProcess;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-class ProductShopware6ExportCommandHandler
+class ProductExportCommandHandler
 {
     private ExportRepositoryInterface $exportRepository;
 
@@ -40,7 +40,7 @@ class ProductShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    public function __invoke(ProductShopware6ExportCommand $command): void
+    public function __invoke(ProductExportCommand $command): void
     {
         $export  = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

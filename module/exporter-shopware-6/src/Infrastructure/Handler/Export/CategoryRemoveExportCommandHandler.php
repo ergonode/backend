@@ -11,12 +11,12 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CategoryRemoveShopware6ExportProcess;
 use Webmozart\Assert\Assert;
 
-class CategoryRemoveShopware6ExportCommandHandler
+class CategoryRemoveExportCommandHandler
 {
     private ExportRepositoryInterface $exportRepository;
 
@@ -34,7 +34,7 @@ class CategoryRemoveShopware6ExportCommandHandler
         $this->process = $process;
     }
 
-    public function __invoke(CategoryRemoveShopware6ExportCommand $command): void
+    public function __invoke(CategoryRemoveExportCommand $command): void
     {
         $export = $this->exportRepository->load($command->getExportId());
         Assert::isInstanceOf($export, Export::class);

@@ -13,14 +13,14 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\PropertyGroupShopware6ExportCommandHandler;
+use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\PropertyGroupExportCommandHandler;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\PropertyGroupShopware6ExportProcess;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class PropertyGroupShopware6ExportCommandHandlerTest extends TestCase
+class PropertyGroupExportCommandHandlerTest extends TestCase
 {
     /**
      * @var ExportRepositoryInterface|MockObject
@@ -65,9 +65,9 @@ class PropertyGroupShopware6ExportCommandHandlerTest extends TestCase
 
     public function testHandling(): void
     {
-        $command = $this->createMock(PropertyGroupShopware6ExportCommand::class);
+        $command = $this->createMock(PropertyGroupExportCommand::class);
 
-        $handler = new PropertyGroupShopware6ExportCommandHandler(
+        $handler = new PropertyGroupExportCommandHandler(
             $this->exportRepository,
             $this->channelRepository,
             $this->attributeRepository,

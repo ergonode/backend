@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Command\Export;
 
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupExportCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class ProductShopware6ExportCommandTest extends TestCase
+class PropertyGroupExportCommandTest extends TestCase
 {
     /**
      * @var ExportId|MockObject
@@ -22,24 +22,24 @@ class ProductShopware6ExportCommandTest extends TestCase
     private ExportId $exportId;
 
     /**
-     * @var ProductId|MockObject
+     * @var AttributeId|MockObject
      */
-    private ProductId $productId;
+    private AttributeId $attributeId;
 
     protected function setUp(): void
     {
         $this->exportId = $this->createMock(ExportId::class);
-        $this->productId = $this->createMock(ProductId::class);
+        $this->attributeId = $this->createMock(AttributeId::class);
     }
 
     public function testCreateCommand(): void
     {
-        $command = new ProductShopware6ExportCommand(
+        $command = new PropertyGroupExportCommand(
             $this->exportId,
-            $this->productId
+            $this->attributeId
         );
 
         self::assertEquals($this->exportId, $command->getExportId());
-        self::assertEquals($this->productId, $command->getProductId());
+        self::assertEquals($this->attributeId, $command->getAttributeId());
     }
 }

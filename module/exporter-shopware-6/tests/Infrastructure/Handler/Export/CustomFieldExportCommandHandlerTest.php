@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Handler\Export;
 
-use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CustomFieldExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\CategoryShopware6ExportCommandHandler;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CategoryShopware6ExportProcess;
+use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\CustomFieldExportCommandHandler;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CustomFiledShopware6ExportProcess;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class CategoryShopware6ExportCommandHandlerTest extends TestCase
+class CustomFieldExportCommandHandlerTest extends TestCase
 {
     /**
      * @var ExportRepositoryInterface|MockObject
@@ -33,14 +33,14 @@ class CategoryShopware6ExportCommandHandlerTest extends TestCase
     private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var CategoryRepositoryInterface|MockObject
+     * @var AttributeRepositoryInterface|MockObject
      */
-    private CategoryRepositoryInterface $categoryRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
-     * @var CategoryShopware6ExportProcess|MockObject
+     * @var CustomFiledShopware6ExportProcess|MockObject
      */
-    private CategoryShopware6ExportProcess $process;
+    private CustomFiledShopware6ExportProcess $process;
 
     protected function setUp(): void
     {
@@ -54,23 +54,23 @@ class CategoryShopware6ExportCommandHandlerTest extends TestCase
             ->willReturn($this->createMock(Shopware6Channel::class));
         $this->channelRepository->expects(self::once())->method('load');
 
-        $this->categoryRepository = $this->createMock(CategoryRepositoryInterface::class);
-        $this->categoryRepository->method('load')
-            ->willReturn($this->createMock(AbstractCategory::class));
-        $this->categoryRepository->expects(self::once())->method('load');
+        $this->attributeRepository = $this->createMock(AttributeRepositoryInterface::class);
+        $this->attributeRepository->method('load')
+            ->willReturn($this->createMock(AbstractAttribute::class));
+        $this->attributeRepository->expects(self::once())->method('load');
 
-        $this->process = $this->createMock(CategoryShopware6ExportProcess::class);
+        $this->process = $this->createMock(CustomFiledShopware6ExportProcess::class);
         $this->process->expects(self::once())->method('process');
     }
 
     public function testHandling(): void
     {
-        $command = $this->createMock(CategoryShopware6ExportCommand::class);
+        $command = $this->createMock(CustomFieldExportCommand::class);
 
-        $handler = new CategoryShopware6ExportCommandHandler(
+        $handler = new CustomFieldExportCommandHandler(
             $this->exportRepository,
             $this->channelRepository,
-            $this->categoryRepository,
+            $this->attributeRepository,
             $this->process
         );
         $handler->__invoke($command);

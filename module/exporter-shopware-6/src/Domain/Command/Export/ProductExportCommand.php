@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
 use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
-class CustomFieldShopware6ExportCommand implements ExporterCommandInterface
+class ProductExportCommand implements ExporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
@@ -21,14 +21,14 @@ class CustomFieldShopware6ExportCommand implements ExporterCommandInterface
     private ExportId $exportId;
 
     /**
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private AttributeId $attributeId;
+    private ProductId $productId;
 
-    public function __construct(ExportId $exportId, AttributeId $attributeId)
+    public function __construct(ExportId $exportId, ProductId $productId)
     {
         $this->exportId = $exportId;
-        $this->attributeId = $attributeId;
+        $this->productId = $productId;
     }
 
     public function getExportId(): ExportId
@@ -36,8 +36,8 @@ class CustomFieldShopware6ExportCommand implements ExporterCommandInterface
         return $this->exportId;
     }
 
-    public function getAttributeId(): AttributeId
+    public function getProductId(): ProductId
     {
-        return $this->attributeId;
+        return $this->productId;
     }
 }

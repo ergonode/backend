@@ -8,17 +8,19 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Handler\Export;
 
+use Ergonode\Category\Domain\Entity\AbstractCategory;
+use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\CategoryRemoveShopware6ExportCommandHandler;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CategoryRemoveShopware6ExportProcess;
+use Ergonode\ExporterShopware6\Infrastructure\Handler\Export\CategoryExportCommandHandler;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\CategoryShopware6ExportProcess;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class CategoryRemoveShopware6ExportCommandHandlerTest extends TestCase
+class CategoryExportCommandHandlerTest extends TestCase
 {
     /**
      * @var ExportRepositoryInterface|MockObject
@@ -31,9 +33,14 @@ class CategoryRemoveShopware6ExportCommandHandlerTest extends TestCase
     private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var CategoryRemoveShopware6ExportProcess|MockObject
+     * @var CategoryRepositoryInterface|MockObject
      */
-    private CategoryRemoveShopware6ExportProcess $process;
+    private CategoryRepositoryInterface $categoryRepository;
+
+    /**
+     * @var CategoryShopware6ExportProcess|MockObject
+     */
+    private CategoryShopware6ExportProcess $process;
 
     protected function setUp(): void
     {
@@ -47,17 +54,23 @@ class CategoryRemoveShopware6ExportCommandHandlerTest extends TestCase
             ->willReturn($this->createMock(Shopware6Channel::class));
         $this->channelRepository->expects(self::once())->method('load');
 
-        $this->process = $this->createMock(CategoryRemoveShopware6ExportProcess::class);
+        $this->categoryRepository = $this->createMock(CategoryRepositoryInterface::class);
+        $this->categoryRepository->method('load')
+            ->willReturn($this->createMock(AbstractCategory::class));
+        $this->categoryRepository->expects(self::once())->method('load');
+
+        $this->process = $this->createMock(CategoryShopware6ExportProcess::class);
         $this->process->expects(self::once())->method('process');
     }
 
     public function testHandling(): void
     {
-        $command = $this->createMock(CategoryRemoveShopware6ExportCommand::class);
+        $command = $this->createMock(CategoryExportCommand::class);
 
-        $handler = new CategoryRemoveShopware6ExportCommandHandler(
+        $handler = new CategoryExportCommandHandler(
             $this->exportRepository,
             $this->channelRepository,
+            $this->categoryRepository,
             $this->process
         );
         $handler->__invoke($command);

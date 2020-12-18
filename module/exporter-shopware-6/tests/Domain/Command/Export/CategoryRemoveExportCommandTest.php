@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Command\Export;
 
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProductCrossSellingShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveExportCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class ProductCrossSellingShopware6ExportCommandTest extends TestCase
+class CategoryRemoveExportCommandTest extends TestCase
 {
     /**
      * @var ExportId|MockObject
@@ -22,24 +22,24 @@ class ProductCrossSellingShopware6ExportCommandTest extends TestCase
     private ExportId $exportId;
 
     /**
-     * @var ProductCollectionId|MockObject
+     * @var CategoryId|MockObject
      */
-    private ProductCollectionId $productCollectionId;
+    private CategoryId $categoryId;
 
     protected function setUp(): void
     {
         $this->exportId = $this->createMock(ExportId::class);
-        $this->productCollectionId = $this->createMock(ProductCollectionId::class);
+        $this->categoryId = $this->createMock(CategoryId::class);
     }
 
     public function testCreateCommand(): void
     {
-        $command = new ProductCrossSellingShopware6ExportCommand(
+        $command = new CategoryRemoveExportCommand(
             $this->exportId,
-            $this->productCollectionId
+            $this->categoryId
         );
 
         self::assertEquals($this->exportId, $command->getExportId());
-        self::assertEquals($this->productCollectionId, $command->getProductCollectionId());
+        self::assertEquals($this->categoryId, $command->getCategoryId());
     }
 }
