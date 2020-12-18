@@ -15,11 +15,11 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductMediaClient;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterMultimediaException;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractProductCustomFieldSetMapper;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
-class Shopware6ProductCustomFieldSetMultimediaMapper extends AbstractShopware6ProductCustomFieldSetMapper
+class ProductCustomFieldSetMultimediaMapper extends AbstractProductCustomFieldSetMapper
 {
     private MultimediaRepositoryInterface $multimediaRepository;
 

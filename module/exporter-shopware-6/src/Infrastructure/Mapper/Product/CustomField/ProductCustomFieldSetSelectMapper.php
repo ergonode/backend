@@ -9,15 +9,16 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterOptionValueException;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractProductCustomFieldSetMapper;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-class Shopware6ProductCustomFieldSetMultiSelectMapper extends AbstractShopware6ProductCustomFieldSetMapper
+class ProductCustomFieldSetSelectMapper extends AbstractProductCustomFieldSetMapper
 {
     private OptionRepositoryInterface $optionRepository;
 
@@ -35,24 +36,26 @@ class Shopware6ProductCustomFieldSetMultiSelectMapper extends AbstractShopware6P
      */
     public function getType(): string
     {
-        return MultiSelectAttribute::TYPE;
+        return SelectAttribute::TYPE;
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @throws Shopware6ExporterOptionValueException
      */
-    protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue): array
+    protected function getValue(Shopware6Channel $channel, AbstractAttribute $attribute, $calculateValue): string
     {
         $options = explode(',', $calculateValue);
-        $result = [];
+
         foreach ($options as $optionValue) {
             $optionId = new AggregateId($optionValue);
             $option = $this->optionRepository->load($optionId);
             if ($option) {
-                $result[] = $option->getCode()->getValue();
+                return $option->getCode()->getValue();
             }
         }
 
-        return $result;
+        throw new Shopware6ExporterOptionValueException($attribute->getCode());
     }
 }

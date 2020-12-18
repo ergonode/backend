@@ -17,14 +17,14 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductAttributeException;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductNameMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductNameMapper;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class Shopware6ProductNameMapperTest extends TestCase
+class ProductNameMapperTest extends TestCase
 {
     private const NAME = 'TEST_NAME';
     private const CODE = 'TEST_CODE';
@@ -82,7 +82,7 @@ class Shopware6ProductNameMapperTest extends TestCase
      */
     public function testMapper(): void
     {
-        $mapper = new Shopware6ProductNameMapper(
+        $mapper = new ProductNameMapper(
             $this->attributeRepository,
             $this->calculator
         );
