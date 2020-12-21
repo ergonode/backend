@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
-use Doctrine\DBAL\DBALException;
 use Ergonode\Importer\Domain\Command\DeleteSourceCommand;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
@@ -49,15 +48,15 @@ class DeleteSourceCommandHandler
 
         $fileNames = $this->importQuery->getFileNamesBySourceId($source->getId());
 
-        try {
-            $this->sourceRepository->delete($source);
-        } catch (DBALException $exception) {
-            $this->logger->error($exception);
-        }
+        $this->sourceRepository->delete($source);
 
         foreach ($fileNames as $fileName) {
             if ($this->importStorage->has($fileName)) {
-                $this->importStorage->delete($fileName);
+                try {
+                    $this->importStorage->delete($fileName);
+                } catch (\Exception $exception) {
+                    $this->logger->error($exception);
+                }
             }
         }
     }

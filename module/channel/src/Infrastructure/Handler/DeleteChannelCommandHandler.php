@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Handler;
 
-use Doctrine\DBAL\DBALException;
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
@@ -50,16 +49,16 @@ class DeleteChannelCommandHandler
 
         $exportIds = $this->exportQuery->getExportIdsByChannelId($channel->getId());
 
-        try {
-            $this->channelRepository->delete($channel);
-        } catch (DBALException $exception) {
-            $this->logger->error($exception);
-        }
+        $this->channelRepository->delete($channel);
 
         foreach ($exportIds as $exportId) {
             $file = sprintf('%s.zip', $exportId);
             if ($this->exportStorage->has($file)) {
-                $this->exportStorage->delete($file);
+                try {
+                    $this->exportStorage->delete($file);
+                } catch (\Exception $exception) {
+                    $this->logger->error($exception);
+                }
             }
         }
     }
