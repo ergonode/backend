@@ -52,7 +52,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
         $this->addSql(
             'ALTER TABLE importer.import
              ADD CONSTRAINT import_source_fk FOREIGN KEY (source_id) 
-             REFERENCES importer.source(id)  ON UPDATE CASCADE ON DELETE RESTRICT'
+             REFERENCES importer.source(id)  ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
         $this->addSql(

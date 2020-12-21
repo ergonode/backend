@@ -40,7 +40,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
         $this->addSql(
             'ALTER TABLE exporter.export 
                     ADD CONSTRAINT export_channel_id_fk FOREIGN KEY (channel_id) 
-                    REFERENCES exporter.channel(id) ON UPDATE CASCADE ON DELETE RESTRICT'
+                    REFERENCES exporter.channel(id) ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
         $this->addSql('
