@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
+use Doctrine\DBAL\DBALException;
 use Ergonode\Importer\Domain\Command\DeleteSourceCommand;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use League\Flysystem\FilesystemInterface;
+use Psr\Log\LoggerInterface;
 use Webmozart\Assert\Assert;
 
 class DeleteSourceCommandHandler
@@ -22,14 +24,18 @@ class DeleteSourceCommandHandler
 
     private FilesystemInterface $importStorage;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         ImportQueryInterface $importQuery,
-        FilesystemInterface $importStorage
+        FilesystemInterface $importStorage,
+        LoggerInterface $logger
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->importQuery = $importQuery;
         $this->importStorage = $importStorage;
+        $this->logger = $logger;
     }
 
     /**
@@ -43,7 +49,11 @@ class DeleteSourceCommandHandler
 
         $fileNames = $this->importQuery->getFileNamesBySourceId($source->getId());
 
-        $this->sourceRepository->delete($source);
+        try {
+            $this->sourceRepository->delete($source);
+        } catch (DBALException $exception) {
+            $this->logger->error($exception);
+        }
 
         foreach ($fileNames as $fileName) {
             if ($this->importStorage->has($fileName)) {

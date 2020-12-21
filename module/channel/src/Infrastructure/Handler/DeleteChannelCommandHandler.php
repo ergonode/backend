@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Handler;
 
+use Doctrine\DBAL\DBALException;
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use League\Flysystem\FilesystemInterface;
+use Psr\Log\LoggerInterface;
 use Webmozart\Assert\Assert;
 
 class DeleteChannelCommandHandler
@@ -23,14 +25,18 @@ class DeleteChannelCommandHandler
 
     private FilesystemInterface $exportStorage;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ExportQueryInterface $exportQuery,
-        FilesystemInterface $exportStorage
+        FilesystemInterface $exportStorage,
+        LoggerInterface $logger
     ) {
         $this->channelRepository = $channelRepository;
         $this->exportQuery = $exportQuery;
         $this->exportStorage = $exportStorage;
+        $this->logger = $logger;
     }
 
     /**
@@ -44,7 +50,11 @@ class DeleteChannelCommandHandler
 
         $exportIds = $this->exportQuery->getExportIdsByChannelId($channel->getId());
 
-        $this->channelRepository->delete($channel);
+        try {
+            $this->channelRepository->delete($channel);
+        } catch (DBALException $exception) {
+            $this->logger->error($exception);
+        }
 
         foreach ($exportIds as $exportId) {
             $file = sprintf('%s.zip', $exportId);
