@@ -41,14 +41,14 @@ class DeleteSourceCommandHandler
 
         Assert::notNull($source, sprintf('Can\'t fid source "%s"', $command->getId()->getValue()));
 
-
         $fileNames = $this->importQuery->getFileNamesBySourceId($source->getId());
+
+        $this->sourceRepository->delete($source);
+
         foreach ($fileNames as $fileName) {
             if ($this->importStorage->has($fileName)) {
                 $this->importStorage->delete($fileName);
             }
         }
-
-        $this->sourceRepository->delete($source);
     }
 }

@@ -43,13 +43,14 @@ class DeleteChannelCommandHandler
         Assert::notNull($channel, sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
 
         $exportIds = $this->exportQuery->getExportIdsByChannelId($channel->getId());
+
+        $this->channelRepository->delete($channel);
+
         foreach ($exportIds as $exportId) {
             $file = sprintf('%s.zip', $exportId);
             if ($this->exportStorage->has($file)) {
                 $this->exportStorage->delete($file);
             }
         }
-
-        $this->channelRepository->delete($channel);
     }
 }
