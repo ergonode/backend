@@ -117,6 +117,14 @@
         </exec>
     </target>
 
+    <target name="database:fixture:e2e" description="Fill database with e2e data">
+        <echo msg="Fill database with dev fixtures ..."/>
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load -g e2e --no-interaction"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
     <!-- Code style check -->
     <target name="check:style" depends="check:cs, check:phpstan, check:configs" description="Check code style"/>
 
