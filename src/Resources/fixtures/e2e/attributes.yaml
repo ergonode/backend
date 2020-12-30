@@ -1,182 +1,122 @@
 Ergonode\Attribute\Domain\Entity\AttributeGroup:
-    attribute_group_{1..10}:
+    attribute_group:
         __construct:
             - '<AttributeGroupId()>'
-            - '<AttributeGroupCode(group_code_<current()>)>'
-            - '@label_<current()>'
+            - '<AttributeGroupCode(group_code)>'
+            - '@label_1'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand:
     attribute_image:
         __construct:
-            - '<AttributeCode(image_attribute)>'
-            - '@label_1'
-            - '@hint_1'
-            - '@placeholder_1'
+            - '<AttributeCode(attribute_image)>'
+            - '@label_2'
+            - '@hint_2'
+            - '@placeholder_2'
             - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand:
-    attribute_{1..5}:
+    attribute_text:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_text)>'
+            - '@label_3'
+            - '@hint_3'
+            - '@placeholder_3'
             - '<AttributeScope(local)>'
-    attribute_{6..10}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand:
-    attribute_{11..15}:
+    attribute_textarea:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_textarea)>'
+            - '@label_4'
+            - '@hint_4'
+            - '@placeholder_4'
             - '<AttributeScope(local)>'
-            -  true
-    attribute_{16..20}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
             -  true
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand:
-    attribute_{21..23}:
+    attribute_numeric:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_numeric)>'
+            - '@label_5'
+            - '@hint_5'
+            - '@placeholder_5'
             - '<AttributeScope(local)>'
-    attribute_{24..25}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand:
-    attribute_{26..28}:
+    attribute_date:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_date)>'
+            - '@label_6'
+            - '@hint_6'
+            - '@placeholder_6'
             - '<AttributeScope(local)>'
-            - '<DateFormat()>'
-    attribute_{29..30}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
             - '<DateFormat()>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreatePriceAttributeCommand:
-    attribute_{31..33}:
+    attribute_price:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_price)>'
+            - '@label_7'
+            - '@hint_7'
+            - '@placeholder_7'
             - '<AttributeScope(local)>'
-            - '<Currency()>'
-    attribute_{34..35}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
             - '<Currency()>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand:
-    attribute_{36..38}:
+    attribute_unit:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_unit)>'
+            - '@label_8'
+            - '@hint_8'
+            - '@placeholder_8'
             - '<AttributeScope(local)>'
-            - '@unit_metre->id'
-    attribute_{39..40}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
             - '@unit_metre->id'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand:
-    attribute_{41..43}:
+    attribute_select:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_select)>'
+            - '@label_9'
+            - '@hint_9'
+            - '@placeholder_9'
             - '<AttributeScope(local)>'
-    attribute_{44..45}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCommand:
-    attribute_{46..48}:
+    attribute_multiselect:
         __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
+            - '<AttributeCode(attribute_multiselect)>'
+            - '@label_10'
+            - '@hint_10'
+            - '@placeholder_10'
             - '<AttributeScope(local)>'
-    attribute_{49..50}:
-        __construct:
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - '<AttributeScope(global)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
     attribute_gallery:
         __construct:
-            - '<AttributeCode(gallery_attribute)>'
-            - '@label_1'
-            - '@hint_1'
-            - '@placeholder_1'
+            - '<AttributeCode(attribute_gallery)>'
+            - '@label_11'
+            - '@hint_11'
+            - '@placeholder_11'
             - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand:
     attribute_file:
         __construct:
-            - '<AttributeCode(file_attribute)>'
-            - '@label_1'
-            - '@hint_1'
-            - '@placeholder_1'
+            - '<AttributeCode(attribute_file)>'
+            - '@label_12'
+            - '@hint_12'
+            - '@placeholder_12'
             - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
     select_option_{1..5}:
         __construct:
-            - '@attribute_41->id'
+            - '@attribute_select->id'
             - '<OptionKey(key_1_<current()>)>'
             - '@option_value_1_<current()>'
     multiselect_option_{1..5}:
         __construct:
-            - '@attribute_46->id'
+            - '@attribute_multiselect->id'
             - '<OptionKey(key_2_<current()>)>'
             - '@option_value_2_<current()>'
 

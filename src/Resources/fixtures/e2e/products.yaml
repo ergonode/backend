@@ -1,0 +1,95 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+  translation_image_{1..10}:
+    __construct:
+      -
+        pl_PL: '@product_image_*->id'
+        en_GB: '@product_image_*->id'
+  translation_sentence_{1..10}:
+    __construct:
+      -
+        pl_PL: <pl_PL:sentence(5)>
+        en_GB: <en_EN:sentence(5)>
+  translation_paragraph_{1..10}:
+    __construct:
+      -
+        pl_PL: <pl_PL:paragraph(20)>
+        en_GB: <en_EN:paragraph(20)>
+  translation_float_{1..10}:
+    __construct:
+      -
+        pl_PL: <pl_PL:randomFloat()>
+        en_GB: <en_EN:randomFloat()>
+  translation_tax_number_{1..10}:
+    __construct:
+      -
+        pl_PL: <pl_PL:randomElement([4,5,7,8,19,23])>
+        en_GB: <en_EN:randomElement([4,5,7,8,19,23])>
+  translation_date_{1..10}:
+    __construct:
+      -
+        pl_PL: '<pl_PL:date(Y-m-d)>'
+        en_GB: '<en_EN:date(Y-m-d)>'
+  translation_select_option_{1..5}:
+    __construct:
+      -
+        pl_PL: '@select_option_*->id'
+        en_GB: '@select_option_*->id'
+  translation_multiselect_option_{1..5}:
+    __construct:
+      -
+        pl_PL: '@multiselect_option_*->id'
+        en_GB: '@multiselect_option_*->id'
+
+Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
+  product_simple:
+    __construct:
+      - '<productId(SKU_SIMPLE)>'
+      - '<sku(SKU_SIMPLE)>'
+      - '@template->id'
+      - ['<categoryId(code_4)>']
+      -
+        'attribute_text':  '<translatableStringValue(@translation_sentence_*)>'
+        'attribute_textarea':  '<translatableStringValue(@translation_paragraph_*)>'
+        'attribute_numeric':  '<translatableStringValue(@translation_float_*)>'
+        'attribute_date':  '<translatableStringValue(@translation_date_*)>'
+        'attribute_price':  '<translatableStringValue(@translation_float_*)>'
+        'attribute_unit':  '<translatableStringValue(@translation_float_*)>'
+        'attribute_select':  '<translatableStringValue(@translation_select_option_*)>'
+        'attribute_multiselect':  '<stringCollectionValue(@translation_multiselect_option_*)>'
+        'attribute_gallery': '<translatableStringValue(@translation_image_*)>'
+
+Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand:
+  product_grouping:
+    __construct:
+      - '<productId(SKU_GROUPING)>'
+      - '<sku(SKU_GROUPING)>'
+      - '@template->id'
+      - []
+      -
+        'attribute_text': '<translatableStringValue(@translation_sentence_*)>'
+        'attribute_textarea': '<translatableStringValue(@translation_paragraph_*)>'
+        'attribute_numeric': '<translatableStringValue(@translation_float_*)>'
+        'attribute_date': '<translatableStringValue(@translation_date_*)>'
+        'attribute_price': '<translatableStringValue(@translation_float_*)>'
+        'attribute_unit': '<translatableStringValue(@translation_float_*)>'
+        'attribute_select': '<translatableStringValue(@translation_select_option_*)>'
+        'attribute_multiselect': '<stringCollectionValue(@translation_multiselect_option_*)>'
+        'attribute_gallery': '<translatableStringValue(@translation_image_*)>'
+
+Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
+  product_variable:
+    __construct:
+      - '<productId(SKU_VARIABLE)>'
+      - '<sku(SKU_VARIABLE)>'
+      - '@template->id'
+      - []
+      -
+        'attribute_text': '<translatableStringValue(@translation_sentence_*)>'
+        'attribute_textarea': '<translatableStringValue(@translation_paragraph_*)>'
+        'attribute_numeric': '<translatableStringValue(@translation_float_*)>'
+        'attribute_date': '<translatableStringValue(@translation_date_*)>'
+        'attribute_price': '<translatableStringValue(@translation_float_*)>'
+        'attribute_unit': '<translatableStringValue(@translation_float_*)>'
+        'attribute_select': '<translatableStringValue(@translation_select_option_*)>'
+        'attribute_multiselect': '<stringCollectionValue(@translation_multiselect_option_*)>'
+        'attribute_gallery': '<translatableStringValue(@translation_image_*)>'
