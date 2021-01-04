@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 use Ergonode\Account\Domain\ValueObject\Privilege;
+use Ergonode\Account\Domain\ValueObject\PrivilegeEndPoint;
 
 class DbalPrivilegeQuery implements PrivilegeQueryInterface
 {
@@ -60,8 +61,10 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
 
     /**
      * @param Privilege[] $privileges
+     *
+     * @return PrivilegeEndPoint[]
      */
-    public function getPrivilegesEndPointByBusiness(array $privileges): array
+    public function getPrivilegesEndPointByPrivilegesGroup(array $privileges): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb
@@ -70,9 +73,15 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
             ->join('p', self::PRIVILEGES_GROUP_PRIVILEGES, 'pgp', 'p.id = pgp.privileges_id')
             ->join('pgp', self::PRIVILEGES_TABLE, 'pg', 'pg.id = pgp.privileges_group_id')
             ->Where($qb->expr()->in('pg.code', ':codes'))
-            ->setParameter(':codes', $privileges, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+            ->setParameter(':codes', $privileges, Connection::PARAM_STR_ARRAY);
 
-        return $qb->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        $result = $qb->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        foreach ($result as &$item) {
+            $item = new PrivilegeEndPoint($item);
+        }
+
+        return $result;
     }
 
     private function getQuery(): QueryBuilder

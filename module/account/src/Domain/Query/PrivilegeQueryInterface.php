@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Account\Domain\Query;
 
 use Ergonode\Account\Domain\ValueObject\Privilege;
+use Ergonode\Account\Domain\ValueObject\PrivilegeEndPoint;
 
 interface PrivilegeQueryInterface
 {
@@ -22,6 +23,8 @@ interface PrivilegeQueryInterface
 
     /**
      * @param Privilege[] $privileges
+     *
+     * @return PrivilegeEndPoint[]
      */
-    public function getPrivilegesEndPointByBusiness(array $privileges): array;
+    public function getPrivilegesEndPointByPrivilegesGroup(array $privileges): array;
 }

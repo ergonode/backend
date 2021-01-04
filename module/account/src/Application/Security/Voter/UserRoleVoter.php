@@ -12,7 +12,7 @@ namespace Ergonode\Account\Application\Security\Voter;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Ergonode\Account\Domain\ValueObject\Privilege;
+use Ergonode\Account\Domain\ValueObject\PrivilegeEndPoint;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -60,14 +60,13 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
             throw new \RuntimeException(sprintf('Role by id "%s" not found', $user->getRoleId()->getValue()));
         }
 
-        $privileges = $this->query->getPrivilegesEndPointByBusiness($role->getPrivileges());
+        $privileges = $this->query->getPrivilegesEndPointByPrivilegesGroup($role->getPrivileges());
 
 
-        $attributePrivilege = new Privilege($attribute);
+        $attributePrivilege = new PrivilegeEndPoint($attribute);
 
         foreach ($privileges as $privilege) {
-            $privilegeObject = new Privilege($privilege);
-            if ($privilegeObject->isEqual($attributePrivilege)) {
+            if ($privilege->isEqual($attributePrivilege)) {
                 return true;
             }
         }

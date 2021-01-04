@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Migration;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
@@ -179,7 +180,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
                 ':privileges' => $privileges,
             ],
             [
-                ':privileges' => \Doctrine\DBAL\Connection::PARAM_STR_ARRAY,
+                ':privileges' => Connection::PARAM_STR_ARRAY,
             ]
         );
     }
