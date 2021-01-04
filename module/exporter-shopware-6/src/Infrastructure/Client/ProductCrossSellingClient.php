@@ -10,6 +10,8 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\DeleteAssignedProductsAction;
+use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\DeleteCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\GetAssignedProductsAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\GetCrossSellingAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\ProductCrossSelling\PatchCrossSellingAction;
@@ -22,6 +24,8 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\ProductCrossSelling\Abstract
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
 class ProductCrossSellingClient
 {
@@ -98,6 +102,31 @@ class ProductCrossSellingClient
         }
         $this->connector->execute($channel, $action);
     }
+
+    public function delete(
+        Shopware6Channel $channel,
+        string $productCrossSellingId
+    ): void {
+        try {
+            $action = new DeleteCrossSellingAction($productCrossSellingId);
+            $this->connector->execute($channel, $action);
+            $this->productCrossSellingRepository->delete($channel->getId(), $productCrossSellingId);
+        } catch (ServerException $exception) {
+        }
+    }
+
+    public function deleteAssignedProducts(
+        Shopware6Channel $channel,
+        string $productCrossSellingId,
+        string $assignedProductId
+    ): void {
+        try {
+            $action = new DeleteAssignedProductsAction($productCrossSellingId, $assignedProductId);
+            $this->connector->execute($channel, $action);
+        } catch (ClientException $exception) {
+        }
+    }
+
     /**
      * @return AbstractAssignedProduct[]|null
      */

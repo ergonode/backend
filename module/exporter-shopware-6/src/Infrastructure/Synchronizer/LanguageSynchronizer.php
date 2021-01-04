@@ -11,22 +11,22 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6LanguageQueryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\LanguageQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6LanguageClient;
 
 class LanguageSynchronizer implements SynchronizerInterface
 {
     private Shopware6LanguageClient  $languageClient;
 
-    private Shopware6LanguageRepositoryInterface $languageShopwareRepository;
+    private LanguageRepositoryInterface $languageShopwareRepository;
 
-    private Shopware6LanguageQueryInterface $languageShopwareQuery;
+    private LanguageQueryInterface $languageShopwareQuery;
 
     public function __construct(
         Shopware6LanguageClient $languageClient,
-        Shopware6LanguageRepositoryInterface $languageShopwareRepository,
-        Shopware6LanguageQueryInterface $languageShopwareQuery
+        LanguageRepositoryInterface $languageShopwareRepository,
+        LanguageQueryInterface $languageShopwareQuery
     ) {
         $this->languageClient = $languageClient;
         $this->languageShopwareRepository = $languageShopwareRepository;

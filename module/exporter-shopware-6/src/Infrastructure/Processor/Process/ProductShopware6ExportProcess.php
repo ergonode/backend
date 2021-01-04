@@ -12,7 +12,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductClient;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
@@ -28,14 +28,14 @@ class ProductShopware6ExportProcess
 
     private Shopware6ProductClient $productClient;
 
-    private Shopware6LanguageRepositoryInterface  $languageRepository;
+    private LanguageRepositoryInterface  $languageRepository;
 
     private ExportLineRepositoryInterface $exportLineRepository;
 
     public function __construct(
         Shopware6ProductBuilder $builder,
         Shopware6ProductClient $productClient,
-        Shopware6LanguageRepositoryInterface $languageRepository,
+        LanguageRepositoryInterface $languageRepository,
         ExportLineRepositoryInterface $exportLineRepository
     ) {
         $this->builder = $builder;

@@ -88,6 +88,21 @@ class Shopware6ChannelTest extends TestCase
     private AttributeId $productGallery;
 
     /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $attributeProductMetaTitle;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $attributeProductMetaDescription;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $attributeProductKeywords;
+
+    /**
      * @var CategoryTreeId|MockObject
      */
     private CategoryTreeId $categoryTreeId;
@@ -115,6 +130,9 @@ class Shopware6ChannelTest extends TestCase
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->productGallery = $this->createMock(AttributeId::class);
+        $this->attributeProductMetaTitle = $this->createMock(AttributeId::class);
+        $this->attributeProductMetaDescription = $this->createMock(AttributeId::class);
+        $this->attributeProductKeywords = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
         $this->crossSelling = $this->createMock(ProductCollectionId::class);
     }
@@ -138,6 +156,9 @@ class Shopware6ChannelTest extends TestCase
             $this->productTax,
             $this->productDescription,
             $this->productGallery,
+            $this->attributeProductMetaTitle,
+            $this->attributeProductMetaDescription,
+            $this->attributeProductKeywords,
             $this->categoryTreeId,
             [],
             [],
@@ -161,6 +182,9 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($this->productTax, $entity->getAttributeProductTax());
         self::assertEquals($this->productDescription, $entity->getAttributeProductDescription());
         self::assertEquals($this->productGallery, $entity->getAttributeProductGallery());
+        self::assertEquals($this->attributeProductMetaTitle, $entity->getAttributeProductMetaTitle());
+        self::assertEquals($this->attributeProductMetaDescription, $entity->getAttributeProductMetaDescription());
+        self::assertEquals($this->attributeProductKeywords, $entity->getAttributeProductKeywords());
         self::assertEquals($this->categoryTreeId, $entity->getCategoryTree());
         self::assertIsArray($entity->getPropertyGroup());
         self::assertIsArray($entity->getCustomField());
@@ -190,6 +214,9 @@ class Shopware6ChannelTest extends TestCase
             $this->productTax,
             $this->productDescription,
             $this->productGallery,
+            $this->attributeProductMetaTitle,
+            $this->attributeProductMetaDescription,
+            $this->attributeProductKeywords,
             $this->categoryTreeId,
             [],
             [],
@@ -212,6 +239,9 @@ class Shopware6ChannelTest extends TestCase
         $productTax = $this->createMock(AttributeId::class);
         $productDescription = $this->createMock(AttributeId::class);
         $productGallery = $this->createMock(AttributeId::class);
+        $productMetaTitle = $this->createMock(AttributeId::class);
+        $productMetaDescription = $this->createMock(AttributeId::class);
+        $productKeywords = $this->createMock(AttributeId::class);
         $categoryTreeId = $this->createMock(CategoryTreeId::class);
 
 
@@ -230,6 +260,9 @@ class Shopware6ChannelTest extends TestCase
         $entity->setAttributeProductTax($productTax);
         $entity->setAttributeProductDescription($productDescription);
         $entity->setAttributeProductGallery($productGallery);
+        $entity->setAttributeProductMetaTitle($productMetaTitle);
+        $entity->setAttributeProductMetaDescription($productMetaDescription);
+        $entity->setAttributeProductKeywords($productKeywords);
         $entity->setCategoryTree($categoryTreeId);
         $entity->setPropertyGroup([]);
         $entity->setCustomField([]);
@@ -252,6 +285,9 @@ class Shopware6ChannelTest extends TestCase
         self::assertEquals($productTax, $entity->getAttributeProductTax());
         self::assertEquals($productDescription, $entity->getAttributeProductDescription());
         self::assertEquals($productGallery, $entity->getAttributeProductGallery());
+        self::assertEquals($productMetaTitle, $entity->getAttributeProductMetaTitle());
+        self::assertEquals($productMetaDescription, $entity->getAttributeProductMetaDescription());
+        self::assertEquals($productKeywords, $entity->getAttributeProductKeywords());
         self::assertEquals($categoryTreeId, $entity->getCategoryTree());
         self::assertIsArray($entity->getPropertyGroup());
         self::assertIsArray($entity->getCustomField());

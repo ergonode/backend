@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProductCrossSellingShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\ProductCrossSellingExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -27,7 +27,7 @@ class ProductCrossSellingStep implements Shopware6ExportStepProcessInterface
     {
         $crossSellList = $channel->getCrossSelling();
         foreach ($crossSellList as $productCollectionId) {
-            $processCommand = new  ProductCrossSellingShopware6ExportCommand($exportId, $productCollectionId);
+            $processCommand = new  ProductCrossSellingExportCommand($exportId, $productCollectionId);
             $this->commandBus->dispatch($processCommand, true);
         }
     }

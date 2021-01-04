@@ -101,6 +101,21 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
     private ?AttributeId $productGallery;
 
     /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productMetaTitle;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productMetaDescription;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productKeywords;
+
+    /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private ?CategoryTreeId $categoryTree;
@@ -149,6 +164,9 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
         AttributeId $productTax,
         ?AttributeId $productDescription,
         ?AttributeId $productGallery,
+        ?AttributeId $productMetaTitle,
+        ?AttributeId $productMetaDescription,
+        ?AttributeId $productKeywords,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
         array $customField,
@@ -170,6 +188,9 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
         $this->productTax = $productTax;
         $this->productDescription = $productDescription;
         $this->productGallery = $productGallery;
+        $this->productMetaTitle = $productMetaTitle;
+        $this->productMetaDescription = $productMetaDescription;
+        $this->productKeywords = $productKeywords;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
@@ -257,6 +278,21 @@ class UpdateShopware6ChannelCommand implements ChannelCommandInterface
     public function getProductGallery(): ?AttributeId
     {
         return $this->productGallery;
+    }
+
+    public function getProductMetaTitle(): ?AttributeId
+    {
+        return $this->productMetaTitle;
+    }
+
+    public function getProductMetaDescription(): ?AttributeId
+    {
+        return $this->productMetaDescription;
+    }
+
+    public function getProductKeywords(): ?AttributeId
+    {
+        return $this->productKeywords;
     }
 
     public function getCategoryTree(): ?CategoryTreeId

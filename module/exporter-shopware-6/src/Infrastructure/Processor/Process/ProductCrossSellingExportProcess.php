@@ -13,7 +13,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\ProductCrossSellingBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\ProductCrossSellingClient;
@@ -36,26 +36,32 @@ class ProductCrossSellingExportProcess
 
     private ProductCrossSellingRepositoryInterface $productCrossSellingRepository;
 
-    private Shopware6LanguageRepositoryInterface $languageRepository;
+    private LanguageRepositoryInterface $languageRepository;
 
     private ExportLineRepositoryInterface $exportLineRepository;
+
+    private ProductCrossSellingRemoveExportProcess $productCrossSellingRemoveExportProcess;
 
     public function __construct(
         ProductCrossSellingBuilder $builder,
         ProductCrossSellingClient $productCrossSellingClient,
         ProductCrossSellingRepositoryInterface $productCrossSellingRepository,
-        Shopware6LanguageRepositoryInterface $languageRepository,
-        ExportLineRepositoryInterface $exportLineRepository
+        LanguageRepositoryInterface $languageRepository,
+        ExportLineRepositoryInterface $exportLineRepository,
+        ProductCrossSellingRemoveExportProcess $productCrossSellingRemoveExportProcess
     ) {
         $this->builder = $builder;
         $this->productCrossSellingClient = $productCrossSellingClient;
         $this->productCrossSellingRepository = $productCrossSellingRepository;
         $this->languageRepository = $languageRepository;
         $this->exportLineRepository = $exportLineRepository;
+        $this->productCrossSellingRemoveExportProcess = $productCrossSellingRemoveExportProcess;
     }
 
     public function process(Export $export, Shopware6Channel $channel, ProductCollection $productCollection): void
     {
+        $this->productCrossSellingRemoveExportProcess->process($export, $channel, $productCollection);
+
         $exportLine = new ExportLine($export->getId(), $productCollection->getId());
 
         foreach ($productCollection->getElements() as $productCollectionElement) {

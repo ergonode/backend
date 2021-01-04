@@ -33,5 +33,27 @@ final class Version20201211072933 extends AbstractErgonodeMigration
                     SET "configuration" = jsonb_set("configuration",\'{cross_selling}\',\'{}\',true)
                     WHERE type = \'shopware-6-api\''
         );
+
+        $this->addSql(
+            'UPDATE exporter.channel
+                    SET "configuration" = jsonb_set("configuration",\'{attribute_product_meta_title}\',\'null\',true)
+                    WHERE type = \'shopware-6-api\''
+        );
+
+        $this->addSql(
+            'UPDATE exporter.channel
+                    SET "configuration" = jsonb_set(
+                        "configuration",
+                        \'{attribute_product_meta_description}\',
+                        \'null\',
+                        true)
+                    WHERE type = \'shopware-6-api\''
+        );
+
+        $this->addSql(
+            'UPDATE exporter.channel
+                    SET "configuration" = jsonb_set("configuration",\'{attribute_product_keywords}\',\'null\',true)
+                    WHERE type = \'shopware-6-api\''
+        );
     }
 }

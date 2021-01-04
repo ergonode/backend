@@ -24,4 +24,6 @@ interface ProductCrossSellingRepositoryInterface
     ): void;
 
     public function exists(ChannelId $channelId, ProductCollectionId $productCollectionId, ProductId $productId): bool;
+
+    public function delete(ChannelId $channelId, string $shopwareId): void;
 }

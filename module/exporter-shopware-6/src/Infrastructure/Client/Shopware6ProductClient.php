@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6ProductRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\CategoryQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Category\DeleteProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\Category\GetProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\ConfiguratorSettings\GetConfiguratorSettings;
@@ -34,14 +34,14 @@ class Shopware6ProductClient
 {
     private Shopware6Connector $connector;
 
-    private Shopware6ProductRepositoryInterface $repository;
+    private ProductRepositoryInterface $repository;
 
-    private Shopware6CategoryQueryInterface $categoryQuery;
+    private CategoryQueryInterface $categoryQuery;
 
     public function __construct(
         Shopware6Connector $connector,
-        Shopware6ProductRepositoryInterface $repository,
-        Shopware6CategoryQueryInterface $categoryQuery
+        ProductRepositoryInterface $repository,
+        CategoryQueryInterface $categoryQuery
     ) {
         $this->connector = $connector;
         $this->repository = $repository;

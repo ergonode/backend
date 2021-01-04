@@ -94,6 +94,21 @@ class Shopware6Channel extends AbstractChannel
     private ?AttributeId $attributeProductGallery;
 
     /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $attributeProductMetaTitle;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $attributeProductMetaDescription;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $attributeProductKeywords;
+
+    /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private ?CategoryTreeId $categoryTree;
@@ -142,6 +157,9 @@ class Shopware6Channel extends AbstractChannel
         AttributeId $attributeProductTax,
         ?AttributeId $attributeProductDescription,
         ?AttributeId $attributeProductGallery,
+        ?AttributeId $attributeProductMetaTitle,
+        ?AttributeId $attributeProductMetaDescription,
+        ?AttributeId $attributeProductKeywords,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
         array $customField,
@@ -163,6 +181,9 @@ class Shopware6Channel extends AbstractChannel
         $this->attributeProductTax = $attributeProductTax;
         $this->attributeProductDescription = $attributeProductDescription;
         $this->attributeProductGallery = $attributeProductGallery;
+        $this->attributeProductMetaTitle = $attributeProductMetaTitle;
+        $this->attributeProductMetaDescription = $attributeProductMetaDescription;
+        $this->attributeProductKeywords = $attributeProductKeywords;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
@@ -245,6 +266,21 @@ class Shopware6Channel extends AbstractChannel
     public function getAttributeProductGallery(): ?AttributeId
     {
         return $this->attributeProductGallery;
+    }
+
+    public function getAttributeProductMetaTitle(): ?AttributeId
+    {
+        return $this->attributeProductMetaTitle;
+    }
+
+    public function getAttributeProductMetaDescription(): ?AttributeId
+    {
+        return $this->attributeProductMetaDescription;
+    }
+
+    public function getAttributeProductKeywords(): ?AttributeId
+    {
+        return $this->attributeProductKeywords;
     }
 
     public function getCategoryTree(): ?CategoryTreeId
@@ -347,6 +383,21 @@ class Shopware6Channel extends AbstractChannel
     public function setAttributeProductGallery(?AttributeId $attributeProductGallery): void
     {
         $this->attributeProductGallery = $attributeProductGallery;
+    }
+
+    public function setAttributeProductMetaTitle(?AttributeId $attributeProductMetaTitle): void
+    {
+        $this->attributeProductMetaTitle = $attributeProductMetaTitle;
+    }
+
+    public function setAttributeProductMetaDescription(?AttributeId $attributeProductMetaDescription): void
+    {
+        $this->attributeProductMetaDescription = $attributeProductMetaDescription;
+    }
+
+    public function setAttributeProductKeywords(?AttributeId $attributeProductKeywords): void
+    {
+        $this->attributeProductKeywords = $attributeProductKeywords;
     }
 
     public function setCategoryTree(?CategoryTreeId $categoryTree): void

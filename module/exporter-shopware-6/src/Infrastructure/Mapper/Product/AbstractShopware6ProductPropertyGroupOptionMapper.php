@@ -12,7 +12,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
@@ -21,13 +21,13 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends AbstractShopware6ProductPropertyGroupMapper
 {
-    private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
+    private PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
     public function __construct(
         AttributeRepositoryInterface $repository,
         Shopware6PropertyGroupOptionClient $propertyGroupOptionClient,
         AttributeTranslationInheritanceCalculator $calculator,
-        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
+        PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
     ) {
         parent::__construct($repository, $propertyGroupOptionClient, $calculator);
         $this->propertyGroupOptionsRepository = $propertyGroupOptionsRepository;
