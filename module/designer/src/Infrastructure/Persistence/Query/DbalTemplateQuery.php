@@ -23,7 +23,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 class DbalTemplateQuery implements TemplateQueryInterface
 {
     private const TEMPLATE_TABLE = 'designer.template';
-    private const PRODUCT_TABLE = 'designer.product';
+    private const PRODUCT_TABLE = 'product';
     private const ATTRIBUTE_TABLE = 'public.attribute';
     private const FIELDS = [
         't.id',
@@ -113,7 +113,7 @@ class DbalTemplateQuery implements TemplateQueryInterface
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
-            ->select('p.product_id')
+            ->select('p.id')
             ->from(self::PRODUCT_TABLE, 'p')
             ->where($queryBuilder->expr()->eq('p.template_id', ':templateId'))
             ->setParameter(':templateId', $templateId->getValue());

@@ -138,20 +138,29 @@ Feature: Segment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en_GB/products/@product_id_1@/draft/@select_attribute_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "@select_val_1_id@"
+       {
+          "data": [
+          {
+            "id": "@product_id_1@",
+            "payload": [
+              {
+                "id": "@select_attribute_id@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": "@select_val_1_id@"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
 
-  Scenario: Apply product draft
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en_GB/products/@product_id_1@/draft/persist"
-    Then the response status code should be 204
 
   Scenario: Create condition set
     Given I am Authenticated as "test@ergonode.com"

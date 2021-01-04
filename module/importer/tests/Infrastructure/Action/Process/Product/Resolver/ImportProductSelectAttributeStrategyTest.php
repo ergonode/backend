@@ -57,4 +57,17 @@ class ImportProductSelectAttributeStrategyTest extends TestCase
         $strategy = new ImportProductSelectAttributeStrategy($this->query);
         $strategy->build($id, $code, $value);
     }
+
+    public function testReturnEmptyForNoTranslation(): void
+    {
+        $id = $this->createMock(AttributeId::class);
+        $code = $this->createMock(AttributeCode::class);
+        $value = new TranslatableString(['pl_PL' => '']);
+
+        $strategy = new ImportProductSelectAttributeStrategy($this->query);
+
+        $result = $strategy->build($id, $code, $value);
+
+        $this->assertEquals([], $result->getValue());
+    }
 }

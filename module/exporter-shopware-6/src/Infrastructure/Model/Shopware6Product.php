@@ -126,6 +126,24 @@ class Shopware6Product
     private ?string $coverId;
 
     /**
+     * @JMS\Type("string")
+     * @JMS\SerializedName("metaTitle")
+     */
+    private ?string $metaTitle;
+
+    /**
+     * @JMS\Type("string")
+     * @JMS\SerializedName("metaDescription")
+     */
+    private ?string $metaDescription;
+
+    /**
+     * @JMS\Type("string")
+     * @JMS\SerializedName("keywords")
+     */
+    private ?string $keywords;
+
+    /**
      * @var array
      *
      * @JMS\Exclude()
@@ -170,7 +188,10 @@ class Shopware6Product
         ?int $stock = null,
         ?string $taxId = null,
         ?array $price = null,
-        ?string $coverId = null
+        ?string $coverId = null,
+        ?string $metaTitle = null,
+        ?string $metaDescription = null,
+        ?string $keywords = null
     ) {
         $this->id = $id;
         $this->sku = $sku;
@@ -185,6 +206,9 @@ class Shopware6Product
         $this->taxId = $taxId;
         $this->price = $price;
         $this->coverId = $coverId;
+        $this->metaTitle = $metaTitle;
+        $this->metaDescription = $metaDescription;
+        $this->keywords = $keywords;
         $this->setPropertyToRemove($properties);
     }
 
@@ -576,6 +600,45 @@ class Shopware6Product
     {
         if ($this->coverId !== $coverId) {
             $this->coverId = $coverId;
+            $this->modified = true;
+        }
+    }
+
+    public function getMetaTitle(): ?string
+    {
+        return $this->metaTitle;
+    }
+
+    public function setMetaTitle(?string $metaTitle): void
+    {
+        if ($this->metaTitle !== $metaTitle) {
+            $this->metaTitle = $metaTitle;
+            $this->modified = true;
+        }
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(?string $metaDescription): void
+    {
+        if ($this->metaDescription !== $metaDescription) {
+            $this->metaDescription = $metaDescription;
+            $this->modified = true;
+        }
+    }
+
+    public function getKeywords(): ?string
+    {
+        return $this->keywords;
+    }
+
+    public function setKeywords(?string $keywords): void
+    {
+        if ($this->keywords !== $keywords) {
+            $this->keywords = $keywords;
             $this->modified = true;
         }
     }

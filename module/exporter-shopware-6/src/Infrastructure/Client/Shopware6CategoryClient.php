@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\DeleteCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\GetCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Category\PatchCategoryAction;
@@ -25,9 +25,9 @@ class Shopware6CategoryClient
 {
     private Shopware6Connector $connector;
 
-    private Shopware6CategoryRepositoryInterface $repository;
+    private CategoryRepositoryInterface $repository;
 
-    public function __construct(Shopware6Connector $connector, Shopware6CategoryRepositoryInterface $repository)
+    public function __construct(Shopware6Connector $connector, CategoryRepositoryInterface $repository)
     {
         $this->connector = $connector;
         $this->repository = $repository;

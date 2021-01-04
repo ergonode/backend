@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
@@ -47,7 +47,7 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
         $attributeList = array_unique(array_merge($this->getBindingAttributes($channel), $channel->getPropertyGroup()));
 
         foreach ($attributeList as $attributeId) {
-            $processCommand = new PropertyGroupShopware6ExportCommand($exportId, $attributeId);
+            $processCommand = new PropertyGroupExportCommand($exportId, $attributeId);
             $this->commandBus->dispatch($processCommand, true);
         }
     }

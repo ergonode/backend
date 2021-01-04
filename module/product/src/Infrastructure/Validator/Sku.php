@@ -16,5 +16,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class Sku extends Constraint
 {
-    public string $message = 'Sku is not valid.';
+    public string $message = 'Sku is too long. It should contain 255 characters or less.';
 }

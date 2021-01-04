@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
@@ -100,6 +101,21 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
     private ?AttributeId $productGallery;
 
     /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productMetaTitle;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productMetaDescription;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $productKeywords;
+
+    /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private ?CategoryTreeId $categoryTree;
@@ -119,9 +135,17 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
     private array $customField;
 
     /**
-     * @param Language[]          $languages
-     * @param array|AttributeId[] $propertyGroup
-     * @param array|AttributeId[] $customField
+     * @var ProductCollectionId[]
+     *
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId>")
+     */
+    private array $crossSelling;
+
+    /**
+     * @param Language[]                  $languages
+     * @param array|AttributeId[]         $propertyGroup
+     * @param array|AttributeId[]         $customField
+     * @param array|ProductCollectionId[] $crossSelling
      */
     public function __construct(
         ChannelId $id,
@@ -140,9 +164,13 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
         AttributeId $productTax,
         ?AttributeId $productDescription,
         ?AttributeId $productGallery,
+        ?AttributeId $productMetaTitle,
+        ?AttributeId $productMetaDescription,
+        ?AttributeId $productKeywords,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
-        array $customField
+        array $customField,
+        array $crossSelling
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -160,9 +188,13 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
         $this->productTax = $productTax;
         $this->productDescription = $productDescription;
         $this->productGallery = $productGallery;
+        $this->productMetaTitle = $productMetaTitle;
+        $this->productMetaDescription = $productMetaDescription;
+        $this->productKeywords = $productKeywords;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
+        $this->crossSelling = $crossSelling;
     }
 
     public function getId(): ChannelId
@@ -248,6 +280,21 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
         return $this->productGallery;
     }
 
+    public function getProductMetaTitle(): ?AttributeId
+    {
+        return $this->productMetaTitle;
+    }
+
+    public function getProductMetaDescription(): ?AttributeId
+    {
+        return $this->productMetaDescription;
+    }
+
+    public function getProductKeywords(): ?AttributeId
+    {
+        return $this->productKeywords;
+    }
+
     public function getCategoryTree(): ?CategoryTreeId
     {
         return $this->categoryTree;
@@ -267,5 +314,13 @@ class CreateShopware6ChannelCommand implements CreateChannelCommandInterface
     public function getCustomField(): array
     {
         return $this->customField;
+    }
+
+    /**
+     * @return ProductCollectionId[]
+     */
+    public function getCrossSelling(): array
+    {
+        return $this->crossSelling;
     }
 }

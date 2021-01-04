@@ -33,8 +33,22 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create option for attribute
+    And I send a "POST" request to "/api/v1/en_GB/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": "option_1",
+        "label":  {
+          "pl_PL": "Option pl 1",
+          "en_GB": "Option en 1"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "option_id"
+
   Scenario: Create simple product
-    Given remember param "simple_product_sku" with value "SIMPLE_SKU_@@random_code@@"
+    Given remember param "simple_product_sku" with value "SIMPLE_SKU_1_@@random_code@@"
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
@@ -47,7 +61,7 @@ Feature: Variable product
     And store response param "id" as "simple_product_id"
 
   Scenario: Create second simple product
-    Given remember param "second_simple_product_sku" with value "SIMPLE_SKU_@@random_code@@"
+    Given remember param "second_simple_product_sku" with value "SIMPLE_SKU_2_@@random_code@@"
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
@@ -131,7 +145,7 @@ Feature: Variable product
       | errors.skus.element-0[0] | Product sku not exists. |
 
   Scenario: Get product children element (checking multiple add)
-    When I send a GET request to "/api/v1/en_GB/products/@product_id@/children"
+    When I send a GET request to "/api/v1/en_GB/products/@product_id@/children?field=sku&order=ASC"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | collection[0].sku     | @simple_product_sku@ |

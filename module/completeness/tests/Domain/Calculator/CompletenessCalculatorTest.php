@@ -16,10 +16,10 @@ use Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyPro
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class CompletenessCalculatorTest extends TestCase
 {
@@ -33,12 +33,12 @@ class CompletenessCalculatorTest extends TestCase
         /** @var TemplateElementCompletenessStrategyProvider|MockObject $provider */
         $provider = $this->createMock(TemplateElementCompletenessStrategyProvider::class);
         $provider->method('provide')->willReturn($strategy);
-        $draft = $this->createMock(ProductDraft::class);
+        $product = $this->createMock(AbstractProduct::class);
         $template = $this->createMock(Template::class);
         $template->method('getElements')->willReturn(new ArrayCollection([$element]));
         $language = $this->createMock(Language::class);
         $calculator = new CompletenessCalculator($provider);
-        $result = $calculator->calculate($draft, $template, $language);
+        $result = $calculator->calculate($product, $template, $language);
         self::assertNotNull($result);
     }
 }

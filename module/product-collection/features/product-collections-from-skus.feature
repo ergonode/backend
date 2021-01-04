@@ -79,7 +79,7 @@ Feature: Product collection adding elements by skus
       """
     Then the response status code should be 400
     And the JSON nodes should contain:
-      | errors.skus.element-0[0] | Sku is not valid. |
+      | errors.skus.element-0[0] | Sku is too long. It should contain 255 characters or less. |
 
   Scenario: Add multiple product collection element not exist sku
     When I send a POST request to "/api/v1/en_GB/collections/@product_collection_id@/elements/add-from-skus" with body:

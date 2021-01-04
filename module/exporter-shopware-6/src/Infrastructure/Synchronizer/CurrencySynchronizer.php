@@ -12,8 +12,8 @@ use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Query\Shopware6CurrencyQueryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Query\CurrencyQueryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CurrencyRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\GetCurrencyList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\PostCurrencyCreate;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
@@ -23,17 +23,17 @@ class CurrencySynchronizer implements SynchronizerInterface
 {
     private Shopware6Connector $connector;
 
-    private Shopware6CurrencyRepositoryInterface $currencyRepository;
+    private CurrencyRepositoryInterface $currencyRepository;
 
     private AttributeRepositoryInterface $attributeRepository;
 
-    private Shopware6CurrencyQueryInterface $currencyQuery;
+    private CurrencyQueryInterface $currencyQuery;
 
     public function __construct(
         Shopware6Connector $connector,
-        Shopware6CurrencyRepositoryInterface $currencyRepository,
+        CurrencyRepositoryInterface $currencyRepository,
         AttributeRepositoryInterface $attributeRepository,
-        Shopware6CurrencyQueryInterface $currencyQuery
+        CurrencyQueryInterface $currencyQuery
     ) {
         $this->connector = $connector;
         $this->currencyRepository = $currencyRepository;

@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
@@ -93,6 +94,21 @@ class Shopware6Channel extends AbstractChannel
     private ?AttributeId $attributeProductGallery;
 
     /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $attributeProductMetaTitle;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $attributeProductMetaDescription;
+
+    /**
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $attributeProductKeywords;
+
+    /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private ?CategoryTreeId $categoryTree;
@@ -112,9 +128,17 @@ class Shopware6Channel extends AbstractChannel
     private array $customField;
 
     /**
-     * @param Language[]          $languages
-     * @param array|AttributeId[] $propertyGroup
-     * @param array|AttributeId[] $customField
+     * @var ProductCollectionId[]
+     *
+     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId>")
+     */
+    private array $crossSelling;
+
+    /**
+     * @param Language[]                  $languages
+     * @param array|AttributeId[]         $propertyGroup
+     * @param array|AttributeId[]         $customField
+     * @param array|ProductCollectionId[] $crossSelling
      */
     public function __construct(
         ChannelId $id,
@@ -133,9 +157,13 @@ class Shopware6Channel extends AbstractChannel
         AttributeId $attributeProductTax,
         ?AttributeId $attributeProductDescription,
         ?AttributeId $attributeProductGallery,
+        ?AttributeId $attributeProductMetaTitle,
+        ?AttributeId $attributeProductMetaDescription,
+        ?AttributeId $attributeProductKeywords,
         ?CategoryTreeId $categoryTree,
         array $propertyGroup,
-        array $customField
+        array $customField,
+        array $crossSelling
     ) {
         parent::__construct($id, $name);
 
@@ -153,9 +181,13 @@ class Shopware6Channel extends AbstractChannel
         $this->attributeProductTax = $attributeProductTax;
         $this->attributeProductDescription = $attributeProductDescription;
         $this->attributeProductGallery = $attributeProductGallery;
+        $this->attributeProductMetaTitle = $attributeProductMetaTitle;
+        $this->attributeProductMetaDescription = $attributeProductMetaDescription;
+        $this->attributeProductKeywords = $attributeProductKeywords;
         $this->categoryTree = $categoryTree;
         $this->propertyGroup = $propertyGroup;
         $this->customField = $customField;
+        $this->crossSelling = $crossSelling;
     }
 
     public static function getType(): string
@@ -236,6 +268,21 @@ class Shopware6Channel extends AbstractChannel
         return $this->attributeProductGallery;
     }
 
+    public function getAttributeProductMetaTitle(): ?AttributeId
+    {
+        return $this->attributeProductMetaTitle;
+    }
+
+    public function getAttributeProductMetaDescription(): ?AttributeId
+    {
+        return $this->attributeProductMetaDescription;
+    }
+
+    public function getAttributeProductKeywords(): ?AttributeId
+    {
+        return $this->attributeProductKeywords;
+    }
+
     public function getCategoryTree(): ?CategoryTreeId
     {
         return $this->categoryTree;
@@ -255,6 +302,14 @@ class Shopware6Channel extends AbstractChannel
     public function getCustomField(): array
     {
         return $this->customField;
+    }
+
+    /**
+     * @return ProductCollectionId[]
+     */
+    public function getCrossSelling(): array
+    {
+        return $this->crossSelling;
     }
 
     public function setHost(string $host): void
@@ -330,6 +385,21 @@ class Shopware6Channel extends AbstractChannel
         $this->attributeProductGallery = $attributeProductGallery;
     }
 
+    public function setAttributeProductMetaTitle(?AttributeId $attributeProductMetaTitle): void
+    {
+        $this->attributeProductMetaTitle = $attributeProductMetaTitle;
+    }
+
+    public function setAttributeProductMetaDescription(?AttributeId $attributeProductMetaDescription): void
+    {
+        $this->attributeProductMetaDescription = $attributeProductMetaDescription;
+    }
+
+    public function setAttributeProductKeywords(?AttributeId $attributeProductKeywords): void
+    {
+        $this->attributeProductKeywords = $attributeProductKeywords;
+    }
+
     public function setCategoryTree(?CategoryTreeId $categoryTree): void
     {
         $this->categoryTree = $categoryTree;
@@ -349,5 +419,13 @@ class Shopware6Channel extends AbstractChannel
     public function setCustomField(array $customField): void
     {
         $this->customField = $customField;
+    }
+
+    /**
+     * @param ProductCollectionId[] $crossSelling
+     */
+    public function setCrossSelling(array $crossSelling): void
+    {
+        $this->crossSelling = $crossSelling;
     }
 }
