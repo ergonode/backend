@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -8,58 +8,54 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Mapper\Product;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
-use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductAttributeException;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductNameMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductStockMapper;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\ExporterShopware6\Tests\Infrastructure\Mapper\AbstractProductMapperCase;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-class ProductNameMapperTest extends AbstractProductMapperCase
+class ProductStockMapperTest extends AbstractProductMapperCase
 {
-    private const NAME = 'TEST_NAME';
+    private const STOCK = 10;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $textAttribute = $this->createMock(TextAttribute::class);
+        $attribute = $this->createMock(NumericAttribute::class);
         $this->attributeRepository->method('load')
-            ->willReturn($textAttribute);
+            ->willReturn($attribute);
 
         $attributeId = $this->createMock(AttributeId::class);
-        $this->channel->method('getAttributeProductName')
+        $this->channel->method('getAttributeProductStock')
             ->willReturn($attributeId);
     }
 
     public function testNoProductAttributeValue(): void
     {
-        $this->expectException(Shopware6ExporterProductAttributeException::class);
-
         $this->product->method('hasAttribute')->willReturn(false);
 
-        $mapper = new ProductNameMapper(
+        $mapper = new ProductStockMapper(
             $this->attributeRepository,
             $this->calculator
         );
 
         $shopware6Product = new Shopware6Product();
         $mapper->map($this->channel, $this->export, $shopware6Product, $this->product);
+
+        self::assertEquals(0, $shopware6Product->getStock());
     }
 
-    /**
-     * @throws Shopware6ExporterProductAttributeException
-     */
     public function testCorrectMapper(): void
     {
         $this->product->method('hasAttribute')->willReturn(true);
 
         $this->calculator = $this->createMock(AttributeTranslationInheritanceCalculator::class);
         $this->calculator->method('calculate')
-            ->willReturn(self::NAME);
+            ->willReturn(self::STOCK);
 
-        $mapper = new ProductNameMapper(
+        $mapper = new ProductStockMapper(
             $this->attributeRepository,
             $this->calculator
         );
@@ -67,6 +63,6 @@ class ProductNameMapperTest extends AbstractProductMapperCase
         $shopware6Product = new Shopware6Product();
         $mapper->map($this->channel, $this->export, $shopware6Product, $this->product);
 
-        self::assertEquals(self::NAME, $shopware6Product->getName());
+        self::assertEquals(self::STOCK, $shopware6Product->getStock());
     }
 }

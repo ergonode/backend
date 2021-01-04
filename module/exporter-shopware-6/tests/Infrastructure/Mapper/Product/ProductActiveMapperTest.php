@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -8,23 +8,23 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Mapper\Product;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
-use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductAttributeException;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductNameMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductActiveMapper;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\ExporterShopware6\Tests\Infrastructure\Mapper\AbstractProductMapperCase;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-class ProductNameMapperTest extends AbstractProductMapperCase
+class ProductActiveMapperTest extends AbstractProductMapperCase
 {
-    private const NAME = 'TEST_NAME';
+    private const QTY_ACTIVE = 1;
+    private const QTY_NOT_ACTIVE = 0;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $textAttribute = $this->createMock(TextAttribute::class);
+        $textAttribute = $this->createMock(NumericAttribute::class);
         $this->attributeRepository->method('load')
             ->willReturn($textAttribute);
 
@@ -33,33 +33,30 @@ class ProductNameMapperTest extends AbstractProductMapperCase
             ->willReturn($attributeId);
     }
 
-    public function testNoProductAttributeValue(): void
+    public function testNoAttributeMapper(): void
     {
-        $this->expectException(Shopware6ExporterProductAttributeException::class);
-
         $this->product->method('hasAttribute')->willReturn(false);
 
-        $mapper = new ProductNameMapper(
+        $mapper = new ProductActiveMapper(
             $this->attributeRepository,
             $this->calculator
         );
 
         $shopware6Product = new Shopware6Product();
         $mapper->map($this->channel, $this->export, $shopware6Product, $this->product);
+
+        self::assertEquals(false, $shopware6Product->isActive());
     }
 
-    /**
-     * @throws Shopware6ExporterProductAttributeException
-     */
-    public function testCorrectMapper(): void
+    public function testNotActiveCorrectMapper(): void
     {
         $this->product->method('hasAttribute')->willReturn(true);
 
         $this->calculator = $this->createMock(AttributeTranslationInheritanceCalculator::class);
         $this->calculator->method('calculate')
-            ->willReturn(self::NAME);
+            ->willReturn(self::QTY_NOT_ACTIVE);
 
-        $mapper = new ProductNameMapper(
+        $mapper = new ProductActiveMapper(
             $this->attributeRepository,
             $this->calculator
         );
@@ -67,6 +64,25 @@ class ProductNameMapperTest extends AbstractProductMapperCase
         $shopware6Product = new Shopware6Product();
         $mapper->map($this->channel, $this->export, $shopware6Product, $this->product);
 
-        self::assertEquals(self::NAME, $shopware6Product->getName());
+        self::assertEquals(false, $shopware6Product->isActive());
+    }
+
+    public function testActiveCorrectMapper(): void
+    {
+        $this->product->method('hasAttribute')->willReturn(true);
+
+        $this->calculator = $this->createMock(AttributeTranslationInheritanceCalculator::class);
+        $this->calculator->method('calculate')
+            ->willReturn(self::QTY_ACTIVE);
+
+        $mapper = new ProductActiveMapper(
+            $this->attributeRepository,
+            $this->calculator
+        );
+
+        $shopware6Product = new Shopware6Product();
+        $mapper->map($this->channel, $this->export, $shopware6Product, $this->product);
+
+        self::assertEquals(true, $shopware6Product->isActive());
     }
 }
