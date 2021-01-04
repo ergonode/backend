@@ -108,7 +108,7 @@ class FormAuthenticatorTest extends TestCase
     public function testCheckCredentialsException(): void
     {
         $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
-        $this->expectExceptionMessage("Invalid password");
+        $this->expectExceptionMessage("Invalid credentials");
         $credentials = [
             'email' => 'username',
             'password' => 'pass',

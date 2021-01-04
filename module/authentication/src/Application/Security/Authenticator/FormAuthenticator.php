@@ -69,7 +69,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
         try {
             return $userProvider->loadUserByUsername($credentials['email']);
         } catch (InvalidEmailException $exception) {
-            throw new AuthenticationException('Username not found');
+            throw new AuthenticationException('Invalid credentials');
         }
     }
 
@@ -82,7 +82,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     ): bool {
         $isValid = $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
         if (!$isValid) {
-            throw new AuthenticationException('Invalid password');
+            throw new AuthenticationException('Invalid credentials');
         }
 
         return true;
