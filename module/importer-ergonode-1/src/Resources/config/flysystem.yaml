@@ -1,0 +1,6 @@
+flysystem:
+    storages:
+        import.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/import'
