@@ -9,18 +9,18 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractUnitAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractDateAttribute;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractProductCustomFieldSetMapper;
 
-class Shopware6ProductCustomFieldSetUnitMapper extends AbstractShopware6ProductCustomFieldSetMapper
+class ProductCustomFieldSetDateTimeMapper extends AbstractProductCustomFieldSetMapper
 {
     /**
      * {@inheritDoc}
      */
     public function getType(): string
     {
-        return  AbstractUnitAttribute::TYPE;
+        return AbstractDateAttribute::TYPE;
     }
 
     /**

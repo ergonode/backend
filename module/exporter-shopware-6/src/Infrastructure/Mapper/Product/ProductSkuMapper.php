@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -11,12 +11,15 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-class Shopware6ProductCoverMapper implements Shopware6ProductMapperInterface
+class ProductSkuMapper implements ProductMapperInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function map(
         Shopware6Channel $channel,
         Export $export,
@@ -24,11 +27,8 @@ class Shopware6ProductCoverMapper implements Shopware6ProductMapperInterface
         AbstractProduct $product,
         ?Language $language = null
     ): Shopware6Product {
-        $media = $shopware6Product->getMedia();
-        if (!empty($media)) {
-            $coverMedia = reset($media);
-            $shopware6Product->setCoverId($coverMedia->getId());
-        }
+
+        $shopware6Product->setSku($product->getSku()->getValue());
 
         return $shopware6Product;
     }
