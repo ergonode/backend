@@ -14,7 +14,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductMediaClient;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductMedia;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
@@ -22,7 +22,7 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Webmozart\Assert\Assert;
 
-class Shopware6ProductGalleryMapper implements Shopware6ProductMapperInterface
+class ProductGalleryMapper implements ProductMapperInterface
 {
     private AttributeRepositoryInterface $repository;
 

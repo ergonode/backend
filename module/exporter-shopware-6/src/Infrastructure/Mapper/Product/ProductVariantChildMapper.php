@@ -23,7 +23,7 @@ use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class Shopware6ProductVariantChildMapper extends AbstractShopware6VariantOptionMapper
+class ProductVariantChildMapper extends AbstractVariantOptionMapper
 {
     private ProductChildrenQueryInterface  $childQuery;
 

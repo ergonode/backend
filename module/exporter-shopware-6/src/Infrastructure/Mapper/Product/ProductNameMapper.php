@@ -11,14 +11,15 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductAttributeException;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Webmozart\Assert\Assert;
 
-class Shopware6ProductStockMapper implements Shopware6ProductMapperInterface
+class ProductNameMapper implements ProductMapperInterface
 {
     private AttributeRepositoryInterface $repository;
 
@@ -34,6 +35,8 @@ class Shopware6ProductStockMapper implements Shopware6ProductMapperInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @throws Shopware6ExporterProductAttributeException
      */
     public function map(
         Shopware6Channel $channel,
@@ -42,22 +45,17 @@ class Shopware6ProductStockMapper implements Shopware6ProductMapperInterface
         AbstractProduct $product,
         ?Language $language = null
     ): Shopware6Product {
-        $attribute = $this->repository->load($channel->getAttributeProductStock());
-        Assert::notNull($attribute);
-        if (false === $product->hasAttribute($attribute->getCode())) {
-            if ($shopware6Product->isNew()) {
-                $shopware6Product->setStock(0);
-            }
 
-            return $shopware6Product;
+        $attribute = $this->repository->load($channel->getAttributeProductName());
+        Assert::notNull($attribute);
+
+        if (false === $product->hasAttribute($attribute->getCode())) {
+            throw new Shopware6ExporterProductAttributeException($attribute->getCode(), $product->getSku());
         }
 
         $value = $product->getAttribute($attribute->getCode());
-        $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
-        if (is_numeric($calculateValue)) {
-            $shopware6Product->setStock((int) $calculateValue);
-        }
-
+        $name = $this->calculator->calculate($attribute, $value, $language ?: $channel->getDefaultLanguage());
+        $shopware6Product->setName($name);
 
         return $shopware6Product;
     }

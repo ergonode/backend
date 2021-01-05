@@ -11,18 +11,18 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Decorator;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductStockMapper;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductActiveMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-class Shopware6NewProductStockMapperDecorator implements Shopware6ProductMapperInterface
+class NewProductActiveMapperDecorator implements ProductMapperInterface
 {
-    private Shopware6ProductStockMapper  $productStockMapper;
+    private ProductActiveMapper $productActiveMapper;
 
-    public function __construct(Shopware6ProductStockMapper $productStockMapper)
+    public function __construct(ProductActiveMapper $productActiveMapper)
     {
-        $this->productStockMapper = $productStockMapper;
+        $this->productActiveMapper = $productActiveMapper;
     }
 
     public function map(
@@ -33,7 +33,7 @@ class Shopware6NewProductStockMapperDecorator implements Shopware6ProductMapperI
         ?Language $language = null
     ): Shopware6Product {
         if ($shopware6Product->isNew()) {
-            return $this->productStockMapper->map($channel, $export, $shopware6Product, $product, $language);
+            return $this->productActiveMapper->map($channel, $export, $shopware6Product, $product, $language);
         }
 
         return $shopware6Product;

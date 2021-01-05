@@ -12,12 +12,12 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Product\Shopware6ProductCategory;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
-class Shopware6ProductCategoryMapper implements Shopware6ProductMapperInterface
+class ProductCategoryMapper implements ProductMapperInterface
 {
     private CategoryRepositoryInterface $categoryRepository;
 

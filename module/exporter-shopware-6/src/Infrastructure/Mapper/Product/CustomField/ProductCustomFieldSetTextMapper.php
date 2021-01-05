@@ -9,18 +9,18 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\CustomField;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractShopware6ProductCustomFieldSetMapper;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\AbstractProductCustomFieldSetMapper;
 
-class Shopware6ProductCustomFieldSetNumericMapper extends AbstractShopware6ProductCustomFieldSetMapper
+class ProductCustomFieldSetTextMapper extends AbstractProductCustomFieldSetMapper
 {
     /**
      * {@inheritDoc}
      */
     public function getType(): string
     {
-        return AbstractNumericAttribute::TYPE;
+        return AbstractTextAttribute::TYPE;
     }
 
     /**
