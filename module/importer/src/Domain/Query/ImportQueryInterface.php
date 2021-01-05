@@ -28,5 +28,8 @@ interface ImportQueryInterface
 
     public function getInformation(ImportId $id, Language $language): array;
 
+    /**
+     * @return string[]
+     */
     public function getFileNamesBySourceId(SourceId $sourceId): array;
 }

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Exporter\Application\DependencyInjection;
 
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProcessCompilerPass;
+use Ergonode\Exporter\Infrastructure\Factory\Command\RemoveExportArtifactsCommandFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -33,6 +34,11 @@ class ErgonodeExporterExtension extends Extension implements PrependExtensionInt
         $container
             ->registerForAutoconfiguration(ExportProcessorInterface::class)
             ->addTag(ExportProcessCompilerPass::TAG);
+
+
+                $container
+                    ->registerForAutoconfiguration(RemoveExportArtifactsCommandFactoryInterface::class)
+                    ->addTag('export.remove_export_artifacts_command_factory_interface');
 
         $loader->load('services.yml');
     }

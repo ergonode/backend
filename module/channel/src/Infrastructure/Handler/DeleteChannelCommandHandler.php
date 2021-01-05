@@ -10,10 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Handler;
 
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
-use League\Flysystem\FilesystemInterface;
-use Psr\Log\LoggerInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Exporter\Infrastructure\Provider\RemoveExportArtifactsCommandFactoryProvider;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Webmozart\Assert\Assert;
 
 class DeleteChannelCommandHandler
@@ -22,44 +24,42 @@ class DeleteChannelCommandHandler
 
     private ExportQueryInterface $exportQuery;
 
-    private FilesystemInterface $exportStorage;
+    private RemoveExportArtifactsCommandFactoryProvider $removeExportArtifactsCommandFactoryProvider;
 
-    private LoggerInterface $logger;
+    private CommandBusInterface $commandBus;
 
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ExportQueryInterface $exportQuery,
-        FilesystemInterface $exportStorage,
-        LoggerInterface $logger
+        RemoveExportArtifactsCommandFactoryProvider $removeExportArtifactsCommandFactoryProvider,
+        CommandBusInterface $commandBus
     ) {
         $this->channelRepository = $channelRepository;
         $this->exportQuery = $exportQuery;
-        $this->exportStorage = $exportStorage;
-        $this->logger = $logger;
+        $this->removeExportArtifactsCommandFactoryProvider = $removeExportArtifactsCommandFactoryProvider;
+        $this->commandBus = $commandBus;
     }
 
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteChannelCommand $command): void
+    public function __invoke(DeleteChannelCommand $deleteChannelCommand): void
     {
-        $channel = $this->channelRepository->load($command->getId());
+        $channel = $this->channelRepository->load($deleteChannelCommand->getId());
 
-        Assert::notNull($channel, sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
+        Assert::isInstanceOf(
+            $channel,
+            AbstractChannel::class,
+            sprintf('Can\'t find channel "%s"', $deleteChannelCommand->getId()->getValue())
+        );
 
         $exportIds = $this->exportQuery->getExportIdsByChannelId($channel->getId());
 
         $this->channelRepository->delete($channel);
-
+        $commandFactory = $this->removeExportArtifactsCommandFactoryProvider->provide(FileExportChannel::TYPE);
         foreach ($exportIds as $exportId) {
-            $file = sprintf('%s.zip', $exportId);
-            if ($this->exportStorage->has($file)) {
-                try {
-                    $this->exportStorage->delete($file);
-                } catch (\Exception $exception) {
-                    $this->logger->error($exception);
-                }
-            }
+            $removeExporterFileCommand = $commandFactory->create($exportId);
+            $this->commandBus->dispatch($removeExporterFileCommand);
         }
     }
 }

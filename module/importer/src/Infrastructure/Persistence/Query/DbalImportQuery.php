@@ -107,6 +107,9 @@ class DbalImportQuery implements ImportQueryInterface
         return $result;
     }
 
+    /**
+     * @return string[]
+     */
     public function getFileNamesBySourceId(SourceId $sourceId): array
     {
         $qb = $this->connection->createQueryBuilder();
