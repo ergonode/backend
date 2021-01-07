@@ -11,6 +11,7 @@ namespace Ergonode\Comment\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Comment\Domain\Entity\Comment;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentReadAction
 {
     /**
+     * @IsGranted("COMMENT_GET")
+     *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(
      *     name="language",
