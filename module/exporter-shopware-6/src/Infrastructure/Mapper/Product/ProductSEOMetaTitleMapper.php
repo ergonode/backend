@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\ProductToLongValueException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -20,6 +21,8 @@ use Webmozart\Assert\Assert;
 
 class ProductSEOMetaTitleMapper implements ProductMapperInterface
 {
+    private const MAX_LENGTH = 255;
+
     private AttributeRepositoryInterface $repository;
 
     private AttributeTranslationInheritanceCalculator $calculator;
@@ -32,6 +35,9 @@ class ProductSEOMetaTitleMapper implements ProductMapperInterface
         $this->calculator = $calculator;
     }
 
+    /**
+     * @throws ProductToLongValueException
+     */
     public function map(
         Shopware6Channel $channel,
         Export $export,
@@ -51,13 +57,16 @@ class ProductSEOMetaTitleMapper implements ProductMapperInterface
             return $shopware6Product;
         }
 
-        $shopware6Product->setMetaTitle(
-            $this->calculator->calculate(
-                $attribute,
-                $product->getAttribute($attribute->getCode()),
-                $language ?: $channel->getDefaultLanguage()
-            )
+        $value = $this->calculator->calculate(
+            $attribute,
+            $product->getAttribute($attribute->getCode()),
+            $language ?: $channel->getDefaultLanguage()
         );
+        if (mb_strlen($value) > self::MAX_LENGTH) {
+            throw new ProductToLongValueException($attribute->getCode(), $product->getSku(), self::MAX_LENGTH);
+        }
+
+        $shopware6Product->setMetaTitle($value);
 
         return $shopware6Product;
     }
