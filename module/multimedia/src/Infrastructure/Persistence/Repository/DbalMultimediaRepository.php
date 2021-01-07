@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Infrastructure\Persistence\Repository;
 
+use Doctrine\DBAL\DBALException;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
@@ -38,7 +39,7 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
     }
 
     /**
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     public function save(AbstractMultimedia $aggregateRoot): void
     {
