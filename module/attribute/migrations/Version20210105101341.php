@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 /**
 * Auto-generated Ergonode Migration Class:
 */
-final class Version20210105101343 extends AbstractErgonodeMigration
+final class Version20210105101341 extends AbstractErgonodeMigration
 {
     /**
      * @throws \Exception
@@ -158,7 +158,7 @@ final class Version20210105101343 extends AbstractErgonodeMigration
     {
         foreach ($privileges as $privilege) {
             $this->addSql(
-                'INSERT INTO privileges (id, name) VALUES (?, ?)',
+                'INSERT INTO privileges_endpoint (id, name) VALUES (?, ?)',
                 [Uuid::uuid4()->toString(), $privilege]
             );
         }
@@ -170,18 +170,18 @@ final class Version20210105101343 extends AbstractErgonodeMigration
     private function insertPrivileges(string $privilege, array $endpoints): void
     {
         $this->addSql(
-            'INSERT INTO privileges_group_privileges (privileges_group_id, privileges_id)
-                    SELECT pg.id, p.id 
-                    FROM privileges_group pg, "privileges" p 
-                    WHERE pg.code = :groupName
-                    AND p."name" IN(:privileges)
+            'INSERT INTO privileges_endpoint_privileges (privileges_id, privileges_endpoint_id)
+                    SELECT p.id, pe.id 
+                    FROM privileges_endpoint pe, "privileges" p 
+                    WHERE p.code = :privilege
+                    AND pe."name" IN(:endpoints)
             ',
             [
-                ':groupName' => $privilege,
-                ':privileges' => $endpoints,
+                ':privilege' => $privilege,
+                ':endpoints' => $endpoints,
             ],
             [
-                ':privileges' => Connection::PARAM_STR_ARRAY,
+                ':endpoints' => Connection::PARAM_STR_ARRAY,
             ]
         );
     }

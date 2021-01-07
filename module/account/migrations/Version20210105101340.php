@@ -15,17 +15,15 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20201202075632 extends AbstractErgonodeMigration
+final class Version20210105101340 extends AbstractErgonodeMigration
 {
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE privileges_group RENAME TO privileges_family');
-        $this->addSql('ALTER TABLE "privileges" RENAME TO privileges_group');
-        $this->addSql('ALTER INDEX privileges_name_key RENAME TO privileges_group_code_key');
+        $this->addSql('ALTER INDEX privileges_name_key RENAME TO privileges_code_key');
 
         $this->addSql(
             '
-            CREATE TABLE privileges (
+            CREATE TABLE privileges_endpoint (
                 id UUID NOT NULL, 
                 name VARCHAR(128) NOT NULL,              
                 PRIMARY KEY(id)
@@ -33,32 +31,32 @@ final class Version20201202075632 extends AbstractErgonodeMigration
         '
         );
 
-        $this->addSql('CREATE UNIQUE INDEX privileges_name_key ON "privileges" (name)');
+        $this->addSql('CREATE UNIQUE INDEX privileges_endpoint_name_key ON "privileges_endpoint" (name)');
 
         $this->addSql(
             '
-            CREATE TABLE privileges_group_privileges (
+            CREATE TABLE privileges_endpoint_privileges (
                 privileges_id UUID NOT NULL,
-                privileges_group_id UUID NOT NULL,                
-                PRIMARY KEY(privileges_id, privileges_group_id)
+                privileges_endpoint_id UUID NOT NULL,                
+                PRIMARY KEY(privileges_id, privileges_endpoint_id)
             )
         '
         );
 
         $this->addSql(
-            'ALTER TABLE privileges_group_privileges 
-                    ADD CONSTRAINT privileges_group_privileges_privileges_id_fk
+            'ALTER TABLE privileges_endpoint_privileges 
+                    ADD CONSTRAINT privileges_endpoint_privileges_privileges_id_fk
                         FOREIGN KEY (privileges_id) REFERENCES "privileges"(id) 
                         ON UPDATE CASCADE ON DELETE CASCADE'
         );
         $this->addSql(
-            'ALTER TABLE privileges_group_privileges 
-                    ADD CONSTRAINT privileges_group_privileges_group_id_fk
-                        FOREIGN KEY (privileges_group_id) REFERENCES "privileges_group"(id) 
+            'ALTER TABLE privileges_endpoint_privileges 
+                    ADD CONSTRAINT privileges_endpoint_privileges_privileges_endpoint_id_fk
+                        FOREIGN KEY (privileges_endpoint_id) REFERENCES "privileges_endpoint"(id) 
                         ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
-        $this->insertPrivileges(
+        $this->insertEndpointPrivileges(
             [
                 'ACCOUNT_GET_GRID',
                 'ACCOUNT_GET',
@@ -76,7 +74,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
         );
 
         //USER
-        $this->insertPrivilegesGroup(
+        $this->insertPrivileges(
             'USER_READ',
             [
                 'ACCOUNT_GET_GRID',
@@ -84,7 +82,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
             ]
         );
 
-        $this->insertPrivilegesGroup(
+        $this->insertPrivileges(
             'USER_UPDATE',
             [
                 'ACCOUNT_GET_GRID',
@@ -97,7 +95,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
             ]
         );
 
-        $this->insertPrivilegesGroup(
+        $this->insertPrivileges(
             'USER_CREATE',
             [
                 'ACCOUNT_GET_GRID',
@@ -112,7 +110,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
         );
 
         //ROLE
-        $this->insertPrivilegesGroup(
+        $this->insertPrivileges(
             'USER_ROLE_READ',
             [
                 'ACCOUNT_GET_ROLE',
@@ -120,7 +118,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
             ]
         );
 
-        $this->insertPrivilegesGroup(
+        $this->insertPrivileges(
             'USER_ROLE_UPDATE',
             [
                 'ACCOUNT_POST_ROLE',
@@ -130,7 +128,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
             ]
         );
 
-        $this->insertPrivilegesGroup(
+        $this->insertPrivileges(
             'USER_ROLE_CREATE',
             [
                 'ACCOUNT_POST_ROLE',
@@ -140,7 +138,7 @@ final class Version20201202075632 extends AbstractErgonodeMigration
             ]
         );
 
-        $this->insertPrivilegesGroup(
+        $this->insertPrivileges(
             'USER_ROLE_DELETE',
             [
                 'ACCOUNT_DELETE_ROLE',
@@ -155,34 +153,34 @@ final class Version20201202075632 extends AbstractErgonodeMigration
      *
      * @throws \Exception
      */
-    private function insertPrivileges(array $privileges): void
+    private function insertEndpointPrivileges(array $privileges): void
     {
         foreach ($privileges as $privilege) {
             $this->addSql(
-                'INSERT INTO privileges (id, name) VALUES (?, ?)',
+                'INSERT INTO privileges_endpoint (id, name) VALUES (?, ?)',
                 [Uuid::uuid4()->toString(), $privilege]
             );
         }
     }
 
     /**
-     * @param string[] $privileges
+     * @param string[] $endpoints
      */
-    private function insertPrivilegesGroup(string $groupName, array $privileges): void
+    private function insertPrivileges(string $privilege, array $endpoints): void
     {
         $this->addSql(
-            'INSERT INTO privileges_group_privileges (privileges_group_id, privileges_id)
-                    SELECT pg.id, p.id 
-                    FROM privileges_group pg, "privileges" p 
-                    WHERE pg.code = :groupName
-                    AND p."name" IN(:privileges)
+            'INSERT INTO privileges_endpoint_privileges (privileges_id, privileges_endpoint_id)
+                    SELECT p.id, pe.id 
+                    FROM privileges_endpoint pe, "privileges" p 
+                    WHERE p.code = :privilege
+                    AND pe."name" IN(:endpoints)
             ',
             [
-                ':groupName' => $groupName,
-                ':privileges' => $privileges,
+                ':privilege' => $privilege,
+                ':endpoints' => $endpoints,
             ],
             [
-                ':privileges' => Connection::PARAM_STR_ARRAY,
+                ':endpoints' => Connection::PARAM_STR_ARRAY,
             ]
         );
     }

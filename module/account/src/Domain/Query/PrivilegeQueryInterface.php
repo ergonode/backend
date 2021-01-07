@@ -26,5 +26,5 @@ interface PrivilegeQueryInterface
      *
      * @return PrivilegeEndPoint[]
      */
-    public function getPrivilegesEndPointByPrivilegesGroup(array $privileges): array;
+    public function getEndPointPrivilegesByPrivileges(array $privileges): array;
 }

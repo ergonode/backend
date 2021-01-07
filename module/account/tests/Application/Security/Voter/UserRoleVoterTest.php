@@ -117,7 +117,7 @@ class UserRoleVoterTest extends TestCase
             ->willReturn($role);
 
         if ($expectedResult) {
-            $this->query->method('getPrivilegesEndPointByPrivilegesGroup')->willReturn(
+            $this->query->method('getEndPointPrivilegesByPrivileges')->willReturn(
                 [
                     new PrivilegeEndPoint($privilege),
                 ]
