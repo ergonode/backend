@@ -213,6 +213,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Meta Title',
+                    'help' => 'Value in product should contain 255 characters or less.',
                     'choices' => array_flip($textareaAttributeDictionary),
                     'property_path' => 'attributeProductMetaTitle',
                     'required' => false,
@@ -223,6 +224,7 @@ class Shopware6ChannelForm extends AbstractType
                 AttributeIdType::class,
                 [
                     'label' => 'Attribute Product Meta Description',
+                    'help' => 'Value in product should contain 255 characters or less.',
                     'choices' => array_flip($textareaAttributeDictionary),
                     'property_path' => 'attributeProductMetaDescription',
                     'required' => false,
