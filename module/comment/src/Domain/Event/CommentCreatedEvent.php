@@ -12,7 +12,6 @@ namespace Ergonode\Comment\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
-use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
@@ -52,9 +51,6 @@ class CommentCreatedEvent implements DomainEventInterface
         $this->createdAt = $createdAt;
     }
 
-    /**
-     * @return CommentId
-     */
     public function getAggregateId(): CommentId
     {
         return $this->id;
