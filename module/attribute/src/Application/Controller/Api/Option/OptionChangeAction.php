@@ -52,7 +52,7 @@ class OptionChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_UPDATE")
+     * @IsGranted("ATTRIBUTE_PUT_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

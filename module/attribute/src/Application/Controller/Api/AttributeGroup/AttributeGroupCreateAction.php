@@ -41,7 +41,7 @@ class AttributeGroupCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GROUP_CREATE")
+     * @IsGranted("ATTRIBUTE_POST_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

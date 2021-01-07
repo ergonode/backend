@@ -50,7 +50,7 @@ class OptionCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_CREATE")
+     * @IsGranted("ATTRIBUTE_POST_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

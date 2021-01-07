@@ -152,6 +152,8 @@ final class Version20201202075632 extends AbstractErgonodeMigration
 
     /**
      * @param string[] $privileges
+     *
+     * @throws \Exception
      */
     private function insertPrivileges(array $privileges): void
     {
