@@ -55,7 +55,7 @@ class CommentCreatedEvent implements DomainEventInterface
     /**
      * @return CommentId
      */
-    public function getAggregateId(): AggregateId
+    public function getAggregateId(): CommentId
     {
         return $this->id;
     }
