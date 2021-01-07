@@ -44,6 +44,11 @@ class ErgonodeCoreExtension extends Extension implements PrependExtensionInterfa
      */
     public function prepend(ContainerBuilder $container): void
     {
+        $this->prependNelmioApiDoc($container);
+    }
+
+    private function prependNelmioApiDoc(ContainerBuilder $container): void
+    {
         if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
             return;
         }

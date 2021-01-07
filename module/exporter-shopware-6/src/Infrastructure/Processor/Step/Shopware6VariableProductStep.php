@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\ProductShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\ProductExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
@@ -42,7 +42,7 @@ class Shopware6VariableProductStep implements Shopware6ExportStepProcessInterfac
         foreach ($productList as $product) {
             $productId = new ProductId($product);
 
-            $processCommand = new ProductShopware6ExportCommand($exportId, $productId);
+            $processCommand = new ProductExportCommand($exportId, $productId);
             $this->commandBus->dispatch($processCommand, true);
         }
     }

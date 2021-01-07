@@ -9,6 +9,10 @@ flysystem:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/export'
+        import.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/import'
         multimedia.storage:
             adapter: 'local'
             options:
@@ -21,7 +25,3 @@ flysystem:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/public/thumbnail'
-        temp.storage:
-            adapter: 'local'
-            options:
-                directory: '%kernel.project_dir%/var/storage/temp'

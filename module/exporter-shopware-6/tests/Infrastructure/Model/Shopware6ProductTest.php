@@ -63,6 +63,12 @@ class Shopware6ProductTest extends TestCase
 
     private string $coverId;
 
+    private string $metaTitle;
+
+    private string $metaDescription;
+
+    private string $keywords;
+
 
     protected function setUp(): void
     {
@@ -100,6 +106,12 @@ class Shopware6ProductTest extends TestCase
         $this->media = [];
 
         $this->coverId = 'any_product_media_id';
+
+        $this->metaTitle = 'any_meta_title';
+
+        $this->metaDescription = 'any_meta_description';
+
+        $this->keywords = 'any_keywords';
     }
 
     public function testCreateModel(): void
@@ -118,6 +130,9 @@ class Shopware6ProductTest extends TestCase
             $this->taxId,
             $this->price,
             $this->coverId,
+            $this->metaTitle,
+            $this->metaDescription,
+            $this->keywords
         );
 
         self::assertEquals($this->id, $model->getId());
@@ -133,6 +148,10 @@ class Shopware6ProductTest extends TestCase
         self::assertEquals($this->taxId, $model->getTaxId());
         self::assertEquals($this->price, $model->getPrice());
         self::assertEquals($this->coverId, $model->getCoverId());
+        self::assertEquals($this->metaTitle, $model->getMetaTitle());
+        self::assertEquals($this->metaDescription, $model->getMetaDescription());
+        self::assertEquals($this->keywords, $model->getKeywords());
+
         self::assertEquals($this->media, $model->getMedia());
 
         self::assertFalse($model->isNew());
@@ -160,6 +179,9 @@ class Shopware6ProductTest extends TestCase
         $model->setTaxId($this->taxId);
         $model->addPrice($this->price[0]);
         $model->setCoverId($this->coverId);
+        $model->setMetaTitle($this->metaTitle);
+        $model->setMetaDescription($this->metaDescription);
+        $model->setKeywords($this->keywords);
 
         self::assertEquals($this->sku, $model->getSku());
         self::assertEquals($this->name, $model->getName());
@@ -177,6 +199,9 @@ class Shopware6ProductTest extends TestCase
         self::assertEquals($this->price, $model->getPrice());
         self::assertEquals($this->coverId, $model->getCoverId());
         self::assertEquals($this->media, $model->getMedia());
+        self::assertEquals($this->metaTitle, $model->getMetaTitle());
+        self::assertEquals($this->metaDescription, $model->getMetaDescription());
+        self::assertEquals($this->keywords, $model->getKeywords());
 
         self::assertTrue($model->isNew());
         self::assertTrue($model->isModified());

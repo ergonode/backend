@@ -12,8 +12,8 @@ use Ergonode\Completeness\Domain\Calculator\Strategy\UiTemplateElementCompletene
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 class UiTemplateElementCompletenessStrategyTest extends TestCase
 {
@@ -26,12 +26,12 @@ class UiTemplateElementCompletenessStrategyTest extends TestCase
 
     public function testGetElementCompleteness(): void
     {
-        $draft = $this->createMock(ProductDraft::class);
+        $product = $this->createMock(AbstractProduct::class);
         $language = $this->createMock(Language::class);
         $property = $this->createMock(TemplateElementPropertyInterface::class);
 
         $strategy = new UiTemplateElementCompletenessStrategy();
-        $result = $strategy->getElementCompleteness($draft, $language, $property);
+        $result = $strategy->getElementCompleteness($product, $language, $property);
         $this->assertNull($result);
     }
 }

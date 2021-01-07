@@ -135,7 +135,7 @@ class EventStoreManagerTest extends TestCase
         $aggregate->method('popEvents')->willReturn($eventStream);
         $this->mockEventStore->method('append')->willReturn(3);
         $this->mockConnection->expects($this->never())->method('insert');
-        $this->mockSnapshot->expects($this->once())->method('save');
+        $this->mockSnapshot->expects($this->never())->method('save');
         $this->mockEventBus->expects($this->once())->method('dispatch');
         $this->mockLogger->expects($this->once())->method('notice');
 

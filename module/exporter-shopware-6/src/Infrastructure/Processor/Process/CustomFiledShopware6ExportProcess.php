@@ -14,7 +14,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CustomFieldRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CustomFieldBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldClient;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldSetClient;
@@ -31,7 +31,7 @@ class CustomFiledShopware6ExportProcess
 {
     private const CUSTOM_FIELD_SET_NAME = 'ergonode';
 
-    private Shopware6CustomFieldRepositoryInterface $customFieldRepository;
+    private CustomFieldRepositoryInterface $customFieldRepository;
 
     private Shopware6CustomFieldClient $customFieldClient;
 
@@ -42,7 +42,7 @@ class CustomFiledShopware6ExportProcess
     private ExportLineRepositoryInterface $exportLineRepository;
 
     public function __construct(
-        Shopware6CustomFieldRepositoryInterface $customFieldRepository,
+        CustomFieldRepositoryInterface $customFieldRepository,
         Shopware6CustomFieldClient $customFieldClient,
         Shopware6CustomFieldBuilder $builder,
         Shopware6CustomFieldSetClient $customFieldSetClient,
