@@ -14,7 +14,7 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 
 class ProductToLongValueException extends Shopware6ExporterException
 {
-    private const MESSAGE = 'Attribute {code} is to long max {length}, required for product {sku}';
+    private const MESSAGE = 'Attribute {code} is too long max {length}, required for product {sku}';
 
     public function __construct(AttributeCode $code, Sku $sku, int $length, \Throwable $previous = null)
     {
