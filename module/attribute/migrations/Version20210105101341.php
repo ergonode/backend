@@ -102,7 +102,6 @@ final class Version20210105101341 extends AbstractErgonodeMigration
                 'ATTRIBUTE_GET',
                 'ATTRIBUTE_GET_SYSTEM',
                 'ATTRIBUTE_DELETE',
-                'ATTRIBUTE_DELETE_GROUP',
                 'ATTRIBUTE_GET_GROUP_GRID',
                 'ATTRIBUTE_GET_GROUP',
                 'ATTRIBUTE_GET_OPTION_GRID',
