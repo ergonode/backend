@@ -10,9 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
 use Ergonode\Exporter\Infrastructure\Service\ZipFileRemover;
-use Ergonode\ExporterFile\Domain\Command\Export\RemoveExporterFileArtifactsCommand;
+use Ergonode\Exporter\Domain\Command\Export\ExportDeletedCommand;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class RemoveExporterFileArtifactsCommandHandler
+class ExportDeletedCommandHandler
 {
     private ZipFileRemover $zipFileRemover;
 
@@ -21,8 +22,10 @@ class RemoveExporterFileArtifactsCommandHandler
         $this->zipFileRemover = $zipFileRemover;
     }
 
-    public function __invoke(RemoveExporterFileArtifactsCommand $command): void
+    public function __invoke(ExportDeletedCommand $command): void
     {
-        $this->zipFileRemover->remove($command->getExportId());
+        if (FileExportChannel::getType() === $command->getChannelType()) {
+            $this->zipFileRemover->remove($command->getExportId()->getValue());
+        }
     }
 }

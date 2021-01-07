@@ -17,7 +17,3 @@ services:
     Ergonode\Exporter\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
-
-    Ergonode\Exporter\Infrastructure\Provider\RemoveExportArtifactsCommandFactoryProvider:
-        arguments:
-            - !tagged_iterator 'export.remove_export_artifacts_command_factory_interface'
