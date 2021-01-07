@@ -80,7 +80,7 @@ class ProductSEOMetaDescriptionMapperTest extends AbstractProductMapperCase
 
         $this->calculator = $this->createMock(AttributeTranslationInheritanceCalculator::class);
         $this->calculator->method('calculate')
-            ->willReturn(str_repeat('a',256));
+            ->willReturn(str_repeat('a', 256));
 
         $mapper = new ProductSEOMetaDescriptionMapper(
             $this->attributeRepository,
