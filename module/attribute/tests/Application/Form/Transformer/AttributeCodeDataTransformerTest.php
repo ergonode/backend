@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Attribute\Application\Form\Transformer;
+namespace Ergonode\Attribute\Tests\Application\Form\Transformer;
 
 use Ergonode\Attribute\Application\Form\Transformer\AttributeCodeDataTransformer;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -15,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 class AttributeCodeDataTransformerTest extends TestCase
 {
-
     protected AttributeCodeDataTransformer $transformer;
 
     protected function setUp(): void

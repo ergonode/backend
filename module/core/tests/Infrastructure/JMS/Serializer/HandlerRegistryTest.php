@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Core\Infrastructure\JMS\Serializer;
+namespace Ergonode\Core\Tests\Infrastructure\JMS\Serializer;
 
 use Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry;
 use JMS\Serializer\Handler\HandlerRegistryInterface;

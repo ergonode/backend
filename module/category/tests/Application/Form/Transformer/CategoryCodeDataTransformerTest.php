@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Category\Application\Form\Transformer;
+namespace Ergonode\Category\Tests\Application\Form\Transformer;
 
 use Ergonode\Category\Application\Form\Transformer\CategoryCodeDataTransformer;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;

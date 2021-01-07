@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Condition\Domain\Entity;
+namespace Ergonode\Condition\Tests\Domain\Entity;
 
 use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Domain\ConditionInterface;

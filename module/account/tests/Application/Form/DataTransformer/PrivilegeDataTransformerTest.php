@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Account\Application\Form\DataTransformer;
+namespace Ergonode\Account\Tests\Application\Form\DataTransformer;
 
 use Ergonode\Account\Application\Form\DataTransformer\PrivilegeDataTransformer;
 use Ergonode\Account\Domain\ValueObject\Privilege;

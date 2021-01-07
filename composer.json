@@ -138,6 +138,7 @@
         "psr-4": {
             "App\\Tests\\": "tests/",
             "Ergonode\\Account\\Tests\\": "module/account/tests",
+            "Ergonode\\Api\\Tests\\": "module/api/tests",
             "Ergonode\\Attribute\\Tests\\": "module/attribute/tests",
             "Ergonode\\Authentication\\Tests\\": "module/authentication/tests",
             "Ergonode\\BatchAction\\Tests\\": "module/batch-action/tests",

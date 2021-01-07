@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Core\Infrastructure\Transport\Serializer;
+namespace Ergonode\Core\Tests\Infrastructure\Transport\Serializer;
 
 use Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer;
 use JMS\Serializer\SerializerInterface;

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Designer\Application\Form\Transformer;
+namespace Ergonode\Designer\Tests\Application\Form\Transformer;
 
 use Ergonode\Designer\Application\Form\Transformer\SizeFormDataTransformer;
 use Ergonode\Designer\Domain\ValueObject\Size;
