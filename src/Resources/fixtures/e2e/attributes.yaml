@@ -109,12 +109,12 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand:
             - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
-    select_option_{1..5}:
+    select_option_{1..6}:
         __construct:
             - '@attribute_select->id'
             - '<OptionKey(key_1_<current()>)>'
             - '@option_value_1_<current()>'
-    multiselect_option_{1..5}:
+    multiselect_option_{1..6}:
         __construct:
             - '@attribute_multiselect->id'
             - '<OptionKey(key_2_<current()>)>'

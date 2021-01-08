@@ -135,13 +135,23 @@ Ergonode\Designer\Domain\Entity\Template:
         __calls:
             -   addElement:
                         - '@template_element_1'
+            -   addElement:
                         - '@template_element_2'
+            -   addElement:
                         - '@template_element_3'
+            -   addElement:
                         - '@template_element_4'
+            -   addElement:
                         - '@template_element_5'
+            -   addElement:
                         - '@template_element_6'
+            -   addElement:
                         - '@template_element_7'
+            -   addElement:
                         - '@template_element_8'
+            -   addElement:
                         - '@template_element_9'
+            -   addElement:
                         - '@template_element_10'
+            -   addElement:
                         - '@template_element_12'

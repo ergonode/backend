@@ -23,7 +23,7 @@ Ergonode\ProductCollection\Domain\Entity\ProductCollection:
             - '<productCollectionCode(product_collection_1)>'
             - '@name_1'
             - '@description_1'
-            - '@product_collection_type_*->id'
+            - '@product_collection_type_up-sell->id'
             -
 \Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementCommand:
     add_collection_element_1:
