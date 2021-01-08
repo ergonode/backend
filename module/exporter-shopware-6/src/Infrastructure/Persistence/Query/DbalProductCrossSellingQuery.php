@@ -45,4 +45,26 @@ class DbalProductCrossSellingQuery implements ProductCrossSellingQueryInterface
 
         return $query->execute()->fetchAll();
     }
+
+    /**
+     * @param ProductCollectionId[] $productCollectionIds
+     *
+     * @return string[]
+     */
+    public function getOthersCollection(ChannelId $channelId, array $productCollectionIds): array
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->select('DISTINCT pc.shopware6_id')
+            ->from(self::TABLE, 'pc')
+            ->where($query->expr()->eq('pc.channel_id', ':channelId'))
+            ->setParameter(':channelId', $channelId->getValue());
+
+        if ($productCollectionIds) {
+            $query->andWhere($query->expr()->notIn('pc.product_collection_id', ':productCollectionId'))
+                ->setParameter(':productIds', $productCollectionIds, Connection::PARAM_STR_ARRAY);
+        }
+
+        return $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+    }
 }
