@@ -25,7 +25,7 @@ class ExportDeletedCommandHandler
     public function __invoke(ExportDeletedCommand $command): void
     {
         if (FileExportChannel::getType() === $command->getChannelType()) {
-            $this->zipFileRemover->remove($command->getExportId()->getValue());
+            $this->zipFileRemover->remove($command->getExportId());
         }
     }
 }

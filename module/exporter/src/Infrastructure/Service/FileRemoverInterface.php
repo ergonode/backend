@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Service;
 
+use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+
 interface FileRemoverInterface
 {
-    public function remove(string $fileName): bool;
+    public function remove(ExportId $fileName): bool;
 }

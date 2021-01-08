@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Exporter\Infrastructure\Service;
 
+use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use League\Flysystem\FilesystemInterface;
 use Psr\Log\LoggerInterface;
 
@@ -26,9 +27,9 @@ class ZipFileRemover implements FileRemoverInterface
         $this->logger = $logger;
     }
 
-    public function remove(string $fileName): bool
+    public function remove(ExportId $exportId): bool
     {
-        $file = sprintf('%s.zip', $fileName);
+        $file = sprintf('%s.zip', $exportId->getValue());
         if ($this->exportStorage->has($file)) {
             try {
                 return $this->exportStorage->delete($file);
