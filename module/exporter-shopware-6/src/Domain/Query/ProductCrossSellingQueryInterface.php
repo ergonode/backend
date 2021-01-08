@@ -24,4 +24,14 @@ interface ProductCrossSellingQueryInterface
         ProductCollectionId $productCollectionId,
         array $productIds
     ): array;
+
+    /**
+     * @param ProductCollectionId[]     $productCollectionIds
+     *
+     * @return string[]
+     */
+    public function getOthersCollection(
+        ChannelId $channelId,
+        array $productCollectionIds
+    ): array;
 }
