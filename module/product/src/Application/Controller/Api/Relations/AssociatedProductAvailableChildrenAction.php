@@ -55,7 +55,7 @@ class AssociatedProductAvailableChildrenAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_RELATIONS_AVAILABLE")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

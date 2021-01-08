@@ -43,7 +43,7 @@ class ProductGridReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_GRID")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

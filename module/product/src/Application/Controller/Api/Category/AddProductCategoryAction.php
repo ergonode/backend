@@ -36,7 +36,7 @@ class AddProductCategoryAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_POST_CATEGORY")
      *
      * @SWG\Tag(name="Product")
      *
