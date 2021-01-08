@@ -48,7 +48,7 @@ class TemplateDeleteAction
     }
 
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_DELETE")
+     * @IsGranted("DESIGNER_DELETE_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
