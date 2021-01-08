@@ -28,7 +28,6 @@ class CategoryTypeReadAction
         $this->categoryTypeDictionaryProvider = $categoryTypeDictionaryProvider;
     }
 
-
     /**
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
