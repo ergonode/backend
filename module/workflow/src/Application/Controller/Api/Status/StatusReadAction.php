@@ -27,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatusReadAction
 {
     /**
-     * @IsGranted("WORKFLOW_READ")
+     * @IsGranted("WORKFLOW_GET_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

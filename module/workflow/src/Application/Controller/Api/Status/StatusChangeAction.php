@@ -46,7 +46,7 @@ class StatusChangeAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_UPDATE")
+     * @IsGranted("WORKFLOW_PUT_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

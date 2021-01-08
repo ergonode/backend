@@ -36,7 +36,7 @@ class WorkflowDefaultStatusSetAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_UPDATE")
+     * @IsGranted("WORKFLOW_PUT_DEFAULT_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

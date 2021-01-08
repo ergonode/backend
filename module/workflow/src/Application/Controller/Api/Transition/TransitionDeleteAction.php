@@ -36,7 +36,7 @@ class TransitionDeleteAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_DELETE")
+     * @IsGranted("WORKFLOW_DELETE_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

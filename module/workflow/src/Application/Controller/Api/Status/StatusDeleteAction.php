@@ -47,7 +47,7 @@ class StatusDeleteAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_DELETE")
+     * @IsGranted("WORKFLOW_DELETE_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

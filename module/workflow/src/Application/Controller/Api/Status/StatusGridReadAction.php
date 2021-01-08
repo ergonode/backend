@@ -47,7 +47,7 @@ class StatusGridReadAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_READ")
+     * @IsGranted("WORKFLOW_GET_STATUS_GRID")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
