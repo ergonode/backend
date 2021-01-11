@@ -14,7 +14,6 @@ use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExists;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TemplateFormModel
@@ -33,18 +32,20 @@ class TemplateFormModel
     public ?string $image;
 
     /**
+     * @Assert\Uuid(strict=true)
      * @AttributeExists()
-     *
+
      * @AttributeTypeValid(type="TEXT")
      */
-    public ?AttributeId $defaultLabel;
+    public ?string $defaultLabel;
 
     /**
+     * @Assert\Uuid(strict=true)
      * @AttributeExists()
      *
      * @AttributeTypeValid(type="IMAGE")
      */
-    public ?AttributeId $defaultImage;
+    public ?string $defaultImage;
 
     /**
      * @var ArrayCollection|TemplateElementTypeModel[]
