@@ -90,6 +90,16 @@ class DbalExportRepository implements ExportRepositoryInterface
         return false;
     }
 
+    public function delete(Export $export): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $export->getId()->getValue(),
+            ]
+        );
+    }
+
     /**
      * @throws \Doctrine\DBAL\DBALException
      */
@@ -129,16 +139,6 @@ class DbalExportRepository implements ExportRepositoryInterface
                 'created_at' => Types::DATETIMETZ_MUTABLE,
                 'updated_at' => Types::DATETIMETZ_MUTABLE,
             ],
-        );
-    }
-
-    public function delete(Export $export): void
-    {
-        $this->connection->delete(
-            self::TABLE,
-            [
-                'id' => $export->getId()->getValue(),
-            ]
         );
     }
 
