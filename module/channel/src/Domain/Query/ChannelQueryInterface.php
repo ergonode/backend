@@ -15,4 +15,6 @@ use Ergonode\Grid\DataSetInterface;
 interface ChannelQueryInterface
 {
     public function getDataSet(Language $language): DataSetInterface;
+
+    public function findChannelIdsByType(string $type): array;
 }
