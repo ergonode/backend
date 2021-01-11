@@ -25,7 +25,7 @@ class AttributeFormModel
      * )
      * @AppAssert\UniqueAttributeCodeConstraint(
      *     groups={"Create"}
-     *     )
+     * )
      */
     public ?string $code = null;
 

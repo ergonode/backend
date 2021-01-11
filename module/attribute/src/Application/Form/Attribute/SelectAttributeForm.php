@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form\Attribute;
 
-use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
@@ -34,7 +33,7 @@ class SelectAttributeForm extends AbstractType implements AttributeFormInterface
         $builder
             ->add(
                 'code',
-                AttributeCodeType::class
+                TextType::class
             )
             ->add(
                 'label',
