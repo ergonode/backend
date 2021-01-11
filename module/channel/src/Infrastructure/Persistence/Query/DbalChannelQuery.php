@@ -36,7 +36,7 @@ class DbalChannelQuery implements ChannelQueryInterface
         return $this->dataSetFactory->create($this->getQuery());
     }
 
-    public function findChannelIdByType(string $type): array
+    public function findChannelIdsByType(string $type): array
     {
         $qb = $this->connection->createQueryBuilder();
 

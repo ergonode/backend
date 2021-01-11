@@ -46,7 +46,7 @@ class ProductCollectionShopware6ChannelRelationshipStrategy implements Relations
     public function getRelationshipGroup(AggregateId $id): RelationshipGroup
     {
         Assert::isInstanceOf($id, ProductCollectionId::class);
-        $channelIds = $this->query->findChannelIdByType(Shopware6Channel::TYPE);
+        $channelIds = $this->query->findChannelIdsByType(Shopware6Channel::TYPE);
 
         $relation = [];
         foreach ($channelIds as $channelId) {
