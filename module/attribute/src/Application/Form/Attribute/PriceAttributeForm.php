@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\Configuration\PriceAttributeConfigurationForm;
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
@@ -18,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class PriceAttributeForm extends AbstractType implements AttributeFormInterface
 {
@@ -50,7 +50,12 @@ class PriceAttributeForm extends AbstractType implements AttributeFormInterface
             )
             ->add(
                 'groups',
-                AttributeGroupType::class
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
+                ]
             )
             ->add(
                 'scope',

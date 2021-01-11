@@ -75,6 +75,26 @@ Feature: Attribute module
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario Outline: Create text attribute with invalid group (<value> - <message>)
+    And I send a "POST" request to "/api/v1/en_GB/attributes" with body:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "type": "TEXT",
+          "scope": "local",
+          "groups": [<value>]
+      }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should be equal to:
+      | errors.groups.element-0[0] | <message> |
+    Examples:
+      | value             | message                         |
+      | null              | This value should not be blank. |
+      | ""                | This value should not be blank. |
+      | "Not uuid"        | This is not a valid UUID.       |
+      | "@@random_uuid@@" | Attribute group not exists.     |
+
   Scenario: Delete attribute group
     And I send a "DELETE" request to "/api/v1/en_GB/attributes/groups/@attribute_group_id_1@"
     Then the response status code should be 409

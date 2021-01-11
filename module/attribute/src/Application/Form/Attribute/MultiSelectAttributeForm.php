@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form\Attribute;
 
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
@@ -17,6 +16,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class MultiSelectAttributeForm extends AbstractType implements AttributeFormInterface
 {
@@ -49,7 +49,12 @@ class MultiSelectAttributeForm extends AbstractType implements AttributeFormInte
             )
             ->add(
                 'groups',
-                AttributeGroupType::class
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
+                ]
             )
             ->add(
                 'scope',
