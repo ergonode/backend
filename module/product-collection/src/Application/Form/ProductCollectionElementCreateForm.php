@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Application\Form;
 
 use Ergonode\Core\Application\Form\Type\BooleanType;
-use Ergonode\Product\Application\Form\Type\ProductIdType;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionElementCreateFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductCollectionElementCreateForm extends AbstractType
 {
@@ -26,7 +26,7 @@ class ProductCollectionElementCreateForm extends AbstractType
         $builder
             ->add(
                 'productId',
-                ProductIdType::class
+                TextType::class
             )
             ->add(
                 'visible',
