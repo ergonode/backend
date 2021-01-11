@@ -62,7 +62,7 @@ class DbalProductCrossSellingQuery implements ProductCrossSellingQueryInterface
 
         if ($productCollectionIds) {
             $query->andWhere($query->expr()->notIn('pc.product_collection_id', ':productCollectionId'))
-                ->setParameter(':productIds', $productCollectionIds, Connection::PARAM_STR_ARRAY);
+                ->setParameter(':productCollectionId', $productCollectionIds, Connection::PARAM_STR_ARRAY);
         }
 
         return $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
