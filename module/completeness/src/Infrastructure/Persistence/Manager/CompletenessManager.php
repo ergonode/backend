@@ -52,24 +52,19 @@ class CompletenessManager
         bool $required,
         bool $filled
     ): void {
-        $this->connection->executeQuery(
-            'INSERT INTO product_completeness (attribute_id, product_id, template_id, language, required, filled) 
-                       VALUES (?, ?, ?, ? ,? , ?) ON CONFLICT DO NOTHING',
+        $this->connection->insert(
+            ' product_completeness',
             [
-                $attributeId->getValue(),
-                $productId->getValue(),
-                $templateId->getValue(),
-                $language->getCode(),
-                $required,
-                $filled,
+                'attribute_id' => $attributeId->getValue(),
+                'product_id' => $productId->getValue(),
+                'template_id' => $templateId->getValue(),
+                'language' => $language->getCode(),
+                'required' => $required,
+                'filled' => $filled,
             ],
             [
-                \PDO::PARAM_STR,
-                \PDO::PARAM_STR,
-                \PDO::PARAM_STR,
-                \PDO::PARAM_STR,
-                \PDO::PARAM_BOOL,
-                \PDO::PARAM_BOOL,
+                'required' => \PDO::PARAM_BOOL,
+                'filled' => \PDO::PARAM_BOOL,
             ]
         );
     }

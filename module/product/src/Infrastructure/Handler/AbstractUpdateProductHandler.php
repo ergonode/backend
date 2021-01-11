@@ -8,13 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
+use Ergonode\Account\Application\Security\Security;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
@@ -24,16 +23,16 @@ abstract class AbstractUpdateProductHandler
 
     protected AttributeRepositoryInterface $attributeRepository;
 
-    protected TokenStorageInterface $tokenStorage;
+    protected Security $security;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
         AttributeRepositoryInterface $attributeRepository,
-        TokenStorageInterface $tokenStorage
+        Security $security
     ) {
         $this->productRepository = $productRepository;
         $this->attributeRepository = $attributeRepository;
-        $this->tokenStorage = $tokenStorage;
+        $this->security = $security;
     }
 
     /**
@@ -41,11 +40,9 @@ abstract class AbstractUpdateProductHandler
      */
     public function updateAudit(AbstractProduct $product): AbstractProduct
     {
-        $token = $this->tokenStorage->getToken();
-        if ($token) {
+        $user = $this->security->getUser();
+        if ($user) {
             $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
-            /** @var User $user */
-            $user = $token->getUser();
             $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
             $this->attributeUpdate($product, $editedByCode, $editedByValue);
         }

@@ -37,6 +37,10 @@ class ImportProductSelectAttributeStrategy implements ImportProductAttributeStra
     {
         $result = [];
         foreach ($value->getTranslations() as $language => $version) {
+            if (!$version) {
+                continue;
+            }
+
             $key = new OptionKey($version);
             $optionId = $this->optionQuery->findIdByAttributeIdAndCode($id, $key);
 

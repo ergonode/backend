@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\CustomFieldShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\CustomFieldExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -27,7 +27,7 @@ class Shopware6CustomFieldStep implements Shopware6ExportStepProcessInterface
     {
         $attributeIds = $channel->getCustomField();
         foreach ($attributeIds as $attributeId) {
-            $processCommand = new CustomFieldShopware6ExportCommand($exportId, $attributeId);
+            $processCommand = new CustomFieldExportCommand($exportId, $attributeId);
             $this->commandBus->dispatch($processCommand, true);
         }
     }

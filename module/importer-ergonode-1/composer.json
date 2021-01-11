@@ -1,0 +1,42 @@
+{
+  "name": "ergonode/importer-ergonode-1",
+  "type": "ergonode-module",
+  "description": "Ergonode - Importer Ergonode",
+  "homepage": "https://ergonode.com",
+  "license": "OSL-3.0",
+  "config": {
+    "bin-dir": "bin",
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+  "require": {
+    "php": "^7.4",
+    "ext-pdo": "*",
+    "ext-zip": "*",
+    "jms/serializer": "^3.4",
+    "jms/serializer-bundle": "^3.4",
+    "ergonode/importer": "^1.0.0-beta.6",
+    "limenius/liform-bundle": "^0.15.0",
+    "mhujer/jms-serializer-uuid": "^3.1",
+    "ramsey/uuid": "^3.8",
+    "ramsey/uuid-doctrine": "^1.5",
+    "league/csv": "^9.6",
+    "symfony/form": "^4.4",
+    "symfony/translation": "^4.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ergonode\\ImporterErgonode1\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ergonode\\ImporterErgonode1\\Tests\\": "tests/"
+    }
+  }
+}

@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -23,7 +23,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 class DbalTemplateQuery implements TemplateQueryInterface
 {
     private const TEMPLATE_TABLE = 'designer.template';
-    private const PRODUCT_TABLE = 'designer.product';
+    private const PRODUCT_TABLE = 'product';
     private const ATTRIBUTE_TABLE = 'public.attribute';
     private const FIELDS = [
         't.id',
@@ -36,9 +36,12 @@ class DbalTemplateQuery implements TemplateQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
@@ -52,7 +55,7 @@ class DbalTemplateQuery implements TemplateQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     /**
@@ -110,7 +113,7 @@ class DbalTemplateQuery implements TemplateQueryInterface
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
-            ->select('p.product_id')
+            ->select('p.id')
             ->from(self::PRODUCT_TABLE, 'p')
             ->where($queryBuilder->expr()->eq('p.template_id', ':templateId'))
             ->setParameter(':templateId', $templateId->getValue());

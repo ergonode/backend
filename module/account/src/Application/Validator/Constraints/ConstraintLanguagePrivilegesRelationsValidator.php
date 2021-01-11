@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

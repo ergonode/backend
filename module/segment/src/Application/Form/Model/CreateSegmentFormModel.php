@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Segment\Application\Form\Model;
 
 use Ergonode\Segment\Infrastructure\Validator\UniqueSegmentCode;
+use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateSegmentFormModel
@@ -21,13 +22,8 @@ class CreateSegmentFormModel
 
     /**
      * @Assert\NotBlank(message="System name is required")
-     * @Assert\Length(
-     *     min="3",
-     *     max="100",
-     *     minMessage="System name is too short. It should have at least {{ limit }} characters.",
-     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
-     * )
      *
+     * @SystemCodeConstraint(max="100")
      * @UniqueSegmentCode()
      */
     public ?string $code;

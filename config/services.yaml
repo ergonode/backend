@@ -2,7 +2,6 @@ parameters:
     locale: 'pl'
     router.request_context.host: '%env(APP_HOST)%'
     router.request_context.scheme: '%env(APP_SCHEME)%'
-    es.snapshot.event: 10
 
 services:
     _defaults:
@@ -19,7 +18,3 @@ services:
         class: Mhujer\JmsSerializer\Uuid\UuidSerializerHandler
         tags:
             - { name: jms_serializer.subscribing_handler }
-
-    Ergonode\EventSourcing\Infrastructure\Snapshot\DbalAggregateSnapshot:
-        arguments:
-            $snapshotEvents: 1

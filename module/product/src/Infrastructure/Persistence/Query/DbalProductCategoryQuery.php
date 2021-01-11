@@ -12,7 +12,7 @@ namespace Ergonode\Product\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Product\Domain\Query\ProductCategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
@@ -22,9 +22,12 @@ class DbalProductCategoryQuery implements ProductCategoryQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
@@ -48,6 +51,6 @@ class DbalProductCategoryQuery implements ProductCategoryQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 }

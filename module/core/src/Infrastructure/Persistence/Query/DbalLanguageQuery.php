@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DbalLanguageQuery implements LanguageQueryInterface
@@ -41,10 +41,16 @@ class DbalLanguageQuery implements LanguageQueryInterface
 
     private TranslatorInterface $translator;
 
-    public function __construct(Connection $connection, TranslatorInterface $translator)
-    {
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(
+        Connection $connection,
+        TranslatorInterface $translator,
+        DbalDataSetFactory $dataSetFactory
+    ) {
         $this->connection = $connection;
         $this->translator = $translator;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(): DataSetInterface
@@ -61,7 +67,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     /**

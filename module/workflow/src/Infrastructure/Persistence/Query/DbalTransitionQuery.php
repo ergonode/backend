@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
@@ -24,9 +24,12 @@ class DbalTransitionQuery implements TransitionQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     public function getDataSet(WorkflowId $workflowId, Language $language): DataSetInterface
@@ -39,7 +42,7 @@ class DbalTransitionQuery implements TransitionQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
         $result->setParameter(':workflowId', $workflowId->getValue());
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     public function hasStatus(WorkflowId $workflowId, StatusId $statusId): bool

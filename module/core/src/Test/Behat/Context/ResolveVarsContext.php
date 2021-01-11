@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeStepScope;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\StepNode;
@@ -21,9 +22,13 @@ class ResolveVarsContext implements Context
 {
     private StorageContext $storageContext;
 
-    public function __construct(StorageContext $storageContext)
+    /** @BeforeScenario */
+    public function gatherContexts(BeforeScenarioScope $scope): void
     {
-        $this->storageContext = $storageContext;
+        $environment = $scope->getEnvironment();
+
+        /** @phpstan-ignore-next-line */
+        $this->storageContext = $environment->getContext(StorageContext::class);
     }
 
     /**

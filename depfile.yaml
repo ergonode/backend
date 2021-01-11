@@ -1,0 +1,200 @@
+paths:
+  - ./module
+layers:
+  - name: Account
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Account\\.*
+  - name: Api
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Api\\.*
+  - name: Attribute
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Attribute\\.*
+  - name: Authentication
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Authentication\\.*
+  - name: BatchAction
+    collectors:
+      - type: className
+        regex: .*Ergonode\\BatchAction\\.*
+  - name: Comment
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Comment\\.*
+  - name: Completeness
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Completeness\\.*
+  - name: Core
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Core\\.*
+  - name: EventSourcing
+    collectors:
+      - type: className
+        regex: .*Ergonode\\EventSourcing\\.*
+  - name: Generator
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Generator\\.*
+  - name: Importer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Importer\\.*
+  - name: Importer-Ergonode-1
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterErgonode1\\.*
+  - name: Importer-Magento-1
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterMagento1\\.*
+  - name: Exporter
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Exporter\\.*
+  - name: ExporterFile
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ExporterFile\\.*
+  - name: Mailer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Mailer\\.*
+  - name: Notification
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Notification\\.*
+  - name: Product
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Product\\.*
+  - name: ProductCollection
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ProductCollection\\.*
+  - name: SharedKernel
+    collectors:
+      - type: className
+        regex: .*Ergonode\\SharedKernel\\.*
+  - name: TranslationDeepl
+    collectors:
+      - type: className
+        regex: .*Ergonode\\TranslationDeepl\\.*
+ruleset:
+  Account:
+    - Api
+    - Attribute
+    - Core
+    - EventSourcing
+    - SharedKernel
+  Api:
+    - Core
+    - SharedKernel
+  Attribute:
+    - Api
+    - Core
+    - EventSourcing
+    - SharedKernel
+  Authentication:
+    - Account
+    - Core
+    - SharedKernel
+  BatchAction:
+    - Api
+    - Core
+    - EventSourcing
+    - SharedKernel
+  Comment:
+    - Account
+    - Api
+    - Core
+    - EventSourcing
+    - SharedKernel
+  Completeness:
+    - Api
+    - Attribute
+    - Core
+    - EventSourcing
+    - Product
+    - SharedKernel
+  Core:
+    - Api
+    - Attribute # todo to remove
+    - EventSourcing
+    - Product # todo to remove
+    - SharedKernel
+  Generator:
+    - Core
+    - EventSourcing
+    - SharedKernel
+  Importer:
+    - Api
+    - Attribute
+    - Core
+    - EventSourcing
+    - Notification
+    - Product
+    - SharedKernel
+  Importer-Ergonode-1:
+    - Attribute
+    - Core
+    - EventSourcing
+    - Importer
+    - Product
+    - SharedKernel
+  Importer-Magento-1:
+    - Attribute
+    - Core
+    - EventSourcing
+    - Importer
+    - Product
+    - SharedKernel
+  EventSourcing:
+    - Core # todo to remove
+    - SharedKernel
+  Exporter:
+    - Core
+    - EventSourcing
+    - Product
+    - SharedKernel
+  ExporterFile:
+    - Attribute
+    - Core
+    - Exporter
+    - EventSourcing
+    - Product
+    - SharedKernel
+  Mailer:
+    - Core
+    - EventSourcing
+    - SharedKernel
+  Notification:
+    - Account
+    - Api
+    - Core
+    - EventSourcing
+    - SharedKernel
+  Product:
+    - Account
+    - Api
+    - BatchAction
+    - Core
+    - Attribute
+    - EventSourcing
+    - SharedKernel
+  ProductCollection:
+    - Api
+    - Attribute
+    - Core
+    - EventSourcing
+    - Product
+    - SharedKernel
+  TranslationDeepl:
+    - Api
+    - Core
+    - SharedKernel

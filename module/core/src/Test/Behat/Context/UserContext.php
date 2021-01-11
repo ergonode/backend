@@ -10,25 +10,17 @@ declare(strict_types=1);
 namespace Ergonode\Core\Test\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Query\UserQueryInterface;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Authentication\Application\Security\User\User as SecurityUser;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Exception;
-use InvalidArgumentException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserContext implements Context
 {
-    private UserRepositoryInterface $repository;
+    private UserProviderInterface $userProvider;
 
-    private UserQueryInterface $query;
-
-    public function __construct(UserRepositoryInterface $repository, UserQueryInterface $query)
+    public function __construct(UserProviderInterface $userProvider)
     {
-        $this->repository = $repository;
-        $this->query = $query;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -36,22 +28,8 @@ class UserContext implements Context
      *
      * @Transform :user
      */
-    public function castUserEmailToUser(string $userEmail): SecurityUser
+    public function castUserEmailToUser(string $userEmail): UserInterface
     {
-        $userId = $this->query->findIdByEmail(new Email($userEmail));
-        if (!$userId instanceof UserId) {
-            throw new InvalidArgumentException(sprintf('There is no user with email %s', $userEmail));
-        }
-        $user = $this->repository->load($userId);
-        if (!$user instanceof User) {
-            throw new InvalidArgumentException(sprintf('There is no user with email %s', $userEmail));
-        }
-
-        return new SecurityUser(
-            $user->getId()->getValue(),
-            $user->getPassword(),
-            $user->getRoles(),
-            $user->isActive(),
-        );
+        return $this->userProvider->loadUserByUsername($userEmail);
     }
 }

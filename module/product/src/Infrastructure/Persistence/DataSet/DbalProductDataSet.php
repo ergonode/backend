@@ -15,6 +15,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\ColumnInterface;
+use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilderProvider;
 use Ramsey\Uuid\Uuid;
@@ -33,11 +34,15 @@ class DbalProductDataSet extends AbstractDbalDataSet
      */
     private array $names;
 
-    public function __construct(Connection $connection, DataSetQueryBuilderProvider $provider)
-    {
+    public function __construct(
+        Connection $connection,
+        DataSetQueryBuilderProvider $queryBuilderProvider,
+        FilterBuilderProvider $filterBuilderProvider
+    ) {
         $this->connection = $connection;
-        $this->provider = $provider;
+        $this->provider = $queryBuilderProvider;
         $this->names = [];
+        parent::__construct($filterBuilderProvider);
     }
 
     /**

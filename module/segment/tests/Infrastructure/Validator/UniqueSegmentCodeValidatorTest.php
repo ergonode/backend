@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Segment\Infrastructure\Validator;
+namespace Ergonode\Segment\Tests\Infrastructure\Validator;
 
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
@@ -45,17 +45,6 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('', new UniqueSegmentCode());
 
         $this->assertNoViolation();
-    }
-
-    public function testSegmentCodeNotValidValidation(): void
-    {
-        $constraint = new UniqueSegmentCode();
-        $value =
-            '5XPeqpDgL2sJXSKSkgq7Wf3J0oI9fSAMznAdUJ16Jynr6ZYmL87ougT4WlHylg2iIYEkIhDy6icd5yhw2Bnx0l9agBlYf80MIqBtN';
-        $this->validator->validate($value, $constraint);
-
-        $assertion = $this->buildViolation($constraint->validMessage)->setParameter('{{ value }}', $value);
-        $assertion->assertRaised();
     }
 
     public function testStatusExistsValidation(): void

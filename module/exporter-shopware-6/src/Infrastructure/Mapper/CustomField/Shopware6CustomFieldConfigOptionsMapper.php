@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
@@ -22,11 +22,11 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
 {
     private OptionQueryInterface $optionQuery;
 
-    private Shopware6LanguageRepositoryInterface  $languageRepository;
+    private LanguageRepositoryInterface  $languageRepository;
 
     public function __construct(
         OptionQueryInterface $optionQuery,
-        Shopware6LanguageRepositoryInterface $languageRepository
+        LanguageRepositoryInterface $languageRepository
     ) {
         $this->optionQuery = $optionQuery;
         $this->languageRepository = $languageRepository;

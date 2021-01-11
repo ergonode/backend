@@ -14,8 +14,8 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupClient;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
@@ -26,23 +26,23 @@ use Webmozart\Assert\Assert;
 
 class PropertyGroupShopware6ExportProcess
 {
-    private Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository;
+    private PropertyGroupRepositoryInterface $propertyGroupRepository;
 
     private Shopware6PropertyGroupClient $propertyGroupClient;
 
     private Shopware6PropertyGroupBuilder $builder;
 
-    private Shopware6LanguageRepositoryInterface  $languageRepository;
+    private LanguageRepositoryInterface  $languageRepository;
 
     private PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess;
 
     private ExportLineRepositoryInterface $exportLineRepository;
 
     public function __construct(
-        Shopware6PropertyGroupRepositoryInterface $propertyGroupRepository,
+        PropertyGroupRepositoryInterface $propertyGroupRepository,
         Shopware6PropertyGroupClient $propertyGroupClient,
         Shopware6PropertyGroupBuilder $builder,
-        Shopware6LanguageRepositoryInterface $languageRepository,
+        LanguageRepositoryInterface $languageRepository,
         PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess,
         ExportLineRepositoryInterface $exportLineRepository
     ) {

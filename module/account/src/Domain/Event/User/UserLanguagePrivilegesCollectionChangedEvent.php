@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use JMS\Serializer\Annotation as JMS;
@@ -24,7 +24,7 @@ class UserLanguagePrivilegesCollectionChangedEvent implements DomainEventInterfa
     /**
      * @var LanguagePrivileges[]
      *
-     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\LanguagePrivileges>")
      */
     private array $to;
 

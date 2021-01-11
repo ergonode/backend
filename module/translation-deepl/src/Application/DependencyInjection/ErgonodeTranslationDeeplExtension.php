@@ -29,5 +29,10 @@ class ErgonodeTranslationDeeplExtension extends Extension
         );
 
         $loader->load('services.yml');
+
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('ergonode.translation_deepl.authentication_key', $config['authentication_key']);
     }
 }

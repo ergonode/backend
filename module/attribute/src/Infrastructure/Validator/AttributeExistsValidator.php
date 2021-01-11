@@ -26,7 +26,7 @@ class AttributeExistsValidator extends ConstraintValidator
 
     /**
      * @param mixed                    $value
-     * @param AttributeCode|Constraint $constraint
+     * @param AttributeExists|Constraint $constraint
      *
      * @throws \ReflectionException
      */

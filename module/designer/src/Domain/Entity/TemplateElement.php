@@ -67,4 +67,13 @@ class TemplateElement
     {
         return $this->properties;
     }
+
+    public function isEqual(TemplateElement $element): bool
+    {
+        return
+            $element->getType() === $this->getType() &&
+            $element->getProperties()->isEqual($this->getProperties()) &&
+            $element->getSize()->isEqual($this->getSize()) &&
+            $element->getPosition()->isEqual($this->getPosition());
+    }
 }
