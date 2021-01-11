@@ -152,7 +152,7 @@ class DbalExportQuery implements ExportQueryInterface
         return $result;
     }
 
-    public function getChannelTypeByExportId(ExportId $exportId): string
+    public function getChannelTypeByExportId(ExportId $exportId): ?string
     {
         $qb = $this->connection->createQueryBuilder();
 
@@ -164,7 +164,11 @@ class DbalExportQuery implements ExportQueryInterface
             ->execute()
             ->fetch();
 
-        return $result['type'];
+        if ($result) {
+            return $result['type'];
+        }
+
+        return null;
     }
 
     private function getQuery(): QueryBuilder

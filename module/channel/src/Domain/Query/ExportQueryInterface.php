@@ -28,5 +28,5 @@ interface ExportQueryInterface
 
     public function getExportIdsByChannelId(ChannelId $channelId): array;
 
-    public function getChannelTypeByExportId(ExportId $exportId): string;
+    public function getChannelTypeByExportId(ExportId $exportId): ?string;
 }
