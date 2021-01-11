@@ -16,5 +16,5 @@ interface ChannelQueryInterface
 {
     public function getDataSet(Language $language): DataSetInterface;
 
-    public function findChannelIdByType(string $type): array;
+    public function findChannelIdsByType(string $type): array;
 }
