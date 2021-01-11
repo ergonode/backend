@@ -152,6 +152,21 @@ class DbalExportQuery implements ExportQueryInterface
         return $result;
     }
 
+    public function getChannelTypeByExportId(ExportId $exportId): string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('ch.type')
+            ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
+            ->where($qb->expr()->eq('e.id', ':exportId'))
+            ->setParameter(':exportId', $exportId->getValue())
+            ->from(self::TABLE, 'e')
+            ->execute()
+            ->fetch();
+
+        return $result['type'];
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

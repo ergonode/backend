@@ -132,6 +132,16 @@ class DbalExportRepository implements ExportRepositoryInterface
         );
     }
 
+    public function delete(Export $export): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $export->getId()->getValue(),
+            ]
+        );
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

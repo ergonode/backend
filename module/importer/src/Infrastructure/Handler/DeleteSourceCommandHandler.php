@@ -10,7 +10,7 @@ namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\DeleteSourceCommand;
-use Ergonode\Importer\Domain\Command\ImportDeletedCommand;
+use Ergonode\Importer\Domain\Command\Import\DeleteImportCommand;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
@@ -47,13 +47,12 @@ class DeleteSourceCommandHandler
             sprintf('Can\'t find source "%s"', $command->getId()->getValue())
         );
 
-        $fileNames = $this->importQuery->getFileNamesBySourceId($source->getId());
+        $importIds = $this->importQuery->getImportIdsBySourceId($source->getId());
 
-        $this->sourceRepository->delete($source);
-
-        foreach ($fileNames as $fileName) {
-            $importDeletedCommand = new ImportDeletedCommand($fileName, $source->getType());
+        foreach ($importIds as $importId) {
+            $importDeletedCommand = new DeleteImportCommand($importId);
             $this->commandBus->dispatch($importDeletedCommand);
         }
+        $this->sourceRepository->delete($source);
     }
 }

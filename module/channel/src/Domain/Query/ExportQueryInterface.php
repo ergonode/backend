@@ -27,4 +27,6 @@ interface ExportQueryInterface
     public function findLastExport(ChannelId $channelId): ?\DateTime;
 
     public function getExportIdsByChannelId(ChannelId $channelId): array;
+
+    public function getChannelTypeByExportId(ExportId $exportId): string;
 }

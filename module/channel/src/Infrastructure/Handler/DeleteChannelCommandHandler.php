@@ -14,7 +14,7 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Command\Export\ExportDeletedCommand;
+use Ergonode\Exporter\Domain\Command\Export\DeleteExportCommand;
 use Webmozart\Assert\Assert;
 
 class DeleteChannelCommandHandler
@@ -50,11 +50,11 @@ class DeleteChannelCommandHandler
 
         $exportIds = $this->exportQuery->getExportIdsByChannelId($channel->getId());
 
-        $this->channelRepository->delete($channel);
 
         foreach ($exportIds as $exportId) {
-            $exportDeletedCommand = new ExportDeletedCommand($exportId, $channel::getType());
+            $exportDeletedCommand = new DeleteExportCommand($exportId);
             $this->commandBus->dispatch($exportDeletedCommand);
         }
+        $this->channelRepository->delete($channel);
     }
 }

@@ -108,19 +108,66 @@ class DbalImportQuery implements ImportQueryInterface
     }
 
     /**
-     * @return string[]
+     * @return ImportId[]
      */
-    public function getFileNamesBySourceId(SourceId $sourceId): array
+    public function getImportIdsBySourceId(SourceId $sourceId): array
     {
         $qb = $this->connection->createQueryBuilder();
 
-        return $qb->select('i.file')
+        $result = $qb->select('i.id')
             ->join('i', self::TABLE_SOURCE, 'il', 'il.id = i.source_id')
             ->where($qb->expr()->eq('i.source_id', ':sourceId'))
             ->setParameter(':sourceId', $sourceId->getValue())
             ->from(self::TABLE, 'i')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ImportId($item);
+        }
+
+        return $result;
+    }
+
+    public function getSourceTypeByImportId(ImportId $importId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('s.type')
+            ->join('i', self::TABLE_SOURCE, 's', 's.id = i.source_id')
+            ->where($qb->expr()->eq('i.id', ':importId'))
+            ->setParameter(':importId', $importId->getValue())
+            ->from(self::TABLE, 'i')
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return $result['type'];
+        }
+
+        return null;
+    }
+
+    public function getFileNameByImportId(ImportId $importId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('i.file')
+            ->where($qb->expr()->eq('i.id', ':importId'))
+            ->setParameter(':importId', $importId->getValue())
+            ->from(self::TABLE, 'i')
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return $result['file'];
+        }
+
+        return null;
     }
 
     private function getQuery(): QueryBuilder

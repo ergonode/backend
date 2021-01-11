@@ -48,3 +48,6 @@ services:
                 - '@Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductImageAttributeStrategy'
                 - '@Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductMultiSelectAttributeStrategy'
                 - '@Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductSelectAttributeStrategy'
+
+    Ergonode\Importer\Infrastructure\Handler\Import\DeleteImportCommandHandler:
+        tags: [ { name: 'messenger.message_handler', priority: -10 }]

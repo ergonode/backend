@@ -13,31 +13,20 @@ use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 
-class ExportDeletedCommand implements ExporterCommandInterface
+class DeleteExportCommand implements ExporterCommandInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
      */
     private ExportId $exportId;
 
-    /**
-     * @JMS\Type("string")
-     */
-    private string $channelType;
-
-    public function __construct(ExportId $exportId, string $channelType)
+    public function __construct(ExportId $exportId)
     {
         $this->exportId = $exportId;
-        $this->channelType = $channelType;
     }
 
     public function getExportId(): ExportId
     {
         return $this->exportId;
-    }
-
-    public function getChannelType(): string
-    {
-        return $this->channelType;
     }
 }
