@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class ValidSegmentId extends Constraint
+class SegmentExists extends Constraint
 {
-    public string $message = 'The Segment id {{ value }} is not valid.';
+    public string $message = 'The segment not exists.';
 }
