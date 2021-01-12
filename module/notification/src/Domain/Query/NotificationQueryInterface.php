@@ -12,7 +12,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ramsey\Uuid\Uuid;
-use Doctrine\DBAL\DBALException;
 
 interface NotificationQueryInterface
 {
@@ -23,13 +22,7 @@ interface NotificationQueryInterface
      */
     public function check(UserId $id): array;
 
-    /**
-     * @throws DBALException
-     */
     public function mark(Uuid $id, UserId $userId, \DateTime $readAt): void;
 
-    /**
-     * @throws DBALException
-     */
     public function markAll(UserId $userId, \DateTime $readAt): void;
 }
