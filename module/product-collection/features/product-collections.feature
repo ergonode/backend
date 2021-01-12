@@ -53,7 +53,7 @@ Feature: Product collection module
     Then the response status code should be 200
     And store response param "collection[0].id" as "product_collection_type_2_id"
 
-  Scenario: Create first product collection
+  Scenario Outline: Create first product collection
     When I send a POST request to "/api/v1/en_GB/collections" with body:
       """
       {
@@ -70,45 +70,12 @@ Feature: Product collection module
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "product_collection_1"
-
-  Scenario: Create second product collection
-    When I send a POST request to "/api/v1/en_GB/collections" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "name": {
-             "de_DE": "Name de",
-             "en_GB": "Name en"
-          },
-          "description": {
-            "de_DE": "Description de",
-            "en_GB": "Description en"
-          },
-          "typeId": "@product_collection_type_1_id@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_collection_2"
-
-  Scenario: Create third product collection
-    When I send a POST request to "/api/v1/en_GB/collections" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "name": {
-             "de_DE": "Name de",
-             "en_GB": "Name en"
-          },
-          "description": {
-            "de_DE": "Description de",
-            "en_GB": "Description en"
-          },
-          "typeId": "@product_collection_type_1_id@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_collection_3"
+    And store response param "id" as "<property>"
+    Examples:
+      | property             |
+      | product_collection_1 |
+      | product_collection_2 |
+      | product_collection_3 |
 
   Scenario: Create product collection (no name and desc)
     When I send a POST request to "/api/v1/en_GB/collections" with body:
@@ -144,55 +111,48 @@ Feature: Product collection module
       """
     Then the response status code should be 400
 
-  Scenario: Create product collection (wrong not correct description)
+  Scenario Outline: Create product collection with incorrect type ID (<value> - <message>)
     When I send a POST request to "/api/v1/en_GB/collections" with body:
       """
       {
-           "code": "TEXT_@@random_code@@",
-              "description": {
-                 "de_DE": "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",
-                 "en_GB": "Description en"
-                 },
-              "typeId": "@product_collection_type_1_id@"
+        "code": "TEXT_@@random_code@@",
+        "description": {
+          "en_GB": "Description en"
+        },
+        "typeId": <value>
       }
       """
     Then the response status code should be 400
+    And the JSON nodes should be equal to:
+      | errors.typeId[0] | <message> |
+    Examples:
+      | value             | message                                      |
+      | null              | Collection type id is required               |
+      | ""                | Collection type id is required               |
+      | "@random_code@"   | Collection type id must be valid uuid format |
+      | "@@random_uuid@@" | Product collection type not exists.          |
 
-  Scenario: Create product collection (not existing uuid)
+  Scenario Outline: Create product collection type (<value> - <message>)
     When I send a POST request to "/api/v1/en_GB/collections" with body:
       """
       {
-          "code": "TEXT_@@random_code@@",
-          "name": {
-             "de_DE": "Name de",
-             "en_GB": "Name en"
-          },
-          "description": {
-            "de_DE": "Description de",
-            "en_GB": "Description en"
-          },
-          "typeId": "@@static_uuid@@"
+        "code": <value>,
+        "description": {
+          "en_GB": "Description en"
+        },
+        "typeId": "@product_collection_type_1_id@"
       }
       """
     Then the response status code should be 400
+    And the JSON nodes should be equal to:
+      | errors.code[0] | <message> |
+    Examples:
+      | value                                                                    | message                                                                    |
+      | null                                                                     | System name is required                                   |
+      | ""                                                                       | System name is required                                   |
+      | "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" | System name is too long. It should contain 64 characters or less.          |
+      | "TEXT/. .,.]"                                                            | Product collection System Name can have only letters, digits or underscore symbol |
 
-  Scenario: Create product collection (not uuid)
-    When I send a POST request to "/api/v1/en_GB/collections" with body:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "name": {
-             "de_DE": "Name de",
-             "en_GB": "Name en"
-          },
-          "description": {
-            "de_DE": "Description de",
-            "en_GB": "Description en"
-          },
-          "typeId": "@@random_code@@"
-      }
-      """
-    Then the response status code should be 400
 
   Scenario: Update product collection (not found)
     When I send a PUT request to "/api/v1/en_GB/collections/@@static_uuid@@"
@@ -232,60 +192,6 @@ Feature: Product collection module
     Then the response status code should be 200
     And the JSON node "name.en_GB" should be equal to the string "New Name en"
     And the JSON node "description.en_GB" should be equal to the string "New Description en"
-
-  Scenario: Get product collection (order by code)
-    When I send a GET request to "/api/v1/en_GB/collections?field=code"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "collection[0].code" should exist
-
-  Scenario: Get product collection (order by name)
-    When I send a GET request to "/api/v1/en_GB/collections?field=name"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "collection[0].code" should exist
-
-  Scenario: Get product collection (order by description)
-    When I send a GET request to "/api/v1/en_GB/collections?field=description"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "collection[0].code" should exist
-
-  Scenario: Get product collection (order by type_id)
-    When I send a GET request to "/api/v1/en_GB/collections?field=type_id"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "collection[0].code" should exist
-
-  Scenario: Get product collection (filter by code)
-    When I send a GET request to "/api/v1/en_GB/collections?limit=25&offset=0&filter=code=text_"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-
-  Scenario: Get product collection (filter by null code)
-    When I send a GET request to "/api/v1/en_GB/collections?limit=25&offset=0&filter=code="
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/0/"
-
-  Scenario: Get product collection (filter by name)
-    When I send a GET request to "/api/v1/en_GB/collections?limit=25&offset=0&filter=name=Name"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-
-  Scenario: Get product collection (filter by description)
-    When I send a GET request to "/api/v1/en_GB/collections?limit=25&offset=0&filter=description=Description"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-
-  Scenario: Get product collection (order ASC)
-    When I send a GET request to "/api/v1/en_GB/collections?order=ASC"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
-
-  Scenario: Get products collection  (order DESC)
-    When I send a GET request to "/api/v1/en_GB/collections?order=DESC"
-    Then the JSON should be valid according to the schema "grid/features/gridSchema.json"
-    And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Delete product collection (not found)
     When I send a DELETE request to "/api/v1/en_GB/collections/@@static_uuid@@"

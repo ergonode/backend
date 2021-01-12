@@ -56,14 +56,22 @@ Feature: Product collection module
       """
     Then the response status code should be 201
 
-  Scenario: Create product collection type (wrong not correct code)
+  Scenario Outline: Create product collection type (<value> - <message>)
     When I send a POST request to "/api/v1/en_GB/collections/type" with body:
       """
       {
-        "code": "TEXT/. .,.]_@@random_code@@"
+        "code": <value>
       }
       """
     Then the response status code should be 400
+    And the JSON nodes should be equal to:
+      | errors.code[0] | <message> |
+    Examples:
+      | value                                                                    | message                                                                    |
+      | null                                                                     | Product collection type code is required                                   |
+      | ""                                                                       | Product collection type code is required                                   |
+      | "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii" | System name is too long. It should contain 64 characters or less.          |
+      | "TEXT/. .,.]"                                                            | Product collection type can have only letters, digits or underscore symbol |
 
   Scenario: Create product collection type (wrong not correct name)
     When I send a POST request to "/api/v1/en_GB/collections/type" with body:
