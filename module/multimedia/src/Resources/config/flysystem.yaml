@@ -1,0 +1,10 @@
+flysystem:
+    storages:
+        multimedia.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/multimedia'
+        thumbnail.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/thumbnail'

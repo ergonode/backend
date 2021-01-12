@@ -41,11 +41,24 @@ class ErgonodeAccountExtension extends Extension implements PrependExtensionInte
      */
     public function prepend(ContainerBuilder $container): void
     {
+        $this->prependNelmioApiDoc($container);
+        $this->prependFlysystem($container);
+    }
+
+    private function prependNelmioApiDoc(ContainerBuilder $container): void
+    {
         if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
             return;
         }
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');
+    }
+
+    private function prependFlysystem(ContainerBuilder $container): void
+    {
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('flysystem.yaml');
     }
 }
