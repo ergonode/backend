@@ -10,7 +10,6 @@ namespace Ergonode\Category\Tests\Application\Form;
 
 use Ergonode\Category\Application\Form\CategoryForm;
 use Ergonode\Category\Application\Model\CategoryFormModel;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class CategoryCreateFormTest extends TypeTestCase
