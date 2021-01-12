@@ -11,7 +11,7 @@ namespace Ergonode\Channel\Application\Provider;
 class ChannelTypeProvider
 {
     /**
-     * @var array[]
+     * @var string[]
      */
     private array $types;
 

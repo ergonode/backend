@@ -11,8 +11,8 @@ namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Application\Validator\Constraints\UserUnique;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Account\Infrastructure\Validator\RoleExists;
 
 class CreateUserFormModel
 {
@@ -77,8 +77,9 @@ class CreateUserFormModel
     /**
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
+     * @RoleExists()
      */
-    public ?RoleId $roleId;
+    public ?string $roleId;
 
     /**
      * @Assert\NotNull(message="Activity is required")

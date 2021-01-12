@@ -13,7 +13,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Webmozart\Assert\Assert;
@@ -30,8 +29,9 @@ class DbalCommentRepository implements CommentRepositoryInterface
     /**
      * @throws \ReflectionException
      */
-    public function load(CommentId $id): ?AbstractAggregateRoot
+    public function load(CommentId $id): ?Comment
     {
+        /** @var Comment|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, Comment::class);
 

@@ -11,7 +11,6 @@ namespace Ergonode\Account\Infrastructure\Persistence\Repository;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Webmozart\Assert\Assert;
@@ -26,19 +25,19 @@ class DbalUserRepository implements UserRepositoryInterface
     }
 
     /**
-     * @return User|null
      *
      * @throws \ReflectionException
      */
-    public function load(UserId $id): ?AbstractAggregateRoot
+    public function load(UserId $id): ?User
     {
+        /** @var User|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, User::class);
 
         return $aggregate;
     }
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(User $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }

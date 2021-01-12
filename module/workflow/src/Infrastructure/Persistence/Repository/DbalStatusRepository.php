@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Persistence\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Status;
@@ -27,12 +26,11 @@ class DbalStatusRepository implements StatusRepositoryInterface
     }
 
     /**
-     * @return Status|null
-     *
      * @throws \ReflectionException
      */
-    public function load(StatusId $id): ?AbstractAggregateRoot
+    public function load(StatusId $id): ?Status
     {
+        /** @var Status|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, Status::class);
 
@@ -44,7 +42,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
         return $this->manager->exists($id);
     }
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(Status $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }
@@ -54,7 +52,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(Status $aggregateRoot): void
     {
         $aggregateRoot->apply(new StatusDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);

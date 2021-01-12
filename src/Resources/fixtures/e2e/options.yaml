@@ -1,0 +1,11 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    option_value_1_{1..50}:
+        __construct:
+            -
+                'pl_PL': 'Option_PL_1_<current()>'
+                'en_GB': 'Option_EN_1_<current()>'
+    option_value_2_{1..50}:
+        __construct:
+            -
+                'pl_PL': 'Option_PL_2_<current()>'
+                'en_GB': 'Option_EN_2_<current()>'

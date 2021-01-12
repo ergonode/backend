@@ -27,7 +27,7 @@ class IdUserProvider implements UserProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): User
     {
         if (empty($username)) {
             throw new UsernameNotFoundException('Empty username');
