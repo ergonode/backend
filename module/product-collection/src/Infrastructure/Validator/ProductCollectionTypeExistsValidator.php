@@ -45,11 +45,10 @@ class ProductCollectionTypeExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
+        $result = false;
         if (!ProductCollectionTypeId::isValid($value)) {
-            return;
+            $result = $this->repository->exists(new ProductCollectionTypeId($value));
         }
-
-        $result = $this->repository->exists(new ProductCollectionTypeId($value));
 
         if (!$result) {
             $this->context->buildViolation($constraint->message)
