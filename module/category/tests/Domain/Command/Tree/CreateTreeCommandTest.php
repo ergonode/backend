@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Category\Domain\Command\Tree;
+namespace Ergonode\Category\Tests\Domain\Command\Tree;
 
 use Ergonode\Category\Application\Model\Tree\TreeNodeFormModel;
 use Ergonode\Category\Domain\Command\Tree\CreateTreeCommand;

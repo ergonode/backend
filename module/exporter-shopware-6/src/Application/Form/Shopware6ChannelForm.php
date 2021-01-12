@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Application\Form;
 
-use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
@@ -55,7 +54,6 @@ class Shopware6ChannelForm extends AbstractType
         $this->segmentQuery = $segmentQuery;
         $this->productCollectionQuery = $productCollectionQuery;
     }
-
 
     /**
      * @param array $options
@@ -136,7 +134,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_name',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Name',
                     'choices' => array_flip($textAttributeDictionary),
@@ -145,7 +143,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_active',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Active',
                     'choices' => array_flip($numericAttributeDictionary),
@@ -154,7 +152,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_stock',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Stock',
                     'choices' => array_flip($numericAttributeDictionary),
@@ -163,7 +161,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_price_gross',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Price Gross',
                     'choices' => array_flip($priceAttributeDictionary),
@@ -172,7 +170,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_price_net',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Price Net',
                     'choices' => array_flip($priceAttributeDictionary),
@@ -181,7 +179,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_tax',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Tax',
                     'choices' => array_flip($numericAttributeDictionary),
@@ -190,7 +188,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_description',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Description',
                     'choices' => array_flip($textareaAttributeDictionary),
@@ -200,7 +198,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_gallery',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Gallery',
                     'choices' => array_flip($galleryAttributeDictionary),
@@ -210,7 +208,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_meta_title',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Meta Title',
                     'help' => 'Value in product should contain 255 characters or less.',
@@ -221,7 +219,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_meta_description',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Meta Description',
                     'help' => 'Value in product should contain 255 characters or less.',
@@ -232,7 +230,7 @@ class Shopware6ChannelForm extends AbstractType
             )
             ->add(
                 'attribute_product_keywords',
-                AttributeIdType::class,
+                ChoiceType::class,
                 [
                     'label' => 'Attribute Product Keywords',
                     'choices' => array_flip($textareaAttributeDictionary),

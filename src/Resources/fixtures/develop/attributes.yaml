@@ -160,7 +160,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand
             - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand:
-    attribute_gallery:
+    attribute_file:
         __construct:
             - '<AttributeCode(file_attribute)>'
             - '@label_1'

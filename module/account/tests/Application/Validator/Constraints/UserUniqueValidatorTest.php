@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Account\Application\Validator\Constraints;
+namespace Ergonode\Account\Tests\Application\Validator\Constraints;
 
 use Ergonode\Account\Application\Validator\Constraints\UserUnique;
 use Ergonode\Account\Application\Validator\Constraints\UserUniqueValidator;

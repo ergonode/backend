@@ -32,6 +32,7 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
      */
     public function load(SegmentId $id): ?Segment
     {
+        /** @var Segment|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, Segment::class);
 

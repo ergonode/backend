@@ -22,8 +22,7 @@ interface NotificationQueryInterface
      */
     public function check(UserId $id): array;
 
-    /**
-     * @throws \Doctrine\DBAL\DBALException
-     */
     public function mark(Uuid $id, UserId $userId, \DateTime $readAt): void;
+
+    public function markAll(UserId $userId, \DateTime $readAt): void;
 }

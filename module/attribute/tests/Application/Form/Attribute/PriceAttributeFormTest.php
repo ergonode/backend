@@ -9,33 +9,19 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\PriceAttributeForm;
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
-use Ergonode\Core\Application\Form\Type\CurrencyFormType;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
-use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Ergonode\Core\Application\Form\Type\CurrencyFormType;
+use Symfony\Component\Form\PreloadedExtension;
 
 class PriceAttributeFormTest extends TypeTestCase
 {
-    /**
-     * @var AttributeGroupQueryInterface|MockObject
-     */
-    private AttributeGroupQueryInterface $groupQuery;
-
     private CurrencyQueryInterface $currencyQuery;
 
     public function setUp(): void
     {
-        $this->groupQuery = $this->createMock(AttributeGroupQueryInterface::class);
-        $this->groupQuery->method('getAttributeGroupIds')->willReturn([
-            '2ae47e1b-10c3-4dd6-ac70-41000125c29f',
-        ]);
-
         $this->currencyQuery = $this->createMock(CurrencyQueryInterface::class);
         $this->currencyQuery->method('getDictionary')->willReturn([
             'PLN' => 'PLN',
@@ -68,7 +54,7 @@ class PriceAttributeFormTest extends TypeTestCase
         $object->hint = [];
         $object->scope = 'local';
         $object->code = 'code';
-        $object->groups = [new AttributeGroupId('2ae47e1b-10c3-4dd6-ac70-41000125c29f')];
+        $object->groups = ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'];
 
         $objectToCompare = new PriceAttributeFormModel();
         $form = $this->factory->create(PriceAttributeForm::class, $objectToCompare);
@@ -91,7 +77,6 @@ class PriceAttributeFormTest extends TypeTestCase
      */
     protected function getExtensions(): array
     {
-        $types[] = new AttributeGroupType($this->groupQuery);
         $types[] = new CurrencyFormType($this->currencyQuery);
 
         return [

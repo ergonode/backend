@@ -18,6 +18,11 @@ ergonode_account_api:
     type: 'annotation'
     prefix: '/api/v1/{language}'
 
+ergonode_account_token_api:
+    resource: '../../Application/Controller/Api/PasswordToken/*'
+    type: 'annotation'
+    prefix: '/api/v1/'
+
 ergonode_profile_api:
     resource: '../../Application/Controller/Api/ProfileReadAction.php'
     type: 'annotation'

@@ -11,14 +11,10 @@ namespace Ergonode\Account\Domain\Repository;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 interface UserRepositoryInterface
 {
-    /**
-     * @return User|null
-     */
-    public function load(UserId $id): ?AbstractAggregateRoot;
+    public function load(UserId $id): ?User;
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(User $aggregateRoot): void;
 }

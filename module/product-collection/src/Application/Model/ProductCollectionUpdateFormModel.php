@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionTypeExists;
 
 class ProductCollectionUpdateFormModel
 {
@@ -43,8 +43,9 @@ class ProductCollectionUpdateFormModel
     /**
      * @Assert\NotBlank(message="Collection type is required")
      * @Assert\Uuid(message="Collection type must be valid uuid format")
+     * @ProductCollectionTypeExists()
      */
-    public ?ProductCollectionTypeId $typeId;
+    public ?string $typeId;
 
     public function __construct()
     {

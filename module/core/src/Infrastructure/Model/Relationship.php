@@ -9,13 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Model;
 
-use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 
 class Relationship implements \Iterator, \Countable
 {
     /**
-     * @var AggregateId[]
+     * @var RelationshipGroup[]
      */
     private array $collection;
 

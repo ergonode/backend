@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 
 /**
  * @Route(
@@ -89,7 +90,7 @@ class ProductCollectionTypeCreateAction
                 /** @var ProductCollectionTypeCreateFormModel $data */
                 $data = $form->getData();
                 $command = new CreateProductCollectionTypeCommand(
-                    $data->code,
+                    new ProductCollectionTypeCode($data->code),
                     new TranslatableString($data->name),
                 );
                 $this->commandBus->dispatch($command);

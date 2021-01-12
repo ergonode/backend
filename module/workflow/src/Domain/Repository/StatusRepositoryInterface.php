@@ -9,22 +9,20 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 interface StatusRepositoryInterface
 {
     /**
-     * @return null|Status
      *
      * @throws \ReflectionException
      */
-    public function load(StatusId $id): ?AbstractAggregateRoot;
+    public function load(StatusId $id): ?Status;
 
     public function exists(StatusId $id): bool;
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(Status $aggregateRoot): void;
 
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(Status $aggregateRoot): void;
 }
