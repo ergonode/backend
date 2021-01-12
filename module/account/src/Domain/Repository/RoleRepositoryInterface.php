@@ -11,16 +11,12 @@ namespace Ergonode\Account\Domain\Repository;
 
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 interface RoleRepositoryInterface
 {
-    /**
-     * @return Role|AbstractAggregateRoot|null
-     */
-    public function load(RoleId $id): ?AbstractAggregateRoot;
+    public function load(RoleId $id): ?Role;
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(Role $aggregateRoot): void;
 
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(Role $aggregateRoot): void;
 }

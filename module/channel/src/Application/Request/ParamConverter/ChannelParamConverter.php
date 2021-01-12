@@ -30,7 +30,7 @@ class ChannelParamConverter implements ParamConverterInterface
     /**
      * {@inheritDoc}
      */
-    public function apply(Request $request, ParamConverter $configuration): void
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         $parameter = $request->get('channel');
 
@@ -49,6 +49,8 @@ class ChannelParamConverter implements ParamConverterInterface
         }
 
         $request->attributes->set($configuration->getName(), $entity);
+
+        return true;
     }
 
     /**

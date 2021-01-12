@@ -37,7 +37,7 @@ class DomainEntityCreatorCommand extends Command
         $this->addArgument('entity', InputArgument::REQUIRED, 'Entity name');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $module = $input->getArgument('module');
         $entity = $input->getArgument('entity');
@@ -59,5 +59,7 @@ class DomainEntityCreatorCommand extends Command
         }
 
         $this->generator->generate($module, $entity, $properties);
+
+        return 0;
     }
 }

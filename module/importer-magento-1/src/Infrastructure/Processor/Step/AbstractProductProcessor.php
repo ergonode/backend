@@ -37,7 +37,7 @@ abstract class AbstractProductProcessor
     /**
      * @var AbstractAttribute[] $attributes
      *
-     * @return string[]
+     * @return TranslatableString[]
      */
     protected function getAttributes(
         Magento1CsvSource $source,

@@ -16,6 +16,7 @@ use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 class CreateCategoryCommandFactory implements CreateCategoryCommandFactoryInterface
 {
@@ -34,7 +35,7 @@ class CreateCategoryCommandFactory implements CreateCategoryCommandFactoryInterf
 
         return new CreateCategoryCommand(
             CategoryId::generate(),
-            $data->code,
+            new CategoryCode($data->code),
             new TranslatableString($data->name)
         );
     }

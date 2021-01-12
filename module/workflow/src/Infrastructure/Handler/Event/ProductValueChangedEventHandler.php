@@ -140,12 +140,13 @@ class ProductValueChangedEventHandler
      */
     private function getLanguages(array $from, ValueInterface $to): array
     {
+        $result = [];
         $languages = array_keys(array_diff($to->getValue(), $from));
 
-        foreach ($languages as &$language) {
-            $language = new Language($language);
+        foreach ($languages as $language) {
+            $result[] = new Language($language);
         }
 
-        return $languages;
+        return $result;
     }
 }

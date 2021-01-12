@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeGroupFormModel;
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupCodeType;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AttributeGroupCreateForm extends AbstractType
 {
@@ -26,7 +26,7 @@ class AttributeGroupCreateForm extends AbstractType
         $builder
             ->add(
                 'code',
-                AttributeGroupCodeType::class
+                TextType::class
             )
             ->add(
                 'name',

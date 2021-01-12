@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  * @Route(
@@ -105,7 +106,7 @@ class ProductCollectionChangeAction
                     $productCollection->getId(),
                     new TranslatableString($data->name),
                     new TranslatableString($data->description),
-                    $data->typeId
+                    new ProductCollectionTypeId($data->typeId)
                 );
                 $this->commandBus->dispatch($command);
 

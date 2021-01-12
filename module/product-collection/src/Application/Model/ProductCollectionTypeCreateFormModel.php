@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
 use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,7 +26,7 @@ class ProductCollectionTypeCreateFormModel
      *
      * @ProductCollectionCodeUnique()
      */
-    public ?ProductCollectionTypeCode $code;
+    public ?string $code;
 
     /**
      * @var array

@@ -38,12 +38,12 @@ class Shopware6UpdateChannelCommandBuilderTest extends TestCase
         $model->defaultLanguage = 'en_GB';
         $model->languages = ['en_GB'];
         $model->segment = SegmentId::generate()->getValue();
-        $model->attributeProductName = $this->createMock(AttributeId::class);
-        $model->attributeProductActive = $this->createMock(AttributeId::class);
-        $model->attributeProductStock = $this->createMock(AttributeId::class);
-        $model->attributeProductPriceGross = $this->createMock(AttributeId::class);
-        $model->attributeProductPriceNet = $this->createMock(AttributeId::class);
-        $model->attributeProductTax = $this->createMock(AttributeId::class);
+        $model->attributeProductName = AttributeId::generate()->getValue();
+        $model->attributeProductActive = AttributeId::generate()->getValue();
+        $model->attributeProductStock = AttributeId::generate()->getValue();
+        $model->attributeProductPriceGross = AttributeId::generate()->getValue();
+        $model->attributeProductPriceNet = AttributeId::generate()->getValue();
+        $model->attributeProductTax = AttributeId::generate()->getValue();
         $model->categoryTree = '0b0df351-dc46-4051-b0d2-166215e8283c';
 
 

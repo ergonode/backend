@@ -21,7 +21,7 @@ class LanguageData
     }
 
     /**
-     * @return LanguageData[]
+     * @return string[]
      */
     public function getValues(): array
     {
