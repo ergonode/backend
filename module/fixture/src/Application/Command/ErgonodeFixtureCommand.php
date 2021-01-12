@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchEvent;
+use Ergonode\Fixture\Exception\FixtureException;
 
 class ErgonodeFixtureCommand extends Command
 {
@@ -37,9 +38,9 @@ class ErgonodeFixtureCommand extends Command
     }
 
     /**
-     * @throws \Ergonode\Fixture\Exception\FixtureException
+     * @throws FixtureException
      */
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $stopwatch = new Stopwatch();
         $stopwatch->start('ergonode-fixture-load');
@@ -47,6 +48,8 @@ class ErgonodeFixtureCommand extends Command
         $event = $stopwatch->stop('ergonode-fixture-load');
 
         $this->endFixtureLoad($event, $output);
+
+        return 0;
     }
 
     private function endFixtureLoad(StopwatchEvent $stopwatchEvent, OutputInterface $output): void

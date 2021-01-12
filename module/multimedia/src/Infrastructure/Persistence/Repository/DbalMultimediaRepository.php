@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Infrastructure\Persistence\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Doctrine\DBAL\DBALException;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -28,19 +27,21 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
     }
 
     /**
-     * @return Multimedia|null
-     *
      * @throws \ReflectionException
      */
-    public function load(MultimediaId $id): ?AbstractAggregateRoot
+    public function load(MultimediaId $id): ?AbstractMultimedia
     {
+        /** @var AbstractMultimedia|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, AbstractMultimedia::class);
 
         return $aggregate;
     }
 
-    public function save(Multimedia $aggregateRoot): void
+    /**
+     * @throws DBALException
+     */
+    public function save(AbstractMultimedia $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }
@@ -55,7 +56,7 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(Multimedia $multimedia): void
+    public function delete(AbstractMultimedia $multimedia): void
     {
         $multimedia->apply(new MultimediaDeletedEvent($multimedia->getId()));
         $this->save($multimedia);

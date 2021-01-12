@@ -112,7 +112,7 @@ class Shopware6ChannelFormModel
     public array $propertyGroup = [];
 
     /**
-     * @var PropertyGroupAttributeModel[]
+     * @var CustomFieldAttributeModel[]
      *
      * @Assert\Valid()
      */
