@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
-use Ergonode\Account\Application\Validator\Constraints\AvailableTokenConstraint;
+use Ergonode\Account\Application\Validator as AccountAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -16,8 +16,7 @@ class UserApplyTokenModel
 {
     /**
      * @Assert\NotBlank()
-     *
-     * @AvailableTokenConstraint()
+     * @AccountAssert\TokenAvailable()
      */
     public ?string $token = null;
 

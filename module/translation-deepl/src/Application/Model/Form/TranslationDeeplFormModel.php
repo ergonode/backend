@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\TranslationDeepl\Application\Model\Form;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\TranslationDeepl\Infrastructure\Validator\Constraints as DeeplAssert;
+use Ergonode\TranslationDeepl\Application\Validator as DeeplAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TranslationDeeplFormModel
@@ -25,14 +25,14 @@ class TranslationDeeplFormModel
      * @Assert\NotBlank(message="Source language is required")
      * @Assert\NotEqualTo(propertyPath="targetLanguage", message="Source language and target language can't be equal.")
      *
-     * @DeeplAssert\DeeplLanguageConstraint()
+     * @DeeplAssert\DeeplLanguageAvailable()
      */
     public ?Language $sourceLanguage;
 
     /**
      * @Assert\NotBlank(message="Target language is required")
      *
-     * @DeeplAssert\DeeplLanguageConstraint()
+     * @DeeplAssert\DeeplLanguageAvailable()
      */
     public ?Language $targetLanguage;
 

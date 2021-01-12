@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Application\Form\Model;
 
-use Ergonode\Segment\Infrastructure\Validator\UniqueSegmentCode;
-use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
+use Ergonode\Segment\Application\Validator as SegmentAssert;
+use Ergonode\SharedKernel\Application\Validator as SharedKernelAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateSegmentFormModel
@@ -23,8 +23,8 @@ class CreateSegmentFormModel
     /**
      * @Assert\NotBlank(message="System name is required")
      *
-     * @SystemCodeConstraint(max="100")
-     * @UniqueSegmentCode()
+     * @SharedKernelAssert\SystemCode(max="100")
+     * @SegmentAssert\SegmentCodeUnique()
      */
     public ?string $code;
 

@@ -9,17 +9,15 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form\Model;
 
-use Ergonode\Attribute\Application\Validator as AppAssert;
+use Ergonode\Attribute\Application\Validator as AttributeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateAttributeGroupFormModel
 {
     /**
      * @Assert\NotBlank(message="System name is required")
-     *
-     * @AppAssert\AttributeGroupCodeConstraint()
-     *
-     * @AppAssert\UniqueAttributeGroupCodeConstraint()
+     * @AttributeAssert\AttributeGroupCode()
+     * @AttributeAssert\AttributeGroupCodeUnique()
      */
     public ?string $code;
 

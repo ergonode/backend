@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
-use Ergonode\Account\Application\Validator\Constraints\UserUnique;
+use Ergonode\Account\Application\Validator as AccountAssert;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Account\Infrastructure\Validator\RoleExists;
 
 class CreateUserFormModel
 {
@@ -47,8 +46,7 @@ class CreateUserFormModel
      *     minMessage="User email is too short. It should have at least {{ limit }} characters.",
      *     maxMessage="User email is too long. It should contain {{ limit }} characters or less."
      * )
-     *
-     * @UserUnique()
+     * @AccountAssert\UserUnique()
      */
     public ?string $email;
 
@@ -77,7 +75,7 @@ class CreateUserFormModel
     /**
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
-     * @RoleExists()
+     * @AccountAssert\RoleExists()
      */
     public ?string $roleId;
 

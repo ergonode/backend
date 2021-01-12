@@ -14,7 +14,7 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterf
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Ergonode\Core\Infrastructure\Validator\Constraint\LanguageCodeActive;
+use Ergonode\Core\Application\Validator\LanguageCodeActive;
 
 class LanguageCompletenessConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {

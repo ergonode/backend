@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Application\Model\Form\Type\Property;
 
-use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
+use Ergonode\Attribute\Application\Validator\AttributeExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
