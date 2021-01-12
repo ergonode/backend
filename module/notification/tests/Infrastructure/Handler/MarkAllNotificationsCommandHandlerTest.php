@@ -22,6 +22,6 @@ class MarkAllNotificationsCommandHandlerTest extends TestCase
         $command = $this->createMock(MarkAllNotificationsCommand::class);
 
         $handler = new MarkAllNotificationsCommandHandler($query);
-        $handler->__invoke($command);
+        $handler($command);
     }
 }
