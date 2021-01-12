@@ -30,7 +30,7 @@ class CreateCategoryCommandFactoryTest extends TestCase
     public function testCreation(): void
     {
         $name = ['pl_PL' => 'Any Name'];
-        $code = $this->createMock(CategoryCode::class);
+        $code = 'Any_category';
         $data = $this->createMock(CategoryFormModel::class);
         $data->name = $name;
         $data->code = $code;
@@ -43,6 +43,6 @@ class CreateCategoryCommandFactoryTest extends TestCase
         /** @var CreateCategoryCommand $command */
         $command = $commandFactory->create($form);
         $this->assertEquals($command->getName(), new TranslatableString($name));
-        $this->assertEquals($command->getCode(), $code);
+        $this->assertEquals($command->getCode(), new CategoryCode($code));
     }
 }

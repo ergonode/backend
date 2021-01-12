@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Model;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Category\Application\Validator as CategoryAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,25 +19,13 @@ class CategoryFormModel
      *     message="System name is required",
      *     groups={"Create"}
      *     )
-     * @Assert\Length(
-     *     max=64,
-     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less.",
-     *     groups={"Create"}
-     *     )
-     * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
-     *     message="System name can have only letters, digits or underscore symbol",
-     *     groups={"Create"}
-     *  )
      *
-     * @CategoryAssert\CategoryCodeConstraint(
-     *     groups={"Create"}
-     * )
+     * @CategoryAssert\CategoryCodeConstraint()
      * @CategoryAssert\UniqueCategoryCodeConstraint(
      *     groups={"Create"}
      * )
      */
-    public ?CategoryCode $code = null;
+    public ?string $code = null;
 
     /**
      * @var array
