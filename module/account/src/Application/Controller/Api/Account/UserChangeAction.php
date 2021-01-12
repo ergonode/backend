@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 
 /**
  * @Route(
@@ -98,7 +99,7 @@ class UserChangeAction
                     $data->firstName,
                     $data->lastName,
                     $data->language,
-                    $data->roleId,
+                    new RoleId($data->roleId),
                     $data->languagePrivilegesCollection,
                     $data->isActive,
                     $password
