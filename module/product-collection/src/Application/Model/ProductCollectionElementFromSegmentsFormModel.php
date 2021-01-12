@@ -9,25 +9,20 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\Segment\Infrastructure\Validator\ValidSegmentId;
+use Ergonode\Segment\Infrastructure\Validator\SegmentExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductCollectionElementFromSegmentsFormModel
 {
     /**
-     * @var array
+     * @var string[]
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Uuid(message="Segment id must be valid uuid format"),
+     *     @Assert\Uuid(strict=true, message="Segment id must be valid uuid format"),
      *
-     *     @ValidSegmentId()
+     *     @SegmentExists()
      * })
      */
-    public array $segments;
-
-    public function __construct()
-    {
-        $this->segments = [];
-    }
+    public array $segments = [];
 }

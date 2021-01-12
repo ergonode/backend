@@ -15,7 +15,7 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class ValidSegmentIdValidator extends ConstraintValidator
+class SegmentExistsValidator extends ConstraintValidator
 {
     private SegmentRepositoryInterface $repository;
 
@@ -26,14 +26,14 @@ class ValidSegmentIdValidator extends ConstraintValidator
 
     /**
      * @param mixed                     $value
-     * @param ValidSegmentId|Constraint $constraint
+     * @param SegmentExists|Constraint $constraint
      *
      * @throws \Exception
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ValidSegmentId) {
-            throw new UnexpectedTypeException($constraint, ValidSegmentId::class);
+        if (!$constraint instanceof SegmentExists) {
+            throw new UnexpectedTypeException($constraint, SegmentExists::class);
         }
 
         if (null === $value || '' === $value) {
@@ -46,7 +46,10 @@ class ValidSegmentIdValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $collection = $this->repository->exists(new SegmentId($value));
+        $collection = null;
+        if (SegmentId::isValid($value)) {
+            $collection = $this->repository->exists(new SegmentId($value));
+        }
 
         if (!$collection) {
             $this->context->buildViolation($constraint->message)
