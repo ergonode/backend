@@ -84,6 +84,37 @@ nelmio_api_doc:
                         type: boolean
                         required: true
                         example: true
+            account_token_generate:
+                type: object
+                properties:
+                    email:
+                        type: string
+                        required: true
+                        description: User email/login
+                        example: any-email@test-email.com
+                    url:
+                        type: string
+                        required: true
+                        description: 'Path to frontend reset site'
+                        example: 'https://ergonode.com/password-reset?hash='
+            account_token_apply:
+                type: 'object'
+                properties:
+                    token:
+                        type: 'string'
+                        required: true
+                        description: 'Token from reset mail'
+                        example: 'EwLSx4oRwG'
+                    password:
+                        type: 'string'
+                        required: true
+                        description: 'New password'
+                        example: 'new_password'
+                    passwordRepeat:
+                        type: 'string'
+                        required: true
+                        description: 'Password repeat'
+                        example: 'new_password'
             account_change_password:
                 type: 'object'
                 properties:

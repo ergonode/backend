@@ -19,9 +19,8 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class ErgonodeAccountExtension extends Extension implements PrependExtensionInterface
 {
     /**
-     * @param array $configs
-     *
      * @throws \Exception
+     *
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -31,8 +30,11 @@ class ErgonodeAccountExtension extends Extension implements PrependExtensionInte
         );
 
         $loader->load('services.yml');
-    }
 
+        $configuration = $this->processConfiguration(new Configuration(), $configs);
+
+        $container->setParameter('ergonode_account.hosts', $configuration['hosts']);
+    }
 
     /**
      * {@inheritDoc}
