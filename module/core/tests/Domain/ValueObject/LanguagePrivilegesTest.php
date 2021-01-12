@@ -7,17 +7,15 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Account\Tests\Domain\ValueObject;
+namespace Ergonode\Core\Tests\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use PHPUnit\Framework\TestCase;
 
 class LanguagePrivilegesTest extends TestCase
 {
-
     public function testDataManipulation(): void
     {
-
         $value = new LanguagePrivileges(true, false);
 
         $this->assertTrue($value->isEqual(new LanguagePrivileges(true, false)));

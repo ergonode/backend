@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Account\Tests\Domain\ValueObject;
+namespace Ergonode\SharedKernel\Tests\Domain\ValueObject;
 
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\TestCase;

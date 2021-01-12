@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Product\Infrastructure\Grid;
+namespace Ergonode\Product\Tests\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;

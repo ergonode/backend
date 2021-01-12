@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Condition\Application\Validator;
+namespace Ergonode\Condition\Tests\Application\Validator;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;

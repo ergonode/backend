@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Product\Infrastructure\Grid\Column;
+namespace Ergonode\Product\Tests\Infrastructure\Grid\Column;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;

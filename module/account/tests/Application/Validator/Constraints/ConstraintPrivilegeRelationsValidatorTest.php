@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Account\Tests\Application\Validator\Constaints;
+namespace Ergonode\Account\Tests\Application\Validator\Constraints;
 
 use Ergonode\Account\Application\Validator\Constraints\ConstraintPrivilegeRelations;
 use Ergonode\Account\Application\Validator\Constraints\ConstraintPrivilegeRelationsValidator;
