@@ -33,7 +33,7 @@ class FilterValueCollection implements \IteratorAggregate
     private const REGEXP = '/^(.*?)([!<>=|]=?)(.*?)$/m';
 
     /**
-     * @var array
+     * @var FilterValue[]
      */
     private array $filters;
 

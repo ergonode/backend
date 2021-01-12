@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form\Model;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Attribute\Application\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -22,7 +21,7 @@ class CreateAttributeGroupFormModel
      *
      * @AppAssert\UniqueAttributeGroupCodeConstraint()
      */
-    public ?AttributeGroupCode $code;
+    public ?string $code;
 
     /**
      * @var array

@@ -9,16 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Comment\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 
 interface CommentRepositoryInterface
 {
-    /**
-     * @return Comment
-     */
-    public function load(CommentId $id): ?AbstractAggregateRoot;
+    public function load(CommentId $id): ?Comment;
 
     public function save(Comment $object): void;
 

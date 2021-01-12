@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\SharedKernel\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\UnitIdHandler;
+use Ergonode\SharedKernel\Infrastructure\JMS\Serializer\Handler\UnitIdHandler;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

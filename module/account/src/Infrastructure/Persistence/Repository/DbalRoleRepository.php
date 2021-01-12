@@ -13,7 +13,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Webmozart\Assert\Assert;
@@ -28,12 +27,12 @@ class DbalRoleRepository implements RoleRepositoryInterface
     }
 
     /**
-     * @return Role|null
      *
      * @throws \ReflectionException
      */
-    public function load(RoleId $id): ?AbstractAggregateRoot
+    public function load(RoleId $id): ?Role
     {
+        /** @var Role|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, Role::class);
 
@@ -43,7 +42,7 @@ class DbalRoleRepository implements RoleRepositoryInterface
     /**
      * @throws DBALException
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(Role $aggregateRoot): void
     {
         $this->manager->save($aggregateRoot);
     }
@@ -53,7 +52,7 @@ class DbalRoleRepository implements RoleRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(Role $aggregateRoot): void
     {
         $aggregateRoot->apply(new RoleDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);

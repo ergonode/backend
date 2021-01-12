@@ -9,13 +9,10 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\TextareaAttributeForm;
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class TextareaAttributeFormTest extends TypeTestCase
@@ -60,7 +57,7 @@ class TextareaAttributeFormTest extends TypeTestCase
         $object->hint = [];
         $object->scope = 'local';
         $object->code = 'code';
-        $object->groups = [new AttributeGroupId('2ae47e1b-10c3-4dd6-ac70-41000125c29f')];
+        $object->groups = ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'];
 
         $objectToCompare = new TextareaAttributeFormModel();
         $form = $this->factory->create(TextareaAttributeForm::class, $objectToCompare);
@@ -76,17 +73,5 @@ class TextareaAttributeFormTest extends TypeTestCase
         foreach (array_keys($formData) as $key) {
             $this->assertArrayHasKey($key, $children);
         }
-    }
-
-    /**
-     * @return array|PreloadedExtension[]
-     */
-    protected function getExtensions(): array
-    {
-        $type = new AttributeGroupType($this->query);
-
-        return [
-            new PreloadedExtension([$type], []),
-        ];
     }
 }

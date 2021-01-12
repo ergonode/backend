@@ -34,6 +34,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
      */
     public function load(AttributeId $id): ?AbstractAttribute
     {
+        /** @var AbstractAttribute|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, AbstractAttribute::class);
 

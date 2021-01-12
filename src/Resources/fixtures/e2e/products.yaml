@@ -1,0 +1,190 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+  translation_image_1:
+    __construct:
+      -
+        pl_PL: '@product_image_1->id'
+        en_GB: '@product_image_2->id'
+  translation_image_2:
+    __construct:
+      -
+        pl_PL: '@product_image_3->id'
+        en_GB: '@product_image_4->id'
+  translation_image_3:
+    __construct:
+      -
+        pl_PL: '@product_image_5->id'
+        en_GB: '@product_image_6->id'
+  translation_sentence_1:
+    __construct:
+      -
+        pl_PL: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit 1'
+        en_GB: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua 1'
+  translation_sentence_2:
+    __construct:
+      -
+        pl_PL: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit 2'
+        en_GB: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua 2'
+  translation_sentence_3:
+    __construct:
+      -
+        pl_PL: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit 3'
+        en_GB: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua 3'
+  translation_paragraph_1:
+    __construct:
+      -
+        pl_PL: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? 1'
+        en_GB: 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. 1'
+  translation_paragraph_2:
+    __construct:
+      -
+        pl_PL: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? 2'
+        en_GB: 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. 2'
+  translation_paragraph_3:
+    __construct:
+      -
+        pl_PL: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? 3'
+        en_GB: 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. 3'
+  translation_float_1:
+    __construct:
+      -
+        pl_PL: '1.1'
+        en_GB: '1.2'
+  translation_float_2:
+    __construct:
+      -
+        pl_PL: '2.1'
+        en_GB: '2.2'
+  translation_float_3:
+    __construct:
+      -
+        pl_PL: '3.1'
+        en_GB: '3.2'
+  translation_float_4:
+    __construct:
+      -
+        pl_PL: '4.1'
+        en_GB: '4.1'
+  translation_float_5:
+    __construct:
+      -
+        pl_PL: '5.1'
+        en_GB: '5.2'
+  translation_float_6:
+    __construct:
+      -
+        pl_PL: '6.1'
+        en_GB: '6.2'
+  translation_float_7:
+    __construct:
+      -
+        pl_PL: '7.1'
+        en_GB: '7.2'
+  translation_float_8:
+    __construct:
+      -
+        pl_PL: '8.1'
+        en_GB: '8.2'
+  translation_float_9:
+    __construct:
+      -
+        pl_PL: '9.1'
+        en_GB: '9.2'
+  translation_date_1:
+    __construct:
+      -
+        pl_PL: '2020-03-01'
+        en_GB: '2020-04-01'
+  translation_date_2:
+    __construct:
+      -
+        pl_PL: '2020-03-02'
+        en_GB: '2020-04-02'
+  translation_date_3:
+    __construct:
+      -
+        pl_PL: '2020-03-03'
+        en_GB: '2020-04-03'
+  translation_select_option_1:
+    __construct:
+      -
+        pl_PL: '@select_option_1->id'
+        en_GB: '@select_option_2->id'
+  translation_select_option_2:
+    __construct:
+      -
+        pl_PL: '@select_option_3->id'
+        en_GB: '@select_option_4->id'
+  translation_select_option_3:
+    __construct:
+      -
+        pl_PL: '@select_option_5->id'
+        en_GB: '@select_option_6->id'
+  translation_multiselect_option_1:
+    __construct:
+      -
+        pl_PL: '@multiselect_option_1->id'
+        en_GB: '@multiselect_option_2->id'
+  translation_multiselect_option_2:
+    __construct:
+      -
+        pl_PL: '@multiselect_option_3->id'
+        en_GB: '@multiselect_option_4->id'
+  translation_multiselect_option_3:
+    __construct:
+      -
+        pl_PL: '@multiselect_option_5->id'
+        en_GB: '@multiselect_option_6->id'
+
+Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
+  product_simple:
+    __construct:
+      - '<productId(SKU_SIMPLE)>'
+      - '<sku(SKU_SIMPLE)>'
+      - '@template->id'
+      - ['<categoryId(code_4)>']
+      -
+        'attribute_text':  '<translatableStringValue(@translation_sentence_1)>'
+        'attribute_textarea':  '<translatableStringValue(@translation_paragraph_1)>'
+        'attribute_numeric':  '<translatableStringValue(@translation_float_1)>'
+        'attribute_date':  '<translatableStringValue(@translation_date_1)>'
+        'attribute_price':  '<translatableStringValue(@translation_float_2)>'
+        'attribute_unit':  '<translatableStringValue(@translation_float_3)>'
+        'attribute_select':  '<translatableStringValue(@translation_select_option_1)>'
+        'attribute_multiselect':  '<stringCollectionValue(@translation_multiselect_option_1)>'
+        'attribute_gallery': '<translatableStringValue(@translation_image_1)>'
+
+Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand:
+  product_grouping:
+    __construct:
+      - '<productId(SKU_GROUPING)>'
+      - '<sku(SKU_GROUPING)>'
+      - '@template->id'
+      - []
+      -
+        'attribute_text': '<translatableStringValue(@translation_sentence_2)>'
+        'attribute_textarea': '<translatableStringValue(@translation_paragraph_2)>'
+        'attribute_numeric': '<translatableStringValue(@translation_float_4)>'
+        'attribute_date': '<translatableStringValue(@translation_date_2)>'
+        'attribute_price': '<translatableStringValue(@translation_float_5)>'
+        'attribute_unit': '<translatableStringValue(@translation_float_6)>'
+        'attribute_select': '<translatableStringValue(@translation_select_option_2)>'
+        'attribute_multiselect': '<stringCollectionValue(@translation_multiselect_option_2)>'
+        'attribute_gallery': '<translatableStringValue(@translation_image_2)>'
+
+Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
+  product_variable:
+    __construct:
+      - '<productId(SKU_VARIABLE)>'
+      - '<sku(SKU_VARIABLE)>'
+      - '@template->id'
+      - []
+      -
+        'attribute_text': '<translatableStringValue(@translation_sentence_3)>'
+        'attribute_textarea': '<translatableStringValue(@translation_paragraph_3)>'
+        'attribute_numeric': '<translatableStringValue(@translation_float_7)>'
+        'attribute_date': '<translatableStringValue(@translation_date_3)>'
+        'attribute_price': '<translatableStringValue(@translation_float_8)>'
+        'attribute_unit': '<translatableStringValue(@translation_float_9)>'
+        'attribute_select': '<translatableStringValue(@translation_select_option_3)>'
+        'attribute_multiselect': '<stringCollectionValue(@translation_multiselect_option_3)>'
+        'attribute_gallery': '<translatableStringValue(@translation_image_3)>'

@@ -11,18 +11,14 @@ namespace Ergonode\Condition\Domain\Repository;
 
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 interface ConditionSetRepositoryInterface
 {
-    /**
-     * @return ConditionSet|null
-     */
-    public function load(ConditionSetId $id): ?AbstractAggregateRoot;
+    public function load(ConditionSetId $id): ?ConditionSet;
 
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(ConditionSet $aggregateRoot): void;
 
     public function exists(ConditionSetId $id): bool;
 
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(ConditionSet $aggregateRoot): void;
 }

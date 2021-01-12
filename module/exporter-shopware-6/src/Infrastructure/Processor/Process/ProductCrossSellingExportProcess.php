@@ -40,7 +40,7 @@ class ProductCrossSellingExportProcess
 
     private ExportLineRepositoryInterface $exportLineRepository;
 
-    private ProductCrossSellingRemoveExportProcess $productCrossSellingRemoveExportProcess;
+    private ProductCrossSellingRemoveProductExportProcess $productCrossSellingRemoveExportProcess;
 
     public function __construct(
         ProductCrossSellingBuilder $builder,
@@ -48,7 +48,7 @@ class ProductCrossSellingExportProcess
         ProductCrossSellingRepositoryInterface $productCrossSellingRepository,
         LanguageRepositoryInterface $languageRepository,
         ExportLineRepositoryInterface $exportLineRepository,
-        ProductCrossSellingRemoveExportProcess $productCrossSellingRemoveExportProcess
+        ProductCrossSellingRemoveProductExportProcess $productCrossSellingRemoveExportProcess
     ) {
         $this->builder = $builder;
         $this->productCrossSellingClient = $productCrossSellingClient;
