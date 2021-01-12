@@ -18,6 +18,7 @@ use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ramsey\Uuid\Uuid;
+use Doctrine\DBAL\DBALException;
 
 class DbalNotificationQuery implements NotificationQueryInterface
 {
@@ -88,6 +89,25 @@ class DbalNotificationQuery implements NotificationQueryInterface
             [
                 'recipient_id' => $userId->getValue(),
                 'notification_id' => $id->toString(),
+            ],
+            [
+                'read_at' => Types::DATETIMETZ_MUTABLE,
+            ],
+        );
+    }
+
+    /**
+     * @throws DBALException
+     */
+    public function markAll(UserId $userId, \DateTime $readAt): void
+    {
+        $this->connection->update(
+            'users_notification',
+            [
+                'read_at' => $readAt,
+            ],
+            [
+                'recipient_id' => $userId->getValue(),
             ],
             [
                 'read_at' => Types::DATETIMETZ_MUTABLE,
