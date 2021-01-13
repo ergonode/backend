@@ -86,7 +86,7 @@ class EmailUserProviderTest extends TestCase
             ->method('load')
             ->willReturn(null);
 
-        $this->expectExceptionMessage('Username \'test@ergonode.com\' not found');
+        $this->expectExceptionMessage('Invalid credentials');
 
         $this->provider->loadUserByUsername('test@ergonode.com');
     }
@@ -100,7 +100,7 @@ class EmailUserProviderTest extends TestCase
             ->expects($this->never())
             ->method('load');
 
-        $this->expectExceptionMessage('Username \'test@ergonode.com\' not found');
+        $this->expectExceptionMessage('Invalid credentials');
 
         $this->provider->loadUserByUsername('test@ergonode.com');
     }

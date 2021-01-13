@@ -29,7 +29,6 @@ class CategoryTypeReadAction
         $this->categoryTypeDictionaryProvider = $categoryTypeDictionaryProvider;
     }
 
-
     /**
      * @IsGranted("CATEGORY_GET_TYPE")
      *

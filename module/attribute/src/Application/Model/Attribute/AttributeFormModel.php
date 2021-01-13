@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Application\Model\Attribute;
 
 use Ergonode\Attribute\Application\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Attribute\Infrastructure\Validator\AttributeGroupExists;
 
 class AttributeFormModel
 {
@@ -25,7 +26,7 @@ class AttributeFormModel
      * )
      * @AppAssert\UniqueAttributeCodeConstraint(
      *     groups={"Create"}
-     *     )
+     * )
      */
     public ?string $code = null;
 
@@ -77,7 +78,13 @@ class AttributeFormModel
     public array $hint = [];
 
     /**
-     * @var array
+     * @var string[]
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Uuid(strict=true),
+     *     @AttributeGroupExists()
+     * })
      */
     public array $groups = [];
 }

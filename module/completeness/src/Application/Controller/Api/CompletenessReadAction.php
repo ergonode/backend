@@ -17,6 +17,12 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
+use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
+use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Webmozart\Assert\Assert;
+use Ergonode\Designer\Domain\Entity\Template;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
 
 /**
  * @Route(
@@ -29,9 +35,18 @@ class CompletenessReadAction
 {
     private CompletenessQueryInterface $query;
 
-    public function __construct(CompletenessQueryInterface $query)
-    {
+    private CompletenessCalculator $calculator;
+
+    private TemplateRepositoryInterface $templateRepository;
+
+    public function __construct(
+        CompletenessQueryInterface $query,
+        CompletenessCalculator $calculator,
+        TemplateRepositoryInterface $templateRepository
+    ) {
         $this->query = $query;
+        $this->calculator = $calculator;
+        $this->templateRepository = $templateRepository;
     }
 
     /**
@@ -61,7 +76,20 @@ class CompletenessReadAction
      */
     public function __invoke(AbstractProduct $product, Language $language): Response
     {
-        $result = $this->query->getCompleteness($product->getId(), $language);
+        $template = $this->templateRepository->load($product->getTemplateId());
+        Assert::isInstanceOf($template, Template::class);
+        $result = new CompletenessReadModel($language);
+        foreach ($this->calculator->calculate($product, $template, $language) as $element) {
+            $attributeId = $element->getAttributeId();
+            $element = new CompletenessElementReadModel(
+                $element->getAttributeId(),
+                $this->query->getAttributeLabel($attributeId, $language),
+                $element->isRequired(),
+                $element->isFilled(),
+            );
+
+            $result->addCompletenessElement($element);
+        }
 
         return new SuccessResponse($result);
     }

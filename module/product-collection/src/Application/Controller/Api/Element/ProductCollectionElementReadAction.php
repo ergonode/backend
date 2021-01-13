@@ -69,7 +69,6 @@ class ProductCollectionElementReadAction
      */
     public function __invoke(ProductCollection $productCollection, AbstractProduct $product): Response
     {
-
         if ($productCollection->hasElement($product->getId())) {
             return new SuccessResponse($productCollection->getElement($product->getId()));
         }

@@ -13,7 +13,6 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
-use Symfony\Component\Intl\Languages;
 
 class FileExportChannel extends AbstractChannel
 {
@@ -33,7 +32,7 @@ class FileExportChannel extends AbstractChannel
     protected string $format;
 
     /**
-     * @var Languages[]
+     * @var Language[]
      *
      * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
@@ -71,7 +70,7 @@ class FileExportChannel extends AbstractChannel
     }
 
     /**
-     * @return Languages[]
+     * @return Language[]
      */
     public function getLanguages(): array
     {

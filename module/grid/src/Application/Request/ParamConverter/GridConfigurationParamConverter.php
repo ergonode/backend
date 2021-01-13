@@ -19,10 +19,12 @@ class GridConfigurationParamConverter implements ParamConverterInterface
     /**
      * {@inheritDoc}
      */
-    public function apply(Request $request, ParamConverter $configuration): void
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         $requestGridConfiguration = new RequestGridConfiguration($request);
         $request->attributes->set($configuration->getName(), $requestGridConfiguration);
+
+        return true;
     }
 
     /**

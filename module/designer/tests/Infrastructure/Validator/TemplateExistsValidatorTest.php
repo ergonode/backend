@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Designer\Infrastructure\Validator;
+namespace Ergonode\Designer\Tests\Infrastructure\Validator;
 
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;

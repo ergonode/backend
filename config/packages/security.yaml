@@ -36,6 +36,10 @@ security:
             pattern: '^/api/v1/token/refresh'
             stateless: true
             anonymous: true
+        reset:
+            pattern: '^/api/v1/accounts/token'
+            stateless: true
+            anonymous: true
         api:
             pattern: '^/api'
             stateless: true
@@ -53,4 +57,5 @@ security:
     access_control:
         - { path: '^/api/v1/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/api/v1/token/refresh', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/api/v1/accounts/token', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^/api', roles: IS_AUTHENTICATED_FULLY }

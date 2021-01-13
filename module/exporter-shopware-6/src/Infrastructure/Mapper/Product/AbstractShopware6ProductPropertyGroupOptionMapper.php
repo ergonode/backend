@@ -19,7 +19,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends AbstractShopware6ProductPropertyGroupMapper
+abstract class AbstractShopware6ProductPropertyGroupOptionMapper extends AbstractProductPropertyGroupMapper
 {
     private PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 

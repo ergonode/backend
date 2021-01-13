@@ -13,14 +13,16 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Ergonode\Product\Infrastructure\Validator\ProductExists;
 
 class ProductCollectionElementCreateFormModel
 {
     /**
      * @Assert\NotBlank(message="Product id is required")
-     * @Assert\Uuid(message="Product id must be valid uuid format")
+     * @Assert\Uuid(strict=true, message="Product id must be valid uuid format")
+     * @ProductExists()
      */
-    public ?ProductId $productId;
+    public ?string $productId;
 
     /**
      * @Assert\NotNull(),
@@ -44,7 +46,9 @@ class ProductCollectionElementCreateFormModel
     {
         /** @var ProductCollectionElementCreateFormModel $data */
         $data = $context->getValue();
-        if (($data->productId instanceof ProductId) && $data->getProductCollection()->hasElement($data->productId)) {
+        if (ProductId::isValid($data->productId)
+            && $data->getProductCollection()->hasElement(new ProductId($data->productId))
+        ) {
             $context->addViolation('Element exists');
         }
     }

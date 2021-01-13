@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 
 /**
  * @Route("/accounts", methods={"POST"})
@@ -90,7 +91,7 @@ class UserCreateAction
                     new Email($data->email),
                     $data->language,
                     new Password($data->password),
-                    $data->roleId,
+                    new RoleId($data->roleId),
                     $data->isActive
                 );
                 $this->commandBus->dispatch($command);

@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Form;
 
-use Ergonode\Segment\Application\Form\Type\SegmentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionElementFromSegmentsFormModel;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductCollectionElementFromSegmentsForm extends AbstractType
 {
@@ -30,7 +30,7 @@ class ProductCollectionElementFromSegmentsForm extends AbstractType
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => SegmentType::class,
+                    'entry_type' => TextType::class,
                 ]
             );
     }

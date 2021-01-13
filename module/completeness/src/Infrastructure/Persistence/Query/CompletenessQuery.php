@@ -74,7 +74,7 @@ class CompletenessQuery implements CompletenessQueryInterface
             $attributeId = new AttributeId($record['attribute_id']);
             $element = new CompletenessElementReadModel(
                 $attributeId,
-                $this->getLabel($attributeId, $language),
+                $this->getAttributeLabel($attributeId, $language),
                 $record['required'],
                 $record['filled'],
             );
@@ -128,7 +128,7 @@ class CompletenessQuery implements CompletenessQueryInterface
         return array_values($result);
     }
 
-    private function getLabel(AttributeId $attributeId, Language $language): string
+    public function getAttributeLabel(AttributeId $attributeId, Language $language): string
     {
         $attribute = $this->repository->load($attributeId);
         Assert::isInstanceOf($attribute, AbstractAttribute::class);

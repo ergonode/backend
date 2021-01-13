@@ -9,11 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
 use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionTypeExists;
 
 class ProductCollectionCreateFormModel
 {
@@ -28,7 +27,7 @@ class ProductCollectionCreateFormModel
      *
      * @ProductCollectionCodeUnique()
      */
-    public ?ProductCollectionCode $code;
+    public ?string $code;
 
     /**
      * @var array
@@ -58,9 +57,10 @@ class ProductCollectionCreateFormModel
 
     /**
      * @Assert\NotBlank(message="Collection type id is required")
-     * @Assert\Uuid(message="Collection type id must be valid uuid format")
+     * @Assert\Uuid(strict=true, message="Collection type id must be valid uuid format")
+     * @ProductCollectionTypeExists()
      */
-    public ?ProductCollectionTypeId $typeId;
+    public ?string $typeId;
 
     public function __construct()
     {

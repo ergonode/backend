@@ -96,7 +96,6 @@ class AttributeCreateAction
         $typeForm = $this->formFactory->create(AttributeTypeForm::class);
         $typeForm->submit(['type' => $type]);
 
-
         if ($typeForm->isSubmitted() && $typeForm->isValid()) {
             $request->request->remove('type');
 

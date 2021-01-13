@@ -10,12 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Application\Form;
 
 use Ergonode\Core\Application\Form\Type\TranslationType;
-use Ergonode\ProductCollection\Application\Form\Type\ProductCollectionCodeType;
-use Ergonode\ProductCollection\Application\Form\Type\ProductCollectionTypeIdType;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionCreateFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductCollectionCreateForm extends AbstractType
 {
@@ -27,7 +26,7 @@ class ProductCollectionCreateForm extends AbstractType
         $builder
             ->add(
                 'code',
-                ProductCollectionCodeType::class
+                TextType::class
             )
             ->add(
                 'name',
@@ -39,7 +38,7 @@ class ProductCollectionCreateForm extends AbstractType
             )
             ->add(
                 'typeId',
-                ProductCollectionTypeIdType::class
+                TextType::class
             );
     }
 

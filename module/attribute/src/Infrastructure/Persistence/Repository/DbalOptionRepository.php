@@ -31,6 +31,7 @@ class DbalOptionRepository implements OptionRepositoryInterface
      */
     public function load(AggregateId $id): ?AbstractOption
     {
+        /** @var AbstractOption|null $aggregate */
         $aggregate = $this->manager->load($id);
         Assert::nullOrIsInstanceOf($aggregate, AbstractOption::class);
 

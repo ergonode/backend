@@ -12,7 +12,7 @@ namespace Ergonode\Importer\Infrastructure\Provider;
 class SourceTypeProvider
 {
     /**
-     * @var array[]
+     * @var string[]
      */
     private array $types;
 

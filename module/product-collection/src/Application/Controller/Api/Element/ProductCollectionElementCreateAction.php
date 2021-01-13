@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  * @Route(
@@ -97,7 +98,7 @@ class ProductCollectionElementCreateAction
 
                 $command = new AddProductCollectionElementCommand(
                     $productCollection->getId(),
-                    $data->productId,
+                    new ProductId($data->productId),
                     $data->visible,
                 );
 

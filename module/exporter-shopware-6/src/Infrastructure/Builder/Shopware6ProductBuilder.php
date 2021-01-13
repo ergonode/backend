@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Builder;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -18,11 +18,11 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 class Shopware6ProductBuilder
 {
     /**
-     * @var Shopware6ProductMapperInterface[]
+     * @var ProductMapperInterface[]
      */
     private array $collection;
 
-    public function __construct(Shopware6ProductMapperInterface ...$collection)
+    public function __construct(ProductMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }
