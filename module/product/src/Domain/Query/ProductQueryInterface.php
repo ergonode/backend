@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Query;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
@@ -22,8 +20,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 interface ProductQueryInterface
 {
-    public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface;
-
     public function findProductIdBySku(Sku $sku): ?ProductId;
 
     /**
@@ -69,11 +65,6 @@ interface ProductQueryInterface
      * @return ProductId[]
      */
     public function findProductIdsByTemplate(TemplateId $templateId): array;
-
-    /**
-     * @return mixed
-     */
-    public function findProductCollectionIdByProductId(ProductId $id);
 
     /**
      * @return mixed

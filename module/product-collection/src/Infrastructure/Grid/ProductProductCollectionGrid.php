@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Infrastructure\Grid;
+namespace Ergonode\ProductCollection\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;

@@ -16,7 +16,6 @@ use Ergonode\Grid\Filter\FilterBuilderProvider;
 
 class DbalDataSetFactory
 {
-
     private FilterBuilderProvider $filterBuilderProvider;
 
     public function __construct(FilterBuilderProvider $filterBuilderProvider)
