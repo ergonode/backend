@@ -48,7 +48,7 @@ class SchedulerChangeAction
     }
 
     /**
-     * @IsGranted("CHANNEL_UPDATE")
+     * @IsGranted("CHANNEL_PUT_SCHEDULER")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

@@ -45,7 +45,7 @@ class ChannelExportGridAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_EXPORT_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

@@ -51,7 +51,7 @@ class ChannelChangeAction
     }
 
     /**
-     * @IsGranted("CHANNEL_UPDATE")
+     * @IsGranted("CHANNEL_PUT")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
