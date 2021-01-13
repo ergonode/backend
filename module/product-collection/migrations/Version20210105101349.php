@@ -43,6 +43,8 @@ final class Version20210105101349 extends AbstractErgonodeMigration
                 'PRODUCT_COLLECTION_POST_TYPE',
                 'PRODUCT_COLLECTION_PUT_TYPE',
                 'PRODUCT_COLLECTION_DELETE_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
             ]
         );
 
@@ -59,6 +61,8 @@ final class Version20210105101349 extends AbstractErgonodeMigration
 
                 'PRODUCT_COLLECTION_GET_TYPE_GRID',
                 'PRODUCT_COLLECTION_GET_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
             ]
         );
 
@@ -82,6 +86,8 @@ final class Version20210105101349 extends AbstractErgonodeMigration
                 'PRODUCT_COLLECTION_GET_TYPE',
                 'PRODUCT_COLLECTION_POST_TYPE',
                 'PRODUCT_COLLECTION_PUT_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
             ]
         );
 
@@ -103,6 +109,8 @@ final class Version20210105101349 extends AbstractErgonodeMigration
                 'PRODUCT_COLLECTION_GET_TYPE_GRID',
                 'PRODUCT_COLLECTION_GET_TYPE',
                 'PRODUCT_COLLECTION_PUT_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
             ]
         );
 
@@ -124,6 +132,8 @@ final class Version20210105101349 extends AbstractErgonodeMigration
                 'PRODUCT_COLLECTION_GET_TYPE_GRID',
                 'PRODUCT_COLLECTION_GET_TYPE',
                 'PRODUCT_COLLECTION_DELETE_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
             ]
         );
     }

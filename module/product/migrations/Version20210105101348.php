@@ -26,7 +26,6 @@ final class Version20210105101348 extends AbstractErgonodeMigration
             [
                 'PRODUCT_GET_GRID',
                 'PRODUCT_GET_HISTORY_GRID',
-                'PRODUCT_GET_PRODUCT_COLLECTION_GRID',
                 'PRODUCT_GET_INHERITED',
                 'PRODUCT_GET_TEMPLATE',
                 'PRODUCT_GET',
@@ -65,7 +64,6 @@ final class Version20210105101348 extends AbstractErgonodeMigration
             [
                 'PRODUCT_GET_GRID',
                 'PRODUCT_GET_HISTORY_GRID',
-                'PRODUCT_GET_PRODUCT_COLLECTION_GRID',
                 'PRODUCT_GET_INHERITED',
                 'PRODUCT_GET_TEMPLATE',
                 'PRODUCT_GET',
@@ -89,7 +87,6 @@ final class Version20210105101348 extends AbstractErgonodeMigration
             [
                 'PRODUCT_GET_GRID',
                 'PRODUCT_GET_HISTORY_GRID',
-                'PRODUCT_GET_PRODUCT_COLLECTION_GRID',
                 'PRODUCT_GET_INHERITED',
                 'PRODUCT_GET_TEMPLATE',
                 'PRODUCT_GET',
@@ -132,7 +129,6 @@ final class Version20210105101348 extends AbstractErgonodeMigration
             [
                 'PRODUCT_GET_GRID',
                 'PRODUCT_GET_HISTORY_GRID',
-                'PRODUCT_GET_PRODUCT_COLLECTION_GRID',
                 'PRODUCT_GET_INHERITED',
                 'PRODUCT_GET_TEMPLATE',
                 'PRODUCT_GET',
@@ -175,7 +171,6 @@ final class Version20210105101348 extends AbstractErgonodeMigration
             [
                 'PRODUCT_GET_GRID',
                 'PRODUCT_GET_HISTORY_GRID',
-                'PRODUCT_GET_PRODUCT_COLLECTION_GRID',
                 'PRODUCT_GET_INHERITED',
                 'PRODUCT_GET_TEMPLATE',
                 'PRODUCT_GET',
