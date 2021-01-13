@@ -14,10 +14,13 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 interface ProductCollectionQueryInterface
 {
     public function getDataSet(Language $language): DataSetInterface;
+
+    public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface;
 
     /**
      * @return string[]
@@ -30,6 +33,11 @@ interface ProductCollectionQueryInterface
     public function getOptions(Language $language): array;
 
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId;
+
+    /**
+     * @return mixed
+     */
+    public function findProductCollectionIdByProductId(ProductId $id);
 
     /**
      * @return mixed
