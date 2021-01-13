@@ -25,13 +25,13 @@ class SchedulerModel
 
     /**
      * @Assert\NotBlank(message="Hour is required", groups={"Active"})
-     * @Assert\Length(min=0, max=23, groups={"Active"})
+     * @Assert\Range(min=0, max=2147483647, groups={"Active"})
      */
     public ?int $hour = null;
 
     /**
      * @Assert\NotBlank(message="Minute is required", groups={"Active"})
-     * @Assert\Length(min=0, max=59, groups={"Active"})
+     * @Assert\Range(min=0, max=59, groups={"Active"})
      */
     public ?int $minute = null;
 }

@@ -16,6 +16,7 @@ use Ergonode\Core\Application\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\Channel\Application\Form\Model\SchedulerModel;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class SchedulerForm extends AbstractType
 {
@@ -35,10 +36,7 @@ class SchedulerForm extends AbstractType
             )
             ->add(
                 'hour',
-                ChoiceType::class,
-                [
-                    'choices' => range(0, 23, 1),
-                ]
+                IntegerType::class,
             )
             ->add(
                 'minute',
@@ -52,7 +50,6 @@ class SchedulerForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-
         $resolver->setDefaults(
             [
                 'data_class' => SchedulerModel::class,
