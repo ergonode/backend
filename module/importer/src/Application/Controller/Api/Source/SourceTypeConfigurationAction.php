@@ -37,7 +37,7 @@ class SourceTypeConfigurationAction
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_SOURCE_CONFIGURATION_GRID")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(
