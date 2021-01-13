@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler;
 
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\Processor\Step\ExportStepProcessInterface;
-use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
+use Ergonode\Channel\Domain\Command\Export\ProcessExportCommand;
 use Webmozart\Assert\Assert;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand;

@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
+use Ergonode\Channel\Domain\ValueObject\ExportStatus;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;

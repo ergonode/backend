@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
-use Ergonode\Exporter\Infrastructure\Service\DirectoryCompressorInterface;
+use Ergonode\Channel\Infrastructure\Service\DirectoryCompressorInterface;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\FileExistsException;
 use Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 
 class EndProcessCommandHandler
 {

@@ -10,7 +10,7 @@ namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;

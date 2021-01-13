@@ -53,14 +53,18 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ImporterMagento1\\.*
-  - name: Exporter
+  - name: Channel
     collectors:
       - type: className
-        regex: .*Ergonode\\Exporter\\.*
+        regex: .*Ergonode\\Channel\\.*
   - name: ExporterFile
     collectors:
       - type: className
         regex: .*Ergonode\\ExporterFile\\.*
+  - name: ExporterShopware6
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ExporterShopware6\\.*
   - name: Mailer
     collectors:
       - type: className
@@ -158,15 +162,24 @@ ruleset:
   EventSourcing:
     - Core # todo to remove
     - SharedKernel
-  Exporter:
-    - Core
-    - EventSourcing
-    - Product
-    - SharedKernel
   ExporterFile:
     - Attribute
     - Core
-    - Exporter
+    - Channel
+    - EventSourcing
+    - Product
+    - SharedKernel
+  ExporterShopware6:
+    - Attribute
+    - Core
+    - Channel
+    - EventSourcing
+    - Product
+    - ProductCollection
+    - SharedKernel
+  Channel:
+    - Api
+    - Core
     - EventSourcing
     - Product
     - SharedKernel

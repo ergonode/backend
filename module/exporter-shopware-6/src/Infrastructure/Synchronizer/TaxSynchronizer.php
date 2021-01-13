@@ -12,7 +12,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Query\TaxQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\TaxRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\GetTaxList;

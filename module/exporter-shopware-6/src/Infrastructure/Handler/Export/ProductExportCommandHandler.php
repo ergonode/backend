@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\ProductExportCommand;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\ProductShopware6ExportProcess;

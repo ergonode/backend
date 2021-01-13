@@ -1,0 +1,4 @@
+framework:
+    messenger:
+        routing:
+            Ergonode\Channel\Domain\Command\Export\ProcessExportCommand: '%ergonode.exporter.messenger_transport_name%'

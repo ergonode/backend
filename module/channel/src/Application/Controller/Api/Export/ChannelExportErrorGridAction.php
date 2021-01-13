@@ -18,7 +18,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
@@ -80,7 +80,7 @@ class ChannelExportErrorGridAction
      * )
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(
