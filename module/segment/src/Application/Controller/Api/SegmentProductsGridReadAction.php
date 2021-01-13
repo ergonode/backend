@@ -48,7 +48,7 @@ class SegmentProductsGridReadAction
     }
 
     /**
-     * @IsGranted("SEGMENT_READ")
+     * @IsGranted("SEGMENT_GET_PRODUCT_GRID")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
