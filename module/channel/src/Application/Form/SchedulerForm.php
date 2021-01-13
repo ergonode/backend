@@ -37,7 +37,6 @@ class SchedulerForm extends AbstractType
             ->add(
                 'hour',
                 IntegerType::class,
-
             )
             ->add(
                 'minute',
