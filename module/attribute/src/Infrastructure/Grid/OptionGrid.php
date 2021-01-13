@@ -27,7 +27,7 @@ class OptionGrid extends AbstractGrid
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
-                'privilege' => 'ATTRIBUTE_READ',
+                'privilege' => 'ATTRIBUTE_GET_OPTION',
                 'show' => ['system' => false],
                 'route' => 'ergonode_option_read',
                 'parameters' => [
@@ -37,7 +37,7 @@ class OptionGrid extends AbstractGrid
                 ],
             ],
             'edit' => [
-                'privilege' => 'ATTRIBUTE_UPDATE',
+                'privilege' => 'ATTRIBUTE_PUT_OPTION',
                 'show' => ['system' => false],
                 'route' => 'ergonode_option_change',
                 'parameters' => [
@@ -48,7 +48,7 @@ class OptionGrid extends AbstractGrid
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
-                'privilege' => 'ATTRIBUTE_DELETE',
+                'privilege' => 'ATTRIBUTE_DELETE_OPTION',
                 'show' => ['system' => false],
                 'route' => 'ergonode_option_delete',
                 'parameters' => [

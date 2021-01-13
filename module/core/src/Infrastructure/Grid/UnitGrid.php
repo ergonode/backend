@@ -34,16 +34,19 @@ class UnitGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_unit_read',
                 'parameters' => ['language' => $language->getCode(), 'unit' => '{id}'],
+                'privilege' => 'DESIGNER_DELETE_TEMPLATE',
             ],
             'edit' => [
                 'route' => 'ergonode_unit_change',
                 'parameters' => ['language' => $language->getCode(), 'unit' => '{id}'],
                 'method' => Request::METHOD_PUT,
+                'privilege' => 'DESIGNER_DELETE_TEMPLATE',
             ],
             'delete' => [
                 'route' => 'ergonode_unit_delete',
                 'parameters' => ['language' => $language->getCode(), 'unit' => '{id}'],
                 'method' => Request::METHOD_DELETE,
+                'privilege' => 'DESIGNER_DELETE_TEMPLATE',
             ],
         ]));
         $this->orderBy('name', 'DESC');

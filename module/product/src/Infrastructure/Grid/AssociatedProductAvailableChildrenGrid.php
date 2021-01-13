@@ -70,7 +70,7 @@ class AssociatedProductAvailableChildrenGrid extends AbstractGrid
         }
         $this->addColumn('_links', new LinkColumn('hal', [
             'delete' => [
-                'privilege' => 'PRODUCT_UPDATE',
+                'privilege' => 'PRODUCT_DELETE_RELATIONS_CHILD',
                 'route' => 'ergonode_product_child_remove',
                 'parameters' => [
                     'language' => $language->getCode(),

@@ -42,7 +42,7 @@ class ProductCategoryGrid extends AbstractGrid
                             'product' => '{product_id}',
                             'category' => '{id}',
                         ],
-                        'privilege' => 'PRODUCT_UPDATE',
+                        'privilege' => 'PRODUCT_DELETE_CATEGORY',
                         'method' => Request::METHOD_DELETE,
                     ],
                 ]

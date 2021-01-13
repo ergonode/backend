@@ -40,12 +40,12 @@ class CategoryGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_category_read',
                 'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
-                'privilege' => 'CATEGORY_READ',
+                'privilege' => 'CATEGORY_GET',
             ],
             'edit' => [
                 'route' => 'ergonode_category_change',
                 'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
-                'privilege' => 'CATEGORY_UPDATE',
+                'privilege' => 'CATEGORY_PUT',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
