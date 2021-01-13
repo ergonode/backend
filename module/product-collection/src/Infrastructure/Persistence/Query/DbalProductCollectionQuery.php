@@ -151,9 +151,9 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
     }
 
     /**
-     * @return mixed|void
+     * @return ProductCollectionId[]
      */
-    public function findProductCollectionIdByProductId(ProductId $id)
+    public function findProductCollectionIdByProductId(ProductId $id): array
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('pc.product_collection_id')
