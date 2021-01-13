@@ -3,6 +3,11 @@ ergonode_product_collection_api:
     type: 'annotation'
     prefix: '/api/v1/{language}/'
 
+ergonode_product_collection_product:
+    resource: '../../Application/Controller/Api/Product/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}/'
+
 ergonode_product_collection_element_api:
     resource: '../../Application/Controller/Api/Element/*'
     type: 'annotation'

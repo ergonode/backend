@@ -7,15 +7,15 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Controller\Api;
+namespace Ergonode\ProductCollection\Application\Controller\Api\Product;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
+use Ergonode\ProductCollection\Infrastructure\Grid\ProductProductCollectionGrid;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Infrastructure\Grid\ProductProductCollectionGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -33,13 +33,13 @@ class ProductProductCollectionGridReadAction
 {
     private ProductProductCollectionGrid $grid;
 
-    private ProductQueryInterface $collectionQuery;
+    private ProductCollectionQueryInterface $collectionQuery;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         ProductProductCollectionGrid $grid,
-        ProductQueryInterface $productQuery,
+        ProductCollectionQueryInterface $productQuery,
         GridRenderer $gridRenderer
     ) {
         $this->grid = $grid;
