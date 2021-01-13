@@ -78,6 +78,9 @@ final class Version20210105101348 extends AbstractErgonodeMigration
 
                 'PRODUCT_GET_RELATIONS_AVAILABLE',
                 'PRODUCT_GET_RELATIONS_CHILDREN',
+
+                'COMMENT_GET_GRID',
+                'COMMENT_GET',
             ]
         );
 
@@ -115,6 +118,12 @@ final class Version20210105101348 extends AbstractErgonodeMigration
                 'PRODUCT_POST_RELATIONS_CHILDREN_SEGMENT',
                 'PRODUCT_POST_RELATIONS_CHILDREN_SKU',
                 'PRODUCT_DELETE_RELATIONS_CHILD',
+
+                'COMMENT_GET_GRID',
+                'COMMENT_GET',
+                'COMMENT_POST',
+                'COMMENT_PUT',
+                'COMMENT_DELETE',
             ]
         );
 
@@ -152,6 +161,12 @@ final class Version20210105101348 extends AbstractErgonodeMigration
                 'PRODUCT_POST_RELATIONS_CHILDREN_SEGMENT',
                 'PRODUCT_POST_RELATIONS_CHILDREN_SKU',
                 'PRODUCT_DELETE_RELATIONS_CHILD',
+
+                'COMMENT_GET_GRID',
+                'COMMENT_GET',
+                'COMMENT_POST',
+                'COMMENT_PUT',
+                'COMMENT_DELETE',
             ]
         );
 
@@ -174,6 +189,10 @@ final class Version20210105101348 extends AbstractErgonodeMigration
 
                 'PRODUCT_GET_RELATIONS_AVAILABLE',
                 'PRODUCT_GET_RELATIONS_CHILDREN',
+
+                'COMMENT_GET_GRID',
+                'COMMENT_GET',
+                'COMMENT_DELETE',
             ]
         );
     }
