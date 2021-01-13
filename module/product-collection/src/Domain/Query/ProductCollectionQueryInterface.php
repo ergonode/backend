@@ -35,9 +35,9 @@ interface ProductCollectionQueryInterface
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId;
 
     /**
-     * @return mixed
+     * @return ProductCollectionId[]
      */
-    public function findProductCollectionIdByProductId(ProductId $id);
+    public function findProductCollectionIdByProductId(ProductId $id): array;
 
     /**
      * @return mixed
