@@ -12,6 +12,7 @@ namespace Ergonode\Channel\Domain\Command;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Channel\Domain\Entity\Scheduler;
 
 class UpdateSchedulerCommand implements ChannelCommandInterface
 {
@@ -46,8 +47,8 @@ class UpdateSchedulerCommand implements ChannelCommandInterface
             Assert::notNull($start);
             Assert::greaterThanEq($hour, 0);
             Assert::greaterThanEq($minute, 0);
-            Assert::lessThanEq($hour, 23);
-            Assert::lessThanEq($minute, 59);
+            Assert::lessThanEq($hour, Scheduler::HOURS);
+            Assert::lessThanEq($minute, Scheduler::MINUTES);
         }
 
         $this->id = $id;
