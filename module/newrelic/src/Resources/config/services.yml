@@ -1,0 +1,9 @@
+services:
+    ergonode.new_relic.new_relic:
+        class: Ergonode\NewRelic\Application\NewRelic\NewRelic
+
+    ergonode.new_relic.event_subscriber.route:
+        class: Ergonode\NewRelic\Application\EventSubscriber\RouteEventSubscriber
+        arguments:
+            $newRelic: '@ergonode.new_relic.new_relic'
+        tags: ['kernel.event_subscriber']
