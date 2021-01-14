@@ -17,7 +17,9 @@ final class NewRelic implements NewRelicInterface
             return false;
         }
 
-        return newrelic_start_transaction(ini_get('newrelic.appname'), $license);
+        return $license ?
+            newrelic_start_transaction(ini_get('newrelic.appname'), $license) :
+            newrelic_start_transaction(ini_get('newrelic.appname'));
     }
 
     public function endTransaction(bool $ignore = false): bool
