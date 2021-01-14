@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Form\Model;
 
 use Ergonode\Core\Domain\ValueObject\Color;
-use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
-use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
+use Ergonode\SharedKernel\Application\Validator as SharedKernelAssert;
+use Ergonode\Workflow\Application\Validator as WorkflowAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class StatusCreateFormModel
@@ -20,8 +20,8 @@ class StatusCreateFormModel
      * @Assert\NotBlank()
      * @Assert\Regex(pattern="/^[a-zA-Z0-9-_ ]+$\b/i")
      *
-     * @SystemCodeConstraint(max=100)
-     * @ErgoAssert\StatusCodeUnique()
+     * @SharedKernelAssert\SystemCode(max=100)
+     * @WorkflowAssert\StatusCodeUnique()
      */
     public ?string $code;
 

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
-use Ergonode\Account\Infrastructure\Validator\UserExists;
+use Ergonode\Account\Application\Validator\UserExists;
 use Ergonode\Condition\Domain\Condition\UserExactlyCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;

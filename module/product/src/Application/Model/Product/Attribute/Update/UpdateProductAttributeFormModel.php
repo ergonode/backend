@@ -9,14 +9,15 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Model\Product\Attribute\Update;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Product\Infrastructure\Validator\ProductExists;
+use Ergonode\Product\Application\Validator as ProductAssert;
 
 class UpdateProductAttributeFormModel
 {
     /**
      * @Assert\NotBlank()
      * @Assert\Uuid(strict=true)
-     * @ProductExists()
+     *
+     * @ProductAssert\ProductExists()
      */
     public ?string $id = null;
 

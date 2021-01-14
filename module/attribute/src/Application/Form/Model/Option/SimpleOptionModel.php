@@ -9,13 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form\Model\Option;
 
-use Ergonode\Attribute\Infrastructure\Validator\OptionCodeExists;
+use Ergonode\Attribute\Application\Validator as AttributeAssert;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @OptionCodeExists()
+ * @AttributeAssert\OptionCodeExists()
  */
 class SimpleOptionModel
 {
