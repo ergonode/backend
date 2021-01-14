@@ -17,3 +17,6 @@ services:
     Ergonode\Exporter\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
+
+    Ergonode\Exporter\Infrastructure\Handler\Export\DeleteExportCommandHandler:
+        tags: [{name: 'messenger.message_handler', priority: -10}]

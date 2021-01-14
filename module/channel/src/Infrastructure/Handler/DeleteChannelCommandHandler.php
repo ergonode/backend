@@ -10,27 +10,51 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Handler;
 
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Exporter\Domain\Command\Export\DeleteExportCommand;
 use Webmozart\Assert\Assert;
 
 class DeleteChannelCommandHandler
 {
-    private ChannelRepositoryInterface $repository;
+    private ChannelRepositoryInterface $channelRepository;
 
-    public function __construct(ChannelRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
+    private ExportQueryInterface $exportQuery;
+
+
+    private CommandBusInterface $commandBus;
+
+    public function __construct(
+        ChannelRepositoryInterface $channelRepository,
+        ExportQueryInterface $exportQuery,
+        CommandBusInterface $commandBus
+    ) {
+        $this->channelRepository = $channelRepository;
+        $this->exportQuery = $exportQuery;
+        $this->commandBus = $commandBus;
     }
 
     /**
      * @throws \Exception
      */
-    public function __invoke(DeleteChannelCommand $command): void
+    public function __invoke(DeleteChannelCommand $deleteChannelCommand): void
     {
-        $channel = $this->repository->load($command->getId());
+        $channel = $this->channelRepository->load($deleteChannelCommand->getId());
+        Assert::isInstanceOf(
+            $channel,
+            AbstractChannel::class,
+            sprintf('Can\'t find channel "%s"', $deleteChannelCommand->getId()->getValue())
+        );
 
-        Assert::notNull($channel, sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
+        $exportIds = $this->exportQuery->getExportIdsByChannelId($channel->getId());
 
-        $this->repository->delete($channel);
+
+        foreach ($exportIds as $exportId) {
+            $exportDeletedCommand = new DeleteExportCommand($exportId);
+            $this->commandBus->dispatch($exportDeletedCommand);
+        }
+        $this->channelRepository->delete($channel);
     }
 }

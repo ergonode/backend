@@ -22,6 +22,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DbalImportQuery implements ImportQueryInterface
 {
+    private const TABLE = 'importer.import';
+    private const TABLE_ERROR = 'importer.import_error';
+    private const TABLE_SOURCE = 'importer.source';
+
     private Connection $connection;
 
     private TranslatorInterface $translator;
@@ -46,7 +50,7 @@ class DbalImportQuery implements ImportQueryInterface
         $qb = $this->connection->createQueryBuilder();
         $record = $qb
             ->select('line')
-            ->from('importer.import_error')
+            ->from(self::TABLE_ERROR)
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter(':id', $id->getValue())
             ->execute()
@@ -73,7 +77,7 @@ class DbalImportQuery implements ImportQueryInterface
         $query = $this->connection->createQueryBuilder();
 
         $query->select('il.import_id AS id, il.created_at, il.message, il.parameters')
-            ->from('importer.import_error', 'il')
+            ->from(self::TABLE_ERROR, 'il')
             ->where($query->expr()->eq('il.import_id', ':importId'))
             ->andWhere($query->expr()->isNotNull('il.message'));
 
@@ -103,6 +107,69 @@ class DbalImportQuery implements ImportQueryInterface
         return $result;
     }
 
+    /**
+     * @return ImportId[]
+     */
+    public function getImportIdsBySourceId(SourceId $sourceId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('i.id')
+            ->join('i', self::TABLE_SOURCE, 'il', 'il.id = i.source_id')
+            ->where($qb->expr()->eq('i.source_id', ':sourceId'))
+            ->setParameter(':sourceId', $sourceId->getValue())
+            ->from(self::TABLE, 'i')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ImportId($item);
+        }
+
+        return $result;
+    }
+
+    public function getSourceTypeByImportId(ImportId $importId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('s.type')
+            ->join('i', self::TABLE_SOURCE, 's', 's.id = i.source_id')
+            ->where($qb->expr()->eq('i.id', ':importId'))
+            ->setParameter(':importId', $importId->getValue())
+            ->from(self::TABLE, 'i')
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return $result['type'];
+        }
+
+        return null;
+    }
+
+    public function getFileNameByImportId(ImportId $importId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('i.file')
+            ->where($qb->expr()->eq('i.id', ':importId'))
+            ->setParameter(':importId', $importId->getValue())
+            ->from(self::TABLE, 'i')
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return $result['file'];
+        }
+
+        return null;
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
@@ -113,6 +180,6 @@ class DbalImportQuery implements ImportQueryInterface
                         WHERE il.import_id = i.id
                         AND il.message IS NOT NULL) AS errors'
             )
-            ->from('importer.import', 'i');
+            ->from(self::TABLE, 'i');
     }
 }

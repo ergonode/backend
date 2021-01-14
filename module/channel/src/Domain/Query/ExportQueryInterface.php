@@ -20,15 +20,13 @@ interface ExportQueryInterface
 
     public function getErrorDataSet(ExportId $exportIdId, Language $language): DataSetInterface;
 
-    /**
-     * @return array
-     */
     public function getProfileInfo(Language $language): array;
 
-    /**
-     * @return array
-     */
     public function getInformation(ExportId $exportId): array;
 
     public function findLastExport(ChannelId $channelId): ?\DateTime;
+
+    public function getExportIdsByChannelId(ChannelId $channelId): array;
+
+    public function getChannelTypeByExportId(ExportId $exportId): ?string;
 }
