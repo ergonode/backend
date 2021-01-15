@@ -1,0 +1,42 @@
+{
+    "name": "ergonode/newrelic",
+    "type": "ergonode-module",
+    "description": "Ergonode - New Relic",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^7.4",
+        "ergonode/shared-kernel": "^1.0.0-beta.7",
+        "symfony/config": "^4.4",
+        "symfony/dependency-injection": "^4.4",
+        "symfony/event-dispatcher": "^4.4",
+        "symfony/http-kernel": "^4.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "symfony/console": "^4.4",
+        "symfony/messenger": "^4.4"
+    },
+    "suggest": {
+        "ext-newrelic": "For using the module for New Relic tracing",
+        "symfony/console": "For tracing commands execution",
+        "symfony/messenger": "For tracing message handling as separate transactions"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\NewRelic\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\NewRelic\\Tests\\": "tests/"
+        }
+    }
+}
