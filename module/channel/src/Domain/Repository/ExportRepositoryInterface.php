@@ -18,4 +18,6 @@ interface ExportRepositoryInterface
     public function save(Export $export): void;
 
     public function exists(ExportId $id): bool;
+
+    public function delete(Export $export): void;
 }

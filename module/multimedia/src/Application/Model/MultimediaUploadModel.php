@@ -12,8 +12,8 @@ namespace Ergonode\Multimedia\Application\Model;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExtension;
-use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaName;
+use Ergonode\Multimedia\Application\Validator\MultimediaExtension;
+use Ergonode\Multimedia\Application\Validator\MultimediaName;
 
 /**
  * @Vich\Uploadable()

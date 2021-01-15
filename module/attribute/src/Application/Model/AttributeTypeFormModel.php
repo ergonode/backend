@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeExists;
+use Ergonode\Attribute\Application\Validator as AttributeConstraints;
 
 class AttributeTypeFormModel
 {
@@ -17,7 +17,7 @@ class AttributeTypeFormModel
      * @Assert\NotBlank(
      *     message="Type of attribute is required",
      *     )
-     * @AttributeTypeExists()
+     * @AttributeConstraints\AttributeTypeExists()
      */
     public ?string $type = null;
 }

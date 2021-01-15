@@ -42,7 +42,7 @@ services:
     Ergonode\Account\Infrastructure\Subscriber\LocaleSubscriber:
         $localeAware: '@translator'
 
-    Ergonode\Account\Application\Validator\Constraints\AvailableHostConstraintValidator:
+    Ergonode\Account\Application\Validator\HostAvailableValidator:
         arguments:
             $hosts: '%ergonode_account.hosts%'
 

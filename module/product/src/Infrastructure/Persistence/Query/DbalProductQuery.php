@@ -12,15 +12,11 @@ namespace Ergonode\Product\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
@@ -32,44 +28,12 @@ class DbalProductQuery implements ProductQueryInterface
     private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
     private const VALUE_TABLE = 'public.product_value';
     private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
-    private const PRODUCT_COLLECTION_TABLE = 'public.product_collection';
-    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.product_collection_element';
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
-    {
-        $qb = $this->connection->createQueryBuilder()
-            ->select('id, code, type_id')
-            ->from(self::PRODUCT_COLLECTION_TABLE, 'c')
-            ->leftJoin(
-                'c',
-                'product_collection_element',
-                'ce',
-                'ce.product_collection_id = c.id'
-            );
-        $qb->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
-        $qb->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
-        $qb->addSelect('(SELECT count(*) FROM product_collection_element'.
-        ' WHERE product_collection_id = c.id) as elements_count');
-        $qb->where($qb->expr()->eq('product_id', ':product_id'));
-        $qb->andWhere('visible=true');
-
-        $result = $this->connection->createQueryBuilder();
-
-        $result->setParameter(':product_id', $productId->getValue());
-        $result->select('*');
-        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
-
-        return $this->dataSetFactory->create($result);
     }
 
     public function findProductIdBySku(Sku $sku): ?ProductId
@@ -271,32 +235,6 @@ class DbalProductQuery implements ProductQueryInterface
             ->select('id', 'sku')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
-    }
-
-    /**
-     * @return mixed|void
-     */
-    public function findProductCollectionIdByProductId(ProductId $id)
-    {
-        $qb = $this->connection->createQueryBuilder()
-            ->select('pc.product_collection_id')
-            ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'pc');
-
-        $result = $qb
-            ->where($qb->expr()->eq('product_id', ':id'))
-            ->setParameter(':id', $id->getValue())
-            ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
-
-        if (false === $result) {
-            $result = [];
-        }
-
-        foreach ($result as &$item) {
-            $item = new ProductCollectionId($item);
-        }
-
-        return $result;
     }
 
     /**

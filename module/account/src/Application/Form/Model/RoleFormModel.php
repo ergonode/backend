@@ -9,14 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
-use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
+use Ergonode\Account\Application\Validator as AccountAssert;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-use Ergonode\Account\Infrastructure\Validator\RoleNameUnique;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @RoleNameUnique()
+ * @AccountAssert\RoleNameUnique()
  */
 class RoleFormModel
 {
@@ -44,7 +43,7 @@ class RoleFormModel
     /**
      * @var Privilege[]
      *
-     * @AccountAssert\ConstraintPrivilegeRelations()
+     * @AccountAssert\PrivilegeRelations()
      */
     public array $privileges;
 

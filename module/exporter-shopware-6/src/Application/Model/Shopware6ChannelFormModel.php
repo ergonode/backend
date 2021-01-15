@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Application\Model;
 
-use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
+use Ergonode\Core\Application\Validator as CoreAssert;
 use Ergonode\ExporterShopware6\Application\Model\Type\CustomFieldAttributeModel;
 use Ergonode\ExporterShopware6\Application\Model\Type\PropertyGroupAttributeModel;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;

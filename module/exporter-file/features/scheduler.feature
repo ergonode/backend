@@ -47,7 +47,7 @@ Feature: channel module
         {
           "active": "true",
           "start": "2020-01-01T10:00:00Z",
-          "hour": 10,
+          "hour": 2147483647,
           "minute" : 10
         }
       """
@@ -58,7 +58,7 @@ Feature: channel module
     Then the response status code should be 200
     And the JSON nodes should contain:
       | id     | @channel_id@ |
-      | hour   | 10           |
+      | hour   | 2147483647   |
       | minute | 10           |
     And the JSON node "start" should not be null
     And the JSON node "active" should be true
@@ -77,3 +77,15 @@ Feature: channel module
     And the JSON node "errors.start" should exist
     And the JSON node "errors.hour" should exist
     And the JSON node "errors.minute" should exist
+
+  Scenario: Update channel scheduler with to high hour value
+    When I send a PUT request to "/api/v1/en_GB/channels/@channel_id@/scheduler" with body:
+      """
+        {
+          "active": "true",
+          "start": "2020-01-01T10:00:00Z",
+          "hour": 2147483648,
+          "minute" : 10
+        }
+      """
+    Then the response status code should be 400

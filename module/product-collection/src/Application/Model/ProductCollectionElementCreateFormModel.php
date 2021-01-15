@@ -13,14 +13,14 @@ use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Ergonode\Product\Infrastructure\Validator\ProductExists;
+use Ergonode\Product\Application\Validator as ProductAssert;
 
 class ProductCollectionElementCreateFormModel
 {
     /**
      * @Assert\NotBlank(message="Product id is required")
      * @Assert\Uuid(strict=true, message="Product id must be valid uuid format")
-     * @ProductExists()
+     * @ProductAssert\ProductExists()
      */
     public ?string $productId;
 

@@ -9,9 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Model\Product;
 
-use Ergonode\Designer\Infrastructure\Validator\TemplateExists;
-use Ergonode\Product\Infrastructure\Validator\Sku;
-use Ergonode\Product\Infrastructure\Validator\SkuUnique;
+use Ergonode\Designer\Application\Validator as TemplateAssert;
+use Ergonode\Product\Application\Validator as ProductAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
@@ -20,9 +19,8 @@ class VariableProductFormModel
     /**
      * @Assert\NotBlank(message="Sku is required", groups={"Create"})
      *
-     * @Sku(groups={"Create"})
-     *
-     * @SkuUnique(groups={"Create"})
+     * @ProductAssert\Sku(groups={"Create"})
+     * @ProductAssert\SkuUnique(groups={"Create"})
      */
     public ?string $sku = null;
 
@@ -35,7 +33,7 @@ class VariableProductFormModel
      * @Assert\NotBlank(message="Template is required")
      * @Assert\Uuid()
      *
-     * @TemplateExists()
+     * @TemplateAssert\TemplateExists()
      */
     public ?string $template = null;
 }

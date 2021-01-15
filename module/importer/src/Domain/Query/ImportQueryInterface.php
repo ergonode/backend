@@ -26,8 +26,14 @@ interface ImportQueryInterface
 
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface;
 
-    /**
-     * @return array
-     */
     public function getInformation(ImportId $id, Language $language): array;
+
+    /**
+     * @return ImportId[]
+     */
+    public function getImportIdsBySourceId(SourceId $sourceId): array;
+
+    public function getSourceTypeByImportId(ImportId $importId): ?string;
+
+    public function getFileNameByImportId(ImportId $importId): ?string;
 }
