@@ -34,7 +34,7 @@ return [
     Ergonode\Mailer\ErgonodeMailerBundle::class => ['all' => true],
     Ergonode\Migration\ErgonodeMigrationBundle::class => ['all' => true],
     Ergonode\Multimedia\ErgonodeMultimediaBundle::class => ['all' => true],
-    Ergonode\NewRelic\ErgonodeNewRelicBundle::class => ['all' => true],
+    Ergonode\NewRelic\ErgonodeNewRelicBundle::class => ['prod' => true],
     Ergonode\Notification\ErgonodeNotificationBundle::class => ['all' => true],
     Ergonode\ProductCollection\ErgonodeProductCollectionBundle::class => ['all' => true],
     Ergonode\Product\ErgonodeProductBundle::class => ['all' => true],
