@@ -30,7 +30,7 @@ final class MessengerEventSubscriber implements EventSubscriberInterface
         $this->newRelic->endTransaction();
         $this->newRelic->startTransaction();
         $this->newRelic->nameTransaction(
-            $event->getReceiverName(),
+            $this->getTransactionName($event),
         );
     }
 
@@ -49,5 +49,14 @@ final class MessengerEventSubscriber implements EventSubscriberInterface
             WorkerMessageFailedEvent::class => 'onMessageFinished',
             WorkerMessageHandledEvent::class => 'onMessageFinished',
         ];
+    }
+
+    private function getTransactionName(WorkerMessageReceivedEvent $event): string
+    {
+        return sprintf(
+            'consuming_%s_%s',
+            $event->getReceiverName(),
+            get_class($event->getEnvelope()->getMessage()),
+        );
     }
 }
