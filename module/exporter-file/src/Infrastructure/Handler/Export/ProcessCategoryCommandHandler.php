@@ -12,13 +12,13 @@ use Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand;
 use Webmozart\Assert\Assert;
 use Ergonode\ExporterFile\Infrastructure\Processor\CategoryProcessor;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class ProcessCategoryCommandHandler

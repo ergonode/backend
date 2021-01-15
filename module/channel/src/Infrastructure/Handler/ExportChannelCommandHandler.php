@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Handler;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
+use Ergonode\Channel\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Channel\Domain\Command\ExportChannelCommand;
 

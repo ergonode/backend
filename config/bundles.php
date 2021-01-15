@@ -24,7 +24,6 @@ return [
     Ergonode\ExporterFile\ErgonodeExporterFileBundle::class => ['all' => true],
     Ergonode\ExporterMagento2\ErgonodeExporterMagento2Bundle::class => ['all' => true],
     Ergonode\ExporterShopware6\ErgonodeExporterShopware6Bundle::class => ['all' => true],
-    Ergonode\Exporter\ErgonodeExporterBundle::class => ['all' => true],
     Ergonode\Fixture\ErgonodeFixtureBundle::class => ['dev' => true, 'test' => true],
     Ergonode\Generator\ErgonodeGeneratorBundle::class => ['dev' => true],
     Ergonode\Grid\ErgonodeGridBundle::class => ['all' => true],

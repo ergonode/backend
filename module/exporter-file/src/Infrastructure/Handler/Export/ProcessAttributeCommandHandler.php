@@ -9,16 +9,16 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
 use Webmozart\Assert\Assert;
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Infrastructure\Processor\AttributeProcessor;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 class ProcessAttributeCommandHandler

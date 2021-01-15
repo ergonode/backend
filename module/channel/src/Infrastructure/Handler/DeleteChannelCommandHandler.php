@@ -14,7 +14,7 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Command\Export\DeleteExportCommand;
+use Ergonode\Channel\Domain\Command\Export\DeleteExportCommand;
 use Webmozart\Assert\Assert;
 
 class DeleteChannelCommandHandler

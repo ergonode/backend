@@ -38,7 +38,7 @@ ergonode_designer:
     messenger:
         transport_name: 'core'
 
-ergonode_exporter:
+ergonode_channel:
     messenger:
         transport_name: 'export'
 

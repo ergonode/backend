@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\CurrencyRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\TaxRepositoryInterface;

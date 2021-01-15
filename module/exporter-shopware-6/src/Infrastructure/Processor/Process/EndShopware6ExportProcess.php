@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 class EndShopware6ExportProcess

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\Core\Domain\ValueObject\Language;

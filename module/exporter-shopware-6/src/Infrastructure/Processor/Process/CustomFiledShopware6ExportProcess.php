@@ -10,9 +10,9 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\Exporter\Domain\Entity\ExportLine;
-use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
+use Ergonode\Channel\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\ExportLine;
+use Ergonode\Channel\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\CustomFieldRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CustomFieldBuilder;

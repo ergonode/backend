@@ -10,8 +10,8 @@ namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
-use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Webmozart\Assert\Assert;
 
