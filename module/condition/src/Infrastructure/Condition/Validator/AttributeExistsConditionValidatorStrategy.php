@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
-use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
+use Ergonode\Attribute\Application\Validator\AttributeExists;
 use Ergonode\Condition\Domain\Condition\AttributeExistsCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;

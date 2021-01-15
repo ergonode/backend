@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Model\Attribute;
 
 use Ergonode\Attribute\Application\Model\Attribute\Property\TextareaAttributePropertyModel;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TextareaAttributeFormModel extends AttributeFormModel

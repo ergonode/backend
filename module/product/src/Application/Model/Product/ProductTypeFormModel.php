@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\Model\Product;
 
-use Ergonode\Product\Infrastructure\Validator\AvailableProductType;
+use Ergonode\Product\Application\Validator as ProductAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductTypeFormModel
@@ -17,7 +17,7 @@ class ProductTypeFormModel
     /**
      * @Assert\NotBlank(message="Type is required")
      *
-     * @AvailableProductType
+     * @ProductAssert\ProductTypeExists()
      */
     public ?string $type = null;
 }

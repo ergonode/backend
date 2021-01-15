@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Application\Model\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
+use Ergonode\Attribute\Application\Validator\AttributeExists;
+use Ergonode\Attribute\Application\Validator\AttributeTypeValid;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
-use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExists;
+use Ergonode\Multimedia\Application\Validator\MultimediaExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TemplateFormModel

@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
-use Ergonode\SharedKernel\Application\Validator\SystemCodeConstraint;
+use Ergonode\ProductCollection\Application\Validator as productCollectionAssert;
+use Ergonode\SharedKernel\Application\Validator\SystemCode;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductCollectionTypeCreateFormModel
@@ -22,9 +22,9 @@ class ProductCollectionTypeCreateFormModel
      *     message="Product collection type can have only letters, digits or underscore symbol"
      *  )
      *
-     * @SystemCodeConstraint(max=64)
+     * @SystemCode(max=64)
      *
-     * @ProductCollectionCodeUnique()
+     * @productCollectionAssert\ProductCollectionCodeUnique()
      */
     public ?string $code;
 

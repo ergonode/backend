@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Model\Tree;
 
-use Ergonode\Category\Infrastructure\Validator\CategoryExists;
+use Ergonode\Category\Application\Validator as CategoryAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,7 +21,7 @@ class TreeNodeFormModel
      * @Assert\NotBlank(message="Category id is required")
      * @Assert\Uuid()
      *
-     * @CategoryExists(groups={"Category"})
+     * @CategoryAssert\CategoryExists(groups={"Category"})
      */
     public ?string $categoryId;
 

@@ -90,6 +90,16 @@ class DbalExportRepository implements ExportRepositoryInterface
         return false;
     }
 
+    public function delete(Export $export): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $export->getId()->getValue(),
+            ]
+        );
+    }
+
     /**
      * @throws \Doctrine\DBAL\DBALException
      */

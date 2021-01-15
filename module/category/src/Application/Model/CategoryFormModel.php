@@ -20,8 +20,8 @@ class CategoryFormModel
      *     groups={"Create"}
      *     )
      *
-     * @CategoryAssert\CategoryCodeConstraint()
-     * @CategoryAssert\UniqueCategoryCodeConstraint(
+     * @CategoryAssert\CategoryCode()
+     * @CategoryAssert\CategoryCodeUnique(
      *     groups={"Create"}
      * )
      */
