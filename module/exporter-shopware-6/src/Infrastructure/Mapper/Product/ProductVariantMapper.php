@@ -12,7 +12,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\OptionRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;

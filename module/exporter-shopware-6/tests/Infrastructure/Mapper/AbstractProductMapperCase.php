@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Mapper;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\Product\Domain\Entity\AbstractProduct;

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\LanguageQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;

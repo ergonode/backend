@@ -11,10 +11,10 @@ namespace Ergonode\ExporterFile\Tests\Infrastructure\Handler;
 use Ergonode\ExporterFile\Infrastructure\Handler\ProcessExportCommandHandler;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
-use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Command\Export\ProcessExportCommand;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 
 class ProcessExportCommandHandlerTest extends TestCase
 {

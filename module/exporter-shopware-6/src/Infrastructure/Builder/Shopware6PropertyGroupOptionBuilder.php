@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Builder;
 
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupOptionMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;

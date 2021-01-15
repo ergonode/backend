@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\CurrencyQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\CurrencyRepositoryInterface;

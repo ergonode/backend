@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper;
 
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;

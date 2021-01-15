@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\ProductCrossSellingQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\ProductCrossSellingRepositoryInterface;

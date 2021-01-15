@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Domain\Command\Export;
 
-use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
+use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
-use Ergonode\Exporter\Infrastructure\Service\ZipFileRemover;
-use Ergonode\Exporter\Domain\Command\Export\DeleteExportCommand;
+use Ergonode\Channel\Infrastructure\Service\ZipFileRemover;
+use Ergonode\Channel\Domain\Command\Export\DeleteExportCommand;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 class DeleteExportCommandHandler
