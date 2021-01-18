@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20210105101352 extends AbstractErgonodeMigration
+final class Version20210105101200 extends AbstractErgonodeMigration
 {
     /**
      * @throws \Exception
@@ -60,6 +60,9 @@ final class Version20210105101352 extends AbstractErgonodeMigration
                 'CHANNEL_GET_NOTIFICATION',
 
                 'CHANNEL_GET_SCHEDULER',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -82,6 +85,9 @@ final class Version20210105101352 extends AbstractErgonodeMigration
 
                 'CHANNEL_GET_SCHEDULER',
                 'CHANNEL_PUT_SCHEDULER',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -103,6 +109,9 @@ final class Version20210105101352 extends AbstractErgonodeMigration
 
                 'CHANNEL_GET_SCHEDULER',
                 'CHANNEL_PUT_SCHEDULER',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -122,6 +131,9 @@ final class Version20210105101352 extends AbstractErgonodeMigration
                 'CHANNEL_GET_NOTIFICATION',
 
                 'CHANNEL_GET_SCHEDULER',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
     }

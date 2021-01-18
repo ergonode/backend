@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20210105101348 extends AbstractErgonodeMigration
+final class Version20210105100800 extends AbstractErgonodeMigration
 {
     /**
      * @throws \Exception
@@ -79,6 +79,17 @@ final class Version20210105101348 extends AbstractErgonodeMigration
 
                 'COMMENT_GET_GRID',
                 'COMMENT_GET',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
+
+                'ATTRIBUTE_GET_GRID',
+                'ATTRIBUTE_GET',
+                'ATTRIBUTE_GET_SYSTEM',
+                'ATTRIBUTE_GET_GROUP_GRID',
+                'ATTRIBUTE_GET_GROUP',
+                'ATTRIBUTE_GET_OPTION_GRID',
+                'ATTRIBUTE_GET_OPTION',
             ]
         );
 
@@ -121,6 +132,17 @@ final class Version20210105101348 extends AbstractErgonodeMigration
                 'COMMENT_POST',
                 'COMMENT_PUT',
                 'COMMENT_DELETE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
+
+                'ATTRIBUTE_GET_GRID',
+                'ATTRIBUTE_GET',
+                'ATTRIBUTE_GET_SYSTEM',
+                'ATTRIBUTE_GET_GROUP_GRID',
+                'ATTRIBUTE_GET_GROUP',
+                'ATTRIBUTE_GET_OPTION_GRID',
+                'ATTRIBUTE_GET_OPTION',
             ]
         );
 
@@ -163,6 +185,17 @@ final class Version20210105101348 extends AbstractErgonodeMigration
                 'COMMENT_POST',
                 'COMMENT_PUT',
                 'COMMENT_DELETE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
+
+                'ATTRIBUTE_GET_GRID',
+                'ATTRIBUTE_GET',
+                'ATTRIBUTE_GET_SYSTEM',
+                'ATTRIBUTE_GET_GROUP_GRID',
+                'ATTRIBUTE_GET_GROUP',
+                'ATTRIBUTE_GET_OPTION_GRID',
+                'ATTRIBUTE_GET_OPTION',
             ]
         );
 
@@ -188,6 +221,17 @@ final class Version20210105101348 extends AbstractErgonodeMigration
                 'COMMENT_GET_GRID',
                 'COMMENT_GET',
                 'COMMENT_DELETE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
+
+                'ATTRIBUTE_GET_GRID',
+                'ATTRIBUTE_GET',
+                'ATTRIBUTE_GET_SYSTEM',
+                'ATTRIBUTE_GET_GROUP_GRID',
+                'ATTRIBUTE_GET_GROUP',
+                'ATTRIBUTE_GET_OPTION_GRID',
+                'ATTRIBUTE_GET_OPTION',
             ]
         );
     }

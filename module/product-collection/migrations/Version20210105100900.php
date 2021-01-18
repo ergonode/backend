@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20210105101349 extends AbstractErgonodeMigration
+final class Version20210105100900 extends AbstractErgonodeMigration
 {
     /**
      * @throws \Exception
@@ -57,12 +57,14 @@ final class Version20210105101349 extends AbstractErgonodeMigration
 
                 'PRODUCT_COLLECTION_GET_ELEMENT_GRID',
                 'PRODUCT_COLLECTION_GET_ELEMENT',
-                'PRODUCT_COLLECTION_POST_ELEMENT_SEGMENT',
 
                 'PRODUCT_COLLECTION_GET_TYPE_GRID',
                 'PRODUCT_COLLECTION_GET_TYPE',
 
                 'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -88,6 +90,9 @@ final class Version20210105101349 extends AbstractErgonodeMigration
                 'PRODUCT_COLLECTION_PUT_TYPE',
 
                 'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -111,6 +116,9 @@ final class Version20210105101349 extends AbstractErgonodeMigration
                 'PRODUCT_COLLECTION_PUT_TYPE',
 
                 'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -132,6 +140,58 @@ final class Version20210105101349 extends AbstractErgonodeMigration
                 'PRODUCT_COLLECTION_GET_TYPE_GRID',
                 'PRODUCT_COLLECTION_GET_TYPE',
                 'PRODUCT_COLLECTION_DELETE_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
+            ]
+        );
+
+        // PRODUCT
+        $this->insertPrivileges(
+            'PRODUCT_READ',
+            [
+                'PRODUCT_COLLECTION_GET_GRID',
+                'PRODUCT_COLLECTION_GET',
+
+                'PRODUCT_COLLECTION_GET_ELEMENT_GRID',
+                'PRODUCT_COLLECTION_GET_ELEMENT',
+
+                'PRODUCT_COLLECTION_GET_TYPE_GRID',
+                'PRODUCT_COLLECTION_GET_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
+            ]
+        );
+
+        $this->insertPrivileges(
+            'PRODUCT_CREATE',
+            [
+                'PRODUCT_COLLECTION_GET_GRID',
+                'PRODUCT_COLLECTION_GET',
+
+                'PRODUCT_COLLECTION_GET_ELEMENT_GRID',
+                'PRODUCT_COLLECTION_GET_ELEMENT',
+
+                'PRODUCT_COLLECTION_GET_TYPE_GRID',
+                'PRODUCT_COLLECTION_GET_TYPE',
+
+                'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
+            ]
+        );
+
+        $this->insertPrivileges(
+            'PRODUCT_UPDATE',
+            [
+                'PRODUCT_COLLECTION_GET_GRID',
+                'PRODUCT_COLLECTION_GET',
+
+                'PRODUCT_COLLECTION_GET_ELEMENT_GRID',
+                'PRODUCT_COLLECTION_GET_ELEMENT',
+
+                'PRODUCT_COLLECTION_GET_TYPE_GRID',
+                'PRODUCT_COLLECTION_GET_TYPE',
 
                 'PRODUCT_COLLECTION_GET_PRODUCT_GRID',
             ]

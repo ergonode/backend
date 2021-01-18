@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -11,37 +10,17 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20210105101342 extends AbstractErgonodeMigration
+final class Version20210105120200 extends AbstractErgonodeMigration
 {
     /**
      * @throws \Exception
      */
     public function up(Schema $schema): void
     {
-        $this->insertEndpointPrivileges(
-            [
-                'CATEGORY_GET_GRID',
-                'CATEGORY_GET',
-                'CATEGORY_POST',
-                'CATEGORY_PUT',
-                'CATEGORY_DELETE',
-
-                'CATEGORY_GET_TYPE',
-                'CATEGORY_GET_TYPE_CONFIGURATION',
-
-                'CATEGORY_GET_TREE_GRID',
-                'CATEGORY_GET_TREE',
-                'CATEGORY_POST_TREE',
-                'CATEGORY_PUT_TREE',
-                'CATEGORY_DELETE_TREE',
-            ]
-        );
-
         //CATEGORY
         $this->insertPrivileges(
             'CATEGORY_READ',
@@ -50,6 +29,9 @@ final class Version20210105101342 extends AbstractErgonodeMigration
                 'CATEGORY_GET',
                 'CATEGORY_GET_TYPE',
                 'CATEGORY_GET_TYPE_CONFIGURATION',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -64,6 +46,9 @@ final class Version20210105101342 extends AbstractErgonodeMigration
 
                 'CATEGORY_GET_TYPE',
                 'CATEGORY_GET_TYPE_CONFIGURATION',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -77,6 +62,8 @@ final class Version20210105101342 extends AbstractErgonodeMigration
                 'CATEGORY_GET_TYPE',
                 'CATEGORY_GET_TYPE_CONFIGURATION',
 
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -86,6 +73,9 @@ final class Version20210105101342 extends AbstractErgonodeMigration
                 'CATEGORY_GET_GRID',
                 'CATEGORY_GET',
                 'CATEGORY_DELETE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
@@ -93,54 +83,62 @@ final class Version20210105101342 extends AbstractErgonodeMigration
         $this->insertPrivileges(
             'CATEGORY_TREE_READ',
             [
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
                 'CATEGORY_GET_TREE_GRID',
                 'CATEGORY_GET_TREE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
         $this->insertPrivileges(
             'CATEGORY_TREE_CREATE',
             [
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
                 'CATEGORY_GET_TREE_GRID',
                 'CATEGORY_GET_TREE',
                 'CATEGORY_POST_TREE',
                 'CATEGORY_PUT_TREE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
         $this->insertPrivileges(
             'CATEGORY_TREE_UPDATE',
             [
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
                 'CATEGORY_GET_TREE_GRID',
                 'CATEGORY_GET_TREE',
                 'CATEGORY_PUT_TREE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
 
         $this->insertPrivileges(
             'CATEGORY_TREE_DELETE',
             [
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
                 'CATEGORY_GET_TREE_GRID',
                 'CATEGORY_GET_TREE',
                 'CATEGORY_DELETE_TREE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
-    }
-
-    /**
-     * @throws \Exception
-     *
-     * @param string[] $privileges
-     *
-     */
-    private function insertEndpointPrivileges(array $privileges): void
-    {
-        foreach ($privileges as $privilege) {
-            $this->addSql(
-                'INSERT INTO privileges_endpoint (id, name) VALUES (?, ?)',
-                [Uuid::uuid4()->toString(), $privilege]
-            );
-        }
     }
 
     /**

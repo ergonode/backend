@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20210105101346 extends AbstractErgonodeMigration
+final class Version20210105100400 extends AbstractErgonodeMigration
 {
     /**
      * @throws \Exception
@@ -24,68 +24,78 @@ final class Version20210105101346 extends AbstractErgonodeMigration
     {
         $this->insertEndpointPrivileges(
             [
-                'MULTIMEDIA_GET_GRID',
-                'MULTIMEDIA_GET',
-                'MULTIMEDIA_GET_METADATA',
-                'MULTIMEDIA_GET_RELATION',
-                'MULTIMEDIA_GET_DOWNLOAD',
-                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
-                'MULTIMEDIA_POST',
-                'MULTIMEDIA_PUT',
-                'MULTIMEDIA_DELETE',
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE',
+                'CORE_PUT_LANGUAGE',
+
+                'CORE_GET_LANGUAGE_TREE',
+                'CORE_PUT_LANGUAGE_TREE',
+
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
+                'CORE_POST_UNIT',
+                'CORE_PUT_UNIT',
+                'CORE_DELETE_UNIT',
             ]
         );
 
-        //MULTIMEDIA
+        //SETTINGS
         $this->insertPrivileges(
-            'MULTIMEDIA_READ',
+            'SETTINGS_READ',
             [
-                'MULTIMEDIA_GET_GRID',
-                'MULTIMEDIA_GET',
-                'MULTIMEDIA_GET_METADATA',
-                'MULTIMEDIA_GET_RELATION',
-                'MULTIMEDIA_GET_DOWNLOAD',
-                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
-            ]
-        );
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE',
 
-        $this->insertPrivileges(
-            'MULTIMEDIA_CREATE',
-            [
-                'MULTIMEDIA_GET_GRID',
-                'MULTIMEDIA_GET',
-                'MULTIMEDIA_GET_METADATA',
-                'MULTIMEDIA_GET_RELATION',
-                'MULTIMEDIA_GET_DOWNLOAD',
-                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
-                'MULTIMEDIA_POST',
-                'MULTIMEDIA_PUT',
+                'CORE_GET_LANGUAGE_TREE',
+
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
             ]
         );
 
         $this->insertPrivileges(
-            'MULTIMEDIA_UPDATE',
+            'SETTINGS_CREATE',
             [
-                'MULTIMEDIA_GET_GRID',
-                'MULTIMEDIA_GET',
-                'MULTIMEDIA_GET_METADATA',
-                'MULTIMEDIA_GET_RELATION',
-                'MULTIMEDIA_GET_DOWNLOAD',
-                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
-                'MULTIMEDIA_PUT',
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE',
+                'CORE_PUT_LANGUAGE',
+
+                'CORE_GET_LANGUAGE_TREE',
+                'CORE_PUT_LANGUAGE_TREE',
+
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
+                'CORE_POST_UNIT',
+                'CORE_PUT_UNIT',
             ]
         );
 
         $this->insertPrivileges(
-            'MULTIMEDIA_DELETE',
+            'SETTINGS_UPDATE',
             [
-                'MULTIMEDIA_GET_GRID',
-                'MULTIMEDIA_GET',
-                'MULTIMEDIA_GET_METADATA',
-                'MULTIMEDIA_GET_RELATION',
-                'MULTIMEDIA_GET_DOWNLOAD',
-                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
-                'MULTIMEDIA_DELETE',
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE',
+                'CORE_PUT_LANGUAGE',
+
+                'CORE_GET_LANGUAGE_TREE',
+                'CORE_PUT_LANGUAGE_TREE',
+
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
+                'CORE_PUT_UNIT',
+            ]
+        );
+
+        $this->insertPrivileges(
+            'SETTINGS_DELETE',
+            [
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE',
+
+                'CORE_GET_LANGUAGE_TREE',
+
+                'CORE_GET_UNIT_GRID',
+                'CORE_DELETE_UNIT',
             ]
         );
     }

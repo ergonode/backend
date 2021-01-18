@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Auto-generated Ergonode Migration Class:
  */
-final class Version20210105101343 extends AbstractErgonodeMigration
+final class Version20210105100700 extends AbstractErgonodeMigration
 {
     /**
      * @throws \Exception
@@ -23,11 +23,25 @@ final class Version20210105101343 extends AbstractErgonodeMigration
     {
         $this->insertEndpointPrivileges(
             [
-                'COMMENT_GET_GRID',
-                'COMMENT_GET',
-                'COMMENT_POST',
-                'COMMENT_PUT',
-                'COMMENT_DELETE',
+                'WORKFLOW_GET',
+                'WORKFLOW_POST',
+                'WORKFLOW_PUT',
+                'WORKFLOW_PUT_DEFAULT_STATUS',
+                'WORKFLOW_DELETE',
+
+                'WORKFLOW_GET_PRODUCT',
+
+                'WORKFLOW_GET_STATUS_GRID',
+                'WORKFLOW_GET_STATUS',
+                'WORKFLOW_POST_STATUS',
+                'WORKFLOW_PUT_STATUS',
+                'WORKFLOW_DELETE_STATUS',
+
+                'WORKFLOW_GET_TRANSITION_GRID',
+                'WORKFLOW_GET_TRANSITION',
+                'WORKFLOW_POST_TRANSITION',
+                'WORKFLOW_PUT_TRANSITION',
+                'WORKFLOW_DELETE_TRANSITION',
             ]
         );
     }
