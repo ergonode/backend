@@ -57,11 +57,6 @@ class DbalExportQuery implements ExportQueryInterface
             ->where($query->expr()->eq('export_id', ':exportId'))
             ->setParameter(':exportId', $exportId->getValue());
 
-//        $result = $this->connection->createQueryBuilder();
-//        $result->select('*');
-//        $result->from(sprintf('(%s)', $query->getSQL()), 't')
-//            ->setParameter(':exportId', $exportId->getValue());
-
         return $this->dataSetFactory->create($query);
     }
 
