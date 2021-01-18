@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

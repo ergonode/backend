@@ -11,12 +11,12 @@ namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class ProductValueAddedEvent implements DomainEventInterface
+class ProductValueAddedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

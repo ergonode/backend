@@ -10,13 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Domain\Event\Transition;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class TransitionConditionSetChangedEvent implements DomainEventInterface
+class TransitionConditionSetChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")

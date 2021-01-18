@@ -12,10 +12,10 @@ namespace Ergonode\Account\Domain\Event\Role;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class RemovePrivilegeFromRoleEvent implements DomainEventInterface
+class RemovePrivilegeFromRoleEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")

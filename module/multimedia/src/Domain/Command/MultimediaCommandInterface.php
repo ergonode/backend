@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 interface MultimediaCommandInterface extends DomainCommandInterface
 {

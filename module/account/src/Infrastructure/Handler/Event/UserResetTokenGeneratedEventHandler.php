@@ -11,7 +11,7 @@ namespace Ergonode\Account\Infrastructure\Handler\Event;
 use Ergonode\Account\Domain\Event\User\UserResetTokenGeneratedEvent;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ResetTokenMail;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Mailer\Domain\Command\SendMailCommand;
 
 class UserResetTokenGeneratedEventHandler

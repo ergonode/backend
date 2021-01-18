@@ -11,7 +11,7 @@ namespace Ergonode\ImporterErgonode1\Domain\Command\Import;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 

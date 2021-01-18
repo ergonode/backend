@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Infrastructure\Handler\Event;
 
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;

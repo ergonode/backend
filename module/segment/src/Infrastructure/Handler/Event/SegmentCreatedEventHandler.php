@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
 use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;

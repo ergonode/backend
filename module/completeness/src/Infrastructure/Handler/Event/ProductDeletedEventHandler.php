@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Completeness\Infrastructure\Handler\Event;
 
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 
 class ProductDeletedEventHandler

@@ -10,7 +10,7 @@ namespace Ergonode\BatchAction\Domain\Command;
 
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 
 class ProcessBatchActionEntryCommand implements DomainCommandInterface

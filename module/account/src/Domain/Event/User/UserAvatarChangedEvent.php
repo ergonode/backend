@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class UserAvatarChangedEvent implements DomainEventInterface
+class UserAvatarChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")

@@ -10,10 +10,10 @@ namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class ProductTemplateChangedEvent implements DomainEventInterface
+class ProductTemplateChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

@@ -10,7 +10,7 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;

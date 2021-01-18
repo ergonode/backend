@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Infrastructure\Handler;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;

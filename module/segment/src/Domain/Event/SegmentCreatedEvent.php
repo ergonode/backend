@@ -12,12 +12,12 @@ namespace Ergonode\Segment\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use JMS\Serializer\Annotation as JMS;
 
-class SegmentCreatedEvent implements DomainEventInterface
+class SegmentCreatedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")

@@ -13,7 +13,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;

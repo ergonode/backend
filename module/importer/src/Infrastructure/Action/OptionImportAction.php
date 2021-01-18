@@ -16,7 +16,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class OptionImportAction

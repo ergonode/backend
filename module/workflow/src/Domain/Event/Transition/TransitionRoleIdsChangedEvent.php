@@ -11,13 +11,13 @@ namespace Ergonode\Workflow\Domain\Event\Transition;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
-class TransitionRoleIdsChangedEvent implements DomainEventInterface
+class TransitionRoleIdsChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")

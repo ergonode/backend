@@ -12,7 +12,7 @@ use Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Envelope;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
 class DomainEventEnvelope
@@ -18,14 +18,14 @@ class DomainEventEnvelope
 
     private int $sequence;
 
-    private DomainEventInterface $event;
+    private AggregateEventInterface $event;
 
     private \DateTime $recordedAt;
 
     public function __construct(
         AggregateId $aggregateId,
         int $sequence,
-        DomainEventInterface $event,
+        AggregateEventInterface $event,
         \DateTime $recordedAt
     ) {
         $this->aggregateId = $aggregateId;
@@ -44,7 +44,7 @@ class DomainEventEnvelope
         return $this->sequence;
     }
 
-    public function getEvent(): DomainEventInterface
+    public function getEvent(): AggregateEventInterface
     {
         return $this->event;
     }

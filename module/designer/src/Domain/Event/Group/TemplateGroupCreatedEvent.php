@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Event\Group;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use JMS\Serializer\Annotation as JMS;
 
-class TemplateGroupCreatedEvent implements DomainEventInterface
+class TemplateGroupCreatedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")

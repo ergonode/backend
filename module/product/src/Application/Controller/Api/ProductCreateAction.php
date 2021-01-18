@@ -11,7 +11,7 @@ namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Application\Form\Product\ProductTypeForm;
 use Ergonode\Product\Application\Provider\ProductFormProvider;
 use Ergonode\Product\Infrastructure\Provider\CreateProductCommandFactoryProvider;

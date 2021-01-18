@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use JMS\Serializer\Annotation as JMS;
 
-class ProductCollectionTypeNameChangedEvent implements DomainEventInterface
+class ProductCollectionTypeNameChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")

@@ -16,7 +16,7 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;

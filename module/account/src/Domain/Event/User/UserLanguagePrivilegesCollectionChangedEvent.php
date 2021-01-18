@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use JMS\Serializer\Annotation as JMS;
 
-class UserLanguagePrivilegesCollectionChangedEvent implements DomainEventInterface
+class UserLanguagePrivilegesCollectionChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
