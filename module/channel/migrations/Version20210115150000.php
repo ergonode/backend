@@ -22,18 +22,21 @@ final class Version20210115150000 extends AbstractErgonodeMigration
                 id SERIAL, 
                 export_id uuid NOT NULL,
                 created_at timestamptz NOT NULL,        
-                message TEXT DEFAULT NULL,  
-                parameters jsonb DEFAULT NULL,
+                message TEXT NOT NULL,  
+                parameters jsonb NOT NULL,
                 PRIMARY KEY (id)
             )
         ');
 
         $this->addSql('UPDATE exporter.export_error 
                            SET (export_id, created_at, message, parameters) = 
-                           (SELECT export_id, procesed_at, message, paramatars FROM exporter.export_line)
+                           (SELECT export_id, processed_at, message, parameters FROM exporter.export_line)
                            ');
 
         $this->addSql('ALTER TABLE exporter.export_line DROP COLUMN message');
-        $this->addSql('ALTER TABLE exporter.export_line DROP COLUMN paramatars');
+        $this->addSql('ALTER TABLE exporter.export_line DROP COLUMN parameters');
+        $this->addSql('ALTER TABLE exporter.export_line ALTER COLUMN processed_at DROP NOT NULL');
+        $this->addSql('ALTER TABLE exporter.export_line ALTER COLUMN processed_at SET DEFAULT NULL');
+        $this->addSql('ALTER TABLE exporter.export DROP COLUMN items');
     }
 }

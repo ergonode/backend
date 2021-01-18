@@ -56,21 +56,32 @@ class ProcessOptionCommandHandler
      */
     public function __invoke(ProcessOptionCommand $command): void
     {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::isInstanceOf($export, Export::class);
-        $channel = $this->channelRepository->load($export->getChannelId());
-        /** @var FileExportChannel $channel */
-        Assert::isInstanceOf($channel, FileExportChannel::class);
-        $option = $this->optionRepository->load($command->getOptionId());
-        Assert::isInstanceOf($option, AbstractOption::class);
+        $exportId = $command->getExportId();
+        $optionId = $command->getOptionId();
+        try {
+            $export = $this->exportRepository->load($exportId);
+            Assert::isInstanceOf($export, Export::class);
+            $channel = $this->channelRepository->load($export->getChannelId());
+            /** @var FileExportChannel $channel */
+            Assert::isInstanceOf($channel, FileExportChannel::class);
+            $option = $this->optionRepository->load($optionId);
+            Assert::isInstanceOf($option, AbstractOption::class);
 
-        $filename = sprintf('%s/options.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $option);
-        $writer = $this->provider->provide($channel->getFormat());
-        $lines = $writer->add($data);
+            $filename = sprintf('%s/options.%s', $exportId->getValue(), $channel->getFormat());
+            $data = $this->processor->process($channel, $option);
+            $writer = $this->provider->provide($channel->getFormat());
+            $lines = $writer->add($data);
 
-        $this->storage->open($filename);
-        $this->storage->append($lines);
-        $this->storage->close();
+            $this->storage->open($filename);
+            $this->storage->append($lines);
+            $this->storage->close();
+        } catch (\Exception $exception) {
+            $this->exportRepository->addError(
+                $exportId,
+                'Can\'t export option {id}',
+                ['{id}' => $optionId->getValue()]
+            );
+        }
+        $this->exportRepository->processLine($exportId, $optionId);
     }
 }

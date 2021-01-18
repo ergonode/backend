@@ -56,21 +56,32 @@ class ProcessAttributeCommandHandler
      */
     public function __invoke(ProcessAttributeCommand $command): void
     {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::isInstanceOf($export, Export::class);
-        $channel = $this->channelRepository->load($export->getChannelId());
-        /** @var FileExportChannel $channel */
-        Assert::isInstanceOf($channel, FileExportChannel::class);
-        $attribute = $this->attributeRepository->load($command->getAttributeId());
-        Assert::isInstanceOf($attribute, AbstractAttribute::class);
+        $exportId = $command->getExportId();
+        $attributeId = $command->getAttributeId();
+        try {
+            $export = $this->exportRepository->load($exportId);
+            Assert::isInstanceOf($export, Export::class);
+            $channel = $this->channelRepository->load($export->getChannelId());
+            /** @var FileExportChannel $channel */
+            Assert::isInstanceOf($channel, FileExportChannel::class);
+            $attribute = $this->attributeRepository->load($attributeId);
+            Assert::isInstanceOf($attribute, AbstractAttribute::class);
 
-        $filename = sprintf('%s/attributes.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $attribute);
-        $writer = $this->provider->provide($channel->getFormat());
-        $lines = $writer->add($data);
+            $filename = sprintf('%s/attributes.%s', $exportId->getValue(), $channel->getFormat());
+            $data = $this->processor->process($channel, $attribute);
+            $writer = $this->provider->provide($channel->getFormat());
+            $lines = $writer->add($data);
 
-        $this->storage->open($filename);
-        $this->storage->append($lines);
-        $this->storage->close();
+            $this->storage->open($filename);
+            $this->storage->append($lines);
+            $this->storage->close();
+        } catch (\Exception $exception) {
+            $this->exportRepository->addError(
+                $exportId,
+                'Can\'t export attribute {id}',
+                ['{id}' => $attributeId->getValue()]
+            );
+        }
+        $this->exportRepository->processLine($exportId, $attributeId);
     }
 }

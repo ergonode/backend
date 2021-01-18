@@ -28,7 +28,6 @@ class DbalExportRepository implements ExportRepositoryInterface
     private const FIELDS = [
         'id',
         'status',
-        'items',
         'channel_id',
         'started_at',
         'ended_at',

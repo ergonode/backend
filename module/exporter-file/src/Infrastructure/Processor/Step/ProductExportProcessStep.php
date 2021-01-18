@@ -15,6 +15,7 @@ use Ergonode\ExporterFile\Domain\Command\Export\ProcessProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 
 class ProductExportProcessStep implements ExportStepProcessInterface
 {
@@ -24,14 +25,18 @@ class ProductExportProcessStep implements ExportStepProcessInterface
 
     private CommandBusInterface $commandBus;
 
+    private ExportRepositoryInterface $repository;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         ExportQueryInterface $exportQuery,
-        CommandBusInterface $commandBus
+        CommandBusInterface $commandBus,
+        ExportRepositoryInterface $repository
     ) {
         $this->productQuery = $productQuery;
         $this->exportQuery = $exportQuery;
         $this->commandBus = $commandBus;
+        $this->repository = $repository;
     }
 
     public function export(ExportId $exportId, FileExportChannel $channel): void
@@ -47,7 +52,9 @@ class ProductExportProcessStep implements ExportStepProcessInterface
         }
 
         foreach ($products as $product) {
-            $command = new ProcessProductCommand($exportId, new ProductId($product));
+            $productId = new ProductId($product);
+            $command = new ProcessProductCommand($exportId, $productId);
+            $this->repository->addLine($exportId, $productId);
             $this->commandBus->dispatch($command, true);
         }
     }

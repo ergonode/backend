@@ -56,21 +56,32 @@ class ProcessProductCommandHandler
      */
     public function __invoke(ProcessProductCommand $command): void
     {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::isInstanceOf($export, Export::class);
-        /** @var FileExportChannel $channel */
-        $channel = $this->channelRepository->load($export->getChannelId());
-        Assert::isInstanceOf($channel, FileExportChannel::class);
-        $product = $this->productRepository->load($command->getProductId());
-        Assert::isInstanceOf($product, AbstractProduct::class);
+        $exportId = $command->getExportId();
+        $productId = $command->getProductId();
+        try {
+            $export = $this->exportRepository->load($exportId);
+            Assert::isInstanceOf($export, Export::class);
+            /** @var FileExportChannel $channel */
+            $channel = $this->channelRepository->load($export->getChannelId());
+            Assert::isInstanceOf($channel, FileExportChannel::class);
+            $product = $this->productRepository->load($productId);
+            Assert::isInstanceOf($product, AbstractProduct::class);
 
-        $filename = sprintf('%s/products.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $product);
-        $writer = $this->provider->provide($channel->getFormat());
-        $lines = $writer->add($data);
+            $filename = sprintf('%s/products.%s', $command->getExportId()->getValue(), $channel->getFormat());
+            $data = $this->processor->process($channel, $product);
+            $writer = $this->provider->provide($channel->getFormat());
+            $lines = $writer->add($data);
 
-        $this->storage->open($filename);
-        $this->storage->append($lines);
-        $this->storage->close();
+            $this->storage->open($filename);
+            $this->storage->append($lines);
+            $this->storage->close();
+        } catch (\Exception $exception) {
+            $this->exportRepository->addError(
+                $exportId,
+                'Can\'t export product {id}',
+                ['{id}' => $productId->getValue()]
+            );
+        }
+        $this->exportRepository->processLine($exportId, $productId);
     }
 }

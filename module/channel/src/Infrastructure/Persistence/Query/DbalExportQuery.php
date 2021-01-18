@@ -73,7 +73,8 @@ class DbalExportQuery implements ExportQueryInterface
         $query = $this->getQuery();
 
         return $query
-            ->addSelect('ch.name, e.items')
+            ->addSelect('ch.name')
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id) as items')
             ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
                                 AND processed_at IS NOT NULL) as processed')
             ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')
@@ -92,6 +93,7 @@ class DbalExportQuery implements ExportQueryInterface
         $query = $this->getQuery();
 
         return $query
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id) as items')
             ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
                                 AND processed_at IS NOT NULL) as processed')
             ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')

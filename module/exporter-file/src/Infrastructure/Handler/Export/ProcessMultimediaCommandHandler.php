@@ -56,21 +56,32 @@ class ProcessMultimediaCommandHandler
      */
     public function __invoke(ProcessMultimediaCommand $command): void
     {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::isInstanceOf($export, Export::class);
-        $channel = $this->channelRepository->load($export->getChannelId());
-        /** @var FileExportChannel $channel */
-        Assert::isInstanceOf($channel, FileExportChannel::class);
-        $multimedia = $this->multimediaRepository->load($command->getMultimediaId());
-        Assert::isInstanceOf($multimedia, AbstractMultimedia::class);
+        $exportId = $command->getExportId();
+        $multimediaId = $command->getMultimediaId();
+        try {
+            $export = $this->exportRepository->load($exportId);
+            Assert::isInstanceOf($export, Export::class);
+            $channel = $this->channelRepository->load($export->getChannelId());
+            /** @var FileExportChannel $channel */
+            Assert::isInstanceOf($channel, FileExportChannel::class);
+            $multimedia = $this->multimediaRepository->load($multimediaId);
+            Assert::isInstanceOf($multimedia, AbstractMultimedia::class);
 
-        $filename = sprintf('%s/multimedia.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $multimedia);
-        $writer = $this->provider->provide($channel->getFormat());
-        $lines = $writer->add($data);
+            $filename = sprintf('%s/multimedia.%s', $exportId->getValue(), $channel->getFormat());
+            $data = $this->processor->process($channel, $multimedia);
+            $writer = $this->provider->provide($channel->getFormat());
+            $lines = $writer->add($data);
 
-        $this->storage->open($filename);
-        $this->storage->append($lines);
-        $this->storage->close();
+            $this->storage->open($filename);
+            $this->storage->append($lines);
+            $this->storage->close();
+        } catch (\Exception $exception) {
+            $this->exportRepository->addError(
+                $exportId,
+                'Can\'t export multimedia {id}',
+                ['{id}' => $multimediaId->getValue()]
+            );
+        }
+        $this->exportRepository->processLine($exportId, $multimediaId);
     }
 }

@@ -27,21 +27,17 @@ class ExportTest extends TestCase
      */
     private ChannelId $channelId;
 
-    private int $items;
-
     protected function setUp(): void
     {
         $this->id = $this->createMock(ExportId::class);
         $this->channelId = $this->createMock(ChannelId::class);
-        $this->items = 0;
     }
 
     public function testEntityCreation(): void
     {
-        $entity = new Export($this->id, $this->channelId, $this->items);
+        $entity = new Export($this->id, $this->channelId);
         self::assertSame($this->id, $entity->getId());
         self::assertEquals($this->channelId, $entity->getChannelId());
-        self::assertSame($this->items, $entity->getItems());
         self::assertSame(ExportStatus::CREATED, $entity->getStatus()->getValue());
         self::assertNull($entity->getStartedAt());
         self::assertNull($entity->getEndedAt());
@@ -49,7 +45,7 @@ class ExportTest extends TestCase
 
     public function testExportStatus(): void
     {
-        $entity = new Export($this->id, $this->channelId, $this->items);
+        $entity = new Export($this->id, $this->channelId);
         $entity->start();
         self::assertSame(ExportStatus::PRECESSED, $entity->getStatus()->getValue());
         self::assertNotNull($entity->getStartedAt());
@@ -63,14 +59,14 @@ class ExportTest extends TestCase
     public function testInvalidEndStatusChange(): void
     {
         $this->expectException(\LogicException::class);
-        $entity = new Export($this->id, $this->channelId, $this->items);
+        $entity = new Export($this->id, $this->channelId);
         $entity->end();
     }
 
     public function testInvalidStartStatusChange(): void
     {
         $this->expectException(\LogicException::class);
-        $entity = new Export($this->id, $this->channelId, $this->items);
+        $entity = new Export($this->id, $this->channelId);
         $entity->start();
         $entity->start();
     }
@@ -78,7 +74,7 @@ class ExportTest extends TestCase
     public function testInvalidStopStatusChange(): void
     {
         $this->expectException(\LogicException::class);
-        $entity = new Export($this->id, $this->channelId, $this->items);
+        $entity = new Export($this->id, $this->channelId);
         $entity->stop();
         $entity->stop();
     }
