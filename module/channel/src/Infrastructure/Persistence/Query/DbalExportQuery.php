@@ -22,7 +22,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 class DbalExportQuery implements ExportQueryInterface
 {
     private const TABLE = 'exporter.export';
-    private const TABLE_LINE = 'exporter.export_line';
+    private const TABLE_ERROR = 'exporter.export_error';
     private const TABLE_CHANNEL = 'exporter.channel';
 
     private Connection $connection;
@@ -52,17 +52,17 @@ class DbalExportQuery implements ExportQueryInterface
     public function getErrorDataSet(ExportId $exportId, Language $language): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('object_id AS id, processed_at, message, parameters')
-            ->from(self::TABLE_LINE)
+        $query->select('created_at, message, parameters')
+            ->from(self::TABLE_ERROR)
             ->where($query->expr()->eq('export_id', ':exportId'))
-            ->andWhere($query->expr()->isNotNull('message'));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't')
             ->setParameter(':exportId', $exportId->getValue());
 
-        return $this->dataSetFactory->create($result);
+//        $result = $this->connection->createQueryBuilder();
+//        $result->select('*');
+//        $result->from(sprintf('(%s)', $query->getSQL()), 't')
+//            ->setParameter(':exportId', $exportId->getValue());
+
+        return $this->dataSetFactory->create($query);
     }
 
     /**
@@ -76,8 +76,7 @@ class DbalExportQuery implements ExportQueryInterface
             ->addSelect('ch.name, e.items')
             ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
                                 AND processed_at IS NOT NULL) as processed')
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
-                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')
             ->orderBy('started_at', 'DESC')
             ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
             ->setMaxResults(10)
@@ -95,8 +94,7 @@ class DbalExportQuery implements ExportQueryInterface
         return $query
             ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
                                 AND processed_at IS NOT NULL) as processed')
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
-                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')
             ->where($query->expr()->eq('id', ':exportId'))
             ->setParameter(':exportId', $exportId->getValue())
             ->execute()
