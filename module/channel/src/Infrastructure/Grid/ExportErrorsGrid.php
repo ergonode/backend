@@ -23,10 +23,8 @@ class ExportErrorsGrid extends AbstractGrid
         $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-
         $this->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
         $this->addColumn('message', new TranslatableColumn('message', 'Message', 'parameters', 'channel'));
-
         $this->orderBy('id', 'ASC');
     }
 }
