@@ -31,16 +31,18 @@ class DbalProductValueChangedEventProjector
     {
         $code = $event->getAttributeCode()->getValue();
         if (StatusSystemAttribute::CODE === $code) {
+            $sql = 'INSERT INTO '.self::TABLE_WORKFLOW_PRODUCT_STATUS.'(product_id, status_id, "language")
+                VALUES(:productId, :statusId, :language)
+                ON CONFLICT (product_id,"language") DO UPDATE SET status_id = :statusId
+                ';
             foreach ($event->getTo()->getValue() as $language => $value) {
-                $this->connection->update(
-                    self::TABLE_WORKFLOW_PRODUCT_STATUS,
+                $this->connection->executeQuery(
+                    $sql,
                     [
-                        'status_id' => $value,
-                    ],
-                    [
-                        'product_id' => $event->getAggregateId()->getValue(),
+                        'productId' => $event->getAggregateId()->getValue(),
+                        'statusId' => $value,
                         'language' => $language,
-                    ]
+                    ],
                 );
             }
         }
