@@ -12,10 +12,10 @@ namespace Ergonode\Attribute\Domain\Event\Attribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class AttributeLabelChangedEvent implements DomainEventInterface
+class AttributeLabelChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")

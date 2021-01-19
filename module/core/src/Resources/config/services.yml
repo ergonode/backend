@@ -62,3 +62,12 @@ services:
         decorates: Ergonode\Core\Infrastructure\Service\DownloaderInterface
         arguments:
             - '@Ergonode\Core\Infrastructure\Service\Decorator\CacheDownloaderDecorator.inner'
+
+    Ergonode\SharedKernel\Domain\Bus\EventBusInterface: '@Ergonode\Core\Application\Messenger\EventBus'
+
+    Ergonode\SharedKernel\Domain\Bus\CommandBusInterface: '@Ergonode\Core\Application\Messenger\CommandBus'
+    Ergonode\Core\Application\Messenger\CommandBus:
+        arguments:
+            $syncBus: '@messenger.bus.sync'
+            $asyncBus: '@messenger.bus.async'
+            $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'

@@ -18,7 +18,7 @@ use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Command\Import\StopImportCommand;
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Psr\Log\LoggerInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 
 class StartImportCommandHandler

@@ -7,11 +7,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\EventSourcing\Infrastructure;
+namespace Ergonode\SharedKernel\Domain;
 
-use Ergonode\SharedKernel\Domain\AggregateId;
-
-interface DomainEventInterface
+interface AggregateEventInterface extends DomainEventInterface
 {
     public function getAggregateId(): AggregateId;
 }

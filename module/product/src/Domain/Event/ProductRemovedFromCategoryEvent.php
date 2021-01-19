@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
-class ProductRemovedFromCategoryEvent implements DomainEventInterface
+class ProductRemovedFromCategoryEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")

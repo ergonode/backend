@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Channel\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Channel\Domain\Entity\Export;
 
 class ProcessExportCommandHandlerTest extends TestCase

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;

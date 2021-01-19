@@ -10,7 +10,7 @@ namespace Ergonode\Product\Application\Controller\Api\Category;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Command\Category\AddProductCategoryCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

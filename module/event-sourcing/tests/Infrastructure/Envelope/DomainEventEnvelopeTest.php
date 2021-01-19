@@ -11,7 +11,7 @@ namespace Ergonode\EventSourcing\Tests\Infrastructure\Envelope;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 
 class DomainEventEnvelopeTest extends TestCase
 {
@@ -19,7 +19,7 @@ class DomainEventEnvelopeTest extends TestCase
     {
         $id = $this->createMock(AggregateId::class);
         $sequence = 0;
-        $event = $this->createMock(DomainEventInterface::class);
+        $event = $this->createMock(AggregateEventInterface::class);
         $recordedAt = $this->createMock(\DateTime::class);
         $envelope = new DomainEventEnvelope($id, $sequence, $event, $recordedAt);
         $this->assertSame($id, $envelope->getAggregateId());

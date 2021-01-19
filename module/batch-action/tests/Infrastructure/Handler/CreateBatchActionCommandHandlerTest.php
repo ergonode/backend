@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 class CreateBatchActionCommandHandlerTest extends TestCase
 {

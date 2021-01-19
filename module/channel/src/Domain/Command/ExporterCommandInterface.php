@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 interface ExporterCommandInterface extends DomainCommandInterface
 {

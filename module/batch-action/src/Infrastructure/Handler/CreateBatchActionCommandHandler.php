@@ -12,7 +12,7 @@ use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 class CreateBatchActionCommandHandler
 {

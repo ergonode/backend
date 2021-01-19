@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\EventSourcing\Infrastructure\Factory;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\SerializerInterface;
@@ -53,7 +53,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
         );
     }
 
-    private function getEvent(string $class, string $data): DomainEventInterface
+    private function getEvent(string $class, string $data): AggregateEventInterface
     {
         return $this->serializer->deserialize($data, $class, 'json');
     }

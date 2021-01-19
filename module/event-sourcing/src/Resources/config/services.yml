@@ -15,11 +15,6 @@ services:
 #      arguments:
 #        - '@Ergonode\EventSourcing\Infrastructure\Storage\CacheDomainEventStorage.inner'
     Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface: '@Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProvider'
-    Ergonode\EventSourcing\Infrastructure\Bus\SymfonyCommandBus:
-        arguments:
-           $syncBus: '@messenger.bus.sync'
-           $asyncBus: '@messenger.bus.async'
-           $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'
 
     Ergonode\EventSourcing\Infrastructure\Manager\AggregateBuilderInterface: '@Ergonode\EventSourcing\Infrastructure\Manager\AggregateBuilder'
     Ergonode\EventSourcing\Infrastructure\Manager\SnapshotBuilderDecorator:

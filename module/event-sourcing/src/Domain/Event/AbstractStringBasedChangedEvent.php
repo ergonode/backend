@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-abstract class AbstractStringBasedChangedEvent implements DomainEventInterface
+abstract class AbstractStringBasedChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("string")

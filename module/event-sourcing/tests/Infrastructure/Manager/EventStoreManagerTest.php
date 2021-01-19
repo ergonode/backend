@@ -14,8 +14,7 @@ use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Statement;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Manager\AggregateBuilderInterface;
@@ -23,6 +22,7 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -106,7 +106,7 @@ class EventStoreManagerTest extends TestCase
             new DomainEventEnvelope(
                 new AggregateId((string) Uuid::uuid4()),
                 1,
-                $this->createMock(DomainEventInterface::class),
+                $this->createMock(AggregateEventInterface::class),
                 new \DateTime(),
             ),
         ]);
@@ -128,7 +128,7 @@ class EventStoreManagerTest extends TestCase
             new DomainEventEnvelope(
                 new AggregateId((string) Uuid::uuid4()),
                 2,
-                $this->createMock(DomainEventInterface::class),
+                $this->createMock(AggregateEventInterface::class),
                 new \DateTime(),
             ),
         ]);

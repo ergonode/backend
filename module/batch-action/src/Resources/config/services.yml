@@ -17,7 +17,7 @@ services:
         tags: ['controller.service_arguments']
         arguments:
            - '@form.factory'
-           - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
+           - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
     Ergonode\BatchAction\Application\Controller\Api\GetBatchAction:
         tags: ['controller.service_arguments']
@@ -43,7 +43,7 @@ services:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
-            - '@Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface'
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
     Ergonode\BatchAction\Infrastructure\Handler\ProcessBatchActionEntryCommandHandler:
         tags: ['messenger.message_handler']

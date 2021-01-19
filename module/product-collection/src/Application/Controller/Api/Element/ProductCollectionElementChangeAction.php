@@ -11,7 +11,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Application\Form\ProductCollectionElementUpdateForm;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionElementUpdateFormModel;

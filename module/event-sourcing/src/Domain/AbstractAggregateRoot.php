@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\EventSourcing\Domain;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -33,7 +33,7 @@ abstract class AbstractAggregateRoot
     /**
      * @throws \Exception
      */
-    public function apply(DomainEventInterface $event): void
+    public function apply(AggregateEventInterface $event): void
     {
         $recordedAt = new \DateTime();
         $this->handle($event, $recordedAt);
@@ -70,7 +70,7 @@ abstract class AbstractAggregateRoot
         return [];
     }
 
-    private function handle(DomainEventInterface $event, \DateTime $recordedAt): void
+    private function handle(AggregateEventInterface $event, \DateTime $recordedAt): void
     {
         if (!$event instanceof AbstractDeleteEvent) {
             $classArray = explode('\\', get_class($event));

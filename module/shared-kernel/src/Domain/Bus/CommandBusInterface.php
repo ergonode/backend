@@ -7,9 +7,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\EventSourcing\Infrastructure\Bus;
+namespace Ergonode\SharedKernel\Domain\Bus;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 interface CommandBusInterface
 {

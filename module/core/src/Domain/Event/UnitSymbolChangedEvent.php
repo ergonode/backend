@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
-class UnitSymbolChangedEvent implements DomainEventInterface
+class UnitSymbolChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UnitId")
