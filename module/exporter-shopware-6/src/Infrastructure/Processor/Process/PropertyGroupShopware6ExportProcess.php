@@ -11,8 +11,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
-use Ergonode\Channel\Domain\Entity\ExportLine;
-use Ergonode\Channel\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;
@@ -23,6 +21,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 use GuzzleHttp\Exception\ClientException;
 use Webmozart\Assert\Assert;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 
 class PropertyGroupShopware6ExportProcess
 {
@@ -36,7 +35,7 @@ class PropertyGroupShopware6ExportProcess
 
     private PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess;
 
-    private ExportLineRepositoryInterface $exportLineRepository;
+    private ExportRepositoryInterface $exportRepository;
 
     public function __construct(
         PropertyGroupRepositoryInterface $propertyGroupRepository,
@@ -44,14 +43,14 @@ class PropertyGroupShopware6ExportProcess
         Shopware6PropertyGroupBuilder $builder,
         LanguageRepositoryInterface $languageRepository,
         PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess,
-        ExportLineRepositoryInterface $exportLineRepository
+        ExportRepositoryInterface $exportRepository
     ) {
         $this->propertyGroupRepository = $propertyGroupRepository;
         $this->propertyGroupClient = $propertyGroupClient;
         $this->builder = $builder;
         $this->languageRepository = $languageRepository;
         $this->propertyGroupOptionsProcess = $propertyGroupOptionsProcess;
-        $this->exportLineRepository = $exportLineRepository;
+        $this->exportRepository = $exportRepository;
     }
 
     /**
@@ -59,7 +58,7 @@ class PropertyGroupShopware6ExportProcess
      */
     public function process(Export $export, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
-        $exportLine = new ExportLine($export->getId(), $attribute->getId());
+        $this->exportRepository->addLine($export->getId(), $attribute->getId());
         $propertyGroup = $this->loadPropertyGroup($channel, $attribute);
         try {
             if ($propertyGroup) {
@@ -77,13 +76,9 @@ class PropertyGroupShopware6ExportProcess
             }
             $this->propertyGroupOptionsProcess->process($export, $channel, $attribute);
         } catch (Shopware6ExporterException $exception) {
-            $exportLine->process();
-            $exportLine->addError($exception->getMessage(), $exception->getParameters());
-            $this->exportLineRepository->save($exportLine);
-            throw $exception;
+            $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
         }
-        $exportLine->process();
-        $this->exportLineRepository->save($exportLine);
+        $this->exportRepository->processLine($export->getId(), $attribute->getId());
     }
 
     private function updatePropertyGroup(

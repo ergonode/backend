@@ -50,7 +50,6 @@ class DbalExportFactory
             'id' => new ExportId($record['id']),
             'status' => new ExportStatus($record['status']),
             'channelId' => new ChannelId($record['channel_id']),
-            'items' => $record['items'],
             'startedAt' => $record['started_at'] ? new \DateTime($record['started_at']) : null,
             'endedAt' => $record['ended_at'] ? new \DateTime($record['ended_at']) : null,
         ];

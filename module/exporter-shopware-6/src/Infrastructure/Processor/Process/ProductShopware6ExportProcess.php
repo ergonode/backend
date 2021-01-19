@@ -10,8 +10,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
-use Ergonode\Channel\Domain\Entity\ExportLine;
-use Ergonode\Channel\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6ProductClient;
@@ -21,6 +19,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Webmozart\Assert\Assert;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 
 class ProductShopware6ExportProcess
 {
@@ -30,18 +29,18 @@ class ProductShopware6ExportProcess
 
     private LanguageRepositoryInterface  $languageRepository;
 
-    private ExportLineRepositoryInterface $exportLineRepository;
+    private ExportRepositoryInterface $exportRepository;
 
     public function __construct(
         Shopware6ProductBuilder $builder,
         Shopware6ProductClient $productClient,
         LanguageRepositoryInterface $languageRepository,
-        ExportLineRepositoryInterface $exportLineRepository
+        ExportRepositoryInterface $exportRepository
     ) {
         $this->builder = $builder;
         $this->productClient = $productClient;
         $this->languageRepository = $languageRepository;
-        $this->exportLineRepository = $exportLineRepository;
+        $this->exportRepository = $exportRepository;
     }
 
     /**
@@ -49,7 +48,7 @@ class ProductShopware6ExportProcess
      */
     public function process(Export $export, Shopware6Channel $channel, AbstractProduct $product): void
     {
-        $exportLine = new ExportLine($export->getId(), $product->getId());
+        $this->exportRepository->addLine($export->getId(), $product->getId());
         $shopwareProduct = $this->productClient->find($channel, $product);
 
         try {
@@ -67,13 +66,9 @@ class ProductShopware6ExportProcess
                 }
             }
         } catch (Shopware6ExporterException $exception) {
-            $exportLine->process();
-            $exportLine->addError($exception->getMessage(), $exception->getParameters());
-            $this->exportLineRepository->save($exportLine);
-            throw $exception;
+            $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
         }
-        $exportLine->process();
-        $this->exportLineRepository->save($exportLine);
+        $this->exportRepository->processLine($export->getId(), $product->getId());
     }
 
     private function updateProduct(

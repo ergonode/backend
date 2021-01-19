@@ -20,6 +20,7 @@ use Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand;
 use Ergonode\ExporterFile\Infrastructure\Processor\TemplateProcessor;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Designer\Domain\Entity\Template;
+use Psr\Log\LoggerInterface;
 
 class ProcessTemplateCommandHandler
 {
@@ -28,6 +29,8 @@ class ProcessTemplateCommandHandler
     private ExportRepositoryInterface $exportRepository;
 
     private ChannelRepositoryInterface $channelRepository;
+
+    private LoggerInterface $logger;
 
     private TemplateProcessor $processor;
 
@@ -57,21 +60,36 @@ class ProcessTemplateCommandHandler
      */
     public function __invoke(ProcessTemplateCommand $command): void
     {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::isInstanceOf($export, Export::class);
-        /** @var FileExportChannel $channel */
-        $channel = $this->channelRepository->load($export->getChannelId());
-        Assert::isInstanceOf($channel, FileExportChannel::class);
-        $template = $this->templateRepository->load($command->getTemplateId());
-        Assert::isInstanceOf($template, Template::class);
+        $exportId = $command->getExportId();
+        $templateId = $command->getTemplateId();
+        $export = $this->exportRepository->load($exportId);
+        if ($export instanceof Export) {
+            try {
+                $export = $this->exportRepository->load($exportId);
+                Assert::isInstanceOf($export, Export::class);
+                /** @var FileExportChannel $channel */
+                $channel = $this->channelRepository->load($export->getChannelId());
+                Assert::isInstanceOf($channel, FileExportChannel::class);
+                $template = $this->templateRepository->load($templateId);
+                Assert::isInstanceOf($template, Template::class);
 
-        $filename = sprintf('%s/templates.%s', $command->getExportId()->getValue(), $channel->getFormat());
-        $data = $this->processor->process($channel, $template);
-        $writer = $this->provider->provide($channel->getFormat());
-        $lines = $writer->add($data);
+                $filename = sprintf('%s/templates.%s', $command->getExportId()->getValue(), $channel->getFormat());
+                $data = $this->processor->process($channel, $template);
+                $writer = $this->provider->provide($channel->getFormat());
+                $lines = $writer->add($data);
 
-        $this->storage->open($filename);
-        $this->storage->append($lines);
-        $this->storage->close();
+                $this->storage->open($filename);
+                $this->storage->append($lines);
+                $this->storage->close();
+            } catch (\Exception $exception) {
+                $this->logger->error($exception);
+                $this->exportRepository->addError(
+                    $exportId,
+                    'Can\'t export template {id}',
+                    ['{id}' => $templateId->getValue()]
+                );
+            }
+            $this->exportRepository->processLine($exportId, $templateId);
+        }
     }
 }

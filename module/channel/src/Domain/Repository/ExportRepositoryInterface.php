@@ -10,6 +10,7 @@ namespace Ergonode\Channel\Domain\Repository;
 
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 interface ExportRepositoryInterface
 {
@@ -20,4 +21,13 @@ interface ExportRepositoryInterface
     public function exists(ExportId $id): bool;
 
     public function delete(Export $export): void;
+
+    public function addLine(ExportId $exportId, AggregateId $objectId): void;
+
+    public function processLine(ExportId $exportId, AggregateId $objectId): void;
+
+    /**
+     * @param string[] $parameters
+     */
+    public function addError(ExportId $exportId, string $message, array $parameters = []): void;
 }

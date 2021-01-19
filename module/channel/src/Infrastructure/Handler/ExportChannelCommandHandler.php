@@ -12,7 +12,6 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Channel\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Channel\Domain\Command\ExportChannelCommand;
@@ -23,19 +22,15 @@ class ExportChannelCommandHandler
 
     private ExportRepositoryInterface $exportRepository;
 
-    private ProductQueryInterface $productQuery;
-
     private CommandBusInterface $commandBus;
 
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ExportRepositoryInterface $exportRepository,
-        ProductQueryInterface $productQuery,
         CommandBusInterface $commandBus
     ) {
         $this->channelRepository = $channelRepository;
         $this->exportRepository = $exportRepository;
-        $this->productQuery = $productQuery;
         $this->commandBus = $commandBus;
     }
 
@@ -44,12 +39,9 @@ class ExportChannelCommandHandler
         $channel = $this->channelRepository->exists($command->getChannelId());
         Assert::true($channel);
 
-        $ids = $this->productQuery->getAllIds();
-
         $export = new Export(
             $command->getExportId(),
-            $command->getChannelId(),
-            count($ids),
+            $command->getChannelId()
         );
 
         $this->exportRepository->save($export);
