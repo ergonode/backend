@@ -76,9 +76,7 @@ class PropertyGroupShopware6ExportProcess
             }
             $this->propertyGroupOptionsProcess->process($export, $channel, $attribute);
         } catch (Shopware6ExporterException $exception) {
-            $this->exportRepository->processLine($export->getId(), $attribute->getId());
             $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
-            throw $exception;
         }
         $this->exportRepository->processLine($export->getId(), $attribute->getId());
     }

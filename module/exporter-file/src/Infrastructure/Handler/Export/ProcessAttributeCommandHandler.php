@@ -20,6 +20,7 @@ use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Psr\Log\LoggerInterface;
 
 class ProcessAttributeCommandHandler
 {
@@ -28,6 +29,8 @@ class ProcessAttributeCommandHandler
     private ExportRepositoryInterface $exportRepository;
 
     private ChannelRepositoryInterface $channelRepository;
+
+    private LoggerInterface $logger;
 
     private AttributeProcessor $processor;
 
@@ -39,6 +42,7 @@ class ProcessAttributeCommandHandler
         AttributeRepositoryInterface $attributeRepository,
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
+        LoggerInterface $logger,
         AttributeProcessor $processor,
         TempFileStorage $storage,
         WriterProvider $provider
@@ -46,6 +50,7 @@ class ProcessAttributeCommandHandler
         $this->attributeRepository = $attributeRepository;
         $this->exportRepository = $exportRepository;
         $this->channelRepository = $channelRepository;
+        $this->logger = $logger;
         $this->processor = $processor;
         $this->storage = $storage;
         $this->provider = $provider;
@@ -58,30 +63,34 @@ class ProcessAttributeCommandHandler
     {
         $exportId = $command->getExportId();
         $attributeId = $command->getAttributeId();
-        try {
-            $export = $this->exportRepository->load($exportId);
-            Assert::isInstanceOf($export, Export::class);
-            $channel = $this->channelRepository->load($export->getChannelId());
-            /** @var FileExportChannel $channel */
-            Assert::isInstanceOf($channel, FileExportChannel::class);
-            $attribute = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($attribute, AbstractAttribute::class);
+        $export = $this->exportRepository->load($exportId);
+        if ($export instanceof Export) {
+            try {
+                $export = $this->exportRepository->load($exportId);
+                Assert::isInstanceOf($export, Export::class);
+                $channel = $this->channelRepository->load($export->getChannelId());
+                /** @var FileExportChannel $channel */
+                Assert::isInstanceOf($channel, FileExportChannel::class);
+                $attribute = $this->attributeRepository->load($attributeId);
+                Assert::isInstanceOf($attribute, AbstractAttribute::class);
 
-            $filename = sprintf('%s/attributes.%s', $exportId->getValue(), $channel->getFormat());
-            $data = $this->processor->process($channel, $attribute);
-            $writer = $this->provider->provide($channel->getFormat());
-            $lines = $writer->add($data);
+                $filename = sprintf('%s/attributes.%s', $exportId->getValue(), $channel->getFormat());
+                $data = $this->processor->process($channel, $attribute);
+                $writer = $this->provider->provide($channel->getFormat());
+                $lines = $writer->add($data);
 
-            $this->storage->open($filename);
-            $this->storage->append($lines);
-            $this->storage->close();
-        } catch (\Exception $exception) {
-            $this->exportRepository->addError(
-                $exportId,
-                'Can\'t export attribute {id}',
-                ['{id}' => $attributeId->getValue()]
-            );
+                $this->storage->open($filename);
+                $this->storage->append($lines);
+                $this->storage->close();
+            } catch (\Exception $exception) {
+                $this->logger->error($exception);
+                $this->exportRepository->addError(
+                    $exportId,
+                    'Can\'t export attribute {id}',
+                    ['{id}' => $attributeId->getValue()]
+                );
+            }
+            $this->exportRepository->processLine($exportId, $attributeId);
         }
-        $this->exportRepository->processLine($exportId, $attributeId);
     }
 }

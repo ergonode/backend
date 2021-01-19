@@ -20,6 +20,7 @@ use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Psr\Log\LoggerInterface;
 
 class ProcessCategoryCommandHandler
 {
@@ -28,6 +29,8 @@ class ProcessCategoryCommandHandler
     private ExportRepositoryInterface $exportRepository;
 
     private ChannelRepositoryInterface $channelRepository;
+
+    private LoggerInterface $logger;
 
     private CategoryProcessor $processor;
 
@@ -39,6 +42,7 @@ class ProcessCategoryCommandHandler
         CategoryRepositoryInterface $categoryRepository,
         ExportRepositoryInterface $exportRepository,
         ChannelRepositoryInterface $channelRepository,
+        LoggerInterface $logger,
         CategoryProcessor $processor,
         TempFileStorage $storage,
         WriterProvider $provider
@@ -46,6 +50,7 @@ class ProcessCategoryCommandHandler
         $this->categoryRepository = $categoryRepository;
         $this->exportRepository = $exportRepository;
         $this->channelRepository = $channelRepository;
+        $this->logger = $logger;
         $this->processor = $processor;
         $this->storage = $storage;
         $this->provider = $provider;
@@ -58,30 +63,34 @@ class ProcessCategoryCommandHandler
     {
         $exportId = $command->getExportId();
         $categoryId = $command->getCategoryId();
-        try {
-            $export = $this->exportRepository->load($exportId);
-            Assert::isInstanceOf($export, Export::class);
-            $channel = $this->channelRepository->load($export->getChannelId());
-            /** @var FileExportChannel $channel */
-            Assert::isInstanceOf($channel, FileExportChannel::class);
-            $category = $this->categoryRepository->load($categoryId);
-            Assert::isInstanceOf($category, AbstractCategory::class);
+        $export = $this->exportRepository->load($exportId);
+        if ($export instanceof Export) {
+            try {
+                $export = $this->exportRepository->load($exportId);
+                Assert::isInstanceOf($export, Export::class);
+                $channel = $this->channelRepository->load($export->getChannelId());
+                /** @var FileExportChannel $channel */
+                Assert::isInstanceOf($channel, FileExportChannel::class);
+                $category = $this->categoryRepository->load($categoryId);
+                Assert::isInstanceOf($category, AbstractCategory::class);
 
-            $filename = sprintf('%s/categories.%s', $exportId->getValue(), $channel->getFormat());
-            $data = $this->processor->process($channel, $category);
-            $writer = $this->provider->provide($channel->getFormat());
-            $lines = $writer->add($data);
+                $filename = sprintf('%s/categories.%s', $exportId->getValue(), $channel->getFormat());
+                $data = $this->processor->process($channel, $category);
+                $writer = $this->provider->provide($channel->getFormat());
+                $lines = $writer->add($data);
 
-            $this->storage->open($filename);
-            $this->storage->append($lines);
-            $this->storage->close();
-        } catch (\Exception $exception) {
-            $this->exportRepository->addError(
-                $exportId,
-                'Can\'t export category {id}',
-                ['{id}' => $categoryId->getValue()]
-            );
+                $this->storage->open($filename);
+                $this->storage->append($lines);
+                $this->storage->close();
+            } catch (\Exception $exception) {
+                $this->logger->error($exception);
+                $this->exportRepository->addError(
+                    $exportId,
+                    'Can\'t export category {id}',
+                    ['{id}' => $categoryId->getValue()]
+                );
+            }
+            $this->exportRepository->processLine($exportId, $categoryId);
         }
-        $this->exportRepository->processLine($exportId, $categoryId);
     }
 }

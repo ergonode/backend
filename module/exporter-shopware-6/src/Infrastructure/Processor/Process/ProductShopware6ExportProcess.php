@@ -66,9 +66,7 @@ class ProductShopware6ExportProcess
                 }
             }
         } catch (Shopware6ExporterException $exception) {
-            $this->exportRepository->processLine($export->getId(), $product->getId());
             $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
-            throw $exception;
         }
         $this->exportRepository->processLine($export->getId(), $product->getId());
     }

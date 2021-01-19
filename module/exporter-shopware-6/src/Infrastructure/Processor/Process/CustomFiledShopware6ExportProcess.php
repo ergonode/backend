@@ -74,9 +74,7 @@ class CustomFiledShopware6ExportProcess
                 $this->customFieldClient->insert($channel, $customField, $attribute);
             }
         } catch (Shopware6ExporterException $exception) {
-            $this->exportRepository->processLine($export->getId(), $attribute->getId());
             $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
-            throw $exception;
         }
         $this->exportRepository->processLine($export->getId(), $attribute->getId());
     }
