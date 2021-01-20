@@ -60,7 +60,7 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
             throw new \RuntimeException(sprintf('Role by id "%s" not found', $user->getRoleId()->getValue()));
         }
 
-        $privileges = $this->query->getEndPointPrivilegesByPrivileges($role->getPrivileges());
+        $privileges = $this->query->getEndpointPrivilegesByPrivileges($role->getPrivileges());
 
 
         $attributePrivilege = new PrivilegeEndPoint($attribute);

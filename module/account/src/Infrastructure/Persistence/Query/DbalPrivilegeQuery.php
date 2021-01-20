@@ -64,7 +64,7 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
      *
      * @return PrivilegeEndPoint[]
      */
-    public function getEndPointPrivilegesByPrivileges(array $privileges): array
+    public function getEndpointPrivilegesByPrivileges(array $privileges): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb
