@@ -48,7 +48,7 @@ class UserChangeAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
+     * @IsGranted("ACCOUNT_PUT")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

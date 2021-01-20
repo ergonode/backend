@@ -43,7 +43,7 @@ class UsersReadAction
     }
 
     /**
-     * @IsGranted("USER_READ")
+     * @IsGranted("ACCOUNT_GET_GRID")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

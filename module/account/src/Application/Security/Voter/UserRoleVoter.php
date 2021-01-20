@@ -12,7 +12,7 @@ namespace Ergonode\Account\Application\Security\Voter;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Ergonode\Account\Domain\ValueObject\Privilege;
+use Ergonode\Account\Domain\ValueObject\PrivilegeEndPoint;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -39,9 +39,9 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
      */
     public function supports($attribute, $subject): bool
     {
-        $privileges = $this->query->getPrivileges();
+        $privileges = $this->query->getPrivilegesEndPoint();
 
-        return in_array($attribute, array_column($privileges, 'code'), true);
+        return in_array($attribute, array_column($privileges, 'name'), true);
     }
 
     /**
@@ -60,16 +60,17 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
             throw new \RuntimeException(sprintf('Role by id "%s" not found', $user->getRoleId()->getValue()));
         }
 
-        $result = false;
-        $attributePrivilege = new Privilege($attribute);
-        /** @var Privilege $privilege */
-        foreach ($role->getPrivileges() as $privilege) {
+        $privileges = $this->query->getEndpointPrivilegesByPrivileges($role->getPrivileges());
+
+
+        $attributePrivilege = new PrivilegeEndPoint($attribute);
+
+        foreach ($privileges as $privilege) {
             if ($privilege->isEqual($attributePrivilege)) {
-                $result = true;
-                break;
+                return true;
             }
         }
 
-        return $result;
+        return false;
     }
 }

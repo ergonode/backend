@@ -43,7 +43,7 @@ class SegmentGridReadAction
     }
 
     /**
-     * @IsGranted("SEGMENT_READ")
+     * @IsGranted("SEGMENT_GET_GRID")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

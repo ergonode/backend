@@ -42,7 +42,7 @@ class LanguageTreeChangeAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
+     * @IsGranted("CORE_PUT_LANGUAGE_TREE")
      *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(

@@ -48,7 +48,7 @@ class UnitDeleteAction
     }
 
     /**
-     * @IsGranted("SETTINGS_DELETE")
+     * @IsGranted("CORE_DELETE_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

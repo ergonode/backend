@@ -43,7 +43,7 @@ class ProductCollectionTypeGridReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_READ")
+     * @IsGranted("PRODUCT_COLLECTION_GET_TYPE_GRID")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

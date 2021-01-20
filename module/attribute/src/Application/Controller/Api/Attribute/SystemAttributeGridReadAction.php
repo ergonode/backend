@@ -43,7 +43,7 @@ class SystemAttributeGridReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_READ")
+     * @IsGranted("ATTRIBUTE_GET_SYSTEM")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

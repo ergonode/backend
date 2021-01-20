@@ -47,7 +47,7 @@ class SegmentChangeAction
     }
 
     /**
-     * @IsGranted("SEGMENT_UPDATE")
+     * @IsGranted("SEGMENT_PUT")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

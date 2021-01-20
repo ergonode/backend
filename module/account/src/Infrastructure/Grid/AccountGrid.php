@@ -62,12 +62,12 @@ class AccountGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_account_user_read',
                 'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
-                'privilege' => 'USER_READ',
+                'privilege' => 'ACCOUNT_GET',
             ],
             'edit' => [
                 'route' => 'ergonode_account_user_change',
                 'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
-                'privilege' => 'USER_UPDATE',
+                'privilege' => 'ACCOUNT_PUT',
                 'method' => Request::METHOD_PUT,
             ],
         ]));

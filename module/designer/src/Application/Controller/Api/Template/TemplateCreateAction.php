@@ -44,7 +44,7 @@ class TemplateCreateAction
     }
 
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_CREATE")
+     * @IsGranted("DESIGNER_POST_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

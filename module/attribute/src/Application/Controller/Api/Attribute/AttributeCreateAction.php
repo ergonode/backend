@@ -50,7 +50,7 @@ class AttributeCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_CREATE")
+     * @IsGranted("ATTRIBUTE_POST")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

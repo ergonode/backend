@@ -54,7 +54,7 @@ class WorkflowCreateAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_CREATE")
+     * @IsGranted("WORKFLOW_POST")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

@@ -35,7 +35,7 @@ class ChannelTypeConfigurationAction
     }
 
     /**
-     * @IsGranted("EXPORT_PROFILE_READ")
+     * @IsGranted("CHANNEL_GET_CONFIGURATION_GRID")
      *
      * @SWG\Tag(name="Channel")
      *

@@ -58,12 +58,12 @@ class ProductCollectionGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_product_collection_read',
                 'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                'privilege' => 'PRODUCT_COLLECTION_READ',
+                'privilege' => 'PRODUCT_COLLECTION_GET',
             ],
             'edit' => [
                 'route' => 'ergonode_product_collection_change',
                 'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                'privilege' => 'PRODUCT_COLLECTION_UPDATE',
+                'privilege' => 'PRODUCT_COLLECTION_PUT',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [

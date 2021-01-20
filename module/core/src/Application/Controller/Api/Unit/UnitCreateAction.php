@@ -46,7 +46,7 @@ class UnitCreateAction
     }
 
     /**
-     * @IsGranted("SETTINGS_CREATE")
+     * @IsGranted("CORE_POST_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

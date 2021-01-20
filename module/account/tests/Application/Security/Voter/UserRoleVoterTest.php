@@ -11,6 +11,7 @@ namespace Ergonode\Account\Tests\Application\Security\Voter;
 
 use Ergonode\Account\Application\Security\Voter\UserRoleVoter;
 use Ergonode\Account\Domain\Entity\Role;
+use Ergonode\Account\Domain\ValueObject\PrivilegeEndPoint;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
@@ -51,7 +52,7 @@ class UserRoleVoterTest extends TestCase
     public function testSupports(string $privilege, bool $expectedResult): void
     {
         if ($expectedResult) {
-            $this->query->method('getPrivileges')->willReturn([['code' => $privilege]]);
+            $this->query->method('getPrivilegesEndPoint')->willReturn([['name' => $privilege]]);
         }
         $voter = new UserRoleVoter($this->repository, $this->query);
 
@@ -114,6 +115,14 @@ class UserRoleVoterTest extends TestCase
             ->expects($this->once())
             ->method('load')
             ->willReturn($role);
+
+        if ($expectedResult) {
+            $this->query->method('getEndPointPrivilegesByPrivileges')->willReturn(
+                [
+                    new PrivilegeEndPoint($privilege),
+                ]
+            );
+        }
 
         $roleId = $this->createMock(RoleId::class);
 

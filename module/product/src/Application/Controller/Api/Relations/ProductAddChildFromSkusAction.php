@@ -55,7 +55,7 @@ class ProductAddChildFromSkusAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_POST_RELATIONS_CHILDREN_SKU")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

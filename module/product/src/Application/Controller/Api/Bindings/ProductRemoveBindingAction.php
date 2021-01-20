@@ -41,7 +41,7 @@ class ProductRemoveBindingAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_DELETE_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

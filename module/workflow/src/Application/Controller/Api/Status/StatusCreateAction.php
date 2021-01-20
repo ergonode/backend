@@ -46,7 +46,7 @@ class StatusCreateAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_CREATE")
+     * @IsGranted("WORKFLOW_POST_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

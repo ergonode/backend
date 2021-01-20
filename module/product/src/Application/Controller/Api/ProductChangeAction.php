@@ -53,7 +53,7 @@ class ProductChangeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_PUT")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

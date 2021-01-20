@@ -49,7 +49,7 @@ class ChannelExportErrorGridAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_EXPORT_ERROR_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

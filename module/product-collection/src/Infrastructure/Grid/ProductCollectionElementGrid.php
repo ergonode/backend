@@ -46,6 +46,7 @@ class ProductCollectionElementGrid extends AbstractGrid
                     'productCollection' => '{product_collection_id}',
                     'product' => '{id}',
                 ],
+                'privilege' => 'PRODUCT_COLLECTION_GET_ELEMENT',
             ],
             'delete' => [
                 'route' => 'ergonode_product_collection_element_delete',
@@ -55,6 +56,7 @@ class ProductCollectionElementGrid extends AbstractGrid
                     'product' => '{id}',
                 ],
                 'method' => Request::METHOD_DELETE,
+                'privilege' => 'PRODUCT_COLLECTION_DELETE_ELEMENT',
             ],
         ]));
         $this->orderBy('created_at', 'DESC');

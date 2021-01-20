@@ -55,7 +55,7 @@ class PasswordChangeAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
+     * @IsGranted("ACCOUNT_PUT_PASSWORD")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

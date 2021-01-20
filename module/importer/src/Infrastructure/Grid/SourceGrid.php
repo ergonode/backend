@@ -47,7 +47,7 @@ class SourceGrid extends AbstractGrid
         $this->addColumn('imports', new NumericColumn('imports', 'Imports', new NumericFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
-                'privilege' => 'IMPORT_READ',
+                'privilege' => 'IMPORT_GET_SOURCE',
                 'show' => ['system' => false],
                 'route' => 'ergonode_source_read',
                 'parameters' => [
@@ -56,7 +56,7 @@ class SourceGrid extends AbstractGrid
                 ],
             ],
             'edit' => [
-                'privilege' => 'IMPORT_UPDATE',
+                'privilege' => 'IMPORT_PUT_SOURCE',
                 'show' => ['system' => false],
                 'route' => 'ergonode_source_update',
                 'parameters' => [
@@ -66,7 +66,7 @@ class SourceGrid extends AbstractGrid
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
-                'privilege' => 'IMPORT_DELETE',
+                'privilege' => 'IMPORT_DELETE_SOURCE',
                 'show' => ['system' => false],
                 'route' => 'ergonode_source_delete',
                 'parameters' => [

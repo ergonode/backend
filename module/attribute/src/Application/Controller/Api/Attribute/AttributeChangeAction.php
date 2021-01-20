@@ -55,7 +55,7 @@ class AttributeChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_UPDATE")
+     * @IsGranted("ATTRIBUTE_PUT")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

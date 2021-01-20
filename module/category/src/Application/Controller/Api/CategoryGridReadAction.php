@@ -43,7 +43,7 @@ class CategoryGridReadAction
     }
 
     /**
-     * @IsGranted("CATEGORY_READ")
+     * @IsGranted("CATEGORY_GET_GRID")
      *
      * @SWG\Tag(name="Category")
      * @SWG\Parameter(

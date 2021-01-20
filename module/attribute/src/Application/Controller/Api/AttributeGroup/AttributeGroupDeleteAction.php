@@ -48,7 +48,7 @@ class AttributeGroupDeleteAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GROUP_DELETE")
+     * @IsGranted("ATTRIBUTE_DELETE_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

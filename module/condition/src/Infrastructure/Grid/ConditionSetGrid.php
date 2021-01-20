@@ -32,16 +32,19 @@ class ConditionSetGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_designer_template_read',
                 'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
+                'privilege' => 'DESIGNER_GET_TEMPLATE',
             ],
             'edit' => [
                 'route' => 'ergonode_designer_template_change',
                 'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
                 'method' => Request::METHOD_PUT,
+                'privilege' => 'DESIGNER_PUT_TEMPLATE',
             ],
             'delete' => [
                 'route' => 'ergonode_designer_template_delete',
                 'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
                 'method' => Request::METHOD_DELETE,
+                'privilege' => 'DESIGNER_DELETE_TEMPLATE',
             ],
         ]));
     }

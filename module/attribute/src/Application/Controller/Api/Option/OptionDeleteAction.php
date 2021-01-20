@@ -52,7 +52,7 @@ class OptionDeleteAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_DELETE")
+     * @IsGranted("ATTRIBUTE_DELETE_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
