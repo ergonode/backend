@@ -19,7 +19,7 @@ use Webmozart\Assert\Assert;
 
 class ProductCollectionShopware6ChannelRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with {relations}';
+    private const MESSAGE = 'Object has active relationships with channel %relations%';
 
     private ChannelQueryInterface $query;
 
