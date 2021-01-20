@@ -57,7 +57,7 @@ class AuthenticationMiddlewareTest extends TestCase
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $this->stack->method('next')->willReturn($nextMiddleware);
         $nextMiddleware->method('handle')->willReturn($envelope2);
-        $this->tokenStorage->expects(self::once())->method('setToken');
+        $this->tokenStorage->expects(self::never())->method('setToken');
 
         $result = $this->authenticationMiddleware->handle($this->envelope1, $this->stack);
 

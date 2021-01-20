@@ -42,20 +42,21 @@ class AuthenticationMiddleware implements MiddlewareInterface
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
 
-        if ($envelope->last(ReceivedStamp::class)) {
-            $this->tokenStorage->setToken(null);
-            /** @var UserStamp $stamp */
-            $stamp = $envelope->last(UserStamp::class);
+        if (!$envelope->last(ReceivedStamp::class)) {
+            return $stack->next()->handle($envelope, $stack);
+        }
+        $this->tokenStorage->setToken(null);
+        /** @var UserStamp $stamp */
+        $stamp = $envelope->last(UserStamp::class);
 
-            if ($stamp) {
-                $user = $this->userRepository->load($stamp->getUserId());
-                if ($user) {
-                    $roles = $user->getRoles();
-                    $token = new UserToken($user, $roles);
-                    $this->tokenStorage->setToken($token);
-                } else {
-                    $this->logger->error(sprintf('Can\'t find user with id "%s"', $stamp->getUserId()));
-                }
+        if ($stamp) {
+            $user = $this->userRepository->load($stamp->getUserId());
+            if ($user) {
+                $roles = $user->getRoles();
+                $token = new UserToken($user, $roles);
+                $this->tokenStorage->setToken($token);
+            } else {
+                $this->logger->error(sprintf('Can\'t find user with id "%s"', $stamp->getUserId()));
             }
         }
         try {
