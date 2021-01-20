@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Infrastructure\Stamp;
+namespace Ergonode\Authentication\Application\Stamp;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Symfony\Component\Messenger\Stamp\StampInterface;

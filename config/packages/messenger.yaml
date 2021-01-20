@@ -4,16 +4,16 @@ framework:
             event.bus:
                 default_middleware: allow_no_handlers
                 middleware:
-                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
+                    - 'Ergonode\EventSourcing\Application\Middleware\DbalTransactionMiddleware'
             messenger.bus.sync:
                 default_middleware: false
                 middleware:
-                    - 'Ergonode\Authentication\Infrastructure\Middleware\AuthenticationMiddleware'
+                    - 'Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware'
                     - 'handle_message'
             messenger.bus.async:
                 default_middleware: false
                 middleware:
-                    - 'Ergonode\Authentication\Infrastructure\Middleware\AuthenticationMiddleware'
+                    - 'Ergonode\Authentication\Application\Middleware\GetUserMiddleware'
                     - 'send_message'
                     - 'handle_message'
         default_bus: messenger.bus.sync

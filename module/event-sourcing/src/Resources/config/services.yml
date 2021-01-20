@@ -6,6 +6,9 @@ services:
 
     Ergonode\EventSourcing\Infrastructure\:
         resource: '../../Infrastructure/*'
+        
+    Ergonode\EventSourcing\Application\Middleware\:
+        resource: '../../Application/Middleware/*'
 
     Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface: '@Ergonode\EventSourcing\Infrastructure\Snapshot\DbalAggregateSnapshot'
     Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface: '@Ergonode\EventSourcing\Infrastructure\Store\DbalDomainEventStore'

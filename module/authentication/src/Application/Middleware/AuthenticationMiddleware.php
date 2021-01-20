@@ -7,19 +7,18 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Authentication\Infrastructure\Middleware;
+namespace Ergonode\Authentication\Application\Middleware;
 
-use Ergonode\Account\Application\Security\Security;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Authentication\Infrastructure\Stamp\UserStamp;
-use Lexik\Bundle\JWTAuthenticationBundle\Security\Authentication\Token\JWTUserToken;
+use Ergonode\Authentication\Application\Stamp\UserStamp;
+use Ergonode\Authentication\Application\Token\UserToken;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
-use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Webmozart\Assert\Assert;
 
 class AuthenticationMiddleware implements MiddlewareInterface
 {
@@ -28,44 +27,33 @@ class AuthenticationMiddleware implements MiddlewareInterface
 
     private UserRepositoryInterface $userRepository;
 
-    private Security $security;
-
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        UserRepositoryInterface $userRepository,
-        Security $security
+        UserRepositoryInterface $userRepository
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->userRepository = $userRepository;
-        $this->security = $security;
     }
 
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-        if (!$envelope->last(ReceivedStamp::class)) {
-            /** @var User $user */
-            $user = $this->security->getUser();
-
-            if ($user) {
-                $envelope = $envelope->with(new UserStamp($user->getId()));
-            }
-            return $stack->next()->handle($envelope, $stack);
-        }
 
         if ($envelope->last(ReceivedStamp::class)) {
-
             $this->tokenStorage->setToken(null);
             /** @var UserStamp $stamp */
             $stamp = $envelope->last(UserStamp::class);
 
             if ($stamp) {
                 $user = $this->userRepository->load($stamp->getUserId());
-                if ($user) {
+                Assert::isInstanceOf(
+                    $user,
+                    User::class,
+                    sprintf('Can\'t find user with id "%s"', $stamp->getUserId())
+                );
                     $roles = $user->getRoles();
-                    $token = new JWTUserToken($roles, $user, null, 'api');
+                    $token = new UserToken($user, $roles);
                     $this->tokenStorage->setToken($token);
-                }
             }
         }
         try {
@@ -75,9 +63,7 @@ class AuthenticationMiddleware implements MiddlewareInterface
             throw $exception;
         }
 
-        if ($envelope->last(HandledStamp::class)) {
-            $this->tokenStorage->setToken(null);
-        }
+        $this->tokenStorage->setToken(null);
 
         return $envelope;
     }
