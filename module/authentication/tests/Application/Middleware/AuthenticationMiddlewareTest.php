@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware;
 use Ergonode\Authentication\Application\Stamp\UserStamp;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -39,7 +38,7 @@ class AuthenticationMiddlewareTest extends TestCase
     {
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
         $this->userRepository = $this->createMock(UserRepositoryInterface::class);
-        $this->envelope1 = new Envelope($this->createMock(DomainCommandInterface::class));
+        $this->envelope1 = new Envelope($this->createMock(\stdClass::class));
         $this->authenticationMiddleware = new AuthenticationMiddleware(
             $this->tokenStorage,
             $this->userRepository
@@ -49,7 +48,7 @@ class AuthenticationMiddlewareTest extends TestCase
 
     public function testHandleNoReceivedStamp(): void
     {
-        $envelope2 = new Envelope($this->createMock(DomainCommandInterface::class));
+        $envelope2 = new Envelope($this->createMock(\stdClass::class));
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $this->stack->method('next')->willReturn($nextMiddleware);
         $nextMiddleware->method('handle')->willReturn($envelope2);
@@ -69,7 +68,7 @@ class AuthenticationMiddlewareTest extends TestCase
         $this->userRepository->method('load')->willReturn($user);
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $this->stack->method('next')->willReturn($nextMiddleware);
-        $envelope2 = new Envelope($this->createMock(DomainCommandInterface::class));
+        $envelope2 = new Envelope($this->createMock(\stdClass::class));
         $nextMiddleware->method('handle')->willReturn($envelope2);
         $this->tokenStorage->expects(self::exactly(3))->method('setToken');
 
@@ -83,7 +82,7 @@ class AuthenticationMiddlewareTest extends TestCase
         $envelope = $this->envelope1->with(new ReceivedStamp('transport'));
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $this->stack->method('next')->willReturn($nextMiddleware);
-        $envelope2 = new Envelope($this->createMock(DomainCommandInterface::class));
+        $envelope2 = new Envelope($this->createMock(\stdClass::class));
         $nextMiddleware->method('handle')->willReturn($envelope2);
         $this->tokenStorage->expects(self::exactly(2))->method('setToken');
 
