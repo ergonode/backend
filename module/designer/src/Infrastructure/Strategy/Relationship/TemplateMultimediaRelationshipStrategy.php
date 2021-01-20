@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class TemplateMultimediaRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with {relations}';
+    private const MESSAGE = 'Object has active relationships with multimedia %relations%';
 
     private TemplateQueryInterface $templateQuery;
 

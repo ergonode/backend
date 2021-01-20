@@ -18,7 +18,7 @@ use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
 class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with {relations}';
+    private const MESSAGE = 'Object has active relationships with attribute %relations%';
 
     private ConditionSetQueryInterface $query;
 
