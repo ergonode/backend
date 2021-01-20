@@ -81,8 +81,10 @@ class CreateBatchAction
                 $data = $form->getData();
 
                 $ids = [];
-                foreach ($data->ids as $id) {
-                    $ids[] = new AggregateId($id);
+                if ($data->filter && $data->filter->ids) {
+                    foreach ($data->filter->ids->list as $id) {
+                        $ids[] = new AggregateId($id);
+                    }
                 }
 
                 $command = new CreateBatchActionCommand(

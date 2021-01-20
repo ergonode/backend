@@ -1,41 +1,33 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\BatchAction\Application\Form;
+namespace Ergonode\BatchAction\Application\Form\Type;
 
-use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
-use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
+use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BatchActionForm extends AbstractType
+class BatchActionFilterType extends AbstractType
 {
-    /**
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
-                'type',
-                TextType::class
-            )
-            ->add(
-                'filter',
-                BatchActionFilterType::class,
+                'ids',
+                BatchActionFilterIdsType::class,
                 [
                     'required' => false,
                 ]
             )
             ->add(
-                'payload',
+                'query',
                 TextType::class,
                 [
                     'required' => false,
@@ -47,8 +39,8 @@ class BatchActionForm extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => BatchActionFormModel::class,
                 'translation_domain' => 'batch-action',
+                'data_class' => BatchActionFilterFormModel::class,
             ]
         );
     }
