@@ -9,9 +9,3 @@ services:
 
     Ergonode\Authentication\Application\Middleware\:
         resource: '../../Application/Middleware/*'
-
-    Ergonode\Authentication\Application\Stamp\:
-        resource: '../../Application/Stamp/*'
-
-    Ergonode\Authentication\Application\Token\:
-        resource: '../../Application/Token/*'

@@ -4,7 +4,7 @@ framework:
             event.bus:
                 default_middleware: allow_no_handlers
                 middleware:
-                    - 'Ergonode\EventSourcing\Application\Middleware\DbalTransactionMiddleware'
+                    - 'Ergonode\EventSourcing\Infrastructure\Middleware\DbalTransactionMiddleware'
             messenger.bus.sync:
                 default_middleware: false
                 middleware:

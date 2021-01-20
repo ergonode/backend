@@ -12,7 +12,7 @@ namespace Ergonode\Authentication\Application\Stamp;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
-class UserStamp implements StampInterface
+final class UserStamp implements StampInterface
 {
     private UserId $userId;
 

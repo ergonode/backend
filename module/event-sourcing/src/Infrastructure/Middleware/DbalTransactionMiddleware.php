@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\EventSourcing\Application\Middleware;
+namespace Ergonode\EventSourcing\Infrastructure\Middleware;
 
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Doctrine\DBAL\Connection;

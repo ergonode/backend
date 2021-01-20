@@ -15,6 +15,7 @@ use Ergonode\Authentication\Application\Stamp\UserStamp;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
+use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 
 class GetUserMiddleware implements MiddlewareInterface
 {
@@ -29,11 +30,13 @@ class GetUserMiddleware implements MiddlewareInterface
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-        /** @var User $user */
-        $user = $this->security->getUser();
+        if (!$envelope->last(ReceivedStamp::class)) {
+            /** @var User $user */
+            $user = $this->security->getUser();
 
-        if ($user) {
-            $envelope = $envelope->with(new UserStamp($user->getId()));
+            if ($user) {
+                $envelope = $envelope->with(new UserStamp($user->getId()));
+            }
         }
 
         return $stack->next()->handle($envelope, $stack);

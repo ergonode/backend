@@ -9,16 +9,15 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Middleware;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Stamp\UserStamp;
 use Ergonode\Authentication\Application\Token\UserToken;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Webmozart\Assert\Assert;
 
 class AuthenticationMiddleware implements MiddlewareInterface
 {
@@ -27,12 +26,16 @@ class AuthenticationMiddleware implements MiddlewareInterface
 
     private UserRepositoryInterface $userRepository;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        LoggerInterface $logger
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->userRepository = $userRepository;
+        $this->logger = $logger;
     }
 
 
@@ -46,14 +49,13 @@ class AuthenticationMiddleware implements MiddlewareInterface
 
             if ($stamp) {
                 $user = $this->userRepository->load($stamp->getUserId());
-                Assert::isInstanceOf(
-                    $user,
-                    User::class,
-                    sprintf('Can\'t find user with id "%s"', $stamp->getUserId())
-                );
+                if ($user) {
                     $roles = $user->getRoles();
                     $token = new UserToken($user, $roles);
                     $this->tokenStorage->setToken($token);
+                } else {
+                    $this->logger->error(sprintf('Can\'t find user with id "%s"', $stamp->getUserId()));
+                }
             }
         }
         try {
