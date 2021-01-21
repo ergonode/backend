@@ -9,9 +9,8 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Domain\Command;
 
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\SharedKernel\Domain\AggregateId;
-use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 class CreateBatchActionCommand implements DomainCommandInterface
@@ -20,22 +19,26 @@ class CreateBatchActionCommand implements DomainCommandInterface
 
     private BatchActionType $type;
 
-    /**
-     * @var AggregateId[]
-     */
-    private array $ids;
+    private ?BatchActionFilter $filter;
 
     /**
-     * @param AggregateId[] $ids
+     * @var mixed
      */
-    public function __construct(BatchActionId $id, BatchActionType $type, array $ids)
-    {
-        Assert::allIsInstanceOf($ids, AggregateId::class);
-        Assert::minCount($ids, 1);
+    private $payload;
 
+    /**
+     * @param mixed $payload
+     */
+    public function __construct(
+        BatchActionId $id,
+        BatchActionType $type,
+        ?BatchActionFilter $filter = null,
+        $payload = null
+    ) {
         $this->id = $id;
         $this->type = $type;
-        $this->ids = $ids;
+        $this->filter = $filter;
+        $this->payload = $payload;
     }
 
     public function getId(): BatchActionId
@@ -48,11 +51,16 @@ class CreateBatchActionCommand implements DomainCommandInterface
         return $this->type;
     }
 
-    /**
-     * @return AggregateId[]
-     */
-    public function getIds(): array
+    public function getFilter(): ?BatchActionFilter
     {
-        return $this->ids;
+        return $this->filter;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayload()
+    {
+        return $this->payload;
     }
 }

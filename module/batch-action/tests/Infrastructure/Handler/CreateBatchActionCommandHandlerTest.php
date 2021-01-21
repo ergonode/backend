@@ -12,7 +12,6 @@ use Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler;
 use PHPUnit\Framework\TestCase;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
-use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 class CreateBatchActionCommandHandlerTest extends TestCase
@@ -32,9 +31,7 @@ class CreateBatchActionCommandHandlerTest extends TestCase
 
     public function testCommandHandling(): void
     {
-        $this->command->method('getIds')->willReturn([AggregateId::generate()]);
         $this->repository->expects(self::once())->method('save');
-        $this->repository->expects(self::once())->method('addEntry');
         $handler = new CreateBatchActionCommandHandler($this->repository, $this->messageBus);
         $handler->__invoke($this->command);
     }

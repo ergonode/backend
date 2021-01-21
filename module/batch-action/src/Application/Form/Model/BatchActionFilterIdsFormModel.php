@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class BatchActionFilterIdsFormModel
 {
     /**
-     * @var array
+     * @var string[]
      *
      * @Assert\Count(min=1),
      * @Assert\All({
