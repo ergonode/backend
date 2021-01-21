@@ -92,6 +92,24 @@ class DbalImportQuery implements ImportQueryInterface
     /**
      * @return array
      */
+    public function getProfileInfo(Language $language): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->addSelect('ch.name')
+            ->addSelect('records as items')
+            ->addSelect('(SELECT count(*) FROM importer.import_line el WHERE el.import_id = e.id) as processed')
+            ->orderBy('started_at', 'DESC')
+            ->join('e', self::TABLE, 'ch', 'ch.id = e.channel_id')
+            ->setMaxResults(10)
+            ->execute()
+            ->fetchAll();
+    }
+
+    /**
+     * @return array
+     */
     public function getInformation(ImportId $id, Language $language): array
     {
         $query = $this->getQuery();

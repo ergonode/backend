@@ -58,7 +58,7 @@ class SimpleProductImportAction
         string $template,
         array $categories,
         array $attributes = []
-    ): void {
+    ): SimpleProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         Assert::notNull($templateId);
         $productId = $this->productQuery->findProductIdBySku($sku);
@@ -83,6 +83,8 @@ class SimpleProductImportAction
         $product->changeAttributes($attributes);
 
         $this->repository->save($product);
+
+        return $product;
     }
 
     /**

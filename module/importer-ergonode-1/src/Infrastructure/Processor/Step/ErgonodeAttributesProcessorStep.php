@@ -44,7 +44,8 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
                 $attribute->getHint(),
                 $attribute->getPlaceholder()
             );
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

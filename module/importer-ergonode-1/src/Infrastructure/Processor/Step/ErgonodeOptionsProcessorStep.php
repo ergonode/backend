@@ -39,7 +39,8 @@ class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
                 new OptionKey($option->getCode()),
                 new TranslatableString($option->getTranslations())
             );
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

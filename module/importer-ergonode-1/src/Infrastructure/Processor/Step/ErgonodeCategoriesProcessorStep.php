@@ -37,7 +37,8 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
                 new CategoryCode($category->getCode()),
                 new TranslatableString($category->getTranslations())
             );
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

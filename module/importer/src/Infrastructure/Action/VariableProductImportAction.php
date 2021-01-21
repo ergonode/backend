@@ -81,7 +81,7 @@ class VariableProductImportAction
         array $bindings,
         array $children,
         array $attributes = []
-    ): void {
+    ): VariableProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         Assert::notNull($templateId);
         $productId = $this->productQuery->findProductIdBySku($sku);
@@ -118,6 +118,8 @@ class VariableProductImportAction
         $product->changeChildren($children);
 
         $this->productRepository->save($product);
+
+        return $product;
     }
 
     /**

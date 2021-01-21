@@ -66,7 +66,7 @@ class GroupingProductImportAction
         array $categories,
         array $children,
         array $attributes = []
-    ): void {
+    ): GroupingProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         Assert::notNull($templateId);
         $productId = $this->productQuery->findProductIdBySku($sku);
@@ -101,6 +101,8 @@ class GroupingProductImportAction
         $product->changeChildren($children);
 
         $this->productRepository->save($product);
+
+        return $product;
     }
 
     /**

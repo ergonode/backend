@@ -40,7 +40,7 @@ class OptionImportAction
     /**
      * @throws \Exception
      */
-    public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): void
+    public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): OptionKey
     {
         $attributeId = $this->attributeQuery->findAttributeIdByCode($code);
         Assert::notNull($attributeId);
@@ -62,5 +62,7 @@ class OptionImportAction
         }
 
         $this->commandBus->dispatch($command, true);
+
+        return $optionKey;
     }
 }

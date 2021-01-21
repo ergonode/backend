@@ -35,7 +35,8 @@ class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
 
         while ($product = $reader->read()) {
             $command = $this->commandResolver->resolve($import, $product);
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }
