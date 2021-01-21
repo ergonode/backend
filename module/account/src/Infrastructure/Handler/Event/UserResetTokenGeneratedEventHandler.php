@@ -30,7 +30,7 @@ class UserResetTokenGeneratedEventHandler
     {
         $user = $this->userRepository->load($event->getUserId());
         if ($user) {
-            $mail = new ResetTokenMail($user->getEmail(), $user->getLanguage(), $event->getToken(), $event->getUrl());
+            $mail = new ResetTokenMail($user, $event->getToken(), $event->getUrl());
             $command = new SendMailCommand($mail);
             $this->commandBus->dispatch($command);
         }
