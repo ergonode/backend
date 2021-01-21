@@ -35,13 +35,14 @@ class ImportGroupingProductCommandHandler
     public function __invoke(ImportGroupingProductCommand $command): void
     {
         try {
-            $this->action->action(
+            $product = $this->action->action(
                 $command->getSku(),
                 $command->getTemplate(),
                 $command->getCategories(),
                 $command->getChildren(),
                 $command->getAttributes()
             );
+            $this->repository->addLine($command->getImportId(), $product->getId(), $product->getType());
         } catch (ImportException $exception) {
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {

@@ -71,6 +71,8 @@ class StartImportCommandHandler
         } catch (\Throwable $exception) {
             $this->logger->error($exception);
             $message = 'Import processing error';
+
+            die($exception->getMessage());
         }
 
         if ($message) {

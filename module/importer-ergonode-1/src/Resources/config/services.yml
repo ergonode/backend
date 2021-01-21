@@ -29,8 +29,8 @@ services:
     Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeImportProcess:
         arguments:
             $steps:
-                - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeCategoriesProcessorStep'
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeTemplateProcessorStep'
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeAttributesProcessorStep'
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeOptionsProcessorStep'
+                - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeCategoriesProcessorStep'
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeProductProcessorStep'

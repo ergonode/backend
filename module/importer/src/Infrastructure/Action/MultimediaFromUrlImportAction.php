@@ -51,7 +51,7 @@ class MultimediaFromUrlImportAction
      * @throws FileExistsException
      * @throws FileNotFoundException
      */
-    public function action(ImportId $importId, string $url, string $filename): void
+    public function action(ImportId $importId, string $url, string $filename): MultimediaId
     {
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $name = pathinfo($filename, PATHINFO_FILENAME);
@@ -75,8 +75,9 @@ class MultimediaFromUrlImportAction
                 $size = $this->multimediaStorage->getSize($filename);
                 $mime = $this->multimediaStorage->getMimetype($filename);
 
+                $id = MultimediaId::generate();
                 $multimedia = new Multimedia(
-                    MultimediaId::generate(),
+                    $id,
                     $name,
                     $extension,
                     $size,
@@ -90,5 +91,7 @@ class MultimediaFromUrlImportAction
                 throw $exception;
             }
         }
+
+        return $id;
     }
 }
