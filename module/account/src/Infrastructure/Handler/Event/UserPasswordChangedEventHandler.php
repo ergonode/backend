@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Infrastructure\Handler\Event;
 
-use Ergonode\Account\Domain\Event\User\UserResetTokenGeneratedEvent;
+use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
+use Ergonode\Account\Domain\Mail\UserPasswordChangedMail;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Account\Domain\Mail\ResetTokenMail;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Mailer\Domain\Command\SendMailCommand;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
-class UserResetTokenGeneratedEventHandler
+class UserPasswordChangedEventHandler
 {
     private UserRepositoryInterface $userRepository;
 
@@ -26,11 +26,11 @@ class UserResetTokenGeneratedEventHandler
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(UserResetTokenGeneratedEvent $event): void
+    public function __invoke(UserPasswordChangedEvent $event): void
     {
-        $user = $this->userRepository->load($event->getUserId());
+        $user = $this->userRepository->load($event->getAggregateId());
         if ($user) {
-            $mail = new ResetTokenMail($user, $event->getToken(), $event->getUrl());
+            $mail = new UserPasswordChangedMail($user);
             $command = new SendMailCommand($mail);
             $this->commandBus->dispatch($command);
         }
