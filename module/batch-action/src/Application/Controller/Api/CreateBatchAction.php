@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Controller\Api;
 
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -79,16 +81,26 @@ class CreateBatchAction
 
                 /** @var BatchActionFormModel $data */
                 $data = $form->getData();
+                $filter = null;
+                if ($data->filter) {
+                    $ids = null;
 
-                $ids = [];
-                foreach ($data->ids as $id) {
-                    $ids[] = new AggregateId($id);
+                    if ($data->filter->ids) {
+                        $list = [];
+                        foreach ($data->filter->ids->list as $id) {
+                            $list[] = new AggregateId($id);
+                        }
+                        $ids = new BatchActionIds($list, $data->filter->ids->included);
+                    }
+
+                    $filter = new BatchActionFilter($ids, $data->filter->query ?: null);
                 }
 
                 $command = new CreateBatchActionCommand(
                     BatchActionId::generate(),
                     new BatchActionType($data->type),
-                    $ids
+                    $filter,
+                    $data->payload ?: null
                 );
 
                 $this->commandBus->dispatch($command);

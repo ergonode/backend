@@ -35,10 +35,12 @@ class CreateBatchActionCommandHandler
         $batchAction = new BatchAction($id, $type);
         $this->repository->save($batchAction);
 
-        foreach ($command->getIds() as $resourceId) {
-            $this->repository->addEntry($id, $resourceId);
-            $entryCommand = new ProcessBatchActionEntryCommand($id, $type, $resourceId);
-            $this->commandBus->dispatch($entryCommand, true);
+        if ($command->getFilter() && $command->getFilter()->getIds()) {
+            foreach ($command->getFilter()->getIds()->getList() as $resourceId) {
+                $this->repository->addEntry($id, $resourceId);
+                $entryCommand = new ProcessBatchActionEntryCommand($id, $type, $resourceId);
+                $this->commandBus->dispatch($entryCommand, true);
+            }
         }
     }
 }

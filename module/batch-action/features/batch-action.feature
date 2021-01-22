@@ -9,18 +9,23 @@ Feature: Text attribute manipulation
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
       """
       {
-          "action": "<action>",
-          "ids": <ids>
+        "action": "<action>",
+        "filter": {
+          "ids": {
+            "list": <ids>,
+            "included": true
+          }
+        }
       }
       """
     Then the response status code should be 400
     And the JSON node "errors.<error_column>" should exist
     Examples:
-      | type | ids | error_column |
-      | | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type |
-      | to_long_code_12345678901234567890 | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type |
-      | type | ["not uuid"] | ids |
-      | type | [] | ids |
+      | type                              | ids                                      | error_column    |
+      |                                   | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type            |
+      | to_long_code_12345678901234567890 | ["ca0bc7e6-e1cf-48a6-ae2d-745155c9aa63"] | type            |
+      | type                              | ["not uuid"]                             | filter.ids.list |
+      | type                              | []                                       | list |
 
   Scenario: Get not exists batch action
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@@random_uuid@@"

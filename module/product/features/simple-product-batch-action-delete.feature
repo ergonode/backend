@@ -31,8 +31,15 @@ Feature: batch action product deletion
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
-          "type": "PRODUCT_DELETE",
-          "ids": ["@product_id@"]
+        "type": "PRODUCT_DELETE",
+        "filter": {
+          "ids": {
+            "list": [
+              "@product_id@"
+            ],
+            "included": true
+          }
+        }
       }
     """
     Then the response status code should be 201
@@ -49,11 +56,18 @@ Feature: batch action product deletion
   Scenario: Create batch action with not exists product
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
-          {
-              "type": "PRODUCT_DELETE",
-              "ids": ["@@random_uuid@@"]
+      {
+        "type": "PRODUCT_DELETE",
+        "filter": {
+          "ids": {
+            "list": [
+              "@@random_uuid@@"
+            ],
+            "included": true
           }
-          """
+        }
+      }
+    """
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 

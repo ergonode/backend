@@ -19,16 +19,15 @@ class BatchActionFormModel
      *     maxMessage="Batch action type is too long. It should contain {{ limit }} characters or less."
      * )
      */
-    public string $type;
+    public ?string $type = null;
 
     /**
-     * @var array
-     *
-     * @Assert\Count(min=1),
-     * @Assert\All({
-     *     @Assert\NotBlank(),
-     *     @Assert\Uuid(strict=true)
-     * })
+     * @Assert\Valid()
      */
-    public array $ids = [];
+    public ?BatchActionFilterFormModel $filter = null;
+
+    /**
+     * @var mixed
+     */
+    public $payload = null;
 }
