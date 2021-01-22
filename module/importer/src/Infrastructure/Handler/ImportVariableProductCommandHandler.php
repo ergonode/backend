@@ -35,7 +35,7 @@ class ImportVariableProductCommandHandler
     public function __invoke(ImportVariableProductCommand $command): void
     {
         try {
-            $this->action->action(
+            $product = $this->action->action(
                 $command->getSku(),
                 $command->getTemplate(),
                 $command->getCategories(),
@@ -43,6 +43,7 @@ class ImportVariableProductCommandHandler
                 $command->getChildren(),
                 $command->getAttributes()
             );
+            $this->repository->addLine($command->getImportId(), $product->getId(), $product->getType());
         } catch (ImportException $exception) {
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {

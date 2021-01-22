@@ -35,11 +35,12 @@ class ImportMultimediaFromUrlCommandHandler
     public function __invoke(ImportMultimediaFromWebCommand $command): void
     {
         try {
-            $this->action->action(
+            $id = $this->action->action(
                 $command->getImportId(),
                 $command->getUrl(),
                 $command->getName()
             );
+            $this->repository->addLine($command->getImportId(), $id, 'MULTIMEDIA');
         } catch (ImportException $exception) {
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {

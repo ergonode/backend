@@ -36,7 +36,7 @@ class TemplateImportAction
     /**
      * @throws \Exception
      */
-    public function action(string $code): void
+    public function action(string $code): Template
     {
         $template = null;
         $templateId = $this->query->findTemplateIdByCode($code);
@@ -57,5 +57,7 @@ class TemplateImportAction
         }
 
         $this->templateRepository->save($template);
+
+        return $template;
     }
 }

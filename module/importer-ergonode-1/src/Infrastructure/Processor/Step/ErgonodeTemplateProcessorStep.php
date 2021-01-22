@@ -52,7 +52,8 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
                     'json'
                 )
             );
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

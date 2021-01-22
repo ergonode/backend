@@ -19,11 +19,13 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalImportFactory;
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 class DbalImportRepository implements ImportRepositoryInterface
 {
     private const TABLE = 'importer.import';
     private const TABLE_ERROR = 'importer.import_error';
+    private const TABLE_LINE = 'importer.import_line';
     private const FIELDS = [
         'id',
         'status',
@@ -104,6 +106,22 @@ class DbalImportRepository implements ImportRepositoryInterface
             self::TABLE,
             [
                 'id' => $import->getId()->getValue(),
+            ]
+        );
+    }
+
+    public function addLine(ImportId $importId, AggregateId $objectId, string $type): void
+    {
+        $this->connection->insert(
+            self::TABLE_LINE,
+            [
+                'import_id' => $importId->getValue(),
+                'object_id' => $objectId->getValue(),
+                'type' => $type,
+                'processed_at' => new \DateTime(),
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
             ]
         );
     }
