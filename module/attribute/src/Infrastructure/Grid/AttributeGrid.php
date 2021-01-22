@@ -68,6 +68,7 @@ class AttributeGrid extends AbstractGrid
         $column = new SelectColumn('scope', 'Scope', new MultiSelectFilter($scope));
         $this->addColumn('scope', $column);
         $this->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups)));
+
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'privilege' => 'ATTRIBUTE_READ',

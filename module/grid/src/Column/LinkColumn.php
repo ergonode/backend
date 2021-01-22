@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Grid\Column;
 
+use Ergonode\Grid\GridConfigurationInterface;
+
 class LinkColumn extends AbstractColumn
 {
     public const TYPE = 'LINK';
@@ -43,5 +45,10 @@ class LinkColumn extends AbstractColumn
     public function getLinks(): array
     {
         return $this->links;
+    }
+
+    public function supportView(string $view): bool
+    {
+        return GridConfigurationInterface::VIEW_GRID === $view;
     }
 }
