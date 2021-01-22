@@ -20,9 +20,11 @@ use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-class ProductDeleteBatchActionFilter implements BatchActionFilterIdsInterface
+class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 {
-    private const TYPE = 'product_delete';
+    private const TYPES = [
+        'product_delete',
+    ];
 
     private ProductQueryInterface $productQuery;
 
@@ -32,21 +34,31 @@ class ProductDeleteBatchActionFilter implements BatchActionFilterIdsInterface
 
     private GridRenderer $gridRenderer;
 
+    /**
+     * @var string []
+     */
+    private array $types;
+
+    /**
+     * @param string[]|null $types
+     */
     public function __construct(
         ProductQueryInterface $productQuery,
         DbalProductDataSetFactory $dataSetFactory,
         ProductGrid $productGrid,
-        GridRenderer $gridRenderer
+        GridRenderer $gridRenderer,
+        ?array $types = []
     ) {
         $this->productQuery = $productQuery;
         $this->dataSetFactory = $dataSetFactory;
         $this->productGrid = $productGrid;
         $this->gridRenderer = $gridRenderer;
+        $this->types = $types ?: self::TYPES;
     }
 
     public function supports(BatchActionType $type): bool
     {
-        return $type->getValue() === self::TYPE;
+        return in_array($type->getValue(), $this->types, true);
     }
 
     public function filter(?BatchActionFilter $filter): array
