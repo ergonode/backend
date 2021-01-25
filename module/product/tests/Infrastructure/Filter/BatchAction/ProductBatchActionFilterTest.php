@@ -156,4 +156,57 @@ class ProductBatchActionFilterTest extends TestCase
         self::assertIsArray($filter->filter($batchActionFilter));
         self::assertContainsOnlyInstancesOf(ProductId::class, $filter->filter($batchActionFilter));
     }
+
+    public function testFilterByQuery(): void
+    {
+        $this->gridRenderer->method('render')->willReturn(
+            [
+                'collection' => [],
+            ]
+        );
+
+        $batchActionFilter = $this->createMock(BatchActionFilter::class);
+        $batchActionFilter
+            ->method('getQuery')
+            ->willReturn('code_41:en_GB=f5e5e0ba-cb12-4365-88a1-ea21d040c2cc');
+
+        $filter = new ProductBatchActionFilter(
+            $this->productQuery,
+            $this->dataSetFactory,
+            $this->productGrid,
+            $this->gridRenderer
+        );
+
+        self::assertIsArray($filter->filter($batchActionFilter));
+        self::assertContainsOnlyInstancesOf(ProductId::class, $filter->filter($batchActionFilter));
+    }
+
+
+    public function testFilterByQueryAndIncludeIds(): void
+    {
+        $this->gridRenderer->method('render')->willReturn(
+            [
+                'collection' => [],
+            ]
+        );
+
+        $batchActionIds = $this->createMock(BatchActionIds::class);
+        $batchActionIds->method('getList')->willReturn([AggregateId::generate()]);
+        $batchActionIds->method('isIncluded')->willReturn(true);
+
+        $batchActionFilter = $this->createMock(BatchActionFilter::class);
+        $batchActionFilter->method('getQuery')
+            ->willReturn('code_41:en_GB=f5e5e0ba-cb12-4365-88a1-ea21d040c2cc');
+        $batchActionFilter->method('getIds')->willReturn($batchActionIds);
+
+        $filter = new ProductBatchActionFilter(
+            $this->productQuery,
+            $this->dataSetFactory,
+            $this->productGrid,
+            $this->gridRenderer
+        );
+
+        self::assertIsArray($filter->filter($batchActionFilter));
+        self::assertContainsOnlyInstancesOf(AggregateId::class, $filter->filter($batchActionFilter));
+    }
 }

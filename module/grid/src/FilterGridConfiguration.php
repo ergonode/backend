@@ -23,10 +23,9 @@ class FilterGridConfiguration implements GridConfigurationInterface
     private FilterValueCollection $filters;
 
     /**
-     * @var array
+     * @var RequestColumn[]
      */
     private array $columns;
-
 
     public function __construct(string $filters)
     {
@@ -60,6 +59,9 @@ class FilterGridConfiguration implements GridConfigurationInterface
         return self::ASC;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getColumns(): array
     {
         return $this->columns;
