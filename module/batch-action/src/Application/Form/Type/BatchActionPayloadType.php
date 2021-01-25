@@ -1,23 +1,20 @@
 <?php
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
 declare(strict_types=1);
 
-namespace Ergonode\BatchAction\Application\Form;
+namespace Ergonode\BatchAction\Application\Form\Type;
 
-use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
-use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
-use Ergonode\BatchAction\Application\Form\Type\BatchActionPayloadType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BatchActionForm extends AbstractType
+class BatchActionPayloadType extends AbstractType
 {
     /**
      * @param array $options
@@ -26,23 +23,25 @@ class BatchActionForm extends AbstractType
     {
         $builder
             ->add(
-                'type',
-                TextType::class
+                'id',
+                TextType::class,
             )
             ->add(
-                'filter',
-                BatchActionFilterType::class,
-                [
-                    'required' => false,
-                ]
-            )
-            ->add(
-                'payload',
+                'values',
                 CollectionType::class,
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => BatchActionPayloadType::class,
+                    'entry_type' => BatchActionValueTranslationType::class,
+                ]
+            )
+            ->add(
+                'options',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
                     'required' => false,
                 ]
             );
@@ -52,7 +51,6 @@ class BatchActionForm extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => BatchActionFormModel::class,
                 'translation_domain' => 'batch-action',
             ]
         );

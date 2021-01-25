@@ -44,7 +44,7 @@ class CreateBatchActionCommandHandler
 
         foreach ($ids as $resourceId) {
             $this->repository->addEntry($id, $resourceId);
-            $entryCommand = new ProcessBatchActionEntryCommand($id, $type, $resourceId);
+            $entryCommand = new ProcessBatchActionEntryCommand($id, $type, $resourceId, $command->getPayload());
             $this->commandBus->dispatch($entryCommand, true);
         }
     }
