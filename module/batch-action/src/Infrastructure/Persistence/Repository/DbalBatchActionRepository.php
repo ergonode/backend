@@ -140,6 +140,20 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         );
     }
 
+    public function isProcessEnded(BatchActionId $id): bool
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $result = $query->select("bool_and(success)")
+            ->from(self::TABLE_ENTRY)
+            ->where($query->expr()->eq('batch_action_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetch();
+
+        return $result['bool_and'];
+    }
+
     /**
      * @throws DBALException
      */

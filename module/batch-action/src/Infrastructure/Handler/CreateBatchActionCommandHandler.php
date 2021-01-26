@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Infrastructure\Handler;
 
+use Ergonode\BatchAction\Domain\Command\EndBatchActionProcessCommand;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
@@ -47,5 +48,7 @@ class CreateBatchActionCommandHandler
             $entryCommand = new ProcessBatchActionEntryCommand($id, $type, $resourceId);
             $this->commandBus->dispatch($entryCommand, true);
         }
+        $endCommand = new EndBatchActionProcessCommand($id, $type);
+        $this->commandBus->dispatch($endCommand, true);
     }
 }
