@@ -11,14 +11,14 @@ namespace Ergonode\BatchAction\Tests\Infrastructure\Handler;
 
 use Ergonode\Account\Application\Security\Security;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\BatchAction\Domain\Event\BatchActionFinishedEvent;
-use Ergonode\BatchAction\Infrastructure\Handler\BatchActionFinishedEventHandler;
+use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
+use Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class BatchActionFinishedEventHandlerTest extends TestCase
+class BatchActionEndedEventHandlerTest extends TestCase
 {
     private TranslatorInterface $translator;
 
@@ -26,19 +26,19 @@ class BatchActionFinishedEventHandlerTest extends TestCase
 
     private CommandBusInterface $commandBus;
 
-    private BatchActionFinishedEvent $event;
+    private BatchActionEndedEvent $event;
 
     protected function setUp(): void
     {
         $this->translator = $this->createMock(TranslatorInterface::class);
         $this->security = $this->createMock(Security::class);
         $this->commandBus = $this->createMock(CommandBusInterface::class);
-        $this->event = $this->createMock(BatchActionFinishedEvent::class);
+        $this->event = $this->createMock(BatchActionEndedEvent::class);
     }
 
     public function testEventHandlingWithUser(): void
     {
-        $handler = new BatchActionFinishedEventHandler($this->translator, $this->security, $this->commandBus);
+        $handler = new BatchActionEndedEventHandler($this->translator, $this->security, $this->commandBus);
         $user = $this->createMock(User::class);
         $this->translator->method('trans')->willReturn('test');
         $user->method('getId')->willReturn($this->createMock(UserId::class));
@@ -49,10 +49,7 @@ class BatchActionFinishedEventHandlerTest extends TestCase
 
     public function testEventHandlingNoUser(): void
     {
-        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
-        $this->expectExceptionMessage('User not set');
-
-        $handler = new BatchActionFinishedEventHandler($this->translator, $this->security, $this->commandBus);
+        $handler = new BatchActionEndedEventHandler($this->translator, $this->security, $this->commandBus);
         $this->security->method('getUser')->willReturn(null);
         $this->commandBus->expects(self::never())->method('dispatch');
         $handler->__invoke($this->event);

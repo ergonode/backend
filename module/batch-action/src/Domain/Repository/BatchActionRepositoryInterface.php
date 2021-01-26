@@ -25,6 +25,4 @@ interface BatchActionRepositoryInterface
      * @param BatchActionMessage[] $messages
      */
     public function markEntry(BatchActionId $id, AggregateId $resourceId, array $messages): void;
-
-    public function isProcessEnded(BatchActionId $id): bool;
 }

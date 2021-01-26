@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Tests\Domain\Notification;
 
-use Ergonode\BatchAction\Domain\Notification\BatchActionProcessFinishedNotification;
+use Ergonode\BatchAction\Domain\Notification\BatchActionProcessEndedNotification;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\TestCase;
 
-class BatchActionProcessFinishedNotificationTest extends TestCase
+class BatchActionProcessEndedNotificationTest extends TestCase
 {
 
     private UserId $userId;
@@ -31,7 +31,7 @@ class BatchActionProcessFinishedNotificationTest extends TestCase
      */
     public function testCreation(): void
     {
-        $notification = new BatchActionProcessFinishedNotification($this->type, $this->userId);
+        $notification = new BatchActionProcessEndedNotification($this->type, $this->userId);
         self::assertEquals($this->userId, $notification->getAuthorId());
         self::assertNotEmpty($notification->getCreatedAt());
     }
@@ -41,7 +41,7 @@ class BatchActionProcessFinishedNotificationTest extends TestCase
      */
     public function testReturnedParameters(): void
     {
-        $notification = new BatchActionProcessFinishedNotification($this->type, $this->userId);
+        $notification = new BatchActionProcessEndedNotification($this->type, $this->userId);
         $parameters = $notification->getParameters();
         self::assertSame('test', $parameters['%type%']);
     }
@@ -51,9 +51,9 @@ class BatchActionProcessFinishedNotificationTest extends TestCase
      */
     public function testReturnedMessage(): void
     {
-        $notification = new BatchActionProcessFinishedNotification($this->type, $this->userId);
+        $notification = new BatchActionProcessEndedNotification($this->type, $this->userId);
         self::assertSame(
-            'Batch action "%type%" is finished',
+            'Batch action "%type%" ended',
             $notification->getMessage()
         );
     }

@@ -12,9 +12,9 @@ namespace Ergonode\BatchAction\Domain\Notification;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-class BatchActionProcessFinishedNotification implements NotificationInterface
+class BatchActionProcessEndedNotification implements NotificationInterface
 {
-    private const MESSAGE = 'Batch action "%type%" is finished';
+    private const MESSAGE = 'Batch action "%type%" ended';
 
     private string $message;
 

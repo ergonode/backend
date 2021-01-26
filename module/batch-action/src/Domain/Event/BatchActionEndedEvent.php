@@ -13,7 +13,7 @@ use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\SharedKernel\Domain\DomainEventInterface;
 
-class BatchActionFinishedEvent implements DomainEventInterface
+class BatchActionEndedEvent implements DomainEventInterface
 {
     private BatchActionId $id;
 

@@ -64,7 +64,7 @@ services:
             - '@Ergonode\SharedKernel\Domain\Bus\EventBusInterface'
             - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
             
-    Ergonode\BatchAction\Infrastructure\Handler\BatchActionFinishedEventHandler:
+    Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
         tags: [ 'messenger.message_handler' ]
         arguments:
             - '@Symfony\Contracts\Translation\TranslatorInterface'
