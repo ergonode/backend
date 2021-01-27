@@ -154,4 +154,9 @@ abstract class AbstractColumn implements ColumnInterface
     {
         $this->prefix = $prefix;
     }
+
+    public function supportView(string $view): bool
+    {
+        return true;
+    }
 }
