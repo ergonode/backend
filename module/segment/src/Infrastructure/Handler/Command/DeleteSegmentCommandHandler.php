@@ -48,8 +48,7 @@ class DeleteSegmentCommandHandler
         if (null !== $relationships) {
             throw new ExistingRelationshipsException($command->getId());
         }
-        if (
-            $segment->getConditionSetId() &&
+        if ($segment->getConditionSetId() &&
             null === $this->relationshipsResolver->resolve($segment->getConditionSetId())
         ) {
             $this->commandBus->dispatch(
