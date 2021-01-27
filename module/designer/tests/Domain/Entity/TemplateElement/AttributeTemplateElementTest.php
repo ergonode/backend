@@ -30,6 +30,6 @@ class AttributeTemplateElementTest extends TestCase
         $this->assertSame($size, $element->getSize());
         $this->assertEquals($attributeId, $element->getAttributeId());
         $this->assertTrue($element->isRequired());
-        $this->assertEquals(AttributeTemplateElement::TYPE, $element->getVariant());
+        $this->assertEquals(AttributeTemplateElement::TYPE, $element->getType());
     }
 }

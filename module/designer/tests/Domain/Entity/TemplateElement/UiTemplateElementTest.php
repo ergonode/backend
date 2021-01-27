@@ -26,6 +26,6 @@ class UiTemplateElementTest extends TestCase
         $this->assertSame($position, $element->getPosition());
         $this->assertSame($size, $element->getSize());
         $this->assertEquals($label, $element->getLabel());
-        $this->assertEquals(UiTemplateElement::TYPE, $element->getVariant());
+        $this->assertEquals(UiTemplateElement::TYPE, $element->getType());
     }
 }
