@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
+use Ergonode\Core\Infrastructure\Model\Relationship;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Segment\Domain\Command\DeleteSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
@@ -56,8 +57,28 @@ class DeleteSegmentCommandHandlerTest extends TestCase
     {
         $segment = $this->createMock(Segment::class);
         $segment->method('getConditionSetId')->willReturn(new ConditionSetId((string) Uuid::uuid4()));
+        $this->resolver->method('resolve')->willReturn(null);
         $this->repository->expects($this->once())->method('load')->willReturn($segment);
         $this->commandBus->expects($this->once())->method('dispatch');
+        $this->repository->expects($this->once())->method('delete');
+
+        $handler = new DeleteSegmentCommandHandler($this->repository, $this->resolver, $this->commandBus);
+        $handler->__invoke($this->command);
+    }
+
+    /**
+     * @throws \Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException
+     */
+    public function testCommandHandlingWhenRelationOnCondistionSet(): void
+    {
+        $segment = $this->createMock(Segment::class);
+        $segment->method('getConditionSetId')->willReturn(new ConditionSetId((string) Uuid::uuid4()));
+        $this->resolver->method('resolve')->willReturnOnConsecutiveCalls(
+            null,
+            $this->createMock(Relationship::class),
+        );
+        $this->repository->expects($this->once())->method('load')->willReturn($segment);
+        $this->commandBus->expects($this->never())->method('dispatch');
         $this->repository->expects($this->once())->method('delete');
 
         $handler = new DeleteSegmentCommandHandler($this->repository, $this->resolver, $this->commandBus);
@@ -71,6 +92,7 @@ class DeleteSegmentCommandHandlerTest extends TestCase
     {
         $segment = $this->createMock(Segment::class);
         $segment->method('getConditionSetId')->willReturn(null);
+        $this->resolver->method('resolve')->willReturn(null);
         $this->repository->expects($this->once())->method('load')->willReturn($segment);
         $this->commandBus->expects($this->never())->method('dispatch');
         $this->repository->expects($this->once())->method('delete');
