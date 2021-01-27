@@ -11,7 +11,7 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
@@ -52,7 +52,8 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
                     'json'
                 )
             );
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

@@ -10,12 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Generator\Builder\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Generator\Builder\BuilderInterface;
 use Ergonode\Generator\Builder\FileBuilder;
 use Ergonode\Generator\Builder\MethodBuilder;
 use Ergonode\Generator\Builder\PropertyBuilder;
+use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 

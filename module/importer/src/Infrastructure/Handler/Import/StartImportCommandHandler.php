@@ -18,7 +18,7 @@ use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Command\Import\StopImportCommand;
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Psr\Log\LoggerInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 
 class StartImportCommandHandler
@@ -71,6 +71,8 @@ class StartImportCommandHandler
         } catch (\Throwable $exception) {
             $this->logger->error($exception);
             $message = 'Import processing error';
+
+            die($exception->getMessage());
         }
 
         if ($message) {

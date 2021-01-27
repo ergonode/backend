@@ -18,7 +18,7 @@ use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 
 class ProductProductCollectionRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with {relations}';
+    private const MESSAGE = 'Object has active relationships with product collection %relations%';
 
     private ProductCollectionQueryInterface $query;
 

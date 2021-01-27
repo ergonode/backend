@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Domain\Event\Status;
 
 use Ergonode\Core\Domain\ValueObject\Color;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
-class StatusColorChangedEvent implements DomainEventInterface
+class StatusColorChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")

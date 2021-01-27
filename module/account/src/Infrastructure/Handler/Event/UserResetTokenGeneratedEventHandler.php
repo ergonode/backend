@@ -10,8 +10,8 @@ namespace Ergonode\Account\Infrastructure\Handler\Event;
 
 use Ergonode\Account\Domain\Event\User\UserResetTokenGeneratedEvent;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Account\Domain\ResetTokenMail;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Account\Domain\Mail\ResetTokenMail;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Mailer\Domain\Command\SendMailCommand;
 
 class UserResetTokenGeneratedEventHandler
@@ -30,7 +30,7 @@ class UserResetTokenGeneratedEventHandler
     {
         $user = $this->userRepository->load($event->getUserId());
         if ($user) {
-            $mail = new ResetTokenMail($user->getEmail(), $user->getLanguage(), $event->getToken(), $event->getUrl());
+            $mail = new ResetTokenMail($user, $event->getToken(), $event->getUrl());
             $command = new SendMailCommand($mail);
             $this->commandBus->dispatch($command);
         }

@@ -19,7 +19,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Multimedia\Application\Form\MultimediaForm;
 use Ergonode\Multimedia\Application\Model\MultimediaModel;

@@ -12,7 +12,7 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\DeleteSourceCommand;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

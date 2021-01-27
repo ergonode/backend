@@ -36,10 +36,11 @@ class ImportCategoryCommandHandler
     public function __invoke(ImportCategoryCommand $command): void
     {
         try {
-            $this->action->action(
+            $category = $this->action->action(
                 $command->getCode(),
                 $command->getName(),
             );
+            $this->repository->addLine($command->getImportId(), $category->getId(), 'CATEGORY');
         } catch (ImportException $exception) {
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {

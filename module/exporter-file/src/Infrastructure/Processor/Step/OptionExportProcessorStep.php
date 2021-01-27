@@ -9,11 +9,12 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 
 class OptionExportProcessorStep implements ExportStepProcessInterface
 {
@@ -21,17 +22,25 @@ class OptionExportProcessorStep implements ExportStepProcessInterface
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(OptionQueryInterface $query, CommandBusInterface $commandBus)
-    {
+    private ExportRepositoryInterface $repository;
+
+    public function __construct(
+        OptionQueryInterface $query,
+        CommandBusInterface $commandBus,
+        ExportRepositoryInterface $repository
+    ) {
         $this->query = $query;
         $this->commandBus = $commandBus;
+        $this->repository = $repository;
     }
 
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $options = $this->query->getAll();
         foreach ($options as $option) {
-            $command = new ProcessOptionCommand($exportId, new AggregateId($option['id']));
+            $optionId = new AggregateId($option['id']);
+            $command = new ProcessOptionCommand($exportId, $optionId);
+            $this->repository->addLine($exportId, $optionId);
             $this->commandBus->dispatch($command, true);
         }
     }

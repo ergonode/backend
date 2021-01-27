@@ -17,7 +17,7 @@ use Ergonode\Comment\Application\Form\Model\UpdateCommentFormModel;
 use Ergonode\Comment\Application\Form\UpdateCommentForm;
 use Ergonode\Comment\Domain\Command\UpdateCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;

@@ -15,7 +15,7 @@ use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;

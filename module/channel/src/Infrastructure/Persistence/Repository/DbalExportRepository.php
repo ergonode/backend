@@ -17,14 +17,17 @@ use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalExportFactory;
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalExportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Doctrine\DBAL\DBALException;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 class DbalExportRepository implements ExportRepositoryInterface
 {
     private const TABLE = 'exporter.export';
+    private const TABLE_LINE = 'exporter.export_line';
+    private const TABLE_ERROR = 'exporter.export_error';
     private const FIELDS = [
         'id',
         'status',
-        'items',
         'channel_id',
         'started_at',
         'ended_at',
@@ -97,6 +100,57 @@ class DbalExportRepository implements ExportRepositoryInterface
             [
                 'id' => $export->getId()->getValue(),
             ]
+        );
+    }
+
+    public function addLine(ExportId $exportId, AggregateId $objectId): void
+    {
+        $this->connection->insert(
+            self::TABLE_LINE,
+            [
+                'export_id' => $exportId->getValue(),
+                'object_id' => $objectId->getValue(),
+            ]
+        );
+    }
+
+    public function processLine(ExportId $exportId, AggregateId $objectId): void
+    {
+        $this->connection->update(
+            self::TABLE_LINE,
+            [
+                'processed_at' => new \DateTime(),
+            ],
+            [
+                'export_id' => $exportId->getValue(),
+                'object_id' => $objectId->getValue(),
+
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
+    }
+
+    /**
+     * @param string[] $parameters
+     *
+     * @throws DBALException
+     * @throws \JsonException
+     */
+    public function addError(ExportId $exportId, string $message, array $parameters = []): void
+    {
+        $this->connection->insert(
+            self::TABLE_ERROR,
+            [
+                'export_id' => $exportId,
+                'created_at' => new \DateTime(),
+                'message' => $message,
+                'parameters' => json_encode($parameters, JSON_THROW_ON_ERROR),
+            ],
+            [
+                'created_at' => Types::DATETIMETZ_MUTABLE,
+            ],
         );
     }
 

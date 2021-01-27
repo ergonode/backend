@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Ergonode\Product\Domain\Command\Attribute\ChangeProductAttributeCommand;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;

@@ -16,7 +16,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class OptionImportAction
@@ -40,7 +40,7 @@ class OptionImportAction
     /**
      * @throws \Exception
      */
-    public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): void
+    public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): OptionKey
     {
         $attributeId = $this->attributeQuery->findAttributeIdByCode($code);
         Assert::notNull($attributeId);
@@ -62,5 +62,7 @@ class OptionImportAction
         }
 
         $this->commandBus->dispatch($command, true);
+
+        return $optionKey;
     }
 }

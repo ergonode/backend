@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Application\Form\ProductCollectionCreateForm;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionCreateFormModel;
 use Ergonode\ProductCollection\Domain\Command\CreateProductCollectionCommand;

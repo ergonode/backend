@@ -15,7 +15,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Comment\Application\Form\CreateCommentForm;
 use Ergonode\Comment\Application\Form\Model\CreateCommentFormModel;
 use Ergonode\Comment\Domain\Command\CreateCommentCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;

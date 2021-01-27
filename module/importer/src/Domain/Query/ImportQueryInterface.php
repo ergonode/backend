@@ -26,6 +26,8 @@ interface ImportQueryInterface
 
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface;
 
+    public function getProfileInfo(Language $language): array;
+
     public function getInformation(ImportId $id, Language $language): array;
 
     /**

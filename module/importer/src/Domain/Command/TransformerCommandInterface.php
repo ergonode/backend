@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 interface TransformerCommandInterface extends DomainCommandInterface
 {

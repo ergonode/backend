@@ -11,10 +11,10 @@ namespace Ergonode\Attribute\Domain\Event\Attribute;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class AttributeStringParameterChangeEvent implements DomainEventInterface
+class AttributeStringParameterChangeEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")

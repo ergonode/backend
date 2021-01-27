@@ -7,12 +7,13 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\EventSourcing\Infrastructure\Bus;
+namespace Ergonode\Core\Application\Messenger;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
+use Ergonode\SharedKernel\Domain\DomainEventInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class SymfonyEventBus implements EventBusInterface
+class EventBus implements EventBusInterface
 {
     private MessageBusInterface $eventBus;
 

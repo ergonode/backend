@@ -33,9 +33,15 @@ class ErgonodeAttributeReader extends AbstractErgonodeReader
                 break;
             }
 
-            $item->addName($record['_language'], $record['_name']);
-            $item->addHint($record['_language'], $record['_hint']);
-            $item->addPlaceholder($record['_language'], $record['_placeholder']);
+            if (!empty($record['_name'])) {
+                $item->addName($record['_language'], $record['_name']);
+            }
+            if (!empty($record['_hint'])) {
+                $item->addHint($record['_language'], $record['_hint']);
+            }
+            if (!empty($record['_placeholder'])) {
+                $item->addPlaceholder($record['_language'], $record['_placeholder']);
+            }
             $this->mapParameters($item, $record['_parameters']);
 
             $this->records->next();

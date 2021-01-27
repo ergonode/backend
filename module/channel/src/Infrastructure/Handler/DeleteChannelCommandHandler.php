@@ -13,7 +13,7 @@ use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Channel\Domain\Command\Export\DeleteExportCommand;
 use Webmozart\Assert\Assert;
 

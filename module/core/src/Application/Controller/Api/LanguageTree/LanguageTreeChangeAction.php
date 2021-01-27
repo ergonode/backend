@@ -13,7 +13,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\LanguageTree\LanguageTreeUpdateForm;
 use Ergonode\Core\Application\Model\LanguageTree\LanguageTreeUpdateFormModel;
 use Ergonode\Core\Domain\Command\LanguageTree\UpdateLanguageTreeCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;

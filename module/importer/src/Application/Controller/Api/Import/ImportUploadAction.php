@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Application\Controller\Api\Import;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
 use Ergonode\Importer\Application\Service\Upload\UploadServiceInterface;

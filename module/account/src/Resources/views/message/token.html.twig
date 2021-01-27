@@ -3,17 +3,49 @@
 {% extends "@ErgonodeMailer/layout/default.html.twig" %}
 
 {% block content %}
-    <table width="600px" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#fff" style="background-color=#fff; margin-top:40px; margin-bottom:40px; padding:40px;">
+    <table width="600px" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#fff"
+           style="background-color=#fff; margin-top:40px; margin-bottom:40px; padding:40px;">
         <tr style="background-color:#fff; color:#33373E;">
-            <td>
-                <h1>{{ 'Password recovery'|trans }}</h1>
+            <td align="center" style="text-align: justify;">
+                <p style="margin-top:16px;">
+                    {{ 'Hey'|trans }} {{ firstName }},
+                </p>
+            </td>
+        </tr>
+
+        <tr style="background-color:#fff; color:#33373E;">
+            <td align="center" style="text-align: justify;">
+                <p style="margin-top:16px;">
+                    {{ 'You’ve just asked to reset your password to your account in Ergonode PIM.' |trans }}
+                </p>
             </td>
         </tr>
         <tr style="background-color:#fff; color:#33373E;">
             <td align="center" style="text-align: justify;">
-                <a href="{{ url }}{{ token }}" target="_blank">
-                    <button style="margin-top:24px;">{{ 'RECOVER PASSWORD'|trans }}</button>
-                </a>
+                <p style="margin-top:16px;">
+                    {{ 'Please click this'|trans }} <a href="{{ url }}{{ token }}" target="_blank">link</a> {{ 'and follow the instructions to reset your password.'|trans }}
+                </p>
+            </td>
+        </tr>
+        <tr style="background-color:#fff; color:#33373E;">
+            <td align="center" style="text-align: justify;">
+                <p style="margin-top:16px;">
+                    {{ 'If it’s not you who asked for password reset, please ignore this email.'|trans }}
+                </p>
+            </td>
+        </tr>
+        <tr style="background-color:#fff; color:#33373E;">
+            <td align="center" style="text-align: justify;">
+                <p style="margin-top:16px;">
+                    {{ 'Thanks!'|trans  }}
+                </p>
+            </td>
+        </tr>
+        <tr style="background-color:#fff; color:#33373E;">
+            <td align="center" style="text-align: justify;">
+                <p style="margin-top:16px;">
+                    {{ 'Team Ergonode'|trans }}
+                </p>
             </td>
         </tr>
     </table>

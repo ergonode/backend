@@ -22,7 +22,6 @@ class DbalExportMapper
             'id' => $export->getId(),
             'status' => $export->getStatus(),
             'channel_id' => $export->getChannelId()->getValue(),
-            'items' => $export->getItems(),
             'started_at' => $export->getStartedAt(),
             'ended_at' => $export->getEndedAt(),
         ];

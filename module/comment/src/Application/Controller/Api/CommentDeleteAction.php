@@ -13,7 +13,7 @@ use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;

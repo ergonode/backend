@@ -12,7 +12,7 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 use Ergonode\Account\Domain\Command\User\DeleteUserAvatarCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

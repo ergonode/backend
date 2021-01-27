@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
@@ -37,7 +37,8 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
                 new CategoryCode($category->getCode()),
                 new TranslatableString($category->getTranslations())
             );
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;

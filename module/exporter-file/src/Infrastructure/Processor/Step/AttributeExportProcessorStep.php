@@ -9,11 +9,12 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 
 class AttributeExportProcessorStep implements ExportStepProcessInterface
 {
@@ -21,17 +22,25 @@ class AttributeExportProcessorStep implements ExportStepProcessInterface
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(AttributeQueryInterface $query, CommandBusInterface $commandBus)
-    {
+    private ExportRepositoryInterface $repository;
+
+    public function __construct(
+        AttributeQueryInterface $query,
+        CommandBusInterface $commandBus,
+        ExportRepositoryInterface $repository
+    ) {
         $this->query = $query;
         $this->commandBus = $commandBus;
+        $this->repository = $repository;
     }
 
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
         $attributes = $this->query->getDictionary();
         foreach (array_keys($attributes) as $id) {
-            $command = new ProcessAttributeCommand($exportId, new AttributeId($id));
+            $attributeId = new AttributeId($id);
+            $command = new ProcessAttributeCommand($exportId, $attributeId);
+            $this->repository->addLine($exportId, $attributeId);
             $this->commandBus->dispatch($command, true);
         }
     }

@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Application\Form\SourceTypeForm;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

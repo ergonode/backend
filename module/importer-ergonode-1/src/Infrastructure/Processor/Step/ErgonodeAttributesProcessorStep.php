@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportAttributeCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
@@ -44,7 +44,8 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
                 $attribute->getHint(),
                 $attribute->getPlaceholder()
             );
-            $this->commandBus->dispatch($command);
+            $import->addRecords(1);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

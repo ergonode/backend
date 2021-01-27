@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Core\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-abstract class AbstractTranslatableStringBasedChangedEvent implements DomainEventInterface
+abstract class AbstractTranslatableStringBasedChangedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")

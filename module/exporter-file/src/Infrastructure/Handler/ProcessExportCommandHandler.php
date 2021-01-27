@@ -15,7 +15,7 @@ use Ergonode\ExporterFile\Infrastructure\Processor\Step\ExportStepProcessInterfa
 use Ergonode\Channel\Domain\Command\Export\ProcessExportCommand;
 use Webmozart\Assert\Assert;
 use Ergonode\Channel\Domain\Entity\Export;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Ergonode\ExporterFile\Domain\Command\Export\EndFileExportCommand;
 

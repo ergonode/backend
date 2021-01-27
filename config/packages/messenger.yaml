@@ -8,10 +8,12 @@ framework:
             messenger.bus.sync:
                 default_middleware: false
                 middleware:
+                    - 'Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware'
                     - 'handle_message'
             messenger.bus.async:
                 default_middleware: false
                 middleware:
+                    - 'Ergonode\Authentication\Application\Middleware\GetUserMiddleware'
                     - 'send_message'
                     - 'handle_message'
         default_bus: messenger.bus.sync

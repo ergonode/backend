@@ -21,7 +21,7 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
 use Ergonode\Product\Application\Form\Product\Relation\ProductChildForm;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
