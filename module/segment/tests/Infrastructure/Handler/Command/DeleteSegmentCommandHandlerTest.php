@@ -69,7 +69,7 @@ class DeleteSegmentCommandHandlerTest extends TestCase
     /**
      * @throws \Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException
      */
-    public function testCommandHandlingWhenRelationOnCondistionSet(): void
+    public function testCommandHandlingWhenRelationOnConditionSet(): void
     {
         $segment = $this->createMock(Segment::class);
         $segment->method('getConditionSetId')->willReturn(new ConditionSetId((string) Uuid::uuid4()));
