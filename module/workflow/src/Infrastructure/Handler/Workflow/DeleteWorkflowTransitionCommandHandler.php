@@ -42,8 +42,7 @@ class DeleteWorkflowTransitionCommandHandler
 
         $transition = $workflow->getTransition($command->getSource(), $command->getDestination());
 
-        if (
-            $transition->getConditionSetId() &&
+        if ($transition->getConditionSetId() &&
             null === $this->relationshipsResolver->resolve($transition->getConditionSetId())
         ) {
             $this->commandBus->dispatch(

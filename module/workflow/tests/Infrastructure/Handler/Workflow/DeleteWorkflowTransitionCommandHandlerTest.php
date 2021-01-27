@@ -10,8 +10,6 @@ namespace Ergonode\Workflow\Tests\Infrastructure\Handler\Workflow;
 
 use Ergonode\Core\Infrastructure\Model\Relationship;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Infrastructure\Handler\Command\DeleteSegmentCommandHandler;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Entity\Transition;
