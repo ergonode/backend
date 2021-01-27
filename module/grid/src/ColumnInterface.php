@@ -61,4 +61,6 @@ interface ColumnInterface
     public function getPrefix(): ?string;
 
     public function setPrefix(?string $prefix): void;
+
+    public function supportView(string $view): bool;
 }
