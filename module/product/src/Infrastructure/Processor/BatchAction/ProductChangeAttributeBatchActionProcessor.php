@@ -40,7 +40,6 @@ class ProductChangeAttributeBatchActionProcessor implements BatchActionProcessor
         $this->commandBus = $commandBus;
     }
 
-
     public function supports(BatchActionType $type): bool
     {
         return $type->getValue() === self::TYPE;
@@ -51,33 +50,39 @@ class ProductChangeAttributeBatchActionProcessor implements BatchActionProcessor
      */
     public function process(BatchActionId $id, AggregateId $resourceId, $payload = null): array
     {
-        $messages = [];
         $productId = new ProductId($resourceId->getValue());
         $product = $this->productRepository->load($productId);
 
-        if ($product) {
-            $attributes = [];
-            foreach ($payload as $attribute) {
-                $attributeId = new AttributeId($attribute['id']);
-                if ($this->attributeRepository->load($attributeId)) {
-                    $value = [];
-                    foreach ($attribute['values'] as $translation) {
-                        //check validation this value
-                        $value[$translation['language']] = $translation['value'];
-                    }
+        if (null === $product) {
+            return [new BatchActionMessage('Product not found', [])];
+        }
+        if (null === $payload) {
+            return [new BatchActionMessage('Payload is empty', [])];
+        }
 
-                    $attributes[$attributeId->getValue()] = $value;
-                } else {
-                    $messages[] = new BatchActionMessage('Attribute not found', []);
-                }
-            }
-            if (!empty($attributes)) {
-                $command = new ChangeProductAttributesCommand($productId, $attributes);
+        $messages = [];
+        $attributes = [];
 
-                $this->commandBus->dispatch($command);
+        foreach ($payload as $payloadAttribute) {
+            $attributeId = new AttributeId($payloadAttribute->id);
+            $attribute = $this->attributeRepository->load($attributeId);
+            if (null === $attribute) {
+                $messages[] = new BatchActionMessage('Attribute not found', []);
+                continue;
             }
-        } else {
-            $messages[] = new BatchActionMessage('Product not found', []);
+
+            $value = [];
+            foreach ($payloadAttribute->values as $translation) {
+                //check validation this value
+                $value[$translation->language] = $translation->value;
+            }
+
+            $attributes[$attributeId->getValue()] = $value;
+        }
+        if (!empty($attributes)) {
+            $command = new ChangeProductAttributesCommand($productId, $attributes);
+
+            $this->commandBus->dispatch($command);
         }
 
         return $messages;

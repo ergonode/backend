@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Form\Type;
 
+use Ergonode\BatchAction\Application\Form\Model\BatchActionValueTranslationModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,6 +55,7 @@ class BatchActionValueTranslationType extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'batch-action',
+            'data_class' => BatchActionValueTranslationModel::class,
         ]);
     }
 

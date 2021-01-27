@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Infrastructure\Provider;
 
+use Ergonode\BatchAction\Application\Form\Model\BatchActionPayloadModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -18,9 +19,11 @@ interface BatchActionProcessorInterface
     public function supports(BatchActionType $type): bool;
 
     /**
-     * @param mixed $payload
-     *
      * @return BatchActionMessage[]
      */
-    public function process(BatchActionId $id, AggregateId $resourceId, $payload = null): array;
+    public function process(
+        BatchActionId $id,
+        AggregateId $resourceId,
+        ?BatchActionPayloadModel $payload = null
+    ): array;
 }

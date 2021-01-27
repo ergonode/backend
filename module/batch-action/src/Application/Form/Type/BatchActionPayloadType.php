@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Form\Type;
 
+use Ergonode\BatchAction\Application\Form\Model\BatchActionPayloadModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,16 +35,6 @@ class BatchActionPayloadType extends AbstractType
                     'allow_delete' => true,
                     'entry_type' => BatchActionValueTranslationType::class,
                 ]
-            )
-            ->add(
-                'options',
-                CollectionType::class,
-                [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => TextType::class,
-                    'required' => false,
-                ]
             );
     }
 
@@ -52,6 +43,7 @@ class BatchActionPayloadType extends AbstractType
         $resolver->setDefaults(
             [
                 'translation_domain' => 'batch-action',
+                'data_class' => BatchActionPayloadModel::class,
             ]
         );
     }
