@@ -31,12 +31,10 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateElementPropertyInterfaceHandler:
-        arguments:
-            $constant: 'VARIANT'
+    Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateElementInterfaceHandler:
         calls:
-            - ['set', ['Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty']]
-            - ['set', ['Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty']]
+            - ['set', ['Ergonode\Designer\Domain\Entity\Element\UiTemplateElement']]
+            - ['set', ['Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement']]
 
     Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Repository\DbalTemplateRepository'
     Ergonode\Designer\Infrastructure\Persistence\Repository\Decorator\CacheTemplateRepositoryDecorator:

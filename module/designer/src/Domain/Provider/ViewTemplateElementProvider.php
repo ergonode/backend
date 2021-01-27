@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Domain\Provider;
 
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ViewTemplateElementProvider
 {
@@ -24,19 +24,18 @@ class ViewTemplateElementProvider
         $this->strategies = $strategies;
     }
 
-    public function provide(TemplateElement $element): BuilderTemplateElementStrategyInterface
+    public function provide(TemplateElementInterface $element): BuilderTemplateElementStrategyInterface
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->isSupported($element->getProperties()->getVariant(), $element->getType())) {
+            if ($strategy->isSupported($element->getType())) {
                 return $strategy;
             }
         }
 
         throw new \RuntimeException(
             sprintf(
-                'Can\'t find strategy for %s and %s ',
-                $element->getProperties()->getVariant(),
-                $element->getType()
+                'Can\'t find strategy for %s',
+                $element->getType(),
             )
         );
     }

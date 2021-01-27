@@ -10,7 +10,6 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
@@ -18,6 +17,7 @@ use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInt
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\SerializerInterface;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 {
@@ -48,7 +48,7 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
                 new Size($template->getWidth(), $template->getHeight()),
                 $this->serializer->deserialize(
                     $template->getProperty(),
-                    TemplateElementPropertyInterface::class,
+                    TemplateElementInterface::class,
                     'json'
                 )
             );

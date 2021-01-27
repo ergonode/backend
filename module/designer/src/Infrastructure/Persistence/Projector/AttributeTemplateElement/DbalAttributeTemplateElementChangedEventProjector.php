@@ -7,12 +7,13 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
+namespace Ergonode\Designer\Infrastructure\Persistence\Projector\AttributeTemplateElement;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
+use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
 
-class DbalTemplateElementChangedEventProjector
+class DbalAttributeTemplateElementChangedEventProjector
 {
     private const ELEMENT_TABLE = 'designer.template_element';
 
@@ -29,18 +30,26 @@ class DbalTemplateElementChangedEventProjector
     public function __invoke(TemplateElementChangedEvent $event): void
     {
         $element = $event->getElement();
-        $this->connection->update(
+
+        $this->connection->delete(
             self::ELEMENT_TABLE,
-            [
-                'width' => $element->getSize()->getWidth(),
-                'height' => $element->getSize()->getHeight(),
-                'type' => $element->getType(),
-            ],
             [
                 'template_id' => $event->getAggregateId()->getValue(),
                 'x' => $element->getPosition()->getX(),
                 'y' => $element->getPosition()->getY(),
             ]
         );
+
+        if ($element instanceof AttributeTemplateElement) {
+            $this->connection->insert(
+                self::ELEMENT_TABLE,
+                [
+                    'template_id' => $event->getAggregateId()->getValue(),
+                    'x' => $element->getPosition()->getX(),
+                    'y' => $element->getPosition()->getY(),
+                    'attribute_id' => $element->getAttributeId()->getValue(),
+                ]
+            );
+        }
     }
 }

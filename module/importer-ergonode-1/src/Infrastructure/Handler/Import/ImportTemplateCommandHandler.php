@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode1\Infrastructure\Handler\Import;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ImportTemplateCommandHandler
 {
@@ -40,13 +40,8 @@ class ImportTemplateCommandHandler
     {
         try {
             $template = $this->templateRepository->load($command->getId());
+            $newElement = $command->getElement();
 
-            $importedElement = new TemplateElement(
-                $command->getPosition(),
-                $command->getSize(),
-                $command->getType(),
-                $command->getProperty()
-            );
 
             if (null === $template) {
                 $groupId = $this->templateGroupQuery->getDefaultId();
@@ -55,15 +50,15 @@ class ImportTemplateCommandHandler
                     $groupId,
                     $command->getName()
                 );
-                $template->addElement($importedElement);
+                $template->addElement($newElement);
             } else {
                 $template->changeName($command->getName());
 
                 $element = $template->getElement($command->getPosition());
-                if (!$element instanceof TemplateElement) {
-                    $template->addElement($importedElement);
-                } elseif (!$element->isEqual($importedElement)) {
-                    $template->changeElement($importedElement);
+                if (!$element instanceof TemplateElementInterface) {
+                    $template->addElement($newElement);
+                } elseif (!$element->isEqual($newElement)) {
+                    $template->changeElement($newElement);
                 }
             }
 

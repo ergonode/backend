@@ -10,10 +10,10 @@ namespace Ergonode\ImporterErgonode1\Domain\Command\Import;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ImportTemplateCommand implements DomainCommandInterface
 {
@@ -23,7 +23,7 @@ class ImportTemplateCommand implements DomainCommandInterface
     private Position $position;
     private Size $size;
     private string $type;
-    private TemplateElementPropertyInterface $property;
+    private TemplateElementInterface $element;
 
     public function __construct(
         ImportId $importId,
@@ -32,7 +32,7 @@ class ImportTemplateCommand implements DomainCommandInterface
         string $type,
         Position $position,
         Size $size,
-        TemplateElementPropertyInterface $property
+        TemplateElementInterface $element
     ) {
         $this->importId = $importId;
         $this->id = $id;
@@ -40,7 +40,7 @@ class ImportTemplateCommand implements DomainCommandInterface
         $this->type = $type;
         $this->position = $position;
         $this->size = $size;
-        $this->property = $property;
+        $this->element = $element;
     }
 
     public function getImportId(): ImportId
@@ -73,8 +73,8 @@ class ImportTemplateCommand implements DomainCommandInterface
         return $this->size;
     }
 
-    public function getProperty(): TemplateElementPropertyInterface
+    public function getElement(): TemplateElementInterface
     {
-        return $this->property;
+        return $this->element;
     }
 }
