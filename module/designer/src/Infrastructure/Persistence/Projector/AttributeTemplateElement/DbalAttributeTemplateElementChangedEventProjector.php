@@ -15,7 +15,7 @@ use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
 
 class DbalAttributeTemplateElementChangedEventProjector
 {
-    private const ELEMENT_TABLE = 'designer.template_element';
+    private const ELEMENT_TABLE = 'designer.template_attribute';
 
     private Connection $connection;
 

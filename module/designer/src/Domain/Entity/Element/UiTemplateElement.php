@@ -30,14 +30,6 @@ class UiTemplateElement extends AbstractTemplateElement
         $this->label = $label;
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     */
-    public function getVariant(): string
-    {
-        return self::TYPE;
-    }
-
     public function getLabel(): string
     {
         return $this->label;

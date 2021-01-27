@@ -32,7 +32,7 @@ class SectionViewTemplateElementStrategy implements BuilderTemplateElementStrate
             $element->getPosition(),
             $element->getSize(),
             $element->getLabel(),
-            $element->getType()
+            'SECTION'
         );
     }
 }

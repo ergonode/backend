@@ -38,14 +38,6 @@ class AttributeTemplateElement extends AbstractTemplateElement
         $this->required = $required;
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     */
-    public function getVariant(): string
-    {
-        return self::TYPE;
-    }
-
     public function getAttributeId(): AttributeId
     {
         return $this->attributeId;

@@ -87,7 +87,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
             $element->getPosition(),
             $element->getSize(),
             $label,
-            $element->getType(),
+            $attribute->getType(),
             $properties
         );
     }

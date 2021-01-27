@@ -43,5 +43,62 @@ final class Version20210125121500 extends AbstractErgonodeMigration
         $this->addSql('ALTER TABLE designer.template_element ALTER COLUMN type SET NOT NULL');
 
         $this->addSql('ALTER TABLE designer.template_element DROP COLUMN properties');
+
+        $this->addSql('
+            UPDATE event_store 
+            SET payload = jsonb_set(payload, \'{element, type}\', payload->\'element\'->\'properties\'->\'variant\') 
+            WHERE event_id IN (
+                SELECT id 
+                FROM event_store_event 
+                WHERE event_class = \'Ergonode\Designer\Domain\Event\TemplateElementAddedEvent\'
+                OR event_class =  \'Ergonode\Designer\Domain\Event\TemplateElementChangedEvent\'
+            )');
+
+        $this->addSql('
+            UPDATE event_store 
+            SET payload = jsonb_insert(payload,\'{element, attribute_id}\', 
+                payload->\'element\'->\'properties\'->\'attribute_id\')
+            WHERE event_id IN (
+                SELECT id 
+                FROM event_store_event 
+                WHERE event_class = \'Ergonode\Designer\Domain\Event\TemplateElementAddedEvent\'
+                OR event_class =  \'Ergonode\Designer\Domain\Event\TemplateElementChangedEvent\'
+                )
+            AND payload->\'element\'->\'properties\'->\'attribute_id\' IS NOT NULL');
+
+        $this->addSql('
+            UPDATE event_store 
+            SET payload = jsonb_insert(payload,\'{element, required}\', 
+                payload->\'element\'->\'properties\'->\'required\')
+            WHERE event_id IN (
+                SELECT id 
+                FROM event_store_event 
+                WHERE event_class = \'Ergonode\Designer\Domain\Event\TemplateElementAddedEvent\'
+                OR event_class =  \'Ergonode\Designer\Domain\Event\TemplateElementChangedEvent\'
+                )
+            AND payload->\'element\'->\'properties\'->\'required\' IS NOT NULL');
+
+        $this->addSql('
+            UPDATE event_store 
+            SET payload = jsonb_insert(payload,\'{element, label}\', payload->\'element\'->\'properties\'->\'label\')
+            WHERE event_id IN (
+                SELECT id 
+                FROM event_store_event 
+                WHERE event_class = \'Ergonode\Designer\Domain\Event\TemplateElementAddedEvent\'
+                OR event_class =  \'Ergonode\Designer\Domain\Event\TemplateElementChangedEvent\'
+                )
+            AND payload->\'element\'->\'properties\'->\'label\' IS NOT NULL');
+
+        $this->addSql('
+            UPDATE event_store 
+            SET payload  = payload #- \'{element,properties}\' 
+            WHERE event_id IN (
+                SELECT id FROM event_store_event 
+                WHERE event_class = \'Ergonode\Designer\Domain\Event\TemplateElementAddedEvent\'
+                OR event_class =  \'Ergonode\Designer\Domain\Event\TemplateElementChangedEvent\'
+            )
+        ');
+
+        $this->addSql('DELETE FROM event_store_snapshot WHERE aggregate_id in (SELECT id FROM designer.template)');
     }
 }
