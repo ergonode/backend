@@ -11,7 +11,9 @@ namespace Ergonode\BatchAction\Tests\Infrastructure\Handler;
 
 use Ergonode\Account\Application\Security\Security;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
+use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -20,36 +22,50 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BatchActionEndedEventHandlerTest extends TestCase
 {
-    private TranslatorInterface $translator;
+    private BatchActionRepositoryInterface $batchActionRepository;
 
     private Security $security;
 
     private CommandBusInterface $commandBus;
 
+    private TranslatorInterface $translator;
+
     private BatchActionEndedEvent $event;
 
     protected function setUp(): void
     {
-        $this->translator = $this->createMock(TranslatorInterface::class);
+        $this->batchActionRepository = $this->createMock(BatchActionRepositoryInterface::class);
         $this->security = $this->createMock(Security::class);
         $this->commandBus = $this->createMock(CommandBusInterface::class);
+        $this->translator = $this->createMock(TranslatorInterface::class);
         $this->event = $this->createMock(BatchActionEndedEvent::class);
     }
 
-    public function testEventHandlingWithUser(): void
+    public function testEventHandlingWithUserAndAction(): void
     {
-        $handler = new BatchActionEndedEventHandler($this->translator, $this->security, $this->commandBus);
+        $handler = new BatchActionEndedEventHandler(
+            $this->security,
+            $this->commandBus,
+            $this->batchActionRepository,
+            $this->translator
+        );
         $user = $this->createMock(User::class);
-        $this->translator->method('trans')->willReturn('test');
         $user->method('getId')->willReturn($this->createMock(UserId::class));
+        $this->translator->method('trans')->willReturn('test');
         $this->security->method('getUser')->willReturn($user);
+        $this->batchActionRepository->method('load')->willReturn($this->createMock(BatchAction::class));
         $this->commandBus->expects(self::once())->method('dispatch');
         $handler->__invoke($this->event);
     }
 
     public function testEventHandlingNoUser(): void
     {
-        $handler = new BatchActionEndedEventHandler($this->translator, $this->security, $this->commandBus);
+        $handler = new BatchActionEndedEventHandler(
+            $this->security,
+            $this->commandBus,
+            $this->batchActionRepository,
+            $this->translator
+        );
         $this->security->method('getUser')->willReturn(null);
         $this->commandBus->expects(self::never())->method('dispatch');
         $handler->__invoke($this->event);

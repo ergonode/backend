@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Infrastructure\Handler;
 
-use Ergonode\BatchAction\Domain\Command\EndBatchActionProcessCommand;
+use Ergonode\BatchAction\Domain\Command\EndBatchActionCommand;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
 use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 
-class EndBatchActionProcessCommandHandler
+class EndBatchActionCommandHandler
 {
 
     private EventBusInterface $eventBus;
@@ -24,9 +24,9 @@ class EndBatchActionProcessCommandHandler
         $this->eventBus = $eventBus;
     }
 
-    public function __invoke(EndBatchActionProcessCommand $command): void
+    public function __invoke(EndBatchActionCommand $command): void
     {
-        $event = new BatchActionEndedEvent($command->getId(), $command->getType());
+        $event = new BatchActionEndedEvent($command->getId());
         $this->eventBus->dispatch($event);
     }
 }

@@ -11,7 +11,6 @@ namespace Ergonode\BatchAction\Tests\Domain\Event;
 
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use PHPUnit\Framework\TestCase;
 
 class BatchActionEndedEventTest extends TestCase
@@ -19,11 +18,9 @@ class BatchActionEndedEventTest extends TestCase
     public function testCreation(): void
     {
         $batchActionId = $this->createMock(BatchActionId::class);
-        $type = $this->createMock(BatchActionType::class);
 
-        $event = new BatchActionEndedEvent($batchActionId, $type);
+        $event = new BatchActionEndedEvent($batchActionId);
 
         self::assertEquals($batchActionId, $event->getId());
-        self::assertEquals($type, $event->getType());
     }
 }

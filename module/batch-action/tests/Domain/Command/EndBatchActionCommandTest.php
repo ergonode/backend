@@ -9,21 +9,18 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Tests\Domain\Command;
 
-use Ergonode\BatchAction\Domain\Command\EndBatchActionProcessCommand;
+use Ergonode\BatchAction\Domain\Command\EndBatchActionCommand;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use PHPUnit\Framework\TestCase;
 
-class EndBatchActionProcessCommandTest extends TestCase
+class EndBatchActionCommandTest extends TestCase
 {
     public function testCreation(): void
     {
         $batchActionId = $this->createMock(BatchActionId::class);
-        $type = $this->createMock(BatchActionType::class);
 
-        $command = new EndBatchActionProcessCommand($batchActionId, $type);
+        $command = new EndBatchActionCommand($batchActionId);
 
         self::assertEquals($batchActionId, $command->getId());
-        self::assertEquals($type, $command->getType());
     }
 }
