@@ -24,9 +24,6 @@ class StatusChangedNotification implements NotificationInterface
 
     private UserId $userId;
 
-    /**
-     * @var array
-     */
     private array $parameters;
 
     private \DateTime $createdAt;

@@ -110,9 +110,11 @@ ruleset:
     - Core
     - SharedKernel
   BatchAction:
+    - Account
     - Api
     - Core
     - EventSourcing
+    - Notification
     - SharedKernel
   Comment:
     - Account

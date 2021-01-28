@@ -56,6 +56,20 @@ services:
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
 
+    Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler:
+        tags: [ 'messenger.message_handler' ]
+        arguments:
+            - '@Ergonode\SharedKernel\Domain\Bus\EventBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
+        tags: [ 'messenger.message_handler' ]
+        arguments:
+            - '@Ergonode\Account\Application\Security\Security'
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Symfony\Contracts\Translation\TranslatorInterface'
+
+
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider:
         arguments:
             $strategies: !tagged_iterator 'batch_action.processor_provider.interface'

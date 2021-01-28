@@ -15,6 +15,8 @@
         "php": "^7.4",
         "doctrine/dbal": "^2.10",
         "ergonode/api": "^1.0.0-beta.7",
+        "ergonode/account": "^1.0.0-beta.7",
+        "ergonode/notification": "^1.0.0-beta.7",
         "ergonode/core": "^1.0.0-beta.7",
         "ergonode/es": "^1.0.0-beta.7",
         "ergonode/migration": "^1.0.0-beta.7",
