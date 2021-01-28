@@ -46,7 +46,7 @@ class BatchActionEndedEventHandler
 
         if ($user && $batchAction) {
             $userId = $user->getId();
-            $type = $this->translator->trans($batchAction->getType()->getValue(), [], 'notification', 'en');
+            $type = $this->translator->trans($batchAction->getType()->getValue(), [], 'notification');
             $notification = new BatchActionProcessEndedNotification($type, $userId);
             $notificationCommand = new SendNotificationCommand($notification, [$userId]);
             $this->commandBus->dispatch($notificationCommand);
