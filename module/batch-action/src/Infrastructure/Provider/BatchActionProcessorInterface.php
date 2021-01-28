@@ -18,7 +18,7 @@ interface BatchActionProcessorInterface
     public function supports(BatchActionType $type): bool;
 
     /**
-     * @param mixed         $payload
+     * @param mixed $payload
      *
      * @return BatchActionMessage[]
      */

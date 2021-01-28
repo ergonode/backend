@@ -80,7 +80,7 @@ class CreateBatchAction
     {
         $type = $request->request->get('type');
         try {
-            $class = $this->formProvider->provide($type);
+            $class = $type ? $this->formProvider->provide($type) : null;
             $form = $this->formFactory->create($class ?: BatchActionForm::class);
             $form->handleRequest($request);
 
