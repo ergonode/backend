@@ -14,7 +14,7 @@ use Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler;
 use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use PHPUnit\Framework\TestCase;
 
-class EndBatchActionProcessCommandHandlerTest extends TestCase
+class EndBatchActionCommandHandlerTest extends TestCase
 {
     private EventBusInterface $eventBus;
 
@@ -26,7 +26,7 @@ class EndBatchActionProcessCommandHandlerTest extends TestCase
         $this->command = $this->createMock(EndBatchActionCommand::class);
     }
 
-    public function testCommandHandlingProcessEnded(): void
+    public function testCommandHandlingEnded(): void
     {
         $handler = new EndBatchActionCommandHandler($this->eventBus);
         $this->eventBus->expects(self::once())->method('dispatch');

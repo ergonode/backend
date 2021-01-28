@@ -11,7 +11,7 @@ namespace Ergonode\BatchAction\Infrastructure\Handler;
 
 use Ergonode\Account\Application\Security\Security;
 use Ergonode\BatchAction\Domain\Event\BatchActionEndedEvent;
-use Ergonode\BatchAction\Domain\Notification\BatchActionProcessEndedNotification;
+use Ergonode\BatchAction\Domain\Notification\BatchActionEndedNotification;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -47,7 +47,7 @@ class BatchActionEndedEventHandler
         if ($user && $batchAction) {
             $userId = $user->getId();
             $type = $this->translator->trans($batchAction->getType()->getValue(), [], 'notification');
-            $notification = new BatchActionProcessEndedNotification($type, $userId);
+            $notification = new BatchActionEndedNotification($type, $userId);
             $notificationCommand = new SendNotificationCommand($notification, [$userId]);
             $this->commandBus->dispatch($notificationCommand);
         }
