@@ -24,6 +24,7 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 {
     private const TYPES = [
         'product_delete',
+        'product_edit',
     ];
 
     private ProductQueryInterface $productQuery;

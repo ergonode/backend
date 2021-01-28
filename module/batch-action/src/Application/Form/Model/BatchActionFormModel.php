@@ -27,7 +27,9 @@ class BatchActionFormModel
     public ?BatchActionFilterFormModel $filter = null;
 
     /**
-     * @var mixed
+     * @Assert\Valid()
+     *
+     * @var BatchActionPayloadModel[]|null
      */
-    public $payload = null;
+    public ?array $payload = null;
 }
