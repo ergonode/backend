@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Domain\Command;
 
-use Ergonode\BatchAction\Application\Form\Model\BatchActionPayloadModel;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
@@ -23,18 +22,18 @@ class CreateBatchActionCommand implements DomainCommandInterface
     private ?BatchActionFilter $filter;
 
     /**
-     * @var BatchActionPayloadModel[]|null
+     * @var mixed
      */
-    private ?array $payload;
+    private $payload;
 
     /**
-     * @param BatchActionPayloadModel[]|null $payload
+     * @param mixed $payload
      */
     public function __construct(
         BatchActionId $id,
         BatchActionType $type,
         ?BatchActionFilter $filter = null,
-        ?array $payload = null
+        $payload = null
     ) {
         $this->id = $id;
         $this->type = $type;
@@ -58,9 +57,9 @@ class CreateBatchActionCommand implements DomainCommandInterface
     }
 
     /**
-     * @return BatchActionPayloadModel[]|null
+     * @return mixed
      */
-    public function getPayload(): ?array
+    public function getPayload()
     {
         return $this->payload;
     }

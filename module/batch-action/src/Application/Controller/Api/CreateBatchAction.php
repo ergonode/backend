@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Controller\Api;
 
+use Ergonode\BatchAction\Application\Provider\BatchActionFormProvider;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,13 +35,17 @@ class CreateBatchAction
 {
     private FormFactoryInterface $formFactory;
 
+    private BatchActionFormProvider $formProvider;
+
     private CommandBusInterface $commandBus;
 
     public function __construct(
         FormFactoryInterface $formFactory,
+        BatchActionFormProvider $formProvider,
         CommandBusInterface $commandBus
     ) {
         $this->formFactory = $formFactory;
+        $this->formProvider = $formProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -73,8 +78,10 @@ class CreateBatchAction
      */
     public function __invoke(Request $request): Response
     {
+        $type = $request->request->get('type');
         try {
-            $form = $this->formFactory->create(BatchActionForm::class);
+            $class = $this->formProvider->provide($type);
+            $form = $this->formFactory->create($class ?: BatchActionForm::class);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

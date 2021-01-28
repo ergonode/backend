@@ -44,6 +44,10 @@ services:
         resource: '../../Infrastructure/Filter/BatchAction/*'
         tags: ['batch_action.filter_provider.interface']
 
+    Ergonode\Product\Application\Form\Product\BatchAction\:
+        resource: '../../Application/Form/Product/BatchAction/*'
+        tags: ['batch_action.form_provider.interface']
+
     Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Infrastructure\Persistence\Repository\DbalProductRepository'
     Ergonode\Product\Domain\Query\ProductQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductQuery'
     Ergonode\Product\Domain\Query\HistoryQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalHistoryQuery'

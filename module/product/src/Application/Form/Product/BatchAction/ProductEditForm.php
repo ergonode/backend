@@ -6,17 +6,25 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\BatchAction\Application\Form\Type;
+namespace Ergonode\Product\Application\Form\Product\BatchAction;
 
-use Ergonode\BatchAction\Application\Form\Model\BatchActionPayloadModel;
+use Ergonode\BatchAction\Application\Form\BatchActionFormInterface;
+use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
+use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
+use Ergonode\Product\Application\Form\Product\Attribute\Update\UpdateAttributeValueForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BatchActionPayloadType extends AbstractType
+class ProductEditForm extends AbstractType implements BatchActionFormInterface
 {
+    public function supported(string $type): bool
+    {
+        return $type === 'product_edit';
+    }
+
     /**
      * @param array $options
      */
@@ -24,26 +32,35 @@ class BatchActionPayloadType extends AbstractType
     {
         $builder
             ->add(
-                'id',
-                TextType::class,
+                'type',
+                TextType::class
             )
             ->add(
-                'values',
+                'filter',
+                BatchActionFilterType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'payload',
                 CollectionType::class,
                 [
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => BatchActionValueTranslationType::class,
+                    'entry_type' => UpdateAttributeValueForm::class,
+                    'required' => false,
                 ]
             );
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [
+                'data_class' => BatchActionFormModel::class,
                 'translation_domain' => 'batch-action',
-                'data_class' => BatchActionPayloadModel::class,
             ]
         );
     }
