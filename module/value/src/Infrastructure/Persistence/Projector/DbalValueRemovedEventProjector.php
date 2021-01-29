@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalValueRemovedEventProjector
 {

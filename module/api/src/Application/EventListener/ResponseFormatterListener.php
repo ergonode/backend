@@ -11,7 +11,7 @@ namespace Ergonode\Api\Application\EventListener;
 
 use Ergonode\Api\Application\Response\AbstractResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class ResponseFormatterListener
 {

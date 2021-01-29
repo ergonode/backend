@@ -14,7 +14,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalCategoryCreatedEventProjector
 {

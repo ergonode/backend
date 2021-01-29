@@ -11,7 +11,7 @@ namespace Ergonode\Core\Infrastructure\Transport\Serializer;
 
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessageSerializerInterface;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TransportMessageSerializer implements MessageSerializerInterface
 {

@@ -20,7 +20,7 @@ use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionMessage;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface
 {

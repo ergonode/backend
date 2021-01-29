@@ -18,7 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalDomainEventStorage implements DomainEventStorageInterface
 {

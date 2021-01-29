@@ -16,7 +16,7 @@ use Doctrine\DBAL\Connection;
 use Ramsey\Uuid\Uuid;
 use Doctrine\DBAL\DBALException;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalAggregateSnapshot implements AggregateSnapshotInterface
 {

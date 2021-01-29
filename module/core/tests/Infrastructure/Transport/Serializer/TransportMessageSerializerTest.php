@@ -13,7 +13,7 @@ use Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TransportMessageSerializerTest extends TestCase
 {

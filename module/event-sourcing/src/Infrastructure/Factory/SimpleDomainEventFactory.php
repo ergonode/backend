@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class SimpleDomainEventFactory implements DomainEventFactoryInterface
 {

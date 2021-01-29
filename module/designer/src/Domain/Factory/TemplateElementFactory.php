@@ -14,7 +14,7 @@ use Ergonode\Designer\Domain\Resolver\TemplateElementTypeResolver;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TemplateElementFactory
 {

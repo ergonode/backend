@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalStatusDescriptionChangedEventProjector
 {

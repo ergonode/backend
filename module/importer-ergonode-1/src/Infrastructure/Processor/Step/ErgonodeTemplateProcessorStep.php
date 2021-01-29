@@ -17,7 +17,7 @@ use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 {

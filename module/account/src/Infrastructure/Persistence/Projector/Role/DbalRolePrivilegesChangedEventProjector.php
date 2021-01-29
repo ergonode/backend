@@ -12,7 +12,7 @@ namespace Ergonode\Account\Infrastructure\Persistence\Projector\Role;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalRolePrivilegesChangedEventProjector
 {

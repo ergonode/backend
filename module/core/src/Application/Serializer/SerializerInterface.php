@@ -6,17 +6,17 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Infrastructure\Serializer;
+namespace Ergonode\Core\Application\Serializer;
 
 interface SerializerInterface
 {
     /**
      * @param mixed $object
      */
-    public function serialize($object): string;
+    public function serialize($object, ?string $format = null): string;
 
     /**
      * @return mixed
      */
-    public function deserialize(string $json, string $type);
+    public function deserialize(string $json, string $type, ?string $format = null);
 }

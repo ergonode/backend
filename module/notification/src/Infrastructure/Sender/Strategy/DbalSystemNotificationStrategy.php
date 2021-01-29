@@ -14,7 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalSystemNotificationStrategy implements NotificationStrategyInterface
 {

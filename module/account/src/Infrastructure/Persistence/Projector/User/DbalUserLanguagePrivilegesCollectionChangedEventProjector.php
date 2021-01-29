@@ -12,7 +12,7 @@ namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEvent;
-use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalUserLanguagePrivilegesCollectionChangedEventProjector
 {
