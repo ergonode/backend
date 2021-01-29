@@ -13,7 +13,7 @@ interface SerializerInterface
     public const FORMAT = 'json';
 
     /**
-     * @param mixed $object
+     * @param mixed $data
      */
     public function serialize($data, ?string $format = self::FORMAT): string;
 
