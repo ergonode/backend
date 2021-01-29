@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Value\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -19,9 +18,9 @@ use JMS\Serializer\Annotation as JMS;
 class ValueRemovedEvent implements AggregateEventInterface
 {
     /**
-     * @JMS\Type(" Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
-    private CategoryId $id;
+    private AggregateId $id;
 
     /**
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
@@ -33,16 +32,13 @@ class ValueRemovedEvent implements AggregateEventInterface
      */
     private ValueInterface $old;
 
-    public function __construct(CategoryId $id, AttributeCode $code, ValueInterface $old)
+    public function __construct(AggregateId $id, AttributeCode $code, ValueInterface $old)
     {
         $this->id = $id;
         $this->code = $code;
         $this->old = $old;
     }
 
-    /**
-     * @return CategoryId|AggregateId
-     */
     public function getAggregateId(): AggregateId
     {
         return $this->id;
