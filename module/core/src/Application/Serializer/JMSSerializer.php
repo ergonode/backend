@@ -15,8 +15,6 @@ use Ergonode\Core\Infrastructure\Exception\DeserializationException;
 
 class JMSSerializer implements SerializerInterface
 {
-    public const FORMAT = 'json';
-
     private const SERIALIZE = 'Can\'t serialize object "%s" to "%s" format';
     private const DESERIALIZE = 'Can\'t deserialize data "%s" as "%s" from "%s" format';
 
@@ -33,10 +31,8 @@ class JMSSerializer implements SerializerInterface
     /**
      * @param mixed $data
      */
-    public function serialize($data, ?string $format = null): string
+    public function serialize($data, ?string $format = self::FORMAT): string
     {
-        $format = $format ? $format : self::FORMAT;
-
         try {
             return $this->serializer->serialize($data, $format);
         } catch (\Throwable $exception) {
@@ -52,10 +48,8 @@ class JMSSerializer implements SerializerInterface
     /**
      * @return mixed
      */
-    public function deserialize(string $data, string $type, ?string $format = null)
+    public function deserialize(string $data, string $type, ?string $format = self::FORMAT)
     {
-        $format = $format ? $format : self::FORMAT;
-
         try {
             return $this->serializer->deserialize($data, $type, $format);
         } catch (\Throwable $exception) {

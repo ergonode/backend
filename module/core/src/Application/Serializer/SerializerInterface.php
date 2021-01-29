@@ -10,13 +10,15 @@ namespace Ergonode\Core\Application\Serializer;
 
 interface SerializerInterface
 {
+    public const FORMAT = 'json';
+
     /**
      * @param mixed $object
      */
-    public function serialize($object, ?string $format = null): string;
+    public function serialize($object, ?string $format = self::FORMAT): string;
 
     /**
      * @return mixed
      */
-    public function deserialize(string $json, string $type, ?string $format = null);
+    public function deserialize(string $json, string $type, ?string $format = self::FORMAT);
 }
