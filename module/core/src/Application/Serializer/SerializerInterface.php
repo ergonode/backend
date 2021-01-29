@@ -15,7 +15,7 @@ interface SerializerInterface
     /**
      * @param mixed $object
      */
-    public function serialize($object, ?string $format = self::FORMAT): string;
+    public function serialize($data, ?string $format = self::FORMAT): string;
 
     /**
      * @return mixed
