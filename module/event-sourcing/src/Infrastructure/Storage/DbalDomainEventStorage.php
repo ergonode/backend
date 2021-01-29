@@ -17,8 +17,8 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface;
 use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
 
 class DbalDomainEventStorage implements DomainEventStorageInterface
 {
@@ -113,7 +113,7 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
 
             $stmts = [];
             foreach ($stream as $envelope) {
-                $payload = $this->serializer->serialize($envelope->getEvent(), 'json');
+                $payload = $this->serializer->serialize($envelope->getEvent());
                 $stmt = $this->connection->prepare($sql);
 
                 $stmt->bindValue('aggregateId', $id->getValue());

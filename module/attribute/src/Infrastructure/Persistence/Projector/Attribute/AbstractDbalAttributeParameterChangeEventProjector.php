@@ -12,7 +12,7 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
 
 abstract class AbstractDbalAttributeParameterChangeEventProjector
 {
@@ -39,7 +39,7 @@ abstract class AbstractDbalAttributeParameterChangeEventProjector
             $this->connection->update(
                 self::TABLE_PARAMETER,
                 [
-                    'value' => $this->serializer->serialize($value, 'json'),
+                    'value' => $this->serializer->serialize($value),
                 ],
                 [
                     'attribute_id' => $attributeId->getValue(),

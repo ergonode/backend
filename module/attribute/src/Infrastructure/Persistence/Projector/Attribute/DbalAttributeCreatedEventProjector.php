@@ -12,8 +12,8 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
 
 class DbalAttributeCreatedEventProjector
 {
@@ -103,7 +103,7 @@ class DbalAttributeCreatedEventProjector
                     [
                         'attribute_id' => $event->getAggregateId()->getValue(),
                         'type' => $name,
-                        'value' => $this->serializer->serialize($value, 'json'),
+                        'value' => $this->serializer->serialize($value),
                     ]
                 );
             }

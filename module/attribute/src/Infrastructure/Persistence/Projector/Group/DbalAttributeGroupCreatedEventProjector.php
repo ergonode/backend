@@ -12,7 +12,7 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Group;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
 
 class DbalAttributeGroupCreatedEventProjector
 {
@@ -38,7 +38,7 @@ class DbalAttributeGroupCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName(), 'json'),
+                'name' => $this->serializer->serialize($event->getName()),
             ]
         );
     }

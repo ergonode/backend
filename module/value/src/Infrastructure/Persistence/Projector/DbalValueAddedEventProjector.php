@@ -12,8 +12,8 @@ namespace Ergonode\Value\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\Event\ValueAddedEvent;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Core\Infrastructure\Serializer\SerializerInterface;
 
 class DbalValueAddedEventProjector
 {
@@ -39,7 +39,7 @@ class DbalValueAddedEventProjector
         $this->connection->transactional(function () use ($event): void {
             $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
             $type = get_class($event->getValue());
-            $value = $this->serializer->serialize($event->getValue(), 'json');
+            $value = $this->serializer->serialize($event->getValue());
 
             $valueId = Uuid::uuid5(self::NAMESPACE, $value);
 
