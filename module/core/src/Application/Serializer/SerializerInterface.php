@@ -20,5 +20,5 @@ interface SerializerInterface
     /**
      * @return mixed
      */
-    public function deserialize(string $json, string $type, ?string $format = self::FORMAT);
+    public function deserialize(string $data, string $type, ?string $format = self::FORMAT);
 }
