@@ -24,7 +24,7 @@ class BatchActionFilterIdsFormModel
     public array $list = [];
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Type(type="bool")
      */
     public ?bool $included = null;
 }

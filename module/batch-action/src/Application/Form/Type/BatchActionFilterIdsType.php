@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Application\Form\Type;
 
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterIdsFormModel;
+use Ergonode\Core\Application\Form\Type\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,7 +32,7 @@ class BatchActionFilterIdsType extends AbstractType
             )
             ->add(
                 'included',
-                TextType::class,
+                BooleanType::class,
             );
     }
 
