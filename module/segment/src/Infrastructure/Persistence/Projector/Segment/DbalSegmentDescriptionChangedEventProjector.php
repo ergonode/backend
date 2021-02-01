@@ -12,7 +12,7 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalSegmentDescriptionChangedEventProjector
 {
@@ -36,7 +36,7 @@ class DbalSegmentDescriptionChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'description' => $this->serializer->serialize($event->getTo(), 'json'),
+                'description' => $this->serializer->serialize($event->getTo()),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

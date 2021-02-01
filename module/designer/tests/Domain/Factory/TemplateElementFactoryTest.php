@@ -14,9 +14,9 @@ use Ergonode\Designer\Domain\Resolver\TemplateElementTypeResolver;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TemplateElementFactoryTest extends TestCase
 {

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Value\Tests\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Importer\Tests\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Importer\Infrastructure\Converter\ConstConverter;
 use Ergonode\Importer\Infrastructure\Converter\ConverterInterface;

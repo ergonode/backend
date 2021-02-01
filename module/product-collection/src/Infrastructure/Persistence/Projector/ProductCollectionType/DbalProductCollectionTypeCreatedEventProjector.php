@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\Produc
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeCreatedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalProductCollectionTypeCreatedEventProjector
 {
@@ -38,7 +38,7 @@ class DbalProductCollectionTypeCreatedEventProjector
             [
                 'id' => $event->getAggregateId(),
                 'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
+                'name' => $this->serializer->serialize($event->getName()->getTranslations()),
             ]
         );
     }

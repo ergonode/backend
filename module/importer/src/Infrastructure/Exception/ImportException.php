@@ -20,7 +20,7 @@ class ImportException extends \Exception
      */
     public function __construct(string $message, array $parameters = [], \Throwable $previous = null)
     {
-        parent::__construct($message, $previous);
+        parent::__construct($message, 0, $previous);
 
         $this->parameters = $parameters;
     }

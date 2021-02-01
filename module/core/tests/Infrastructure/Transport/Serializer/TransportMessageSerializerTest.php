@@ -10,28 +10,24 @@ declare(strict_types=1);
 namespace Ergonode\Core\Tests\Infrastructure\Transport\Serializer;
 
 use Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer;
-use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TransportMessageSerializerTest extends TestCase
 {
-
     /**
      * @var MockObject|SerializerInterface
      */
     private $serializer;
-
-    private string $format;
 
     private TransportMessageSerializer $messageSerializer;
 
     protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
-        $this->format = 'json';
-        $this->messageSerializer = new TransportMessageSerializer($this->serializer, $this->format);
+        $this->messageSerializer = new TransportMessageSerializer($this->serializer);
     }
 
     public function testNoBodyDecode(): void

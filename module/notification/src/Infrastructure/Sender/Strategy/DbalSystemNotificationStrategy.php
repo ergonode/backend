@@ -13,8 +13,8 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalSystemNotificationStrategy implements NotificationStrategyInterface
 {
@@ -46,7 +46,7 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
                     'id' => $notificationId,
                     'created_at' => $notification->getCreatedAt(),
                     'message' => $notification->getMessage(),
-                    'parameters' => $this->serializer->serialize($notification->getParameters(), 'json'),
+                    'parameters' => $this->serializer->serialize($notification->getParameters()),
                     'author_id' => $notification->getAuthorId() ? $notification->getAuthorId()->getValue() : null,
                 ],
                 [
