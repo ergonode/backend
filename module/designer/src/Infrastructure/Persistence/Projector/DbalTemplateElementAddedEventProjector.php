@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalTemplateElementAddedEventProjector
 {
