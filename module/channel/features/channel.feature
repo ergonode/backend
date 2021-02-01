@@ -9,6 +9,10 @@ Feature: channel module
     When I send a GET request to "/api/v1/en_GB/dictionary/channels"
     Then the response status code should be 200
 
+  Scenario: Get not found type configuration
+    When I send a Get request to "/api/v1/en_GB/channel/@@random_uuid@@/configuration"
+    Then the response status code should be 404
+
   Scenario: Get channels (order ASC)
     When I send a GET request to "/api/v1/en_GB/channels?field=name&order=ASC"
     Then the JSON should be valid according to the schema "grid/features/gridSchema.json"

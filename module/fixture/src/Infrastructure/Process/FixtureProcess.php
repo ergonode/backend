@@ -70,7 +70,7 @@ class FixtureProcess
             $this->connection->commit();
         } catch (\Throwable $exception) {
             $this->connection->rollBack();
-            throw new FixtureException('Cant process fixtures', 0, $exception);
+            throw new FixtureException('Can\'t process fixtures', 0, $exception);
         }
     }
 }

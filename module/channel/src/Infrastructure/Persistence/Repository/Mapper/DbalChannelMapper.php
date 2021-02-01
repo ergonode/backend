@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalChannelMapper
 {
@@ -29,7 +29,7 @@ class DbalChannelMapper
         return [
             'id' => $channel->getId()->getValue(),
             'name' => $channel->getName(),
-            'configuration' => $this->serializer->serialize($channel, 'json'),
+            'configuration' => $this->serializer->serialize($channel),
             'class' => \get_class($channel),
             'type' => $channel->getType(),
         ];

@@ -79,7 +79,7 @@ class ExporterFileConfigurationForm extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'translation_domain' => 'exporter',
+                'translation_domain' => 'channel',
                 'data_class' => ExporterFileConfigurationModel::class,
                 'allow_extra_fields' => true,
             ]

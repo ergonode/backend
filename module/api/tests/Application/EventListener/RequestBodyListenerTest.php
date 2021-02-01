@@ -10,12 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Api\Tests\Application\EventListener;
 
 use Ergonode\Api\Application\EventListener\RequestBodyListener;
-use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class RequestBodyListenerTest extends TestCase
 {

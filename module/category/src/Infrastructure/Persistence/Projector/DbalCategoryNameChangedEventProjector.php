@@ -12,7 +12,7 @@ namespace Ergonode\Category\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalCategoryNameChangedEventProjector
 {
@@ -36,7 +36,7 @@ class DbalCategoryNameChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+                'name' => $this->serializer->serialize($event->getTo()->getTranslations()),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

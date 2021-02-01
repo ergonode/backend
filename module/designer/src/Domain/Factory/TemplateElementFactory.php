@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Domain\Factory;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\Designer\Domain\Resolver\TemplateElementTypeResolver;
 
@@ -44,8 +44,7 @@ class TemplateElementFactory
 
         return $this->serializer->deserialize(
             json_encode($properties),
-            TemplateElementInterface::class,
-            'json'
+            TemplateElementInterface::class
         );
     }
 }

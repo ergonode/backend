@@ -15,6 +15,8 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
+use Ergonode\Channel\Application\Provider\ChannelTypeProvider;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route(
@@ -24,13 +26,19 @@ use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
  */
 class ChannelTypeConfigurationAction
 {
-    private ChannelFormFactoryProvider $provider;
+    private ChannelFormFactoryProvider $factoryProvider;
+
+    private ChannelTypeProvider $typeProvider;
 
     private Liform $liForm;
 
-    public function __construct(ChannelFormFactoryProvider $provider, Liform $liForm)
-    {
-        $this->provider = $provider;
+    public function __construct(
+        ChannelFormFactoryProvider $factoryProvider,
+        ChannelTypeProvider $typeProvider,
+        Liform $liForm
+    ) {
+        $this->factoryProvider = $factoryProvider;
+        $this->typeProvider = $typeProvider;
         $this->liForm = $liForm;
     }
 
@@ -61,7 +69,13 @@ class ChannelTypeConfigurationAction
      */
     public function __invoke(string $type): Response
     {
-        $form = $this->provider->provide($type)->create();
+        $types = $this->typeProvider->provide();
+
+        if (!in_array($type, $types)) {
+            throw new NotFoundHttpException(sprintf('Can\'t find configuration for type "%s"', $type));
+        }
+
+        $form = $this->factoryProvider->provide($type)->create();
 
         $result = json_encode($this->liForm->transform($form), JSON_THROW_ON_ERROR, 512);
 

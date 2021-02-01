@@ -16,7 +16,7 @@ use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
@@ -49,7 +49,6 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
                 $this->serializer->deserialize(
                     $template->getProperty(),
                     TemplateElementInterface::class,
-                    'json'
                 )
             );
             $import->addRecords(1);

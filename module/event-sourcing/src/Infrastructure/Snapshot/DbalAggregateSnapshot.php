@@ -13,10 +13,10 @@ use Doctrine\DBAL\Types\Types;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Doctrine\DBAL\Connection;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 use Doctrine\DBAL\DBALException;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalAggregateSnapshot implements AggregateSnapshotInterface
 {
@@ -56,7 +56,7 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
 
         if ($record) {
             /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $this->serializer->deserialize($record['payload'], $class, 'json');
+            $aggregate = $this->serializer->deserialize($record['payload'], $class);
 
             $reflection = new \ReflectionClass($aggregate);
             $property = $reflection->getProperty('sequence');
@@ -83,7 +83,7 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     public function save(AbstractAggregateRoot $aggregate): void
     {
         if (0 === ($aggregate->getSequence() % $this->snapshotEvents)) {
-            $payload = $this->serializer->serialize($aggregate, 'json');
+            $payload = $this->serializer->serialize($aggregate);
 
             $this->connection->insert(
                 self::TABLE,

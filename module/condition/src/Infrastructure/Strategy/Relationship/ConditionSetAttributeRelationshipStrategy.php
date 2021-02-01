@@ -16,9 +16,9 @@ use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Core\Infrastructure\Model\RelationshipGroup;
 
-class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterface
+class ConditionSetAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with attribute %relations%';
+    private const MESSAGE = 'Object has active relationships with condition set %relations%';
 
     private ConditionSetQueryInterface $query;
 

@@ -32,7 +32,7 @@ class WriterTypeDictionary
         $code = $language ? $language->getCode() : null;
         $result = [];
         foreach ($this->provider->provide() as $type) {
-            $result[$type] = $this->translator->trans($type, [], 'exporter', $code);
+            $result[$type] = $this->translator->trans($type, [], 'channel', $code);
         }
 
         return $result;

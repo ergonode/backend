@@ -13,8 +13,8 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalCategoryCreatedEventProjector
 {
@@ -46,7 +46,7 @@ class DbalCategoryCreatedEventProjector
                 self::TABLE,
                 [
                     'id' => $event->getAggregateId()->getValue(),
-                    'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
+                    'name' => $this->serializer->serialize($event->getName()->getTranslations()),
                     'code' => $event->getCode()->getValue(),
                     'type' => $event->getType(),
                 ]
@@ -55,7 +55,7 @@ class DbalCategoryCreatedEventProjector
             foreach ($event->getAttributes() as $code => $value) {
                 $attributeId = AttributeId::fromKey((new AttributeCode($code))->getValue());
                 $type = get_class($value);
-                $value = $this->serializer->serialize($value, 'json');
+                $value = $this->serializer->serialize($value);
 
                 $valueId = Uuid::uuid5(self::NAMESPACE, $value);
 

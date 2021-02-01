@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalStatusCreatedEventProjector
 {
@@ -37,8 +37,8 @@ class DbalStatusCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
-                'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
+                'name' => $this->serializer->serialize($event->getName()->getTranslations()),
+                'description' => $this->serializer->serialize($event->getDescription()->getTranslations()),
                 'color' => $event->getColor()->getValue(),
             ]
         );
