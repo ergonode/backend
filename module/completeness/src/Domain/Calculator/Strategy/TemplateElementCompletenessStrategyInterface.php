@@ -10,21 +10,17 @@ declare(strict_types=1);
 namespace Ergonode\Completeness\Domain\Calculator\Strategy;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 interface TemplateElementCompletenessStrategyInterface
 {
     public function supports(string $variant): bool;
 
-    /**
-     * @param TemplateElementPropertyInterface|AttributeTemplateElementProperty $properties
-     */
     public function getElementCompleteness(
         AbstractProduct $product,
         Language $language,
-        TemplateElementPropertyInterface $properties
+        TemplateElementInterface $element
     ): ?CompletenessCalculatorLine;
 }

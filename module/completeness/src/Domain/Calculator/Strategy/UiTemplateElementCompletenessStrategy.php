@@ -10,19 +10,19 @@ declare(strict_types=1);
 namespace Ergonode\Completeness\Domain\Calculator\Strategy;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Designer\Domain\Entity\Element\UiTemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class UiTemplateElementCompletenessStrategy implements TemplateElementCompletenessStrategyInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function supports(string $variant): bool
+    public function supports(string $type): bool
     {
-        return UiTemplateElementProperty::VARIANT === $variant;
+        return UiTemplateElement::TYPE === $type;
     }
 
     /**
@@ -31,7 +31,7 @@ class UiTemplateElementCompletenessStrategy implements TemplateElementCompletene
     public function getElementCompleteness(
         AbstractProduct $product,
         Language $language,
-        TemplateElementPropertyInterface $properties
+        TemplateElementInterface $element
     ): ?CompletenessCalculatorLine {
         return null;
     }

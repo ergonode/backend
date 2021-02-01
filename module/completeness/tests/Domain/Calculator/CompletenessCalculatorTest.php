@@ -15,7 +15,7 @@ use Ergonode\Completeness\Domain\Calculator\Strategy\TemplateElementCompleteness
 use Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
@@ -26,7 +26,7 @@ class CompletenessCalculatorTest extends TestCase
     public function testCalculation(): void
     {
         $model = $this->createMock(CompletenessCalculatorLine::class);
-        $element = $this->createMock(TemplateElement::class);
+        $element = $this->createMock(TemplateElementInterface::class);
         $strategy = $this->createMock(TemplateElementCompletenessStrategyInterface::class);
         $strategy->method('getElementCompleteness')->willReturn($model);
 

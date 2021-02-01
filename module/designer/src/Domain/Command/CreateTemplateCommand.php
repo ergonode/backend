@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
@@ -45,7 +45,7 @@ class CreateTemplateCommand implements TemplateCommandInterface
     private ?AttributeId $defaultImage;
 
     /**
-     * @var ArrayCollection|TemplateElement[]
+     * @var ArrayCollection|TemplateElementInterface[]
      *
      * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
@@ -66,7 +66,7 @@ class CreateTemplateCommand implements TemplateCommandInterface
     ) {
         Assert::allIsInstanceOf(
             $elements->toArray(),
-            TemplateElement::class,
+            TemplateElementInterface::class,
             'Template elements should by %2$s class. Got: %s'
         );
 
@@ -104,7 +104,7 @@ class CreateTemplateCommand implements TemplateCommandInterface
     }
 
     /**
-     * @return ArrayCollection|TemplateElement[]
+     * @return ArrayCollection|TemplateElementInterface[]
      */
     public function getElements(): ArrayCollection
     {
