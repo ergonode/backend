@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalTemplateElementAddedEventProjector
 {
@@ -41,7 +41,7 @@ class DbalTemplateElementAddedEventProjector
                 'y' => $element->getPosition()->getY(),
                 'width' => $element->getSize()->getWidth(),
                 'height' => $element->getSize()->getHeight(),
-                'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
+                'properties' => $this->serializer->serialize($element->getProperties()),
             ]
         );
     }

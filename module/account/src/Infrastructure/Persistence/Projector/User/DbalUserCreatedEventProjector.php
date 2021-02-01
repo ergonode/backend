@@ -12,7 +12,7 @@ namespace Ergonode\Account\Infrastructure\Persistence\Projector\User;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalUserCreatedEventProjector
 {
@@ -42,7 +42,7 @@ class DbalUserCreatedEventProjector
                 'username' => $event->getEmail(),
                 'role_id' => $event->getRoleId()->getValue(),
                 'language_privileges_collection' =>
-                    $this->serializer->serialize($event->getLanguagePrivilegesCollection(), 'json'),
+                    $this->serializer->serialize($event->getLanguagePrivilegesCollection()),
                 'language' => $event->getLanguage()->getCode(),
                 'password' => $event->getPassword()->getValue(),
                 'is_active' => $event->isActive(),

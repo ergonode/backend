@@ -14,7 +14,7 @@ use Ergonode\Designer\Domain\Resolver\TemplateElementTypeResolver;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TemplateElementFactory
 {
@@ -37,8 +37,7 @@ class TemplateElementFactory
 
         $property = $this->serializer->deserialize(
             json_encode($properties),
-            TemplateElementPropertyInterface::class,
-            'json'
+            TemplateElementPropertyInterface::class
         );
 
         return new TemplateElement(

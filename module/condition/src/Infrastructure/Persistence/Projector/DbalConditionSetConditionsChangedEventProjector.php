@@ -12,7 +12,7 @@ namespace Ergonode\Condition\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalConditionSetConditionsChangedEventProjector
 {
@@ -36,7 +36,7 @@ class DbalConditionSetConditionsChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'conditions' => $this->serializer->serialize($event->getTo(), 'json'),
+                'conditions' => $this->serializer->serialize($event->getTo()),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

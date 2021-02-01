@@ -14,7 +14,7 @@ use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TemplateProcessor
 {
@@ -56,7 +56,7 @@ class TemplateProcessor
         $result->set('_y', (string) $element->getPosition()->getY());
         $result->set('_width', (string) $element->getSize()->getWidth());
         $result->set('_height', (string) $element->getSize()->getHeight());
-        $result->set('_properties', $this->serializer->serialize($element->getProperties(), 'json'));
+        $result->set('_properties', $this->serializer->serialize($element->getProperties()));
 
         return $result;
     }
