@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Domain\Command;
 
-use Ergonode\BatchAction\Application\Form\Model\BatchActionPayloadModel;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
@@ -23,18 +22,18 @@ class ProcessBatchActionEntryCommand implements DomainCommandInterface
     private AggregateId $resourceId;
 
     /**
-     * @var BatchActionPayloadModel[]|null
+     * @var mixed
      */
-    private ?array $payload;
+    private $payload;
 
     /**
-     * @param BatchActionPayloadModel[]|null $payload
+     * @param mixed $payload
      */
     public function __construct(
         BatchActionId $id,
         BatchActionType $type,
         AggregateId $resourceId,
-        ?array $payload = null
+        $payload = null
     ) {
         $this->id = $id;
         $this->type = $type;
@@ -58,9 +57,9 @@ class ProcessBatchActionEntryCommand implements DomainCommandInterface
     }
 
     /**
-     * @return BatchActionPayloadModel[]|null
+     * @return mixed
      */
-    public function getPayload(): ?array
+    public function getPayload()
     {
         return $this->payload;
     }

@@ -29,7 +29,7 @@ class BatchActionFormModel
     /**
      * @Assert\Valid()
      *
-     * @var BatchActionPayloadModel[]|null
+     * @var mixed
      */
-    public ?array $payload = null;
+    public $payload = null;
 }

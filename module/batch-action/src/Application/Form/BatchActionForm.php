@@ -10,15 +10,18 @@ namespace Ergonode\BatchAction\Application\Form;
 
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
 use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
-use Ergonode\BatchAction\Application\Form\Type\BatchActionPayloadType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BatchActionForm extends AbstractType
+class BatchActionForm extends AbstractType implements BatchActionFormInterface
 {
+    public function supported(string $type): bool
+    {
+        return $type === 'default';
+    }
+
     /**
      * @param array $options
      */
@@ -38,11 +41,8 @@ class BatchActionForm extends AbstractType
             )
             ->add(
                 'payload',
-                CollectionType::class,
+                TextType::class,
                 [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => BatchActionPayloadType::class,
                     'required' => false,
                 ]
             );
