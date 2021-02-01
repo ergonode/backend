@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalStatusNameChangedEventProjector
 {
@@ -35,7 +35,7 @@ class DbalStatusNameChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+                'name' => $this->serializer->serialize($event->getTo()->getTranslations()),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),
