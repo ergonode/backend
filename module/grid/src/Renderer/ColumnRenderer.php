@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Grid\Renderer;
 
-use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Grid\GridInterface;
 
 class ColumnRenderer
 {
@@ -29,7 +29,7 @@ class ColumnRenderer
     /**
      * @return array
      */
-    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration): array
+    public function render(GridInterface $grid, GridConfigurationInterface $configuration): array
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {

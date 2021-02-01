@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
-use Ergonode\Segment\Infrastructure\Grid\SegmentGrid;
+use Ergonode\Segment\Infrastructure\Grid\SegmentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SegmentGridReadAction
 {
-    private SegmentGrid $grid;
+    private SegmentGridBuilder $gridBuilder;
 
     private SegmentQueryInterface $query;
 
@@ -34,10 +34,10 @@ class SegmentGridReadAction
 
     public function __construct(
         GridRenderer $gridRenderer,
-        SegmentGrid $grid,
+        SegmentGridBuilder $gridBuilder,
         SegmentQueryInterface $query
     ) {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
     }
@@ -92,7 +92,7 @@ class SegmentGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -109,12 +109,9 @@ class SegmentGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet($language);
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

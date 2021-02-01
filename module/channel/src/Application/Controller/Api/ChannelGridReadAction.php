@@ -11,7 +11,7 @@ namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
-use Ergonode\Channel\Infrastructure\Grid\ChannelGrid;
+use Ergonode\Channel\Infrastructure\Grid\ChannelGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -30,15 +30,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ChannelGridReadAction
 {
-    private ChannelGrid $grid;
+    private ChannelGridBuilder $gridBuilder;
 
     private ChannelQueryInterface $query;
 
     private GridRenderer $gridRenderer;
 
-    public function __construct(ChannelGrid $grid, ChannelQueryInterface $query, GridRenderer $gridRenderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        ChannelGridBuilder $gridBuilder,
+        ChannelQueryInterface $query,
+        GridRenderer $gridRenderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
     }
@@ -110,14 +113,9 @@ class ChannelGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->query->getDataSet($language);
-
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }
