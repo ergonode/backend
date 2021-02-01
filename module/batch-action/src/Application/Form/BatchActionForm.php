@@ -15,8 +15,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BatchActionForm extends AbstractType
+class BatchActionForm extends AbstractType implements BatchActionFormInterface
 {
+    public function supported(string $type): bool
+    {
+        return $type === 'default';
+    }
+
     /**
      * @param array $options
      */

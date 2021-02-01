@@ -17,7 +17,6 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Ergonode\BatchAction\Application\Form\BatchActionForm;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
@@ -78,10 +77,9 @@ class CreateBatchAction
      */
     public function __invoke(Request $request): Response
     {
-        $type = $request->request->get('type');
+        $type = $request->request->get('type', 'default');
         try {
-            $class = $type ? $this->formProvider->provide(strtolower(trim($type))) : null;
-            $form = $this->formFactory->create($class ?: BatchActionForm::class);
+            $form = $this->formFactory->create($this->formProvider->provide($type));
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
