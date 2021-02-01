@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalTemplateElementAddedEventProjector
 {
@@ -19,12 +18,9 @@ class DbalTemplateElementAddedEventProjector
 
     private Connection $connection;
 
-    private SerializerInterface $serializer;
-
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->serializer = $serializer;
     }
 
     /**
@@ -39,9 +35,9 @@ class DbalTemplateElementAddedEventProjector
                 'template_id' => $event->getAggregateId()->getValue(),
                 'x' => $element->getPosition()->getX(),
                 'y' => $element->getPosition()->getY(),
+                'type' => $element->getType(),
                 'width' => $element->getSize()->getWidth(),
                 'height' => $element->getSize()->getHeight(),
-                'properties' => $this->serializer->serialize($element->getProperties()),
             ]
         );
     }

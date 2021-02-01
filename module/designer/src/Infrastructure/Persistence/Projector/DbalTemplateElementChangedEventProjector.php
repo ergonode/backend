@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalTemplateElementChangedEventProjector
 {
@@ -19,12 +18,9 @@ class DbalTemplateElementChangedEventProjector
 
     private Connection $connection;
 
-    private SerializerInterface $serializer;
-
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->serializer = $serializer;
     }
 
     public function __invoke(TemplateElementChangedEvent $event): void
@@ -35,7 +31,7 @@ class DbalTemplateElementChangedEventProjector
             [
                 'width' => $element->getSize()->getWidth(),
                 'height' => $element->getSize()->getHeight(),
-                'properties' => $this->serializer->serialize($element->getProperties()),
+                'type' => $element->getType(),
             ],
             [
                 'template_id' => $event->getAggregateId()->getValue(),

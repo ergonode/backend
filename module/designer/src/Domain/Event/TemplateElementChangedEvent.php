@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class TemplateElementChangedEvent implements AggregateEventInterface
 {
@@ -22,11 +22,11 @@ class TemplateElementChangedEvent implements AggregateEventInterface
     private TemplateId $id;
 
     /**
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateElement")
+     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateElementInterface")
      */
-    private TemplateElement $element;
+    private TemplateElementInterface $element;
 
-    public function __construct(TemplateId $id, TemplateElement $element)
+    public function __construct(TemplateId $id, TemplateElementInterface $element)
     {
         $this->id = $id;
         $this->element = $element;
@@ -37,7 +37,7 @@ class TemplateElementChangedEvent implements AggregateEventInterface
         return $this->id;
     }
 
-    public function getElement(): TemplateElement
+    public function getElement(): TemplateElementInterface
     {
         return $this->element;
     }

@@ -10,15 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Core\Infrastructure\JMS\Serializer\Handler\AbstractInterfaceHandler;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
-class TemplateElementPropertyInterfaceHandler extends AbstractInterfaceHandler
+class TemplateElementInterfaceHandler extends AbstractInterfaceHandler
 {
-    /**
-     * {@inheritDoc}
-     */
     public static function getSupportedInterface(): string
     {
-        return TemplateElementPropertyInterface::class;
+        return TemplateElementInterface::class;
     }
 }

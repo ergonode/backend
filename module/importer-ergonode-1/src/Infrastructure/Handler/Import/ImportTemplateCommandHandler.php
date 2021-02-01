@@ -10,7 +10,6 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Handler\Import;
 
 use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -22,6 +21,7 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Psr\Log\LoggerInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ImportTemplateCommandHandler
 {
@@ -53,19 +53,27 @@ class ImportTemplateCommandHandler
         try {
             $position = new Position($command->getX(), $command->getY());
             $size = new Size($command->getWidth(), $command->getHeight());
+            $newElement = $command->getElement();
 
-            $property = $this->serializer->deserialize(
-                $command->getProperty(),
-                TemplateElementPropertyInterface::class,
-            );
 
-            $template = $this->action(
-                $command->getName(),
-                $command->getType(),
-                $position,
-                $size,
-                $property
-            );
+            if (null === $template) {
+                $groupId = $this->templateGroupQuery->getDefaultId();
+                $template = new Template(
+                    $command->getId(),
+                    $groupId,
+                    $command->getName()
+                );
+                $template->addElement($newElement);
+            } else {
+                $template->changeName($command->getName());
+
+                $element = $template->getElement($command->getPosition());
+                if (!$element instanceof TemplateElementInterface) {
+                    $template->addElement($newElement);
+                } elseif (!$element->isEqual($newElement)) {
+                    $template->changeElement($newElement);
+                }
+            }
 
             $this->templateRepository->save($template);
             $this->importerRepository->addLine($command->getImportId(), $template->getId(), 'TEMPLATE');
