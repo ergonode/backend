@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
-use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGrid;
+use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -26,21 +26,21 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionGridReadAction
 {
-    private ProductCollectionGrid $productCollectionGrid;
+    private ProductCollectionGridBuilder $productCollectionGridBuilder;
 
     private ProductCollectionQueryInterface $collectionQuery;
 
     private GridRenderer $gridRenderer;
 
     /**
-     * ProductCollectionGridReadAction constructor.
+     * ProductCollectionGridBuilderReadAction constructor.
      */
     public function __construct(
-        ProductCollectionGrid $productCollectionGrid,
+        ProductCollectionGridBuilder $productCollectionGridBuilder,
         ProductCollectionQueryInterface $collectionQuery,
         GridRenderer $gridRenderer
     ) {
-        $this->productCollectionGrid = $productCollectionGrid;
+        $this->productCollectionGridBuilder = $productCollectionGridBuilder;
         $this->collectionQuery = $collectionQuery;
         $this->gridRenderer = $gridRenderer;
     }
@@ -112,14 +112,10 @@ class ProductCollectionGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $grid = $this->productCollectionGridBuilder->build($configuration, $language);
         $dataSet = $this->collectionQuery->getDataSet($language);
 
-        $data = $this->gridRenderer->render(
-            $this->productCollectionGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

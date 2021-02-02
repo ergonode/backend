@@ -15,7 +15,7 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
-use Ergonode\Segment\Infrastructure\Grid\SegmentProductsGrid;
+use Ergonode\Segment\Infrastructure\Grid\SegmentProductsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -31,18 +31,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SegmentProductsGridReadAction
 {
-    private SegmentProductsGrid $segmentProductsGrid;
+    private SegmentProductsGridBuilder $segmentProductsGridBuilder;
 
     private SegmentProductsQueryInterface $segmentProductsQuery;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        SegmentProductsGrid $segmentProductsGrid,
+        SegmentProductsGridBuilder $segmentProductsGridBuilder,
         SegmentProductsQueryInterface $elementQuery,
         GridRenderer $gridRenderer
     ) {
-        $this->segmentProductsGrid = $segmentProductsGrid;
+        $this->segmentProductsGridBuilder = $segmentProductsGridBuilder;
         $this->segmentProductsQuery = $elementQuery;
         $this->gridRenderer = $gridRenderer;
     }
@@ -116,14 +116,9 @@ class SegmentProductsGridReadAction
         RequestGridConfiguration $configuration,
         Segment $segment
     ): Response {
+        $grid = $this->segmentProductsGridBuilder->build($configuration, $language);
         $dataSet = $this->segmentProductsQuery->getDataSet($segment->getId());
-
-        $data = $this->gridRenderer->render(
-            $this->segmentProductsGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

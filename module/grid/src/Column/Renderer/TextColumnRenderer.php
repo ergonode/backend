@@ -34,6 +34,6 @@ class TextColumnRenderer implements ColumnRendererInterface
             throw new UnsupportedColumnException($column);
         }
 
-        return $row[$id];
+        return (string) $row[$id];
     }
 }

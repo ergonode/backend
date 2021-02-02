@@ -10,7 +10,7 @@ namespace Ergonode\Segment\Tests\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Segment\Infrastructure\Grid\SegmentGrid;
+use Ergonode\Segment\Infrastructure\Grid\SegmentGridBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -27,8 +27,8 @@ class SegmentGridTest extends TestCase
         /** @var Language $language */
         $language = $this->createMock(Language::class);
 
-        $grid = new SegmentGrid($translator);
-        $grid->init($configuration, $language);
+        $builder = new SegmentGridBuilder($translator);
+        $grid = $builder->build($configuration, $language);
 
         $this->assertNotEmpty($grid->getColumns());
     }

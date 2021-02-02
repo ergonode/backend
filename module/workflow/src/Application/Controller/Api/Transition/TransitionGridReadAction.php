@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
-use Ergonode\Workflow\Infrastructure\Grid\TransitionGrid;
+use Ergonode\Workflow\Infrastructure\Grid\TransitionGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,17 +32,17 @@ class TransitionGridReadAction
 {
     private TransitionQueryInterface $query;
 
-    private TransitionGrid $grid;
+    private TransitionGridBuilder $gridBuilder;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         GridRenderer $gridRenderer,
         TransitionQueryInterface $query,
-        TransitionGrid $grid
+        TransitionGridBuilder $gridBuilder
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -114,12 +114,10 @@ class TransitionGridReadAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($workflow->getId(), $language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet($workflow->getId(), $language);
+
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

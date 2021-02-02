@@ -17,7 +17,7 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Product\Infrastructure\Grid\ProductChildrenGrid;
+use Ergonode\Product\Infrastructure\Grid\ProductChildrenGridBuilder;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Swagger\Annotations as SWG;
 
@@ -35,16 +35,16 @@ class ProductChildGridAction
 
     private GridRenderer $gridRenderer;
 
-    private ProductChildrenGrid $grid;
+    private ProductChildrenGridBuilder $gridBuilder;
 
     public function __construct(
         ProductChildrenQueryInterface $query,
         GridRenderer $gridRenderer,
-        ProductChildrenGrid $grid
+        ProductChildrenGridBuilder $gridBuilder
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
     }
 
     /**
@@ -131,12 +131,9 @@ class ProductChildGridAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($product->getId(), $language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet($product->getId(), $language);
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

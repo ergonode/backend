@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
+use Ergonode\Workflow\Infrastructure\Grid\StatusGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -34,16 +34,16 @@ class StatusGridReadAction
 
     private StatusQueryInterface $query;
 
-    private StatusGrid $grid;
+    private StatusGridBuilder $gridBuilder;
 
     public function __construct(
         GridRenderer $gridRenderer,
         StatusQueryInterface $query,
-        StatusGrid $grid
+        StatusGridBuilder $gridBuilder
     ) {
         $this->gridRenderer = $gridRenderer;
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
     }
 
     /**
@@ -96,7 +96,7 @@ class StatusGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -113,12 +113,10 @@ class StatusGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet($language);
+
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

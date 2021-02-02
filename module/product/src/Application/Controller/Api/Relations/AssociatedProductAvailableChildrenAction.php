@@ -17,7 +17,7 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
-use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGrid;
+use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -38,19 +38,19 @@ class AssociatedProductAvailableChildrenAction
 
     private GridRenderer $gridRenderer;
 
-    private AssociatedProductAvailableChildrenGrid $grid;
+    private AssociatedProductAvailableChildrenGridBuilder $gridBuilder;
 
     private AttributeRepositoryInterface $attributeRepository;
 
     public function __construct(
         ProductChildrenQueryInterface $query,
         GridRenderer $gridRenderer,
-        AssociatedProductAvailableChildrenGrid $grid,
+        AssociatedProductAvailableChildrenGridBuilder $gridBuilder,
         AttributeRepositoryInterface $attributeRepository
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->attributeRepository = $attributeRepository;
     }
 
@@ -138,21 +138,21 @@ class AssociatedProductAvailableChildrenAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
+
         $bindingAttributes = [];
         if ($product instanceof VariableProduct) {
             $bindings = $product->getBindings();
             foreach ($bindings as $binding) {
                 $bindingAttributes[] = $this->attributeRepository->load($binding);
             }
-            $this->grid->addBindingAttributes($bindingAttributes);
+            $this->gridBuilder->addBindingAttributes($bindingAttributes);
         }
-        $this->grid->addAssociatedProduct($product);
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getChildrenAndAvailableProductsDataSet($product, $language, $bindingAttributes),
-            $language
-        );
+        $this->gridBuilder->addAssociatedProduct($product);
+
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getChildrenAndAvailableProductsDataSet($product, $language, $bindingAttributes);
+
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

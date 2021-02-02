@@ -19,7 +19,7 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Entity\Export;
-use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
+use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
@@ -35,15 +35,18 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelExportErrorGridAction
 {
-    private ExportErrorsGrid $grid;
+    private ExportErrorsGridBuilder $gridBuilder;
 
     private ExportQueryInterface $query;
 
     private GridRenderer $gridRenderer;
 
-    public function __construct(ExportErrorsGrid $grid, ExportQueryInterface $query, GridRenderer $gridRenderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        ExportErrorsGridBuilder $gridBuilder,
+        ExportQueryInterface $query,
+        GridRenderer $gridRenderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
     }
@@ -89,14 +92,10 @@ class ChannelExportErrorGridAction
         Export $export,
         RequestGridConfiguration $configuration
     ): Response {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->query->getErrorDataSet($export->getId(), $language);
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

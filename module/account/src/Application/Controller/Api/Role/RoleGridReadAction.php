@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Role;
 
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Account\Infrastructure\Grid\RoleGrid;
+use Ergonode\Account\Infrastructure\Grid\RoleGridBuilder;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -28,17 +28,17 @@ class RoleGridReadAction
 {
     private RoleQueryInterface $query;
 
-    private RoleGrid $grid;
+    private RoleGridBuilder $gridBuilder;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         GridRenderer $gridRenderer,
         RoleQueryInterface $query,
-        RoleGrid $grid
+        RoleGridBuilder $gridBuilder
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -114,12 +114,10 @@ class RoleGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet(),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet();
+
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -15,7 +15,7 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
-use Ergonode\Importer\Infrastructure\Grid\ImportErrorsGrid;
+use Ergonode\Importer\Infrastructure\Grid\ImportErrorsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -35,15 +35,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ImportErrorGridAction
 {
-    private ImportErrorsGrid $grid;
+    private ImportErrorsGridBuilder $gridBuilder;
 
     private ImportQueryInterface $query;
 
     private GridRenderer $gridRenderer;
 
-    public function __construct(ImportErrorsGrid $grid, ImportQueryInterface $query, GridRenderer $gridRenderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        ImportErrorsGridBuilder $gridBuilder,
+        ImportQueryInterface $query,
+        GridRenderer $gridRenderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
     }
@@ -87,14 +90,10 @@ class ImportErrorGridAction
         Import $import,
         RequestGridConfiguration $configuration
     ): Response {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->query->getErrorDataSet($import->getId(), $language);
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -11,7 +11,7 @@ namespace Ergonode\Attribute\Application\Controller\Api\AttributeGroup;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
+use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AttributeGroupGridReadAction
 {
-    private AttributeGroupGrid $grid;
+    private AttributeGroupGridBuilder $gridBuilder;
 
     private AttributeGroupQueryInterface $query;
 
@@ -33,10 +33,10 @@ class AttributeGroupGridReadAction
 
     public function __construct(
         GridRenderer $gridRenderer,
-        AttributeGroupGrid $grid,
+        AttributeGroupGridBuilder $gridBuilder,
         AttributeGroupQueryInterface $query
     ) {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
     }
@@ -106,12 +106,9 @@ class AttributeGroupGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet($language);
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

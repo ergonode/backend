@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
-use Ergonode\Account\Infrastructure\Grid\AccountGrid;
+use Ergonode\Account\Infrastructure\Grid\AccountGridBuilder;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UsersReadAction
 {
-    private AccountGrid $grid;
+    private AccountGridBuilder $gridBuilder;
 
     private AccountQueryInterface $query;
 
@@ -34,10 +34,10 @@ class UsersReadAction
 
     public function __construct(
         GridRenderer $gridRenderer,
-        AccountGrid $grid,
+        AccountGridBuilder $gridBuilder,
         AccountQueryInterface $query
     ) {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
     }
@@ -110,12 +110,9 @@ class UsersReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet(),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet();
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Log;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
-use Ergonode\Account\Infrastructure\Grid\LogGrid;
+use Ergonode\Account\Infrastructure\Grid\LogGridBuilder;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -28,7 +28,7 @@ class AccountReadAction
 {
     private LogQueryInterface $query;
 
-    private LogGrid $grid;
+    private LogGridBuilder $gridBuilder;
 
     private AuthenticatedUserProviderInterface $userProvider;
 
@@ -37,12 +37,12 @@ class AccountReadAction
     public function __construct(
         GridRenderer $gridRenderer,
         LogQueryInterface $query,
-        LogGrid $grid,
+        LogGridBuilder $gridBuilder,
         AuthenticatedUserProviderInterface $userProvider
     ) {
         $this->gridRenderer = $gridRenderer;
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->userProvider = $userProvider;
     }
 
@@ -114,12 +114,11 @@ class AccountReadAction
      */
     public function __invoke(RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet(),
-            $this->userProvider->provide()->getLanguage()
-        );
+        $language =  $this->userProvider->provide()->getLanguage();
+
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet();
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }
