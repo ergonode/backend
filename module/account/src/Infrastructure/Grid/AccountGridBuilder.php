@@ -24,6 +24,7 @@ use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class AccountGridBuilder implements GridBuilderInterface
 {
@@ -42,39 +43,52 @@ class AccountGridBuilder implements GridBuilderInterface
      */
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
+
+        $languages = $this->getLanguages($language);
+        $roles = $this->getRoles();
         $grid = new Grid();
-        $languages = [];
-        $roles = [];
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('email', new TextColumn('email', 'Email', new TextFilter()))
+            ->addColumn('first_name', new TextColumn('first_name', 'First Name', new TextFilter()))
+            ->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter()))
+            ->addColumn('language', new SelectColumn('language', 'Language', new MultiSelectFilter($languages)))
+            ->addColumn('role_id', new SelectColumn('role_id', 'Roles', new MultiSelectFilter($roles)))
+            ->addColumn('is_active', new BoolColumn('is_active', 'Activity'))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_account_user_read',
+                    'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+                    'privilege' => 'USER_READ',
+                ],
+                'edit' => [
+                    'route' => 'ergonode_account_user_change',
+                    'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+                    'privilege' => 'USER_UPDATE',
+                    'method' => Request::METHOD_PUT,
+                ],
+            ]));
+
+        return $grid;
+    }
+
+    private function getRoles(): array
+    {
+        $result = [];
+        foreach ($this->roleQuery->getDictionary() as $key => $value) {
+            $result[] = new LabelFilterOption($key, $value);
+        }
+
+        return $result;
+    }
+
+    private function getLanguages(Language $language): array
+    {
+        $result = [];
         foreach ($this->languageProvider->getLanguages($language) as $code => $value) {
             $languages[] = new LabelFilterOption($code, $value);
         }
-        foreach ($this->roleQuery->getDictionary() as $key => $value) {
-            $roles[] = new LabelFilterOption($key, $value);
-        }
 
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('email', new TextColumn('email', 'Email', new TextFilter()));
-        $grid->addColumn('first_name', new TextColumn('first_name', 'First Name', new TextFilter()));
-        $grid->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter()));
-        $grid->addColumn('language', new SelectColumn('language', 'Language', new MultiSelectFilter($languages)));
-        $grid->addColumn('role_id', new SelectColumn('role_id', 'Roles', new MultiSelectFilter($roles)));
-        $grid->addColumn('is_active', new BoolColumn('is_active', 'Activity'));
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_account_user_read',
-                'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
-                'privilege' => 'USER_READ',
-            ],
-            'edit' => [
-                'route' => 'ergonode_account_user_change',
-                'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
-                'privilege' => 'USER_UPDATE',
-                'method' => Request::METHOD_PUT,
-            ],
-        ]));
-
-        return $grid;
+        return $result;
     }
 }

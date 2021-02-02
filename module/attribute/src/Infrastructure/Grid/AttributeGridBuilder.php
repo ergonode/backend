@@ -26,6 +26,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\Column\IdColumn;
 
 class AttributeGridBuilder implements GridBuilderInterface
 {
@@ -43,47 +44,42 @@ class AttributeGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
         $types = $this->getTypes($language);
         $groups = $this->getGroups($language);
-        $scopes = $this->getScope($language);
+        $scopes = $this->getScope();
 
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $index = new IntegerColumn('index', 'Index', new TextFilter());
-        $grid->addColumn('index', $index);
-        $grid->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
-        $column = new TextColumn('label', 'Name', new TextFilter());
-        $grid->addColumn('label', $column);
-        $column = new SelectColumn('type', 'Type', new MultiSelectFilter($types));
-        $grid->addColumn('type', $column);
-        $column = new SelectColumn('scope', 'Scope', new MultiSelectFilter($scopes));
-        $grid->addColumn('scope', $column);
-        $grid->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups)));
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'privilege' => 'ATTRIBUTE_READ',
-                'show' => ['system' => false],
-                'route' => 'ergonode_attribute_read',
-                'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
-            ],
-            'edit' => [
-                'privilege' => 'ATTRIBUTE_UPDATE',
-                'show' => ['system' => false],
-                'route' => 'ergonode_attribute_change',
-                'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'privilege' => 'ATTRIBUTE_DELETE',
-                'show' => ['system' => false],
-                'route' => 'ergonode_attribute_delete',
-                'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
-        $grid->orderBy('index', 'DESC');
+        $grid = new Grid();
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('index', new IntegerColumn('index', 'Index', new TextFilter()))
+            ->addColumn('code', new TextColumn('code', 'System name', new TextFilter()))
+            ->addColumn('label', new TextColumn('label', 'Name', new TextFilter()))
+            ->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)))
+            ->addColumn('scope', new SelectColumn('scope', 'Scope', new MultiSelectFilter($scopes)))
+            ->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups)))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'privilege' => 'ATTRIBUTE_READ',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_attribute_read',
+                    'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
+                ],
+                'edit' => [
+                    'privilege' => 'ATTRIBUTE_UPDATE',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_attribute_change',
+                    'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
+                    'method' => Request::METHOD_PUT,
+                ],
+                'delete' => [
+                    'privilege' => 'ATTRIBUTE_DELETE',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_attribute_delete',
+                    'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
+                    'method' => Request::METHOD_DELETE,
+                ],
+            ]))
+            ->orderBy('index', 'DESC');
 
         return $grid;
     }
@@ -108,7 +104,7 @@ class AttributeGridBuilder implements GridBuilderInterface
         return $result;
     }
 
-    private function getScope(Language $language): array
+    private function getScope(): array
     {
         $result = [];
         foreach (AttributeScope::AVAILABLE as $item) {

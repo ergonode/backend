@@ -10,7 +10,7 @@ namespace Ergonode\Grid;
 
 interface GridInterface
 {
-    public function addColumn(string $id, ColumnInterface $column): void;
+    public function addColumn(string $id, ColumnInterface $column): self;
 
     /**
      * @return ColumnInterface[]

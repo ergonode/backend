@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class ProductCollectionGridBuilder implements GridBuilderInterface
 {
@@ -37,40 +38,39 @@ class ProductCollectionGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
         $types = $this->getType($language);
 
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
-        $grid->addColumn('type_id', new SelectColumn('type_id', 'Type', new MultiSelectFilter($types)));
-        $grid->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $grid->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
-        $grid->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter()));
-        $grid->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
-        $grid->addColumn('edited_at', new DateColumn('edited_at', 'Edited at', new DateFilter()));
+        $grid = new Grid();
 
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_product_collection_read',
-                'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                'privilege' => 'PRODUCT_COLLECTION_READ',
-            ],
-            'edit' => [
-                'route' => 'ergonode_product_collection_change',
-                'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                'privilege' => 'PRODUCT_COLLECTION_UPDATE',
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'route' => 'ergonode_product_collection_delete',
-                'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
-                'privilege' => 'PRODUCT_COLLECTION_DELETE',
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
-        $grid->orderBy('created_at', 'DESC');
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('code', new TextColumn('code', 'System name', new TextFilter()))
+            ->addColumn('type_id', new SelectColumn('type_id', 'Type', new MultiSelectFilter($types)))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn('description', new TextColumn('description', 'Description', new TextFilter()))
+            ->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter()))
+            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
+            ->addColumn('edited_at', new DateColumn('edited_at', 'Edited at', new DateFilter()))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_product_collection_read',
+                    'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
+                    'privilege' => 'PRODUCT_COLLECTION_READ',
+                ],
+                'edit' => [
+                    'route' => 'ergonode_product_collection_change',
+                    'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
+                    'privilege' => 'PRODUCT_COLLECTION_UPDATE',
+                    'method' => Request::METHOD_PUT,
+                ],
+                'delete' => [
+                    'route' => 'ergonode_product_collection_delete',
+                    'parameters' => ['language' => $language->getCode(), 'productCollection' => '{id}'],
+                    'privilege' => 'PRODUCT_COLLECTION_DELETE',
+                    'method' => Request::METHOD_DELETE,
+                ],
+            ]))
+            ->orderBy('created_at', 'DESC');
 
         return $grid;
     }

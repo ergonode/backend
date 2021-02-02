@@ -13,22 +13,24 @@ use Ergonode\Grid\Column\TranslatableColumn;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Column\DateColumn;
-use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class ExportErrorsGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $id = new IntegerColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
-        $grid->addColumn('message', new TranslatableColumn('message', 'Message', 'parameters', 'channel'));
-        $grid->orderBy('id', 'ASC');
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
+            ->addColumn(
+                'message',
+                new TranslatableColumn('message', 'Message', 'parameters', 'channel')
+            )
+            ->orderBy('id', 'ASC');
 
         return $grid;
     }

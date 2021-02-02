@@ -20,37 +20,37 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Grid;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\GridInterface;
+use Ergonode\Grid\Column\IdColumn;
 
 class RoleGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $grid->addColumn('description', new TextAreaColumn('description', 'Description', new TextFilter()));
-        $grid->addColumn('users_count', new NumericColumn('users_count', 'Users', new TextFilter()));
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_account_role_read',
-                'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
-                'privilege' => 'USER_ROLE_READ',
-            ],
-            'edit' => [
-                'route' => 'ergonode_account_role_change',
-                'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
-                'privilege' => 'USER_ROLE_UPDATE',
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'route' => 'ergonode_account_role_delete',
-                'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
-                'privilege' => 'USER_ROLE_DELETE',
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn('description', new TextAreaColumn('description', 'Description', new TextFilter()))
+            ->addColumn('users_count', new NumericColumn('users_count', 'Users', new TextFilter()))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_account_role_read',
+                    'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                    'privilege' => 'USER_ROLE_READ',
+                ],
+                'edit' => [
+                    'route' => 'ergonode_account_role_change',
+                    'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                    'privilege' => 'USER_ROLE_UPDATE',
+                    'method' => Request::METHOD_PUT,
+                ],
+                'delete' => [
+                    'route' => 'ergonode_account_role_delete',
+                    'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                    'privilege' => 'USER_ROLE_DELETE',
+                    'method' => Request::METHOD_DELETE,
+                ],
+            ]));
 
         return $grid;
     }

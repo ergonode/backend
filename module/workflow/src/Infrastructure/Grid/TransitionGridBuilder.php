@@ -33,46 +33,44 @@ class TransitionGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
         $codes = $this->getStatuses($language);
 
-        $code = new LabelColumn('source', 'From', new MultiSelectFilter($codes));
-        $grid->addColumn('source', $code);
+        $grid = new Grid();
 
-        $code = new LabelColumn('destination', 'To', new MultiSelectFilter($codes));
-        $grid->addColumn('destination', $code);
-
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_workflow_transition_read',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'source' => '{source}',
-                    'destination' => '{destination}',
+        $grid
+            ->addColumn('source', new LabelColumn('source', 'From', new MultiSelectFilter($codes)))
+            ->addColumn('destination', new LabelColumn('destination', 'To', new MultiSelectFilter($codes)))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_workflow_transition_read',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'source' => '{source}',
+                        'destination' => '{destination}',
+                    ],
+                    'privilege' => 'WORKFLOW_READ',
                 ],
-                'privilege' => 'WORKFLOW_READ',
-            ],
-            'edit' => [
-                'route' => 'ergonode_workflow_transition_change',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'source' => '{source}',
-                    'destination' => '{destination}',
+                'edit' => [
+                    'route' => 'ergonode_workflow_transition_change',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'source' => '{source}',
+                        'destination' => '{destination}',
+                    ],
+                    'privilege' => 'WORKFLOW_UPDATE',
+                    'method' => Request::METHOD_PUT,
                 ],
-                'privilege' => 'WORKFLOW_UPDATE',
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'route' => 'ergonode_workflow_transition_delete',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'source' => '{source}',
-                    'destination' => '{destination}',
+                'delete' => [
+                    'route' => 'ergonode_workflow_transition_delete',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'source' => '{source}',
+                        'destination' => '{destination}',
+                    ],
+                    'privilege' => 'WORKFLOW_DELETE',
+                    'method' => Request::METHOD_DELETE,
                 ],
-                'privilege' => 'WORKFLOW_DELETE',
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
+            ]));
 
         return $grid;
     }

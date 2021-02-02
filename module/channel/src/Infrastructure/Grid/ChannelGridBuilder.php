@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class ChannelGridBuilder implements GridBuilderInterface
 {
@@ -33,39 +34,32 @@ class ChannelGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid  = new Grid();
         $types = $this->getChannelTypes($language);
 
-
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-
-        $name = new TextColumn('name', 'Name', new TextFilter());
-        $grid->addColumn('name', $name);
-
-        $column = new SelectColumn('type', 'Type', new MultiSelectFilter($types));
-        $grid->addColumn('type', $column);
-
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_channel_read',
-                'privilege' => 'CHANNEL_READ',
-                'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
-            ],
-            'edit' => [
-                'route' => 'ergonode_channel_change',
-                'privilege' => 'CHANNEL_UPDATE',
-                'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'route' => 'ergonode_channel_delete',
-                'privilege' => 'CHANNEL_DELETE',
-                'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
+        $grid = new Grid();
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_channel_read',
+                    'privilege' => 'CHANNEL_READ',
+                    'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
+                ],
+                'edit' => [
+                    'route' => 'ergonode_channel_change',
+                    'privilege' => 'CHANNEL_UPDATE',
+                    'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
+                    'method' => Request::METHOD_PUT,
+                ],
+                'delete' => [
+                    'route' => 'ergonode_channel_delete',
+                    'privilege' => 'CHANNEL_DELETE',
+                    'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
+                    'method' => Request::METHOD_DELETE,
+                ],
+            ]));
 
         return $grid;
     }

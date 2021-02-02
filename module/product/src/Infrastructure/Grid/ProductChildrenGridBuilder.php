@@ -19,31 +19,30 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class ProductChildrenGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('sku', new TextColumn('code', 'Code', new TextFilter()));
-        $grid->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
-        $grid->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
-
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'delete' => [
-                'route' => 'ergonode_product_child_remove',
-                'privilege' => 'PRODUCT_DELETE',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'product' => '{product_id}',
-                    'child' => '{id}',
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('sku', new TextColumn('code', 'Code', new TextFilter()))
+            ->addColumn('default_image', new ImageColumn('default_image', 'Default image'))
+            ->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'delete' => [
+                    'route' => 'ergonode_product_child_remove',
+                    'privilege' => 'PRODUCT_DELETE',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'product' => '{product_id}',
+                        'child' => '{id}',
+                    ],
+                    'method' => Request::METHOD_DELETE,
                 ],
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
+            ]));
 
         return $grid;
     }

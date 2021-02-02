@@ -23,9 +23,10 @@ class TemplateGroupGridBuilder implements GridBuilderInterface
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $grid->addColumn('id', new TextColumn('id', 'Id'));
-        $grid->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $grid->addColumn('custom', new BoolColumn('custom', 'Icon'));
+        $grid
+            ->addColumn('id', new TextColumn('id', 'Id'))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn('custom', new BoolColumn('custom', 'Icon'));
 
         return $grid;
     }

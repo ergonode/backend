@@ -28,6 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class AssociatedProductAvailableChildrenGridBuilder implements GridBuilderInterface
 {
@@ -53,19 +54,20 @@ class AssociatedProductAvailableChildrenGridBuilder implements GridBuilderInterf
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
-        $templates  = $this->getTemplates($language);
+        $templates = $this->getTemplates($language);
 
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
-        $grid->addColumn('template_id', new SelectColumn('template_id', 'Template', new MultiSelectFilter($templates)));
-        $grid->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
-        $grid->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
+        $grid = new Grid();
+
         $attached = new BoolColumn('attached', 'Attached', new TextFilter());
         $attached->setEditable(true);
-        $grid->addColumn('attached', $attached);
+
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()))
+            ->addColumn('template_id', new SelectColumn('template_id', 'Template', new MultiSelectFilter($templates)))
+            ->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()))
+            ->addColumn('default_image', new ImageColumn('default_image', 'Default image'))
+            ->addColumn('attached', $attached);
         if ($this->bindingAttributes) {
             $this->addBindingColumn($grid, $language);
         }

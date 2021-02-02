@@ -19,22 +19,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Grid;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\GridInterface;
+use Ergonode\Grid\Column\IdColumn;
 
 class AttributeGroupGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('code', new TextColumn('code', 'System name', new TextFilter()));
-        $grid->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $grid->addColumn(
-            'elements_count',
-            new IntegerColumn('elements_count', 'Number of attributes', new TextFilter())
-        );
-
         $links = [
             'get' => [
                 'privilege' => 'ATTRIBUTE_GROUP_READ',
@@ -54,7 +44,17 @@ class AttributeGroupGridBuilder implements GridBuilderInterface
                 'method' => Request::METHOD_DELETE,
             ],
         ];
-        $grid->addColumn('_links', new LinkColumn('hal', $links));
+
+        $grid = new Grid();
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('code', new TextColumn('code', 'System name', new TextFilter()))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn(
+                'elements_count',
+                new IntegerColumn('elements_count', 'Number of attributes', new TextFilter())
+            )
+            ->addColumn('_links', new LinkColumn('hal', $links));
 
         return $grid;
     }

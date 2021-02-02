@@ -23,13 +23,14 @@ class TemplateTypeDictionaryGridBuilder implements GridBuilderInterface
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $grid->addColumn('type', new TextColumn('type', 'Type', new TextFilter()));
-        $grid->addColumn('variant', new TextColumn('variant', 'Variant', new TextFilter()));
-        $grid->addColumn('label', new TextColumn('label', 'Label', new TextFilter()));
-        $grid->addColumn('min_width', new IntegerColumn('min_width', 'Minimal width', new TextFilter()));
-        $grid->addColumn('min_height', new IntegerColumn('min_height', 'Minimal height', new TextFilter()));
-        $grid->addColumn('max_width', new IntegerColumn('max_width', 'Maximal width', new TextFilter()));
-        $grid->addColumn('max_height', new IntegerColumn('max_height', 'Maximal height', new TextFilter()));
+        $grid
+            ->addColumn('type', new TextColumn('type', 'Type', new TextFilter()))
+            ->addColumn('variant', new TextColumn('variant', 'Variant', new TextFilter()))
+            ->addColumn('label', new TextColumn('label', 'Label', new TextFilter()))
+            ->addColumn('min_width', new IntegerColumn('min_width', 'Minimal width', new TextFilter()))
+            ->addColumn('min_height', new IntegerColumn('min_height', 'Minimal height', new TextFilter()))
+            ->addColumn('max_width', new IntegerColumn('max_width', 'Maximal width', new TextFilter()))
+            ->addColumn('max_height', new IntegerColumn('max_height', 'Maximal height', new TextFilter()));
 
         return $grid;
     }

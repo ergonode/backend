@@ -20,34 +20,27 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class NotificationGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
-        $notificationIdColumn = new TextColumn('id', 'Id', new TextFilter());
-        $notificationIdColumn->setVisible(false);
-        $grid->addColumn('id', $notificationIdColumn);
-
         $userIdColumn = new TextColumn('user_id', 'User Id', new TextFilter());
         $userIdColumn->setVisible(false);
-        $grid->addColumn('user_id', $userIdColumn);
 
-        $column = new TranslatableColumn('message', 'Message', 'parameters', 'notification');
-        $grid->addColumn('message', $column);
-
-        $column = new DateColumn('created_at', 'Created at', new DateFilter());
-        $grid->addColumn('created_at', $column);
-
-        $column = new DateColumn('read_at', 'Read at', new DateFilter());
-        $grid->addColumn('read_at', $column);
-
-        $column = new TextColumn('author', 'Author', new TextFilter());
-        $grid->addColumn('author', $column);
-
-        $column = new ImageColumn('avatar_filename');
-        $grid->addColumn('avatar_filename', $column);
+        $grid = new Grid();
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('user_id', $userIdColumn)
+            ->addColumn(
+                'message',
+                new TranslatableColumn('message', 'Message', 'parameters', 'notification')
+            )
+            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
+            ->addColumn('read_at', new DateColumn('read_at', 'Read at', new DateFilter()))
+            ->addColumn('author', new TextColumn('author', 'Author', new TextFilter()))
+            ->addColumn('avatar_filename', new ImageColumn('avatar_filename'));
 
         return $grid;
     }

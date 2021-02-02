@@ -24,6 +24,7 @@ use Ergonode\Grid\Filter\NumericFilter;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class SourceGridBuilder implements GridBuilderInterface
 {
@@ -36,47 +37,47 @@ class SourceGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
+
 
         $types = $this->getTypes($language);
 
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $grid->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)));
-        $grid->addColumn('imports', new NumericColumn('imports', 'Imports', new NumericFilter()));
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'privilege' => 'IMPORT_READ',
-                'show' => ['system' => false],
-                'route' => 'ergonode_source_read',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'source' => '{id}',
+        $grid = new Grid();
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)))
+            ->addColumn('imports', new NumericColumn('imports', 'Imports', new NumericFilter()))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'privilege' => 'IMPORT_READ',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_source_read',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'source' => '{id}',
+                    ],
                 ],
-            ],
-            'edit' => [
-                'privilege' => 'IMPORT_UPDATE',
-                'show' => ['system' => false],
-                'route' => 'ergonode_source_update',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'source' => '{id}',
+                'edit' => [
+                    'privilege' => 'IMPORT_UPDATE',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_source_update',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'source' => '{id}',
+                    ],
+                    'method' => Request::METHOD_PUT,
                 ],
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'privilege' => 'IMPORT_DELETE',
-                'show' => ['system' => false],
-                'route' => 'ergonode_source_delete',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'source' => '{id}',
+                'delete' => [
+                    'privilege' => 'IMPORT_DELETE',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_source_delete',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'source' => '{id}',
+                    ],
+                    'method' => Request::METHOD_DELETE,
                 ],
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
+            ]));
 
         return $grid;
     }

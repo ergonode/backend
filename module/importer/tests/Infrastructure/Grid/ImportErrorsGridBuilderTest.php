@@ -22,7 +22,7 @@ class ImportErrorsGridBuilderTest extends TestCase
         /** @var Language $language */
         $language = $this->createMock(Language::class);
 
-        $builder = new ImportErrorsGridbUILDER();
+        $builder = new ImportErrorsGridBuilder();
 
         $grid = $builder->build($configuration, $language);
 

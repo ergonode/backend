@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class ProductCollectionElementGridBuilder implements GridBuilderInterface
 {
@@ -30,37 +31,37 @@ class ProductCollectionElementGridBuilder implements GridBuilderInterface
      */
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
-        $grid->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
-        $grid->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
-        $grid->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
-        $productId = new TextColumn('id', 'Id', new TextFilter());
-        $productId->setVisible(false);
-        $grid->addColumn('id', $productId);
-        $grid->addColumn('created_at', new DateColumn('created_at', 'Added at', new DateFilter()));
         $visible = new BoolColumn('visible', 'Collection visibility');
         $visible->setEditable(true);
-        $grid->addColumn('visible', $visible);
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_product_collection_element_read',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'productCollection' => '{product_collection_id}',
-                    'product' => '{id}',
+
+        $grid = new Grid();
+        $grid
+            ->addColumn('default_image', new ImageColumn('default_image', 'Default image'))
+            ->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()))
+            ->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()))
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('created_at', new DateColumn('created_at', 'Added at', new DateFilter()))
+            ->addColumn('visible', $visible)
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_product_collection_element_read',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'productCollection' => '{product_collection_id}',
+                        'product' => '{id}',
+                    ],
                 ],
-            ],
-            'delete' => [
-                'route' => 'ergonode_product_collection_element_delete',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'productCollection' => '{product_collection_id}',
-                    'product' => '{id}',
+                'delete' => [
+                    'route' => 'ergonode_product_collection_element_delete',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'productCollection' => '{product_collection_id}',
+                        'product' => '{id}',
+                    ],
+                    'method' => Request::METHOD_DELETE,
                 ],
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
-        $grid->orderBy('created_at', 'DESC');
+            ]))
+            ->orderBy('created_at', 'DESC');
 
         return $grid;
     }

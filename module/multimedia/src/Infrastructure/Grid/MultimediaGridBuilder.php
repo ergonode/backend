@@ -28,6 +28,7 @@ use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class MultimediaGridBuilder implements GridBuilderInterface
 {
@@ -43,23 +44,8 @@ class MultimediaGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
         $types = $this->getTypes();
         $extensions = $this->getExtension();
-
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-
-        $grid->addColumn('image', new ImageColumn('image', 'Preview'));
-        $grid->addColumn('name', new TextColumn('name', 'File name', new TextFilter()));
-        $grid->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)));
-        $grid->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)));
-        $column = new NumericColumn('size', 'Size', new NumericFilter());
-        $column->setSuffix('KB');
-        $grid->addColumn('size', $column);
-        $grid->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()));
-        $grid->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()));
 
         $links = [
             'get' => [
@@ -86,7 +72,22 @@ class MultimediaGridBuilder implements GridBuilderInterface
                 'method' => Request::METHOD_DELETE,
             ],
         ];
-        $grid->addColumn('_links', new LinkColumn('hal', $links));
+
+        $grid = new Grid();
+
+        $column = new NumericColumn('size', 'Size', new NumericFilter());
+        $column->setSuffix('KB');
+
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('image', new ImageColumn('image', 'Preview'))
+            ->addColumn('name', new TextColumn('name', 'File name', new TextFilter()))
+            ->addColumn('extension', new SelectColumn('extension', 'Extension', new MultiSelectFilter($extensions)))
+            ->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)))
+            ->addColumn('size', $column)
+            ->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()))
+            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
+            ->addColumn('_links', new LinkColumn('hal', $links));
 
         return $grid;
     }

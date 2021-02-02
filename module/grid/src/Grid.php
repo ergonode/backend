@@ -13,40 +13,23 @@ class Grid implements GridInterface
     /**
      * @var ColumnInterface[]
      */
-    protected array $columns = [];
-
-    /**
-     * @var ActionInterface[]
-     */
-    private array $actions = [];
+    private array $columns = [];
 
     private ?string $field = null;
 
     private string $order = 'ASC';
 
-    public function addColumn(string $id, ColumnInterface $column): void
+    public function addColumn(string $id, ColumnInterface $column): self
     {
         $this->columns[$id] = $column;
+
+        return $this;
     }
 
     public function orderBy(string $field, string $order): void
     {
         $this->field = $field;
         $this->order = $order;
-    }
-
-
-    public function addAction(string $name, ActionInterface $action): void
-    {
-        $this->actions[$name] = $action;
-    }
-
-    /**
-     * @return array
-     */
-    public function getActions(): array
-    {
-        return $this->actions;
     }
 
     /**

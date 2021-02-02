@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class TemplateGridBuilder implements GridBuilderInterface
 {
@@ -35,43 +36,44 @@ class TemplateGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid  = new Grid();
         $groups = $this->getGroup();
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $grid->addColumn('image_id', new ImageColumn('image_id', 'Template image'));
-        $grid->addColumn('group_id', new SelectColumn('group_id', 'Group', new MultiSelectFilter($groups)));
-        $grid->addColumn('default_label_attribute', new TextColumn(
-            'default_label_attribute',
-            'Default label attribute',
-            new TextFilter()
-        ));
-        $grid->addColumn('default_image_attribute', new TextColumn(
-            'default_image_attribute',
-            'Default image attribute',
-            new TextFilter()
-        ));
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_designer_template_read',
-                'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
-                'privilege' => 'TEMPLATE_DESIGNER_READ',
-            ],
-            'edit' => [
-                'route' => 'ergonode_designer_template_change',
-                'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
-                'privilege' => 'TEMPLATE_DESIGNER_UPDATE',
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'route' => 'ergonode_designer_template_delete',
-                'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
-                'privilege' => 'TEMPLATE_DESIGNER_DELETE',
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
+
+        $grid = new Grid();
+
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn('image_id', new ImageColumn('image_id', 'Template image'))
+            ->addColumn('group_id', new SelectColumn('group_id', 'Group', new MultiSelectFilter($groups)))
+            ->addColumn('default_label_attribute', new TextColumn(
+                'default_label_attribute',
+                'Default label attribute',
+                new TextFilter()
+            ))
+            ->addColumn('default_image_attribute', new TextColumn(
+                'default_image_attribute',
+                'Default image attribute',
+                new TextFilter()
+            ))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_designer_template_read',
+                    'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
+                    'privilege' => 'TEMPLATE_DESIGNER_READ',
+                ],
+                'edit' => [
+                    'route' => 'ergonode_designer_template_change',
+                    'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
+                    'privilege' => 'TEMPLATE_DESIGNER_UPDATE',
+                    'method' => Request::METHOD_PUT,
+                ],
+                'delete' => [
+                    'route' => 'ergonode_designer_template_delete',
+                    'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
+                    'privilege' => 'TEMPLATE_DESIGNER_DELETE',
+                    'method' => Request::METHOD_DELETE,
+                ],
+            ]));
 
         return $grid;
     }

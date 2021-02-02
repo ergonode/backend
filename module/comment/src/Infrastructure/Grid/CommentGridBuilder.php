@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class CommentGridBuilder implements GridBuilderInterface
 {
@@ -34,22 +35,7 @@ class CommentGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-        $grid = new Grid();
         $userId = $this->userProvider->provide()->getId();
-
-        $commentIdColumn = new TextColumn('id', 'Id');
-        $commentIdColumn->setVisible(false);
-        $grid->addColumn('id', $commentIdColumn);
-        $userIdColumn = new TextColumn('user_id', 'User Id', new TextFilter());
-        $userIdColumn->setVisible(false);
-        $grid->addColumn('user_id', $userIdColumn);
-        $grid->addColumn('content', new TextColumn('content', 'Content', new TextFilter()));
-        $grid->addColumn('object_id', new TextColumn('object_id', 'Object', new TextFilter()));
-        $grid->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
-        $grid->addColumn('created_at', new DateColumn('created_at', 'Crated at', new DateFilter()));
-        $grid->addColumn('edited_at', new DateColumn('edited_at', 'Edited at', new DateFilter()));
-        $grid->addColumn('avatar_filename', new ImageColumn('avatar_filename'));
-
         $links = [
             'get' => [
                 'route' => 'ergonode_comment_read',
@@ -68,9 +54,22 @@ class CommentGridBuilder implements GridBuilderInterface
                 'method' => Request::METHOD_DELETE,
             ],
         ];
-        $grid->addColumn('_links', new LinkColumn('hal', $links));
 
-        $grid->orderBy('created_at', 'DESC');
+        $grid = new Grid();
+
+        $grid->addColumn('id', new IdColumn('id'));
+        $userIdColumn = new TextColumn('user_id', 'User Id', new TextFilter());
+        $userIdColumn->setVisible(false);
+        $grid
+            ->addColumn('user_id', $userIdColumn)
+            ->addColumn('content', new TextColumn('content', 'Content', new TextFilter()))
+            ->addColumn('object_id', new TextColumn('object_id', 'Object', new TextFilter()))
+            ->addColumn('author', new TextColumn('author', 'Author', new TextFilter()))
+            ->addColumn('created_at', new DateColumn('created_at', 'Crated at', new DateFilter()))
+            ->addColumn('edited_at', new DateColumn('edited_at', 'Edited at', new DateFilter()))
+            ->addColumn('avatar_filename', new ImageColumn('avatar_filename'))
+            ->addColumn('_links', new LinkColumn('hal', $links))
+            ->orderBy('created_at', 'DESC');
 
         return $grid;
     }

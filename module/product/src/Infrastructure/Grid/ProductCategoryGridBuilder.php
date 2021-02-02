@@ -17,40 +17,36 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class ProductCategoryGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
-
-        $name = new TextColumn('name', 'Name', new TextFilter());
-        $grid->addColumn('name', $name);
-
-        $grid->addColumn(
-            '_links',
-            new LinkColumn(
-                'hal',
-                [
-                    'delete' => [
-                        'route' => 'ergonode_product_category_remove',
-                        'parameters' => [
-                            'language' => $language->getCode(),
-                            'product' => '{product_id}',
-                            'category' => '{id}',
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('code', new TextColumn('code', 'Code', new TextFilter()))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn(
+                '_links',
+                new LinkColumn(
+                    'hal',
+                    [
+                        'delete' => [
+                            'route' => 'ergonode_product_category_remove',
+                            'parameters' => [
+                                'language' => $language->getCode(),
+                                'product' => '{product_id}',
+                                'category' => '{id}',
+                            ],
+                            'privilege' => 'PRODUCT_UPDATE',
+                            'method' => Request::METHOD_DELETE,
                         ],
-                        'privilege' => 'PRODUCT_UPDATE',
-                        'method' => Request::METHOD_DELETE,
-                    ],
-                ]
+                    ]
+                )
             )
-        );
-
-        $grid->orderBy('name', 'DESC');
+            ->orderBy('name', 'DESC');
 
         return $grid;
     }

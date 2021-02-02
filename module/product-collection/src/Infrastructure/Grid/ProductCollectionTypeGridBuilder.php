@@ -18,34 +18,34 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
+use Ergonode\Grid\Column\IdColumn;
 
 class ProductCollectionTypeGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
-        $grid->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'route' => 'ergonode_product_collection_type_read',
-                'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
-            ],
-            'edit' => [
-                'route' => 'ergonode_product_collection_type_change',
-                'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'route' => 'ergonode_product_collection_type_delete',
-                'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
-        $grid->orderBy('code', 'DESC');
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('code', new TextColumn('code', 'Code', new TextFilter()))
+            ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'route' => 'ergonode_product_collection_type_read',
+                    'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
+                ],
+                'edit' => [
+                    'route' => 'ergonode_product_collection_type_change',
+                    'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
+                    'method' => Request::METHOD_PUT,
+                ],
+                'delete' => [
+                    'route' => 'ergonode_product_collection_type_delete',
+                    'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
+                    'method' => Request::METHOD_DELETE,
+                ],
+            ]))
+            ->orderBy('code', 'DESC');
 
         return $grid;
     }

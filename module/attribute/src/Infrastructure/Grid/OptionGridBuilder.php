@@ -18,50 +18,51 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Grid;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\GridInterface;
+use Ergonode\Grid\Column\IdColumn;
 
 class OptionGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $id = new TextColumn('id', 'Id', new TextFilter());
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
-        $grid->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'privilege' => 'ATTRIBUTE_READ',
-                'show' => ['system' => false],
-                'route' => 'ergonode_option_read',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'option' => '{id}',
-                    'attribute' => '{attribute_id}',
+
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('code', new TextColumn('code', 'Code', new TextFilter()))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'privilege' => 'ATTRIBUTE_READ',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_option_read',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'option' => '{id}',
+                        'attribute' => '{attribute_id}',
+                    ],
                 ],
-            ],
-            'edit' => [
-                'privilege' => 'ATTRIBUTE_UPDATE',
-                'show' => ['system' => false],
-                'route' => 'ergonode_option_change',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'option' => '{id}',
-                    'attribute' => '{attribute_id}',
+                'edit' => [
+                    'privilege' => 'ATTRIBUTE_UPDATE',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_option_change',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'option' => '{id}',
+                        'attribute' => '{attribute_id}',
+                    ],
+                    'method' => Request::METHOD_PUT,
                 ],
-                'method' => Request::METHOD_PUT,
-            ],
-            'delete' => [
-                'privilege' => 'ATTRIBUTE_DELETE',
-                'show' => ['system' => false],
-                'route' => 'ergonode_option_delete',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'option' => '{id}',
-                    'attribute' => '{attribute_id}',
+                'delete' => [
+                    'privilege' => 'ATTRIBUTE_DELETE',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_option_delete',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'option' => '{id}',
+                        'attribute' => '{attribute_id}',
+                    ],
+                    'method' => Request::METHOD_DELETE,
                 ],
-                'method' => Request::METHOD_DELETE,
-            ],
-        ]));
+            ]));
 
         return $grid;
     }

@@ -18,33 +18,32 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Grid;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
+use Ergonode\Grid\Column\IdColumn;
 
 class ExportGridBuilder implements GridBuilderInterface
 {
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $grid = new Grid();
-        $id = new TextColumn('id', 'Id');
-        $id->setVisible(false);
-        $grid->addColumn('id', $id);
 
-        $grid->addColumn('status', new TextColumn('status', 'Status', new TextFilter()));
-        $grid->addColumn('started_at', new DateColumn('started_at', 'Started on', new DateFilter()));
-        $grid->addColumn('ended_at', new DateColumn('ended_at', 'Ended at', new DateFilter()));
-
-        $grid->addColumn('_links', new LinkColumn('hal', [
-            'get' => [
-                'privilege' => 'CHANNEL_READ',
-                'show' => ['system' => false],
-                'route' => 'ergonode_channel_export',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'channel' => '{channel_id}',
-                    'export' => '{id}',
+        $grid
+            ->addColumn('id', new IdColumn('id'))
+            ->addColumn('status', new TextColumn('status', 'Status', new TextFilter()))
+            ->addColumn('started_at', new DateColumn('started_at', 'Started on', new DateFilter()))
+            ->addColumn('ended_at', new DateColumn('ended_at', 'Ended at', new DateFilter()))
+            ->addColumn('_links', new LinkColumn('hal', [
+                'get' => [
+                    'privilege' => 'CHANNEL_READ',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_channel_export',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'channel' => '{channel_id}',
+                        'export' => '{id}',
+                    ],
                 ],
-            ],
-        ]));
-        $grid->orderBy('started_at', 'DESC');
+            ]))
+            ->orderBy('started_at', 'DESC');
 
         return $grid;
     }
