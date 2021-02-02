@@ -63,7 +63,7 @@ class ImportVariableProductCommandHandler
                 if (!AttributeCode::isValid($binding)) {
                     throw new ImportException('Attribute binding {code} is not valid', ['{code}' => $binding]);
                 }
-                $bindings[] = new Sku($binding);
+                $bindings[] = new AttributeCode($binding);
             }
 
             $product = $this->action->action(
