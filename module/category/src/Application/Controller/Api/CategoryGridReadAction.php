@@ -11,7 +11,7 @@ namespace Ergonode\Category\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
-use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
+use Ergonode\Category\Infrastructure\Grid\CategoryGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryGridReadAction
 {
-    private CategoryGrid $categoryGrid;
+    private CategoryGridBuilder $categoryGridBuilder;
 
     private CategoryQueryInterface $categoryQuery;
 
@@ -34,10 +34,10 @@ class CategoryGridReadAction
 
     public function __construct(
         GridRenderer $gridRenderer,
-        CategoryGrid $categoryGrid,
+        CategoryGridBuilder $categoryGridBuilder,
         CategoryQueryInterface $categoryQuery
     ) {
-        $this->categoryGrid = $categoryGrid;
+        $this->categoryGridBuilder = $categoryGridBuilder;
         $this->categoryQuery = $categoryQuery;
         $this->gridRenderer = $gridRenderer;
     }
@@ -84,7 +84,7 @@ class CategoryGridReadAction
      *     enum={"ASC","DESC"},
      *     description="Order",
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -109,14 +109,9 @@ class CategoryGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $grid = $this->categoryGridBuilder->build($configuration, $language);
         $dataSet = $this->categoryQuery->getDataSet($language);
-
-        $data = $this->gridRenderer->render(
-            $this->categoryGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

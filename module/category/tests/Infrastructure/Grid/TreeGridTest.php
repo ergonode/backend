@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Grid;
 
-use Ergonode\Category\Infrastructure\Grid\TreeGrid;
+use Ergonode\Category\Infrastructure\Grid\TreeGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
 use PHPUnit\Framework\TestCase;
@@ -22,8 +22,8 @@ class TreeGridTest extends TestCase
         /** @var Language $language */
         $language = $this->createMock(Language::class);
 
-        $grid = new TreeGrid();
-        $grid->init($configuration, $language);
+        $builder = new TreeGridBuilder();
+        $grid = $builder->build($configuration, $language);
 
         $this->assertNotEmpty($grid->getColumns());
     }

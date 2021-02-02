@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Comment\Domain\Query\CommentQueryInterface;
-use Ergonode\Comment\Infrastructure\Grid\CommentGrid;
+use Ergonode\Comment\Infrastructure\Grid\CommentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -26,15 +26,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommentGridAction
 {
-    private CommentGrid $grid;
+    private CommentGridBuilder $gridBuilder;
 
     private CommentQueryInterface $query;
 
     private GridRenderer $renderer;
 
-    public function __construct(CommentGrid $grid, CommentQueryInterface $query, GridRenderer $renderer)
+    public function __construct(CommentGridBuilder $gridBuilder, CommentQueryInterface $query, GridRenderer $renderer)
     {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->renderer = $renderer;
     }
@@ -90,7 +90,7 @@ class CommentGridAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -107,14 +107,10 @@ class CommentGridAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->query->getDataSet($language);
 
-        $data = $this->renderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -14,7 +14,7 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\ProductCategoryQueryInterface;
-use Ergonode\Product\Infrastructure\Grid\ProductCategoryGrid;
+use Ergonode\Product\Infrastructure\Grid\ProductCategoryGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -34,16 +34,16 @@ class ProductCategoryGridReadAction
 
     private GridRenderer $gridRenderer;
 
-    private ProductCategoryGrid $productCategoryGrid;
+    private ProductCategoryGridBuilder $gridBuilder;
 
     public function __construct(
         ProductCategoryQueryInterface $productCategoryQuery,
         GridRenderer $gridRenderer,
-        ProductCategoryGrid $productCategoryGrid
+        ProductCategoryGridBuilder $gridBuilder
     ) {
         $this->productCategoryQuery = $productCategoryQuery;
         $this->gridRenderer = $gridRenderer;
-        $this->productCategoryGrid = $productCategoryGrid;
+        $this->gridBuilder = $gridBuilder;
     }
 
 
@@ -116,14 +116,10 @@ class ProductCategoryGridReadAction
         AbstractProduct $product,
         RequestGridConfiguration $configuration
     ): Response {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->productCategoryQuery->getDataSetByProduct($language, $product->getId());
 
-        $data = $this->gridRenderer->render(
-            $this->productCategoryGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

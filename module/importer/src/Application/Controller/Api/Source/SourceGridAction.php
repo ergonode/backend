@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Importer\Infrastructure\Grid\SourceGrid;
+use Ergonode\Importer\Infrastructure\Grid\SourceGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Importer\Domain\Query\SourceQueryInterface;
 
@@ -30,15 +30,15 @@ use Ergonode\Importer\Domain\Query\SourceQueryInterface;
  */
 class SourceGridAction
 {
-    private SourceGrid $grid;
+    private SourceGridBuilder $gridBuilder;
 
     private SourceQueryInterface $query;
 
     private GridRenderer $renderer;
 
-    public function __construct(SourceGrid $grid, SourceQueryInterface $query, GridRenderer $renderer)
+    public function __construct(SourceGridBuilder $gridBuilder, SourceQueryInterface $query, GridRenderer $renderer)
     {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->renderer = $renderer;
     }
@@ -110,14 +110,10 @@ class SourceGridAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->query->getDataSet();
 
-        $data = $this->renderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

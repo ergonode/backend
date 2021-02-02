@@ -16,30 +16,30 @@ use Ergonode\Grid\FilterInterface;
 
 abstract class AbstractColumn implements ColumnInterface
 {
-    private string $field;
+    protected string $field;
 
-    private ?string $label;
+    protected ?string $label;
 
-    private ?FilterInterface $filter;
+    protected ?FilterInterface $filter;
 
-    private bool $visible = true;
+    protected bool $visible = true;
 
-    private bool $editable = false;
+    protected bool $editable = false;
 
-    private bool $deletable = false;
+    protected bool $deletable = false;
 
-    private ?Language $language = null;
+    protected ?Language $language = null;
 
     /**
      * @var string[]
      */
-    private array $extensions;
+    protected array $extensions;
 
-    private ?AbstractAttribute $attribute = null;
+    protected ?AbstractAttribute $attribute = null;
 
-    private ?string $suffix = null;
+    protected ?string $suffix = null;
 
-    private ?string $prefix = null;
+    protected ?string $prefix = null;
 
     public function __construct(string $field, ?string $label = null, ?FilterInterface $filter = null)
     {

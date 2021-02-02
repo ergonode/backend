@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
-use Ergonode\Importer\Infrastructure\Grid\ImportGrid;
+use Ergonode\Importer\Infrastructure\Grid\ImportGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -32,15 +32,15 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
  */
 class ImportGridAction
 {
-    private ImportGrid $grid;
+    private ImportGridBuilder $gridBuilder;
 
     private ImportQueryInterface $query;
 
     private GridRenderer $renderer;
 
-    public function __construct(ImportGrid $grid, ImportQueryInterface $query, GridRenderer $renderer)
+    public function __construct(ImportGridBuilder $gridBuilder, ImportQueryInterface $query, GridRenderer $renderer)
     {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
         $this->renderer = $renderer;
     }
@@ -122,14 +122,10 @@ class ImportGridAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->query->getDataSet($source->getId());
 
-        $data = $this->renderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }
