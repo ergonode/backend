@@ -8,11 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Model;
 
-use Ergonode\Product\Domain\ValueObject\Sku;
-
 class ProductModel
 {
-    private Sku $sku;
+    private string $sku;
 
     private string $type;
 
@@ -23,7 +21,7 @@ class ProductModel
      */
     private array $versions;
 
-    public function __construct(Sku $sku, string $type, string $template)
+    public function __construct(string $sku, string $type, string $template)
     {
         $this->sku = $sku;
         $this->type = $type;
@@ -31,7 +29,7 @@ class ProductModel
         $this->template = $template;
     }
 
-    public function getSku(): Sku
+    public function getSku(): string
     {
         return $this->sku;
     }

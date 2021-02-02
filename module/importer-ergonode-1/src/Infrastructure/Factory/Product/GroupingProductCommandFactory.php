@@ -13,7 +13,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
-use Ergonode\Product\Domain\ValueObject\Sku;
 
 class GroupingProductCommandFactory implements ProductCommandFactoryInterface
 {
@@ -26,7 +25,7 @@ class GroupingProductCommandFactory implements ProductCommandFactoryInterface
     {
         return new ImportGroupingProductCommand(
             $import->getId(),
-            new Sku($model->getSku()),
+            $model->getSku(),
             $model->getTemplate(),
             [], // @todo categories
             [], // @todo children

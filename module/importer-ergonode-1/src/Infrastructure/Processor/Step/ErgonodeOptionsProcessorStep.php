@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
@@ -35,8 +33,8 @@ class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
         while ($option = $reader->read()) {
             $command = new ImportOptionCommand(
                 $import->getId(),
-                new AttributeCode($option->getAttribute()),
-                new OptionKey($option->getCode()),
+                $option->getAttribute(),
+                $option->getCode(),
                 new TranslatableString($option->getTranslations())
             );
             $import->addRecords(1);

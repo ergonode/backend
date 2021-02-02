@@ -13,6 +13,8 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Psr\Log\LoggerInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
 class ImportOptionCommandHandler
 {
@@ -35,9 +37,17 @@ class ImportOptionCommandHandler
     public function __invoke(ImportOptionCommand $command): void
     {
         try {
+            if (!AttributeCode::isValid($command->getCode())) {
+                throw new ImportException('Attribute code {code} is not valid', ['{code}' => $command->getCode()]);
+            }
+
+            if (!OptionKey::isValid($command->getKey())) {
+                throw new ImportException('Option key {code} is not valid', ['{code}' => $command->getKey()]);
+            }
+
             $this->action->action(
-                $command->getCode(),
-                $command->getKey(),
+                new AttributeCode($command->getCode()),
+                new OptionKey($command->getKey()),
                 $command->getTranslation()
             );
         } catch (ImportException $exception) {
@@ -46,8 +56,8 @@ class ImportOptionCommandHandler
             $message = 'Can\'t import options {option} for attribute {attribute}';
 
             $parameters = [
-                '{option}' => $command->getKey()->getValue(),
-                '{attribute}' => $command->getCode()->getValue(),
+                '{option}' => $command->getKey(),
+                '{attribute}' => $command->getCode(),
             ];
 
             $this->repository->addError($command->getImportId(), $message, $parameters);

@@ -14,8 +14,6 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
@@ -57,38 +55,28 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
     }
 
     /**
-     * @return AttributeCode[]
+     * @return string[]
      */
     private function getBindings(ProductModel $product): array
     {
-        $result = [];
-
         $default = $product->get('default');
-        if ($bindings = $default['bindings'] ?? null) {
-            $bindings = array_unique(explode(',', $bindings));
-            foreach ($bindings as $binding) {
-                $result[] = new AttributeCode($binding);
-            }
+        if ($default['bindings']) {
+            return array_unique(explode(',', $default['bindings']));
         }
 
-        return $result;
+        return [];
     }
 
     /**
-     * @return Sku[]
+     * @return string[]
      */
     private function getVariants(ProductModel $product): ?array
     {
-        $result = [];
-
         $default = $product->get('default');
-        if ($variants = $default['variants'] ?? null) {
-            $variants = array_unique(explode(',', $variants));
-            foreach ($variants as $variant) {
-                $result[] = new Sku($variant);
-            }
+        if ($default['variants']) {
+            return array_unique(explode(',', $default['variants']));
         }
 
-        return $result;
+        return [];
     }
 }

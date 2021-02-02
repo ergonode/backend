@@ -14,7 +14,6 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1GroupedProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
@@ -54,19 +53,16 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
     }
 
     /**
-     * @return Sku[]
+     * @return string[]
      */
     private function getChildren(ProductModel $product): array
     {
-        $result = [];
-
         $default = $product->get('default');
+
         if ($relations = $default['relations'] ?? null) {
-            foreach (explode(',', $relations) as $relation) {
-                $result[] = new Sku($relation);
-            }
+            return explode(',', $relations);
         }
 
-        return $result;
+        return [];
     }
 }

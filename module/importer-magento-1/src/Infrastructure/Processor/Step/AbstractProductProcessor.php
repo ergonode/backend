@@ -12,32 +12,28 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 abstract class AbstractProductProcessor
 {
     /**
-     * @return CategoryCode[]
+     * @return string[]
      */
     protected function getCategories(ProductModel $product): array
     {
-        $result = [];
-
         $default = $product->get('default');
-        if ($categories = $default['esa_categories'] ?? null) {
-            foreach (explode(',', $categories) as $category) {
-                $result[] = new CategoryCode($category);
-            }
+
+        if ($default['esa_categories']) {
+            return explode(',', $default['esa_categories']);
         }
 
-        return $result;
+        return [];
     }
 
     /**
-     * @var AbstractAttribute[] $attributes
-     *
      * @return TranslatableString[]
+     *
+     * @var AbstractAttribute[] $attributes
      */
     protected function getAttributes(
         Magento1CsvSource $source,

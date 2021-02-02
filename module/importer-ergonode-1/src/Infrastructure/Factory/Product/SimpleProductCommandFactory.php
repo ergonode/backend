@@ -13,7 +13,6 @@ use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
-use Ergonode\Product\Domain\ValueObject\Sku;
 
 class SimpleProductCommandFactory implements ProductCommandFactoryInterface
 {
@@ -26,7 +25,7 @@ class SimpleProductCommandFactory implements ProductCommandFactoryInterface
     {
         return new ImportSimpleProductCommand(
             $import->getId(),
-            new Sku($model->getSku()),
+            $model->getSku(),
             $model->getTemplate(),
             [], // @todo categories
             $model->getAttributes()
