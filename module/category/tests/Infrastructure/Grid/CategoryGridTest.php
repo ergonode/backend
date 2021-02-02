@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Grid;
 
-use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
+use Ergonode\Category\Infrastructure\Grid\CategoryGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
 use PHPUnit\Framework\TestCase;
@@ -22,8 +22,8 @@ class CategoryGridTest extends TestCase
         /** @var Language $language */
         $language = $this->createMock(Language::class);
 
-        $grid = new CategoryGrid();
-        $grid->init($configuration, $language);
+        $builder = new CategoryGridBuilder();
+        $grid = $builder->build($configuration, $language);
 
         $this->assertNotEmpty($grid->getColumns());
     }

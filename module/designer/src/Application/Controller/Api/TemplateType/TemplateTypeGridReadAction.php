@@ -12,7 +12,7 @@ namespace Ergonode\Designer\Application\Controller\Api\TemplateType;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
-use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGrid;
+use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -27,17 +27,17 @@ class TemplateTypeGridReadAction
 {
     private TemplateElementQueryInterface $query;
 
-    private TemplateTypeDictionaryGrid $grid;
+    private TemplateTypeDictionaryGridBuilder $gridBuilder;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         GridRenderer $gridRenderer,
         TemplateElementQueryInterface $query,
-        TemplateTypeDictionaryGrid $grid
+        TemplateTypeDictionaryGridBuilder $gridBuilder
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -82,7 +82,7 @@ class TemplateTypeGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -107,14 +107,10 @@ class TemplateTypeGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->query->getDataSet();
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

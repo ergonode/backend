@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Grid\Renderer;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\GridInterface;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 
 class GridRenderer
@@ -37,13 +36,10 @@ class GridRenderer
      * @return array
      */
     public function render(
-        AbstractGrid $grid,
+        GridInterface $grid,
         GridConfigurationInterface $configuration,
-        DataSetInterface $dataSet,
-        Language $language
+        DataSetInterface $dataSet
     ): array {
-        $grid->init($configuration, $language);
-
         $field = $grid->getField();
         $order = $grid->getOrder();
         if ($configuration->getField()) {

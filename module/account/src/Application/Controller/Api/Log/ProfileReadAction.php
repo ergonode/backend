@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Account\Application\Controller\Api\Log;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
-use Ergonode\Account\Infrastructure\Grid\LogGrid;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -20,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Account\Infrastructure\Grid\LogGridBuilder;
 
 /**
  * @Route("/{language}/profile/log", methods={"GET"})
@@ -28,7 +28,7 @@ class ProfileReadAction
 {
     private LogQueryInterface $query;
 
-    private LogGrid $grid;
+    private LogGridBuilder $gridBuilder;
 
     private AuthenticatedUserProviderInterface $userProvider;
 
@@ -37,11 +37,11 @@ class ProfileReadAction
     public function __construct(
         GridRenderer $gridRenderer,
         LogQueryInterface $query,
-        LogGrid $grid,
+        LogGridBuilder $gridBuilder,
         AuthenticatedUserProviderInterface $userProvider
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->userProvider = $userProvider;
         $this->gridRenderer = $gridRenderer;
     }
@@ -115,13 +115,10 @@ class ProfileReadAction
     public function __invoke(RequestGridConfiguration $configuration): Response
     {
         $user = $this->userProvider->provide();
+        $grid = $this->gridBuilder->build($configuration, $user->getLanguage());
+        $dataSet = $this->query->getDataSet($user->getId());
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($user->getId()),
-            $user->getLanguage()
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

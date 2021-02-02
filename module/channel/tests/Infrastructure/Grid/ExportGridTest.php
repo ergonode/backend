@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Tests\Infrastructure\Grid;
 
-use Ergonode\Channel\Infrastructure\Grid\ExportGrid;
+use Ergonode\Channel\Infrastructure\Grid\ExportGridBuilder;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -21,8 +21,8 @@ class ExportGridTest extends TestCase
         $configuration = $this->createMock(GridConfigurationInterface::class);
         /** @var Language $language */
         $language = $this->createMock(Language::class);
-        $grid = new ExportGrid();
-        $grid->init($configuration, $language);
+        $builder = new ExportGridBuilder();
+        $grid = $builder->build($configuration, $language);
         self::assertNotEmpty($grid->getColumns());
     }
 }
