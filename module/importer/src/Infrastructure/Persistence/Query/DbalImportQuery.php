@@ -188,6 +188,28 @@ class DbalImportQuery implements ImportQueryInterface
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function findActiveImport(SourceId $sourceId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('i.id')
+            ->from(self::TABLE, 'i')
+            ->where($qb->expr()->eq('i.source_id', ':sourceId'))
+            ->setParameter(':sourceId', $sourceId->getValue())
+            ->andWhere($qb->expr()->isNull('i.ended_at'))
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        foreach ($result as &$item) {
+            $item = new ImportId($item);
+        }
+
+        return $result;
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
