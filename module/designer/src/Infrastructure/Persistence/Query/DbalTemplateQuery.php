@@ -178,8 +178,8 @@ class DbalTemplateQuery implements TemplateQueryInterface
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
-        if (!isset($result) || false === $result) {
-            return [];
+        if (false === $result) {
+            $result = [];
         }
 
         foreach ($result as &$item) {
