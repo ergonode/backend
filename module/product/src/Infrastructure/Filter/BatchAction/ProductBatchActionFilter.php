@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Filter\BatchAction;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\FilterGridConfiguration;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -120,14 +119,11 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 
     private function getByQuery(string $filter): array
     {
-        //todo check language
-        $language = new Language('en_GB');
         $configuration = new FilterGridConfiguration($filter);
         $data = $this->gridRenderer->render(
             $this->productGrid,
             $configuration,
-            $this->dataSetFactory->create(),
-            $language
+            $this->dataSetFactory->create()
         );
         $list = [];
         foreach ($data['collection'] as $row) {

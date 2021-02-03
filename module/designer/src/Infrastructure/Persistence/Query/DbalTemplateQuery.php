@@ -90,7 +90,8 @@ class DbalTemplateQuery implements TemplateQueryInterface
         $queryBuilder->select('template_id')
             ->from('designer.template_attribute')
             ->where($queryBuilder->expr()->eq('attribute_id', ':attribute'))
-            ->setParameter('attribute', $attributeId->getValue());
+            ->setParameter('attribute', $attributeId->getValue())
+            ->groupBy('template_id');
 
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
