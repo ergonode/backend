@@ -11,11 +11,12 @@ namespace Ergonode\Product\Infrastructure\Filter\BatchAction;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\FilterGridConfiguration;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
-use Ergonode\Product\Infrastructure\Grid\ProductGrid;
+use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
@@ -30,9 +31,9 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 
     private DbalProductDataSetFactory $dataSetFactory;
 
-    private ProductGrid $productGrid;
-
     private GridRenderer $gridRenderer;
+
+    private ProductGridBuilder $gridBuilder;
 
     /**
      * @var string []
@@ -45,14 +46,14 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
     public function __construct(
         ProductQueryInterface $productQuery,
         DbalProductDataSetFactory $dataSetFactory,
-        ProductGrid $productGrid,
         GridRenderer $gridRenderer,
+        ProductGridBuilder $gridBuilder,
         ?array $types = []
     ) {
         $this->productQuery = $productQuery;
         $this->dataSetFactory = $dataSetFactory;
-        $this->productGrid = $productGrid;
         $this->gridRenderer = $gridRenderer;
+        $this->gridBuilder = $gridBuilder;
         $this->types = $types ?: self::TYPES;
     }
 
@@ -119,11 +120,14 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 
     private function getByQuery(string $filter): array
     {
+        //todo check language
+        $language = new Language('en_GB');
         $configuration = new FilterGridConfiguration($filter);
+        $grid = $this->gridBuilder->build($configuration, $language);
         $data = $this->gridRenderer->render(
-            $this->productGrid,
+            $grid,
             $configuration,
-            $this->dataSetFactory->create(),
+            $this->dataSetFactory->create()
         );
         $list = [];
         foreach ($data['collection'] as $row) {
