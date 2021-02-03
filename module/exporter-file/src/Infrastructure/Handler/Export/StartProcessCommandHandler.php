@@ -43,8 +43,11 @@ class StartProcessCommandHandler
         sort($availableAttributes);
 
         $attribute = ['_id', '_code', '_type', '_language', '_name', '_hint', '_placeholder', '_scope', '_parameters'];
-        $categories = ['_id', '_code', '_name', '_language'];
-        $products = array_merge(['_id', '_sku', '_type', '_language', '_template'], $availableAttributes);
+        $categories = ['_code', '_name', '_language'];
+        $products = array_merge(
+            ['_id', '_sku', '_type', '_language', '_template', '_categories'],
+            $availableAttributes
+        );
         $options = ['_id', '_code', '_attribute_id', '_attribute_code', '_language', '_label'];
         $multimedia = ['_id', '_language', '_name', '_filename', '_extension', '_mime', '_alt', '_size'];
         $templates = ['_id', '_name', '_type', '_x', '_y', '_width', '_height', '_properties'];

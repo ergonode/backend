@@ -16,6 +16,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -41,18 +42,22 @@ class ProductProcessor
 
     private OptionQueryInterface $optionQuery;
 
+    private CategoryQueryInterface $categoryQuery;
+
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         TranslationInheritanceCalculator $calculator,
         AttributeRepositoryInterface $attributeRepository,
         TemplateRepositoryInterface $templateRepository,
-        OptionQueryInterface $optionQuery
+        OptionQueryInterface $optionQuery,
+        CategoryQueryInterface $categoryQuery
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->calculator = $calculator;
         $this->attributeRepository = $attributeRepository;
         $this->templateRepository = $templateRepository;
         $this->optionQuery = $optionQuery;
+        $this->categoryQuery = $categoryQuery;
     }
 
     /**
@@ -95,6 +100,8 @@ class ProductProcessor
         $result->set('_type', $product->getType());
         $result->set('_language', $language->getCode());
         $result->set('_template', $template->getName());
+        $result->set('_categories', $this->buildCategoryCodes($product->getCategories()));
+
         foreach ($attributes as $attributeId => $code) {
             $code = new AttributeCode($code);
             if ($product->hasAttribute($code)) {
@@ -116,6 +123,22 @@ class ProductProcessor
         }
 
         return $result;
+    }
+
+    private function buildCategoryCodes(array $categories): ?string
+    {
+        if (empty($categories)) {
+            return null;
+        }
+        $calculatedValue = '';
+        foreach ($categories as $category) {
+            $categoryCode = $this->categoryQuery->findCodeById($category);
+            if ($categoryCode) {
+                $calculatedValue .= $categoryCode->getValue().',';
+            }
+        }
+
+        return substr($calculatedValue, 0, -1);
     }
 
     /**
