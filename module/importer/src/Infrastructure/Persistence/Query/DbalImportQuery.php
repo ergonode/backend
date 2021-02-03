@@ -133,10 +133,9 @@ class DbalImportQuery implements ImportQueryInterface
         $qb = $this->connection->createQueryBuilder();
 
         $result = $qb->select('i.id')
-            ->join('i', self::TABLE_SOURCE, 'il', 'il.id = i.source_id')
+            ->from(self::TABLE, 'i')
             ->where($qb->expr()->eq('i.source_id', ':sourceId'))
             ->setParameter(':sourceId', $sourceId->getValue())
-            ->from(self::TABLE, 'i')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 

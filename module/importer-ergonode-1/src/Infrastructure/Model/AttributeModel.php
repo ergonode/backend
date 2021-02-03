@@ -82,7 +82,10 @@ class AttributeModel
         return $this->parameters;
     }
 
-    public function addParameter(string $name, string $value): void
+    /**
+     * @param string|bool $value
+     */
+    public function addParameter(string $name, $value): void
     {
         $this->parameters[$name] = $value;
     }
