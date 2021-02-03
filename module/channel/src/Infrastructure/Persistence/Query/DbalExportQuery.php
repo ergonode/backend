@@ -167,6 +167,26 @@ class DbalExportQuery implements ExportQueryInterface
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function findActiveExport(ChannelId $channelId): array
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('e.id')
+            ->where($qb->expr()->eq('e.channel_id', ':channelId'))
+            ->setParameter(':channelId', $channelId->getValue())
+            ->andWhere($qb->expr()->isNull('e.ended_at'))
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        foreach ($result as &$item) {
+            $item = new ExportId($item);
+        }
+
+        return $result;
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()

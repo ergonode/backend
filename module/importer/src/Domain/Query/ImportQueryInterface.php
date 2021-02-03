@@ -38,4 +38,9 @@ interface ImportQueryInterface
     public function getSourceTypeByImportId(ImportId $importId): ?string;
 
     public function getFileNameByImportId(ImportId $importId): ?string;
+
+    /**
+     * @return ImportId[]
+     */
+    public function findActiveImport(SourceId $sourceId): array;
 }

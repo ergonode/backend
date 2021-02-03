@@ -15,7 +15,7 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
-use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionElementGrid;
+use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionElementGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -31,18 +31,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionElementGridReadAction
 {
-    private ProductCollectionElementGrid $elementGrid;
+    private ProductCollectionElementGridBuilder $gridBuilder;
 
     private ProductCollectionElementQueryInterface $elementQuery;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ProductCollectionElementGrid $elementGrid,
+        ProductCollectionElementGridBuilder $gridBuilder,
         ProductCollectionElementQueryInterface $elementQuery,
         GridRenderer $gridRenderer
     ) {
-        $this->elementGrid = $elementGrid;
+        $this->gridBuilder = $gridBuilder;
         $this->elementQuery = $elementQuery;
         $this->gridRenderer = $gridRenderer;
     }
@@ -116,13 +116,9 @@ class ProductCollectionElementGridReadAction
         RequestGridConfiguration $configuration,
         ProductCollection $productCollection
     ): Response {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->elementQuery->getDataSet($productCollection->getId(), $language);
-        $data = $this->gridRenderer->render(
-            $this->elementGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

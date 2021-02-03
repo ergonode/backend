@@ -11,7 +11,7 @@ namespace Ergonode\Category\Application\Controller\Api\Tree;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
-use Ergonode\Category\Infrastructure\Grid\TreeGrid;
+use Ergonode\Category\Infrastructure\Grid\TreeGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -28,17 +28,17 @@ class CategoryTreeGridReadAction
 {
     private TreeQueryInterface $query;
 
-    private TreeGrid $grid;
+    private TreeGridBuilder $gridBuilder;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         GridRenderer $gridRenderer,
         TreeQueryInterface $query,
-        TreeGrid $grid
+        TreeGridBuilder $gridBuilder
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -103,12 +103,9 @@ class CategoryTreeGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->query->getDataSet($language);
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

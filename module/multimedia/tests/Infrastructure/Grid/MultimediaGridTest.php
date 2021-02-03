@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Tests\Infrastructure\Grid;
 
-use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGrid;
+use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGridBuilder;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -26,8 +26,8 @@ class MultimediaGridTest extends TestCase
         $query = $this->createMock(MultimediaQueryInterface::class);
         $query->method('getTypes')->willReturn([]);
 
-        $grid = new MultimediaGrid($provider, $query);
-        $grid->init($configuration, $language);
+        $builder = new MultimediaGridBuilder($provider, $query);
+        $grid = $builder->build($configuration, $language);
 
         self::assertNotEmpty($grid->getColumns());
     }
