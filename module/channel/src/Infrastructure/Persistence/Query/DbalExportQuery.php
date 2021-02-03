@@ -130,10 +130,9 @@ class DbalExportQuery implements ExportQueryInterface
         $qb = $this->connection->createQueryBuilder();
 
         $result = $qb->select('e.id')
-            ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
+            ->from(self::TABLE, 'e')
             ->where($qb->expr()->eq('e.channel_id', ':channelId'))
             ->setParameter(':channelId', $channelId->getValue())
-            ->from(self::TABLE, 'e')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
