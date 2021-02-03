@@ -35,3 +35,25 @@ nelmio_api_doc:
                         type: object
                         required: false
                         description: payload
+            batch-action-filter:
+                type: object
+                required: false
+                description: filter
+                properties:
+                    ids:
+                        type: object
+                        required: false
+                        description: list id
+                        properties:
+                            list:
+                                type: array
+                                required: true
+                                items:
+                                    type: string
+                            included:
+                                type: boolean
+                                required: true
+                    query:
+                        type: string
+                        required: false
+                        description: Filter grid query

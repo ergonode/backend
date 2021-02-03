@@ -20,6 +20,14 @@ services:
            - '@Ergonode\BatchAction\Application\Provider\BatchActionFormProvider'
            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
+    Ergonode\BatchAction\Application\Controller\Api\GetTemplatesByBatchAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface'
+            - '@Ergonode\Designer\Domain\Query\TemplateQueryInterface'
+            - '@Ergonode\Core\Application\Serializer\SerializerInterface'
+            - '@Symfony\Component\Validator\Validator\ValidatorInterface'
+
     Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
         arguments:
             $forms: !tagged_iterator 'batch_action.form_provider.interface'
@@ -42,6 +50,8 @@ services:
             - '@translator'
 
     Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery'
+
+    Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface: '@Ergonode\Product\Infrastructure\Filter\BatchAction\ProductBatchActionFilter'
 
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
     Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
