@@ -19,6 +19,11 @@ class ProductModel
     private string $template;
     private array $attributes = [];
 
+    /**
+     * @var string[]
+     */
+    private array $categories = [];
+
     public function __construct(
         string $id,
         string $sku,
@@ -63,5 +68,18 @@ class ProductModel
         }
 
         $this->attributes[$code] = $this->attributes[$code]->add(new Language($language), $value);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getCategories(): array
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(string $code): void
+    {
+        $this->categories[$code] = $code;
     }
 }

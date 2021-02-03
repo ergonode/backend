@@ -20,12 +20,13 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
             $record = $this->records->current();
 
             if (null === $item) {
-                $item = new CategoryModel($record['_id'], $record['_code']);
-            } elseif ($item->getId() !== $record['_id']) {
+                $item = new CategoryModel($record['_code']);
+            } elseif ($item->getCode() !== $record['_code']) {
                 break;
             }
-
-            $item->addTranslation($record['_language'], $record['_name']);
+            if (!empty($record['_name'])) {
+                $item->addTranslation($record['_language'], $record['_name']);
+            }
             $this->records->next();
         }
 

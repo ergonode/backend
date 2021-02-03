@@ -99,7 +99,7 @@ class SimpleProductImportAction
         foreach ($categories as $category) {
             $categoryId = $this->categoryQuery->findIdByCode($category);
             Assert::notNull($categoryId);
-            $categories[] = $categoryId;
+            $result[] = $categoryId;
         }
 
         return $result;
