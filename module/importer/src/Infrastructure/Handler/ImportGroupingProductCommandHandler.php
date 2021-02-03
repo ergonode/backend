@@ -13,6 +13,8 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Infrastructure\Action\GroupingProductImportAction;
 use Psr\Log\LoggerInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 class ImportGroupingProductCommandHandler
 {
@@ -35,11 +37,31 @@ class ImportGroupingProductCommandHandler
     public function __invoke(ImportGroupingProductCommand $command): void
     {
         try {
+            if (!Sku::isValid($command->getSku())) {
+                throw new ImportException('Sku {sku} is not valid', ['{sku}' => $command->getSku()]);
+            }
+
+            $categories = [];
+            foreach ($command->getCategories() as $category) {
+                if (!CategoryCode::isValid($category)) {
+                    throw new ImportException('Category code {code} is not valid', ['{code}' => $category]);
+                }
+                $categories[] = new CategoryCode($category);
+            }
+
+            $children = [];
+            foreach ($command->getChildren() as $child) {
+                if (!Sku::isValid($child)) {
+                    throw new ImportException('Child sku {code} is not valid', ['{code}' => $child]);
+                }
+                $children[] = new Sku($child);
+            }
+
             $product = $this->action->action(
-                $command->getSku(),
+                new Sku($command->getSku()),
                 $command->getTemplate(),
-                $command->getCategories(),
-                $command->getChildren(),
+                $categories,
+                $children,
                 $command->getAttributes()
             );
             $this->repository->addLine($command->getImportId(), $product->getId(), $product->getType());
