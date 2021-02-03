@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Account\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\Grid\DataSetInterface;
+use Doctrine\DBAL\Query\QueryBuilder;
 
-interface LogQueryInterface
+interface LogGridQueryInterface
 {
-    public function getDataSet(?UserId $id = null): DataSetInterface;
+    public function getDataSet(?UserId $id = null): QueryBuilder;
 }

@@ -9,14 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Domain\Query;
 
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 interface AccountQueryInterface
 {
-    public function getDataSet(): DataSetInterface;
-
     /**
      * @return array | null
      */
