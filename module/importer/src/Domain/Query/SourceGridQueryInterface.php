@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Query;
 
-use Ergonode\Grid\DataSetInterface;
+use Doctrine\DBAL\Query\QueryBuilder;
 
-interface SourceQueryInterface
+interface SourceGridQueryInterface
 {
-    public function getDataSet(): DataSetInterface;
+    public function getGridQuery(): QueryBuilder;
 }

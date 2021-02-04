@@ -26,9 +26,6 @@ use Ergonode\Grid\Column\IdColumn;
 
 class ProductCollectionElementGridBuilder implements GridBuilderInterface
 {
-    /**
-     * @throws \Exception
-     */
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
         $visible = new BoolColumn('visible', 'Collection visibility');

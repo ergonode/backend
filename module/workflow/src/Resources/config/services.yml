@@ -38,6 +38,8 @@ services:
     Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalStatusRepository'
     Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\DbalWorkflowRepository'
     Ergonode\Workflow\Domain\Query\StatusQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusQuery'
+    Ergonode\Workflow\Domain\Query\StatusQueryGridInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalStatusGridQuery'
+    Ergonode\Workflow\Domain\Query\TransitionGridQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalTransitionGridQuery'
     Ergonode\Workflow\Domain\Query\TransitionQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalTransitionQuery'
     Ergonode\Workflow\Domain\Query\WorkflowQueryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Query\DbalWorkflowQuery'
 

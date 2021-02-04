@@ -37,13 +37,6 @@ class ProfileReadAction
 
     private GridRenderer $gridRenderer;
 
-    /**
-     * @param LogGridQueryInterface $query
-     * @param LogGridBuilder $gridBuilder
-     * @param DbalDataSetFactory $factory
-     * @param AuthenticatedUserProviderInterface $userProvider
-     * @param GridRenderer $gridRenderer
-     */
     public function __construct(
         LogGridQueryInterface $query,
         LogGridBuilder $gridBuilder,
