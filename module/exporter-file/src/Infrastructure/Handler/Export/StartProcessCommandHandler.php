@@ -48,7 +48,7 @@ class StartProcessCommandHandler
             ['_id', '_sku', '_type', '_language', '_template', '_categories'],
             $availableAttributes
         );
-        $options = ['_id', '_code', '_attribute_id', '_attribute_code', '_language', '_label'];
+        $options = ['_code', '_attribute_code', '_language', '_label'];
         $multimedia = ['_id', '_language', '_name', '_filename', '_extension', '_mime', '_alt', '_size'];
         $templates = ['_id', '_name', '_type', '_x', '_y', '_width', '_height', '_properties'];
         $this->storage->create(sprintf('%s/attributes.csv', $command->getExportId()->getValue()));
