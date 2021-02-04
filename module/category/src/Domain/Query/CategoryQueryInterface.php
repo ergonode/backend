@@ -24,6 +24,8 @@ interface CategoryQueryInterface
 
     public function findIdByCode(CategoryCode $code): ?CategoryId;
 
+    public function findCodeById(CategoryId $categoryId): ?CategoryCode;
+
     public function getCategory(CategoryId $categoryId): ?array;
 
     public function autocomplete(

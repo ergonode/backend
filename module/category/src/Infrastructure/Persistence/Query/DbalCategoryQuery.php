@@ -64,6 +64,23 @@ class DbalCategoryQuery implements CategoryQueryInterface
         return null;
     }
 
+    public function findCodeById(CategoryId $categoryId): ?CategoryCode
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('code')
+            ->from(self::CATEGORY_TABLE)
+            ->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $categoryId->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new CategoryCode($result);
+        }
+
+        return null;
+    }
+
     /**
      * @return array
      */

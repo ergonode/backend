@@ -27,7 +27,7 @@ class GroupingProductCommandFactory implements ProductCommandFactoryInterface
             $import->getId(),
             $model->getSku(),
             $model->getTemplate(),
-            [], // @todo categories
+            $model->getCategories(),
             [], // @todo children
             $model->getAttributes()
         );
