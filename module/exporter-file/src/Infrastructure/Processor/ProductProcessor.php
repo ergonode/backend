@@ -130,15 +130,15 @@ class ProductProcessor
         if (empty($categories)) {
             return null;
         }
-        $calculatedValue = '';
+        $calculatedValue = [];
         foreach ($categories as $category) {
             $categoryCode = $this->categoryQuery->findCodeById($category);
             if ($categoryCode) {
-                $calculatedValue .= $categoryCode->getValue().',';
+                $calculatedValue[] = $categoryCode->getValue();
             }
         }
 
-        return substr($calculatedValue, 0, -1);
+        return implode(',', $calculatedValue);
     }
 
     /**
