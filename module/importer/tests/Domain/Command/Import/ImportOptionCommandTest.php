@@ -25,7 +25,7 @@ class ImportOptionCommandTest extends TestCase
         $command = new ImportOptionCommand($importId, $code, $key, $name);
         self::assertSame($importId, $command->getImportId());
         self::assertSame($code, $command->getCode());
-        self::assertSame($key, $command->getKey());
+        self::assertSame($key, $command->getOptionKey());
         self::assertSame($name, $command->getTranslation());
     }
 }
