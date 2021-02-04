@@ -42,6 +42,16 @@ class ExportGridBuilder implements GridBuilderInterface
                         'export' => '{id}',
                     ],
                 ],
+                'download' => [
+                    'privilege' => 'CHANNEL_READ',
+                    'show' => ['system' => false],
+                    'route' => 'ergonode_channel_export_download',
+                    'parameters' => [
+                        'language' => $language->getCode(),
+                        'channel' => '{channel_id}',
+                        'export' => '{id}',
+                    ],
+                ],
             ]))
             ->orderBy('started_at', 'DESC');
 
