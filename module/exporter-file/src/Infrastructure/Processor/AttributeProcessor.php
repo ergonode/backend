@@ -41,7 +41,6 @@ class AttributeProcessor
     private function getLanguage(AbstractAttribute $attribute, Language $language): LanguageData
     {
         $result = new LanguageData();
-        $result->set('_id', $attribute->getId()->getValue());
         $result->set('_code', $attribute->getCode()->getValue());
         $result->set('_type', $attribute->getType());
         $result->set('_language', $language->getCode());
