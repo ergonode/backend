@@ -13,7 +13,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ProductModel
 {
-    private string $id;
     private string $sku;
     private string $type;
     private string $template;
@@ -25,12 +24,10 @@ class ProductModel
     private array $categories = [];
 
     public function __construct(
-        string $id,
         string $sku,
         string $type,
         string $template
     ) {
-        $this->id = $id;
         $this->sku = $sku;
         $this->type = $type;
         $this->template = $template;
@@ -38,7 +35,7 @@ class ProductModel
 
     public function getId(): string
     {
-        return $this->id;
+        throw new \Exception('Cos poszło nie tak ');
     }
 
     public function getSku(): string

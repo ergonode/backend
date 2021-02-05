@@ -22,12 +22,11 @@ class ErgonodeProductReader extends AbstractErgonodeReader
 
             if (null === $item) {
                 $item = new ProductModel(
-                    $record['_id'],
                     $record['_sku'],
                     $record['_type'],
                     $record['_template']
                 );
-            } elseif ($item->getId() !== $record['_id']) {
+            } elseif ($item->getSku() !== $record['_sku']) {
                 break;
             }
 
