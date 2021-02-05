@@ -33,11 +33,6 @@ class ProductModel
         $this->template = $template;
     }
 
-    public function getId(): string
-    {
-        throw new \Exception('Cos poszło nie tak ');
-    }
-
     public function getSku(): string
     {
         return $this->sku;
