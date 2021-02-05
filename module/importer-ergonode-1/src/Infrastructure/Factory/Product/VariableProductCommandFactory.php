@@ -26,7 +26,7 @@ class VariableProductCommandFactory implements ProductCommandFactoryInterface
     {
         return new ImportVariableProductCommand(
             $import->getId(),
-            new Sku($model->getSku()),
+            $model->getSku(),
             $model->getTemplate(),
             [], // @todo categories
             [], // @todo bindings
