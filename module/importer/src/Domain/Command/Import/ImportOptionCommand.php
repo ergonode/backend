@@ -18,7 +18,7 @@ class ImportOptionCommand implements ImporterCommandInterface
 
     private string $code;
 
-    private string $key;
+    private string $optionKey;
 
     private TranslatableString $translation;
 
@@ -30,7 +30,7 @@ class ImportOptionCommand implements ImporterCommandInterface
     ) {
         $this->importId = $importId;
         $this->code = $code;
-        $this->key = $key;
+        $this->optionKey = $key;
         $this->translation = $translation;
     }
 
@@ -44,9 +44,9 @@ class ImportOptionCommand implements ImporterCommandInterface
         return $this->code;
     }
 
-    public function getKey(): string
+    public function getOptionKey(): string
     {
-        return $this->key;
+        return $this->optionKey;
     }
 
     public function getTranslation(): TranslatableString
