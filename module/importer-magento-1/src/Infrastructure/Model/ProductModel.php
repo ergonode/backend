@@ -71,6 +71,10 @@ class ProductModel
      */
     public function get(string $code): array
     {
+        if (!$this->has($code)) {
+            throw new \OutOfRangeException("Missing '$code' version");
+        }
+
         return $this->versions[$code];
     }
 
