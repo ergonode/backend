@@ -69,7 +69,7 @@ class Magento1CsvReader
         $sku = null;
         $type = null;
         $template = null;
-        $code = 'default';
+        $code = null;
         $product = [];
 
         $lines = $this->getLines();
@@ -102,9 +102,12 @@ class Magento1CsvReader
         }
 
         if (!empty($product)) {
-            $result = new ProductModel($sku, $type, $template);
+            $result = new ProductModel($sku, $type, $template, $product[null]);
 
             foreach ($product as $store => $version) {
+                if (empty($store)) {
+                    continue;
+                }
                 $result->set($store, $version);
             }
 

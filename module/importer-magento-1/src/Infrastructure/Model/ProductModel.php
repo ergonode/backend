@@ -17,15 +17,24 @@ class ProductModel
     private string $template;
 
     /**
-     * @var array
+     * @var string[][]
      */
     private array $versions;
 
-    public function __construct(string $sku, string $type, string $template)
+    /**
+     * @var string[]
+     */
+    private array $defaultVersion;
+
+    /**
+     * @param string[] $defaultVersion
+     */
+    public function __construct(string $sku, string $type, string $template, array $defaultVersion)
     {
         $this->sku = $sku;
         $this->type = $type;
         $this->versions = [];
+        $this->defaultVersion = $defaultVersion;
         $this->template = $template;
     }
 
@@ -45,7 +54,7 @@ class ProductModel
     }
 
     /**
-     * @param array $version
+     * @param string[] $version
      */
     public function set(string $code, array $version): void
     {
@@ -58,10 +67,26 @@ class ProductModel
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function get(string $code): array
     {
         return $this->versions[$code];
+    }
+
+    /**
+     * @param string[] $defaultVersion
+     */
+    public function setDefault(array $defaultVersion): void
+    {
+        $this->defaultVersion = $defaultVersion;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getDefault(): array
+    {
+        return $this->defaultVersion;
     }
 }
