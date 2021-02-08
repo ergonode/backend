@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractPriceAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -22,7 +22,7 @@ class ImportProductPriceAttributeStrategy implements ImportProductAttributeStrat
 {
     public function supported(AttributeType $type): bool
     {
-        return PriceAttribute::TYPE === $type->getValue();
+        return AbstractPriceAttribute::TYPE === $type->getValue();
     }
 
     public function build(AttributeId $id, AttributeCode $code, TranslatableString $value): ValueInterface
