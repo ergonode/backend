@@ -44,7 +44,7 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             return;
         }
 
-        $default = $product->get('default');
+        $default = $product->getDefault();
         if ($images = $default['image'] ?? null) {
             foreach (explode(',', $images) as $image) {
                 $this->processImage($source, $import, $image);

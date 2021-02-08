@@ -59,7 +59,7 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
      */
     private function getBindings(ProductModel $product): array
     {
-        $default = $product->get('default');
+        $default = $product->getDefault();
         if ($default['bindings']) {
             return array_unique(explode(',', $default['bindings']));
         }
@@ -72,7 +72,7 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
      */
     private function getVariants(ProductModel $product): ?array
     {
-        $default = $product->get('default');
+        $default = $product->getDefault();
         if ($default['variants']) {
             return array_unique(explode(',', $default['variants']));
         }

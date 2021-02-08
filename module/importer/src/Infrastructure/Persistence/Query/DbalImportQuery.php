@@ -94,14 +94,20 @@ class DbalImportQuery implements ImportQueryInterface
      */
     public function getProfileInfo(Language $language): array
     {
-        $query = $this->getQuery();
-
-        return $query
-            ->addSelect('ch.name')
+        return $this->connection->createQueryBuilder()
+            ->select('i.id, status, started_at, ended_at')
+            ->addSelect('s.name')
             ->addSelect('records as items')
-            ->addSelect('(SELECT count(*) FROM importer.import_line el WHERE el.import_id = e.id) as processed')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) as processed')
+            ->addSelect(
+                '(SELECT count(*)
+                        FROM importer.import_error ie
+                        WHERE ie.import_id = i.id
+                        AND ie.message IS NOT NULL) AS errors'
+            )
+            ->from(self::TABLE, 'i')
             ->orderBy('started_at', 'DESC')
-            ->join('e', self::TABLE, 'ch', 'ch.id = e.channel_id')
+            ->join('i', self::TABLE_SOURCE, 's', 's.id = i.source_id')
             ->setMaxResults(10)
             ->execute()
             ->fetchAll();

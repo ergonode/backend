@@ -76,13 +76,13 @@ final class Version20180618134343 extends AbstractErgonodeMigration
             'REFERENCES importer.import ON UPDATE CASCADE ON DELETE CASCADE'
         );
 
-        $this->connection->insert('privileges_group', ['area' => 'Import']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Import']);
         $this->createImportPrivileges(
             [
-                'IMPORT_CREATE',
-                'IMPORT_READ',
-                'IMPORT_UPDATE',
-                'IMPORT_DELETE',
+                'IMPORT_CREATE' => 'Import',
+                'IMPORT_READ' => 'Import',
+                'IMPORT_UPDATE' => 'Import',
+                'IMPORT_DELETE' => 'Import',
             ]
         );
     }
@@ -94,12 +94,11 @@ final class Version20180618134343 extends AbstractErgonodeMigration
      */
     private function createImportPrivileges(array $collection): void
     {
-        foreach ($collection as $code) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => 'Import',
-            ]);
+        foreach ($collection as $code => $area) {
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code, $area, ]
+            );
         }
     }
 }

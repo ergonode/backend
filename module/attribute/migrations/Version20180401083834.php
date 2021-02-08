@@ -151,8 +151,8 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 ADD CONSTRAINT attribute_group_attribute_group_id_fk 
                     FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE RESTRICT ON DELETE RESTRICT');
 
-        $this->connection->insert('privileges_group', ['area' => 'Attribute']);
-        $this->connection->insert('privileges_group', ['area' => 'Attribute group']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Attribute']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Attribute group']);
 
         $this->createPrivileges([
             'ATTRIBUTE_CREATE' => 'Attribute',
@@ -211,11 +211,10 @@ final class Version20180401083834 extends AbstractErgonodeMigration
     private function createPrivileges(array $collection): void
     {
         foreach ($collection as $code => $area) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => $area,
-            ]);
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
+            );
         }
     }
 
@@ -227,11 +226,10 @@ final class Version20180401083834 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 }

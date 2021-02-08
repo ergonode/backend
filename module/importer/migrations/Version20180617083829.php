@@ -46,11 +46,10 @@ final class Version20180617083829 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 }
