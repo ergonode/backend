@@ -33,7 +33,14 @@ class ImportProductPriceAttributeStrategy implements ImportProductAttributeStrat
                 continue;
             }
             if (!is_numeric($version)) {
-                throw new ImportException("$code price attribute value has to be numeric. '$version' given");
+                throw new ImportException(
+                    '{code} price attribute value has to be numeric. `{version}` given',
+                    [
+                        '{code}' => $code->getValue(),
+                        '{version}' => $version,
+
+                    ],
+                );
             }
             $translation[$key] = $version;
         }
