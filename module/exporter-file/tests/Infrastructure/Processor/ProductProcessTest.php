@@ -76,7 +76,6 @@ class ProductProcessTest extends TestCase
         $data = $processor->process($channel, $product);
 
         $languageData = new LanguageData();
-        $languageData->set('_id', '');
         $languageData->set('_sku', '');
         $languageData->set('_type', '');
         $languageData->set('_language', 'pl_PL');

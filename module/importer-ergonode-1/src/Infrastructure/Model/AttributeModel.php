@@ -10,7 +10,6 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
 class AttributeModel
 {
-    private string $id;
     private string $code;
     private string $type;
     private string $scope;
@@ -19,17 +18,11 @@ class AttributeModel
     private array $placeholder = [];
     private array $parameters = [];
 
-    public function __construct(string $id, string $code, string $type, string $scope)
+    public function __construct(string $code, string $type, string $scope)
     {
-        $this->id = $id;
         $this->code = $code;
         $this->type = $type;
         $this->scope = $scope;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getCode(): string

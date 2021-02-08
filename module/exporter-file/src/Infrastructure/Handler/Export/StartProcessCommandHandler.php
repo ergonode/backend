@@ -42,10 +42,10 @@ class StartProcessCommandHandler
         $availableAttributes = array_values($this->attributeQuery->getDictionary());
         sort($availableAttributes);
 
-        $attribute = ['_id', '_code', '_type', '_language', '_name', '_hint', '_placeholder', '_scope', '_parameters'];
+        $attribute = ['_code', '_type', '_language', '_name', '_hint', '_placeholder', '_scope', '_parameters'];
         $categories = ['_code', '_name', '_language'];
         $products = array_merge(
-            ['_id', '_sku', '_type', '_language', '_template', '_categories'],
+            ['_sku', '_type', '_language', '_template', '_categories'],
             $availableAttributes
         );
         $options = ['_code', '_attribute_code', '_language', '_label'];
