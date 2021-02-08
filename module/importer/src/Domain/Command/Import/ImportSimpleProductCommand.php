@@ -9,22 +9,20 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Product\Domain\ValueObject\Sku;
-use Webmozart\Assert\Assert;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ImportSimpleProductCommand implements ImporterCommandInterface
 {
     private ImportId $importId;
 
-    private Sku $sku;
+    private string $sku;
 
     private string $template;
 
     /**
-     * @var CategoryCode[]
+     * @var String[]
      */
     private array $categories;
 
@@ -34,18 +32,16 @@ class ImportSimpleProductCommand implements ImporterCommandInterface
     private array $attributes;
 
     /**
-     * @param array $categories
-     * @param array $attributes
+     * @param string[]             $categories
+     * @param TranslatableString[] $attributes
      */
     public function __construct(
         ImportId $importId,
-        Sku $sku,
+        string $sku,
         string $template,
         array $categories = [],
         array $attributes = []
     ) {
-        Assert::allIsInstanceOf($categories, CategoryCode::class);
-
         $this->importId = $importId;
         $this->sku = $sku;
         $this->template = $template;
@@ -58,7 +54,7 @@ class ImportSimpleProductCommand implements ImporterCommandInterface
         return $this->importId;
     }
 
-    public function getSku(): Sku
+    public function getSku(): string
     {
         return $this->sku;
     }
@@ -69,7 +65,7 @@ class ImportSimpleProductCommand implements ImporterCommandInterface
     }
 
     /**
-     * @return CategoryCode[]
+     * @return string[]
      */
     public function getCategories(): array
     {
@@ -77,7 +73,7 @@ class ImportSimpleProductCommand implements ImporterCommandInterface
     }
 
     /**
-     * @return string[]
+     * @return TranslatableString[]
      */
     public function getAttributes(): array
     {

@@ -20,6 +20,7 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class SimpleProductImportAction
 {
@@ -48,8 +49,8 @@ class SimpleProductImportAction
     }
 
     /**
-     * @param array $categories
-     * @param array $attributes
+     * @param CategoryCode[]       $categories
+     * @param TranslatableString[] $attributes
      *
      * @throws \Exception
      */

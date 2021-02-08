@@ -107,7 +107,7 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 ADD CONSTRAINT product_category_category_id_fk
                     FOREIGN KEY (category_id) REFERENCES public.category on update cascade on delete cascade');
 
-        $this->connection->insert('privileges_group', ['area' => 'Product']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Product']);
         $this->addSql('CREATE TABLE product_workflow_status
             (
                 product_id UUID NOT NULL,
@@ -118,10 +118,10 @@ final class Version20180619083830 extends AbstractErgonodeMigration
         ');
         $this->createProductPrivileges(
             [
-                'PRODUCT_CREATE',
-                'PRODUCT_READ',
-                'PRODUCT_UPDATE',
-                'PRODUCT_DELETE',
+                'PRODUCT_CREATE' => 'Product',
+                'PRODUCT_READ' => 'Product',
+                'PRODUCT_UPDATE' => 'Product',
+                'PRODUCT_DELETE' => 'Product',
             ]
         );
 
@@ -148,11 +148,10 @@ final class Version20180619083830 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 
@@ -163,12 +162,11 @@ final class Version20180619083830 extends AbstractErgonodeMigration
      */
     private function createProductPrivileges(array $collection): void
     {
-        foreach ($collection as $code) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => 'Product',
-            ]);
+        foreach ($collection as $code => $area) {
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
+            );
         }
     }
 }

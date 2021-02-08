@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Application\DependencyInjection;
 
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
+use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductAttributeStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -79,6 +80,10 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
             ->registerForAutoconfiguration(ConverterInterface::class)
             ->addTag(ConverterCompilerPass::TAG);
 
+        $container
+            ->registerForAutoconfiguration(ImportProductAttributeStrategyInterface::class)
+            ->addTag('ergonode.importer.attribute_strategy');
+
         $loader->load('services.yml');
     }
 
@@ -88,6 +93,7 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
     public function prepend(ContainerBuilder $container): void
     {
         $this->prependMessenger($container);
+        $this->prependFlysystem($container);
     }
 
     private function prependMessenger(ContainerBuilder $container): void
@@ -105,5 +111,12 @@ class ErgonodeImporterExtension extends Extension implements PrependExtensionInt
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('messenger.yaml');
+    }
+
+    private function prependFlysystem(ContainerBuilder $container): void
+    {
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('flysystem.yaml');
     }
 }

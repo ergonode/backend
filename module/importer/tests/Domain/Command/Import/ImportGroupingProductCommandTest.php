@@ -11,8 +11,6 @@ namespace Ergonode\Importer\Tests\Domain\Command\Import;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
-use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ImportGroupingProductCommandTest extends TestCase
@@ -20,11 +18,11 @@ class ImportGroupingProductCommandTest extends TestCase
     public function testCommandCreation(): void
     {
         $importId = $this->createMock(ImportId::class);
-        $sku = $this->createMock(Sku::class);
+        $sku = 'any sku';
         $template = 'code template';
-        $categories = [$this->createMock(CategoryCode::class)];
+        $categories = ['any category code'];
         $attributes = ['code' => $this->createMock(TranslatableString::class)];
-        $children = [$this->createMock(Sku::class)];
+        $children = ['any child sku'];
 
         $command = new ImportGroupingProductCommand(
             $importId,

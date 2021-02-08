@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Command\Import;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
@@ -17,11 +16,11 @@ class ImportCategoryCommand implements ImporterCommandInterface
 {
     private ImportId $importId;
 
-    private CategoryCode $code;
+    private string $code;
 
     private TranslatableString $name;
 
-    public function __construct(ImportId $importId, CategoryCode $code, TranslatableString $name)
+    public function __construct(ImportId $importId, string $code, TranslatableString $name)
     {
         $this->importId = $importId;
         $this->code = $code;
@@ -33,7 +32,7 @@ class ImportCategoryCommand implements ImporterCommandInterface
         return $this->importId;
     }
 
-    public function getCode(): CategoryCode
+    public function getCode(): string
     {
         return $this->code;
     }
