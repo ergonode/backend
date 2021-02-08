@@ -98,7 +98,7 @@ class DbalImportQuery implements ImportQueryInterface
             ->select('i.id, status, started_at, ended_at')
             ->addSelect('s.name')
             ->addSelect('records as items')
-            ->addSelect('(SELECT count(*) FROM importer.import_line el WHERE el.import_id = i.id) as processed')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) as processed')
             ->addSelect(
                 '(SELECT count(*)
                         FROM importer.import_error il
