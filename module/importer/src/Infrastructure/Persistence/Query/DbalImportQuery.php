@@ -103,7 +103,7 @@ class DbalImportQuery implements ImportQueryInterface
                 '(SELECT count(*)
                         FROM importer.import_error ie
                         WHERE il.import_id = i.id
-                        AND il.message IS NOT NULL) AS errors'
+                        AND ie.message IS NOT NULL) AS errors'
             )
             ->from(self::TABLE, 'i')
             ->orderBy('started_at', 'DESC')
