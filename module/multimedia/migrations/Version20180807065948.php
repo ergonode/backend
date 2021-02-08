@@ -40,13 +40,13 @@ final class Version20180807065948 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->connection->insert('privileges_group', ['area' => 'Multimedia']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Multimedia']);
         $this->createMultimediaPrivileges(
             [
-                'MULTIMEDIA_CREATE',
-                'MULTIMEDIA_READ',
-                'MULTIMEDIA_UPDATE',
-                'MULTIMEDIA_DELETE',
+                'MULTIMEDIA_CREATE' => 'Multimedia',
+                'MULTIMEDIA_READ' => 'Multimedia',
+                'MULTIMEDIA_UPDATE' => 'Multimedia',
+                'MULTIMEDIA_DELETE' => 'Multimedia',
             ]
         );
 
@@ -65,12 +65,11 @@ final class Version20180807065948 extends AbstractErgonodeMigration
      */
     private function createMultimediaPrivileges(array $collection): void
     {
-        foreach ($collection as $code) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => 'Multimedia',
-            ]);
+        foreach ($collection as $code => $area) {
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
+            );
         }
     }
 
@@ -82,11 +81,10 @@ final class Version20180807065948 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 }
