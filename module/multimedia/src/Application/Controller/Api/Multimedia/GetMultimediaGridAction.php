@@ -18,7 +18,8 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGridBuilder;
-use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
+use Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -31,17 +32,21 @@ class GetMultimediaGridAction
 {
     private MultimediaGridBuilder $gridBuilder;
 
-    private MultimediaQueryInterface $query;
+    private MultimediaGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $renderer;
 
     public function __construct(
         MultimediaGridBuilder $gridBuilder,
-        MultimediaQueryInterface $query,
+        MultimediaGridQueryInterface $query,
+        DbalDataSetFactory $factory,
         GridRenderer $renderer
     ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->renderer = $renderer;
     }
 
@@ -111,8 +116,7 @@ class GetMultimediaGridAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet();
-
+        $dataSet = $this->factory->create($this->query->getGridQuery());
         $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

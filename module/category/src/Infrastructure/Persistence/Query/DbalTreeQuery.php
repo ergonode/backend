@@ -13,35 +13,17 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 class DbalTreeQuery implements TreeQueryInterface
 {
     private const TREE_TABLE = 'category_tree';
 
-
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSet(Language $language): DataSetInterface
-    {
-        $query = $this->getQuery();
-        $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()));
-
-        return $this->dataSetFactory->create($query);
     }
 
     /**

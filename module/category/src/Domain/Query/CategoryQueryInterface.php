@@ -11,13 +11,10 @@ namespace Ergonode\Category\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 interface CategoryQueryInterface
 {
-    public function getDataSet(Language $language): DataSetInterface;
-
     public function getDictionary(Language $language): array;
 
     public function getAll(Language $language): array;

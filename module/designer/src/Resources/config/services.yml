@@ -45,3 +45,13 @@ services:
     Ergonode\Designer\Domain\Query\TemplateElementQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateElementQuery'
     Ergonode\Designer\Domain\Query\TemplateQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateQuery'
     Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateGroupQuery'
+
+    Ergonode\Designer\Infrastructure\Grid\AttributeGridBuilderDecorator:
+        decorates: 'Ergonode\Attribute\Infrastructure\Grid\AttributeGridBuilder'
+        arguments:
+            $builder: '@Ergonode\Designer\Infrastructure\Grid\AttributeGridBuilderDecorator.inner'
+
+    Ergonode\Designer\Infrastructure\Persistence\Query\AttributeGridQueryDecorator:
+        decorates: 'Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface'
+        arguments:
+            $query: '@Ergonode\Designer\Infrastructure\Persistence\Query\AttributeGridQueryDecorator.inner'

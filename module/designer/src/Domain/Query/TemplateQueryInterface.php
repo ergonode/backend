@@ -11,14 +11,11 @@ namespace Ergonode\Designer\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 interface TemplateQueryInterface
 {
-    public function getDataSet(): DataSetInterface;
-
     /**
      * @return array
      */

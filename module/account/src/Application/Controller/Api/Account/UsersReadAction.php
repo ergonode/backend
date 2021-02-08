@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
-use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\AccountGridBuilder;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -20,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Account\Domain\Query\AccountGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/accounts", methods={"GET"})
@@ -28,17 +29,21 @@ class UsersReadAction
 {
     private AccountGridBuilder $gridBuilder;
 
-    private AccountQueryInterface $query;
+    private AccountGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
         AccountGridBuilder $gridBuilder,
-        AccountQueryInterface $query
+        AccountGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -111,7 +116,7 @@ class UsersReadAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet();
+        $dataSet = $this->factory->create($this->query->getGridQuery());
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

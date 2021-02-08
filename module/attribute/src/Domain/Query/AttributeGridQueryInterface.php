@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 interface AttributeGridQueryInterface
 {
-    public function getDataSet(Language $language, bool $system = false): DataSetInterface;
+    public function getDataSetQuery(Language $language, bool $system = false): QueryBuilder;
 }
