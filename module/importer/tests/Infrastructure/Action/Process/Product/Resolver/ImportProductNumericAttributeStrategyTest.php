@@ -74,7 +74,10 @@ class ImportProductNumericAttributeStrategyTest extends TestCase
     public function nonNumericValueProvider(): array
     {
         return [
-            ['1.0f', '.', 'string', 'a12'],
+            ['1.0f'],
+            ['.'],
+            ['string'],
+            ['a12'],
         ];
     }
 }
