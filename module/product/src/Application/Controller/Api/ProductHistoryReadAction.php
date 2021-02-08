@@ -14,13 +14,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Query\HistoryQueryInterface;
+use Ergonode\Product\Domain\Query\ProductHistoryGridQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Product\Infrastructure\Grid\ProductHistoryGridBuilder;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -33,16 +34,19 @@ use Ergonode\Product\Infrastructure\Grid\ProductHistoryGridBuilder;
 class ProductHistoryReadAction
 {
     private GridRenderer $gridRenderer;
-    private HistoryQueryInterface $query;
+    private ProductHistoryGridQueryInterface $query;
+    private DbalDataSetFactory $factory;
     private ProductHistoryGridBuilder $gridBuilder;
 
     public function __construct(
         GridRenderer $gridRenderer,
-        HistoryQueryInterface $query,
+        ProductHistoryGridQueryInterface $query,
+        DbalDataSetFactory $factory,
         ProductHistoryGridBuilder $gridBuilder
     ) {
         $this->gridRenderer = $gridRenderer;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridBuilder = $gridBuilder;
     }
 
@@ -124,7 +128,7 @@ class ProductHistoryReadAction
         RequestGridConfiguration $configuration
     ): Response {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet($product->getId());
+        $dataSet = $this->factory->create($this->query->getGridQuery($product->getId()));
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

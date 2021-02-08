@@ -10,12 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
 
 interface StatusQueryInterface
 {
-    public function getDataSet(Language $language): DataSetInterface;
-
     /**
      * @return array
      */

@@ -10,11 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Notification\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ramsey\Uuid\Uuid;
@@ -22,39 +18,13 @@ use Doctrine\DBAL\DBALException;
 
 class DbalNotificationQuery implements NotificationQueryInterface
 {
-    private const NOTIFICATION_TABLE = 'notification';
     private const USER_NOTIFICATION_TABLE = 'users_notification';
-    private const USER_TABLE = 'users';
-
-    private const FIELDS = [
-        'n.*',
-        'un.read_at',
-        'u.id AS user_id',
-        'CASE WHEN u.avatar THEN u.id ELSE null END as avatar_filename',
-        'COALESCE(u.first_name || \' \' || u.last_name, \'Deleted\') AS author',
-    ];
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSet(UserId $id, Language $language): DataSetInterface
-    {
-        $qb = $this->getQuery();
-        $qb->where($qb->expr()->eq('recipient_id', ':user_id'));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
-        $result->setParameter('user_id', $id->getValue());
-
-        return $this->dataSetFactory->create($result);
     }
 
     /**
@@ -113,14 +83,5 @@ class DbalNotificationQuery implements NotificationQueryInterface
                 'read_at' => Types::DATETIMETZ_MUTABLE,
             ],
         );
-    }
-
-    private function getQuery(): QueryBuilder
-    {
-        return $this->connection->createQueryBuilder()
-            ->select(self::FIELDS)
-            ->from(self::NOTIFICATION_TABLE, 'n')
-            ->join('n', self::USER_NOTIFICATION_TABLE, 'un', 'un.notification_id = n.id')
-            ->leftJoin('n', self::USER_TABLE, 'u', 'u.id = n.author_id');
     }
 }

@@ -11,38 +11,22 @@ namespace Ergonode\Comment\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Comment\Domain\Query\CommentQueryInterface;
+use Ergonode\Comment\Domain\Query\CommentGridQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 
-class DbalCommentQuery implements CommentQueryInterface
+class DbalCommentGridQuery implements CommentGridQueryInterface
 {
     private const COMMENT_TABLE = 'comment';
     private const USER_TABLE = 'users';
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
     }
 
-    public function getDataSet(Language $language): DataSetInterface
-    {
-        $query = $this->getQuery();
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't');
-
-        return $this->dataSetFactory->create($result);
-    }
-
-    private function getQuery(): QueryBuilder
+    public function getDataSet(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
             ->addSelect('n.*')

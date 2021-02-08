@@ -12,8 +12,6 @@ namespace Ergonode\ProductCollection\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
@@ -27,12 +25,9 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
@@ -60,51 +55,6 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
             ->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()))
             ->execute()
             ->fetchAll();
-    }
-
-    public function getDataSet(Language $language): DataSetInterface
-    {
-        $qb = $this->getQuery();
-        $qb->addSelect('c.id');
-        $qb->addSelect('c.code');
-        $qb->addSelect('c.type_id');
-        $qb->addSelect('c.created_at');
-        $qb->addSelect('c.edited_at');
-        $qb->addSelect(sprintf('(c.name->>\'%s\') AS name', $language->getCode()));
-        $qb->addSelect(sprintf('(c.description->>\'%s\') AS description', $language->getCode()));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
-
-        return $this->dataSetFactory->create($result);
-    }
-
-    public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
-    {
-        $qb = $this->connection->createQueryBuilder();
-        $qb->select('id, code, type_id')
-            ->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()))
-            ->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()))
-            ->addSelect('(SELECT count(*) FROM product_collection_element'.
-            ' WHERE product_collection_id = c.id) as elements_count')
-            ->from(self::PRODUCT_COLLECTION_TABLE, 'c')
-            ->leftJoin(
-                'c',
-                self::PRODUCT_COLLECTION_ELEMENT_TABLE,
-                'ce',
-                'ce.product_collection_id = c.id'
-            )
-            ->where($qb->expr()->eq('product_id', ':product_id'))
-            ->andWhere('visible=true');
-
-        $result = $this->connection->createQueryBuilder();
-
-        $result->setParameter(':product_id', $productId->getValue());
-        $result->select('*');
-        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
-
-        return $this->dataSetFactory->create($result);
     }
 
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId

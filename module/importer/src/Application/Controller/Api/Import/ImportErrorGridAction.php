@@ -14,13 +14,14 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\Importer\Infrastructure\Grid\ImportErrorsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Importer\Domain\Query\ImportErrorGridQueryInterface;
 
 /**
  * @Route(
@@ -37,17 +38,21 @@ class ImportErrorGridAction
 {
     private ImportErrorsGridBuilder $gridBuilder;
 
-    private ImportQueryInterface $query;
+    private ImportErrorGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         ImportErrorsGridBuilder $gridBuilder,
-        ImportQueryInterface $query,
+        ImportErrorGridQueryInterface $query,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -91,7 +96,7 @@ class ImportErrorGridAction
         RequestGridConfiguration $configuration
     ): Response {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getErrorDataSet($import->getId(), $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($import->getId(), $language));
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

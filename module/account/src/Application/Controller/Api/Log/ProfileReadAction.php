@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Log;
 
-use Ergonode\Account\Domain\Query\LogQueryInterface;
+use Ergonode\Account\Domain\Query\LogGridQueryInterface;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -20,28 +20,33 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Account\Infrastructure\Grid\LogGridBuilder;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/{language}/profile/log", methods={"GET"})
  */
 class ProfileReadAction
 {
-    private LogQueryInterface $query;
+    private LogGridQueryInterface $query;
 
     private LogGridBuilder $gridBuilder;
+
+    private DbalDataSetFactory $factory;
 
     private AuthenticatedUserProviderInterface $userProvider;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        LogQueryInterface $query,
+        LogGridQueryInterface $query,
         LogGridBuilder $gridBuilder,
-        AuthenticatedUserProviderInterface $userProvider
+        DbalDataSetFactory $factory,
+        AuthenticatedUserProviderInterface $userProvider,
+        GridRenderer $gridRenderer
     ) {
         $this->query = $query;
         $this->gridBuilder = $gridBuilder;
+        $this->factory = $factory;
         $this->userProvider = $userProvider;
         $this->gridRenderer = $gridRenderer;
     }
@@ -115,9 +120,9 @@ class ProfileReadAction
     public function __invoke(RequestGridConfiguration $configuration): Response
     {
         $user = $this->userProvider->provide();
-        $grid = $this->gridBuilder->build($configuration, $user->getLanguage());
-        $dataSet = $this->query->getDataSet($user->getId());
 
+        $grid = $this->gridBuilder->build($configuration, $user->getLanguage());
+        $dataSet = $this->factory->create($this->query->getDataSet($user->getId()));
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

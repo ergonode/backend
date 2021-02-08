@@ -19,7 +19,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Infrastructure\Grid\SourceGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
-use Ergonode\Importer\Domain\Query\SourceQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Importer\Domain\Query\SourceGridQueryInterface;
 
 /**
  * @Route(
@@ -32,14 +33,21 @@ class SourceGridAction
 {
     private SourceGridBuilder $gridBuilder;
 
-    private SourceQueryInterface $query;
+    private SourceGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $renderer;
 
-    public function __construct(SourceGridBuilder $gridBuilder, SourceQueryInterface $query, GridRenderer $renderer)
-    {
+    public function __construct(
+        SourceGridBuilder $gridBuilder,
+        SourceGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $renderer
+    ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->renderer = $renderer;
     }
 
@@ -111,8 +119,7 @@ class SourceGridAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet();
-
+        $dataSet = $this->factory->create($this->query->getGridQuery());
         $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

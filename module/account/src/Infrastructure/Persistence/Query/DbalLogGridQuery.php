@@ -11,37 +11,29 @@ namespace Ergonode\Account\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Account\Domain\Query\LogQueryInterface;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Account\Domain\Query\LogGridQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
-class DbalLogQuery implements LogQueryInterface
+class DbalLogGridQuery implements LogGridQueryInterface
 {
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
     }
 
-    public function getDataSet(?UserId $id = null): DataSetInterface
+    public function getDataSet(?UserId $id = null): QueryBuilder
     {
-        $result = $this->connection->createQueryBuilder();
+        $result = $this->getQuery();
 
-        $qb = $this->getQuery();
-        if (null !== $id) {
-            $qb->andWhere($qb->expr()->eq('recorded_by', ':id'));
-            $result->setParameter(':id', $id->getValue());
+        if ($id) {
+            $result
+                ->andWhere($result->expr()->eq('recorded_by', ':qb_id'))
+                ->setParameter(':qb_id', $id->getValue());
         }
 
-        $result->select('*');
-        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
-
-        return $this->dataSetFactory->create($result);
+        return $result;
     }
 
     private function getQuery(): QueryBuilder

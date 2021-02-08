@@ -14,51 +14,19 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\ValueObject\ExportStatus;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class DbalExportQuery implements ExportQueryInterface
 {
     private const TABLE = 'exporter.export';
-    private const TABLE_ERROR = 'exporter.export_error';
     private const TABLE_CHANNEL = 'exporter.channel';
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface
-    {
-        $query = $this->getQuery();
-        $query->addSelect('e.channel_id');
-        $query->andWhere($query->expr()->eq('channel_id', ':channelId'));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't')
-            ->setParameter(':channelId', $channelId->getValue());
-
-        return $this->dataSetFactory->create($result);
-    }
-
-    public function getErrorDataSet(ExportId $exportId, Language $language): DataSetInterface
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->select('id, created_at, message, parameters')
-            ->from(self::TABLE_ERROR)
-            ->where($query->expr()->eq('export_id', ':exportId'))
-            ->setParameter(':exportId', $exportId->getValue());
-
-        return $this->dataSetFactory->create($query);
     }
 
     /**
