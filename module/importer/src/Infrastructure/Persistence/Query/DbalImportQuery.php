@@ -101,7 +101,7 @@ class DbalImportQuery implements ImportQueryInterface
             ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) as processed')
             ->addSelect(
                 '(SELECT count(*)
-                        FROM importer.import_error il
+                        FROM importer.import_error ie
                         WHERE il.import_id = i.id
                         AND il.message IS NOT NULL) AS errors'
             )
