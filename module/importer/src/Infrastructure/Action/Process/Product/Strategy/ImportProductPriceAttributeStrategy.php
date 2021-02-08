@@ -38,7 +38,6 @@ class ImportProductPriceAttributeStrategy implements ImportProductAttributeStrat
                     [
                         '{code}' => $code->getValue(),
                         '{version}' => $version,
-
                     ],
                 );
             }
