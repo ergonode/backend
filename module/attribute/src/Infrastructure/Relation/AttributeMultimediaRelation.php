@@ -48,10 +48,10 @@ class AttributeMultimediaRelation implements MultimediaRelationInterface
         $result = [];
         foreach ($relations as $id => $name) {
             $attribute['name'] = $name;
-            if ($this->security->isGranted('PRODUCT_GET')) {
+            if ($this->security->isGranted('ATTRIBUTE_GET')) {
                 $attribute['_link'] = [
                     'method' => Request::METHOD_GET,
-                    'href' => $this->getUrl('ergonode_product_read', ['language' => $language, 'product' => $id]),
+                    'href' => $this->getUrl('ergonode_attribute_read', ['language' => $language, 'product' => $id]),
                 ];
             }
             $result[] = $attribute;
