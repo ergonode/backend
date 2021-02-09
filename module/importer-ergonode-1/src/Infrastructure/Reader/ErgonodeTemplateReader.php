@@ -20,7 +20,6 @@ class ErgonodeTemplateReader extends AbstractErgonodeReader
             $record = $this->records->current();
 
             $item = new TemplateModel(
-                $record['_id'],
                 $record['_name'],
                 $record['_type'],
                 (int) $record['_x'],

@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -38,6 +39,7 @@ class ProductProcessTest extends TestCase
         $attributeRepository = $this->createMock(AttributeRepositoryInterface::class);
         $templateRepository = $this->createMock(TemplateRepositoryInterface::class);
         $optionQuery = $this->createMock(OptionQueryInterface::class);
+        $categoryQuery = $this->createMock(CategoryQueryInterface::class);
         $templateRepository
             ->expects(self::once())
             ->method('load')
@@ -68,16 +70,17 @@ class ProductProcessTest extends TestCase
             $attributeRepository,
             $templateRepository,
             $optionQuery,
+            $categoryQuery
         );
 
         $data = $processor->process($channel, $product);
 
         $languageData = new LanguageData();
-        $languageData->set('_id', '');
         $languageData->set('_sku', '');
         $languageData->set('_type', '');
         $languageData->set('_language', 'pl_PL');
         $languageData->set('_template', '');
+        $languageData->set('_categories', '');
         $languageData->set('custom', 'option_key');
 
         $this->assertEquals(

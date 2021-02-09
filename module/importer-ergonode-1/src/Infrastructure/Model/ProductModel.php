@@ -13,27 +13,24 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class ProductModel
 {
-    private string $id;
     private string $sku;
     private string $type;
     private string $template;
     private array $attributes = [];
 
+    /**
+     * @var string[]
+     */
+    private array $categories = [];
+
     public function __construct(
-        string $id,
         string $sku,
         string $type,
         string $template
     ) {
-        $this->id = $id;
         $this->sku = $sku;
         $this->type = $type;
         $this->template = $template;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getSku(): string
@@ -63,5 +60,18 @@ class ProductModel
         }
 
         $this->attributes[$code] = $this->attributes[$code]->add(new Language($language), $value);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getCategories(): array
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(string $code): void
+    {
+        $this->categories[$code] = $code;
     }
 }
