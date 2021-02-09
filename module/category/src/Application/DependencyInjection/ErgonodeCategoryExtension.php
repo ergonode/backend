@@ -87,6 +87,11 @@ class ErgonodeCategoryExtension extends Extension implements PrependExtensionInt
             $config['messenger']['transport_name'],
         );
 
+        $container->setParameter(
+            'ergonode.category.messenger_transport_name_import',
+            $config['messenger']['transport_name_import'],
+        );
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('messenger.yaml');

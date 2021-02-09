@@ -13,7 +13,12 @@
   },
   "require": {
     "php": "^7.4",
-    "ergonode/importer": "^1.0.0-beta.8"
+    "ergonode/importer": "^1.0.0-beta.8",
+    "ergonode/attribute": "^1.0.0-beta.8",
+    "ergonode/designer": "^1.0.0-beta.8",
+    "ergonode/product": "^1.0.0-beta.8",
+    "ergonode/category": "^1.0.0-beta.8",
+    "ergonode/multimedia": "^1.0.0-beta.8"
   },
   "require-dev": {
     "phpunit/phpunit": "^9"

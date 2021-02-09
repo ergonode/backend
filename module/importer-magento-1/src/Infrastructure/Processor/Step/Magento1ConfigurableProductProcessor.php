@@ -13,7 +13,7 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
+use Ergonode\Product\Domain\Command\Import\ImportVariableProductCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface

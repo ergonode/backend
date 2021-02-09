@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        routing:
+            Ergonode\Product\Domain\Command\Import\ImportGroupingProductCommand: '%ergonode.product.messenger_transport_name_import%'
+            Ergonode\Product\Domain\Command\Import\ImportSimpleProductCommand: '%ergonode.product.messenger_transport_name_import%'
+            Ergonode\Product\Domain\Command\Import\ImportVariableProductCommand: '%ergonode.product.messenger_transport_name_import%'

@@ -3,11 +3,4 @@ framework:
         routing:
             Ergonode\Importer\Domain\Command\Import\StartImportCommand: '%ergonode.importer.messenger_transport_name%'
             Ergonode\Importer\Domain\Command\Import\StopImportCommand: '%ergonode.importer.messenger_transport_name%'
-            Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand: '%ergonode.importer.messenger_transport_name%'
-            Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand: '%ergonode.importer.messenger_transport_name%'
-            Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand: '%ergonode.importer.messenger_transport_name%'
-            Ergonode\Importer\Domain\Command\Import\ImportOptionCommand: '%ergonode.importer.messenger_transport_name%'
-            Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand: '%ergonode.importer.messenger_transport_name%'
-            Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand: '%ergonode.importer.messenger_transport_name%'
-            Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand: '%ergonode.importer.messenger_transport_name%'
             Ergonode\Importer\Domain\Command\Import\EndImportCommand: '%ergonode.importer.messenger_transport_name%'

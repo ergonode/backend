@@ -28,8 +28,13 @@ framework:
 #            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
 #            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
 
+ergonode_attribute:
+    messenger:
+        transport_name_import: 'import'
+
 ergonode_category:
     messenger:
+        transport_name_import: 'import'
         transport_name: 'core'
 
 ergonode_completeness:
@@ -39,6 +44,7 @@ ergonode_completeness:
 ergonode_designer:
     messenger:
         transport_name: 'core'
+        transport_name_import: 'import'
 
 ergonode_channel:
     messenger:
@@ -56,6 +62,14 @@ ergonode_mailer:
     messenger:
         transport_name: 'notification'
 
+ergonode_product:
+    messenger:
+        transport_name_import: 'import'
+        
+ergonode_multimedia:
+    messenger:
+        transport_name_import: 'import'
+        
 ergonode_importer:
     messenger:
         transport_name: 'import'

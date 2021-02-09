@@ -10,7 +10,7 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
+use Ergonode\Category\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeCategoryReader;

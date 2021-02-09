@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode1\Infrastructure\Factory\Product;
 
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
-use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
+use Ergonode\Product\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\GroupingProduct;

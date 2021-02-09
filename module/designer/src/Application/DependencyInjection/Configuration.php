@@ -30,10 +30,18 @@ final class Configuration implements ConfigurationInterface
                             )
                             ->thenInvalid('transport_name has to be defined for enabled messenger.')
                         ->end()
+                        ->validate()
+                            ->ifTrue(
+                                fn (array $messenger): bool =>
+                                    $messenger['enabled'] && !isset($messenger['transport_name_import'])
+                            )
+                            ->thenInvalid('transport_name_import has to be defined for enabled messenger.')
+                        ->end()
                         ->isRequired()
                         ->canBeDisabled()
                         ->children()
                             ->scalarNode('transport_name')->end()
+                            ->scalarNode('transport_name_import')->end()
                         ->end()
                     ->end()
                 ->end()

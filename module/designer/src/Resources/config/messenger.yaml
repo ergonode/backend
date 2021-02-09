@@ -3,3 +3,4 @@ framework:
         routing:
             Ergonode\Designer\Domain\Command\CreateTemplateCommand: '%ergonode.designer.messenger_transport_name%'
             Ergonode\Designer\Domain\Command\UpdateTemplateCommand: '%ergonode.designer.messenger_transport_name%'
+            Ergonode\Designer\Domain\Command\Import\ImportTemplateCommand: '%ergonode.designer.messenger_transport_name_import%'

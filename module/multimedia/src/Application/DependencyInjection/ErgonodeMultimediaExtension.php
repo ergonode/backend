@@ -50,6 +50,7 @@ class ErgonodeMultimediaExtension extends Extension implements PrependExtensionI
     public function prepend(ContainerBuilder $container): void
     {
         $this->prependFlysystem($container);
+        $this->prependMessenger($container);
     }
 
     private function prependFlysystem(ContainerBuilder $container): void
@@ -57,5 +58,25 @@ class ErgonodeMultimediaExtension extends Extension implements PrependExtensionI
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('flysystem.yaml');
+    }
+
+    private function prependMessenger(ContainerBuilder $container): void
+    {
+        $configs = $container->getExtensionConfig($this->getAlias());
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        if (!$this->isConfigEnabled($container, $config['messenger'])) {
+            return;
+        }
+
+        $container->setParameter(
+            'ergonode.multimedia.messenger_transport_name_import',
+            $config['messenger']['transport_name_import'],
+        );
+
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('messenger.yaml');
     }
 }

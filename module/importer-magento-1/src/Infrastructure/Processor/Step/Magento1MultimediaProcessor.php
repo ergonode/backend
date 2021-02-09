@@ -13,7 +13,7 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
-use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
+use Ergonode\Multimedia\Domain\Command\Import\ImportMultimediaFromWebCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface

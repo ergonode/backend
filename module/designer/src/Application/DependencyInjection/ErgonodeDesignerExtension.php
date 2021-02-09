@@ -78,6 +78,10 @@ class ErgonodeDesignerExtension extends Extension implements PrependExtensionInt
             'ergonode.designer.messenger_transport_name',
             $config['messenger']['transport_name'],
         );
+        $container->setParameter(
+            'ergonode.designer.messenger_transport_name_import',
+            $config['messenger']['transport_name_import'],
+        );
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 

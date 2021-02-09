@@ -16,7 +16,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
+use Ergonode\Attribute\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 

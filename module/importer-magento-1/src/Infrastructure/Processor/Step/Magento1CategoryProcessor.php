@@ -13,7 +13,7 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
+use Ergonode\Category\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;

@@ -105,6 +105,7 @@ ruleset:
     - Core
     - EventSourcing
     - SharedKernel
+    - Importer
   Authentication:
     - Account
     - Core
@@ -201,6 +202,7 @@ ruleset:
     - Attribute
     - EventSourcing
     - SharedKernel
+    - Importer
   ProductCollection:
     - Api
     - Attribute
