@@ -10,7 +10,6 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
 class TemplateModel
 {
-    private string $id;
     private string $name;
     private string $type;
     private int $x;
@@ -20,7 +19,6 @@ class TemplateModel
     private string $property;
 
     public function __construct(
-        string $id,
         string $name,
         string $type,
         int $x,
@@ -29,7 +27,6 @@ class TemplateModel
         int $height,
         string $property
     ) {
-        $this->id = $id;
         $this->name = $name;
         $this->type = $type;
         $this->x = $x;
@@ -37,11 +34,6 @@ class TemplateModel
         $this->width = $width;
         $this->height = $height;
         $this->property = $property;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getName(): string
