@@ -49,7 +49,6 @@ class TemplateProcessor
     private function getLanguage(Template $template, TemplateElement $element): LanguageData
     {
         $result = new LanguageData();
-        $result->set('_id', $template->getId()->getValue());
         $result->set('_name', $template->getName());
         $result->set('_type', $element->getType());
         $result->set('_x', (string) $element->getPosition()->getX());
