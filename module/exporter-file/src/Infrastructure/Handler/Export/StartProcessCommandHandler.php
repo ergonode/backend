@@ -50,7 +50,7 @@ class StartProcessCommandHandler
         );
         $options = ['_code', '_attribute_code', '_language', '_label'];
         $multimedia = ['_id', '_language', '_name', '_filename', '_extension', '_mime', '_alt', '_size'];
-        $templates = ['_id', '_name', '_type', '_x', '_y', '_width', '_height', '_properties'];
+        $templates = ['_name', '_type', '_x', '_y', '_width', '_height', '_properties'];
         $this->storage->create(sprintf('%s/attributes.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $attribute).PHP_EOL]);
         $this->storage->close();
