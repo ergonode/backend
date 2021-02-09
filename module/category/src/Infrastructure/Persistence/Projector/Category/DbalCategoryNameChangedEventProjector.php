@@ -7,10 +7,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Category\Infrastructure\Persistence\Projector;
+namespace Ergonode\Category\Infrastructure\Persistence\Projector\Category;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use Ergonode\Core\Application\Serializer\SerializerInterface;
 
@@ -28,9 +27,6 @@ class DbalCategoryNameChangedEventProjector
         $this->serializer = $serializer;
     }
 
-    /**
-     * @throws DBALException
-     */
     public function __invoke(CategoryNameChangedEvent $event): void
     {
         $this->connection->update(

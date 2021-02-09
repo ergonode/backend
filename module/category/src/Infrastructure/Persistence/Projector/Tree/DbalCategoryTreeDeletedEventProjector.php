@@ -23,9 +23,6 @@ class DbalCategoryTreeDeletedEventProjector
         $this->connection = $connection;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(CategoryTreeDeletedEvent $event): void
     {
         $this->connection->delete(

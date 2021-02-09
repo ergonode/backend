@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Category\Infrastructure\Persistence\Projector;
+namespace Ergonode\Category\Infrastructure\Persistence\Projector\Category;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
@@ -23,9 +23,6 @@ class DbalCategoryDeletedEventProjector
         $this->connection = $connection;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(CategoryDeletedEvent $event): void
     {
         $this->connection->delete(
