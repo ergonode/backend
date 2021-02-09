@@ -57,7 +57,7 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
      */
     private function getChildren(ProductModel $product): array
     {
-        $default = $product->get('default');
+        $default = $product->getDefault();
 
         if ($relations = $default['relations'] ?? null) {
             return explode(',', $relations);

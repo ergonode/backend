@@ -44,7 +44,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         Magento1CsvSource $source,
         array $attributes
     ): void {
-        $default = $product->get('default');
+        $default = $product->getDefault();
         if (array_key_exists('esa_categories', $default) && $default['esa_categories'] !== '') {
             $categories = explode(',', $default['esa_categories']);
             $codes = [];
@@ -70,7 +70,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                     }
 
                     $default['esa_categories'] = implode(',', $codes);
-                    $product->set('default', $default);
+                    $product->setDefault($default);
                 }
             }
         }

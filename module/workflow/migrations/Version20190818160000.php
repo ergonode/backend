@@ -71,13 +71,13 @@ final class Version20190818160000 extends AbstractErgonodeMigration
                     REFERENCES status(id) ON DELETE CASCADE ON UPDATE CASCADE'
         );
 
-        $this->connection->insert('privileges_group', ['area' => 'Workflow']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Workflow']);
         $this->createWorkflowPrivileges(
             [
-                'WORKFLOW_CREATE',
-                'WORKFLOW_READ',
-                'WORKFLOW_UPDATE',
-                'WORKFLOW_DELETE',
+                'WORKFLOW_CREATE' => 'Workflow',
+                'WORKFLOW_READ' => 'Workflow',
+                'WORKFLOW_UPDATE' => 'Workflow',
+                'WORKFLOW_DELETE' => 'Workflow',
             ]
         );
 
@@ -112,11 +112,10 @@ final class Version20190818160000 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 
@@ -127,12 +126,11 @@ final class Version20190818160000 extends AbstractErgonodeMigration
      */
     private function createWorkflowPrivileges(array $collection): void
     {
-        foreach ($collection as $code) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => 'Workflow',
-            ]);
+        foreach ($collection as $code => $area) {
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
+            );
         }
     }
 }

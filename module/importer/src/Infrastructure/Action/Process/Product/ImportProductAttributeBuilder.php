@@ -24,13 +24,14 @@ class ImportProductAttributeBuilder
     /**
      * @var ImportProductAttributeStrategyInterface[]
      */
-    private array $strategies;
+    private iterable $strategies;
 
     public function __construct(
         AttributeQueryInterface $attributeQuery,
-        ImportProductAttributeStrategyInterface ...$strategies
+        iterable $strategies
     ) {
         $this->attributeQuery = $attributeQuery;
+        Assert::allIsInstanceOf($strategies, ImportProductAttributeStrategyInterface::class);
         $this->strategies = $strategies;
     }
 

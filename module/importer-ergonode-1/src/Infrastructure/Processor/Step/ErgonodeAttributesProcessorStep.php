@@ -8,14 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportAttributeCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeAttributeReader;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
 {
@@ -35,10 +32,9 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
         while ($attribute = $reader->read()) {
             $command = new ImportAttributeCommand(
                 $import->getId(),
-                new AttributeId($attribute->getId()),
-                new AttributeCode($attribute->getCode()),
+                $attribute->getCode(),
                 $attribute->getType(),
-                new AttributeScope($attribute->getScope()),
+                $attribute->getScope(),
                 $attribute->getParameters(),
                 $attribute->getName(),
                 $attribute->getHint(),

@@ -48,7 +48,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     ): void {
         $columns = [];
 
-        foreach ($product->get('default') as $key => $item) {
+        foreach ($product->getDefault() as $key => $item) {
             if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
                 $columns[$key][] = $item;
             }

@@ -18,14 +18,15 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
 
         while ($this->records->valid()) {
             $record = $this->records->current();
-
             if (null === $item) {
-                $item = new OptionModel($record['_id'], $record['_code'], $record['_attribute_code']);
-            } elseif ($item->getId() !== $record['_id']) {
+                $item = new OptionModel($record['_code'], $record['_attribute_code']);
+            } elseif ($item->getCode() !== $record['_code'] || $item->getAttribute() !== $record['_attribute_code']) {
                 break;
             }
+            if (!empty($record['_label'])) {
+                $item->addTranslation($record['_language'], $record['_label']);
+            }
 
-            $item->addTranslation($record['_language'], $record['_label']);
             $this->records->next();
         }
 

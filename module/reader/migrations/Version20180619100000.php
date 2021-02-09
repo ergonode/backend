@@ -30,13 +30,13 @@ final class Version20180619100000 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->connection->insert('privileges_group', ['area' => 'Reader']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Reader']);
         $this->createReaderPrivileges(
             [
-                'READER_CREATE',
-                'READER_READ',
-                'READER_UPDATE',
-                'READER_DELETE',
+                'READER_CREATE' => 'Reader',
+                'READER_READ' => 'Reader',
+                'READER_UPDATE' => 'Reader',
+                'READER_DELETE' => 'Reader',
             ]
         );
 
@@ -53,12 +53,11 @@ final class Version20180619100000 extends AbstractErgonodeMigration
      */
     private function createReaderPrivileges(array $collection): void
     {
-        foreach ($collection as $code) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => 'Reader',
-            ]);
+        foreach ($collection as $code => $area) {
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
+            );
         }
     }
 
@@ -70,11 +69,10 @@ final class Version20180619100000 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 }

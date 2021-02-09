@@ -10,19 +10,12 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
 class CategoryModel
 {
-    private string $id;
     private string $code;
     private array $translations = [];
 
-    public function __construct(string $id, string $code)
+    public function __construct(string $code)
     {
-        $this->id = $id;
         $this->code = $code;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getCode(): string

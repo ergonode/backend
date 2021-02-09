@@ -21,7 +21,7 @@ abstract class AbstractProductProcessor
      */
     protected function getCategories(ProductModel $product): array
     {
-        $default = $product->get('default');
+        $default = $product->getDefault();
 
         if ($default['esa_categories']) {
             return explode(',', $default['esa_categories']);
@@ -41,7 +41,7 @@ abstract class AbstractProductProcessor
         array $attributes
     ): array {
         $result = [];
-        $default = $product->get('default');
+        $default = $product->getDefault();
 
         foreach ($default as $field => $value) {
             $translation = [];

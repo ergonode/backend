@@ -41,8 +41,9 @@ final class Version20180619083700 extends AbstractErgonodeMigration
         '
         );
 
-        $this->connection->insert('privileges_group', ['area' => 'Category']);
-        $this->connection->insert('privileges_group', ['area' => 'Category tree']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Category']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Category tree']);
+
         $this->createPrivileges(
             [
                 'CATEGORY_CREATE' => 'Category',
@@ -82,13 +83,9 @@ final class Version20180619083700 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert(
-                'event_store_event',
-                [
-                    'id' => Uuid::uuid4()->toString(),
-                    'event_class' => $class,
-                    'translation_key' => $translation,
-                ]
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
             );
         }
     }
@@ -101,13 +98,9 @@ final class Version20180619083700 extends AbstractErgonodeMigration
     private function createPrivileges(array $collection): void
     {
         foreach ($collection as $code => $area) {
-            $this->connection->insert(
-                'privileges',
-                [
-                    'id' => Uuid::uuid4()->toString(),
-                    'code' => $code,
-                    'area' => $area,
-                ]
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
             );
         }
     }

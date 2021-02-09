@@ -27,7 +27,7 @@ class SimpleProductCommandFactory implements ProductCommandFactoryInterface
             $import->getId(),
             $model->getSku(),
             $model->getTemplate(),
-            [], // @todo categories
+            $model->getCategories(),
             $model->getAttributes()
         );
     }

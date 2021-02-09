@@ -41,13 +41,13 @@ class ImportOptionCommandHandler
                 throw new ImportException('Attribute code {code} is not valid', ['{code}' => $command->getCode()]);
             }
 
-            if (!OptionKey::isValid($command->getKey())) {
-                throw new ImportException('Option key {code} is not valid', ['{code}' => $command->getKey()]);
+            if (!OptionKey::isValid($command->getOptionKey())) {
+                throw new ImportException('Option key {code} is not valid', ['{code}' => $command->getOptionKey()]);
             }
 
             $this->action->action(
                 new AttributeCode($command->getCode()),
-                new OptionKey($command->getKey()),
+                new OptionKey($command->getOptionKey()),
                 $command->getTranslation()
             );
         } catch (ImportException $exception) {
@@ -56,7 +56,7 @@ class ImportOptionCommandHandler
             $message = 'Can\'t import options {option} for attribute {attribute}';
 
             $parameters = [
-                '{option}' => $command->getKey(),
+                '{option}' => $command->getOptionKey(),
                 '{attribute}' => $command->getCode(),
             ];
 
