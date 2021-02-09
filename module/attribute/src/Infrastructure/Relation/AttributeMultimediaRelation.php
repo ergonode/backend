@@ -51,7 +51,7 @@ class AttributeMultimediaRelation implements MultimediaRelationInterface
             if ($this->security->isGranted('ATTRIBUTE_GET')) {
                 $attribute['_link'] = [
                     'method' => Request::METHOD_GET,
-                    'href' => $this->getUrl('ergonode_attribute_read', ['language' => $language, 'product' => $id]),
+                    'href' => $this->getUrl('ergonode_attribute_read', ['language' => $language, 'attribute' => $id]),
                 ];
             }
             $result[] = $attribute;
