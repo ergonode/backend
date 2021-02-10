@@ -77,12 +77,6 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'PRODUCT_GET_RELATIONS_AVAILABLE',
                 'PRODUCT_GET_RELATIONS_CHILDREN',
 
-                'COMMENT_GET_GRID',
-                'COMMENT_GET',
-
-                'CORE_GET_LANGUAGE_GRID',
-                'CORE_GET_LANGUAGE_TREE',
-
                 'ATTRIBUTE_GET_GRID',
                 'ATTRIBUTE_GET',
                 'ATTRIBUTE_GET_SYSTEM',
@@ -90,6 +84,23 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'ATTRIBUTE_GET_GROUP',
                 'ATTRIBUTE_GET_OPTION_GRID',
                 'ATTRIBUTE_GET_OPTION',
+
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
+                'CATEGORY_GET_TREE_GRID',
+                'CATEGORY_GET_TREE',
+
+                'COMMENT_GET_GRID',
+                'COMMENT_GET',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
+
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]
         );
 
@@ -127,6 +138,20 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'PRODUCT_POST_RELATIONS_CHILDREN_SKU',
                 'PRODUCT_DELETE_RELATIONS_CHILD',
 
+                'ATTRIBUTE_GET_GRID',
+                'ATTRIBUTE_GET',
+                'ATTRIBUTE_GET_SYSTEM',
+                'ATTRIBUTE_GET_GROUP_GRID',
+                'ATTRIBUTE_GET_GROUP',
+                'ATTRIBUTE_GET_OPTION_GRID',
+                'ATTRIBUTE_GET_OPTION',
+
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
+                'CATEGORY_GET_TREE_GRID',
+                'CATEGORY_GET_TREE',
+
                 'COMMENT_GET_GRID',
                 'COMMENT_GET',
                 'COMMENT_POST',
@@ -135,14 +160,11 @@ final class Version20210105100800 extends AbstractErgonodeMigration
 
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
 
-                'ATTRIBUTE_GET_GRID',
-                'ATTRIBUTE_GET',
-                'ATTRIBUTE_GET_SYSTEM',
-                'ATTRIBUTE_GET_GROUP_GRID',
-                'ATTRIBUTE_GET_GROUP',
-                'ATTRIBUTE_GET_OPTION_GRID',
-                'ATTRIBUTE_GET_OPTION',
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]
         );
 
@@ -180,6 +202,20 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'PRODUCT_POST_RELATIONS_CHILDREN_SKU',
                 'PRODUCT_DELETE_RELATIONS_CHILD',
 
+                'ATTRIBUTE_GET_GRID',
+                'ATTRIBUTE_GET',
+                'ATTRIBUTE_GET_SYSTEM',
+                'ATTRIBUTE_GET_GROUP_GRID',
+                'ATTRIBUTE_GET_GROUP',
+                'ATTRIBUTE_GET_OPTION_GRID',
+                'ATTRIBUTE_GET_OPTION',
+
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
+                'CATEGORY_GET_TREE_GRID',
+                'CATEGORY_GET_TREE',
+
                 'COMMENT_GET_GRID',
                 'COMMENT_GET',
                 'COMMENT_POST',
@@ -188,14 +224,11 @@ final class Version20210105100800 extends AbstractErgonodeMigration
 
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
 
-                'ATTRIBUTE_GET_GRID',
-                'ATTRIBUTE_GET',
-                'ATTRIBUTE_GET_SYSTEM',
-                'ATTRIBUTE_GET_GROUP_GRID',
-                'ATTRIBUTE_GET_GROUP',
-                'ATTRIBUTE_GET_OPTION_GRID',
-                'ATTRIBUTE_GET_OPTION',
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]
         );
 
@@ -218,13 +251,6 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'PRODUCT_GET_RELATIONS_AVAILABLE',
                 'PRODUCT_GET_RELATIONS_CHILDREN',
 
-                'COMMENT_GET_GRID',
-                'COMMENT_GET',
-                'COMMENT_DELETE',
-
-                'CORE_GET_LANGUAGE_GRID',
-                'CORE_GET_LANGUAGE_TREE',
-
                 'ATTRIBUTE_GET_GRID',
                 'ATTRIBUTE_GET',
                 'ATTRIBUTE_GET_SYSTEM',
@@ -232,6 +258,24 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'ATTRIBUTE_GET_GROUP',
                 'ATTRIBUTE_GET_OPTION_GRID',
                 'ATTRIBUTE_GET_OPTION',
+
+                'CATEGORY_GET_GRID',
+                'CATEGORY_GET',
+
+                'CATEGORY_GET_TREE_GRID',
+                'CATEGORY_GET_TREE',
+
+                'COMMENT_GET_GRID',
+                'COMMENT_GET',
+                'COMMENT_DELETE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
+                'CORE_GET_UNIT_GRID',
+                'CORE_GET_UNIT',
+
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]
         );
     }
