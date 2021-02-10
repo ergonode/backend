@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Projector;
 
@@ -14,16 +14,11 @@ class ProjectorProvider
 {
     private iterable $collection = [];
 
-    public function add($projector, string $event): void
+    public function add(object $projector, string $event): void
     {
         $this->collection[$event][get_class($projector)] = $projector;
     }
 
-    /**
-     * @param DomainEventInterface $event
-     *
-     * @return array
-     */
     public function provide(DomainEventInterface $event): array
     {
         $class = get_class($event);

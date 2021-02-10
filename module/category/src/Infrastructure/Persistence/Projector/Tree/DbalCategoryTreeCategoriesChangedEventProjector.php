@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Category\Infrastructure\Persistence\Projector\Tree;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Category\Domain\Event\Tree\CategoryTreeCategoryAddedEvent;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeCategoriesChangedEvent;
 
 class DbalCategoryTreeCategoriesChangedEventProjector
@@ -29,7 +28,7 @@ class DbalCategoryTreeCategoriesChangedEventProjector
         $this->connection->delete(
             self::TABLE,
             [
-                'category_tree_id' => $event->getAggregateId()->getValue()
+                'category_tree_id' => $event->getAggregateId()->getValue(),
             ]
         );
 

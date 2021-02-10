@@ -7,10 +7,6 @@ services:
     Ergonode\EventSourcing\Infrastructure\:
         resource: '../../Infrastructure/*'
 
-    Ergonode\EventSourcing\Application\Command\:
-        resource: '../../Application/Command/*'
-        tags: ['console.command']
-        
     Ergonode\EventSourcing\Infrastructure\Middleware\:
         resource: '../../Infrastructure/Middleware/*'
 

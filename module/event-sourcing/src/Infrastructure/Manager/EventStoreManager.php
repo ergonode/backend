@@ -18,6 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use Psr\Log\LoggerInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventProjectorInterface;
 
 class EventStoreManager
 {
@@ -29,6 +30,8 @@ class EventStoreManager
 
     private AggregateSnapshotInterface $snapshot;
 
+    private DomainEventProjectorInterface $projector;
+
     private Connection $connection;
 
     private LoggerInterface $logger;
@@ -38,6 +41,7 @@ class EventStoreManager
         DomainEventStoreInterface $eventStore,
         EventBusInterface $eventBus,
         AggregateSnapshotInterface $snapshot,
+        DomainEventProjectorInterface $projector,
         Connection $connection,
         LoggerInterface $logger
     ) {
@@ -45,6 +49,7 @@ class EventStoreManager
         $this->eventStore = $eventStore;
         $this->eventBus = $eventBus;
         $this->snapshot = $snapshot;
+        $this->projector = $projector;
         $this->connection = $connection;
         $this->logger = $logger;
     }
@@ -96,6 +101,7 @@ class EventStoreManager
             }
 
             foreach ($events as $envelope) {
+                $this->projector->project($envelope->getEvent());
                 $this->eventBus->dispatch($envelope->getEvent());
             }
         }

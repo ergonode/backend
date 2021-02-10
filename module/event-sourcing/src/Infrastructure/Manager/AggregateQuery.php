@@ -4,10 +4,9 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Manager;
-
 
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Doctrine\DBAL\Connection;
@@ -22,7 +21,6 @@ class AggregateQuery
     }
 
     /**
-     * @param string $class
      *
      * @return AggregateId[]
      */

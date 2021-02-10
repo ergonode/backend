@@ -27,13 +27,9 @@ services:
     Ergonode\Category\Infrastructure\Persistence\:
         resource: '../../Infrastructure/Persistence/*'
 
-    Ergonode\Category\Infrastructure\Persistence\Projector\Tree\:
-        resource: '../../Infrastructure/Persistence/Projector/Tree/*'
+    Ergonode\Category\Infrastructure\Persistence\Projector\:
+        resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.es.projector']
-
-    Ergonode\Category\Infrastructure\Persistence\Projector\Category\:
-        resource: '../../Infrastructure/Persistence/Projector/Category/*'
-        tags: ['messenger.message_handler']
 
     Ergonode\Category\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'

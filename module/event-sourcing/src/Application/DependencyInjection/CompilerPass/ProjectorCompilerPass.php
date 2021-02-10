@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\EventSourcing\Infrastructure\Projector\ProjectorProvider;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use Ergonode\SharedKernel\Domain\DomainEventInterface;
 
 class ProjectorCompilerPass implements CompilerPassInterface
 {
@@ -28,15 +30,50 @@ class ProjectorCompilerPass implements CompilerPassInterface
     private function processServices(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition(ProjectorProvider::class);
-        $projectors = $container->findTaggedServiceIds(self::TAG);
+        $serviceIds = $container->findTaggedServiceIds(self::TAG);
 
-        foreach (array_keys($projectors) as $id) {
-            $object = new \ReflectionClass($id);
-            $method = $object->getMethod('__invoke');
+        foreach (array_keys($serviceIds) as $serviceId) {
+            $service = $container->findDefinition($serviceId);
+            $className = $service->getClass();
+            $reflection = new \ReflectionClass($className);
+
+            if (null === $reflection) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Invalid projector "%s": class "%s" does not exist.',
+                        $serviceId,
+                        $className
+                    )
+                );
+            }
+
+            if (!$reflection->hasMethod('__invoke')) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Invalid projector "%s": class "%s" method "__invoke" does not exist.',
+                        $serviceId,
+                        $reflection->getName(),
+                    )
+                );
+            }
+
+            $method = $reflection->getMethod('__invoke');
+
+            if (1 !== $method->getNumberOfRequiredParameters()) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Invalid projector "%s": class "%s: method "__invoke()" required one argument "%s"',
+                        $serviceId,
+                        $reflection->getName(),
+                        DomainEventInterface::class
+                    )
+                );
+            }
+
             $parameters = $method->getParameters();
             $eventClass = (string) $parameters[0]->getType();
 
-            $definition->addMethodCall('add', [new Reference($id), $eventClass]);
+            $definition->addMethodCall('add', [new Reference($serviceId), $eventClass]);
         }
     }
 }
