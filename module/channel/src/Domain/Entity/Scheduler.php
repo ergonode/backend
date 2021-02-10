@@ -83,6 +83,9 @@ class Scheduler
         Assert::greaterThanEq($minute, 0);
         Assert::lessThanEq($hour, self::HOURS);
         Assert::lessThanEq($minute, self::MINUTES);
+        if (0 === $hour) {
+            Assert::greaterThan($minute, 0);
+        }
 
         $this->active = true;
         $this->start = $start;
