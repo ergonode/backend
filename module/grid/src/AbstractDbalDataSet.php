@@ -15,7 +15,7 @@ use Ergonode\Grid\Request\FilterValue;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ramsey\Uuid\Uuid;
 
-abstract class AbstractDbalDataSet implements DataSetInterface
+abstract class AbstractDbalDataSet implements DataSetInterface, QueryInterface
 {
     public const NAMESPACE = 'b2e8fb6d-e1ac-4322-bd54-6e78926ba365';
 

@@ -13,12 +13,15 @@ services:
     Ergonode\Grid\Filter\:
         resource: '../../Filter/*'
 
+    Ergonode\Grid\DataSet\:
+        resource: '../../DataSet/*'
+
     Ergonode\Grid\Renderer\:
         resource: '../../Renderer/*'
 
     Ergonode\Grid\Request\:
         resource: '../../Request/*'
-        
+
     Ergonode\Grid\Factory\:
         resource: '../../Factory/*'
 

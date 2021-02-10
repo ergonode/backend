@@ -59,13 +59,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         ?string $field = null,
         string $order = 'ASC'
     ): \Traversable {
-        $query = $this->build($columns);
-
-        $qb = $this->connection->createQueryBuilder();
-        $qb->select('*');
-        $qb->from(sprintf('(%s)', $query->getSQL()), 't');
-
-        $this->buildFilters($qb, $values, $columns);
+        $qb = $this->getQueryBuilder($values, $columns);
 
         $qb->setMaxResults($limit);
         $qb->setFirstResult($offset);
@@ -95,13 +89,8 @@ class DbalProductDataSet extends AbstractDbalDataSet
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int
     {
-        $query = $this->build($columns);
+        $qb = $this->getQueryBuilder($values, $columns);
 
-        $qb = $this->connection->createQueryBuilder();
-        $qb->select('*');
-        $qb->from(sprintf('(%s)', $query->getSQL()), 't');
-
-        $this->buildFilters($qb, $values, $columns);
         $count = $qb->select('count(*) AS COUNT')
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);
@@ -111,6 +100,22 @@ class DbalProductDataSet extends AbstractDbalDataSet
         }
 
         return 0;
+    }
+
+    /**
+     * @param ColumnInterface[] $columns
+     */
+    public function getQueryBuilder(FilterValueCollection $values, array $columns = []): QueryBuilder
+    {
+        $query = $this->build($columns);
+
+        $qb = $this->connection->createQueryBuilder();
+        $qb->select('*');
+        $qb->from(sprintf('(%s)', $query->getSQL()), 't');
+
+        $this->buildFilters($qb, $values, $columns);
+
+        return $qb;
     }
 
     /**
