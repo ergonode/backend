@@ -18,11 +18,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class SchedulerValidatorTest extends ConstraintValidatorTestCase
 {
-    protected function createValidator(): SchedulerValidator
-    {
-        return new SchedulerValidator();
-    }
-
     /**
      * @dataProvider valuesProvider
      */
@@ -41,7 +36,7 @@ class SchedulerValidatorTest extends ConstraintValidatorTestCase
 
     public function valuesProvider(): array
     {
-        $model = new class (0, 0) extends SchedulerModel {
+        $model = new class(0, 0) extends SchedulerModel {
             public function __construct(?int $hour, ?int $minute)
             {
                 $this->hour = $hour;
@@ -68,5 +63,10 @@ class SchedulerValidatorTest extends ConstraintValidatorTestCase
     {
         $this->expectException(UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), new Scheduler());
+    }
+
+    protected function createValidator(): SchedulerValidator
+    {
+        return new SchedulerValidator();
     }
 }
