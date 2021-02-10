@@ -11,6 +11,7 @@ namespace Ergonode\Product\Infrastructure\Filter\BatchAction;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
+use Ergonode\Grid\Column\IdColumn;
 use Ergonode\Grid\FilterGridConfiguration;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -120,11 +121,15 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
     private function getByQuery(string $filter): array
     {
         $configuration = new FilterGridConfiguration($filter);
+
+        $this->productGrid->addColumn('id', new IdColumn('id'));
+
         $data = $this->gridRenderer->render(
             $this->productGrid,
             $configuration,
             $this->dataSetFactory->create()
         );
+
         $list = [];
         foreach ($data['collection'] as $row) {
             $list[] = new ProductId($row['id']);
