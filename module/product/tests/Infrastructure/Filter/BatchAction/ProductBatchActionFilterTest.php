@@ -11,9 +11,9 @@ namespace Ergonode\Product\Tests\Infrastructure\Filter\BatchAction;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\Grid\DataSet\DataSetGridId;
+use Ergonode\Product\Infrastructure\Provider\ProductIdsProvider;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetQueryBuilderFactory;
+use Ergonode\Product\Infrastructure\Factory\DataSet\DbalQueryBuilderProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Filter\BatchAction\ProductBatchActionFilter;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -29,9 +29,9 @@ class ProductBatchActionFilterTest extends TestCase
     private ProductQueryInterface $productQuery;
 
     /**
-     * @var DbalProductDataSetQueryBuilderFactory|MockObject
+     * @var DbalQueryBuilderProductDataSetFactory|MockObject
      */
-    private DbalProductDataSetQueryBuilderFactory $dataSetFactory;
+    private DbalQueryBuilderProductDataSetFactory $productQueryBuilderFactory;
 
     /**
      * @var ProductGridBuilder|MockObject
@@ -39,25 +39,25 @@ class ProductBatchActionFilterTest extends TestCase
     private ProductGridBuilder $productGridBuilder;
 
     /**
-     * @var DataSetGridId|MockObject
+     * @var ProductIdsProvider|MockObject
      */
-    private DataSetGridId $dataSetGridId;
+    private ProductIdsProvider $productIdsProvider;
 
     protected function setUp(): void
     {
         $this->productQuery = $this->createMock(ProductQueryInterface::class);
-        $this->dataSetFactory = $this->createMock(DbalProductDataSetQueryBuilderFactory::class);
+        $this->productQueryBuilderFactory = $this->createMock(DbalQueryBuilderProductDataSetFactory::class);
         $this->productGridBuilder = $this->createMock(ProductGridBuilder::class);
-        $this->dataSetGridId = $this->createMock(DataSetGridId::class);
+        $this->productIdsProvider = $this->createMock(ProductIdsProvider::class);
     }
 
     public function testSupported(): void
     {
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         $type = new BatchActionType('product_delete');
@@ -69,9 +69,9 @@ class ProductBatchActionFilterTest extends TestCase
     {
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         $type = new BatchActionType('type');
@@ -86,9 +86,9 @@ class ProductBatchActionFilterTest extends TestCase
 
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         self::assertIsArray($filter->filter(null));
@@ -103,9 +103,9 @@ class ProductBatchActionFilterTest extends TestCase
 
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         self::assertIsArray($filter->filter($batchActionFilter));
@@ -124,9 +124,9 @@ class ProductBatchActionFilterTest extends TestCase
 
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         self::assertIsArray($filter->filter($batchActionFilter));
@@ -148,9 +148,9 @@ class ProductBatchActionFilterTest extends TestCase
 
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         self::assertIsArray($filter->filter($batchActionFilter));
@@ -159,7 +159,7 @@ class ProductBatchActionFilterTest extends TestCase
 
     public function testFilterByQuery(): void
     {
-        $this->dataSetGridId->method('getItems')->willReturn(
+        $this->productIdsProvider->method('getProductIds')->willReturn(
             []
         );
 
@@ -170,9 +170,9 @@ class ProductBatchActionFilterTest extends TestCase
 
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         self::assertIsArray($filter->filter($batchActionFilter));
@@ -182,7 +182,7 @@ class ProductBatchActionFilterTest extends TestCase
 
     public function testFilterByQueryAndIncludeIds(): void
     {
-        $this->dataSetGridId->method('getItems')->willReturn(
+        $this->productIdsProvider->method('getProductIds')->willReturn(
             []
         );
 
@@ -197,9 +197,9 @@ class ProductBatchActionFilterTest extends TestCase
 
         $filter = new ProductBatchActionFilter(
             $this->productQuery,
-            $this->dataSetFactory,
+            $this->productQueryBuilderFactory,
             $this->productGridBuilder,
-            $this->dataSetGridId
+            $this->productIdsProvider
         );
 
         self::assertIsArray($filter->filter($batchActionFilter));

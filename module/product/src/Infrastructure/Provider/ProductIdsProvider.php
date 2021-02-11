@@ -6,16 +6,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Grid\DataSet;
+namespace Ergonode\Product\Infrastructure\Provider;
 
 use Doctrine\DBAL\FetchMode;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\DbalDataSetQueryInterface;
 
-class DataSetGridId
+class ProductIdsProvider
 {
-    public function getItems(
+    public function getProductIds(
         GridInterface $grid,
         GridConfigurationInterface $configuration,
         DbalDataSetQueryInterface $query

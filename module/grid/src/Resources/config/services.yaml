@@ -13,9 +13,6 @@ services:
     Ergonode\Grid\Filter\:
         resource: '../../Filter/*'
 
-    Ergonode\Grid\DataSet\:
-        resource: '../../DataSet/*'
-
     Ergonode\Grid\Renderer\:
         resource: '../../Renderer/*'
 
