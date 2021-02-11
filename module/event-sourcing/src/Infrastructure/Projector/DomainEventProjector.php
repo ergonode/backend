@@ -22,8 +22,8 @@ class DomainEventProjector implements DomainEventProjectorInterface
 
     public function project(DomainEventInterface $event): void
     {
-        $projector = $this->provider->provide($event);
-        foreach ($projector as $projector) {
+        $projectors = $this->provider->provide($event);
+        foreach ($projectors as $projector) {
             $projector($event);
         }
     }

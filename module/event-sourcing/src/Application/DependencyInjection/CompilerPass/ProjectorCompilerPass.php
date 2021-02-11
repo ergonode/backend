@@ -18,7 +18,7 @@ use Ergonode\SharedKernel\Domain\DomainEventInterface;
 
 class ProjectorCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'ergonode.es.projector';
+    public const TAG = 'ergonode.event_sourcing.projector';
 
     public function process(ContainerBuilder $container): void
     {
@@ -36,16 +36,6 @@ class ProjectorCompilerPass implements CompilerPassInterface
             $service = $container->findDefinition($serviceId);
             $className = $service->getClass();
             $reflection = new \ReflectionClass($className);
-
-            if (null === $reflection) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Invalid projector "%s": class "%s" does not exist.',
-                        $serviceId,
-                        $className
-                    )
-                );
-            }
 
             if (!$reflection->hasMethod('__invoke')) {
                 throw new RuntimeException(

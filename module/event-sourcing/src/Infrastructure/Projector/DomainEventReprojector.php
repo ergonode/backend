@@ -34,7 +34,7 @@ class DomainEventReprojector implements DomainEventReprojectorInterface
             if (in_array($eventClass, $eventClasses, true)) {
                 $projectors = $this->provider->provide($event);
                 foreach ($projectors as $projector) {
-                    $projector->__invoke($event);
+                    $projector($event);
                 }
             }
         }

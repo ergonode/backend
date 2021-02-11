@@ -16,9 +16,16 @@ class ProjectorProvider
 
     public function add(object $projector, string $event): void
     {
+        if (!is_callable($projector)) {
+            throw new \InvalidArgumentException(sprintf('Projector %s is not callable', get_class($projector)));
+        }
+
         $this->collection[$event][get_class($projector)] = $projector;
     }
 
+    /**
+     * @return callable[]
+     */
     public function provide(DomainEventInterface $event): array
     {
         $class = get_class($event);

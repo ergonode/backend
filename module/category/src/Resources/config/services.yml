@@ -29,7 +29,7 @@ services:
 
     Ergonode\Category\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
-        tags: ['ergonode.es.projector']
+        tags: ['ergonode.event_sourcing.projector']
 
     Ergonode\Category\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
