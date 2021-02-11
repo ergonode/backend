@@ -23,7 +23,6 @@ class AttributeParametersProvider
         $this->unitRepository = $unitRepository;
     }
 
-
     /**
      * @return array
      */

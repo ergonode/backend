@@ -10,18 +10,15 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Handler\Import;
 
 use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Designer\Domain\ValueObject\Position;
-use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Psr\Log\LoggerInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ImportTemplateCommandHandler
 {
@@ -51,20 +48,24 @@ class ImportTemplateCommandHandler
     public function __invoke(ImportTemplateCommand $command): void
     {
         try {
-            $position = new Position($command->getX(), $command->getY());
-            $size = new Size($command->getWidth(), $command->getHeight());
-
-            $property = $this->serializer->deserialize(
+            $element = $this->serializer->deserialize(
                 $command->getProperty(),
-                TemplateElementPropertyInterface::class,
+                TemplateElementInterface::class,
             );
+
+            if (!$element instanceof TemplateElementInterface) {
+                throw new ImportException(
+                    sprintf(
+                        'Can\'t import template "%s", invalid template element type "%s"',
+                        $command->getName(),
+                        $command->getType(),
+                    )
+                );
+            }
 
             $template = $this->action(
                 $command->getName(),
-                $command->getType(),
-                $position,
-                $size,
-                $property
+                $element
             );
 
             $this->templateRepository->save($template);
@@ -85,44 +86,28 @@ class ImportTemplateCommandHandler
     /**
      * @throws \Exception
      */
-    private function action(
-        string $name,
-        string $type,
-        Position $position,
-        Size $size,
-        TemplateElementPropertyInterface $properties
-    ): Template {
-        $importedElement = new TemplateElement(
-            $position,
-            $size,
-            $type,
-            $properties
-        );
-
+    private function action(string $name, TemplateElementInterface $element): Template
+    {
         $templateId = $this->templateQuery->findTemplateIdByCode($name);
         if ($templateId) {
             $template = $this->templateRepository->load($templateId);
-            if ($template) {
-                $template->changeName($name);
-
-                $element = $template->getElement($position);
-                if (!$element instanceof TemplateElement) {
-                    $template->addElement($importedElement);
-                } elseif (!$element->isEqual($importedElement)) {
-                    $template->changeElement($importedElement);
-                }
-
-                return $template;
-            }
+        } else {
+            $groupId = $this->templateGroupQuery->getDefaultId();
+            $template = new Template(
+                TemplateId::generate(),
+                $groupId,
+                $name
+            );
         }
 
-        $groupId = $this->templateGroupQuery->getDefaultId();
-        $template = new Template(
-            TemplateId::generate(),
-            $groupId,
-            $name
-        );
-        $template->addElement($importedElement);
+        $template->changeName($name);
+
+        $oldElement = $template->getElement($element->getPosition());
+        if (!$oldElement instanceof TemplateElementInterface) {
+            $template->addElement($element);
+        } elseif (!$oldElement->isEqual($element)) {
+            $template->changeElement($element);
+        }
 
         return $template;
     }

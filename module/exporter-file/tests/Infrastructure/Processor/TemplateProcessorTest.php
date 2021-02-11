@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\Processor\TemplateProcessor;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -43,7 +43,7 @@ class TemplateProcessorTest extends TestCase
     {
         $this->template->method('getName')->willReturn('test_name');
 
-        $templateElement = $this->createMock(TemplateElement::class);
+        $templateElement = $this->createMock(TemplateElementInterface::class);
         $templateElement->method('getType')->willReturn('test_type');
         $this->template->method('getElements')->willReturn(new ArrayCollection(array_values([$templateElement])));
 

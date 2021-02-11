@@ -15,11 +15,11 @@ use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class TemplateCommandFactory
 {
@@ -69,7 +69,7 @@ class TemplateCommandFactory
         return $result;
     }
 
-    private function createElement(TemplateElementTypeModel $model): TemplateElement
+    private function createElement(TemplateElementTypeModel $model): TemplateElementInterface
     {
         $property = $this->mapper->map((array) $model->properties);
 

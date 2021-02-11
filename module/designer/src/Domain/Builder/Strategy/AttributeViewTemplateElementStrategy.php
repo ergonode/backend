@@ -14,11 +14,11 @@ use Ergonode\Attribute\Domain\Provider\AttributeParametersProvider;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\Designer\Domain\View\ViewTemplateElement;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
 
 class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStrategyInterface
 {
@@ -38,17 +38,16 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         $this->query = $query;
     }
 
-    public function isSupported(string $variant, string $type): bool
+    public function isSupported(string $type): bool
     {
-        return AttributeTemplateElementProperty::VARIANT === $variant;
+        return AttributeTemplateElement::TYPE === $type;
     }
 
-    public function build(TemplateElement $element, Language $language): ViewTemplateElement
+    public function build(TemplateElementInterface $element, Language $language): ViewTemplateElement
     {
-        /** @var AttributeTemplateElementProperty $property */
-        $property = $element->getProperties();
-
-        $attribute = $this->attributeRepository->load($property->getAttributeId());
+        /** @var AttributeTemplateElement $element */
+        Assert::isInstanceOf($element, AttributeTemplateElement::class);
+        $attribute = $this->attributeRepository->load($element->getAttributeId());
 
         Assert::notNull($attribute);
 
@@ -59,7 +58,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         $properties = [
             'attribute_id' => $attribute->getId()->getValue(),
             'attribute_code' => $attribute->getCode()->getValue(),
-            'required' => $property->isRequired(),
+            'required' => $element->isRequired(),
             'hint' => $attribute->getHint()->get($language),
             'placeholder' => $attribute->getPlaceholder()->get($language),
             'scope' => $attribute->getScope()->getValue(),
@@ -88,7 +87,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
             $element->getPosition(),
             $element->getSize(),
             $label,
-            $element->getType(),
+            $attribute->getType(),
             $properties
         );
     }

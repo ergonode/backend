@@ -10,20 +10,17 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Domain\Factory;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class TemplateFactory
 {
     /**
-     * @param array $elements
-     *
-     *
-     * @throws \Exception
+     * @param TemplateElementInterface[] $elements
      */
     public function create(
         TemplateId $id,
@@ -34,7 +31,7 @@ class TemplateFactory
         array $elements = [],
         ?MultimediaId $imageId = null
     ): Template {
-        Assert::allIsInstanceOf($elements, TemplateElement::class);
+        Assert::allIsInstanceOf($elements, TemplateElementInterface::class);
 
         $template = new Template(
             $id,

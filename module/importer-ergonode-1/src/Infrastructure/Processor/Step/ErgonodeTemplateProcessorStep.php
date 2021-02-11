@@ -10,9 +10,9 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
+use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 
 class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 {
