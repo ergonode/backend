@@ -37,7 +37,8 @@ class DbalDataSet extends AbstractDbalDataSet
         ?string $field = null,
         string $order = 'ASC'
     ): \Traversable {
-        $queryBuilder = $this->getQueryBuilder($values, $columns);
+        $queryBuilder = clone $this->queryBuilder;
+        $this->buildFilters($queryBuilder, $values, $columns);
         $queryBuilder->setMaxResults($limit);
         $queryBuilder->setFirstResult($offset);
         if ($field && isset($columns[$field])) {
@@ -53,9 +54,9 @@ class DbalDataSet extends AbstractDbalDataSet
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int
     {
-        $queryBuilder = $this->getQueryBuilder($values, $columns);
-
-        $count = $queryBuilder->select('count(*) AS COUNT')
+        $cloneQuery = clone $this->queryBuilder;
+        $this->buildFilters($cloneQuery, $values, $columns);
+        $count = $cloneQuery->select('count(*) AS COUNT')
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);
 
@@ -64,16 +65,5 @@ class DbalDataSet extends AbstractDbalDataSet
         }
 
         return 0;
-    }
-
-    /**
-     * @param ColumnInterface[] $columns
-     */
-    public function getQueryBuilder(FilterValueCollection $values, array $columns = []): QueryBuilder
-    {
-        $queryBuilder = clone $this->queryBuilder;
-        $this->buildFilters($queryBuilder, $values, $columns);
-
-        return $queryBuilder;
     }
 }
