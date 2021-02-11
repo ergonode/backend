@@ -9,13 +9,19 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Application\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
 
 class BatchActionFilterFormModel
 {
     /**
      * @Assert\Valid()
+     *
+     * @JMS\Type("Ergonode\BatchAction\Application\Form\Model\BatchActionFilterIdsFormModel")
      */
     public ?BatchActionFilterIdsFormModel $ids = null;
 
+    /**
+     * @JMS\Type("string")
+     */
     public ?string $query = null;
 }

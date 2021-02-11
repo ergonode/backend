@@ -1,4 +1,4 @@
-Feature: Text attribute manipulation
+Feature: Batch action manipulation
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
