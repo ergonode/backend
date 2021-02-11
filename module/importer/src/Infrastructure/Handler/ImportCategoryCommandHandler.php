@@ -14,6 +14,7 @@ use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Psr\Log\LoggerInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 class ImportCategoryCommandHandler
 {
@@ -36,8 +37,12 @@ class ImportCategoryCommandHandler
     public function __invoke(ImportCategoryCommand $command): void
     {
         try {
+            if (!CategoryCode::isValid($command->getCode())) {
+                throw new ImportException('Category code {code} is not valid', ['{code}' => $command->getCode()]);
+            }
+
             $category = $this->action->action(
-                $command->getCode(),
+                new CategoryCode($command->getCode()),
                 $command->getName(),
             );
             $this->repository->addLine($command->getImportId(), $category->getId(), 'CATEGORY');

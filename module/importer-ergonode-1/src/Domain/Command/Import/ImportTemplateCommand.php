@@ -8,49 +8,43 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Domain\Command\Import;
 
-use Ergonode\Designer\Domain\ValueObject\Position;
-use Ergonode\Designer\Domain\ValueObject\Size;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class ImportTemplateCommand implements DomainCommandInterface
 {
     private ImportId $importId;
-    private TemplateId $id;
     private string $name;
-    private Position $position;
-    private Size $size;
     private string $type;
-    private TemplateElementInterface $element;
+    private int $x;
+    private int $y;
+    private int $width;
+    private int $height;
+    private string $property;
 
     public function __construct(
         ImportId $importId,
-        TemplateId $id,
         string $name,
         string $type,
-        Position $position,
-        Size $size,
-        TemplateElementInterface $element
+        int $x,
+        int $y,
+        int $width,
+        int $height,
+        string $property
     ) {
         $this->importId = $importId;
-        $this->id = $id;
         $this->name = $name;
         $this->type = $type;
-        $this->position = $position;
-        $this->size = $size;
-        $this->element = $element;
+        $this->x = $x;
+        $this->y = $y;
+        $this->width = $width;
+        $this->height = $height;
+        $this->property = $property;
     }
 
     public function getImportId(): ImportId
     {
         return $this->importId;
-    }
-
-    public function getId(): TemplateId
-    {
-        return $this->id;
     }
 
     public function getName(): string
@@ -63,18 +57,28 @@ class ImportTemplateCommand implements DomainCommandInterface
         return $this->type;
     }
 
-    public function getPosition(): Position
+    public function getX(): int
     {
-        return $this->position;
+        return $this->x;
     }
 
-    public function getSize(): Size
+    public function getY(): int
     {
-        return $this->size;
+        return $this->y;
     }
 
-    public function getElement(): TemplateElementInterface
+    public function getWidth(): int
     {
-        return $this->element;
+        return $this->width;
+    }
+
+    public function getHeight(): int
+    {
+        return $this->height;
+    }
+
+    public function getProperty(): string
+    {
+        return $this->property;
     }
 }

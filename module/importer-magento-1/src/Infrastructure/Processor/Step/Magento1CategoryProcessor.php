@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
@@ -45,7 +44,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         Magento1CsvSource $source,
         array $attributes
     ): void {
-        $default = $product->get('default');
+        $default = $product->getDefault();
         if (array_key_exists('esa_categories', $default) && $default['esa_categories'] !== '') {
             $categories = explode(',', $default['esa_categories']);
             $codes = [];
@@ -62,7 +61,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                     if (!array_key_exists($categoryCode, $this->categories)) {
                         $command = new ImportCategoryCommand(
                             $import->getId(),
-                            new CategoryCode($categoryCode),
+                            $categoryCode,
                             $name
                         );
 
@@ -71,7 +70,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                     }
 
                     $default['esa_categories'] = implode(',', $codes);
-                    $product->set('default', $default);
+                    $product->setDefault($default);
                 }
             }
         }

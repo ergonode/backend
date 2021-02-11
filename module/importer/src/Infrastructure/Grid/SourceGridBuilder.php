@@ -37,8 +37,6 @@ class SourceGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-
-
         $types = $this->getTypes($language);
 
         $grid = new Grid();

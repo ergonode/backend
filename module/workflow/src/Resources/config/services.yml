@@ -26,7 +26,7 @@ services:
 
     Ergonode\Workflow\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
-        tags: ['messenger.message_handler']
+        tags: ['ergonode.event_sourcing.projector']
 
     Ergonode\Workflow\Infrastructure\Handler\Event\ProductValueChangedEventHandler:
         tags: [{name: 'messenger.message_handler', priority: 10}]

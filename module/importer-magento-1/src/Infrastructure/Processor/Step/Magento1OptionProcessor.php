@@ -18,7 +18,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 class Magento1OptionProcessor implements Magento1ProcessorStepInterface
@@ -49,7 +48,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     ): void {
         $columns = [];
 
-        foreach ($product->get('default') as $key => $item) {
+        foreach ($product->getDefault() as $key => $item) {
             if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
                 $columns[$key][] = $item;
             }
@@ -83,8 +82,8 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                         $label = $label->add($source->getDefaultLanguage(), $option);
                         $command = new ImportOptionCommand(
                             $import->getId(),
-                            $attributeCode,
-                            new OptionKey((string) $key),
+                            $attribute->getCode()->getValue(),
+                            (string) $key,
                             $label
                         );
                         $this->commandBus->dispatch($command, true);

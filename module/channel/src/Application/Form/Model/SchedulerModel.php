@@ -8,8 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Channel\Application\Form\Model;
 
+use Ergonode\Channel\Application\Validator\Scheduler;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @Scheduler(groups={"Active"})
+ */
 class SchedulerModel
 {
     /**

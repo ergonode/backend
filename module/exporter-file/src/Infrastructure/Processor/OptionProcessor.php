@@ -54,9 +54,7 @@ class OptionProcessor
     private function getLanguage(AbstractOption $option, Language $language, AbstractAttribute $attribute): LanguageData
     {
         $result = new LanguageData();
-        $result->set('_id', $option->getId()->getValue());
         $result->set('_code', $option->getCode()->getValue());
-        $result->set('_attribute_id', $option->getAttributeId()->getValue());
         $result->set('_attribute_code', $attribute->getCode()->getValue());
         $result->set('_language', $language->getCode());
         $result->set('_label', $option->getLabel()->get($language));

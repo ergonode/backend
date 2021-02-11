@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
@@ -34,7 +33,7 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
         while ($category = $reader->read()) {
             $command = new ImportCategoryCommand(
                 $import->getId(),
-                new CategoryCode($category->getCode()),
+                $category->getCode(),
                 new TranslatableString($category->getTranslations())
             );
             $import->addRecords(1);

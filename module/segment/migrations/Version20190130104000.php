@@ -52,13 +52,13 @@ final class Version20190130104000 extends AbstractErgonodeMigration
                 ADD CONSTRAINT segment_product_product_id_fk
                     FOREIGN KEY (product_id) REFERENCES public.product on delete cascade');
 
-        $this->connection->insert('privileges_group', ['area' => 'Segment']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Segment']);
         $this->createSegmentPrivileges(
             [
-                'SEGMENT_CREATE',
-                'SEGMENT_READ',
-                'SEGMENT_UPDATE',
-                'SEGMENT_DELETE',
+                'SEGMENT_CREATE' => 'Segment',
+                'SEGMENT_READ' => 'Segment',
+                'SEGMENT_UPDATE' => 'Segment',
+                'SEGMENT_DELETE' => 'Segment',
             ]
         );
 
@@ -80,11 +80,10 @@ final class Version20190130104000 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 
@@ -95,12 +94,11 @@ final class Version20190130104000 extends AbstractErgonodeMigration
      */
     private function createSegmentPrivileges(array $collection): void
     {
-        foreach ($collection as $code) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => 'Segment',
-            ]);
+        foreach ($collection as $code => $area) {
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
+            );
         }
     }
 }

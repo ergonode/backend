@@ -15,7 +15,6 @@
         "php": "^7.4",
         "doctrine/dbal": "^2.10",
         "ergonode/attribute": "^1.0.0-beta.8",
-        "ergonode/category": "^1.0.0-beta.8",
         "ergonode/core": "^1.0.0-beta.8",
         "ergonode/es": "^1.0.0-beta.8",
         "ergonode/shared-kernel": "^1.0.0-beta.8",

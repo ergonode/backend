@@ -10,21 +10,14 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
 class OptionModel
 {
-    private string $id;
     private string $code;
     private string $attribute;
     private array $translations = [];
 
-    public function __construct(string $id, string $code, string $attribute)
+    public function __construct(string $code, string $attribute)
     {
-        $this->id = $id;
         $this->code = $code;
         $this->attribute = $attribute;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getCode(): string

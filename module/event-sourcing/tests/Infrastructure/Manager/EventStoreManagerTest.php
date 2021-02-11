@@ -27,6 +27,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\EventSourcing\Infrastructure\DomainEventProjectorInterface;
 
 class EventStoreManagerTest extends TestCase
 {
@@ -56,6 +57,8 @@ class EventStoreManagerTest extends TestCase
     private $mockLogger;
     private EventStoreManager $manager;
 
+    private DomainEventProjectorInterface $projector;
+
     protected function setUp(): void
     {
         $this->mockBuilder = $this->createMock(AggregateBuilderInterface::class);
@@ -64,12 +67,15 @@ class EventStoreManagerTest extends TestCase
         $this->mockSnapshot = $this->createMock(AggregateSnapshotInterface::class);
         $this->mockConnection = $this->createMock(Connection::class);
         $this->mockLogger = $this->createMock(LoggerInterface::class);
+        $this->projector = $this->createMock(DomainEventProjectorInterface::class);
+
 
         $this->manager = new EventStoreManager(
             $this->mockBuilder,
             $this->mockEventStore,
             $this->mockEventBus,
             $this->mockSnapshot,
+            $this->projector,
             $this->mockConnection,
             $this->mockLogger,
         );
@@ -115,6 +121,7 @@ class EventStoreManagerTest extends TestCase
         $this->mockConnection->expects($this->once())->method('insert');
         $this->mockSnapshot->expects($this->once())->method('save');
         $this->mockEventBus->expects($this->once())->method('dispatch');
+        $this->projector->expects($this->once())->method('project');
         $this->mockLogger->expects($this->never())->method('notice');
 
         $this->manager->save($aggregate);
@@ -137,6 +144,7 @@ class EventStoreManagerTest extends TestCase
         $this->mockConnection->expects($this->never())->method('insert');
         $this->mockSnapshot->expects($this->never())->method('save');
         $this->mockEventBus->expects($this->once())->method('dispatch');
+        $this->projector->expects($this->once())->method('project');
         $this->mockLogger->expects($this->once())->method('notice');
 
         $this->manager->save($aggregate);
