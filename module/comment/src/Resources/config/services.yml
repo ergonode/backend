@@ -29,4 +29,4 @@ services:
         tags: ['messenger.message_handler']
 
     Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Repository\DbalCommentRepository'
-    Ergonode\Comment\Domain\Query\CommentQueryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Query\DbalCommentQuery'
+    Ergonode\Comment\Domain\Query\CommentGridQueryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Query\DbalCommentGridQuery'

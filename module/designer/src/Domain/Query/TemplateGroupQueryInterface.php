@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
-use Ergonode\Grid\DataSetInterface;
 
 interface TemplateGroupQueryInterface
 {
@@ -20,6 +19,4 @@ interface TemplateGroupQueryInterface
     public function getDictionary(): array;
 
     public function getDefaultId(): TemplateGroupId;
-
-    public function getDataSet(): DataSetInterface;
 }

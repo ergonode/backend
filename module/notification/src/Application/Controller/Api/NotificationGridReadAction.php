@@ -11,7 +11,6 @@ namespace Ergonode\Notification\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
-use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Notification\Infrastructure\Grid\NotificationGridBuilder;
@@ -19,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Notification\Domain\Query\NotificationGridQueryInterface;
 
 /**
  * @Route("/profile/notifications", methods={"GET"})
@@ -27,7 +28,9 @@ class NotificationGridReadAction
 {
     private NotificationGridBuilder $gridBuilder;
 
-    private NotificationQueryInterface $query;
+    private NotificationGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
@@ -35,12 +38,14 @@ class NotificationGridReadAction
 
     public function __construct(
         NotificationGridBuilder $gridBuilder,
-        NotificationQueryInterface $query,
+        NotificationGridQueryInterface $query,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer,
         AuthenticatedUserProviderInterface $userProvider
     ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
         $this->userProvider = $userProvider;
     }
@@ -114,8 +119,7 @@ class NotificationGridReadAction
         $user = $this->userProvider->provide();
         $language = $user->getLanguage();
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet($user->getId(), $language);
-
+        $dataSet = $this->factory->create($this->query->getDataSet($user->getId(), $language));
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

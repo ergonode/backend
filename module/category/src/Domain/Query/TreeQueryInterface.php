@@ -10,13 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Category\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 interface TreeQueryInterface
 {
-    public function getDataSet(Language $language): DataSetInterface;
-
     public function getDictionary(Language $language): array;
 
     public function findTreeIdByCode(string $code): ?CategoryTreeId;
