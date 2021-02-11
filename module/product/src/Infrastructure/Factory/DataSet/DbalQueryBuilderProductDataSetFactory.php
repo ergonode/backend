@@ -12,9 +12,9 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Grid\DbalDataSetQueryInterface;
 use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilderProvider;
-use Ergonode\Product\Infrastructure\Persistence\DataSet\DbalProductDataSetQueryBuilder;
+use Ergonode\Product\Infrastructure\Persistence\DataSet\DbalQueryBuilderProductDataSet;
 
-class DbalProductDataSetQueryBuilderFactory
+class DbalQueryBuilderProductDataSetFactory
 {
     private Connection $connection;
 
@@ -36,7 +36,7 @@ class DbalProductDataSetQueryBuilderFactory
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 
-        return new DbalProductDataSetQueryBuilder(
+        return new DbalQueryBuilderProductDataSet(
             $queryBuilder,
             $this->queryBuilderProvider,
             $this->filterBuilderProvider

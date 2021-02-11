@@ -13,7 +13,7 @@ use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\DbalDataSetQueryInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
 
-class DbalProductDataSetQueryBuilder extends DbalProductDataSet implements DbalDataSetQueryInterface
+class DbalQueryBuilderProductDataSet extends DbalProductDataSet implements DbalDataSetQueryInterface
 {
     /**
      * @param ColumnInterface[] $columns

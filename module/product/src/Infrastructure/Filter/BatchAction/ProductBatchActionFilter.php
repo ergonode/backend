@@ -13,9 +13,9 @@ use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\FilterGridConfiguration;
-use Ergonode\Grid\DataSet\DataSetGridId;
+use Ergonode\Product\Infrastructure\Provider\ProductIdsProvider;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetQueryBuilderFactory;
+use Ergonode\Product\Infrastructure\Factory\DataSet\DbalQueryBuilderProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -29,11 +29,11 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 
     private ProductQueryInterface $productQuery;
 
-    private DbalProductDataSetQueryBuilderFactory $dataSetFactory;
+    private DbalQueryBuilderProductDataSetFactory $productQueryBuilderFactory;
 
     private ProductGridBuilder $gridBuilder;
 
-    private DataSetGridId $dataSetGridId;
+    private ProductIdsProvider $productIdsProvider;
 
     /**
      * @var string []
@@ -45,15 +45,15 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
      */
     public function __construct(
         ProductQueryInterface $productQuery,
-        DbalProductDataSetQueryBuilderFactory $dataSetFactory,
+        DbalQueryBuilderProductDataSetFactory $productQueryBuilderFactory,
         ProductGridBuilder $gridBuilder,
-        DataSetGridId $dataSetGridId,
+        ProductIdsProvider $productIdsProvider,
         ?array $types = []
     ) {
         $this->productQuery = $productQuery;
-        $this->dataSetFactory = $dataSetFactory;
+        $this->productQueryBuilderFactory = $productQueryBuilderFactory;
         $this->gridBuilder = $gridBuilder;
-        $this->dataSetGridId = $dataSetGridId;
+        $this->productIdsProvider = $productIdsProvider;
         $this->types = $types ?: self::TYPES;
     }
 
@@ -125,10 +125,10 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 
         $grid = $this->gridBuilder->build($configuration, $language);
 
-        $data = $this->dataSetGridId->getItems(
+        $data = $this->productIdsProvider->getProductIds(
             $grid,
             $configuration,
-            $this->dataSetFactory->create()
+            $this->productQueryBuilderFactory->create()
         );
 
         $list = [];
