@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\FilterGridConfiguration;
 use Ergonode\Grid\DataSet\DataSetGridId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
+use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetQueryBuilderFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -29,7 +29,7 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
 
     private ProductQueryInterface $productQuery;
 
-    private DbalProductDataSetFactory $dataSetFactory;
+    private DbalProductDataSetQueryBuilderFactory $dataSetFactory;
 
     private ProductGridBuilder $gridBuilder;
 
@@ -45,7 +45,7 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
      */
     public function __construct(
         ProductQueryInterface $productQuery,
-        DbalProductDataSetFactory $dataSetFactory,
+        DbalProductDataSetQueryBuilderFactory $dataSetFactory,
         ProductGridBuilder $gridBuilder,
         DataSetGridId $dataSetGridId,
         ?array $types = []
@@ -135,9 +135,6 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
         foreach ($data as $row) {
             $list[] = new ProductId($row);
         }
-
-        dump($list);
-        die;
 
         return $list;
     }

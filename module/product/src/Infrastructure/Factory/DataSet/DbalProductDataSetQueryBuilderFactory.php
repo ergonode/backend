@@ -1,6 +1,5 @@
 <?php
-
-/**
+/*
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
@@ -10,19 +9,18 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Factory\DataSet;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\DbalDataSetQueryInterface;
 use Ergonode\Grid\Filter\FilterBuilderProvider;
 use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilderProvider;
-use Ergonode\Product\Infrastructure\Persistence\DataSet\DbalProductDataSet;
+use Ergonode\Product\Infrastructure\Persistence\DataSet\DbalProductDataSetQueryBuilder;
 
-class DbalProductDataSetFactory
+class DbalProductDataSetQueryBuilderFactory
 {
     private Connection $connection;
 
     private DataSetQueryBuilderProvider $queryBuilderProvider;
 
     protected FilterBuilderProvider $filterBuilderProvider;
-
 
     public function __construct(
         Connection $connection,
@@ -34,10 +32,14 @@ class DbalProductDataSetFactory
         $this->filterBuilderProvider = $filterBuilderProvider;
     }
 
-    public function create(): DataSetInterface
+    public function create(): DbalDataSetQueryInterface
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 
-        return new DbalProductDataSet($queryBuilder, $this->queryBuilderProvider, $this->filterBuilderProvider);
+        return new DbalProductDataSetQueryBuilder(
+            $queryBuilder,
+            $this->queryBuilderProvider,
+            $this->filterBuilderProvider
+        );
     }
 }

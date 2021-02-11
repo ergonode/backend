@@ -11,14 +11,14 @@ namespace Ergonode\Grid\DataSet;
 use Doctrine\DBAL\FetchMode;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
-use Ergonode\Grid\QueryInterface;
+use Ergonode\Grid\DbalDataSetQueryInterface;
 
 class DataSetGridId
 {
     public function getItems(
         GridInterface $grid,
         GridConfigurationInterface $configuration,
-        QueryInterface $query
+        DbalDataSetQueryInterface $query
     ): array {
         $queryBuilder = $query->getQueryBuilder(
             $configuration->getFilters(),

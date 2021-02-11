@@ -11,7 +11,7 @@ namespace Ergonode\Grid;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\Request\FilterValueCollection;
 
-interface QueryInterface
+interface DbalDataSetQueryInterface
 {
     /**
      * @param ColumnInterface[] $columns
