@@ -15,6 +15,11 @@ class Grid implements GridInterface
      */
     private array $columns = [];
 
+    /**
+     * @var ActionInterface[]
+     */
+    private array $actions = [];
+
     private ?string $field = null;
 
     private string $order = 'ASC';
@@ -22,6 +27,13 @@ class Grid implements GridInterface
     public function addColumn(string $id, ColumnInterface $column): self
     {
         $this->columns[$id] = $column;
+
+        return $this;
+    }
+
+    public function addAction(string $id, ActionInterface $action): self
+    {
+        $this->actions[$id] = $action;
 
         return $this;
     }
@@ -38,6 +50,14 @@ class Grid implements GridInterface
     public function getColumns(): array
     {
         return $this->columns;
+    }
+
+    /**
+     * @return ActionInterface[]
+     */
+    public function getActions(): array
+    {
+        return $this->actions;
     }
 
     public function getField(): ?string

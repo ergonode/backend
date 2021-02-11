@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Grid;
 
@@ -13,8 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Grid\Column\LinkColumn;
-use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Importer\Infrastructure\Provider\SourceTypeDictionaryProvider;
@@ -25,6 +23,9 @@ use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
 use Ergonode\Grid\Column\IdColumn;
+use Ergonode\Grid\Action\GetAction;
+use Ergonode\Grid\Action\DeleteAction;
+use Ergonode\Grid\Action\PutAction;
 
 class SourceGridBuilder implements GridBuilderInterface
 {
@@ -37,8 +38,6 @@ class SourceGridBuilder implements GridBuilderInterface
 
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-
-
         $types = $this->getTypes($language);
 
         $grid = new Grid();
@@ -47,37 +46,29 @@ class SourceGridBuilder implements GridBuilderInterface
             ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
             ->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)))
             ->addColumn('imports', new NumericColumn('imports', 'Imports', new NumericFilter()))
-            ->addColumn('_links', new LinkColumn('hal', [
-                'get' => [
-                    'privilege' => 'IMPORT_READ',
-                    'show' => ['system' => false],
-                    'route' => 'ergonode_source_read',
-                    'parameters' => [
-                        'language' => $language->getCode(),
-                        'source' => '{id}',
-                    ],
-                ],
-                'edit' => [
-                    'privilege' => 'IMPORT_UPDATE',
-                    'show' => ['system' => false],
-                    'route' => 'ergonode_source_update',
-                    'parameters' => [
-                        'language' => $language->getCode(),
-                        'source' => '{id}',
-                    ],
-                    'method' => Request::METHOD_PUT,
-                ],
-                'delete' => [
-                    'privilege' => 'IMPORT_DELETE',
-                    'show' => ['system' => false],
-                    'route' => 'ergonode_source_delete',
-                    'parameters' => [
-                        'language' => $language->getCode(),
-                        'source' => '{id}',
-                    ],
-                    'method' => Request::METHOD_DELETE,
-                ],
-            ]));
+            ->addAction('get', new GetAction(
+                'ergonode_source_read',
+                'IMPORT_READ',
+                [
+                    'language' => $language->getCode(),
+                    'source' => '{id}',
+                ]
+            ))
+            ->addAction('edit', new PutAction(
+                'ergonode_source_update',
+                'IMPORT_UPDATE',
+                [
+                    'language' => $language->getCode(),
+                    'source' => '{id}',
+                ]
+            ))->addAction('delete', new DeleteAction(
+                'ergonode_source_delete',
+                'IMPORT_DELETE',
+                [
+                    'language' => $language->getCode(),
+                    'source' => '{id}',
+                ]
+            ));
 
         return $grid;
     }

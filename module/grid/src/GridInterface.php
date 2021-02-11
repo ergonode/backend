@@ -17,6 +17,11 @@ interface GridInterface
      */
     public function getColumns(): array;
 
+    /**
+     * @return ActionInterface[]
+     */
+    public function getActions(): array;
+
     public function orderBy(string $field, string $order): void;
 
     public function getField(): ?string;

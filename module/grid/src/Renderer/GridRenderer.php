@@ -5,14 +5,13 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
-use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 
 class GridRenderer
 {
@@ -20,15 +19,19 @@ class GridRenderer
 
     private RowRendererInterface $rowRenderer;
 
+    private ActionRenderer $actionRenderer;
+
     private InfoRender $infoRenderer;
 
     public function __construct(
         ColumnRenderer $columnRenderer,
         RowRendererInterface $rowRenderer,
+        ActionRenderer $actionRenderer,
         InfoRender $infoRenderer
     ) {
         $this->columnRenderer = $columnRenderer;
         $this->rowRenderer = $rowRenderer;
+        $this->actionRenderer = $actionRenderer;
         $this->infoRenderer = $infoRenderer;
     }
 
@@ -76,8 +79,10 @@ class GridRenderer
         }
         $result['collection'] = [];
 
-        foreach ($records as $row) {
-            $result['collection'][] = $this->rowRenderer->render($grid, $configuration, $row);
+        foreach ($records as $record) {
+            $row = $this->rowRenderer->render($grid, $configuration, $record);
+            $row['_links']['value'] = $this->actionRenderer->render($grid, $record);
+            $result['collection'][] = $row;
         }
 
         $result['info'] = $this->infoRenderer->render($grid, $configuration, $dataSet);
