@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ergonode\Comment\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
+use Doctrine\DBAL\Query\QueryBuilder;
 
-interface CommentQueryInterface
+interface CommentGridQueryInterface
 {
-    public function getDataSet(Language $language): DataSetInterface;
+    public function getDataSet(Language $language): QueryBuilder;
 }

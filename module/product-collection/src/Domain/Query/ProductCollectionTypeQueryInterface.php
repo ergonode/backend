@@ -10,14 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 interface ProductCollectionTypeQueryInterface
 {
-    public function getDataSet(Language $language): DataSetInterface;
-
     /**
      * @return string[]
      */

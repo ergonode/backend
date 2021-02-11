@@ -32,6 +32,7 @@ services:
         tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaQuery'
+    Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaGridQuery'
     Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Repository\DbalMultimediaRepository'
     Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface: '@Ergonode\Multimedia\Infrastructure\Service\SHACalculationService'
 

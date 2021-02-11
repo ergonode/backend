@@ -32,5 +32,8 @@ services:
 
     Ergonode\Channel\Domain\Repository\SchedulerRepositoryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Repository\DbalSchedulerRepository'
     Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Repository\DbalChannelRepository'
+    Ergonode\Channel\Domain\Query\ChannelGridQueryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Query\DbalChannelGridQuery'
     Ergonode\Channel\Domain\Query\ChannelQueryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Query\DbalChannelQuery'
     Ergonode\Channel\Domain\Query\ExportQueryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Query\DbalExportQuery'
+    Ergonode\Channel\Domain\Query\ExportGridQueryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Query\DbalExportGridQuery'
+    Ergonode\Channel\Domain\Query\ExportErrorGridQueryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Query\DbalExportErrorGridQuery'

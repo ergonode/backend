@@ -37,10 +37,6 @@ services:
             - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption']]
 
     Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeRepository'
-#    Ergonode\Attribute\Infrastructure\Persistence\Repository\Decorator\CacheAttributeRepositoryDecorator:
-#        decorates: Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface
-#        arguments:
-#            - '@Ergonode\Attribute\Infrastructure\Persistence\Repository\Decorator\CacheAttributeRepositoryDecorator.inner'
     Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeGroupRepository'
 
     Ergonode\Attribute\Domain\Query\AttributeQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeQuery'
@@ -48,15 +44,10 @@ services:
         decorates: Ergonode\Attribute\Domain\Query\AttributeQueryInterface
         arguments:
             - '@Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator\CacheAttributeQueryDecorator.inner'
+
     Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGroupQuery'
     Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeGridQuery'
     Ergonode\Attribute\Domain\Query\CurrencyQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalCurrencyQuery'
-
-    Ergonode\Attribute\Application\Provider\AttributePropertyFormResolver:
-        calls:
-            - ['set', ['PRICE','Ergonode\Attribute\Application\Form\Attribute\Configuration\PriceAttributeConfigurationForm']]
-            - ['set', ['DATE','Ergonode\Attribute\Application\Form\Attribute\Configuration\DateAttributeConfigurationForm']]
-            - ['set', ['UNIT','Ergonode\Attribute\Application\Form\Attribute\Configuration\UnitAttributeConfigurationForm']]
 
     Ergonode\Attribute\Infrastructure\Mapper\AttributeValueMapper:
         arguments:
@@ -72,3 +63,13 @@ services:
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\ImageAttributeMapperStrategy'
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\DateAttributeMapperStrategy'
             - '@Ergonode\Attribute\Infrastructure\Mapper\Strategy\StatusAttributeMapperStrategy'
+    Ergonode\Attribute\Application\Controller\Api\Attribute\SystemAttributeGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+             $gridBuilder: '@Ergonode\Attribute\Infrastructure\Grid\AttributeGridBuilder'
+
+    Ergonode\Attribute\Application\Controller\Api\Attribute\AttributeGridReadAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            $gridBuilder: '@Ergonode\Attribute\Infrastructure\Grid\AttributeGridBuilder'
+

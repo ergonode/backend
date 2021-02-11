@@ -10,11 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 class DbalChannelQuery implements ChannelQueryInterface
@@ -23,17 +19,9 @@ class DbalChannelQuery implements ChannelQueryInterface
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSet(Language $language): DataSetInterface
-    {
-        return $this->dataSetFactory->create($this->getQuery());
     }
 
     public function findChannelIdsByType(string $type): array
@@ -54,13 +42,5 @@ class DbalChannelQuery implements ChannelQueryInterface
         }
 
         return $result;
-    }
-
-
-    private function getQuery(): QueryBuilder
-    {
-        return $this->connection->createQueryBuilder()
-            ->select('ch.id, ch.name, ch.type')
-            ->from(self::CHANNEL_TABLE, 'ch');
     }
 }

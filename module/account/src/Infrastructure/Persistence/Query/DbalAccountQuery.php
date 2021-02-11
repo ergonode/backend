@@ -12,8 +12,6 @@ namespace Ergonode\Account\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use League\Flysystem\FilesystemInterface;
@@ -36,30 +34,12 @@ class DbalAccountQuery implements AccountQueryInterface
 
     private FilesystemInterface $avatarStorage;
 
-    private DbalDataSetFactory $dataSetFactory;
-
     public function __construct(
         Connection $connection,
-        FilesystemInterface $avatarStorage,
-        DbalDataSetFactory $dataSetFactory
+        FilesystemInterface $avatarStorage
     ) {
         $this->connection = $connection;
         $this->avatarStorage = $avatarStorage;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSet(): DataSetInterface
-    {
-        $query = $this->getQuery();
-        $query->join('a', 'roles', 'r', 'r.id = a.role_id')
-            ->andWhere($query->expr()->eq('hidden', ':hidden'));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't');
-        $result->setParameter(':hidden', false, \PDO::PARAM_BOOL);
-
-        return $this->dataSetFactory->create($result);
     }
 
     /**

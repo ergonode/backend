@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -24,7 +22,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
 {
     private const TEMPLATE_TABLE = 'designer.template';
     private const PRODUCT_TABLE = 'product';
-    private const ATTRIBUTE_TABLE = 'public.attribute';
     private const FIELDS = [
         't.id',
         't.name',
@@ -36,26 +33,9 @@ class DbalTemplateQuery implements TemplateQueryInterface
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSet(): DataSetInterface
-    {
-        $qb = $this->getQuery();
-        $qb->addSelect('COALESCE(tet.code, \'SKU\') as default_label_attribute');
-        $qb->addSelect('tei.code as default_image_attribute');
-        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tet', 't.default_label = tet.id');
-        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tei', 't.default_image = tei.id');
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
-
-        return $this->dataSetFactory->create($result);
     }
 
     /**
@@ -90,7 +70,8 @@ class DbalTemplateQuery implements TemplateQueryInterface
         $queryBuilder->select('template_id')
             ->from('designer.template_attribute')
             ->where($queryBuilder->expr()->eq('attribute_id', ':attribute'))
-            ->setParameter('attribute', $attributeId->getValue());
+            ->setParameter('attribute', $attributeId->getValue())
+            ->groupBy('template_id');
 
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 

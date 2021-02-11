@@ -38,30 +38,19 @@ Ergonode\Designer\Domain\ValueObject\Size:
             - 1
             - 1
 
-Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty:
-    template_element_property_{1..7}:
-        __construct:
-            - '<AttributeId(code_<current()>)>'
-            - true
-
-Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty:
-    template_element_property_8:
-        __construct:
-            - 'label'
-
-Ergonode\Designer\Domain\Entity\TemplateElement:
+Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement:
     template_element_{1..7}:
         __construct:
             - '@position_<current()>'
             - '@size'
-            - 'TEXT'
-            - '@template_element_property_<current()>'
+            - '<AttributeId(code_<current()>)>'
+            
+Ergonode\Designer\Domain\Entity\Element\UiTemplateElement:
     template_element_8:
         __construct:
             - '@position_8'
             - '@size'
             - 'SECTION'
-            - '@template_element_property_8'
 
 Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId:
     template_group_id:

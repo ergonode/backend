@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Application\Controller\Api\Template;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -19,25 +18,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Designer\Domain\Query\TemplateGridQueryInterface;
 
 /**
  * @Route("/templates", methods={"GET"})
  */
 class TemplateGridReadAction
 {
-    private TemplateQueryInterface $designerTemplateQuery;
+    private TemplateGridQueryInterface $designerTemplateQuery;
 
     private TemplateGridBuilder $gridBuilder;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        TemplateQueryInterface $designerTemplateQuery,
-        TemplateGridBuilder $gridBuilder
+        TemplateGridQueryInterface $designerTemplateQuery,
+        TemplateGridBuilder $gridBuilder,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
         $this->designerTemplateQuery = $designerTemplateQuery;
         $this->gridBuilder = $gridBuilder;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -108,7 +113,7 @@ class TemplateGridReadAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->designerTemplateQuery->getDataSet();
+        $dataSet = $this->factory->create($this->designerTemplateQuery->getGridQuery());
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

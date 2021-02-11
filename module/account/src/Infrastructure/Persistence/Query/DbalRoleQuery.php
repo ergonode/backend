@@ -12,8 +12,6 @@ namespace Ergonode\Account\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
@@ -23,25 +21,9 @@ class DbalRoleQuery implements RoleQueryInterface
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    public function getDataSet(): DataSetInterface
-    {
-        $query = $this->getQuery();
-        $query->andWhere($query->expr()->eq('hidden', ':hidden'));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't');
-        $result->setParameter(':hidden', false, \PDO::PARAM_BOOL);
-
-        return $this->dataSetFactory->create($result);
     }
 
     public function getRoleUsersCount(RoleId $id): int
