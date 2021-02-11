@@ -11,11 +11,12 @@ namespace Ergonode\EventSourcing\Infrastructure;
 
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
 interface DomainEventStorageInterface
 {
     /**
-     * @return array
+     * @return DomainEventEnvelope[]
      */
     public function load(AggregateId $id, int $sequence = 0, string $name = null): array;
 

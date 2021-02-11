@@ -25,7 +25,7 @@ services:
 
     Ergonode\Designer\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
-        tags: ['messenger.message_handler']
+        tags: ['ergonode.event_sourcing.projector']
 
     Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'

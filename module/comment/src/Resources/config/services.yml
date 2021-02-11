@@ -26,7 +26,7 @@ services:
 
     Ergonode\Comment\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
-        tags: ['messenger.message_handler']
+        tags: ['ergonode.event_sourcing.projector']
 
     Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Repository\DbalCommentRepository'
     Ergonode\Comment\Domain\Query\CommentGridQueryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Query\DbalCommentGridQuery'

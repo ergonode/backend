@@ -27,9 +27,6 @@ class DbalCategoryTreeNameChangedEventProjector
         $this->serializer = $serializer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(CategoryTreeNameChangedEvent $event): void
     {
         $this->connection->update(
