@@ -14,10 +14,12 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class DbalTreeQuery implements TreeQueryInterface
 {
     private const TREE_TABLE = 'category_tree';
+    private const TREE_CATEGORY_TABLE = 'category_tree_category';
 
     private Connection $connection;
 
@@ -53,6 +55,27 @@ class DbalTreeQuery implements TreeQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return CategoryTreeId[]
+     */
+    public function findCategoryTreeIdsByCategoryId(CategoryId $categoryId): array
+    {
+        $query = $this->connection->createQueryBuilder();
+        $records = $query->select('category_tree_id')
+            ->from(self::TREE_CATEGORY_TABLE)
+            ->where($query->expr()->eq('category_id', ':categoryId'))
+            ->setParameter(':categoryId', $categoryId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $item) {
+            $result[] = new CategoryTreeId($item);
+        }
+
+        return $result;
     }
 
     public function autocomplete(
