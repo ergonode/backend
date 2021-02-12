@@ -57,7 +57,3 @@ Feature: Attribute grid
       | label  | abc   |
       | type   | abc   |
       | groups | abc   |
-
-
-
-
