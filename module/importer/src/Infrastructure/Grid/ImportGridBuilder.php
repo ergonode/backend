@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Grid;
 
@@ -15,7 +15,6 @@ use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
@@ -24,6 +23,7 @@ use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
 use Ergonode\Grid\Column\IdColumn;
+use Ergonode\Grid\Action\GetAction;
 
 class ImportGridBuilder implements GridBuilderInterface
 {
@@ -40,7 +40,6 @@ class ImportGridBuilder implements GridBuilderInterface
 
         $grid = new Grid();
 
-
         $grid
             ->addColumn('id', new IdColumn('id'))
             ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
@@ -49,18 +48,15 @@ class ImportGridBuilder implements GridBuilderInterface
             ->addColumn('records', new IntegerColumn('records', 'Records', new TextFilter()))
             ->addColumn('status', new SelectColumn('status', 'Status', new MultiSelectFilter($status)))
             ->addColumn('errors', new IntegerColumn('errors', 'Errors', new TextFilter()))
-            ->addColumn('_links', new LinkColumn('hal', [
-                'get' => [
-                    'privilege' => 'IMPORT_READ',
-                    'show' => ['system' => false],
-                    'route' => 'ergonode_import_read',
-                    'parameters' => [
-                        'language' => $language->getCode(),
-                        'source' => '{source_id}',
-                        'import' => '{id}',
-                    ],
-                ],
-            ]))
+            ->addAction('ergonode_import_read', new GetAction(
+                'ergonode_import_read',
+                'IMPORT_READ',
+                [
+                    'language' => $language->getCode(),
+                    'source' => '{source_id}',
+                    'import' => '{id}',
+                ]
+            ))
             ->orderBy('created_at', 'DESC');
 
         return $grid;
