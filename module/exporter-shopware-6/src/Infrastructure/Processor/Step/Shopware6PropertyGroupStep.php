@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -30,16 +32,20 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
 
     private CommandBusInterface $commandBus;
 
+    private ExportRepositoryInterface $exportRepository;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         SegmentProductsQueryInterface $segmentProductsQuery,
         ProductRepositoryInterface $productRepository,
-        CommandBusInterface $commandBus
+        CommandBusInterface $commandBus,
+        ExportRepositoryInterface $exportRepository
     ) {
         $this->productQuery = $productQuery;
         $this->segmentProductsQuery = $segmentProductsQuery;
         $this->productRepository = $productRepository;
         $this->commandBus = $commandBus;
+        $this->exportRepository = $exportRepository;
     }
 
     public function export(ExportId $exportId, Shopware6Channel $channel): void
@@ -47,7 +53,9 @@ class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
         $attributeList = array_unique(array_merge($this->getBindingAttributes($channel), $channel->getPropertyGroup()));
 
         foreach ($attributeList as $attributeId) {
-            $processCommand = new PropertyGroupExportCommand($exportId, $attributeId);
+            $lineId = ExportLineId::generate();
+            $processCommand = new PropertyGroupExportCommand($lineId, $exportId, $attributeId);
+            $this->exportRepository->addLine($lineId, $exportId, $attributeId);
             $this->commandBus->dispatch($processCommand, true);
         }
     }

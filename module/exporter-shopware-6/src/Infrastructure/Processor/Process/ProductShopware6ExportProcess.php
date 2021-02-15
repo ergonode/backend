@@ -48,7 +48,6 @@ class ProductShopware6ExportProcess
      */
     public function process(Export $export, Shopware6Channel $channel, AbstractProduct $product): void
     {
-        $this->exportRepository->addLine($export->getId(), $product->getId());
         $shopwareProduct = $this->productClient->find($channel, $product);
 
         try {

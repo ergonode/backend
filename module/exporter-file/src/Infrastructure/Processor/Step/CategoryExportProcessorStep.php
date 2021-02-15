@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
@@ -40,8 +41,9 @@ class CategoryExportProcessorStep implements ExportStepProcessInterface
         $categories = $this->categoryQuery->getAll(new Language('en_GB'));
         foreach ($categories as $category) {
             $categoryId =  new CategoryId($category['id']);
-            $command = new ProcessCategoryCommand($exportId, $categoryId);
-            $this->repository->addLine($exportId, $categoryId);
+            $lineId = ExportLineId::generate();
+            $command = new ProcessCategoryCommand($lineId, $exportId, $categoryId);
+            $this->repository->addLine($lineId, $exportId, $categoryId);
             $this->commandBus->dispatch($command, true);
         }
     }

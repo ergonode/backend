@@ -61,8 +61,6 @@ class ProductCrossSellingExportProcess
     {
         $this->productCrossSellingRemoveExportProcess->process($export, $channel, $productCollection);
 
-        $this->exportRepository->addLine($export->getId(), $productCollection->getId());
-
         foreach ($productCollection->getElements() as $productCollectionElement) {
             if ($productCollectionElement->isVisible()) {
                 $this->processElement($export, $channel, $productCollection, $productCollectionElement);

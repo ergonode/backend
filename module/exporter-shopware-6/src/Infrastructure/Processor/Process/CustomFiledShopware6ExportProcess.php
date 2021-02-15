@@ -59,7 +59,6 @@ class CustomFiledShopware6ExportProcess
      */
     public function process(Export $export, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
-        $this->exportRepository->addLine($export->getId(), $attribute->getId());
         $customField = $this->loadCustomField($channel, $attribute);
         try {
             if ($customField) {

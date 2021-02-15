@@ -58,7 +58,6 @@ class PropertyGroupShopware6ExportProcess
      */
     public function process(Export $export, Shopware6Channel $channel, AbstractAttribute $attribute): void
     {
-        $this->exportRepository->addLine($export->getId(), $attribute->getId());
         $propertyGroup = $this->loadPropertyGroup($channel, $attribute);
         try {
             if ($propertyGroup) {

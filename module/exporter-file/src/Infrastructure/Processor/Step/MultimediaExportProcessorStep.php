@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand;
@@ -39,8 +40,9 @@ class MultimediaExportProcessorStep implements ExportStepProcessInterface
         $multimedia = $this->query->getAll();
         foreach ($multimedia as $id) {
             $multimediaId = new MultimediaId($id);
-            $command = new ProcessMultimediaCommand($exportId, $multimediaId);
-            $this->repository->addLine($exportId, $multimediaId);
+            $lineId = ExportLineId::generate();
+            $command = new ProcessMultimediaCommand($lineId, $exportId, $multimediaId);
+            $this->repository->addLine($lineId, $exportId, $multimediaId);
             $this->commandBus->dispatch($command, true);
         }
     }
