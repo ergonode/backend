@@ -4,54 +4,59 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
-namespace Ergonode\ImporterErgonode1\Infrastructure\Handler\Import;
+namespace Ergonode\Importer\Infrastructure\Handler;
 
 use Ergonode\Core\Application\Serializer\SerializerInterface;
-use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Psr\Log\LoggerInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
+use Ergonode\Importer\Domain\Command\Import\ImportTemplateElementCommand;
+use Ergonode\Importer\Infrastructure\Action\TemplateElementImportAction;
 
-class ImportTemplateCommandHandler
+class ImportTemplateElementCommandHandler
 {
+    private TemplateElementImportAction $action;
     private TemplateQueryInterface $templateQuery;
     private TemplateRepositoryInterface $templateRepository;
-    private TemplateGroupQueryInterface $templateGroupQuery;
     private ImportRepositoryInterface $importerRepository;
     private LoggerInterface $logger;
     private SerializerInterface $serializer;
 
+    /**
+     * @param TemplateElementImportAction $action
+     * @param TemplateQueryInterface      $templateQuery
+     * @param TemplateRepositoryInterface $templateRepository
+     * @param ImportRepositoryInterface   $importerRepository
+     * @param LoggerInterface             $logger
+     * @param SerializerInterface         $serializer
+     */
     public function __construct(
+        TemplateElementImportAction $action,
         TemplateQueryInterface $templateQuery,
         TemplateRepositoryInterface $templateRepository,
-        TemplateGroupQueryInterface $templateGroupQuery,
         ImportRepositoryInterface $importerRepository,
         LoggerInterface $logger,
         SerializerInterface $serializer
     ) {
+        $this->action = $action;
         $this->templateQuery = $templateQuery;
         $this->templateRepository = $templateRepository;
-        $this->templateGroupQuery = $templateGroupQuery;
         $this->importerRepository = $importerRepository;
         $this->logger = $logger;
         $this->serializer = $serializer;
     }
 
-    public function __invoke(ImportTemplateCommand $command): void
+    public function __invoke(ImportTemplateElementCommand $command): void
     {
+        $name = $command->getName();
+
         try {
-            $element = $this->serializer->deserialize(
-                $command->getProperty(),
-                TemplateElementInterface::class,
-            );
+            $element = $this->serializer->deserialize($command->getProperty(), TemplateElementInterface::class,);
 
             if (!$element instanceof TemplateElementInterface) {
                 throw new ImportException(
@@ -62,11 +67,7 @@ class ImportTemplateCommandHandler
                     )
                 );
             }
-
-            $template = $this->action(
-                $command->getName(),
-                $element
-            );
+            $template = $this->action->action($name, $element);
 
             $this->templateRepository->save($template);
             $this->importerRepository->addLine($command->getImportId(), $template->getId(), 'TEMPLATE');
@@ -83,32 +84,5 @@ class ImportTemplateCommandHandler
         }
     }
 
-    /**
-     * @throws \Exception
-     */
-    private function action(string $name, TemplateElementInterface $element): Template
-    {
-        $templateId = $this->templateQuery->findTemplateIdByCode($name);
-        if ($templateId) {
-            $template = $this->templateRepository->load($templateId);
-        } else {
-            $groupId = $this->templateGroupQuery->getDefaultId();
-            $template = new Template(
-                TemplateId::generate(),
-                $groupId,
-                $name
-            );
-        }
 
-        $template->changeName($name);
-
-        $oldElement = $template->getElement($element->getPosition());
-        if (!$oldElement instanceof TemplateElementInterface) {
-            $template->addElement($element);
-        } elseif (!$oldElement->isEqual($element)) {
-            $template->changeElement($element);
-        }
-
-        return $template;
-    }
 }

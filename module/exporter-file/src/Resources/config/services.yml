@@ -39,3 +39,9 @@ services:
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\ProductExportProcessStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\MultimediaExportProcessorStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\TemplateExportProcessorStep'
+
+    Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapProvider:
+       arguments:
+           -
+               - '@Ergonode\ExporterFile\Infrastructure\Processor\Strategy\Template\AttributeTemplateElementMapStrategy'
+               - '@Ergonode\ExporterFile\Infrastructure\Processor\Strategy\Template\LabelTemplateElementMapStrategy'

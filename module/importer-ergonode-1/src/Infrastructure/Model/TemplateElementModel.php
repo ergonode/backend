@@ -6,14 +6,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode1\Domain\Command\Import;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
-use Ergonode\SharedKernel\Domain\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-
-class ImportTemplateCommand implements DomainCommandInterface
+class TemplateElementModel
 {
-    private ImportId $importId;
     private string $name;
     private string $type;
     private int $x;
@@ -23,7 +19,6 @@ class ImportTemplateCommand implements DomainCommandInterface
     private string $property;
 
     public function __construct(
-        ImportId $importId,
         string $name,
         string $type,
         int $x,
@@ -32,7 +27,6 @@ class ImportTemplateCommand implements DomainCommandInterface
         int $height,
         string $property
     ) {
-        $this->importId = $importId;
         $this->name = $name;
         $this->type = $type;
         $this->x = $x;
@@ -40,11 +34,6 @@ class ImportTemplateCommand implements DomainCommandInterface
         $this->width = $width;
         $this->height = $height;
         $this->property = $property;
-    }
-
-    public function getImportId(): ImportId
-    {
-        return $this->importId;
     }
 
     public function getName(): string

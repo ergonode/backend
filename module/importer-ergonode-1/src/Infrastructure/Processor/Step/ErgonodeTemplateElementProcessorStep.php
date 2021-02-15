@@ -11,29 +11,33 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
-use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
-use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
+use Ergonode\Importer\Domain\Command\Import\ImportTemplateElementCommand;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateElementReader;
 
-class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeTemplateElementProcessorStep implements ErgonodeProcessorStepInterface
 {
-    private const FILENAME = 'templates.csv';
+    private const FILENAME = 'templates_elements.csv';
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(
-        CommandBusInterface $commandBus
-    ) {
+    public function __construct(CommandBusInterface $commandBus) {
         $this->commandBus = $commandBus;
     }
 
     public function __invoke(Import $import, string $directory): void
     {
-        $reader = new ErgonodeTemplateReader($directory, self::FILENAME);
+        $reader = new ErgonodeTemplateElementReader($directory, self::FILENAME);
 
         while ($template = $reader->read()) {
-            $command = new ImportTemplateCommand(
+            $command = new ImportTemplateElementCommand(
                 $import->getId(),
                 $template->getName(),
+                $template->getType(),
+                $template->getX(),
+                $template->getY(),
+                $template->getWidth(),
+                $template->getHeight(),
+                $template->getProperty()
             );
             $import->addRecords(1);
             $this->commandBus->dispatch($command, true);
