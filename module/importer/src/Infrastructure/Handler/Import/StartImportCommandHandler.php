@@ -65,15 +65,14 @@ class StartImportCommandHandler
 
         try {
             $processor->start($import);
-            $this->importRepository->save($import);
         } catch (ImportException|ReaderException $exception) {
             $message = $exception->getMessage();
         } catch (\Throwable $exception) {
             $this->logger->error($exception);
             $message = 'Import processing error';
-
-            die($exception->getMessage());
         }
+
+        $this->importRepository->save($import);
 
         if ($message) {
             $this->commandBus->dispatch(new StopImportCommand($import->getId(), $message), true);

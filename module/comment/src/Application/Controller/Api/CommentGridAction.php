@@ -13,13 +13,14 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Comment\Domain\Query\CommentQueryInterface;
+use Ergonode\Comment\Domain\Query\CommentGridQueryInterface;
 use Ergonode\Comment\Infrastructure\Grid\CommentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/comments", methods={"GET"}, name="ergonode_comment_grid")
@@ -28,14 +29,21 @@ class CommentGridAction
 {
     private CommentGridBuilder $gridBuilder;
 
-    private CommentQueryInterface $query;
+    private CommentGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $renderer;
 
-    public function __construct(CommentGridBuilder $gridBuilder, CommentQueryInterface $query, GridRenderer $renderer)
-    {
+    public function __construct(
+        CommentGridBuilder $gridBuilder,
+        CommentGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $renderer
+    ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->renderer = $renderer;
     }
 
@@ -108,8 +116,7 @@ class CommentGridAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet($language);
-
+        $dataSet = $this->factory->create($this->query->getDataSet($language));
         $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

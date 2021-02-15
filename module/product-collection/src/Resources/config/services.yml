@@ -25,7 +25,7 @@ services:
     
     Ergonode\ProductCollection\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
-        tags: ['messenger.message_handler']
+        tags: ['ergonode.event_sourcing.projector']
     
     Ergonode\ProductCollection\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
@@ -33,6 +33,10 @@ services:
     
     Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\DbalProductCollectionRepository'
     Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\DbalProductCollectionTypeRepository'
+
     Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionQuery'
-    Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionElementQuery'
+    Ergonode\ProductCollection\Domain\Query\ProductCollectionGridQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionGridQuery'
+    Ergonode\ProductCollection\Domain\Query\ProductCollectionElementGridQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionElementGridQuery'
     Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionTypeQuery'
+    Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeGridQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionTypeGridQuery'
+    Ergonode\ProductCollection\Domain\Query\ProductProductCollectionGridQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductProductCollectionGridQuery'

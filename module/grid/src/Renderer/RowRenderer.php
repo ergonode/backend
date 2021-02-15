@@ -32,6 +32,9 @@ class RowRenderer implements RowRendererInterface
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {
+            if (!$column->supportView($configuration->getView())) {
+                continue;
+            }
             $columnId = $id;
             if ($column->hasLanguage()) {
                 $columnId = sprintf('%s:%s', $column->getField(), $column->getLanguage()->getCode());

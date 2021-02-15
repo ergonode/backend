@@ -15,11 +15,12 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Product\Infrastructure\Grid\ProductChildrenGridBuilder;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Swagger\Annotations as SWG;
+use Ergonode\Product\Domain\Query\ProductChildrenGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -31,19 +32,23 @@ use Swagger\Annotations as SWG;
  */
 class ProductChildGridAction
 {
-    private ProductChildrenQueryInterface $query;
+    private ProductChildrenGridQueryInterface $query;
 
     private GridRenderer $gridRenderer;
+
+    private DbalDataSetFactory $factory;
 
     private ProductChildrenGridBuilder $gridBuilder;
 
     public function __construct(
-        ProductChildrenQueryInterface $query,
+        ProductChildrenGridQueryInterface $query,
         GridRenderer $gridRenderer,
+        DbalDataSetFactory $factory,
         ProductChildrenGridBuilder $gridBuilder
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
+        $this->factory = $factory;
         $this->gridBuilder = $gridBuilder;
     }
 
@@ -132,7 +137,7 @@ class ProductChildGridAction
         RequestGridConfiguration $configuration
     ): Response {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet($product->getId(), $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($product->getId(), $language));
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

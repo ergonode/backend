@@ -38,12 +38,8 @@ class AccountGridBuilder implements GridBuilderInterface
         $this->roleQuery = $roleQuery;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function build(GridConfigurationInterface $configuration, Language $language): GridInterface
     {
-
         $languages = $this->getLanguages($language);
         $roles = $this->getRoles();
         $grid = new Grid();

@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Application\Controller\Api\TemplateType;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -19,25 +18,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Designer\Domain\Query\TemplateElementGridQueryInterface;
 
 /**
  * @Route("/templates/types", methods={"GET"})
  */
 class TemplateTypeGridReadAction
 {
-    private TemplateElementQueryInterface $query;
+    private TemplateElementGridQueryInterface $query;
 
     private TemplateTypeDictionaryGridBuilder $gridBuilder;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        TemplateElementQueryInterface $query,
-        TemplateTypeDictionaryGridBuilder $gridBuilder
+        TemplateElementGridQueryInterface $query,
+        TemplateTypeDictionaryGridBuilder $gridBuilder,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
         $this->query = $query;
         $this->gridBuilder = $gridBuilder;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -108,7 +113,7 @@ class TemplateTypeGridReadAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet();
+        $dataSet = $this->factory->create($this->query->getGridQuery());
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

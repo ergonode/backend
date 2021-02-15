@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
 use Ergonode\Channel\Infrastructure\Grid\ChannelGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -20,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Channel\Domain\Query\ChannelGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -32,17 +33,21 @@ class ChannelGridReadAction
 {
     private ChannelGridBuilder $gridBuilder;
 
-    private ChannelQueryInterface $query;
+    private ChannelGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         ChannelGridBuilder $gridBuilder,
-        ChannelQueryInterface $query,
+        ChannelGridQueryInterface $query,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -114,7 +119,7 @@ class ChannelGridReadAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet($language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($language));
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

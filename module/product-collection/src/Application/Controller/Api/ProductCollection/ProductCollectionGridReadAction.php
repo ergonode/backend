@@ -13,13 +13,14 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/collections", methods={"GET"})
@@ -28,20 +29,21 @@ class ProductCollectionGridReadAction
 {
     private ProductCollectionGridBuilder $productCollectionGridBuilder;
 
-    private ProductCollectionQueryInterface $collectionQuery;
+    private ProductCollectionGridQueryInterface $collectionQuery;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
-    /**
-     * ProductCollectionGridBuilderReadAction constructor.
-     */
     public function __construct(
         ProductCollectionGridBuilder $productCollectionGridBuilder,
-        ProductCollectionQueryInterface $collectionQuery,
+        ProductCollectionGridQueryInterface $collectionQuery,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
         $this->productCollectionGridBuilder = $productCollectionGridBuilder;
         $this->collectionQuery = $collectionQuery;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -113,7 +115,7 @@ class ProductCollectionGridReadAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->productCollectionGridBuilder->build($configuration, $language);
-        $dataSet = $this->collectionQuery->getDataSet($language);
+        $dataSet = $this->factory->create($this->collectionQuery->getGridQuery($language));
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

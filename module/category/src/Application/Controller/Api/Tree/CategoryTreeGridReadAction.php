@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Category\Application\Controller\Api\Tree;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Category\Infrastructure\Grid\TreeGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -20,25 +19,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Category\Domain\Query\TreeGridQueryInterface;
 
 /**
  * @Route("/trees", methods={"GET"})
  */
 class CategoryTreeGridReadAction
 {
-    private TreeQueryInterface $query;
+    private TreeGridQueryInterface $query;
 
     private TreeGridBuilder $gridBuilder;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        TreeQueryInterface $query,
-        TreeGridBuilder $gridBuilder
+        TreeGridQueryInterface $query,
+        TreeGridBuilder $gridBuilder,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
         $this->query = $query;
         $this->gridBuilder = $gridBuilder;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -104,7 +109,7 @@ class CategoryTreeGridReadAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getDataSet($language);
+        $dataSet = $this->factory->create($this->query->getDataSet($language));
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

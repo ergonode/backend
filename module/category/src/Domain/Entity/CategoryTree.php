@@ -126,7 +126,6 @@ class CategoryTree extends AbstractAggregateRoot
         return $this->categories;
     }
 
-
     protected function applyCategoryTreeCreatedEvent(CategoryTreeCreatedEvent $event): void
     {
         $this->categories = [];

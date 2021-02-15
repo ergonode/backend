@@ -6,7 +6,7 @@ services:
 
     Ergonode\EventSourcing\Infrastructure\:
         resource: '../../Infrastructure/*'
-        
+
     Ergonode\EventSourcing\Infrastructure\Middleware\:
         resource: '../../Infrastructure/Middleware/*'
 

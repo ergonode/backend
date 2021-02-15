@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
@@ -46,17 +46,16 @@ class TemplateProcessor
         }
     }
 
-    private function getLanguage(Template $template, TemplateElement $element): LanguageData
+    private function getLanguage(Template $template, TemplateElementInterface $element): LanguageData
     {
         $result = new LanguageData();
-        $result->set('_id', $template->getId()->getValue());
         $result->set('_name', $template->getName());
         $result->set('_type', $element->getType());
         $result->set('_x', (string) $element->getPosition()->getX());
         $result->set('_y', (string) $element->getPosition()->getY());
         $result->set('_width', (string) $element->getSize()->getWidth());
         $result->set('_height', (string) $element->getSize()->getHeight());
-        $result->set('_properties', $this->serializer->serialize($element->getProperties()));
+        $result->set('_properties', $this->serializer->serialize($element));
 
         return $result;
     }

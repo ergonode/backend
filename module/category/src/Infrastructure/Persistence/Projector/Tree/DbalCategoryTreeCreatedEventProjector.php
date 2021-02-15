@@ -27,9 +27,6 @@ class DbalCategoryTreeCreatedEventProjector
         $this->serializer = $serializer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(CategoryTreeCreatedEvent $event): void
     {
         $this->connection->insert(

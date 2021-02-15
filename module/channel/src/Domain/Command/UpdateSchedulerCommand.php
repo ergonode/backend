@@ -49,6 +49,9 @@ class UpdateSchedulerCommand implements ChannelCommandInterface
             Assert::greaterThanEq($minute, 0);
             Assert::lessThanEq($hour, Scheduler::HOURS);
             Assert::lessThanEq($minute, Scheduler::MINUTES);
+            if (0 === $hour) {
+                Assert::greaterThan($minute, 0);
+            }
         }
 
         $this->id = $id;

@@ -108,7 +108,7 @@ class AttributeGridBuilder implements GridBuilderInterface
     {
         $result = [];
         foreach (AttributeScope::AVAILABLE as $item) {
-            $scope[] = new LabelFilterOption($item, $item);
+            $result[] = new LabelFilterOption($item, $item);
         }
 
         return $result;

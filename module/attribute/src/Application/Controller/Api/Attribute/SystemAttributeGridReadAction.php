@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
-use Ergonode\Attribute\Infrastructure\Grid\AttributeGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -20,25 +19,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\GridBuilderInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/attributes/system", methods={"GET"})
  */
 class SystemAttributeGridReadAction
 {
-    private AttributeGridBuilder $gridBuilder;
+    private GridBuilderInterface $gridBuilder;
 
-    private AttributeGridQueryInterface $gridQuery;
+    private AttributeGridQueryInterface $attributeGridQuery;
+
+    private DbalDataSetFactory $dataSetFactory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        AttributeGridBuilder $gridBuilder,
-        AttributeGridQueryInterface $gridQuery
+        GridBuilderInterface $gridBuilder,
+        AttributeGridQueryInterface $attributeGridQuery,
+        DbalDataSetFactory $dataSetFactory,
+        GridRenderer $gridRenderer
     ) {
         $this->gridBuilder = $gridBuilder;
-        $this->gridQuery = $gridQuery;
+        $this->attributeGridQuery = $attributeGridQuery;
+        $this->dataSetFactory = $dataSetFactory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -110,7 +115,7 @@ class SystemAttributeGridReadAction
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->gridQuery->getDataSet($language, true);
+        $dataSet = $this->dataSetFactory->create($this->attributeGridQuery->getDataSetQuery($language, true));
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

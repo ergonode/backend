@@ -17,10 +17,11 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Channel\Domain\Query\ExportErrorGridQueryInterface;
 
 /**
  * @Route(
@@ -37,17 +38,21 @@ class ChannelExportErrorGridAction
 {
     private ExportErrorsGridBuilder $gridBuilder;
 
-    private ExportQueryInterface $query;
+    private ExportErrorGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         ExportErrorsGridBuilder $gridBuilder,
-        ExportQueryInterface $query,
+        ExportErrorGridQueryInterface $query,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
         $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -93,7 +98,7 @@ class ChannelExportErrorGridAction
         RequestGridConfiguration $configuration
     ): Response {
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getErrorDataSet($export->getId(), $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($export->getId(), $language));
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

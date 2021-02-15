@@ -12,8 +12,6 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 
 class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
@@ -27,12 +25,9 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
@@ -56,12 +51,6 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
             ->fetch(\PDO::FETCH_COLUMN);
 
         return new TemplateGroupId($result);
-    }
-
-
-    public function getDataSet(): DataSetInterface
-    {
-        return $this->dataSetFactory->create($this->getQuery());
     }
 
     private function getQuery(): QueryBuilder

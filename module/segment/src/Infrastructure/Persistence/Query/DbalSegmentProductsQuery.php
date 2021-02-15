@@ -11,8 +11,6 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
@@ -23,32 +21,9 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
 
     private Connection $connection;
 
-    private DbalDataSetFactory $dataSetFactory;
-
-    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->dataSetFactory = $dataSetFactory;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDataSet(SegmentId $segmentId): DataSetInterface
-    {
-        $query = $this->getQuery();
-
-        $query->join('sp', self::PRODUCT_TABLE, 'p', 'p.id = sp.product_id')
-            ->select('p.id', 'p.sku')
-            ->where($query->expr()->eq('sp.segment_id', ':segmentId'))
-            ->andWhere('sp.available = true');
-
-        $result = $this->connection->createQueryBuilder();
-        $result->setParameter(':segmentId', $segmentId->getValue());
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't');
-
-        return $this->dataSetFactory->create($result);
     }
 
     /**

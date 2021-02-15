@@ -11,12 +11,9 @@ namespace Ergonode\Account\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\Grid\DataSetInterface;
 
 interface RoleQueryInterface
 {
-    public function getDataSet(): DataSetInterface;
-
     /**
      * @return string[]
      */

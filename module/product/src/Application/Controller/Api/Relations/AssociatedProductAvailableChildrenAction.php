@@ -16,13 +16,14 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\Product\Domain\Entity\VariableProduct;
-use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 use Ergonode\Product\Infrastructure\Grid\AssociatedProductAvailableChildrenGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
+use Ergonode\Product\Domain\Query\ProductChildrenAvailableGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -34,22 +35,26 @@ use Swagger\Annotations as SWG;
  */
 class AssociatedProductAvailableChildrenAction
 {
-    private ProductChildrenQueryInterface $query;
+    private ProductChildrenAvailableGridQueryInterface $query;
 
     private GridRenderer $gridRenderer;
+
+    private DbalDataSetFactory $factory;
 
     private AssociatedProductAvailableChildrenGridBuilder $gridBuilder;
 
     private AttributeRepositoryInterface $attributeRepository;
 
     public function __construct(
-        ProductChildrenQueryInterface $query,
+        ProductChildrenAvailableGridQueryInterface $query,
         GridRenderer $gridRenderer,
+        DbalDataSetFactory $factory,
         AssociatedProductAvailableChildrenGridBuilder $gridBuilder,
         AttributeRepositoryInterface $attributeRepository
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
+        $this->factory = $factory;
         $this->gridBuilder = $gridBuilder;
         $this->attributeRepository = $attributeRepository;
     }
@@ -150,7 +155,7 @@ class AssociatedProductAvailableChildrenAction
         $this->gridBuilder->addAssociatedProduct($product);
 
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->query->getChildrenAndAvailableProductsDataSet($product, $language, $bindingAttributes);
+        $dataSet = $this->factory->create($this->query->getGridQuery($product, $language, $bindingAttributes));
 
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 

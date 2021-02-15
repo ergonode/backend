@@ -30,9 +30,8 @@ class CompletenessCalculator
     {
         $result = [];
         foreach ($template->getElements() as $element) {
-            $properties = $element->getProperties();
-            $strategy = $this->provider->provide($properties->getVariant());
-            $elementCompleteness = $strategy->getElementCompleteness($product, $language, $properties);
+            $strategy = $this->provider->provide($element->getType());
+            $elementCompleteness = $strategy->getElementCompleteness($product, $language, $element);
             if ($elementCompleteness) {
                 $result[] = $elementCompleteness;
             }

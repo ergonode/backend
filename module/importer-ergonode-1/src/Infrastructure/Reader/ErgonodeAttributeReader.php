@@ -24,12 +24,11 @@ class ErgonodeAttributeReader extends AbstractErgonodeReader
 
             if (null === $item) {
                 $item = new AttributeModel(
-                    $record['_id'],
                     $record['_code'],
                     $record['_type'],
                     $record['_scope']
                 );
-            } elseif ($item->getId() !== $record['_id']) {
+            } elseif ($item->getCode() !== $record['_code']) {
                 break;
             }
 
