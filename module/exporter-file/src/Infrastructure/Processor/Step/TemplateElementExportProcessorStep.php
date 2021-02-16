@@ -15,6 +15,7 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 
 class TemplateElementExportProcessorStep implements ExportStepProcessInterface
 {
@@ -39,8 +40,9 @@ class TemplateElementExportProcessorStep implements ExportStepProcessInterface
         $templates = $this->query->getAll();
         foreach ($templates as $template) {
             $templateId = new TemplateId($template);
-            $command = new ProcessTemplateCommand($exportId, $templateId);
-            $this->repository->addLine($exportId, $templateId);
+            $id = ExportLineId::generate();
+            $command = new ProcessTemplateCommand($id, $exportId, $templateId);
+            $this->repository->addLine($id, $exportId, $templateId);
             $this->commandBus->dispatch($command, true);
         }
     }
