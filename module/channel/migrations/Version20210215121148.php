@@ -17,6 +17,8 @@ final class Version20210215121148 extends AbstractErgonodeMigration
 {
     public function up(Schema $schema): void
     {
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+        
         $this->addSql('ALTER TABLE exporter.export_line RENAME TO export_line_old');
 
         $this->addSql('
