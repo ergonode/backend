@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -57,8 +58,12 @@ class CustomFiledShopware6ExportProcess
     /**
      * @throws \Exception
      */
-    public function process(Export $export, Shopware6Channel $channel, AbstractAttribute $attribute): void
-    {
+    public function process(
+        ExportLineId $lineId,
+        Export $export,
+        Shopware6Channel $channel,
+        AbstractAttribute $attribute
+    ): void {
         $customField = $this->loadCustomField($channel, $attribute);
         try {
             if ($customField) {
@@ -75,7 +80,7 @@ class CustomFiledShopware6ExportProcess
         } catch (Shopware6ExporterException $exception) {
             $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
         }
-        $this->exportRepository->processLine($export->getId(), $attribute->getId());
+        $this->exportRepository->processLine($lineId);
     }
 
     private function updateCustomField(

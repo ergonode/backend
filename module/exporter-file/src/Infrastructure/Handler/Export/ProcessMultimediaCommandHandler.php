@@ -88,7 +88,7 @@ class ProcessMultimediaCommandHandler
                     ['{id}' => $multimediaId->getValue()]
                 );
             }
-            $this->exportRepository->processLine($exportId, $multimediaId);
+            $this->exportRepository->processLine($command->getLineId());
         }
     }
 }

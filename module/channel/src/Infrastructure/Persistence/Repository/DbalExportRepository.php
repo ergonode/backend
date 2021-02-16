@@ -116,7 +116,7 @@ class DbalExportRepository implements ExportRepositoryInterface
         );
     }
 
-    public function processLine(ExportId $exportId, AggregateId $objectId): void
+    public function processLine(ExportLineId $lineId): void
     {
         $this->connection->update(
             self::TABLE_LINE,
@@ -124,9 +124,7 @@ class DbalExportRepository implements ExportRepositoryInterface
                 'processed_at' => new \DateTime(),
             ],
             [
-                'export_id' => $exportId->getValue(),
-                'object_id' => $objectId->getValue(),
-
+                'id' => $lineId->getValue(),
             ],
             [
                 'processed_at' => Types::DATETIMETZ_MUTABLE,

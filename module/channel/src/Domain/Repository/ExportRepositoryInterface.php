@@ -25,7 +25,7 @@ interface ExportRepositoryInterface
 
     public function addLine(ExportLineId $lineId, ExportId $exportId, AggregateId $objectId): void;
 
-    public function processLine(ExportId $exportId, AggregateId $objectId): void;
+    public function processLine(ExportLineId $lineId): void;
 
     /**
      * @param string[] $parameters
