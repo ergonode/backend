@@ -90,7 +90,7 @@ class ProcessCategoryCommandHandler
                     ['{id}' => $categoryId->getValue()]
                 );
             }
-            $this->exportRepository->processLine($exportId, $categoryId);
+            $this->exportRepository->processLine($command->getLineId());
         }
     }
 }

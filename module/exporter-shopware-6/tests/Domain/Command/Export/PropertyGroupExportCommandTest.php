@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Tests\Domain\Command\Export;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupExportCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -16,6 +17,11 @@ use PHPUnit\Framework\TestCase;
 
 class PropertyGroupExportCommandTest extends TestCase
 {
+    /**
+     * @var ExportLineId|MockObject
+     */
+    private ExportLineId $lineId;
+
     /**
      * @var ExportId|MockObject
      */
@@ -28,6 +34,7 @@ class PropertyGroupExportCommandTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->lineId = $this->createMock(ExportLineId::class);
         $this->exportId = $this->createMock(ExportId::class);
         $this->attributeId = $this->createMock(AttributeId::class);
     }
@@ -35,6 +42,7 @@ class PropertyGroupExportCommandTest extends TestCase
     public function testCreateCommand(): void
     {
         $command = new PropertyGroupExportCommand(
+            $this->lineId,
             $this->exportId,
             $this->attributeId
         );

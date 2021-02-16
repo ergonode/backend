@@ -49,6 +49,6 @@ class CustomFieldExportCommandHandler
         $attribute = $this->attributeRepository->load($command->getAttributeId());
         Assert::isInstanceOf($attribute, AbstractAttribute::class);
 
-        $this->process->process($export, $channel, $attribute);
+        $this->process->process($command->getLineId(), $export, $channel, $attribute);
     }
 }

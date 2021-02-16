@@ -86,7 +86,7 @@ class ProcessTemplateCommandHandler
                     ['{id}' => $templateId->getValue()]
                 );
             }
-            $this->exportRepository->processLine($exportId, $templateId);
+            $this->exportRepository->processLine($command->getLineId());
         }
     }
 

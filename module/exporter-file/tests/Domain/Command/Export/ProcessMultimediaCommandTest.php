@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Domain\Command\Export;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -17,9 +18,11 @@ class ProcessMultimediaCommandTest extends TestCase
 {
     public function testCreation(): void
     {
+        $lineId = $this->createMock(ExportLineId::class);
         $exportId = $this->createMock(ExportId::class);
         $multimediaId = $this->createMock(MultimediaId::class);
-        $command = new ProcessMultimediaCommand($exportId, $multimediaId);
+        $command = new ProcessMultimediaCommand($lineId, $exportId, $multimediaId);
+        self::assertSame($lineId, $command->getLineId());
         self::assertSame($exportId, $command->getExportId());
         self::assertSame($multimediaId, $command->getMultimediaId());
     }

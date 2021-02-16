@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
@@ -39,8 +40,9 @@ class AttributeExportProcessorStep implements ExportStepProcessInterface
         $attributes = $this->query->getDictionary();
         foreach (array_keys($attributes) as $id) {
             $attributeId = new AttributeId($id);
-            $command = new ProcessAttributeCommand($exportId, $attributeId);
-            $this->repository->addLine($exportId, $attributeId);
+            $lineId = ExportLineId::generate();
+            $command = new ProcessAttributeCommand($lineId, $exportId, $attributeId);
+            $this->repository->addLine($lineId, $exportId, $attributeId);
             $this->commandBus->dispatch($command, true);
         }
     }

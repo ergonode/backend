@@ -90,7 +90,7 @@ class ProcessAttributeCommandHandler
                     ['{id}' => $attributeId->getValue()]
                 );
             }
-            $this->exportRepository->processLine($exportId, $attributeId);
+            $this->exportRepository->processLine($command->getLineId());
         }
     }
 }
