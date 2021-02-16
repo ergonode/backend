@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Infrastructure\Exception;
+namespace Ergonode\Core\Application\Exception;
 
 class DenoralizationException extends NormalizerException
 {
