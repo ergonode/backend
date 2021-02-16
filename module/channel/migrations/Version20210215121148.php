@@ -46,5 +46,21 @@ final class Version20210215121148 extends AbstractErgonodeMigration
         );
 
         $this->addSql('DROP TABLE exporter.export_line_old');
+
+        $this->addSql(
+            'DELETE 
+                    FROM exporter.export_error
+                    WHERE export_error.export_id IN(
+                        SELECT export_id 
+                        FROM exporter.export_error 
+                        LEFT JOIN exporter.export ON export.id = export_error.export_id 
+                        WHERE export.id IS NULL )'
+        );
+
+        $this->addSql(
+            'ALTER TABLE exporter.export_error 
+                    ADD CONSTRAINT export_error_export_id_fk FOREIGN KEY (export_id) 
+                    REFERENCES exporter.export(id) ON UPDATE CASCADE ON DELETE CASCADE'
+        );
     }
 }
