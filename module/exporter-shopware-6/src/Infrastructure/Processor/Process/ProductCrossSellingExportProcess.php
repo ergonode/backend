@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -57,11 +58,13 @@ class ProductCrossSellingExportProcess
         $this->productCrossSellingRemoveExportProcess = $productCrossSellingRemoveExportProcess;
     }
 
-    public function process(Export $export, Shopware6Channel $channel, ProductCollection $productCollection): void
-    {
+    public function process(
+        ExportLineId $lineId,
+        Export $export,
+        Shopware6Channel $channel,
+        ProductCollection $productCollection
+    ): void {
         $this->productCrossSellingRemoveExportProcess->process($export, $channel, $productCollection);
-
-        $this->exportRepository->addLine($export->getId(), $productCollection->getId());
 
         foreach ($productCollection->getElements() as $productCollectionElement) {
             if ($productCollectionElement->isVisible()) {
@@ -69,7 +72,7 @@ class ProductCrossSellingExportProcess
             }
         }
 
-        $this->exportRepository->processLine($export->getId(), $productCollection->getId());
+        $this->exportRepository->processLine($lineId);
     }
 
     public function processElement(

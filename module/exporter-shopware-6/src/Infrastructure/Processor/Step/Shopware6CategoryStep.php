@@ -11,6 +11,8 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Step;
 use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\Node;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -25,10 +27,16 @@ class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(TreeRepositoryInterface $treeRepository, CommandBusInterface $commandBus)
-    {
+    private ExportRepositoryInterface $exportRepository;
+
+    public function __construct(
+        TreeRepositoryInterface $treeRepository,
+        CommandBusInterface $commandBus,
+        ExportRepositoryInterface $exportRepository
+    ) {
         $this->treeRepository = $treeRepository;
         $this->commandBus = $commandBus;
+        $this->exportRepository = $exportRepository;
     }
 
     public function export(ExportId $exportId, Shopware6Channel $channel): void
@@ -46,7 +54,9 @@ class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
 
     private function buildStep(ExportId $exportId, Node $node, CategoryId $parentId = null): void
     {
-        $processCommand = new CategoryExportCommand($exportId, $node->getCategoryId(), $parentId);
+        $lineId = ExportLineId::generate();
+        $processCommand = new CategoryExportCommand($lineId, $exportId, $node->getCategoryId(), $parentId);
+        $this->exportRepository->addLine($lineId, $exportId, $node->getCategoryId());
         $this->commandBus->dispatch($processCommand, true);
 
         $newParent = $node->getCategoryId();

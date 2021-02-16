@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
@@ -46,9 +47,12 @@ class ProductShopware6ExportProcess
     /**
      * @throws \Exception
      */
-    public function process(Export $export, Shopware6Channel $channel, AbstractProduct $product): void
-    {
-        $this->exportRepository->addLine($export->getId(), $product->getId());
+    public function process(
+        ExportLineId $lineId,
+        Export $export,
+        Shopware6Channel $channel,
+        AbstractProduct $product
+    ): void {
         $shopwareProduct = $this->productClient->find($channel, $product);
 
         try {
@@ -68,7 +72,7 @@ class ProductShopware6ExportProcess
         } catch (Shopware6ExporterException $exception) {
             $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
         }
-        $this->exportRepository->processLine($export->getId(), $product->getId());
+        $this->exportRepository->processLine($lineId);
     }
 
     private function updateProduct(

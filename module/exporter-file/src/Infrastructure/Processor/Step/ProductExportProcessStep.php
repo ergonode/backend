@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -53,8 +54,9 @@ class ProductExportProcessStep implements ExportStepProcessInterface
 
         foreach ($products as $product) {
             $productId = new ProductId($product);
-            $command = new ProcessProductCommand($exportId, $productId);
-            $this->repository->addLine($exportId, $productId);
+            $lineId = ExportLineId::generate();
+            $command = new ProcessProductCommand($lineId, $exportId, $productId);
+            $this->repository->addLine($lineId, $exportId, $productId);
             $this->commandBus->dispatch($command, true);
         }
     }

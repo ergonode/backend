@@ -49,6 +49,6 @@ class ProductCrossSellingExportCommandHandler
         $productCollection = $this->productCollectionRepository->load($command->getProductCollectionId());
         Assert::isInstanceOf($productCollection, ProductCollection::class);
 
-        $this->process->process($export, $channel, $productCollection);
+        $this->process->process($command->getLineId(), $export, $channel, $productCollection);
     }
 }
