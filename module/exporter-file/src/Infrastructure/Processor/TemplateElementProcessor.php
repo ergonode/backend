@@ -20,17 +20,16 @@ class TemplateElementProcessor
 {
     private TemplateElementMapProvider $provider;
 
-    /**
-     * @param TemplateElementMapProvider $provider
-     */
     public function __construct(TemplateElementMapProvider $provider)
     {
         $this->provider = $provider;
     }
 
-
-    public function process(FileExportChannel $channel, Template $template, TemplateElementInterface $element): ExportData
-    {
+    public function process(
+        FileExportChannel $channel,
+        Template $template,
+        TemplateElementInterface $element
+    ): ExportData {
         try {
             $data = new ExportData();
             $data->set($this->getElement($template, $element));

@@ -26,12 +26,17 @@ class ErgonodeTemplateElementReader extends AbstractErgonodeReader
                 (int) $record['_y'],
                 (int) $record['_width'],
                 (int) $record['_height'],
-                $record['_properties']
+                json_decode($record['_properties'], true, 512, JSON_THROW_ON_ERROR),
             );
 
             $this->records->next();
         }
 
         return $item;
+    }
+
+    public function reset(): void
+    {
+        $this->records->rewind();
     }
 }

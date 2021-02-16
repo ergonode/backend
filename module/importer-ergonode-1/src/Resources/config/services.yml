@@ -30,7 +30,6 @@ services:
         arguments:
             $steps:
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeTemplateProcessorStep'
-                - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeTemplateElementProcessorStep'
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeAttributesProcessorStep'
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeOptionsProcessorStep'
                 - '@Ergonode\ImporterErgonode1\Infrastructure\Processor\Step\ErgonodeCategoriesProcessorStep'

@@ -10,16 +10,16 @@ namespace Ergonode\ExporterFile\Tests\Infrastructure\Processor;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use PHPUnit\Framework\TestCase;
 use Ergonode\ExporterFile\Infrastructure\Processor\TemplateElementProcessor;
+use Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapProvider;
 
 class TemplateElementProcessorTest extends TestCase
 {
-    private SerializerInterface $serializer;
+    private TemplateElementMapProvider $provider;
 
     private Template $template;
 
@@ -29,7 +29,7 @@ class TemplateElementProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->serializer = $this->createMock(SerializerInterface::class);
+        $this->provider = $this->createMock(TemplateElementMapProvider::class);
         $this->template = $this->createMock(Template::class);
         $this->channel = $this->createMock(FileExportChannel::class);
         $this->element = $this->createMock(TemplateElementInterface::class);
@@ -41,7 +41,7 @@ class TemplateElementProcessorTest extends TestCase
         $this->template->method('getName')->willReturn('test_name');
         $this->template->method('getElements')->willReturn(new ArrayCollection([$this->element]));
 
-        $processor = new TemplateElementProcessor($this->serializer);
+        $processor = new TemplateElementProcessor($this->provider);
         $result = $processor->process($this->channel, $this->template, $this->element);
 
         $languageData = $result->getLanguages()[null];
@@ -61,9 +61,9 @@ class TemplateElementProcessorTest extends TestCase
     public function testInvalidArgumentExceptionProcessor(): void
     {
         $this->expectException(ExportException::class);
-        $this->serializer->method('serialize')->willThrowException(new \Exception());
+        $this->provider->method('provide')->willThrowException(new \Exception());
 
-        $processor = new TemplateElementProcessor($this->serializer);
+        $processor = new TemplateElementProcessor($this->provider);
         $processor->process($this->channel, $this->template, $this->element);
     }
 }

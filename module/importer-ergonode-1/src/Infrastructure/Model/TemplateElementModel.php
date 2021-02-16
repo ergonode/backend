@@ -16,7 +16,7 @@ class TemplateElementModel
     private int $y;
     private int $width;
     private int $height;
-    private string $property;
+    private array $properties;
 
     public function __construct(
         string $name,
@@ -25,7 +25,7 @@ class TemplateElementModel
         int $y,
         int $width,
         int $height,
-        string $property
+        array $properties
     ) {
         $this->name = $name;
         $this->type = $type;
@@ -33,7 +33,7 @@ class TemplateElementModel
         $this->y = $y;
         $this->width = $width;
         $this->height = $height;
-        $this->property = $property;
+        $this->properties = $properties;
     }
 
     public function getName(): string
@@ -66,8 +66,20 @@ class TemplateElementModel
         return $this->height;
     }
 
-    public function getProperty(): string
+    public function getProperties(): array
     {
-        return $this->property;
+        return $this->properties;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'type' => $this->type,
+            'x' => $this->x,
+            'y' => $this->y,
+            'width' => $this->width,
+            'height' => $this->height,
+            'properties' => $this->properties,
+        ];
     }
 }

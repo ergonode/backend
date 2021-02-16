@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
@@ -41,16 +41,6 @@ class ProcessTemplateCommandHandler
 
     private WriterProvider $provider;
 
-    /**
-     * @param TemplateRepositoryInterface $templateRepository
-     * @param ExportRepositoryInterface   $exportRepository
-     * @param ChannelRepositoryInterface  $channelRepository
-     * @param LoggerInterface             $logger
-     * @param TemplateProcessor           $processor
-     * @param TemplateElementProcessor    $elementProcessor
-     * @param TempFileStorage             $storage
-     * @param WriterProvider              $provider
-     */
     public function __construct(
         TemplateRepositoryInterface $templateRepository,
         ExportRepositoryInterface $exportRepository,
@@ -88,8 +78,6 @@ class ProcessTemplateCommandHandler
 
                 $this->processTemplate($exportId, $channel, $template);
                 $this->processTemplateElement($exportId, $channel, $template);
-
-
             } catch (\Exception $exception) {
                 $this->logger->error($exception);
                 $this->exportRepository->addError(
@@ -116,16 +104,17 @@ class ProcessTemplateCommandHandler
 
     private function processTemplateElement(ExportId $exportId, FileExportChannel $channel, Template $template): void
     {
-        $filename = sprintf('%s/templates_elements.%s', $exportId->getValue(), $channel->getFormat());
-        foreach ($template->getElements() as $element) {
-            $data = $this->elementProcessor->process($channel, $template, $element);
-            $writer = $this->provider->provide($channel->getFormat());
-            $lines = $writer->add($data);
+        if (!$template->getElements()->isEmpty()) {
+            $lines = [];
+            $filename = sprintf('%s/templates_elements.%s', $exportId->getValue(), $channel->getFormat());
+            foreach ($template->getElements() as $element) {
+                $data = $this->elementProcessor->process($channel, $template, $element);
+                $writer = $this->provider->provide($channel->getFormat());
+                $lines[] = $writer->add($data);
+            }
+            $this->storage->open($filename);
+            $this->storage->append($lines);
+            $this->storage->close();
         }
-        $this->storage->open($filename);
-        $this->storage->append($lines);
-        $this->storage->close();
-
     }
-
 }
