@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Domain\Repository;
 
 use Ergonode\Channel\Domain\Entity\Export;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
@@ -22,9 +23,9 @@ interface ExportRepositoryInterface
 
     public function delete(Export $export): void;
 
-    public function addLine(ExportId $exportId, AggregateId $objectId): void;
+    public function addLine(ExportLineId $lineId, ExportId $exportId, AggregateId $objectId): void;
 
-    public function processLine(ExportId $exportId, AggregateId $objectId): void;
+    public function processLine(ExportLineId $lineId): void;
 
     /**
      * @param string[] $parameters

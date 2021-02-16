@@ -49,6 +49,6 @@ class ProductExportCommandHandler
         $product = $this->productRepository->load($command->getProductId());
         Assert::isInstanceOf($product, AbstractProduct::class);
 
-        $this->process->process($export, $channel, $product);
+        $this->process->process($command->getLineId(), $export, $channel, $product);
     }
 }

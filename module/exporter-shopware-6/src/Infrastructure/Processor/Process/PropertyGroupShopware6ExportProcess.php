@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -56,9 +57,12 @@ class PropertyGroupShopware6ExportProcess
     /**
      * @throws \Exception
      */
-    public function process(Export $export, Shopware6Channel $channel, AbstractAttribute $attribute): void
-    {
-        $this->exportRepository->addLine($export->getId(), $attribute->getId());
+    public function process(
+        ExportLineId $lineId,
+        Export $export,
+        Shopware6Channel $channel,
+        AbstractAttribute $attribute
+    ): void {
         $propertyGroup = $this->loadPropertyGroup($channel, $attribute);
         try {
             if ($propertyGroup) {
@@ -78,7 +82,7 @@ class PropertyGroupShopware6ExportProcess
         } catch (Shopware6ExporterException $exception) {
             $this->exportRepository->addError($export->getId(), $exception->getMessage(), $exception->getParameters());
         }
-        $this->exportRepository->processLine($export->getId(), $attribute->getId());
+        $this->exportRepository->processLine($lineId);
     }
 
     private function updatePropertyGroup(

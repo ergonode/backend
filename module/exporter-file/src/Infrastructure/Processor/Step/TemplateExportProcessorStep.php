@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand;
@@ -39,8 +40,9 @@ class TemplateExportProcessorStep implements ExportStepProcessInterface
         $templates = $this->query->getAll();
         foreach ($templates as $template) {
             $templateId = new TemplateId($template);
-            $command = new ProcessTemplateCommand($exportId, $templateId);
-            $this->repository->addLine($exportId, $templateId);
+            $lineId = ExportLineId::generate();
+            $command = new ProcessTemplateCommand($lineId, $exportId, $templateId);
+            $this->repository->addLine($lineId, $exportId, $templateId);
             $this->commandBus->dispatch($command, true);
         }
     }
