@@ -63,10 +63,19 @@ class ProjectorCompilerPass implements CompilerPassInterface
             $parameters = $method->getParameters();
 
             $class = $parameters[0]->getClass();
-            if ($class) {
-                $eventClass = $class->getName();
-                $definition->addMethodCall('add', [new Reference($serviceId), $eventClass]);
+
+            if (null === $class) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Invalid ReflectionClass "%s" : class "%s: parameters',
+                        $serviceId,
+                        $reflection->getName(),
+                    )
+                );
             }
+
+            $eventClass = $class->getName();
+            $definition->addMethodCall('add', [new Reference($serviceId), $eventClass]);
         }
     }
 }
