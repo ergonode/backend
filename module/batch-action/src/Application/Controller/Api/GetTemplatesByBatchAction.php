@@ -15,6 +15,7 @@ use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
+use Ergonode\Core\Application\Exception\DenoralizationException;
 use Ergonode\Core\Application\Serializer\JMSSerializer;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -23,7 +24,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
@@ -89,10 +89,6 @@ class GetTemplatesByBatchAction
                 $request->query->get('filter') ?? [],
                 BatchActionFilterFormModel::class
             );
-            $filter = $request->get('filter');
-            if (isset($filter['ids']['included'])) {
-                $data->ids->included = $filter['ids']['included'] === 'true';
-            }
             $violations = $this->validator->validate($data);
             if (0 === $violations->count()) {
                 $ids = null;
@@ -112,10 +108,9 @@ class GetTemplatesByBatchAction
 
                 return new SuccessResponse($result);
             }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
+            throw new ViolationsHttpException($violations);
+        } catch (DenoralizationException $exception) {
+            throw new BadRequestHttpException('Invalid query parameters');
         }
-
-        throw new ViolationsHttpException($violations);
     }
 }

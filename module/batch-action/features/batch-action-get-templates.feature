@@ -107,3 +107,7 @@ Feature: Batch action get templates
   Scenario: Get templates with no products
     When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=null@&filter[ids][included]=false"
     Then the response status code should be 400
+
+  Scenario: Get templates with not bool included
+    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=test"
+    Then the response status code should be 400
