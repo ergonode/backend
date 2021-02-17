@@ -54,15 +54,6 @@ class SchedulerForm extends AbstractType
             [
                 'data_class' => SchedulerModel::class,
                 'translation_domain' => 'channel',
-                'validation_groups' => static function (FormInterface $form) {
-                    $data = $form->getData();
-
-                    if (true === $data->active) {
-                        return ['Active'];
-                    }
-
-                    return ['Default'];
-                },
             ]
         );
     }
