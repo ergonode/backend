@@ -15,7 +15,8 @@ use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Exception\DenoralizationException;
+use Ergonode\Core\Application\Serializer\JMSSerializer;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -23,7 +24,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
@@ -37,7 +37,7 @@ class GetTemplatesByBatchAction
 
     private TemplateQueryInterface $templateQuery;
 
-    private SerializerInterface $serializer;
+    private JMSSerializer $serializer;
 
     private ValidatorInterface $validator;
 
@@ -45,7 +45,7 @@ class GetTemplatesByBatchAction
     public function __construct(
         BatchActionFilterIdsInterface $batchActionFilter,
         TemplateQueryInterface $templateQuery,
-        SerializerInterface $serializer,
+        JMSSerializer $serializer,
         ValidatorInterface $validator
     ) {
         $this->batchActionFilter = $batchActionFilter;
@@ -85,7 +85,10 @@ class GetTemplatesByBatchAction
     {
         try {
             /** @var BatchActionFilterFormModel $data */
-            $data = $this->serializer->deserialize($request->getContent() ?? '', BatchActionFilterFormModel::class);
+            $data = $this->serializer->denormalize(
+                $request->query->get('filter') ?? [],
+                BatchActionFilterFormModel::class
+            );
             $violations = $this->validator->validate($data);
             if (0 === $violations->count()) {
                 $ids = null;
@@ -105,10 +108,9 @@ class GetTemplatesByBatchAction
 
                 return new SuccessResponse($result);
             }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
+            throw new ViolationsHttpException($violations);
+        } catch (DenoralizationException $exception) {
+            throw new BadRequestHttpException('Invalid query parameters');
         }
-
-        throw new ViolationsHttpException($violations);
     }
 }
