@@ -75,17 +75,21 @@ class BatchActionFilterIdsFormModelHandler implements SubscribingHandlerInterfac
         if (is_array($data['list'] ?? null)) {
             $model->list = $data['list'];
         }
-        switch ($data['included']) {
-            case 'true':
-                $included = true;
-                break;
-            case 'false':
-                $included = false;
-                break;
-            default:
-                throw new InvalidArgumentException();
+        if (is_bool($data['included'] ?? null)) {
+            $model->included = $data['included'];
+        } else {
+            switch ($data['included'] ?? null) {
+                case 'true':
+                    $included = true;
+                    break;
+                case 'false':
+                    $included = false;
+                    break;
+                default:
+                    throw new InvalidArgumentException();
+            }
+            $model->included = $included;
         }
-        $model->included = $included;
 
         return $model;
     }
