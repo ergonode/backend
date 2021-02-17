@@ -29,12 +29,18 @@ class DbalImportGridQuery implements ImportGridQueryInterface
     {
         $query = $this->connection->createQueryBuilder();
 
-        return $query->select('id, status, records, source_id, created_at, updated_at, started_at, ended_at')
+        return $query->select('id, status, source_id, created_at, updated_at, started_at, ended_at')
             ->addSelect(
                 '(SELECT count(*)
-                        FROM importer.import_error il
+                        FROM importer.import_error ie
+                        WHERE ie.import_id = i.id
+                        ) AS errors'
+            )
+            ->addSelect(
+                '(SELECT count(*)
+                        FROM importer.import_line il
                         WHERE il.import_id = i.id
-                        AND il.message IS NOT NULL) AS errors'
+                        ) AS records'
             )
             ->from(self::TABLE, 'i')
             ->andWhere($query->expr()->eq('source_id', ':sourceId'))

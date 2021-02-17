@@ -12,11 +12,13 @@ use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportGroupingProductCommandTest extends TestCase
 {
     public function testCommandCreation(): void
     {
+        $id = $this->createMock(ImportLineId::class);
         $importId = $this->createMock(ImportId::class);
         $sku = 'any sku';
         $template = 'code template';
@@ -25,6 +27,7 @@ class ImportGroupingProductCommandTest extends TestCase
         $children = ['any child sku'];
 
         $command = new ImportGroupingProductCommand(
+            $id,
             $importId,
             $sku,
             $template,
@@ -32,6 +35,7 @@ class ImportGroupingProductCommandTest extends TestCase
             $children,
             $attributes
         );
+        self::assertSame($id, $command->getId());
         self::assertSame($importId, $command->getImportId());
         self::assertSame($sku, $command->getSku());
         self::assertSame($template, $command->getTemplate());

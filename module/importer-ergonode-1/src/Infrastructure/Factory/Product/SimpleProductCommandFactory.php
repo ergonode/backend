@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Command\Import\ImportSimpleProductCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class SimpleProductCommandFactory implements ProductCommandFactoryInterface
 {
@@ -21,9 +22,10 @@ class SimpleProductCommandFactory implements ProductCommandFactoryInterface
         return SimpleProduct::TYPE === $type;
     }
 
-    public function create(Import $import, ProductModel $model): DomainCommandInterface
+    public function create(ImportLineId $id, Import $import, ProductModel $model): DomainCommandInterface
     {
         return new ImportSimpleProductCommand(
+            $id,
             $import->getId(),
             $model->getSku(),
             $model->getTemplate(),
