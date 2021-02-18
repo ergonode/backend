@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Infrastructure\Exception;
+namespace Ergonode\Core\Application\Exception;
 
-class SerializationException extends SerializerException
+class DeserializationException extends SerializerException
 {
     public function __construct(string $message, \Throwable $previous = null)
     {
