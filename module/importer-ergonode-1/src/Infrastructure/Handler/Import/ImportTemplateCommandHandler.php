@@ -69,8 +69,9 @@ class ImportTemplateCommandHandler
             );
 
             $this->templateRepository->save($template);
-            $this->importerRepository->addLine($command->getImportId(), $template->getId(), 'TEMPLATE');
+            $this->importerRepository->markLineAsSuccess($command->getId(), $template->getId());
         } catch (ImportException $exception) {
+            $this->importerRepository->markLineAsFailure($command->getId());
             $this->importerRepository->addError(
                 $command->getImportId(),
                 $exception->getMessage(),
@@ -78,6 +79,7 @@ class ImportTemplateCommandHandler
             );
         } catch (\Exception $exception) {
             $message = 'Can\'t import template {name}';
+            $this->importerRepository->markLineAsFailure($command->getId());
             $this->importerRepository->addError($command->getImportId(), $message, ['{name}' => $command->getName()]);
             $this->logger->error($exception);
         }

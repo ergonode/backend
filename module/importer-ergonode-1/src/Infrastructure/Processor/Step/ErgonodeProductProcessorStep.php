@@ -13,6 +13,8 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeProductReader;
 use Ergonode\ImporterErgonode1\Infrastructure\Resolver\ProductCommandResolver;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 
 class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
 {
@@ -20,13 +22,16 @@ class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
 
     private CommandBusInterface $commandBus;
     private ProductCommandResolver $commandResolver;
+    private ImportRepositoryInterface $importRepository;
 
     public function __construct(
         CommandBusInterface $commandBus,
-        ProductCommandResolver $commandResolver
+        ProductCommandResolver $commandResolver,
+        ImportRepositoryInterface $importRepository
     ) {
         $this->commandBus = $commandBus;
         $this->commandResolver = $commandResolver;
+        $this->importRepository = $importRepository;
     }
 
     public function __invoke(Import $import, string $directory): void
@@ -34,8 +39,9 @@ class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
         $reader = new ErgonodeProductReader($directory, self::FILENAME);
 
         while ($product = $reader->read()) {
-            $command = $this->commandResolver->resolve($import, $product);
-            $import->addRecords(1);
+            $id = ImportLineId::generate();
+            $command = $this->commandResolver->resolve($id, $import, $product);
+            $this->importRepository->addLine($id, $import->getId(), 'PRODUCT');
             $this->commandBus->dispatch($command, true);
         }
     }

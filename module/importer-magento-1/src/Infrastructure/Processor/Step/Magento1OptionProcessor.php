@@ -19,6 +19,8 @@ use Ramsey\Uuid\Uuid;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 {
@@ -26,15 +28,19 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 
     private CommandBusInterface $commandBus;
 
+    private ImportRepositoryInterface $importRepository;
+
     /**
      * @var array
      */
     private array $options;
 
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        CommandBusInterface $commandBus,
+        ImportRepositoryInterface $importRepository
+    ) {
         $this->commandBus = $commandBus;
-        $this->options = [];
+        $this->importRepository = $importRepository;
     }
 
     /**
@@ -78,14 +84,17 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                 foreach ($options as $key => $option) {
                     $uuid = Uuid::uuid5(self::NAMESPACE, sprintf('%s/%s', $attributeCode->getValue(), $key));
                     if (!array_key_exists($uuid->toString(), $this->options)) {
+                        $id = ImportLineId::generate();
                         $label = new TranslatableString();
                         $label = $label->add($source->getDefaultLanguage(), $option);
                         $command = new ImportOptionCommand(
+                            $id,
                             $import->getId(),
                             $attribute->getCode()->getValue(),
                             (string) $key,
                             $label
                         );
+                        $this->importRepository->addLine($id, $import->getId(), 'OPTION');
                         $this->commandBus->dispatch($command, true);
                         $this->options[$uuid->toString()] = $uuid;
                     }

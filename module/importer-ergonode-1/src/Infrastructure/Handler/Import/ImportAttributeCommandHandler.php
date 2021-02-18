@@ -70,8 +70,9 @@ class ImportAttributeCommandHandler
             );
 
             $this->attributeRepository->save($attribute);
-            $this->importerRepository->addLine($command->getImportId(), $attribute->getId(), $attribute->getType());
+            $this->importerRepository->markLineAsSuccess($command->getId(), $attribute->getId());
         } catch (ImportException $exception) {
+            $this->importerRepository->markLineAsFailure($command->getId());
             $this->importerRepository->addError(
                 $command->getImportId(),
                 $exception->getMessage(),
@@ -79,6 +80,7 @@ class ImportAttributeCommandHandler
             );
         } catch (\Exception $exception) {
             $message = 'Can\'t import attribute product {code}';
+            $this->importerRepository->markLineAsFailure($command->getId());
             $this->importerRepository->addError($command->getImportId(), $message, ['{code}' => $command->getCode()]);
             $this->logger->error($exception);
         }

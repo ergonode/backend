@@ -36,11 +36,13 @@ class ImportTemplateCommandHandler
     {
         try {
             $template = $this->action->action($command->getCode());
-            $this->repository->addLine($command->getImportId(), $template->getId(), 'TEMPLATE');
+            $this->repository->markLineAsSuccess($command->getId(), $template->getId());
         } catch (ImportException $exception) {
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
             $message = 'Can\'t import template {template}';
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $message, ['{template}' => $command->getCode()]);
             $this->logger->error($exception);
         }

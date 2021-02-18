@@ -45,12 +45,14 @@ class ImportOptionCommandHandler
                 throw new ImportException('Option key {code} is not valid', ['{code}' => $command->getOptionKey()]);
             }
 
-            $this->action->action(
+            $optionId = $this->action->action(
                 new AttributeCode($command->getCode()),
                 new OptionKey($command->getOptionKey()),
                 $command->getTranslation()
             );
+            $this->repository->markLineAsSuccess($command->getId(), $optionId);
         } catch (ImportException $exception) {
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
             $message = 'Can\'t import options {option} for attribute {attribute}';
@@ -60,6 +62,7 @@ class ImportOptionCommandHandler
                 '{attribute}' => $command->getCode(),
             ];
 
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $message, $parameters);
             $this->logger->error($exception);
         }
