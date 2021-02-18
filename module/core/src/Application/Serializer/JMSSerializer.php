@@ -17,9 +17,9 @@ use Psr\Log\LoggerInterface;
 
 class JMSSerializer implements SerializerInterface, NormalizerInterface
 {
-    private const SERIALIZE = 'Can\'t serialize object "%s" to "%s" format';
+    private const SERIALIZE = 'Can\'t serialize data "%s" to "%s" format';
     private const DESERIALIZE = 'Can\'t deserialize data "%s" as "%s" from "%s" format';
-    private const NORMALIZE = 'Can\'t normalize object "%s"';
+    private const NORMALIZE = 'Can\'t normalize data "%s"';
     private const DENORMALIZE = 'Can\'t denormalize data from "%s" to "%s" type';
 
     private Serializer $serializer;
@@ -66,10 +66,13 @@ class JMSSerializer implements SerializerInterface, NormalizerInterface
         }
     }
 
-    public function normalize(object $data, ?string $type): array
+    /**
+     * {@inheritdoc}
+     */
+    public function normalize($data): array
     {
         try {
-            return $this->serializer->toArray($data, null, $type);
+            return $this->serializer->toArray($data);
         } catch (\Throwable $exception) {
             $this->logger->error($exception);
 
@@ -80,8 +83,15 @@ class JMSSerializer implements SerializerInterface, NormalizerInterface
         }
     }
 
-    public function denormalize(array $data, string $type): object
+    /**
+     * {@inheritdoc}
+     */
+    public function denormalize($data, string $type)
     {
+        if (!is_array($data)) {
+            throw new \InvalidArgumentException('Only array type supported for data');
+        }
+
         try {
             return $this->serializer->fromArray($data, $type);
         } catch (\Throwable $exception) {
