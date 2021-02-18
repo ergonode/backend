@@ -8,13 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Serializer;
 
-use Ergonode\Core\Application\Serializer\NormalizerInterface;
 use Ergonode\Core\Application\Exception\DenoralizationException;
+use Ergonode\Core\Application\Exception\DeserializationException;
 use Ergonode\Core\Application\Exception\NormalizerException;
+use Ergonode\Core\Application\Exception\SerializationException;
 use JMS\Serializer\Serializer;
 use Psr\Log\LoggerInterface;
-use Ergonode\Core\Infrastructure\Exception\SerializationException;
-use Ergonode\Core\Infrastructure\Exception\DeserializationException;
 
 class JMSSerializer implements SerializerInterface, NormalizerInterface
 {

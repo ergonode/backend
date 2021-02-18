@@ -6,12 +6,12 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Infrastructure\Exception;
+namespace Ergonode\Core\Application\Exception;
 
-class DeserializationException extends SerializerException
+class SerializerException extends \Exception
 {
     public function __construct(string $message, \Throwable $previous = null)
     {
-        parent::__construct($message, $previous);
+        parent::__construct($message, 0, $previous);
     }
 }
