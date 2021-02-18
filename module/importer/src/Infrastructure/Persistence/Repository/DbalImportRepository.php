@@ -20,6 +20,7 @@ use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalImportFa
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class DbalImportRepository implements ImportRepositoryInterface
 {
@@ -33,7 +34,6 @@ class DbalImportRepository implements ImportRepositoryInterface
         'file',
         'started_at',
         'ended_at',
-        'records',
     ];
 
     private Connection $connection;
@@ -110,15 +110,46 @@ class DbalImportRepository implements ImportRepositoryInterface
         );
     }
 
-    public function addLine(ImportId $importId, AggregateId $objectId, string $type): void
+    public function addLine(ImportLineId $id, ImportId $importId, string $type): void
     {
         $this->connection->insert(
             self::TABLE_LINE,
             [
+                'id' => $id->getValue(),
                 'import_id' => $importId->getValue(),
-                'object_id' => $objectId->getValue(),
                 'type' => $type,
+            ]
+        );
+    }
+
+    public function markLineAsSuccess(ImportLineId $id, AggregateId $aggregateId): void
+    {
+        $this->connection->update(
+            self::TABLE_LINE,
+            [
                 'processed_at' => new \DateTime(),
+                'status' => Import::SUCCESS_LINE_STATUS,
+                'object_id' => $aggregateId->getValue(),
+            ],
+            [
+                'id' => $id->getValue(),
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
+    }
+
+    public function markLineAsFailure(ImportLineId $id): void
+    {
+        $this->connection->update(
+            self::TABLE_LINE,
+            [
+                'processed_at' => new \DateTime(),
+                'status' => Import::FAILURE_LINE_STATUS,
+            ],
+            [
+                'id' => $id->getValue(),
             ],
             [
                 'processed_at' => Types::DATETIMETZ_MUTABLE,

@@ -14,6 +14,8 @@ use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInt
 use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateElementReader;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 
 class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 {
@@ -22,9 +24,14 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    private ImportRepositoryInterface $importRepository;
+
+    public function __construct(
+        CommandBusInterface $commandBus,
+        ImportRepositoryInterface $importRepository
+    ) {
         $this->commandBus = $commandBus;
+        $this->importRepository = $importRepository;
     }
 
     public function __invoke(Import $import, string $directory): void
@@ -41,14 +48,15 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
                 }
             }
 
+            $id = ImportLineId::generate();
             $command = new ImportTemplateCommand(
+                $id,
                 $import->getId(),
                 $template->getName(),
                 $elements,
             );
 
-            $import->addRecords(1);
-
+            $this->importRepository->addLine($id, $import->getId(), 'TEMPLATE');
             $this->commandBus->dispatch($command, true);
         }
     }

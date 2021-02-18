@@ -12,9 +12,12 @@ use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportGroupingProductCommand implements ImporterCommandInterface
 {
+    private ImportLineId $id;
+
     private ImportId $importId;
 
     private string $sku;
@@ -42,6 +45,7 @@ class ImportGroupingProductCommand implements ImporterCommandInterface
      * @param TranslatableString[] $attributes
      */
     public function __construct(
+        ImportLineId $id,
         ImportId $importId,
         string $sku,
         string $template,
@@ -49,12 +53,18 @@ class ImportGroupingProductCommand implements ImporterCommandInterface
         array $children,
         array $attributes
     ) {
+        $this->id = $id;
         $this->importId = $importId;
         $this->sku = $sku;
         $this->template = $template;
         $this->categories = $categories;
         $this->children = $children;
         $this->attributes = $attributes;
+    }
+
+    public function getId(): ImportLineId
+    {
+        return $this->id;
     }
 
     public function getImportId(): ImportId

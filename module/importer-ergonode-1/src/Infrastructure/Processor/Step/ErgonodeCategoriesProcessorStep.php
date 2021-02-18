@@ -14,6 +14,8 @@ use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeCategoryReader;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
 {
@@ -21,9 +23,12 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBusInterface $commandBus)
+    private ImportRepositoryInterface $importRepository;
+
+    public function __construct(CommandBusInterface $commandBus, ImportRepositoryInterface $importRepository)
     {
         $this->commandBus = $commandBus;
+        $this->importRepository = $importRepository;
     }
 
     public function __invoke(Import $import, string $directory): void
@@ -31,12 +36,14 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
         $reader = new ErgonodeCategoryReader($directory, self::FILENAME);
 
         while ($category = $reader->read()) {
+            $id = ImportLineId::generate();
             $command = new ImportCategoryCommand(
+                $id,
                 $import->getId(),
                 $category->getCode(),
                 new TranslatableString($category->getTranslations())
             );
-            $import->addRecords(1);
+            $this->importRepository->addLine($id, $import->getId(), 'CATEGORY');
             $this->commandBus->dispatch($command, true);
         }
     }

@@ -15,6 +15,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 class Import
 {
+    public const SUCCESS_LINE_STATUS = 'success';
+    public const FAILURE_LINE_STATUS = 'failure';
+
     protected ImportId $id;
 
     protected SourceId $sourceId;
@@ -27,8 +30,6 @@ class Import
 
     private string $file;
 
-    private int $records;
-
     public function __construct(ImportId $id, SourceId $sourceId, string $file)
     {
         $this->id = $id;
@@ -37,7 +38,6 @@ class Import
         $this->file = $file;
         $this->startedAt = null;
         $this->endedAt = null;
-        $this->records = 0;
     }
 
     public function getId(): ImportId
@@ -96,16 +96,6 @@ class Import
         }
 
         $this->status = new ImportStatus(ImportStatus::STOPPED);
-    }
-
-    public function addRecords(int $records): void
-    {
-        $this->records += $records;
-    }
-
-    public function getRecords(): int
-    {
-        return $this->records;
     }
 
     public function end(): void

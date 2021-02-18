@@ -97,14 +97,12 @@ class DbalImportQuery implements ImportQueryInterface
         return $this->connection->createQueryBuilder()
             ->select('i.id, status, started_at, ended_at')
             ->addSelect('s.name')
-            ->addSelect('records as items')
-            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) as processed')
-            ->addSelect(
-                '(SELECT count(*)
-                        FROM importer.import_error ie
-                        WHERE ie.import_id = i.id
-                        AND ie.message IS NOT NULL) AS errors'
-            )
+            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) as items')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il 
+                                WHERE il.import_id = i.id AND il.status IS NOT NULL) AS processed')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il 
+                                WHERE il.import_id = i.id AND il.status = \'success\') AS succeeded')
+            ->addSelect('(SELECT count(*) FROM importer.import_error ie WHERE ie.import_id = i.id) AS errors')
             ->from(self::TABLE, 'i')
             ->orderBy('started_at', 'DESC')
             ->join('i', self::TABLE_SOURCE, 's', 's.id = i.source_id')
@@ -218,12 +216,18 @@ class DbalImportQuery implements ImportQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('id, status, records, source_id, created_at, updated_at, started_at, ended_at')
+            ->select('id, status, source_id, created_at, updated_at, started_at, ended_at')
             ->addSelect(
                 '(SELECT count(*)
                         FROM importer.import_error il
                         WHERE il.import_id = i.id
                         AND il.message IS NOT NULL) AS errors'
+            )
+            ->addSelect(
+                '(SELECT count(*)
+                        FROM importer.import_line il
+                        WHERE il.import_id = i.id
+                        ) AS records'
             )
             ->from(self::TABLE, 'i');
     }

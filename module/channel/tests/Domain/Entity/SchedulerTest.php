@@ -49,18 +49,18 @@ class SchedulerTest extends TestCase
         $start = $this->createMock(\DateTime::class);
 
         $entity = new Scheduler($this->id);
-        $entity->active($start, $hour, $minute);
+        $entity->setUp(true, $start, $hour, $minute);
 
         self::assertTrue($entity->isActive());
         self::assertSame($start, $entity->getStart());
         self::assertSame($hour, $entity->getHour());
         self::assertSame($minute, $entity->getMinute());
 
-        $entity->deActive();
+        $entity->setUp(false, $start, $hour, $minute);
 
         self::assertFalse($entity->isActive());
-        self::assertNull($entity->getStart());
-        self::assertNull($entity->getHour());
-        self::assertNull($entity->getMinute());
+        self::assertSame($start, $entity->getStart());
+        self::assertSame($hour, $entity->getHour());
+        self::assertSame($minute, $entity->getMinute());
     }
 }

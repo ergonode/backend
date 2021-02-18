@@ -29,29 +29,27 @@ class UpdateSchedulerCommand implements ChannelCommandInterface
     /**
      * @JMS\Type("DateTime")
      */
-    private ?\DateTime $start;
+    private \DateTime $start;
 
     /**
      * @JMS\Type("integer")
      */
-    private ?int $hour;
+    private int $hour;
 
     /**
      * @JMS\Type("integer")
      */
-    private ?int $minute;
+    private int $minute;
 
-    public function __construct(AggregateId $id, bool $active, ?\DateTime $start, ?int $hour, ?int $minute)
+    public function __construct(AggregateId $id, bool $active, \DateTime $start, int $hour, int $minute)
     {
-        if ($active) {
-            Assert::notNull($start);
-            Assert::greaterThanEq($hour, 0);
-            Assert::greaterThanEq($minute, 0);
-            Assert::lessThanEq($hour, Scheduler::HOURS);
-            Assert::lessThanEq($minute, Scheduler::MINUTES);
-            if (0 === $hour) {
-                Assert::greaterThan($minute, 0);
-            }
+        Assert::notNull($start);
+        Assert::greaterThanEq($hour, 0);
+        Assert::greaterThanEq($minute, 0);
+        Assert::lessThanEq($hour, Scheduler::HOURS);
+        Assert::lessThanEq($minute, Scheduler::MINUTES);
+        if (0 === $hour) {
+            Assert::greaterThan($minute, 0);
         }
 
         $this->id = $id;

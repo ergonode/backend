@@ -45,11 +45,13 @@ class ImportCategoryCommandHandler
                 new CategoryCode($command->getCode()),
                 $command->getName(),
             );
-            $this->repository->addLine($command->getImportId(), $category->getId(), 'CATEGORY');
+            $this->repository->markLineAsSuccess($command->getId(), $category->getId());
         } catch (ImportException $exception) {
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
             $message = 'Can\'t import category product {name}';
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $message, ['{name}' => $command->getName()]);
             $this->logger->error($exception);
         }

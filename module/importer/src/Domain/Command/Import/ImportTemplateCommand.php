@@ -10,20 +10,29 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportTemplateCommand implements ImporterCommandInterface
 {
+    private ImportLineId $id;
+
     private ImportId $importId;
 
     private string $code;
 
     private array $elements;
 
-    public function __construct(ImportId $importId, string $code, array $elements = [])
+    public function __construct(ImportLineId $id, ImportId $importId, string $code, array $elements = [])
     {
+        $this->id = $id;
         $this->importId = $importId;
         $this->code = $code;
         $this->elements = $elements;
+    }
+
+    public function getId(): ImportLineId
+    {
+        return $this->id;
     }
 
     public function getImportId(): ImportId
