@@ -22,10 +22,13 @@ class LinkColumnRenderer implements ColumnRendererInterface
 
     private AuthorizationCheckerInterface $checker;
 
+    private array $localCache;
+
     public function __construct(UrlGeneratorInterface $urlGenerator, AuthorizationCheckerInterface $checker)
     {
         $this->urlGenerator = $urlGenerator;
         $this->checker = $checker;
+        $this->localCache = [];
     }
 
     /**
@@ -82,7 +85,10 @@ class LinkColumnRenderer implements ColumnRendererInterface
     {
         if (array_key_exists('privilege', $link)) {
             $privilege = $link['privilege'];
-            if (!$this->checker->isGranted($privilege)) {
+            if (!array_key_exists($privilege, $this->localCache)) {
+                $this->localCache[$privilege] = $this->checker->isGranted($privilege);
+            }
+            if (!$this->localCache[$privilege]) {
                 return false;
             }
         }
