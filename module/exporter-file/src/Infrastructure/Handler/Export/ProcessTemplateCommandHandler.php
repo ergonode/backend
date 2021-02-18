@@ -77,6 +77,7 @@ class ProcessTemplateCommandHandler
                 Assert::isInstanceOf($template, Template::class);
 
                 $this->processTemplate($exportId, $channel, $template);
+
                 $this->processTemplateElement($exportId, $channel, $template);
             } catch (\Exception $exception) {
                 $this->logger->error($exception);
@@ -110,7 +111,9 @@ class ProcessTemplateCommandHandler
             foreach ($template->getElements() as $element) {
                 $data = $this->elementProcessor->process($channel, $template, $element);
                 $writer = $this->provider->provide($channel->getFormat());
-                $lines[] = $writer->add($data);
+                foreach ($writer->add($data) as $line) {
+                    $lines[] = $line;
+                }
             }
             $this->storage->open($filename);
             $this->storage->append($lines);

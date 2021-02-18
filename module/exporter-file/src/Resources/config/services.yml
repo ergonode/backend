@@ -4,12 +4,12 @@ services:
         autoconfigure: true
         public: false
 
+    _instanceof:
+        Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapInterface:
+            tags: ['export-file.template_element_map_interface']
+
     Ergonode\ExporterFile\Application\:
         resource: '../../Application/*'
-
-#    Ergonode\ExporterFile\Application\Controller\Api\:
-#        resource: '../../Application/Controller/Api/*'
-#        tags: ['controller.service_arguments']
 
     Ergonode\ExporterFile\Infrastructure\:
         resource: '../../Infrastructure/*'
@@ -18,16 +18,13 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-#    Ergonode\ExporterFile\Persistence\:
-#        resource: '../../Persistence/*'
+    Ergonode\ExporterFile\Infrastructure\Processor\Strategy\Template\:
+        resource: '../../Infrastructure/Processor/Strategy/Template/*'
+        tags: ['export-file.template_element_map_interface']
 
     Ergonode\ExporterFile\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{ValueObject}'
-
-#    Ergonode\ExporterFile\Persistence\Dbal\Projector\:
-#        resource: '../../Persistence/Dbal/Projector/*'
-#        tags: ['messenger.message_handler']
 
     Ergonode\ExporterFile\Infrastructure\Handler\ProcessExportCommandHandler:
         tags: ['messenger.message_handler']
@@ -42,6 +39,4 @@ services:
 
     Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapProvider:
        arguments:
-           -
-               - '@Ergonode\ExporterFile\Infrastructure\Processor\Strategy\Template\AttributeTemplateElementMapStrategy'
-               - '@Ergonode\ExporterFile\Infrastructure\Processor\Strategy\Template\LabelTemplateElementMapStrategy'
+           $strategies: !tagged_iterator 'export-file.template_element_map_interface'

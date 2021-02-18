@@ -9,19 +9,22 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Strategy;
 
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
+use Webmozart\Assert\Assert;
 
 class TemplateElementMapProvider
 {
     /**
      * @var TemplateElementMapInterface[]
      */
-    private array $strategies;
+    private iterable $strategies;
 
     /**
      * @param TemplateElementMapInterface[] $strategies
      */
-    public function __construct(array $strategies)
+    public function __construct(iterable $strategies)
     {
+        Assert::allIsInstanceOf($strategies, TemplateElementMapInterface::class);
+
         $this->strategies = $strategies;
     }
 
