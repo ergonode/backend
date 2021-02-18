@@ -15,12 +15,23 @@ use Ergonode\Core\Application\Exception\NormalizationException;
 interface NormalizerInterface
 {
     /**
+     * Normalizes data i.e. object(s) into normal(scalar) form.
+     *
      * @throws NormalizationException
+     *
+     * @param mixed $data
+     * @return mixed
      */
-    public function normalize(object $data, ?string $type): array;
+    public function normalize($data);
 
     /**
+     * Denormalizes normal(scalar) form data into i.e. object(s).
+     *
      * @throws DenoralizationException
+     *
+     * @param mixed $data
+     *
+     * @return mixed
      */
-    public function denormalize(array $data, string $type): object;
+    public function denormalize($data, string $type);
 }
