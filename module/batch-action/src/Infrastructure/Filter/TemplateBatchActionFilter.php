@@ -7,21 +7,21 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Infrastructure\Filter\BatchAction;
+namespace Ergonode\BatchAction\Infrastructure\Filter;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
-use Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilderProvider;
+use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateBatchActionFilter
 {
-    private FilteredQueryBuilderProvider $filteredQueryBuilderProvider;
+    private FilteredQueryBuilderProviderInterface $filteredQueryBuilderProvider;
 
     private Connection $connection;
 
     public function __construct(
-        FilteredQueryBuilderProvider $filteredQueryBuilderProvider,
+        FilteredQueryBuilderProviderInterface $filteredQueryBuilderProvider,
         Connection $connection
     ) {
         $this->filteredQueryBuilderProvider = $filteredQueryBuilderProvider;

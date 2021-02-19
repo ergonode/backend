@@ -16,7 +16,7 @@ use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Ergonode\Core\Application\Exception\DenoralizationException;
 use Ergonode\Core\Application\Serializer\JMSSerializer;
-use Ergonode\Product\Infrastructure\Filter\BatchAction\TemplateBatchActionFilter;
+use Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Swagger\Annotations as SWG;

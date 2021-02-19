@@ -12,12 +12,13 @@ namespace Ergonode\Product\Infrastructure\Provider;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\FilterGridConfiguration;
 use Ergonode\Product\Infrastructure\Factory\DataSet\DbalQueryBuilderProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 
-class FilteredQueryBuilderProvider
+class FilteredQueryBuilderProvider implements FilteredQueryBuilderProviderInterface
 {
     private DbalQueryBuilderProductDataSetFactory $productQueryBuilderFactory;
 
@@ -51,14 +52,14 @@ class FilteredQueryBuilderProvider
                         //query and include id
                         $filteredQueryBuilder = $this->getFilteredQueryBuilder($filterQuery);
 
-                        return $filteredQueryBuilder->andWhere($filteredQueryBuilder->expr()->in('id', ':productsIds'))
+                        return $filteredQueryBuilder->orWhere($filteredQueryBuilder->expr()->in('id', ':productsIds'))
                             ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
                     }
 
                     //query and exclude id
                     $filteredQueryBuilder = $this->getFilteredQueryBuilder($filterQuery);
 
-                    return $filteredQueryBuilder->andWhere($filteredQueryBuilder->expr()->notIn('id', ':productsIds'))
+                    return $filteredQueryBuilder->orWhere($filteredQueryBuilder->expr()->notIn('id', ':productsIds'))
                         ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
                 }
 
