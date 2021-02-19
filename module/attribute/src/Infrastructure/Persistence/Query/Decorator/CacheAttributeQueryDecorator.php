@@ -135,6 +135,16 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         return $this->attributeQuery->getMultimediaRelation($id);
     }
 
+    public function findAttributeCodeById(AttributeId $id): ?AttributeCode
+    {
+        $key = sprintf('id_%s', $id->getValue());
+        if (!array_key_exists($key, $this->cache)) {
+            $this->cache[$key] = $this->attributeQuery->findAttributeCodeById($id);
+        }
+
+        return $this->cache[$key];
+    }
+
     /**
      * @return array
      */

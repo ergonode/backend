@@ -74,11 +74,13 @@ class ImportVariableProductCommandHandler
                 $children,
                 $command->getAttributes()
             );
-            $this->repository->addLine($command->getImportId(), $product->getId(), $product->getType());
+            $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
             $message = 'Can\'t import variable product {sku}';
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $message, ['{sku}' => $command->getSku()]);
             $this->logger->error($exception);
         }

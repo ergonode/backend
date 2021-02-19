@@ -10,9 +10,11 @@ namespace Ergonode\ImporterErgonode1\Domain\Command\Import;
 
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportAttributeCommand implements DomainCommandInterface
 {
+    private ImportLineId $id;
     private ImportId $importId;
     private string $code;
     private string $type;
@@ -23,6 +25,7 @@ class ImportAttributeCommand implements DomainCommandInterface
     private array $placeholder;
 
     public function __construct(
+        ImportLineId $id,
         ImportId $importId,
         string $code,
         string $type,
@@ -32,6 +35,7 @@ class ImportAttributeCommand implements DomainCommandInterface
         array $hint,
         array $placeholder
     ) {
+        $this->id = $id;
         $this->importId = $importId;
         $this->code = $code;
         $this->type = $type;
@@ -40,6 +44,11 @@ class ImportAttributeCommand implements DomainCommandInterface
         $this->label = $label;
         $this->hint = $hint;
         $this->placeholder = $placeholder;
+    }
+
+    public function getId(): ImportLineId
+    {
+        return $this->id;
     }
 
     public function getImportId(): ImportId

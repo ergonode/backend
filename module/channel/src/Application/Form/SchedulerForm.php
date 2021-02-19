@@ -15,7 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Core\Application\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Ergonode\Channel\Application\Form\Model\SchedulerModel;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class SchedulerForm extends AbstractType
@@ -54,15 +53,6 @@ class SchedulerForm extends AbstractType
             [
                 'data_class' => SchedulerModel::class,
                 'translation_domain' => 'channel',
-                'validation_groups' => static function (FormInterface $form) {
-                    $data = $form->getData();
-
-                    if (true === $data->active) {
-                        return ['Active'];
-                    }
-
-                    return ['Default'];
-                },
             ]
         );
     }

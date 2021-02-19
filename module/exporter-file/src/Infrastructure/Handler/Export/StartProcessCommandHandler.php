@@ -44,13 +44,12 @@ class StartProcessCommandHandler
 
         $attribute = ['_code', '_type', '_language', '_name', '_hint', '_placeholder', '_scope', '_parameters'];
         $categories = ['_code', '_name', '_language'];
-        $products = array_merge(
-            ['_sku', '_type', '_language', '_template', '_categories'],
-            $availableAttributes
-        );
+        $products = array_merge(['_sku', '_type', '_language', '_template', '_categories'], $availableAttributes);
         $options = ['_code', '_attribute_code', '_language', '_label'];
         $multimedia = ['_id', '_language', '_name', '_filename', '_extension', '_mime', '_alt', '_size'];
-        $templates = ['_name', '_type', '_x', '_y', '_width', '_height', '_properties'];
+        $templates = ['_name'];
+        $templatesElements = ['_name', '_type', '_x', '_y', '_width', '_height', '_properties'];
+
         $this->storage->create(sprintf('%s/attributes.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $attribute).PHP_EOL]);
         $this->storage->close();
@@ -68,6 +67,9 @@ class StartProcessCommandHandler
         $this->storage->close();
         $this->storage->create(sprintf('%s/templates.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $templates).PHP_EOL]);
+        $this->storage->close();
+        $this->storage->create(sprintf('%s/templates_elements.csv', $command->getExportId()->getValue()));
+        $this->storage->append([implode(',', $templatesElements).PHP_EOL]);
         $this->storage->close();
     }
 }

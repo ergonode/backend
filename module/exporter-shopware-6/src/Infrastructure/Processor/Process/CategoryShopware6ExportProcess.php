@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\Category\Domain\Entity\AbstractCategory;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -32,19 +34,24 @@ class CategoryShopware6ExportProcess
 
     private LanguageRepositoryInterface  $languageRepository;
 
+    private ExportRepositoryInterface $exportRepository;
+
     public function __construct(
         CategoryRepositoryInterface $shopware6CategoryRepository,
         Shopware6CategoryClient $categoryClient,
         Shopware6CategoryBuilder $builder,
-        LanguageRepositoryInterface $languageRepository
+        LanguageRepositoryInterface $languageRepository,
+        ExportRepositoryInterface $exportRepository
     ) {
         $this->shopware6CategoryRepository = $shopware6CategoryRepository;
         $this->categoryClient = $categoryClient;
         $this->builder = $builder;
         $this->languageRepository = $languageRepository;
+        $this->exportRepository = $exportRepository;
     }
 
     public function process(
+        ExportLineId $lineId,
         Export $export,
         Shopware6Channel $channel,
         AbstractCategory $category,
@@ -64,6 +71,8 @@ class CategoryShopware6ExportProcess
                 $this->updateCategoryWithLanguage($channel, $export, $language, $category, $parentId);
             }
         }
+
+        $this->exportRepository->processLine($lineId);
     }
 
     private function updateCategory(

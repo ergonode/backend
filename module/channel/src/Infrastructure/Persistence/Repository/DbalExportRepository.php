@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Factory\DbalExportFactory;
 use Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper\DbalExportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -103,18 +104,19 @@ class DbalExportRepository implements ExportRepositoryInterface
         );
     }
 
-    public function addLine(ExportId $exportId, AggregateId $objectId): void
+    public function addLine(ExportLineId $lineId, ExportId $exportId, AggregateId $objectId): void
     {
         $this->connection->insert(
             self::TABLE_LINE,
             [
+                'id' => $lineId->getValue(),
                 'export_id' => $exportId->getValue(),
                 'object_id' => $objectId->getValue(),
             ]
         );
     }
 
-    public function processLine(ExportId $exportId, AggregateId $objectId): void
+    public function processLine(ExportLineId $lineId): void
     {
         $this->connection->update(
             self::TABLE_LINE,
@@ -122,9 +124,7 @@ class DbalExportRepository implements ExportRepositoryInterface
                 'processed_at' => new \DateTime(),
             ],
             [
-                'export_id' => $exportId->getValue(),
-                'object_id' => $objectId->getValue(),
-
+                'id' => $lineId->getValue(),
             ],
             [
                 'processed_at' => Types::DATETIMETZ_MUTABLE,

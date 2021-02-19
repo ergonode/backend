@@ -13,6 +13,8 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportAttributeCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeAttributeReader;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 
 class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
 {
@@ -20,9 +22,12 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBusInterface $commandBus)
+    private ImportRepositoryInterface $importRepository;
+
+    public function __construct(CommandBusInterface $commandBus, ImportRepositoryInterface $importRepository)
     {
         $this->commandBus = $commandBus;
+        $this->importRepository = $importRepository;
     }
 
     public function __invoke(Import $import, string $directory): void
@@ -30,7 +35,9 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
         $reader = new ErgonodeAttributeReader($directory, self::FILENAME);
 
         while ($attribute = $reader->read()) {
+            $id = ImportLineId::generate();
             $command = new ImportAttributeCommand(
+                $id,
                 $import->getId(),
                 $attribute->getCode(),
                 $attribute->getType(),
@@ -40,7 +47,7 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
                 $attribute->getHint(),
                 $attribute->getPlaceholder()
             );
-            $import->addRecords(1);
+            $this->importRepository->addLine($id, $import->getId(), 'ATTRIBUTE');
             $this->commandBus->dispatch($command, true);
         }
     }

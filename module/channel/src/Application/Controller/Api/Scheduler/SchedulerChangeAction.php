@@ -62,7 +62,7 @@ class SchedulerChangeAction
      *     in="body",
      *     description="Add Channel",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/channel")
+     *     @SWG\Schema(ref="#/definitions/scheduler")
      * )
      * @SWG\Parameter(
      *     name="language",

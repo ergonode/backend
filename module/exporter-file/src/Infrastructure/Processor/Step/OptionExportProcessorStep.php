@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Step;
 
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand;
@@ -39,8 +40,9 @@ class OptionExportProcessorStep implements ExportStepProcessInterface
         $options = $this->query->getAll();
         foreach ($options as $option) {
             $optionId = new AggregateId($option['id']);
-            $command = new ProcessOptionCommand($exportId, $optionId);
-            $this->repository->addLine($exportId, $optionId);
+            $lineId = ExportLineId::generate();
+            $command = new ProcessOptionCommand($lineId, $exportId, $optionId);
+            $this->repository->addLine($lineId, $exportId, $optionId);
             $this->commandBus->dispatch($command, true);
         }
     }

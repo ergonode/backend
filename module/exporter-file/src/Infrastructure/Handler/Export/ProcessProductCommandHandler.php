@@ -90,7 +90,7 @@ class ProcessProductCommandHandler
                     ['{id}' => $productId->getValue()]
                 );
             }
-            $this->exportRepository->processLine($exportId, $productId);
+            $this->exportRepository->processLine($command->getLineId());
         }
     }
 }

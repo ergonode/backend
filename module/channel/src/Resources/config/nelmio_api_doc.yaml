@@ -9,3 +9,19 @@ nelmio_api_doc:
                         required: true
                         description: name
                         example: channel1
+            scheduler:
+                type: 'object'
+                properties:
+                    active:
+                        type: boolean
+                        required: true
+                    start:
+                        type: string
+                        required: true
+                        example: 2020-09-22T11:42:30+02:00
+                    hour:
+                        type: integer
+                        required: true
+                    minute:
+                        type: integer
+                        required: true

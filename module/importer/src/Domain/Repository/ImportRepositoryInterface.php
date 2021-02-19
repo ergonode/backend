@@ -11,6 +11,7 @@ namespace Ergonode\Importer\Domain\Repository;
 
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
 interface ImportRepositoryInterface
@@ -31,5 +32,9 @@ interface ImportRepositoryInterface
      */
     public function addError(ImportId $importId, string $message, array $parameters = []): void;
 
-    public function addLine(ImportId $importId, AggregateId $objectId, string $type): void;
+    public function addLine(ImportLineId $id, ImportId $importId, string $type): void;
+
+    public function markLineAsSuccess(ImportLineId $id, AggregateId $aggregateId): void;
+
+    public function markLineAsFailure(ImportLineId $id): void;
 }

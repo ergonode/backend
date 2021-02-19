@@ -71,3 +71,7 @@ services:
             $syncBus: '@messenger.bus.sync'
             $asyncBus: '@messenger.bus.async'
             $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'
+
+    Ergonode\Core\Application\Serializer\JMSSerializer:
+        arguments:
+            $serializer: '@jms_serializer'

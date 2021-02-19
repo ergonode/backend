@@ -88,7 +88,7 @@ class ProcessOptionCommandHandler
                     ['{id}' => $optionId->getValue()]
                 );
             }
-            $this->exportRepository->processLine($exportId, $optionId);
+            $this->exportRepository->processLine($command->getLineId());
         }
     }
 }

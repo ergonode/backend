@@ -28,6 +28,8 @@ interface AttributeQueryInterface
 
     public function findAttributeIdByCode(AttributeCode $code): ?AttributeId;
 
+    public function findAttributeCodeById(AttributeId $id): ?AttributeCode;
+
     public function findAttributeType(AttributeId $id): ?AttributeType;
 
     /**
