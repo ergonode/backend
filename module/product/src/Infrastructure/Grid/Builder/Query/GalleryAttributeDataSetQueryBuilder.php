@@ -31,22 +31,24 @@ class GalleryAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilde
     {
         $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($attribute, $language));
 
-        $query->addSelect(sprintf(
-            '
-            (
-                SELECT to_jsonb(regexp_split_to_array(value,\',\')) FROM product_value pv
-                JOIN value_translation vt ON vt.value_id = pv.value_id
-                LEFT JOIN language_tree lt ON lt.code = vt.language
-                WHERE pv.attribute_id = \'%s\'
-                AND pv.product_id = p.id
-                AND lt.lft <= %s AND lt.rgt >= %s
-                ORDER BY lft DESC NULLS LAST
-                LIMIT 1      
-            ) AS "%s"',
+        $sql = sprintf(
+            '(SELECT 	
+			            DISTINCT ON (product_id) product_id, 
+			            to_jsonb(regexp_split_to_array(value,\',\')) AS "%s" 
+		            FROM value_translation vt 
+		            JOIN product_value pv ON pv.value_id = vt.value_id
+		            LEFT JOIN language_tree lt ON lt.code = vt.language
+		            WHERE attribute_id = \'%s\'
+                    AND lt.lft <= %s AND lt.rgt >= %s
+		            ORDER BY product_id, lft DESC NULLS LAST
+		        )',
+            $key,
             $attribute->getId()->getValue(),
             $info['lft'],
             $info['rgt'],
-            $key
-        ));
+        );
+
+        $query->addSelect(sprintf('"%s"', $key));
+        $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));
     }
 }
