@@ -4,10 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    _instanceof:
-        Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapInterface:
-            tags: ['export-file.template_element_map_interface']
-
     Ergonode\ExporterFile\Application\:
         resource: '../../Application/*'
 
