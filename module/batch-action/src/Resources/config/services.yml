@@ -23,8 +23,7 @@ services:
     Ergonode\BatchAction\Application\Controller\Api\GetTemplatesByBatchAction:
         tags: [ 'controller.service_arguments' ]
         arguments:
-            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface'
-            - '@Ergonode\Designer\Domain\Query\TemplateQueryInterface'
+            - '@Ergonode\Product\Infrastructure\Filter\BatchAction\TemplateBatchActionFilter'
             - '@Ergonode\Core\Application\Serializer\SerializerInterface'
             - '@Symfony\Component\Validator\Validator\ValidatorInterface'
 

@@ -40,10 +40,6 @@ services:
         resource: '../../Infrastructure/Processor/BatchAction/*'
         tags: ['batch_action.processor_provider.interface']
 
-    Ergonode\Product\Infrastructure\Filter\BatchAction\:
-        resource: '../../Infrastructure/Filter/BatchAction/*'
-        tags: ['batch_action.filter_provider.interface']
-
     Ergonode\Product\Application\Form\Product\BatchAction\:
         resource: '../../Application/Form/Product/BatchAction/*'
         tags: ['batch_action.form_provider.interface']

@@ -14,10 +14,9 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
-use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
 use Ergonode\Core\Application\Exception\DenoralizationException;
 use Ergonode\Core\Application\Serializer\JMSSerializer;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
+use Ergonode\Product\Infrastructure\Filter\BatchAction\TemplateBatchActionFilter;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Swagger\Annotations as SWG;
@@ -26,16 +25,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Webmozart\Assert\Assert;
 
 /**
  * @Route("/batch-action/templates", methods={"GET"})
  */
 class GetTemplatesByBatchAction
 {
-    private BatchActionFilterIdsInterface $batchActionFilter;
-
-    private TemplateQueryInterface $templateQuery;
+    private TemplateBatchActionFilter $templateBatchActionFilter;
 
     private JMSSerializer $serializer;
 
@@ -43,13 +39,11 @@ class GetTemplatesByBatchAction
 
 
     public function __construct(
-        BatchActionFilterIdsInterface $batchActionFilter,
-        TemplateQueryInterface $templateQuery,
+        TemplateBatchActionFilter $templateBatchActionFilter,
         JMSSerializer $serializer,
         ValidatorInterface $validator
     ) {
-        $this->batchActionFilter = $batchActionFilter;
-        $this->templateQuery = $templateQuery;
+        $this->templateBatchActionFilter = $templateBatchActionFilter;
         $this->serializer = $serializer;
         $this->validator = $validator;
     }
@@ -100,13 +94,10 @@ class GetTemplatesByBatchAction
                     $ids = new BatchActionIds($list, $data->ids->included);
                 }
                 $filter = new BatchActionFilter($ids, $data->query ?? null);
-
                 /** @var ProductId[] $ids */
-                $ids = $this->batchActionFilter->filter($filter);
-                Assert::allIsInstanceOf($ids, AggregateId::class);
-                $result = $this->templateQuery->findTemplateIdsByProductIds($ids);
+                $filteredIds = $this->templateBatchActionFilter->filter($filter);
 
-                return new SuccessResponse($result);
+                return new SuccessResponse($filteredIds);
             }
             throw new ViolationsHttpException($violations);
         } catch (DenoralizationException $exception) {

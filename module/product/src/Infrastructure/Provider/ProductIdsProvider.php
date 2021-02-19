@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Provider;
 
-use Doctrine\DBAL\FetchMode;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\DbalDataSetQueryInterface;
@@ -19,13 +19,13 @@ class ProductIdsProvider
         GridInterface $grid,
         GridConfigurationInterface $configuration,
         DbalDataSetQueryInterface $query
-    ): array {
+    ): QueryBuilder {
         $queryBuilder = $query->getQueryBuilder(
             $configuration->getFilters(),
             $grid->getColumns()
         );
         $queryBuilder->select('id');
 
-        return $queryBuilder->execute()->fetchAll(FetchMode::COLUMN);
+        return $queryBuilder;
     }
 }

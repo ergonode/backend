@@ -49,7 +49,7 @@ Feature: batch action product deletion
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@"
     Then the response status code should be 200
 
-  Scenario: Delete product alredy deleted
+  Scenario: Delete product already deleted
     When I send a DELETE request to "/api/v1/en_GB/products/@product_id@"
     Then the response status code should be 404
 
