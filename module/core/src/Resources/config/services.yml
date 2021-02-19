@@ -75,3 +75,21 @@ services:
     Ergonode\Core\Application\Serializer\JMSSerializer:
         arguments:
             $serializer: '@jms_serializer'
+
+    Ergonode\Core\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
+
+    Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer:
+        arguments:
+            - '@serializer.mapping.class_metadata_factory'
+            - '@serializer.name_converter.metadata_aware'
+            - '@property_info'
+            - '@serializer.mapping.class_discriminator_resolver'
+        tags:
+            - {name: 'serializer.normalizer', priority: -999}
+
+    Ergonode\Core\Application\Serializer\Normalizer\ScalarValueObjectNormalizer:
+        tags:
+            - { name: 'serializer.normalizer', priority: -990 }
+
+    Ergonode\Core\Application\Serializer\SymfonySerializer:
+        $serializer: '@serializer'
