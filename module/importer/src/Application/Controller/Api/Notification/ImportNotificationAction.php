@@ -30,7 +30,7 @@ class ImportNotificationAction
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_NOTIFICATION")
      *
      * @SWG\Tag(name="Profile")
      * @SWG\Parameter(

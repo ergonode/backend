@@ -36,6 +36,8 @@ final class Version20210105101100 extends AbstractErgonodeMigration
                 'IMPORT_POST_SOURCE',
                 'IMPORT_PUT_SOURCE',
                 'IMPORT_DELETE_SOURCE',
+
+                'IMPORT_GET_NOTIFICATION',
             ]
         );
 
@@ -50,6 +52,8 @@ final class Version20210105101100 extends AbstractErgonodeMigration
                 'IMPORT_GET_SOURCE_GRID',
                 'IMPORT_GET_SOURCE_CONFIGURATION_GRID',
                 'IMPORT_GET_SOURCE',
+
+                'IMPORT_GET_NOTIFICATION',
 
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
@@ -71,6 +75,8 @@ final class Version20210105101100 extends AbstractErgonodeMigration
                 'IMPORT_POST_SOURCE',
                 'IMPORT_PUT_SOURCE',
 
+                'IMPORT_GET_NOTIFICATION',
+
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
             ]
@@ -90,6 +96,8 @@ final class Version20210105101100 extends AbstractErgonodeMigration
                 'IMPORT_GET_SOURCE',
                 'IMPORT_PUT_SOURCE',
 
+                'IMPORT_GET_NOTIFICATION',
+
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
             ]
@@ -107,6 +115,8 @@ final class Version20210105101100 extends AbstractErgonodeMigration
                 'IMPORT_GET_SOURCE_CONFIGURATION_GRID',
                 'IMPORT_GET_SOURCE',
                 'IMPORT_DELETE_SOURCE',
+
+                'IMPORT_GET_NOTIFICATION',
 
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
