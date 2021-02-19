@@ -49,22 +49,5 @@ abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryB
 
         $query->addSelect(sprintf('"%s"', $key));
         $query->leftJoin('p', $sql, sprintf('"%s_JT"', $key), sprintf('"%s_JT".product_id = p.id', $key));
-
-//        $query->addSelect(sprintf(
-//            '(
-//                SELECT value FROM product_value pv
-//                JOIN value_translation vt ON vt.value_id = pv.value_id
-//                LEFT JOIN language_tree lt ON lt.code = vt.language
-//                WHERE pv.attribute_id = \'%s\'
-//                AND pv.product_id = p.id
-//                AND lt.lft <= %s AND lt.rgt >= %s
-//                ORDER BY lft DESC NULLS LAST
-//                LIMIT 1
-//            ) AS "%s"',
-//            $attribute->getId()->getValue(),
-//            $info['lft'],
-//            $info['rgt'],
-//            $key
-//        ));
     }
 }
