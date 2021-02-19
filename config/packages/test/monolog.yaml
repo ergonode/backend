@@ -1,5 +1,5 @@
 monolog:
-    channels: ['import']
+    channels: ['import', 'export']
     handlers:
         main:
             type: stream

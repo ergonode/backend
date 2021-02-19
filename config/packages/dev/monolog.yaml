@@ -1,5 +1,5 @@
 monolog:
-    channels: ['import']
+    channels: ['import', 'export']
     handlers:
         import:
             # log all messages (since debug is the lowest level)
@@ -7,6 +7,12 @@ monolog:
             type: stream
             path: '%kernel.logs_dir%/import.log'
             channels: import
+        export:
+            # log all messages (since debug is the lowest level)
+            level: debug
+            type: stream
+            path: '%kernel.logs_dir%/export.log'
+            channels: export
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
