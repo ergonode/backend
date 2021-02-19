@@ -99,6 +99,7 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'CORE_GET_UNIT_GRID',
                 'CORE_GET_UNIT',
 
+                'MULTIMEDIA_GET',
                 'MULTIMEDIA_GET_DOWNLOAD',
                 'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]
@@ -163,6 +164,7 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'CORE_GET_UNIT_GRID',
                 'CORE_GET_UNIT',
 
+                'MULTIMEDIA_GET',
                 'MULTIMEDIA_GET_DOWNLOAD',
                 'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]
@@ -227,6 +229,7 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'CORE_GET_UNIT_GRID',
                 'CORE_GET_UNIT',
 
+                'MULTIMEDIA_GET',
                 'MULTIMEDIA_GET_DOWNLOAD',
                 'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]
@@ -274,6 +277,7 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'CORE_GET_UNIT_GRID',
                 'CORE_GET_UNIT',
 
+                'MULTIMEDIA_GET',
                 'MULTIMEDIA_GET_DOWNLOAD',
                 'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
             ]

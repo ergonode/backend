@@ -24,92 +24,80 @@ final class Version20210105100500 extends AbstractErgonodeMigration
     {
         $this->insertEndpointPrivileges(
             [
-                'DESIGNER_GET_TEMPLATE_GRID',
-                'DESIGNER_GET_TEMPLATE',
-                'DESIGNER_POST_TEMPLATE',
-                'DESIGNER_PUT_TEMPLATE',
-                'DESIGNER_DELETE_TEMPLATE',
+                'MULTIMEDIA_GET_GRID',
+                'MULTIMEDIA_GET',
+                'MULTIMEDIA_GET_METADATA',
+                'MULTIMEDIA_GET_RELATION',
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
+                'MULTIMEDIA_POST',
+                'MULTIMEDIA_PUT',
+                'MULTIMEDIA_DELETE',
             ]
         );
 
-        //TEMPLATE_DESIGNER
+        //MULTIMEDIA
         $this->insertPrivileges(
-            'TEMPLATE_DESIGNER_READ',
+            'MULTIMEDIA_READ',
             [
-                'DESIGNER_GET_TEMPLATE_GRID',
-                'DESIGNER_GET_TEMPLATE',
+                'MULTIMEDIA_GET_GRID',
+                'MULTIMEDIA_GET',
+                'MULTIMEDIA_GET_METADATA',
+                'MULTIMEDIA_GET_RELATION',
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
 
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
-
-                'ATTRIBUTE_GET_GRID',
-                'ATTRIBUTE_GET',
-                'ATTRIBUTE_GET_SYSTEM',
-                'ATTRIBUTE_GET_GROUP_GRID',
-                'ATTRIBUTE_GET_GROUP',
-                'ATTRIBUTE_GET_OPTION_GRID',
-                'ATTRIBUTE_GET_OPTION',
-            ]
-        );
-
-        $this->insertPrivileges(
-            'TEMPLATE_DESIGNER_CREATE',
-            [
-                'DESIGNER_GET_TEMPLATE_GRID',
-                'DESIGNER_GET_TEMPLATE',
-                'DESIGNER_POST_TEMPLATE',
-                'DESIGNER_PUT_TEMPLATE',
-
-                'CORE_GET_LANGUAGE_GRID',
-                'CORE_GET_LANGUAGE_TREE',
-
-                'ATTRIBUTE_GET_GRID',
-                'ATTRIBUTE_GET',
-                'ATTRIBUTE_GET_SYSTEM',
-                'ATTRIBUTE_GET_GROUP_GRID',
-                'ATTRIBUTE_GET_GROUP',
-                'ATTRIBUTE_GET_OPTION_GRID',
-                'ATTRIBUTE_GET_OPTION',
             ]
         );
 
         $this->insertPrivileges(
-            'TEMPLATE_DESIGNER_UPDATE',
+            'MULTIMEDIA_CREATE',
             [
-                'DESIGNER_GET_TEMPLATE_GRID',
-                'DESIGNER_GET_TEMPLATE',
-                'DESIGNER_PUT_TEMPLATE',
+                'MULTIMEDIA_GET_GRID',
+                'MULTIMEDIA_GET',
+                'MULTIMEDIA_GET_METADATA',
+                'MULTIMEDIA_GET_RELATION',
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
+                'MULTIMEDIA_POST',
+                'MULTIMEDIA_PUT',
 
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
-
-                'ATTRIBUTE_GET_GRID',
-                'ATTRIBUTE_GET',
-                'ATTRIBUTE_GET_SYSTEM',
-                'ATTRIBUTE_GET_GROUP_GRID',
-                'ATTRIBUTE_GET_GROUP',
-                'ATTRIBUTE_GET_OPTION_GRID',
-                'ATTRIBUTE_GET_OPTION',
             ]
         );
 
         $this->insertPrivileges(
-            'TEMPLATE_DESIGNER_DELETE',
+            'MULTIMEDIA_UPDATE',
             [
-                'DESIGNER_GET_TEMPLATE_GRID',
-                'DESIGNER_GET_TEMPLATE',
-                'DESIGNER_DELETE_TEMPLATE',
+                'MULTIMEDIA_GET_GRID',
+                'MULTIMEDIA_GET',
+                'MULTIMEDIA_GET_METADATA',
+                'MULTIMEDIA_GET_RELATION',
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
+                'MULTIMEDIA_PUT',
 
                 'CORE_GET_LANGUAGE_GRID',
                 'CORE_GET_LANGUAGE_TREE',
+            ]
+        );
 
-                'ATTRIBUTE_GET_GRID',
-                'ATTRIBUTE_GET',
-                'ATTRIBUTE_GET_SYSTEM',
-                'ATTRIBUTE_GET_GROUP_GRID',
-                'ATTRIBUTE_GET_GROUP',
-                'ATTRIBUTE_GET_OPTION_GRID',
-                'ATTRIBUTE_GET_OPTION',
+        $this->insertPrivileges(
+            'MULTIMEDIA_DELETE',
+            [
+                'MULTIMEDIA_GET_GRID',
+                'MULTIMEDIA_GET',
+                'MULTIMEDIA_GET_METADATA',
+                'MULTIMEDIA_GET_RELATION',
+                'MULTIMEDIA_GET_DOWNLOAD',
+                'MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL',
+                'MULTIMEDIA_DELETE',
+
+                'CORE_GET_LANGUAGE_GRID',
+                'CORE_GET_LANGUAGE_TREE',
             ]
         );
     }
