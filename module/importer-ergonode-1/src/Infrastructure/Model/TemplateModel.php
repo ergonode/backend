@@ -11,63 +11,14 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 class TemplateModel
 {
     private string $name;
-    private string $type;
-    private int $x;
-    private int $y;
-    private int $width;
-    private int $height;
-    private string $property;
 
-    public function __construct(
-        string $name,
-        string $type,
-        int $x,
-        int $y,
-        int $width,
-        int $height,
-        string $property
-    ) {
+    public function __construct(string $name)
+    {
         $this->name = $name;
-        $this->type = $type;
-        $this->x = $x;
-        $this->y = $y;
-        $this->width = $width;
-        $this->height = $height;
-        $this->property = $property;
     }
 
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function getX(): int
-    {
-        return $this->x;
-    }
-
-    public function getY(): int
-    {
-        return $this->y;
-    }
-
-    public function getWidth(): int
-    {
-        return $this->width;
-    }
-
-    public function getHeight(): int
-    {
-        return $this->height;
-    }
-
-    public function getProperty(): string
-    {
-        return $this->property;
     }
 }

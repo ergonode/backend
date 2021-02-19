@@ -11,14 +11,16 @@ namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
+use Ergonode\Importer\Domain\Command\Import\ImportTemplateCommand;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateElementReader;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeTemplateReader;
-use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportTemplateCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 
 class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 {
-    private const FILENAME = 'templates.csv';
+    private const FILENAME_1 = 'templates.csv';
+    private const FILENAME_2 = 'templates_elements.csv';
 
     private CommandBusInterface $commandBus;
 
@@ -34,21 +36,26 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
 
     public function __invoke(Import $import, string $directory): void
     {
-        $reader = new ErgonodeTemplateReader($directory, self::FILENAME);
+        $reader1 = new ErgonodeTemplateReader($directory, self::FILENAME_1);
+        $reader2 = new ErgonodeTemplateElementReader($directory, self::FILENAME_2);
 
-        while ($template = $reader->read()) {
+        while ($template = $reader1->read()) {
+            $elements = [];
+            $reader2->reset();
+            while ($element = $reader2->read()) {
+                if ($element->getName() === $template->getName()) {
+                    $elements[] = $element->toArray();
+                }
+            }
+
             $id = ImportLineId::generate();
             $command = new ImportTemplateCommand(
                 $id,
                 $import->getId(),
                 $template->getName(),
-                $template->getType(),
-                $template->getX(),
-                $template->getY(),
-                $template->getWidth(),
-                $template->getHeight(),
-                $template->getProperty()
+                $elements,
             );
+
             $this->importRepository->addLine($id, $import->getId(), 'TEMPLATE');
             $this->commandBus->dispatch($command, true);
         }

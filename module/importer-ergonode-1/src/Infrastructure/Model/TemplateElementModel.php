@@ -6,54 +6,34 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ImporterErgonode1\Domain\Command\Import;
+namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
-use Ergonode\SharedKernel\Domain\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
-
-class ImportTemplateCommand implements DomainCommandInterface
+class TemplateElementModel
 {
-    private ImportLineId $id;
-    private ImportId $importId;
     private string $name;
     private string $type;
     private int $x;
     private int $y;
     private int $width;
     private int $height;
-    private string $property;
+    private array $properties;
 
     public function __construct(
-        ImportLineId $id,
-        ImportId $importId,
         string $name,
         string $type,
         int $x,
         int $y,
         int $width,
         int $height,
-        string $property
+        array $properties
     ) {
-        $this->id = $id;
-        $this->importId = $importId;
         $this->name = $name;
         $this->type = $type;
         $this->x = $x;
         $this->y = $y;
         $this->width = $width;
         $this->height = $height;
-        $this->property = $property;
-    }
-
-    public function getId(): ImportLineId
-    {
-        return $this->id;
-    }
-
-    public function getImportId(): ImportId
-    {
-        return $this->importId;
+        $this->properties = $properties;
     }
 
     public function getName(): string
@@ -86,8 +66,20 @@ class ImportTemplateCommand implements DomainCommandInterface
         return $this->height;
     }
 
-    public function getProperty(): string
+    public function getProperties(): array
     {
-        return $this->property;
+        return $this->properties;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'type' => $this->type,
+            'x' => $this->x,
+            'y' => $this->y,
+            'width' => $this->width,
+            'height' => $this->height,
+            'properties' => $this->properties,
+        ];
     }
 }

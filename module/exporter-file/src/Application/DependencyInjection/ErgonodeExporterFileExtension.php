@@ -15,6 +15,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\ExporterFile\Infrastructure\Writer\WriterInterface;
 use Ergonode\ExporterFile\Application\DependencyInjection\CompilerPass\FileWriterCompilerPass;
+use Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapInterface;
 
 class ErgonodeExporterFileExtension extends Extension implements PrependExtensionInterface
 {
@@ -33,6 +34,10 @@ class ErgonodeExporterFileExtension extends Extension implements PrependExtensio
         $container
             ->registerForAutoconfiguration(WriterInterface::class)
             ->addTag(FileWriterCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(TemplateElementMapInterface::class)
+            ->addTag('export-file.template_element_map_interface');
 
         $loader->load('services.yml');
     }

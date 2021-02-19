@@ -111,6 +111,7 @@ class AttributeGridBuilder implements GridBuilderInterface
             $result[] = new LabelFilterOption($item, $item);
         }
 
+
         return $result;
     }
 }
