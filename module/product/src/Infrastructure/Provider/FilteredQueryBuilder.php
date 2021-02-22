@@ -12,13 +12,13 @@ namespace Ergonode\Product\Infrastructure\Provider;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
-use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface;
+use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Grid\FilterGridConfiguration;
 use Ergonode\Product\Infrastructure\Factory\DataSet\DbalQueryBuilderProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 
-class FilteredQueryBuilderProvider implements FilteredQueryBuilderProviderInterface
+class FilteredQueryBuilder implements FilteredQueryBuilderInterface
 {
     private DbalQueryBuilderProductDataSetFactory $productQueryBuilderFactory;
 
@@ -45,7 +45,7 @@ class FilteredQueryBuilderProvider implements FilteredQueryBuilderProviderInterf
     }
 
 
-    public function provide(?BatchActionFilter $filter): QueryBuilder
+    public function build(BatchActionFilter $filter): QueryBuilder
     {
         $queryBuilder = $this->getQueryBuilder();
         if ($filter) {

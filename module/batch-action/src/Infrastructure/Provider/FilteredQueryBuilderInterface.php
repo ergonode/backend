@@ -12,7 +12,7 @@ namespace Ergonode\BatchAction\Infrastructure\Provider;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 
-interface FilteredQueryBuilderProviderInterface
+interface FilteredQueryBuilderInterface
 {
-    public function provide(?BatchActionFilter $filter): QueryBuilder;
+    public function build(BatchActionFilter $filter): QueryBuilder;
 }

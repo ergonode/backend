@@ -12,7 +12,7 @@ use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilderProvider;
+use Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilder;
 use Ergonode\Product\Infrastructure\Filter\BatchAction\ProductBatchActionFilter;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -21,9 +21,9 @@ use PHPUnit\Framework\TestCase;
 class ProductBatchActionFilterTest extends TestCase
 {
     /**
-     * @var FilteredQueryBuilderProvider|MockObject
+     * @var FilteredQueryBuilder|MockObject
      */
-    private FilteredQueryBuilderProvider $filteredQueryBuilder;
+    private FilteredQueryBuilder $filteredQueryBuilder;
 
     private QueryBuilder $queryBuilder;
 
@@ -31,7 +31,7 @@ class ProductBatchActionFilterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->filteredQueryBuilder = $this->createMock(FilteredQueryBuilderProvider::class);
+        $this->filteredQueryBuilder = $this->createMock(FilteredQueryBuilder::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->statement = $this->createMock(Statement::class);
         $this->filteredQueryBuilder->method('provide')->willReturn($this->queryBuilder);

@@ -11,20 +11,20 @@ namespace Ergonode\BatchAction\Infrastructure\Filter;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
-use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface;
+use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class TemplateBatchActionFilter
 {
-    private FilteredQueryBuilderProviderInterface $filteredQueryBuilderProvider;
+    private FilteredQueryBuilderInterface $filteredQueryBuilder;
 
     private Connection $connection;
 
     public function __construct(
-        FilteredQueryBuilderProviderInterface $filteredQueryBuilderProvider,
+        FilteredQueryBuilderInterface $filteredQueryBuilder,
         Connection $connection
     ) {
-        $this->filteredQueryBuilderProvider = $filteredQueryBuilderProvider;
+        $this->filteredQueryBuilder = $filteredQueryBuilder;
         $this->connection = $connection;
     }
 
@@ -33,14 +33,18 @@ class TemplateBatchActionFilter
      */
     public function filter(?BatchActionFilter $filter): array
     {
-        $filteredQueryBuilder = $this->filteredQueryBuilderProvider->provide($filter);
+        $result = false;
 
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('DISTINCT template_id')
-            ->from('public.product', 'pt')
-            ->join('pt', (sprintf('(%s)', $filteredQueryBuilder->getSQL())), 'pp', 'pp.id = pt.id')
-            ->setParameters($filteredQueryBuilder->getParameters(), $filteredQueryBuilder->getParameterTypes());
-        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        if ($filter) {
+            $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
+
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder->select('DISTINCT template_id')
+                ->from('public.product', 'pt')
+                ->join('pt', (sprintf('(%s)', $filteredQueryBuilder->getSQL())), 'pp', 'pp.id = pt.id')
+                ->setParameters($filteredQueryBuilder->getParameters(), $filteredQueryBuilder->getParameterTypes());
+            $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        }
 
         if (false === $result) {
             $result = [];

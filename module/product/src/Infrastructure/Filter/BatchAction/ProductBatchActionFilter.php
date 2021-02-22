@@ -11,7 +11,7 @@ namespace Ergonode\Product\Infrastructure\Filter\BatchAction;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
-use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface;
+use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ProductBatchActionFilter implements BatchActionFilterIdsInterface
@@ -26,13 +26,13 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
      */
     private array $types;
 
-    private FilteredQueryBuilderProviderInterface $filteredQueryBuilderProvider;
+    private FilteredQueryBuilderInterface $filteredQueryBuilder;
 
     public function __construct(
-        FilteredQueryBuilderProviderInterface $filteredQueryBuilderProvider,
+        FilteredQueryBuilderInterface $filteredQueryBuilder,
         ?array $types = []
     ) {
-        $this->filteredQueryBuilderProvider = $filteredQueryBuilderProvider;
+        $this->filteredQueryBuilder = $filteredQueryBuilder;
         $this->types = $types ?: self::TYPES;
     }
 
@@ -46,9 +46,13 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
      */
     public function filter(?BatchActionFilter $filter): array
     {
-        $filteredQueryBuilder = $this->filteredQueryBuilderProvider->provide($filter);
+        $result = false;
 
-        $result = $filteredQueryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        if ($filter) {
+            $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
+
+            $result = $filteredQueryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        }
 
         if (false === $result) {
             $result = [];

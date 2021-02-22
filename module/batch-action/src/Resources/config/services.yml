@@ -50,7 +50,7 @@ services:
 
     Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter:
         arguments:
-            - '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface'
+            - '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
             - '@doctrine.dbal.default_connection'
 
     Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery'
@@ -59,7 +59,7 @@ services:
 
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
 
-    Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface: '@Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilderProvider'
+    Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface: '@Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilder'
 
     Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
         tags: ['messenger.message_handler']
