@@ -48,40 +48,38 @@ class FilteredQueryBuilder implements FilteredQueryBuilderInterface
     public function build(BatchActionFilter $filter): QueryBuilder
     {
         $queryBuilder = $this->getQueryBuilder();
-        if ($filter) {
-            $filterQuery = $filter->getQuery();
-            if ($filterQuery) {
-                if ($filter->getIds()) {
-                    if ($filter->getIds()->isIncluded()) {
-                        //query and include id
-                        $filteredQueryBuilder = $this->getFilteredQueryBuilder($filterQuery);
-
-                        return $filteredQueryBuilder->orWhere($filteredQueryBuilder->expr()->in('id', ':productsIds'))
-                            ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
-                    }
-
-                    //query and exclude id
-                    $filteredQueryBuilder = $this->getFilteredQueryBuilder($filterQuery);
-
-                    return $filteredQueryBuilder->andWhere($filteredQueryBuilder->expr()->notIn('id', ':productsIds'))
-                        ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
-                }
-
-                //only query
-                return $this->getFilteredQueryBuilder($filter->getQuery());
-            }
-
+        $filterQuery = $filter->getQuery();
+        if ($filterQuery) {
             if ($filter->getIds()) {
                 if ($filter->getIds()->isIncluded()) {
-                    //only include ids
-                    return $queryBuilder->where($queryBuilder->expr()->in('id', ':productsIds'))
+                    //query and include id
+                    $filteredQueryBuilder = $this->getFilteredQueryBuilder($filterQuery);
+
+                    return $filteredQueryBuilder->orWhere($filteredQueryBuilder->expr()->in('id', ':productsIds'))
                         ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
                 }
 
-                //only exclude id in all system
-                return $queryBuilder->andWhere($queryBuilder->expr()->notIn('id', ':productsIds'))
+                //query and exclude id
+                $filteredQueryBuilder = $this->getFilteredQueryBuilder($filterQuery);
+
+                return $filteredQueryBuilder->andWhere($filteredQueryBuilder->expr()->notIn('id', ':productsIds'))
                     ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
             }
+
+            //only query
+            return $this->getFilteredQueryBuilder($filter->getQuery());
+        }
+
+        if ($filter->getIds()) {
+            if ($filter->getIds()->isIncluded()) {
+                //only include ids
+                return $queryBuilder->where($queryBuilder->expr()->in('id', ':productsIds'))
+                    ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
+            }
+
+            //only exclude id in all system
+            return $queryBuilder->andWhere($queryBuilder->expr()->notIn('id', ':productsIds'))
+                ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
         }
 
         //no filter or empty, get all items
