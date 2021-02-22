@@ -78,7 +78,7 @@ class FilteredQueryBuilder implements FilteredQueryBuilderInterface
             }
 
             //only exclude id in all system
-            return $queryBuilder->andWhere($queryBuilder->expr()->notIn('id', ':productsIds'))
+            return $queryBuilder->where($queryBuilder->expr()->notIn('id', ':productsIds'))
                 ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
         }
 
