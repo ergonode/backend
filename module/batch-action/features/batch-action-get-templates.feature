@@ -108,7 +108,6 @@ Feature: Batch action get templates
     When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=false&filter[query]=sku=@product_sku_2@"
     Then the response status code should be 200
     And the JSON node "[0]" should exist
-    And the JSON node "[1]" should exist
 
   Scenario: Get templates by query
     When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[query]=sku=@product_sku_1@"

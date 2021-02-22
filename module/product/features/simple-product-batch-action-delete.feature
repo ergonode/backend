@@ -15,42 +15,23 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "product_template"
 
-  Scenario: Create product 1
+  Scenario Outline: Create product <number>
+    And remember param "product_sku_<number>" with value "SKU_@@random_code@@"
     When I send a POST request to "/api/v1/en_GB/products" with body:
       """
       {
-        "sku": "SKU_@@random_code@@",
+        "sku": "@product_sku_<number>@",
         "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@"
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "product_id_1"
-
-  Scenario: Create product 2
-    When I send a POST request to "/api/v1/en_GB/products" with body:
-      """
-      {
-        "sku": "SKU_@@random_code@@",
-        "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_id_2"
-
-  Scenario: Create product 3
-    And remember param "product_sku_3" with value "SKU_@@random_code@@"
-    When I send a POST request to "/api/v1/en_GB/products" with body:
-      """
-      {
-        "sku": "@product_sku_3@",
-        "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_template@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_id_3"
+    And store response param "id" as "product_id_<number>"
+    Examples:
+    |number|
+    |1|
+    |2|
+    |3|
 
   Scenario: Create batch action with product 1
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
@@ -93,17 +74,14 @@ Feature: batch action product deletion
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@"
     Then the response status code should be 200
 
-  Scenario: Delete product 1 already deleted
-    When I send a DELETE request to "/api/v1/en_GB/products/@product_id_1@"
+  Scenario Outline: Delete product <number> already deleted
+    When I send a DELETE request to "/api/v1/en_GB/products/@product_id_<number>@"
     Then the response status code should be 404
-
-  Scenario: Delete product 2 already deleted
-    When I send a DELETE request to "/api/v1/en_GB/products/@product_id_2@"
-    Then the response status code should be 404
-
-  Scenario: Delete product 3 already deleted
-    When I send a DELETE request to "/api/v1/en_GB/products/@product_id_3@"
-    Then the response status code should be 404
+    Examples:
+    |number|
+    |1|
+    |2|
+    |3|
 
   Scenario: Create batch action with not exists product
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:

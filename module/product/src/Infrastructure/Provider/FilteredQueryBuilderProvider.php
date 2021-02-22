@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderProviderInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Grid\FilterGridConfiguration;
 use Ergonode\Product\Infrastructure\Factory\DataSet\DbalQueryBuilderProductDataSetFactory;
 use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
@@ -28,16 +28,20 @@ class FilteredQueryBuilderProvider implements FilteredQueryBuilderProviderInterf
 
     private Connection $connection;
 
+    private LanguageQueryInterface $languageQuery;
+
     public function __construct(
         DbalQueryBuilderProductDataSetFactory $productQueryBuilderFactory,
         ProductGridBuilder $gridBuilder,
         ProductIdsProvider $productIdsProvider,
-        Connection $connection
+        Connection $connection,
+        LanguageQueryInterface $languageQuery
     ) {
         $this->productQueryBuilderFactory = $productQueryBuilderFactory;
         $this->gridBuilder = $gridBuilder;
         $this->productIdsProvider = $productIdsProvider;
         $this->connection = $connection;
+        $this->languageQuery = $languageQuery;
     }
 
 
@@ -59,7 +63,7 @@ class FilteredQueryBuilderProvider implements FilteredQueryBuilderProviderInterf
                     //query and exclude id
                     $filteredQueryBuilder = $this->getFilteredQueryBuilder($filterQuery);
 
-                    return $filteredQueryBuilder->orWhere($filteredQueryBuilder->expr()->notIn('id', ':productsIds'))
+                    return $filteredQueryBuilder->andWhere($filteredQueryBuilder->expr()->notIn('id', ':productsIds'))
                         ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
                 }
 
@@ -70,7 +74,7 @@ class FilteredQueryBuilderProvider implements FilteredQueryBuilderProviderInterf
             if ($filter->getIds()) {
                 if ($filter->getIds()->isIncluded()) {
                     //only include ids
-                    return $queryBuilder->andWhere($queryBuilder->expr()->in('id', ':productsIds'))
+                    return $queryBuilder->where($queryBuilder->expr()->in('id', ':productsIds'))
                         ->setParameter(':productsIds', $filter->getIds()->getList(), Connection::PARAM_STR_ARRAY);
                 }
 
@@ -86,7 +90,7 @@ class FilteredQueryBuilderProvider implements FilteredQueryBuilderProviderInterf
 
     private function getFilteredQueryBuilder(string $filter): QueryBuilder
     {
-        $language = new Language('en_GB');
+        $language = $this->languageQuery->getRootLanguage();
         $configuration = new FilterGridConfiguration($filter);
 
         $grid = $this->gridBuilder->build($configuration, $language);
