@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Processor;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-interface Shopware6ExportStepProcessInterface
+interface ExportStepProcessInterface
 {
     public function export(ExportId $exportId, Shopware6Channel $channel): void;
 }
