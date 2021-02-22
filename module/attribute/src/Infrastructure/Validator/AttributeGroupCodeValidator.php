@@ -43,7 +43,7 @@ class AttributeGroupCodeValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        if (!\Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode::isValid($value)) {
+        if (!\Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode::isValid(strtolower($value))) {
             $this->context->buildViolation($constraint->validMessage)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
