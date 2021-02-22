@@ -8,7 +8,7 @@ nelmio_api_doc:
                         type: string
                         required: true
                         description: type
-                        example: delete_product
+                        example: product_delete
                     filter:
                         type: object
                         required: false

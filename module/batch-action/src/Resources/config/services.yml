@@ -23,8 +23,7 @@ services:
     Ergonode\BatchAction\Application\Controller\Api\GetTemplatesByBatchAction:
         tags: [ 'controller.service_arguments' ]
         arguments:
-            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface'
-            - '@Ergonode\Designer\Domain\Query\TemplateQueryInterface'
+            - '@Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter'
             - '@Ergonode\Core\Application\Serializer\SerializerInterface'
             - '@Symfony\Component\Validator\Validator\ValidatorInterface'
 
@@ -49,11 +48,19 @@ services:
             - '@doctrine.dbal.default_connection'
             - '@translator'
 
+    Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter:
+        arguments:
+            - '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
+            - '@doctrine.dbal.default_connection'
+
     Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery'
 
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface: '@Ergonode\Product\Infrastructure\Filter\BatchAction\ProductBatchActionFilter'
 
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
+
+    Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface: '@Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilder'
+
     Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
         tags: ['messenger.message_handler']
         arguments:

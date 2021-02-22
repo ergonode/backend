@@ -97,6 +97,17 @@ Feature: Batch action get templates
       | [0] | @product_template_id_1@ |
     And the JSON node "[1]" should not exist
 
+  Scenario: Get templates included and query
+    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=true&filter[query]=sku=@product_sku_2@"
+    Then the response status code should be 200
+      | [0] | @product_template_id_1@ |
+      | [1] | @product_template_id_2@ |
+    And the JSON node "[2]" should not exist
+
+  Scenario: Get templates excluded and query
+    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=false&filter[query]=sku=@product_sku_2@"
+    Then the response status code should be 200
+    And the JSON node "[0]" should exist
 
   Scenario: Get templates by query
     When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[query]=sku=@product_sku_1@"
