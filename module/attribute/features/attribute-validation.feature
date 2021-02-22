@@ -33,7 +33,7 @@ Feature: Attribute value validation feature
     And I send a "POST" request to "/api/v1/en_GB/attributes/@multi_select_attribute@/options" with body:
       """
       {
-        "code": "key_bb",
+        "code": "key_bb_@@random_code@@",
         "label":  {}
       }
       """
