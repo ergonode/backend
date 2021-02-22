@@ -14,12 +14,12 @@ use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryRemoveExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\CategoryQueryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Webmozart\Assert\Assert;
 
-class Shopware6CategoryRemoveStep implements Shopware6ExportStepProcessInterface
+class CategoryRemoveStep implements ExportStepProcessInterface
 {
     private TreeRepositoryInterface $treeRepository;
 

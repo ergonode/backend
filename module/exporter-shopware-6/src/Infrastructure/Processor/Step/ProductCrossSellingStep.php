@@ -13,10 +13,10 @@ use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\ProductCrossSellingExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
-class ProductCrossSellingStep implements Shopware6ExportStepProcessInterface
+class ProductCrossSellingStep implements ExportStepProcessInterface
 {
     private CommandBusInterface $commandBus;
 
