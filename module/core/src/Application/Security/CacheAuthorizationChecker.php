@@ -42,7 +42,7 @@ class CacheAuthorizationChecker implements AuthorizationCheckerInterface, ResetI
         }
         $tokenHash = spl_object_hash($token);
 
-        if ($token !== ($this->cache[$tokenHash][$identifier]['token'] ?? null)) {
+        if (($this->cache[$tokenHash][$identifier]['token'] ?? null) !== $token) {
             $this->cache[$tokenHash][$identifier] = [
                 'token' => $token,
                 'isGranted' => $this->authorizationChecker->isGranted($attributes, $subject),
@@ -60,13 +60,17 @@ class CacheAuthorizationChecker implements AuthorizationCheckerInterface, ResetI
         $this->cache = [];
     }
 
+    /**
+     * @param mixed $attributes
+     * @param mixed $subject
+     */
     private function supportsCaching($attributes, $subject): ?string
     {
         $id = null;
         if (is_string($attributes)) {
             $id .= "str_$attributes";
         } elseif (is_object($attributes)) {
-            $id .= 'obj_' . spl_object_hash($attributes);
+            $id .= 'obj_'.spl_object_hash($attributes);
         } elseif (null === $attributes) {
             // nothing
         } else {
@@ -75,7 +79,7 @@ class CacheAuthorizationChecker implements AuthorizationCheckerInterface, ResetI
         if (is_string($subject)) {
             $id .= "_str_$subject";
         } elseif (is_object($subject)) {
-            $id .= '_obj' . spl_object_hash($subject);
+            $id .= '_obj'.spl_object_hash($subject);
         } elseif (null === $subject) {
             // nothing
         } else {
