@@ -46,6 +46,7 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
             $qb->andWhere($qb->expr()->eq('active', ':active'))
                 ->setParameter(':active', 'true', \PDO::PARAM_BOOL);
         }
+        $qb->orderBy('code', 'ASC');
 
         return $qb->execute()->fetchAll();
     }
