@@ -13,14 +13,14 @@ use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\ProductExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\ExportStepProcessInterface;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class Shopware6SimpleProductStep implements Shopware6ExportStepProcessInterface
+class SimpleProductStep implements ExportStepProcessInterface
 {
     private ProductQueryInterface $productQuery;
 

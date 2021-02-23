@@ -22,12 +22,12 @@ services:
         tags: ['messenger.message_handler']
         arguments:
             $steps:
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6PropertyGroupStep'
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CustomFieldStep'
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryStep'
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6VariableProductStep'
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6SimpleProductStep'
-                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\Shopware6CategoryRemoveStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\PropertyGroupStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\CustomFieldStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\CategoryStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\VariableProductStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\SimpleProductStep'
+                - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\CategoryRemoveStep'
                 - '@Ergonode\ExporterShopware6\Infrastructure\Processor\Step\ProductCrossSellingStep'
     # Repository
     Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Infrastructure\Persistence\Repository\DbalCategoryRepository'

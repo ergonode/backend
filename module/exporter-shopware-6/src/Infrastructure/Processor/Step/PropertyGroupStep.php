@@ -13,7 +13,7 @@ use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\PropertyGroupExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\ExportStepProcessInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
@@ -22,7 +22,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class Shopware6PropertyGroupStep implements Shopware6ExportStepProcessInterface
+class PropertyGroupStep implements ExportStepProcessInterface
 {
     private ProductQueryInterface $productQuery;
 

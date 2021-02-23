@@ -16,12 +16,12 @@ use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\CategoryExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\ExportStepProcessInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Webmozart\Assert\Assert;
 
-class Shopware6CategoryStep implements Shopware6ExportStepProcessInterface
+class CategoryStep implements ExportStepProcessInterface
 {
     private TreeRepositoryInterface $treeRepository;
 
