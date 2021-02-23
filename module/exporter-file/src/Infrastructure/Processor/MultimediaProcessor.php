@@ -11,7 +11,7 @@ namespace Ergonode\ExporterFile\Infrastructure\Processor;
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 
@@ -26,7 +26,7 @@ class MultimediaProcessor
             $data = new ExportData();
 
             foreach ($channel->getLanguages() as $language) {
-                $data->set($this->getLanguage($multimedia, $language), $language);
+                $data->add($this->getLanguage($multimedia, $language));
             }
 
             return $data;
@@ -38,9 +38,9 @@ class MultimediaProcessor
         }
     }
 
-    private function getLanguage(AbstractMultimedia $multimedia, Language $language): LanguageData
+    private function getLanguage(AbstractMultimedia $multimedia, Language $language): ExportLineData
     {
-        $result = new LanguageData();
+        $result = new ExportLineData();
         $result->set('_id', $multimedia->getId()->getValue());
         $result->set('_language', $language->getCode());
         $result->set('_name', $multimedia->getName());

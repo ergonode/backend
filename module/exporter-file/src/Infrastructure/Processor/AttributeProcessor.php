@@ -13,7 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
 
 class AttributeProcessor
 {
@@ -26,7 +26,7 @@ class AttributeProcessor
             $data = new ExportData();
 
             foreach ($channel->getLanguages() as $language) {
-                $data->set($this->getLanguage($attribute, $language), $language);
+                $data->add($this->getLanguage($attribute, $language));
             }
 
             return $data;
@@ -38,9 +38,9 @@ class AttributeProcessor
         }
     }
 
-    private function getLanguage(AbstractAttribute $attribute, Language $language): LanguageData
+    private function getLanguage(AbstractAttribute $attribute, Language $language): ExportLineData
     {
-        $result = new LanguageData();
+        $result = new ExportLineData();
         $result->set('_code', $attribute->getCode()->getValue());
         $result->set('_type', $attribute->getType());
         $result->set('_language', $language->getCode());

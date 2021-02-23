@@ -14,8 +14,8 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\ExporterFile\Infrastructure\Processor\Strategy\Template\:
-        resource: '../../Infrastructure/Processor/Strategy/Template/*'
+    Ergonode\ExporterFile\Infrastructure\Builder\Template\:
+        resource: '../../Infrastructure/Builder/Template/*'
         tags: ['export-file.template_element_map_interface']
 
     Ergonode\ExporterFile\Domain\:
@@ -33,6 +33,15 @@ services:
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\MultimediaExportProcessorStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\TemplateExportProcessorStep'
 
-    Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapProvider:
+    Ergonode\ExporterFile\Infrastructure\Builder\TemplateElementBuilder:
        arguments:
-           $strategies: !tagged_iterator 'export-file.template_element_map_interface'
+           $builders: !tagged_iterator 'export-file.template_element_map_interface'
+
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilder:
+        arguments:
+            $builders:
+                - '@Ergonode\ExporterFile\Infrastructure\Builder\Product\ProductTemplateBuilder'
+                - '@Ergonode\ExporterFile\Infrastructure\Builder\Product\ProductCategoryBuilder'
+                - '@Ergonode\ExporterFile\Infrastructure\Builder\Product\ProductAttributeBuilder'
+                - '@Ergonode\ExporterFile\Infrastructure\Builder\Product\AssociatedExportProductBuilder'
+                - '@Ergonode\ExporterFile\Infrastructure\Builder\Product\VariableExportProductBuilder'

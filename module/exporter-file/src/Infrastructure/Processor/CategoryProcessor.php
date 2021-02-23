@@ -10,7 +10,7 @@ namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
@@ -26,7 +26,7 @@ class CategoryProcessor
             $data = new ExportData();
 
             foreach ($channel->getLanguages() as $language) {
-                $data->set($this->getLanguage($category, $language), $language);
+                $data->add($this->getLanguage($category, $language));
             }
 
             return $data;
@@ -38,9 +38,9 @@ class CategoryProcessor
         }
     }
 
-    private function getLanguage(AbstractCategory $category, Language $language): LanguageData
+    private function getLanguage(AbstractCategory $category, Language $language): ExportLineData
     {
-        $result = new LanguageData();
+        $result = new ExportLineData();
         $result->set('_code', $category->getCode()->getValue());
         $result->set('_name', $category->getName()->get($language));
         $result->set('_language', $language->getCode());

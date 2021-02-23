@@ -19,7 +19,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
 use Ergonode\ExporterFile\Infrastructure\Processor\ProductProcessor;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
@@ -75,7 +75,7 @@ class ProductProcessTest extends TestCase
 
         $data = $processor->process($channel, $product);
 
-        $languageData = new LanguageData();
+        $languageData = new ExportLineData();
         $languageData->set('_sku', '');
         $languageData->set('_type', '');
         $languageData->set('_language', 'pl_PL');

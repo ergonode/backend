@@ -52,6 +52,22 @@ class DbalProductQuery implements ProductQueryInterface
         return null;
     }
 
+    public function findSkuByProductId(ProductId $id): ?Sku
+    {
+        $qb = $this->getQuery();
+        $qb->select('sku');
+        $result = $qb->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new Sku($result);
+        }
+
+        return null;
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
 
 class OptionProcessor
 {
@@ -39,7 +39,7 @@ class OptionProcessor
 
             $data = new ExportData();
             foreach ($channel->getLanguages() as $language) {
-                $data->set($this->getLanguage($option, $language, $attribute), $language);
+                $data->add($this->getLanguage($option, $language, $attribute));
             }
 
             return $data;
@@ -51,9 +51,12 @@ class OptionProcessor
         }
     }
 
-    private function getLanguage(AbstractOption $option, Language $language, AbstractAttribute $attribute): LanguageData
-    {
-        $result = new LanguageData();
+    private function getLanguage(
+        AbstractOption $option,
+        Language $language,
+        AbstractAttribute $attribute
+    ): ExportLineData {
+        $result = new ExportLineData();
         $result->set('_code', $option->getCode()->getValue());
         $result->set('_attribute_code', $attribute->getCode()->getValue());
         $result->set('_language', $language->getCode());
