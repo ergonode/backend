@@ -8,25 +8,25 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder;
 
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
 use Webmozart\Assert\Assert;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
+use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
-class ExportProductBuilder
+class ExportTemplateBuilder
 {
     /**
-     * @var ExportProductBuilderInterface[]
+     * @var ExportTemplateBuilderInterface[]
      */
     private iterable $builders;
 
     /**
-     * @param ExportProductBuilderInterface[]|iterable $builders
+     * @param ExportTemplateBuilderInterface[] $builders
      */
     public function __construct(iterable $builders = [])
     {
-        Assert::allIsInstanceOf($builders, ExportProductBuilderInterface::class);
+        Assert::allIsInstanceOf($builders, ExportTemplateBuilderInterface::class);
 
         $this->builders = $builders;
     }
@@ -38,23 +38,19 @@ class ExportProductBuilder
             $result[] = $builder->header();
         }
 
-        return array_unique(array_merge(['_sku', '_type', '_language'], ...$result));
+        return array_unique(array_merge(['_name', '_type', '_language', '_x', '_y', '_width', '_height'], ...$result));
     }
 
-    public function build(AbstractProduct $product, FileExportChannel $channel): ExportData
+    public function build(Template $template, FileExportChannel $channel): ExportData
     {
         $data = new ExportData();
-
         foreach ($channel->getLanguages() as $language) {
             $line = new ExportLineData();
-            $line->set('_sku', $product->getSku()->getValue());
-            $line->set('_type', $product->getType());
+            $line->set('_name', $template->getName());
             $line->set('_language', $language->getCode());
-
             foreach ($this->builders as $builder) {
-                $builder->build($product, $line, $language);
+                $builder->build($template, $line, $language);
             }
-
             $data->add($line);
         }
 

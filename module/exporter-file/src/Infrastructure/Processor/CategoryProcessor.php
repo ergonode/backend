@@ -10,41 +10,28 @@ namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportCategoryBuilder;
 
 class CategoryProcessor
 {
-    /**
-     * @throws ExportException
-     */
+    private ExportCategoryBuilder $categoryBuilder;
+
+    public function __construct(ExportCategoryBuilder $categoryBuilder)
+    {
+        $this->categoryBuilder = $categoryBuilder;
+    }
+
     public function process(FileExportChannel $channel, AbstractCategory $category): ExportData
     {
         try {
-            $data = new ExportData();
-
-            foreach ($channel->getLanguages() as $language) {
-                $data->add($this->getLanguage($category, $language));
-            }
-
-            return $data;
+            return $this->categoryBuilder->build($category, $channel);
         } catch (\Exception $exception) {
             throw new ExportException(
                 sprintf('Can\'t process export for %s', $category->getCode()->getValue()),
                 $exception
             );
         }
-    }
-
-    private function getLanguage(AbstractCategory $category, Language $language): ExportLineData
-    {
-        $result = new ExportLineData();
-        $result->set('_code', $category->getCode()->getValue());
-        $result->set('_name', $category->getName()->get($language));
-        $result->set('_language', $language->getCode());
-
-        return $result;
     }
 }

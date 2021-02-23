@@ -17,7 +17,7 @@ use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilderInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
-class ProductCategoryBuilder implements ExportProductBuilderInterface
+class ExportProductCategoryBuilder implements ExportProductBuilderInterface
 {
     private CategoryQueryInterface $categoryQuery;
 

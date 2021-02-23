@@ -16,7 +16,7 @@ use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
-class AssociatedExportProductBuilder implements ExportProductBuilderInterface
+class ExportAssociatedExportProductBuilder implements ExportProductBuilderInterface
 {
     private ProductQueryInterface $productQuery;
 

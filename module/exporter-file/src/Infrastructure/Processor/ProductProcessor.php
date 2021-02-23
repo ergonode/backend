@@ -27,7 +27,7 @@ class ProductProcessor
     public function process(FileExportChannel $channel, AbstractProduct $product): ExportData
     {
         try {
-            return $this->productBuilder->build($product, $channel->getLanguages());
+            return $this->productBuilder->build($product, $channel);
         } catch (\Exception $exception) {
             throw new ExportException(
                 sprintf('Can\'t process export for %s', $product->getSku()->getValue()),

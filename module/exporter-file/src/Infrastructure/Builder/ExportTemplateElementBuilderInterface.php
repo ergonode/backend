@@ -10,10 +10,11 @@ namespace Ergonode\ExporterFile\Infrastructure\Builder;
 
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
+use Ergonode\Core\Domain\ValueObject\Language;
 
-interface TemplateElementBuilderInterface
+interface ExportTemplateElementBuilderInterface
 {
     public function header(): array;
 
-    public function build(TemplateElementInterface $element, ExportLineData $data): void;
+    public function build(TemplateElementInterface $element, ExportLineData $data, Language $language): void;
 }

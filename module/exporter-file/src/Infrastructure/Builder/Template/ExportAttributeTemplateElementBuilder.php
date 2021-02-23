@@ -13,10 +13,11 @@ use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\ExporterFile\Infrastructure\Builder\TemplateElementBuilderInterface;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateElementBuilderInterface;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
+use Ergonode\Core\Domain\ValueObject\Language;
 
-class AttributeTemplateElementBuilder implements TemplateElementBuilderInterface
+class ExportAttributeTemplateElementBuilder implements ExportTemplateElementBuilderInterface
 {
     private AttributeQueryInterface $attributeQuery;
 
@@ -30,8 +31,10 @@ class AttributeTemplateElementBuilder implements TemplateElementBuilderInterface
         return ['attribute', 'require'];
     }
 
-    public function build(TemplateElementInterface $element, ExportLineData $data): void
+    public function build(TemplateElementInterface $element, ExportLineData $data, Language $language): void
     {
+        $data->set('attribute');
+        $data->set('require');
         if ($element instanceof AttributeTemplateElement) {
             $attributeId = $element->getAttributeId();
             $attributeCode = $this->attributeQuery->findAttributeCodeById($attributeId);

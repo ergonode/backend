@@ -10,18 +10,20 @@ namespace Ergonode\ExporterFile\Infrastructure\Builder\Template;
 
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\Designer\Domain\Entity\Element\UiTemplateElement;
-use Ergonode\ExporterFile\Infrastructure\Builder\TemplateElementBuilderInterface;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateElementBuilderInterface;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
+use Ergonode\Core\Domain\ValueObject\Language;
 
-class LabelTemplateElementBuilder implements TemplateElementBuilderInterface
+class ExportLabelTemplateElementBuilder implements ExportTemplateElementBuilderInterface
 {
     public function header(): array
     {
         return ['label'];
     }
 
-    public function build(TemplateElementInterface $element, ExportLineData $data): void
+    public function build(TemplateElementInterface $element, ExportLineData $data, Language $language): void
     {
+        $data->set('label');
         if ($element instanceof UiTemplateElement) {
             $data->set('label', $element->getLabel());
         }

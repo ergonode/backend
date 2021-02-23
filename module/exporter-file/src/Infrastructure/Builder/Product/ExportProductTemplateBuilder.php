@@ -16,7 +16,7 @@ use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilderInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
 
-class ProductTemplateBuilder implements ExportProductBuilderInterface
+class ExportProductTemplateBuilder implements ExportProductBuilderInterface
 {
     private TemplateRepositoryInterface $templateRepository;
 

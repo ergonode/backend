@@ -23,7 +23,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilderInterface;
 
-class ProductAttributeBuilder implements ExportProductBuilderInterface
+class ExportProductAttributeBuilder implements ExportProductBuilderInterface
 {
     private AttributeQueryInterface $attributeQuery;
 

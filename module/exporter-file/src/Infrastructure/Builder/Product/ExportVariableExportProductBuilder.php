@@ -16,7 +16,7 @@ use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 
-class VariableExportProductBuilder implements ExportProductBuilderInterface
+class ExportVariableExportProductBuilder implements ExportProductBuilderInterface
 {
     private AttributeQueryInterface $attributeQuery;
 

@@ -108,12 +108,10 @@ class ProcessTemplateCommandHandler
         if (!$template->getElements()->isEmpty()) {
             $lines = [];
             $filename = sprintf('%s/templates_elements.%s', $exportId->getValue(), $channel->getFormat());
-            foreach ($template->getElements() as $element) {
-                $data = $this->elementProcessor->process($channel, $template, $element);
-                $writer = $this->provider->provide($channel->getFormat());
-                foreach ($writer->add($data) as $line) {
-                    $lines[] = $line;
-                }
+            $data = $this->elementProcessor->process($channel, $template);
+            $writer = $this->provider->provide($channel->getFormat());
+            foreach ($writer->add($data) as $line) {
+                $lines[] = $line;
             }
             $this->storage->open($filename);
             $this->storage->append($lines);
