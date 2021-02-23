@@ -34,7 +34,7 @@ class UnitGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_unit_read',
                     'parameters' => ['language' => $language->getCode(), 'unit' => '{id}'],
-                    'privilege' => 'CORE_GET_UNIT_GRID',
+                    'privilege' => 'CORE_GET_UNIT',
                 ],
                 'edit' => [
                     'route' => 'ergonode_unit_change',
