@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Application\DependencyInjection;
 
-use Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute\AttributeFactoryInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute\ImportAttributeCommandFactoryInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Factory\Product\ProductCommandFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,8 +32,8 @@ class ErgonodeImporterErgonode1Extension extends Extension
             ->addTag('component.ergonode-importer.product_command_factory_interface');
 
         $container
-            ->registerForAutoconfiguration(AttributeFactoryInterface::class)
-            ->addTag('component.ergonode-importer.attribute_factory_interface');
+            ->registerForAutoconfiguration(ImportAttributeCommandFactoryInterface::class)
+            ->addTag('component.ergonode-importer.attribute_command_factory');
 
         $loader->load('services.yml');
     }

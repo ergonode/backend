@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
+use Ergonode\ImporterErgonode1\Infrastructure\Resolver\AttributeCommandResolver;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\ImporterErgonode1\Domain\Command\Import\ImportAttributeCommand;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeAttributeReader;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
@@ -24,10 +24,16 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
 
     private ImportRepositoryInterface $importRepository;
 
-    public function __construct(CommandBusInterface $commandBus, ImportRepositoryInterface $importRepository)
-    {
+    private AttributeCommandResolver $attributeCommandResolver;
+
+    public function __construct(
+        CommandBusInterface $commandBus,
+        ImportRepositoryInterface $importRepository,
+        AttributeCommandResolver $attributeCommandResolver
+    ) {
         $this->commandBus = $commandBus;
         $this->importRepository = $importRepository;
+        $this->attributeCommandResolver = $attributeCommandResolver;
     }
 
     public function __invoke(Import $import, string $directory): void
@@ -36,17 +42,8 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
 
         while ($attribute = $reader->read()) {
             $id = ImportLineId::generate();
-            $command = new ImportAttributeCommand(
-                $id,
-                $import->getId(),
-                $attribute->getCode(),
-                $attribute->getType(),
-                $attribute->getScope(),
-                $attribute->getParameters(),
-                $attribute->getName(),
-                $attribute->getHint(),
-                $attribute->getPlaceholder()
-            );
+
+            $command = $this->attributeCommandResolver->resolve($id, $import, $attribute);
             $this->importRepository->addLine($id, $import->getId(), 'ATTRIBUTE');
             $this->commandBus->dispatch($command, true);
         }
