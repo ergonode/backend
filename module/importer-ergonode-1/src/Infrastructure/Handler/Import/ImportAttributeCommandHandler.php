@@ -79,7 +79,7 @@ class ImportAttributeCommandHandler
                 $exception->getParameters()
             );
         } catch (\Exception $exception) {
-            $message = 'Can\'t import attribute product {code}';
+            $message = 'Can\'t import attribute {code}';
             $this->importerRepository->markLineAsFailure($command->getId());
             $this->importerRepository->addError($command->getImportId(), $message, ['{code}' => $command->getCode()]);
             $this->logger->error($exception);

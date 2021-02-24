@@ -38,7 +38,7 @@ class ExportTemplateBuilder
             $result[] = $builder->header();
         }
 
-        return array_unique(array_merge(['_name', '_type', '_language', '_x', '_y', '_width', '_height'], ...$result));
+        return array_unique(array_merge(['_name', '_language'], ...$result));
     }
 
     public function build(Template $template, FileExportChannel $channel): ExportData

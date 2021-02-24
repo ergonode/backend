@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Template;
 
@@ -42,7 +42,7 @@ class ExportAttributeTemplateElementBuilder implements ExportTemplateElementBuil
             Assert::isInstanceOf($attributeCode, AttributeCode::class);
 
             $data->set('attribute', $attributeCode->getValue());
-            $data->set('require', (string) $element->isRequired());
+            $data->set('require', $element->isRequired() ? 'true' : 'false');
         }
     }
 }

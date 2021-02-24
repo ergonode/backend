@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Attribute;
 
@@ -25,7 +25,7 @@ class ExportTextareaAttributeBuilder implements ExportAttributeBuilderInterface
     {
         $line->set('rich_edit');
         if ($attribute instanceof AbstractTextareaAttribute) {
-            $line->set('rich_edit', (string) $attribute->isRichEdit());
+            $line->set('rich_edit', $attribute->isRichEdit() ? 'true' : 'false');
         }
     }
 }

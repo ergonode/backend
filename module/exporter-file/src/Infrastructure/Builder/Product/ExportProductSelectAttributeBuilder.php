@@ -1,0 +1,90 @@
+<?php
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\ExporterFile\Infrastructure\Builder\Product;
+
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportLineData;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilderInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+
+class ExportProductSelectAttributeBuilder implements ExportProductBuilderInterface
+{
+    public const TYPES = [
+        SelectAttribute::TYPE,
+    ];
+
+    private AttributeQueryInterface $attributeQuery;
+
+    private AttributeRepositoryInterface $attributeRepository;
+
+    private OptionQueryInterface $optionQuery;
+
+    private TranslationInheritanceCalculator $calculator;
+
+    public function __construct(
+        AttributeQueryInterface $attributeQuery,
+        AttributeRepositoryInterface $attributeRepository,
+        OptionQueryInterface $optionQuery,
+        TranslationInheritanceCalculator $calculator
+    ) {
+        $this->attributeQuery = $attributeQuery;
+        $this->attributeRepository = $attributeRepository;
+        $this->optionQuery = $optionQuery;
+        $this->calculator = $calculator;
+    }
+
+    public function header(): array
+    {
+        return $this->attributeQuery->getAttributeCodes(self::TYPES, false);
+    }
+
+    public function build(AbstractProduct $product, ExportLineData $result, Language $language): void
+    {
+        foreach ($this->attributeQuery->getAttributeCodes(self::TYPES, false) as $attributeCode) {
+            $result->set($attributeCode);
+            $code = new AttributeCode($attributeCode);
+            if ($product->hasAttribute($code)) {
+                $value = $product->getAttribute($code);
+                $attribute = $this->getAttribute($code);
+                $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
+                $result->set($code->getValue(), $this->findKey($calculatedValue, $code));
+            }
+        }
+    }
+
+    private function findKey(string $value, AttributeCode $code): string
+    {
+        $optionKey = $this->optionQuery->findKey(new AggregateId($value));
+        if (!$optionKey) {
+            throw new \RuntimeException("There's no option [$value] for '{$code->getValue()}' attribute.");
+        }
+
+        return $optionKey->getValue();
+    }
+
+    private function getAttribute(AttributeCode $code): AbstractAttribute
+    {
+        $attributeId = $this->attributeQuery->findAttributeIdByCode($code);
+        Assert::notNull($attributeId);
+        $attribute = $this->attributeRepository->load($attributeId);
+        Assert::isInstanceOf($attribute, AbstractAttribute::class);
+
+        return $attribute;
+    }
+}

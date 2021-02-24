@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Template\Strategy;
 
@@ -40,7 +40,7 @@ class AttributeTemplateElementBuilderStrategy implements TemplateElementBuilderI
     ): TemplateElementInterface {
 
         $attributeCode = $properties['attribute'];
-        $required = $properties['require'];
+        $required = 'true' === $properties['require'];
 
         if (!AttributeCode::isValid($attributeCode)) {
             throw new ImportException(

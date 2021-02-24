@@ -15,10 +15,18 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ImporterErgonode1\Infrastructure\Model\AttributeParametersModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\Core\Domain\Query\UnitQueryInterface;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 
 class UnitAttributeFactory implements AttributeFactoryInterface
 {
+    private UnitQueryInterface $unitQuery;
+
+    public function __construct(UnitQueryInterface $unitQuery)
+    {
+        $this->unitQuery = $unitQuery;
+    }
+
     public function supports(string $type): bool
     {
         return UnitAttribute::TYPE === $type;
@@ -36,6 +44,12 @@ class UnitAttributeFactory implements AttributeFactoryInterface
         TranslatableString $placeholder,
         AttributeParametersModel $parameters
     ): AbstractAttribute {
+
+        $unitId = $this->unitQuery->findIdByCode($parameters->get(UnitAttribute::UNIT));
+        if(null === $unitId) {
+            throw new ImportException('no unit');
+        }
+
         return new UnitAttribute(
             $id,
             $code,
@@ -43,7 +57,7 @@ class UnitAttributeFactory implements AttributeFactoryInterface
             $hint,
             $placeholder,
             $scope,
-            new UnitId($parameters->get(UnitAttribute::UNIT))
+            $unitId
         );
     }
 }

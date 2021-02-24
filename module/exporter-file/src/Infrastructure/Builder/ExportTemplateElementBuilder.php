@@ -49,8 +49,8 @@ class ExportTemplateElementBuilder
             foreach ($template->getElements() as $element) {
                 $line = new ExportLineData();
                 $line->set('_name', $template->getName());
-                $line->set('_language', $language->getCode());
                 $line->set('_type', $element->getType());
+                $line->set('_language', $language->getCode());
                 $line->set('_x', (string) $element->getPosition()->getX());
                 $line->set('_y', (string) $element->getPosition()->getY());
                 $line->set('_width', (string) $element->getSize()->getWidth());

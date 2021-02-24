@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Product;
 
@@ -14,17 +14,20 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilderInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 
-class ExportProductAttributeBuilder implements ExportProductBuilderInterface
+class ExportProductMultiSelectAttributeBuilder implements ExportProductBuilderInterface
 {
+    public const TYPES = [
+        MultiSelectAttribute::TYPE,
+    ];
+
     private AttributeQueryInterface $attributeQuery;
 
     private AttributeRepositoryInterface $attributeRepository;
@@ -47,51 +50,35 @@ class ExportProductAttributeBuilder implements ExportProductBuilderInterface
 
     public function header(): array
     {
-        return $this->attributeQuery->getAllAttributeCodes();
+        return $this->attributeQuery->getAttributeCodes(self::TYPES, false);
     }
 
     public function build(AbstractProduct $product, ExportLineData $result, Language $language): void
     {
-        foreach ($product->getAttributes() as $code => $value) {
-            $code = new AttributeCode($code);
-            $attribute = $this->getAttribute($code);
-            $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
-            if ($attribute instanceof AbstractOptionAttribute && $calculatedValue) {
-                $calculatedValue = $this->resolveOptionKey($calculatedValue, $attribute->getCode());
+        foreach ($this->attributeQuery->getAttributeCodes(self::TYPES,false) as $attributeCode) {
+            $result->set($attributeCode);
+            $code = new AttributeCode($attributeCode);
+            if ($product->hasAttribute($code)) {
+                $value = $product->getAttribute($code);
+                $attribute = $this->getAttribute($code);
+                $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
+                $result->set($code->getValue(), $this->findKey($calculatedValue, $code));
             }
-            if (is_array($calculatedValue)) {
-                $calculatedValue = implode(',', $calculatedValue);
-            }
-
-            $result->set($code->getValue(), $calculatedValue);
         }
     }
 
-    /**
-     * @param string|string[] $value
-     *
-     * @return string|string[]
-     */
-    private function resolveOptionKey($value, AttributeCode $code)
+    private function findKey(array $value, AttributeCode $code): string
     {
-        if (is_string($value)) {
-            return $this->findKey($value, $code)->getValue();
+        $result = [];
+        foreach ($value as $element) {
+            $optionKey = $this->optionQuery->findKey(new AggregateId($element));
+            if (!$optionKey) {
+                throw new \RuntimeException("There's no option [$value] for '{$code->getValue()}' attribute.");
+            }
+            $result[] = $optionKey->getValue();
         }
 
-        return array_map(
-            fn(string $id) => $this->findKey($id, $code)->getValue(),
-            $value,
-        );
-    }
-
-    private function findKey(string $value, AttributeCode $code): OptionKey
-    {
-        $optionKey = $this->optionQuery->findKey(new AggregateId($value));
-        if (!$optionKey) {
-            throw new \RuntimeException("There's no option [$value] for '{$code->getValue()}' attribute.");
-        }
-
-        return $optionKey;
+        return implode(',', $result);
     }
 
     private function getAttribute(AttributeCode $code): AbstractAttribute
