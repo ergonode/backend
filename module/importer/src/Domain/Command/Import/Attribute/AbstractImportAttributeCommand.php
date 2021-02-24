@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Importer\Domain\Command\Attribute;
+namespace Ergonode\Importer\Domain\Command\Import\Attribute;
 
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;

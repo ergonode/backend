@@ -15,7 +15,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Domain\Command\Attribute\AbstractImportAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\AbstractImportAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Attribute;
 
-use Ergonode\Importer\Domain\Command\Attribute\ImportImageAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportImageAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\ImageAttributeImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
@@ -17,21 +17,21 @@ use Psr\Log\LoggerInterface;
 
 class ImportImageAttributeCommandHandler extends AbstractImportAttributeCommandHandler
 {
-    private ImageAttributeImportAction $imageAttributeImportAction;
+    private ImageAttributeImportAction $action;
 
     public function __construct(
         ImportRepositoryInterface $importerRepository,
         LoggerInterface $logger,
-        ImageAttributeImportAction $imageAttributeImportAction
+        ImageAttributeImportAction $action
     ) {
         parent::__construct($importerRepository, $logger);
-        $this->imageAttributeImportAction = $imageAttributeImportAction;
+        $this->action = $action;
     }
 
     public function __invoke(ImportImageAttributeCommand $command): void
     {
         try {
-            $this->imageAttributeImportAction->action($command);
+            $this->action->action($command);
         } catch (ImportException $exception) {
             $this->processImportException($command, $exception);
         } catch (\Exception $exception) {

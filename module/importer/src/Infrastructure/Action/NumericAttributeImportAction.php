@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Domain\Command\Attribute\ImportNumericAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportNumericAttributeCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 

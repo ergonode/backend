@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Domain\Command\Attribute\ImportFileAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportFileAttributeCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 

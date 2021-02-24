@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Attribute;
 
-use Ergonode\Importer\Domain\Command\Attribute\ImportMultiSelectAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportMultiSelectAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\MultiSelectAttributeImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
@@ -17,21 +17,21 @@ use Psr\Log\LoggerInterface;
 
 class ImportMultiSelectAttributeCommandHandler extends AbstractImportAttributeCommandHandler
 {
-    private MultiSelectAttributeImportAction $multiSelectAttributeImportAction;
+    private MultiSelectAttributeImportAction $action;
 
     public function __construct(
         ImportRepositoryInterface $importerRepository,
         LoggerInterface $logger,
-        MultiSelectAttributeImportAction $selectAttributeImportAction
+        MultiSelectAttributeImportAction $action
     ) {
         parent::__construct($importerRepository, $logger);
-        $this->multiSelectAttributeImportAction = $selectAttributeImportAction;
+        $this->action = $action;
     }
 
     public function __invoke(ImportMultiSelectAttributeCommand $command): void
     {
         try {
-            $this->multiSelectAttributeImportAction->action($command);
+            $this->action->action($command);
         } catch (ImportException $exception) {
             $this->processImportException($command, $exception);
         } catch (\Exception $exception) {

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Attribute;
 
-use Ergonode\Importer\Domain\Command\Attribute\ImportTextAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportTextAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\TextAttributeImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
@@ -17,21 +17,21 @@ use Psr\Log\LoggerInterface;
 
 class ImportTextAttributeCommandHandler extends AbstractImportAttributeCommandHandler
 {
-    private TextAttributeImportAction $textAttributeImportAction;
+    private TextAttributeImportAction $action;
 
     public function __construct(
         ImportRepositoryInterface $importerRepository,
         LoggerInterface $logger,
-        TextAttributeImportAction $textAttributeImportAction
+        TextAttributeImportAction $action
     ) {
         parent::__construct($importerRepository, $logger);
-        $this->textAttributeImportAction = $textAttributeImportAction;
+        $this->action = $action;
     }
 
     public function __invoke(ImportTextAttributeCommand $command): void
     {
         try {
-            $this->textAttributeImportAction->action($command);
+            $this->action->action($command);
         } catch (ImportException $exception) {
             $this->processImportException($command, $exception);
         } catch (\Exception $exception) {

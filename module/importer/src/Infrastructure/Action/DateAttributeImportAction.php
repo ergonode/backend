@@ -14,7 +14,8 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Domain\Command\Attribute\ImportDateAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\AbstractImportAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportDateAttributeCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
@@ -39,5 +40,24 @@ class DateAttributeImportAction extends AbstractAttributeImportAction
             );
         }
         $this->processSuccessfulImport($attribute, $command);
+    }
+
+    protected function validate(AbstractImportAttributeCommand $command): void
+    {
+        parent::validate($command);
+
+        if (null === $command->getParameter(DateAttribute::FORMAT)) {
+            throw new ImportException(
+                'Date format parameter for attribute {code} does not exist',
+                ['{code}' => $command->getCode()]
+            );
+        }
+
+        if (!DateFormat::isValid($command->getParameter(DateAttribute::FORMAT))) {
+            throw new ImportException(
+                'Date format {format} for attribute {code} is not valid',
+                ['{format}' => $command->getParameter(DateAttribute::FORMAT), '{code}' => $command->getCode()]
+            );
+        }
     }
 }

@@ -7,9 +7,9 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Importer\Domain\Command\Attribute;
+namespace Ergonode\Importer\Domain\Command\Import\Attribute;
 
-class ImportGalleryAttributeCommand extends AbstractImportAttributeCommand
+class ImportTextAttributeCommand extends AbstractImportAttributeCommand
 {
 
 }

@@ -13,7 +13,8 @@ use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Domain\Command\Attribute\ImportPriceAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\AbstractImportAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportPriceAttributeCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
@@ -39,5 +40,17 @@ class PriceAttributeImportAction extends AbstractAttributeImportAction
             );
         }
         $this->processSuccessfulImport($attribute, $command);
+    }
+
+    protected function validate(AbstractImportAttributeCommand $command): void
+    {
+        parent::validate($command);
+
+        if (null === $command->getParameter(PriceAttribute::CURRENCY)) {
+            throw new ImportException(
+                'Currency parameter for attribute {code} is empty',
+                ['{code}' => $command->getCode()]
+            );
+        }
     }
 }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Attribute;
 
-use Ergonode\Importer\Domain\Command\Attribute\ImportPriceAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportPriceAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\PriceAttributeImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
@@ -17,21 +17,21 @@ use Psr\Log\LoggerInterface;
 
 class ImportPriceAttributeCommandHandler extends AbstractImportAttributeCommandHandler
 {
-    private PriceAttributeImportAction $priceAttributeImportAction;
+    private PriceAttributeImportAction $action;
 
     public function __construct(
         ImportRepositoryInterface $importerRepository,
         LoggerInterface $logger,
-        PriceAttributeImportAction $priceAttributeImportAction
+        PriceAttributeImportAction $action
     ) {
         parent::__construct($importerRepository, $logger);
-        $this->priceAttributeImportAction = $priceAttributeImportAction;
+        $this->action = $action;
     }
 
     public function __invoke(ImportPriceAttributeCommand $command): void
     {
         try {
-            $this->priceAttributeImportAction->action($command);
+            $this->action->action($command);
         } catch (ImportException $exception) {
             $this->processImportException($command, $exception);
         } catch (\Exception $exception) {

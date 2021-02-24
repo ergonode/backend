@@ -43,17 +43,7 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
         while ($attribute = $reader->read()) {
             $id = ImportLineId::generate();
 
-            $command = $this->attributeCommandResolver->resolve($attribute->getType())->create(
-                $id,
-                $import->getId(),
-                $attribute->getCode(),
-                $attribute->getType(),
-                $attribute->getName(),
-                $attribute->getHint(),
-                $attribute->getPlaceholder(),
-                $attribute->getScope(),
-                $attribute->getParameters(),
-            );
+            $command = $this->attributeCommandResolver->resolve($id, $import, $attribute);
             $this->importRepository->addLine($id, $import->getId(), 'ATTRIBUTE');
             $this->commandBus->dispatch($command, true);
         }

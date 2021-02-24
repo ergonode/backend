@@ -9,10 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
-use Ergonode\Importer\Domain\Command\Attribute\ImportGalleryAttributeCommand;
-use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportImageAttributeCommand;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\AttributeModel;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 class ImportImageAttributeCommandFactory implements ImportAttributeCommandFactoryInterface
 {
@@ -21,27 +22,18 @@ class ImportImageAttributeCommandFactory implements ImportAttributeCommandFactor
         return ImageAttribute::TYPE === $type;
     }
 
-    public function create(
-        ImportLineId $id,
-        ImportId $importId,
-        string $code,
-        string $type,
-        array $label,
-        array $hint,
-        array $placeholder,
-        string $scope,
-        array $parameters
-    ): ImporterCommandInterface {
-        return new ImportGalleryAttributeCommand(
+    public function create(ImportLineId $id, Import $import, AttributeModel $model): DomainCommandInterface
+    {
+        return new ImportImageAttributeCommand(
             $id,
-            $importId,
-            $code,
-            $type,
-            $label,
-            $hint,
-            $placeholder,
-            $scope,
-            $parameters
+            $import->getId(),
+            $model->getCode(),
+            $model->getType(),
+            $model->getName(),
+            $model->getHint(),
+            $model->getPlaceholder(),
+            $model->getScope(),
+            $model->getParameters()
         );
     }
 }

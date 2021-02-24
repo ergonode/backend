@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Attribute;
 
-use Ergonode\Importer\Domain\Command\Attribute\ImportNumericAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportNumericAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Action\NumericAttributeImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
@@ -17,21 +17,21 @@ use Psr\Log\LoggerInterface;
 
 class ImportNumericAttributeCommandHandler extends AbstractImportAttributeCommandHandler
 {
-    private NumericAttributeImportAction $multiSelectAttributeImportAction;
+    private NumericAttributeImportAction $action;
 
     public function __construct(
         ImportRepositoryInterface $importerRepository,
         LoggerInterface $logger,
-        NumericAttributeImportAction $selectAttributeImportAction
+        NumericAttributeImportAction $action
     ) {
         parent::__construct($importerRepository, $logger);
-        $this->multiSelectAttributeImportAction = $selectAttributeImportAction;
+        $this->action = $action;
     }
 
     public function __invoke(ImportNumericAttributeCommand $command): void
     {
         try {
-            $this->multiSelectAttributeImportAction->action($command);
+            $this->action->action($command);
         } catch (ImportException $exception) {
             $this->processImportException($command, $exception);
         } catch (\Exception $exception) {

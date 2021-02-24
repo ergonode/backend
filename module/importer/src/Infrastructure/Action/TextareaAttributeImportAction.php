@@ -13,7 +13,8 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Importer\Domain\Command\Attribute\ImportTextareaAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\AbstractImportAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportTextareaAttributeCommand;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
@@ -38,5 +39,17 @@ class TextareaAttributeImportAction extends AbstractAttributeImportAction
             );
         }
         $this->processSuccessfulImport($attribute, $command);
+    }
+
+    protected function validate(AbstractImportAttributeCommand $command): void
+    {
+        parent::validate($command);
+
+        if (null === $command->getParameter(TextareaAttribute::RICH_EDIT)) {
+            throw new ImportException(
+                'Rich text editor parameter for attribute {code} is empty',
+                ['{code}' => $command->getCode()]
+            );
+        }
     }
 }

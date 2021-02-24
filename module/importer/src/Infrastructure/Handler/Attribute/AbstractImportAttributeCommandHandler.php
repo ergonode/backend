@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Attribute;
 
-use Ergonode\Importer\Domain\Command\Attribute\AbstractImportAttributeCommand;
+use Ergonode\Importer\Domain\Command\Import\Attribute\AbstractImportAttributeCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Psr\Log\LoggerInterface;

@@ -8,7 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Resolver;
 
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute\ImportAttributeCommandFactoryInterface;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\AttributeModel;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 use Webmozart\Assert\Assert;
 
 class AttributeCommandResolver
@@ -24,15 +28,15 @@ class AttributeCommandResolver
     /**
      * @throws \RuntimeException
      */
-    public function resolve(string $type): ImportAttributeCommandFactoryInterface
+    public function resolve(ImportLineId $id, Import $import, AttributeModel $model): DomainCommandInterface
     {
-        /** @var ImportAttributeCommandFactoryInterface $factory */
-        foreach ($this->commandFactories as $factory) {
-            if ($factory->supports($type)) {
-                return $factory;
+        /** @var ImportAttributeCommandFactoryInterface $commandFactory */
+        foreach ($this->commandFactories as $commandFactory) {
+            if ($commandFactory->supports($model->getType())) {
+                return $commandFactory->create($id, $import, $model);
             }
         }
 
-        throw new \RuntimeException("Attribute command factory by type \"$type\" not found");
+        throw new \RuntimeException(sprintf('Attribute command by attribute type "%s" not found', $model->getType()));
     }
 }

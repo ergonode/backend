@@ -33,7 +33,7 @@ class ErgonodeImporterErgonode1Extension extends Extension
 
         $container
             ->registerForAutoconfiguration(ImportAttributeCommandFactoryInterface::class)
-            ->addTag('component.ergonode-importer.attribute_command_factory_interface');
+            ->addTag('component.ergonode-importer.attribute_command_factory');
 
         $loader->load('services.yml');
     }

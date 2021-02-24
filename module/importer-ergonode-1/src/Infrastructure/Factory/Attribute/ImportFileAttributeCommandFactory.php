@@ -9,10 +9,11 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode1\Infrastructure\Factory\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
-use Ergonode\Importer\Domain\Command\Attribute\ImportDateAttributeCommand;
-use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Importer\Domain\Command\Import\Attribute\ImportFileAttributeCommand;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterErgonode1\Infrastructure\Model\AttributeModel;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 class ImportFileAttributeCommandFactory implements ImportAttributeCommandFactoryInterface
 {
@@ -21,27 +22,18 @@ class ImportFileAttributeCommandFactory implements ImportAttributeCommandFactory
         return FileAttribute::TYPE === $type;
     }
 
-    public function create(
-        ImportLineId $id,
-        ImportId $importId,
-        string $code,
-        string $type,
-        array $label,
-        array $hint,
-        array $placeholder,
-        string $scope,
-        array $parameters
-    ): ImporterCommandInterface {
-        return new ImportDateAttributeCommand(
+    public function create(ImportLineId $id, Import $import, AttributeModel $model): DomainCommandInterface
+    {
+        return new ImportFileAttributeCommand(
             $id,
-            $importId,
-            $code,
-            $type,
-            $label,
-            $hint,
-            $placeholder,
-            $scope,
-            $parameters
+            $import->getId(),
+            $model->getCode(),
+            $model->getType(),
+            $model->getName(),
+            $model->getHint(),
+            $model->getPlaceholder(),
+            $model->getScope(),
+            $model->getParameters()
         );
     }
 }
