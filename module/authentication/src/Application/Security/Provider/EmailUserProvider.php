@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\Provider;
 
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Authentication\Application\Security\User\User;
 use Ergonode\SharedKernel\Domain\Exception\InvalidEmailException;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -52,12 +52,7 @@ final class EmailUserProvider implements UserProviderInterface
             throw new UsernameNotFoundException("Invalid credentials");
         }
 
-        return new User(
-            $user->getId()->getValue(),
-            $user->getPassword(),
-            $user->getRoles(),
-            $user->isActive(),
-        );
+        return $user;
     }
 
     /**

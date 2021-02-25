@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Security\Provider\EmailUserProvider;
-use Ergonode\Authentication\Application\Security\User\User as SecurityUser;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -66,13 +65,8 @@ class EmailUserProviderTest extends TestCase
 
         $result = $this->provider->loadUserByUsername('test@ergonode.com');
 
-        $this->assertEquals(
-            new SecurityUser(
-                $userId->getValue(),
-                'password',
-                ['roles'],
-                true,
-            ),
+        $this->assertSame(
+            $user,
             $result,
         );
     }

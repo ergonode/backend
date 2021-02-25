@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\Provider;
 
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Authentication\Application\Security\User\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,12 +46,7 @@ class IdUserProvider implements UserProviderInterface
             throw new UsernameNotFoundException("Username '$username' not found");
         }
 
-        return new User(
-            $user->getId()->getValue(),
-            $user->getPassword(),
-            $user->getRoles(),
-            $user->isActive(),
-        );
+        return $user;
     }
 
     /**
