@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Builder\Product;
 
@@ -55,7 +55,7 @@ class ExportProductMultiSelectAttributeBuilder implements ExportProductBuilderIn
 
     public function build(AbstractProduct $product, ExportLineData $result, Language $language): void
     {
-        foreach ($this->attributeQuery->getAttributeCodes(self::TYPES,false) as $attributeCode) {
+        foreach ($this->attributeQuery->getAttributeCodes(self::TYPES, false) as $attributeCode) {
             $result->set($attributeCode);
             $code = new AttributeCode($attributeCode);
             if ($product->hasAttribute($code)) {
@@ -73,7 +73,7 @@ class ExportProductMultiSelectAttributeBuilder implements ExportProductBuilderIn
         foreach ($value as $element) {
             $optionKey = $this->optionQuery->findKey(new AggregateId($element));
             if (!$optionKey) {
-                throw new \RuntimeException("There's no option [$value] for '{$code->getValue()}' attribute.");
+                throw new \RuntimeException("There's no option [$element] for '{$code->getValue()}' attribute.");
             }
             $result[] = $optionKey->getValue();
         }

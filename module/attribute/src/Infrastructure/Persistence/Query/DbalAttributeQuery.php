@@ -218,7 +218,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
                 ->setParameter(':types', $types, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
         }
 
-        if(false === $includeSystem) {
+        if (false === $includeSystem) {
             $qb->andWhere($qb->expr()->in('system', ':system'))
                 ->setParameter(':system', false, \PDO::PARAM_BOOL);
         }

@@ -16,7 +16,7 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
         '_code',
         '_label',
         '_attribute',
-        '_language'
+        '_language',
     ];
 
     public function read(): ?OptionModel
@@ -35,7 +35,7 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
             }
 
             foreach ($record as $key => $value) {
-                if(!array_key_exists($key, self::KEYS)) {
+                if (!array_key_exists($key, self::KEYS)) {
                     $item->addParameter($key, $value);
                 }
             }
