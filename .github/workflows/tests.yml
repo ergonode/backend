@@ -29,9 +29,6 @@ jobs:
       - name: PHP version
         run: php -v
 
-      - name: Composer version
-        run: composer self-update 1.10.17
-
       - name: Install dependencies
         run: composer install
 
