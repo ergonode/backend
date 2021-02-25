@@ -179,7 +179,6 @@ final class Version20210105100800 extends AbstractErgonodeMigration
                 'PRODUCT_GET_TEMPLATE',
                 'PRODUCT_GET',
                 'PRODUCT_PUT',
-                'PRODUCT_DELETE',
 
                 'PRODUCT_POST_ATTRIBUTE_VALIDATION',
                 'PRODUCT_PUT_ATTRIBUTE',
