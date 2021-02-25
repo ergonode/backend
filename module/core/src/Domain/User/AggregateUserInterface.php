@@ -11,8 +11,9 @@ namespace Ergonode\Core\Domain\User;
 
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-interface AggregateUserInterface
+interface AggregateUserInterface extends UserInterface
 {
     public function getId(): AggregateId;
     public function isActive(): bool;
