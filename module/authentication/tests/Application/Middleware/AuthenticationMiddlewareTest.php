@@ -13,9 +13,8 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware;
 use Ergonode\Authentication\Application\Stamp\UserStamp;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\Core\Domain\User\AggregateUserInterface;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
@@ -34,19 +33,15 @@ class AuthenticationMiddlewareTest extends TestCase
 
     private StackInterface $stack;
 
-    private LoggerInterface $logger;
-
 
     public function setUp(): void
     {
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
         $this->userRepository = $this->createMock(UserRepositoryInterface::class);
         $this->envelope1 = new Envelope($this->createMock(\stdClass::class));
-        $this->logger = $this->createMock(LoggerInterface::class);
         $this->authenticationMiddleware = new AuthenticationMiddleware(
             $this->tokenStorage,
-            $this->userRepository,
-            $this->logger
+            $this->userRepository
         );
         $this->stack = $this->createMock(StackInterface::class);
     }
@@ -67,7 +62,7 @@ class AuthenticationMiddlewareTest extends TestCase
     public function testHandleReceivedStamp(): void
     {
         $envelope = $this->envelope1->with(new ReceivedStamp('transport'));
-        $envelope = $envelope->with(new UserStamp($this->createMock(UserId::class)));
+        $envelope = $envelope->with(new UserStamp($this->createMock(AggregateUserInterface::class)));
         $user = $this->createMock(User::class);
         $user->method('getRoles')->willReturn([]);
         $this->userRepository->method('load')->willReturn($user);
@@ -94,21 +89,6 @@ class AuthenticationMiddlewareTest extends TestCase
         $result = $this->authenticationMiddleware->handle($envelope, $this->stack);
 
         self::assertSame($envelope2, $result);
-    }
-
-    public function testHandleReceivedStampNoUser(): void
-    {
-        $envelope = $this->envelope1->with(new ReceivedStamp('transport'));
-        $envelope = $envelope->with(new UserStamp(UserId::generate()));
-        $this->userRepository->method('load')->willReturn(null);
-        $nextMiddleware = $this->createMock(MiddlewareInterface::class);
-        $this->stack->method('next')->willReturn($nextMiddleware);
-        $envelope2 = new Envelope($this->createMock(\stdClass::class));
-        $nextMiddleware->method('handle')->willReturn($envelope2);
-        $this->logger->expects(self::once())->method('error');
-        $this->tokenStorage->expects(self::exactly(2))->method('setToken');
-
-        $this->authenticationMiddleware->handle($envelope, $this->stack);
     }
 
     public function testHandleNextMiddlewareError(): void

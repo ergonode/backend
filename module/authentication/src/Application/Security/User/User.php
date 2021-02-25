@@ -87,9 +87,4 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
-
-    public function getLanguagePrivilegesCollection(): array
-    {
-        throw new \BadMethodCallException('Not implemented method.');
-    }
 }
