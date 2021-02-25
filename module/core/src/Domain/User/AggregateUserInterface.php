@@ -12,7 +12,7 @@ namespace Ergonode\Core\Domain\User;
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
-interface AggregateUserInterface extends UserInterface
+interface AggregateUserInterface
 {
     public function getId(): AggregateId;
     public function isActive(): bool;
