@@ -39,11 +39,11 @@ class IdUserProvider implements UserProviderInterface
         try {
             $userId = new UserId($username);
         } catch (\InvalidArgumentException $exception) {
-            throw new UsernameNotFoundException('Invalid uuid format');
+            throw new UsernameNotFoundException('Invalid id format');
         }
 
         if (!$userId || !$user = $this->repository->load($userId)) {
-            throw new UsernameNotFoundException("Username '$username' not found");
+            throw new UsernameNotFoundException('Invalid credentials');
         }
 
         return $user;
