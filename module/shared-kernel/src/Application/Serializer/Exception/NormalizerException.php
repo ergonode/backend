@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Application\Exception;
+namespace Ergonode\SharedKernel\Application\Serializer\Exception;
 
 class NormalizerException extends \Exception
 {

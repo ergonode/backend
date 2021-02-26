@@ -12,7 +12,7 @@ namespace Ergonode\Condition\Infrastructure\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalConditionSetConditionsChangedEventProjector
 {

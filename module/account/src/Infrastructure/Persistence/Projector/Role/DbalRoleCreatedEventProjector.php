@@ -11,7 +11,7 @@ namespace Ergonode\Account\Infrastructure\Persistence\Projector\Role;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalRoleCreatedEventProjector
 {

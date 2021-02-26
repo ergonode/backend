@@ -11,14 +11,14 @@ namespace Ergonode\EventSourcing\Infrastructure\Storage;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
-use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStorageInterface;
 use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalDomainEventStorage implements DomainEventStorageInterface
 {
