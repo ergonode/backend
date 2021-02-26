@@ -12,7 +12,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\GetCu
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\PostCustomFieldSetAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6QueryBuilder;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomFieldSet;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomFieldSet;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 class Shopware6CustomFieldSetClient
@@ -38,14 +38,16 @@ class Shopware6CustomFieldSetClient
         return $this->connector->execute($channel, $action);
     }
 
-    public function insert(Shopware6Channel $channel, Shopware6CustomFieldSet $customFieldSet): ?Shopware6CustomFieldSet
-    {
+    public function insert(
+        Shopware6Channel $channel,
+        AbstractShopware6CustomFieldSet $customFieldSet
+    ): ?AbstractShopware6CustomFieldSet {
         $action = new PostCustomFieldSetAction($customFieldSet, true);
 
         return $this->connector->execute($channel, $action);
     }
 
-    public function findByCode(Shopware6Channel $channel, string $code): ?Shopware6CustomFieldSet
+    public function findByCode(Shopware6Channel $channel, string $code): ?AbstractShopware6CustomFieldSet
     {
         $query = new Shopware6QueryBuilder();
         $query->equals('name', $code)

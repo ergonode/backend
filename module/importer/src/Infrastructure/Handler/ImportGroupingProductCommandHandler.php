@@ -13,6 +13,8 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Infrastructure\Action\GroupingProductImportAction;
 use Psr\Log\LoggerInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 class ImportGroupingProductCommandHandler
 {
@@ -35,17 +37,40 @@ class ImportGroupingProductCommandHandler
     public function __invoke(ImportGroupingProductCommand $command): void
     {
         try {
-            $this->action->action(
-                $command->getSku(),
+            if (!Sku::isValid($command->getSku())) {
+                throw new ImportException('Sku {sku} is not valid', ['{sku}' => $command->getSku()]);
+            }
+
+            $categories = [];
+            foreach ($command->getCategories() as $category) {
+                if (!CategoryCode::isValid($category)) {
+                    throw new ImportException('Category code {code} is not valid', ['{code}' => $category]);
+                }
+                $categories[] = new CategoryCode($category);
+            }
+
+            $children = [];
+            foreach ($command->getChildren() as $child) {
+                if (!Sku::isValid($child)) {
+                    throw new ImportException('Child sku {code} is not valid', ['{code}' => $child]);
+                }
+                $children[] = new Sku($child);
+            }
+
+            $product = $this->action->action(
+                new Sku($command->getSku()),
                 $command->getTemplate(),
-                $command->getCategories(),
-                $command->getChildren(),
+                $categories,
+                $children,
                 $command->getAttributes()
             );
+            $this->repository->markLineAsSuccess($command->getId(), $product->getId());
         } catch (ImportException $exception) {
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
             $message = 'Can\'t import grouping product {sku}';
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $message, ['{sku}' => $command->getSku()]);
             $this->logger->error($exception);
         }

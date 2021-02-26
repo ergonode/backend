@@ -19,11 +19,14 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Factory\DbalImportFactory;
 use Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper\DbalImportMapper;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class DbalImportRepository implements ImportRepositoryInterface
 {
     private const TABLE = 'importer.import';
     private const TABLE_ERROR = 'importer.import_error';
+    private const TABLE_LINE = 'importer.import_line';
     private const FIELDS = [
         'id',
         'status',
@@ -31,7 +34,6 @@ class DbalImportRepository implements ImportRepositoryInterface
         'file',
         'started_at',
         'ended_at',
-        'records',
     ];
 
     private Connection $connection;
@@ -104,6 +106,53 @@ class DbalImportRepository implements ImportRepositoryInterface
             self::TABLE,
             [
                 'id' => $import->getId()->getValue(),
+            ]
+        );
+    }
+
+    public function addLine(ImportLineId $id, ImportId $importId, string $type): void
+    {
+        $this->connection->insert(
+            self::TABLE_LINE,
+            [
+                'id' => $id->getValue(),
+                'import_id' => $importId->getValue(),
+                'type' => $type,
+            ]
+        );
+    }
+
+    public function markLineAsSuccess(ImportLineId $id, AggregateId $aggregateId): void
+    {
+        $this->connection->update(
+            self::TABLE_LINE,
+            [
+                'processed_at' => new \DateTime(),
+                'status' => Import::SUCCESS_LINE_STATUS,
+                'object_id' => $aggregateId->getValue(),
+            ],
+            [
+                'id' => $id->getValue(),
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
+            ]
+        );
+    }
+
+    public function markLineAsFailure(ImportLineId $id): void
+    {
+        $this->connection->update(
+            self::TABLE_LINE,
+            [
+                'processed_at' => new \DateTime(),
+                'status' => Import::FAILURE_LINE_STATUS,
+            ],
+            [
+                'id' => $id->getValue(),
+            ],
+            [
+                'processed_at' => Types::DATETIMETZ_MUTABLE,
             ]
         );
     }

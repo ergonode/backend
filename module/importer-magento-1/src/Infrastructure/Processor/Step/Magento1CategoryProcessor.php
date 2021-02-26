@@ -8,9 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
@@ -18,6 +17,8 @@ use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 {
@@ -25,14 +26,17 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 
     private CommandBusInterface $commandBus;
 
+    private ImportRepositoryInterface $importRepository;
+
     /**
      * @var string[]
      */
     private array $categories;
 
-    public function __construct(CommandBusInterface $commandBus)
+    public function __construct(CommandBusInterface $commandBus, ImportRepositoryInterface $importRepository)
     {
         $this->commandBus = $commandBus;
+        $this->importRepository = $importRepository;
         $this->categories = [];
     }
 
@@ -45,7 +49,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         Magento1CsvSource $source,
         array $attributes
     ): void {
-        $default = $product->get('default');
+        $default = $product->getDefault();
         if (array_key_exists('esa_categories', $default) && $default['esa_categories'] !== '') {
             $categories = explode(',', $default['esa_categories']);
             $codes = [];
@@ -60,18 +64,20 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                     $name = new TranslatableString([$source->getDefaultLanguage()->getCode() => end($category)]);
 
                     if (!array_key_exists($categoryCode, $this->categories)) {
+                        $id = ImportLineId::generate();
                         $command = new ImportCategoryCommand(
+                            $id,
                             $import->getId(),
-                            new CategoryCode($categoryCode),
+                            $categoryCode,
                             $name
                         );
-
+                        $this->importRepository->addLine($id, $import->getId(), 'CATEGORY');
                         $this->commandBus->dispatch($command, true);
                         $this->categories[$categoryCode] = $categoryCode;
                     }
 
                     $default['esa_categories'] = implode(',', $codes);
-                    $product->set('default', $default);
+                    $product->setDefault($default);
                 }
             }
         }

@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Authentication\Application\Security\Authenticator;
+namespace Ergonode\Authentication\Tests\Application\Security\Authenticator;
 
 use Ergonode\Account\Domain\Exception\InvalidEmailException;
 use Ergonode\Authentication\Application\Security\Authenticator\FormAuthenticator;
@@ -108,7 +108,7 @@ class FormAuthenticatorTest extends TestCase
     public function testCheckCredentialsException(): void
     {
         $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
-        $this->expectExceptionMessage("Invalid password");
+        $this->expectExceptionMessage("Invalid credentials");
         $credentials = [
             'email' => 'username',
             'password' => 'pass',

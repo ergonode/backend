@@ -15,7 +15,7 @@ use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 
 /**
  * @Route("/accounts", methods={"POST"})
@@ -42,7 +43,7 @@ class UserCreateAction
     }
 
     /**
-     * @IsGranted("USER_CREATE")
+     * @IsGranted("ACCOUNT_POST")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -90,7 +91,7 @@ class UserCreateAction
                     new Email($data->email),
                     $data->language,
                     new Password($data->password),
-                    $data->roleId,
+                    new RoleId($data->roleId),
                     $data->isActive
                 );
                 $this->commandBus->dispatch($command);

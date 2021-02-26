@@ -10,9 +10,8 @@ namespace Ergonode\EventSourcing\Tests\Domain;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
@@ -32,7 +31,7 @@ class AbstractAggregateRootTest extends TestCase
      */
     public function testApply(): void
     {
-        $event = $this->createMock(DomainEventInterface::class);
+        $event = $this->createMock(AggregateEventInterface::class);
         $aggregate = $this->getClass();
         $aggregate->apply($event);
         $events = $aggregate->popEvents();
@@ -46,7 +45,7 @@ class AbstractAggregateRootTest extends TestCase
      */
     public function testInitialize(): void
     {
-        $event = $this->createMock(DomainEventInterface::class);
+        $event = $this->createMock(AggregateEventInterface::class);
         $envelope = $this->createMock(DomainEventEnvelope::class);
         $envelope->method('getEvent')->willReturn($event);
         $stream = new DomainEventStream([$envelope]);
@@ -55,10 +54,6 @@ class AbstractAggregateRootTest extends TestCase
         $this->assertSame(1, $aggregate->getSequence());
     }
 
-
-    /**
-     * @return AbstractAttribute
-     */
     private function getClass(): AbstractAggregateRoot
     {
         $id = $this->createMock(AggregateId::class);

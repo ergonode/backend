@@ -1,0 +1,21 @@
+Ergonode\Account\Domain\Entity\User:
+    superadmin:
+        __construct:
+            - '<userId(test@ergonode.com)>'
+            - 'Johnny'
+            - 'Bravo'
+            - '<userEmail(test@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@superadmin_role->id'
+            - '<LanguagePrivilegesCollection(true)>'
+    admin:
+        __construct:
+            - '<userId(admin@ergonode.com)>'
+            - 'Dave'
+            - 'Admin'
+            - '<userEmail(admin@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@admin_role->id'
+            - '<LanguagePrivilegesCollection()>'

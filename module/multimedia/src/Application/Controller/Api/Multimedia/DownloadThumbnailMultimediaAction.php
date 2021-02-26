@@ -9,14 +9,15 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
-use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerator;
 use League\Flysystem\FilesystemInterface;
-use Ergonode\Api\Application\Response\SuccessResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
@@ -41,6 +42,8 @@ class DownloadThumbnailMultimediaAction
     }
 
     /**
+     * @IsGranted("MULTIMEDIA_GET_DOWNLOAD_THUMBNAIL")
+     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="multimedia",

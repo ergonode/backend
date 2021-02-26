@@ -13,10 +13,12 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Snapshot\AggregateSnapshotInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
+use Psr\Log\LoggerInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventProjectorInterface;
 
 class EventStoreManager
 {
@@ -28,20 +30,28 @@ class EventStoreManager
 
     private AggregateSnapshotInterface $snapshot;
 
+    private DomainEventProjectorInterface $projector;
+
     private Connection $connection;
+
+    private LoggerInterface $logger;
 
     public function __construct(
         AggregateBuilderInterface $builder,
         DomainEventStoreInterface $eventStore,
         EventBusInterface $eventBus,
         AggregateSnapshotInterface $snapshot,
-        Connection $connection
+        DomainEventProjectorInterface $projector,
+        Connection $connection,
+        LoggerInterface $logger
     ) {
         $this->builder = $builder;
         $this->eventStore = $eventStore;
         $this->eventBus = $eventBus;
         $this->snapshot = $snapshot;
+        $this->projector = $projector;
         $this->connection = $connection;
+        $this->logger = $logger;
     }
 
     /**
@@ -72,14 +82,28 @@ class EventStoreManager
         $events = $aggregateRoot->popEvents();
 
         if ($events->count() > 0) {
+            $sequence = $this->eventStore->append($aggregateRoot->getId(), $events);
             if (($events->count() - $aggregateRoot->getSequence()) === 0) {
                 $this->addClass($aggregateRoot);
             }
-            $this->eventStore->append($aggregateRoot->getId(), $events);
+            if ($sequence === $aggregateRoot->getSequence()) {
+                $this->snapshot->save($aggregateRoot);
+            } else {
+                $this->logger->notice(
+                    'Desynchronized sequence for aggregate on persistence. Skipping snapshot.',
+                    [
+                        'aggregate_id' => $aggregateRoot->getId(),
+                        'events_amount' => $events->count(),
+                        'generated_sequence' => $aggregateRoot->getSequence(),
+                        'received_sequence' => $sequence,
+                    ],
+                );
+            }
+
             foreach ($events as $envelope) {
+                $this->projector->project($envelope->getEvent());
                 $this->eventBus->dispatch($envelope->getEvent());
             }
-            $this->snapshot->save($aggregateRoot);
         }
     }
 

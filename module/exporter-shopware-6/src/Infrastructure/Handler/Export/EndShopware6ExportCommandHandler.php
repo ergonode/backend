@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\EndShopware6ExportProcess;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
@@ -41,7 +41,7 @@ class EndShopware6ExportCommandHandler
         $channel = $this->channelRepository->load($export->getChannelId());
         Assert::isInstanceOf($channel, Shopware6Channel::class);
 
-        $this->process->process($export->getId(), $channel);
+        $this->process->process($export, $channel);
         $export->end();
         $this->exportRepository->save($export);
     }

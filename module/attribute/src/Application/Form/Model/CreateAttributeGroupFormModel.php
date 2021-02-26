@@ -9,22 +9,17 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Form\Model;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
-use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
+use Ergonode\Attribute\Application\Validator as AttributeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateAttributeGroupFormModel
 {
     /**
      * @Assert\NotBlank(message="System name is required")
-     * @Assert\Length(
-     *     max=128,
-     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
-     * )
-     *
-     * @AppAssert\AttributeGroupCode()
+     * @AttributeAssert\AttributeGroupCode()
+     * @AttributeAssert\AttributeGroupCodeUnique()
      */
-    public ?AttributeGroupCode $code;
+    public ?string $code;
 
     /**
      * @var array

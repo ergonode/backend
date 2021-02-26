@@ -12,6 +12,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 interface CompletenessQueryInterface
 {
@@ -21,4 +22,6 @@ interface CompletenessQueryInterface
      * @return CompletenessWidgetModel[]
      */
     public function getCompletenessCount(Language $language): array;
+
+    public function getAttributeLabel(AttributeId $attributeId, Language $language): string;
 }

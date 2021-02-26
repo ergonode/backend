@@ -14,7 +14,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Core\Application\Form\UnitForm;
 use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Command\CreateUnitCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -46,7 +46,7 @@ class UnitCreateAction
     }
 
     /**
-     * @IsGranted("SETTINGS_CREATE")
+     * @IsGranted("CORE_POST_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

@@ -13,8 +13,8 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Product\Infrastructure\Grid\ProductGrid;
-use Ergonode\Product\Infrastructure\Persistence\DataSet\DbalProductDataSet;
+use Ergonode\Product\Infrastructure\Factory\DataSet\DbalProductDataSetFactory;
+use Ergonode\Product\Infrastructure\Grid\ProductGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -26,24 +26,24 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductGridReadAction
 {
-    private DbalProductDataSet $dataSet;
+    private DbalProductDataSetFactory $dataSetFactory;
 
-    private ProductGrid $productGrid;
+    private ProductGridBuilder $gridBuilder;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
         GridRenderer $gridRenderer,
-        DbalProductDataSet $dataSet,
-        ProductGrid $productGrid
+        DbalProductDataSetFactory $dataSetFactory,
+        ProductGridBuilder $gridBuilder
     ) {
-        $this->dataSet = $dataSet;
-        $this->productGrid = $productGrid;
+        $this->dataSetFactory = $dataSetFactory;
+        $this->gridBuilder = $gridBuilder;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_GRID")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -92,7 +92,7 @@ class ProductGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -117,12 +117,10 @@ class ProductGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->productGrid,
-            $configuration,
-            $this->dataSet,
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->dataSetFactory->create();
+
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -40,9 +40,13 @@ class CreateShopware6ChannelCommandHandler
             $command->getProductTax(),
             $command->getProductDescription(),
             $command->getProductGallery(),
+            $command->getProductMetaTitle(),
+            $command->getProductMetaDescription(),
+            $command->getProductKeywords(),
             $command->getCategoryTree(),
             $command->getPropertyGroup(),
-            $command->getCustomField()
+            $command->getCustomField(),
+            $command->getCrossSelling()
         );
 
         $this->repository->save($channel);

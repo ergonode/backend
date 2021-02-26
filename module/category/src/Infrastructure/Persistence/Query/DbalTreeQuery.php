@@ -13,32 +13,19 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 class DbalTreeQuery implements TreeQueryInterface
 {
     private const TREE_TABLE = 'category_tree';
-
+    private const TREE_CATEGORY_TABLE = 'category_tree_category';
 
     private Connection $connection;
 
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-    }
-
-    public function getDataSet(Language $language): DataSetInterface
-    {
-        $query = $this->getQuery();
-        $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()));
-
-        return new DbalDataSet($query);
     }
 
     /**
@@ -68,6 +55,56 @@ class DbalTreeQuery implements TreeQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return CategoryTreeId[]
+     */
+    public function findCategoryTreeIdsByCategoryId(CategoryId $categoryId): array
+    {
+        $query = $this->connection->createQueryBuilder();
+        $records = $query->select('category_tree_id')
+            ->from(self::TREE_CATEGORY_TABLE)
+            ->where($query->expr()->eq('category_id', ':categoryId'))
+            ->setParameter(':categoryId', $categoryId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $item) {
+            $result[] = new CategoryTreeId($item);
+        }
+
+        return $result;
+    }
+
+    public function autocomplete(
+        Language $language,
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, code, name->>:language as label')
+            ->from(self::TREE_TABLE, 'c')
+            ->setParameter(':language', $language->getCode());
+
+        if ($search) {
+            $query->where('code ILIKE :search');
+            $query->setParameter(':search', '%'.$search.'%');
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
     }
 
     private function getQuery(): QueryBuilder

@@ -47,7 +47,7 @@ class ProductWorkflowAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("WORKFLOW_GET_PRODUCT")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

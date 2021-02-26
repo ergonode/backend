@@ -15,10 +15,11 @@ use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
 class TemplateCommandFactory
 {
@@ -40,8 +41,8 @@ class TemplateCommandFactory
         return new CreateTemplateCommand(
             $model->name,
             $this->createElements($model),
-            $model->defaultLabel,
-            $model->defaultImage,
+            $model->defaultLabel ? new AttributeId($model->defaultLabel) : null,
+            $model->defaultImage ? new AttributeId($model->defaultImage) : null,
             $model->image ? new MultimediaId($model->image) : null
         );
     }
@@ -52,8 +53,8 @@ class TemplateCommandFactory
             $id,
             $model->name,
             $this->createElements($model),
-            $model->defaultLabel,
-            $model->defaultImage,
+            $model->defaultLabel ? new AttributeId($model->defaultLabel) : null,
+            $model->defaultImage ? new AttributeId($model->defaultImage) : null,
             $model->image ? new MultimediaId($model->image) : null
         );
     }
@@ -68,7 +69,7 @@ class TemplateCommandFactory
         return $result;
     }
 
-    private function createElement(TemplateElementTypeModel $model): TemplateElement
+    private function createElement(TemplateElementTypeModel $model): TemplateElementInterface
     {
         $property = $this->mapper->map((array) $model->properties);
 

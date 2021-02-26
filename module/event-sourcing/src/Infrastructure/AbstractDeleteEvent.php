@@ -9,7 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Infrastructure;
 
-abstract class AbstractDeleteEvent implements DomainEventInterface
-{
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 
+abstract class AbstractDeleteEvent implements AggregateEventInterface
+{
 }

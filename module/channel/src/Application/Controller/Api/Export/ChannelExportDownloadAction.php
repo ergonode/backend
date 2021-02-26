@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -42,7 +42,7 @@ class ChannelExportDownloadAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_EXPORT_FILE")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
@@ -73,7 +73,7 @@ class ChannelExportDownloadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export")
      *
      *
      *

@@ -12,16 +12,16 @@ namespace Ergonode\ProductCollection\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 {
     private const PRODUCT_COLLECTION_TABLE = 'public.product_collection';
+    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.product_collection_element';
 
     private Connection $connection;
 
@@ -57,24 +57,6 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
             ->fetchAll();
     }
 
-    public function getDataSet(Language $language): DataSetInterface
-    {
-        $qb = $this->getQuery();
-        $qb->addSelect('c.id');
-        $qb->addSelect('c.code');
-        $qb->addSelect('c.type_id');
-        $qb->addSelect('c.created_at');
-        $qb->addSelect('c.edited_at');
-        $qb->addSelect(sprintf('(c.name->>\'%s\') AS name', $language->getCode()));
-        $qb->addSelect(sprintf('(c.description->>\'%s\') AS description', $language->getCode()));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
-
-        return new DbalDataSet($result);
-    }
-
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId
     {
         $qb = $this->connection->createQueryBuilder();
@@ -103,6 +85,30 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 
         $result = $qb
             ->where($qb->expr()->eq('type_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductCollectionId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return ProductCollectionId[]
+     */
+    public function findProductCollectionIdByProductId(ProductId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('pc.product_collection_id')
+            ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'pc')
+            ->where($qb->expr()->eq('product_id', ':id'))
             ->setParameter(':id', $id->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);

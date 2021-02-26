@@ -24,11 +24,14 @@ class PostUploadFile extends AbstractAction implements ActionInterface
 
     private Multimedia $multimedia;
 
-    public function __construct(string $multimediaId, string $content, Multimedia $multimedia)
+    private ?string $fileName;
+
+    public function __construct(string $multimediaId, string $content, Multimedia $multimedia, ?string $fileName = null)
     {
         $this->multimediaId = $multimediaId;
         $this->content = $content;
         $this->multimedia = $multimedia;
+        $this->fileName = $fileName;
     }
 
     public function getRequest(): Request
@@ -58,9 +61,11 @@ class PostUploadFile extends AbstractAction implements ActionInterface
 
     private function getUri(): string
     {
+        $fileName = $this->fileName ?: $this->multimedia->getHash()->getValue();
+
         $query = [
             'extension' => $this->multimedia->getExtension(),
-            'fileName' => $this->multimedia->getHash()->getValue(),
+            'fileName' => $fileName,
         ];
 
         return rtrim(sprintf(self::URI, $this->multimediaId, http_build_query($query)), '?');

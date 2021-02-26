@@ -9,12 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
-use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
+use Ergonode\Account\Application\Validator as AccountAssert;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 
 class UpdateUserFormModel
 {
@@ -59,15 +58,16 @@ class UpdateUserFormModel
     /**
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
+     * @AccountAssert\RoleExists()
      */
-    public ?RoleId $roleId;
+    public ?string $roleId;
 
     /**
      * @var LanguagePrivileges[] | null
      *
-     * @AccountAssert\ConstraintLanguagePrivilegesRelations()
-     * @AccountAssert\ConstraintLanguageActive()
-     * @AccountAssert\ConstraintLanguageCodeExists()
+     * @AccountAssert\LanguagePrivilegesRelations()
+     * @AccountAssert\LanguageActive()
+     * @AccountAssert\LanguageCodeExists()
      */
     public ?array $languagePrivilegesCollection;
 

@@ -37,7 +37,7 @@ class SchedulerGetAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_SCHEDULER")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

@@ -9,29 +9,24 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionTypeCodeValid;
+use Ergonode\ProductCollection\Application\Validator as productCollectionAssert;
+use Ergonode\SharedKernel\Application\Validator\SystemCode;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductCollectionTypeCreateFormModel
 {
     /**
      * @Assert\NotBlank(message="Product collection type code is required")
-     * @Assert\Length(
-     *     max=64,
-     *     maxMessage="System Name is too long. It should contain {{ limit }} characters or less."
-     *     )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
      *     message="Product collection type can have only letters, digits or underscore symbol"
      *  )
      *
-     * @ProductCollectionTypeCodeValid()
+     * @SystemCode(max=64)
      *
-     * @ProductCollectionCodeUnique()
+     * @productCollectionAssert\ProductCollectionCodeUnique()
      */
-    public ?ProductCollectionTypeCode $code;
+    public ?string $code;
 
     /**
      * @var array

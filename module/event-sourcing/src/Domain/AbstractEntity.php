@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\EventSourcing\Domain;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,7 +21,7 @@ abstract class AbstractEntity
     /**
      * @throws \Exception
      */
-    public function apply(DomainEventInterface $event): void
+    public function apply(AggregateEventInterface $event): void
     {
         $this->aggregateRoot->apply($event);
     }
@@ -31,7 +31,7 @@ abstract class AbstractEntity
         $this->aggregateRoot = $aggregateRoot;
     }
 
-    public function handle(DomainEventInterface $event, \DateTime $recordedAt): void
+    public function handle(AggregateEventInterface $event, \DateTime $recordedAt): void
     {
         $classArray = explode('\\', get_class($event));
         $class = end($classArray);

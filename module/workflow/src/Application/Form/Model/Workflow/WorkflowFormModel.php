@@ -9,8 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Workflow\Application\Form\Model\Workflow;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Workflow\Infrastructure\Validator\StatusIdNotExists;
-use Ergonode\Workflow\Infrastructure\Validator\WorkflowExists;
+use Ergonode\Workflow\Application\Validator as WorkflowAssert;
 
 class WorkflowFormModel
 {
@@ -21,7 +20,7 @@ class WorkflowFormModel
      *     maxMessage="Workflow name is too long. It should contain {{ limit }} characters or less.",
      *     groups={"Create"}
      *     )
-     * @WorkflowExists(groups={"Create"})
+     * @WorkflowAssert\WorkflowExists(groups={"Create"})
      */
     public ?string $code = null;
 
@@ -31,7 +30,7 @@ class WorkflowFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *
-     *     @StatusIdNotExists(),
+     *     @WorkflowAssert\StatusExists(),
      * })
      */
     public array $statuses = [];

@@ -8,27 +8,27 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CategoryRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CategoryClient;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class CategoryRemoveShopware6ExportProcess
 {
-    private Shopware6CategoryRepositoryInterface $shopwareCategoryRepository;
+    private CategoryRepositoryInterface $shopwareCategoryRepository;
 
     private Shopware6CategoryClient $categoryClient;
 
     public function __construct(
-        Shopware6CategoryRepositoryInterface $shopwareCategoryRepository,
+        CategoryRepositoryInterface $shopwareCategoryRepository,
         Shopware6CategoryClient $categoryClient
     ) {
         $this->shopwareCategoryRepository = $shopwareCategoryRepository;
         $this->categoryClient = $categoryClient;
     }
 
-    public function process(ExportId $exportId, Shopware6Channel $channel, CategoryId $categoryId): void
+    public function process(Export $export, Shopware6Channel $channel, CategoryId $categoryId): void
     {
         $shopwareId = $this->shopwareCategoryRepository->load($channel->getId(), $categoryId);
         if ($shopwareId) {

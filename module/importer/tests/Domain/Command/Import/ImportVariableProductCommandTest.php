@@ -11,24 +11,24 @@ namespace Ergonode\Importer\Tests\Domain\Command\Import;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
-use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportVariableProductCommandTest extends TestCase
 {
     public function testCommandCreation(): void
     {
+        $id = $this->createMock(ImportLineId::class);
         $importId = $this->createMock(ImportId::class);
-        $sku = $this->createMock(Sku::class);
+        $sku = 'any sku';
         $template = 'code template';
-        $categories = [$this->createMock(CategoryCode::class)];
+        $categories = ['any category code'];
         $attributes = ['code' => $this->createMock(TranslatableString::class)];
-        $bindings = [$this->createMock(AttributeCode::class)];
-        $children = [$this->createMock(Sku::class)];
+        $bindings = ['and bind attribute code'];
+        $children = ['any child sku'];
 
         $command = new ImportVariableProductCommand(
+            $id,
             $importId,
             $sku,
             $template,
@@ -37,6 +37,7 @@ class ImportVariableProductCommandTest extends TestCase
             $children,
             $attributes
         );
+        self::assertSame($id, $command->getId());
         self::assertSame($importId, $command->getImportId());
         self::assertSame($sku, $command->getSku());
         self::assertSame($template, $command->getTemplate());

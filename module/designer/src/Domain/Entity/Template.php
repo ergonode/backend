@@ -66,15 +66,12 @@ class Template extends AbstractAggregateRoot
     private ?AttributeId $defaultImage;
 
     /**
-     * @var TemplateElement[]
+     * @var TemplateElementInterface[]
      *
-     * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElement>")
+     * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElementInterface>")
      */
     private array $elements;
 
-    /**
-     * @throws \Exception
-     */
     public function __construct(
         TemplateId $id,
         TemplateGroupId $groupId,
@@ -184,7 +181,7 @@ class Template extends AbstractAggregateRoot
         return false;
     }
 
-    public function getElement(Position $position): TemplateElement
+    public function getElement(Position $position): TemplateElementInterface
     {
         foreach ($this->elements as $element) {
             if ($position->isEqual($element->getPosition())) {
@@ -197,7 +194,7 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @return ArrayCollection|TemplateElement[]
+     * @return ArrayCollection|TemplateElementInterface[]
      */
     public function getElements(): ArrayCollection
     {
@@ -263,7 +260,7 @@ class Template extends AbstractAggregateRoot
     /**
      * @throws \Exception
      */
-    public function addElement(TemplateElement $element): void
+    public function addElement(TemplateElementInterface $element): void
     {
         $position = $element->getPosition();
         if ($this->hasElement($element->getPosition())) {
@@ -277,7 +274,7 @@ class Template extends AbstractAggregateRoot
     /**
      * @throws \Exception
      */
-    public function changeElement(TemplateElement $element): void
+    public function changeElement(TemplateElementInterface $element): void
     {
         $position = $element->getPosition();
 

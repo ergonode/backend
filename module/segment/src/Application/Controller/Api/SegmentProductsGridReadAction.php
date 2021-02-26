@@ -14,13 +14,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
-use Ergonode\Segment\Infrastructure\Grid\SegmentProductsGrid;
+use Ergonode\Segment\Infrastructure\Grid\SegmentProductsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Segment\Domain\Query\SegmentProductsGridQueryInterface;
 
 /**
  * @Route(
@@ -31,24 +32,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SegmentProductsGridReadAction
 {
-    private SegmentProductsGrid $segmentProductsGrid;
+    private SegmentProductsGridBuilder $segmentProductsGridBuilder;
 
-    private SegmentProductsQueryInterface $segmentProductsQuery;
+    private SegmentProductsGridQueryInterface $segmentProductsQuery;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        SegmentProductsGrid $segmentProductsGrid,
-        SegmentProductsQueryInterface $elementQuery,
+        SegmentProductsGridBuilder $segmentProductsGridBuilder,
+        SegmentProductsGridQueryInterface $segmentProductsQuery,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
-        $this->segmentProductsGrid = $segmentProductsGrid;
-        $this->segmentProductsQuery = $elementQuery;
+        $this->segmentProductsGridBuilder = $segmentProductsGridBuilder;
+        $this->segmentProductsQuery = $segmentProductsQuery;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("SEGMENT_READ")
+     * @IsGranted("SEGMENT_GET_PRODUCT_GRID")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -116,14 +121,9 @@ class SegmentProductsGridReadAction
         RequestGridConfiguration $configuration,
         Segment $segment
     ): Response {
-        $dataSet = $this->segmentProductsQuery->getDataSet($segment->getId());
-
-        $data = $this->gridRenderer->render(
-            $this->segmentProductsGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $grid = $this->segmentProductsGridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->segmentProductsQuery->getGridQuery($segment->getId()));
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

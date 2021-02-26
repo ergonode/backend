@@ -197,3 +197,4 @@ Feature: Condition module
     And I add "Accept" header equal to "application/json"
     Given I send a DELETE request to "/api/v1/en_GB/conditionsets/@conditionset_delete@"
     Then the response status code should be 409
+

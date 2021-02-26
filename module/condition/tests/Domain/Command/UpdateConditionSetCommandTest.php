@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Condition\Domain\Command;
+namespace Ergonode\Condition\Tests\Domain\Command;
 
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\ConditionInterface;

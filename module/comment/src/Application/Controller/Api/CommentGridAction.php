@@ -13,34 +13,42 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Comment\Domain\Query\CommentQueryInterface;
-use Ergonode\Comment\Infrastructure\Grid\CommentGrid;
+use Ergonode\Comment\Domain\Query\CommentGridQueryInterface;
+use Ergonode\Comment\Infrastructure\Grid\CommentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/comments", methods={"GET"}, name="ergonode_comment_grid")
  */
 class CommentGridAction
 {
-    private CommentGrid $grid;
+    private CommentGridBuilder $gridBuilder;
 
-    private CommentQueryInterface $query;
+    private CommentGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $renderer;
 
-    public function __construct(CommentGrid $grid, CommentQueryInterface $query, GridRenderer $renderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        CommentGridBuilder $gridBuilder,
+        CommentGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $renderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->renderer = $renderer;
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("COMMENT_GET_GRID")
      *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(
@@ -90,7 +98,7 @@ class CommentGridAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -107,14 +115,9 @@ class CommentGridAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->query->getDataSet($language);
-
-        $data = $this->renderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getDataSet($language));
+        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

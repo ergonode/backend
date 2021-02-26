@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -55,7 +55,7 @@ class PasswordChangeAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
+     * @IsGranted("ACCOUNT_PUT_PASSWORD")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

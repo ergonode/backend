@@ -66,16 +66,17 @@ Feature: Condition Product has status
             {
               "type": "PRODUCT_HAS_STATUS_CONDITION",
               "operator": <operator>,
-              "value": <value>
+              "value": <value>,
+              "language": <language>
             }
           ]
         }
       """
     Then the response status code should be 201
     Examples:
-      | operator   | value |
-      | "NOT_HAS" | ["@status_1@", "@status_2@" ]   |
-      | "HAS" | ["@status_1@", "@status_2@" ]   |
+      | operator   | value | language |
+      | "NOT_HAS" | ["@status_1@", "@status_2@" ]   | ["en_GB", "pl_PL"] |
+      | "HAS" | ["@status_1@", "@status_2@" ]   |  ["en_GB"] |
 
 
   Scenario Outline: Post new invalid product has status condition set
@@ -89,19 +90,20 @@ Feature: Condition Product has status
             {
               "type": "PRODUCT_HAS_STATUS_CONDITION",
               "operator":  <operator>,
-              "value": <value>
+              "value": <value>,
+              "language": <language>
             }
           ]
         }
       """
     Then the response status code should be 400
     Examples:
-      | operator   | value |
-      | "HAS"      |  ""   |
-      | "HAS"      | null  |
-      | null       | 1     |
-      | "INVALID"  | 2     |
-      | ""         | 1     |
+      | operator   | value | language |
+      | "HAS"      |  ""   | ["en_GB", "pl_PL"] |
+      | "HAS"      | null  |["en_GB"] |
+      | null       | 1     | ["en_GB", "pl_PL"] |
+      | "INVALID"  | 2     |["en_GB"] |
+      | ""         | 1     | ["en_GB", "pl_PL"]|
 
 
   Scenario Outline: Post new invalid product has status condition set

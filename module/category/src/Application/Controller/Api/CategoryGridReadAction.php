@@ -10,8 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Category\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Category\Domain\Query\CategoryQueryInterface;
-use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
+use Ergonode\Category\Infrastructure\Grid\CategoryGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -20,30 +19,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Category\Domain\Query\CategoryGridQueryInterface;
 
 /**
  * @Route("/categories", methods={"GET"})
  */
 class CategoryGridReadAction
 {
-    private CategoryGrid $categoryGrid;
+    private CategoryGridBuilder $categoryGridBuilder;
 
-    private CategoryQueryInterface $categoryQuery;
+    private CategoryGridQueryInterface $categoryQuery;
+
+    private DbalDataSetFactory  $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        CategoryGrid $categoryGrid,
-        CategoryQueryInterface $categoryQuery
+        CategoryGridBuilder $categoryGridBuilder,
+        CategoryGridQueryInterface $categoryQuery,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
-        $this->categoryGrid = $categoryGrid;
+        $this->categoryGridBuilder = $categoryGridBuilder;
         $this->categoryQuery = $categoryQuery;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("CATEGORY_READ")
+     * @IsGranted("CATEGORY_GET_GRID")
      *
      * @SWG\Tag(name="Category")
      * @SWG\Parameter(
@@ -84,7 +89,7 @@ class CategoryGridReadAction
      *     enum={"ASC","DESC"},
      *     description="Order",
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -109,14 +114,9 @@ class CategoryGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->categoryQuery->getDataSet($language);
-
-        $data = $this->gridRenderer->render(
-            $this->categoryGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $grid = $this->categoryGridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->categoryQuery->getDataSet($language));
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

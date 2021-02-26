@@ -15,6 +15,10 @@ services:
     Ergonode\Product\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
+        
+    Ergonode\Product\Infrastructure\Persistence\:
+        resource: '../../Infrastructure/Persistence/*'
+        exclude: '../../Infrastructure/Persistence/{DataSet}'
 
     Ergonode\Product\Application\Controller\:
         resource: '../../Application/Controller'
@@ -26,7 +30,7 @@ services:
 
     Ergonode\Product\Infrastructure\Persistence\Projector\:
         resource: '../../Infrastructure/Persistence/Projector/*'
-        tags: ['messenger.message_handler']
+        tags: ['ergonode.event_sourcing.projector']
 
     Ergonode\Product\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
@@ -36,10 +40,18 @@ services:
         resource: '../../Infrastructure/Processor/BatchAction/*'
         tags: ['batch_action.processor_provider.interface']
 
-    Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Infrastructure\Persistence\Repository\DbalProductRepository'
-    Ergonode\Product\Domain\Query\ProductQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductQuery'
-    Ergonode\Product\Domain\Query\HistoryQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalHistoryQuery'
+    Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Infrastructure\Persistence\Repository\EventStoreProductRepository'
+
+    Ergonode\Product\Domain\Query\ProductDashboardQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductDashboardQuery'
+    Ergonode\Product\Domain\Query\AttributeValueQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalAttributeValueQuery'
     Ergonode\Product\Domain\Query\GetProductQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\GetProductQuery'
+    Ergonode\Product\Domain\Query\ProductBindingQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductBindingQuery'
+    Ergonode\Product\Domain\Query\ProductCategoryGridQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductCategoryGridQuery'
+    Ergonode\Product\Domain\Query\ProductQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductQuery'
+    Ergonode\Product\Domain\Query\ProductHistoryGridQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductHistoryGridQuery'
+    Ergonode\Product\Domain\Query\ProductChildrenQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductChildrenQuery'
+    Ergonode\Product\Domain\Query\ProductChildrenGridQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductChildrenGridQuery'
+    Ergonode\Product\Domain\Query\ProductChildrenAvailableGridQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductChildrenAvailableGridQuery'
 
     Ergonode\Product\Infrastructure\Persistence\Query\Decorator\CacheProductQueryDecorator:
         decorates: Ergonode\Product\Domain\Query\ProductQueryInterface

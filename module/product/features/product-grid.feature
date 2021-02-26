@@ -107,10 +107,28 @@ Feature: Product edit feature
       | @product_2_id@ | product_2_sku |
 
   Scenario Outline: Add product <code> value
-    When I send a PUT request to "api/v1/en_GB/products/@product_1_id@/draft/@<code>_id@/value" with body:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-       "value": <value>
+       {
+          "data": [
+          {
+            "id": "@product_1_id@",
+            "payload": [
+              {
+                "id": "@<code>_id@",
+                "values" : [
+                  {
+                    "language": "en_GB",
+                    "value": <value>
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
       """
     Then the response status code should be 200
@@ -125,14 +143,6 @@ Feature: Product edit feature
       | image_attribute        | "@multimedia_id@"                     |
       | gallery_attribute      | ["@multimedia_id@"]                   |
       | file_attribute         | ["@multimedia_id@"]                   |
-
-  Scenario Outline: Apply edit <product>> draft
-    When I send a PUT request to "api/v1/en_GB/products/<product>/draft/persist"
-    Then the response status code should be 204
-    Examples:
-      | product        |
-      | @product_1_id@ |
-      | @product_2_id@ |
 
   Scenario Outline: Request product grid filtered by <code> attribute
     When I send a GET request to "api/v1/en_GB/products?columns=<code>&filter=<code>=<filter>"

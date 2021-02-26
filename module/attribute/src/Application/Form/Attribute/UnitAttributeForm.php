@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\Configuration\UnitAttributeConfigurationForm;
-use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
@@ -19,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UnitAttributeForm extends AbstractType implements AttributeFormInterface
 {
@@ -35,7 +34,7 @@ class UnitAttributeForm extends AbstractType implements AttributeFormInterface
         $builder
             ->add(
                 'code',
-                AttributeCodeType::class
+                TextType::class
             )
             ->add(
                 'label',
@@ -51,7 +50,12 @@ class UnitAttributeForm extends AbstractType implements AttributeFormInterface
             )
             ->add(
                 'groups',
-                AttributeGroupType::class
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
+                ]
             )
             ->add(
                 'scope',

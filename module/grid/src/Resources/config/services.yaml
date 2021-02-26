@@ -18,5 +18,12 @@ services:
 
     Ergonode\Grid\Request\:
         resource: '../../Request/*'
+        
+    Ergonode\Grid\Factory\:
+        resource: '../../Factory/*'
 
     Ergonode\Grid\Renderer\RowRendererInterface: '@Ergonode\Grid\Renderer\RowRenderer'
+
+    Ergonode\Grid\Filter\FilterBuilderProvider:
+        arguments:
+            $builderCollection: !tagged_iterator 'grid.filter_builder_provider.interface'

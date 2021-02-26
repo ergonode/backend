@@ -11,10 +11,10 @@ namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class ConditionSetCreatedEvent implements DomainEventInterface
+class ConditionSetCreatedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")

@@ -13,37 +13,42 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
-use Ergonode\Segment\Infrastructure\Grid\SegmentGrid;
+use Ergonode\Segment\Infrastructure\Grid\SegmentGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Segment\Domain\Query\SegmentGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("segments", methods={"GET"})
  */
 class SegmentGridReadAction
 {
-    private SegmentGrid $grid;
+    private SegmentGridBuilder $gridBuilder;
 
-    private SegmentQueryInterface $query;
+    private SegmentGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        SegmentGrid $grid,
-        SegmentQueryInterface $query
+        SegmentGridBuilder $gridBuilder,
+        SegmentGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("SEGMENT_READ")
+     * @IsGranted("SEGMENT_GET_GRID")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -92,7 +97,7 @@ class SegmentGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -109,12 +114,9 @@ class SegmentGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($language));
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

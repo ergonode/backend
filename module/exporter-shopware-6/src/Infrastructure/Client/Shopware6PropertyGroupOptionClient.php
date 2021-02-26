@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupOptionsRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\GetPropertyGroupOptions;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\PatchPropertyGroupOptionAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PropertyGroup\PostPropertyGroupOptionsAction;
@@ -22,11 +22,11 @@ class Shopware6PropertyGroupOptionClient
 {
     private Shopware6Connector $connector;
 
-    private Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
+    private PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository;
 
     public function __construct(
         Shopware6Connector $connector,
-        Shopware6PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
+        PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository
     ) {
         $this->connector = $connector;
         $this->propertyGroupOptionsRepository = $propertyGroupOptionsRepository;

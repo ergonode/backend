@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Factory;
 
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalChannelFactory
 {
@@ -29,6 +29,6 @@ class DbalChannelFactory
         $class = $record['class'];
         $data = $record['configuration'];
 
-        return $this->serializer->deserialize($data, $class, 'json');
+        return $this->serializer->deserialize($data, $class);
     }
 }

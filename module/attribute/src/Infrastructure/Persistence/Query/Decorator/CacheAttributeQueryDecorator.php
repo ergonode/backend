@@ -135,6 +135,16 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         return $this->attributeQuery->getMultimediaRelation($id);
     }
 
+    public function findAttributeCodeById(AttributeId $id): ?AttributeCode
+    {
+        $key = sprintf('id_%s', $id->getValue());
+        if (!array_key_exists($key, $this->cache)) {
+            $this->cache[$key] = $this->attributeQuery->findAttributeCodeById($id);
+        }
+
+        return $this->cache[$key];
+    }
+
     /**
      * @return array
      */
@@ -144,8 +154,9 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         string $type = null,
         int $limit = null,
         string $field = null,
+        string $system = null,
         ?string $order = 'ASC'
     ): array {
-        return $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $order);
+        return $this->attributeQuery->autocomplete($language, $search, $type, $limit, $field, $system, $order);
     }
 }

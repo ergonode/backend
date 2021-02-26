@@ -14,13 +14,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
-use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
-use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionElementGrid;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementGridQueryInterface;
+use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionElementGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -31,24 +32,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductCollectionElementGridReadAction
 {
-    private ProductCollectionElementGrid $elementGrid;
+    private ProductCollectionElementGridBuilder $gridBuilder;
 
-    private ProductCollectionElementQueryInterface $elementQuery;
+    private ProductCollectionElementGridQueryInterface $elementQuery;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        ProductCollectionElementGrid $elementGrid,
-        ProductCollectionElementQueryInterface $elementQuery,
+        ProductCollectionElementGridBuilder $gridBuilder,
+        ProductCollectionElementGridQueryInterface $elementQuery,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
-        $this->elementGrid = $elementGrid;
+        $this->gridBuilder = $gridBuilder;
         $this->elementQuery = $elementQuery;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_READ")
+     * @IsGranted("PRODUCT_COLLECTION_GET_ELEMENT_GRID")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
@@ -116,13 +121,9 @@ class ProductCollectionElementGridReadAction
         RequestGridConfiguration $configuration,
         ProductCollection $productCollection
     ): Response {
-        $dataSet = $this->elementQuery->getDataSet($productCollection->getId(), $language);
-        $data = $this->gridRenderer->render(
-            $this->elementGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->elementQuery->getGridQuery($productCollection->getId(), $language));
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

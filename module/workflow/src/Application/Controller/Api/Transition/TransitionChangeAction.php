@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
@@ -48,7 +48,7 @@ class TransitionChangeAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_UPDATE")
+     * @IsGranted("WORKFLOW_PUT_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

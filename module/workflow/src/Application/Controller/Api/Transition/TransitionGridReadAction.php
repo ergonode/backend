@@ -13,13 +13,14 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
-use Ergonode\Workflow\Infrastructure\Grid\TransitionGrid;
+use Ergonode\Workflow\Infrastructure\Grid\TransitionGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
+use Ergonode\Workflow\Domain\Query\TransitionGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -30,24 +31,28 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
  */
 class TransitionGridReadAction
 {
-    private TransitionQueryInterface $query;
+    private TransitionGridQueryInterface $query;
 
-    private TransitionGrid $grid;
+    private TransitionGridBuilder $gridBuilder;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        TransitionQueryInterface $query,
-        TransitionGrid $grid
+        TransitionGridQueryInterface $query,
+        TransitionGridBuilder $gridBuilder,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("WORKFLOW_READ")
+     * @IsGranted("WORKFLOW_GET_TRANSITION_GRID")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
@@ -114,12 +119,10 @@ class TransitionGridReadAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($workflow->getId(), $language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getDataSet($workflow->getId(), $language));
+
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

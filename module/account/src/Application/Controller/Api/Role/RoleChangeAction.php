@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -46,7 +46,7 @@ class RoleChangeAction
     }
 
     /**
-     * @IsGranted("USER_ROLE_UPDATE")
+     * @IsGranted("ACCOUNT_PUT_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

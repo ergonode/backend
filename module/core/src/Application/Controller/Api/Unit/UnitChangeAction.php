@@ -15,7 +15,7 @@ use Ergonode\Core\Application\Form\UnitForm;
 use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Command\UpdateUnitCommand;
 use Ergonode\Core\Domain\Entity\Unit;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -48,7 +48,7 @@ class UnitChangeAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
+     * @IsGranted("CORE_PUT_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

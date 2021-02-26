@@ -74,7 +74,7 @@ class CompletenessQuery implements CompletenessQueryInterface
             $attributeId = new AttributeId($record['attribute_id']);
             $element = new CompletenessElementReadModel(
                 $attributeId,
-                $this->getLabel($attributeId, $language),
+                $this->getAttributeLabel($attributeId, $language),
                 $record['required'],
                 $record['filled'],
             );
@@ -98,9 +98,10 @@ class CompletenessQuery implements CompletenessQueryInterface
         }
 
         $sqba = $this->connection->createQueryBuilder();
-        $sqba->select('product_id, language')
-            ->addSelect('(CASE WHEN required <= filled THEN true ELSE false END) AS completed')
-            ->from(self::TABLE);
+        $sqba->select('c.product_id, c.language')
+            ->addSelect('(CASE WHEN c.required <= c.filled THEN true ELSE false END) AS completed')
+            ->join('c', 'product', 'p', ' p.id = c.product_id')
+            ->from(self::TABLE, 'c');
 
         $sqbb = $this->connection->createQueryBuilder()
             ->select('product_id, language')
@@ -127,7 +128,7 @@ class CompletenessQuery implements CompletenessQueryInterface
         return array_values($result);
     }
 
-    private function getLabel(AttributeId $attributeId, Language $language): string
+    public function getAttributeLabel(AttributeId $attributeId, Language $language): string
     {
         $attribute = $this->repository->load($attributeId);
         Assert::isInstanceOf($attribute, AbstractAttribute::class);

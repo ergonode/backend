@@ -11,7 +11,7 @@ namespace Ergonode\Channel\Application\Controller\Api\Scheduler;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -48,7 +48,7 @@ class SchedulerChangeAction
     }
 
     /**
-     * @IsGranted("CHANNEL_UPDATE")
+     * @IsGranted("CHANNEL_PUT_SCHEDULER")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
@@ -62,7 +62,7 @@ class SchedulerChangeAction
      *     in="body",
      *     description="Add Channel",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/channel")
+     *     @SWG\Schema(ref="#/definitions/scheduler")
      * )
      * @SWG\Parameter(
      *     name="language",

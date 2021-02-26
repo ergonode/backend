@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
-class MultimediaDeletedEvent implements DomainEventInterface
+class MultimediaDeletedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")

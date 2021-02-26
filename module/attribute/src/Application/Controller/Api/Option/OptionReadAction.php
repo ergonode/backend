@@ -31,7 +31,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractOption;
 class OptionReadAction
 {
     /**
-     * @IsGranted("ATTRIBUTE_READ")
+     * @IsGranted("ATTRIBUTE_GET_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

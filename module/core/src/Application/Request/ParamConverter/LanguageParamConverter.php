@@ -20,7 +20,7 @@ class LanguageParamConverter implements ParamConverterInterface
     /**
      * {@inheritDoc}
      */
-    public function apply(Request $request, ParamConverter $configuration): void
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         $parameter = $request->get($configuration->getName());
 
@@ -33,6 +33,8 @@ class LanguageParamConverter implements ParamConverterInterface
         }
 
         $request->attributes->set($configuration->getName(), new Language($parameter));
+
+        return true;
     }
 
     /**

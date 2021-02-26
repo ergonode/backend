@@ -16,7 +16,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -54,7 +54,7 @@ class WorkflowCreateAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_CREATE")
+     * @IsGranted("WORKFLOW_POST")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

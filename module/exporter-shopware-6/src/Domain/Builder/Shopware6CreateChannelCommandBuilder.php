@@ -12,6 +12,7 @@ use Ergonode\Channel\Domain\Command\CreateChannelCommandInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -50,7 +51,11 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
         $attributeProductTax = $data->attributeProductTax;
         $attributeProductDescription = $data->attributeProductDescription;
         $attributeProductGallery = $data->attributeProductGallery;
+        $attributeProductMetaTitle = $data->attributeProductMetaTitle;
+        $attributeProductMetaDescription = $data->attributeProductMetaDescription;
+        $attributeProductKeywords = $data->attributeProductKeywords;
         $categoryTree = $data->categoryTree;
+        $crossSelling = $data->crossSelling;
 
         $propertyGroup = [];
         foreach ($data->propertyGroup as $attribute) {
@@ -67,6 +72,11 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $languageObjects[] = new Language($language);
         }
 
+        $crossSellingObjects = [];
+        foreach ($crossSelling as $crossSell) {
+            $crossSellingObjects[] = new ProductCollectionId($crossSell);
+        }
+
         return new CreateShopware6ChannelCommand(
             ChannelId::generate(),
             $name,
@@ -76,17 +86,21 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $segment ? new SegmentId($segment) : null,
             new Language($defaultLanguage),
             $languageObjects,
-            $attributeProductName,
-            $attributeProductActive,
-            $attributeProductStock,
-            $attributeProductPriceGross,
-            $attributeProductPriceNet,
-            $attributeProductTax,
-            $attributeProductDescription,
-            $attributeProductGallery,
+            new AttributeId($attributeProductName),
+            new AttributeId($attributeProductActive),
+            new AttributeId($attributeProductStock),
+            new AttributeId($attributeProductPriceGross),
+            new AttributeId($attributeProductPriceNet),
+            new AttributeId($attributeProductTax),
+            $attributeProductDescription ? new AttributeId($attributeProductDescription) : null,
+            $attributeProductGallery? new AttributeId($attributeProductGallery) : null,
+            $attributeProductMetaTitle? new AttributeId($attributeProductMetaTitle) : null,
+            $attributeProductMetaDescription? new AttributeId($attributeProductMetaDescription) : null,
+            $attributeProductKeywords? new AttributeId($attributeProductKeywords) : null,
             $categoryTree ? new CategoryTreeId($categoryTree) : null,
             $propertyGroup,
-            $customField
+            $customField,
+            $crossSellingObjects
         );
     }
 }

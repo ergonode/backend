@@ -11,20 +11,22 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Domain\Repository\Shopware6LanguageRepositoryInterface;
+use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Basic\Shopware6CustomFieldConfig;
 
 class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMapperInterface
 {
     private OptionQueryInterface $optionQuery;
 
-    private Shopware6LanguageRepositoryInterface  $languageRepository;
+    private LanguageRepositoryInterface  $languageRepository;
 
     public function __construct(
         OptionQueryInterface $optionQuery,
-        Shopware6LanguageRepositoryInterface $languageRepository
+        LanguageRepositoryInterface $languageRepository
     ) {
         $this->optionQuery = $optionQuery;
         $this->languageRepository = $languageRepository;
@@ -32,10 +34,11 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
 
     public function map(
         Shopware6Channel $channel,
-        Shopware6CustomField $shopware6CustomField,
+        Export $export,
+        AbstractShopware6CustomField $shopware6CustomField,
         AbstractAttribute $attribute,
         ?Language $language = null
-    ): Shopware6CustomField {
+    ): AbstractShopware6CustomField {
         $this->getOptions($channel, $shopware6CustomField, $attribute);
 
         return $shopware6CustomField;
@@ -43,13 +46,15 @@ class Shopware6CustomFieldConfigOptionsMapper implements Shopware6CustomFieldMap
 
     private function getOptions(
         Shopware6Channel $channel,
-        Shopware6CustomField $shopware6CustomField,
+        AbstractShopware6CustomField $shopware6CustomField,
         AbstractAttribute $attribute
-    ): Shopware6CustomField {
-        $options = $this->optionQuery->getAll($attribute->getId());
+    ): AbstractShopware6CustomField {
+        if ($shopware6CustomField->getConfig() instanceof Shopware6CustomFieldConfig) {
+            $options = $this->optionQuery->getAll($attribute->getId());
 
-        foreach ($options as $option) {
-            $shopware6CustomField->addOptions($this->getOption($channel, $option));
+            foreach ($options as $option) {
+                $shopware6CustomField->getConfig()->addOptions($this->getOption($channel, $option));
+            }
         }
 
         return $shopware6CustomField;

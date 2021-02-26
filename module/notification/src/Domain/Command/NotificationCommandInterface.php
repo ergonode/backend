@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Notification\Domain\Command;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
 interface NotificationCommandInterface extends DomainCommandInterface
 {

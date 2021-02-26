@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Designer\Infrastructure\Mapper\TemplateResultMapper;
 
 /**
  * @Route(
@@ -26,8 +27,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TemplateReadAction
 {
+    private TemplateResultMapper $mapper;
+
+    public function __construct(TemplateResultMapper $mapper)
+    {
+        $this->mapper = $mapper;
+    }
+
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_READ")
+     * @IsGranted("DESIGNER_GET_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
@@ -55,6 +63,6 @@ class TemplateReadAction
      */
     public function __invoke(Template $template): Response
     {
-        return new SuccessResponse($template);
+        return new SuccessResponse($this->mapper->map($template));
     }
 }

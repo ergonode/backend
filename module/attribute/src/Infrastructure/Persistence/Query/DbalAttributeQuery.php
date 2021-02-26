@@ -142,6 +142,23 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return null;
     }
 
+    public function findAttributeCodeById(AttributeId $id): ?AttributeCode
+    {
+        $qb = $this->getQuery();
+
+        $result = $qb
+            ->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return new AttributeCode($result['code']);
+        }
+
+        return null;
+    }
+
     public function findAttributeByCode(AttributeCode $code): ?AttributeViewModel
     {
         $qb = $this->getQuery();
@@ -307,6 +324,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
         string $type = null,
         int $limit = null,
         string $field = null,
+        string $system = null,
         ?string $order = 'ASC'
     ): array {
         $query = $this->connection->createQueryBuilder()
@@ -328,6 +346,10 @@ class DbalAttributeQuery implements AttributeQueryInterface
         if ($type) {
             $query->andWhere('type=:type');
             $query->setParameter(':type', $type);
+        }
+        if (null !== $system) {
+            $query->andWhere('a.system =:system');
+            $query->setParameter(':system', $system);
         }
         if ($field) {
             $query->orderBy($field, $order);

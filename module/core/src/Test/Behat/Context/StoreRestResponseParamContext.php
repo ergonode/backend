@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Test\Behat\Context;
 
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behatch\Json\JsonInspector;
 use Behatch\Json\Json;
@@ -19,10 +20,18 @@ class StoreRestResponseParamContext extends RawMinkContext
 
     private JsonInspector $inspector;
 
-    public function __construct(StorageContext $storageContext, string $evaluationMode = 'javascript')
+    public function __construct(string $evaluationMode = 'javascript')
     {
-        $this->storageContext = $storageContext;
         $this->inspector = new JsonInspector($evaluationMode);
+    }
+
+    /** @BeforeScenario */
+    public function gatherContexts(BeforeScenarioScope $scope): void
+    {
+        $environment = $scope->getEnvironment();
+
+        /** @phpstan-ignore-next-line */
+        $this->storageContext = $environment->getContext(StorageContext::class);
     }
 
     /**

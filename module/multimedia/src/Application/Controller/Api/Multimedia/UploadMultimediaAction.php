@@ -21,7 +21,7 @@ use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -55,7 +55,7 @@ class UploadMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_CREATE")
+     * @IsGranted("MULTIMEDIA_POST")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

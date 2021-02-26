@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Application\Form\ProductCollectionUpdateForm;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionUpdateFormModel;
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionCommand;
@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  * @Route(
@@ -49,7 +50,7 @@ class ProductCollectionChangeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_UPDATE")
+     * @IsGranted("PRODUCT_COLLECTION_PUT")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
@@ -105,7 +106,7 @@ class ProductCollectionChangeAction
                     $productCollection->getId(),
                     new TranslatableString($data->name),
                     new TranslatableString($data->description),
-                    $data->typeId
+                    new ProductCollectionTypeId($data->typeId)
                 );
                 $this->commandBus->dispatch($command);
 

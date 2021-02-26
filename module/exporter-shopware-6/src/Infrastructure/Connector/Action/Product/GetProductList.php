@@ -84,16 +84,19 @@ class GetProductList extends AbstractAction implements ActionInterface
                     $row['id'],
                     $row['attributes']['productNumber'],
                     $row['attributes']['name'],
-                    $row['attributes']['description'],
+                    $row['attributes']['description'] ?? null,
                     $properties,
                     $customFields,
-                    $row['attributes']['parentId'],
+                    $row['attributes']['parentId'] ?? null,
                     $options,
                     $row['attributes']['active'],
-                    $row['attributes']['stock'],
-                    $row['attributes']['taxId'],
+                    $row['attributes']['stock'] ?? null,
+                    $row['attributes']['taxId'] ?? null,
                     $price,
-                    $row['attributes']['coverId'],
+                    $row['attributes']['coverId'] ?? null,
+                    $row['attributes']['metaTitle'] ?? null,
+                    $row['attributes']['metaDescription'] ?? null,
+                    $row['attributes']['keywords'] ?? null
                 );
             }
         }

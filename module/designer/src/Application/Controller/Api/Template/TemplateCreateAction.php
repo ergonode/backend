@@ -20,7 +20,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route("/templates", methods={"POST"})
@@ -44,7 +44,7 @@ class TemplateCreateAction
     }
 
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_CREATE")
+     * @IsGranted("DESIGNER_POST_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
@@ -71,8 +71,6 @@ class TemplateCreateAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     *
      *
      * @throws \Exception
      */

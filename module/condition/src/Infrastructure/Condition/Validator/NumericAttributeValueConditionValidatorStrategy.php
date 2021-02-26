@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
-use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
+use Ergonode\Attribute\Application\Validator\AttributeExists;
 use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;
@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
+use Ergonode\Attribute\Application\Validator\AttributeTypeValid;
 
 class NumericAttributeValueConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {

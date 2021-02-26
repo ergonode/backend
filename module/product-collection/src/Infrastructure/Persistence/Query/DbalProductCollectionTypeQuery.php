@@ -12,8 +12,6 @@ namespace Ergonode\ProductCollection\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
@@ -40,19 +38,6 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
             ->select('id', 'code')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
-    }
-
-
-    public function getDataSet(Language $language): DataSetInterface
-    {
-        $query = $this->getQuery();
-        $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't');
-
-        return new DbalDataSet($result);
     }
 
     public function findIdByCode(ProductCollectionTypeCode $code): ?ProductCollectionTypeId

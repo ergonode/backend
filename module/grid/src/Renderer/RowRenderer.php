@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Grid\Renderer;
 
-use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\GridInterface;
 
 class RowRenderer implements RowRendererInterface
 {
@@ -28,10 +28,13 @@ class RowRenderer implements RowRendererInterface
     /**
      * {@inheritDoc}
      */
-    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration, array $row): array
+    public function render(GridInterface $grid, GridConfigurationInterface $configuration, array $row): array
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {
+            if (!$column->supportView($configuration->getView())) {
+                continue;
+            }
             $columnId = $id;
             if ($column->hasLanguage()) {
                 $columnId = sprintf('%s:%s', $column->getField(), $column->getLanguage()->getCode());

@@ -21,6 +21,7 @@ class UploadModel
 {
     private const FILE_EXTENSIONS = [
         'csv',
+        'zip',
     ];
 
     /**

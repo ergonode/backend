@@ -11,33 +11,38 @@ namespace Ergonode\Designer\Application\Controller\Api\TemplateGroup;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
-use Ergonode\Designer\Infrastructure\Grid\TemplateGroupGrid;
+use Ergonode\Designer\Infrastructure\Grid\TemplateGroupGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Designer\Domain\Query\TemplateGroupGridQueryInterface;
 
 /**
  * @Route("/templates/groups", methods={"GET"})
  */
 class TemplateGroupGridReadAction
 {
-    private TemplateGroupQueryInterface $query;
+    private TemplateGroupGridQueryInterface $query;
 
-    private TemplateGroupGrid $grid;
+    private TemplateGroupGridBuilder $gridBuilder;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        TemplateGroupQueryInterface $query,
-        TemplateGroupGrid $grid
+        TemplateGroupGridQueryInterface $query,
+        TemplateGroupGridBuilder $gridBuilder,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -82,7 +87,7 @@ class TemplateGroupGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -107,14 +112,10 @@ class TemplateGroupGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->query->getDataSet();
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery());
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

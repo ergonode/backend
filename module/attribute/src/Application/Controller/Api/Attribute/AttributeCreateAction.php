@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Attribute\Application\Provider\AttributeFormProvider;
 use Ergonode\Attribute\Infrastructure\Provider\CreateAttributeCommandFactoryProvider;
 
@@ -50,7 +50,7 @@ class AttributeCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_CREATE")
+     * @IsGranted("ATTRIBUTE_POST")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -95,7 +95,6 @@ class AttributeCreateAction
 
         $typeForm = $this->formFactory->create(AttributeTypeForm::class);
         $typeForm->submit(['type' => $type]);
-
 
         if ($typeForm->isSubmitted() && $typeForm->isValid()) {
             $request->request->remove('type');

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
@@ -18,8 +18,9 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ramsey\Uuid\Uuid;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 {
@@ -27,15 +28,19 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 
     private CommandBusInterface $commandBus;
 
+    private ImportRepositoryInterface $importRepository;
+
     /**
      * @var array
      */
     private array $options;
 
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        CommandBusInterface $commandBus,
+        ImportRepositoryInterface $importRepository
+    ) {
         $this->commandBus = $commandBus;
-        $this->options = [];
+        $this->importRepository = $importRepository;
     }
 
     /**
@@ -49,7 +54,7 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
     ): void {
         $columns = [];
 
-        foreach ($product->get('default') as $key => $item) {
+        foreach ($product->getDefault() as $key => $item) {
             if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
                 $columns[$key][] = $item;
             }
@@ -79,14 +84,17 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                 foreach ($options as $key => $option) {
                     $uuid = Uuid::uuid5(self::NAMESPACE, sprintf('%s/%s', $attributeCode->getValue(), $key));
                     if (!array_key_exists($uuid->toString(), $this->options)) {
+                        $id = ImportLineId::generate();
                         $label = new TranslatableString();
                         $label = $label->add($source->getDefaultLanguage(), $option);
                         $command = new ImportOptionCommand(
+                            $id,
                             $import->getId(),
-                            $attributeCode,
-                            new OptionKey((string) $key),
+                            $attribute->getCode()->getValue(),
+                            (string) $key,
                             $label
                         );
+                        $this->importRepository->addLine($id, $import->getId(), 'OPTION');
                         $this->commandBus->dispatch($command, true);
                         $this->options[$uuid->toString()] = $uuid;
                     }

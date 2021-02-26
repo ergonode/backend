@@ -10,30 +10,38 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportOptionCommand implements ImporterCommandInterface
 {
+    private ImportLineId $id;
+
     private ImportId $importId;
 
-    private AttributeCode $code;
+    private string $code;
 
-    private OptionKey $key;
+    private string $optionKey;
 
     private TranslatableString $translation;
 
     public function __construct(
+        ImportLineId $id,
         ImportId $importId,
-        AttributeCode $code,
-        OptionKey $key,
+        string $code,
+        string $key,
         TranslatableString $translation
     ) {
+        $this->id = $id;
         $this->importId = $importId;
         $this->code = $code;
-        $this->key = $key;
+        $this->optionKey = $key;
         $this->translation = $translation;
+    }
+
+    public function getId(): ImportLineId
+    {
+        return $this->id;
     }
 
     public function getImportId(): ImportId
@@ -41,14 +49,14 @@ class ImportOptionCommand implements ImporterCommandInterface
         return $this->importId;
     }
 
-    public function getCode(): AttributeCode
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    public function getKey(): OptionKey
+    public function getOptionKey(): string
     {
-        return $this->key;
+        return $this->optionKey;
     }
 
     public function getTranslation(): TranslatableString

@@ -105,13 +105,13 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addGroup('418c48d3-d2c3-4c30-b627-93850c38d59c', 'Suggested');
         $this->addGroup('641c614f-0732-461f-892f-b6df97939599', 'My templates', true);
 
-        $this->connection->insert('privileges_group', ['area' => 'Template designer']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Template designer']);
         $this->createTemplateDesignerPrivileges(
             [
-                'TEMPLATE_DESIGNER_CREATE',
-                'TEMPLATE_DESIGNER_READ',
-                'TEMPLATE_DESIGNER_UPDATE',
-                'TEMPLATE_DESIGNER_DELETE',
+                'TEMPLATE_DESIGNER_CREATE' => 'Template designer',
+                'TEMPLATE_DESIGNER_READ' => 'Template designer',
+                'TEMPLATE_DESIGNER_UPDATE' => 'Template designer',
+                'TEMPLATE_DESIGNER_DELETE' => 'Template designer',
             ]
         );
 
@@ -180,11 +180,10 @@ final class Version20180719132703 extends AbstractErgonodeMigration
     private function createEventStoreEvents(array $collection): void
     {
         foreach ($collection as $class => $translation) {
-            $this->connection->insert('event_store_event', [
-                'id' => Uuid::uuid4()->toString(),
-                'event_class' => $class,
-                'translation_key' => $translation,
-            ]);
+            $this->addSql(
+                'INSERT INTO event_store_event (id, event_class, translation_key) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $class, $translation]
+            );
         }
     }
 
@@ -195,12 +194,11 @@ final class Version20180719132703 extends AbstractErgonodeMigration
      */
     private function createTemplateDesignerPrivileges(array $collection): void
     {
-        foreach ($collection as $code) {
-            $this->connection->insert('privileges', [
-                'id' => Uuid::uuid4()->toString(),
-                'code' => $code,
-                'area' => 'Template designer',
-            ]);
+        foreach ($collection as $code => $area) {
+            $this->addSql(
+                'INSERT INTO privileges (id, code, area) VALUES (?,?,?)',
+                [Uuid::uuid4()->toString(), $code,  $area, ]
+            );
         }
     }
 }

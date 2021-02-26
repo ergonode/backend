@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Application\Form\Model;
 
-use Ergonode\Account\Infrastructure\Validator\RoleExists;
+use Ergonode\Account\Application\Validator as AccountAssert;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
-use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
+use Ergonode\Workflow\Application\Validator as WorkflowAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
@@ -21,14 +21,14 @@ class TransitionCreateFormModel
     /**
      * @Assert\NotBlank()
      *
-     * @ErgoAssert\StatusIdNotExists()
+     * @WorkflowAssert\StatusExists()
      */
     public ?string $source;
 
     /**
      * @Assert\NotBlank()
      *
-     * @ErgoAssert\StatusIdNotExists()
+     * @WorkflowAssert\StatusExists()
      */
     public ?string $destination;
 
@@ -69,15 +69,13 @@ class TransitionCreateFormModel
      *     @Assert\NotBlank(),
      *     @Assert\Uuid(strict=true),
      *
-     *     @RoleExists()
-     *
+     *     @AccountAssert\RoleExists()
      * })
      */
     public array $roles;
 
-    public function __construct(
-        AbstractWorkflow $workflow
-    ) {
+    public function __construct(AbstractWorkflow $workflow)
+    {
         $this->source = null;
         $this->destination = null;
         $this->name = [];

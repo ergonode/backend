@@ -43,9 +43,13 @@ class UpdateShopware6ChannelCommandHandler
         $channel->setAttributeProductTax($command->getProductTax());
         $channel->setAttributeProductDescription($command->getProductDescription());
         $channel->setAttributeProductGallery($command->getProductGallery());
+        $channel->setAttributeProductMetaTitle($command->getProductMetaTitle());
+        $channel->setAttributeProductMetaDescription($command->getProductMetaDescription());
+        $channel->setAttributeProductKeywords($command->getProductKeywords());
         $channel->setCategoryTree($command->getCategoryTree());
         $channel->setPropertyGroup($command->getPropertyGroup());
         $channel->setCustomField($command->getCustomField());
+        $channel->setCrossSelling($command->getCrossSelling());
 
         $this->repository->save($channel);
     }

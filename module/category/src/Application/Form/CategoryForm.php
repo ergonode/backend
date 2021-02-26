@@ -9,13 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Category\Application\Form;
 
-use Ergonode\Category\Application\Form\Type\CategoryCodeType;
 use Ergonode\Category\Application\Model\CategoryFormModel;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CategoryForm extends AbstractType implements CategoryFormInterface
 {
@@ -32,7 +32,7 @@ class CategoryForm extends AbstractType implements CategoryFormInterface
         $builder
             ->add(
                 'code',
-                CategoryCodeType::class
+                TextType::class
             )
             ->add(
                 'name',

@@ -9,13 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Designer\Domain\Resolver;
 
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
+use Ergonode\Designer\Domain\Entity\Element\UiTemplateElement;
+use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
 
 class TemplateElementTypeResolver
 {
     public function resolve(string $type): string
     {
-        return ($type === 'SECTION') ? UiTemplateElementProperty::VARIANT : AttributeTemplateElementProperty::VARIANT;
+        return ($type === 'SECTION') ? UiTemplateElement::TYPE : AttributeTemplateElement::TYPE;
     }
 }

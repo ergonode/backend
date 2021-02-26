@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
-class TransformerCreatedEvent implements DomainEventInterface
+class TransformerCreatedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")

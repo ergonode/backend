@@ -1,10 +1,13 @@
 <?php
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See license.txt for license details.
+ */
 
 declare(strict_types=1);
 
 return [
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
-    Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
     Ergonode\Account\ErgonodeAccountBundle::class => ['all' => true],
     Ergonode\Api\ErgonodeApiBundle::class => ['all' => true],
     Ergonode\Attribute\ErgonodeAttributeBundle::class => ['all' => true],
@@ -17,20 +20,20 @@ return [
     Ergonode\Condition\ErgonodeConditionBundle::class => ['all' => true],
     Ergonode\Core\ErgonodeCoreBundle::class => ['all' => true],
     Ergonode\Designer\ErgonodeDesignerBundle::class => ['all' => true],
-    Ergonode\Editor\ErgonodeEditorBundle::class => ['all' => true],
     Ergonode\EventSourcing\ErgonodeEventSourcingBundle::class => ['all' => true],
     Ergonode\ExporterFile\ErgonodeExporterFileBundle::class => ['all' => true],
     Ergonode\ExporterMagento2\ErgonodeExporterMagento2Bundle::class => ['all' => true],
     Ergonode\ExporterShopware6\ErgonodeExporterShopware6Bundle::class => ['all' => true],
-    Ergonode\Exporter\ErgonodeExporterBundle::class => ['all' => true],
     Ergonode\Fixture\ErgonodeFixtureBundle::class => ['dev' => true, 'test' => true],
     Ergonode\Generator\ErgonodeGeneratorBundle::class => ['dev' => true],
     Ergonode\Grid\ErgonodeGridBundle::class => ['all' => true],
+    Ergonode\ImporterErgonode1\ErgonodeImporterErgonode1Bundle::class => ['all' => true],
     Ergonode\ImporterMagento1\ErgonodeImporterMagento1Bundle::class => ['all' => true],
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
     Ergonode\Mailer\ErgonodeMailerBundle::class => ['all' => true],
     Ergonode\Migration\ErgonodeMigrationBundle::class => ['all' => true],
     Ergonode\Multimedia\ErgonodeMultimediaBundle::class => ['all' => true],
+    Ergonode\NewRelic\ErgonodeNewRelicBundle::class => ['prod' => true],
     Ergonode\Notification\ErgonodeNotificationBundle::class => ['all' => true],
     Ergonode\ProductCollection\ErgonodeProductCollectionBundle::class => ['all' => true],
     Ergonode\Product\ErgonodeProductBundle::class => ['all' => true],

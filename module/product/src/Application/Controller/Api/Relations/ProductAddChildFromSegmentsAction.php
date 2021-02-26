@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildrenBySegmentsCommand;
@@ -48,7 +48,7 @@ class ProductAddChildFromSegmentsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_POST_RELATIONS_CHILDREN_SEGMENT")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

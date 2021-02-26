@@ -8,9 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Exception;
 
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
-
-class ImportException extends ExportException
+class ImportException extends \Exception
 {
     /**
      * @var string[]
@@ -22,7 +20,7 @@ class ImportException extends ExportException
      */
     public function __construct(string $message, array $parameters = [], \Throwable $previous = null)
     {
-        parent::__construct($message, $previous);
+        parent::__construct($message, 0, $previous);
 
         $this->parameters = $parameters;
     }

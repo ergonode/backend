@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -48,7 +48,7 @@ class AddProductAttributeBindingsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_POST_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

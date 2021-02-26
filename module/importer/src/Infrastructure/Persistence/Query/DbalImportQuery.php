@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportErrorId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
@@ -22,14 +22,24 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DbalImportQuery implements ImportQueryInterface
 {
+    private const TABLE = 'importer.import';
+    private const TABLE_ERROR = 'importer.import_error';
+    private const TABLE_SOURCE = 'importer.source';
+
     private Connection $connection;
 
     private TranslatorInterface $translator;
 
-    public function __construct(Connection $connection, TranslatorInterface $translator)
-    {
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(
+        Connection $connection,
+        TranslatorInterface $translator,
+        DbalDataSetFactory $dataSetFactory
+    ) {
         $this->connection = $connection;
         $this->translator = $translator;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
@@ -40,7 +50,7 @@ class DbalImportQuery implements ImportQueryInterface
         $qb = $this->connection->createQueryBuilder();
         $record = $qb
             ->select('line')
-            ->from('importer.import_error')
+            ->from(self::TABLE_ERROR)
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter(':id', $id->getValue())
             ->execute()
@@ -55,11 +65,11 @@ class DbalImportQuery implements ImportQueryInterface
 
     public function getDataSet(SourceId $id): DataSetInterface
     {
-        $qb = $this->getQuery();
-        $qb->andWhere($qb->expr()->eq('source_id', ':sourceId'))
+        $query = $this->getQuery();
+        $query->andWhere($query->expr()->eq('source_id', ':sourceId'))
             ->setParameter('sourceId', $id->getValue());
 
-        return new DbalDataSet($qb);
+        return $this->dataSetFactory->create($query);
     }
 
     public function getErrorDataSet(ImportId $id, Language $language): DataSetInterface
@@ -67,7 +77,7 @@ class DbalImportQuery implements ImportQueryInterface
         $query = $this->connection->createQueryBuilder();
 
         $query->select('il.import_id AS id, il.created_at, il.message, il.parameters')
-            ->from('importer.import_error', 'il')
+            ->from(self::TABLE_ERROR, 'il')
             ->where($query->expr()->eq('il.import_id', ':importId'))
             ->andWhere($query->expr()->isNotNull('il.message'));
 
@@ -76,7 +86,29 @@ class DbalImportQuery implements ImportQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't')
             ->setParameter(':importId', $id->getValue());
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
+    }
+
+    /**
+     * @return array
+     */
+    public function getProfileInfo(Language $language): array
+    {
+        return $this->connection->createQueryBuilder()
+            ->select('i.id, status, started_at, ended_at')
+            ->addSelect('s.name')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) as items')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il 
+                                WHERE il.import_id = i.id AND il.status IS NOT NULL) AS processed')
+            ->addSelect('(SELECT count(*) FROM importer.import_line il 
+                                WHERE il.import_id = i.id AND il.status = \'success\') AS succeeded')
+            ->addSelect('(SELECT count(*) FROM importer.import_error ie WHERE ie.import_id = i.id) AS errors')
+            ->from(self::TABLE, 'i')
+            ->orderBy('started_at', 'DESC')
+            ->join('i', self::TABLE_SOURCE, 's', 's.id = i.source_id')
+            ->setMaxResults(10)
+            ->execute()
+            ->fetchAll();
     }
 
     /**
@@ -97,16 +129,106 @@ class DbalImportQuery implements ImportQueryInterface
         return $result;
     }
 
+    /**
+     * @return ImportId[]
+     */
+    public function getImportIdsBySourceId(SourceId $sourceId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('i.id')
+            ->from(self::TABLE, 'i')
+            ->where($qb->expr()->eq('i.source_id', ':sourceId'))
+            ->setParameter(':sourceId', $sourceId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ImportId($item);
+        }
+
+        return $result;
+    }
+
+    public function getSourceTypeByImportId(ImportId $importId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('s.type')
+            ->join('i', self::TABLE_SOURCE, 's', 's.id = i.source_id')
+            ->where($qb->expr()->eq('i.id', ':importId'))
+            ->setParameter(':importId', $importId->getValue())
+            ->from(self::TABLE, 'i')
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return $result['type'];
+        }
+
+        return null;
+    }
+
+    public function getFileNameByImportId(ImportId $importId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('i.file')
+            ->where($qb->expr()->eq('i.id', ':importId'))
+            ->setParameter(':importId', $importId->getValue())
+            ->from(self::TABLE, 'i')
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return $result['file'];
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findActiveImport(SourceId $sourceId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('i.id')
+            ->from(self::TABLE, 'i')
+            ->where($qb->expr()->eq('i.source_id', ':sourceId'))
+            ->setParameter(':sourceId', $sourceId->getValue())
+            ->andWhere($qb->expr()->isNull('i.ended_at'))
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        foreach ($result as &$item) {
+            $item = new ImportId($item);
+        }
+
+        return $result;
+    }
+
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('id, status, records, source_id, created_at, updated_at, started_at, ended_at')
+            ->select('id, status, source_id, created_at, updated_at, started_at, ended_at')
             ->addSelect(
                 '(SELECT count(*)
                         FROM importer.import_error il
                         WHERE il.import_id = i.id
                         AND il.message IS NOT NULL) AS errors'
             )
-            ->from('importer.import', 'i');
+            ->addSelect(
+                '(SELECT count(*)
+                        FROM importer.import_line il
+                        WHERE il.import_id = i.id
+                        ) AS records'
+            )
+            ->from(self::TABLE, 'i');
     }
 }

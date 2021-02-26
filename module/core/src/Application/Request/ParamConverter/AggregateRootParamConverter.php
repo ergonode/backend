@@ -28,7 +28,7 @@ class AggregateRootParamConverter implements ParamConverterInterface
         $this->manager = $manager;
     }
 
-    public function apply(Request $request, ParamConverter $configuration): void
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         $name = $configuration->getName();
 
@@ -51,6 +51,8 @@ class AggregateRootParamConverter implements ParamConverterInterface
         }
 
         $request->attributes->set($configuration->getName(), $resource);
+
+        return true;
     }
 
     public function supports(ParamConverter $configuration): bool

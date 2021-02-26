@@ -54,17 +54,28 @@ Feature: Multimedia relations
     And store response param "id" as "product_id"
 
   Scenario: Edit product image value in "en_GB" language
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/@attribute_id@/value" with body:
+    When I send a PATCH request to "/api/v1/en_GB/products/attributes" with body:
       """
-      {
-        "value": "@multimedia_id@"
-      }
+        {
+          "data": [
+           {
+              "id": "@product_id@",
+              "payload": [
+                {
+                  "id": "@attribute_id@",
+                  "values" : [
+                    {
+                      "language": "en_GB",
+                      "value": "@multimedia_id@"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
       """
     Then the response status code should be 200
-
-  Scenario: Apply product draft
-    When I send a PUT request to "api/v1/en_GB/products/@product_id@/draft/persist"
-    Then the response status code should be 204
 
   Scenario: Get multimedia relation
     When I send a GET request to "/api/v1/en_GB/multimedia/@multimedia_id@/relation"

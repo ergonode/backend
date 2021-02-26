@@ -9,30 +9,24 @@ declare(strict_types=1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeValid;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use Ergonode\ProductCollection\Application\Validator as productCollectionAssert;
+use Ergonode\SharedKernel\Application\Validator\SystemCode;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductCollectionCreateFormModel
 {
     /**
      * @Assert\NotBlank(message="System name is required")
-     * @Assert\Length(
-     *     max=64,
-     *     maxMessage="System name is too long. It should contain {{ limit }} characters or less."
-     *     )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
      *     message="Product collection System Name can have only letters, digits or underscore symbol"
      *  )
      *
-     * @ProductCollectionCodeValid()
+     * @SystemCode(max=64)
      *
-     * @ProductCollectionCodeUnique()
+     * @productCollectionAssert\ProductCollectionCodeUnique()
      */
-    public ?ProductCollectionCode $code;
+    public ?string $code;
 
     /**
      * @var array
@@ -62,9 +56,10 @@ class ProductCollectionCreateFormModel
 
     /**
      * @Assert\NotBlank(message="Collection type id is required")
-     * @Assert\Uuid(message="Collection type id must be valid uuid format")
+     * @Assert\Uuid(strict=true, message="Collection type id must be valid uuid format")
+     * @productCollectionAssert\ProductCollectionTypeExists()
      */
-    public ?ProductCollectionTypeId $typeId;
+    public ?string $typeId;
 
     public function __construct()
     {

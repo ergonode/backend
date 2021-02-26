@@ -12,9 +12,10 @@ namespace Ergonode\Core\Application\Controller\Api\Unit;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Grid\UnitGrid;
+use Ergonode\Core\Infrastructure\Grid\UnitGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,26 +26,25 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UnitGridReadAction
 {
-    private UnitGrid $unitGrid;
+    private UnitGridBuilder $gridBuilder;
 
     private UnitQueryInterface $unitQuery;
 
     private GridRenderer $gridRenderer;
 
-    /**
-     * UnitGridReadAction constructor.
-     */
     public function __construct(
-        UnitGrid $unitGrid,
+        UnitGridBuilder $gridBuilder,
         UnitQueryInterface $unitQuery,
         GridRenderer $gridRenderer
     ) {
-        $this->unitGrid = $unitGrid;
+        $this->gridBuilder = $gridBuilder;
         $this->unitQuery = $unitQuery;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
+     * @IsGranted("CORE_GET_UNIT_GRID")
+     *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(
      *     name="limit",
@@ -109,14 +109,10 @@ class UnitGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $grid = $this->gridBuilder->build($configuration, $language);
         $dataSet = $this->unitQuery->getDataSet();
 
-        $data = $this->gridRenderer->render(
-            $this->unitGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -9,33 +9,19 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\UnitAttributeForm;
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Application\Form\Type\UnitIdFormType;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
-use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class UnitAttributeFormTest extends TypeTestCase
 {
-    /**
-     * @var AttributeGroupQueryInterface|MockObject
-     */
-    private AttributeGroupQueryInterface $groupQuery;
-
     private UnitQueryInterface $unitQuery;
 
     public function setUp(): void
     {
-        $this->groupQuery = $this->createMock(AttributeGroupQueryInterface::class);
-        $this->groupQuery->method('getAttributeGroupIds')->willReturn([
-            '2ae47e1b-10c3-4dd6-ac70-41000125c29f',
-        ]);
-
         $this->unitQuery = $this->createMock(UnitQueryInterface::class);
         $this->unitQuery->method('getAllUnitIds')->willReturn([
             '9948b184-57ba-4dd7-9aee-7fe81312ef94',
@@ -68,7 +54,7 @@ class UnitAttributeFormTest extends TypeTestCase
         $object->hint = [];
         $object->scope = 'local';
         $object->code = 'code';
-        $object->groups = [new AttributeGroupId('2ae47e1b-10c3-4dd6-ac70-41000125c29f')];
+        $object->groups = ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'];
 
         $objectToCompare = new UnitAttributeFormModel();
         $form = $this->factory->create(UnitAttributeForm::class, $objectToCompare);
@@ -91,7 +77,6 @@ class UnitAttributeFormTest extends TypeTestCase
      */
     protected function getExtensions(): array
     {
-        $types[] = new AttributeGroupType($this->groupQuery);
         $types[] = new UnitIdFormType($this->unitQuery);
 
         return [

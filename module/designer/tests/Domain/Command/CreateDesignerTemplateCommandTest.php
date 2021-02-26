@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Tests\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
@@ -27,7 +27,7 @@ class CreateDesignerTemplateCommandTest extends TestCase
     {
         $name = 'Any Name';
         $elements = new ArrayCollection();
-        $elements->add($this->createMock(TemplateElement::class));
+        $elements->add($this->createMock(TemplateElementInterface::class));
         /** @var MultimediaId $multimediaId */
         $multimediaId = $this->createMock(MultimediaId::class);
         /** @var AttributeId $defaultLabel */

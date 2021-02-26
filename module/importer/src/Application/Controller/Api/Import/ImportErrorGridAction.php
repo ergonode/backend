@@ -14,13 +14,14 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Domain\Query\ImportQueryInterface;
-use Ergonode\Importer\Infrastructure\Grid\ImportErrorsGrid;
+use Ergonode\Importer\Infrastructure\Grid\ImportErrorsGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Importer\Domain\Query\ImportErrorGridQueryInterface;
 
 /**
  * @Route(
@@ -35,21 +36,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ImportErrorGridAction
 {
-    private ImportErrorsGrid $grid;
+    private ImportErrorsGridBuilder $gridBuilder;
 
-    private ImportQueryInterface $query;
+    private ImportErrorGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
-    public function __construct(ImportErrorsGrid $grid, ImportQueryInterface $query, GridRenderer $gridRenderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        ImportErrorsGridBuilder $gridBuilder,
+        ImportErrorGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_GRID_ERROR")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(
@@ -87,14 +95,10 @@ class ImportErrorGridAction
         Import $import,
         RequestGridConfiguration $configuration
     ): Response {
-        $dataSet = $this->query->getErrorDataSet($import->getId(), $language);
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($import->getId(), $language));
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

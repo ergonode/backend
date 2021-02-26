@@ -13,13 +13,14 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
+use Ergonode\Workflow\Infrastructure\Grid\StatusGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Workflow\Domain\Query\StatusGridQueryInterface;
 
 /**
  * @Route(
@@ -32,22 +33,26 @@ class StatusGridReadAction
 {
     private GridRenderer $gridRenderer;
 
-    private StatusQueryInterface $query;
+    private StatusGridQueryInterface $query;
 
-    private StatusGrid $grid;
+    private DbalDataSetFactory $factory;
+
+    private StatusGridBuilder $gridBuilder;
 
     public function __construct(
         GridRenderer $gridRenderer,
-        StatusQueryInterface $query,
-        StatusGrid $grid
+        StatusGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        StatusGridBuilder $gridBuilder
     ) {
         $this->gridRenderer = $gridRenderer;
         $this->query = $query;
-        $this->grid = $grid;
+        $this->factory = $factory;
+        $this->gridBuilder = $gridBuilder;
     }
 
     /**
-     * @IsGranted("WORKFLOW_READ")
+     * @IsGranted("WORKFLOW_GET_STATUS_GRID")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
@@ -96,7 +101,7 @@ class StatusGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -113,12 +118,9 @@ class StatusGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($language));
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

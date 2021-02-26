@@ -17,9 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Importer\Infrastructure\Grid\SourceGrid;
+use Ergonode\Importer\Infrastructure\Grid\SourceGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
-use Ergonode\Importer\Domain\Query\SourceQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Importer\Domain\Query\SourceGridQueryInterface;
 
 /**
  * @Route(
@@ -30,21 +31,28 @@ use Ergonode\Importer\Domain\Query\SourceQueryInterface;
  */
 class SourceGridAction
 {
-    private SourceGrid $grid;
+    private SourceGridBuilder $gridBuilder;
 
-    private SourceQueryInterface $query;
+    private SourceGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $renderer;
 
-    public function __construct(SourceGrid $grid, SourceQueryInterface $query, GridRenderer $renderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        SourceGridBuilder $gridBuilder,
+        SourceGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $renderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->renderer = $renderer;
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_SOURCE_GRID")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(
@@ -110,14 +118,9 @@ class SourceGridAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->query->getDataSet();
-
-        $data = $this->renderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery());
+        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

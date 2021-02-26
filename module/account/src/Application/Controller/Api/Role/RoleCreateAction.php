@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route("/roles", methods={"POST"})
@@ -40,7 +40,7 @@ class RoleCreateAction
     }
 
     /**
-     * @IsGranted("USER_ROLE_CREATE")
+     * @IsGranted("ACCOUNT_POST_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

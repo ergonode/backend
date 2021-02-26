@@ -13,8 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
 
 class DbalAttributeGridQuery implements AttributeGridQueryInterface
 {
@@ -35,27 +33,22 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         $this->connection = $connection;
     }
 
-    public function getDataSet(Language $language, bool $system = false): DataSetInterface
+    public function getDataSetQuery(Language $language, bool $system = false): QueryBuilder
     {
         $query = $this->getQuery();
-        $query->addSelect(
-            sprintf(
-                '(SELECT value FROM value_translation t WHERE t.value_id = a.label AND t.language = \'%s\') '.
-                ' AS label',
-                $language->getCode()
-            )
-        );
-        if ($system) {
-            $query->where('a.system = true');
-        } else {
-            $query->where('a.system = false');
-        }
+        $query->addSelect('
+            (
+                SELECT value 
+                FROM value_translation t 
+                WHERE t.value_id = a.label 
+                AND t.language = :qb_language_code
+            ) AS label');
+        $query->where('a.system = :qb_is_system');
+        $query->setParameter(':qb_language_code', $language->getCode());
+        $query->setParameter(':qb_is_system', $system, \PDO::PARAM_BOOL);
 
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $query;
     }
 
     private function getQuery(): QueryBuilder

@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Grid\Renderer;
 
-use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\GridInterface;
 
 class InfoRender
 {
@@ -19,7 +19,7 @@ class InfoRender
      * @return array
      */
     public function render(
-        AbstractGrid $grid,
+        GridInterface $grid,
         GridConfigurationInterface $configuration,
         DataSetInterface $dataSet
     ): array {

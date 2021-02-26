@@ -20,3 +20,4 @@ services:
         tags: ['messenger.message_handler']
 
     Ergonode\Notification\Domain\Query\NotificationQueryInterface: '@Ergonode\Notification\Infrastructure\Persistence\Query\DbalNotificationQuery'
+    Ergonode\Notification\Domain\Query\NotificationGridQueryInterface: '@Ergonode\Notification\Infrastructure\Persistence\Query\DbalNotificationGridQuery'

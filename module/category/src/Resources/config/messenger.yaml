@@ -1,0 +1,5 @@
+framework:
+    messenger:
+        routing:
+            Ergonode\Category\Domain\Command\CreateCategoryCommand: '%ergonode.category.messenger_transport_name%'
+            Ergonode\Category\Domain\Command\UpdateCategoryCommand: '%ergonode.category.messenger_transport_name%'

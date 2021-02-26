@@ -12,7 +12,6 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
@@ -31,36 +30,6 @@ class DbalSegmentQuery implements SegmentQueryInterface
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDataSet(Language $language): DbalDataSet
-    {
-        $query = $this->getQuery();
-        $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
-        $query->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
-        $query->addSelect(
-            '(SELECT count(*) FROM segment_product 
-            WHERE segment_id = t.id 
-            AND available = true AND calculated_at IS NOT NULL) 
-            AS products_count'
-        );
-        $query->addSelect(
-            '(SELECT 
-            CASE
-                WHEN count(*) = 0 THEN \'new\'
-                WHEN count(calculated_at) = count(*)  THEN \'calculated\' 
-                ELSE \'processed\' 
-            END 
-            FROM segment_product WHERE segment_id = t.id) as status'
-        );
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't');
-
-        return new DbalDataSet($result);
     }
 
     /**

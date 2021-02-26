@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
-class WorkflowStatusRemovedEvent implements DomainEventInterface
+class WorkflowStatusRemovedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")

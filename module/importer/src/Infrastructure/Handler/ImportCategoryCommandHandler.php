@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -13,6 +14,7 @@ use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Psr\Log\LoggerInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 class ImportCategoryCommandHandler
 {
@@ -35,14 +37,21 @@ class ImportCategoryCommandHandler
     public function __invoke(ImportCategoryCommand $command): void
     {
         try {
-            $this->action->action(
-                $command->getCode(),
+            if (!CategoryCode::isValid($command->getCode())) {
+                throw new ImportException('Category code {code} is not valid', ['{code}' => $command->getCode()]);
+            }
+
+            $category = $this->action->action(
+                new CategoryCode($command->getCode()),
                 $command->getName(),
             );
+            $this->repository->markLineAsSuccess($command->getId(), $category->getId());
         } catch (ImportException $exception) {
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $exception->getMessage(), $exception->getParameters());
         } catch (\Exception $exception) {
             $message = 'Can\'t import category product {name}';
+            $this->repository->markLineAsFailure($command->getId());
             $this->repository->addError($command->getImportId(), $message, ['{name}' => $command->getName()]);
             $this->logger->error($exception);
         }

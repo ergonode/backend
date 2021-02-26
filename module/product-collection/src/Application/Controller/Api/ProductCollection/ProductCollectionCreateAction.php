@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Application\Form\ProductCollectionCreateForm;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionCreateFormModel;
 use Ergonode\ProductCollection\Domain\Command\CreateProductCollectionCommand;
@@ -24,6 +24,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 
 /**
  * @Route(
@@ -47,7 +49,7 @@ class ProductCollectionCreateAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_CREATE")
+     * @IsGranted("PRODUCT_COLLECTION_POST")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
@@ -89,10 +91,10 @@ class ProductCollectionCreateAction
                 /** @var ProductCollectionCreateFormModel $data */
                 $data = $form->getData();
                 $command = new CreateProductCollectionCommand(
-                    $data->code,
+                    new ProductCollectionCode($data->code),
                     new TranslatableString($data->name),
                     new TranslatableString($data->description),
-                    $data->typeId
+                    new ProductCollectionTypeId($data->typeId)
                 );
                 $this->commandBus->dispatch($command);
 

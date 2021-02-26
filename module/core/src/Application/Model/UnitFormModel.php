@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Model;
 
-use Ergonode\Core\Infrastructure\Validator\Constraint\UnitForm;
+use Ergonode\Core\Application\Validator\UnitForm;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Symfony\Component\Validator\Constraints as Assert;
 

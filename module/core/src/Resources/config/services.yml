@@ -41,7 +41,7 @@ services:
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\DbalLanguageQuery'
     Ergonode\Core\Domain\Query\UnitQueryInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\DbalUnitQuery'
     Ergonode\Core\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\Core\Infrastructure\Persistence\Repository\DbalLanguageRepository'
-    Ergonode\Core\Domain\Repository\UnitRepositoryInterface: '@Ergonode\Core\Infrastructure\Persistence\Repository\DbalUnitRepository'
+    Ergonode\Core\Domain\Repository\UnitRepositoryInterface: '@Ergonode\Core\Infrastructure\Persistence\Repository\EventStoreUnitRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
     Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface: '@Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver'
     Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\Builder\DbalDefaultLabelQueryBuilder'
@@ -63,15 +63,15 @@ services:
         arguments:
             - '@Ergonode\Core\Infrastructure\Service\Decorator\CacheDownloaderDecorator.inner'
 
-    #Behat
-    Ergonode\Core\Test\Behat\Context\ResolveVarsContext:
-        public: true
+    Ergonode\SharedKernel\Domain\Bus\EventBusInterface: '@Ergonode\Core\Application\Messenger\EventBus'
 
-    Ergonode\Core\Test\Behat\Context\StoreRestResponseParamContext:
-        public: true
+    Ergonode\SharedKernel\Domain\Bus\CommandBusInterface: '@Ergonode\Core\Application\Messenger\CommandBus'
+    Ergonode\Core\Application\Messenger\CommandBus:
+        arguments:
+            $syncBus: '@messenger.bus.sync'
+            $asyncBus: '@messenger.bus.async'
+            $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'
 
-    Ergonode\Core\Test\Behat\Context\UserContext:
-        public: true
-
-    Ergonode\Core\Test\Behat\Context\StorageContext:
-        public: true
+    Ergonode\Core\Application\Serializer\JMSSerializer:
+        arguments:
+            $serializer: '@jms_serializer'

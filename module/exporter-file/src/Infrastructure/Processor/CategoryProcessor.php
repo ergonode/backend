@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -41,7 +41,6 @@ class CategoryProcessor
     private function getLanguage(AbstractCategory $category, Language $language): LanguageData
     {
         $result = new LanguageData();
-        $result->set('_id', $category->getId()->getValue());
         $result->set('_code', $category->getCode()->getValue());
         $result->set('_name', $category->getName()->get($language));
         $result->set('_language', $language->getCode());

@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -52,7 +52,7 @@ class ProductCollectionTypeDeleteAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_DELETE")
+     * @IsGranted("PRODUCT_COLLECTION_DELETE_TYPE")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

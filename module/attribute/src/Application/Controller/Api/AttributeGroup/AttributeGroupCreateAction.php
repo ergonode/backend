@@ -23,7 +23,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 
 /**
  * @Route("/attributes/groups", methods={"POST"}, name="ergonode_attribute_group_create")
@@ -41,7 +42,7 @@ class AttributeGroupCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GROUP_CREATE")
+     * @IsGranted("ATTRIBUTE_POST_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -92,7 +93,7 @@ class AttributeGroupCreateAction
                 $data = $form->getData();
 
                 $command = new CreateAttributeGroupCommand(
-                    $data->code,
+                    new AttributeGroupCode($data->code),
                     new TranslatableString($data->name)
                 );
                 $this->commandBus->dispatch($command);

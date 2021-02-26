@@ -1,3 +1,6 @@
+parameters:
+    authorization_header: 'JWTAuthorization'
+
 lexik_jwt_authentication:
     secret_key: '%kernel.project_dir%/%env(JWT_PRIVATE_KEY_PATH)%'
     public_key:  '%kernel.project_dir%/%env(JWT_PUBLIC_KEY_PATH)%'
@@ -6,5 +9,5 @@ lexik_jwt_authentication:
     token_extractors:
         # look for a token as Authorization Header
         authorization_header:
-            name: 'JWTAuthorization'
+            name: '%authorization_header%'
     user_identity_field: id

@@ -14,7 +14,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Workflow\Application\Provider\WorkflowFormProvider;
 use Ergonode\Api\Application\Response\CreatedResponse;
@@ -54,7 +54,7 @@ class WorkflowChangeAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_UPDATE")
+     * @IsGranted("WORKFLOW_PUT")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

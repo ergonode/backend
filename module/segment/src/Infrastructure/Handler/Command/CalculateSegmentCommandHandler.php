@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
@@ -41,9 +41,9 @@ class CalculateSegmentCommandHandler
     {
         $segmentId = $command->getSegmentId();
         $productIds = $this->query->getAllIds();
+        $this->service->addBySegment($segmentId);
         foreach ($productIds as $productId) {
             $productId = new ProductId($productId);
-            $this->service->add($segmentId, $productId);
             $this->commandBus->dispatch(new CalculateProductInSegmentCommand($segmentId, $productId), true);
         }
     }

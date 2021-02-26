@@ -16,8 +16,9 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 class OptionImportAction
 {
@@ -40,7 +41,7 @@ class OptionImportAction
     /**
      * @throws \Exception
      */
-    public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): void
+    public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): AggregateId
     {
         $attributeId = $this->attributeQuery->findAttributeIdByCode($code);
         Assert::notNull($attributeId);
@@ -52,6 +53,7 @@ class OptionImportAction
                 $optionKey,
                 $label
             );
+            $optionId = $command->getId();
         } else {
             $command = new UpdateOptionCommand(
                 $optionId,
@@ -62,5 +64,7 @@ class OptionImportAction
         }
 
         $this->commandBus->dispatch($command, true);
+
+        return $optionId;
     }
 }

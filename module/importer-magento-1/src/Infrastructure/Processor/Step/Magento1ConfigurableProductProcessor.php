@@ -8,23 +8,26 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportVariableProductCommand;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
     private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBusInterface $commandBus)
+    private ImportRepositoryInterface $importRepository;
+
+    public function __construct(CommandBusInterface $commandBus, ImportRepositoryInterface $importRepository)
     {
         $this->commandBus = $commandBus;
+        $this->importRepository = $importRepository;
     }
 
     /**
@@ -37,12 +40,14 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
         array $attributes
     ): void {
         if ($product->getType() === 'configurable') {
+            $id = ImportLineId::generate();
             $categories = $this->getCategories($product);
             $attributes = $this->getAttributes($source, $product, $attributes);
             $bindings = $this->getBindings($product);
             $variants = $this->getVariants($product);
 
             $command = new ImportVariableProductCommand(
+                $id,
                 $import->getId(),
                 $product->getSku(),
                 $product->getTemplate(),
@@ -52,43 +57,33 @@ class Magento1ConfigurableProductProcessor extends AbstractProductProcessor impl
                 $attributes
             );
             $this->commandBus->dispatch($command, true);
-            $import->addRecords(1);
+            $this->importRepository->addLine($id, $import->getId(), 'PRODUCT');
         }
     }
 
     /**
-     * @return AttributeCode[]
+     * @return string[]
      */
     private function getBindings(ProductModel $product): array
     {
-        $result = [];
-
-        $default = $product->get('default');
-        if ($bindings = $default['bindings'] ?? null) {
-            $bindings = array_unique(explode(',', $bindings));
-            foreach ($bindings as $binding) {
-                $result[] = new AttributeCode($binding);
-            }
+        $default = $product->getDefault();
+        if ($default['bindings']) {
+            return array_unique(explode(',', $default['bindings']));
         }
 
-        return $result;
+        return [];
     }
 
     /**
-     * @return Sku[]
+     * @return string[]
      */
     private function getVariants(ProductModel $product): ?array
     {
-        $result = [];
-
-        $default = $product->get('default');
-        if ($variants = $default['variants'] ?? null) {
-            $variants = array_unique(explode(',', $variants));
-            foreach ($variants as $variant) {
-                $result[] = new Sku($variant);
-            }
+        $default = $product->getDefault();
+        if ($default['variants']) {
+            return array_unique(explode(',', $default['variants']));
         }
 
-        return $result;
+        return [];
     }
 }

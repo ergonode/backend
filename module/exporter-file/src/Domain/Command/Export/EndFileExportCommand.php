@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Domain\Command\Export;
 
-use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
+use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class EndFileExportCommand implements ExporterCommandInterface

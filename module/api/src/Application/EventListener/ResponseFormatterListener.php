@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Api\Application\EventListener;
 
 use Ergonode\Api\Application\Response\AbstractResponse;
-use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class ResponseFormatterListener
 {
@@ -32,7 +32,7 @@ class ResponseFormatterListener
         $content = $response->getContent();
 
         if (null !== $content && !is_string($content)) {
-            $content = $this->serializer->serialize($content, 'json');
+            $content = $this->serializer->serialize($content);
             $response->setContent($content);
             $event->setResponse($response);
         }

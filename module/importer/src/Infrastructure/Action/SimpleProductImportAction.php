@@ -9,17 +9,18 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Domain\ValueObject\Sku;
-use Webmozart\Assert\Assert;
-use Ergonode\Product\Domain\Entity\SimpleProduct;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Webmozart\Assert\Assert;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class SimpleProductImportAction
 {
@@ -48,8 +49,8 @@ class SimpleProductImportAction
     }
 
     /**
-     * @param array $categories
-     * @param array $attributes
+     * @param CategoryCode[]       $categories
+     * @param TranslatableString[] $attributes
      *
      * @throws \Exception
      */
@@ -58,14 +59,11 @@ class SimpleProductImportAction
         string $template,
         array $categories,
         array $attributes = []
-    ): void {
+    ): SimpleProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
         Assert::notNull($templateId);
         $productId = $this->productQuery->findProductIdBySku($sku);
-
         $categories = $this->getCategories($categories);
-
-
         $attributes = $this->builder->build($attributes);
 
         if (!$productId) {
@@ -86,6 +84,8 @@ class SimpleProductImportAction
         $product->changeAttributes($attributes);
 
         $this->repository->save($product);
+
+        return $product;
     }
 
     /**
@@ -99,7 +99,7 @@ class SimpleProductImportAction
         foreach ($categories as $category) {
             $categoryId = $this->categoryQuery->findIdByCode($category);
             Assert::notNull($categoryId);
-            $categories[] = $categoryId;
+            $result[] = $categoryId;
         }
 
         return $result;

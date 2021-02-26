@@ -18,7 +18,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -52,7 +52,7 @@ class OptionChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_UPDATE")
+     * @IsGranted("ATTRIBUTE_PUT_OPTION")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

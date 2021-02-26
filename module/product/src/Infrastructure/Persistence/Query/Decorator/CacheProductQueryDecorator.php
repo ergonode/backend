@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Query\Decorator;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -34,12 +32,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     {
         $this->query = $query;
     }
-
-    public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
-    {
-        return $this->query->getDataSetByProduct($language, $productId);
-    }
-
 
     public function findProductIdBySku(Sku $sku): ?ProductId
     {
@@ -121,14 +113,6 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function findProductIdsBySegments(array $segmentIds): array
     {
         return $this->query->findProductIdsBySegments($segmentIds);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findProductCollectionIdByProductId(ProductId $id)
-    {
-        return $this->query->findProductCollectionIdByProductId($id);
     }
 
     /**

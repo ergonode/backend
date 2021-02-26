@@ -13,6 +13,7 @@ use Ergonode\ExporterShopware6\Domain\Command\UpdateShopware6ChannelCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,7 @@ class UpdateShopware6ChannelCommandTest extends TestCase
     private ChannelId $id;
 
     private string $name;
+
     private string $host;
 
     private string $clientId;
@@ -87,9 +89,29 @@ class UpdateShopware6ChannelCommandTest extends TestCase
     private AttributeId $productGallery;
 
     /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productMetaTitle;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productMetaDescription;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productKeywords;
+
+    /**
      * @var CategoryTreeId|MockObject
      */
     private CategoryTreeId $categoryTreeId;
+
+    /**
+     * @var ProductCollectionId|MockObject
+     */
+    private ProductCollectionId $crossSelling;
 
     protected function setUp(): void
     {
@@ -109,7 +131,11 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->productGallery = $this->createMock(AttributeId::class);
+        $this->productMetaTitle = $this->createMock(AttributeId::class);
+        $this->productMetaDescription = $this->createMock(AttributeId::class);
+        $this->productKeywords = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
+        $this->crossSelling = $this->createMock(ProductCollectionId::class);
     }
 
     public function testCreateCommand(): void
@@ -131,9 +157,13 @@ class UpdateShopware6ChannelCommandTest extends TestCase
             $this->productTax,
             $this->productDescription,
             $this->productGallery,
+            $this->productMetaTitle,
+            $this->productMetaDescription,
+            $this->productKeywords,
             $this->categoryTreeId,
             [],
-            []
+            [],
+            [$this->crossSelling]
         );
 
         self::assertEquals($this->id, $command->getId());
@@ -152,8 +182,13 @@ class UpdateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->productTax, $command->getProductTax());
         self::assertEquals($this->productDescription, $command->getProductDescription());
         self::assertEquals($this->productGallery, $command->getProductGallery());
+        self::assertEquals($this->productMetaTitle, $command->getProductMetaTitle());
+        self::assertEquals($this->productMetaDescription, $command->getProductMetaDescription());
+        self::assertEquals($this->productKeywords, $command->getProductKeywords());
         self::assertEquals($this->categoryTreeId, $command->getCategoryTree());
         self::assertIsArray($command->getPropertyGroup());
         self::assertIsArray($command->getCustomField());
+        self::assertIsArray($command->getCrossSelling());
+        self::assertContains($this->crossSelling, $command->getCrossSelling());
     }
 }

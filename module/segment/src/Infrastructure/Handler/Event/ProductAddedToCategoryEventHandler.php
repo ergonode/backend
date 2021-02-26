@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;

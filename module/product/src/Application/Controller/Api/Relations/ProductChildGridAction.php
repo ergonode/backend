@@ -15,11 +15,12 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Product\Infrastructure\Grid\ProductChildrenGrid;
+use Ergonode\Product\Infrastructure\Grid\ProductChildrenGridBuilder;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Swagger\Annotations as SWG;
+use Ergonode\Product\Domain\Query\ProductChildrenGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -31,24 +32,28 @@ use Swagger\Annotations as SWG;
  */
 class ProductChildGridAction
 {
-    private ProductChildrenQueryInterface $query;
+    private ProductChildrenGridQueryInterface $query;
 
     private GridRenderer $gridRenderer;
 
-    private ProductChildrenGrid $grid;
+    private DbalDataSetFactory $factory;
+
+    private ProductChildrenGridBuilder $gridBuilder;
 
     public function __construct(
-        ProductChildrenQueryInterface $query,
+        ProductChildrenGridQueryInterface $query,
         GridRenderer $gridRenderer,
-        ProductChildrenGrid $grid
+        DbalDataSetFactory $factory,
+        ProductChildrenGridBuilder $gridBuilder
     ) {
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
-        $this->grid = $grid;
+        $this->factory = $factory;
+        $this->gridBuilder = $gridBuilder;
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_RELATIONS_CHILDREN")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -131,12 +136,9 @@ class ProductChildGridAction
         Language $language,
         RequestGridConfiguration $configuration
     ): Response {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet($product->getId(), $language),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($product->getId(), $language));
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Api\Application\EventListener;
 
-use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class RequestBodyListener
 {
@@ -46,7 +46,7 @@ class RequestBodyListener
             return;
         }
 
-        $data = $this->serializer->deserialize($content, 'array', $contentType);
+        $data = $this->serializer->deserialize($content, 'array');
 
         $request->request = new ParameterBag($data);
     }

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler\Export;
 
-use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\StartShopware6ExportProcess;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
@@ -44,6 +44,6 @@ class StartShopware6ExportCommandHandler
         $export->start();
         $this->exportRepository->save($export);
 
-        $this->processor->process($export->getId(), $channel);
+        $this->processor->process($export, $channel);
     }
 }

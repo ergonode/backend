@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Model\LanguageTree;
 
-use Ergonode\Core\Infrastructure\Validator\Constraint\LanguageIdExists;
+use Ergonode\Core\Application\Validator as CoreAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,7 +20,7 @@ class LanguageTreeNodeFormModel
      * @Assert\NotBlank(message="Language is required")
      * @Assert\NotNull()
      *
-     * @LanguageIdExists(groups={"Language"}))
+     * @CoreAssert\LanguageIdExists(groups={"Language"}))
      */
     public ?string $languageId;
 

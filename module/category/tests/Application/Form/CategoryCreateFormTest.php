@@ -10,7 +10,6 @@ namespace Ergonode\Category\Tests\Application\Form;
 
 use Ergonode\Category\Application\Form\CategoryForm;
 use Ergonode\Category\Application\Model\CategoryFormModel;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class CategoryCreateFormTest extends TypeTestCase
@@ -24,7 +23,7 @@ class CategoryCreateFormTest extends TypeTestCase
 
         $object = new CategoryFormModel();
         $object->name = ['pl_PL' =>  'Any Name'];
-        $object->code = new CategoryCode('any_code');
+        $object->code = 'any_code';
 
         $objectToCompare = new CategoryFormModel();
         $form = $this->factory->create(CategoryForm::class, $objectToCompare);

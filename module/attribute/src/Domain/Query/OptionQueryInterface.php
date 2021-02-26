@@ -35,4 +35,6 @@ interface OptionQueryInterface
     public function getDataSet(AttributeId $attributeId, Language $language): DataSetInterface;
 
     public function findIdByAttributeIdAndCode(AttributeId $id, OptionKey $code): ?AggregateId;
+
+    public function findKey(AggregateId $id): ?OptionKey;
 }

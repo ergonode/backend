@@ -13,40 +13,42 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
-use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGrid;
+use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGridBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/collections", methods={"GET"})
  */
 class ProductCollectionGridReadAction
 {
-    private ProductCollectionGrid $productCollectionGrid;
+    private ProductCollectionGridBuilder $productCollectionGridBuilder;
 
-    private ProductCollectionQueryInterface $collectionQuery;
+    private ProductCollectionGridQueryInterface $collectionQuery;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
-    /**
-     * ProductCollectionGridReadAction constructor.
-     */
     public function __construct(
-        ProductCollectionGrid $productCollectionGrid,
-        ProductCollectionQueryInterface $collectionQuery,
+        ProductCollectionGridBuilder $productCollectionGridBuilder,
+        ProductCollectionGridQueryInterface $collectionQuery,
+        DbalDataSetFactory $factory,
         GridRenderer $gridRenderer
     ) {
-        $this->productCollectionGrid = $productCollectionGrid;
+        $this->productCollectionGridBuilder = $productCollectionGridBuilder;
         $this->collectionQuery = $collectionQuery;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_READ")
+     * @IsGranted("PRODUCT_COLLECTION_GET_GRID")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
@@ -112,14 +114,10 @@ class ProductCollectionGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->collectionQuery->getDataSet($language);
+        $grid = $this->productCollectionGridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->collectionQuery->getGridQuery($language));
 
-        $data = $this->gridRenderer->render(
-            $this->productCollectionGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -9,8 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
-use Ergonode\Account\Domain\Query\AccountQueryInterface;
-use Ergonode\Account\Infrastructure\Grid\AccountGrid;
+use Ergonode\Account\Infrastructure\Grid\AccountGridBuilder;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
@@ -20,30 +19,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Account\Domain\Query\AccountGridQueryInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route("/accounts", methods={"GET"})
  */
 class UsersReadAction
 {
-    private AccountGrid $grid;
+    private AccountGridBuilder $gridBuilder;
 
-    private AccountQueryInterface $query;
+    private AccountGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        AccountGrid $grid,
-        AccountQueryInterface $query
+        AccountGridBuilder $gridBuilder,
+        AccountGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
-        $this->grid = $grid;
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("USER_READ")
+     * @IsGranted("ACCOUNT_GET_GRID")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -110,12 +115,9 @@ class UsersReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $this->query->getDataSet(),
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery());
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
@@ -36,7 +36,7 @@ class WorkflowDefaultStatusSetAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_UPDATE")
+     * @IsGranted("WORKFLOW_PUT_DEFAULT_STATUS")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

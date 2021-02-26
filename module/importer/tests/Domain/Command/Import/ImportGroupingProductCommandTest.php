@@ -11,22 +11,23 @@ namespace Ergonode\Importer\Tests\Domain\Command\Import;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
-use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportGroupingProductCommandTest extends TestCase
 {
     public function testCommandCreation(): void
     {
+        $id = $this->createMock(ImportLineId::class);
         $importId = $this->createMock(ImportId::class);
-        $sku = $this->createMock(Sku::class);
+        $sku = 'any sku';
         $template = 'code template';
-        $categories = [$this->createMock(CategoryCode::class)];
+        $categories = ['any category code'];
         $attributes = ['code' => $this->createMock(TranslatableString::class)];
-        $children = [$this->createMock(Sku::class)];
+        $children = ['any child sku'];
 
         $command = new ImportGroupingProductCommand(
+            $id,
             $importId,
             $sku,
             $template,
@@ -34,6 +35,7 @@ class ImportGroupingProductCommandTest extends TestCase
             $children,
             $attributes
         );
+        self::assertSame($id, $command->getId());
         self::assertSame($importId, $command->getImportId());
         self::assertSame($sku, $command->getSku());
         self::assertSame($template, $command->getTemplate());

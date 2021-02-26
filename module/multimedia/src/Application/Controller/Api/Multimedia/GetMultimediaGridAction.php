@@ -9,16 +9,18 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\Renderer\GridRenderer;
+use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface;
+use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGridBuilder;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Grid\Renderer\GridRenderer;
-use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGrid;
-use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 
 /**
  * @Route(
@@ -29,20 +31,29 @@ use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
  */
 class GetMultimediaGridAction
 {
-    private MultimediaGrid $grid;
+    private MultimediaGridBuilder $gridBuilder;
 
-    private MultimediaQueryInterface $query;
+    private MultimediaGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $renderer;
 
-    public function __construct(MultimediaGrid $grid, MultimediaQueryInterface $query, GridRenderer $renderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        MultimediaGridBuilder $gridBuilder,
+        MultimediaGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $renderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->renderer = $renderer;
     }
 
     /**
+     * @IsGranted("MULTIMEDIA_GET")
+     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="limit",
@@ -107,14 +118,9 @@ class GetMultimediaGridAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->query->getDataSet();
-
-        $data = $this->renderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery());
+        $data = $this->renderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

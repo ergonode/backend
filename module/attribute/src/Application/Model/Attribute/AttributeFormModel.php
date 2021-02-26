@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Application\Model\Attribute;
 
-use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
+use Ergonode\Attribute\Application\Validator as AttributeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class AttributeFormModel
@@ -19,14 +19,13 @@ class AttributeFormModel
      *     message="System name is required",
      *     groups={"Create"}
      *     )
-     * @Assert\Length(
-     *     max=128,
-     *     maxMessage="Maximum number of characters is 128",
+     *
+     * @AttributeAssert\AttributeCode(
      *     groups={"Create"}
-     *     )
-     * @AppAssert\AttributeCode(
+     * )
+     * @AttributeAssert\AttributeCodeUnique(
      *     groups={"Create"}
-     *     )
+     * )
      */
     public ?string $code = null;
 
@@ -78,7 +77,13 @@ class AttributeFormModel
     public array $hint = [];
 
     /**
-     * @var array
+     * @var string[]
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Uuid(strict=true),
+     *     @AttributeAssert\AttributeGroupExists()
+     * })
      */
     public array $groups = [];
 }

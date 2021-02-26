@@ -10,15 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 class DbalChannelQuery implements ChannelQueryInterface
 {
-    private const TABLE_VALUE = 'exporter.channel';
+    private const CHANNEL_TABLE = 'exporter.channel';
 
     private Connection $connection;
 
@@ -27,15 +24,23 @@ class DbalChannelQuery implements ChannelQueryInterface
         $this->connection = $connection;
     }
 
-    public function getDataSet(Language $language): DataSetInterface
+    public function findChannelIdsByType(string $type): array
     {
-        return new DbalDataSet($this->getQuery());
-    }
+        $qb = $this->connection->createQueryBuilder();
 
-    private function getQuery(): QueryBuilder
-    {
-        return $this->connection->createQueryBuilder()
-            ->select('ch.id, ch.name, ch.type')
-            ->from(self::TABLE_VALUE, 'ch');
+        $data = $qb
+            ->select('id')
+            ->from(self::CHANNEL_TABLE)
+            ->where($qb->expr()->eq('type', ':type'))
+            ->setParameter(':type', $type)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($data as $channelId) {
+            $result[] = new ChannelId($channelId);
+        }
+
+        return $result;
     }
 }

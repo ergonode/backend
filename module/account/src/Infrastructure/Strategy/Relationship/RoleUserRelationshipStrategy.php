@@ -18,7 +18,7 @@ use Webmozart\Assert\Assert;
 
 class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
 {
-    private const MESSAGE = 'Object has active relationships with {relations}';
+    private const MESSAGE = 'Object has active relationships with user %relations%';
 
     private AccountQueryInterface $query;
 

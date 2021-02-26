@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Core\Application\Model\Type;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
+use Ergonode\Core\Application\Validator as CoreAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class LanguageConfigurationFormTypeModel
@@ -18,7 +18,7 @@ class LanguageConfigurationFormTypeModel
     /**
      * @Assert\NotBlank(message="Lanugage code is required")
      *
-     * @CoreAssert\LanguageCodeConstraint();
+     * @CoreAssert\LanguageCode();
      */
     public ?Language $code = null;
 

@@ -13,7 +13,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
@@ -27,15 +28,18 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
 
     private Connection $connection;
 
-    public function __construct(Connection $connection)
+    private DbalDataSetFactory $dataSetFactory;
+
+    public function __construct(Connection $connection, DbalDataSetFactory $dataSetFactory)
     {
         $this->connection = $connection;
+        $this->dataSetFactory = $dataSetFactory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getDataSet(Language $language): DbalDataSet
+    public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
         $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
@@ -45,21 +49,20 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        return new DbalDataSet($result);
+        return $this->dataSetFactory->create($result);
     }
 
     /**
      * @return array
      */
-    public function findNumericConditionRelations(AttributeId $attributeId): array
+    public function findAttributeIdConditionRelations(AttributeId $attributeId): array
     {
         $qb = $this->connection->createQueryBuilder();
 
-        $records = $qb->select('id')
+        $records = $qb->select('DISTINCT id')
             ->from(self::TABLE)
-            ->where($qb->expr()->eq('conditions->0->>\'type\'', ':type'))
-            ->where($qb->expr()->eq('conditions->0->>\'attribute\'', ':attribute_id'))
-            ->setParameter(':type', 'NUMERIC_ATTRIBUTE_VALUE_CONDITION')
+            ->from('jsonb_array_elements(conditions) AS condition')
+            ->where($qb->expr()->eq('condition::jsonb->>\'attribute\'', ':attribute_id'))
             ->setParameter(':attribute_id', $attributeId->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);

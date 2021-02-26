@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route("/categories", methods={"POST"})
@@ -51,7 +51,7 @@ class CategoryCreateAction
 
 
     /**
-     * @IsGranted("CATEGORY_CREATE")
+     * @IsGranted("CATEGORY_POST")
      *
      * @SWG\Tag(name="Category")
      *

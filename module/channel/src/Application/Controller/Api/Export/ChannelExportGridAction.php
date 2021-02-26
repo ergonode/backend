@@ -17,9 +17,10 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Channel\Infrastructure\Grid\ExportGrid;
-use Ergonode\Channel\Domain\Query\ExportQueryInterface;
+use Ergonode\Channel\Infrastructure\Grid\ExportGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Channel\Domain\Query\ExportGridQueryInterface;
 
 /**
  * @Route(
@@ -31,21 +32,28 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelExportGridAction
 {
-    private ExportGrid $grid;
+    private ExportGridBuilder $gridBuilder;
 
-    private ExportQueryInterface $query;
+    private ExportGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
-    public function __construct(ExportGrid $grid, ExportQueryInterface $query, GridRenderer $gridRenderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        ExportGridBuilder $gridBuilder,
+        ExportGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_EXPORT_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
@@ -115,14 +123,10 @@ class ChannelExportGridAction
         AbstractChannel $channel,
         RequestGridConfiguration $configuration
     ): Response {
-        $dataSet = $this->query->getDataSet($channel->getId(), $language);
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($channel->getId(), $language));
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

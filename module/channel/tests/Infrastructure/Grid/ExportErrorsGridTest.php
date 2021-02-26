@@ -11,7 +11,7 @@ namespace Ergonode\Channel\Tests\Infrastructure\Grid;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
+use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGridBuilder;
 
 class ExportErrorsGridTest extends TestCase
 {
@@ -21,8 +21,9 @@ class ExportErrorsGridTest extends TestCase
         $configuration = $this->createMock(GridConfigurationInterface::class);
         /** @var Language $language */
         $language = $this->createMock(Language::class);
-        $grid = new ExportErrorsGrid();
-        $grid->init($configuration, $language);
+        $builder = new ExportErrorsGridBuilder();
+        $grid = $builder->build($configuration, $language);
+
         self::assertNotEmpty($grid->getColumns());
     }
 }

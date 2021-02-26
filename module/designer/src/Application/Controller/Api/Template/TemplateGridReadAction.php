@@ -11,37 +11,45 @@ namespace Ergonode\Designer\Application\Controller\Api\Template;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
-use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
+use Ergonode\Designer\Infrastructure\Grid\TemplateGridBuilder;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Designer\Domain\Query\TemplateGridQueryInterface;
 
 /**
  * @Route("/templates", methods={"GET"})
  */
 class TemplateGridReadAction
 {
-    private TemplateQueryInterface $designerTemplateQuery;
+    private TemplateGridQueryInterface $designerTemplateQuery;
 
-    private TemplateGrid $templateGrid;
+    private TemplateGridBuilder $gridBuilder;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
     public function __construct(
-        GridRenderer $gridRenderer,
-        TemplateQueryInterface $designerTemplateQuery,
-        TemplateGrid $templateGrid
+        TemplateGridQueryInterface $designerTemplateQuery,
+        TemplateGridBuilder $gridBuilder,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
     ) {
         $this->designerTemplateQuery = $designerTemplateQuery;
-        $this->templateGrid = $templateGrid;
+        $this->gridBuilder = $gridBuilder;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
+     * @IsGranted("DESIGNER_GET_TEMPLATE_GRID")
+     *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
      *     name="limit",
@@ -82,7 +90,7 @@ class TemplateGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -107,14 +115,10 @@ class TemplateGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->designerTemplateQuery->getDataSet();
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->designerTemplateQuery->getGridQuery());
 
-        $data = $this->gridRenderer->render(
-            $this->templateGrid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

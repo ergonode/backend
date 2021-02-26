@@ -74,15 +74,6 @@
             "ref": "ae205d5114e719deb64d2110f56ef910787d1e04"
         }
     },
-    "doctrine/doctrine-migrations-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
-        }
-    },
     "doctrine/event-manager": {
         "version": "v1.0.0"
     },
@@ -229,6 +220,9 @@
     },
     "lcobucci/jwt": {
         "version": "3.2.2"
+    },
+    "league/csv": {
+        "version": "9.6.1"
     },
     "league/flysystem": {
         "version": "1.0.69"
@@ -591,6 +585,9 @@
             "ref": "c0c0bf94174609d740ca2a61e0201949c5683d50"
         }
     },
+    "symfony/http-client-contracts": {
+        "version": "v2.3.1"
+    },
     "symfony/http-foundation": {
         "version": "v4.1.0"
     },
@@ -650,9 +647,6 @@
     },
     "symfony/options-resolver": {
         "version": "v4.1.0"
-    },
-    "symfony/orm-pack": {
-        "version": "v1.0.5"
     },
     "symfony/phpunit-bridge": {
         "version": "3.3",

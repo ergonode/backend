@@ -11,7 +11,6 @@ namespace Ergonode\Account\Application\Form;
 
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\Type\LanguagePrivilegesType;
-use Ergonode\Account\Application\Form\Type\RoleIdType;
 use Ergonode\Core\Application\Form\Type\BooleanType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Symfony\Component\Form\AbstractType;
@@ -50,7 +49,7 @@ class UpdateUserForm extends AbstractType
             )
             ->add(
                 'roleId',
-                RoleIdType::class
+                TextType::class
             )
             ->add(
                 'languagePrivilegesCollection',

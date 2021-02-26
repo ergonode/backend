@@ -36,7 +36,7 @@ class ProductReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

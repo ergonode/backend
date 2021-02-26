@@ -20,7 +20,7 @@ use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionMessage;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface
 {
@@ -118,7 +118,7 @@ class DbalBatchActionRepository implements BatchActionRepositoryInterface
         $success = true;
         $json = null;
         if (!empty($messages)) {
-            $json = $this->serializer->serialize($messages, 'json');
+            $json = $this->serializer->serialize($messages);
             $success = false;
         }
 

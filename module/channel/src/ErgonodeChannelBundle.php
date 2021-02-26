@@ -14,6 +14,7 @@ use Ergonode\Channel\Application\DependencyInjection\CompilerPass\ChannelFormFac
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\ChannelTypeCompilerPass;
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\CreateChannelCommandBuilderCompilerPass;
 use Ergonode\Channel\Application\DependencyInjection\CompilerPass\UpdateChannelCommandBuilderCompilerPass;
+use Ergonode\Channel\Application\DependencyInjection\CompilerPass\ExportProcessCompilerPass;
 
 class ErgonodeChannelBundle extends AbstractModule
 {
@@ -23,5 +24,6 @@ class ErgonodeChannelBundle extends AbstractModule
         $container->addCompilerPass(new ChannelTypeCompilerPass());
         $container->addCompilerPass(new CreateChannelCommandBuilderCompilerPass());
         $container->addCompilerPass(new UpdateChannelCommandBuilderCompilerPass());
+        $container->addCompilerPass(new ExportProcessCompilerPass());
     }
 }

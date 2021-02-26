@@ -15,6 +15,7 @@ use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 class DbalCategoryTreeDeletedEventProjector
 {
     private const TABLE = 'category_tree';
+    private const TABLE_CATEGORY = 'category_tree_category';
 
     private Connection $connection;
 
@@ -23,11 +24,15 @@ class DbalCategoryTreeDeletedEventProjector
         $this->connection = $connection;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function __invoke(CategoryTreeDeletedEvent $event): void
     {
+        $this->connection->delete(
+            self::TABLE_CATEGORY,
+            [
+                'category_tree_id' => $event->getAggregateId()->getValue(),
+            ]
+        );
+
         $this->connection->delete(
             self::TABLE,
             [

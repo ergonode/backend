@@ -8,13 +8,19 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Domain\Command\Export;
 
-use Ergonode\Exporter\Domain\Command\ExporterCommandInterface;
+use Ergonode\Channel\Domain\Command\ExporterCommandInterface;
+use Ergonode\Channel\Domain\ValueObject\ExportLineId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 class ProcessTemplateCommand implements ExporterCommandInterface
 {
+    /**
+     * @JMS\Type("Ergonode\Channel\Domain\ValueObject\ExportLineId")
+     */
+    private ExportLineId $lineId;
+
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportId")
      */
@@ -25,10 +31,16 @@ class ProcessTemplateCommand implements ExporterCommandInterface
      */
     private TemplateId $templateId;
 
-    public function __construct(ExportId $exportId, TemplateId $templateId)
+    public function __construct(ExportLineId $lineId, ExportId $exportId, TemplateId $templateId)
     {
+        $this->lineId = $lineId;
         $this->exportId = $exportId;
         $this->templateId = $templateId;
+    }
+
+    public function getLineId(): ExportLineId
+    {
+        return $this->lineId;
     }
 
     public function getExportId(): ExportId

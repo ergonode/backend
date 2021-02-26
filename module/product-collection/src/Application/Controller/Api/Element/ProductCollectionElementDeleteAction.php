@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
@@ -40,7 +40,7 @@ class ProductCollectionElementDeleteAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_DELETE")
+     * @IsGranted("PRODUCT_COLLECTION_DELETE_ELEMENT")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

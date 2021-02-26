@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -38,7 +38,7 @@ class ChannelExportCreateAction
     }
 
     /**
-     * @IsGranted("CHANNEL_UPDATE")
+     * @IsGranted("CHANNEL_POST_EXPORT")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

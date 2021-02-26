@@ -11,15 +11,19 @@ namespace Ergonode\EventSourcing\Infrastructure;
 
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
 interface DomainEventStorageInterface
 {
     /**
-     * @return array
+     * @return DomainEventEnvelope[]
      */
     public function load(AggregateId $id, int $sequence = 0, string $name = null): array;
 
-    public function append(AggregateId $id, DomainEventStream $stream, string $name = null): void;
+    /**
+     * Returns actual sequence for given aggregate
+     */
+    public function append(AggregateId $id, DomainEventStream $stream, string $name = null): int;
 
     public function delete(AggregateId $id, string $name = null): void;
 }

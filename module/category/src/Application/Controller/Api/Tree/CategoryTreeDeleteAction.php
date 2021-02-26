@@ -19,7 +19,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -48,7 +48,7 @@ class CategoryTreeDeleteAction
     }
 
     /**
-     * @IsGranted("CATEGORY_TREE_DELETE")
+     * @IsGranted("CATEGORY_DELETE_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

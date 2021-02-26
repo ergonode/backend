@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Designer\Tests\Domain\Entity;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -34,7 +34,7 @@ class TemplateTest extends TestCase
     private string $name;
 
     /**
-     * @var TemplateElement|MockObject
+     * @var TemplateElementInterface|MockObject
      */
     private MockObject $element;
 
@@ -43,7 +43,7 @@ class TemplateTest extends TestCase
         $this->id = $this->createMock(TemplateId::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);
         $this->name = 'Any template name';
-        $this->element = $this->createMock(TemplateElement::class);
+        $this->element = $this->createMock(TemplateElementInterface::class);
         $this->element->method('getPosition')->willReturn(new Position(0, 0));
     }
 
@@ -223,6 +223,8 @@ class TemplateTest extends TestCase
             $this->id,
             $this->groupId,
             $this->name,
+            null,
+            null,
             $multimediaId
         );
     }

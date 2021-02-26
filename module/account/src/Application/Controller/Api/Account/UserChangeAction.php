@@ -16,7 +16,7 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 
 /**
  * @Route(
@@ -47,7 +48,7 @@ class UserChangeAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
+     * @IsGranted("ACCOUNT_PUT")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -98,7 +99,7 @@ class UserChangeAction
                     $data->firstName,
                     $data->lastName,
                     $data->language,
-                    $data->roleId,
+                    new RoleId($data->roleId),
                     $data->languagePrivilegesCollection,
                     $data->isActive,
                     $password

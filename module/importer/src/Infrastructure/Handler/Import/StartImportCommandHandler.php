@@ -18,7 +18,7 @@ use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Domain\Command\Import\StopImportCommand;
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Psr\Log\LoggerInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Reader\Infrastructure\Exception\ReaderException;
 
 class StartImportCommandHandler
@@ -65,13 +65,14 @@ class StartImportCommandHandler
 
         try {
             $processor->start($import);
-            $this->importRepository->save($import);
         } catch (ImportException|ReaderException $exception) {
             $message = $exception->getMessage();
         } catch (\Throwable $exception) {
             $this->logger->error($exception);
             $message = 'Import processing error';
         }
+
+        $this->importRepository->save($import);
 
         if ($message) {
             $this->commandBus->dispatch(new StopImportCommand($import->getId(), $message), true);

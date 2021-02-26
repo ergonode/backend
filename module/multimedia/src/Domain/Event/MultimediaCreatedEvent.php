@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use JMS\Serializer\Annotation as JMS;
 
-class MultimediaCreatedEvent implements DomainEventInterface
+class MultimediaCreatedEvent implements AggregateEventInterface
 {
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")

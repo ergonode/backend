@@ -15,6 +15,9 @@ use Webmozart\Assert\Assert;
 
 class Scheduler
 {
+    public const HOURS = 2147483647;
+    public const MINUTES = 59;
+
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
@@ -74,24 +77,23 @@ class Scheduler
         return $this->minute;
     }
 
-    public function active(\DateTime $start, int $hour, int $minute): void
-    {
+    public function setUp(
+        bool $active,
+        \DateTime $start,
+        int $hour,
+        int $minute
+    ): void {
         Assert::greaterThanEq($hour, 0);
         Assert::greaterThanEq($minute, 0);
-        Assert::lessThanEq($hour, 23);
-        Assert::lessThanEq($minute, 59);
+        Assert::lessThanEq($hour, self::HOURS);
+        Assert::lessThanEq($minute, self::MINUTES);
+        if (0 === $hour) {
+            Assert::greaterThan($minute, 0);
+        }
 
-        $this->active = true;
+        $this->active = $active;
         $this->start = $start;
         $this->hour = $hour;
         $this->minute = $minute;
-    }
-
-    public function deActive(): void
-    {
-        $this->active = false;
-        $this->start = null;
-        $this->hour = null;
-        $this->minute = null;
     }
 }

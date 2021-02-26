@@ -49,7 +49,7 @@ final class EmailUserProvider implements UserProviderInterface
 
         $userId = $this->query->findIdByEmail($email);
         if (!$userId || !$user = $this->repository->load($userId)) {
-            throw new UsernameNotFoundException("Username '$username' not found");
+            throw new UsernameNotFoundException("Invalid credentials");
         }
 
         return new User(

@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Transport\Serializer;
 
-use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessageSerializerInterface;
+use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TransportMessageSerializer implements MessageSerializerInterface
 {
@@ -19,12 +19,9 @@ class TransportMessageSerializer implements MessageSerializerInterface
 
     private SerializerInterface $serializer;
 
-    private string $format;
-
-    public function __construct(SerializerInterface $serializer, string $format = 'json')
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
-        $this->format = $format;
     }
 
     /**
@@ -44,7 +41,7 @@ class TransportMessageSerializer implements MessageSerializerInterface
 
         $message = $this
             ->serializer
-            ->deserialize($encodedEnvelope['body'], $encodedEnvelope['headers']['type'], $this->format);
+            ->deserialize($encodedEnvelope['body'], $encodedEnvelope['headers']['type']);
 
         return new Envelope($message, ...$stamps);
     }
@@ -57,7 +54,7 @@ class TransportMessageSerializer implements MessageSerializerInterface
         $headers = ['type' => \get_class($envelope->getMessage())] + $this->encodeStamps($envelope);
 
         return [
-            'body' => $this->serializer->serialize($envelope->getMessage(), $this->format),
+            'body' => $this->serializer->serialize($envelope->getMessage()),
             'headers' => $headers,
         ];
     }
@@ -77,7 +74,7 @@ class TransportMessageSerializer implements MessageSerializerInterface
 
             $stamps[] = $this
                 ->serializer
-                ->deserialize($value, substr($name, \strlen(self::STAMP_HEADER_PREFIX)).'[]', $this->format);
+                ->deserialize($value, substr($name, \strlen(self::STAMP_HEADER_PREFIX)).'[]');
         }
         if ($stamps) {
             $stamps = array_merge(...$stamps);
@@ -97,7 +94,7 @@ class TransportMessageSerializer implements MessageSerializerInterface
 
         $headers = [];
         foreach ($allStamps as $class => $stamps) {
-            $headers[self::STAMP_HEADER_PREFIX.$class] = $this->serializer->serialize($stamps, $this->format);
+            $headers[self::STAMP_HEADER_PREFIX.$class] = $this->serializer->serialize($stamps);
         }
 
         return $headers;

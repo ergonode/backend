@@ -17,10 +17,11 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Channel\Domain\Query\ExportQueryInterface;
-use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
+use Ergonode\Channel\Domain\Entity\Export;
+use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGridBuilder;
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Channel\Domain\Query\ExportErrorGridQueryInterface;
 
 /**
  * @Route(
@@ -35,21 +36,28 @@ use Ergonode\Channel\Domain\Entity\AbstractChannel;
  */
 class ChannelExportErrorGridAction
 {
-    private ExportErrorsGrid $grid;
+    private ExportErrorsGridBuilder $gridBuilder;
 
-    private ExportQueryInterface $query;
+    private ExportErrorGridQueryInterface $query;
+
+    private DbalDataSetFactory $factory;
 
     private GridRenderer $gridRenderer;
 
-    public function __construct(ExportErrorsGrid $grid, ExportQueryInterface $query, GridRenderer $gridRenderer)
-    {
-        $this->grid = $grid;
+    public function __construct(
+        ExportErrorsGridBuilder $gridBuilder,
+        ExportErrorGridQueryInterface $query,
+        DbalDataSetFactory $factory,
+        GridRenderer $gridRenderer
+    ) {
+        $this->gridBuilder = $gridBuilder;
         $this->query = $query;
+        $this->factory = $factory;
         $this->gridRenderer = $gridRenderer;
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_EXPORT_ERROR_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
@@ -80,7 +88,7 @@ class ChannelExportErrorGridAction
      * )
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
-     * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Export")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      */
     public function __invoke(
@@ -89,14 +97,10 @@ class ChannelExportErrorGridAction
         Export $export,
         RequestGridConfiguration $configuration
     ): Response {
-        $dataSet = $this->query->getErrorDataSet($export->getId(), $language);
+        $grid = $this->gridBuilder->build($configuration, $language);
+        $dataSet = $this->factory->create($this->query->getGridQuery($export->getId(), $language));
 
-        $data = $this->gridRenderer->render(
-            $this->grid,
-            $configuration,
-            $dataSet,
-            $language
-        );
+        $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);
     }

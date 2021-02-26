@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Application\Model\Product\Binding;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
+use Ergonode\Attribute\Application\Validator as AttributeAssert;
 
 class ProductBindFormModel
 {
@@ -18,7 +18,7 @@ class ProductBindFormModel
      * @Assert\NotBlank(message="Bind attribute is required")
      * @Assert\Uuid(strict=true)
      *
-     * @AttributeExists()
+     * @AttributeAssert\AttributeExists()
      */
     public ?string $bindId = null;
 }

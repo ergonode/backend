@@ -13,16 +13,13 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
+use Ergonode\Channel\Domain\ValueObject\ExportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 class DbalExportQuery implements ExportQueryInterface
 {
     private const TABLE = 'exporter.export';
-    private const TABLE_LINE = 'exporter.export_line';
     private const TABLE_CHANNEL = 'exporter.channel';
 
     private Connection $connection;
@@ -30,36 +27,6 @@ class DbalExportQuery implements ExportQueryInterface
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-    }
-
-    public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface
-    {
-        $query = $this->getQuery();
-        $query->addSelect('e.channel_id');
-        $query->andWhere($query->expr()->eq('channel_id', ':channelId'));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't')
-            ->setParameter(':channelId', $channelId->getValue());
-
-        return new DbalDataSet($result);
-    }
-
-    public function getErrorDataSet(ExportId $exportId, Language $language): DataSetInterface
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('object_id AS id, processed_at, message, parameters')
-            ->from(self::TABLE_LINE)
-            ->where($query->expr()->eq('export_id', ':exportId'))
-            ->andWhere($query->expr()->isNotNull('message'));
-
-        $result = $this->connection->createQueryBuilder();
-        $result->select('*');
-        $result->from(sprintf('(%s)', $query->getSQL()), 't')
-            ->setParameter(':exportId', $exportId->getValue());
-
-        return new DbalDataSet($result);
     }
 
     /**
@@ -70,11 +37,11 @@ class DbalExportQuery implements ExportQueryInterface
         $query = $this->getQuery();
 
         return $query
-            ->addSelect('ch.name, e.items')
+            ->addSelect('ch.name')
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id) as items')
             ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
                                 AND processed_at IS NOT NULL) as processed')
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
-                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')
             ->orderBy('started_at', 'DESC')
             ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
             ->setMaxResults(10)
@@ -90,10 +57,10 @@ class DbalExportQuery implements ExportQueryInterface
         $query = $this->getQuery();
 
         return $query
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id) as items')
             ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
                                 AND processed_at IS NOT NULL) as processed')
-            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
-                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->addSelect('(SELECT count(*) FROM exporter.export_error el WHERE el.export_id = e.id) as errors')
             ->where($query->expr()->eq('id', ':exportId'))
             ->setParameter(':exportId', $exportId->getValue())
             ->execute()
@@ -121,6 +88,70 @@ class DbalExportQuery implements ExportQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return ExportId[]
+     */
+    public function getExportIdsByChannelId(ChannelId $channelId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('e.id')
+            ->from(self::TABLE, 'e')
+            ->where($qb->expr()->eq('e.channel_id', ':channelId'))
+            ->setParameter(':channelId', $channelId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ExportId($item);
+        }
+
+        return $result;
+    }
+
+    public function getChannelTypeByExportId(ExportId $exportId): ?string
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('ch.type')
+            ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
+            ->where($qb->expr()->eq('e.id', ':exportId'))
+            ->setParameter(':exportId', $exportId->getValue())
+            ->from(self::TABLE, 'e')
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return $result['type'];
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findActiveExport(ChannelId $channelId): array
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('e.id')
+            ->where($qb->expr()->eq('e.channel_id', ':channelId'))
+            ->setParameter(':channelId', $channelId->getValue())
+            ->andWhere($qb->expr()->isNull('e.ended_at'))
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        foreach ($result as &$item) {
+            $item = new ExportId($item);
+        }
+
+        return $result;
     }
 
     private function getQuery(): QueryBuilder
