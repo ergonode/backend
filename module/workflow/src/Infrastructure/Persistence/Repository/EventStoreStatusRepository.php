@@ -16,7 +16,7 @@ use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-class DbalStatusRepository implements StatusRepositoryInterface
+class EventStoreStatusRepository implements StatusRepositoryInterface
 {
     private EventStoreManager $manager;
 

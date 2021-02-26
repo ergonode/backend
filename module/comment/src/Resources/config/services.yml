@@ -28,5 +28,5 @@ services:
         resource: '../../Infrastructure/Persistence/Projector/*'
         tags: ['ergonode.event_sourcing.projector']
 
-    Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Repository\DbalCommentRepository'
+    Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Repository\EventStoreCommentRepository'
     Ergonode\Comment\Domain\Query\CommentGridQueryInterface: '@Ergonode\Comment\Infrastructure\Persistence\Query\DbalCommentGridQuery'

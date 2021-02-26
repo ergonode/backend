@@ -40,7 +40,7 @@ services:
         resource: '../../Infrastructure/Processor/BatchAction/*'
         tags: ['batch_action.processor_provider.interface']
 
-    Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Infrastructure\Persistence\Repository\DbalProductRepository'
+    Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Infrastructure\Persistence\Repository\EventStoreProductRepository'
 
     Ergonode\Product\Domain\Query\ProductDashboardQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductDashboardQuery'
     Ergonode\Product\Domain\Query\AttributeValueQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalAttributeValueQuery'

@@ -17,7 +17,7 @@ use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
-class DbalWorkflowRepository implements WorkflowRepositoryInterface
+class EventStoreWorkflowRepository implements WorkflowRepositoryInterface
 {
     private EventStoreManager $manager;
 

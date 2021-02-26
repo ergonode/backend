@@ -17,7 +17,7 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Webmozart\Assert\Assert;
 
-class DbalCommentRepository implements CommentRepositoryInterface
+class EventStoreCommentRepository implements CommentRepositoryInterface
 {
     private EventStoreManager $manager;
 

@@ -31,4 +31,4 @@ services:
         tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Infrastructure\Persistence\Query\DbalConditionSetQuery'
-    Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Infrastructure\Persistence\Repository\DbalConditionSetRepository'
+    Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Infrastructure\Persistence\Repository\EventStoreConditionSetRepository'

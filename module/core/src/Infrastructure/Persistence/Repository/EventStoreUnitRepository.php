@@ -19,7 +19,7 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Webmozart\Assert\Assert;
 
-class DbalUnitRepository implements UnitRepositoryInterface
+class EventStoreUnitRepository implements UnitRepositoryInterface
 {
     private EventStoreManager $manager;
 
