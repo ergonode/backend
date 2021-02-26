@@ -48,7 +48,7 @@ class RoleDeleteAction
     }
 
     /**
-     * @IsGranted("USER_ROLE_DELETE")
+     * @IsGranted("ACCOUNT_DELETE_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

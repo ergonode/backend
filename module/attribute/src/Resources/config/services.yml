@@ -36,8 +36,8 @@ services:
             - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption']]
             - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption']]
 
-    Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeRepository'
-    Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\DbalAttributeGroupRepository'
+    Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeRepository'
+    Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Repository\EventStoreAttributeGroupRepository'
 
     Ergonode\Attribute\Domain\Query\AttributeQueryInterface: '@Ergonode\Attribute\Infrastructure\Persistence\Query\DbalAttributeQuery'
     Ergonode\Attribute\Infrastructure\Persistence\Query\Decorator\CacheAttributeQueryDecorator:

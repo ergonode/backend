@@ -17,7 +17,7 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Webmozart\Assert\Assert;
 
-class DbalProductRepository implements ProductRepositoryInterface
+class EventStoreProductRepository implements ProductRepositoryInterface
 {
     private EventStoreManager $manager;
 

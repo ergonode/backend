@@ -40,7 +40,7 @@ class CategoryTypeConfigurationAction
     }
 
     /**
-     * @IsGranted("CATEGORY_READ")
+     * @IsGranted("CATEGORY_GET_TYPE_CONFIGURATION")
      *
      * @SWG\Tag(name="Category")
      *

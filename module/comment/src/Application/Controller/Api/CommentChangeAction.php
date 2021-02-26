@@ -17,6 +17,8 @@ use Ergonode\Comment\Application\Form\Model\UpdateCommentFormModel;
 use Ergonode\Comment\Application\Form\UpdateCommentForm;
 use Ergonode\Comment\Domain\Command\UpdateCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +27,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -54,6 +55,8 @@ class CommentChangeAction
     }
 
     /**
+     * @IsGranted("COMMENT_PUT")
+     *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(
      *     name="language",

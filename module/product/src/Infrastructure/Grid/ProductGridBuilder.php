@@ -126,12 +126,12 @@ class ProductGridBuilder implements GridBuilderInterface
         $grid->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_read',
-                'privilege' => 'PRODUCT_READ',
+                'privilege' => 'PRODUCT_GET',
                 'parameters' => ['language' => $language->getCode(), 'product' => '{id}'],
             ],
             'edit' => [
                 'route' => 'ergonode_product_change',
-                'privilege' => 'PRODUCT_UPDATE',
+                'privilege' => 'PRODUCT_PUT',
                 'parameters' => ['language' => $language->getCode(), 'product' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],

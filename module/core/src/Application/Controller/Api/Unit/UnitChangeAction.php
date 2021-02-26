@@ -48,7 +48,7 @@ class UnitChangeAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
+     * @IsGranted("CORE_PUT_UNIT")
      *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(

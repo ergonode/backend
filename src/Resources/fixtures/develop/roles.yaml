@@ -214,3 +214,464 @@ Ergonode\Account\Domain\Command\Role\CreateRoleCommand:
                 - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
                 - '<privilege("PRODUCT_COLLECTION_READ")>'
                 - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+
+    ATTRIBUTE_CREATE_role:
+        __construct:
+            - 'ATTRIBUTE_CREATE'
+            - 'ATTRIBUTE CREATE DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_CREATE")>'
+                - '<privilege("ATTRIBUTE_READ")>'
+
+    ATTRIBUTE_DELETE_role:
+        __construct:
+            - 'ATTRIBUTE_DELETE'
+            - 'ATTRIBUTE DELETE DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_DELETE")>'
+                - '<privilege("ATTRIBUTE_READ")>'
+
+    ATTRIBUTE_UPDATE_role:
+        __construct:
+            - 'ATTRIBUTE_UPDATE'
+            - 'ATTRIBUTE_UPDATE DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_UPDATE")>'
+                - '<privilege("ATTRIBUTE_READ")>'
+
+    ATTRIBUTE_READ_role:
+        __construct:
+            - 'ATTRIBUTE_READ'
+            - 'ATTRIBUTE_READ DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_READ")>'
+
+    ATTRIBUTE_GROUP_CREATE_role:
+        __construct:
+            - 'ATTRIBUTE_GROUP_CREATE'
+            - 'ATTRIBUTE_GROUP_CREATE DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_GROUP_CREATE")>'
+                - '<privilege("ATTRIBUTE_GROUP_READ")>'
+
+    ATTRIBUTE_GROUP_DELETE_role:
+        __construct:
+            - 'ATTRIBUTE_GROUP_DELETE'
+            - 'ATTRIBUTE_GROUP_DELETE DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_GROUP_DELETE")>'
+                - '<privilege("ATTRIBUTE_GROUP_READ" )>'
+
+    ATTRIBUTE_GROUP_READ_role:
+        __construct:
+            - 'ATTRIBUTE_GROUP_READ'
+            - 'ATTRIBUTE_GROUP_READ DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_GROUP_READ")>'
+    ATTRIBUTE_GROUP_UPDATE_role:
+        __construct:
+            - 'ATTRIBUTE_GROUP_UPDATE'
+            - 'ATTRIBUTE_GROUP_UPDATE DESCRIPTION'
+            -
+                - '<privilege("ATTRIBUTE_GROUP_UPDATE")>'
+                - '<privilege("ATTRIBUTE_GROUP_READ" )>'
+
+    CATEGORY_CREATE_role:
+        __construct:
+            - 'CATEGORY_CREATE'
+            - 'CATEGORY_CREATE DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_CREATE")>'
+                - '<privilege("CATEGORY_READ")>'
+
+    CATEGORY_DELETE_role:
+        __construct:
+            - 'CATEGORY_DELETE'
+            - 'CATEGORY_DELETE DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_DELETE")>'
+                - '<privilege("CATEGORY_READ")>'
+
+    CATEGORY_READ_role:
+        __construct:
+            - 'CATEGORY_READ'
+            - 'CATEGORY_READ DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_READ" )>'
+    CATEGORY_UPDATE_role:
+        __construct:
+            - 'CATEGORY_UPDATE'
+            - 'CATEGORY_UPDATE DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_UPDATE")>'
+                - '<privilege("CATEGORY_READ")>'
+
+    CATEGORY_TREE_CREATE_role:
+        __construct:
+            - 'CATEGORY_TREE_CREATE'
+            - 'CATEGORY_TREE_CREATE DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_TREE_CREATE")>'
+                - '<privilege("CATEGORY_TREE_READ")>'
+
+    CATEGORY_TREE_DELETE_role:
+        __construct:
+            - 'CATEGORY_TREE_DELETE'
+            - 'CATEGORY_TREE_DELETE DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_TREE_DELETE")>'
+                - '<privilege("CATEGORY_TREE_READ")>'
+
+    CATEGORY_TREE_READ_role:
+        __construct:
+            - 'CATEGORY_TREE_READ'
+            - 'CATEGORY_TREE_READ DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_TREE_READ")>'
+
+    CATEGORY_TREE_UPDATE_role:
+        __construct:
+            - 'CATEGORY_TREE_UPDATE'
+            - 'CATEGORY_TREE_UPDATE DESCRIPTION'
+            -
+                - '<privilege("CATEGORY_TREE_UPDATE")>'
+                - '<privilege("CATEGORY_TREE_READ" )>'
+
+    CHANNEL_CREATE_role:
+        __construct:
+            - 'CHANNEL_CREATE'
+            - 'CHANNEL_CREATE DESCRIPTION'
+            -
+                - '<privilege("CHANNEL_CREATE")>'
+                - '<privilege("CHANNEL_READ" )>'
+
+    CHANNEL_DELETE_role:
+        __construct:
+            - 'CHANNEL_DELETE'
+            - 'CHANNEL_DELETE DESCRIPTION'
+            -
+                - '<privilege("CHANNEL_DELETE")>'
+                - '<privilege("CHANNEL_READ" )>'
+
+    CHANNEL_READ_role:
+        __construct:
+            - 'CHANNEL_READ'
+            - 'CHANNEL_READ DESCRIPTION'
+            -
+                - '<privilege("CHANNEL_READ")>'
+
+    CHANNEL_UPDATE_role:
+        __construct:
+            - 'CHANNEL_UPDATE'
+            - 'CHANNEL_UPDATE DESCRIPTION'
+            -
+                - '<privilege("CHANNEL_UPDATE")>'
+                - '<privilege("CHANNEL_READ" )>'
+
+    IMPORT_CREATE_role:
+        __construct:
+            - 'IMPORT_CREATE'
+            - 'IMPORT_CREATE DESCRIPTION'
+            -
+                - '<privilege("IMPORT_CREATE")>'
+                - '<privilege("IMPORT_READ" )>'
+
+    IMPORT_DELETE_role:
+        __construct:
+            - 'IMPORT_DELETE'
+            - 'IMPORT_DELETE DESCRIPTION'
+            -
+                - '<privilege("IMPORT_DELETE")>'
+                - '<privilege("IMPORT_READ" )>'
+
+    IMPORT_READ_role:
+        __construct:
+            - 'IMPORT_READ'
+            - 'IMPORT_READ DESCRIPTION'
+            -
+                - '<privilege("IMPORT_READ" )>'
+
+    IMPORT_UPDATE_role:
+        __construct:
+            - 'IMPORT_UPDATE'
+            - 'IMPORT_UPDATE DESCRIPTION'
+            -
+                - '<privilege("IMPORT_UPDATE")>'
+                - '<privilege("IMPORT_READ" )>'
+
+    MULTIMEDIA_CREATE_role:
+        __construct:
+            - 'MULTIMEDIA_CREATE'
+            - 'MULTIMEDIA_CREATE DESCRIPTION'
+            -
+                - '<privilege("MULTIMEDIA_CREATE")>'
+                - '<privilege("MULTIMEDIA_READ")>'
+
+    MULTIMEDIA_DELETE_role:
+        __construct:
+            - 'MULTIMEDIA_DELETE'
+            - 'MULTIMEDIA_DELETE DESCRIPTION'
+            -
+                - '<privilege("MULTIMEDIA_DELETE")>'
+                - '<privilege("MULTIMEDIA_READ")>'
+
+    MULTIMEDIA_READ_role:
+        __construct:
+            - 'MULTIMEDIA_READ'
+            - 'MULTIMEDIA_READ DESCRIPTION'
+            -
+                - '<privilege("MULTIMEDIA_READ")>'
+
+    MULTIMEDIA_UPDATE_role:
+        __construct:
+            - 'MULTIMEDIA_UPDATE'
+            - 'MULTIMEDIA_UPDATE DESCRIPTION'
+            -
+                - '<privilege("MULTIMEDIA_UPDATE")>'
+                - '<privilege("MULTIMEDIA_READ")>'
+
+    PRODUCT_COLLECTION_CREATE_role:
+        __construct:
+            - 'PRODUCT_COLLECTION_CREATE'
+            - 'PRODUCT_COLLECTION_CREATE DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+
+    PRODUCT_COLLECTION_DELETE_role:
+        __construct:
+            - 'PRODUCT_COLLECTION_DELETE'
+            - 'PRODUCT_COLLECTION_DELETE DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+
+    PRODUCT_COLLECTION_READ_role:
+        __construct:
+            - 'PRODUCT_COLLECTION_READ'
+            - 'PRODUCT_COLLECTION_READ DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+
+    PRODUCT_COLLECTION_UPDATE_role:
+        __construct:
+            - 'PRODUCT_COLLECTION_UPDATE'
+            - 'PRODUCT_COLLECTION_UPDATE DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+
+    PRODUCT_CREATE_role:
+        __construct:
+            - 'PRODUCT_CREATE'
+            - 'PRODUCT_CREATE DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_CREATE")>'
+                - '<privilege("PRODUCT_READ")>'
+
+    PRODUCT_DELETE_role:
+        __construct:
+            - 'PRODUCT_DELETE'
+            - 'PRODUCT_DELETE DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_DELETE")>'
+                - '<privilege("PRODUCT_READ")>'
+
+    PRODUCT_READ_role:
+        __construct:
+            - 'PRODUCT_READ'
+            - 'PRODUCT_READ DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_READ")>'
+
+    PRODUCT_UPDATE_role:
+        __construct:
+            - 'PRODUCT_UPDATE'
+            - 'PRODUCT_UPDATE DESCRIPTION'
+            -
+                - '<privilege("PRODUCT_UPDATE")>'
+                - '<privilege("PRODUCT_READ")>'
+
+    SEGMENT_CREATE_role:
+        __construct:
+            - 'SEGMENT_CREATE'
+            - 'SEGMENT_CREATE DESCRIPTION'
+            -
+                - '<privilege("SEGMENT_CREATE")>'
+                - '<privilege("SEGMENT_READ")>'
+
+    SEGMENT_DELETE_role:
+        __construct:
+            - 'SEGMENT_DELETE'
+            - 'SEGMENT_DELETE DESCRIPTION'
+            -
+                - '<privilege("SEGMENT_DELETE")>'
+                - '<privilege("SEGMENT_READ")>'
+
+    SEGMENT_READ_role:
+        __construct:
+            - 'SEGMENT_READ'
+            - 'SEGMENT_READ DESCRIPTION'
+            -
+                - '<privilege("SEGMENT_READ")>'
+
+    SEGMENT_UPDATE_role:
+        __construct:
+            - 'SEGMENT_UPDATE'
+            - 'SEGMENT_UPDATE DESCRIPTION'
+            -
+                - '<privilege("SEGMENT_UPDATE")>'
+                - '<privilege("SEGMENT_READ" )>'
+
+    SETTINGS_CREATE_role:
+        __construct:
+            - 'SETTINGS_CREATE'
+            - 'SETTINGS_CREATE DESCRIPTION'
+            -
+                - '<privilege("SETTINGS_CREATE")>'
+                - '<privilege("SETTINGS_READ")>'
+
+    SETTINGS_DELETE_role:
+        __construct:
+            - 'SETTINGS_DELETE'
+            - 'SETTINGS_DELETE DESCRIPTION'
+            -
+                - '<privilege("SETTINGS_DELETE")>'
+                - '<privilege("SETTINGS_READ")>'
+
+    SETTINGS_READ_role:
+        __construct:
+            - 'SETTINGS_READ'
+            - 'SETTINGS_READ DESCRIPTION'
+            -
+                - '<privilege("SETTINGS_READ")>'
+    SETTINGS_UPDATE_role:
+        __construct:
+            - 'SETTINGS_UPDATE'
+            - 'SETTINGS_UPDATE DESCRIPTION'
+            -
+                - '<privilege("SETTINGS_UPDATE")>'
+                - '<privilege("SETTINGS_READ")>'
+
+    TEMPLATE_DESIGNER_CREATE_role:
+        __construct:
+            - 'TEMPLATE_DESIGNER_CREATE'
+            - 'TEMPLATE_DESIGNER_CREATE DESCRIPTION'
+            -
+                - '<privilege("TEMPLATE_DESIGNER_CREATE")>'
+                - '<privilege("TEMPLATE_DESIGNER_READ")>'
+
+    TEMPLATE_DESIGNER_DELETE_role:
+        __construct:
+            - 'TEMPLATE_DESIGNER_DELETE'
+            - 'TEMPLATE_DESIGNER_DELETE DESCRIPTION'
+            -
+                - '<privilege("TEMPLATE_DESIGNER_DELETE")>'
+                - '<privilege("TEMPLATE_DESIGNER_READ")>'
+
+    TEMPLATE_DESIGNER_READ_role:
+        __construct:
+            - 'TEMPLATE_DESIGNER_READ'
+            - 'TEMPLATE_DESIGNER_READ DESCRIPTION'
+            -
+                - '<privilege("TEMPLATE_DESIGNER_READ")>'
+
+    TEMPLATE_DESIGNER_UPDATE_role:
+        __construct:
+            - 'TEMPLATE_DESIGNER_UPDATE'
+            - 'TEMPLATE_DESIGNER_UPDATE DESCRIPTION'
+            -
+                - '<privilege("TEMPLATE_DESIGNER_UPDATE")>'
+                - '<privilege("TEMPLATE_DESIGNER_READ")>'
+
+    USER_CREATE_role:
+        __construct:
+            - 'USER_CREATE'
+            - 'USER_CREATE DESCRIPTION'
+            -
+                - '<privilege("USER_CREATE")>'
+                - '<privilege("USER_READ")>'
+
+    USER_DELETE_role:
+        __construct:
+            - 'USER_DELETE'
+            - 'USER_DELETE DESCRIPTION'
+            -
+                - '<privilege("USER_DELETE")>'
+                - '<privilege("USER_READ")>'
+
+    USER_READ_role:
+        __construct:
+            - 'USER_READ'
+            - 'USER_READ DESCRIPTION'
+            -
+                - '<privilege("USER_READ")>'
+
+    USER_UPDATE_role:
+        __construct:
+            - 'USER_UPDATE'
+            - 'USER_UPDATE DESCRIPTION'
+            -
+                - '<privilege("USER_UPDATE")>'
+                - '<privilege("USER_READ")>'
+
+    USER_ROLE_CREATE_role:
+        __construct:
+            - 'USER_ROLE_CREATE'
+            - 'USER_ROLE_CREATE DESCRIPTION'
+            -
+                - '<privilege("USER_ROLE_CREATE")>'
+                - '<privilege("USER_ROLE_READ")>'
+
+    USER_ROLE_DELETE_role:
+        __construct:
+            - 'USER_ROLE_DELETE'
+            - 'USER_ROLE_DELETE DESCRIPTION'
+            -
+                - '<privilege("USER_ROLE_DELETE")>'
+                - '<privilege("USER_ROLE_READ")>'
+
+    USER_ROLE_READ_role:
+        __construct:
+            - 'USER_ROLE_READ'
+            - 'USER_ROLE_READ DESCRIPTION'
+            -
+                - '<privilege("USER_ROLE_READ")>'
+    USER_ROLE_UPDATE_role:
+        __construct:
+            - 'USER_ROLE_UPDATE'
+            - 'USER_ROLE_UPDATE DESCRIPTION'
+            -
+                - '<privilege("USER_ROLE_UPDATE")>'
+                - '<privilege("USER_ROLE_READ")>'
+
+    WORKFLOW_CREATE_role:
+        __construct:
+            - 'WORKFLOW_CREATE'
+            - 'WORKFLOW_CREATE DESCRIPTION'
+            -
+                - '<privilege("WORKFLOW_CREATE")>'
+                - '<privilege("WORKFLOW_READ")>'
+
+    WORKFLOW_DELETE_role:
+        __construct:
+            - 'WORKFLOW_DELETE'
+            - 'WORKFLOW_DELETE DESCRIPTION'
+            -
+                - '<privilege("WORKFLOW_DELETE")>'
+                - '<privilege("WORKFLOW_READ")>'
+
+    WORKFLOW_READ_role:
+        __construct:
+            - 'WORKFLOW_READ'
+            - 'WORKFLOW_READ DESCRIPTION'
+            -
+                - '<privilege("WORKFLOW_READ" )>'
+
+    WORKFLOW_UPDATE_role:
+        __construct:
+            - 'WORKFLOW_UPDATE'
+            - 'WORKFLOW_UPDATE DESCRIPTION'
+            -
+                - '<privilege("WORKFLOW_UPDATE")>'
+                - '<privilege("WORKFLOW_READ")>'

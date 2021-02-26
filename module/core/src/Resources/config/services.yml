@@ -41,7 +41,7 @@ services:
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\DbalLanguageQuery'
     Ergonode\Core\Domain\Query\UnitQueryInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\DbalUnitQuery'
     Ergonode\Core\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\Core\Infrastructure\Persistence\Repository\DbalLanguageRepository'
-    Ergonode\Core\Domain\Repository\UnitRepositoryInterface: '@Ergonode\Core\Infrastructure\Persistence\Repository\DbalUnitRepository'
+    Ergonode\Core\Domain\Repository\UnitRepositoryInterface: '@Ergonode\Core\Infrastructure\Persistence\Repository\EventStoreUnitRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
     Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface: '@Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver'
     Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface: '@Ergonode\Core\Infrastructure\Persistence\Query\Builder\DbalDefaultLabelQueryBuilder'

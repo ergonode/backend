@@ -17,7 +17,7 @@ use Ergonode\Importer\Domain\Event\TransformerDeletedEvent;
 use Ergonode\Importer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-class DbalTransformerRepository implements TransformerRepositoryInterface
+class EventStoreTransformerRepository implements TransformerRepositoryInterface
 {
     private EventStoreManager $manager;
 

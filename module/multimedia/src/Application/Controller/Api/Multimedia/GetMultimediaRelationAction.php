@@ -36,7 +36,7 @@ class GetMultimediaRelationAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_READ")
+     * @IsGranted("MULTIMEDIA_GET_RELATION")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

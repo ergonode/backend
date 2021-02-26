@@ -7,18 +7,17 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Attribute\Infrastructure\Persistence\Repository;
+namespace Ergonode\ProductCollection\Infrastructure\Persistence\Repository;
 
-use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Entity\AttributeGroup;
-use Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent;
-use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeDeletedEvent;
+use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Webmozart\Assert\Assert;
 
-class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
+class EventStoreProductCollectionTypeRepository implements ProductCollectionTypeRepositoryInterface
 {
     private EventStoreManager $manager;
 
@@ -28,20 +27,26 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
     }
 
     /**
-     * @return AbstractAggregateRoot|AttributeGroup
-     *
+     * {@inheritDoc}
+     */
+    public function exists(ProductCollectionTypeId $id): bool
+    {
+        return $this->manager->exists($id);
+    }
+
+    /**
      * @throws \ReflectionException
      */
-    public function load(AttributeGroupId $id): ?AbstractAggregateRoot
+    public function load(ProductCollectionTypeId $id): ?AbstractAggregateRoot
     {
         $aggregate = $this->manager->load($id);
-        Assert::nullOrIsInstanceOf($aggregate, AttributeGroup::class);
+        Assert::nullOrIsInstanceOf($aggregate, ProductCollectionType::class);
 
         return $aggregate;
     }
 
     /**
-     * @throws DBALException
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
@@ -55,7 +60,7 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $aggregateRoot->apply(new AttributeGroupDeletedEvent($aggregateRoot->getId()));
+        $aggregateRoot->apply(new ProductCollectionTypeDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
         $this->manager->delete($aggregateRoot);

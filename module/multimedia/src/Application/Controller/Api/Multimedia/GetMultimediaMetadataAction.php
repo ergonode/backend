@@ -35,7 +35,7 @@ class GetMultimediaMetadataAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_READ")
+     * @IsGranted("MULTIMEDIA_GET_METADATA")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

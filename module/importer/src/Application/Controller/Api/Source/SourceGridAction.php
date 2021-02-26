@@ -52,7 +52,7 @@ class SourceGridAction
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_SOURCE_GRID")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

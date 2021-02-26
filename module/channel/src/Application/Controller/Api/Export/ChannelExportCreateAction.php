@@ -38,7 +38,7 @@ class ChannelExportCreateAction
     }
 
     /**
-     * @IsGranted("CHANNEL_UPDATE")
+     * @IsGranted("CHANNEL_POST_EXPORT")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

@@ -53,7 +53,7 @@ class ProductChildGridAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_RELATIONS_CHILDREN")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

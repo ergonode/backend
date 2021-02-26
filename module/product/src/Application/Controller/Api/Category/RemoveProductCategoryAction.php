@@ -36,7 +36,7 @@ class RemoveProductCategoryAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_DELETE_CATEGORY")
      *
      * @SWG\Tag(name="Product")
      *

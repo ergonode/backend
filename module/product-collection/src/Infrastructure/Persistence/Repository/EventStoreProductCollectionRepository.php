@@ -11,13 +11,13 @@ namespace Ergonode\ProductCollection\Infrastructure\Persistence\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeDeletedEvent;
-use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionDeletedEvent;
+use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Webmozart\Assert\Assert;
 
-class DbalProductCollectionTypeRepository implements ProductCollectionTypeRepositoryInterface
+class EventStoreProductCollectionRepository implements ProductCollectionRepositoryInterface
 {
     private EventStoreManager $manager;
 
@@ -29,7 +29,7 @@ class DbalProductCollectionTypeRepository implements ProductCollectionTypeReposi
     /**
      * {@inheritDoc}
      */
-    public function exists(ProductCollectionTypeId $id): bool
+    public function exists(ProductCollectionId $id): bool
     {
         return $this->manager->exists($id);
     }
@@ -37,10 +37,10 @@ class DbalProductCollectionTypeRepository implements ProductCollectionTypeReposi
     /**
      * @throws \ReflectionException
      */
-    public function load(ProductCollectionTypeId $id): ?AbstractAggregateRoot
+    public function load(ProductCollectionId $id): ?AbstractAggregateRoot
     {
         $aggregate = $this->manager->load($id);
-        Assert::nullOrIsInstanceOf($aggregate, ProductCollectionType::class);
+        Assert::nullOrIsInstanceOf($aggregate, ProductCollection::class);
 
         return $aggregate;
     }
@@ -60,7 +60,7 @@ class DbalProductCollectionTypeRepository implements ProductCollectionTypeReposi
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $aggregateRoot->apply(new ProductCollectionTypeDeletedEvent($aggregateRoot->getId()));
+        $aggregateRoot->apply(new ProductCollectionDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
         $this->manager->delete($aggregateRoot);
