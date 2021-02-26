@@ -16,7 +16,7 @@ use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Webmozart\Assert\Assert;
 
-class DbalCategoryRepository implements CategoryRepositoryInterface
+class EventStoreCategoryRepository implements CategoryRepositoryInterface
 {
     private EventStoreManager $manager;
 

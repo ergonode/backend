@@ -31,8 +31,8 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
     
-    Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\DbalProductCollectionRepository'
-    Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\DbalProductCollectionTypeRepository'
+    Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\EventStoreProductCollectionRepository'
+    Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Repository\EventStoreProductCollectionTypeRepository'
 
     Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionQuery'
     Ergonode\ProductCollection\Domain\Query\ProductCollectionGridQueryInterface: '@Ergonode\ProductCollection\Infrastructure\Persistence\Query\DbalProductCollectionGridQuery'

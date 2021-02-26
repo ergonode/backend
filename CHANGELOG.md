@@ -1,3 +1,6 @@
+
+- bug [#1202](https://github.com/ergonode/backend/issues/1202) Wrong names of repositories (wiewiurdp)
+
 ## CHANGELOG FOR 1.0.0-beta.9
  
 - feature [#1077](https://github.com/ergonode/backend/issues/1077) Change privileges in the system (wfajczyk)
