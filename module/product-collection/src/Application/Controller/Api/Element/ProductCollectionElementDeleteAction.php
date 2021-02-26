@@ -40,7 +40,7 @@ class ProductCollectionElementDeleteAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_DELETE")
+     * @IsGranted("PRODUCT_COLLECTION_DELETE_ELEMENT")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

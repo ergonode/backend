@@ -51,7 +51,7 @@ class CategoryCreateAction
 
 
     /**
-     * @IsGranted("CATEGORY_CREATE")
+     * @IsGranted("CATEGORY_POST")
      *
      * @SWG\Tag(name="Category")
      *

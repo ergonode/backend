@@ -50,7 +50,7 @@ class TemplateChangeAction
     }
 
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_UPDATE")
+     * @IsGranted("DESIGNER_PUT_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

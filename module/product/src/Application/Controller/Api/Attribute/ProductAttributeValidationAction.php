@@ -62,7 +62,7 @@ class ProductAttributeValidationAction
      *     }
      * )
      *
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_ATTRIBUTE_POST_VALIDATION")
      * @IsGranted("edit", subject="language")
      *
      * @SWG\Tag(name="Product")

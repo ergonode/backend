@@ -48,7 +48,7 @@ class TransitionGridBuilder implements GridBuilderInterface
                         'source' => '{source}',
                         'destination' => '{destination}',
                     ],
-                    'privilege' => 'WORKFLOW_READ',
+                    'privilege' => 'WORKFLOW_GET_TRANSITION',
                 ],
                 'edit' => [
                     'route' => 'ergonode_workflow_transition_change',
@@ -57,7 +57,7 @@ class TransitionGridBuilder implements GridBuilderInterface
                         'source' => '{source}',
                         'destination' => '{destination}',
                     ],
-                    'privilege' => 'WORKFLOW_UPDATE',
+                    'privilege' => 'WORKFLOW_PUT_TRANSITION',
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
@@ -67,7 +67,7 @@ class TransitionGridBuilder implements GridBuilderInterface
                         'source' => '{source}',
                         'destination' => '{destination}',
                     ],
-                    'privilege' => 'WORKFLOW_DELETE',
+                    'privilege' => 'WORKFLOW_DELETE_TRANSITION',
                     'method' => Request::METHOD_DELETE,
                 ],
             ]));

@@ -57,7 +57,7 @@ class UpdateProductAttributeAction
      *     }
      * )
      *
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_ATTRIBUTE_PUT")
      * @IsGranted("edit", subject="language")
      *
      * @SWG\Tag(name="Product")

@@ -49,7 +49,7 @@ class ProductCollectionTypeChangeAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_UPDATE")
+     * @IsGranted("PRODUCT_COLLECTION_PUT_TYPE")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

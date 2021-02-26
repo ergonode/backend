@@ -49,9 +49,8 @@ class UpdateProductsAttributesAction
         $this->commandFactory = $commandFactory;
     }
 
-
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_PATCH_ATTRIBUTES")
      *
      * @SWG\Tag(name="Product")
      *

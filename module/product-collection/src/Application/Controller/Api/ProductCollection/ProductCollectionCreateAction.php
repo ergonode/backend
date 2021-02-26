@@ -49,7 +49,7 @@ class ProductCollectionCreateAction
     }
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_CREATE")
+     * @IsGranted("PRODUCT_COLLECTION_POST")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

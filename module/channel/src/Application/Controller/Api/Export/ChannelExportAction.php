@@ -52,7 +52,7 @@ class ChannelExportAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_EXPORT")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

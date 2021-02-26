@@ -51,7 +51,7 @@ class SourceUpdatedAction
     }
 
     /**
-     * @IsGranted("IMPORT_CREATE")
+     * @IsGranted("IMPORT_PUT_SOURCE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

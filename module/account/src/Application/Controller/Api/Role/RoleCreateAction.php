@@ -40,7 +40,7 @@ class RoleCreateAction
     }
 
     /**
-     * @IsGranted("USER_ROLE_CREATE")
+     * @IsGranted("ACCOUNT_POST_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

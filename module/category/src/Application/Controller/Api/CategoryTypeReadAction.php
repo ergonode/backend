@@ -12,6 +12,7 @@ namespace Ergonode\Category\Application\Controller\Api;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Provider\Dictionary\CategoryTypeDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,6 +30,8 @@ class CategoryTypeReadAction
     }
 
     /**
+     * @IsGranted("CATEGORY_GET_TYPE")
+     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",

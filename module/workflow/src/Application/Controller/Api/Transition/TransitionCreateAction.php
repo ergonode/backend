@@ -48,7 +48,7 @@ class TransitionCreateAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_CREATE")
+     * @IsGranted("WORKFLOW_POST_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

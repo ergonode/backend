@@ -40,7 +40,7 @@ class ImportShowAction
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_GRID")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

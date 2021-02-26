@@ -56,7 +56,7 @@ class CategoryChangeAction
 
 
     /**
-     * @IsGranted("CATEGORY_UPDATE")
+     * @IsGranted("CATEGORY_PUT")
      *
      * @SWG\Parameter(
      *     name="language",

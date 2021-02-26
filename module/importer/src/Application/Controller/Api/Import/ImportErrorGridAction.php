@@ -57,7 +57,7 @@ class ImportErrorGridAction
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_GRID_ERROR")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(
