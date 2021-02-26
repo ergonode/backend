@@ -25,7 +25,7 @@
         "symfony/http-foundation": "^4.4",
         "symfony/mailer": "^4.4",
         "symfony/twig-bridge": "^4.4",
-        "symfony/validator": "^4.4",
+        "symfony/validator": "^4.4.11",
         "twig/twig": "^3.0",
         "webmozart/assert": "^1.7"
     },

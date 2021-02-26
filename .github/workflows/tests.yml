@@ -12,8 +12,9 @@ jobs:
       matrix:
         composer-commands:
           - install
-          - update --prefer-dist --prefer-stable --no-suggest --prefer-lowest
-          - update --prefer-dist --prefer-stable --no-suggest
+          - update --prefer-dist --prefer-stable
+          - update --prefer-dist --prefer-stable --prefer-lowest
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v2
