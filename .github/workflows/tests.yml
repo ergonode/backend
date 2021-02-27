@@ -12,8 +12,8 @@ jobs:
       matrix:
         composer-commands:
           - install
-          - update --prefer-dist --prefer-stable
-          - update --prefer-dist --prefer-stable --prefer-lowest
+          - update
+          - update --prefer-lowest
       fail-fast: false
 
     steps:
