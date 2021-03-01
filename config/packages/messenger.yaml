@@ -24,6 +24,7 @@ framework:
             segment: "%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%"
             completeness: "%env(MESSENGER_TRANSPORT_COMPLETENESS_DSN)%"
             notification: "%env(MESSENGER_TRANSPORT_NOTIFICATION_DSN)%"
+            batch_action: "%env(MESSENGER_TRANSPORT_BATCH_ACTION_DSN)%"
         routing:
 #            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
 #            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
