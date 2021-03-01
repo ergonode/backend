@@ -14,9 +14,9 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
-use Ergonode\Core\Application\Exception\DenoralizationException;
-use Ergonode\Core\Application\Serializer\JMSSerializer;
 use Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
+use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Swagger\Annotations as SWG;
@@ -33,18 +33,18 @@ class GetTemplatesByBatchAction
 {
     private TemplateBatchActionFilter $templateBatchActionFilter;
 
-    private JMSSerializer $serializer;
+    private NormalizerInterface $normalizer;
 
     private ValidatorInterface $validator;
 
 
     public function __construct(
         TemplateBatchActionFilter $templateBatchActionFilter,
-        JMSSerializer $serializer,
+        NormalizerInterface $normalizer,
         ValidatorInterface $validator
     ) {
         $this->templateBatchActionFilter = $templateBatchActionFilter;
-        $this->serializer = $serializer;
+        $this->normalizer = $normalizer;
         $this->validator = $validator;
     }
 
@@ -79,7 +79,7 @@ class GetTemplatesByBatchAction
     {
         try {
             /** @var BatchActionFilterFormModel $data */
-            $data = $this->serializer->denormalize(
+            $data = $this->normalizer->denormalize(
                 $request->query->get('filter') ?? [],
                 BatchActionFilterFormModel::class
             );
