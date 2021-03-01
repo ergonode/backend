@@ -10,10 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Authentication\Tests\Application\Middleware;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Middleware\AuthenticationMiddleware;
 use Ergonode\Authentication\Application\Stamp\UserStamp;
-use Ergonode\Core\Domain\User\AggregateUserInterface;
+use Ergonode\Core\Domain\User\UserInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
@@ -25,8 +24,6 @@ class AuthenticationMiddlewareTest extends TestCase
 {
     private TokenStorageInterface $tokenStorage;
 
-    private UserRepositoryInterface $userRepository;
-
     private Envelope $envelope1;
 
     private AuthenticationMiddleware $authenticationMiddleware;
@@ -37,11 +34,9 @@ class AuthenticationMiddlewareTest extends TestCase
     public function setUp(): void
     {
         $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
-        $this->userRepository = $this->createMock(UserRepositoryInterface::class);
         $this->envelope1 = new Envelope($this->createMock(\stdClass::class));
         $this->authenticationMiddleware = new AuthenticationMiddleware(
-            $this->tokenStorage,
-            $this->userRepository
+            $this->tokenStorage
         );
         $this->stack = $this->createMock(StackInterface::class);
     }
@@ -62,10 +57,9 @@ class AuthenticationMiddlewareTest extends TestCase
     public function testHandleReceivedStamp(): void
     {
         $envelope = $this->envelope1->with(new ReceivedStamp('transport'));
-        $envelope = $envelope->with(new UserStamp($this->createMock(AggregateUserInterface::class)));
+        $envelope = $envelope->with(new UserStamp($this->createMock(UserInterface::class)));
         $user = $this->createMock(User::class);
         $user->method('getRoles')->willReturn([]);
-        $this->userRepository->method('load')->willReturn($user);
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $this->stack->method('next')->willReturn($nextMiddleware);
         $envelope2 = new Envelope($this->createMock(\stdClass::class));

@@ -9,14 +9,14 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Security\User;
 
-use Ergonode\Core\Domain\User\AggregateUserInterface;
+use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
-final class CachedUser implements AggregateUserInterface
+final class CachedUser implements UserInterface
 {
     private UserId $id;
     private string $firstName;
@@ -29,7 +29,7 @@ final class CachedUser implements AggregateUserInterface
      */
     private array $languagePrivilegesCollection;
 
-    public static function createFromAggregate(AggregateUserInterface $user): self
+    public static function createFromAggregate(UserInterface $user): self
     {
         return new self(
             $user->getId(),

@@ -9,19 +9,19 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Stamp;
 
-use Ergonode\Core\Domain\User\AggregateUserInterface;
+use Ergonode\Core\Domain\User\UserInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
 
 final class UserStamp implements StampInterface
 {
-    private AggregateUserInterface $user;
+    private UserInterface $user;
 
-    public function __construct(AggregateUserInterface $user)
+    public function __construct(UserInterface $user)
     {
         $this->user = $user;
     }
 
-    public function getUser(): AggregateUserInterface
+    public function getUser(): UserInterface
     {
         return $this->user;
     }

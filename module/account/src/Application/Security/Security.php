@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Account\Application\Security;
 
-use Ergonode\Core\Domain\User\AggregateUserInterface;
+use Ergonode\Core\Domain\User\UserInterface;
 use Symfony\Component\Security\Core\Security as SymfonySecurity;
 
 class Security
@@ -21,11 +21,11 @@ class Security
         $this->security = $security;
     }
 
-    public function getUser(): ?AggregateUserInterface
+    public function getUser(): ?UserInterface
     {
         $user = $this->security->getUser();
 
-        return $user instanceof AggregateUserInterface ?
+        return $user instanceof UserInterface ?
             $user :
             null;
     }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Core\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\Query\LanguageTreeQueryInterface;
-use Ergonode\Core\Domain\User\AggregateUserInterface;
+use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Mapper\LanguageTreeMapper;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -44,7 +44,7 @@ class LanguageTreeProvider implements LanguageTreeProviderInterface
         }
         $user = $token->getUser();
 
-        if (!$user instanceof AggregateUserInterface) {
+        if (!$user instanceof UserInterface) {
             return [];
         }
         $privileges = $user->getLanguagePrivilegesCollection();
