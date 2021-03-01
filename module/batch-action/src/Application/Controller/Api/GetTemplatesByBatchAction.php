@@ -101,7 +101,7 @@ class GetTemplatesByBatchAction
             }
             throw new ViolationsHttpException($violations);
         } catch (DenoralizationException $exception) {
-            throw new BadRequestHttpException('Invalid query parameters');
+            throw new BadRequestHttpException('Invalid query filter');
         }
     }
 }
