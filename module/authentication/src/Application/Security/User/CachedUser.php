@@ -11,7 +11,6 @@ namespace Ergonode\Authentication\Application\Security\User;
 
 use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -24,10 +23,6 @@ final class CachedUser implements UserInterface
     private RoleId $roleId;
     private Email $email;
     private Language $language;
-    /**
-     * @var LanguagePrivileges[]
-     */
-    private array $languagePrivilegesCollection;
 
     public static function createFromUser(UserInterface $user): self
     {
@@ -38,7 +33,6 @@ final class CachedUser implements UserInterface
             $user->getRoleId(),
             $user->getEmail(),
             $user->getLanguage(),
-            $user->getLanguagePrivilegesCollection(),
             $user->isActive(),
         );
     }
@@ -50,7 +44,6 @@ final class CachedUser implements UserInterface
         RoleId $roleId,
         Email $email,
         Language $language,
-        array $languagePrivilegesCollection,
         bool $active
     ) {
         if (!$active) {
@@ -62,7 +55,6 @@ final class CachedUser implements UserInterface
         $this->roleId = $roleId;
         $this->email = $email;
         $this->language = $language;
-        $this->languagePrivilegesCollection = $languagePrivilegesCollection;
     }
 
     /**
@@ -113,30 +105,6 @@ final class CachedUser implements UserInterface
     public function getLanguage(): Language
     {
         return $this->language;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getLanguagePrivilegesCollection(): array
-    {
-        return $this->languagePrivilegesCollection;
-    }
-
-    public function hasReadLanguagePrivilege(Language $language): bool
-    {
-        return (
-            isset($this->languagePrivilegesCollection[$language->getCode()])
-            && $this->languagePrivilegesCollection[$language->getCode()]->isReadable()
-        );
-    }
-
-    public function hasEditLanguagePrivilege(Language $language): bool
-    {
-        return (
-            isset($this->languagePrivilegesCollection[$language->getCode()])
-            && $this->languagePrivilegesCollection[$language->getCode()]->isEditable()
-        );
     }
 
     /**
