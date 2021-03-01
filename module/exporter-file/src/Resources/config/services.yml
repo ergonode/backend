@@ -14,9 +14,21 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\ExporterFile\Infrastructure\Processor\Strategy\Template\:
-        resource: '../../Infrastructure/Processor/Strategy/Template/*'
-        tags: ['export-file.template_element_map_interface']
+    Ergonode\ExporterFile\Infrastructure\Builder\Template\:
+        resource: '../../Infrastructure/Builder/Template/*'
+        tags: ['export-file.template_element_builder']
+
+    Ergonode\ExporterFile\Infrastructure\Builder\Product\:
+        resource: '../../Infrastructure/Builder/Product/*'
+        tags: ['export-file.product_builder']
+
+    Ergonode\ExporterFile\Infrastructure\Builder\Attribute\:
+        resource: '../../Infrastructure/Builder/Attribute/*'
+        tags: ['export-file.attribute_builder']
+
+    Ergonode\ExporterFile\Infrastructure\Builder\Option\:
+        resource: '../../Infrastructure/Builder/Option/*'
+        tags: ['export-file.option_builder']
 
     Ergonode\ExporterFile\Domain\:
         resource: '../../Domain/*'
@@ -30,9 +42,28 @@ services:
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\OptionExportProcessorStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\CategoryExportProcessorStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\ProductExportProcessStep'
-                - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\MultimediaExportProcessorStep'
                 - '@Ergonode\ExporterFile\Infrastructure\Processor\Step\TemplateExportProcessorStep'
 
-    Ergonode\ExporterFile\Infrastructure\Processor\Strategy\TemplateElementMapProvider:
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilder:
+        arguments:
+            $builders: !tagged_iterator 'export-file.template_builder'
+
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateElementBuilder:
        arguments:
-           $strategies: !tagged_iterator 'export-file.template_element_map_interface'
+           $builders: !tagged_iterator 'export-file.template_element_builder'
+
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilder:
+        arguments:
+            $builders: !tagged_iterator 'export-file.product_builder'
+
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportCategoryBuilder:
+        arguments:
+            $builders: !tagged_iterator 'export-file.category_builder'
+
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportAttributeBuilder:
+        arguments:
+            $builders: !tagged_iterator 'export-file.attribute_builder'
+
+    Ergonode\ExporterFile\Infrastructure\Builder\ExportOptionBuilder:
+        arguments:
+            $builders: !tagged_iterator 'export-file.option_builder'

@@ -48,7 +48,7 @@ class CategoryTreeGridReadAction
     }
 
     /**
-     * @IsGranted("CATEGORY_TREE_READ")
+     * @IsGranted("CATEGORY_GET_TREE_GRID")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

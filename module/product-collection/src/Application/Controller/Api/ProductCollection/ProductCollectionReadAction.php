@@ -27,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductCollectionReadAction
 {
     /**
-     * @IsGranted("PRODUCT_COLLECTION_READ")
+     * @IsGranted("PRODUCT_COLLECTION_GET")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

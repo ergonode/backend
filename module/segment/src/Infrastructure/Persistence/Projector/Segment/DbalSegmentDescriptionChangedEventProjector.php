@@ -12,7 +12,7 @@ namespace Ergonode\Segment\Infrastructure\Persistence\Projector\Segment;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalSegmentDescriptionChangedEventProjector
 {

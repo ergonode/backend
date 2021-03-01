@@ -50,11 +50,10 @@ interface AttributeQueryInterface
     public function getDictionary(array $types = []): array;
 
     /**
-     * @param array $types
-     *
-     * @return array
+     * @param string[] $types
+     * @return string[]
      */
-    public function getAttributeCodes(array $types = []): array;
+    public function getAttributeCodes(array $types = [], bool $includeSystem = true): array;
 
     public function findAttributeOption(AttributeId $id, OptionKey $key): ?OptionInterface;
 

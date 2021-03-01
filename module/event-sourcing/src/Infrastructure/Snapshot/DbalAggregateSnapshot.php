@@ -11,12 +11,12 @@ namespace Ergonode\EventSourcing\Infrastructure\Snapshot;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Doctrine\DBAL\Connection;
 use Ramsey\Uuid\Uuid;
 use Doctrine\DBAL\DBALException;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalAggregateSnapshot implements AggregateSnapshotInterface
 {

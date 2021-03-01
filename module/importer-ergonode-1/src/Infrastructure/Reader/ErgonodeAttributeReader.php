@@ -12,9 +12,15 @@ use Ergonode\ImporterErgonode1\Infrastructure\Model\AttributeModel;
 
 class ErgonodeAttributeReader extends AbstractErgonodeReader
 {
-    /**
-     * @throws \JsonException
-     */
+    private const KEYS = [
+        '_code',
+        '_type',
+        '_scope',
+        '_name',
+        '_hint',
+        '_placeholder',
+    ];
+
     public function read(): ?AttributeModel
     {
         $item = null;
@@ -41,22 +47,16 @@ class ErgonodeAttributeReader extends AbstractErgonodeReader
             if (!empty($record['_placeholder'])) {
                 $item->addPlaceholder($record['_language'], $record['_placeholder']);
             }
-            $this->mapParameters($item, $record['_parameters']);
+
+            foreach ($record as $key => $value) {
+                if (!array_key_exists($key, self::KEYS)) {
+                    $item->addParameter($key, $value);
+                }
+            }
 
             $this->records->next();
         }
 
         return $item;
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    private function mapParameters(AttributeModel $model, string $parameters): void
-    {
-        $parameters = json_decode($parameters, true, 512, JSON_THROW_ON_ERROR);
-        foreach ($parameters as $key => $value) {
-            $model->addParameter($key, $value);
-        }
     }
 }

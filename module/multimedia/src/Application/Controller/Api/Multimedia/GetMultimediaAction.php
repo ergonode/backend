@@ -27,7 +27,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 class GetMultimediaAction
 {
     /**
-     * @IsGranted("MULTIMEDIA_READ")
+     * @IsGranted("MULTIMEDIA_GET")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

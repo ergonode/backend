@@ -36,7 +36,7 @@ class GetProductAttributeBindingsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

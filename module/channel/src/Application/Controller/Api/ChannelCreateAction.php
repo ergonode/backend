@@ -50,7 +50,7 @@ class ChannelCreateAction
     }
 
     /**
-     * @IsGranted("CHANNEL_CREATE")
+     * @IsGranted("CHANNEL_POST")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

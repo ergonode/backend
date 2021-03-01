@@ -34,16 +34,19 @@ class UnitGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_unit_read',
                     'parameters' => ['language' => $language->getCode(), 'unit' => '{id}'],
+                    'privilege' => 'CORE_GET_UNIT',
                 ],
                 'edit' => [
                     'route' => 'ergonode_unit_change',
                     'parameters' => ['language' => $language->getCode(), 'unit' => '{id}'],
                     'method' => Request::METHOD_PUT,
+                    'privilege' => 'CORE_PUT_UNIT',
                 ],
                 'delete' => [
                     'route' => 'ergonode_unit_delete',
                     'parameters' => ['language' => $language->getCode(), 'unit' => '{id}'],
                     'method' => Request::METHOD_DELETE,
+                    'privilege' => 'CORE_DELETE_UNIT',
                 ],
             ]))
             ->orderBy('name', 'DESC');

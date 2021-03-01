@@ -48,7 +48,7 @@ class AttributeGridReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_READ")
+     * @IsGranted("ATTRIBUTE_GET_GRID")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

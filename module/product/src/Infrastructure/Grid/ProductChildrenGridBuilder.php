@@ -34,7 +34,7 @@ class ProductChildrenGridBuilder implements GridBuilderInterface
             ->addColumn('_links', new LinkColumn('hal', [
                 'delete' => [
                     'route' => 'ergonode_product_child_remove',
-                    'privilege' => 'PRODUCT_DELETE',
+                    'privilege' => 'PRODUCT_DELETE_RELATIONS_CHILD',
                     'parameters' => [
                         'language' => $language->getCode(),
                         'product' => '{product_id}',
