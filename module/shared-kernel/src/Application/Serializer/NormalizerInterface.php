@@ -7,10 +7,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Application\Serializer;
+namespace Ergonode\SharedKernel\Application\Serializer;
 
-use Ergonode\Core\Application\Exception\DenoralizationException;
-use Ergonode\Core\Application\Exception\NormalizationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\NormalizationException;
 
 interface NormalizerInterface
 {

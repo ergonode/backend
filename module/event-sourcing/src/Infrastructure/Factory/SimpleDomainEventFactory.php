@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\EventSourcing\Infrastructure\Factory;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\AggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class SimpleDomainEventFactory implements DomainEventFactoryInterface
 {

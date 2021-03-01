@@ -6,10 +6,10 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Core\Application\Serializer;
+namespace Ergonode\SharedKernel\Application\Serializer;
 
-use Ergonode\Core\Application\Exception\DeserializationException;
-use Ergonode\Core\Application\Exception\SerializationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DeserializationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\SerializationException;
 
 interface SerializerInterface
 {

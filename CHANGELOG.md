@@ -1,4 +1,5 @@
 
+- bugfix [#1196](https://github.com/ergonode/backend/issues/1196) Decoupled EventSourcing from Core (piotrkreft)
 - refactor [#1199](https://github.com/ergonode/backend/issues/1199) JWT manager to handle stringable user identifier (piotrkreft)
 - bug [#1202](https://github.com/ergonode/backend/issues/1202) Wrong names of repositories (wiewiurdp)
 

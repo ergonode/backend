@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Transport\Serializer;
 
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessageSerializerInterface;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TransportMessageSerializer implements MessageSerializerInterface
 {

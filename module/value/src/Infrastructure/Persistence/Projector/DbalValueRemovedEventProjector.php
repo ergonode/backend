@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Value\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalValueRemovedEventProjector
 {
