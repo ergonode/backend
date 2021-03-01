@@ -18,6 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 interface UserInterface extends SymfonyUserInterface, DomainUserInterface
 {
+    public function isActive(): bool;
     public function getEmail(): Email;
     public function getRoleId(): RoleId;
     public function getFirstName(): string;
@@ -30,4 +31,3 @@ interface UserInterface extends SymfonyUserInterface, DomainUserInterface
     public function hasReadLanguagePrivilege(Language $language): bool;
     public function hasEditLanguagePrivilege(Language $language): bool;
 }
-
