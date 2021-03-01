@@ -4,3 +4,6 @@ parameters:
         - %currentWorkingDirectory%/module/*/migrations/*
         - %currentWorkingDirectory%/module/*/tests/*
         - %currentWorkingDirectory%/module/core/src/Infrastructure\JMS\Serializer\HandlerRegistry*
+    ignoreErrors:
+        - '#Cannot call method rowCount\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int.#'
+    reportUnmatchedIgnoredErrors: false

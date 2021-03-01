@@ -8,6 +8,13 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        composer-commands:
+          - install
+          - update
+          - update --prefer-lowest
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +37,7 @@ jobs:
         run: php -v
 
       - name: Install dependencies
-        run: composer install
+        run: composer ${{ matrix.composer-commands }}
 
       - name: Validate dependencies
         run: composer validate

@@ -49,7 +49,7 @@ class ErgoPrinter extends Printer
     /**
      * @param mixed $var
      */
-    protected function dump($var): string
+    protected function dump($var, int $column = 0): string
     {
         return str_replace("\t", $this->indentation, Helpers::dump($var));
     }
