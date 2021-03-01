@@ -40,7 +40,7 @@ class SourceReadAction
     }
 
     /**
-     * @IsGranted("IMPORT_READ")
+     * @IsGranted("IMPORT_GET_SOURCE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

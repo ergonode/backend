@@ -47,7 +47,7 @@ class AttributeGroupChangeAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GROUP_UPDATE")
+     * @IsGranted("ATTRIBUTE_PUT_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

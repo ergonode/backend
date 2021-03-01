@@ -43,7 +43,7 @@ class ProductReadInheritedValuesByLanguageAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_INHERITED")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

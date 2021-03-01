@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Types\Types;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionDescriptionChangedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalProductCollectionDescriptionChangedEventProjector
 {

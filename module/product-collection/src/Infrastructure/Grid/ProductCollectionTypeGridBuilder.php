@@ -33,16 +33,19 @@ class ProductCollectionTypeGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_product_collection_type_read',
                     'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
+                    'privilege' => 'PRODUCT_COLLECTION_GET_TYPE',
                 ],
                 'edit' => [
                     'route' => 'ergonode_product_collection_type_change',
                     'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
                     'method' => Request::METHOD_PUT,
+                    'privilege' => 'PRODUCT_COLLECTION_PUT_TYPE',
                 ],
                 'delete' => [
                     'route' => 'ergonode_product_collection_type_delete',
                     'parameters' => ['language' => $language->getCode(), 'productCollectionType' => '{id}'],
                     'method' => Request::METHOD_DELETE,
+                    'privilege' => 'PRODUCT_COLLECTION_DELETE_TYPE',
                 ],
             ]))
             ->orderBy('code', 'DESC');

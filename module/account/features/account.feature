@@ -792,14 +792,14 @@ Feature: Account module
       """
     Then the response status code should be 400
 
-  Scenario: Create user (long mail)
+  Scenario: Create user (long mail - 64 chars local part)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en_GB/accounts" with body:
       """
       {
-          "email": "@@random_uuid@@-tjtkh5m23vwqav5lwfeopipdf77e7an30ntsfl72zqeqrs3jqd0ikdsalq3m6cmj32a8v0zsk1hm1mw9mxeizc85q6p4p5141xy2oqfdysda6335bb7bbsifvxnxa693q932vxxnpzdu1oyx0cqzzsqqgzxw9i2iq1y0mwz46889pvovsj72l8j5zcreh4qmhij1mfsy1tsa@ergonode.com",
+          "email": "@@random_uuid@@-tjtkh5m23vwqav5lwfeopipdf77@ergonode.com",
           "firstName": "Test",
           "lastName": "Test",
           "language": "en_GB",

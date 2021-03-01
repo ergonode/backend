@@ -9,49 +9,35 @@ declare(strict_types=1);
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Processor;
 
 use Ergonode\Category\Domain\Entity\AbstractCategory;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\Processor\CategoryProcessor;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportCategoryBuilder;
 
 class CategoryProcessorTest extends TestCase
 {
-    /**
-     * @var AbstractCategory|MockObject
-     */
     private AbstractCategory $category;
 
     private FileExportChannel $channel;
+
+    private ExportCategoryBuilder $builder;
 
     protected function setUp(): void
     {
         $this->category = $this->createMock(AbstractCategory::class);
         $this->channel = $this->createMock(FileExportChannel::class);
+        $this->builder = $this->createMock(ExportCategoryBuilder::class);
     }
 
-    public function testProcessor(): void
+    public function testProcess(): void
     {
-        $language = $this->createMock(Language::class);
-        $language->method('getCode')->willReturn('en_GB');
-        $this->channel->method('getLanguages')->willReturn([$language]);
+        $data = $this->createMock(ExportData::class);
+        $this->builder->expects(self::once())->method('build')->willReturn($data);
 
-        $categoryCode = $this->createMock(CategoryCode::class);
-        $categoryCode->method('getValue')->willReturn('test_category_code');
-        $this->category->method('getCode')->willReturn($categoryCode);
-
-
-        $processor = new CategoryProcessor();
+        $processor = new CategoryProcessor($this->builder);
         $result = $processor->process($this->channel, $this->category);
 
-        $languageData = $result->getLanguages()['en_GB'];
-
-        self::assertArrayHasKey('_code', $languageData->getValues());
-        self::assertArrayHasKey('_language', $languageData->getValues());
-        self::assertArrayHasKey('_name', $languageData->getValues());
-
-        self::assertEquals('test_category_code', $languageData->getValues()['_code']);
-        self::assertEquals('en_GB', $languageData->getValues()['_language']);
+        self::assertSame($data, $result);
     }
 }

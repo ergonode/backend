@@ -15,17 +15,26 @@ use Ergonode\Grid\ColumnInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\Service\ResetInterface;
 
-class LinkColumnRenderer implements ColumnRendererInterface
+class LinkColumnRenderer implements ColumnRendererInterface, ResetInterface
 {
     private UrlGeneratorInterface $urlGenerator;
 
     private AuthorizationCheckerInterface $checker;
 
+    private array $localCache;
+
     public function __construct(UrlGeneratorInterface $urlGenerator, AuthorizationCheckerInterface $checker)
     {
         $this->urlGenerator = $urlGenerator;
         $this->checker = $checker;
+        $this->localCache = [];
+    }
+
+    public function reset(): void
+    {
+        $this->localCache = [];
     }
 
     /**
@@ -82,24 +91,23 @@ class LinkColumnRenderer implements ColumnRendererInterface
     {
         if (array_key_exists('privilege', $link)) {
             $privilege = $link['privilege'];
-            if (!$this->checker->isGranted($privilege)) {
+            if (!array_key_exists($privilege, $this->localCache)) {
+                $this->localCache[$privilege] = $this->checker->isGranted($privilege);
+            }
+            if (!$this->localCache[$privilege]) {
                 return false;
             }
         }
 
-        if (!array_key_exists('show', $link)) {
-            return true;
-        }
-
-        $result = true;
-
-        foreach ($link['show'] as $field => $value) {
-            if (array_key_exists($field, $row) && $row[$field] !== $value) {
-                $result = false;
+        if (array_key_exists('show', $link)) {
+            foreach ($link['show'] as $field => $value) {
+                if (array_key_exists($field, $row) && $row[$field] !== $value) {
+                    return false;
+                }
             }
         }
 
-        return $result;
+        return true;
     }
 
     /**

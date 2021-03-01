@@ -50,7 +50,7 @@ class DeleteProductsAttributesAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_ATTRIBUTES_DELETE")
      *
      * @SWG\Tag(name="Product")
      *

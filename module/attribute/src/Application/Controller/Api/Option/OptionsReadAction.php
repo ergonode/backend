@@ -30,7 +30,7 @@ class OptionsReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_READ")
+     * @IsGranted("ATTRIBUTE_GET_OPTION_COLLECTIONS")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

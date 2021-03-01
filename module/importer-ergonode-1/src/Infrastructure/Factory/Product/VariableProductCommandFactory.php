@@ -24,14 +24,24 @@ class VariableProductCommandFactory implements ProductCommandFactoryInterface
 
     public function create(ImportLineId $id, Import $import, ProductModel $model): DomainCommandInterface
     {
+        $children = [];
+        $bindings = [];
+        if ($model->hasParameter('_children')) {
+            $children = explode(',', $model->getParameter('_children'));
+        }
+
+        if ($model->hasParameter('_bindings')) {
+            $bindings = explode(',', $model->getParameter('_bindings'));
+        }
+
         return new ImportVariableProductCommand(
             $id,
             $import->getId(),
             $model->getSku(),
             $model->getTemplate(),
             $model->getCategories(),
-            [], // @todo bindings
-            [], // @todo childrens
+            $bindings,
+            $children,
             $model->getAttributes()
         );
     }

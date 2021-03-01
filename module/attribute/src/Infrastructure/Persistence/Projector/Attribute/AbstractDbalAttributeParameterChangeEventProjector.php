@@ -11,8 +11,8 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 abstract class AbstractDbalAttributeParameterChangeEventProjector
 {

@@ -14,6 +14,9 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Designer\Domain\ValueObject\Position;
+use Ergonode\Designer\Domain\ValueObject\Size;
+use Ergonode\Importer\Infrastructure\Action\Process\Template\TemplateElementBuilderProvider;
 
 class TemplateImportAction
 {
@@ -23,20 +26,24 @@ class TemplateImportAction
 
     private TemplateRepositoryInterface $templateRepository;
 
+    private TemplateElementBuilderProvider $provider;
+
     public function __construct(
         TemplateQueryInterface $query,
         TemplateGroupQueryInterface $templateGroupQuery,
-        TemplateRepositoryInterface $templateRepository
+        TemplateRepositoryInterface $templateRepository,
+        TemplateElementBuilderProvider $provider
     ) {
         $this->query = $query;
         $this->templateGroupQuery = $templateGroupQuery;
         $this->templateRepository = $templateRepository;
+        $this->provider = $provider;
     }
 
     /**
      * @throws \Exception
      */
-    public function action(string $code): Template
+    public function action(string $code, array $elements): Template
     {
         $template = null;
         $templateId = $this->query->findTemplateIdByCode($code);
@@ -56,8 +63,39 @@ class TemplateImportAction
             $template->changeName($code);
         }
 
+        $elements = $this->getElements($template, $elements);
+
+        foreach ($elements as $element) {
+            $current[(string) $element->getPosition()] = $element;
+            if ($template->hasElement($element->getPosition())) {
+                $template->changeElement($element);
+            } else {
+                $template->addElement($element);
+            }
+        }
+
+        foreach ($template->getElements() as $element) {
+            if (!isset($current[(string) $element->getPosition()])) {
+                $template->removeElement($element->getPosition());
+            }
+        }
+
         $this->templateRepository->save($template);
 
         return $template;
+    }
+
+    private function getElements(Template $template, array $elements): array
+    {
+        $result = [];
+
+        foreach ($elements as $element) {
+            $position = new Position($element['x'], $element['y']);
+            $size = new Size($element['width'], $element['height']);
+            $properties = $element['properties'];
+            $result[] = $this->provider->provide($element['type'])->build($template, $position, $size, $properties);
+        }
+
+        return $result;
     }
 }

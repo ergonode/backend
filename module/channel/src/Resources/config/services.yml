@@ -29,7 +29,6 @@ services:
     Ergonode\Channel\Infrastructure\Handler\Export\DeleteExportCommandHandler:
         tags: [ { name: 'messenger.message_handler', priority: -10 } ]
 
-
     Ergonode\Channel\Domain\Repository\SchedulerRepositoryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Repository\DbalSchedulerRepository'
     Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Repository\DbalChannelRepository'
     Ergonode\Channel\Domain\Query\ChannelGridQueryInterface: '@Ergonode\Channel\Infrastructure\Persistence\Query\DbalChannelGridQuery'

@@ -39,7 +39,7 @@ class AvatarDeleteAction
     }
 
     /**
-     * @IsGranted("USER_UPDATE")
+     * @IsGranted("ACCOUNT_DELETE_AVATAR")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Core\Tests\Infrastructure\Transport\Serializer;
 
 use Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class TransportMessageSerializerTest extends TestCase
 {

@@ -12,6 +12,7 @@ namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 use Ergonode\Api\Application\Response\FileContentResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use League\Flysystem\FilesystemInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +35,8 @@ class DownloadMultimediaAction
     }
 
     /**
+     * @IsGranted("MULTIMEDIA_GET_DOWNLOAD")
+     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="multimedia",

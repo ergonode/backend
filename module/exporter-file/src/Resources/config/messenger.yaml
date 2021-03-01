@@ -4,7 +4,6 @@ framework:
             Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand: '%ergonode.exporter_file.messenger_transport_name%'
             Ergonode\ExporterFile\Domain\Command\Export\ProcessAttributeCommand: '%ergonode.exporter_file.messenger_transport_name%'
             Ergonode\ExporterFile\Domain\Command\Export\ProcessCategoryCommand: '%ergonode.exporter_file.messenger_transport_name%'
-            Ergonode\ExporterFile\Domain\Command\Export\ProcessMultimediaCommand: '%ergonode.exporter_file.messenger_transport_name%'
             Ergonode\ExporterFile\Domain\Command\Export\ProcessOptionCommand: '%ergonode.exporter_file.messenger_transport_name%'
             Ergonode\ExporterFile\Domain\Command\Export\ProcessProductCommand: '%ergonode.exporter_file.messenger_transport_name%'
             Ergonode\ExporterFile\Domain\Command\Export\ProcessTemplateCommand: '%ergonode.exporter_file.messenger_transport_name%'

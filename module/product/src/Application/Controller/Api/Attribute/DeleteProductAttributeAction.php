@@ -44,7 +44,7 @@ class DeleteProductAttributeAction
      *     }
      * )
      *
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_ATTRIBUTE_DELETE")
      * @IsGranted("edit", subject="language")
      *
      * @SWG\Tag(name="Product")

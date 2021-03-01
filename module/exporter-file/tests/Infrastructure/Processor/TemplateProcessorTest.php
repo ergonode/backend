@@ -8,67 +8,36 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Processor;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Channel\Infrastructure\Exception\ExportException;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\Processor\TemplateProcessor;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilder;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 
 class TemplateProcessorTest extends TestCase
 {
-    /**
-     * @var SerializerInterface|MockObject
-     */
-    private SerializerInterface $serializer;
-
-    /**
-     * @var Template|MockObject
-     */
     private Template $template;
 
     private FileExportChannel $channel;
 
+    private ExportTemplateBuilder $builder;
+
     protected function setUp(): void
     {
-        $this->serializer = $this->createMock(SerializerInterface::class);
         $this->template = $this->createMock(Template::class);
         $this->channel = $this->createMock(FileExportChannel::class);
+        $this->builder = $this->createMock(ExportTemplateBuilder::class);
     }
 
     public function testProcessor(): void
     {
-        $this->template->method('getName')->willReturn('test_name');
+        $data = $this->createMock(ExportData::class);
+        $this->builder->expects(self::once())->method('build')->willReturn($data);
 
-        $templateElement = $this->createMock(TemplateElementInterface::class);
-        $templateElement->method('getType')->willReturn('test_type');
-        $this->template->method('getElements')->willReturn(new ArrayCollection(array_values([$templateElement])));
-
-        $processor = new TemplateProcessor($this->serializer);
+        $processor = new TemplateProcessor($this->builder);
         $result = $processor->process($this->channel, $this->template);
 
-        $languageData = $result->getLanguages()[null];
-
-        self::assertArrayHasKey('_name', $languageData->getValues());
-        self::assertArrayHasKey('_type', $languageData->getValues());
-        self::assertArrayHasKey('_x', $languageData->getValues());
-        self::assertArrayHasKey('_y', $languageData->getValues());
-        self::assertArrayHasKey('_width', $languageData->getValues());
-        self::assertArrayHasKey('_height', $languageData->getValues());
-        self::assertArrayHasKey('_properties', $languageData->getValues());
-
-        self::assertEquals('test_name', $languageData->getValues()['_name']);
-        self::assertEquals('test_type', $languageData->getValues()['_type']);
-    }
-
-    public function testInvalidArgumentExceptionProcessor(): void
-    {
-        $this->expectException(ExportException::class);
-
-        $processor = new TemplateProcessor($this->serializer);
-        $processor->process($this->channel, $this->template);
+        self::assertSame($data, $result);
     }
 }

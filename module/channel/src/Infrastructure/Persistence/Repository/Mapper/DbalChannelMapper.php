@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Channel\Domain\Entity\AbstractChannel;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalChannelMapper
 {

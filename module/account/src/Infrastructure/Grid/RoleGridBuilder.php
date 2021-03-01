@@ -36,18 +36,18 @@ class RoleGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_account_role_read',
                     'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
-                    'privilege' => 'USER_ROLE_READ',
+                    'privilege' => 'ACCOUNT_GET_ROLE',
                 ],
                 'edit' => [
                     'route' => 'ergonode_account_role_change',
                     'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
-                    'privilege' => 'USER_ROLE_UPDATE',
+                    'privilege' => 'ACCOUNT_PUT_ROLE',
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
                     'route' => 'ergonode_account_role_delete',
                     'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
-                    'privilege' => 'USER_ROLE_DELETE',
+                    'privilege' => 'ACCOUNT_DELETE_ROLE',
                     'method' => Request::METHOD_DELETE,
                 ],
             ]));

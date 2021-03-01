@@ -160,7 +160,6 @@ ruleset:
     - Product
     - SharedKernel
   EventSourcing:
-    - Core # todo to remove
     - SharedKernel
   ExporterFile:
     - Attribute

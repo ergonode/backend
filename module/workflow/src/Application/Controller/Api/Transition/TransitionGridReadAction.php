@@ -52,7 +52,7 @@ class TransitionGridReadAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_READ")
+     * @IsGranted("WORKFLOW_GET_TRANSITION_GRID")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

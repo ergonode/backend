@@ -39,7 +39,7 @@ class CategoryTreeCreateAction
     }
 
     /**
-     * @IsGranted("CATEGORY_TREE_CREATE")
+     * @IsGranted("CATEGORY_POST_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

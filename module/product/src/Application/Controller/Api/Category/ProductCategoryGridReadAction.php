@@ -52,7 +52,7 @@ class ProductCategoryGridReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_CATEGORY")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

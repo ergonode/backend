@@ -27,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SegmentReadAction
 {
     /**
-     * @IsGranted("SEGMENT_READ")
+     * @IsGranted("SEGMENT_GET")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
