@@ -41,7 +41,7 @@ class OptionGridAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_READ")
+     * @IsGranted("ATTRIBUTE_GET_OPTION_GRID")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

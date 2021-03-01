@@ -27,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryReadAction
 {
     /**
-     * @IsGranted("CATEGORY_READ")
+     * @IsGranted("CATEGORY_GET")
      *
      * @SWG\Tag(name="Category")
      * @SWG\Parameter(

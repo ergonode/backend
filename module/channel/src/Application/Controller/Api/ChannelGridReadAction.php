@@ -52,7 +52,7 @@ class ChannelGridReadAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_GRID")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

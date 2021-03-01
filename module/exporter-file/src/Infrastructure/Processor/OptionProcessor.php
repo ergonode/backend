@@ -8,22 +8,23 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportOptionBuilder;
 
 class OptionProcessor
 {
     private AttributeRepositoryInterface $attributeRepository;
 
-    public function __construct(AttributeRepositoryInterface $attributeRepository)
+    private ExportOptionBuilder $optionBuilder;
+
+    public function __construct(AttributeRepositoryInterface $attributeRepository, ExportOptionBuilder $optionBuilder)
     {
         $this->attributeRepository = $attributeRepository;
+        $this->optionBuilder = $optionBuilder;
     }
 
     /**
@@ -37,28 +38,12 @@ class OptionProcessor
                 throw new \InvalidArgumentException('Attribute not found');
             }
 
-            $data = new ExportData();
-            foreach ($channel->getLanguages() as $language) {
-                $data->set($this->getLanguage($option, $language, $attribute), $language);
-            }
-
-            return $data;
+            return $this->optionBuilder->build($option, $channel);
         } catch (\Exception $exception) {
             throw new ExportException(
                 sprintf('Can\'t process export for %s', $option->getCode()->getValue()),
                 $exception
             );
         }
-    }
-
-    private function getLanguage(AbstractOption $option, Language $language, AbstractAttribute $attribute): LanguageData
-    {
-        $result = new LanguageData();
-        $result->set('_code', $option->getCode()->getValue());
-        $result->set('_attribute_code', $attribute->getCode()->getValue());
-        $result->set('_language', $language->getCode());
-        $result->set('_label', $option->getLabel()->get($language));
-
-        return $result;
     }
 }

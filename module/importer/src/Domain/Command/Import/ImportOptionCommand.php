@@ -11,9 +11,12 @@ namespace Ergonode\Importer\Domain\Command\Import;
 use Ergonode\Importer\Domain\Command\ImporterCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class ImportOptionCommand implements ImporterCommandInterface
 {
+    private ImportLineId $id;
+
     private ImportId $importId;
 
     private string $code;
@@ -23,15 +26,22 @@ class ImportOptionCommand implements ImporterCommandInterface
     private TranslatableString $translation;
 
     public function __construct(
+        ImportLineId $id,
         ImportId $importId,
         string $code,
         string $key,
         TranslatableString $translation
     ) {
+        $this->id = $id;
         $this->importId = $importId;
         $this->code = $code;
         $this->optionKey = $key;
         $this->translation = $translation;
+    }
+
+    public function getId(): ImportLineId
+    {
+        return $this->id;
     }
 
     public function getImportId(): ImportId

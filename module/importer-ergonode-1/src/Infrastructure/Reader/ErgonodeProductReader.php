@@ -12,6 +12,14 @@ use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 
 class ErgonodeProductReader extends AbstractErgonodeReader
 {
+    private const KEYS = [
+        '_sku',
+        '_type',
+        '_template',
+        '_language',
+        '_categories',
+    ];
+
     public function read(): ?ProductModel
     {
         $item = null;
@@ -39,6 +47,12 @@ class ErgonodeProductReader extends AbstractErgonodeReader
 
             foreach ($attributes as $attribute) {
                 $item->addAttribute($attribute, $record['_language'], $record[$attribute]);
+            }
+
+            foreach ($record as $key => $value) {
+                if (!array_key_exists($key, self::KEYS) && !array_key_exists($key, $attributes)) {
+                    $item->addParameter($key, $value);
+                }
             }
 
             $this->records->next();

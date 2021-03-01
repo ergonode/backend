@@ -36,7 +36,7 @@ class AttributeReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_READ")
+     * @IsGranted("ATTRIBUTE_GET")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

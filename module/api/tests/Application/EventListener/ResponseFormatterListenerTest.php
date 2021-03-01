@@ -11,12 +11,12 @@ namespace Ergonode\Api\Tests\Application\EventListener;
 
 use Ergonode\Api\Application\EventListener\ResponseFormatterListener;
 use Ergonode\Api\Application\Response\AbstractResponse;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class ResponseFormatterListenerTest extends TestCase
 {

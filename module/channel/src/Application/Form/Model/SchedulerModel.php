@@ -12,7 +12,7 @@ use Ergonode\Channel\Application\Validator\Scheduler;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Scheduler(groups={"Active"})
+ * @Scheduler
  */
 class SchedulerModel
 {
@@ -23,19 +23,19 @@ class SchedulerModel
     public bool $active = false;
 
     /**
-     * @Assert\NotBlank(message="Start date is required", groups={"Active"})
+     * @Assert\NotBlank(message="Start date is required")
      */
     public ?\DateTime $start = null;
 
     /**
-     * @Assert\NotBlank(message="Hour is required", groups={"Active"})
-     * @Assert\Range(min=0, max=2147483647, groups={"Active"})
+     * @Assert\NotBlank(message="Hour is required")
+     * @Assert\Range(min=0, max=2147483647)
      */
     public ?int $hour = null;
 
     /**
-     * @Assert\NotBlank(message="Minute is required", groups={"Active"})
-     * @Assert\Range(min=0, max=59, groups={"Active"})
+     * @Assert\NotBlank(message="Minute is required")
+     * @Assert\Range(min=0, max=59)
      */
     public ?int $minute = null;
 }

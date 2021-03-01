@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Persistence\Repository\Mapper;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalSourceMapper
 {

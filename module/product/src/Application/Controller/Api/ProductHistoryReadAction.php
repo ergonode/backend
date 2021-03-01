@@ -51,7 +51,7 @@ class ProductHistoryReadAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("PRODUCT_GET_HISTORY_GRID")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

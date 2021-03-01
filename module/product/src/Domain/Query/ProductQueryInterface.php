@@ -22,6 +22,8 @@ interface ProductQueryInterface
 {
     public function findProductIdBySku(Sku $sku): ?ProductId;
 
+    public function findSkuByProductId(ProductId $id): ?Sku;
+
     /**
      * @return array
      */

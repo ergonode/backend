@@ -14,6 +14,8 @@ use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeOptionReader;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 
 class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
 {
@@ -21,23 +23,32 @@ class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
 
     private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    private ImportRepositoryInterface $importRepository;
+
+    public function __construct(
+        CommandBusInterface $commandBus,
+        ImportRepositoryInterface $importRepository
+    ) {
         $this->commandBus = $commandBus;
+        $this->importRepository = $importRepository;
     }
+
 
     public function __invoke(Import $import, string $directory): void
     {
+
         $reader = new ErgonodeOptionReader($directory, self::FILENAME);
 
         while ($option = $reader->read()) {
+            $id = ImportLineId::generate();
             $command = new ImportOptionCommand(
+                $id,
                 $import->getId(),
                 $option->getAttribute(),
                 $option->getCode(),
                 new TranslatableString($option->getTranslations())
             );
-            $import->addRecords(1);
+            $this->importRepository->addLine($id, $import->getId(), 'OPTION');
             $this->commandBus->dispatch($command, true);
         }
     }

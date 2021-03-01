@@ -40,7 +40,7 @@ class ProductRemoveChildAction
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_DELETE_RELATIONS_CHILD")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

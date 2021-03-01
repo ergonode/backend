@@ -15,19 +15,24 @@ use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInte
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\Importer\Domain\Command\Import\ImportMultimediaFromWebCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
     private CommandBusInterface $commandBus;
+
+    private ImportRepositoryInterface $importRepository;
 
     /**
      * @var string[]
      */
     private array $media;
 
-    public function __construct(CommandBusInterface $commandBus)
+    public function __construct(CommandBusInterface $commandBus, ImportRepositoryInterface $importRepository)
     {
         $this->commandBus = $commandBus;
+        $this->importRepository = $importRepository;
         $this->media = [];
     }
 
@@ -69,13 +74,16 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         $filename = pathinfo($image, PATHINFO_BASENAME);
 
         if (!array_key_exists($url, $this->media) && (strpos($url, 'no_selection') === false)) {
+            $id = ImportLineId::generate();
             $this->media[$url] = $url;
 
             $command = new ImportMultimediaFromWebCommand(
+                $id,
                 $import->getId(),
                 $url,
                 $filename
             );
+            $this->importRepository->addLine($id, $import->getId(), 'MULTIMEDIA');
             $this->commandBus->dispatch($command, true);
         }
     }

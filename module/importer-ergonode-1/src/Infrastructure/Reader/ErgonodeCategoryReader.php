@@ -12,6 +12,11 @@ use Ergonode\ImporterErgonode1\Infrastructure\Model\CategoryModel;
 
 class ErgonodeCategoryReader extends AbstractErgonodeReader
 {
+    private const KEYS = [
+        '_code',
+        '_name',
+    ];
+
     public function read(): ?CategoryModel
     {
         $item = null;
@@ -27,6 +32,13 @@ class ErgonodeCategoryReader extends AbstractErgonodeReader
             if (!empty($record['_name'])) {
                 $item->addTranslation($record['_language'], $record['_name']);
             }
+
+            foreach ($record as $key => $value) {
+                if (!array_key_exists($key, self::KEYS)) {
+                    $item->addParameter($key, $value);
+                }
+            }
+
             $this->records->next();
         }
 

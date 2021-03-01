@@ -38,7 +38,7 @@ services:
     Ergonode\Category\Domain\Entity\Category:
         autowire: true
 
-    Ergonode\Category\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Category\Infrastructure\Persistence\Repository\DbalCategoryRepository'
+    Ergonode\Category\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Category\Infrastructure\Persistence\Repository\EventStoreCategoryRepository'
     Ergonode\Category\Domain\Query\CategoryQueryInterface: '@Ergonode\Category\Infrastructure\Persistence\Query\DbalCategoryQuery'
-    Ergonode\Category\Domain\Repository\TreeRepositoryInterface: '@Ergonode\Category\Infrastructure\Persistence\Repository\DbalTreeRepository'
+    Ergonode\Category\Domain\Repository\TreeRepositoryInterface: '@Ergonode\Category\Infrastructure\Persistence\Repository\EventStoreTreeRepository'
     Ergonode\Category\Domain\Query\TreeQueryInterface: '@Ergonode\Category\Infrastructure\Persistence\Query\DbalTreeQuery'

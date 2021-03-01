@@ -44,12 +44,12 @@ class ChannelGridBuilder implements GridBuilderInterface
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
                     'route' => 'ergonode_channel_read',
-                    'privilege' => 'CHANNEL_READ',
+                    'privilege' => 'CHANNEL_GET',
                     'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
                 ],
                 'edit' => [
                     'route' => 'ergonode_channel_change',
-                    'privilege' => 'CHANNEL_UPDATE',
+                    'privilege' => 'CHANNEL_PUT',
                     'parameters' => ['language' => $language->getCode(), 'channel' => '{id}'],
                     'method' => Request::METHOD_PUT,
                 ],

@@ -33,10 +33,10 @@ Feature: channel module
     When I send a PUT request to "/api/v1/en_GB/channels/@channel_id@/scheduler" with body:
       """
         {
-          "active": "false",
-          "start": null,
-          "hour": null,
-          "minute" : null
+          "active": false,
+          "start": "2020-01-01T10:00:00Z",
+          "hour": 2147,
+          "minute" : 0
         }
       """
     Then the response status code should be 204

@@ -25,7 +25,6 @@ class DbalImportMapper
             'file' => $import->getFile(),
             'started_at' => $import->getStartedAt(),
             'ended_at' => $import->getEndedAt(),
-            'records' => $import->getRecords(),
         ];
     }
 }

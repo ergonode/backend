@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Command\Import\ImportGroupingProductCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Model\ProductModel;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 
 class GroupingProductCommandFactory implements ProductCommandFactoryInterface
 {
@@ -21,14 +22,20 @@ class GroupingProductCommandFactory implements ProductCommandFactoryInterface
         return GroupingProduct::TYPE === $type;
     }
 
-    public function create(Import $import, ProductModel $model): DomainCommandInterface
+    public function create(ImportLineId $id, Import $import, ProductModel $model): DomainCommandInterface
     {
+        $children = [];
+        if ($model->hasParameter('_children')) {
+            $children = explode(',', $model->getParameter('_children'));
+        }
+
         return new ImportGroupingProductCommand(
+            $id,
             $import->getId(),
             $model->getSku(),
             $model->getTemplate(),
             $model->getCategories(),
-            [], // @todo children
+            $children,
             $model->getAttributes()
         );
     }

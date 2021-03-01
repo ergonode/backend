@@ -48,7 +48,7 @@ class CategoryTreeDeleteAction
     }
 
     /**
-     * @IsGranted("CATEGORY_TREE_DELETE")
+     * @IsGranted("CATEGORY_DELETE_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

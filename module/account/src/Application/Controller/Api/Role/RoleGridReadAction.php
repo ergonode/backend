@@ -48,7 +48,7 @@ class RoleGridReadAction
     }
 
     /**
-     * @IsGranted("USER_ROLE_READ")
+     * @IsGranted("ACCOUNT_GET_ROLE_GRID")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

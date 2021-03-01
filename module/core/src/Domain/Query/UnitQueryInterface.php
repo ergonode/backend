@@ -23,5 +23,7 @@ interface UnitQueryInterface
 
     public function findIdByCode(string $code): ?UnitId;
 
+    public function findCodeById(UnitId $unitId): ?string;
+
     public function findIdByName(string $name): ?UnitId;
 }

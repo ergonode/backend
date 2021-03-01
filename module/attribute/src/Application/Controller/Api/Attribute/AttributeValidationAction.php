@@ -51,7 +51,8 @@ class AttributeValidationAction
      *     }
      * )
      *
-     * @IsGranted("ATTRIBUTE_READ")
+     * @IsGranted("PRODUCT_ATTRIBUTE_POST_VALIDATION")
+     * @IsGranted("edit", subject="language")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

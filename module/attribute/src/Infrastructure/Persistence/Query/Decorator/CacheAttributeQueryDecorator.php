@@ -91,9 +91,9 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
      *
      * @return array
      */
-    public function getAttributeCodes(array $types = []): array
+    public function getAttributeCodes(array $types = [], bool $includeSystem = true): array
     {
-        return $this->attributeQuery->getAttributeCodes($types);
+        return $this->attributeQuery->getAttributeCodes($types, $includeSystem);
     }
 
     public function findAttributeOption(AttributeId $id, OptionKey $key): ?OptionInterface
@@ -133,6 +133,16 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function getMultimediaRelation(MultimediaId $id): array
     {
         return $this->attributeQuery->getMultimediaRelation($id);
+    }
+
+    public function findAttributeCodeById(AttributeId $id): ?AttributeCode
+    {
+        $key = sprintf('id_%s', $id->getValue());
+        if (!array_key_exists($key, $this->cache)) {
+            $this->cache[$key] = $this->attributeQuery->findAttributeCodeById($id);
+        }
+
+        return $this->cache[$key];
     }
 
     /**

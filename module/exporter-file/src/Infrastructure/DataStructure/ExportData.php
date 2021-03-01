@@ -8,26 +8,23 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\DataStructure;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-
 class ExportData
 {
     /**
-     * @var LanguageData[]
+     * @var ExportLineData[]
      */
-    private array $languages = [];
+    private array $lines = [];
 
-    public function set(LanguageData $data, ?Language $language = null): void
+    public function add(ExportLineData $line): void
     {
-        $code = $language ? $language->getCode() : null;
-        $this->languages[$code] = $data;
+        $this->lines[] = $line;
     }
 
     /**
-     * @return LanguageData[]
+     * @return ExportLineData[]
      */
-    public function getLanguages(): array
+    public function getLines(): array
     {
-        return $this->languages;
+        return $this->lines;
     }
 }

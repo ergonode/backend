@@ -30,7 +30,7 @@ class ExportNotificationAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET_NOTIFICATION")
      *
      * @SWG\Tag(name="Profile")
      * @SWG\Parameter(

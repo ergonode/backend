@@ -48,7 +48,7 @@ class TemplateMultimediaRelation implements MultimediaRelationInterface
         $result = [];
         foreach ($relations as $id => $name) {
             $product['name'] = $name;
-            if ($this->security->isGranted('TEMPLATE_READ')) {
+            if ($this->security->isGranted('DESIGNER_GET_TEMPLATE')) {
                 $product['_link'] = [
                     'method' => Request::METHOD_GET,
                     'href' => $this->getUrl(

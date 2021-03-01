@@ -47,7 +47,7 @@ class CategoryTreeChangeAction
     }
 
     /**
-     * @IsGranted("CATEGORY_TREE_UPDATE")
+     * @IsGranted("CATEGORY_PUT_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(

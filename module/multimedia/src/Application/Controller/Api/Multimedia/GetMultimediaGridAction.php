@@ -9,17 +9,18 @@ declare(strict_types=1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Factory\DbalDataSetFactory;
+use Ergonode\Grid\Renderer\GridRenderer;
+use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface;
+use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGridBuilder;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Grid\Renderer\GridRenderer;
-use Ergonode\Multimedia\Infrastructure\Grid\MultimediaGridBuilder;
-use Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface;
-use Ergonode\Grid\Factory\DbalDataSetFactory;
 
 /**
  * @Route(
@@ -51,6 +52,8 @@ class GetMultimediaGridAction
     }
 
     /**
+     * @IsGranted("MULTIMEDIA_GET")
+     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="limit",

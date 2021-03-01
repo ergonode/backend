@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryTreeReadAction
 {
     /**
-     * @IsGranted("CATEGORY_TREE_READ")
+     * @IsGranted("CATEGORY_GET_TREE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(
