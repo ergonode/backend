@@ -48,7 +48,7 @@ class ProductCreateAction
     }
 
     /**
-     * @IsGranted("PRODUCT_CREATE")
+     * @IsGranted("PRODUCT_POST")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

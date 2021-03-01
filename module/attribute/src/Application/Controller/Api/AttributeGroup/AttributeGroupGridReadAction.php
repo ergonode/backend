@@ -15,6 +15,7 @@ use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGridBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +42,8 @@ class AttributeGroupGridReadAction
     }
 
     /**
+     * @IsGranted("ATTRIBUTE_GET_GROUP_GRID")
+     *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
      *     name="limit",

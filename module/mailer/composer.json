@@ -14,8 +14,8 @@
     "require": {
         "php": "^7.4",
         "doctrine/dbal": "^2.10",
-        "ergonode/core": "^1.0.0-beta.8",
-        "ergonode/shared-kernel": "^1.0.0-beta.8",
+        "ergonode/core": "^1.0.0-beta.9",
+        "ergonode/shared-kernel": "^1.0.0-beta.9",
         "jms/serializer": "^3.4",
         "nelmio/api-doc-bundle": "^3.6",
         "nelmio/cors-bundle": "^2.0",
@@ -25,7 +25,7 @@
         "symfony/http-foundation": "^4.4",
         "symfony/mailer": "^4.4",
         "symfony/twig-bridge": "^4.4",
-        "symfony/validator": "^4.4",
+        "symfony/validator": "^4.4.11",
         "twig/twig": "^3.0",
         "webmozart/assert": "^1.7"
     },

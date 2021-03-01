@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Handler;
 
-use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\Channel\Domain\Command\Export\ProcessExportCommand;
-use Ergonode\ExporterShopware6\Infrastructure\Processor\Shopware6ExportStepProcessInterface;
-use Webmozart\Assert\Assert;
 use Ergonode\Channel\Domain\Entity\Export;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
-use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand;
+use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Command\Export\EndShopware6ExportCommand;
+use Ergonode\ExporterShopware6\Domain\Command\Export\StartShopware6ExportCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\ExporterShopware6\Infrastructure\Processor\ExportStepProcessInterface;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use Webmozart\Assert\Assert;
 
 class ProcessExportCommandHandler
 {
@@ -28,12 +28,12 @@ class ProcessExportCommandHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @var Shopware6ExportStepProcessInterface[]
+     * @var ExportStepProcessInterface[]
      */
     private array $steps;
 
     /**
-     * @param Shopware6ExportStepProcessInterface[] $steps
+     * @param ExportStepProcessInterface[] $steps
      */
     public function __construct(
         ChannelRepositoryInterface $channelRepository,

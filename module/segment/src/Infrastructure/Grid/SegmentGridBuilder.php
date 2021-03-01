@@ -37,12 +37,12 @@ class SegmentGridBuilder implements GridBuilderInterface
                 'get' => [
                     'route' => 'ergonode_segment_read',
                     'parameters' => ['language' => $language->getCode(), 'segment' => '{id}'],
-                    'privilege' => 'SEGMENT_READ',
+                    'privilege' => 'SEGMENT_GET',
                 ],
                 'edit' => [
                     'route' => 'ergonode_segment_change',
                     'parameters' => ['language' => $language->getCode(), 'segment' => '{id}'],
-                    'privilege' => 'SEGMENT_UPDATE',
+                    'privilege' => 'SEGMENT_PUT',
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [

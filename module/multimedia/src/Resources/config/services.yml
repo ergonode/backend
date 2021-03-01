@@ -33,7 +33,7 @@ services:
 
     Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaQuery'
     Ergonode\Multimedia\Domain\Query\MultimediaGridQueryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Query\DbalMultimediaGridQuery'
-    Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Repository\DbalMultimediaRepository'
+    Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\Multimedia\Infrastructure\Persistence\Repository\EventStoreMultimediaRepository'
     Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface: '@Ergonode\Multimedia\Infrastructure\Service\SHACalculationService'
 
     Ergonode\Multimedia\Infrastructure\Service\Thumbnail\ThumbnailGenerationStrategyProvider:

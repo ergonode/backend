@@ -48,7 +48,7 @@ class AddProductAttributeBindingsAction extends AbstractController
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_POST_BINDING")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

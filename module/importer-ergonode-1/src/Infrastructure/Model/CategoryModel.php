@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
-class CategoryModel
+class CategoryModel extends AbstractModel
 {
     private string $code;
     private array $translations = [];

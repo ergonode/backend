@@ -41,7 +41,7 @@ class SegmentCreateAction
     }
 
     /**
-     * @IsGranted("SEGMENT_CREATE")
+     * @IsGranted("SEGMENT_POST")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

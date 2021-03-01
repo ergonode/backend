@@ -11,9 +11,9 @@ namespace Ergonode\Designer\Domain\Factory;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\Designer\Domain\Resolver\TemplateElementTypeResolver;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class TemplateElementFactory
 {

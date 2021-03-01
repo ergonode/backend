@@ -20,11 +20,14 @@ class ImportTemplateCommand implements ImporterCommandInterface
 
     private string $code;
 
-    public function __construct(ImportLineId $id, ImportId $importId, string $code)
+    private array $elements;
+
+    public function __construct(ImportLineId $id, ImportId $importId, string $code, array $elements = [])
     {
         $this->id = $id;
         $this->importId = $importId;
         $this->code = $code;
+        $this->elements = $elements;
     }
 
     public function getId(): ImportLineId
@@ -40,5 +43,10 @@ class ImportTemplateCommand implements ImporterCommandInterface
     public function getCode(): string
     {
         return $this->code;
+    }
+
+    public function getElements(): array
+    {
+        return $this->elements;
     }
 }

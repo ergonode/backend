@@ -22,9 +22,9 @@ services:
         arguments:
             - !tagged_iterator 'component.ergonode-importer.product_command_factory_interface'
 
-    Ergonode\ImporterErgonode1\Infrastructure\Resolver\AttributeFactoryResolver:
+    Ergonode\ImporterErgonode1\Infrastructure\Resolver\AttributeCommandResolver:
         arguments:
-            - !tagged_iterator 'component.ergonode-importer.attribute_factory_interface'
+            - !tagged_iterator 'component.ergonode-importer.attribute_command_factory'
 
     Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeImportProcess:
         arguments:

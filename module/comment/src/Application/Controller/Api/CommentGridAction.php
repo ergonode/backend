@@ -48,7 +48,7 @@ class CommentGridAction
     }
 
     /**
-     * @IsGranted("PRODUCT_READ")
+     * @IsGranted("COMMENT_GET_GRID")
      *
      * @SWG\Tag(name="Comment")
      * @SWG\Parameter(

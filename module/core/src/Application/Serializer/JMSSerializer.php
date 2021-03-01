@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Serializer;
 
-use Ergonode\Core\Application\Exception\DenoralizationException;
-use Ergonode\Core\Application\Exception\DeserializationException;
-use Ergonode\Core\Application\Exception\NormalizerException;
-use Ergonode\Core\Application\Exception\SerializationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DeserializationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\NormalizerException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\SerializationException;
+use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use JMS\Serializer\Serializer;
 use Psr\Log\LoggerInterface;
 

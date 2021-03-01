@@ -44,7 +44,7 @@ services:
         arguments:
             $targetDirectory: '%import_directory%'
 
-    Ergonode\Importer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Importer\Infrastructure\Persistence\Repository\DbalTransformerRepository'
+    Ergonode\Importer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Importer\Infrastructure\Persistence\Repository\EventStoreTransformerRepository'
 
     Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder:
         arguments:
@@ -52,3 +52,9 @@ services:
 
     Ergonode\Importer\Infrastructure\Handler\Import\DeleteImportCommandHandler:
         tags: [ { name: 'messenger.message_handler', priority: -10 }]
+
+    Ergonode\Importer\Infrastructure\Action\Process\Template\TemplateElementBuilderProvider:
+        arguments:
+            -
+                - '@Ergonode\Importer\Infrastructure\Action\Process\Template\Strategy\AttributeTemplateElementBuilderStrategy'
+                - '@Ergonode\Importer\Infrastructure\Action\Process\Template\Strategy\LabelTemplateElementBuilderStrategy'

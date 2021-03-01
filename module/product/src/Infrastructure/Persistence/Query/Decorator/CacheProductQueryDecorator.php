@@ -43,6 +43,11 @@ class CacheProductQueryDecorator implements ProductQueryInterface
         return $this->cache[$key];
     }
 
+    public function findSkuByProductId(ProductId $id): ?Sku
+    {
+        return $this->query->findSkuByProductId($id);
+    }
+
     /**
      * {@inheritDoc}
      */

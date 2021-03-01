@@ -55,7 +55,7 @@ class ImportUploadAction
     }
 
     /**
-     * @IsGranted("IMPORT_CREATE")
+     * @IsGranted("IMPORT_POST")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

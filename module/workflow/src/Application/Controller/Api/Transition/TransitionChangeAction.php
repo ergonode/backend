@@ -48,7 +48,7 @@ class TransitionChangeAction
     }
 
     /**
-     * @IsGranted("WORKFLOW_UPDATE")
+     * @IsGranted("WORKFLOW_PUT_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

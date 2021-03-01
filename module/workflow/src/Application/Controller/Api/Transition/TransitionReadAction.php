@@ -28,7 +28,7 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 class TransitionReadAction
 {
     /**
-     * @IsGranted("WORKFLOW_READ")
+     * @IsGranted("WORKFLOW_GET_TRANSITION")
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(

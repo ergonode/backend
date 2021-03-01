@@ -8,12 +8,17 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Handler\Export;
 
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Infrastructure\Service\TempFileStorage;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\Channel\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\ExporterFile\Domain\Command\Export\StartFileExportCommand;
 use Webmozart\Assert\Assert;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilder;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateElementBuilder;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportAttributeBuilder;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportOptionBuilder;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportCategoryBuilder;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilder;
 
 class StartProcessCommandHandler
 {
@@ -21,16 +26,36 @@ class StartProcessCommandHandler
 
     private TempFileStorage $storage;
 
-    private AttributeQueryInterface $attributeQuery;
+    private ExportProductBuilder $productBuilder;
+
+    private ExportTemplateElementBuilder $templateElementBuilder;
+
+    private ExportAttributeBuilder $attributeBuilder;
+
+    private ExportOptionBuilder $optionBuilder;
+
+    private ExportCategoryBuilder $categoryBuilder;
+
+    private ExportTemplateBuilder $templateBuilder;
 
     public function __construct(
         ExportRepositoryInterface $repository,
         TempFileStorage $storage,
-        AttributeQueryInterface $attributeQuery
+        ExportProductBuilder $productBuilder,
+        ExportTemplateElementBuilder $templateElementBuilder,
+        ExportAttributeBuilder $attributeBuilder,
+        ExportOptionBuilder $optionBuilder,
+        ExportCategoryBuilder $categoryBuilder,
+        ExportTemplateBuilder $templateBuilder
     ) {
         $this->repository = $repository;
         $this->storage = $storage;
-        $this->attributeQuery = $attributeQuery;
+        $this->productBuilder = $productBuilder;
+        $this->templateElementBuilder = $templateElementBuilder;
+        $this->attributeBuilder = $attributeBuilder;
+        $this->optionBuilder = $optionBuilder;
+        $this->categoryBuilder = $categoryBuilder;
+        $this->templateBuilder = $templateBuilder;
     }
 
     public function __invoke(StartFileExportCommand $command): void
@@ -39,20 +64,16 @@ class StartProcessCommandHandler
         Assert::isInstanceOf($export, Export::class);
         $export->start();
         $this->repository->save($export);
-        $availableAttributes = array_values($this->attributeQuery->getDictionary());
-        sort($availableAttributes);
 
-        $attribute = ['_code', '_type', '_language', '_name', '_hint', '_placeholder', '_scope', '_parameters'];
-        $categories = ['_code', '_name', '_language'];
-        $products = array_merge(
-            ['_sku', '_type', '_language', '_template', '_categories'],
-            $availableAttributes
-        );
-        $options = ['_code', '_attribute_code', '_language', '_label'];
-        $multimedia = ['_id', '_language', '_name', '_filename', '_extension', '_mime', '_alt', '_size'];
-        $templates = ['_name', '_type', '_x', '_y', '_width', '_height', '_properties'];
+        $products = $this->productBuilder->header();
+        $templatesElements = $this->templateElementBuilder->header();
+        $attributes = $this->attributeBuilder->header();
+        $categories = $this->categoryBuilder->header();
+        $options = $this->optionBuilder->header();
+        $templates = $this->templateBuilder->header();
+
         $this->storage->create(sprintf('%s/attributes.csv', $command->getExportId()->getValue()));
-        $this->storage->append([implode(',', $attribute).PHP_EOL]);
+        $this->storage->append([implode(',', $attributes).PHP_EOL]);
         $this->storage->close();
         $this->storage->create(sprintf('%s/categories.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $categories).PHP_EOL]);
@@ -63,11 +84,11 @@ class StartProcessCommandHandler
         $this->storage->create(sprintf('%s/options.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $options).PHP_EOL]);
         $this->storage->close();
-        $this->storage->create(sprintf('%s/multimedia.csv', $command->getExportId()->getValue()));
-        $this->storage->append([implode(',', $multimedia).PHP_EOL]);
-        $this->storage->close();
         $this->storage->create(sprintf('%s/templates.csv', $command->getExportId()->getValue()));
         $this->storage->append([implode(',', $templates).PHP_EOL]);
+        $this->storage->close();
+        $this->storage->create(sprintf('%s/templates_elements.csv', $command->getExportId()->getValue()));
+        $this->storage->append([implode(',', $templatesElements).PHP_EOL]);
         $this->storage->close();
     }
 }

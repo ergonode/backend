@@ -34,13 +34,11 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 
 ## <a name="submit-pr"></a> Pull Request Guidelines
 
-- The `master` branch is just a snapshot of the latest stable release. All development should be done in dedicated branches. **Do not submit PRs against the `master` branch.**
+- The `master` branch is a current active branch.
 
-- Checkout a topic branch from the relevant branch, e.g. `develop`, and merge back against that branch.
+- Checkout a feature branch from `master`, and create Pull Request back against it once your changes are ready.
 
-- Work in the `src` folder and **DO NOT** checkin `dist` in the commits.
-
-- It's OK to have multiple small commits as you work on the PR - GitHub will automatically squash it before merging.
+- It's OK to have multiple small commits as you work on the PR - we will squash them on merge.
 
 - Make sure `bin/phing test:unit` passes. (see [development setup](#development))
 

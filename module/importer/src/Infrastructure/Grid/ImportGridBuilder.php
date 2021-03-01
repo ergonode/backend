@@ -51,7 +51,7 @@ class ImportGridBuilder implements GridBuilderInterface
             ->addColumn('errors', new IntegerColumn('errors', 'Errors', new TextFilter()))
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
-                    'privilege' => 'IMPORT_READ',
+                    'privilege' => 'IMPORT_GET_GRID',
                     'show' => ['system' => false],
                     'route' => 'ergonode_import_read',
                     'parameters' => [

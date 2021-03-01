@@ -44,7 +44,7 @@ class LanguageChangeAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
+     * @IsGranted("CORE_PUT_LANGUAGE")
      *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(

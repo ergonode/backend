@@ -25,7 +25,7 @@ class CsvWriter implements WriterInterface
     }
 
     /**
-     * @param array $headers
+     * @param string[] $headers
      *
      * @return string[]
      */
@@ -40,8 +40,8 @@ class CsvWriter implements WriterInterface
     public function add(ExportData $data): array
     {
         $result = [];
-        foreach ($data->getLanguages() as $language) {
-            $result[] = $this->formatLine($language->getValues());
+        foreach ($data->getLines() as $line) {
+            $result[] = $this->formatLine($line->getValues());
         }
 
         return $result;

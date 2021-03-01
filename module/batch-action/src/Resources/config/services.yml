@@ -29,7 +29,7 @@ services:
         arguments:
             - '@doctrine.dbal.default_connection'
             - '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper'
-            - '@Ergonode\Core\Application\Serializer\SerializerInterface'
+            - '@Ergonode\SharedKernel\Application\Serializer\SerializerInterface'
 
     Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery:
         arguments:

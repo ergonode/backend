@@ -12,8 +12,8 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Attribute;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalAttributeCreatedEventProjector
 {

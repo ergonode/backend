@@ -59,13 +59,13 @@ class AttributeGridBuilder implements GridBuilderInterface
             ->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups)))
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
-                    'privilege' => 'ATTRIBUTE_READ',
+                    'privilege' => 'ATTRIBUTE_GET',
                     'show' => ['system' => false],
                     'route' => 'ergonode_attribute_read',
                     'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
                 ],
                 'edit' => [
-                    'privilege' => 'ATTRIBUTE_UPDATE',
+                    'privilege' => 'ATTRIBUTE_PUT',
                     'show' => ['system' => false],
                     'route' => 'ergonode_attribute_change',
                     'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
@@ -110,6 +110,7 @@ class AttributeGridBuilder implements GridBuilderInterface
         foreach (AttributeScope::AVAILABLE as $item) {
             $result[] = new LabelFilterOption($item, $item);
         }
+
 
         return $result;
     }

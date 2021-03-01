@@ -27,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AttributeGroupReadAction
 {
     /**
-     * @IsGranted("ATTRIBUTE_GROUP_READ")
+     * @IsGranted("ATTRIBUTE_GET_GROUP")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

@@ -49,7 +49,7 @@ class SourceDeleteAction
     }
 
     /**
-     * @IsGranted("IMPORT_DELETE")
+     * @IsGranted("IMPORT_DELETE_SOURCE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

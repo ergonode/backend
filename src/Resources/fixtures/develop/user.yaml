@@ -39,3 +39,663 @@ Ergonode\Account\Domain\Entity\User:
             - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
             - '@category_manager_role->id'
             - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_CREATE_user:
+        __construct:
+            - '<userId(attribute_create@ergonode.com)>'
+            - 'ATTRIBUTE_CREATE'
+            - 'ATTRIBUTE_CREATE'
+            - '<userEmail(attribute_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_DELETE_user:
+        __construct:
+            - '<userId(attribute_delete@ergonode.com)>'
+            - 'ATTRIBUTE_DELETE'
+            - 'ATTRIBUTE_DELETE'
+            - '<userEmail(attribute_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_UPDATE_user:
+        __construct:
+            - '<userId(attribute_update@ergonode.com)>'
+            - 'ATTRIBUTE_UPDATE'
+            - 'ATTRIBUTE_UPDATE'
+            - '<userEmail(attribute_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_READ_user:
+        __construct:
+            - '<userId(attribute_read@ergonode.com)>'
+            - 'ATTRIBUTE_READ'
+            - 'ATTRIBUTE_READ'
+            - '<userEmail(attribute_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_GROUP_CREATE_user:
+        __construct:
+            - '<userId(attribute_group_create@ergonode.com)>'
+            - 'ATTRIBUTE_GROUP_CREATE'
+            - 'ATTRIBUTE_GROUP_CREATE'
+            - '<userEmail(attribute_group_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_GROUP_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_GROUP_DELETE_user:
+        __construct:
+            - '<userId(attribute_group_delete@ergonode.com)>'
+            - 'ATTRIBUTE_GROUP_DELETE'
+            - 'ATTRIBUTE_GROUP_DELETE'
+            - '<userEmail(attribute_group_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_GROUP_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_GROUP_READ_user:
+        __construct:
+            - '<userId(attribute_group_read@ergonode.com)>'
+            - 'ATTRIBUTE_GROUP_READ'
+            - 'ATTRIBUTE_GROUP_READ'
+            - '<userEmail(attribute_group_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_GROUP_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    ATTRIBUTE_GROUP_UPDATE_user:
+        __construct:
+            - '<userId(attribute_group_update@ergonode.com)>'
+            - 'ATTRIBUTE_GROUP_UPDATE'
+            - 'ATTRIBUTE_GROUP_UPDATE'
+            - '<userEmail(attribute_group_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@ATTRIBUTE_GROUP_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_CREATE_user:
+        __construct:
+            - '<userId(category_create@ergonode.com)>'
+            - 'CATEGORY_CREATE'
+            - 'CATEGORY_CREATE'
+            - '<userEmail(category_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_DELETE_user:
+        __construct:
+            - '<userId(category_delete@ergonode.com)>'
+            - 'CATEGORY_DELETE'
+            - 'CATEGORY_DELETE'
+            - '<userEmail(category_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_READ_user:
+        __construct:
+            - '<userId(category_read@ergonode.com)>'
+            - 'CATEGORY_READ'
+            - 'CATEGORY_READ'
+            - '<userEmail(category_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_UPDATE_user:
+        __construct:
+            - '<userId(category_update@ergonode.com)>'
+            - 'CATEGORY_UPDATE'
+            - 'CATEGORY_UPDATE'
+            - '<userEmail(category_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_TREE_CREATE_user:
+        __construct:
+            - '<userId(category_tree_create@ergonode.com)>'
+            - 'CATEGORY_TREE_CREATE'
+            - 'CATEGORY_TREE_CREATE'
+            - '<userEmail(category_tree_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_TREE_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_TREE_DELETE_user:
+        __construct:
+            - '<userId(category_tree_delete@ergonode.com)>'
+            - 'CATEGORY_TREE_DELETE'
+            - 'CATEGORY_TREE_DELETE'
+            - '<userEmail(category_tree_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_TREE_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_TREE_READ_user:
+        __construct:
+            - '<userId(category_tree_read@ergonode.com)>'
+            - 'CATEGORY_TREE_READ'
+            - 'CATEGORY_TREE_READ'
+            - '<userEmail(category_tree_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_TREE_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CATEGORY_TREE_UPDATE_user:
+        __construct:
+            - '<userId(category_tree_update@ergonode.com)>'
+            - 'CATEGORY_TREE_UPDATE'
+            - 'CATEGORY_TREE_UPDATE'
+            - '<userEmail(category_tree_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CATEGORY_TREE_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CHANNEL_CREATE_user:
+        __construct:
+            - '<userId(channel_create@ergonode.com)>'
+            - 'CHANNEL_CREATE'
+            - 'CHANNEL_CREATE'
+            - '<userEmail(channel_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CHANNEL_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CHANNEL_DELETE_user:
+        __construct:
+            - '<userId(CHANNEL_DELETE@ergonode.com)>'
+            - 'CHANNEL_DELETE'
+            - 'CHANNEL_DELETE'
+            - '<userEmail(channel_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CHANNEL_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CHANNEL_READ_user:
+        __construct:
+            - '<userId(channel_read@ergonode.com)>'
+            - 'CHANNEL_READ'
+            - 'CHANNEL_READ'
+            - '<userEmail(channel_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CHANNEL_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    CHANNEL_UPDATE_user:
+        __construct:
+            - '<userId(channel_update@ergonode.com)>'
+            - 'CHANNEL_UPDATE'
+            - 'CHANNEL_UPDATE'
+            - '<userEmail(channel_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@CHANNEL_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    IMPORT_CREATE_user:
+        __construct:
+            - '<userId(import_create@ergonode.com)>'
+            - 'IMPORT_CREATE'
+            - 'IMPORT_CREATE'
+            - '<userEmail(import_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@IMPORT_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    IMPORT_DELETE_user:
+        __construct:
+            - '<userId(import_delete@ergonode.com)>'
+            - 'IMPORT_DELETE'
+            - 'IMPORT_DELETE'
+            - '<userEmail(import_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@IMPORT_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    IMPORT_READ_user:
+        __construct:
+            - '<userId(import_read@ergonode.com)>'
+            - 'IMPORT_READ'
+            - 'IMPORT_READ'
+            - '<userEmail(import_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@IMPORT_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    IMPORT_UPDATE_user:
+        __construct:
+            - '<userId(import_update@ergonode.com)>'
+            - 'IMPORT_UPDATE'
+            - 'IMPORT_UPDATE'
+            - '<userEmail(import_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@IMPORT_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    MULTIMEDIA_CREATE_user:
+        __construct:
+            - '<userId(multimedia_create@ergonode.com)>'
+            - 'MULTIMEDIA_CREATE'
+            - 'MULTIMEDIA_CREATE'
+            - '<userEmail(multimedia_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@MULTIMEDIA_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    MULTIMEDIA_DELETE_user:
+        __construct:
+            - '<userId(Multimedia_delete@ergonode.com)>'
+            - 'MULTIMEDIA_DELETE'
+            - 'MULTIMEDIA_DELETE'
+            - '<userEmail(multimedia_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@MULTIMEDIA_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    MULTIMEDIA_READ_user:
+        __construct:
+            - '<userId(multimedia_read@ergonode.com)>'
+            - 'MULTIMEDIA_READ'
+            - 'MULTIMEDIA_READ'
+            - '<userEmail(multimedia_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@MULTIMEDIA_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    MULTIMEDIA_UPDATE_user:
+        __construct:
+            - '<userId(multimedia_update@ergonode.com)>'
+            - 'MULTIMEDIA_UPDATE'
+            - 'MULTIMEDIA_UPDATE'
+            - '<userEmail(multimedia_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@MULTIMEDIA_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_COLLECTION_CREATE_user:
+        __construct:
+            - '<userId(product_collection_create@ergonode.com)>'
+            - 'PRODUCT_COLLECTION_CREATE'
+            - 'PRODUCT_COLLECTION_CREATE'
+            - '<userEmail(product_collection_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_COLLECTION_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_COLLECTION_DELETE_user:
+        __construct:
+            - '<userId(product_collection_delete@ergonode.com)>'
+            - 'PRODUCT_COLLECTION_DELETE'
+            - 'PRODUCT_COLLECTION_DELETE'
+            - '<userEmail(product_collection_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_COLLECTION_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_COLLECTION_READ_user:
+        __construct:
+            - '<userId(product_collection_read@ergonode.com)>'
+            - 'PRODUCT_COLLECTION_READ'
+            - 'PRODUCT_COLLECTION_READ'
+            - '<userEmail(product_collection_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_COLLECTION_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_COLLECTION_UPDATE_user:
+        __construct:
+            - '<userId(product_collection_update@ergonode.com)>'
+            - 'PRODUCT_COLLECTION_UPDATE'
+            - 'PRODUCT_COLLECTION_UPDATE'
+            - '<userEmail(product_collection_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_COLLECTION_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_CREATE_user:
+        __construct:
+            - '<userId(product_create@ergonode.com)>'
+            - 'PRODUCT_CREATE'
+            - 'PRODUCT_CREATE'
+            - '<userEmail(product_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_DELETE_user:
+        __construct:
+            - '<userId(product_delete@ergonode.com)>'
+            - 'PRODUCT_DELETE'
+            - 'PRODUCT_DELETE'
+            - '<userEmail(product_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_READ_user:
+        __construct:
+            - '<userId(product_read@ergonode.com)>'
+            - 'PRODUCT_READ'
+            - 'PRODUCT_READ'
+            - '<userEmail(product_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    PRODUCT_UPDATE_user:
+        __construct:
+            - '<userId(product_update@ergonode.com)>'
+            - 'PRODUCT_UPDATE'
+            - 'PRODUCT_UPDATE'
+            - '<userEmail(product_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@PRODUCT_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SEGMENT_CREATE_user:
+        __construct:
+            - '<userId(segment_create@ergonode.com)>'
+            - 'SEGMENT_CREATE'
+            - 'SEGMENT_CREATE'
+            - '<userEmail(segment_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SEGMENT_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SEGMENT_DELETE_user:
+        __construct:
+            - '<userId(segment_delete@ergonode.com)>'
+            - 'SEGMENT_DELETE'
+            - 'SEGMENT_DELETE'
+            - '<userEmail(segment_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SEGMENT_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SEGMENT_READ_user:
+        __construct:
+            - '<userId(segment_read@ergonode.com)>'
+            - 'SEGMENT_READ'
+            - 'SEGMENT_READ'
+            - '<userEmail(segment_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SEGMENT_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SEGMENT_UPDATE_user:
+        __construct:
+            - '<userId(segment_update@ergonode.com)>'
+            - 'SEGMENT_UPDATE'
+            - 'SEGMENT_UPDATE'
+            - '<userEmail(segment_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SEGMENT_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SETTINGS_CREATE_user:
+        __construct:
+            - '<userId(settings_create@ergonode.com)>'
+            - 'SETTINGS_CREATE'
+            - 'SETTINGS_CREATE'
+            - '<userEmail(settings_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SETTINGS_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SETTINGS_DELETE_user:
+        __construct:
+            - '<userId(settings_delete@ergonode.com)>'
+            - 'SETTINGS_DELETE'
+            - 'SETTINGS_DELETE'
+            - '<userEmail(settings_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SETTINGS_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SETTINGS_READ_user:
+        __construct:
+            - '<userId(settings_read@ergonode.com)>'
+            - 'SETTINGS_READ'
+            - 'SETTINGS_READ'
+            - '<userEmail(settings_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SETTINGS_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    SETTINGS_UPDATE_user:
+        __construct:
+            - '<userId(settings_update@ergonode.com)>'
+            - 'SETTINGS_UPDATE'
+            - 'SETTINGS_UPDATE'
+            - '<userEmail(settings_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@SETTINGS_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    TEMPLATE_DESIGNER_CREATE_user:
+        __construct:
+            - '<userId(template_designer_create@ergonode.com)>'
+            - 'TEMPLATE_DESIGNER_CREATE'
+            - 'TEMPLATE_DESIGNER_CREATE'
+            - '<userEmail(template_designer_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@TEMPLATE_DESIGNER_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    TEMPLATE_DESIGNER_DELETE_user:
+        __construct:
+            - '<userId(template_designer_delete@ergonode.com)>'
+            - 'TEMPLATE_DESIGNER_DELETE'
+            - 'TEMPLATE_DESIGNER_DELETE'
+            - '<userEmail(template_designer_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@TEMPLATE_DESIGNER_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    TEMPLATE_DESIGNER_READ_user:
+        __construct:
+            - '<userId(template_designer_read@ergonode.com)>'
+            - 'TEMPLATE_DESIGNER_READ'
+            - 'TEMPLATE_DESIGNER_READ'
+            - '<userEmail(template_designer_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@TEMPLATE_DESIGNER_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    TEMPLATE_DESIGNER_UPDATE_user:
+        __construct:
+            - '<userId(template_designer_update@ergonode.com)>'
+            - 'TEMPLATE_DESIGNER_UPDATE'
+            - 'TEMPLATE_DESIGNER_UPDATE'
+            - '<userEmail(template_designer_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@TEMPLATE_DESIGNER_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_CREATE_user:
+        __construct:
+            - '<userId(user_create@ergonode.com)>'
+            - 'USER_CREATE'
+            - 'USER_CREATE'
+            - '<userEmail(user_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_DELETE_user:
+        __construct:
+            - '<userId(user_delete@ergonode.com)>'
+            - 'USER_DELETE'
+            - 'USER_DELETE'
+            - '<userEmail(user_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_READ_user:
+        __construct:
+            - '<userId(user_read@ergonode.com)>'
+            - 'USER_READ'
+            - 'USER_READ'
+            - '<userEmail(user_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_UPDATE_user:
+        __construct:
+            - '<userId(user_update@ergonode.com)>'
+            - 'USER_UPDATE'
+            - 'USER_UPDATE'
+            - '<userEmail(user_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_ROLE_CREATE_user:
+        __construct:
+            - '<userId(user_role_create@ergonode.com)>'
+            - 'USER_ROLE_CREATE'
+            - 'USER_ROLE_CREATE'
+            - '<userEmail(user_role_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_ROLE_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_ROLE_DELETE_user:
+        __construct:
+            - '<userId(user_role_delete@ergonode.com)>'
+            - 'USER_ROLE_DELETE'
+            - 'USER_ROLE_DELETE'
+            - '<userEmail(user_role_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_ROLE_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_ROLE_READ_user:
+        __construct:
+            - '<userId(user_role_read@ergonode.com)>'
+            - 'USER_ROLE_READ'
+            - 'USER_ROLE_READ'
+            - '<userEmail(user_role_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_ROLE_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    USER_ROLE_UPDATE_user:
+        __construct:
+            - '<userId(user_role_update@ergonode.com)>'
+            - 'USER_ROLE_UPDATE'
+            - 'USER_ROLE_UPDATE'
+            - '<userEmail(user_role_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@USER_ROLE_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    WORKFLOW_CREATE_user:
+        __construct:
+            - '<userId(workflow_create@ergonode.com)>'
+            - 'WORKFLOW_CREATE'
+            - 'WORKFLOW_CREATE'
+            - '<userEmail(workflow_create@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@WORKFLOW_CREATE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    WORKFLOW_DELETE_user:
+        __construct:
+            - '<userId(workflow_delete@ergonode.com)>'
+            - 'WORKFLOW_DELETE'
+            - 'WORKFLOW_DELETE'
+            - '<userEmail(workflow_delete@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@WORKFLOW_DELETE_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    WORKFLOW_READ_user:
+        __construct:
+            - '<userId(workflow_read@ergonode.com)>'
+            - 'WORKFLOW_READ'
+            - 'WORKFLOW_READ'
+            - '<userEmail(workflow_read@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@WORKFLOW_READ_role->id'
+            - '<LanguagePrivilegesCollection()>'
+
+    WORKFLOW_UPDATE_user:
+        __construct:
+            - '<userId(workflow_update@ergonode.com)>'
+            - 'WORKFLOW_UPDATE'
+            - 'WORKFLOW_UPDATE'
+            - '<userEmail(workflow_update@ergonode.com)>'
+            - '<language(en_GB)>'
+            - '<password(\$2y\$12\$o5RSzL/Uw8gWt83nxkR/4ueT7yyR6cxuGOMbG07z6mrk0DocSsiYy)>' # abcd1234
+            - '@WORKFLOW_UPDATE_role->id'
+            - '<LanguagePrivilegesCollection()>'

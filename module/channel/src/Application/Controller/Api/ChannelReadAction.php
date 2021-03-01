@@ -40,7 +40,7 @@ class ChannelReadAction
     }
 
     /**
-     * @IsGranted("CHANNEL_READ")
+     * @IsGranted("CHANNEL_GET")
      *
      * @SWG\Tag(name="Channel")
      * @SWG\Parameter(

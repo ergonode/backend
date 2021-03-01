@@ -35,7 +35,7 @@ class TemplateReadAction
     }
 
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_READ")
+     * @IsGranted("DESIGNER_GET_TEMPLATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

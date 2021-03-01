@@ -54,7 +54,7 @@ class AddProductCollectionElementFromSkusAction
 
 
     /**
-     * @IsGranted("PRODUCT_COLLECTION_CREATE")
+     * @IsGranted("PRODUCT_COLLECTION_POST_ELEMENT_SKU")
      *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(

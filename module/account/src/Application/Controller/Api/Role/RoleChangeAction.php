@@ -46,7 +46,7 @@ class RoleChangeAction
     }
 
     /**
-     * @IsGranted("USER_ROLE_UPDATE")
+     * @IsGranted("ACCOUNT_PUT_ROLE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

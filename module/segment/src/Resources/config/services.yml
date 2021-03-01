@@ -31,5 +31,5 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface: '@Ergonode\Segment\Infrastructure\Persistence\Repository\DbalSegmentRepository'
+    Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface: '@Ergonode\Segment\Infrastructure\Persistence\Repository\EventStoreSegmentRepository'
     Ergonode\Segment\Domain\Query\SegmentQueryInterface: '@Ergonode\Segment\Infrastructure\Persistence\Query\DbalSegmentQuery'

@@ -12,9 +12,9 @@ namespace Ergonode\Category\Infrastructure\Persistence\Projector\Category;
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalCategoryCreatedEventProjector
 {

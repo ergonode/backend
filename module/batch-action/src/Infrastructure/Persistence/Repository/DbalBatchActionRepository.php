@@ -17,10 +17,10 @@ use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Webmozart\Assert\Assert;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionMessage;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalBatchActionRepository implements BatchActionRepositoryInterface
 {

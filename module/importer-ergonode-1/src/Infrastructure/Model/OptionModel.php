@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
-class OptionModel
+class OptionModel extends AbstractModel
 {
     private string $code;
     private string $attribute;

@@ -15,7 +15,9 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Comment\Application\Form\CreateCommentForm;
 use Ergonode\Comment\Application\Form\Model\CreateCommentFormModel;
 use Ergonode\Comment\Domain\Command\CreateCommentCommand;
+use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ramsey\Uuid\Uuid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +25,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 
 /**
  * @Route("/comments", methods={"POST"})
@@ -47,6 +48,8 @@ class CommentCreateAction
     }
 
     /**
+     * @IsGranted("COMMENT_POST")
+     *
      * @SWG\Tag(name="Comment")
      *
      * @SWG\Parameter(

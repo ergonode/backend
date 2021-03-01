@@ -55,7 +55,7 @@ class UploadMultimediaAction
     }
 
     /**
-     * @IsGranted("MULTIMEDIA_CREATE")
+     * @IsGranted("MULTIMEDIA_POST")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

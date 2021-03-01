@@ -50,18 +50,18 @@ class MultimediaGridBuilder implements GridBuilderInterface
         $links = [
             'get' => [
                 'route' => 'ergonode_multimedia_read',
-                'privilege' => 'MULTIMEDIA_READ',
+                'privilege' => 'MULTIMEDIA_GET',
                 'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
             ],
             'edit' => [
                 'route' => 'ergonode_multimedia_edit',
-                'privilege' => 'MULTIMEDIA_UPDATE',
+                'privilege' => 'MULTIMEDIA_PUT',
                 'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'download' => [
                 'route' => 'ergonode_multimedia_download',
-                'privilege' => 'MULTIMEDIA_READ',
+                'privilege' => 'MULTIMEDIA_GET_DOWNLOAD',
                 'parameters' => ['multimedia' => '{id}'],
                 'method' => Request::METHOD_GET,
             ],

@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Serializer;
 
-use Ergonode\Core\Application\Exception\DenoralizationException;
-use Ergonode\Core\Application\Exception\DeserializationException;
-use Ergonode\Core\Application\Exception\NormalizerException;
-use Ergonode\Core\Application\Exception\SerializationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\DeserializationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\NormalizationException;
+use Ergonode\SharedKernel\Application\Serializer\Exception\SerializationException;
+use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -77,7 +79,7 @@ class SymfonySerializer implements SerializerInterface, NormalizerInterface
         } catch (ExceptionInterface $exception) {
             $this->logger->error($exception);
 
-            throw new NormalizerException(
+            throw new NormalizationException(
                 sprintf(self::NORMALIZE, get_debug_type($data)),
                 $exception
             );
