@@ -10,9 +10,10 @@ declare(strict_types=1);
 namespace Ergonode\Core\Domain\User;
 
 use Ergonode\Core\Domain\ValueObject\LanguagePrivileges;
-use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
+use Ergonode\SharedKernel\Domain\User\UserInterface as DomainUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
-interface UserInterface extends BaseUserInterface
+interface UserInterface extends SymfonyUserInterface, DomainUserInterface
 {
     public function isActive(): bool;
     /**

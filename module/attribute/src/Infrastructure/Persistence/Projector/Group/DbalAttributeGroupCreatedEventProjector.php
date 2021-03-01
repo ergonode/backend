@@ -12,7 +12,7 @@ namespace Ergonode\Attribute\Infrastructure\Persistence\Projector\Group;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalAttributeGroupCreatedEventProjector
 {

@@ -10,11 +10,11 @@ namespace Ergonode\Notification\Infrastructure\Sender\Strategy;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use Ramsey\Uuid\Uuid;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class DbalSystemNotificationStrategy implements NotificationStrategyInterface
 {

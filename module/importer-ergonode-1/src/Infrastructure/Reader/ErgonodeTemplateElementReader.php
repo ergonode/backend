@@ -12,6 +12,16 @@ use Ergonode\ImporterErgonode1\Infrastructure\Model\TemplateElementModel;
 
 class ErgonodeTemplateElementReader extends AbstractErgonodeReader
 {
+    private const KEYS = [
+        '_code',
+        '_type',
+        '_language',
+        '_x',
+        '_y',
+        '_width',
+        '_height',
+    ];
+
     public function read(): ?TemplateElementModel
     {
         $item = null;
@@ -26,8 +36,13 @@ class ErgonodeTemplateElementReader extends AbstractErgonodeReader
                 (int) $record['_y'],
                 (int) $record['_width'],
                 (int) $record['_height'],
-                json_decode($record['_properties'], true, 512, JSON_THROW_ON_ERROR),
             );
+
+            foreach ($record as $key => $value) {
+                if (!array_key_exists($key, self::KEYS)) {
+                    $item->addParameter($key, $value);
+                }
+            }
 
             $this->records->next();
         }

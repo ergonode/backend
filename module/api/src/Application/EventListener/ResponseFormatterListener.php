@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Ergonode\Api\Application\EventListener;
 
 use Ergonode\Api\Application\Response\AbstractResponse;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
 
 class ResponseFormatterListener
 {

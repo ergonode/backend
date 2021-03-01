@@ -11,7 +11,7 @@ namespace Ergonode\Category\Infrastructure\Persistence\Projector\Tree;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeNameChangedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalCategoryTreeNameChangedEventProjector
 {

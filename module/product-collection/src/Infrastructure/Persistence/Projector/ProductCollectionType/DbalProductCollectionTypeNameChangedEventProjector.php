@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Infrastructure\Persistence\Projector\Produc
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent;
-use Ergonode\Core\Application\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 
 class DbalProductCollectionTypeNameChangedEventProjector
 {

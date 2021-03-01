@@ -12,6 +12,11 @@ use Ergonode\ImporterErgonode1\Infrastructure\Model\TemplateModel;
 
 class ErgonodeTemplateReader extends AbstractErgonodeReader
 {
+    private const KEYS = [
+        '_name',
+        '_language',
+    ];
+
     public function read(): ?TemplateModel
     {
         $item = null;
@@ -22,6 +27,12 @@ class ErgonodeTemplateReader extends AbstractErgonodeReader
             $item = new TemplateModel(
                 $record['_name'],
             );
+
+            foreach ($record as $key => $value) {
+                if (!array_key_exists($key, self::KEYS)) {
+                    $item->addParameter($key, $value);
+                }
+            }
 
             $this->records->next();
         }
