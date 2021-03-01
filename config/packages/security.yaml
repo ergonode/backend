@@ -4,8 +4,6 @@ security:
         allow_if_all_abstain: false
 
     providers:
-        domain_user_provider:
-            id: 'Ergonode\Authentication\Application\Security\Provider\DomainUserProvider'
         email_user_provider:
             id: 'Ergonode\Authentication\Application\Security\Provider\EmailUserProvider'
         id_user_provider:
@@ -45,7 +43,7 @@ security:
             stateless: true
             security: true
             guard:
-                provider: 'domain_user_provider'
+                provider: 'id_user_provider'
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
         base:

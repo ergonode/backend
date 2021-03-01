@@ -11,24 +11,25 @@ namespace Ergonode\Authentication\Tests\Application\Security\Provider;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Authentication\Application\Security\Provider\DomainUserProvider;
+use Ergonode\Authentication\Application\Security\Provider\IdUserProvider;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-class DomainUserProviderTest extends TestCase
+class IdUserProviderTest extends TestCase
 {
     /**
      * @var UserRepositoryInterface|MockObject
      */
     private $mockUserRepository;
-    private DomainUserProvider $provider;
+    private IdUserProvider $provider;
 
     protected function setUp(): void
     {
         $this->mockUserRepository = $this->createMock(UserRepositoryInterface::class);
 
-        $this->provider = new DomainUserProvider(
+        $this->provider = new IdUserProvider(
             $this->mockUserRepository,
         );
     }
@@ -36,41 +37,56 @@ class DomainUserProviderTest extends TestCase
     public function testShouldProvide(): void
     {
         $user = $this->createMock(User::class);
+        $user
+            ->method('getId')
+            ->willReturn($userId = new UserId((string) Uuid::uuid4()));
+        $user
+            ->method('getPassword')
+            ->willReturn('password');
+        $user
+            ->method('getRoles')
+            ->willReturn(['roles']);
+        $user
+            ->method('isActive')
+            ->willReturn(true);
         $this->mockUserRepository
             ->method('load')
             ->willReturn($user);
 
         $result = $this->provider->loadUserByUsername((string) Uuid::uuid4());
 
-        $this->assertSame($user, $result);
+        $this->assertSame(
+            $user,
+            $result,
+        );
     }
 
-    public function testShouldThrowExceptionWhenNoSuchUser(): void
+    public function testThrowExceptionWhenNoSuchUser(): void
     {
-        $id = (string) Uuid::uuid4();
         $this->mockUserRepository
             ->method('load')
             ->willReturn(null);
-        $this->expectExceptionMessage("Username \"$id\" not found");
 
-        $this->provider->loadUserByUsername($id);
+        $this->expectExceptionMessage('Invalid credentials');
+
+        $this->provider->loadUserByUsername((string) Uuid::uuid4());
     }
 
-    public function testShouldThrowExceptionWhenNoUUIDGiven(): void
+    public function testThrowExceptionWhenInvalidEmailGiven(): void
     {
-        $this->expectExceptionMessage('Invalid uuid format');
+        $this->expectExceptionMessage('Invalid id format');
 
-        $this->provider->loadUserByUsername('name');
+        $this->provider->loadUserByUsername('plain string');
     }
 
-    public function testShouldThrowExceptionWhenNoStringUsernameGiven(): void
+    public function testThrowExceptionWhenNoStringGiven(): void
     {
         $this->expectExceptionMessage('Username has to be a string');
 
         $this->provider->loadUserByUsername(1);
     }
 
-    public function testShouldThrowExceptionWhenEmptyUsernameGiven(): void
+    public function testThrowExceptionWhenEmptyStringGiven(): void
     {
         $this->expectExceptionMessage('Empty username');
 
