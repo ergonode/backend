@@ -29,7 +29,7 @@ final class CachedUser implements UserInterface
      */
     private array $languagePrivilegesCollection;
 
-    public static function createFromAggregate(UserInterface $user): self
+    public static function createFromUser(UserInterface $user): self
     {
         return new self(
             $user->getId(),

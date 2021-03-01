@@ -37,7 +37,7 @@ class GetUserMiddleware implements MiddlewareInterface
             if ($user instanceof UserInterface) {
                 $envelope = $envelope->with(
                     new UserStamp(
-                        CachedUser::createFromAggregate($user),
+                        CachedUser::createFromUser($user),
                     ),
                 );
             }
