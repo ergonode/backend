@@ -204,11 +204,11 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param array $types
+     * @param string[] $types
      *
      * @return string[]
      */
-    public function getAttributeCodes(array $types = []): array
+    public function getAttributeCodes(array $types = [], bool $includeSystem = true): array
     {
         $qb = $this->getQuery()
             ->select('code');
@@ -216,6 +216,11 @@ class DbalAttributeQuery implements AttributeQueryInterface
         if ($types) {
             $qb->andWhere($qb->expr()->in('type', ':types'))
                 ->setParameter(':types', $types, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+        }
+
+        if (false === $includeSystem) {
+            $qb->andWhere($qb->expr()->in('system', ':system'))
+                ->setParameter(':system', false, \PDO::PARAM_BOOL);
         }
 
         return $qb

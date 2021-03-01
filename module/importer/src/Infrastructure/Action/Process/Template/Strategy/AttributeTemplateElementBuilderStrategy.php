@@ -40,7 +40,7 @@ class AttributeTemplateElementBuilderStrategy implements TemplateElementBuilderI
     ): TemplateElementInterface {
 
         $attributeCode = $properties['attribute'];
-        $required = $properties['require'];
+        $required = 'true' === $properties['require'];
 
         if (!AttributeCode::isValid($attributeCode)) {
             throw new ImportException(

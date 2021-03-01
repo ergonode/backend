@@ -11,23 +11,27 @@ namespace Ergonode\ExporterFile\Infrastructure\Processor;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
-use Ergonode\ExporterFile\Infrastructure\DataStructure\LanguageData;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilder;
 
 class TemplateProcessor
 {
-    public function process(FileExportChannel $channel, Template $template): ExportData
-    {
-        $data = new ExportData();
-        $data->set($this->getTemplate($template));
+    private ExportTemplateBuilder $templateBuilder;
 
-        return $data;
+    public function __construct(ExportTemplateBuilder $templateBuilder)
+    {
+        $this->templateBuilder = $templateBuilder;
     }
 
-    private function getTemplate(Template $template): LanguageData
+    public function process(FileExportChannel $channel, Template $template): ExportData
     {
-        $result = new LanguageData();
-        $result->set('_name', $template->getName());
-
-        return $result;
+        try {
+            return $this->templateBuilder->build($template, $channel);
+        } catch (\Exception $exception) {
+            throw new ExportException(
+                sprintf('Can\'t process export for template element %s', $template->getName()),
+                $exception
+            );
+        }
     }
 }

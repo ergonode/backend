@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
-class TemplateElementModel
+class TemplateElementModel extends AbstractModel
 {
     private string $name;
     private string $type;
@@ -16,7 +16,6 @@ class TemplateElementModel
     private int $y;
     private int $width;
     private int $height;
-    private array $properties;
 
     public function __construct(
         string $name,
@@ -24,8 +23,7 @@ class TemplateElementModel
         int $x,
         int $y,
         int $width,
-        int $height,
-        array $properties
+        int $height
     ) {
         $this->name = $name;
         $this->type = $type;
@@ -33,7 +31,6 @@ class TemplateElementModel
         $this->y = $y;
         $this->width = $width;
         $this->height = $height;
-        $this->properties = $properties;
     }
 
     public function getName(): string
@@ -66,11 +63,6 @@ class TemplateElementModel
         return $this->height;
     }
 
-    public function getProperties(): array
-    {
-        return $this->properties;
-    }
-
     public function toArray(): array
     {
         return [
@@ -79,7 +71,7 @@ class TemplateElementModel
             'y' => $this->y,
             'width' => $this->width,
             'height' => $this->height,
-            'properties' => $this->properties,
+            'properties' => $this->getParameters(),
         ];
     }
 }

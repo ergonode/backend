@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterFile\Tests\Infrastructure\Processor;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 use Ergonode\ExporterFile\Infrastructure\Processor\TemplateProcessor;
 use PHPUnit\Framework\TestCase;
+use Ergonode\ExporterFile\Infrastructure\Builder\ExportTemplateBuilder;
+use Ergonode\ExporterFile\Infrastructure\DataStructure\ExportData;
 
 class TemplateProcessorTest extends TestCase
 {
@@ -21,25 +21,23 @@ class TemplateProcessorTest extends TestCase
 
     private FileExportChannel $channel;
 
+    private ExportTemplateBuilder $builder;
+
     protected function setUp(): void
     {
         $this->template = $this->createMock(Template::class);
         $this->channel = $this->createMock(FileExportChannel::class);
+        $this->builder = $this->createMock(ExportTemplateBuilder::class);
     }
 
     public function testProcessor(): void
     {
-        $this->template->method('getName')->willReturn('test_name');
+        $data = $this->createMock(ExportData::class);
+        $this->builder->expects(self::once())->method('build')->willReturn($data);
 
-        $templateElement = $this->createMock(TemplateElementInterface::class);
-        $templateElement->method('getType')->willReturn('test_type');
-        $this->template->method('getElements')->willReturn(new ArrayCollection(array_values([$templateElement])));
-
-        $processor = new TemplateProcessor();
+        $processor = new TemplateProcessor($this->builder);
         $result = $processor->process($this->channel, $this->template);
 
-        $languageData = $result->getLanguages()[null];
-
-        self::assertArrayHasKey('_name', $languageData->getValues());
+        self::assertSame($data, $result);
     }
 }

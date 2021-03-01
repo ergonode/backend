@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Model;
 
-class AttributeModel
+class AttributeModel extends AbstractModel
 {
     private string $code;
     private string $type;
@@ -16,7 +16,6 @@ class AttributeModel
     private array $name = [];
     private array $hint = [];
     private array $placeholder = [];
-    private array $parameters = [];
 
     public function __construct(string $code, string $type, string $scope)
     {
@@ -68,18 +67,5 @@ class AttributeModel
     public function addName(string $language, string $value): void
     {
         $this->name[$language] = $value;
-    }
-
-    public function getParameters(): array
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * @param string|bool $value
-     */
-    public function addParameter(string $name, $value): void
-    {
-        $this->parameters[$name] = $value;
     }
 }
