@@ -9,8 +9,3 @@ services:
 
     Ergonode\Authentication\Application\Middleware\:
         resource: '../../Application/Middleware/*'
-
-    Ergonode\Authentication\Application\RefreshToken\Doctrine\Mapping\RefreshTokenMetadataFactory: ~
-    Ergonode\Authentication\Application\RefreshToken\Doctrine\RefreshTokenManager: ~
-    Ergonode\Authentication\Infrastructure\Persistence\DbalRefreshTokenRepository: ~
-    Ergonode\Authentication\Application\RefreshToken\Doctrine\RefreshTokenRepositoryInterface: '@Ergonode\Authentication\Infrastructure\Persistence\DbalRefreshTokenRepository'

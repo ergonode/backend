@@ -10,17 +10,18 @@ declare(strict_types=1);
 namespace Ergonode\Authentication\Infrastructure\Persistence;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Ergonode\Authentication\Application\RefreshToken\Doctrine\RefreshTokenRepositoryInterface;
 use Gesdinet\JWTRefreshTokenBundle\Entity\RefreshToken;
 
 class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
 {
     private const TABLE = 'refresh_tokens';
-    private const FIELDS = [
-        'id' => true,
-        'username' => true,
-        'refresh_token' => true,
-        'valid' => true,
+    private const PROPERTIES = [
+        'id' => 'id',
+        'username' => 'username',
+        'refreshToken' => 'refresh_token',
+        'valid' => 'valid',
     ];
 
     private Connection $connection;
@@ -47,7 +48,7 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function findAll(): array
     {
-        $sql = 'SELECT id, username, refresh_token, valid FROM ' . self::TABLE;
+        $sql = 'SELECT id, username, refresh_token, valid FROM '.self::TABLE;
         $result = $this->connection->query($sql)->fetchAll();
 
         return array_map(
@@ -63,7 +64,6 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
     {
-//        $this->validateCriteria($criteria);
         throw new \BadMethodCallException('Not implemented');
     }
 
@@ -72,11 +72,11 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function findOneBy(array $criteria): ?RefreshToken
     {
-        $this->validateCriteria($criteria);
+        $criteria = $this->mapCriteria($criteria);
 
         $qb = $this->connection->createQueryBuilder();
         $qb
-            ->select('*')
+            ->select('id, username, valid, refresh_token')
             ->from(self::TABLE, 'rt')
             ->setMaxResults(1);
 
@@ -86,7 +86,11 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
                 ->setParameter($column, $value)
             ;
         }
-        $result = $qb->execute()->fetchAll();
+        $result = $qb->execute()->fetch();
+
+        if (empty($result)) {
+            return null;
+        }
 
         return $this->mapRefreshToken($result);
     }
@@ -96,25 +100,54 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
         return RefreshToken::class;
     }
 
-    public function insert(RefreshToken $token)
+    public function insert(RefreshToken $token): void
     {
-        // TODO: Implement insert() method.
+        $sql = '
+            INSERT INTO '.self::TABLE.' (username, valid, refresh_token)
+                VALUES (
+                    :username,
+                    :valid,
+                    :refreshToken
+                )
+                RETURNING id
+            ';
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->bindValue('username', $token->getUsername());
+        $stmt->bindValue('valid', $token->getValid(), Types::DATETIMETZ_MUTABLE);
+        $stmt->bindValue('refreshToken', $token->getRefreshToken());
+        $stmt->execute();
+
+        $id = $stmt->fetchColumn();
+
+        $this->setId($token, (int) $id);
     }
 
-    public function delete(RefreshToken $token)
+    public function delete(RefreshToken $token): void
     {
-        // TODO: Implement delete() method.
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $token->getId(),
+            ]
+        );
     }
 
-    private function validateCriteria(array $criteria): void
+    private function mapCriteria(array $criteria): array
     {
-        if (!$invalid = array_diff_key($criteria, self::FIELDS)) {
-            return;
+        if ($invalid = array_diff_key($criteria, self::PROPERTIES)) {
+            throw new \UnexpectedValueException(sprintf(
+                'Invalid criteria given. Keys do not exist %s',
+                implode(',', array_keys($invalid)),
+            ));
         }
 
-        throw new \UnexpectedValueException(
-            'Invalid criteria given. Keys do not exist ' . array_keys($invalid),
-        );
+        $new = [];
+        foreach ($criteria as $property => $criterion) {
+            $new[self::PROPERTIES[$property]] = $criterion;
+        }
+
+        return $new;
     }
 
     private function mapRefreshToken(array $data): RefreshToken
@@ -123,11 +156,17 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
         $token
             ->setRefreshToken($data['refresh_token'])
             ->setUsername($data['username'])
-            ->setValid($data['valid']);
-        $id = $this->reflection->getProperty('id');
-        $id->setAccessible(true);
-        $id->setValue($token, $data['id']);
+            ->setValid(\DateTime::createFromFormat('Y-m-d H:i:sO', $data['valid']));
+        $this->setId($token, (int) $data['id']);
 
         return $token;
+    }
+
+    private function setId(RefreshToken $refreshToken, int $id): void
+    {
+        $idProperty = $this->reflection->getProperty('id');
+        $idProperty->setAccessible(true);
+        $idProperty->setValue($refreshToken, $id);
+        $idProperty->setAccessible(false);
     }
 }

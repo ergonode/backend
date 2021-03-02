@@ -14,62 +14,98 @@ use Gesdinet\JWTRefreshTokenBundle\Entity\RefreshToken;
 
 class RefreshTokenMetadata implements ClassMetadata
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getName(): string
     {
         return RefreshToken::class;
     }
 
-    public function getIdentifier()
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdentifier(): array
     {
         return ['id'];
     }
 
-    public function getReflectionClass()
+    /**
+     * {@inheritdoc}
+     */
+    public function getReflectionClass(): \ReflectionClass
     {
         return new \ReflectionClass(RefreshToken::class);
     }
 
-    public function isIdentifier($fieldName)
+    /**
+     * {@inheritdoc}
+     */
+    public function isIdentifier($fieldName): bool
     {
         return 'id' === $fieldName;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function hasField($fieldName): bool
     {
         return in_array($fieldName, $this->getFieldNames());
     }
 
-    public function hasAssociation($fieldName)
+    /**
+     * {@inheritdoc}
+     */
+    public function hasAssociation($fieldName): bool
     {
         return false;
     }
 
-    public function isSingleValuedAssociation($fieldName)
+    /**
+     * {@inheritdoc}
+     */
+    public function isSingleValuedAssociation($fieldName): bool
     {
         return false;
     }
 
-    public function isCollectionValuedAssociation($fieldName)
+    /**
+     * {@inheritdoc}
+     */
+    public function isCollectionValuedAssociation($fieldName): bool
     {
         return false;
     }
 
-    public function getFieldNames()
+    /**
+     * {@inheritdoc}
+     */
+    public function getFieldNames(): array
     {
         return ['id', 'username', 'valid', 'refreshToken'];
     }
 
-    public function getIdentifierFieldNames()
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdentifierFieldNames(): array
     {
         return ['id'];
     }
 
-    public function getAssociationNames()
+    /**
+     * {@inheritdoc}
+     */
+    public function getAssociationNames(): array
     {
         return [];
     }
 
-    public function getTypeOfField($fieldName)
+    /**
+     * {@inheritdoc}
+     */
+    public function getTypeOfField($fieldName): string
     {
         if (!$this->hasField($fieldName)) {
             throw new \UnexpectedValueException('No such field.');
@@ -81,21 +117,33 @@ class RefreshTokenMetadata implements ClassMetadata
         return 'string';
     }
 
-    public function getAssociationTargetClass($assocName)
+    /**
+     * {@inheritdoc}
+     */
+    public function getAssociationTargetClass($assocName): void
     {
         throw new \Exception('No association');
     }
 
-    public function isAssociationInverseSide($assocName)
+    /**
+     * {@inheritdoc}
+     */
+    public function isAssociationInverseSide($assocName): bool
     {
         return false;
     }
 
-    public function getAssociationMappedByTargetField($assocName)
+    /**
+     * {@inheritdoc}
+     */
+    public function getAssociationMappedByTargetField($assocName): void
     {
         throw new \Exception('No association');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getIdentifierValues($object): array
     {
         return ['id'];

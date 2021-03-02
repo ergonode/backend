@@ -1,0 +1,2 @@
+gesdinet_jwt_refresh_token:
+    object_manager: Ergonode\Authentication\Application\RefreshToken\Doctrine\RefreshTokenManager

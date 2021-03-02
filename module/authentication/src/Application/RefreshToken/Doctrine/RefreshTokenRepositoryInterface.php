@@ -14,6 +14,6 @@ use Gesdinet\JWTRefreshTokenBundle\Entity\RefreshToken;
 
 interface RefreshTokenRepositoryInterface extends ObjectRepository
 {
-    public function insert(RefreshToken $token);
-    public function delete(RefreshToken $token);
+    public function insert(RefreshToken $token): void;
+    public function delete(RefreshToken $token): void;
 }
