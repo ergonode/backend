@@ -24,7 +24,7 @@ services:
         tags: [ 'controller.service_arguments' ]
         arguments:
             - '@Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter'
-            - '@Ergonode\Core\Application\Serializer\SerializerInterface'
+            - '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
             - '@Symfony\Component\Validator\Validator\ValidatorInterface'
 
     Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
