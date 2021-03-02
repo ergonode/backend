@@ -1,4 +1,5 @@
 
+- ci [#1212](https://github.com/ergonode/backend/issues/1212) Split CI to test code separately (piotrkreft)
 - performance [#1211](https://github.com/ergonode/backend/issues/1211) Cached user authenticated on workers (piotrkreft)
 - feature [#1174](https://github.com/ergonode/backend/issues/1174) Fixed all allowed Composer dependencies and enabled CI jobs to test against boundary conditions (piotrkreft)
 - bugfix [#1196](https://github.com/ergonode/backend/issues/1196) Decoupled EventSourcing from Core (piotrkreft)
