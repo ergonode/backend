@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Infrastructure\Provider;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Core\Domain\Query\LanguageTreeQueryInterface;
 use Ergonode\Core\Domain\User\LanguageCollectionAwareInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
