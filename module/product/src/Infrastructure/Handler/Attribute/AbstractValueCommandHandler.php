@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Handler\Attribute;
 
-use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Core\Domain\User\UserInterface;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
@@ -33,7 +33,7 @@ abstract class AbstractValueCommandHandler
     /**
      * @throws \Exception
      */
-    protected function updateAudit(User $user, AbstractProduct $product): void
+    protected function updateAudit(UserInterface $user, AbstractProduct $product): void
     {
         $updatedAt = new \DateTime();
         $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
