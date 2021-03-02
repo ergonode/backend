@@ -21,3 +21,4 @@ interface UserInterface extends SymfonyUserInterface, DomainUserInterface
      */
     public function getLanguagePrivilegesCollection(): array;
 }
+
