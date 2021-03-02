@@ -24,10 +24,10 @@
         "nelmio/api-doc-bundle": "^3.6",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.5",
-        "symfony/form": "^4.4",
+        "symfony/form": "^4.4.11",
         "symfony/messenger": "^4.4",
         "symfony/translation": "^4.4",
-        "symfony/validator": "^4.4",
+        "symfony/validator": "^4.4.11",
         "vich/uploader-bundle": "^1.10"
     },
     "require-dev": {
