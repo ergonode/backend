@@ -9,13 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Token;
 
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Core\Domain\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 
 class UserToken extends AbstractToken
 {
 
-    public function __construct(User $user, array $roles)
+    public function __construct(UserInterface $user, array $roles)
     {
         parent::__construct($roles);
         $this->setUser($user);

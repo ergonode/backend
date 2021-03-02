@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Authentication\Application\Middleware;
 
 use Ergonode\Account\Application\Security\Security;
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Authentication\Application\Security\User\CachedUser;
 use Ergonode\Authentication\Application\Stamp\UserStamp;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
@@ -31,11 +31,14 @@ class GetUserMiddleware implements MiddlewareInterface
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
         if (!$envelope->last(ReceivedStamp::class)) {
-            /** @var User $user */
             $user = $this->security->getUser();
 
             if ($user) {
-                $envelope = $envelope->with(new UserStamp($user->getId()));
+                $envelope = $envelope->with(
+                    new UserStamp(
+                        CachedUser::createFromUser($user),
+                    ),
+                );
             }
         }
 
