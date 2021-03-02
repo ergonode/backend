@@ -1,0 +1,32 @@
+name: Code analysis
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          extensions: imagick
+
+      - name: PHP version
+        run: php -v
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Check module dependencies
+        run: bin/phing check:dependencies:module
+
+      - name: Check code style
+        run: bin/phing check:style
