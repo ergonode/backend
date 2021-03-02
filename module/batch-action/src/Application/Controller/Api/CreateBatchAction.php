@@ -108,7 +108,7 @@ class CreateBatchAction
                     $data->payload ?: null
                 );
 
-                $this->commandBus->dispatch($command);
+                $this->commandBus->dispatch($command, true);
 
                 return new CreatedResponse($command->getId());
             }

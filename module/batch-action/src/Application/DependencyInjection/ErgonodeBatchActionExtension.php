@@ -38,11 +38,37 @@ class ErgonodeBatchActionExtension extends Extension implements PrependExtension
      */
     public function prepend(ContainerBuilder $container): void
     {
+        $this->prependNelmioApiDoc($container);
+        $this->prependMessenger($container);
+    }
+
+    private function prependNelmioApiDoc(ContainerBuilder $container): void
+    {
         if (!in_array(NelmioApiDocBundle::class, $container->getParameter('kernel.bundles'), true)) {
             return;
         }
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
 
         $loader->load('nelmio_api_doc.yaml');
+    }
+
+    private function prependMessenger(ContainerBuilder $container): void
+    {
+        $configs = $container->getExtensionConfig($this->getAlias());
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        if (!$this->isConfigEnabled($container, $config['messenger'])) {
+            return;
+        }
+
+        $container->setParameter(
+            'ergonode.batch_action.messenger_transport_name',
+            $config['messenger']['transport_name'],
+        );
+
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../Resources/config'));
+
+        $loader->load('messenger.yaml');
     }
 }
