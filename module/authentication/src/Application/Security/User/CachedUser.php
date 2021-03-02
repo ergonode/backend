@@ -65,11 +65,17 @@ final class CachedUser implements UserInterface
         return $this->id;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getEmail(): Email
     {
         return $this->email;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getRoleId(): RoleId
     {
         return $this->roleId;
