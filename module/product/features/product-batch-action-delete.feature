@@ -48,6 +48,11 @@ Feature: batch action product deletion
       """
     Then the response status code should be 204
 
+  Scenario: Get products
+    When I send a GET request to "/api/v1/en_GB/products"
+    Then the response status code should be 200
+    And the JSON node "collection[0]" should exist
+
   Scenario: Create batch action for all products
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
@@ -55,7 +60,6 @@ Feature: batch action product deletion
         "type": "PRODUCT_DELETE"
       }
     """
-
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 
@@ -68,4 +72,4 @@ Feature: batch action product deletion
   Scenario: Get products
     When I send a GET request to "/api/v1/en_GB/products"
     Then the response status code should be 200
-    And the response should contain "[]"
+    And the JSON node "collection[0]" should not exist
