@@ -101,6 +101,9 @@
     "exsyst/swagger": {
         "version": "v0.4.0"
     },
+    "fakerphp/faker": {
+        "version": "v1.13.0"
+    },
     "friends-of-behat/mink-extension": {
         "version": "v2.4.0"
     },
@@ -112,9 +115,6 @@
             "version": "2.0",
             "ref": "3d21344765fd3440a85bdd27d4cada186ec628bd"
         }
-    },
-    "fzaninotto/faker": {
-        "version": "v1.9.1"
     },
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.9.1"
@@ -408,6 +408,9 @@
     "psr/log": {
         "version": "1.0.2"
     },
+    "qossmic/deptrac-shim": {
+        "version": "0.11.1"
+    },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },
@@ -473,9 +476,6 @@
             "version": "4.0",
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
-    },
-    "sensiolabs-de/deptrac-shim": {
-        "version": "0.6.0"
     },
     "slevomat/coding-standard": {
         "version": "6.4.1"
