@@ -9,10 +9,8 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication\Application\Middleware;
 
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Authentication\Application\Stamp\UserStamp;
 use Ergonode\Authentication\Application\Token\UserToken;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
@@ -24,24 +22,14 @@ class AuthenticationMiddleware implements MiddlewareInterface
 
     private TokenStorageInterface $tokenStorage;
 
-    private UserRepositoryInterface $userRepository;
-
-    private LoggerInterface $logger;
-
     public function __construct(
-        TokenStorageInterface $tokenStorage,
-        UserRepositoryInterface $userRepository,
-        LoggerInterface $logger
+        TokenStorageInterface $tokenStorage
     ) {
         $this->tokenStorage = $tokenStorage;
-        $this->userRepository = $userRepository;
-        $this->logger = $logger;
     }
-
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-
         if (!$envelope->last(ReceivedStamp::class)) {
             return $stack->next()->handle($envelope, $stack);
         }
@@ -50,14 +38,8 @@ class AuthenticationMiddleware implements MiddlewareInterface
         $stamp = $envelope->last(UserStamp::class);
 
         if ($stamp) {
-            $user = $this->userRepository->load($stamp->getUserId());
-            if ($user) {
-                $roles = $user->getRoles();
-                $token = new UserToken($user, $roles);
-                $this->tokenStorage->setToken($token);
-            } else {
-                $this->logger->error(sprintf('Can\'t find user with id "%s"', $stamp->getUserId()));
-            }
+            $token = new UserToken($stamp->getUser(), []);
+            $this->tokenStorage->setToken($token);
         }
         try {
             $envelope = $stack->next()->handle($envelope, $stack);

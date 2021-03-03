@@ -10,16 +10,16 @@ declare(strict_types=1);
 namespace Ergonode\Authentication\Tests\Application\Stamp;
 
 use Ergonode\Authentication\Application\Stamp\UserStamp;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\Core\Domain\User\UserInterface;
 use PHPUnit\Framework\TestCase;
 
 class UserStampTest extends TestCase
 {
     public function testCreation(): void
     {
-        $userId = $this->createMock(UserId::class);
-        $userStamp = new UserStamp($userId);
+        $user = $this->createMock(UserInterface::class);
+        $userStamp = new UserStamp($user);
 
-        self::assertSame($userStamp->getUserId(), $userId);
+        self::assertSame($user, $userStamp->getUser());
     }
 }

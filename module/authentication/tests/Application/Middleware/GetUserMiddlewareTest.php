@@ -26,6 +26,7 @@ class GetUserMiddlewareTest extends TestCase
         $envelope1 = new Envelope($this->createMock(\stdClass::class));
         $user = $this->createMock(User::class);
         $user->method('getId')->willReturn($this->createMock(UserId::class));
+        $user->method('isActive')->willReturn(true);
         $security->method('getUser')->willReturn($user);
         $nextMiddleware = $this->createMock(MiddlewareInterface::class);
         $stack = $this->createMock(StackInterface::class);
