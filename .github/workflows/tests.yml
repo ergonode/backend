@@ -47,12 +47,6 @@ jobs:
           openssl genrsa -aes256 -passout pass:1234 -out "config/jwt/private.pem" 4096
           openssl rsa -pubout -in "config/jwt/private.pem" -passin pass:1234 -out "config/jwt/public.pem"
 
-      - name: Check module dependencies
-        run: bin/phing check:dependencies:module
-
-      - name: Check code style
-        run: bin/phing check:style
-
       - name: Unit tests
         run: bin/phing test:unit
 
@@ -60,3 +54,28 @@ jobs:
         run: bin/phing test:behat
         env:
           DATABASE_URL: pgsql://ergonode:123@localhost:5432/ergonode_test?serverVersion=10&charset=utf8
+
+  code_analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          extensions: imagick
+
+      - name: PHP version
+        run: php -v
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Check module dependencies
+        run: bin/phing check:dependencies:module
+
+      - name: Check code style
+        run: bin/phing check:style
