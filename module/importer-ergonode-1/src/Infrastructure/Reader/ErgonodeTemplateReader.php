@@ -29,7 +29,7 @@ class ErgonodeTemplateReader extends AbstractErgonodeReader
             );
 
             foreach ($record as $key => $value) {
-                if (!array_key_exists($key, self::KEYS)) {
+                if ('' !== $value && !array_key_exists($key, self::KEYS)) {
                     $item->addParameter($key, $value);
                 }
             }
