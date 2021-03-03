@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    Ergonode\Authentication\Application\RefreshToken\Doctrine\RefreshTokenManager:
+        $repository: '@Ergonode\Authentication\Application\RefreshToken\Doctrine\RefreshTokenRepositoryInterface'
+        $metadataFactory: '@Ergonode\Authentication\Application\RefreshToken\Doctrine\Mapping\RefreshTokenMetadataFactory'
+
+    Ergonode\Authentication\Infrastructure\Persistence\DbalRefreshTokenRepository:
+        $connection: '@doctrine.dbal.default_connection'
+
+    Ergonode\Authentication\Application\RefreshToken\Doctrine\Mapping\RefreshTokenMetadataFactory: ~
+
+    Ergonode\Authentication\Application\RefreshToken\Doctrine\RefreshTokenRepositoryInterface: '@Ergonode\Authentication\Infrastructure\Persistence\DbalRefreshTokenRepository'
