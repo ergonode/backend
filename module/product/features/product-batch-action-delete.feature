@@ -63,12 +63,6 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 
-  Scenario: Get notifications
-    When I send a GET request to "/api/v1/profile/notifications?field=created_at&ordered=ASC"
-    Then the response status code should be 200
-    And the JSON nodes should contain:
-      | collection[0].message   | Batch action "delete products" ended  |
-
   Scenario: Get products
     When I send a GET request to "/api/v1/en_GB/products"
     Then the response status code should be 200
