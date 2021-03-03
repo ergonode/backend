@@ -33,8 +33,7 @@ class GalleryAttributeImportAction extends AbstractAttributeImportAction
                 new TranslatableString($command->getLabel()),
                 new TranslatableString($command->getHint()),
                 new TranslatableString($command->getPlaceholder()),
-                new AttributeScope($command->getScope()),
-                $command->getParameters()
+                new AttributeScope($command->getScope())
             );
         }
         $this->processSuccessfulImport($attribute, $command);
