@@ -104,7 +104,7 @@ class CreateBatchAction
                 $command = new CreateBatchActionCommand(
                     BatchActionId::generate(),
                     new BatchActionType($data->type),
-                    $filter,
+                    $filter ?? new BatchActionFilter(),
                     $data->payload ?: null
                 );
 

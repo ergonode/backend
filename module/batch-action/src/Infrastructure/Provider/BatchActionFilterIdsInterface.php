@@ -19,5 +19,5 @@ interface BatchActionFilterIdsInterface
     /**
      * @return AggregateId []
      */
-    public function filter(?BatchActionFilter $filter): array;
+    public function filter(BatchActionFilter $filter): array;
 }
