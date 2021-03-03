@@ -2,3 +2,4 @@ gesdinet_jwt_refresh_token:
     user_provider: 'security.user.provider.concrete.id_user_provider'
     user_identity_field: id
     ttl: '%env(int:JWT_REFRESH_TOKEN_TTL)%'
+    single_use: true
