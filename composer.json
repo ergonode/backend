@@ -36,7 +36,6 @@
         "phing/phing": "^2.16",
         "ramsey/collection": "^1.1",
         "ramsey/uuid": "^3.8",
-        "ramsey/uuid-doctrine": "^1.5",
         "scn/deepl-api-connector": " ^2.0",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/asset": "^4.4",
@@ -202,6 +201,7 @@
         ]
     },
     "conflict": {
-        "symfony/symfony": "*"
+        "symfony/symfony": "*",
+        "doctrine/persistence": "<1.3"
     }
 }
