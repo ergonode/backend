@@ -1,4 +1,5 @@
 
+- feature [#1208](https://github.com/ergonode/backend/issues/1208) Created custom ObjectManager for refresh token and decoupled from Doctrine ORM (piotrkreft)
 - ci [#1212](https://github.com/ergonode/backend/issues/1212) Split CI to test code separately (piotrkreft)
 - performance [#1211](https://github.com/ergonode/backend/issues/1211) Cached user authenticated on workers (piotrkreft)
 - feature [#1174](https://github.com/ergonode/backend/issues/1174) Fixed all allowed Composer dependencies and enabled CI jobs to test against boundary conditions (piotrkreft)
