@@ -14,6 +14,7 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -34,18 +35,22 @@ class SimpleProductImportAction
 
     private ImportProductAttributeBuilder $builder;
 
+    protected ProductFactoryInterface $productFactory;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $repository,
         TemplateQueryInterface $templateQuery,
         CategoryQueryInterface $categoryQuery,
-        ImportProductAttributeBuilder $builder
+        ImportProductAttributeBuilder $builder,
+        ProductFactoryInterface $productFactory
     ) {
         $this->productQuery = $productQuery;
         $this->repository = $repository;
         $this->templateQuery = $templateQuery;
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
+        $this->productFactory = $productFactory;
     }
 
     /**
@@ -67,7 +72,8 @@ class SimpleProductImportAction
         $attributes = $this->builder->build($attributes);
 
         if (!$productId) {
-            $product = new SimpleProduct(
+            $product = $this->productFactory->create(
+                SimpleProduct::TYPE,
                 ProductId::generate(),
                 $sku,
                 $templateId,
@@ -76,7 +82,15 @@ class SimpleProductImportAction
             );
         } else {
             $product = $this->repository->load($productId);
-            Assert::isInstanceOf($product, SimpleProduct::class);
+            if (!$product instanceof SimpleProduct) {
+                throw new \LogicException(
+                    sprintf(
+                        'Expected an instance of %s. %s received.',
+                        SimpleProduct::class,
+                        get_debug_type($product)
+                    )
+                );
+            }
         }
 
         $product->changeTemplate($templateId);
