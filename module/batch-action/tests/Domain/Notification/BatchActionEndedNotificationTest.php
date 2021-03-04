@@ -12,17 +12,19 @@ namespace Ergonode\BatchAction\Tests\Domain\Notification;
 use Ergonode\BatchAction\Domain\Notification\BatchActionEndedNotification;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\TestCase;
+use Ergonode\BatchAction\Domain\Entity\BatchAction;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 
 class BatchActionEndedNotificationTest extends TestCase
 {
 
     private UserId $userId;
 
-    private string $type;
+    private BatchAction $batchAction;
 
     protected function setUp(): void
     {
-        $this->type = 'test';
+        $this->batchAction = $this->createMock(BatchAction::class);
         $this->userId = $this->createMock(UserId::class);
     }
 
@@ -31,7 +33,7 @@ class BatchActionEndedNotificationTest extends TestCase
      */
     public function testCreation(): void
     {
-        $notification = new BatchActionEndedNotification($this->type, $this->userId);
+        $notification = new BatchActionEndedNotification($this->batchAction, $this->userId);
         self::assertEquals($this->userId, $notification->getAuthorId());
         self::assertNotEmpty($notification->getCreatedAt());
     }
@@ -41,7 +43,8 @@ class BatchActionEndedNotificationTest extends TestCase
      */
     public function testReturnedParameters(): void
     {
-        $notification = new BatchActionEndedNotification($this->type, $this->userId);
+        $this->batchAction->method('getType')->willReturn(new BatchActionType('test'));
+        $notification = new BatchActionEndedNotification($this->batchAction, $this->userId);
         $parameters = $notification->getParameters();
         self::assertSame('test', $parameters['%type%']);
     }
@@ -51,7 +54,7 @@ class BatchActionEndedNotificationTest extends TestCase
      */
     public function testReturnedMessage(): void
     {
-        $notification = new BatchActionEndedNotification($this->type, $this->userId);
+        $notification = new BatchActionEndedNotification($this->batchAction, $this->userId);
         self::assertSame(
             'Batch action "%type%" ended',
             $notification->getMessage()

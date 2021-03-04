@@ -36,7 +36,7 @@ class DbalNotificationGridQuery implements NotificationGridQueryInterface
         $this->connection = $connection;
     }
 
-    public function getDataSet(UserId $id, Language $language): QueryBuilder
+    public function getGridQuery(UserId $id, Language $language): QueryBuilder
     {
         $qb = $this->connection->createQueryBuilder();
 
