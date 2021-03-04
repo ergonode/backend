@@ -34,7 +34,7 @@ class ProductBatchActionFilterTest extends TestCase
         $this->filteredQueryBuilder = $this->createMock(FilteredQueryBuilder::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->statement = $this->createMock(Statement::class);
-        $this->filteredQueryBuilder->method('provide')->willReturn($this->queryBuilder);
+        $this->filteredQueryBuilder->method('build')->willReturn($this->queryBuilder);
         $this->queryBuilder->method('execute')->willReturn($this->statement);
     }
 
@@ -62,9 +62,8 @@ class ProductBatchActionFilterTest extends TestCase
 
     public function testFilterEmptyResult(): void
     {
-
-        $this->statement->method('fetchAll')->willReturn(false);
-        $this->filteredQueryBuilder->method('provide')->willReturn($this->queryBuilder);
+        $this->statement->method('fetchAll')->willReturn([]);
+        $this->filteredQueryBuilder->method('build')->willReturn($this->queryBuilder);
 
         $batchActionFilter = $this->createMock(BatchActionFilter::class);
 
@@ -80,7 +79,7 @@ class ProductBatchActionFilterTest extends TestCase
             'b732920e-ae16-4b3b-8b75-557afd501c5e',
             'a1d8faeb-023f-4cb7-aa60-c7abdd252ffc',
         ]);
-        $this->filteredQueryBuilder->method('provide')->willReturn($this->queryBuilder);
+        $this->filteredQueryBuilder->method('build')->willReturn($this->queryBuilder);
 
         $batchActionFilter = $this->createMock(BatchActionFilter::class);
 

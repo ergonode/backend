@@ -123,6 +123,10 @@ Feature: Batch Action change Product Attribute Value
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 
-  Scenario: Get not exists batch action
+  Scenario: Get batch action
     And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@"
+    Then the response status code should be 200
+
+  Scenario: Get batch action entry grid
+    And I send a "GET" request to "/api/v1/en_GB/batch-action/@batch_action_1_id@/entries"
     Then the response status code should be 200
