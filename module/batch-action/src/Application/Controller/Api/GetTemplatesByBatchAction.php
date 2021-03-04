@@ -94,7 +94,6 @@ class GetTemplatesByBatchAction
                     $ids = new BatchActionIds($list, $data->ids->included);
                 }
                 $filter = new BatchActionFilter($ids, $data->query ?? null);
-                /** @var ProductId[] $ids */
                 $filteredIds = $this->templateBatchActionFilter->filter($filter);
 
                 return new SuccessResponse($filteredIds);
