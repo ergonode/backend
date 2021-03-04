@@ -250,6 +250,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
                 new ProductValueChangedEvent(
                     $this->id,
                     $attributeCode,
+                    $this->attributes[$attributeCode->getValue()],
                     $value
                 )
             );
