@@ -19,7 +19,7 @@ class CreateBatchActionCommand implements DomainCommandInterface
 
     private BatchActionType $type;
 
-    private ?BatchActionFilter $filter;
+    private BatchActionFilter $filter;
 
     /**
      * @var mixed
@@ -32,7 +32,7 @@ class CreateBatchActionCommand implements DomainCommandInterface
     public function __construct(
         BatchActionId $id,
         BatchActionType $type,
-        ?BatchActionFilter $filter = null,
+        BatchActionFilter $filter,
         $payload = null
     ) {
         $this->id = $id;
@@ -51,7 +51,7 @@ class CreateBatchActionCommand implements DomainCommandInterface
         return $this->type;
     }
 
-    public function getFilter(): ?BatchActionFilter
+    public function getFilter(): BatchActionFilter
     {
         return $this->filter;
     }

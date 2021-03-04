@@ -44,24 +44,15 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
     /**
      * @return ProductId[]
      */
-    public function filter(?BatchActionFilter $filter): array
+    public function filter(BatchActionFilter $filter): array
     {
-        $result = false;
+        $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
 
-        if ($filter) {
-            $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
+        $result = $filteredQueryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-            $result = $filteredQueryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
-        }
-
-        if (false === $result) {
-            $result = [];
-        }
-
-        foreach ($result as &$item) {
-            $item = new ProductId($item);
-        }
-
-        return $result;
+        return array_map(
+            fn (string $item) => new ProductId($item),
+            $result,
+        );
     }
 }
