@@ -17,7 +17,6 @@ use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter;
 use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
 use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,7 +93,6 @@ class GetTemplatesByBatchAction
                     $ids = new BatchActionIds($list, $data->ids->included);
                 }
                 $filter = new BatchActionFilter($ids, $data->query ?? null);
-                /** @var ProductId[] $ids */
                 $filteredIds = $this->templateBatchActionFilter->filter($filter);
 
                 return new SuccessResponse($filteredIds);

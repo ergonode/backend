@@ -31,29 +31,20 @@ class TemplateBatchActionFilter
     /**
      * @return TemplateId[]
      */
-    public function filter(?BatchActionFilter $filter): array
+    public function filter(BatchActionFilter $filter): array
     {
-        $result = false;
+        $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
 
-        if ($filter) {
-            $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder->select('DISTINCT template_id')
+            ->from('public.product', 'pt')
+            ->join('pt', (sprintf('(%s)', $filteredQueryBuilder->getSQL())), 'pp', 'pp.id = pt.id')
+            ->setParameters($filteredQueryBuilder->getParameters(), $filteredQueryBuilder->getParameterTypes());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder->select('DISTINCT template_id')
-                ->from('public.product', 'pt')
-                ->join('pt', (sprintf('(%s)', $filteredQueryBuilder->getSQL())), 'pp', 'pp.id = pt.id')
-                ->setParameters($filteredQueryBuilder->getParameters(), $filteredQueryBuilder->getParameterTypes());
-            $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
-        }
-
-        if (false === $result) {
-            $result = [];
-        }
-
-        foreach ($result as &$item) {
-            $item = new TemplateId($item);
-        }
-
-        return $result;
+        return array_map(
+            fn (string $id) => new TemplateId($id),
+            $result,
+        );
     }
 }
