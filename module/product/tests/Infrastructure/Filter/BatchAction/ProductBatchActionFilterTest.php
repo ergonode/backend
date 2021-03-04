@@ -62,7 +62,6 @@ class ProductBatchActionFilterTest extends TestCase
 
     public function testFilterEmptyResult(): void
     {
-
         $this->statement->method('fetchAll')->willReturn([]);
         $this->filteredQueryBuilder->method('build')->willReturn($this->queryBuilder);
 

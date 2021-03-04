@@ -111,6 +111,7 @@ ruleset:
     - SharedKernel
   BatchAction:
     - Account
+    - Attribute # temporary solution, need fix grid column attribute relation
     - Api
     - Core
     - EventSourcing
