@@ -50,7 +50,7 @@ class ErgonodeProductReader extends AbstractErgonodeReader
             }
 
             foreach ($record as $key => $value) {
-                if (!array_key_exists($key, self::KEYS) && !array_key_exists($key, $attributes)) {
+                if ('' !== $value && !array_key_exists($key, self::KEYS) && !array_key_exists($key, $attributes)) {
                     $item->addParameter($key, $value);
                 }
             }
