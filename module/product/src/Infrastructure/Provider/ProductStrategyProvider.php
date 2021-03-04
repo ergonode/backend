@@ -9,24 +9,24 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Provider;
 
-use Ergonode\Product\Infrastructure\Strategy\ProductStrategyInterface;
+use Ergonode\Product\Infrastructure\Strategy\ProductFactoryStrategyInterface;
 use Webmozart\Assert\Assert;
 
 class ProductStrategyProvider
 {
     /**
-     * @var ProductStrategyInterface[]
+     * @var ProductFactoryStrategyInterface[]
      */
     private iterable $productStrategies;
 
     public function __construct(iterable $productStrategies)
     {
-        Assert::allIsInstanceOf($productStrategies, ProductStrategyInterface::class);
+        Assert::allIsInstanceOf($productStrategies, ProductFactoryStrategyInterface::class);
 
         $this->productStrategies = $productStrategies;
     }
 
-    public function provide(string $type): ProductStrategyInterface
+    public function provide(string $type): ProductFactoryStrategyInterface
     {
         foreach ($this->productStrategies as $productStrategy) {
             if ($productStrategy->supports($type)) {

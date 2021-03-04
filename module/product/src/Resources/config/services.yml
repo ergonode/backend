@@ -60,4 +60,4 @@ services:
 
     Ergonode\Product\Infrastructure\Provider\ProductStrategyProvider:
         arguments:
-            $productStrategies: !tagged_iterator 'component.product.product_strategy'
+            $productStrategies: !tagged_iterator 'component.product.product_factory_strategy'

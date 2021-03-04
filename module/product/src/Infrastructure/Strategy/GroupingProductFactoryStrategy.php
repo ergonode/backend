@@ -10,16 +10,17 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Strategy;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
-class SimpleProductStrategy implements ProductStrategyInterface
+class GroupingProductFactoryStrategy implements ProductFactoryStrategyInterface
 {
+
     public function supports(string $type): bool
     {
-        return SimpleProduct::TYPE === $type;
+        return GroupingProduct::TYPE === $type;
     }
 
     /**
@@ -32,6 +33,6 @@ class SimpleProductStrategy implements ProductStrategyInterface
         array $categories,
         array $attributes
     ): AbstractProduct {
-        return new SimpleProduct($id, $sku, $templateId, $categories, $attributes);
+        return new GroupingProduct($id, $sku, $templateId, $categories, $attributes);
     }
 }

@@ -14,7 +14,7 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataS
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
-use Ergonode\Product\Infrastructure\Strategy\ProductStrategyInterface;
+use Ergonode\Product\Infrastructure\Strategy\ProductFactoryStrategyInterface;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -71,8 +71,8 @@ class ErgonodeProductExtension extends Extension implements PrependExtensionInte
             ->addTag(ProductUpdateCommandFactoryProviderCompilerPass::TAG);
 
         $container
-            ->registerForAutoconfiguration(ProductStrategyInterface::class)
-            ->addTag('component.product.product_strategy');
+            ->registerForAutoconfiguration(ProductFactoryStrategyInterface::class)
+            ->addTag('component.product.product_factory_strategy');
 
         $loader->load('services.yml');
     }

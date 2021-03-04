@@ -11,6 +11,7 @@ namespace Ergonode\Product\Domain\Factory;
 
 use Ergonode\Account\Application\Security\Security;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Infrastructure\Provider\ProductStrategyProvider;
@@ -54,6 +55,7 @@ class ProductFactory implements ProductFactoryInterface
         if ($user) {
             $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
             $attributes[CreatedBySystemAttribute::CODE] = $value;
+            $attributes[CreatedAtSystemAttribute::CODE] = new StringValue((new \DateTime())->format(\DateTime::W3C));
         }
 
         return $attributes;

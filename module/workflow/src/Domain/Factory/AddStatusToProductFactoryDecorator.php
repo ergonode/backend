@@ -21,7 +21,7 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
-class ProductFactoryDecorator implements ProductFactoryInterface
+class AddStatusToProductFactoryDecorator implements ProductFactoryInterface
 {
     private ProductFactory $productFactory;
 
