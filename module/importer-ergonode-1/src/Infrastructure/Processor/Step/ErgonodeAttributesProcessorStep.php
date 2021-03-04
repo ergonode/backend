@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\ImporterErgonode1\Infrastructure\Resolver\AttributeCommandResolver;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
@@ -47,5 +48,10 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
             $this->importRepository->addLine($id, $import->getId(), 'ATTRIBUTE');
             $this->commandBus->dispatch($command, true);
         }
+    }
+
+    public function getType(): string
+    {
+        return ErgonodeZipSource::ATTRIBUTES;
     }
 }

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportCategoryCommand;
 use Ergonode\Importer\Domain\Entity\Import;
@@ -46,5 +47,10 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
             $this->importRepository->addLine($id, $import->getId(), 'CATEGORY');
             $this->commandBus->dispatch($command, true);
         }
+    }
+
+    public function getType(): string
+    {
+        return ErgonodeZipSource::CATEGORIES;
     }
 }

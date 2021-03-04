@@ -13,4 +13,5 @@ use Ergonode\Importer\Domain\Entity\Import;
 interface ErgonodeProcessorStepInterface
 {
     public function __invoke(Import $import, string $directory): void;
+    public function getType(): string;
 }
