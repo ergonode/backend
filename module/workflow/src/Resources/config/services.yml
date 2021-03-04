@@ -49,3 +49,8 @@ services:
         class: Ergonode\Workflow\Application\Request\ParamConverter\AbstractWorkflowParamConverter
         tags:
             - { name: request.param_converter, priority: 2, converter: abstract_workflow_param_converter }
+
+    Ergonode\Workflow\Domain\Factory\AddStatusToProductFactoryDecorator:
+        decorates: Ergonode\Product\Domain\Factory\ProductFactoryInterface
+        arguments:
+            - '@Ergonode\Workflow\Domain\Factory\AddStatusToProductFactoryDecorator.inner'
