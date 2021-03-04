@@ -45,6 +45,8 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
                 [
                     'id' => $notificationId,
                     'created_at' => $notification->getCreatedAt(),
+                    'type' => $notification->getType(),
+                    'object_id' => $notification->getObjectId() ? $notification->getObjectId()->getValue() : null,
                     'message' => $notification->getMessage(),
                     'parameters' => $this->serializer->serialize($notification->getParameters()),
                     'author_id' => $notification->getAuthorId() ? $notification->getAuthorId()->getValue() : null,

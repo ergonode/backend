@@ -112,6 +112,7 @@ class ProductValueChangedEventHandler
             $user = $this->userProvider->provide();
 
             $notification = new StatusChangedNotification(
+                $productId,
                 $product->getSku(),
                 $this->getStatusCode($transition->getFrom()),
                 $this->getStatusCode($transition->getTo()),

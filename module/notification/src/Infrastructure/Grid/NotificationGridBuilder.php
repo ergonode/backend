@@ -37,6 +37,8 @@ class NotificationGridBuilder implements GridBuilderInterface
                 'message',
                 new TranslatableColumn('message', 'Message', 'parameters', 'notification')
             )
+            ->addColumn('type', new TextColumn('type', 'Type', new TextFilter()))
+            ->addColumn('object_id', new TextColumn('object_id', 'Object ID', new TextFilter()))
             ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
             ->addColumn('read_at', new DateColumn('read_at', 'Read at', new DateFilter()))
             ->addColumn('author', new TextColumn('author', 'Author', new TextFilter()))
