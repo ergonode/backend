@@ -24,7 +24,7 @@ class BatchActionFormModel
 
     /**
      * @Assert\Valid()
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @AllFilterDisabled()
      *
      * @var string|BatchActionFilterFormModel $filter

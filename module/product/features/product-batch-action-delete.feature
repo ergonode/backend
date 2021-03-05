@@ -48,7 +48,7 @@ Feature: batch action product deletion
       """
     Then the response status code should be 204
 
-  Scenario: Create batch action for all products
+  Scenario: Create batch action when no filter
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
