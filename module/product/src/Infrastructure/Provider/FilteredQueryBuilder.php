@@ -11,7 +11,7 @@ namespace Ergonode\Product\Infrastructure\Provider;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Grid\FilterGridConfiguration;
@@ -45,7 +45,7 @@ class FilteredQueryBuilder implements FilteredQueryBuilderInterface
     }
 
 
-    public function build(BatchActionFilter $filter): QueryBuilder
+    public function build(BatchActionFilterInterface $filter): QueryBuilder
     {
         $queryBuilder = $this->getQueryBuilder();
         $filterQuery = $filter->getQuery();

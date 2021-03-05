@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Infrastructure\Provider;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 
 interface FilteredQueryBuilderInterface
 {
-    public function build(BatchActionFilter $filter): QueryBuilder;
+    public function build(BatchActionFilterInterface $filter): QueryBuilder;
 }

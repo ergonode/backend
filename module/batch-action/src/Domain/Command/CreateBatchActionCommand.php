@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Domain\Command;
 
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\SharedKernel\Domain\DomainCommandInterface;
 
@@ -19,7 +19,7 @@ class CreateBatchActionCommand implements DomainCommandInterface
 
     private BatchActionType $type;
 
-    private BatchActionFilter $filter;
+    private BatchActionFilterInterface $filter;
 
     /**
      * @var mixed
@@ -32,7 +32,7 @@ class CreateBatchActionCommand implements DomainCommandInterface
     public function __construct(
         BatchActionId $id,
         BatchActionType $type,
-        BatchActionFilter $filter,
+        BatchActionFilterInterface $filter,
         $payload = null
     ) {
         $this->id = $id;
@@ -51,7 +51,7 @@ class CreateBatchActionCommand implements DomainCommandInterface
         return $this->type;
     }
 
-    public function getFilter(): BatchActionFilter
+    public function getFilter(): BatchActionFilterInterface
     {
         return $this->filter;
     }

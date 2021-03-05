@@ -13,6 +13,8 @@ use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BatchActionForm extends AbstractType implements BatchActionFormInterface
@@ -32,6 +34,21 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
                 'type',
                 TextType::class
             )
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $data = $event->getData();
+                $form = $event->getForm();
+                if (is_string($data['filter'] ?? null)) {
+                    $form->add(
+                        'filter',
+                        TextType::class,
+                    );
+                } else {
+                    $form->add(
+                        'filter',
+                        BatchActionFilterType::class,
+                    );
+                }
+            })
             ->add(
                 'filter',
                 BatchActionFilterType::class,

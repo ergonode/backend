@@ -84,8 +84,12 @@ Feature: Batch action get templates
     And the JSON node "[0]" should exist
     And the JSON node "[1]" should exist
 
-  Scenario: Get templates excluded without Id
+  Scenario: Get templates with no filter
     When I send a GET request to "/api/v1/en_GB/batch-action/templates"
+    Then the response status code should be 400
+
+  Scenario: Get templates excluded without Id
+    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter=all"
     Then the response status code should be 200
     And the JSON node "[0]" should exist
     And the JSON node "[1]" should exist

@@ -36,6 +36,12 @@ services:
         arguments:
             - '@Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface'
 
+    Ergonode\BatchAction\Application\Validator\AllFilterDisabledValidator:
+        tags: ['validator.constraint_validator']
+
+    Ergonode\BatchAction\Application\Validator\BatchActionFilterValidator:
+        tags: ['validator.constraint_validator']
+
     Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder:
     Ergonode\BatchAction\Infrastructure\Grid\Renderer\BatchActionMessageColumnRenderer:
         tags: ['component.grid.renderer.column']

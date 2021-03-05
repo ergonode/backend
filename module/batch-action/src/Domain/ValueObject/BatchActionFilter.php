@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Domain\ValueObject;
 
-class BatchActionFilter
+class BatchActionFilter implements BatchActionFilterInterface
 {
     private ?BatchActionIds $ids;
 

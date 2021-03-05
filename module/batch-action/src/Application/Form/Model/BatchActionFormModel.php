@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Form\Model;
 
+use Ergonode\BatchAction\Application\Validator\AllFilterDisabled;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class BatchActionFormModel
@@ -23,8 +24,12 @@ class BatchActionFormModel
 
     /**
      * @Assert\Valid()
+     * @Assert\NotBlank()
+     * @AllFilterDisabled()
+     *
+     * @var string|BatchActionFilterFormModel $filter
      */
-    public ?BatchActionFilterFormModel $filter = null;
+    public $filter = null;
 
     /**
      * @Assert\Valid()
