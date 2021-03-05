@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Infrastructure\Provider;
 
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
@@ -19,5 +19,5 @@ interface BatchActionFilterIdsInterface
     /**
      * @return AggregateId []
      */
-    public function filter(BatchActionFilter $filter): array;
+    public function filter(BatchActionFilterInterface $filter): array;
 }

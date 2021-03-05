@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Tests\Domain\Command;
 
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 use PHPUnit\Framework\TestCase;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
@@ -21,13 +21,13 @@ class CreateBatchActionCommandTest extends TestCase
 
     private BatchActionType $type;
 
-    private BatchActionFilter $filter;
+    private BatchActionFilterInterface $filter;
 
     protected function setUp(): void
     {
         $this->id = $this->createMock(BatchActionId::class);
         $this->type = $this->createMock(BatchActionType::class);
-        $this->filter = $this->createMock(BatchActionFilter::class);
+        $this->filter = $this->createMock(BatchActionFilterInterface::class);
     }
 
     public function testCreation(): void

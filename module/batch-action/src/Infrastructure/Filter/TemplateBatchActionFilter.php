@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\BatchAction\Infrastructure\Filter;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
@@ -31,7 +31,7 @@ class TemplateBatchActionFilter
     /**
      * @return TemplateId[]
      */
-    public function filter(BatchActionFilter $filter): array
+    public function filter(BatchActionFilterInterface $filter): array
     {
         $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
 
