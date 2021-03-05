@@ -65,9 +65,4 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
             $this->commandBus->dispatch($command, true);
         }
     }
-
-    public function getType(): string
-    {
-        return ErgonodeZipSource::TEMPLATES;
-    }
 }
