@@ -69,9 +69,13 @@ class ProductValueChangedEventHandler
 
             $languages = $this->getLanguages($event->getFrom(), $event->getTo());
             foreach ($languages as $language) {
-                $from = $event->getFrom()->getValue()[$language->getCode()];
+                $source = $workflow->getDefaultStatus();
+                if (isset($event->getFrom()->getValue()[$language->getCode()])) {
+                    $from = $event->getFrom()->getValue()[$language->getCode()];
+                    $source = new StatusId($from);
+                }
+
                 $to = $event->getTo()->getValue()[$language->getCode()];
-                $source = new StatusId($from);
                 $destination = new StatusId($to);
                 if ($workflow->hasTransition($source, $destination)) {
                     $this->sendNotificationCommand(
