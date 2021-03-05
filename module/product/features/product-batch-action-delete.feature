@@ -39,6 +39,18 @@ Feature: batch action product deletion
     Then the response status code should be 201
     And store response param "id" as "simple_product_id"
 
+  Scenario: Create simple product
+    When I send a POST request to "/api/v1/en_GB/products" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
+        "templateId": "@product_template_id@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "simple_product_id_no_relation"
+
   Scenario: Add children product
     When I send a POST request to "/api/v1/en_GB/products/@grouping_product_id@/children" with body:
       """
@@ -73,7 +85,7 @@ Feature: batch action product deletion
     Then the response status code should be 200
 
   Scenario: Get simple product
-    When I send a GET request to "/api/v1/en_GB/products/@simple_product_id@"
+    When I send a GET request to "/api/v1/en_GB/products/@simple_product_id_no_relation@"
     Then the response status code should be 404
 
   Scenario: Get grouping product
