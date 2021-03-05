@@ -19,6 +19,18 @@ final class Version20210303135330 extends AbstractErgonodeMigration
     {
         $this->addSql(
             'UPDATE event_store
+                SET payload = jsonb_set(payload, \'{from}\', (payload->>\'to\')::jsonb)
+                WHERE
+	                event_id IN(
+		                SELECT id
+		                FROM event_store_event
+		                WHERE event_class = \'Ergonode\Product\Domain\Event\ProductValueChangedEvent\'
+	                )
+	               '
+        );
+
+        $this->addSql(
+            'UPDATE event_store
                 SET payload = jsonb_set(payload, \'{from}\', (new_payload->>\'value\')::jsonb)
                 FROM
                 (
@@ -31,7 +43,7 @@ final class Version20210303135330 extends AbstractErgonodeMigration
                     SELECT id, aggregate_id, "sequence", payload 
                     FROM event_store es
                     WHERE
-                        es.event_id in(
+                        es.event_id IN(
                             SELECT id
                             FROM event_store_event
                             WHERE event_class = \'Ergonode\Product\Domain\Event\ProductValueChangedEvent\'
@@ -42,7 +54,7 @@ final class Version20210303135330 extends AbstractErgonodeMigration
                     SELECT id, aggregate_id, "sequence", payload 
                     FROM event_store es
                     WHERE
-                        es.event_id in(
+                        es.event_id IN(
                             SELECT id
                             FROM event_store_event
                             WHERE event_class = \'Ergonode\Product\Domain\Event\ProductValueAddedEvent\'
@@ -50,10 +62,15 @@ final class Version20210303135330 extends AbstractErgonodeMigration
                     ORDER BY es."sequence" ASC
                 ) table_b
                 WHERE table_a.aggregate_id = table_b.aggregate_id 
-                and table_a.sequence > table_b.sequence
+                AND table_a.sequence > table_b.sequence
                 AND table_a.payload->>\'code\' = table_b.payload->>\'code\'
             ) tmp
-            WHERE event_store.id = tmp.id
+            WHERE event_store.id = tmp.id 
+            AND event_store.event_id IN(
+				        SELECT id
+				        FROM event_store_event
+				        WHERE event_class = \'Ergonode\Product\Domain\Event\ProductValueChangedEvent\'
+			        )
             '
         );
 
