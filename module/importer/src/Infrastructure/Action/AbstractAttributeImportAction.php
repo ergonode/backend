@@ -38,6 +38,17 @@ abstract class AbstractAttributeImportAction
         $this->importerRepository = $importerRepository;
     }
 
+    protected function findAttribute(AttributeCode $code): ?AbstractAttribute
+    {
+        $attributeId = $this->attributeQuery->findAttributeIdByCode($code);
+
+        if ($attributeId) {
+            return $this->attributeRepository->load($attributeId);
+        }
+
+        return null;
+    }
+
     /**
      * @throws ImportException
      */
@@ -52,23 +63,16 @@ abstract class AbstractAttributeImportAction
         }
     }
 
-    protected function updateExistingAttribute(AbstractImportAttributeCommand $command): ?AbstractAttribute
-    {
-        $attributeId = $this->attributeQuery->findAttributeIdByCode(new AttributeCode($command->getCode()));
+    protected function updateAttribute(
+        AbstractImportAttributeCommand $command,
+        AbstractAttribute $attribute
+    ): ?AbstractAttribute {
+        $attribute->changeLabel(new TranslatableString($command->getLabel()));
+        $attribute->changeHint(new TranslatableString($command->getHint()));
+        $attribute->changePlaceholder(new TranslatableString($command->getPlaceholder()));
+        $attribute->changeScope(new AttributeScope($command->getScope()));
 
-        if ($attributeId) {
-            $attribute = $this->attributeRepository->load($attributeId);
-            if ($attribute) {
-                $attribute->changeLabel(new TranslatableString($command->getLabel()));
-                $attribute->changeHint(new TranslatableString($command->getHint()));
-                $attribute->changePlaceholder(new TranslatableString($command->getPlaceholder()));
-                $attribute->changeScope(new AttributeScope($command->getScope()));
-
-                return $attribute;
-            }
-        }
-
-        return null;
+        return $attribute;
     }
 
     protected function processSuccessfulImport(
