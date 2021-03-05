@@ -55,6 +55,16 @@ Feature: batch action product deletion
         "type": "PRODUCT_DELETE"
       }
     """
+    Then the response status code should be 400
+
+  Scenario: Create batch action for all products
+    And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
+    """
+      {
+        "type": "PRODUCT_DELETE",
+        "filter": "all"
+      }
+    """
     Then the response status code should be 201
     And store response param "id" as "batch_action_1_id"
 
