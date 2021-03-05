@@ -18,7 +18,10 @@ class BatchActionFilter extends Constraint
 {
     public string $message = 'Filters has to have set at least one of query or ids';
 
-    public function getTargets()
+    /**
+     * {@inheritdoc}
+     */
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
