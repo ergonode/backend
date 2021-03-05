@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor;
 
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeZipExtractor;
@@ -46,6 +47,7 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
             }
         } catch (Throwable $exception) {
             $this->logger->critical($exception);
+            throw new ImportException('Can\'t process file');
         } finally {
             $this->extractor->cleanup($import);
         }
