@@ -14,6 +14,8 @@ use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeZipExtractor;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\ErgonodeZipExtractorException;
+use Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\ReaderFileProcessException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Throwable;
@@ -60,9 +62,14 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
             foreach ($this->steps as $step) {
                 $step($import, $source, $zipDirectory);
             }
+        } catch (ErgonodeZipExtractorException $exception) {
+            $this->logger->warning($exception);
+            throw new ImportException('Invalid zip source');
+        } catch (ReaderFileProcessException $exception) {
+            $this->logger->warning($exception);
+            throw new ImportException(sprintf('Can\'t process file %s', $exception->getFilename()));
         } catch (Throwable $exception) {
             $this->logger->critical($exception);
-            throw new ImportException('Can\'t process file');
         } finally {
             $this->extractor->cleanup($import);
         }

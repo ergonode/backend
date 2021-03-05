@@ -33,7 +33,7 @@ abstract class AbstractErgonodeReader
             $this->records = $reader->getRecords();
             $this->records->rewind();
         } catch (\Exception $exception) {
-            throw new ReaderFileProcessException($filepath);
+            throw new ReaderFileProcessException($filepath, $file);
         }
     }
 }
