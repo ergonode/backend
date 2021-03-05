@@ -28,7 +28,7 @@ class BatchActionFilterValidator extends ConstraintValidator
         if (!$value instanceof BatchActionFilterFormModel) {
             return;
         }
-        if (null !== $value->query && null !== $value->ids) {
+        if (null !== $value->query || null !== $value->ids) {
             return;
         }
 
