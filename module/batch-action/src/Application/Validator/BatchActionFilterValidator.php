@@ -28,6 +28,9 @@ class BatchActionFilterValidator extends ConstraintValidator
         if (!$value instanceof BatchActionFilterFormModel) {
             return;
         }
+        if (null !== $value->query && null !== $value->ids) {
+            return;
+        }
 
         $this->context->buildViolation($constraint->message)
             ->addViolation();

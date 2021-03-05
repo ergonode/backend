@@ -24,7 +24,7 @@ class AllFilterDisabledValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, AllFilterDisabled::class);
         }
 
-        if (!is_string($value)) {
+        if (!is_string($value) || 'all' === $value) {
             return;
         }
 
