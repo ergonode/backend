@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
@@ -26,7 +26,10 @@ class TextareaAttributeImportAction extends AbstractAttributeImportAction
     public function action(ImportTextareaAttributeCommand $command): void
     {
         $this->validate($command);
-        $attribute = $this->updateExistingAttribute($command);
+        /** @var TextareaAttribute $attribute */
+        $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
+        $richEdit = $command->getParameter(TextareaAttribute::RICH_EDIT) === 'true' ? true : false;
+
         if (!$attribute) {
             $attribute = new TextareaAttribute(
                 AttributeId::fromKey($command->getCode()),
@@ -35,8 +38,11 @@ class TextareaAttributeImportAction extends AbstractAttributeImportAction
                 new TranslatableString($command->getHint()),
                 new TranslatableString($command->getPlaceholder()),
                 new AttributeScope($command->getScope()),
-                (bool) $command->getParameter(TextareaAttribute::RICH_EDIT)
+                $richEdit
             );
+        } else {
+            $this->updateAttribute($command, $attribute);
+            $attribute->changeRichEdit($richEdit);
         }
         $this->processSuccessfulImport($attribute, $command);
     }

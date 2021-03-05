@@ -27,7 +27,9 @@ class PriceAttributeImportAction extends AbstractAttributeImportAction
     public function action(ImportPriceAttributeCommand $command): void
     {
         $this->validate($command);
-        $attribute = $this->updateExistingAttribute($command);
+        $currency = new Currency($command->getParameter(PriceAttribute::CURRENCY));
+        /** @var PriceAttribute $attribute */
+        $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new PriceAttribute(
                 AttributeId::fromKey($command->getCode()),
@@ -36,8 +38,11 @@ class PriceAttributeImportAction extends AbstractAttributeImportAction
                 new TranslatableString($command->getHint()),
                 new TranslatableString($command->getPlaceholder()),
                 new AttributeScope($command->getScope()),
-                new Currency($command->getParameter(PriceAttribute::CURRENCY)),
+                $currency,
             );
+        } else {
+            $this->updateAttribute($command, $attribute);
+            $attribute->changeCurrency($currency);
         }
         $this->processSuccessfulImport($attribute, $command);
     }

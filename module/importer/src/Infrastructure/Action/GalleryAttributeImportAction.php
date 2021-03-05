@@ -25,7 +25,7 @@ class GalleryAttributeImportAction extends AbstractAttributeImportAction
     public function action(ImportGalleryAttributeCommand $command): void
     {
         $this->validate($command);
-        $attribute = $this->updateExistingAttribute($command);
+        $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new GalleryAttribute(
                 AttributeId::fromKey($command->getCode()),
@@ -35,6 +35,8 @@ class GalleryAttributeImportAction extends AbstractAttributeImportAction
                 new TranslatableString($command->getPlaceholder()),
                 new AttributeScope($command->getScope())
             );
+        } else {
+            $this->updateAttribute($command, $attribute);
         }
         $this->processSuccessfulImport($attribute, $command);
     }
