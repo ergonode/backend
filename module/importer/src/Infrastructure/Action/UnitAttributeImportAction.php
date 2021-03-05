@@ -52,6 +52,7 @@ class UnitAttributeImportAction extends AbstractAttributeImportAction
             );
         }
 
+        /** @var UnitAttribute $attribute */
         $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new UnitAttribute(
