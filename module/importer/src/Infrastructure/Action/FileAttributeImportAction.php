@@ -25,7 +25,7 @@ class FileAttributeImportAction extends AbstractAttributeImportAction
     public function action(ImportFileAttributeCommand $command): void
     {
         $this->validate($command);
-        $attribute = $this->updateExistingAttribute($command);
+        $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new FileAttribute(
                 AttributeId::fromKey($command->getCode()),
@@ -35,6 +35,8 @@ class FileAttributeImportAction extends AbstractAttributeImportAction
                 new TranslatableString($command->getPlaceholder()),
                 new AttributeScope($command->getScope())
             );
+        } else {
+            $this->updateAttribute($command, $attribute);
         }
         $this->processSuccessfulImport($attribute, $command);
     }

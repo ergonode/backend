@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\ImporterErgonode1\Infrastructure\Resolver\AttributeCommandResolver;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
@@ -36,8 +37,12 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
         $this->attributeCommandResolver = $attributeCommandResolver;
     }
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::ATTRIBUTES)) {
+            return;
+        }
+
         $reader = new ErgonodeAttributeReader($directory, self::FILENAME);
 
         while ($attribute = $reader->read()) {
