@@ -35,7 +35,7 @@ final class Version20210303135330 extends AbstractErgonodeMigration
                 FROM
                 (
                 SELECT 
-                    DISTINCT ON (table_b.id)
+                    DISTINCT ON (table_a.id)
                     table_a.id,
                     table_b.payload::jsonb AS new_payload
                 FROM 
@@ -72,27 +72,6 @@ final class Version20210303135330 extends AbstractErgonodeMigration
 				        WHERE event_class = \'Ergonode\Product\Domain\Event\ProductValueChangedEvent\'
 			        )
             '
-        );
-
-        $this->addSql(
-            'UPDATE event_store
-                SET payload = jsonb_set(payload, \'{from}\', tmp.value)
-                FROM
-                (
-	                SELECT CONCAT(\'{"type": "translation",
-	                    "value": {"\',lt.code,\'": "\',w.default_status,\'"}}\')::jsonb AS value
-	                FROM workflow w, language_tree lt
-	                WHERE lt.lft = 1
-	                LIMIT 1
-	            ) tmp
-                WHERE
-			        event_id IN(
-				        SELECT id
-				        FROM event_store_event
-				        WHERE event_class = \'Ergonode\Product\Domain\Event\ProductValueChangedEvent\'
-			        )
-		        AND payload->>\'code\' = \'esa_status\'
-		       '
         );
 
         $this->addSql(
