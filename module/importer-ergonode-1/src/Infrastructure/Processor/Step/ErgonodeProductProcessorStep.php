@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
@@ -34,8 +35,12 @@ class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
         $this->importRepository = $importRepository;
     }
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::PRODUCTS)) {
+            return;
+        }
+
         $reader = new ErgonodeProductReader($directory, self::FILENAME);
 
         while ($product = $reader->read()) {
