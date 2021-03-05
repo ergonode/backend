@@ -21,7 +21,6 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
-use Ergonode\Workflow\Domain\Query\ProductWorkflowStatusQueryInterface;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Provider\UserIdsProvider;
@@ -43,16 +42,13 @@ class ProductValueChangedEventHandler
 
     private CommandBusInterface $commandBus;
 
-    private ProductWorkflowStatusQueryInterface $productWorkflowQuery;
-
     public function __construct(
         ProductRepositoryInterface $productRepository,
         WorkflowProvider $workflowProvider,
         UserIdsProvider $userIdsProvider,
         AuthenticatedUserProviderInterface $userProvider,
         StatusRepositoryInterface $statusRepository,
-        CommandBusInterface $commandBus,
-        ProductWorkflowStatusQueryInterface $productWorkflowQuery
+        CommandBusInterface $commandBus
     ) {
         $this->productRepository = $productRepository;
         $this->workflowProvider = $workflowProvider;
@@ -60,7 +56,6 @@ class ProductValueChangedEventHandler
         $this->userProvider = $userProvider;
         $this->statusRepository = $statusRepository;
         $this->commandBus = $commandBus;
-        $this->productWorkflowQuery = $productWorkflowQuery;
     }
 
     /**
@@ -72,12 +67,15 @@ class ProductValueChangedEventHandler
         if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
             $workflow = $this->workflowProvider->provide();
 
-            $statuses = $this->productWorkflowQuery->getStatuses($event->getAggregateId());
-            $languages = $this->getLanguages($statuses, $event->getTo());
+            $languages = $this->getLanguages($event->getFrom(), $event->getTo());
             foreach ($languages as $language) {
-                $from = $statuses[$language->getCode()];
+                $source = $workflow->getDefaultStatus();
+                if (isset($event->getFrom()->getValue()[$language->getCode()])) {
+                    $from = $event->getFrom()->getValue()[$language->getCode()];
+                    $source = new StatusId($from);
+                }
+
                 $to = $event->getTo()->getValue()[$language->getCode()];
-                $source = new StatusId($from);
                 $destination = new StatusId($to);
                 if ($workflow->hasTransition($source, $destination)) {
                     $this->sendNotificationCommand(
@@ -138,12 +136,11 @@ class ProductValueChangedEventHandler
     /**
      * @return Language[]
      */
-    private function getLanguages(array $from, ValueInterface $to): array
+    private function getLanguages(ValueInterface $from, ValueInterface $to): array
     {
+        $languages = array_keys(array_diff_assoc($to->getValue(), $from->getValue()));
         $result = [];
-        $languages = array_keys(array_diff($to->getValue(), $from));
-
-        foreach ($languages as $language) {
+        foreach ($languages as &$language) {
             $result[] = new Language($language);
         }
 
