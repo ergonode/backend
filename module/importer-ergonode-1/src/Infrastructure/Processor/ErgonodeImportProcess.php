@@ -18,7 +18,6 @@ use Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\ErgonodeZipExtrac
 use Ergonode\ImporterErgonode1\Infrastructure\Reader\Exception\ReaderFileProcessException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Throwable;
 use Webmozart\Assert\Assert;
 
 class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwareInterface
