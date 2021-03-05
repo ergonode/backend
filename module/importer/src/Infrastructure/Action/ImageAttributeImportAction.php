@@ -25,7 +25,7 @@ class ImageAttributeImportAction extends AbstractAttributeImportAction
     public function action(ImportImageAttributeCommand $command): void
     {
         $this->validate($command);
-        $attribute = $this->updateExistingAttribute($command);
+        $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new ImageAttribute(
                 AttributeId::fromKey($command->getCode()),
@@ -35,6 +35,8 @@ class ImageAttributeImportAction extends AbstractAttributeImportAction
                 new TranslatableString($command->getPlaceholder()),
                 new AttributeScope($command->getScope())
             );
+        } else {
+            $this->updateAttribute($command, $attribute);
         }
         $this->processSuccessfulImport($attribute, $command);
     }

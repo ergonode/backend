@@ -13,8 +13,18 @@ use Throwable;
 
 class ReaderFileProcessException extends Exception
 {
-    public function __construct(string $file, ?Throwable $previous = null)
+    private string $filename;
+
+    public function __construct(string $filepath, string $filename = null, ?Throwable $previous = null)
     {
-        parent::__construct("Can't process \"$file\" file", 1, $previous);
+        if ($filename) {
+            $this->filename = $filename;
+        }
+        parent::__construct("Can't process \"$filepath\" file", 1, $previous);
+    }
+
+    public function getFilename(): string
+    {
+        return $this->filename;
     }
 }

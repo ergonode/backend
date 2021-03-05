@@ -9,20 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Infrastructure\Persistence\Projector\Child;
 
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
+use Ergonode\Product\Infrastructure\Persistence\Projector\AbstractProductProjector;
 
-class DbalChildRemovedFromProductEventProjector
+class DbalChildRemovedFromProductEventProjector extends AbstractProductProjector
 {
     private const TABLE = 'product_children';
-
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-    }
 
     /**
      * @throws DBALException
@@ -36,5 +29,7 @@ class DbalChildRemovedFromProductEventProjector
                 'child_id' => $event->getChildId()->getValue(),
             ]
         );
+
+        $this->updateAudit($event->getAggregateId());
     }
 }
