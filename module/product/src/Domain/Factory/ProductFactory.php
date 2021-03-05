@@ -55,8 +55,9 @@ class ProductFactory implements ProductFactoryInterface
         if ($user) {
             $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
             $attributes[CreatedBySystemAttribute::CODE] = $value;
-            $attributes[CreatedAtSystemAttribute::CODE] = new StringValue((new \DateTime())->format(\DateTime::W3C));
         }
+
+        $attributes[CreatedAtSystemAttribute::CODE] = new StringValue((new \DateTime())->format(\DateTime::W3C));
 
         return $attributes;
     }
