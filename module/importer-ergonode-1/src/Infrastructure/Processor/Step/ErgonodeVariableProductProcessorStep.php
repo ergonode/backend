@@ -16,8 +16,9 @@ use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeProductReader;
 use Ergonode\ImporterErgonode1\Infrastructure\Resolver\ProductCommandResolver;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\Product\Domain\Entity\VariableProduct;
 
-class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeVariableProductProcessorStep implements ErgonodeProcessorStepInterface
 {
     private const FILENAME = 'products.csv';
 
@@ -44,10 +45,12 @@ class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
         $reader = new ErgonodeProductReader($directory, self::FILENAME);
 
         while ($product = $reader->read()) {
-            $id = ImportLineId::generate();
-            $command = $this->commandResolver->resolve($id, $import, $product);
-            $this->importRepository->addLine($id, $import->getId(), 'PRODUCT');
-            $this->commandBus->dispatch($command, true);
+            if ($product->getType() === VariableProduct::TYPE) {
+                $id = ImportLineId::generate();
+                $command = $this->commandResolver->resolve($id, $import, $product);
+                $this->importRepository->addLine($id, $import->getId(), 'PRODUCT');
+                $this->commandBus->dispatch($command, true);
+            }
         }
     }
 }
