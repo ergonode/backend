@@ -13,6 +13,7 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter;
 use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
@@ -76,12 +77,18 @@ class GetTemplatesByBatchAction
      */
     public function __invoke(Request $request): Response
     {
+        $filter = $request->query->get('filter');
+        if (null === $filter) {
+            throw new BadRequestHttpException('Filter has to be object or `all` value');
+        }
         try {
             /** @var BatchActionFilterFormModel $data */
-            $data = $this->normalizer->denormalize(
-                $request->query->get('filter') ?? [],
-                BatchActionFilterFormModel::class
-            );
+            $data = 'all' === $filter ?
+                new BatchActionFilterDisabled() :
+                $this->normalizer->denormalize(
+                    $request->query->get('filter') ?? [],
+                    BatchActionFilterFormModel::class
+                );
             $violations = $this->validator->validate($data);
             if (0 === $violations->count()) {
                 $ids = null;

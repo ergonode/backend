@@ -10,6 +10,7 @@ namespace Ergonode\BatchAction\Application\Controller\Api;
 
 use Ergonode\BatchAction\Application\Provider\BatchActionFormProvider;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -87,7 +88,9 @@ class CreateBatchAction
                 /** @var BatchActionFormModel $data */
                 $data = $form->getData();
                 $filter = null;
-                if ($data->filter) {
+                if ('all' === $data->filter) {
+                    $filter = new BatchActionFilterDisabled();
+                } else {
                     $ids = null;
 
                     if ($data->filter->ids) {
@@ -104,7 +107,7 @@ class CreateBatchAction
                 $command = new CreateBatchActionCommand(
                     BatchActionId::generate(),
                     new BatchActionType($data->type),
-                    $filter ?? new BatchActionFilter(),
+                    $filter,
                     $data->payload ?: null
                 );
 
