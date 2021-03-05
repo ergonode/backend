@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
@@ -38,7 +38,9 @@ class ImportProductImageAttributeStrategy implements ImportProductAttributeStrat
         foreach ($value->getTranslations() as $language => $version) {
             if ($version) {
                 $multimediaId = $this->multimediaQuery->findIdByFilename($version);
-                Assert::notNull($multimediaId, sprintf('Can\'t find multimedia %s file', $version));
+                if (null === $multimediaId) {
+                    throw new ImportException('Missing {version} multimedia.', ['{version}' => $version]);
+                }
                 $result[$language] = $multimediaId->getValue();
             }
         }

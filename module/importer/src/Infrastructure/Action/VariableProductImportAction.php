@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
@@ -88,7 +88,9 @@ class VariableProductImportAction
         array $attributes = []
     ): VariableProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
-        Assert::notNull($templateId);
+        if (null === $templateId) {
+            throw new ImportException('Missing {template} template.', ['{template}' => $template]);
+        }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
         $attributes = $this->builder->build($attributes);
@@ -109,13 +111,7 @@ class VariableProductImportAction
             $product = $this->productRepository->load($productId);
         }
         if (!$product instanceof VariableProduct) {
-            throw new \LogicException(
-                sprintf(
-                    'Expected an instance of %s. %s received.',
-                    VariableProduct::class,
-                    get_debug_type($product)
-                )
-            );
+            throw new ImportException('Product {sku} is not a variable product', ['{sku}' => $sku]);
         }
         $product->changeTemplate($templateId);
         $product->changeCategories($categories);
@@ -194,7 +190,9 @@ class VariableProductImportAction
         $result = [];
         foreach ($categories as $category) {
             $categoryId = $this->categoryQuery->findIdByCode($category);
-            Assert::notNull($categoryId);
+            if (null === $categoryId) {
+                throw new ImportException('Missing {category} category', ['{category}' => $category]);
+            }
             $result[] = $categoryId;
         }
 
