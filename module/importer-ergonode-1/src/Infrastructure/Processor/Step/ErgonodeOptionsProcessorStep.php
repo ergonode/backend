@@ -35,8 +35,11 @@ class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
     }
 
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::OPTIONS)) {
+            return;
+        }
 
         $reader = new ErgonodeOptionReader($directory, self::FILENAME);
 
@@ -52,10 +55,5 @@ class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
             $this->importRepository->addLine($id, $import->getId(), 'OPTION');
             $this->commandBus->dispatch($command, true);
         }
-    }
-
-    public function getType(): string
-    {
-        return ErgonodeZipSource::OPTIONS;
     }
 }

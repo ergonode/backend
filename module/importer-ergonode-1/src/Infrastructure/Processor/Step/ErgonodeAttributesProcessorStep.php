@@ -37,8 +37,12 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
         $this->attributeCommandResolver = $attributeCommandResolver;
     }
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::ATTRIBUTES)) {
+            return;
+        }
+
         $reader = new ErgonodeAttributeReader($directory, self::FILENAME);
 
         while ($attribute = $reader->read()) {
@@ -48,10 +52,5 @@ class ErgonodeAttributesProcessorStep implements ErgonodeProcessorStepInterface
             $this->importRepository->addLine($id, $import->getId(), 'ATTRIBUTE');
             $this->commandBus->dispatch($command, true);
         }
-    }
-
-    public function getType(): string
-    {
-        return ErgonodeZipSource::ATTRIBUTES;
     }
 }

@@ -35,8 +35,12 @@ class ErgonodeTemplateProcessorStep implements ErgonodeProcessorStepInterface
         $this->importRepository = $importRepository;
     }
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::TEMPLATES)) {
+            return;
+        }
+
         $reader1 = new ErgonodeTemplateReader($directory, self::FILENAME_1);
         $reader2 = new ErgonodeTemplateElementReader($directory, self::FILENAME_2);
 

@@ -57,10 +57,7 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
             Assert::isInstanceOf($source, ErgonodeZipSource::class);
 
             foreach ($this->steps as $step) {
-                if (!$source->import($step->getType())) {
-                    continue;
-                }
-                $step($import, $zipDirectory);
+                $step($import, $source, $zipDirectory);
             }
         } catch (Throwable $exception) {
             $this->logger->critical($exception);

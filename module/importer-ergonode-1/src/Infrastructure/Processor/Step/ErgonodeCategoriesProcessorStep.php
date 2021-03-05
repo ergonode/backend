@@ -32,8 +32,12 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
         $this->importRepository = $importRepository;
     }
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::CATEGORIES)) {
+            return;
+        }
+
         $reader = new ErgonodeCategoryReader($directory, self::FILENAME);
 
         while ($category = $reader->read()) {
@@ -47,10 +51,5 @@ class ErgonodeCategoriesProcessorStep implements ErgonodeProcessorStepInterface
             $this->importRepository->addLine($id, $import->getId(), 'CATEGORY');
             $this->commandBus->dispatch($command, true);
         }
-    }
-
-    public function getType(): string
-    {
-        return ErgonodeZipSource::CATEGORIES;
     }
 }
