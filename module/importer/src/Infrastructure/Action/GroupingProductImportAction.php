@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
+use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -37,18 +38,22 @@ class GroupingProductImportAction
 
     private ImportProductAttributeBuilder $builder;
 
+    protected ProductFactoryInterface $productFactory;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
         TemplateQueryInterface $templateQuery,
         CategoryQueryInterface $categoryQuery,
-        ImportProductAttributeBuilder $builder
+        ImportProductAttributeBuilder $builder,
+        ProductFactoryInterface $productFactory
     ) {
         $this->productQuery = $productQuery;
         $this->productRepository = $productRepository;
         $this->templateQuery = $templateQuery;
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
+        $this->productFactory = $productFactory;
     }
 
     /**
@@ -76,7 +81,8 @@ class GroupingProductImportAction
 
         if (!$productId) {
             $productId = ProductId::generate();
-            $product = new GroupingProduct(
+            $product = $this->productFactory->create(
+                GroupingProduct::TYPE,
                 $productId,
                 $sku,
                 $templateId,

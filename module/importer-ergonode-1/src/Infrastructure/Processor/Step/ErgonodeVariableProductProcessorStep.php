@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterErgonode1\Infrastructure\Processor\ErgonodeProcessorStepInterface;
@@ -15,8 +16,9 @@ use Ergonode\ImporterErgonode1\Infrastructure\Reader\ErgonodeProductReader;
 use Ergonode\ImporterErgonode1\Infrastructure\Resolver\ProductCommandResolver;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\Product\Domain\Entity\VariableProduct;
 
-class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
+class ErgonodeVariableProductProcessorStep implements ErgonodeProcessorStepInterface
 {
     private const FILENAME = 'products.csv';
 
@@ -34,15 +36,21 @@ class ErgonodeProductProcessorStep implements ErgonodeProcessorStepInterface
         $this->importRepository = $importRepository;
     }
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::PRODUCTS)) {
+            return;
+        }
+
         $reader = new ErgonodeProductReader($directory, self::FILENAME);
 
         while ($product = $reader->read()) {
-            $id = ImportLineId::generate();
-            $command = $this->commandResolver->resolve($id, $import, $product);
-            $this->importRepository->addLine($id, $import->getId(), 'PRODUCT');
-            $this->commandBus->dispatch($command, true);
+            if ($product->getType() === VariableProduct::TYPE) {
+                $id = ImportLineId::generate();
+                $command = $this->commandResolver->resolve($id, $import, $product);
+                $this->importRepository->addLine($id, $import->getId(), 'PRODUCT');
+                $this->commandBus->dispatch($command, true);
+            }
         }
     }
 }

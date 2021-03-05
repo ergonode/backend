@@ -25,5 +25,6 @@ class DbalProductValueChangedEventProjector extends AbstractProductValueProjecto
 
         $this->delete($productId, $attributeId);
         $this->insertValue($productId, $attributeId, $event->getTo());
+        $this->updateAudit($event->getAggregateId());
     }
 }

@@ -27,7 +27,9 @@ class DateAttributeImportAction extends AbstractAttributeImportAction
     public function action(ImportDateAttributeCommand $command): void
     {
         $this->validate($command);
-        $attribute = $this->updateExistingAttribute($command);
+        $format = new DateFormat($command->getParameter(DateAttribute::FORMAT));
+        /** @var DateAttribute $attribute */
+        $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new DateAttribute(
                 AttributeId::fromKey($command->getCode()),
@@ -36,8 +38,11 @@ class DateAttributeImportAction extends AbstractAttributeImportAction
                 new TranslatableString($command->getHint()),
                 new TranslatableString($command->getPlaceholder()),
                 new AttributeScope($command->getScope()),
-                new DateFormat($command->getParameter(DateAttribute::FORMAT))
+                $format
             );
+        } else {
+            $this->updateAttribute($command, $attribute);
+            $attribute->changeFormat($format);
         }
         $this->processSuccessfulImport($attribute, $command);
     }
