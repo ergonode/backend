@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Persistence\DataSet;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractDbalDataSet;
@@ -25,7 +24,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
 {
     private const PRODUCT_TABLE = 'product';
 
-    private Connection $connection;
+    protected QueryBuilder $queryBuilder;
 
     private DataSetQueryBuilderProvider $provider;
 
@@ -35,11 +34,11 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private array $names;
 
     public function __construct(
-        Connection $connection,
+        QueryBuilder $queryBuilder,
         DataSetQueryBuilderProvider $queryBuilderProvider,
         FilterBuilderProvider $filterBuilderProvider
     ) {
-        $this->connection = $connection;
+        $this->queryBuilder = $queryBuilder;
         $this->provider = $queryBuilderProvider;
         $this->names = [];
         parent::__construct($filterBuilderProvider);
@@ -61,7 +60,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     ): \Traversable {
         $query = $this->build($columns);
 
-        $qb = $this->connection->createQueryBuilder();
+        $qb = clone $this->queryBuilder;
         $qb->select('*');
         $qb->from(sprintf('(%s)', $query->getSQL()), 't');
 
@@ -97,7 +96,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     {
         $query = $this->build($columns);
 
-        $qb = $this->connection->createQueryBuilder();
+        $qb = clone $this->queryBuilder;
         $qb->select('*');
         $qb->from(sprintf('(%s)', $query->getSQL()), 't');
 
@@ -116,7 +115,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     /**
      * @param array $columns
      */
-    private function build(array $columns): QueryBuilder
+    protected function build(array $columns): QueryBuilder
     {
         Assert::allIsInstanceOf($columns, ColumnInterface::class);
 
@@ -138,7 +137,9 @@ class DbalProductDataSet extends AbstractDbalDataSet
 
     private function getQuery(): QueryBuilder
     {
-        return $this->connection->createQueryBuilder()
+        $queryBuilder = clone $this->queryBuilder;
+
+        return $queryBuilder
             ->select('p.id, p.index, p.sku')
             ->from(self::PRODUCT_TABLE, 'p');
     }

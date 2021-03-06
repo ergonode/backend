@@ -45,6 +45,13 @@ interface ProductQueryInterface
     public function getDictionary(): array;
 
     /**
+     * @param ProductId[] $productIds
+     *
+     * @return string[]
+     */
+    public function getOthersIds(array $productIds): array;
+
+    /**
      * @return array
      */
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array;

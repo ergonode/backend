@@ -14,5 +14,5 @@ use Doctrine\DBAL\Query\QueryBuilder;
 
 interface NotificationGridQueryInterface
 {
-    public function getDataSet(UserId $id, Language $language): QueryBuilder;
+    public function getGridQuery(UserId $id, Language $language): QueryBuilder;
 }

@@ -83,6 +83,14 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
+    public function getOthersIds(array $productIds): array
+    {
+        return $this->query->getOthersIds($productIds);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getDictionary(): array
     {
         return $this->query->getDictionary();

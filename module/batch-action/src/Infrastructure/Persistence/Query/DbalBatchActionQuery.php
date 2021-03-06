@@ -47,14 +47,15 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
             ->execute()
             ->fetch();
 
-
         $model = new BatchActionInformationModel(
             new BatchActionId($record['id']),
             new BatchActionType($record['type']),
             $record['all'],
             $record['processed'],
             new \DateTime($record['created_at']),
-            $record['all'] === $record['processed'] ? new \DateTime($record['last_processed_at']) : null
+            $record['all'] === $record['processed'] ?
+                new \DateTime($record['last_processed_at'] ??
+                $record['created_at']) : null
         );
 
         foreach ($this->getEntries($id, $language) as $entry) {

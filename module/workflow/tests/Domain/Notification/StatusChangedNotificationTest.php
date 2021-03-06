@@ -16,9 +16,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class StatusChangedNotificationTest extends TestCase
 {
+    private ProductId $productId;
+
     /**
      * @var Sku|MockObject
      */
@@ -46,6 +49,7 @@ class StatusChangedNotificationTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->productId = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
         $this->from = $this->createMock(StatusCode::class);
         $this->to = $this->createMock(StatusCode::class);
@@ -60,9 +64,14 @@ class StatusChangedNotificationTest extends TestCase
     {
         $userId = $this->createMock(UserId::class);
         $this->user->method('getId')->willReturn($userId);
-        $notification = new StatusChangedNotification($this->sku, $this->from, $this->to, $this->user);
+        $notification = new StatusChangedNotification(
+            $this->productId,
+            $this->sku,
+            $this->from,
+            $this->to,
+            $this->user
+        );
         self::assertEquals($userId, $notification->getAuthorId());
-        self::assertEquals($userId, $notification->getUserId());
         self::assertNotEmpty($notification->getCreatedAt());
     }
 
@@ -78,8 +87,16 @@ class StatusChangedNotificationTest extends TestCase
         $this->user->method('getLastName')->willReturn('last name');
         $this->language->method('getCode')->willReturn('en_GB');
 
-        $notification = new StatusChangedNotification($this->sku, $this->from, $this->to, $this->user, $this->language);
+        $notification = new StatusChangedNotification(
+            $this->productId,
+            $this->sku,
+            $this->from,
+            $this->to,
+            $this->user,
+            $this->language
+        );
         $parameters = $notification->getParameters();
+        self::assertEquals($this->productId, $notification->getObjectId());
         self::assertSame('sku value', $parameters['%sku%']);
         self::assertSame('code value from', $parameters['%from%']);
         self::assertSame('code value to', $parameters['%to%']);
@@ -92,7 +109,14 @@ class StatusChangedNotificationTest extends TestCase
      */
     public function testReturnedMessage(): void
     {
-        $notification = new StatusChangedNotification($this->sku, $this->from, $this->to, $this->user, $this->language);
+        $notification = new StatusChangedNotification(
+            $this->productId,
+            $this->sku,
+            $this->from,
+            $this->to,
+            $this->user,
+            $this->language
+        );
         self::assertSame(
             'Product "%sku%" status was changed from "%from%" to "%to%" '.
             'in language "%language%" by user "%user%"',
