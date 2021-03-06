@@ -85,7 +85,7 @@ class ProductReadInheritedValuesByLanguageAction
             'id' => $product->getId()->getValue(),
         ];
         foreach ($product->getAttributes() as $key => $value) {
-            $attributeId = AttributeId::fromKey($key);
+            $attributeId = AttributeId::fromKey((string) $key);
             $attribute = $this->attributeRepository->load($attributeId);
             if ($attribute) {
                 $result['attributes'][$key] = $this->calculator->calculate($attribute, $value, $productLanguage);
