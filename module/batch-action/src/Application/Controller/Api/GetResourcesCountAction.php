@@ -14,7 +14,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
-use Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter;
+use Ergonode\BatchAction\Infrastructure\Filter\CountFilter;
 use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
 use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
 use Swagger\Annotations as SWG;
@@ -25,27 +25,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/batch-action/templates", methods={"GET"})
+ * @Route("/batch-action/count", methods={"GET"})
  */
-class GetTemplatesByBatchAction
+class GetResourcesCountAction
 {
     private BatchActionFilterFactory $factory;
-
-    private TemplateBatchActionFilter $templateBatchActionFilter;
-
+    private CountFilter $countFilter;
     private NormalizerInterface $normalizer;
-
     private ValidatorInterface $validator;
-
 
     public function __construct(
         BatchActionFilterFactory $factory,
-        TemplateBatchActionFilter $templateBatchActionFilter,
+        CountFilter $countFilter,
         NormalizerInterface $normalizer,
         ValidatorInterface $validator
     ) {
         $this->factory = $factory;
-        $this->templateBatchActionFilter = $templateBatchActionFilter;
+        $this->countFilter = $countFilter;
         $this->normalizer = $normalizer;
         $this->validator = $validator;
     }
@@ -68,7 +64,14 @@ class GetTemplatesByBatchAction
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns template IDs",
+     *     description="Returns count",
+     *     @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(
+     *              property="count",
+     *              type="integer"
+     *          )
+     *     )
      * )
      * @SWG\Response(
      *     response=400,
@@ -85,9 +88,9 @@ class GetTemplatesByBatchAction
         }
         try {
             if ('all' === $filter) {
-                $filteredIds = $this->templateBatchActionFilter->filter(new BatchActionFilterDisabled());
+                $count = $this->countFilter->filter(new BatchActionFilterDisabled());
 
-                return new SuccessResponse($filteredIds);
+                return new SuccessResponse(['count' => $count]);
             }
             /** @var BatchActionFilterFormModel $data */
             $data = $this->normalizer->denormalize(
@@ -95,13 +98,13 @@ class GetTemplatesByBatchAction
                 BatchActionFilterFormModel::class
             );
             $violations = $this->validator->validate($data);
-            if (0 === $violations->count()) {
-                $filter = $this->factory->create($data);
-                $filteredIds = $this->templateBatchActionFilter->filter($filter);
-
-                return new SuccessResponse($filteredIds);
+            if (0 !== $violations->count()) {
+                throw new ViolationsHttpException($violations);
             }
-            throw new ViolationsHttpException($violations);
+            $filter = $this->factory->create($data);
+            $count = $this->countFilter->filter($filter);
+
+            return new SuccessResponse(['count' => $count]);
         } catch (DenoralizationException $exception) {
             throw new BadRequestHttpException('Invalid query filter');
         }

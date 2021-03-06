@@ -8,10 +8,9 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Controller\Api;
 
+use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
 use Ergonode\BatchAction\Application\Provider\BatchActionFormProvider;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
-use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -23,7 +22,6 @@ use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
-use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
@@ -37,15 +35,19 @@ class CreateBatchAction
 
     private BatchActionFormProvider $formProvider;
 
+    private BatchActionFilterFactory $factory;
+
     private CommandBusInterface $commandBus;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         BatchActionFormProvider $formProvider,
+        BatchActionFilterFactory $factory,
         CommandBusInterface $commandBus
     ) {
         $this->formFactory = $formFactory;
         $this->formProvider = $formProvider;
+        $this->factory = $factory;
         $this->commandBus = $commandBus;
     }
 
@@ -88,21 +90,9 @@ class CreateBatchAction
                 /** @var BatchActionFormModel $data */
                 $data = $form->getData();
                 $filter = null;
-                if ('all' === $data->filter) {
-                    $filter = new BatchActionFilterDisabled();
-                } else {
-                    $ids = null;
-
-                    if ($data->filter->ids) {
-                        $list = [];
-                        foreach ($data->filter->ids->list as $id) {
-                            $list[] = new AggregateId($id);
-                        }
-                        $ids = new BatchActionIds($list, $data->filter->ids->included);
-                    }
-
-                    $filter = new BatchActionFilter($ids, $data->filter->query ?: null);
-                }
+                $filter = 'all' === $data->filter ?
+                    new BatchActionFilterDisabled() :
+                    $this->factory->create($data->filter);
 
                 $command = new CreateBatchActionCommand(
                     BatchActionId::generate(),
