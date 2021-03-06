@@ -133,6 +133,26 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function findInvalid(?\DateTimeInterface $dateTime = null): array
+    {
+        if (null === $dateTime) {
+            $dateTime = new \DateTime();
+        }
+        $sql = 'SELECT id, username, valid, refresh_token FROM '.self::TABLE.' WHERE valid < :dateTime';
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->bindValue('dateTime', $dateTime, Types::DATETIMETZ_MUTABLE);
+        $stmt->execute();
+
+        return array_map(
+            fn (array $data) => $this->mapRefreshToken($data),
+            $stmt->fetchAll(),
+        );
+    }
+
     private function mapCriteria(array $criteria): array
     {
         if ($invalid = array_diff_key($criteria, self::PROPERTIES)) {

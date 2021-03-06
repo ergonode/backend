@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
@@ -44,10 +44,15 @@ class ImportProductSelectAttributeStrategy implements ImportProductAttributeStra
             $key = new OptionKey($version);
             $optionId = $this->optionQuery->findIdByAttributeIdAndCode($id, $key);
 
-            Assert::notNull(
-                $optionId,
-                sprintf('Can\'t find id for %s option in %s attribute', $key->getValue(), $code->getValue())
-            );
+            if (null === $optionId) {
+                throw new ImportException(
+                    'Missing {option} option for {attribute} attribute.',
+                    [
+                        '{option}' => $key,
+                        '{attribute}' => $code,
+                    ],
+                );
+            }
 
             $result[$language] = $optionId;
         }

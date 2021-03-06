@@ -16,4 +16,8 @@ interface RefreshTokenRepositoryInterface extends ObjectRepository
 {
     public function insert(RefreshToken $token): void;
     public function delete(RefreshToken $token): void;
+    /**
+     * @return RefreshToken[]
+     */
+    public function findInvalid(?\DateTimeInterface $dateTime = null): array;
 }

@@ -13,6 +13,7 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Importer\Infrastructure\Action\Process\Product\ImportProductAttributeBuilder;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -20,7 +21,6 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Webmozart\Assert\Assert;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 class SimpleProductImportAction
@@ -66,7 +66,9 @@ class SimpleProductImportAction
         array $attributes = []
     ): SimpleProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
-        Assert::notNull($templateId);
+        if (null === $templateId) {
+            throw new ImportException('Missing {template} template.', ['{template}' => $template]);
+        }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
         $attributes = $this->builder->build($attributes);
@@ -83,19 +85,12 @@ class SimpleProductImportAction
         } else {
             $product = $this->repository->load($productId);
             if (!$product instanceof SimpleProduct) {
-                throw new \LogicException(
-                    sprintf(
-                        'Expected an instance of %s. %s received.',
-                        SimpleProduct::class,
-                        get_debug_type($product)
-                    )
-                );
+                throw new ImportException('Product {sku} is not a simple product', ['{sku}' => $sku]);
             }
+            $product->changeTemplate($templateId);
+            $product->changeCategories($categories);
+            $product->changeAttributes($attributes);
         }
-
-        $product->changeTemplate($templateId);
-        $product->changeCategories($categories);
-        $product->changeAttributes($attributes);
 
         $this->repository->save($product);
 
@@ -112,7 +107,9 @@ class SimpleProductImportAction
         $result = [];
         foreach ($categories as $category) {
             $categoryId = $this->categoryQuery->findIdByCode($category);
-            Assert::notNull($categoryId);
+            if (null === $categoryId) {
+                throw new ImportException('Missing {category} category', ['{category}' => $category]);
+            }
             $result[] = $categoryId;
         }
 
