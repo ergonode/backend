@@ -13,16 +13,28 @@ services:
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
 
+    Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory: ~
+
     Ergonode\BatchAction\Application\Controller\Api\CreateBatchAction:
         tags: ['controller.service_arguments']
         arguments:
            - '@form.factory'
            - '@Ergonode\BatchAction\Application\Provider\BatchActionFormProvider'
+           - '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $factory: '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
+            $countFilter: '@Ergonode\BatchAction\Infrastructure\Filter\CountFilter'
+            $normalizer: '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
+            $validator: '@Symfony\Component\Validator\Validator\ValidatorInterface'
 
     Ergonode\BatchAction\Application\Controller\Api\GetTemplatesByBatchAction:
         tags: [ 'controller.service_arguments' ]
         arguments:
+            - '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
             - '@Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter'
             - '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
             - '@Symfony\Component\Validator\Validator\ValidatorInterface'
@@ -71,6 +83,10 @@ services:
     Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionEntryGridQuery:
         arguments:
             - '@doctrine.dbal.default_connection'
+
+    Ergonode\BatchAction\Infrastructure\Filter\CountFilter:
+        $filteredQueryBuilder: '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
+        $connection: '@doctrine.dbal.default_connection'
 
     Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter:
         arguments:
