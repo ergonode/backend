@@ -25,10 +25,9 @@ class BatchActionEntryGridBuilder implements GridBuilderInterface
     {
         $grid = new Grid();
         $grid
-            ->addColumn('name', new TextColumn('code', 'System name', new TextFilter()))
-            ->addColumn('resource_id', new TextColumn('code', 'System name', new TextFilter()))
-            ->addColumn('success', new BoolColumn('label', 'Name', new TextFilter()))
-            ->addColumn('messages', new BatchActionMessageColumn('messages', 'Messages'))
+            ->addColumn('name', new TextColumn('system_name', 'System name', new TextFilter()))
+            ->addColumn('success', new BoolColumn('success', 'Success', new TextFilter()))
+            ->addColumn('messages', new BatchActionMessageColumn('messages', 'Error messages'))
             ->addColumn('processed_at', new DateColumn('processed_at', 'Processed at'))
             ->orderBy('processed_at', 'DESC');
 
