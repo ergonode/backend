@@ -21,6 +21,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilderInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
 
 class ExportProductSelectAttributeBuilder implements ExportProductBuilderInterface
 {
@@ -62,7 +63,19 @@ class ExportProductSelectAttributeBuilder implements ExportProductBuilderInterfa
                 $value = $product->getAttribute($code);
                 $attribute = $this->getAttribute($code);
                 $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
-                $result->set($code->getValue(), $this->findKey($calculatedValue, $code));
+                if ($calculatedValue !== null) {
+                    if (!is_string($calculatedValue)) {
+                        throw new ExportException(
+                            sprintf(
+                                'Can\'t calculate value for attribute "%s" in product "%s"',
+                                $attributeCode,
+                                $product->getSku()->getValue()
+                            )
+                        );
+                    }
+
+                    $result->set($code->getValue(), $this->findKey($calculatedValue, $code));
+                }
             }
         }
     }
