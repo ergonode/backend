@@ -87,11 +87,10 @@ class SimpleProductImportAction
             if (!$product instanceof SimpleProduct) {
                 throw new ImportException('Product {sku} is not a simple product', ['{sku}' => $sku]);
             }
+            $product->changeTemplate($templateId);
+            $product->changeCategories($categories);
+            $product->changeAttributes($attributes);
         }
-
-        $product->changeTemplate($templateId);
-        $product->changeCategories($categories);
-        $product->changeAttributes($attributes);
 
         $this->repository->save($product);
 
