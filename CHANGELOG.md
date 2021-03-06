@@ -1,4 +1,5 @@
 
+- feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
 - build [#1214](https://github.com/ergonode/backend/issues/1214) Fixed abandoned dependencies (piotrkreft)
 - bugfix [#1213](https://github.com/ergonode/backend/issues/1213) Removing used token (piotrkreft)
 - feature [#1208](https://github.com/ergonode/backend/issues/1208) Created custom ObjectManager for refresh token and decoupled from Doctrine ORM (piotrkreft)
