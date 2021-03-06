@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Grid\Filter\Builder;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\FilterInterface;
 use Ergonode\Grid\Request\FilterValue;
 
@@ -18,7 +18,7 @@ class DateTimeFilterBuilder extends AbstractFilterBuilder implements FilterBuild
 {
     public function supports(FilterInterface $filter): bool
     {
-        return ($filter instanceof DateFilter);
+        return ($filter instanceof DateTimeFilter);
     }
 
     public function build(QueryBuilder $query, string $field, FilterValue $filter): void
