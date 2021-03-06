@@ -91,11 +91,10 @@ class SimpleProductImportAction
                     )
                 );
             }
+            $product->changeTemplate($templateId);
+            $product->changeCategories($categories);
+            $product->changeAttributes($attributes);
         }
-
-        $product->changeTemplate($templateId);
-        $product->changeCategories($categories);
-        $product->changeAttributes($attributes);
 
         $this->repository->save($product);
 

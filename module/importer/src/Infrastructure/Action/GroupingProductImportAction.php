@@ -91,20 +91,20 @@ class GroupingProductImportAction
             );
         } else {
             $product = $this->productRepository->load($productId);
+            if (!$product instanceof GroupingProduct) {
+                throw new \LogicException(
+                    sprintf(
+                        'Expected an instance of %s. %s received.',
+                        GroupingProduct::class,
+                        get_debug_type($product)
+                    )
+                );
+            }
+            $product->changeTemplate($templateId);
+            $product->changeCategories($categories);
+            $product->changeAttributes($attributes);
+            $product->changeChildren($children);
         }
-        if (!$product instanceof GroupingProduct) {
-            throw new \LogicException(
-                sprintf(
-                    'Expected an instance of %s. %s received.',
-                    GroupingProduct::class,
-                    get_debug_type($product)
-                )
-            );
-        }
-        $product->changeTemplate($templateId);
-        $product->changeCategories($categories);
-        $product->changeAttributes($attributes);
-        $product->changeChildren($children);
 
         $this->productRepository->save($product);
 

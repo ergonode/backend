@@ -107,21 +107,21 @@ class VariableProductImportAction
             );
         } else {
             $product = $this->productRepository->load($productId);
+            if (!$product instanceof VariableProduct) {
+                throw new \LogicException(
+                    sprintf(
+                        'Expected an instance of %s. %s received.',
+                        VariableProduct::class,
+                        get_debug_type($product)
+                    )
+                );
+            }
+            $product->changeTemplate($templateId);
+            $product->changeCategories($categories);
+            $product->changeAttributes($attributes);
+            $product->changeBindings($bindings);
+            $product->changeChildren($children);
         }
-        if (!$product instanceof VariableProduct) {
-            throw new \LogicException(
-                sprintf(
-                    'Expected an instance of %s. %s received.',
-                    VariableProduct::class,
-                    get_debug_type($product)
-                )
-            );
-        }
-        $product->changeTemplate($templateId);
-        $product->changeCategories($categories);
-        $product->changeAttributes($attributes);
-        $product->changeBindings($bindings);
-        $product->changeChildren($children);
 
         $this->productRepository->save($product);
 
