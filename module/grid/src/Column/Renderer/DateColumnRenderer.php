@@ -28,18 +28,12 @@ class DateColumnRenderer implements ColumnRendererInterface
      *
      * @throws UnsupportedColumnException
      */
-    public function render(ColumnInterface $column, string $id, array $row): ?\DateTimeInterface
+    public function render(ColumnInterface $column, string $id, array $row)
     {
         if (!$this->supports($column)) {
             throw new UnsupportedColumnException($column);
         }
-        if (null === $row[$id]) {
-            return null;
-        }
-        $time = strtotime($row[$id]);
 
-        return false === $time ?
-            null :
-            (new \DateTimeImmutable())->setTimestamp($time);
+        return $row[$id];
     }
 }
