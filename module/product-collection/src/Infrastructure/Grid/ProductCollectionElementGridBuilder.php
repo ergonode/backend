@@ -11,11 +11,11 @@ namespace Ergonode\ProductCollection\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\BoolColumn;
-use Ergonode\Grid\Column\DateColumn;
+use Ergonode\Grid\Column\DateTimeColumn;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +37,7 @@ class ProductCollectionElementGridBuilder implements GridBuilderInterface
             ->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()))
             ->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()))
             ->addColumn('id', new IdColumn('id'))
-            ->addColumn('created_at', new DateColumn('created_at', 'Added at', new DateFilter()))
+            ->addColumn('created_at', new DateTimeColumn('created_at', 'Added at', new DateTimeFilter()))
             ->addColumn('visible', $visible)
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [

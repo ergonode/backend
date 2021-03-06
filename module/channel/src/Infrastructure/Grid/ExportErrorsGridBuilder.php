@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ergonode\Channel\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Column\DateTimeColumn;
 use Ergonode\Grid\Column\TranslatableColumn;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Grid\Filter\DateFilter;
-use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\GridInterface;
 use Ergonode\Grid\GridBuilderInterface;
 use Ergonode\Grid\Grid;
@@ -25,7 +25,7 @@ class ExportErrorsGridBuilder implements GridBuilderInterface
         $grid = new Grid();
         $grid
             ->addColumn('id', new IdColumn('id'))
-            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
+            ->addColumn('created_at', new DateTimeColumn('created_at', 'Created at', new DateTimeFilter()))
             ->addColumn(
                 'message',
                 new TranslatableColumn('message', 'Message', 'parameters', 'channel')

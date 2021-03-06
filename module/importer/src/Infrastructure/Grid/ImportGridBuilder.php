@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\DateColumn;
+use Ergonode\Grid\Column\DateTimeColumn;
 use Ergonode\Grid\Column\IntegerColumn;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Column\LinkColumn;
@@ -43,9 +43,9 @@ class ImportGridBuilder implements GridBuilderInterface
 
         $grid
             ->addColumn('id', new IdColumn('id'))
-            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
-            ->addColumn('started_at', new DateColumn('started_at', 'Started on', new DateFilter()))
-            ->addColumn('ended_at', new DateColumn('ended_at', 'Ended at', new DateFilter()))
+            ->addColumn('created_at', new DateTimeColumn('created_at', 'Created at', new DateTimeFilter()))
+            ->addColumn('started_at', new DateTimeColumn('started_at', 'Started on', new DateTimeFilter()))
+            ->addColumn('ended_at', new DateTimeColumn('ended_at', 'Ended at', new DateTimeFilter()))
             ->addColumn('records', new IntegerColumn('records', 'Records', new TextFilter()))
             ->addColumn('status', new SelectColumn('status', 'Status', new MultiSelectFilter($status)))
             ->addColumn('errors', new IntegerColumn('errors', 'Errors', new TextFilter()))
