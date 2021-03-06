@@ -32,13 +32,13 @@
             "editable": false
           },
           {
-            "type": "DATE",
+            "type": "DATE_TIME",
             "visible": true,
             "deletable": false,
             "label": "Time",
             "id": "recorded_at",
             "filter": {
-              "type": "DATE"
+              "type": "DATE_TIME"
             },
             "editable": false
           },
