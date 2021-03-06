@@ -15,7 +15,7 @@ services:
     Ergonode\Product\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
-        
+
     Ergonode\Product\Infrastructure\Persistence\:
         resource: '../../Infrastructure/Persistence/*'
         exclude: '../../Infrastructure/Persistence/{DataSet}'
@@ -41,6 +41,10 @@ services:
         tags: ['batch_action.processor_provider.interface']
 
     Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Infrastructure\Persistence\Repository\EventStoreProductRepository'
+
+    Ergonode\Product\Application\Form\Product\BatchAction\:
+        resource: '../../Application/Form/Product/BatchAction/*'
+        tags: ['batch_action.form_provider.interface']
 
     Ergonode\Product\Domain\Query\ProductDashboardQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductDashboardQuery'
     Ergonode\Product\Domain\Query\AttributeValueQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalAttributeValueQuery'

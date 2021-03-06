@@ -36,6 +36,8 @@ class DbalProductDataSetFactory
 
     public function create(): DataSetInterface
     {
-        return new DbalProductDataSet($this->connection, $this->queryBuilderProvider, $this->filterBuilderProvider);
+        $queryBuilder = $this->connection->createQueryBuilder();
+
+        return new DbalProductDataSet($queryBuilder, $this->queryBuilderProvider, $this->filterBuilderProvider);
     }
 }

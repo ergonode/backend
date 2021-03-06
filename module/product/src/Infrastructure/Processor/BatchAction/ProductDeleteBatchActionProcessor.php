@@ -38,9 +38,9 @@ class ProductDeleteBatchActionProcessor implements BatchActionProcessorInterface
     }
 
     /**
-     * @return BatchActionMessage[]
+     * {@inheritDoc}
      */
-    public function process(BatchActionId $id, AggregateId $resourceId): array
+    public function process(BatchActionId $id, AggregateId $resourceId, $payload = null): array
     {
         $messages = [];
         $productId = new ProductId($resourceId->getValue());
