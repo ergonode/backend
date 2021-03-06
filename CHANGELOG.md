@@ -1,5 +1,6 @@
 
 - feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
+- bugfix [#1254](https://github.com/ergonode/backend/issues/1254) Fixed misinterpreting numeric attribute code as int (piotrkreft)
 - bugfix [#1252](https://github.com/ergonode/backend/issues/1252) Fixed date formatting on grid (piotrkreft)
 - build [#1214](https://github.com/ergonode/backend/issues/1214) Fixed abandoned dependencies (piotrkreft)
 - bugfix [#1213](https://github.com/ergonode/backend/issues/1213) Removing used token (piotrkreft)
