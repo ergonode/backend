@@ -82,13 +82,16 @@ class GetTemplatesByBatchAction
             throw new BadRequestHttpException('Filter has to be object or `all` value');
         }
         try {
+            if ('all' === $filter) {
+                $filteredIds = $this->templateBatchActionFilter->filter(new BatchActionFilterDisabled());
+
+                return new SuccessResponse($filteredIds);
+            }
             /** @var BatchActionFilterFormModel $data */
-            $data = 'all' === $filter ?
-                new BatchActionFilterDisabled() :
-                $this->normalizer->denormalize(
-                    $request->query->get('filter') ?? [],
-                    BatchActionFilterFormModel::class
-                );
+            $data = $this->normalizer->denormalize(
+                $request->query->get('filter') ?? [],
+                BatchActionFilterFormModel::class
+            );
             $violations = $this->validator->validate($data);
             if (0 === $violations->count()) {
                 $ids = null;

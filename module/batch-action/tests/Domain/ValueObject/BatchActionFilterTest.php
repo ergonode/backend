@@ -10,29 +10,34 @@ namespace Ergonode\BatchAction\Tests\Domain\ValueObject;
 
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilter;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionIds;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class BatchActionFilterTest extends TestCase
 {
     /**
-     * @var BatchActionIds|MockObject
+     * @dataProvider argumentsProvider
      */
-    private BatchActionIds $ids;
-
-    private string $query;
-
-    protected function setUp(): void
+    public function testCreation(?BatchActionIds $ids, ?string $query): void
     {
-        $this->ids = $this->createMock(BatchActionIds::class);
-        $this->query = 'QUERY';
+        $object = new BatchActionFilter($ids, $query);
+
+        self::assertEquals($ids, $object->getIds());
+        self::assertEquals($query, $object->getQuery());
     }
 
-    public function testCreation(): void
+    public function argumentsProvider(): array
     {
-        $object = new BatchActionFilter($this->ids, $this->query);
+        return [
+            [$this->createMock(BatchActionIds::class), 'query'],
+            [$this->createMock(BatchActionIds::class), null],
+            [null, 'query'],
+        ];
+    }
 
-        self::assertEquals($this->ids, $object->getIds());
-        self::assertEquals($this->query, $object->getQuery());
+    public function testThrowsExceptionOnNullArugments(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new BatchActionFilter(null, null);
     }
 }
