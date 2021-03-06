@@ -63,7 +63,7 @@ class ExportProductMultiSelectAttributeBuilder implements ExportProductBuilderIn
                 $value = $product->getAttribute($code);
                 $attribute = $this->getAttribute($code);
                 $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
-                if ($calculatedValue !== null) {
+                if (null !== $calculatedValue) {
                     if (!is_array($calculatedValue)) {
                         throw new ExportException(
                             sprintf(
