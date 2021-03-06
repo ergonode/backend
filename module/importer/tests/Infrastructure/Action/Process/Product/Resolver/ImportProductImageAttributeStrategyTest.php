@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Tests\Infrastructure\Action\Process\Product\Resolver;
 
 use Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy\ImportProductImageAttributeStrategy;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
@@ -49,7 +50,7 @@ class ImportProductImageAttributeStrategyTest extends TestCase
 
     public function testNotEmptyWithoutOptionValue(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(ImportException::class);
         $id = $this->createMock(AttributeId::class);
         $code = $this->createMock(AttributeCode::class);
         $value = new TranslatableString(['pl_PL' => 'value']);

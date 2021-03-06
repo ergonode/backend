@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product\Strategy;
 
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
@@ -44,11 +44,15 @@ class ImportProductMultiSelectAttributeStrategy implements ImportProductAttribut
                 }
                 $key = new OptionKey($item);
                 $optionId = $this->optionQuery->findIdByAttributeIdAndCode($id, $key);
-
-                Assert::notNull(
-                    $optionId,
-                    sprintf('Can\'t find id for %s option in %s attribute', $key->getValue(), $code->getValue())
-                );
+                if (null === $optionId) {
+                    throw new ImportException(
+                        'Missing {option} option for {attribute} attribute.',
+                        [
+                            '{option}' => $key,
+                            '{attribute}' => $code,
+                        ],
+                    );
+                }
                 $options[] = $optionId;
             }
             if (!$options) {

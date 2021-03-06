@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Process\Product;
 
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Webmozart\Assert\Assert;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -46,7 +47,9 @@ class ImportProductAttributeBuilder
         foreach ($attributes as $code => $value) {
             $code = new AttributeCode($code);
             $id = $this->attributeQuery->findAttributeIdByCode($code);
-            Assert::notNull($id, sprintf('Attribute %s not exists', $code));
+            if (null === $id) {
+                throw new ImportException('Missing {code} attribute.', ['{code}' => $code]);
+            }
             $type = $this->attributeQuery->findAttributeType($id);
             Assert::notNull($type, sprintf('Attribute type %s not exists', $code));
 
