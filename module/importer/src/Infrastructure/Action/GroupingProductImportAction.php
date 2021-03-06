@@ -94,8 +94,7 @@ class GroupingProductImportAction
         } else {
             $product = $this->productRepository->load($productId);
             if (!$product instanceof GroupingProduct) {
-                throw new ImportException('Product {sku} is not a grouping product', ['{sku}' => $sku]
-                );
+                throw new ImportException('Product {sku} is not a grouping product', ['{sku}' => $sku]);
             }
             $product->changeTemplate($templateId);
             $product->changeCategories($categories);

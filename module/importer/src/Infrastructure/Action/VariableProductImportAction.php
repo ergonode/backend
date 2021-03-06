@@ -110,8 +110,7 @@ class VariableProductImportAction
         } else {
             $product = $this->productRepository->load($productId);
             if (!$product instanceof VariableProduct) {
-                throw new ImportException('Product {sku} is not a variable product', ['{sku}' => $sku]
-                );
+                throw new ImportException('Product {sku} is not a variable product', ['{sku}' => $sku]);
             }
             $product->changeTemplate($templateId);
             $product->changeCategories($categories);
