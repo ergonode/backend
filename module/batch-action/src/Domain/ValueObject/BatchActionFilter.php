@@ -16,6 +16,9 @@ class BatchActionFilter implements BatchActionFilterInterface
 
     public function __construct(?BatchActionIds $ids = null, ?string $query = null)
     {
+        if (null === $ids && null === $query) {
+            throw new \InvalidArgumentException('At least query or ids should be passed.');
+        }
         $this->ids = $ids;
         $this->query = $query;
     }
