@@ -29,6 +29,10 @@ framework:
 #            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
 #            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
 
+ergonode_batch_action:
+    messenger:
+        transport_name: 'batch_action'
+
 ergonode_category:
     messenger:
         transport_name: 'core'

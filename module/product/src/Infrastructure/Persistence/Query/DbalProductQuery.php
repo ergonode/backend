@@ -133,6 +133,34 @@ class DbalProductQuery implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
+    public function getOthersIds(array $productIds): array
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::PRODUCT_TABLE, 'p');
+
+        if ($productIds) {
+            $query->andWhere($query->expr()->notIn('p.id', ':productId'))
+                ->setParameter(':productId', $productIds, Connection::PARAM_STR_ARRAY);
+        }
+
+        $result = $query
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        //todo add where
+
+        if (false !== $result) {
+            return $result;
+        }
+
+        return [];
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
     public function findProductIdByCategoryId(CategoryId $categoryId): array
     {
         $queryBuilder = $this->connection->createQueryBuilder();

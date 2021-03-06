@@ -10,21 +10,18 @@ namespace Ergonode\Importer\Domain\Notification;
 
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\AbstractId;
 
 class EndImportNotification implements NotificationInterface
 {
+    private const TYPE = 'import-ended';
     private const MESSAGE = 'Import "%import%" ended';
 
     private string $message;
-
-    private UserId $userId;
-
-    /**
-     * @var array
-     */
-    private array $parameters;
-
+    private UserId $authorId;
+    private AggregateId $objectId;
     private \DateTime $createdAt;
 
     /**
@@ -34,27 +31,17 @@ class EndImportNotification implements NotificationInterface
     {
         $this->createdAt = new \DateTime();
         $this->message = self::MESSAGE;
-        $this->parameters = [
-            '%import%' => $importId->getValue(),
-        ];
+        $this->objectId = $importId;
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     public function getMessage(): string
     {
         return $this->message;
-    }
-
-    public function getUserId(): UserId
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @return array
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
     }
 
     public function getCreatedAt(): \DateTime
@@ -64,6 +51,21 @@ class EndImportNotification implements NotificationInterface
 
     public function getAuthorId(): ?UserId
     {
-        return $this->userId;
+        return $this->authorId;
+    }
+
+    public function getObjectId(): ?AbstractId
+    {
+        return $this->objectId;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getParameters(): array
+    {
+        return [
+            '%import%' => $this->objectId->getValue(),
+        ];
     }
 }

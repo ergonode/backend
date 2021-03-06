@@ -29,9 +29,10 @@ class ProcessBatchActionEntryCommandHandler
         $id = $command->getId();
         $type = $command->getType();
         $resourceId = $command->getResourceId();
+        $payload = $command->getPayload();
 
         $processor = $this->provider->provide($type);
-        $message = $processor->process($id, $resourceId);
+        $message = $processor->process($id, $resourceId, $payload);
         $this->repository->markEntry($id, $resourceId, $message);
     }
 }

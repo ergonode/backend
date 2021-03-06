@@ -74,8 +74,15 @@ Feature: batch action product deletion
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
-          "type": "PRODUCT_DELETE",
-          "ids": ["@simple_product_id@"]
+        "type": "PRODUCT_DELETE",
+        "filter": {
+          "ids": {
+            "list": [
+              "@simple_product_id@"
+            ],
+            "included": true
+          }
+        }
       }
     """
 
@@ -91,8 +98,15 @@ Feature: batch action product deletion
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
-          "type": "PRODUCT_DELETE",
-          "ids": ["@variable_product_id@"]
+        "type": "PRODUCT_DELETE",
+        "filter": {
+          "ids": {
+            "list": [
+              "@variable_product_id@"
+            ],
+            "included": true
+          }
+        }
       }
     """
 
@@ -103,8 +117,15 @@ Feature: batch action product deletion
     And I send a "POST" request to "/api/v1/en_GB/batch-action" with body:
     """
       {
-          "type": "PRODUCT_DELETE",
-          "ids": ["@simple_product_id@"]
+        "type": "PRODUCT_DELETE",
+        "filter": {
+          "ids": {
+            "list": [
+              "@simple_product_id@"
+            ],
+            "included": true
+          }
+        }
       }
     """
 

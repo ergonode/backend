@@ -13,16 +13,60 @@ services:
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
 
+    Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory: ~
+
     Ergonode\BatchAction\Application\Controller\Api\CreateBatchAction:
         tags: ['controller.service_arguments']
         arguments:
            - '@form.factory'
+           - '@Ergonode\BatchAction\Application\Provider\BatchActionFormProvider'
+           - '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            $factory: '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
+            $countFilter: '@Ergonode\BatchAction\Infrastructure\Filter\CountFilter'
+            $normalizer: '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
+            $validator: '@Symfony\Component\Validator\Validator\ValidatorInterface'
+
+    Ergonode\BatchAction\Application\Controller\Api\GetTemplatesByBatchAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            - '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
+            - '@Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter'
+            - '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
+            - '@Symfony\Component\Validator\Validator\ValidatorInterface'
+
+    Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
+        arguments:
+            $forms: !tagged_iterator 'batch_action.form_provider.interface'
 
     Ergonode\BatchAction\Application\Controller\Api\GetBatchAction:
         tags: ['controller.service_arguments']
         arguments:
             - '@Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface'
+
+    Ergonode\BatchAction\Application\Validator\AllFilterDisabledValidator:
+        tags: ['validator.constraint_validator']
+
+    Ergonode\BatchAction\Application\Validator\BatchActionFilterValidator:
+        tags: ['validator.constraint_validator']
+
+    Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder:
+    Ergonode\BatchAction\Infrastructure\Grid\Renderer\BatchActionMessageColumnRenderer:
+        tags: ['component.grid.renderer.column']
+        arguments:
+            - '@translator'
+
+    Ergonode\BatchAction\Application\Controller\Api\GetBatchActionEntryGridAction:
+        tags: ['controller.service_arguments']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Query\BatchActionEntryGridQueryInterface'
+            - '@Ergonode\BatchAction\Infrastructure\Grid\BatchActionEntryGridBuilder'
+            - '@Ergonode\Grid\Factory\DbalDataSetFactory'
+            - '@Ergonode\Grid\Renderer\GridRenderer'
 
     Ergonode\BatchAction\Infrastructure\Persistence\Repository\Mapper\DbalBatchActionMapper:
     Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository:
@@ -36,20 +80,58 @@ services:
             - '@doctrine.dbal.default_connection'
             - '@translator'
 
+    Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionEntryGridQuery:
+        arguments:
+            - '@doctrine.dbal.default_connection'
+
+    Ergonode\BatchAction\Infrastructure\Filter\CountFilter:
+        $filteredQueryBuilder: '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
+        $connection: '@doctrine.dbal.default_connection'
+
+    Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter:
+        arguments:
+            - '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
+            - '@doctrine.dbal.default_connection'
+
     Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery'
+    Ergonode\BatchAction\Domain\Query\BatchActionEntryGridQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionEntryGridQuery'
+
+    Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface: '@Ergonode\Product\Infrastructure\Filter\BatchAction\ProductBatchActionFilter'
 
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
+
+    Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface: '@Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilder'
+
     Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
             - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider:
+        arguments:
+            $strategies: !tagged_iterator 'batch_action.filter_provider.interface'
 
     Ergonode\BatchAction\Infrastructure\Handler\ProcessBatchActionEntryCommandHandler:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\EndBatchActionCommandHandler:
+        tags: [ 'messenger.message_handler' ]
+        arguments:
+            - '@Ergonode\SharedKernel\Domain\Bus\EventBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\BatchActionEndedEventHandler:
+        tags: [ 'messenger.message_handler' ]
+        arguments:
+            - '@Ergonode\Account\Application\Security\Security'
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Symfony\Contracts\Translation\TranslatorInterface'
+
 
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider:
         arguments:

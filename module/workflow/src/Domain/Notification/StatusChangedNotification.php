@@ -14,19 +14,21 @@ use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
+use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class StatusChangedNotification implements NotificationInterface
 {
+    private const TYPE = 'status-changed';
     private const MESSAGE = 'Product "%sku%" status was changed from "%from%" to "%to%" '.
     'in language "%language%" by user "%user%"';
 
     private string $message;
 
-    private UserId $userId;
+    private UserId $authorId;
 
-    /**
-     * @var array
-     */
+    private AggregateId $objectId;
+
     private array $parameters;
 
     private \DateTime $createdAt;
@@ -34,10 +36,17 @@ class StatusChangedNotification implements NotificationInterface
     /**
      * @throws \Exception
      */
-    public function __construct(Sku $sku, StatusCode $from, StatusCode $to, User $user, ?Language $language = null)
-    {
+    public function __construct(
+        ProductId $id,
+        Sku $sku,
+        StatusCode $from,
+        StatusCode $to,
+        User $user,
+        ?Language $language = null
+    ) {
         $this->createdAt = new \DateTime();
         $this->message = self::MESSAGE;
+        $this->objectId = $id;
         $this->parameters = [
             '%sku%' => $sku->getValue(),
             '%from%' => $from->getValue(),
@@ -45,25 +54,12 @@ class StatusChangedNotification implements NotificationInterface
             '%user%' => sprintf('%s %s', $user->getFirstName(), $user->getLastName()),
             '%language%' => $language ? $language->getCode() : null,
         ];
-        $this->userId = $user->getId();
+        $this->authorId = $user->getId();
     }
 
     public function getMessage(): string
     {
         return $this->message;
-    }
-
-    public function getUserId(): UserId
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @return array
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
     }
 
     public function getCreatedAt(): \DateTime
@@ -73,6 +69,21 @@ class StatusChangedNotification implements NotificationInterface
 
     public function getAuthorId(): ?UserId
     {
-        return $this->userId;
+        return $this->authorId;
+    }
+
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
+
+    public function getObjectId(): AggregateId
+    {
+        return $this->objectId;
+    }
+
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 }

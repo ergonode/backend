@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Product\Application\Controller\Api\Attribute;
+namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\SuccessResponse;
@@ -18,13 +18,12 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ProductAttributeValidationAction
+class AttributeValidationAction
 {
     private AttributeValueConstraintProvider $provider;
 
@@ -43,21 +42,11 @@ class ProductAttributeValidationAction
     }
 
     /**
-     *  @Route(
-     *     name="ergonode_product_attribute_update",
-     *     path="products/{product}/attribute/{attribute}",
-     *     methods={"POST"},
-     *     requirements={
-     *         "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-     *         "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-     *     }
-     * )
      * @Route(
-     *     name="ergonode_product_attribute_validation",
-     *     path="products/{product}/attribute/{attribute}/validate",
+     *     name="ergonode_attribute_validate",
+     *     path="/attribute/{attribute}/validate",
      *     methods={"POST"},
      *     requirements={
-     *         "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
      *         "attribute"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
      *     }
      * )
@@ -65,7 +54,7 @@ class ProductAttributeValidationAction
      * @IsGranted("PRODUCT_ATTRIBUTE_POST_VALIDATION")
      * @IsGranted("edit", subject="language")
      *
-     * @SWG\Tag(name="Product")
+     * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -73,12 +62,6 @@ class ProductAttributeValidationAction
      *     required=true,
      *     default="en_GB",
      *     description="Language Code",
-     * )
-     * @SWG\Parameter(
-     *     name="product",
-     *     in="path",
-     *     type="string",
-     *     description="Product id",
      * )
      * @SWG\Parameter(
      *     name="attribute",
@@ -95,7 +78,7 @@ class ProductAttributeValidationAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Change product attribute Value",
+     *     description="Attribute value valid",
      * )
      * @SWG\Response(
      *     response=400,
@@ -107,7 +90,6 @@ class ProductAttributeValidationAction
      */
     public function changeDraftAttribute(
         Language $language,
-        AbstractProduct $product,
         AbstractAttribute $attribute,
         Request $request
     ): Response {
