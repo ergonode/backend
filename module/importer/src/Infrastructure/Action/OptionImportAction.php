@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Infrastructure\Action;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Webmozart\Assert\Assert;
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
@@ -44,7 +44,9 @@ class OptionImportAction
     public function action(AttributeCode $code, OptionKey $optionKey, TranslatableString $label): AggregateId
     {
         $attributeId = $this->attributeQuery->findAttributeIdByCode($code);
-        Assert::notNull($attributeId);
+        if (null === $attributeId) {
+            throw new ImportException('Missing {code} attribute.', ['{code}' => $code]);
+        }
         $optionId = $this->optionQuery->findIdByAttributeIdAndCode($attributeId, $optionKey);
 
         if (!$optionId) {

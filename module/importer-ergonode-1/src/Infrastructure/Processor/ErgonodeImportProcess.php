@@ -54,6 +54,12 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
     {
         try {
             $zipDirectory = $this->extractor->extract($import);
+        } catch (ErgonodeZipExtractorException $exception) {
+            $this->logger->warning($exception);
+            throw new ImportException('Invalid zip source');
+        }
+
+        try {
             /** @var ErgonodeZipSource $source */
             $source = $this->repository->load($import->getSourceId());
             Assert::isInstanceOf($source, ErgonodeZipSource::class);
@@ -61,9 +67,6 @@ class ErgonodeImportProcess implements SourceImportProcessorInterface, LoggerAwa
             foreach ($this->steps as $step) {
                 $step($import, $source, $zipDirectory);
             }
-        } catch (ErgonodeZipExtractorException $exception) {
-            $this->logger->warning($exception);
-            throw new ImportException('Invalid zip source');
         } catch (ReaderFileProcessException $exception) {
             $this->logger->warning($exception);
             throw new ImportException(sprintf('Can\'t process file %s', $exception->getFilename()));

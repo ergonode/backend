@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Authentication;
 
-use Ergonode\Authentication\Application\DependencyInjection\Compiler\DisableOrmMappingsPass;
 use Ergonode\Authentication\Application\DependencyInjection\Compiler\JWTManagerPass;
 use Ergonode\Authentication\Application\DependencyInjection\Compiler\UniqueRefreshTokenValidatorPass;
 use Ergonode\SharedKernel\Application\AbstractModule;
@@ -25,7 +24,6 @@ class ErgonodeAuthenticationBundle extends AbstractModule
         $container
             ->addCompilerPass(new JWTManagerPass())
             ->addCompilerPass(new UniqueRefreshTokenValidatorPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 1000)
-            ->addCompilerPass(new DisableOrmMappingsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 1000)
         ;
     }
 }
