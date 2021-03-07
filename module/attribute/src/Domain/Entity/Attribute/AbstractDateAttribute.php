@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
-use Ergonode\Attribute\Domain\ValueObject\DateFormat;
+use Ergonode\Attribute\Domain\ValueObject\DateFormatInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
@@ -22,6 +22,8 @@ abstract class AbstractDateAttribute extends AbstractAttribute
 {
     public const TYPE = 'DATE';
     public const FORMAT = 'format';
+
+    abstract public function getFormat(): DateFormatInterface;
 
     /**
      * @throws \Exception
@@ -33,7 +35,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
         TranslatableString $hint,
         TranslatableString $placeholder,
         AttributeScope $scope,
-        DateFormat $format
+        DateFormatInterface $format
     ) {
         parent::__construct(
             $id,
@@ -55,15 +57,10 @@ abstract class AbstractDateAttribute extends AbstractAttribute
         return self::TYPE;
     }
 
-    public function getFormat(): DateFormat
-    {
-        return new DateFormat($this->getParameter(self::FORMAT));
-    }
-
     /**
      * @throws \Exception
      */
-    public function changeFormat(DateFormat $new): void
+    public function changeFormat(DateFormatInterface $new): void
     {
         if ($this->getFormat()->getFormat() !== $new->getFormat()) {
             $event = new AttributeStringParameterChangeEvent(

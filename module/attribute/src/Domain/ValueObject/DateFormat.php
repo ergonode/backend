@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
-class DateFormat
+class DateFormat implements DateFormatInterface
 {
     public const YYYY_MM_DD = 'yyyy-MM-dd';
     public const YY_MM_DD = 'yy-MM-dd';
