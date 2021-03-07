@@ -4,6 +4,7 @@
 - bugfix [#1252](https://github.com/ergonode/backend/issues/1252) Fixed date formatting on grid (piotrkreft)
 - build [#1214](https://github.com/ergonode/backend/issues/1214) Fixed abandoned dependencies (piotrkreft)
 - bugfix [#1213](https://github.com/ergonode/backend/issues/1213) Removing used token (piotrkreft)
+- bugfix [#1234](https://github.com/ergonode/backend/issues/1234) Send notification error product/workflow (wfajczyk)
 - feature [#1208](https://github.com/ergonode/backend/issues/1208) Created custom ObjectManager for refresh token and decoupled from Doctrine ORM (piotrkreft)
 - ci [#1212](https://github.com/ergonode/backend/issues/1212) Split CI to test code separately (piotrkreft)
 - performance [#1211](https://github.com/ergonode/backend/issues/1211) Cached user authenticated on workers (piotrkreft)
