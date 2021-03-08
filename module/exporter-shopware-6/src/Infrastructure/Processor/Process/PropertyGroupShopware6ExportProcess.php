@@ -15,7 +15,7 @@ use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Builder\PropertyGroupBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupClient;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterException;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
@@ -30,7 +30,7 @@ class PropertyGroupShopware6ExportProcess
 
     private Shopware6PropertyGroupClient $propertyGroupClient;
 
-    private Shopware6PropertyGroupBuilder $builder;
+    private PropertyGroupBuilder $builder;
 
     private LanguageRepositoryInterface  $languageRepository;
 
@@ -41,7 +41,7 @@ class PropertyGroupShopware6ExportProcess
     public function __construct(
         PropertyGroupRepositoryInterface $propertyGroupRepository,
         Shopware6PropertyGroupClient $propertyGroupClient,
-        Shopware6PropertyGroupBuilder $builder,
+        PropertyGroupBuilder $builder,
         LanguageRepositoryInterface $languageRepository,
         PropertyGroupOptionsShopware6ExportProcess $propertyGroupOptionsProcess,
         ExportRepositoryInterface $exportRepository

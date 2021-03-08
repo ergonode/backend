@@ -12,17 +12,17 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6PropertyGroupMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 
-class Shopware6PropertyGroupBuilder
+class PropertyGroupBuilder
 {
     /**
-     * @var Shopware6PropertyGroupMapperInterface[]
+     * @var PropertyGroupMapperInterface[]
      */
     private array $collection;
 
-    public function __construct(Shopware6PropertyGroupMapperInterface ...$collection)
+    public function __construct(PropertyGroupMapperInterface ...$collection)
     {
         $this->collection = $collection;
     }

@@ -18,7 +18,7 @@ use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupOptionsRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\PropertyGroupRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupOptionBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Builder\PropertyGroupOptionBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6PropertyGroupOptionClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
@@ -37,7 +37,7 @@ class PropertyGroupOptionsShopware6ExportProcess
 
     private Shopware6PropertyGroupOptionClient $propertyGroupOptionClient;
 
-    private Shopware6PropertyGroupOptionBuilder $builder;
+    private PropertyGroupOptionBuilder $builder;
 
     private OptionRepositoryInterface $optionRepository;
 
@@ -48,7 +48,7 @@ class PropertyGroupOptionsShopware6ExportProcess
         OptionQueryInterface $optionQuery,
         PropertyGroupOptionsRepositoryInterface $propertyGroupOptionsRepository,
         Shopware6PropertyGroupOptionClient $propertyGroupOptionClient,
-        Shopware6PropertyGroupOptionBuilder $builder,
+        PropertyGroupOptionBuilder $builder,
         OptionRepositoryInterface $optionRepository,
         LanguageRepositoryInterface $languageRepository
     ) {

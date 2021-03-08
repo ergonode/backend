@@ -60,13 +60,13 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\LanguageSynchronizer'
 
     # Mappers
-    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupBuilder:
+    Ergonode\ExporterShopware6\Infrastructure\Builder\PropertyGroupBuilder:
         arguments:
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroup\Shopware6PropertyGroupNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroup\PropertyGroupNameMapper'
 
-    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6PropertyGroupOptionBuilder:
+    Ergonode\ExporterShopware6\Infrastructure\Builder\PropertyGroupOptionBuilder:
         arguments:
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupOption\Shopware6PropertyGroupOptionNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupOption\PropertyGroupOptionNameMapper'
 
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CustomFieldBuilder:
         arguments:
