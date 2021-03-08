@@ -92,7 +92,7 @@ The project is in early stage and we have got a lot of milestones to develop.  W
 If you have any questions or ideas feel free to join our [slack][slack].
 
 ## Is it production ready?
-We're releasing 1.0.0-beta so there are some minor bugs and improvements that need to be eliminated before the stable version 1.0. Follow our SM channels and take a look at Ergonode Roadmap to see what's coming in the future. 
+We're releasing 1.0.0-rc so there are some minor bugs and improvements that need to be eliminated before the stable version 1.0. Follow our SM channels and take a look at Ergonode Roadmap to see what's coming in the future. 
 
 ## Roadmap
 
