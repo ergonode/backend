@@ -11,9 +11,9 @@ namespace Ergonode\Account\Infrastructure\Grid;
 
 use Ergonode\Account\Infrastructure\Grid\Column\LogColumn;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\DateColumn;
+use Ergonode\Grid\Column\DateTimeColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
@@ -28,7 +28,7 @@ class LogGridBuilder implements GridBuilderInterface
         $grid = new Grid();
         $grid
             ->addColumn('id', new IdColumn('id'))
-            ->addColumn('recorded_at', new DateColumn('recorded_at', 'Recorded at', new DateFilter()))
+            ->addColumn('recorded_at', new DateTimeColumn('recorded_at', 'Recorded at', new DateTimeFilter()))
             ->addColumn('author', new TextColumn('author', 'Author', new TextFilter()))
             ->addColumn('event', new LogColumn('event', 'payload', 'Message', $language))
             ->orderBy('recorded_at', 'DESC');

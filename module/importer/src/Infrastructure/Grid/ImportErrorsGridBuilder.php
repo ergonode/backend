@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ergonode\Importer\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\DateColumn;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Column\DateTimeColumn;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Column\TranslatableColumn;
 use Ergonode\Grid\GridInterface;
@@ -25,7 +25,7 @@ class ImportErrorsGridBuilder implements GridBuilderInterface
         $grid = new Grid();
         $grid
             ->addColumn('id', new IdColumn('id'))
-            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
+            ->addColumn('created_at', new DateTimeColumn('created_at', 'Created at', new DateTimeFilter()))
             ->addColumn(
                 'message',
                 new TranslatableColumn('message', 'Error description', 'parameters', 'importer')

@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Ergonode\Notification\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\DateColumn;
+use Ergonode\Grid\Column\DateTimeColumn;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Column\TranslatableColumn;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\GridInterface;
@@ -39,8 +39,8 @@ class NotificationGridBuilder implements GridBuilderInterface
             )
             ->addColumn('type', new TextColumn('type', 'Type', new TextFilter()))
             ->addColumn('object_id', new TextColumn('object_id', 'Object ID', new TextFilter()))
-            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
-            ->addColumn('read_at', new DateColumn('read_at', 'Read at', new DateFilter()))
+            ->addColumn('created_at', new DateTimeColumn('created_at', 'Created at', new DateTimeFilter()))
+            ->addColumn('read_at', new DateTimeColumn('read_at', 'Read at', new DateTimeFilter()))
             ->addColumn('author', new TextColumn('author', 'Author', new TextFilter()))
             ->addColumn('avatar_filename', new ImageColumn('avatar_filename'));
 

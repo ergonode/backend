@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\DateColumn;
+use Ergonode\Grid\Column\DateTimeColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
@@ -30,7 +30,7 @@ class ProductHistoryGridBuilder implements GridBuilderInterface
         $grid
             ->addColumn('id', new IdColumn('id'))
             ->addColumn('author', new TextColumn('author', 'Author', new TextFilter()))
-            ->addColumn('recorded_at', new DateColumn('recorded_at', 'Recorded at', new DateFilter()))
+            ->addColumn('recorded_at', new DateTimeColumn('recorded_at', 'Recorded at', new DateTimeFilter()))
             ->addColumn('event', new HistoryColumn('event', 'payload', 'Message', $language))
             ->orderBy('recorded_at', 'DESC');
 
