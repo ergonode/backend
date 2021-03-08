@@ -6,3 +6,8 @@ framework:
         fallback: ['en']
     php_errors:
         log: true
+    cache:
+        pools:
+            aggregate.cache:
+                adapter: cache.adapter.filesystem
+                default_lifetime: 7200
