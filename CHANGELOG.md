@@ -1,4 +1,6 @@
 
+
+## CHANGELOG FOR 1.0.0-rc.1
 - feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
 - bugfix [#1254](https://github.com/ergonode/backend/issues/1254) Fixed misinterpreting numeric attribute code as int (piotrkreft)
 - bugfix [#1252](https://github.com/ergonode/backend/issues/1252) Fixed date formatting on grid (piotrkreft)
@@ -15,7 +17,6 @@
 - bug [#1202](https://github.com/ergonode/backend/issues/1202) Wrong names of repositories (wiewiurdp)
 
 ## CHANGELOG FOR 1.0.0-beta.9
- 
 - feature [#1077](https://github.com/ergonode/backend/issues/1077) Change privileges in the system (wfajczyk)
 - feature [#1157](https://github.com/ergonode/backend/issues/1157) Action center progress bars (rprzedzik) (piotrkreft)
 - configuration [#1172](https://github.com/ergonode/backend/issues/1172) Allow Composer 2.0
