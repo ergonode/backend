@@ -44,8 +44,6 @@ class CategoryTreeExistsValidator extends ConstraintValidator
 
         $result = $this->repository->exists(new CategoryTreeId($value));
 
-        var_dump($result);
-
         if (!$result) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
