@@ -33,6 +33,7 @@ class DbalDataSetFactory
         $result->select('*');
         $result->from(sprintf('(%s)', $queryBuilder->getSQL()), 't');
         $result->setParameters($queryBuilder->getParameters(), $queryBuilder->getParameterTypes());
+        $result->distinct();
 
         return new DbalDataSet($result, $this->filterBuilderProvider);
     }
