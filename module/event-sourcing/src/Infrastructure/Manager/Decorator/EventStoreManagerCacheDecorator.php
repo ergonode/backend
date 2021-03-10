@@ -45,11 +45,6 @@ class EventStoreManagerCacheDecorator implements EventStoreManagerInterface
 
     public function exists(AggregateId $id): bool
     {
-        $item = $this->adapter->getItem($id->getValue());
-        if ($item->isHit()) {
-            return $item->get() instanceof AbstractAggregateRoot;
-        }
-
         return $this->manager->exists($id);
     }
 
