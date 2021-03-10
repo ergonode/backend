@@ -30,12 +30,8 @@ class EventStoreManagerCacheDecorator implements EventStoreManagerInterface
         $item = $this->adapter->getItem($id->getValue());
         if (!$item->isHit()) {
             $aggregate = $this->manager->load($id);
-            if ($aggregate) {
-                $item->set($aggregate);
-                $this->adapter->save($item);
-            } else {
-                return null;
-            }
+            $item->set($aggregate);
+            $this->adapter->save($item);
         }
 
         return $item->get();
@@ -51,7 +47,7 @@ class EventStoreManagerCacheDecorator implements EventStoreManagerInterface
     {
         $item = $this->adapter->getItem($id->getValue());
         if ($item->isHit()) {
-            return true;
+            return $item->get() instanceof AbstractAggregateRoot;
         }
 
         return $this->manager->exists($id);
