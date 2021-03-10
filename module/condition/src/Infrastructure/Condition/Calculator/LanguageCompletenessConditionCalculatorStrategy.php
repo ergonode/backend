@@ -47,15 +47,15 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
                 )
             );
         }
-        $calculation = $this->completenessQuery->getCompleteness($object->getId(), $configuration->getLanguage());
+        $hasCompleteness = $this->completenessQuery->hasCompleteness($object->getId(), $configuration->getLanguage());
 
         $result = true;
 
         if ($configuration->getCompleteness() === LanguageCompletenessCondition::COMPLETE) {
-            if ($calculation->getPercent() < 100) {
+            if (!$hasCompleteness) {
                 $result = false;
             }
-        } elseif ($calculation->getPercent() === 100) {
+        } elseif ($hasCompleteness) {
             $result = false;
         }
 

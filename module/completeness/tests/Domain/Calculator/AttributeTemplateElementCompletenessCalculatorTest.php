@@ -6,19 +6,19 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Completeness\Tests\Domain\Calculator\Strategy;
+namespace Ergonode\Completeness\Tests\Domain\Calculator;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
+use Ergonode\Completeness\Domain\Calculator\AttributeTemplateElementCompletenessCalculator;
 
-class AttributeTemplateElementCompletenessStrategyTest extends TestCase
+class AttributeTemplateElementCompletenessCalculatorTest extends TestCase
 {
     /**
      * @var AttributeRepositoryInterface|MockObject
@@ -38,7 +38,7 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
 
     public function testSupport(): void
     {
-        $strategy = new AttributeTemplateElementCompletenessStrategy($this->repository, $this->calculator);
+        $strategy = new AttributeTemplateElementCompletenessCalculator($this->repository, $this->calculator);
         $this::assertTrue($strategy->supports(AttributeTemplateElement::TYPE));
         $this::assertFalse($strategy->supports('Any other variant'));
     }
@@ -48,10 +48,11 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $product = $this->createMock(AbstractProduct::class);
         $language = $this->createMock(Language::class);
-        $property = $this->createMock(AttributeTemplateElement::class);
+        $element = $this->createMock(AttributeTemplateElement::class);
+        $element->method('isRequired')->willReturn(true);
 
-        $strategy = new AttributeTemplateElementCompletenessStrategy($this->repository, $this->calculator);
-        $strategy->getElementCompleteness($product, $language, $property);
+        $strategy = new AttributeTemplateElementCompletenessCalculator($this->repository, $this->calculator);
+        $strategy->calculate($product, $language, $element);
     }
 
     public function testGetElementCompleteness(): void
@@ -61,9 +62,10 @@ class AttributeTemplateElementCompletenessStrategyTest extends TestCase
         $product = $this->createMock(AbstractProduct::class);
         $product->expects(self::once())->method('hasAttribute')->willReturn(true);
         $language = $this->createMock(Language::class);
-        $property = $this->createMock(AttributeTemplateElement::class);
+        $element = $this->createMock(AttributeTemplateElement::class);
+        $element->method('isRequired')->willReturn(true);
 
-        $strategy = new AttributeTemplateElementCompletenessStrategy($this->repository, $this->calculator);
-        $strategy->getElementCompleteness($product, $language, $property);
+        $strategy = new AttributeTemplateElementCompletenessCalculator($this->repository, $this->calculator);
+        $strategy->calculate($product, $language, $element);
     }
 }

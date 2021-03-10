@@ -7,18 +7,17 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Completeness\Domain\Calculator\Strategy;
+namespace Ergonode\Completeness\Domain\Calculator;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Webmozart\Assert\Assert;
-use Ergonode\Completeness\Domain\Calculator\CompletenessCalculatorLine;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateElementInterface;
 
-class AttributeTemplateElementCompletenessStrategy implements TemplateElementCompletenessStrategyInterface
+class AttributeTemplateElementCompletenessCalculator
 {
     private AttributeRepositoryInterface $repository;
 
@@ -32,18 +31,12 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
         $this->calculator = $calculator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports(string $type): bool
     {
         return AttributeTemplateElement::TYPE === $type;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getElementCompleteness(
+    public function calculate(
         AbstractProduct $product,
         Language $language,
         TemplateElementInterface $element
@@ -57,20 +50,25 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
                 )
             );
         }
-        $attribute = $this->repository->load($element->getAttributeId());
-        Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $element->getAttributeId()->getValue()));
-        $value = $product->hasAttribute($attribute->getCode()) ? $product->getAttribute($attribute->getCode()) : null;
 
         $filled = false;
-        if ($value) {
-            $value = $this->calculator->calculate($attribute, $value, $language);
-            if ('' !== $value
-                && [] !== $value
-                && null !== $value) {
-                $filled = true;
+        if ($element->isRequired()) {
+            $attributeId = $element->getAttributeId();
+            $attribute = $this->repository->load($element->getAttributeId());
+            Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $attributeId->getValue()));
+            $attributeCode = $attribute->getCode();
+            $value = $product->hasAttribute($attributeCode) ? $product->getAttribute($attributeCode) : null;
+
+            if ($value) {
+                $value = $this->calculator->calculate($attribute->getScope(), $value, $language);
+                if ('' !== $value
+                    && [] !== $value
+                    && null !== $value) {
+                    $filled = true;
+                }
             }
         }
 
-        return new CompletenessCalculatorLine($attribute->getId(), $element->isRequired(), $filled);
+        return new CompletenessCalculatorLine($element->getAttributeId(), $element->isRequired(), $filled);
     }
 }
