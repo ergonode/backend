@@ -69,7 +69,7 @@ Feature: Batch action get templates
               "@product_id_1@"
             ],
             "included": false
-          },
+          }
         }
       }
       """
@@ -192,7 +192,7 @@ Feature: Batch action get templates
               "@product_id_1@"
             ],
             "included": "test"
-          },
+          }
         }
       }
       """
