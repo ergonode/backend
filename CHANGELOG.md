@@ -1,4 +1,5 @@
 
+- bugfix [#1268](https://github.com/ergonode/backend/issues/1268) Export Shopware6 Configuration Segment list  (wfajczyk)
 
 ## CHANGELOG FOR 1.0.0-rc.1
 - feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
