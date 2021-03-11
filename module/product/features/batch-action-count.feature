@@ -171,7 +171,9 @@ Feature: Batch action get templates
         "type": "product_edit",
         "filter": {
           "ids": {
-            "list": null,
+            "list": [
+              null
+            ],
             "included": false
           },
           "query": "sku=@product_sku_2@"
