@@ -198,7 +198,7 @@ Feature: Batch action get templates
               null
             ],
             "included": false
-          },
+          }
         }
       }
       """
@@ -215,7 +215,7 @@ Feature: Batch action get templates
               "@product_id_1@"
             ],
             "included": "test"
-          },
+          }
         }
       }
       """
