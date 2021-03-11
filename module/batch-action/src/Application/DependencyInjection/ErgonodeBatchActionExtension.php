@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\DependencyInjection;
 
+use Ergonode\BatchAction\Application\Form\BatchActionFormInterface;
 use Ergonode\BatchAction\Domain\Count\CountInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -36,6 +37,9 @@ class ErgonodeBatchActionExtension extends Extension implements PrependExtension
         $container
             ->registerForAutoconfiguration(CountInterface::class)
             ->addTag('ergonode.batch_action.count');
+        $container
+            ->registerForAutoconfiguration(BatchActionFormInterface::class)
+            ->addTag('ergonode.batch_action.form_provider');
     }
 
     /**

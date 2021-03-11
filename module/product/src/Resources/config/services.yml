@@ -44,7 +44,6 @@ services:
 
     Ergonode\Product\Application\Form\Product\BatchAction\:
         resource: '../../Application/Form/Product/BatchAction/*'
-        tags: ['batch_action.form_provider.interface']
 
     Ergonode\Product\Domain\Query\ProductDashboardQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductDashboardQuery'
     Ergonode\Product\Domain\Query\AttributeValueQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalAttributeValueQuery'

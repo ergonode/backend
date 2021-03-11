@@ -32,7 +32,7 @@ services:
 
     Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
         arguments:
-            $forms: !tagged_iterator 'batch_action.form_provider.interface'
+            $forms: !tagged_iterator 'ergonode.batch_action.form_provider'
 
     Ergonode\BatchAction\Application\Controller\Api\GetBatchAction:
         tags: ['controller.service_arguments']
