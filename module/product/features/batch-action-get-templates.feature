@@ -98,7 +98,7 @@ Feature: Batch action get templates
     And the JSON node "[1]" should exist
 
   Scenario: Get templates with no filter
-    When I send a GET request to "/api/v1/en_GB/batch-action/templates"
+    When I send a POST request to "/api/v1/en_GB/batch-action/templates"
     Then the response status code should be 400
 
   Scenario: Get templates excluded without Id

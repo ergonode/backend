@@ -77,7 +77,7 @@ Feature: Batch action get templates
     And the JSON node count should exist
 
   Scenario: Count with no filter
-    When I send a GET request to "/api/v1/en_GB/batch-action/count"
+    When I send a POST request to "/api/v1/en_GB/batch-action/count"
     Then the response status code should be 400
 
   Scenario: Count all
