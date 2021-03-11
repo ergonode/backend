@@ -1,4 +1,5 @@
 
+- refactor [#1271](https://github.com/ergonode/backend/issues/1271) Changed batch actions filtered endpoints to POST (piotrkreft)
 
 ## CHANGELOG FOR 1.0.0-rc.1
 - feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
