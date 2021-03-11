@@ -7,28 +7,41 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\BatchAction\Infrastructure\Filter;
+namespace Ergonode\Product\Infrastructure\Persistence\BatchAction\Count;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\BatchAction\Domain\Count\CountInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
 
-class CountFilter
+final class Count implements CountInterface
 {
-    private FilteredQueryBuilderInterface $filteredQueryBuilder;
+    private const TYPES = [
+        'product_edit',
+        'product_delete',
+    ];
 
+    private FilteredQueryBuilderInterface $filteredQueryBuilder;
     private Connection $connection;
 
-    public function __construct(
-        FilteredQueryBuilderInterface $filteredQueryBuilder,
-        Connection $connection
-    ) {
+    public function __construct(FilteredQueryBuilderInterface $filteredQueryBuilder, Connection $connection)
+    {
         $this->filteredQueryBuilder = $filteredQueryBuilder;
         $this->connection = $connection;
     }
 
-    public function filter(BatchActionFilterInterface $filter): int
+    public function supports(BatchActionType $type): bool
     {
+        return in_array($type->getValue(), self::TYPES);
+    }
+
+    public function count(BatchActionType $type, BatchActionFilterInterface $filter): int
+    {
+        if (!$this->supports($type)) {
+            throw new \RuntimeException("{$type->getValue()} type unsupported.");
+        }
+
         $filteredQueryBuilder = $this->filteredQueryBuilder->build($filter);
 
         $queryBuilder = $this->connection->createQueryBuilder();

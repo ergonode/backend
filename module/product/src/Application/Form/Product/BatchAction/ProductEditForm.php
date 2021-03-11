@@ -53,13 +53,6 @@ class ProductEditForm extends AbstractType implements BatchActionFormInterface
                 }
             })
             ->add(
-                'filter',
-                BatchActionFilterType::class,
-                [
-                    'required' => false,
-                ]
-            )
-            ->add(
                 'payload',
                 CollectionType::class,
                 [

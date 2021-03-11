@@ -50,19 +50,13 @@ class BatchActionForm extends AbstractType implements BatchActionFormInterface
                 }
             })
             ->add(
-                'filter',
-                BatchActionFilterType::class,
-                [
-                    'required' => false,
-                ]
-            )
-            ->add(
                 'payload',
                 TextType::class,
                 [
                     'required' => false,
                 ]
-            );
+            )
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -26,9 +26,9 @@ services:
     Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:
         tags: [ 'controller.service_arguments' ]
         arguments:
+            $formFactory: '@form.factory'
             $factory: '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
-            $countFilter: '@Ergonode\BatchAction\Infrastructure\Filter\CountFilter'
-            $normalizer: '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
+            $count: '@Ergonode\BatchAction\Domain\Count\CountInterface'
             $validator: '@Symfony\Component\Validator\Validator\ValidatorInterface'
 
     Ergonode\BatchAction\Application\Controller\Api\GetTemplatesByBatchAction:
@@ -84,10 +84,6 @@ services:
         arguments:
             - '@doctrine.dbal.default_connection'
 
-    Ergonode\BatchAction\Infrastructure\Filter\CountFilter:
-        $filteredQueryBuilder: '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
-        $connection: '@doctrine.dbal.default_connection'
-
     Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter:
         arguments:
             - '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
@@ -97,6 +93,13 @@ services:
     Ergonode\BatchAction\Domain\Query\BatchActionEntryGridQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionEntryGridQuery'
 
     Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface: '@Ergonode\Product\Infrastructure\Filter\BatchAction\ProductBatchActionFilter'
+
+    Ergonode\BatchAction\Domain\Count\Count:
+        arguments:
+            $counts: !tagged_iterator 'ergonode.batch_action.count'
+        autoconfigure: false
+
+    Ergonode\BatchAction\Domain\Count\CountInterface: '@Ergonode\BatchAction\Domain\Count\Count'
 
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
 
