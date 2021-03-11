@@ -7,47 +7,40 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\BatchAction\Application\Controller\Api;
+namespace Ergonode\Product\Application\Controller\Api\BatchAction;
 
-use Ergonode\Api\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
-use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
-use Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter;
-use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
-use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
+use Ergonode\Product\Application\Form\Product\BatchAction\BatchActionTemplatesForm;
+use Ergonode\Product\Application\Form\Product\BatchAction\Model\BatchActionTemplateFormModel;
+use Ergonode\Product\Infrastructure\Filter\BatchAction\TemplateBatchActionFilter;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/batch-action/templates", methods={"GET"})
+ * @Route("/batch-action/templates", methods={"POST"})
  */
 class GetTemplatesByBatchAction
 {
+    private FormFactoryInterface $formFactory;
     private BatchActionFilterFactory $factory;
-
     private TemplateBatchActionFilter $templateBatchActionFilter;
 
-    private NormalizerInterface $normalizer;
-
-    private ValidatorInterface $validator;
-
-
     public function __construct(
+        FormFactoryInterface $formFactory,
         BatchActionFilterFactory $factory,
-        TemplateBatchActionFilter $templateBatchActionFilter,
-        NormalizerInterface $normalizer,
-        ValidatorInterface $validator
+        TemplateBatchActionFilter $templateBatchActionFilter
     ) {
+        $this->formFactory = $formFactory;
         $this->factory = $factory;
         $this->templateBatchActionFilter = $templateBatchActionFilter;
-        $this->normalizer = $normalizer;
-        $this->validator = $validator;
     }
 
     /**
@@ -79,31 +72,25 @@ class GetTemplatesByBatchAction
      */
     public function __invoke(Request $request): Response
     {
-        $filter = $request->query->get('filter');
-        if (null === $filter) {
-            throw new BadRequestHttpException('Filter has to be object or `all` value');
-        }
         try {
-            if ('all' === $filter) {
-                $filteredIds = $this->templateBatchActionFilter->filter(new BatchActionFilterDisabled());
+            $form = $this->formFactory->create(BatchActionTemplatesForm::class);
+            $form->handleRequest($request);
 
-                return new SuccessResponse($filteredIds);
-            }
-            /** @var BatchActionFilterFormModel $data */
-            $data = $this->normalizer->denormalize(
-                $request->query->get('filter') ?? [],
-                BatchActionFilterFormModel::class
-            );
-            $violations = $this->validator->validate($data);
-            if (0 === $violations->count()) {
-                $filter = $this->factory->create($data);
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var BatchActionTemplateFormModel $data */
+                $data = $form->getData();
+                $filter = 'all' === $data->filter ?
+                    new BatchActionFilterDisabled() :
+                    $this->factory->create($data->filter);
+
                 $filteredIds = $this->templateBatchActionFilter->filter($filter);
 
                 return new SuccessResponse($filteredIds);
             }
-            throw new ViolationsHttpException($violations);
-        } catch (DenoralizationException $exception) {
-            throw new BadRequestHttpException('Invalid query filter');
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
         }
+
+        throw new FormValidationHttpException($form);
     }
 }

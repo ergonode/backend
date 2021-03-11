@@ -66,7 +66,7 @@ Feature: Batch action get templates
         "filter": {
           "ids": {
             "list": [
-              @product_id_1@
+              "@product_id_1@"
             ],
             "included": false
           },
@@ -99,7 +99,7 @@ Feature: Batch action get templates
         "filter": {
           "ids": {
             "list": [
-              @product_id_1@
+              "@product_id_1@"
             ],
             "included": true
           }
@@ -118,7 +118,7 @@ Feature: Batch action get templates
         "filter": {
           "ids": {
             "list": [
-              @product_id_1@
+              "@product_id_1@"
             ],
             "included": true
           },
@@ -138,7 +138,7 @@ Feature: Batch action get templates
         "filter": {
           "ids": {
             "list": [
-              @product_id_1@
+              "@product_id_1@"
             ],
             "included": false
           },
@@ -188,7 +188,9 @@ Feature: Batch action get templates
         "type": "product_edit",
         "filter": {
           "ids": {
-            "list": @product_id_1@,
+            "list": [
+              "@product_id_1@"
+            ],
             "included": "test"
           },
         }

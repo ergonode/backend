@@ -24,7 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/batch-action/count", methods={"POST"})
@@ -34,18 +33,15 @@ class GetResourcesCountAction
     private FormFactoryInterface $formFactory;
     private BatchActionFilterFactory $factory;
     private CountInterface $count;
-    private ValidatorInterface $validator;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         BatchActionFilterFactory $factory,
-        CountInterface $count,
-        ValidatorInterface $validator
+        CountInterface $count
     ) {
         $this->formFactory = $formFactory;
         $this->factory = $factory;
         $this->count = $count;
-        $this->validator = $validator;
     }
 
     /**

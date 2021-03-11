@@ -29,15 +29,6 @@ services:
             $formFactory: '@form.factory'
             $factory: '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
             $count: '@Ergonode\BatchAction\Domain\Count\CountInterface'
-            $validator: '@Symfony\Component\Validator\Validator\ValidatorInterface'
-
-    Ergonode\BatchAction\Application\Controller\Api\GetTemplatesByBatchAction:
-        tags: [ 'controller.service_arguments' ]
-        arguments:
-            - '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
-            - '@Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter'
-            - '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
-            - '@Symfony\Component\Validator\Validator\ValidatorInterface'
 
     Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
         arguments:
@@ -84,11 +75,6 @@ services:
         arguments:
             - '@doctrine.dbal.default_connection'
 
-    Ergonode\BatchAction\Infrastructure\Filter\TemplateBatchActionFilter:
-        arguments:
-            - '@Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface'
-            - '@doctrine.dbal.default_connection'
-
     Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionQuery'
     Ergonode\BatchAction\Domain\Query\BatchActionEntryGridQueryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Query\DbalBatchActionEntryGridQuery'
 
@@ -102,8 +88,6 @@ services:
     Ergonode\BatchAction\Domain\Count\CountInterface: '@Ergonode\BatchAction\Domain\Count\Count'
 
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
-
-    Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface: '@Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilder'
 
     Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
         tags: ['messenger.message_handler']

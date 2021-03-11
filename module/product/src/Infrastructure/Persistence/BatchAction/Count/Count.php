@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\BatchAction\Domain\Count\CountInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
-use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
+use Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilder;
 
 final class Count implements CountInterface
 {
@@ -22,10 +22,10 @@ final class Count implements CountInterface
         'product_delete',
     ];
 
-    private FilteredQueryBuilderInterface $filteredQueryBuilder;
+    private FilteredQueryBuilder $filteredQueryBuilder;
     private Connection $connection;
 
-    public function __construct(FilteredQueryBuilderInterface $filteredQueryBuilder, Connection $connection)
+    public function __construct(FilteredQueryBuilder $filteredQueryBuilder, Connection $connection)
     {
         $this->filteredQueryBuilder = $filteredQueryBuilder;
         $this->connection = $connection;
