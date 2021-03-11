@@ -58,7 +58,6 @@ Feature: Batch action get templates
     And store response param "id" as "product_id_ 3"
 
   Scenario: Count with excluded id
-#    When I send a GET request to "/api/v1/en_GB/batch-action/count?filter[ids][list][]=@product_id_1@&filter[ids][included]=false"
     When I send a POST request to "/api/v1/en_GB/batch-action/count" with body:
       """
       {
@@ -106,7 +105,6 @@ Feature: Batch action get templates
         }
       }
       """
-#    When I send a GET request to "/api/v1/en_GB/batch-action/count?filter[ids][list][]=@product_id_1@&filter[ids][included]=true"
     Then the response status code should be 200
     And the JSON node count should exist
 
@@ -126,7 +124,6 @@ Feature: Batch action get templates
         }
       }
       """
-#    When I send a GET request to "/api/v1/en_GB/batch-action/count?filter[ids][list][]=@product_id_1@&filter[ids][included]=true&filter[query]=sku=@product_sku_2@"
     Then the response status code should be 200
     And the JSON node count should exist
 
@@ -146,7 +143,6 @@ Feature: Batch action get templates
         }
       }
       """
-#    When I send a GET request to "/api/v1/en_GB/batch-action/count?filter[ids][list][]=@product_id_1@&filter[ids][included]=false&filter[query]=sku=@product_sku_2@"
     Then the response status code should be 200
     And the JSON node count should exist
 
@@ -160,7 +156,6 @@ Feature: Batch action get templates
         }
       }
       """
-#    When I send a GET request to "/api/v1/en_GB/batch-action/count?filter[query]=sku=@product_sku_1@"
     Then the response status code should be 200
     And the JSON node count should exist
 
@@ -180,7 +175,6 @@ Feature: Batch action get templates
         }
       }
       """
-#    When I send a GET request to "/api/v1/en_GB/batch-action/count?filter[ids][list][]=null@&filter[ids][included]=false"
     Then the response status code should be 400
 
   Scenario: Count not determining included
@@ -198,5 +192,4 @@ Feature: Batch action get templates
         }
       }
       """
-#    When I send a GET request to "/api/v1/en_GB/batch-action/count?filter[ids][list][]=@product_id_1@&filter[ids][included]=test"
     Then the response status code should be 400

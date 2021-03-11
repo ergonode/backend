@@ -79,7 +79,6 @@ Feature: Batch action get templates
     And store response param "id" as "product_id_ 3"
 
   Scenario: Get templates excluded with Id
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=false"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
@@ -102,7 +101,6 @@ Feature: Batch action get templates
     Then the response status code should be 400
 
   Scenario: Get templates excluded without Id
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter=all"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
@@ -115,7 +113,6 @@ Feature: Batch action get templates
 
 
   Scenario: Get templates included
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=true"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
@@ -134,7 +131,6 @@ Feature: Batch action get templates
     And the JSON node "[1]" should not exist
 
   Scenario: Get templates included and query
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=true&filter[query]=sku=@product_sku_2@"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
@@ -155,7 +151,6 @@ Feature: Batch action get templates
     And the JSON node "[2]" should not exist
 
   Scenario: Get templates excluded and query
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=false&filter[query]=sku=@product_sku_2@"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
@@ -174,7 +169,6 @@ Feature: Batch action get templates
     And the JSON node "[0]" should exist
 
   Scenario: Get templates by query
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[query]=sku=@product_sku_1@"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
@@ -188,7 +182,6 @@ Feature: Batch action get templates
     And the JSON node "[1]" should not exist
 
   Scenario: Get templates with no products
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=null@&filter[ids][included]=false"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
@@ -205,7 +198,6 @@ Feature: Batch action get templates
     Then the response status code should be 400
 
   Scenario: Get templates with not bool included
-#    When I send a GET request to "/api/v1/en_GB/batch-action/templates?filter[ids][list][]=@product_id_1@&filter[ids][included]=test"
     When I send a POST request to "/api/v1/en_GB/batch-action/templates" with body:
       """
       {
