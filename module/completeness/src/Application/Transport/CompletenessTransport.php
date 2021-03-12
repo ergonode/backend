@@ -49,7 +49,7 @@ class CompletenessTransport implements TransportInterface
         $this->connection->update(
             'product_completeness',
             [
-                'calculated_at' => (new \DateTime())->format(\DateTime::W3C),
+                'calculated_at' => (new \DateTime())->format('Y-m-d H:i:sO'),
             ],
             [
                 'product_id' => $message->getProductId()->getValue(),

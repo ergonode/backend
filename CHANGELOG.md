@@ -1,4 +1,5 @@
 
+- refactor [#1272](https://github.com/ergonode/backend/issues/1272) Refactor completeness calculation process (rprzedzik)
 - feature [#1267](https://github.com/ergonode/backend/issues/1267) Add aggregate cache pool (rprzedzik)
 
 ## CHANGELOG FOR 1.0.0-rc.1
