@@ -11,6 +11,7 @@ namespace Ergonode\BatchAction\Application\Controller\Api;
 use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
 use Ergonode\BatchAction\Application\Provider\BatchActionFormProvider;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
+use Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
@@ -37,17 +38,21 @@ class CreateBatchAction
 
     private BatchActionFilterFactory $factory;
 
+    private BatchActionProcessorProvider $processorProvider;
+
     private CommandBusInterface $commandBus;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         BatchActionFormProvider $formProvider,
         BatchActionFilterFactory $factory,
+        BatchActionProcessorProvider $processorProvider,
         CommandBusInterface $commandBus
     ) {
         $this->formFactory = $formFactory;
         $this->formProvider = $formProvider;
         $this->factory = $factory;
+        $this->processorProvider = $processorProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -86,17 +91,22 @@ class CreateBatchAction
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
                 /** @var BatchActionFormModel $data */
                 $data = $form->getData();
-                $filter = null;
+
+                $actionType = new BatchActionType($data->type);
+
+                if (!$this->processorProvider->supports($actionType)) {
+                    throw new BadRequestHttpException("Unsupported type {$data->type}");
+                }
+
                 $filter = 'all' === $data->filter ?
                     new BatchActionFilterDisabled() :
                     $this->factory->create($data->filter);
 
                 $command = new CreateBatchActionCommand(
                     BatchActionId::generate(),
-                    new BatchActionType($data->type),
+                    $actionType,
                     $filter,
                     $data->payload ?: null
                 );
