@@ -1,6 +1,6 @@
 
 - feature [#1267](https://github.com/ergonode/backend/issues/1267) Add aggregate cache pool (rprzedzik)
-- bugfix [#1263](https://github.com/ergonode/backend/issues/1263)Duplication of notification in grid pagination (wiewiurdp)
+- bugfix [#1263](https://github.com/ergonode/backend/issues/1263) Fixing duplicated entries in grid pagination (wiewiurdp)
 
 ## CHANGELOG FOR 1.0.0-rc.1
 - feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
