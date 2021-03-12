@@ -107,6 +107,12 @@ services:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\StartBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
             - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsProvider'
             - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
