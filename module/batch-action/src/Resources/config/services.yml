@@ -21,6 +21,7 @@ services:
            - '@form.factory'
            - '@Ergonode\BatchAction\Application\Provider\BatchActionFormProvider'
            - '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
+           - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
     Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:

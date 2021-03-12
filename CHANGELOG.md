@@ -1,6 +1,8 @@
 
 - refactor [#1272](https://github.com/ergonode/backend/issues/1272) Refactor completeness calculation process (rprzedzik)
+- bugfix [#1268](https://github.com/ergonode/backend/issues/1268) Export Shopware6 Configuration Segment list  (wfajczyk)
 - feature [#1267](https://github.com/ergonode/backend/issues/1267) Add aggregate cache pool (rprzedzik)
+- bugfix [#1273](https://github.com/ergonode/backend/issues/1273) Validation of Batch Action Type(wfajczyk)
 
 ## CHANGELOG FOR 1.0.0-rc.1
 - feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
