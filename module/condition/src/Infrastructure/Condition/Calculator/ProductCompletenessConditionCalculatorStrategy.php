@@ -57,12 +57,12 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
         $result = true;
 
         foreach ($this->query->getActive() as $code) {
-            $calculation = $this->completenessQuery->getCompleteness($object->getId(), $code);
+            $calculation = $this->completenessQuery->hasCompleteness($object->getId(), $code);
             if ($configuration->getCompleteness() === ProductCompletenessCondition::COMPLETE) {
-                if ($calculation->getPercent() < 100) {
+                if (!$calculation) {
                     $result = false;
                 }
-            } elseif ($calculation->getPercent() === 100) {
+            } elseif ($calculation) {
                 $result = false;
             }
         }

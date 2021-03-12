@@ -3,4 +3,3 @@ framework:
         routing:
             Ergonode\BatchAction\Domain\Command\StartBatchActionCommand: '%ergonode.batch_action.messenger_transport_name%'
             Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand: '%ergonode.batch_action.messenger_transport_name%'
-

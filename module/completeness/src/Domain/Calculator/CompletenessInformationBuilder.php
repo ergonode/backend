@@ -14,7 +14,7 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement;
 
-class CompletenessCalculator
+class CompletenessInformationBuilder
 {
     private AttributeTemplateElementCompletenessCalculator $calculator;
 
@@ -26,7 +26,7 @@ class CompletenessCalculator
     /**
      * @return CompletenessCalculatorLine[]
      */
-    public function calculate(AbstractProduct $product, Template $template, Language $language): array
+    public function build(AbstractProduct $product, Template $template, Language $language): array
     {
         $result = [];
         foreach ($template->getElements() as $element) {

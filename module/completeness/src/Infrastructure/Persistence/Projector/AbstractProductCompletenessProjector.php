@@ -6,15 +6,13 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Completeness\Infrastructure\Persistence\Manager;
+namespace Ergonode\Completeness\Infrastructure\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
-class CompletenessManager
+abstract class AbstractProductCompletenessProjector
 {
-    private const TABLE = 'product_completeness';
-
     private Connection $connection;
 
     public function __construct(Connection $connection)
@@ -22,12 +20,12 @@ class CompletenessManager
         $this->connection = $connection;
     }
 
-    public function update(ProductId $id, array $completeness): void
+    protected function update(ProductId $id): void
     {
         $this->connection->update(
-            self::TABLE,
+            'product_completeness',
             [
-                'completeness' => json_encode($completeness, JSON_THROW_ON_ERROR),
+                'calculated_at' => null,
             ],
             [
                 'product_id' => $id->getValue(),

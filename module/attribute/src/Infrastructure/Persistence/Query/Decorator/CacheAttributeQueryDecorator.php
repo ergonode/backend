@@ -20,6 +20,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 class CacheAttributeQueryDecorator implements AttributeQueryInterface
 {
@@ -63,6 +64,11 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function findAttributeIdByCode(AttributeCode $code): ?AttributeId
     {
         return $this->attributeQuery->findAttributeIdByCode($code);
+    }
+
+    public function findAttributeScope(AttributeId $id): ?AttributeScope
+    {
+        return $this->attributeQuery->findAttributeScope($id);
     }
 
     /**
