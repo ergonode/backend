@@ -23,4 +23,12 @@ services:
     Ergonode\EventSourcing\Infrastructure\Manager\SnapshotBuilderDecorator:
       decorates: Ergonode\EventSourcing\Infrastructure\Manager\AggregateBuilderInterface
       arguments:
-         $builder: '@Ergonode\EventSourcing\Infrastructure\Manager\SnapshotBuilderDecorator.inner'
+        $builder: '@Ergonode\EventSourcing\Infrastructure\Manager\SnapshotBuilderDecorator.inner'
+
+    Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface: '@Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager'
+
+    Ergonode\EventSourcing\Infrastructure\Manager\Decorator\EventStoreManagerCacheDecorator:
+      decorates: Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface
+      arguments:
+        $adapter: '@aggregate.cache'
+        $manager: '@Ergonode\EventSourcing\Infrastructure\Manager\Decorator\EventStoreManagerCacheDecorator.inner'

@@ -13,15 +13,15 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Webmozart\Assert\Assert;
 
 class EventStoreRoleRepository implements RoleRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }

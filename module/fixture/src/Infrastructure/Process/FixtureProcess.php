@@ -18,7 +18,7 @@ use Ergonode\Fixture\Exception\FixtureException;
 use Ergonode\Fixture\Infrastructure\Loader\FixtureLoader;
 use Faker\Generator;
 use Nelmio\Alice\Loader\NativeLoader;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 
 class FixtureProcess
 {
@@ -28,7 +28,7 @@ class FixtureProcess
 
     private CommandBusInterface $commandBus;
 
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
     private Connection $connection;
 
@@ -36,7 +36,7 @@ class FixtureProcess
         FixtureLoader $loader,
         Generator $generator,
         CommandBusInterface $commandBus,
-        EventStoreManager $manager,
+        EventStoreManagerInterface $manager,
         Connection $connection
     ) {
         $this->loader = $loader;
