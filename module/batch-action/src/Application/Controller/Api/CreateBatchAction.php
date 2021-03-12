@@ -89,7 +89,6 @@ class CreateBatchAction
 
                 /** @var BatchActionFormModel $data */
                 $data = $form->getData();
-                $filter = null;
                 $filter = 'all' === $data->filter ?
                     new BatchActionFilterDisabled() :
                     $this->factory->create($data->filter);
