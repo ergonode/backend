@@ -15,15 +15,15 @@ use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\Core\Domain\Event\UnitDeletedEvent;
 use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Webmozart\Assert\Assert;
 
 class EventStoreUnitRepository implements UnitRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }

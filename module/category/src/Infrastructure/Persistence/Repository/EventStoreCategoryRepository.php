@@ -12,15 +12,15 @@ namespace Ergonode\Category\Infrastructure\Persistence\Repository;
 use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Webmozart\Assert\Assert;
 
 class EventStoreCategoryRepository implements CategoryRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }

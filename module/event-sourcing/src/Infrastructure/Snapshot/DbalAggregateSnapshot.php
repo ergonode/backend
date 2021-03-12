@@ -45,7 +45,7 @@ class DbalAggregateSnapshot implements AggregateSnapshotInterface
     public function load(AggregateId $id, string $class): ?AbstractAggregateRoot
     {
         $qb = $this->connection->createQueryBuilder();
-        $record = $qb->select('*')
+        $record = $qb->select('sequence, payload')
             ->from(self::TABLE)
             ->where($qb->expr()->eq('aggregate_id', ':aggregateId'))
             ->setParameter(':aggregateId', $id->getValue())
