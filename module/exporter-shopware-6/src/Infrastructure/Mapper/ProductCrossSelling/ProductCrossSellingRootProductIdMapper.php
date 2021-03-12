@@ -15,6 +15,7 @@ use Ergonode\ExporterShopware6\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Mapper\Shopware6ExporterProductNoFoundException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\ProductCrossSellingMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractProductCrossSelling;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 
@@ -22,9 +23,14 @@ class ProductCrossSellingRootProductIdMapper implements ProductCrossSellingMappe
 {
     private ProductRepositoryInterface $shopware6ProductRepository;
 
-    public function __construct(ProductRepositoryInterface $shopware6ProductRepository)
-    {
+    private ProductQueryInterface $productQuery;
+
+    public function __construct(
+        ProductRepositoryInterface $shopware6ProductRepository,
+        ProductQueryInterface $productQuery
+    ) {
         $this->shopware6ProductRepository = $shopware6ProductRepository;
+        $this->productQuery = $productQuery;
     }
 
     /**
@@ -40,7 +46,10 @@ class ProductCrossSellingRootProductIdMapper implements ProductCrossSellingMappe
     ): AbstractProductCrossSelling {
         $shopwareId = $this->shopware6ProductRepository->load($channel->getId(), $collectionElement->getProductId());
         if (null === $shopwareId) {
-            throw new Shopware6ExporterProductNoFoundException($collectionElement->getProductId());
+            throw new Shopware6ExporterProductNoFoundException(
+                $collectionElement->getProductId(),
+                $this->productQuery->findSkuByProductId($collectionElement->getProductId())
+            );
         }
 
         $shopware6ProductCrossSelling->setProductId($shopwareId);
