@@ -57,7 +57,7 @@ class DbalDomainEventStorage implements DomainEventStorageInterface
         $qb = $this->connection->createQueryBuilder();
 
         $records = $qb
-            ->select('es.id, es.aggregate_id, es.sequence, es.payload, es.recorded_by, es.recorded_at')
+            ->select('es.aggregate_id, es.sequence, es.payload, es.recorded_at')
             ->addSelect('ese.event_class as event')
             ->from($table, 'es')
             ->join('es', 'event_store_event', 'ese', 'es.event_id = ese.id')
