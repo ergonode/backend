@@ -20,7 +20,7 @@ use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventProjectorInterface;
 
-class EventStoreManager
+class EventStoreManager implements EventStoreManagerInterface
 {
     private AggregateBuilderInterface $builder;
 

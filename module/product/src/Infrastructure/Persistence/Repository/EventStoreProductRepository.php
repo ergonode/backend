@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Product\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\DBALException;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
@@ -19,9 +19,9 @@ use Webmozart\Assert\Assert;
 
 class EventStoreProductRepository implements ProductRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }

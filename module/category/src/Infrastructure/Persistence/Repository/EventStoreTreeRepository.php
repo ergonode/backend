@@ -13,15 +13,15 @@ use Ergonode\Category\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeDeletedEvent;
 use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
 
 class EventStoreTreeRepository implements TreeRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }

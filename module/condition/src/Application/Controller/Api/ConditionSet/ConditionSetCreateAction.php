@@ -82,6 +82,7 @@ class ConditionSetCreateAction
         $data = $request->request->all();
 
         $violations = $this->validator->validate($data, $this->conditionSetValidatorBuilder->build($data));
+
         if (0 === $violations->count()) {
             $data['id'] = ConditionSetId::generate()->getValue();
 

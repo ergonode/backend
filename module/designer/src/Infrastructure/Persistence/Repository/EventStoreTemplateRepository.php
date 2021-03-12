@@ -13,15 +13,15 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Webmozart\Assert\Assert;
 
 class EventStoreTemplateRepository implements TemplateRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }
