@@ -45,7 +45,7 @@ class DbalDataSet extends AbstractDbalDataSet
             $queryBuilder->orderBy($field, $order);
             if (isset($columns['id'])) {
                 $queryBuilder->addOrderBy('id', $order);
-            } // Additional 'order By' added to avoid postgres problem with sorting of equal values
+            } // Additional 'order By' added to avoid inconsistency with sorting equal values
         }
         $result = $queryBuilder->execute()->fetchAll();
 

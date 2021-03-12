@@ -75,7 +75,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
             $qb->orderBy(sprintf('"%s"', $field), $order);
             if (isset($columns['id'])) {
                 $qb->addOrderBy('id', $order);
-            } // Additional 'order By' added to avoid postgres problem with sorting of equal values
+            } // Additional 'order By' added to avoid inconsistency with sorting equal values
         }
 
         $result = [];
