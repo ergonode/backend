@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Application\Transport;
 
@@ -13,6 +13,7 @@ use Symfony\Component\Messenger\Envelope;
 use Doctrine\DBAL\Connection;
 use Ergonode\Completeness\Domain\Command\ProductCompletenessCalculateCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Doctrine\DBAL\Types\Types;
 
 class CompletenessTransport implements TransportInterface
 {
@@ -49,10 +50,13 @@ class CompletenessTransport implements TransportInterface
         $this->connection->update(
             'product_completeness',
             [
-                'calculated_at' => (new \DateTime())->format('Y-m-d H:i:sO'),
+                'calculated_at' => new \DateTime(),
             ],
             [
                 'product_id' => $message->getProductId()->getValue(),
+            ],
+            [
+                'calculated_at' => Types::DATETIMETZ_MUTABLE,
             ]
         );
     }

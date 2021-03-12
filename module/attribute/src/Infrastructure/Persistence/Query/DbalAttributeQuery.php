@@ -137,7 +137,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->fetch();
 
         if ($result) {
-            return new AttributeType($result['scope']);
+            return new AttributeScope($result['scope']);
         }
 
         return null;
