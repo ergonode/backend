@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Ergonode\Workflow\Infrastructure\Persistence\Repository;
 
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
@@ -19,9 +19,9 @@ use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 class EventStoreWorkflowRepository implements WorkflowRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }

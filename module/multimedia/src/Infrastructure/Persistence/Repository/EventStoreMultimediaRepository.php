@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Multimedia\Infrastructure\Persistence\Repository;
 
 use Doctrine\DBAL\DBALException;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
@@ -19,9 +19,9 @@ use Webmozart\Assert\Assert;
 
 class EventStoreMultimediaRepository implements MultimediaRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }
