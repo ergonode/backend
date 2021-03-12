@@ -28,6 +28,17 @@ class BatchActionProcessorProvider
         $this->strategies = $strategies;
     }
 
+    public function supports(BatchActionType $type): bool
+    {
+        foreach ($this->strategies as $strategy) {
+            if ($strategy->supports($type)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function provide(BatchActionType $type): BatchActionProcessorInterface
     {
         foreach ($this->strategies as $strategy) {

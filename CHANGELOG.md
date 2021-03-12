@@ -1,5 +1,7 @@
 
+- bugfix [#1268](https://github.com/ergonode/backend/issues/1268) Export Shopware6 Configuration Segment list  (wfajczyk)
 - feature [#1267](https://github.com/ergonode/backend/issues/1267) Add aggregate cache pool (rprzedzik)
+- bugfix [#1273](https://github.com/ergonode/backend/issues/1273) Validation of Batch Action Type(wfajczyk)
 - bugfix [#1263](https://github.com/ergonode/backend/issues/1263) Fixing duplicated entries in grid pagination (wiewiurdp)
 
 ## CHANGELOG FOR 1.0.0-rc.1
