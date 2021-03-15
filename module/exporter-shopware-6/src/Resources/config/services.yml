@@ -82,10 +82,10 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigOptionsMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigUnitMapper'
 
-    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CategoryBuilder:
+    Ergonode\ExporterShopware6\Infrastructure\Builder\CategoryBuilder:
         arguments:
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\Shopware6CategoryNameMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\Shopware6CategoryParentMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\CategoryNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\CategoryParentMapper'
 
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder:
         arguments:
