@@ -87,7 +87,7 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\CategoryNameMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Category\CategoryParentMapper'
 
-    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder:
+    Ergonode\ExporterShopware6\Infrastructure\Builder\ProductBuilder:
         arguments:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductSkuMapper'
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\ProductNameMapper'
