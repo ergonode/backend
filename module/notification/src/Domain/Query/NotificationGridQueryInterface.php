@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -14,5 +14,5 @@ use Doctrine\DBAL\Query\QueryBuilder;
 
 interface NotificationGridQueryInterface
 {
-    public function getDataSet(UserId $id, Language $language): QueryBuilder;
+    public function getGridQuery(UserId $id, Language $language): QueryBuilder;
 }

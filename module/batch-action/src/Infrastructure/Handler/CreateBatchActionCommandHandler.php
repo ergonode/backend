@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -11,8 +11,8 @@ namespace Ergonode\BatchAction\Infrastructure\Handler;
 use Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface;
 use Ergonode\BatchAction\Domain\Entity\BatchAction;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
-use Ergonode\BatchAction\Domain\Command\ProcessBatchActionEntryCommand;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
+use Ergonode\BatchAction\Domain\Command\StartBatchActionCommand;
 
 class CreateBatchActionCommandHandler
 {
@@ -35,10 +35,7 @@ class CreateBatchActionCommandHandler
         $batchAction = new BatchAction($id, $type);
         $this->repository->save($batchAction);
 
-        foreach ($command->getIds() as $resourceId) {
-            $this->repository->addEntry($id, $resourceId);
-            $entryCommand = new ProcessBatchActionEntryCommand($id, $type, $resourceId);
-            $this->commandBus->dispatch($entryCommand, true);
-        }
+        $entryCommand = new StartBatchActionCommand($id, $command->getFilter(), $command->getPayload());
+        $this->commandBus->dispatch($entryCommand, true);
     }
 }

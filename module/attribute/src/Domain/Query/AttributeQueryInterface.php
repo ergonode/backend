@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -19,6 +19,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 interface AttributeQueryInterface
 {
@@ -32,6 +33,8 @@ interface AttributeQueryInterface
 
     public function findAttributeType(AttributeId $id): ?AttributeType;
 
+    public function findAttributeScope(AttributeId $id): ?AttributeScope;
+
     /**
      * @return array|null
      */
@@ -41,6 +44,8 @@ interface AttributeQueryInterface
      * @return string[]
      */
     public function getAllAttributeCodes(): array;
+
+
 
     /**
      * @param array $types

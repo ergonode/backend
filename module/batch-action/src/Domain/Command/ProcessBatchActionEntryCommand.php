@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -21,11 +21,24 @@ class ProcessBatchActionEntryCommand implements DomainCommandInterface
 
     private AggregateId $resourceId;
 
-    public function __construct(BatchActionId $id, BatchActionType $type, AggregateId $resourceId)
-    {
+    /**
+     * @var mixed
+     */
+    private $payload;
+
+    /**
+     * @param mixed $payload
+     */
+    public function __construct(
+        BatchActionId $id,
+        BatchActionType $type,
+        AggregateId $resourceId,
+        $payload = null
+    ) {
         $this->id = $id;
         $this->type = $type;
         $this->resourceId = $resourceId;
+        $this->payload = $payload;
     }
 
     public function getId(): BatchActionId
@@ -41,5 +54,13 @@ class ProcessBatchActionEntryCommand implements DomainCommandInterface
     public function getResourceId(): AggregateId
     {
         return $this->resourceId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayload()
+    {
+        return $this->payload;
     }
 }

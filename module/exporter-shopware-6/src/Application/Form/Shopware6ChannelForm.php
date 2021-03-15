@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -66,8 +66,8 @@ class Shopware6ChannelForm extends AbstractType
         $numericAttributeDictionary = $this->attributeQuery->getDictionary([NumericAttribute::TYPE]);
         $galleryAttributeDictionary = $this->attributeQuery->getDictionary([GalleryAttribute::TYPE]);
         $languages = $this->languageQuery->getDictionaryActive();
-        $categoryTrees = $this->categoryTreeQuery->getDictionary(new Language('en_GB'));
-        $segmentDictionary = $this->segmentQuery->getDictionary();
+        $categoryTrees = array_merge(['' => ''], $this->categoryTreeQuery->getDictionary(new Language('en_GB')));
+        $segmentDictionary = array_merge(['' => ''], $this->segmentQuery->getDictionary());
         $productCollectionDictionary = $this->productCollectionQuery->getDictionary();
 
         $builder

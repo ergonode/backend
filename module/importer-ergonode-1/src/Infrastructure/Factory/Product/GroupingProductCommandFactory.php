@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -25,7 +25,7 @@ class GroupingProductCommandFactory implements ProductCommandFactoryInterface
     public function create(ImportLineId $id, Import $import, ProductModel $model): DomainCommandInterface
     {
         $children = [];
-        if ($model->hasParameter('_children')) {
+        if ($model->hasParameter('_children') && $model->getParameter('_children')) {
             $children = explode(',', $model->getParameter('_children'));
         }
 

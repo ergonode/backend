@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -250,6 +250,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
                 new ProductValueChangedEvent(
                     $this->id,
                     $attributeCode,
+                    $this->attributes[$attributeCode->getValue()],
                     $value
                 )
             );

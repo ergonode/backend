@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -33,7 +33,7 @@ abstract class AbstractErgonodeReader
             $this->records = $reader->getRecords();
             $this->records->rewind();
         } catch (\Exception $exception) {
-            throw new ReaderFileProcessException($filepath);
+            throw new ReaderFileProcessException($filepath, $file);
         }
     }
 }

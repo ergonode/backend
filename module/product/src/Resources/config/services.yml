@@ -15,7 +15,7 @@ services:
     Ergonode\Product\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
-        
+
     Ergonode\Product\Infrastructure\Persistence\:
         resource: '../../Infrastructure/Persistence/*'
         exclude: '../../Infrastructure/Persistence/{DataSet}'
@@ -42,6 +42,9 @@ services:
 
     Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Infrastructure\Persistence\Repository\EventStoreProductRepository'
 
+    Ergonode\Product\Application\Form\Product\BatchAction\:
+        resource: '../../Application/Form/Product/BatchAction/*'
+
     Ergonode\Product\Domain\Query\ProductDashboardQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalProductDashboardQuery'
     Ergonode\Product\Domain\Query\AttributeValueQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\DbalAttributeValueQuery'
     Ergonode\Product\Domain\Query\GetProductQueryInterface: '@Ergonode\Product\Infrastructure\Persistence\Query\GetProductQuery'
@@ -57,3 +60,7 @@ services:
         decorates: Ergonode\Product\Domain\Query\ProductQueryInterface
         arguments:
             - '@Ergonode\Product\Infrastructure\Persistence\Query\Decorator\CacheProductQueryDecorator.inner'
+
+    Ergonode\Product\Infrastructure\Provider\ProductStrategyProvider:
+        arguments:
+            $productStrategies: !tagged_iterator 'component.product.product_factory_strategy'

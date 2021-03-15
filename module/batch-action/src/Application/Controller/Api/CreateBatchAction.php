@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -8,19 +8,21 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Controller\Api;
 
+use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
+use Ergonode\BatchAction\Application\Provider\BatchActionFormProvider;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
+use Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Ergonode\BatchAction\Application\Form\BatchActionForm;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\BatchAction\Domain\Command\CreateBatchActionCommand;
 use Ergonode\BatchAction\Domain\Entity\BatchActionId;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
-use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
@@ -32,13 +34,25 @@ class CreateBatchAction
 {
     private FormFactoryInterface $formFactory;
 
+    private BatchActionFormProvider $formProvider;
+
+    private BatchActionFilterFactory $factory;
+
+    private BatchActionProcessorProvider $processorProvider;
+
     private CommandBusInterface $commandBus;
 
     public function __construct(
         FormFactoryInterface $formFactory,
+        BatchActionFormProvider $formProvider,
+        BatchActionFilterFactory $factory,
+        BatchActionProcessorProvider $processorProvider,
         CommandBusInterface $commandBus
     ) {
         $this->formFactory = $formFactory;
+        $this->formProvider = $formProvider;
+        $this->factory = $factory;
+        $this->processorProvider = $processorProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -71,24 +85,30 @@ class CreateBatchAction
      */
     public function __invoke(Request $request): Response
     {
+        $type = $request->request->get('type', 'default');
         try {
-            $form = $this->formFactory->create(BatchActionForm::class);
+            $form = $this->formFactory->create($this->formProvider->provide($type));
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
                 /** @var BatchActionFormModel $data */
                 $data = $form->getData();
 
-                $ids = [];
-                foreach ($data->ids as $id) {
-                    $ids[] = new AggregateId($id);
+                $actionType = new BatchActionType($data->type);
+
+                if (!$this->processorProvider->supports($actionType)) {
+                    throw new BadRequestHttpException("Unsupported type {$data->type}");
                 }
+
+                $filter = 'all' === $data->filter ?
+                    new BatchActionFilterDisabled() :
+                    $this->factory->create($data->filter);
 
                 $command = new CreateBatchActionCommand(
                     BatchActionId::generate(),
-                    new BatchActionType($data->type),
-                    $ids
+                    $actionType,
+                    $filter,
+                    $data->payload ?: null
                 );
 
                 $this->commandBus->dispatch($command);

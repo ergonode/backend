@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-1.0.0--beta.9-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-1.0.0--rc.1-4c9aff.svg" alt="Version">
   </a>
   <a href="https://join.slack.com/t/ergonode-community/shared_invite/zt-ibppxnyc-4Ykac1Gh64Qkk5SWy3sg3w">
      <img src="https://img.shields.io/badge/chat-on%20slack-e51670.svg" alt="Chat">
@@ -92,7 +92,7 @@ The project is in early stage and we have got a lot of milestones to develop.  W
 If you have any questions or ideas feel free to join our [slack][slack].
 
 ## Is it production ready?
-We're releasing 1.0.0-beta so there are some minor bugs and improvements that need to be eliminated before the stable version 1.0. Follow our SM channels and take a look at Ergonode Roadmap to see what's coming in the future. 
+We're releasing 1.0.0-rc so there are some minor bugs and improvements that need to be eliminated before the stable version 1.0. Follow our SM channels and take a look at Ergonode Roadmap to see what's coming in the future. 
 
 ## Roadmap
 

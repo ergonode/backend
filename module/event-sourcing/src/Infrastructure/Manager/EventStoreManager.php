@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -20,7 +20,7 @@ use Ergonode\SharedKernel\Domain\Bus\EventBusInterface;
 use Psr\Log\LoggerInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventProjectorInterface;
 
-class EventStoreManager
+class EventStoreManager implements EventStoreManagerInterface
 {
     private AggregateBuilderInterface $builder;
 

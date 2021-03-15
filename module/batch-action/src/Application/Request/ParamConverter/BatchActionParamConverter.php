@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Request\ParamConverter;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +42,7 @@ class BatchActionParamConverter implements ParamConverterInterface
             throw new BadRequestHttpException(sprintf('Request parameter "%s" is missing', $parameter));
         }
 
-        if (!AttributeId::isValid($parameter)) {
+        if (!BatchActionId::isValid($parameter)) {
             throw new BadRequestHttpException('Invalid batch action ID');
         }
 

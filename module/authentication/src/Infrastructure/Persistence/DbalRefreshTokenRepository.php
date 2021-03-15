@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -130,6 +130,26 @@ class DbalRefreshTokenRepository implements RefreshTokenRepositoryInterface
             [
                 'id' => $token->getId(),
             ]
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findInvalid(?\DateTimeInterface $dateTime = null): array
+    {
+        if (null === $dateTime) {
+            $dateTime = new \DateTime();
+        }
+        $sql = 'SELECT id, username, valid, refresh_token FROM '.self::TABLE.' WHERE valid < :dateTime';
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->bindValue('dateTime', $dateTime, Types::DATETIMETZ_MUTABLE);
+        $stmt->execute();
+
+        return array_map(
+            fn (array $data) => $this->mapRefreshToken($data),
+            $stmt->fetchAll(),
         );
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -52,7 +52,11 @@ class TranslatableColumnRenderer implements ColumnRendererInterface
         $parameters = $parameters ?: [];
 
         $domain = $column->getDomain();
+        $translatedParameters = [];
+        foreach ($parameters as $key => $parameter) {
+            $translatedParameters[$key] = $this->translator->trans($parameter, [], $domain);
+        }
 
-        return $this->translator->trans($row[$id], $parameters, $domain);
+        return $this->translator->trans($row[$id], $translatedParameters, $domain);
     }
 }

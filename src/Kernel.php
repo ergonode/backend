@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -64,6 +64,9 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
         $loader
             ->load($confDir.'/{services}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, 'glob');
+
+        // test src services
+        $loader->load($this->getProjectDir().'/src/Resources/{services}'.self::CONFIG_EXTS, 'glob');
     }
 
     /**
@@ -91,5 +94,8 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
+
+        // test src routes
+        $routes->import($this->getProjectDir().'/src/Resources/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
 }

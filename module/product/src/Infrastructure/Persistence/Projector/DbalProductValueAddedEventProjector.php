@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -28,5 +28,6 @@ class DbalProductValueAddedEventProjector extends AbstractProductValueProjector
         if (StatusSystemAttribute::CODE !== $code) {
             $this->insertValue($productId, $attributeId, $event->getValue());
         }
+        $this->updateAudit($event->getAggregateId());
     }
 }

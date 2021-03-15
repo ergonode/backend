@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -82,6 +82,7 @@ class ConditionSetCreateAction
         $data = $request->request->all();
 
         $violations = $this->validator->validate($data, $this->conditionSetValidatorBuilder->build($data));
+
         if (0 === $violations->count()) {
             $data['id'] = ConditionSetId::generate()->getValue();
 

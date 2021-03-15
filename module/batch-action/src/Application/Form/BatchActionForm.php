@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -8,15 +8,22 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Form;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
+use Ergonode\BatchAction\Application\Form\Type\BatchActionFilterType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BatchActionForm extends AbstractType
+class BatchActionForm extends AbstractType implements BatchActionFormInterface
 {
+    public function supported(string $type): bool
+    {
+        return $type === 'default';
+    }
+
     /**
      * @param array $options
      */
@@ -27,13 +34,33 @@ class BatchActionForm extends AbstractType
                 'type',
                 TextType::class
             )
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $data = $event->getData();
+                $form = $event->getForm();
+                if (is_string($data['filter'] ?? null)) {
+                    $form->add(
+                        'filter',
+                        TextType::class,
+                    );
+                } else {
+                    $form->add(
+                        'filter',
+                        BatchActionFilterType::class,
+                    );
+                }
+            })
             ->add(
-                'ids',
-                CollectionType::class,
+                'filter',
+                BatchActionFilterType::class,
                 [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => TextType::class,
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'payload',
+                TextType::class,
+                [
+                    'required' => false,
                 ]
             );
     }

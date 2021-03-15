@@ -8,6 +8,11 @@ ergonode_product_relations_api:
     type: 'annotation'
     prefix: '/api/v1/{language}'
 
+ergonode_product_batch_action_api:
+    resource: '../../Application/Controller/Api/BatchAction/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
+
 ergonode_product_binding_api:
     resource: '../../Application/Controller/Api/Bindings/*'
     type: 'annotation'

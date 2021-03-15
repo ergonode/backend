@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -9,10 +9,11 @@ declare(strict_types=1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
+use Ergonode\Importer\Infrastructure\Exception\ImportException;
+use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
@@ -37,18 +38,22 @@ class GroupingProductImportAction
 
     private ImportProductAttributeBuilder $builder;
 
+    protected ProductFactoryInterface $productFactory;
+
     public function __construct(
         ProductQueryInterface $productQuery,
         ProductRepositoryInterface $productRepository,
         TemplateQueryInterface $templateQuery,
         CategoryQueryInterface $categoryQuery,
-        ImportProductAttributeBuilder $builder
+        ImportProductAttributeBuilder $builder,
+        ProductFactoryInterface $productFactory
     ) {
         $this->productQuery = $productQuery;
         $this->productRepository = $productRepository;
         $this->templateQuery = $templateQuery;
         $this->categoryQuery = $categoryQuery;
         $this->builder = $builder;
+        $this->productFactory = $productFactory;
     }
 
     /**
@@ -68,7 +73,9 @@ class GroupingProductImportAction
         array $attributes = []
     ): GroupingProduct {
         $templateId = $this->templateQuery->findTemplateIdByCode($template);
-        Assert::notNull($templateId);
+        if (null === $templateId) {
+            throw new ImportException('Missing {template} template.', ['{template}' => $template]);
+        }
         $productId = $this->productQuery->findProductIdBySku($sku);
         $categories = $this->getCategories($categories);
         $attributes = $this->builder->build($attributes);
@@ -76,7 +83,8 @@ class GroupingProductImportAction
 
         if (!$productId) {
             $productId = ProductId::generate();
-            $product = new GroupingProduct(
+            $product = $this->productFactory->create(
+                GroupingProduct::TYPE,
                 $productId,
                 $sku,
                 $templateId,
@@ -85,20 +93,14 @@ class GroupingProductImportAction
             );
         } else {
             $product = $this->productRepository->load($productId);
+            if (!$product instanceof GroupingProduct) {
+                throw new ImportException('Product {sku} is not a grouping product', ['{sku}' => $sku]);
+            }
+            $product->changeTemplate($templateId);
+            $product->changeCategories($categories);
+            $product->changeAttributes($attributes);
+            $product->changeChildren($children);
         }
-        if (!$product instanceof GroupingProduct) {
-            throw new \LogicException(
-                sprintf(
-                    'Expected an instance of %s. %s received.',
-                    GroupingProduct::class,
-                    get_debug_type($product)
-                )
-            );
-        }
-        $product->changeTemplate($templateId);
-        $product->changeCategories($categories);
-        $product->changeAttributes($attributes);
-        $product->changeChildren($children);
 
         $this->productRepository->save($product);
 
@@ -141,7 +143,9 @@ class GroupingProductImportAction
         $result = [];
         foreach ($categories as $category) {
             $categoryId = $this->categoryQuery->findIdByCode($category);
-            Assert::notNull($categoryId);
+            if (null === $categoryId) {
+                throw new ImportException('Missing {category} category', ['{category}' => $category]);
+            }
             $result[] = $categoryId;
         }
 

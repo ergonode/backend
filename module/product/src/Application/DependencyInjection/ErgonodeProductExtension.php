@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Product\Application\DependencyInjection;
 
+use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeColumnStrategyStrategyCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataSetQueryBuilderCompilerPass;
 use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
+use Ergonode\Product\Infrastructure\Strategy\ProductFactoryStrategyInterface;
 use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -68,6 +70,14 @@ class ErgonodeProductExtension extends Extension implements PrependExtensionInte
         $container
             ->registerForAutoconfiguration(UpdateProductCommandFactoryInterface::class)
             ->addTag(ProductUpdateCommandFactoryProviderCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ProductFactoryStrategyInterface::class)
+            ->addTag('component.product.product_factory_strategy');
+
+        $container
+            ->registerForAutoconfiguration(BatchActionFilterIdsInterface::class)
+            ->addTag('batch_action.filter_provider.interface');
 
         $loader->load('services.yml');
     }

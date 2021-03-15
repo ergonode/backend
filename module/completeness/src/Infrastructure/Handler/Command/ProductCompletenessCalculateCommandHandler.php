@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -18,7 +18,7 @@ use Ergonode\Completeness\Infrastructure\Persistence\Manager\CompletenessManager
 
 class ProductCompletenessCalculateCommandHandler
 {
-    private CompletenessCalculator  $calculator;
+    private CompletenessCalculator $calculator;
 
     private LanguageQueryInterface $query;
 
@@ -53,24 +53,26 @@ class ProductCompletenessCalculateCommandHandler
         if ($product) {
             $template = $this->templateRepository->load($product->getTemplateId());
             if ($template) {
-                $this->manager->delete($productId);
                 $languages = $this->query->getActive();
+                $required = [];
+                $filled = [];
+                $completeness = [];
                 foreach ($languages as $language) {
-                    $result = $this->calculator->calculate($product, $template, $language);
-                    foreach ($result as $element) {
-                        $this->manager->add(
-                            $product->getId(),
-                            $template->getId(),
-                            $element->getAttributeId(),
-                            $language,
-                            $element->isRequired(),
-                            $element->isFilled()
-                        );
+                    $completeness[$language->getCode()] = 100;
+                    $required[$language->getCode()] = 0;
+                    $filled[$language->getCode()] = 0;
+                    foreach ($this->calculator->calculate($product, $template, $language) as $entry) {
+                        $required[$language->getCode()] += (int) $entry->isRequired();
+                        $filled[$language->getCode()] += (int) $entry->isFilled();
+                    }
+                    if ($required[$language->getCode()]) {
+                        $completeness[$language->getCode()] =
+                            $filled[$language->getCode()] / $required[$language->getCode()] * 100;
                     }
                 }
+
+                $this->manager->update($productId, $completeness);
             }
-        } else {
-            $this->manager->delete($productId);
         }
     }
 }

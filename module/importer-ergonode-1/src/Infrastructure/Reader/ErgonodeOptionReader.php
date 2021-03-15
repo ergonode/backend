@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -35,7 +35,7 @@ class ErgonodeOptionReader extends AbstractErgonodeReader
             }
 
             foreach ($record as $key => $value) {
-                if (!array_key_exists($key, self::KEYS)) {
+                if ('' !== $value && !array_key_exists($key, self::KEYS)) {
                     $item->addParameter($key, $value);
                 }
             }

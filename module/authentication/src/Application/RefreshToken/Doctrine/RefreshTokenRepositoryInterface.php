@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -16,4 +16,8 @@ interface RefreshTokenRepositoryInterface extends ObjectRepository
 {
     public function insert(RefreshToken $token): void;
     public function delete(RefreshToken $token): void;
+    /**
+     * @return RefreshToken[]
+     */
+    public function findInvalid(?\DateTimeInterface $dateTime = null): array;
 }

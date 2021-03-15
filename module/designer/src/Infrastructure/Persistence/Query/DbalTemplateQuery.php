@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -140,6 +140,34 @@ class DbalTemplateQuery implements TemplateQueryInterface
             ->setParameter(':multimediaId', $id->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findTemplateIdsByProductIds(array $productIds): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $productIdsValues = [];
+        foreach ($productIds as $productId) {
+            $productIdsValues[] = $productId->getValue();
+        }
+        $result = $qb->select('DISTINCT template_id')
+            ->where($qb->expr()->in('id', ':productsIds'))
+            ->setParameter(':productsIds', $productIdsValues, Connection::PARAM_STR_ARRAY)
+            ->from(self::PRODUCT_TABLE)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new TemplateId($item);
+        }
+
+        return $result;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -21,14 +21,8 @@ interface TemplateQueryInterface
      */
     public function getDictionary(Language $language): array;
 
-    /**
-     * @return array
-     */
     public function getAll(): array;
 
-    /**
-     * @return array
-     */
     public function findTemplateIdByAttributeId(AttributeId $attributeId): array;
 
     /**
@@ -38,14 +32,15 @@ interface TemplateQueryInterface
 
     public function findTemplateIdByCode(string $code): ?TemplateId;
 
-    /**
-     * @return array
-     */
     public function getMultimediaRelation(MultimediaId $id): array;
 
     /**
-     * @return array
+     * @param ProductId[] $productIds
+     *
+     * @return TemplateId[]
      */
+    public function findTemplateIdsByProductIds(array $productIds): array;
+
     public function autocomplete(
         string $search = null,
         int $limit = null,

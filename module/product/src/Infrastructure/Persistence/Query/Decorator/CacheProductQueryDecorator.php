@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -78,6 +78,14 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function getAllSkus(): array
     {
         return $this->query->getAllSkus();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOthersIds(array $productIds): array
+    {
+        return $this->query->getOthersIds($productIds);
     }
 
     /**

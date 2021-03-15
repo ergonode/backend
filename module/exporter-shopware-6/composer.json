@@ -13,7 +13,7 @@
   },
   "require": {
     "php": "^7.4",
-    "ergonode/channel": "^1.0.0-beta.9",
+    "ergonode/channel": "^1.0.0-rc.1",
     "guzzlehttp/guzzle": "^6.3"
   },
   "require-dev": {

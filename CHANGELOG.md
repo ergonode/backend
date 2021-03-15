@@ -1,16 +1,28 @@
 
+- refactor [#1271](https://github.com/ergonode/backend/issues/1271) Changed batch actions filtered endpoints to POST (piotrkreft)
+- refactor [#1272](https://github.com/ergonode/backend/issues/1272) Refactor completeness calculation process (rprzedzik)
+- bugfix [#1268](https://github.com/ergonode/backend/issues/1268) Export Shopware6 Configuration Segment list  (wfajczyk)
+- feature [#1267](https://github.com/ergonode/backend/issues/1267) Add aggregate cache pool (rprzedzik)
+- bugfix [#1273](https://github.com/ergonode/backend/issues/1273) Validation of Batch Action Type(wfajczyk)
+- bugfix [#1263](https://github.com/ergonode/backend/issues/1263) Fixing duplicated entries in grid pagination (wiewiurdp)
+
+## CHANGELOG FOR 1.0.0-rc.1
+- feature [#1156](https://github.com/ergonode/backend/issues/1156) Edit product attributes values batch action (wfajczyk) (wiewiurdp) (rprzedzik) (piotrkreft)
+- bugfix [#1254](https://github.com/ergonode/backend/issues/1254) Fixed misinterpreting numeric attribute code as int (piotrkreft)
+- bugfix [#1252](https://github.com/ergonode/backend/issues/1252) Fixed date formatting on grid (piotrkreft)
 - build [#1214](https://github.com/ergonode/backend/issues/1214) Fixed abandoned dependencies (piotrkreft)
 - bugfix [#1213](https://github.com/ergonode/backend/issues/1213) Removing used token (piotrkreft)
+- bugfix [#1234](https://github.com/ergonode/backend/issues/1234) Send notification error product/workflow (wfajczyk)
 - feature [#1208](https://github.com/ergonode/backend/issues/1208) Created custom ObjectManager for refresh token and decoupled from Doctrine ORM (piotrkreft)
 - ci [#1212](https://github.com/ergonode/backend/issues/1212) Split CI to test code separately (piotrkreft)
 - performance [#1211](https://github.com/ergonode/backend/issues/1211) Cached user authenticated on workers (piotrkreft)
+- feature [#1218](https://github.com/ergonode/backend/issues/1218) Refactoring of adding status to product  (wiewiurdp)
 - feature [#1174](https://github.com/ergonode/backend/issues/1174) Fixed all allowed Composer dependencies and enabled CI jobs to test against boundary conditions (piotrkreft)
 - bugfix [#1196](https://github.com/ergonode/backend/issues/1196) Decoupled EventSourcing from Core (piotrkreft)
 - refactor [#1199](https://github.com/ergonode/backend/issues/1199) JWT manager to handle stringable user identifier (piotrkreft)
 - bug [#1202](https://github.com/ergonode/backend/issues/1202) Wrong names of repositories (wiewiurdp)
 
 ## CHANGELOG FOR 1.0.0-beta.9
- 
 - feature [#1077](https://github.com/ergonode/backend/issues/1077) Change privileges in the system (wfajczyk)
 - feature [#1157](https://github.com/ergonode/backend/issues/1157) Action center progress bars (rprzedzik) (piotrkreft)
 - configuration [#1172](https://github.com/ergonode/backend/issues/1172) Allow Composer 2.0

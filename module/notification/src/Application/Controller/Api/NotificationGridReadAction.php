@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -119,7 +119,7 @@ class NotificationGridReadAction
         $user = $this->userProvider->provide();
         $language = $user->getLanguage();
         $grid = $this->gridBuilder->build($configuration, $language);
-        $dataSet = $this->factory->create($this->query->getDataSet($user->getId(), $language));
+        $dataSet = $this->factory->create($this->query->getGridQuery($user->getId(), $language));
         $data = $this->gridRenderer->render($grid, $configuration, $dataSet);
 
         return new SuccessResponse($data);

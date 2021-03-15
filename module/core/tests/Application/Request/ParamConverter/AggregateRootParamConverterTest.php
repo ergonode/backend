@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Core\Tests\Application\Request\ParamConverter;
 
 use Ergonode\Core\Application\Request\ParamConverter\AggregateRootParamConverter;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -34,9 +34,9 @@ class AggregateRootParamConverterTest extends TestCase
     private ParamConverter $configuration;
 
     /**
-     * @var EventStoreManager|MockObject
+     * @var EventStoreManagerInterface|MockObject
      */
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
     private AbstractAggregateRoot $classA;
 
@@ -46,7 +46,7 @@ class AggregateRootParamConverterTest extends TestCase
     {
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
-        $this->manager = $this->createMock(EventStoreManager::class);
+        $this->manager = $this->createMock(EventStoreManagerInterface::class);
         $this->classA = $this->getClassA();
         $this->classB = $this->getClassB();
     }

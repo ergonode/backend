@@ -8,6 +8,10 @@
 /vendor/
 ###< symfony/framework-bundle ###
 /import
+/src
+!/src/Kernel.php
+!/src/Resources/fixtures
+!/src/Resources/image
 /tmp
 .history
 .idea

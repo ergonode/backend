@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -12,8 +12,6 @@ use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Doctrine\DBAL\Connection;
-use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
-use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
@@ -21,7 +19,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessWidgetModel;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
 class CompletenessQuery implements CompletenessQueryInterface
 {
@@ -35,94 +32,63 @@ class CompletenessQuery implements CompletenessQueryInterface
 
     private LanguageQueryInterface $query;
 
-    private ProductQueryInterface $productQuery;
-
     public function __construct(
         Connection $connection,
         TranslatorInterface $translator,
         AttributeRepositoryInterface $repository,
-        LanguageQueryInterface $query,
-        ProductQueryInterface $productQuery
+        LanguageQueryInterface $query
     ) {
         $this->connection = $connection;
         $this->translator = $translator;
         $this->repository = $repository;
         $this->query = $query;
-        $this->productQuery = $productQuery;
     }
 
-    public function getCompleteness(ProductId $productId, Language $language): CompletenessReadModel
+    public function hasCompleteness(ProductId $productId, Language $language): bool
     {
         $qb = $this->connection->createQueryBuilder();
-        $records = $qb
-            ->select('*')
+        $count = $qb->select('count(*)')
             ->from(self::TABLE)
-            ->where(
-                $qb->expr()->andX(
-                    $qb->expr()->eq('product_id', ':productId'),
-                    $qb->expr()->eq('language', ':language')
-                )
-            )
+            ->where($qb->expr()->eq(sprintf('completeness->>\'%s\'', $language->getCode()), ':percent'))
+            ->andWhere($qb->expr()->eq('product_id', ':productId'))
+            ->setParameter(':percent', '100')
             ->setParameter(':productId', $productId->getValue())
-            ->setParameter(':language', $language->getCode())
             ->execute()
-            ->fetchAll();
+            ->fetch(\PDO::FETCH_COLUMN);
 
-        $result = new CompletenessReadModel($language);
-
-        foreach ($records as $record) {
-            $attributeId = new AttributeId($record['attribute_id']);
-            $element = new CompletenessElementReadModel(
-                $attributeId,
-                $this->getAttributeLabel($attributeId, $language),
-                $record['required'],
-                $record['filled'],
-            );
-
-            $result->addCompletenessElement($element);
+        if ($count) {
+            return true;
         }
 
-        return $result;
+        return false;
     }
 
     public function getCompletenessCount(Language $language): array
     {
-        $products = $this->productQuery->getCount();
         $result = [];
-        foreach ($this->query->getActive() as $active) {
-            $result[$active->getCode()] = new CompletenessWidgetModel(
-                $active->getCode(),
-                $this->translator->trans($active->getCode(), [], 'language', $language->getCode()),
-                0,
-            );
-        }
-
-        $sqba = $this->connection->createQueryBuilder();
-        $sqba->select('c.product_id, c.language')
-            ->addSelect('(CASE WHEN c.required <= c.filled THEN true ELSE false END) AS completed')
-            ->join('c', 'product', 'p', ' p.id = c.product_id')
-            ->from(self::TABLE, 'c');
-
-        $sqbb = $this->connection->createQueryBuilder()
-            ->select('product_id, language')
-            ->addSelect('(CASE WHEN count(product_id) = sum(completed::int) THEN true ELSE false END) AS completed')
-            ->from(sprintf('(%s)', $sqba->getSQL()), 't')
-            ->groupBy('product_id, language')
-            ->having('(CASE WHEN count(product_id) = sum(completed::int) THEN true ELSE false END) = true');
-
-        $records = $this->connection->createQueryBuilder()
-            ->select('count(*) as count, language')
-            ->from(sprintf('(%s)', $sqbb->getSQL()), 't')
-            ->groupBy('language')
+        $query = $this->connection->createQueryBuilder();
+        $all = $count = $query->select('count(*)')
+            ->from(self::TABLE)
             ->execute()
-            ->fetchAll();
+            ->fetch(\PDO::FETCH_COLUMN);
 
-        foreach ($records as $key => $record) {
-            $result[$record['language']] = new CompletenessWidgetModel(
-                $record['language'],
-                $this->translator->trans($records[$key]['language'], [], 'language', $language->getCode()),
-                round(( $record['count'] / $products * 100), 2),
-            );
+        foreach ($this->query->getActive() as $active) {
+            $code = $active->getCode();
+            $translation = $this->translator->trans($code, [], 'language', $language->getCode());
+
+            $query = $this->connection->createQueryBuilder();
+            $count = $query->select('count(*)')
+                ->from(self::TABLE)
+                ->where($query->expr()->eq(sprintf('completeness->>\'%s\'', $code), ':percent'))
+                ->setParameter(':percent', '100')
+                ->execute()
+                ->fetch(\PDO::FETCH_COLUMN);
+
+            $percent = 100;
+            if ($all) {
+                $percent = round($count / $all * 100, 2);
+            }
+            $result[] = new CompletenessWidgetModel($code, $translation, $percent);
         }
 
         return array_values($result);

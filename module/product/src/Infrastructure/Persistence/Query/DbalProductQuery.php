@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -129,6 +129,34 @@ class DbalProductQuery implements ProductQueryInterface
 
         return [];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOthersIds(array $productIds): array
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::PRODUCT_TABLE, 'p');
+
+        if ($productIds) {
+            $query->andWhere($query->expr()->notIn('p.id', ':productId'))
+                ->setParameter(':productId', $productIds, Connection::PARAM_STR_ARRAY);
+        }
+
+        $result = $query
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        //todo add where
+
+        if (false !== $result) {
+            return $result;
+        }
+
+        return [];
+    }
+
 
     /**
      * {@inheritDoc}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -21,6 +21,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\ExporterFile\Infrastructure\Builder\ExportProductBuilderInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Channel\Infrastructure\Exception\ExportException;
 
 class ExportProductMultiSelectAttributeBuilder implements ExportProductBuilderInterface
 {
@@ -61,8 +62,19 @@ class ExportProductMultiSelectAttributeBuilder implements ExportProductBuilderIn
             if ($product->hasAttribute($code)) {
                 $value = $product->getAttribute($code);
                 $attribute = $this->getAttribute($code);
-                $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
-                $result->set($code->getValue(), $this->findKey($calculatedValue, $code));
+                $calculatedValue = $this->calculator->calculate($attribute->getScope(), $value, $language);
+                if (null !== $calculatedValue) {
+                    if (!is_array($calculatedValue)) {
+                        throw new ExportException(
+                            sprintf(
+                                'Can\'t calculate value for attribute "%s" in product "%s"',
+                                $attributeCode,
+                                $product->getSku()->getValue()
+                            )
+                        );
+                    }
+                    $result->set($code->getValue(), $this->findKey($calculatedValue, $code));
+                }
             }
         }
     }

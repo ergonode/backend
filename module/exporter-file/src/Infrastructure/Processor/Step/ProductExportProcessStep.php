@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -42,17 +42,12 @@ class ProductExportProcessStep implements ExportStepProcessInterface
 
     public function export(ExportId $exportId, FileExportChannel $channel): void
     {
-        $products = [];
+        $lastExport = null;
         if (FileExportChannel::EXPORT_INCREMENTAL === $channel->getExportType()) {
             $lastExport = $this->exportQuery->findLastExport($channel->getId());
-            if ($lastExport) {
-                $products = $this->productQuery->getAllEditedIds($lastExport);
-            }
-        } else {
-            $products = $this->productQuery->getAllEditedIds();
         }
 
-        foreach ($products as $product) {
+        foreach ($this->productQuery->getAllEditedIds($lastExport) as $product) {
             $productId = new ProductId($product);
             $lineId = ExportLineId::generate();
             $command = new ProcessProductCommand($lineId, $exportId, $productId);

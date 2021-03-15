@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -73,14 +73,16 @@ class ExportProductSimpleAttributeBuilder implements ExportProductBuilderInterfa
             if ($product->hasAttribute($code)) {
                 $value = $product->getAttribute($code);
                 $attribute = $this->getAttribute($code);
-                $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
-                if ($attribute instanceof AbstractOptionAttribute && $calculatedValue) {
-                    $calculatedValue = $this->resolveOptionKey($calculatedValue, $attribute->getCode());
+                $calculatedValue = $this->calculator->calculate($attribute->getScope(), $value, $language);
+                if (null !== $calculatedValue) {
+                    if ($attribute instanceof AbstractOptionAttribute && $calculatedValue) {
+                        $calculatedValue = $this->resolveOptionKey($calculatedValue, $attribute->getCode());
+                    }
+                    if (is_array($calculatedValue)) {
+                        $calculatedValue = implode(',', $calculatedValue);
+                    }
+                    $result->set($code->getValue(), $calculatedValue);
                 }
-                if (is_array($calculatedValue)) {
-                    $calculatedValue = implode(',', $calculatedValue);
-                }
-                $result->set($code->getValue(), $calculatedValue);
             }
         }
     }

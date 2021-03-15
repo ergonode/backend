@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -43,6 +43,13 @@ interface ProductQueryInterface
      * @return array
      */
     public function getDictionary(): array;
+
+    /**
+     * @param ProductId[] $productIds
+     *
+     * @return string[]
+     */
+    public function getOthersIds(array $productIds): array;
 
     /**
      * @return array

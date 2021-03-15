@@ -18,7 +18,7 @@ services:
 
     Ergonode\Grid\Request\:
         resource: '../../Request/*'
-        
+
     Ergonode\Grid\Factory\:
         resource: '../../Factory/*'
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -18,7 +18,13 @@ interface BatchActionProcessorInterface
     public function supports(BatchActionType $type): bool;
 
     /**
+     * @param mixed $payload
+     *
      * @return BatchActionMessage[]
      */
-    public function process(BatchActionId $id, AggregateId $resourceId): array;
+    public function process(
+        BatchActionId $id,
+        AggregateId $resourceId,
+        $payload = null
+    ): array;
 }

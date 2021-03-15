@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -10,12 +10,12 @@ declare(strict_types=1);
 namespace Ergonode\ProductCollection\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\DateColumn;
+use Ergonode\Grid\Column\DateTimeColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\DateFilter;
+use Ergonode\Grid\Filter\DateTimeFilter;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\Filter\TextFilter;
@@ -49,8 +49,8 @@ class ProductCollectionGridBuilder implements GridBuilderInterface
             ->addColumn('name', new TextColumn('name', 'Name', new TextFilter()))
             ->addColumn('description', new TextColumn('description', 'Description', new TextFilter()))
             ->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter()))
-            ->addColumn('created_at', new DateColumn('created_at', 'Created at', new DateFilter()))
-            ->addColumn('edited_at', new DateColumn('edited_at', 'Edited at', new DateFilter()))
+            ->addColumn('created_at', new DateTimeColumn('created_at', 'Created at', new DateTimeFilter()))
+            ->addColumn('edited_at', new DateTimeColumn('edited_at', 'Edited at', new DateTimeFilter()))
             ->addColumn('_links', new LinkColumn('hal', [
                 'get' => [
                     'route' => 'ergonode_product_collection_read',

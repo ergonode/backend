@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -52,7 +52,8 @@ class UnitAttributeImportAction extends AbstractAttributeImportAction
             );
         }
 
-        $attribute = $this->updateExistingAttribute($command);
+        /** @var UnitAttribute $attribute */
+        $attribute = $this->findAttribute(new AttributeCode($command->getCode()));
         if (!$attribute) {
             $attribute = new UnitAttribute(
                 AttributeId::fromKey($command->getCode()),
@@ -63,6 +64,9 @@ class UnitAttributeImportAction extends AbstractAttributeImportAction
                 new AttributeScope($command->getScope()),
                 $unitId
             );
+        } else {
+            $this->updateAttribute($command, $attribute);
+            $attribute->changeUnit($unitId);
         }
         $this->processSuccessfulImport($attribute, $command);
     }

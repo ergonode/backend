@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Form\Model;
 
+use Ergonode\BatchAction\Application\Validator\AllFilterDisabled;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class BatchActionFormModel
@@ -19,16 +20,21 @@ class BatchActionFormModel
      *     maxMessage="Batch action type is too long. It should contain {{ limit }} characters or less."
      * )
      */
-    public string $type;
+    public ?string $type = null;
 
     /**
-     * @var array
+     * @Assert\Valid()
+     * @Assert\NotBlank()
+     * @AllFilterDisabled()
      *
-     * @Assert\Count(min=1),
-     * @Assert\All({
-     *     @Assert\NotBlank(),
-     *     @Assert\Uuid(strict=true)
-     * })
+     * @var string|BatchActionFilterFormModel $filter
      */
-    public array $ids = [];
+    public $filter = null;
+
+    /**
+     * @Assert\Valid()
+     *
+     * @var mixed
+     */
+    public $payload = null;
 }

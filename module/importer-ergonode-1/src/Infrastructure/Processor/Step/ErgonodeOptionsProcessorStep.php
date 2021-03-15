@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ergonode\ImporterErgonode1\Infrastructure\Processor\Step;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\ImporterErgonode1\Domain\Entity\ErgonodeZipSource;
 use Ergonode\SharedKernel\Domain\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ImportOptionCommand;
 use Ergonode\Importer\Domain\Entity\Import;
@@ -34,8 +35,11 @@ class ErgonodeOptionsProcessorStep implements ErgonodeProcessorStepInterface
     }
 
 
-    public function __invoke(Import $import, string $directory): void
+    public function __invoke(Import $import, ErgonodeZipSource $source, string $directory): void
     {
+        if (!$source->import(ErgonodeZipSource::OPTIONS)) {
+            return;
+        }
 
         $reader = new ErgonodeOptionReader($directory, self::FILENAME);
 

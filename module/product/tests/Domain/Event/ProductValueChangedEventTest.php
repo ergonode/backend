@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -24,11 +24,14 @@ class ProductValueChangedEventTest extends TestCase
         $id = $this->createMock(ProductId::class);
         /** @var AttributeCode|MockObject $code */
         $code = $this->createMock(AttributeCode::class);
+        /** @var ValueInterface|MockObject $from */
+        $from = $this->createMock(ValueInterface::class);
         /** @var ValueInterface|MockObject $to */
         $to = $this->createMock(ValueInterface::class);
-        $event = new ProductValueChangedEvent($id, $code, $to);
+        $event = new ProductValueChangedEvent($id, $code, $from, $to);
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getAttributeCode());
+        $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
     }
 }
