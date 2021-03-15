@@ -16,7 +16,7 @@ use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CategoryBuilder;
+use Ergonode\ExporterShopware6\Infrastructure\Builder\CategoryBuilder;
 use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CategoryClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Category;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Language;
@@ -30,7 +30,7 @@ class CategoryShopware6ExportProcess
 
     private Shopware6CategoryClient $categoryClient;
 
-    private Shopware6CategoryBuilder $builder;
+    private CategoryBuilder $builder;
 
     private LanguageRepositoryInterface  $languageRepository;
 
@@ -39,7 +39,7 @@ class CategoryShopware6ExportProcess
     public function __construct(
         CategoryRepositoryInterface $shopware6CategoryRepository,
         Shopware6CategoryClient $categoryClient,
-        Shopware6CategoryBuilder $builder,
+        CategoryBuilder $builder,
         LanguageRepositoryInterface $languageRepository,
         ExportRepositoryInterface $exportRepository
     ) {

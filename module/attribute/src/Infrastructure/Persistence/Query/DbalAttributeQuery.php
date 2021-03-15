@@ -26,6 +26,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 class DbalAttributeQuery implements AttributeQueryInterface
 {
@@ -120,6 +121,23 @@ class DbalAttributeQuery implements AttributeQueryInterface
 
         if ($result) {
             return new AttributeType($result['type']);
+        }
+
+        return null;
+    }
+
+    public function findAttributeScope(AttributeId $attributeId): ?AttributeScope
+    {
+        $qb = $this->getQuery();
+
+        $result = $qb
+            ->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $attributeId->getValue())
+            ->execute()
+            ->fetch();
+
+        if ($result) {
+            return new AttributeScope($result['scope']);
         }
 
         return null;

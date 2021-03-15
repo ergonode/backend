@@ -37,12 +37,8 @@ services:
             - ['set', ['Ergonode\Designer\Domain\Entity\Element\AttributeTemplateElement']]
 
     Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Repository\EventStoreTemplateRepository'
-    Ergonode\Designer\Infrastructure\Persistence\Repository\Decorator\CacheTemplateRepositoryDecorator:
-        decorates: Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface
-        arguments:
-            - '@Ergonode\Designer\Infrastructure\Persistence\Repository\Decorator\CacheTemplateRepositoryDecorator.inner'
     Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Repository\EventStoreTemplateGroupRepository'
-    Ergonode\Designer\Domain\Query\TemplateElementQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateElementQuery'
+    Ergonode\Designer\Domain\Query\TemplateElementGridQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateElementGridQuery'
     Ergonode\Designer\Domain\Query\TemplateQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateQuery'
     Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface: '@Ergonode\Designer\Infrastructure\Persistence\Query\DbalTemplateGroupQuery'
 

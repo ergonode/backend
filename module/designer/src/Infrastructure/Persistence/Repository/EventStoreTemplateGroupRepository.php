@@ -12,15 +12,15 @@ namespace Ergonode\Designer\Infrastructure\Persistence\Repository;
 use Ergonode\Designer\Domain\Entity\TemplateGroup;
 use Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManager;
+use Ergonode\EventSourcing\Infrastructure\Manager\EventStoreManagerInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Webmozart\Assert\Assert;
 
 class EventStoreTemplateGroupRepository implements TemplateGroupRepositoryInterface
 {
-    private EventStoreManager $manager;
+    private EventStoreManagerInterface $manager;
 
-    public function __construct(EventStoreManager $manager)
+    public function __construct(EventStoreManagerInterface $manager)
     {
         $this->manager = $manager;
     }
