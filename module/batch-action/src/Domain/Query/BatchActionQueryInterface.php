@@ -15,4 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 interface BatchActionQueryInterface
 {
     public function getInformation(BatchActionId $id, Language $language): BatchActionInformationModel;
+
+    public function getProfileInfo(): array;
 }

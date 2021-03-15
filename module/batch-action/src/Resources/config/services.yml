@@ -39,6 +39,11 @@ services:
             - '@Ergonode\SharedKernel\Application\Serializer\NormalizerInterface'
             - '@Symfony\Component\Validator\Validator\ValidatorInterface'
 
+    Ergonode\BatchAction\Application\Controller\Api\Notification\BatchActionNotificationAction:
+        tags: [ 'controller.service_arguments' ]
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface'
+            
     Ergonode\BatchAction\Application\Provider\BatchActionFormProvider:
         arguments:
             $forms: !tagged_iterator 'batch_action.form_provider.interface'
