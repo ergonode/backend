@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper;
 
-use Ergonode\Attribute\Domain\Entity\AbstractOption;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroupOption;
+use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6PropertyGroup;
 
-interface Shopware6PropertyGroupOptionMapperInterface
+interface PropertyGroupMapperInterface
 {
     public function map(
         Shopware6Channel $channel,
         Export $export,
-        Shopware6PropertyGroupOption $propertyGroupOption,
-        AbstractOption $option,
+        Shopware6PropertyGroup $shopware6PropertyGroup,
+        AbstractAttribute $attribute,
         ?Language $language = null
-    ): Shopware6PropertyGroupOption;
+    ): Shopware6PropertyGroup;
 }
