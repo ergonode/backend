@@ -68,19 +68,19 @@ services:
         arguments:
             - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\PropertyGroupOption\PropertyGroupOptionNameMapper'
 
-    Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CustomFieldBuilder:
+    Ergonode\ExporterShopware6\Infrastructure\Builder\CustomFieldBuilder:
         arguments:
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldNameMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldLabelMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigTextMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigTextareaMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigDateMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigMediaMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigNumericMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigSelectMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigMultiSelectMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigOptionsMapper'
-            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\Shopware6CustomFieldConfigUnitMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldLabelMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigTextMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigTextareaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigDateMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigMediaMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigNumericMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigMultiSelectMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigOptionsMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField\CustomFieldConfigUnitMapper'
 
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6CategoryBuilder:
         arguments:

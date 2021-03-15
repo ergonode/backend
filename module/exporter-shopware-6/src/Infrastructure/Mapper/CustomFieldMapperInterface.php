@@ -6,16 +6,15 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomField;
+namespace Ergonode\ExporterShopware6\Infrastructure\Mapper;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 
-class Shopware6CustomFieldNameMapper implements Shopware6CustomFieldMapperInterface
+interface CustomFieldMapperInterface
 {
     public function map(
         Shopware6Channel $channel,
@@ -23,9 +22,5 @@ class Shopware6CustomFieldNameMapper implements Shopware6CustomFieldMapperInterf
         AbstractShopware6CustomField $shopware6CustomField,
         AbstractAttribute $attribute,
         ?Language $language = null
-    ): AbstractShopware6CustomField {
-        $shopware6CustomField->setName($attribute->getCode()->getValue());
-
-        return $shopware6CustomField;
-    }
+    ): AbstractShopware6CustomField;
 }

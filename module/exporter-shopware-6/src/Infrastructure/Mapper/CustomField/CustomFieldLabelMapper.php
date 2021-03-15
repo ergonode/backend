@@ -13,10 +13,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Domain\Entity\Export;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\LanguageRepositoryInterface;
-use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6CustomFieldMapperInterface;
+use Ergonode\ExporterShopware6\Infrastructure\Mapper\CustomFieldMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\AbstractShopware6CustomField;
 
-class Shopware6CustomFieldLabelMapper implements Shopware6CustomFieldMapperInterface
+class CustomFieldLabelMapper implements CustomFieldMapperInterface
 {
     private LanguageRepositoryInterface  $languageRepository;
 
