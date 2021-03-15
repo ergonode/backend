@@ -21,6 +21,7 @@ services:
            - '@form.factory'
            - '@Ergonode\BatchAction\Application\Provider\BatchActionFormProvider'
            - '@Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory'
+           - '@Ergonode\BatchAction\Infrastructure\Provider\BatchActionProcessorProvider'
            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
 
     Ergonode\BatchAction\Application\Controller\Api\GetResourcesCountAction:
@@ -90,6 +91,12 @@ services:
     Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface: '@Ergonode\BatchAction\Infrastructure\Persistence\Repository\DbalBatchActionRepository'
 
     Ergonode\BatchAction\Infrastructure\Handler\CreateBatchActionCommandHandler:
+        tags: ['messenger.message_handler']
+        arguments:
+            - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'
+            - '@Ergonode\SharedKernel\Domain\Bus\CommandBusInterface'
+
+    Ergonode\BatchAction\Infrastructure\Handler\StartBatchActionCommandHandler:
         tags: ['messenger.message_handler']
         arguments:
             - '@Ergonode\BatchAction\Domain\Repository\BatchActionRepositoryInterface'

@@ -88,7 +88,8 @@ class ProductReadInheritedValuesByLanguageAction
             $attributeId = AttributeId::fromKey((string) $key);
             $attribute = $this->attributeRepository->load($attributeId);
             if ($attribute) {
-                $result['attributes'][$key] = $this->calculator->calculate($attribute, $value, $productLanguage);
+                $scope = $attribute->getScope();
+                $result['attributes'][$key] = $this->calculator->calculate($scope, $value, $productLanguage);
             }
         }
 

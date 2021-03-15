@@ -22,8 +22,8 @@ services:
     resource: '../../Application/Controller/*'
     tags: [ 'controller.service_arguments' ]
 
-  Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider:
-    - '@Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy'
-    - '@Ergonode\Completeness\Domain\Calculator\Strategy\UiTemplateElementCompletenessStrategy'
+  Ergonode\Completeness\Infrastructure\Persistence\Projector\:
+    resource: '../../Infrastructure/Persistence/Projector/*'
+    tags: [ 'ergonode.event_sourcing.projector' ]
 
   Ergonode\Completeness\Domain\Query\CompletenessQueryInterface: '@Ergonode\Completeness\Infrastructure\Persistence\Query\CompletenessQuery'

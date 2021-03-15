@@ -73,7 +73,7 @@ class ExportProductSimpleAttributeBuilder implements ExportProductBuilderInterfa
             if ($product->hasAttribute($code)) {
                 $value = $product->getAttribute($code);
                 $attribute = $this->getAttribute($code);
-                $calculatedValue = $this->calculator->calculate($attribute, $value, $language);
+                $calculatedValue = $this->calculator->calculate($attribute->getScope(), $value, $language);
                 if (null !== $calculatedValue) {
                     if ($attribute instanceof AbstractOptionAttribute && $calculatedValue) {
                         $calculatedValue = $this->resolveOptionKey($calculatedValue, $attribute->getCode());
