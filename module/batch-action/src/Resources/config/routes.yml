@@ -3,7 +3,7 @@ ergonode_batch_action_api:
     type: 'annotation'
     prefix: '/api/v1/{language}'
 
-ergonode_channel_notification_api:
+ergonode_batch_action_notification_api:
     resource: '../../Application/Controller/Api/Notification/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'

@@ -13,7 +13,6 @@ use Ergonode\BatchAction\Domain\Query\BatchActionQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 
 /**
@@ -28,8 +27,6 @@ class BatchActionNotificationAction
         $this->query = $query;
     }
     /**
-     * @IsGranted("CHANNEL_GET_NOTIFICATION")
-     *
      * @SWG\Tag(name="Profile")
      * @SWG\Parameter(
      *     name="language",
@@ -42,7 +39,7 @@ class BatchActionNotificationAction
      *
      * @SWG\Response(
      *     response=200,
-     *     description="Returns export information",
+     *     description="Returns batch action information",
      * )
      */
     public function __invoke(Language $language): Response
