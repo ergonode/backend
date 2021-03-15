@@ -9,41 +9,39 @@ declare(strict_types=1);
 
 namespace Ergonode\BatchAction\Application\Controller\Api;
 
-use Ergonode\Api\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\BatchAction\Application\Controller\Api\Factory\BatchActionFilterFactory;
-use Ergonode\BatchAction\Application\Form\Model\BatchActionFilterFormModel;
+use Ergonode\BatchAction\Application\Form\BatchActionForm;
+use Ergonode\BatchAction\Application\Form\Model\BatchActionFormModel;
+use Ergonode\BatchAction\Domain\Count\CountInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterDisabled;
-use Ergonode\BatchAction\Infrastructure\Filter\CountFilter;
-use Ergonode\SharedKernel\Application\Serializer\Exception\DenoralizationException;
-use Ergonode\SharedKernel\Application\Serializer\NormalizerInterface;
+use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/batch-action/count", methods={"GET"})
+ * @Route("/batch-action/count", methods={"POST"})
  */
 class GetResourcesCountAction
 {
+    private FormFactoryInterface $formFactory;
     private BatchActionFilterFactory $factory;
-    private CountFilter $countFilter;
-    private NormalizerInterface $normalizer;
-    private ValidatorInterface $validator;
+    private CountInterface $count;
 
     public function __construct(
+        FormFactoryInterface $formFactory,
         BatchActionFilterFactory $factory,
-        CountFilter $countFilter,
-        NormalizerInterface $normalizer,
-        ValidatorInterface $validator
+        CountInterface $count
     ) {
+        $this->formFactory = $formFactory;
         $this->factory = $factory;
-        $this->countFilter = $countFilter;
-        $this->normalizer = $normalizer;
-        $this->validator = $validator;
+        $this->count = $count;
     }
 
     /**
@@ -82,31 +80,29 @@ class GetResourcesCountAction
      */
     public function __invoke(Request $request): Response
     {
-        $filter = $request->query->get('filter');
-        if (null === $filter) {
-            throw new BadRequestHttpException('Filter has to be object or `all` value');
-        }
         try {
-            if ('all' === $filter) {
-                $count = $this->countFilter->filter(new BatchActionFilterDisabled());
+            $form = $this->formFactory->create(BatchActionForm::class);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var BatchActionFormModel $data */
+                $data = $form->getData();
+                $type = new BatchActionType($data->type);
+                if (!$this->count->supports($type)) {
+                    throw new BadRequestHttpException("Unsupported type {$data->type}");
+                }
+                $filter = 'all' === $data->filter ?
+                    new BatchActionFilterDisabled() :
+                    $this->factory->create($data->filter);
+
+                $count = $this->count->count($type, $filter);
 
                 return new SuccessResponse(['count' => $count]);
             }
-            /** @var BatchActionFilterFormModel $data */
-            $data = $this->normalizer->denormalize(
-                $request->query->get('filter') ?? [],
-                BatchActionFilterFormModel::class
-            );
-            $violations = $this->validator->validate($data);
-            if (0 !== $violations->count()) {
-                throw new ViolationsHttpException($violations);
-            }
-            $filter = $this->factory->create($data);
-            $count = $this->countFilter->filter($filter);
-
-            return new SuccessResponse(['count' => $count]);
-        } catch (DenoralizationException $exception) {
-            throw new BadRequestHttpException('Invalid query filter');
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
         }
+
+        throw new FormValidationHttpException($form);
     }
 }

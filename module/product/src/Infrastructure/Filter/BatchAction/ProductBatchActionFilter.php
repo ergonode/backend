@@ -11,7 +11,7 @@ namespace Ergonode\Product\Infrastructure\Filter\BatchAction;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionFilterInterface;
 use Ergonode\BatchAction\Domain\ValueObject\BatchActionType;
 use Ergonode\BatchAction\Infrastructure\Provider\BatchActionFilterIdsInterface;
-use Ergonode\BatchAction\Infrastructure\Provider\FilteredQueryBuilderInterface;
+use Ergonode\Product\Infrastructure\Provider\FilteredQueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 class ProductBatchActionFilter implements BatchActionFilterIdsInterface
@@ -26,10 +26,10 @@ class ProductBatchActionFilter implements BatchActionFilterIdsInterface
      */
     private array $types;
 
-    private FilteredQueryBuilderInterface $filteredQueryBuilder;
+    private FilteredQueryBuilder $filteredQueryBuilder;
 
     public function __construct(
-        FilteredQueryBuilderInterface $filteredQueryBuilder,
+        FilteredQueryBuilder $filteredQueryBuilder,
         ?array $types = []
     ) {
         $this->filteredQueryBuilder = $filteredQueryBuilder;
