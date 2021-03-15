@@ -22,6 +22,8 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
 {
     private const TABLE_BATCH_ACTION = 'batch_action';
 
+    private const PROFILE_RESULT = 10;
+
     private Connection $connection;
 
     private TranslatorInterface $translator;
@@ -100,7 +102,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
                                    and fail_reason is not null) as errors')
             ->orderBy('started_at', 'DESC')
             ->from(self::TABLE_BATCH_ACTION, 'ba')
-            ->setMaxResults(10)
+            ->setMaxResults(self::PROFILE_RESULT)
             ->execute()
             ->fetchAll();
     }
