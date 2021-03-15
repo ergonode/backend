@@ -73,6 +73,9 @@ class DbalProductDataSet extends AbstractDbalDataSet
                 $field = Uuid::uuid5(self::NAMESPACE, $field)->toString();
             }
             $qb->orderBy(sprintf('"%s"', $field), $order);
+            if (isset($columns['id'])) {
+                $qb->addOrderBy('id', $order);
+            } // Additional 'order By' added to avoid inconsistency with sorting equal values
         }
 
         $result = [];
