@@ -20,6 +20,10 @@ use Ergonode\BatchAction\Domain\Model\BatchActionEntryModel;
 
 class DbalBatchActionQuery implements BatchActionQueryInterface
 {
+    private const TABLE_BATCH_ACTION = 'batch_action';
+
+    private const PROFILE_RESULT = 10;
+
     private Connection $connection;
 
     private TranslatorInterface $translator;
@@ -41,7 +45,7 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
             AND success IS NOT NULL) AS processed')
             ->addSelect('(SELECT max(processed_at) FROM batch_action_entry WHERE batch_action_id = id) 
             AS last_processed_at')
-            ->from('batch_action')
+            ->from(self::TABLE_BATCH_ACTION)
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter(':id', $id->getValue())
             ->execute()
@@ -63,6 +67,44 @@ class DbalBatchActionQuery implements BatchActionQueryInterface
         }
 
         return $model;
+    }
+
+    public function getProfileInfo(): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('id')
+            ->addSelect('(select (case
+                                            when (select bool_and(success)
+                                                  from batch_action_entry
+                                                  where batch_action_id = ba.id) then \'success\'
+                                            else \'processing\' end) as status)')
+            ->addSelect('created_at as started_at')
+            ->addSelect('(select MAX(processed_at)
+                                 from batch_action_entry
+                                 where batch_action_id = ba.id) AS ended_at')
+            ->addSelect('type as name')
+            ->addSelect('(select count(*)
+                                from batch_action_entry
+                                where batch_action_id = ba.id) as items')
+            ->addSelect('(select count(*)
+                                from batch_action_entry
+                                where batch_action_id = ba.id
+                                  and success = true) as processed')
+            ->addSelect('(select count(*)
+                                 from batch_action_entry
+                                 where batch_action_id = ba.id
+                                   and success = true
+                                   and fail_reason is null) as succeeded')
+            ->addSelect('(select count(*)
+                                 from batch_action_entry
+                                 where batch_action_id = ba.id
+                                   and fail_reason is not null) as errors')
+            ->orderBy('started_at', 'DESC')
+            ->from(self::TABLE_BATCH_ACTION, 'ba')
+            ->setMaxResults(self::PROFILE_RESULT)
+            ->execute()
+            ->fetchAll();
     }
 
     private function getEntries(BatchActionId $id, Language $language): array
