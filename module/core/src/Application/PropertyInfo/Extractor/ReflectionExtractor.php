@@ -19,7 +19,11 @@ class ReflectionExtractor implements PropertyTypeExtractorInterface
      */
     public function getTypes($class, $property, array $context = []): ?array
     {
-        $reflectionProperty = new \ReflectionProperty($class, $property);
+        try {
+            $reflectionProperty = new \ReflectionProperty($class, $property);
+        } catch (\ReflectionException $exception) {
+            return null;
+        }
         $type = $reflectionProperty->getType();
         if (!$type) {
             return null;
