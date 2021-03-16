@@ -11,11 +11,18 @@ namespace Ergonode\Core\Application\Serializer\Normalizer;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 
-class AggregateRootNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+/**
+ * As of Symfony 5.2 this normalizer can be replaced with appropriate `ignore` configuration.
+ */
+class AggregateRootNormalizer implements
+    ContextAwareNormalizerInterface,
+    NormalizerAwareInterface,
+    CacheableSupportsMethodInterface
 {
     use NormalizerAwareTrait;
 
@@ -32,7 +39,9 @@ class AggregateRootNormalizer implements ContextAwareNormalizerInterface, Normal
         }
         $context[$this->getContextKey($object)] = true;
         $root = $this->normalizer->normalize($object, $format, $context);
-        unset($root['events']);
+        if (isset($root['events'])) {
+            unset($root['events']);
+        }
 
         return $root;
     }
@@ -40,10 +49,18 @@ class AggregateRootNormalizer implements ContextAwareNormalizerInterface, Normal
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null, array $context = [])
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof AbstractAggregateRoot
             && !isset($context[$this->getContextKey($data)]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasCacheableSupportsMethod(): bool
+    {
+        return __CLASS__ === static::class;
     }
 
     private function getContextKey(AbstractAggregateRoot $root): string
