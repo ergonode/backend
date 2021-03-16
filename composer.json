@@ -53,6 +53,7 @@
         "symfony/monolog-bundle": "^3.5",
         "symfony/options-resolver": "^4.4",
         "symfony/polyfill-php80": "^1.0",
+        "symfony/property-info": "^4.4",
         "symfony/security": "^4.4",
         "symfony/security-bundle": "^4.4.16",
         "symfony/serializer": "^4.4",
