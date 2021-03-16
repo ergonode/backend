@@ -25,6 +25,15 @@ class ObjectPropertyNormalizer extends PropertyNormalizer
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function supportsDenormalization($data, $type, $format = null): bool
+    {
+        return parent::supportsDenormalization($data, $type, $format)
+            || $this->isMappedClass($type);
+    }
+
+    /**
      * Fakes non-public constructor - allows to always instantiate object not using a constructor.
      * @see \Symfony\Component\Serializer\Normalizer\AbstractNormalizer::instantiateObject
      *
@@ -38,5 +47,24 @@ class ObjectPropertyNormalizer extends PropertyNormalizer
         $allowedAttributes
     ) {
         return (new \ReflectionMethod($this, 'getConstructor'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAttributeValue($object, $attribute, $format = null, array $context = [])
+    {
+        $mapped = $this->classDiscriminatorResolver->getMappingForMappedObject($object);
+        if (!$mapped || $attribute !== $mapped->getTypeProperty()) {
+            return parent::getAttributeValue($object, $attribute, $format, $context);
+        }
+
+        return $this->classDiscriminatorResolver->getTypeForMappedObject($object);
+    }
+
+    private function isMappedClass(string $type): bool
+    {
+        return (interface_exists($type) || class_exists($type))
+            && $this->classDiscriminatorResolver->getMappingForClass($type);
     }
 }

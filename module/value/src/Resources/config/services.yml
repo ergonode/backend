@@ -4,6 +4,8 @@ services:
         autoconfigure: true
         public: false
 
+    Ergonode\Value\Application\Serializer\Normalizer\TranslatableStringNormalizer: ~
+
     Ergonode\Value\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject}'
