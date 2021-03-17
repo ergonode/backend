@@ -11,20 +11,26 @@ namespace Ergonode\Core\Application\Serializer\Normalizer;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * As of Symfony 5.2 this normalizer can be replaced with appropriate `ignore` configuration.
  */
 class AggregateRootNormalizer implements
-    ContextAwareNormalizerInterface,
-    NormalizerAwareInterface,
-    CacheableSupportsMethodInterface
+    CacheableSupportsMethodInterface,
+    DenormalizerInterface,
+    NormalizerInterface
 {
-    use NormalizerAwareTrait;
+    private AbstractObjectNormalizer $normalizer;
+
+    public function __construct(AbstractObjectNormalizer $normalizer)
+    {
+        $this->normalizer = $normalizer;
+    }
 
     /**
      * {@inheritdoc}
@@ -37,11 +43,10 @@ class AggregateRootNormalizer implements
                 AbstractAggregateRoot::class,
             ));
         }
-        $context[$this->getContextKey($object)] = true;
         $root = $this->normalizer->normalize($object, $format, $context);
-        if (isset($root['events'])) {
-            unset($root['events']);
-        }
+
+        unset($root['events']);
+        unset($root['sequence']);
 
         return $root;
     }
@@ -49,10 +54,34 @@ class AggregateRootNormalizer implements
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null, array $context = []): bool
+    public function supportsNormalization($data, $format = null): bool
     {
-        return $data instanceof AbstractAggregateRoot
-            && !isset($context[$this->getContextKey($data)]);
+        return $data instanceof AbstractAggregateRoot;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function denormalize($data, $type, $format = null, array $context = []): AbstractAggregateRoot
+    {
+        if (!is_subclass_of($type, AbstractAggregateRoot::class)) {
+            throw new NotNormalizableValueException('Only AbstractAggregateRoot type supported.');
+        }
+        if (!is_array($data)) {
+            throw new NotNormalizableValueException('Data is expected to be an array.');
+        }
+        unset($data['events']);
+        unset($data['sequence']);
+
+        return $this->normalizer->denormalize($data, $type, $format, $context);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsDenormalization($data, $type, $format = null): bool
+    {
+        return is_subclass_of($type, AbstractAggregateRoot::class);
     }
 
     /**
@@ -61,10 +90,5 @@ class AggregateRootNormalizer implements
     public function hasCacheableSupportsMethod(): bool
     {
         return __CLASS__ === static::class;
-    }
-
-    private function getContextKey(AbstractAggregateRoot $root): string
-    {
-        return 'aggregate_root_normalization_'.spl_object_hash($root);
     }
 }
