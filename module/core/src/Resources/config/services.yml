@@ -79,6 +79,9 @@ services:
     Ergonode\SharedKernel\Application\Serializer\SerializerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
     Ergonode\SharedKernel\Application\Serializer\NormalizerInterface: '@Ergonode\Core\Application\Serializer\JMSSerializer'
 
+    Ergonode\Core\Application\Serializer\Normalizer\AggregateRootNormalizer:
+        $normalizer: '@Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer'
+
     Ergonode\Core\Application\Serializer\Normalizer\ObjectPropertyNormalizer:
         arguments:
             - '@serializer.mapping.class_metadata_factory'

@@ -14,28 +14,31 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 class AggregateRootNormalizerTest extends TestCase
 {
     /**
-     * @var ContextAwareNormalizerInterface|MockObject
+     * @var AbstractObjectNormalizer|MockObject
      */
     private $mockNormalizer;
     private AggregateRootNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        $this->mockNormalizer = $this->createMock(ContextAwareNormalizerInterface::class);
+        $this->mockNormalizer = $this->createMock(AbstractObjectNormalizer::class);
 
-        $this->normalizer = new AggregateRootNormalizer();
-        $this->normalizer->setNormalizer($this->mockNormalizer);
+        $this->normalizer = new AggregateRootNormalizer(
+            $this->mockNormalizer,
+        );
     }
 
-    public function testShouldNormalizer(): void
+    public function testShouldNormalize(): void
     {
         $root = $this->createMock(AbstractAggregateRoot::class);
         $this->mockNormalizer->method('normalize')->willReturn([
+            'property' => 'val',
             'sequence' => 3,
             'events' => [],
         ]);
@@ -46,22 +49,9 @@ class AggregateRootNormalizerTest extends TestCase
 
         $this->assertEquals(
             [
-                'sequence' => 3,
+                'property' => 'val',
             ],
             $result,
-        );
-    }
-
-    public function testShouldNotSupportAlreadySetInContext(): void
-    {
-        $root = $this->createMock(AbstractAggregateRoot::class);
-
-        $this->assertFalse(
-            $this->normalizer->supportsNormalization(
-                $root,
-                null,
-                ['aggregate_root_normalization_'.spl_object_hash($root) => true],
-            ),
         );
     }
 
@@ -92,11 +82,11 @@ class AggregateRootNormalizerTest extends TestCase
         $this->normalizer->normalize($this);
     }
 
-    public function testShouldNormalizeWithoutEvents(): void
+    public function testShouldNormalizeWithoutEventsAndSequence(): void
     {
         $root = $this->createMock(AbstractAggregateRoot::class);
         $this->mockNormalizer->method('normalize')->willReturn([
-            'sequence' => 3,
+            'property' => 'val',
         ]);
 
         $this->assertTrue($this->normalizer->supportsNormalization($root));
@@ -105,9 +95,51 @@ class AggregateRootNormalizerTest extends TestCase
 
         $this->assertEquals(
             [
-                'sequence' => 3,
+                'property' => 'val',
             ],
             $result,
         );
+    }
+
+    public function testShouldDenormalize(): void
+    {
+        $root = $this->createMock(AbstractAggregateRoot::class);
+        $this->mockNormalizer->method('denormalize')->willReturn($root);
+
+        $result = $this->normalizer->denormalize(
+            [
+                'events' => [],
+                'sequence' => 5,
+                'property' => 'val',
+            ],
+            get_class($root),
+        );
+
+        $this->assertTrue($this->normalizer->supportsDenormalization([], get_class($root)));
+        $this->assertSame($root, $result);
+    }
+
+    /**
+     * @dataProvider notSupportedDenormalizationDataProvider
+     */
+    public function testShouldNotSupportDenormalization(string $type): void
+    {
+        $this->assertFalse($this->normalizer->supportsNormalization($type));
+    }
+
+    public function notSupportedDenormalizationDataProvider(): array
+    {
+        return [
+            ['string'],
+            [\stdClass::class],
+            [AbstractAggregateRoot::class],
+        ];
+    }
+
+    public function testShouldThrowExceptionOnNonArray(): void
+    {
+        $this->expectException(NotNormalizableValueException::class);
+
+        $this->normalizer->denormalize('string', AbstractAggregateRoot::class);
     }
 }
