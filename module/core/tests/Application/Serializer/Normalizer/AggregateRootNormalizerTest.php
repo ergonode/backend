@@ -112,7 +112,7 @@ class AggregateRootNormalizerTest extends TestCase
                 'sequence' => 5,
                 'property' => 'val',
             ],
-            AbstractAggregateRoot::class
+            get_class($root),
         );
 
         $this->assertTrue($this->normalizer->supportsDenormalization([], get_class($root)));
