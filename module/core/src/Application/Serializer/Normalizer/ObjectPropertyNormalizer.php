@@ -9,6 +9,10 @@ declare(strict_types=1);
 
 namespace Ergonode\Core\Application\Serializer\Normalizer;
 
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 
 /**
@@ -16,6 +20,32 @@ use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
  */
 class ObjectPropertyNormalizer extends PropertyNormalizer
 {
+    /**
+     * @var string[]|null[]
+     */
+    private array $discriminatorCache = [];
+    private \ReflectionMethod $constructor;
+
+    public function __construct(
+        ClassDiscriminatorResolverInterface $classDiscriminatorResolver,
+        ClassMetadataFactoryInterface $classMetadataFactory = null,
+        NameConverterInterface $nameConverter = null,
+        PropertyTypeExtractorInterface $propertyTypeExtractor = null,
+        callable $objectClassResolver = null,
+        array $defaultContext = []
+    ) {
+        parent::__construct(
+            $classMetadataFactory,
+            $nameConverter,
+            $propertyTypeExtractor,
+            $classDiscriminatorResolver,
+            $objectClassResolver,
+            $defaultContext,
+        );
+
+        $this->constructor = new \ReflectionMethod($this, 'getConstructor');
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -27,10 +57,10 @@ class ObjectPropertyNormalizer extends PropertyNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null)
     {
-        return parent::supportsDenormalization($data, $type, $format)
-            || $this->isMappedClass($type);
+        return class_exists($type)
+            || (interface_exists($type, false) && $this->classDiscriminatorResolver->getMappingForClass($type));
     }
 
     /**
@@ -46,7 +76,7 @@ class ObjectPropertyNormalizer extends PropertyNormalizer
         \ReflectionClass $reflectionClass,
         $allowedAttributes
     ) {
-        return (new \ReflectionMethod($this, 'getConstructor'));
+        return $this->constructor;
     }
 
     /**
@@ -54,17 +84,15 @@ class ObjectPropertyNormalizer extends PropertyNormalizer
      */
     protected function getAttributeValue($object, $attribute, $format = null, array $context = [])
     {
-        $mapped = $this->classDiscriminatorResolver->getMappingForMappedObject($object);
-        if (!$mapped || $attribute !== $mapped->getTypeProperty()) {
-            return parent::getAttributeValue($object, $attribute, $format, $context);
+        $cacheKey = get_class($object);
+        if (!array_key_exists($cacheKey, $this->discriminatorCache)) {
+            $this->discriminatorCache[$cacheKey] = null;
+            $mapping = $this->classDiscriminatorResolver->getMappingForMappedObject($object);
+            $this->discriminatorCache[$cacheKey] = null === $mapping ? null : $mapping->getTypeProperty();
         }
 
-        return $this->classDiscriminatorResolver->getTypeForMappedObject($object);
-    }
-
-    private function isMappedClass(string $type): bool
-    {
-        return (interface_exists($type) || class_exists($type))
-            && $this->classDiscriminatorResolver->getMappingForClass($type);
+        return $attribute === $this->discriminatorCache[$cacheKey] ?
+            $this->classDiscriminatorResolver->getTypeForMappedObject($object) :
+            parent::getAttributeValue($object, $attribute, $format, $context);
     }
 }
