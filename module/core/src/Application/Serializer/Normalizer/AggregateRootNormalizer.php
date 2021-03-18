@@ -43,7 +43,12 @@ class AggregateRootNormalizer implements
                 AbstractAggregateRoot::class,
             ));
         }
-        $root = $this->normalizer->normalize($object, $format, $context);
+        $clone = clone $object;
+        $events = new \ReflectionProperty($clone, 'events');
+        $events->setAccessible(true);
+        $events->setValue($clone, []);
+
+        $root = $this->normalizer->normalize($clone, $format, $context);
 
         unset($root['events']);
         unset($root['sequence']);
