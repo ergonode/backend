@@ -42,6 +42,11 @@ class ScalarValueObjectNormalizer implements
     ];
 
     /**
+     * @var string[]|bool[]
+     */
+    private array $typeCache = [];
+
+    /**
      * {@inheritdoc}
      */
     public function denormalize($data, $type, $format = null, array $context = []): object
@@ -108,6 +113,27 @@ class ScalarValueObjectNormalizer implements
      * @param mixed|null $valueType
      */
     private function isScalarValueObjectClass(string $type, &$valueType = null): bool
+    {
+        if (isset($this->typeCache[$type])) {
+            $valueType = $this->typeCache[$type];
+
+            return (bool) $this->typeCache[$type];
+        }
+
+        $resolved = $this->resolveIsScalarValueObjectClass($type, $valueType);
+        if (!$resolved) {
+            return $this->typeCache[$type] = false;
+        }
+
+        $this->typeCache[$type] = $valueType;
+
+        return true;
+    }
+
+    /**
+     * @param mixed|null $valueType
+     */
+    private function resolveIsScalarValueObjectClass(string $type, &$valueType = null): bool
     {
         if (!class_exists($type)
             || !method_exists($type, '__construct')
