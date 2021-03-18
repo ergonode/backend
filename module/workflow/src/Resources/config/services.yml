@@ -32,6 +32,11 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
+    Ergonode\Workflow\Application\Serializer\Normalizer\:
+        resource: '../../Application/Serializer/Normalizer/*'
+        tags:
+            - {name: 'serializer.normalizer'}
+
     Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\EventStoreStatusRepository'
     Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Infrastructure\Persistence\Repository\EventStoreWorkflowRepository'
 
@@ -51,3 +56,4 @@ services:
         decorates: Ergonode\Product\Domain\Factory\ProductFactoryInterface
         arguments:
             - '@Ergonode\Workflow\Domain\Factory\AddStatusToProductFactoryDecorator.inner'
+

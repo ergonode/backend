@@ -32,31 +32,31 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private WorkflowId $id;
+    protected WorkflowId $id;
 
     /**
      * @JMS\Type("string")
      */
-    private string $code;
+    protected string $code;
 
     /**
      * @var StatusId[]
      *
      * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
-    private array $statuses;
+    protected array $statuses;
 
     /**
      * @var Transition[]
      *
      * @JMS\Type("array<string, Ergonode\Workflow\Domain\Entity\Transition>")
      */
-    private array $transitions;
+    protected array $transitions;
 
     /**
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private ?StatusId $defaultId;
+    protected ?StatusId $defaultId;
 
     /**
      * @param StatusId[] $statuses

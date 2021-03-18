@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Ergonode\Api\Application\EventListener;
 
-use Ergonode\SharedKernel\Application\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -25,13 +24,6 @@ class RequestBodyListener
 
     private const CONTENT_TYPES = ['json'];
 
-    private SerializerInterface $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-    }
-
     public function __invoke(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
@@ -46,7 +38,7 @@ class RequestBodyListener
             return;
         }
 
-        $data = $this->serializer->deserialize($content, 'array');
+        $data = json_decode($content, true);
 
         $request->request = new ParameterBag($data);
     }

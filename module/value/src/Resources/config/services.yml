@@ -5,6 +5,7 @@ services:
         public: false
 
     Ergonode\Value\Application\Serializer\Normalizer\TranslatableStringNormalizer: ~
+    Ergonode\Value\Application\Serializer\Normalizer\ValueInterfaceArrayDenormalizer: ~
 
     Ergonode\Value\Domain\:
         resource: '../../Domain/*'
