@@ -193,9 +193,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
     {
         $qb = $this->getQuery(self::CODE_FIELD);
 
-        $records = $qb
-            ->where($qb->expr()->eq('active', ':active'))
-            ->setParameter(':active', true, \PDO::PARAM_BOOL)
+        $records = $qb->join('l', self::TABLE_TREE, 'lt', 'lt.id = l.id')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
@@ -284,6 +282,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select($fields)
-            ->from(self::TABLE);
+            ->from(self::TABLE, 'l');
     }
 }
